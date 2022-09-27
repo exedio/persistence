@@ -149,7 +149,7 @@ public final class NameFeatureItem extends Item
 	 * The persistent type information for nameFeatureItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<NameFeatureItem> TYPE = com.exedio.cope.TypesBound.newType(NameFeatureItem.class);
+	public static final com.exedio.cope.Type<NameFeatureItem> TYPE = com.exedio.cope.TypesBound.newType(NameFeatureItem.class,NameFeatureItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

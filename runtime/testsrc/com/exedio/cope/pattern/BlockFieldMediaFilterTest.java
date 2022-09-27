@@ -308,7 +308,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * The type information for aBlock.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
+	private static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class,ABlock::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -369,7 +369,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

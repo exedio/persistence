@@ -256,7 +256,7 @@ public class SetFieldCopyModelTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<SetFieldItemWithCopyConstraints> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItemWithCopyConstraints.class);
+		private static final com.exedio.cope.Type<SetFieldItemWithCopyConstraints> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItemWithCopyConstraints.class,SetFieldItemWithCopyConstraints::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected SetFieldItemWithCopyConstraints(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -277,7 +277,7 @@ public class SetFieldCopyModelTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<NoTargetItem> TYPE = com.exedio.cope.TypesBound.newType(NoTargetItem.class);
+		private static final com.exedio.cope.Type<NoTargetItem> TYPE = com.exedio.cope.TypesBound.newType(NoTargetItem.class,NoTargetItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected NoTargetItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -298,7 +298,7 @@ public class SetFieldCopyModelTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<BrokenNonFinalTemplate> TYPE = com.exedio.cope.TypesBound.newType(BrokenNonFinalTemplate.class);
+		private static final com.exedio.cope.Type<BrokenNonFinalTemplate> TYPE = com.exedio.cope.TypesBound.newType(BrokenNonFinalTemplate.class,BrokenNonFinalTemplate::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected BrokenNonFinalTemplate(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -312,7 +312,7 @@ public class SetFieldCopyModelTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<DoesntHaveField> TYPE = com.exedio.cope.TypesBound.newType(DoesntHaveField.class);
+		private static final com.exedio.cope.Type<DoesntHaveField> TYPE = com.exedio.cope.TypesBound.newType(DoesntHaveField.class,DoesntHaveField::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected DoesntHaveField(final com.exedio.cope.ActivationParameters ap){super(ap);}

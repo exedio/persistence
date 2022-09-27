@@ -227,7 +227,7 @@ public final class PlusIntegerItem extends Item
 	 * The persistent type information for plusIntegerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PlusIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(PlusIntegerItem.class);
+	public static final com.exedio.cope.Type<PlusIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(PlusIntegerItem.class,PlusIntegerItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

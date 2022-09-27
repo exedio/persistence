@@ -47,7 +47,7 @@ final class SchemaNamePolymorphicSubItem extends SchemaNamePolymorphicSuperItem
 	 * The persistent type information for schemaNamePolymorphicSubItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaNamePolymorphicSubItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicSubItem.class);
+	static final com.exedio.cope.Type<SchemaNamePolymorphicSubItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicSubItem.class,SchemaNamePolymorphicSubItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

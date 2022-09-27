@@ -72,7 +72,7 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	 * The persistent type information for finalSubNoneItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FinalSubNoneItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSubNoneItem.class);
+	public static final com.exedio.cope.Type<FinalSubNoneItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSubNoneItem.class,FinalSubNoneItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -90,7 +90,7 @@ public final class OrderItem extends Item
 	 * The persistent type information for orderItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<OrderItem> TYPE = com.exedio.cope.TypesBound.newType(OrderItem.class);
+	public static final com.exedio.cope.Type<OrderItem> TYPE = com.exedio.cope.TypesBound.newType(OrderItem.class,OrderItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

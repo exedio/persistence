@@ -398,7 +398,7 @@ public final class FeatureFieldItem extends Item
 	 * The persistent type information for featureFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FeatureFieldItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureFieldItem.class);
+	public static final com.exedio.cope.Type<FeatureFieldItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureFieldItem.class,FeatureFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

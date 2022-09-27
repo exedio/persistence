@@ -131,7 +131,7 @@ final class GroupItem extends Item
 	 * The persistent type information for groupItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<GroupItem> TYPE = com.exedio.cope.TypesBound.newType(GroupItem.class);
+	static final com.exedio.cope.Type<GroupItem> TYPE = com.exedio.cope.TypesBound.newType(GroupItem.class,GroupItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

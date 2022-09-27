@@ -163,7 +163,7 @@ class HookStampItem extends HookStampItemSuper
 	 * The persistent type information for hookStampItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HookStampItem> TYPE = com.exedio.cope.TypesBound.newType(HookStampItem.class);
+	static final com.exedio.cope.Type<HookStampItem> TYPE = com.exedio.cope.TypesBound.newType(HookStampItem.class,HookStampItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

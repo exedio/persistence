@@ -56,7 +56,7 @@ public final class BlockImported extends Block
 	 * The type information for blockImported.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.pattern.BlockType<BlockImported> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockImported.class);
+	public static final com.exedio.cope.pattern.BlockType<BlockImported> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockImported.class,BlockImported::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

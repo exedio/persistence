@@ -113,7 +113,7 @@ public final class EnumMapFieldFinalItem extends Item
 	 * The persistent type information for enumMapFieldFinalItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumMapFieldFinalItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldFinalItem.class);
+	public static final com.exedio.cope.Type<EnumMapFieldFinalItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldFinalItem.class,EnumMapFieldFinalItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

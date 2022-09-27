@@ -70,7 +70,7 @@ final class ReferenceItem extends ReferenceSuperItem
 	 * The persistent type information for referenceItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ReferenceItem> TYPE = com.exedio.cope.TypesBound.newType(ReferenceItem.class);
+	static final com.exedio.cope.Type<ReferenceItem> TYPE = com.exedio.cope.TypesBound.newType(ReferenceItem.class,ReferenceItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

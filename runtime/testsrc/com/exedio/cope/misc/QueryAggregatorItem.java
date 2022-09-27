@@ -72,7 +72,7 @@ final class QueryAggregatorItem extends Item
 	 * The persistent type information for queryAggregatorItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<QueryAggregatorItem> TYPE = com.exedio.cope.TypesBound.newType(QueryAggregatorItem.class);
+	static final com.exedio.cope.Type<QueryAggregatorItem> TYPE = com.exedio.cope.TypesBound.newType(QueryAggregatorItem.class,QueryAggregatorItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

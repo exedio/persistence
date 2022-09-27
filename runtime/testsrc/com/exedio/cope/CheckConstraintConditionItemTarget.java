@@ -45,7 +45,7 @@ class CheckConstraintConditionItemTarget extends Item
 	 * The persistent type information for checkConstraintConditionItemTarget.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CheckConstraintConditionItemTarget> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItemTarget.class);
+	static final com.exedio.cope.Type<CheckConstraintConditionItemTarget> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItemTarget.class,CheckConstraintConditionItemTarget::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

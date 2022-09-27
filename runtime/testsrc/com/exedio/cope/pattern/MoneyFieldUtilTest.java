@@ -102,7 +102,7 @@ public class MoneyFieldUtilTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class);
+		private static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class,CurrencyItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private CurrencyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

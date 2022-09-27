@@ -112,7 +112,7 @@ final class NestedHashMigrationItem extends Item
 	 * The persistent type information for nestedHashMigrationItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<NestedHashMigrationItem> TYPE = com.exedio.cope.TypesBound.newType(NestedHashMigrationItem.class);
+	static final com.exedio.cope.Type<NestedHashMigrationItem> TYPE = com.exedio.cope.TypesBound.newType(NestedHashMigrationItem.class,NestedHashMigrationItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

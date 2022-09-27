@@ -101,7 +101,7 @@ class InstanceOfAItem extends Item
 	 * The persistent type information for instanceOfAItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InstanceOfAItem> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfAItem.class);
+	static final com.exedio.cope.Type<InstanceOfAItem> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfAItem.class,InstanceOfAItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

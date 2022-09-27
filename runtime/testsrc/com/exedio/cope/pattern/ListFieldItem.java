@@ -400,7 +400,7 @@ public final class ListFieldItem extends Item
 	 * The persistent type information for listFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ListFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ListFieldItem.class);
+	public static final com.exedio.cope.Type<ListFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ListFieldItem.class,ListFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

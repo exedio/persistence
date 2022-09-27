@@ -131,7 +131,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type0A.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Type0A> TYPE = com.exedio.cope.TypesBound.newType(Type0A.class);
+	private static final com.exedio.cope.Type<Type0A> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Type0A.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -193,7 +193,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type01C.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Type01C> TYPE = com.exedio.cope.TypesBound.newType(Type01C.class);
+	private static final com.exedio.cope.Type<Type01C> TYPE = com.exedio.cope.TypesBound.newType(Type01C.class,Type01C::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -230,7 +230,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type02A.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Type02A> TYPE = com.exedio.cope.TypesBound.newType(Type02A.class);
+	private static final com.exedio.cope.Type<Type02A> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Type02A.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -292,7 +292,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type021C.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Type021C> TYPE = com.exedio.cope.TypesBound.newType(Type021C.class);
+	private static final com.exedio.cope.Type<Type021C> TYPE = com.exedio.cope.TypesBound.newType(Type021C.class,Type021C::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -426,7 +426,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for typeRef.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<TypeRef> TYPE = com.exedio.cope.TypesBound.newType(TypeRef.class);
+	private static final com.exedio.cope.Type<TypeRef> TYPE = com.exedio.cope.TypesBound.newType(TypeRef.class,TypeRef::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

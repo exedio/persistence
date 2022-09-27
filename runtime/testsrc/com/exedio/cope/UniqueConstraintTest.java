@@ -173,7 +173,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<UniqueConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintItem.class);
+		private static final com.exedio.cope.Type<UniqueConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintItem.class,UniqueConstraintItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

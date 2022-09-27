@@ -77,7 +77,7 @@ public class DataVaultCharacterSetTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
+		private static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class,MyBlank::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -102,7 +102,7 @@ public class DataVaultCharacterSetTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyOk> TYPE = com.exedio.cope.TypesBound.newType(MyOk.class);
+		private static final com.exedio.cope.Type<MyOk> TYPE = com.exedio.cope.TypesBound.newType(MyOk.class,MyOk::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -127,7 +127,7 @@ public class DataVaultCharacterSetTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBroken.class);
+		private static final com.exedio.cope.Type<MyBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBroken.class,MyBroken::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}

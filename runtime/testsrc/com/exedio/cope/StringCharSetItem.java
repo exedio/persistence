@@ -263,7 +263,7 @@ final class StringCharSetItem extends Item
 	 * The persistent type information for stringCharSetItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<StringCharSetItem> TYPE = com.exedio.cope.TypesBound.newType(StringCharSetItem.class);
+	static final com.exedio.cope.Type<StringCharSetItem> TYPE = com.exedio.cope.TypesBound.newType(StringCharSetItem.class,StringCharSetItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

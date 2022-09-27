@@ -158,7 +158,7 @@ public final class DivideLongItem extends Item
 	 * The persistent type information for divideLongItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DivideLongItem> TYPE = com.exedio.cope.TypesBound.newType(DivideLongItem.class);
+	public static final com.exedio.cope.Type<DivideLongItem> TYPE = com.exedio.cope.TypesBound.newType(DivideLongItem.class,DivideLongItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -58,7 +58,7 @@ public final class RecursiveItem extends Item
 	 * The persistent type information for recursiveItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<RecursiveItem> TYPE = com.exedio.cope.TypesBound.newType(RecursiveItem.class);
+	public static final com.exedio.cope.Type<RecursiveItem> TYPE = com.exedio.cope.TypesBound.newType(RecursiveItem.class,RecursiveItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

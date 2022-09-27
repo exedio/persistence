@@ -95,7 +95,7 @@ public class IntegerTypeIntItem extends Item
 	 * The persistent type information for integerTypeIntItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<IntegerTypeIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeIntItem.class);
+	public static final com.exedio.cope.Type<IntegerTypeIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeIntItem.class,IntegerTypeIntItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

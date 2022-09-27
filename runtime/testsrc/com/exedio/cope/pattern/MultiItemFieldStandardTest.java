@@ -79,7 +79,7 @@ public class MultiItemFieldStandardTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(AnMandatoryItem.class);
+		private static final com.exedio.cope.Type<AnMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(AnMandatoryItem.class,AnMandatoryItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnMandatoryItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -122,7 +122,7 @@ public class MultiItemFieldStandardTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(AnOptionalItem.class);
+		private static final com.exedio.cope.Type<AnOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(AnOptionalItem.class,AnOptionalItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnOptionalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -163,7 +163,7 @@ public class MultiItemFieldStandardTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnFinalItem> TYPE = com.exedio.cope.TypesBound.newType(AnFinalItem.class);
+		private static final com.exedio.cope.Type<AnFinalItem> TYPE = com.exedio.cope.TypesBound.newType(AnFinalItem.class,AnFinalItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -234,7 +234,7 @@ public class MultiItemFieldStandardTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ThreeItem> TYPE = com.exedio.cope.TypesBound.newType(ThreeItem.class);
+		private static final com.exedio.cope.Type<ThreeItem> TYPE = com.exedio.cope.TypesBound.newType(ThreeItem.class,ThreeItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private ThreeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -307,7 +307,7 @@ public class MultiItemFieldStandardTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<FourItem> TYPE = com.exedio.cope.TypesBound.newType(FourItem.class);
+		private static final com.exedio.cope.Type<FourItem> TYPE = com.exedio.cope.TypesBound.newType(FourItem.class,FourItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private FourItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -357,7 +357,7 @@ public class MultiItemFieldStandardTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
+		private static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class,AnCascadeItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

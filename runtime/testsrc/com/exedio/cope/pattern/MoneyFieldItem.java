@@ -365,7 +365,7 @@ public final class MoneyFieldItem extends Item
 	 * The persistent type information for moneyFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MoneyFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MoneyFieldItem.class);
+	public static final com.exedio.cope.Type<MoneyFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MoneyFieldItem.class,MoneyFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

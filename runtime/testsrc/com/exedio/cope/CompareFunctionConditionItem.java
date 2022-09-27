@@ -522,7 +522,7 @@ final class CompareFunctionConditionItem extends Item
 	 * The persistent type information for compareFunctionConditionItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CompareFunctionConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CompareFunctionConditionItem.class);
+	static final com.exedio.cope.Type<CompareFunctionConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CompareFunctionConditionItem.class,CompareFunctionConditionItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

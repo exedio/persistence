@@ -118,7 +118,7 @@ final class DayItem extends Item
 	 * The persistent type information for dayItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DayItem> TYPE = com.exedio.cope.TypesBound.newType(DayItem.class);
+	static final com.exedio.cope.Type<DayItem> TYPE = com.exedio.cope.TypesBound.newType(DayItem.class,DayItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

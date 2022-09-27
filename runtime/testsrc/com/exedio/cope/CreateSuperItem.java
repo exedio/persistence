@@ -129,7 +129,7 @@ class CreateSuperItem extends Item
 	 * The persistent type information for createSuperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CreateSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CreateSuperItem.class);
+	static final com.exedio.cope.Type<CreateSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CreateSuperItem.class,CreateSuperItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

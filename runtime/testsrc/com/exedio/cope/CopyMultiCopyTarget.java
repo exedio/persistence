@@ -83,7 +83,7 @@ final class CopyMultiCopyTarget extends Item
 	 * The persistent type information for copyMultiCopyTarget.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopyMultiCopyTarget> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiCopyTarget.class);
+	static final com.exedio.cope.Type<CopyMultiCopyTarget> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiCopyTarget.class,CopyMultiCopyTarget::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

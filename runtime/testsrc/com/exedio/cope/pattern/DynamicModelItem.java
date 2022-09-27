@@ -157,7 +157,7 @@ public final class DynamicModelItem extends Item
 	 * The persistent type information for dynamicModelItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DynamicModelItem> TYPE = com.exedio.cope.TypesBound.newType(DynamicModelItem.class);
+	public static final com.exedio.cope.Type<DynamicModelItem> TYPE = com.exedio.cope.TypesBound.newType(DynamicModelItem.class,DynamicModelItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

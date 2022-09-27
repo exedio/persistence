@@ -487,7 +487,7 @@ public class ClusterPropertiesTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AType> TYPE = com.exedio.cope.TypesBound.newType(AType.class);
+		private static final com.exedio.cope.Type<AType> TYPE = com.exedio.cope.TypesBound.newType(AType.class,AType::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AType(final com.exedio.cope.ActivationParameters ap){super(ap);}

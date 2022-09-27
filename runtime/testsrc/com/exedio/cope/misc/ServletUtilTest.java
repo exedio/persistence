@@ -360,7 +360,7 @@ public class ServletUtilTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ModelOk> TYPE = com.exedio.cope.TypesBound.newType(ModelOk.class);
+		private static final com.exedio.cope.Type<ModelOk> TYPE = com.exedio.cope.TypesBound.newType(ModelOk.class,ModelOk::new);
 
 		@com.exedio.cope.instrument.Generated
 		private ModelOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -373,7 +373,7 @@ public class ServletUtilTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ModelOk2> TYPE = com.exedio.cope.TypesBound.newType(ModelOk2.class);
+		private static final com.exedio.cope.Type<ModelOk2> TYPE = com.exedio.cope.TypesBound.newType(ModelOk2.class,ModelOk2::new);
 
 		@com.exedio.cope.instrument.Generated
 		private ModelOk2(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -386,7 +386,7 @@ public class ServletUtilTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ModelContext> TYPE = com.exedio.cope.TypesBound.newType(ModelContext.class);
+		private static final com.exedio.cope.Type<ModelContext> TYPE = com.exedio.cope.TypesBound.newType(ModelContext.class,ModelContext::new);
 
 		@com.exedio.cope.instrument.Generated
 		private ModelContext(final com.exedio.cope.ActivationParameters ap){super(ap);}

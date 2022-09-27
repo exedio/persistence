@@ -85,7 +85,7 @@ final class CrossPackageSub extends CrossPackageSuper
 	 * The persistent type information for crossPackageSub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CrossPackageSub> TYPE = com.exedio.cope.TypesBound.newType(CrossPackageSub.class);
+	static final com.exedio.cope.Type<CrossPackageSub> TYPE = com.exedio.cope.TypesBound.newType(CrossPackageSub.class,CrossPackageSub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

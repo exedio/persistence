@@ -75,7 +75,7 @@ public final class DeleteHierarchySource extends Item
 	 * The persistent type information for deleteHierarchySource.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DeleteHierarchySource> TYPE = com.exedio.cope.TypesBound.newType(DeleteHierarchySource.class);
+	public static final com.exedio.cope.Type<DeleteHierarchySource> TYPE = com.exedio.cope.TypesBound.newType(DeleteHierarchySource.class,DeleteHierarchySource::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

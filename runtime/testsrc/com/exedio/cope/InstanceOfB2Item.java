@@ -81,7 +81,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 	 * The persistent type information for instanceOfB2Item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InstanceOfB2Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfB2Item.class);
+	static final com.exedio.cope.Type<InstanceOfB2Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfB2Item.class,InstanceOfB2Item::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

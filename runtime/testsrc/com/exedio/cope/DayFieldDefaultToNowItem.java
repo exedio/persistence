@@ -149,7 +149,7 @@ final class DayFieldDefaultToNowItem extends Item
 	 * The persistent type information for dayFieldDefaultToNowItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DayFieldDefaultToNowItem> TYPE = com.exedio.cope.TypesBound.newType(DayFieldDefaultToNowItem.class);
+	static final com.exedio.cope.Type<DayFieldDefaultToNowItem> TYPE = com.exedio.cope.TypesBound.newType(DayFieldDefaultToNowItem.class,DayFieldDefaultToNowItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

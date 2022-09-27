@@ -39,7 +39,7 @@ final class QueryGroupOrderBySetterItem extends Item
 	private static final long serialVersionUID = 1l;
 
 	@com.exedio.cope.instrument.Generated
-	static final com.exedio.cope.Type<QueryGroupOrderBySetterItem> TYPE = com.exedio.cope.TypesBound.newType(QueryGroupOrderBySetterItem.class);
+	static final com.exedio.cope.Type<QueryGroupOrderBySetterItem> TYPE = com.exedio.cope.TypesBound.newType(QueryGroupOrderBySetterItem.class,QueryGroupOrderBySetterItem::new);
 
 	@com.exedio.cope.instrument.Generated
 	private QueryGroupOrderBySetterItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

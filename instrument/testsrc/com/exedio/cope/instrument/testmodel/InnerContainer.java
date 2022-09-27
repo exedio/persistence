@@ -124,7 +124,7 @@ final class InnerContainer
 	 * The persistent type information for super.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class);
+	static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class,Super::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -209,7 +209,7 @@ final class InnerContainer
 	 * The persistent type information for sub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class);
+	static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class,Sub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -245,7 +245,7 @@ final class InnerContainer
 	 * The persistent type information for target.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
+	static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class,Target::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

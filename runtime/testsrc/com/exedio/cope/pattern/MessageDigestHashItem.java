@@ -251,7 +251,7 @@ public final class MessageDigestHashItem extends Item
 	 * The persistent type information for messageDigestHashItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MessageDigestHashItem> TYPE = com.exedio.cope.TypesBound.newType(MessageDigestHashItem.class);
+	public static final com.exedio.cope.Type<MessageDigestHashItem> TYPE = com.exedio.cope.TypesBound.newType(MessageDigestHashItem.class,MessageDigestHashItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

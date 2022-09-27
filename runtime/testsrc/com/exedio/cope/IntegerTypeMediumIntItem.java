@@ -95,7 +95,7 @@ public class IntegerTypeMediumIntItem extends Item
 	 * The persistent type information for integerTypeMediumIntItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<IntegerTypeMediumIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeMediumIntItem.class);
+	public static final com.exedio.cope.Type<IntegerTypeMediumIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeMediumIntItem.class,IntegerTypeMediumIntItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

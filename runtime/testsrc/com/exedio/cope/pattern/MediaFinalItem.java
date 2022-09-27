@@ -199,7 +199,7 @@ public final class MediaFinalItem extends Item
 	 * The persistent type information for mediaFinalItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaFinalItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFinalItem.class);
+	public static final com.exedio.cope.Type<MediaFinalItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFinalItem.class,MediaFinalItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

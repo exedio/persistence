@@ -216,7 +216,7 @@ final class WrapItem extends Item
 	 * The persistent type information for wrapItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<WrapItem> TYPE = com.exedio.cope.TypesBound.newType(WrapItem.class);
+	static final com.exedio.cope.Type<WrapItem> TYPE = com.exedio.cope.TypesBound.newType(WrapItem.class,WrapItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

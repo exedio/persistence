@@ -114,7 +114,7 @@ final class CopySelfSource extends Item
 	 * The persistent type information for copySelfSource.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopySelfSource> TYPE = com.exedio.cope.TypesBound.newType(CopySelfSource.class);
+	static final com.exedio.cope.Type<CopySelfSource> TYPE = com.exedio.cope.TypesBound.newType(CopySelfSource.class,CopySelfSource::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

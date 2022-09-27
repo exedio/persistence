@@ -68,7 +68,7 @@ public final class DynamicModelLocalizationItem extends Item
 	 * The persistent type information for dynamicModelLocalizationItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DynamicModelLocalizationItem> TYPE = com.exedio.cope.TypesBound.newType(DynamicModelLocalizationItem.class);
+	public static final com.exedio.cope.Type<DynamicModelLocalizationItem> TYPE = com.exedio.cope.TypesBound.newType(DynamicModelLocalizationItem.class,DynamicModelLocalizationItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -1380,7 +1380,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 * The persistent type information for mediaUrlItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaUrlItem> TYPE = com.exedio.cope.TypesBound.newType(MediaUrlItem.class);
+	public static final com.exedio.cope.Type<MediaUrlItem> TYPE = com.exedio.cope.TypesBound.newType(MediaUrlItem.class,MediaUrlItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -101,7 +101,7 @@ public class QueryCacheTypeCacheIdTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MySuperItem> TYPE = com.exedio.cope.TypesBound.newType(MySuperItem.class);
+		private static final com.exedio.cope.Type<MySuperItem> TYPE = com.exedio.cope.TypesBound.newType(MySuperItem.class,MySuperItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MySuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -117,7 +117,7 @@ public class QueryCacheTypeCacheIdTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class,MyItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -133,7 +133,7 @@ public class QueryCacheTypeCacheIdTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MySubItem> TYPE = com.exedio.cope.TypesBound.newType(MySubItem.class);
+		private static final com.exedio.cope.Type<MySubItem> TYPE = com.exedio.cope.TypesBound.newType(MySubItem.class,MySubItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private MySubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -149,7 +149,7 @@ public class QueryCacheTypeCacheIdTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyOtherItem> TYPE = com.exedio.cope.TypesBound.newType(MyOtherItem.class);
+		private static final com.exedio.cope.Type<MyOtherItem> TYPE = com.exedio.cope.TypesBound.newType(MyOtherItem.class,MyOtherItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private MyOtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

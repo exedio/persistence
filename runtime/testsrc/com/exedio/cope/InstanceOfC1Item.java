@@ -79,7 +79,7 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 	 * The persistent type information for instanceOfC1Item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InstanceOfC1Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfC1Item.class);
+	static final com.exedio.cope.Type<InstanceOfC1Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfC1Item.class,InstanceOfC1Item::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -149,7 +149,7 @@ public final class SetOrderedFieldItem extends Item
 	 * The persistent type information for setOrderedFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SetOrderedFieldItem> TYPE = com.exedio.cope.TypesBound.newType(SetOrderedFieldItem.class);
+	public static final com.exedio.cope.Type<SetOrderedFieldItem> TYPE = com.exedio.cope.TypesBound.newType(SetOrderedFieldItem.class,SetOrderedFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

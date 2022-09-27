@@ -68,7 +68,7 @@ public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 	 * The persistent type information for genericSimpleSub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<GenericSimpleSub> TYPE = com.exedio.cope.TypesBound.newType(GenericSimpleSub.class);
+	public static final com.exedio.cope.Type<GenericSimpleSub> TYPE = com.exedio.cope.TypesBound.newType(GenericSimpleSub.class,GenericSimpleSub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

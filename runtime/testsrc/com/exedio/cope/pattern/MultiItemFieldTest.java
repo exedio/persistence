@@ -503,7 +503,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		 * The persistent type information for anCascadeItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
+		private static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class,AnCascadeItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -565,7 +565,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		 * The persistent type information for anNullifyItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<AnNullifyItem> TYPE = com.exedio.cope.TypesBound.newType(AnNullifyItem.class);
+		private static final com.exedio.cope.Type<AnNullifyItem> TYPE = com.exedio.cope.TypesBound.newType(AnNullifyItem.class,AnNullifyItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

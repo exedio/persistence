@@ -99,7 +99,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 * The persistent type information for genericSimpleSuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<GenericSimpleSuper<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+	public static final com.exedio.cope.Type<GenericSimpleSuper<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value,GenericSimpleSuper::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

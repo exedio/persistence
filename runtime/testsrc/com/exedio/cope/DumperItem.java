@@ -296,7 +296,7 @@ public class DumperItem extends Item
 	 * The persistent type information for dumperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DumperItem> TYPE = com.exedio.cope.TypesBound.newType(DumperItem.class);
+	public static final com.exedio.cope.Type<DumperItem> TYPE = com.exedio.cope.TypesBound.newType(DumperItem.class,DumperItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

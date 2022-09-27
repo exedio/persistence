@@ -88,7 +88,7 @@ final class DeleteSchemaItemUnused extends Item
 	 * The persistent type information for deleteSchemaItemUnused.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaItemUnused> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemUnused.class);
+	static final com.exedio.cope.Type<DeleteSchemaItemUnused> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemUnused.class,DeleteSchemaItemUnused::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

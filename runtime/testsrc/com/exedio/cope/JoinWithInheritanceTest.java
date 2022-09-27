@@ -310,7 +310,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for container.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+	static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class,Container::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -347,7 +347,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for article.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Article> TYPE = com.exedio.cope.TypesBound.newType(Article.class);
+	private static final com.exedio.cope.Type<Article> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Article.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -384,7 +384,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for specificArticle.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<SpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(SpecificArticle.class);
+	private static final com.exedio.cope.Type<SpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(SpecificArticle.class,SpecificArticle::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -421,7 +421,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for reallySpecificArticle.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<ReallySpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(ReallySpecificArticle.class);
+	private static final com.exedio.cope.Type<ReallySpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(ReallySpecificArticle.class,ReallySpecificArticle::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

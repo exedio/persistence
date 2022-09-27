@@ -190,7 +190,7 @@ public class ModelSerializationTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class,MyItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -208,7 +208,7 @@ public class ModelSerializationTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<NotItem> TYPE = com.exedio.cope.TypesBound.newType(NotItem.class);
+		private static final com.exedio.cope.Type<NotItem> TYPE = com.exedio.cope.TypesBound.newType(NotItem.class,NotItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected NotItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

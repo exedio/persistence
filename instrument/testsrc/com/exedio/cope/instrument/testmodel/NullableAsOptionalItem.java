@@ -173,7 +173,7 @@ class NullableAsOptionalItem extends Item
 	 * The persistent type information for nullableAsOptionalItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<NullableAsOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(NullableAsOptionalItem.class);
+	static final com.exedio.cope.Type<NullableAsOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(NullableAsOptionalItem.class,NullableAsOptionalItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

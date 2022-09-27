@@ -191,7 +191,7 @@ class NameLongItem extends Item
 	 * The persistent type information for nameLongItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<NameLongItem> TYPE = com.exedio.cope.TypesBound.newType(NameLongItem.class);
+	static final com.exedio.cope.Type<NameLongItem> TYPE = com.exedio.cope.TypesBound.newType(NameLongItem.class,NameLongItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

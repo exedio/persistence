@@ -272,7 +272,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 * The persistent type information for modelItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<ModelItem> TYPE = com.exedio.cope.TypesBound.newType(ModelItem.class);
+	private static final com.exedio.cope.Type<ModelItem> TYPE = com.exedio.cope.TypesBound.newType(ModelItem.class,ModelItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

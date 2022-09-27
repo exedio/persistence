@@ -79,7 +79,7 @@ final class QueryItem extends SuperItem
 	 * The persistent type information for queryItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<QueryItem> TYPE = com.exedio.cope.TypesBound.newType(QueryItem.class);
+	static final com.exedio.cope.Type<QueryItem> TYPE = com.exedio.cope.TypesBound.newType(QueryItem.class,QueryItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

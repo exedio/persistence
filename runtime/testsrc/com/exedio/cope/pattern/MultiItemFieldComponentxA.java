@@ -45,7 +45,7 @@ public class MultiItemFieldComponentxA extends Item implements MultiItemFieldVal
 	 * The persistent type information for multiItemFieldComponentxA.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MultiItemFieldComponentxA> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentxA.class);
+	public static final com.exedio.cope.Type<MultiItemFieldComponentxA> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentxA.class,MultiItemFieldComponentxA::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

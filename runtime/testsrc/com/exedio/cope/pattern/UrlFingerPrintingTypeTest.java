@@ -65,7 +65,7 @@ public class UrlFingerPrintingTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AbsentItem> TYPE = com.exedio.cope.TypesBound.newType(AbsentItem.class);
+		private static final com.exedio.cope.Type<AbsentItem> TYPE = com.exedio.cope.TypesBound.newType(AbsentItem.class,AbsentItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AbsentItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -83,7 +83,7 @@ public class UrlFingerPrintingTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<PresentItem> TYPE = com.exedio.cope.TypesBound.newType(PresentItem.class);
+		private static final com.exedio.cope.Type<PresentItem> TYPE = com.exedio.cope.TypesBound.newType(PresentItem.class,PresentItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private PresentItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

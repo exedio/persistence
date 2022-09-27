@@ -146,7 +146,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 * The persistent type information for deleteSchemaItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItem.class);
+	static final com.exedio.cope.Type<DeleteSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItem.class,DeleteSchemaItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

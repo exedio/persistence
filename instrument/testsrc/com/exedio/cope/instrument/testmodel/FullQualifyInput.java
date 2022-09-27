@@ -59,7 +59,7 @@ public final class FullQualifyInput extends com.exedio.cope.instrument.testmodel
 	 * The persistent type information for fullQualifyInput.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FullQualifyInput> TYPE = com.exedio.cope.TypesBound.newType(FullQualifyInput.class);
+	public static final com.exedio.cope.Type<FullQualifyInput> TYPE = com.exedio.cope.TypesBound.newType(FullQualifyInput.class,FullQualifyInput::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

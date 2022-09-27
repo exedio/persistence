@@ -164,7 +164,7 @@ public class UniqueHashedMediaErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<NonCreateableFunctionFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableFunctionFieldItem.class);
+		private static final com.exedio.cope.Type<NonCreateableFunctionFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableFunctionFieldItem.class,NonCreateableFunctionFieldItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private NonCreateableFunctionFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -201,7 +201,7 @@ public class UniqueHashedMediaErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<NonCreateableDataFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableDataFieldItem.class);
+		private static final com.exedio.cope.Type<NonCreateableDataFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableDataFieldItem.class,NonCreateableDataFieldItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private NonCreateableDataFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -235,7 +235,7 @@ public class UniqueHashedMediaErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<CreateableItem> TYPE = com.exedio.cope.TypesBound.newType(CreateableItem.class);
+		private static final com.exedio.cope.Type<CreateableItem> TYPE = com.exedio.cope.TypesBound.newType(CreateableItem.class,CreateableItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private CreateableItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

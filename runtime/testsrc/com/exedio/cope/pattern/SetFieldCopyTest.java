@@ -249,7 +249,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Catalog> TYPE = com.exedio.cope.TypesBound.newType(Catalog.class);
+		private static final com.exedio.cope.Type<Catalog> TYPE = com.exedio.cope.TypesBound.newType(Catalog.class,Catalog::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Catalog(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -316,7 +316,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ParentInCatalog> TYPE = com.exedio.cope.TypesBound.newType(ParentInCatalog.class);
+		private static final com.exedio.cope.Type<ParentInCatalog> TYPE = com.exedio.cope.TypesBound.newType(ParentInCatalog.class,ParentInCatalog::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ParentInCatalog(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -349,7 +349,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ElementInCatalog> TYPE = com.exedio.cope.TypesBound.newType(ElementInCatalog.class);
+		private static final com.exedio.cope.Type<ElementInCatalog> TYPE = com.exedio.cope.TypesBound.newType(ElementInCatalog.class,ElementInCatalog::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ElementInCatalog(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -378,7 +378,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ElementWithNumber> TYPE = com.exedio.cope.TypesBound.newType(ElementWithNumber.class);
+		private static final com.exedio.cope.Type<ElementWithNumber> TYPE = com.exedio.cope.TypesBound.newType(ElementWithNumber.class,ElementWithNumber::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ElementWithNumber(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -441,7 +441,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ParentWithNumber> TYPE = com.exedio.cope.TypesBound.newType(ParentWithNumber.class);
+		private static final com.exedio.cope.Type<ParentWithNumber> TYPE = com.exedio.cope.TypesBound.newType(ParentWithNumber.class,ParentWithNumber::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ParentWithNumber(final com.exedio.cope.ActivationParameters ap){super(ap);}

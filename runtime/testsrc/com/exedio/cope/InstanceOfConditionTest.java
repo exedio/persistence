@@ -68,7 +68,7 @@ public class InstanceOfConditionTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemS> TYPE = com.exedio.cope.TypesBound.newType(ItemS.class);
+		private static final com.exedio.cope.Type<ItemS> TYPE = com.exedio.cope.TypesBound.newType(ItemS.class,ItemS::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemS(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -81,7 +81,7 @@ public class InstanceOfConditionTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
+		private static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class,Item1::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -94,7 +94,7 @@ public class InstanceOfConditionTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
+		private static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class,Item2::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Item2(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -107,7 +107,7 @@ public class InstanceOfConditionTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Item3> TYPE = com.exedio.cope.TypesBound.newType(Item3.class);
+		private static final com.exedio.cope.Type<Item3> TYPE = com.exedio.cope.TypesBound.newType(Item3.class,Item3::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Item3(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -120,7 +120,7 @@ public class InstanceOfConditionTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Item4> TYPE = com.exedio.cope.TypesBound.newType(Item4.class);
+		private static final com.exedio.cope.Type<Item4> TYPE = com.exedio.cope.TypesBound.newType(Item4.class,Item4::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Item4(final com.exedio.cope.ActivationParameters ap){super(ap);}

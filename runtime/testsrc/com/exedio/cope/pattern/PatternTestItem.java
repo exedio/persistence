@@ -49,7 +49,7 @@ public final class PatternTestItem extends Item
 	 * The persistent type information for patternTestItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PatternTestItem> TYPE = com.exedio.cope.TypesBound.newType(PatternTestItem.class);
+	public static final com.exedio.cope.Type<PatternTestItem> TYPE = com.exedio.cope.TypesBound.newType(PatternTestItem.class,PatternTestItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

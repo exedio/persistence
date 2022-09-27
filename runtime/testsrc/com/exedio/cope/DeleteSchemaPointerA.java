@@ -115,7 +115,7 @@ final class DeleteSchemaPointerA extends Item
 	 * The persistent type information for deleteSchemaPointerA.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaPointerA> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaPointerA.class);
+	static final com.exedio.cope.Type<DeleteSchemaPointerA> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaPointerA.class,DeleteSchemaPointerA::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

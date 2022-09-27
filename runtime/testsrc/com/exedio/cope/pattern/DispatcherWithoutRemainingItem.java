@@ -316,7 +316,7 @@ public final class DispatcherWithoutRemainingItem extends Item
 	 * The persistent type information for dispatcherWithoutRemainingItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DispatcherWithoutRemainingItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherWithoutRemainingItem.class);
+	public static final com.exedio.cope.Type<DispatcherWithoutRemainingItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherWithoutRemainingItem.class,DispatcherWithoutRemainingItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

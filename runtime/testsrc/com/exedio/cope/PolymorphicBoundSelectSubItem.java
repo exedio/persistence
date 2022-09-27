@@ -49,7 +49,7 @@ public final class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectS
 	 * The persistent type information for polymorphicBoundSelectSubItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PolymorphicBoundSelectSubItem> TYPE = com.exedio.cope.TypesBound.newType(PolymorphicBoundSelectSubItem.class);
+	public static final com.exedio.cope.Type<PolymorphicBoundSelectSubItem> TYPE = com.exedio.cope.TypesBound.newType(PolymorphicBoundSelectSubItem.class,PolymorphicBoundSelectSubItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

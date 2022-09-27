@@ -53,7 +53,7 @@ public final class AllPublic extends Item
 	 * The persistent type information for allPublic.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<AllPublic> TYPE = com.exedio.cope.TypesBound.newType(AllPublic.class);
+	public static final com.exedio.cope.Type<AllPublic> TYPE = com.exedio.cope.TypesBound.newType(AllPublic.class,AllPublic::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

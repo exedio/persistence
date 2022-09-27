@@ -60,7 +60,7 @@ public class PolymorphicBoundSelectSuperItem extends Item
 	 * The persistent type information for polymorphicBoundSelectSuperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PolymorphicBoundSelectSuperItem> TYPE = com.exedio.cope.TypesBound.newType(PolymorphicBoundSelectSuperItem.class);
+	public static final com.exedio.cope.Type<PolymorphicBoundSelectSuperItem> TYPE = com.exedio.cope.TypesBound.newType(PolymorphicBoundSelectSuperItem.class,PolymorphicBoundSelectSuperItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -188,7 +188,7 @@ final class DataMandatoryItem extends Item
 	 * The persistent type information for dataMandatoryItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DataMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(DataMandatoryItem.class);
+	static final com.exedio.cope.Type<DataMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(DataMandatoryItem.class,DataMandatoryItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

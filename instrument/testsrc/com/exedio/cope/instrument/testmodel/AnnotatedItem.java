@@ -215,7 +215,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		 * The persistent type information for annotatedItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<AnnotatedItem> TYPE = com.exedio.cope.TypesBound.newType(AnnotatedItem.class);
+		private static final com.exedio.cope.Type<AnnotatedItem> TYPE = com.exedio.cope.TypesBound.newType(AnnotatedItem.class,AnnotatedItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

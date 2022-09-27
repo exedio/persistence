@@ -97,7 +97,7 @@ public final class CollisionItem2 extends Item
 	 * The persistent type information for collisionItem2.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CollisionItem2> TYPE = com.exedio.cope.TypesBound.newType(CollisionItem2.class);
+	public static final com.exedio.cope.Type<CollisionItem2> TYPE = com.exedio.cope.TypesBound.newType(CollisionItem2.class,CollisionItem2::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -148,7 +148,7 @@ final class InstanceOfRefItem extends Item
 	 * The persistent type information for instanceOfRefItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InstanceOfRefItem> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfRefItem.class);
+	static final com.exedio.cope.Type<InstanceOfRefItem> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfRefItem.class,InstanceOfRefItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

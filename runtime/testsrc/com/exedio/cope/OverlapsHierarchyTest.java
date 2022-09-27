@@ -57,7 +57,7 @@ public class OverlapsHierarchyTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemA> TYPE = com.exedio.cope.TypesBound.newType(AnItemA.class);
+		private static final com.exedio.cope.Type<AnItemA> TYPE = com.exedio.cope.TypesBound.newType(AnItemA.class,AnItemA::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -70,7 +70,7 @@ public class OverlapsHierarchyTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemB1> TYPE = com.exedio.cope.TypesBound.newType(AnItemB1.class);
+		private static final com.exedio.cope.Type<AnItemB1> TYPE = com.exedio.cope.TypesBound.newType(AnItemB1.class,AnItemB1::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemB1(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -83,7 +83,7 @@ public class OverlapsHierarchyTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemB2> TYPE = com.exedio.cope.TypesBound.newType(AnItemB2.class);
+		private static final com.exedio.cope.Type<AnItemB2> TYPE = com.exedio.cope.TypesBound.newType(AnItemB2.class,AnItemB2::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemB2(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -96,7 +96,7 @@ public class OverlapsHierarchyTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemC> TYPE = com.exedio.cope.TypesBound.newType(AnItemC.class);
+		private static final com.exedio.cope.Type<AnItemC> TYPE = com.exedio.cope.TypesBound.newType(AnItemC.class,AnItemC::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemC(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -114,7 +114,7 @@ public class OverlapsHierarchyTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<RefItem> TYPE = com.exedio.cope.TypesBound.newType(RefItem.class);
+		private static final com.exedio.cope.Type<RefItem> TYPE = com.exedio.cope.TypesBound.newType(RefItem.class,RefItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private RefItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

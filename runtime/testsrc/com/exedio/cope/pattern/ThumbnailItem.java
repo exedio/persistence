@@ -324,7 +324,7 @@ public final class ThumbnailItem extends Item
 	 * The persistent type information for thumbnailItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ThumbnailItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailItem.class);
+	public static final com.exedio.cope.Type<ThumbnailItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailItem.class,ThumbnailItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

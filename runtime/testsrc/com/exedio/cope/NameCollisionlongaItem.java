@@ -173,7 +173,7 @@ final class NameCollisionlongaItem extends Item
 	 * The persistent type information for nameCollisionlongaItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<NameCollisionlongaItem> TYPE = com.exedio.cope.TypesBound.newType(NameCollisionlongaItem.class);
+	static final com.exedio.cope.Type<NameCollisionlongaItem> TYPE = com.exedio.cope.TypesBound.newType(NameCollisionlongaItem.class,NameCollisionlongaItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

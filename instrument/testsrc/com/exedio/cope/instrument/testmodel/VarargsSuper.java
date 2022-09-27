@@ -49,7 +49,7 @@ public class VarargsSuper extends VarargsLib
 	 * The persistent type information for varargsSuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<VarargsSuper> TYPE = com.exedio.cope.TypesBound.newType(VarargsSuper.class);
+	public static final com.exedio.cope.Type<VarargsSuper> TYPE = com.exedio.cope.TypesBound.newType(VarargsSuper.class,VarargsSuper::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

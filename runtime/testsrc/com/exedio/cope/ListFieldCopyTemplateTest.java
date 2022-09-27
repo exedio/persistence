@@ -124,7 +124,7 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemWithComplexTemplate> TYPE = com.exedio.cope.TypesBound.newType(ItemWithComplexTemplate.class);
+		private static final com.exedio.cope.Type<ItemWithComplexTemplate> TYPE = com.exedio.cope.TypesBound.newType(ItemWithComplexTemplate.class,ItemWithComplexTemplate::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemWithComplexTemplate(final com.exedio.cope.ActivationParameters ap){super(ap);}

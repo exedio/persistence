@@ -48,7 +48,7 @@ public class VarargsLib extends Item
 	 * The persistent type information for varargsLib.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<VarargsLib> TYPE = com.exedio.cope.TypesBound.newType(VarargsLib.class);
+	public static final com.exedio.cope.Type<VarargsLib> TYPE = com.exedio.cope.TypesBound.newType(VarargsLib.class,VarargsLib::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

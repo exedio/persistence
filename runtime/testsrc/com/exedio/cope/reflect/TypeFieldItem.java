@@ -257,7 +257,7 @@ public final class TypeFieldItem extends Item
 	 * The persistent type information for typeFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<TypeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFieldItem.class);
+	public static final com.exedio.cope.Type<TypeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFieldItem.class,TypeFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

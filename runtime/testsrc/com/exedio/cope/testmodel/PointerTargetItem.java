@@ -127,7 +127,7 @@ public final class PointerTargetItem extends Item
 	 * The persistent type information for pointerTargetItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PointerTargetItem> TYPE = com.exedio.cope.TypesBound.newType(PointerTargetItem.class);
+	public static final com.exedio.cope.Type<PointerTargetItem> TYPE = com.exedio.cope.TypesBound.newType(PointerTargetItem.class,PointerTargetItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

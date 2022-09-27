@@ -139,7 +139,7 @@ public abstract class HierarchySuper extends Item
 	 * The persistent type information for hierarchySuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchySuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySuper.class);
+	public static final com.exedio.cope.Type<HierarchySuper> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(HierarchySuper.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

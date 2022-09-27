@@ -177,7 +177,7 @@ class CrossPackageSuper extends Item
 	 * The persistent type information for crossPackageSuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CrossPackageSuper> TYPE = com.exedio.cope.TypesBound.newType(CrossPackageSuper.class);
+	static final com.exedio.cope.Type<CrossPackageSuper> TYPE = com.exedio.cope.TypesBound.newType(CrossPackageSuper.class,CrossPackageSuper::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

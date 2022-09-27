@@ -271,7 +271,7 @@ final class CollisionBase extends Item
 	 * The persistent type information for collisionBase.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CollisionBase> TYPE = com.exedio.cope.TypesBound.newType(CollisionBase.class);
+	static final com.exedio.cope.Type<CollisionBase> TYPE = com.exedio.cope.TypesBound.newType(CollisionBase.class,CollisionBase::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

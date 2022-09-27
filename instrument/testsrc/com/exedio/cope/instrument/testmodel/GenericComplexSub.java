@@ -72,7 +72,7 @@ public final class GenericComplexSub extends GenericComplexMid<List<String>>
 	 * The persistent type information for genericComplexSub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<GenericComplexSub> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexSub.class);
+	public static final com.exedio.cope.Type<GenericComplexSub> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexSub.class,GenericComplexSub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

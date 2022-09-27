@@ -253,7 +253,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * The persistent type information for doubleCopyConstraintItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<DoubleCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleCopyConstraintItem.class);
+		private static final com.exedio.cope.Type<DoubleCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleCopyConstraintItem.class,DoubleCopyConstraintItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -330,7 +330,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * The persistent type information for allCopyConstraintItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<AllCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(AllCopyConstraintItem.class);
+		private static final com.exedio.cope.Type<AllCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(AllCopyConstraintItem.class,AllCopyConstraintItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -407,7 +407,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * The persistent type information for partialCopyConstraintItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<PartialCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(PartialCopyConstraintItem.class);
+		private static final com.exedio.cope.Type<PartialCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(PartialCopyConstraintItem.class,PartialCopyConstraintItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -467,7 +467,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * The persistent type information for a.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<A> TYPE = com.exedio.cope.TypesBound.newType(A.class);
+		private static final com.exedio.cope.Type<A> TYPE = com.exedio.cope.TypesBound.newType(A.class,A::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -527,7 +527,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * The persistent type information for b.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<B> TYPE = com.exedio.cope.TypesBound.newType(B.class);
+		private static final com.exedio.cope.Type<B> TYPE = com.exedio.cope.TypesBound.newType(B.class,B::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -602,7 +602,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * The persistent type information for c.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<C> TYPE = com.exedio.cope.TypesBound.newType(C.class);
+		private static final com.exedio.cope.Type<C> TYPE = com.exedio.cope.TypesBound.newType(C.class,C::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

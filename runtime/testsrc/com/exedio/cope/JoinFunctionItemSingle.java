@@ -82,7 +82,7 @@ public final class JoinFunctionItemSingle extends Item
 	 * The persistent type information for joinFunctionItemSingle.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<JoinFunctionItemSingle> TYPE = com.exedio.cope.TypesBound.newType(JoinFunctionItemSingle.class);
+	public static final com.exedio.cope.Type<JoinFunctionItemSingle> TYPE = com.exedio.cope.TypesBound.newType(JoinFunctionItemSingle.class,JoinFunctionItemSingle::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

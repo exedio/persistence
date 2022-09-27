@@ -56,7 +56,7 @@ public final class HierarchyEmptySub extends HierarchyEmptySuper
 	 * The persistent type information for hierarchyEmptySub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchyEmptySub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyEmptySub.class);
+	public static final com.exedio.cope.Type<HierarchyEmptySub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyEmptySub.class,HierarchyEmptySub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

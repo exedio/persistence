@@ -59,7 +59,7 @@ public class FinalSuperItem extends Item
 	 * The persistent type information for finalSuperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FinalSuperItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSuperItem.class);
+	public static final com.exedio.cope.Type<FinalSuperItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSuperItem.class,FinalSuperItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

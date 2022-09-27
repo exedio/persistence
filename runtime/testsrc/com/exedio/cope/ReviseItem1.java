@@ -79,7 +79,7 @@ final class ReviseItem1 extends Item
 	 * The persistent type information for reviseItem1.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ReviseItem1> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem1.class);
+	static final com.exedio.cope.Type<ReviseItem1> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem1.class,ReviseItem1::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

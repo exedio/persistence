@@ -127,7 +127,7 @@ final class ConnectItem2 extends ConnectItem
 	 * The persistent type information for connectItem2.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ConnectItem2> TYPE = com.exedio.cope.TypesBound.newType(ConnectItem2.class);
+	static final com.exedio.cope.Type<ConnectItem2> TYPE = com.exedio.cope.TypesBound.newType(ConnectItem2.class,ConnectItem2::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

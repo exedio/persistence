@@ -273,7 +273,7 @@ public final class DispatcherWithoutPurgeItem extends Item
 	 * The persistent type information for dispatcherWithoutPurgeItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DispatcherWithoutPurgeItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherWithoutPurgeItem.class);
+	public static final com.exedio.cope.Type<DispatcherWithoutPurgeItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherWithoutPurgeItem.class,DispatcherWithoutPurgeItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

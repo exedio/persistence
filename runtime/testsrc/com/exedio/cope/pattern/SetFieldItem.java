@@ -246,7 +246,7 @@ public final class SetFieldItem extends Item
 	 * The persistent type information for setFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItem.class);
+	public static final com.exedio.cope.Type<SetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItem.class,SetFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

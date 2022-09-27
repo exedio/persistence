@@ -111,7 +111,7 @@ public final class DoubleUnique extends Item
 	 * The persistent type information for doubleUnique.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DoubleUnique> TYPE = com.exedio.cope.TypesBound.newType(DoubleUnique.class);
+	public static final com.exedio.cope.Type<DoubleUnique> TYPE = com.exedio.cope.TypesBound.newType(DoubleUnique.class,DoubleUnique::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

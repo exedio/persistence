@@ -261,7 +261,7 @@ public final class MediaMandatoryItem extends Item
 	 * The persistent type information for mediaMandatoryItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(MediaMandatoryItem.class);
+	public static final com.exedio.cope.Type<MediaMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(MediaMandatoryItem.class,MediaMandatoryItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

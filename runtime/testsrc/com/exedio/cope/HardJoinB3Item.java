@@ -90,7 +90,7 @@ final class HardJoinB3Item extends HardJoinB2Item
 	 * The persistent type information for hardJoinB3Item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HardJoinB3Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinB3Item.class);
+	static final com.exedio.cope.Type<HardJoinB3Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinB3Item.class,HardJoinB3Item::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

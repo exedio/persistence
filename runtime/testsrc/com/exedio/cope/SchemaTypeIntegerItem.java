@@ -334,7 +334,7 @@ public final class SchemaTypeIntegerItem extends Item
 	 * The persistent type information for schemaTypeIntegerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SchemaTypeIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeIntegerItem.class);
+	public static final com.exedio.cope.Type<SchemaTypeIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeIntegerItem.class,SchemaTypeIntegerItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

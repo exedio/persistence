@@ -60,7 +60,7 @@ public class CaseProblem extends Item
 	 * The persistent type information for caseProblem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CaseProblem> TYPE = com.exedio.cope.TypesBound.newType(CaseProblem.class);
+	public static final com.exedio.cope.Type<CaseProblem> TYPE = com.exedio.cope.TypesBound.newType(CaseProblem.class,CaseProblem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

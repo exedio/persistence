@@ -140,7 +140,7 @@ public class TypeFutureInconsistentTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ValueClassItem> TYPE = com.exedio.cope.TypesBound.newType(ValueClassItem.class);
+		private static final com.exedio.cope.Type<ValueClassItem> TYPE = com.exedio.cope.TypesBound.newType(ValueClassItem.class,ValueClassItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private ValueClassItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -153,7 +153,7 @@ public class TypeFutureInconsistentTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<TypeItem> TYPE = com.exedio.cope.TypesBound.newType(TypeItem.class);
+		private static final com.exedio.cope.Type<TypeItem> TYPE = com.exedio.cope.TypesBound.newType(TypeItem.class,TypeItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private TypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -169,7 +169,7 @@ public class TypeFutureInconsistentTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<FeatureItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureItem.class);
+		private static final com.exedio.cope.Type<FeatureItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureItem.class,FeatureItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private FeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -198,7 +198,7 @@ public class TypeFutureInconsistentTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.pattern.BlockType<FeatureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(FeatureBlock.class);
+		private static final com.exedio.cope.pattern.BlockType<FeatureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(FeatureBlock.class,FeatureBlock::new);
 
 		@com.exedio.cope.instrument.Generated
 		private FeatureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}

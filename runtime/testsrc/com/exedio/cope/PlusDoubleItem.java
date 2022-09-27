@@ -218,7 +218,7 @@ public final class PlusDoubleItem extends Item
 	 * The persistent type information for plusDoubleItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PlusDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(PlusDoubleItem.class);
+	public static final com.exedio.cope.Type<PlusDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(PlusDoubleItem.class,PlusDoubleItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

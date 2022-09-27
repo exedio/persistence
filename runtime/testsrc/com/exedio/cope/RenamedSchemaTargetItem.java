@@ -46,7 +46,7 @@ final class RenamedSchemaTargetItem extends Item
 	 * The persistent type information for renamedSchemaTargetItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<RenamedSchemaTargetItem> TYPE = com.exedio.cope.TypesBound.newType(RenamedSchemaTargetItem.class);
+	static final com.exedio.cope.Type<RenamedSchemaTargetItem> TYPE = com.exedio.cope.TypesBound.newType(RenamedSchemaTargetItem.class,RenamedSchemaTargetItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

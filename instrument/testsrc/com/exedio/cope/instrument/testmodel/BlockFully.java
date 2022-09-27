@@ -55,7 +55,7 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 	 * The type information for blockFully.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.pattern.BlockType<BlockFully> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockFully.class);
+	public static final com.exedio.cope.pattern.BlockType<BlockFully> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockFully.class,BlockFully::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

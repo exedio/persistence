@@ -53,7 +53,7 @@ public final class FieldPackage extends Item
 	 * The persistent type information for fieldPackage.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FieldPackage> TYPE = com.exedio.cope.TypesBound.newType(FieldPackage.class);
+	public static final com.exedio.cope.Type<FieldPackage> TYPE = com.exedio.cope.TypesBound.newType(FieldPackage.class,FieldPackage::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

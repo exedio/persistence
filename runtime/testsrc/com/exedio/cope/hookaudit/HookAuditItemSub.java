@@ -78,7 +78,7 @@ final class HookAuditItemSub extends HookAuditItem
 	 * The persistent type information for hookAuditItemSub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HookAuditItemSub> TYPE = com.exedio.cope.TypesBound.newType(HookAuditItemSub.class);
+	static final com.exedio.cope.Type<HookAuditItemSub> TYPE = com.exedio.cope.TypesBound.newType(HookAuditItemSub.class,HookAuditItemSub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

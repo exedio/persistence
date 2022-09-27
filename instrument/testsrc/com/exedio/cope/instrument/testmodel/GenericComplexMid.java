@@ -79,7 +79,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 * The persistent type information for genericComplexMid.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<GenericComplexMid<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+	public static final com.exedio.cope.Type<GenericComplexMid<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value,GenericComplexMid::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

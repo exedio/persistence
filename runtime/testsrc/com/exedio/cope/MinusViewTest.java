@@ -124,7 +124,7 @@ public class MinusViewTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Supplier> TYPE = com.exedio.cope.TypesBound.newType(Supplier.class);
+		private static final com.exedio.cope.Type<Supplier> TYPE = com.exedio.cope.TypesBound.newType(Supplier.class,Supplier::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Supplier(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -160,7 +160,7 @@ public class MinusViewTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<StockAccounting> TYPE = com.exedio.cope.TypesBound.newType(StockAccounting.class);
+		private static final com.exedio.cope.Type<StockAccounting> TYPE = com.exedio.cope.TypesBound.newType(StockAccounting.class,StockAccounting::new);
 
 		@com.exedio.cope.instrument.Generated
 		private StockAccounting(final com.exedio.cope.ActivationParameters ap){super(ap);}

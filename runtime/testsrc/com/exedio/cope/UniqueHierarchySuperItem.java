@@ -84,7 +84,7 @@ class UniqueHierarchySuperItem extends Item
 	 * The persistent type information for uniqueHierarchySuperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<UniqueHierarchySuperItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHierarchySuperItem.class);
+	static final com.exedio.cope.Type<UniqueHierarchySuperItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHierarchySuperItem.class,UniqueHierarchySuperItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -43,7 +43,7 @@ public class ComputedTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class);
+		private static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class,Super::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Super(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -56,7 +56,7 @@ public class ComputedTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class);
+		private static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class,Sub::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Sub(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -69,7 +69,7 @@ public class ComputedTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Single> TYPE = com.exedio.cope.TypesBound.newType(Single.class);
+		private static final com.exedio.cope.Type<Single> TYPE = com.exedio.cope.TypesBound.newType(Single.class,Single::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Single(final com.exedio.cope.ActivationParameters ap){super(ap);}

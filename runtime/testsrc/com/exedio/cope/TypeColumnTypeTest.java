@@ -78,7 +78,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<StandardSuper> TYPE = com.exedio.cope.TypesBound.newType(StandardSuper.class);
+		private static final com.exedio.cope.Type<StandardSuper> TYPE = com.exedio.cope.TypesBound.newType(StandardSuper.class,StandardSuper::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected StandardSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -91,7 +91,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<StandardSub> TYPE = com.exedio.cope.TypesBound.newType(StandardSub.class);
+		private static final com.exedio.cope.Type<StandardSub> TYPE = com.exedio.cope.TypesBound.newType(StandardSub.class,StandardSub::new);
 
 		@com.exedio.cope.instrument.Generated
 		private StandardSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -105,7 +105,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MinLengthSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSuper.class);
+		private static final com.exedio.cope.Type<MinLengthSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSuper.class,MinLengthSuper::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MinLengthSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -118,7 +118,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MinLengthSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSub.class);
+		private static final com.exedio.cope.Type<MinLengthSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSub.class,MinLengthSub::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MinLengthSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -131,7 +131,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MinLengthSubber> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSubber.class);
+		private static final com.exedio.cope.Type<MinLengthSubber> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSubber.class,MinLengthSubber::new);
 
 		@com.exedio.cope.instrument.Generated
 		private MinLengthSubber(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -145,7 +145,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MinLengthIneffectiveSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSuper.class);
+		private static final com.exedio.cope.Type<MinLengthIneffectiveSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSuper.class,MinLengthIneffectiveSuper::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MinLengthIneffectiveSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -158,7 +158,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MinLengthIneffectiveSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSub.class);
+		private static final com.exedio.cope.Type<MinLengthIneffectiveSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSub.class,MinLengthIneffectiveSub::new);
 
 		@com.exedio.cope.instrument.Generated
 		private MinLengthIneffectiveSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -176,7 +176,7 @@ public class TypeColumnTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Ref> TYPE = com.exedio.cope.TypesBound.newType(Ref.class);
+		private static final com.exedio.cope.Type<Ref> TYPE = com.exedio.cope.TypesBound.newType(Ref.class,Ref::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Ref(final com.exedio.cope.ActivationParameters ap){super(ap);}

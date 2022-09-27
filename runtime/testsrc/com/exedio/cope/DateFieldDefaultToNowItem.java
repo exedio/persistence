@@ -148,7 +148,7 @@ final class DateFieldDefaultToNowItem extends Item
 	 * The persistent type information for dateFieldDefaultToNowItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DateFieldDefaultToNowItem> TYPE = com.exedio.cope.TypesBound.newType(DateFieldDefaultToNowItem.class);
+	static final com.exedio.cope.Type<DateFieldDefaultToNowItem> TYPE = com.exedio.cope.TypesBound.newType(DateFieldDefaultToNowItem.class,DateFieldDefaultToNowItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

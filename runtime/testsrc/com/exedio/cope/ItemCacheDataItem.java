@@ -220,7 +220,7 @@ final class ItemCacheDataItem extends Item
 	 * The persistent type information for itemCacheDataItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemCacheDataItem> TYPE = com.exedio.cope.TypesBound.newType(ItemCacheDataItem.class);
+	static final com.exedio.cope.Type<ItemCacheDataItem> TYPE = com.exedio.cope.TypesBound.newType(ItemCacheDataItem.class,ItemCacheDataItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

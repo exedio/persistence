@@ -101,7 +101,7 @@ final class DrivebyHashMigrationItem extends Item
 	 * The persistent type information for drivebyHashMigrationItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DrivebyHashMigrationItem> TYPE = com.exedio.cope.TypesBound.newType(DrivebyHashMigrationItem.class);
+	static final com.exedio.cope.Type<DrivebyHashMigrationItem> TYPE = com.exedio.cope.TypesBound.newType(DrivebyHashMigrationItem.class,DrivebyHashMigrationItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

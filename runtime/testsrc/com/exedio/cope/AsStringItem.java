@@ -123,7 +123,7 @@ final class AsStringItem extends Item
 	 * The persistent type information for asStringItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AsStringItem> TYPE = com.exedio.cope.TypesBound.newType(AsStringItem.class);
+	static final com.exedio.cope.Type<AsStringItem> TYPE = com.exedio.cope.TypesBound.newType(AsStringItem.class,AsStringItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

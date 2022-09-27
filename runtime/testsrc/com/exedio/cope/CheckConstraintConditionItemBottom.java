@@ -45,7 +45,7 @@ final class CheckConstraintConditionItemBottom extends CheckConstraintConditionI
 	 * The persistent type information for checkConstraintConditionItemBottom.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CheckConstraintConditionItemBottom> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItemBottom.class);
+	static final com.exedio.cope.Type<CheckConstraintConditionItemBottom> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItemBottom.class,CheckConstraintConditionItemBottom::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -99,7 +99,7 @@ final class SubContainer extends SuperContainer
 	 * The persistent type information for subContainer.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class);
+	static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class,SubContainer::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

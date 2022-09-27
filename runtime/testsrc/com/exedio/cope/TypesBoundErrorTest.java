@@ -318,7 +318,7 @@ public class TypesBoundErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
+		private static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class,BeforeNewNotStatic::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewNotStatic(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -349,7 +349,7 @@ public class TypesBoundErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
+		private static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class,BeforeNewWrongReturn::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewWrongReturn(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -379,7 +379,7 @@ public class TypesBoundErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<UniqueConstraintOnInheritedFeatureSuper> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintOnInheritedFeatureSuper.class);
+		private static final com.exedio.cope.Type<UniqueConstraintOnInheritedFeatureSuper> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintOnInheritedFeatureSuper.class,UniqueConstraintOnInheritedFeatureSuper::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintOnInheritedFeatureSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}

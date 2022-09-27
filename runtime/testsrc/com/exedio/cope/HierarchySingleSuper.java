@@ -66,7 +66,7 @@ public abstract class HierarchySingleSuper extends Item
 	 * The persistent type information for hierarchySingleSuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchySingleSuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSuper.class);
+	public static final com.exedio.cope.Type<HierarchySingleSuper> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(HierarchySingleSuper.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

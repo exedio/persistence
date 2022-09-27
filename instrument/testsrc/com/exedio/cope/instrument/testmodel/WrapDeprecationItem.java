@@ -82,7 +82,7 @@ final class WrapDeprecationItem extends Item
 	 * The persistent type information for wrapDeprecationItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<WrapDeprecationItem> TYPE = com.exedio.cope.TypesBound.newType(WrapDeprecationItem.class);
+	static final com.exedio.cope.Type<WrapDeprecationItem> TYPE = com.exedio.cope.TypesBound.newType(WrapDeprecationItem.class,WrapDeprecationItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -94,7 +94,7 @@ final class IntegerFieldDefaultToNextItem extends Item
 	 * The persistent type information for integerFieldDefaultToNextItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IntegerFieldDefaultToNextItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerFieldDefaultToNextItem.class);
+	static final com.exedio.cope.Type<IntegerFieldDefaultToNextItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerFieldDefaultToNextItem.class,IntegerFieldDefaultToNextItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

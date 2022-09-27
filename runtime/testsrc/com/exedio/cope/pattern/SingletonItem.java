@@ -128,7 +128,7 @@ public final class SingletonItem extends Item
 	 * The persistent type information for singletonItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SingletonItem> TYPE = com.exedio.cope.TypesBound.newType(SingletonItem.class);
+	public static final com.exedio.cope.Type<SingletonItem> TYPE = com.exedio.cope.TypesBound.newType(SingletonItem.class,SingletonItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

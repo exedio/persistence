@@ -250,7 +250,7 @@ public final class MapFieldItem extends Item
 	 * The persistent type information for mapFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MapFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldItem.class);
+	public static final com.exedio.cope.Type<MapFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldItem.class,MapFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

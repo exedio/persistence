@@ -57,7 +57,7 @@ public final class EnumContainer extends Item
 	 * The persistent type information for enumContainer.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumContainer> TYPE = com.exedio.cope.TypesBound.newType(EnumContainer.class);
+	public static final com.exedio.cope.Type<EnumContainer> TYPE = com.exedio.cope.TypesBound.newType(EnumContainer.class,EnumContainer::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

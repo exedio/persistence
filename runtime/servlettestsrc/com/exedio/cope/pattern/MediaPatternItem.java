@@ -60,7 +60,7 @@ final class MediaPatternItem extends Item
 	 * The persistent type information for mediaPatternItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MediaPatternItem> TYPE = com.exedio.cope.TypesBound.newType(MediaPatternItem.class);
+	static final com.exedio.cope.Type<MediaPatternItem> TYPE = com.exedio.cope.TypesBound.newType(MediaPatternItem.class,MediaPatternItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
