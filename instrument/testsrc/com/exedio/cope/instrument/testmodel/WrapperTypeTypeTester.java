@@ -32,7 +32,7 @@ import com.exedio.cope.instrument.WrapperType;
 public final class WrapperTypeTypeTester
 {
 	@WrapperType(type=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	public static final class DefaultPublic extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -43,10 +43,17 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		public static final com.exedio.cope.Type<DefaultPublic> TYPE = com.exedio.cope.TypesBound.newType(DefaultPublic.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	@SuppressWarnings("ProtectedMemberInFinalClass")
 	protected static final class DefaultProtected extends Item
 	{
@@ -58,10 +65,17 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		protected static final com.exedio.cope.Type<DefaultProtected> TYPE = com.exedio.cope.TypesBound.newType(DefaultProtected.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultProtected(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class DefaultPackage extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -72,10 +86,17 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<DefaultPackage> TYPE = com.exedio.cope.TypesBound.newType(DefaultPackage.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	private static final class DefaultPrivate extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -86,11 +107,18 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		private static final com.exedio.cope.Type<DefaultPrivate> TYPE = com.exedio.cope.TypesBound.newType(DefaultPrivate.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultPrivate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
 	@WrapperType(type=PUBLIC,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class SetPublic extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -101,10 +129,17 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		public static final com.exedio.cope.Type<SetPublic> TYPE = com.exedio.cope.TypesBound.newType(SetPublic.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=PROTECTED,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	@SuppressWarnings("ProtectedMemberInFinalClass")
 	static final class SetProtected extends Item
 	{
@@ -116,10 +151,17 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		protected static final com.exedio.cope.Type<SetProtected> TYPE = com.exedio.cope.TypesBound.newType(SetProtected.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetProtected(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=PACKAGE,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	public static final class SetPackage extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -130,10 +172,17 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<SetPackage> TYPE = com.exedio.cope.TypesBound.newType(SetPackage.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=PRIVATE,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class SetPrivate extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -144,5 +193,12 @@ public final class WrapperTypeTypeTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		private static final com.exedio.cope.Type<SetPrivate> TYPE = com.exedio.cope.TypesBound.newType(SetPrivate.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetPrivate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
