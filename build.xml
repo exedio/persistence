@@ -968,6 +968,7 @@
 		<compile srcdir="instrument/testparamssrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/jsr305.jar" />
 			</classpath>
