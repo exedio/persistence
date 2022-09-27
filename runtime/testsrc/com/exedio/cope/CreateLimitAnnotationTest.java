@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -98,7 +99,7 @@ public class CreateLimitAnnotationTest
 	{
 		try
 		{
-			newType(LessMinimumItem.class);
+			newType(LessMinimumItem.class, failingActivator());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -152,7 +153,7 @@ public class CreateLimitAnnotationTest
 		assertNotNull(SubOkItem.TYPE.getID()); // just load type
 		try
 		{
-			newType(SubItem.class);
+			newType(SubItem.class, failingActivator());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

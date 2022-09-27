@@ -34,7 +34,9 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.util.function.Function;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class BlockErrorTest
 {
@@ -185,7 +187,7 @@ public class BlockErrorTest
 	@Test void newTypeNonFinal()
 	{
 		assertFails(
-				() -> newType(NonFinal.class),
+				() -> newType(NonFinal.class, null),
 				IllegalArgumentException.class,
 				"BlockField requires a final class: " + NonFinal.class.getName());
 		assertNotExists(NonFinal.class);
@@ -227,7 +229,7 @@ public class BlockErrorTest
 	@Test void newTypeNoFields()
 	{
 		assertFails(
-				() -> newType(NoFields.class),
+				() -> newType(NoFields.class, failingActivator()),
 				IllegalArgumentException.class,
 				"block has no templates: " + NoFields.class.getName());
 		assertNotExists(NoFields.class);
@@ -247,7 +249,7 @@ public class BlockErrorTest
 	@Test void newTypeNullField()
 	{
 		assertFails(
-				() -> newType(NullField.class),
+				() -> newType(NullField.class, failingActivator()),
 				NullPointerException.class,
 				NullField.class.getName() + "#nullField");
 		assertNotExists(NullField.class);
@@ -266,7 +268,7 @@ public class BlockErrorTest
 	@Test void newTypeNotCopyable()
 	{
 		assertFails(
-				() -> newType(NotCopyableField.class),
+				() -> newType(NotCopyableField.class, failingActivator()),
 				IllegalArgumentException.class,
 				NotCopyableField.class.getName() +
 				"#notCopyableField must be an instance of " + Copyable.class +
@@ -296,7 +298,7 @@ public class BlockErrorTest
 	@Test void newTypeBlockItself()
 	{
 		assertFails(
-				() -> newType(Block.class),
+				() -> newType(Block.class, null),
 				IllegalArgumentException.class,
 				"BlockField requires a subclass of " + Block.class.getName() +
 				" but not Block itself");
@@ -322,7 +324,7 @@ public class BlockErrorTest
 		assertEquals(AlreadyBound.class.getName(), TYPE.toString());
 		assertSame(AlreadyBound.TYPE, forClassUnchecked(AlreadyBound.class));
 		assertFails(
-				() -> newType(AlreadyBound.class),
+				() -> newType(AlreadyBound.class, failingActivator()),
 				IllegalArgumentException.class,
 				"class is already bound to a type: " + AlreadyBound.class.getName());
 		assertSame(AlreadyBound.TYPE, forClassUnchecked(AlreadyBound.class));
@@ -354,5 +356,10 @@ public class BlockErrorTest
 				() -> forClassUnchecked(javaClass),
 				IllegalArgumentException.class,
 				"there is no type for class " + javaClass.getName());
+	}
+
+	private static <T> Function<BlockActivationParameters,T> failingActivator()
+	{
+		return (ap) -> { throw new AssertionFailedError(ap!=null ? ap.toString() : null); };
 	}
 }

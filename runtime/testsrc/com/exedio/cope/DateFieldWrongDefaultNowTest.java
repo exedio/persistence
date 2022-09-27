@@ -49,7 +49,7 @@ public class DateFieldWrongDefaultNowTest
 		assertEqualsUnmodifiable(asList(), AnItem.future.getSuspicions());
 
 		log.assertEmpty();
-		final Type<?> type = newType(AnItem.class);
+		final Type<?> type = newType(AnItem.class, AnItem::new);
 		log.assertEmpty();
 
 		new Model(type);

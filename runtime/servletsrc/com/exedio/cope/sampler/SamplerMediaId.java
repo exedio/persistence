@@ -30,6 +30,6 @@ final class SamplerMediaId extends Item
 	private static final StringField id = new StringField().toFinal().unique();
 
 	private static final long serialVersionUID = 1l;
-	static final Type<SamplerMediaId> TYPE = TypesBound.newType(SamplerMediaId.class);
+	static final Type<SamplerMediaId> TYPE = TypesBound.newType(SamplerMediaId.class, SamplerMediaId::new);
 	@SuppressWarnings("unused") private SamplerMediaId(final ActivationParameters ap){ super(ap); }
 }

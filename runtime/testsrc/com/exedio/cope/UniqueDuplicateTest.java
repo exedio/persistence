@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -30,7 +31,7 @@ public class UniqueDuplicateTest
 	{
 		try
 		{
-			TypesBound.newType(MyItem.class);
+			TypesBound.newType(MyItem.class, failingActivator());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

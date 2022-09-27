@@ -137,7 +137,7 @@ final class Revstat extends Item
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<Revstat> TYPE = TypesBound.newType(Revstat.class);
+	static final Type<Revstat> TYPE = TypesBound.newType(Revstat.class, Revstat::new);
 
 	private Revstat(final ActivationParameters ap) { super(ap); }
 }

@@ -228,5 +228,5 @@ final class SamplerModel extends Item
 
 	@SuppressWarnings("unused") private SamplerModel(final ActivationParameters ap){ super(ap); }
 	private static final long serialVersionUID = 1l;
-	static final Type<SamplerModel> TYPE = TypesBound.newType(SamplerModel.class);
+	static final Type<SamplerModel> TYPE = TypesBound.newType(SamplerModel.class, SamplerModel::new);
 }

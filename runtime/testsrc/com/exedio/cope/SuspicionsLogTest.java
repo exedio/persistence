@@ -41,7 +41,7 @@ public class SuspicionsLogTest
 		assertEquals(asList("SuspicionA", "SuspicionB"), AnItem.two.getSuspicions());
 
 		log.assertEmpty();
-		final Type<?> type = newType(AnItem.class);
+		final Type<?> type = newType(AnItem.class, AnItem::new);
 		log.assertEmpty();
 
 		new Model(type);

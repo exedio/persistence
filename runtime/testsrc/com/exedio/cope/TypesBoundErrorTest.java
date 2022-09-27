@@ -35,7 +35,7 @@ public class TypesBoundErrorTest
 	@Test void classNull()
 	{
 		assertFails(
-				() -> newType(null),
+				() -> newType(null, failingActivator()),
 				NullPointerException.class,
 				"javaClass");
 	}
@@ -53,7 +53,7 @@ public class TypesBoundErrorTest
 	@Test void classNoItem()
 	{
 		assertFails(
-				() -> newType(castItemClass(NoItem.class), null),
+				() -> newType(castItemClass(NoItem.class), failingActivator()),
 				IllegalArgumentException.class,
 				NoItem.class + " is not a subclass of Item");
 	}
@@ -230,7 +230,7 @@ public class TypesBoundErrorTest
 	@Test void featureNull()
 	{
 		assertFails(
-				() -> newType(NullFeature.class, null),
+				() -> newType(NullFeature.class, failingActivator()),
 				NullPointerException.class,
 				NullFeature.class.getName() + "#nullFeature");
 	}
@@ -248,7 +248,7 @@ public class TypesBoundErrorTest
 	@Test void featureDuplicate()
 	{
 		assertFails(
-				() -> newType(DuplicateFeature.class, null),
+				() -> newType(DuplicateFeature.class, failingActivator()),
 				IllegalArgumentException.class,
 				DuplicateFeature.class.getName() + "#duplicate is same as #origin");
 	}
@@ -270,7 +270,7 @@ public class TypesBoundErrorTest
 				NonResolvingItemField.itemField::getValueType,
 				IllegalArgumentException.class,
 				"there is no type for class " + NullFeature.class.getName());
-		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class);
+		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class, NonResolvingItemField::new);
 		assertFails(
 				NonResolvingItemField.itemField::getValueType,
 				IllegalStateException.class,
@@ -364,7 +364,7 @@ public class TypesBoundErrorTest
 		final Type<?> ignored = UniqueConstraintOnInheritedFeatureSuper.TYPE;
 
 		assertFails(
-				() -> newType(UniqueConstraintOnInheritedFeatureSub.class),
+				() -> newType(UniqueConstraintOnInheritedFeatureSub.class, failingActivator()),
 				IllegalArgumentException.class,
 				"UniqueConstraint UniqueConstraintOnInheritedFeatureSub.superAndSub cannot include field UniqueConstraintOnInheritedFeatureSuper.superField");
 	}

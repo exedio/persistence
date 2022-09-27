@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -34,7 +35,7 @@ public class CopeExternalModelTest
 		Class.forName(InvalidCachedItem.class.getName(), true, getClass().getClassLoader());
 		try
 		{
-			TypesBound.newType(InvalidCachedItem.class);
+			TypesBound.newType(InvalidCachedItem.class, failingActivator());
 			fail();
 		}
 		catch (final IllegalArgumentException e)
@@ -48,7 +49,7 @@ public class CopeExternalModelTest
 		Class.forName(InvalidUncachedItem.class.getName(), true, getClass().getClassLoader());
 		try
 		{
-			TypesBound.newType(InvalidUncachedItem.class);
+			TypesBound.newType(InvalidUncachedItem.class, failingActivator());
 			fail();
 		}
 		catch (final IllegalArgumentException e)

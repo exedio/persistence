@@ -409,7 +409,7 @@ public abstract class VaultServiceTest
 	{
 		static final DataField infoField = new DataField();
 		private static final long serialVersionUID = 1l;
-		private static final Type<InfoItem> TYPE = TypesBound.newType(InfoItem.class);
+		private static final Type<InfoItem> TYPE = TypesBound.newType(InfoItem.class, InfoItem::new);
 		private InfoItem(final ActivationParameters ap){super(ap);}
 	}
 

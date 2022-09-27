@@ -230,5 +230,5 @@ final class SamplerEnvironment extends Item
 
 	private SamplerEnvironment(final ActivationParameters ap){ super(ap); }
 	private static final long serialVersionUID = 1l;
-	static final Type<SamplerEnvironment> TYPE = TypesBound.newType(SamplerEnvironment.class);
+	static final Type<SamplerEnvironment> TYPE = TypesBound.newType(SamplerEnvironment.class, SamplerEnvironment::new);
 }
