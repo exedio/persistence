@@ -158,7 +158,7 @@ public final class DivideIntegerItem extends Item
 	 * The persistent type information for divideIntegerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DivideIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(DivideIntegerItem.class);
+	public static final com.exedio.cope.Type<DivideIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(DivideIntegerItem.class,DivideIntegerItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -80,7 +80,7 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	 * The persistent type information for hiddenFeatureSubItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HiddenFeatureSubItem> TYPE = com.exedio.cope.TypesBound.newType(HiddenFeatureSubItem.class);
+	static final com.exedio.cope.Type<HiddenFeatureSubItem> TYPE = com.exedio.cope.TypesBound.newType(HiddenFeatureSubItem.class,HiddenFeatureSubItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

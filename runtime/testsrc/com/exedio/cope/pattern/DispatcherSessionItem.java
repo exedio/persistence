@@ -292,7 +292,7 @@ public final class DispatcherSessionItem extends Item
 	 * The persistent type information for dispatcherSessionItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DispatcherSessionItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherSessionItem.class);
+	public static final com.exedio.cope.Type<DispatcherSessionItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherSessionItem.class,DispatcherSessionItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

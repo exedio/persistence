@@ -955,7 +955,7 @@ final class SchemaItem extends Item
 	 * The persistent type information for schemaItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaItem.class);
+	static final com.exedio.cope.Type<SchemaItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaItem.class,SchemaItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

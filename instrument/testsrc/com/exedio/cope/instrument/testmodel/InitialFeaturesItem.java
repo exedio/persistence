@@ -116,7 +116,7 @@ final class InitialFeaturesItem extends Item
 	 * The persistent type information for initialFeaturesItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InitialFeaturesItem> TYPE = com.exedio.cope.TypesBound.newType(InitialFeaturesItem.class);
+	static final com.exedio.cope.Type<InitialFeaturesItem> TYPE = com.exedio.cope.TypesBound.newType(InitialFeaturesItem.class,InitialFeaturesItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

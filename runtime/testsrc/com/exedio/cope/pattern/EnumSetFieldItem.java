@@ -108,7 +108,7 @@ public final class EnumSetFieldItem extends Item
 	 * The persistent type information for enumSetFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumSetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(EnumSetFieldItem.class);
+	public static final com.exedio.cope.Type<EnumSetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(EnumSetFieldItem.class,EnumSetFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

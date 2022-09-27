@@ -132,7 +132,7 @@ public final class CacheIsolationItem extends Item
 	 * The persistent type information for cacheIsolationItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CacheIsolationItem> TYPE = com.exedio.cope.TypesBound.newType(CacheIsolationItem.class);
+	public static final com.exedio.cope.Type<CacheIsolationItem> TYPE = com.exedio.cope.TypesBound.newType(CacheIsolationItem.class,CacheIsolationItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

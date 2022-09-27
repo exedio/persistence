@@ -77,7 +77,7 @@ final class MatchItem extends Item
 	 * The persistent type information for matchItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MatchItem> TYPE = com.exedio.cope.TypesBound.newType(MatchItem.class);
+	static final com.exedio.cope.Type<MatchItem> TYPE = com.exedio.cope.TypesBound.newType(MatchItem.class,MatchItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

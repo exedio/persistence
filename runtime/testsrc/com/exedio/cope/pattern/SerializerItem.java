@@ -153,7 +153,7 @@ public final class SerializerItem extends Item
 	 * The persistent type information for serializerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SerializerItem> TYPE = com.exedio.cope.TypesBound.newType(SerializerItem.class);
+	public static final com.exedio.cope.Type<SerializerItem> TYPE = com.exedio.cope.TypesBound.newType(SerializerItem.class,SerializerItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

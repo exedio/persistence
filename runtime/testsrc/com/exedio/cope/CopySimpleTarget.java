@@ -147,7 +147,7 @@ final class CopySimpleTarget extends Item
 	 * The persistent type information for copySimpleTarget.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopySimpleTarget> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleTarget.class);
+	static final com.exedio.cope.Type<CopySimpleTarget> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleTarget.class,CopySimpleTarget::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

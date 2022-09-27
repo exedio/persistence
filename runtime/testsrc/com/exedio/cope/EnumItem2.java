@@ -83,7 +83,7 @@ public final class EnumItem2 extends Item
 	 * The persistent type information for enumItem2.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumItem2> TYPE = com.exedio.cope.TypesBound.newType(EnumItem2.class);
+	public static final com.exedio.cope.Type<EnumItem2> TYPE = com.exedio.cope.TypesBound.newType(EnumItem2.class,EnumItem2::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

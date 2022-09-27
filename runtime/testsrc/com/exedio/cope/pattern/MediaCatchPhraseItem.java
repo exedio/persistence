@@ -101,7 +101,7 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	 * The persistent type information for mediaCatchPhraseItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaCatchPhraseItem> TYPE = com.exedio.cope.TypesBound.newType(MediaCatchPhraseItem.class);
+	public static final com.exedio.cope.Type<MediaCatchPhraseItem> TYPE = com.exedio.cope.TypesBound.newType(MediaCatchPhraseItem.class,MediaCatchPhraseItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

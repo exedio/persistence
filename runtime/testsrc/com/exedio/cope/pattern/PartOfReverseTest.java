@@ -66,7 +66,7 @@ public class PartOfReverseTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class);
+		private static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class,SuperContainer::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected SuperContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -79,7 +79,7 @@ public class PartOfReverseTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class,Container::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -92,7 +92,7 @@ public class PartOfReverseTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class);
+		private static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class,SubContainer::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected SubContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -105,7 +105,7 @@ public class PartOfReverseTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Order> TYPE = com.exedio.cope.TypesBound.newType(Order.class);
+		private static final com.exedio.cope.Type<Order> TYPE = com.exedio.cope.TypesBound.newType(Order.class,Order::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Order(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -130,7 +130,7 @@ public class PartOfReverseTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
+		private static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class,Part::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Part(final com.exedio.cope.ActivationParameters ap){super(ap);}

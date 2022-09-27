@@ -86,7 +86,7 @@ final class DateItem extends Item
 	 * The persistent type information for dateItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DateItem> TYPE = com.exedio.cope.TypesBound.newType(DateItem.class);
+	static final com.exedio.cope.Type<DateItem> TYPE = com.exedio.cope.TypesBound.newType(DateItem.class,DateItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

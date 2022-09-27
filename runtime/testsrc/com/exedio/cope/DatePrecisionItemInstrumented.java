@@ -501,7 +501,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 * The persistent type information for datePrecisionItemInstrumented.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DatePrecisionItemInstrumented> TYPE = com.exedio.cope.TypesBound.newType(DatePrecisionItemInstrumented.class);
+	public static final com.exedio.cope.Type<DatePrecisionItemInstrumented> TYPE = com.exedio.cope.TypesBound.newType(DatePrecisionItemInstrumented.class,DatePrecisionItemInstrumented::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -59,7 +59,7 @@ public final class DefaultTextInput extends Input
 	 * The persistent type information for defaultTextInput.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DefaultTextInput> TYPE = com.exedio.cope.TypesBound.newType(DefaultTextInput.class);
+	public static final com.exedio.cope.Type<DefaultTextInput> TYPE = com.exedio.cope.TypesBound.newType(DefaultTextInput.class,DefaultTextInput::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

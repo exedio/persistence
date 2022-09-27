@@ -215,7 +215,7 @@ final class ColorFieldItem extends Item
 	 * The persistent type information for colorFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ColorFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ColorFieldItem.class);
+	static final com.exedio.cope.Type<ColorFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ColorFieldItem.class,ColorFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

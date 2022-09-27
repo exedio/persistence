@@ -97,7 +97,7 @@ public final class FinalItem extends Item
 	 * The persistent type information for finalItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FinalItem> TYPE = com.exedio.cope.TypesBound.newType(FinalItem.class);
+	public static final com.exedio.cope.Type<FinalItem> TYPE = com.exedio.cope.TypesBound.newType(FinalItem.class,FinalItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

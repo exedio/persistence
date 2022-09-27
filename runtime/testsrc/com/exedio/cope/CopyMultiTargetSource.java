@@ -200,7 +200,7 @@ final class CopyMultiTargetSource extends Item
 	 * The persistent type information for copyMultiTargetSource.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopyMultiTargetSource> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiTargetSource.class);
+	static final com.exedio.cope.Type<CopyMultiTargetSource> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiTargetSource.class,CopyMultiTargetSource::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

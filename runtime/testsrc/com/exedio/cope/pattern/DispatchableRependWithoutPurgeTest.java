@@ -276,7 +276,7 @@ public class DispatchableRependWithoutPurgeTest extends TestWithEnvironment
 		 * The persistent type information for anItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

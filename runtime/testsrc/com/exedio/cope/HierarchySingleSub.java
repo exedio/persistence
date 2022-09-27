@@ -100,7 +100,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 * The persistent type information for hierarchySingleSub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchySingleSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSub.class);
+	public static final com.exedio.cope.Type<HierarchySingleSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSub.class,HierarchySingleSub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

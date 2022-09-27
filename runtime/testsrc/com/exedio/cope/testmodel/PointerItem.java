@@ -180,7 +180,7 @@ public final class PointerItem extends Item
 	 * The persistent type information for pointerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PointerItem> TYPE = com.exedio.cope.TypesBound.newType(PointerItem.class);
+	public static final com.exedio.cope.Type<PointerItem> TYPE = com.exedio.cope.TypesBound.newType(PointerItem.class,PointerItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -104,7 +104,7 @@ public class NonFinal extends Item
 	 * The persistent type information for nonFinal.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<NonFinal> TYPE = com.exedio.cope.TypesBound.newType(NonFinal.class);
+	public static final com.exedio.cope.Type<NonFinal> TYPE = com.exedio.cope.TypesBound.newType(NonFinal.class,NonFinal::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

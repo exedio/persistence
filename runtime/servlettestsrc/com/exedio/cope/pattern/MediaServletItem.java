@@ -688,7 +688,7 @@ final class MediaServletItem extends Item
 	 * The persistent type information for mediaServletItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MediaServletItem> TYPE = com.exedio.cope.TypesBound.newType(MediaServletItem.class);
+	static final com.exedio.cope.Type<MediaServletItem> TYPE = com.exedio.cope.TypesBound.newType(MediaServletItem.class,MediaServletItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

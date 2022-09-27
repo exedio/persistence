@@ -149,7 +149,7 @@ public abstract class Super extends Item
 	 * The persistent type information for super.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class);
+	public static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Super.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

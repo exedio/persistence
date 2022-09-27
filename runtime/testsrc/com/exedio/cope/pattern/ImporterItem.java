@@ -179,7 +179,7 @@ final class ImporterItem extends Item
 	 * The persistent type information for importerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ImporterItem> TYPE = com.exedio.cope.TypesBound.newType(ImporterItem.class);
+	static final com.exedio.cope.Type<ImporterItem> TYPE = com.exedio.cope.TypesBound.newType(ImporterItem.class,ImporterItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

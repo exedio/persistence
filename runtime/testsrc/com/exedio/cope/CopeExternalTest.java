@@ -134,7 +134,7 @@ public class CopeExternalTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<CachedItem> TYPE = com.exedio.cope.TypesBound.newType(CachedItem.class);
+		static final com.exedio.cope.Type<CachedItem> TYPE = com.exedio.cope.TypesBound.newType(CachedItem.class,CachedItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected CachedItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -158,7 +158,7 @@ public class CopeExternalTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<NoCacheItem> TYPE = com.exedio.cope.TypesBound.newType(NoCacheItem.class);
+		static final com.exedio.cope.Type<NoCacheItem> TYPE = com.exedio.cope.TypesBound.newType(NoCacheItem.class,NoCacheItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected NoCacheItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -183,7 +183,7 @@ public class CopeExternalTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<WeightZeroItem> TYPE = com.exedio.cope.TypesBound.newType(WeightZeroItem.class);
+		private static final com.exedio.cope.Type<WeightZeroItem> TYPE = com.exedio.cope.TypesBound.newType(WeightZeroItem.class,WeightZeroItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected WeightZeroItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

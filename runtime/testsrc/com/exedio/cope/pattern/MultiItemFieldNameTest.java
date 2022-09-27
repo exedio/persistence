@@ -92,7 +92,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class,MyItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -105,7 +105,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Alpha> TYPE = com.exedio.cope.TypesBound.newType(Alpha.class);
+		private static final com.exedio.cope.Type<Alpha> TYPE = com.exedio.cope.TypesBound.newType(Alpha.class,Alpha::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Alpha(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -119,7 +119,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Beta> TYPE = com.exedio.cope.TypesBound.newType(Beta.class);
+		private static final com.exedio.cope.Type<Beta> TYPE = com.exedio.cope.TypesBound.newType(Beta.class,Beta::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Beta(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -133,7 +133,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Gamma> TYPE = com.exedio.cope.TypesBound.newType(Gamma.class);
+		private static final com.exedio.cope.Type<Gamma> TYPE = com.exedio.cope.TypesBound.newType(Gamma.class,Gamma::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Gamma(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -148,7 +148,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Delta> TYPE = com.exedio.cope.TypesBound.newType(Delta.class);
+		private static final com.exedio.cope.Type<Delta> TYPE = com.exedio.cope.TypesBound.newType(Delta.class,Delta::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Delta(final com.exedio.cope.ActivationParameters ap){super(ap);}

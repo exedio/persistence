@@ -61,7 +61,7 @@ public class LibSuperItem extends Item
 	 * The persistent type information for libSuperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<LibSuperItem> TYPE = com.exedio.cope.TypesBound.newType(LibSuperItem.class);
+	public static final com.exedio.cope.Type<LibSuperItem> TYPE = com.exedio.cope.TypesBound.newType(LibSuperItem.class,LibSuperItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

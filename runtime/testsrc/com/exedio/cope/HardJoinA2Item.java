@@ -87,7 +87,7 @@ class HardJoinA2Item extends HardJoinA1Item
 	 * The persistent type information for hardJoinA2Item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HardJoinA2Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinA2Item.class);
+	static final com.exedio.cope.Type<HardJoinA2Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinA2Item.class,HardJoinA2Item::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

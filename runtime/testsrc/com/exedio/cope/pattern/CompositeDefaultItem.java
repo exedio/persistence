@@ -76,7 +76,7 @@ final class CompositeDefaultItem extends Item
 	 * The persistent type information for compositeDefaultItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CompositeDefaultItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeDefaultItem.class);
+	static final com.exedio.cope.Type<CompositeDefaultItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeDefaultItem.class,CompositeDefaultItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

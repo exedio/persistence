@@ -307,7 +307,7 @@ final class BeforeSetItem extends Item
 	 * The persistent type information for beforeSetItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<BeforeSetItem> TYPE = com.exedio.cope.TypesBound.newType(BeforeSetItem.class);
+	static final com.exedio.cope.Type<BeforeSetItem> TYPE = com.exedio.cope.TypesBound.newType(BeforeSetItem.class,BeforeSetItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -183,7 +183,7 @@ public final class ScheduleItem extends Item
 	 * The persistent type information for scheduleItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ScheduleItem> TYPE = com.exedio.cope.TypesBound.newType(ScheduleItem.class);
+	public static final com.exedio.cope.Type<ScheduleItem> TYPE = com.exedio.cope.TypesBound.newType(ScheduleItem.class,ScheduleItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

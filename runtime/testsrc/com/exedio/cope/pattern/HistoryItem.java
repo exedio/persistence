@@ -129,7 +129,7 @@ public final class HistoryItem extends Item
 	 * The persistent type information for historyItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HistoryItem> TYPE = com.exedio.cope.TypesBound.newType(HistoryItem.class);
+	public static final com.exedio.cope.Type<HistoryItem> TYPE = com.exedio.cope.TypesBound.newType(HistoryItem.class,HistoryItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

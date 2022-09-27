@@ -220,7 +220,7 @@ final class MultiItemFieldItem extends Item
 	 * The persistent type information for multiItemFieldItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MultiItemFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldItem.class);
+	static final com.exedio.cope.Type<MultiItemFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldItem.class,MultiItemFieldItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

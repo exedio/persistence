@@ -45,7 +45,7 @@ class CaseProblemSubClass extends CaseProblem
 	 * The persistent type information for caseProblemSubClass.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CaseProblemSubClass> TYPE = com.exedio.cope.TypesBound.newType(CaseProblemSubClass.class);
+	static final com.exedio.cope.Type<CaseProblemSubClass> TYPE = com.exedio.cope.TypesBound.newType(CaseProblemSubClass.class,CaseProblemSubClass::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

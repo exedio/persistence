@@ -49,7 +49,7 @@ final class ClassWithSemicolon extends Item
 	 * The persistent type information for classWithSemicolon.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ClassWithSemicolon> TYPE = com.exedio.cope.TypesBound.newType(ClassWithSemicolon.class);
+	static final com.exedio.cope.Type<ClassWithSemicolon> TYPE = com.exedio.cope.TypesBound.newType(ClassWithSemicolon.class,ClassWithSemicolon::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

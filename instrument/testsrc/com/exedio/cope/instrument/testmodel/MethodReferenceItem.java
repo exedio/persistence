@@ -103,7 +103,7 @@ public final class MethodReferenceItem extends Item
 	 * The persistent type information for methodReferenceItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MethodReferenceItem> TYPE = com.exedio.cope.TypesBound.newType(MethodReferenceItem.class);
+	public static final com.exedio.cope.Type<MethodReferenceItem> TYPE = com.exedio.cope.TypesBound.newType(MethodReferenceItem.class,MethodReferenceItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

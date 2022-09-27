@@ -45,7 +45,7 @@ public final class CurrencyItem extends Item implements Money.Currency
 	 * The persistent type information for currencyItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class);
+	public static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class,CurrencyItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

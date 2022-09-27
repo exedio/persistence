@@ -177,7 +177,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<VeilI> TYPE = com.exedio.cope.TypesBound.newType(VeilI.class);
+		static final com.exedio.cope.Type<VeilI> TYPE = com.exedio.cope.TypesBound.newType(VeilI.class,VeilI::new);
 
 		@com.exedio.cope.instrument.Generated
 		private VeilI(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -198,7 +198,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<BareI> TYPE = com.exedio.cope.TypesBound.newType(BareI.class);
+		private static final com.exedio.cope.Type<BareI> TYPE = com.exedio.cope.TypesBound.newType(BareI.class,BareI::new);
 
 		@com.exedio.cope.instrument.Generated
 		private BareI(final com.exedio.cope.ActivationParameters ap){super(ap);}

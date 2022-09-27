@@ -76,7 +76,7 @@ public class FeatureComponentInVarargs extends Item
 	 * The persistent type information for featureComponentInVarargs.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FeatureComponentInVarargs> TYPE = com.exedio.cope.TypesBound.newType(FeatureComponentInVarargs.class);
+	public static final com.exedio.cope.Type<FeatureComponentInVarargs> TYPE = com.exedio.cope.TypesBound.newType(FeatureComponentInVarargs.class,FeatureComponentInVarargs::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -45,7 +45,7 @@ final class EmptyPackage extends Item
 	 * The persistent type information for emptyPackage.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<EmptyPackage> TYPE = com.exedio.cope.TypesBound.newType(EmptyPackage.class);
+	static final com.exedio.cope.Type<EmptyPackage> TYPE = com.exedio.cope.TypesBound.newType(EmptyPackage.class,EmptyPackage::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

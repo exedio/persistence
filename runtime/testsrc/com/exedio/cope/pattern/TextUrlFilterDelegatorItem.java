@@ -608,7 +608,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 * The persistent type information for textUrlFilterDelegatorItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<TextUrlFilterDelegatorItem> TYPE = com.exedio.cope.TypesBound.newType(TextUrlFilterDelegatorItem.class);
+	public static final com.exedio.cope.Type<TextUrlFilterDelegatorItem> TYPE = com.exedio.cope.TypesBound.newType(TextUrlFilterDelegatorItem.class,TextUrlFilterDelegatorItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

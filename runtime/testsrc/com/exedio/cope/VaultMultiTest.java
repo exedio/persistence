@@ -424,7 +424,7 @@ public class VaultMultiTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

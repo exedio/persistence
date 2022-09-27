@@ -90,7 +90,7 @@ public class PartOfContainerReuseTest
 	 * The persistent type information for aContainer.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<AContainer> TYPE = com.exedio.cope.TypesBound.newType(AContainer.class);
+	private static final com.exedio.cope.Type<AContainer> TYPE = com.exedio.cope.TypesBound.newType(AContainer.class,AContainer::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -232,7 +232,7 @@ public class PartOfContainerReuseTest
 	 * The persistent type information for aPart.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<APart> TYPE = com.exedio.cope.TypesBound.newType(APart.class);
+	static final com.exedio.cope.Type<APart> TYPE = com.exedio.cope.TypesBound.newType(APart.class,APart::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

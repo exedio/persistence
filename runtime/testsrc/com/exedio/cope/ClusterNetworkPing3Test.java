@@ -237,7 +237,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<TypeC> TYPE = com.exedio.cope.TypesBound.newType(TypeC.class);
+		private static final com.exedio.cope.Type<TypeC> TYPE = com.exedio.cope.TypesBound.newType(TypeC.class,TypeC::new);
 
 		@com.exedio.cope.instrument.Generated
 		private TypeC(final com.exedio.cope.ActivationParameters ap){super(ap);}

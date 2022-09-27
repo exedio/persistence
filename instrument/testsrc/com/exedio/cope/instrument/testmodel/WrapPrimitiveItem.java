@@ -293,7 +293,7 @@ final class WrapPrimitiveItem extends Item
 	 * The persistent type information for wrapPrimitiveItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<WrapPrimitiveItem> TYPE = com.exedio.cope.TypesBound.newType(WrapPrimitiveItem.class);
+	static final com.exedio.cope.Type<WrapPrimitiveItem> TYPE = com.exedio.cope.TypesBound.newType(WrapPrimitiveItem.class,WrapPrimitiveItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

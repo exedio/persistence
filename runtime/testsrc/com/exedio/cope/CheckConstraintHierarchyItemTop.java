@@ -155,7 +155,7 @@ public class CheckConstraintHierarchyItemTop extends Item
 	 * The persistent type information for checkConstraintHierarchyItemTop.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CheckConstraintHierarchyItemTop> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintHierarchyItemTop.class);
+	public static final com.exedio.cope.Type<CheckConstraintHierarchyItemTop> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintHierarchyItemTop.class,CheckConstraintHierarchyItemTop::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -83,7 +83,7 @@ public final class MediaItemHolder extends Item
 	 * The persistent type information for mediaItemHolder.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaItemHolder> TYPE = com.exedio.cope.TypesBound.newType(MediaItemHolder.class);
+	public static final com.exedio.cope.Type<MediaItemHolder> TYPE = com.exedio.cope.TypesBound.newType(MediaItemHolder.class,MediaItemHolder::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

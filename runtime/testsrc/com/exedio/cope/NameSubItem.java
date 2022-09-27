@@ -339,7 +339,7 @@ public final class NameSubItem extends NameLongItem
 	 * The persistent type information for nameSubItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<NameSubItem> TYPE = com.exedio.cope.TypesBound.newType(NameSubItem.class);
+	public static final com.exedio.cope.Type<NameSubItem> TYPE = com.exedio.cope.TypesBound.newType(NameSubItem.class,NameSubItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

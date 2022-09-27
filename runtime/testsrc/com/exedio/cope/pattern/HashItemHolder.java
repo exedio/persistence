@@ -83,7 +83,7 @@ public final class HashItemHolder extends Item
 	 * The persistent type information for hashItemHolder.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HashItemHolder> TYPE = com.exedio.cope.TypesBound.newType(HashItemHolder.class);
+	public static final com.exedio.cope.Type<HashItemHolder> TYPE = com.exedio.cope.TypesBound.newType(HashItemHolder.class,HashItemHolder::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

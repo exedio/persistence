@@ -188,7 +188,7 @@ public class DateRangeTest extends TestWithEnvironment
 		 * The persistent type information for myItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class,MyItem::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

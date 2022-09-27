@@ -255,7 +255,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class,MyItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -279,7 +279,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<PureItem> TYPE = com.exedio.cope.TypesBound.newType(PureItem.class);
+		private static final com.exedio.cope.Type<PureItem> TYPE = com.exedio.cope.TypesBound.newType(PureItem.class,PureItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected PureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -347,7 +347,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
+		private static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class,MyBlock::new);
 
 		@com.exedio.cope.instrument.Generated
 		private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
@@ -368,7 +368,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.pattern.BlockType<PureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(PureBlock.class);
+		private static final com.exedio.cope.pattern.BlockType<PureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(PureBlock.class,PureBlock::new);
 
 		@com.exedio.cope.instrument.Generated
 		private PureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}

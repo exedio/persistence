@@ -69,7 +69,7 @@ public class ModelNameTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Anonymous> TYPE = com.exedio.cope.TypesBound.newType(Anonymous.class);
+		private static final com.exedio.cope.Type<Anonymous> TYPE = com.exedio.cope.TypesBound.newType(Anonymous.class,Anonymous::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Anonymous(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -82,7 +82,7 @@ public class ModelNameTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Literal> TYPE = com.exedio.cope.TypesBound.newType(Literal.class);
+		private static final com.exedio.cope.Type<Literal> TYPE = com.exedio.cope.TypesBound.newType(Literal.class,Literal::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Literal(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -95,7 +95,7 @@ public class ModelNameTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ClassNameItem> TYPE = com.exedio.cope.TypesBound.newType(ClassNameItem.class);
+		private static final com.exedio.cope.Type<ClassNameItem> TYPE = com.exedio.cope.TypesBound.newType(ClassNameItem.class,ClassNameItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ClassNameItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

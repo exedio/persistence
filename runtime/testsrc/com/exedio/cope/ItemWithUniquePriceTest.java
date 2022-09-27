@@ -186,7 +186,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 * The persistent type information for itemWithUniquePrice.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<ItemWithUniquePrice> TYPE = com.exedio.cope.TypesBound.newType(ItemWithUniquePrice.class);
+		private static final com.exedio.cope.Type<ItemWithUniquePrice> TYPE = com.exedio.cope.TypesBound.newType(ItemWithUniquePrice.class,ItemWithUniquePrice::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

@@ -57,7 +57,7 @@ public class PatternErrorAbstractTest
 		private static final long serialVersionUID = 2l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<TypeAbstract> TYPE = com.exedio.cope.TypesBound.newType(TypeAbstract.class);
+		private static final com.exedio.cope.Type<TypeAbstract> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(TypeAbstract.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected TypeAbstract(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -90,7 +90,7 @@ public class PatternErrorAbstractTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<TypeConcrete> TYPE = com.exedio.cope.TypesBound.newType(TypeConcrete.class);
+		private static final com.exedio.cope.Type<TypeConcrete> TYPE = com.exedio.cope.TypesBound.newType(TypeConcrete.class,TypeConcrete::new);
 
 		@com.exedio.cope.instrument.Generated
 		private TypeConcrete(final com.exedio.cope.ActivationParameters ap){super(ap);}

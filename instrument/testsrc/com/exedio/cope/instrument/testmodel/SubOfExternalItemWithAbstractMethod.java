@@ -62,7 +62,7 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 	 * The persistent type information for subOfExternalItemWithAbstractMethod.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SubOfExternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newType(SubOfExternalItemWithAbstractMethod.class);
+	static final com.exedio.cope.Type<SubOfExternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newType(SubOfExternalItemWithAbstractMethod.class,SubOfExternalItemWithAbstractMethod::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

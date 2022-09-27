@@ -187,7 +187,7 @@ public final class DoubleItem extends Item
 	 * The persistent type information for doubleItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleItem.class);
+	public static final com.exedio.cope.Type<DoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleItem.class,DoubleItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

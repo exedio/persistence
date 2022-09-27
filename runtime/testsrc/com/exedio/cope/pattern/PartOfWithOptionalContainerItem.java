@@ -110,7 +110,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 * The persistent type information for partOfWithOptionalContainerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<PartOfWithOptionalContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfWithOptionalContainerItem.class);
+	static final com.exedio.cope.Type<PartOfWithOptionalContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfWithOptionalContainerItem.class,PartOfWithOptionalContainerItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

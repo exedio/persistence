@@ -218,7 +218,7 @@ public final class PartOfItem extends Item
 	 * The persistent type information for partOfItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PartOfItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfItem.class);
+	public static final com.exedio.cope.Type<PartOfItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfItem.class,PartOfItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

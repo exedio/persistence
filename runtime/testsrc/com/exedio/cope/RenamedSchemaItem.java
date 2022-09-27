@@ -282,7 +282,7 @@ package com.exedio.cope;
 	 * The persistent type information for renamedSchemaItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<RenamedSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(RenamedSchemaItem.class);
+	static final com.exedio.cope.Type<RenamedSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(RenamedSchemaItem.class,RenamedSchemaItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

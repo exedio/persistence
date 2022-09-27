@@ -116,7 +116,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 * The persistent type information for uniqueSingleNotNullItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<UniqueSingleNotNullItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleNotNullItem.class);
+	public static final com.exedio.cope.Type<UniqueSingleNotNullItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleNotNullItem.class,UniqueSingleNotNullItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

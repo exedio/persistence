@@ -129,7 +129,7 @@ public class CopyChoiceDeleteForbidNullifyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class,Container::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -163,7 +163,7 @@ public class CopyChoiceDeleteForbidNullifyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
+		private static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class,Part::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Part(final com.exedio.cope.ActivationParameters ap){super(ap);}

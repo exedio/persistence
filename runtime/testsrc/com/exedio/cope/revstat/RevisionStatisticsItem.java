@@ -111,7 +111,7 @@ final class RevisionStatisticsItem extends Item
 	 * The persistent type information for revisionStatisticsItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<RevisionStatisticsItem> TYPE = com.exedio.cope.TypesBound.newType(RevisionStatisticsItem.class);
+	static final com.exedio.cope.Type<RevisionStatisticsItem> TYPE = com.exedio.cope.TypesBound.newType(RevisionStatisticsItem.class,RevisionStatisticsItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

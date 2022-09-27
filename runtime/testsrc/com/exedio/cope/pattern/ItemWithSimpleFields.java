@@ -77,7 +77,7 @@ class ItemWithSimpleFields extends Item
 	 * The persistent type information for itemWithSimpleFields.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemWithSimpleFields> TYPE = com.exedio.cope.TypesBound.newType(ItemWithSimpleFields.class);
+	static final com.exedio.cope.Type<ItemWithSimpleFields> TYPE = com.exedio.cope.TypesBound.newType(ItemWithSimpleFields.class,ItemWithSimpleFields::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

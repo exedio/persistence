@@ -52,7 +52,7 @@ abstract class DeleteSchemaItemSuper extends Item
 	 * The persistent type information for deleteSchemaItemSuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaItemSuper> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemSuper.class);
+	static final com.exedio.cope.Type<DeleteSchemaItemSuper> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(DeleteSchemaItemSuper.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

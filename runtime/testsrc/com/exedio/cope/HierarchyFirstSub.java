@@ -118,7 +118,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 * The persistent type information for hierarchyFirstSub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchyFirstSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyFirstSub.class);
+	public static final com.exedio.cope.Type<HierarchyFirstSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyFirstSub.class,HierarchyFirstSub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

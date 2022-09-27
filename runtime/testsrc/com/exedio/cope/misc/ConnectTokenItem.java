@@ -30,7 +30,7 @@ final class ConnectTokenItem extends Item
 	private static final long serialVersionUID = 1l;
 
 	@com.exedio.cope.instrument.Generated
-	static final com.exedio.cope.Type<ConnectTokenItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectTokenItem.class);
+	static final com.exedio.cope.Type<ConnectTokenItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectTokenItem.class,ConnectTokenItem::new);
 
 	@com.exedio.cope.instrument.Generated
 	private ConnectTokenItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

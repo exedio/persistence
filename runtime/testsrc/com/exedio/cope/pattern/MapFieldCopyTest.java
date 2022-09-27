@@ -484,7 +484,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MapFieldCopyItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldCopyItem.class);
+		private static final com.exedio.cope.Type<MapFieldCopyItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldCopyItem.class,MapFieldCopyItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MapFieldCopyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

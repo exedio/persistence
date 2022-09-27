@@ -278,7 +278,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * The persistent type information for source.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
+		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class,Source::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -334,7 +334,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * The persistent type information for target.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
+		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class,Target::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

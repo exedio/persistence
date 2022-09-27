@@ -107,7 +107,7 @@ final class JUnitTestItem extends Item
 	 * The persistent type information for jUnitTestItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<JUnitTestItem> TYPE = com.exedio.cope.TypesBound.newType(JUnitTestItem.class);
+	static final com.exedio.cope.Type<JUnitTestItem> TYPE = com.exedio.cope.TypesBound.newType(JUnitTestItem.class,JUnitTestItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

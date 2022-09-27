@@ -53,7 +53,7 @@ public final class FieldPrivate extends Item
 	 * The persistent type information for fieldPrivate.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FieldPrivate> TYPE = com.exedio.cope.TypesBound.newType(FieldPrivate.class);
+	public static final com.exedio.cope.Type<FieldPrivate> TYPE = com.exedio.cope.TypesBound.newType(FieldPrivate.class,FieldPrivate::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

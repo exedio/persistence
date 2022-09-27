@@ -48,7 +48,7 @@ public class CopyConstraintChoiceSupplierParentTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
+		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class,Source::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -61,7 +61,7 @@ public class CopyConstraintChoiceSupplierParentTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
+		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class,Target::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -77,7 +77,7 @@ public class CopyConstraintChoiceSupplierParentTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Parent> TYPE = com.exedio.cope.TypesBound.newType(Parent.class);
+		private static final com.exedio.cope.Type<Parent> TYPE = com.exedio.cope.TypesBound.newType(Parent.class,Parent::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Parent(final com.exedio.cope.ActivationParameters ap){super(ap);}

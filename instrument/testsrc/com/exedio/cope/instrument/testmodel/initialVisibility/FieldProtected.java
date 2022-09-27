@@ -54,7 +54,7 @@ public final class FieldProtected extends Item
 	 * The persistent type information for fieldProtected.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FieldProtected> TYPE = com.exedio.cope.TypesBound.newType(FieldProtected.class);
+	public static final com.exedio.cope.Type<FieldProtected> TYPE = com.exedio.cope.TypesBound.newType(FieldProtected.class,FieldProtected::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

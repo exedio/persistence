@@ -682,7 +682,7 @@ public class MediaFilterItem extends Item
 	 * The persistent type information for mediaFilterItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaFilterItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFilterItem.class);
+	public static final com.exedio.cope.Type<MediaFilterItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFilterItem.class,MediaFilterItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

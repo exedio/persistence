@@ -142,7 +142,7 @@ class LibUser extends LibItem<String>
 	 * The persistent type information for libUser.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<LibUser> TYPE = com.exedio.cope.TypesBound.newType(LibUser.class);
+	static final com.exedio.cope.Type<LibUser> TYPE = com.exedio.cope.TypesBound.newType(LibUser.class,LibUser::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

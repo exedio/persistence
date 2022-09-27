@@ -100,7 +100,7 @@ public final class UniqueFinalItem extends Item
 	 * The persistent type information for uniqueFinalItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<UniqueFinalItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueFinalItem.class);
+	public static final com.exedio.cope.Type<UniqueFinalItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueFinalItem.class,UniqueFinalItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

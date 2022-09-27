@@ -352,7 +352,7 @@ public final class DispatcherItem extends Item
 	 * The persistent type information for dispatcherItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DispatcherItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherItem.class);
+	public static final com.exedio.cope.Type<DispatcherItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherItem.class,DispatcherItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

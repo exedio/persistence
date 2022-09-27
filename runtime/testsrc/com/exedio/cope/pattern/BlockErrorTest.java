@@ -58,7 +58,7 @@ public class BlockErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.pattern.BlockType<Normal> TYPE = com.exedio.cope.pattern.BlockType.newType(Normal.class);
+		private static final com.exedio.cope.pattern.BlockType<Normal> TYPE = com.exedio.cope.pattern.BlockType.newType(Normal.class,Normal::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Normal(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
@@ -86,7 +86,7 @@ public class BlockErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.pattern.BlockType<Other> TYPE = com.exedio.cope.pattern.BlockType.newType(Other.class);
+		private static final com.exedio.cope.pattern.BlockType<Other> TYPE = com.exedio.cope.pattern.BlockType.newType(Other.class,Other::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Other(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
@@ -341,7 +341,7 @@ public class BlockErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.pattern.BlockType<AlreadyBound> TYPE = com.exedio.cope.pattern.BlockType.newType(AlreadyBound.class);
+		private static final com.exedio.cope.pattern.BlockType<AlreadyBound> TYPE = com.exedio.cope.pattern.BlockType.newType(AlreadyBound.class,AlreadyBound::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AlreadyBound(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}

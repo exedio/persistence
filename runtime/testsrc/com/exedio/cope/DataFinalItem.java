@@ -118,7 +118,7 @@ final class DataFinalItem extends Item
 	 * The persistent type information for dataFinalItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DataFinalItem> TYPE = com.exedio.cope.TypesBound.newType(DataFinalItem.class);
+	static final com.exedio.cope.Type<DataFinalItem> TYPE = com.exedio.cope.TypesBound.newType(DataFinalItem.class,DataFinalItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

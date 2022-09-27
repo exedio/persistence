@@ -68,7 +68,7 @@ final class DeleteOtherItem extends Item
 	 * The persistent type information for deleteOtherItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteOtherItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteOtherItem.class);
+	static final com.exedio.cope.Type<DeleteOtherItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteOtherItem.class,DeleteOtherItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

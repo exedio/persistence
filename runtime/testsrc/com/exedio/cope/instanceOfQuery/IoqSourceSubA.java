@@ -57,7 +57,7 @@ final class IoqSourceSubA extends IoqSourceSuper
 	 * The persistent type information for ioqSourceSubA.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqSourceSubA> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSubA.class);
+	static final com.exedio.cope.Type<IoqSourceSubA> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSubA.class,IoqSourceSubA::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

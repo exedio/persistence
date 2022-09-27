@@ -119,7 +119,7 @@ public abstract class ClusterNetworkTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<TypeA> TYPE = com.exedio.cope.TypesBound.newType(TypeA.class);
+		static final com.exedio.cope.Type<TypeA> TYPE = com.exedio.cope.TypesBound.newType(TypeA.class,TypeA::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected TypeA(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -132,7 +132,7 @@ public abstract class ClusterNetworkTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<TypeB> TYPE = com.exedio.cope.TypesBound.newType(TypeB.class);
+		private static final com.exedio.cope.Type<TypeB> TYPE = com.exedio.cope.TypesBound.newType(TypeB.class,TypeB::new);
 
 		@com.exedio.cope.instrument.Generated
 		private TypeB(final com.exedio.cope.ActivationParameters ap){super(ap);}

@@ -54,7 +54,7 @@ final class TypeFutureInPatternsItem extends Item
 	 * The persistent type information for typeFutureInPatternsItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<TypeFutureInPatternsItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFutureInPatternsItem.class);
+	static final com.exedio.cope.Type<TypeFutureInPatternsItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFutureInPatternsItem.class,TypeFutureInPatternsItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

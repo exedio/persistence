@@ -108,7 +108,7 @@ public class UniqueHashedMediaVaultTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<BlobItem> TYPE = com.exedio.cope.TypesBound.newType(BlobItem.class);
+		private static final com.exedio.cope.Type<BlobItem> TYPE = com.exedio.cope.TypesBound.newType(BlobItem.class,BlobItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private BlobItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -124,7 +124,7 @@ public class UniqueHashedMediaVaultTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<VaultItem> TYPE = com.exedio.cope.TypesBound.newType(VaultItem.class);
+		private static final com.exedio.cope.Type<VaultItem> TYPE = com.exedio.cope.TypesBound.newType(VaultItem.class,VaultItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private VaultItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

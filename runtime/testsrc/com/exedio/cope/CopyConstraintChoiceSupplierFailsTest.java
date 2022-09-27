@@ -49,7 +49,7 @@ public class CopyConstraintChoiceSupplierFailsTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
+		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class,Source::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}

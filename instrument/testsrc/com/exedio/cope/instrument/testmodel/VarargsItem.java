@@ -234,7 +234,7 @@ final class VarargsItem extends VarargsSuper
 	 * The persistent type information for varargsItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<VarargsItem> TYPE = com.exedio.cope.TypesBound.newType(VarargsItem.class);
+	static final com.exedio.cope.Type<VarargsItem> TYPE = com.exedio.cope.TypesBound.newType(VarargsItem.class,VarargsItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

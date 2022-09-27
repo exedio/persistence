@@ -51,7 +51,7 @@ public class SubOfInternalItemWithAbstractMethod extends InternalItemWithAbstrac
 	 * The persistent type information for subOfInternalItemWithAbstractMethod.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SubOfInternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newType(SubOfInternalItemWithAbstractMethod.class);
+	public static final com.exedio.cope.Type<SubOfInternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newType(SubOfInternalItemWithAbstractMethod.class,SubOfInternalItemWithAbstractMethod::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -430,7 +430,7 @@ public final class StringItem extends Item
 	 * The persistent type information for stringItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<StringItem> TYPE = com.exedio.cope.TypesBound.newType(StringItem.class);
+	public static final com.exedio.cope.Type<StringItem> TYPE = com.exedio.cope.TypesBound.newType(StringItem.class,StringItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

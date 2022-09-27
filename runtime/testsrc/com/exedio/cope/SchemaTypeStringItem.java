@@ -52,7 +52,7 @@ public final class SchemaTypeStringItem extends Item
 	 * The persistent type information for schemaTypeStringItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SchemaTypeStringItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeStringItem.class);
+	public static final com.exedio.cope.Type<SchemaTypeStringItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeStringItem.class,SchemaTypeStringItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

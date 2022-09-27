@@ -30,7 +30,7 @@ public final class TypeCollisionItem extends Item
 	private static final long serialVersionUID = 1l;
 
 	@com.exedio.cope.instrument.Generated
-	public static final com.exedio.cope.Type<TypeCollisionItem> TYPE = com.exedio.cope.TypesBound.newType(TypeCollisionItem.class);
+	public static final com.exedio.cope.Type<TypeCollisionItem> TYPE = com.exedio.cope.TypesBound.newType(TypeCollisionItem.class,TypeCollisionItem::new);
 
 	@com.exedio.cope.instrument.Generated
 	private TypeCollisionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

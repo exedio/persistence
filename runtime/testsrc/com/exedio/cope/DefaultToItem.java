@@ -432,7 +432,7 @@ final class DefaultToItem extends Item
 	 * The persistent type information for defaultToItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DefaultToItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultToItem.class);
+	static final com.exedio.cope.Type<DefaultToItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultToItem.class,DefaultToItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

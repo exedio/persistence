@@ -44,7 +44,7 @@ final class DataSubItem extends DataItem
 	 * The persistent type information for dataSubItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DataSubItem> TYPE = com.exedio.cope.TypesBound.newType(DataSubItem.class);
+	static final com.exedio.cope.Type<DataSubItem> TYPE = com.exedio.cope.TypesBound.newType(DataSubItem.class,DataSubItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

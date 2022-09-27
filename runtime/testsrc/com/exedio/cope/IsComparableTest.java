@@ -381,7 +381,7 @@ public class IsComparableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemSuper> TYPE = com.exedio.cope.TypesBound.newType(AnItemSuper.class);
+		private static final com.exedio.cope.Type<AnItemSuper> TYPE = com.exedio.cope.TypesBound.newType(AnItemSuper.class,AnItemSuper::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -393,7 +393,7 @@ public class IsComparableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -405,7 +405,7 @@ public class IsComparableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemBrother> TYPE = com.exedio.cope.TypesBound.newType(AnItemBrother.class);
+		private static final com.exedio.cope.Type<AnItemBrother> TYPE = com.exedio.cope.TypesBound.newType(AnItemBrother.class,AnItemBrother::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemBrother(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -417,7 +417,7 @@ public class IsComparableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemSub> TYPE = com.exedio.cope.TypesBound.newType(AnItemSub.class);
+		private static final com.exedio.cope.Type<AnItemSub> TYPE = com.exedio.cope.TypesBound.newType(AnItemSub.class,AnItemSub::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -429,7 +429,7 @@ public class IsComparableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItemOther> TYPE = com.exedio.cope.TypesBound.newType(AnItemOther.class);
+		private static final com.exedio.cope.Type<AnItemOther> TYPE = com.exedio.cope.TypesBound.newType(AnItemOther.class,AnItemOther::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItemOther(final com.exedio.cope.ActivationParameters ap){super(ap);}

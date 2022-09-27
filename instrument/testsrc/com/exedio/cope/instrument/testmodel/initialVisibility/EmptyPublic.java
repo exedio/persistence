@@ -45,7 +45,7 @@ public final class EmptyPublic extends Item
 	 * The persistent type information for emptyPublic.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EmptyPublic> TYPE = com.exedio.cope.TypesBound.newType(EmptyPublic.class);
+	public static final com.exedio.cope.Type<EmptyPublic> TYPE = com.exedio.cope.TypesBound.newType(EmptyPublic.class,EmptyPublic::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

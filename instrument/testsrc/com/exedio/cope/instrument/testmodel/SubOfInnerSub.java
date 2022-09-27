@@ -70,7 +70,7 @@ class SubOfInnerSub extends InnerContainer.Sub
 	 * The persistent type information for subOfInnerSub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SubOfInnerSub> TYPE = com.exedio.cope.TypesBound.newType(SubOfInnerSub.class);
+	static final com.exedio.cope.Type<SubOfInnerSub> TYPE = com.exedio.cope.TypesBound.newType(SubOfInnerSub.class,SubOfInnerSub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

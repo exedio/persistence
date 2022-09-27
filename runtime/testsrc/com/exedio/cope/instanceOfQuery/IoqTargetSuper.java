@@ -74,7 +74,7 @@ class IoqTargetSuper extends Item
 	 * The persistent type information for ioqTargetSuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqTargetSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqTargetSuper.class);
+	static final com.exedio.cope.Type<IoqTargetSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqTargetSuper.class,IoqTargetSuper::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

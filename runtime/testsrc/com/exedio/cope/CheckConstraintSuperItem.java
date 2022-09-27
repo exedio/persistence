@@ -145,7 +145,7 @@ public class CheckConstraintSuperItem extends Item
 	 * The persistent type information for checkConstraintSuperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CheckConstraintSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintSuperItem.class);
+	public static final com.exedio.cope.Type<CheckConstraintSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintSuperItem.class,CheckConstraintSuperItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

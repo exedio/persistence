@@ -371,7 +371,7 @@ public final class TextUrlFilterItem extends Item
 	 * The persistent type information for textUrlFilterItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<TextUrlFilterItem> TYPE = com.exedio.cope.TypesBound.newType(TextUrlFilterItem.class);
+	public static final com.exedio.cope.Type<TextUrlFilterItem> TYPE = com.exedio.cope.TypesBound.newType(TextUrlFilterItem.class,TextUrlFilterItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

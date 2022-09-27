@@ -35,7 +35,7 @@ public class SampledModelItem2 extends Item
 	private static final long serialVersionUID = 1l;
 
 	@com.exedio.cope.instrument.Generated
-	public static final com.exedio.cope.Type<SampledModelItem2> TYPE = com.exedio.cope.TypesBound.newType(SampledModelItem2.class);
+	public static final com.exedio.cope.Type<SampledModelItem2> TYPE = com.exedio.cope.TypesBound.newType(SampledModelItem2.class,SampledModelItem2::new);
 
 	@com.exedio.cope.instrument.Generated
 	protected SampledModelItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}

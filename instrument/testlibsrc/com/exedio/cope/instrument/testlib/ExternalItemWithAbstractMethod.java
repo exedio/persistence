@@ -57,7 +57,7 @@ public abstract class ExternalItemWithAbstractMethod extends ExternalParentWithA
 	 * The persistent type information for externalItemWithAbstractMethod.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ExternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newType(ExternalItemWithAbstractMethod.class);
+	public static final com.exedio.cope.Type<ExternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(ExternalItemWithAbstractMethod.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

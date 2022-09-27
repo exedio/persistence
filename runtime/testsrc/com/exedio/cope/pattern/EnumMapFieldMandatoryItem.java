@@ -108,7 +108,7 @@ public final class EnumMapFieldMandatoryItem extends Item
 	 * The persistent type information for enumMapFieldMandatoryItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumMapFieldMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldMandatoryItem.class);
+	public static final com.exedio.cope.Type<EnumMapFieldMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldMandatoryItem.class,EnumMapFieldMandatoryItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -263,7 +263,7 @@ public class DataVaultEnableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
+		private static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class,MyBlank::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -291,7 +291,7 @@ public class DataVaultEnableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnVault> TYPE = com.exedio.cope.TypesBound.newType(AnVault.class);
+		private static final com.exedio.cope.Type<AnVault> TYPE = com.exedio.cope.TypesBound.newType(AnVault.class,AnVault::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnVault(final com.exedio.cope.ActivationParameters ap){super(ap);}

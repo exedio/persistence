@@ -82,7 +82,7 @@ public class DefaultChangeHookTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
+		private static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class,BeforeNewNotStatic::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewNotStatic(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -121,7 +121,7 @@ public class DefaultChangeHookTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
+		private static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class,BeforeNewWrongReturn::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewWrongReturn(final com.exedio.cope.ActivationParameters ap){super(ap);}

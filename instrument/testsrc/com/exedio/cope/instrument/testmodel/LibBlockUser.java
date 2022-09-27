@@ -30,7 +30,7 @@ class LibBlockUser extends LibBlock
 	 * The type information for libBlockUser.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.pattern.BlockType<LibBlockUser> TYPE = com.exedio.cope.pattern.BlockType.newType(LibBlockUser.class);
+	static final com.exedio.cope.pattern.BlockType<LibBlockUser> TYPE = com.exedio.cope.pattern.BlockType.newType(LibBlockUser.class,LibBlockUser::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -296,7 +296,7 @@ public class ModelBuilderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemType> TYPE = com.exedio.cope.TypesBound.newType(ItemType.class);
+		private static final com.exedio.cope.Type<ItemType> TYPE = com.exedio.cope.TypesBound.newType(ItemType.class,ItemType::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemType(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -309,7 +309,7 @@ public class ModelBuilderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemTypeSet> TYPE = com.exedio.cope.TypesBound.newType(ItemTypeSet.class);
+		private static final com.exedio.cope.Type<ItemTypeSet> TYPE = com.exedio.cope.TypesBound.newType(ItemTypeSet.class,ItemTypeSet::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemTypeSet(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -322,7 +322,7 @@ public class ModelBuilderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemAllType1> TYPE = com.exedio.cope.TypesBound.newType(ItemAllType1.class);
+		private static final com.exedio.cope.Type<ItemAllType1> TYPE = com.exedio.cope.TypesBound.newType(ItemAllType1.class,ItemAllType1::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemAllType1(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -335,7 +335,7 @@ public class ModelBuilderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemAllType2> TYPE = com.exedio.cope.TypesBound.newType(ItemAllType2.class);
+		private static final com.exedio.cope.Type<ItemAllType2> TYPE = com.exedio.cope.TypesBound.newType(ItemAllType2.class,ItemAllType2::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemAllType2(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -348,7 +348,7 @@ public class ModelBuilderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemAllTypeSet1> TYPE = com.exedio.cope.TypesBound.newType(ItemAllTypeSet1.class);
+		private static final com.exedio.cope.Type<ItemAllTypeSet1> TYPE = com.exedio.cope.TypesBound.newType(ItemAllTypeSet1.class,ItemAllTypeSet1::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemAllTypeSet1(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -361,7 +361,7 @@ public class ModelBuilderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemAllTypeSet2> TYPE = com.exedio.cope.TypesBound.newType(ItemAllTypeSet2.class);
+		private static final com.exedio.cope.Type<ItemAllTypeSet2> TYPE = com.exedio.cope.TypesBound.newType(ItemAllTypeSet2.class,ItemAllTypeSet2::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemAllTypeSet2(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -374,7 +374,7 @@ public class ModelBuilderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemFail> TYPE = com.exedio.cope.TypesBound.newType(ItemFail.class);
+		private static final com.exedio.cope.Type<ItemFail> TYPE = com.exedio.cope.TypesBound.newType(ItemFail.class,ItemFail::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemFail(final com.exedio.cope.ActivationParameters ap){super(ap);}

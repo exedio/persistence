@@ -48,7 +48,7 @@ public abstract class OptionFeatureSuperItem extends Item
 	 * The persistent type information for optionFeatureSuperItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<OptionFeatureSuperItem> TYPE = com.exedio.cope.TypesBound.newType(OptionFeatureSuperItem.class);
+	public static final com.exedio.cope.Type<OptionFeatureSuperItem> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(OptionFeatureSuperItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

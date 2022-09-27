@@ -93,7 +93,7 @@ public class IntegerTypeBigIntItem extends Item
 	 * The persistent type information for integerTypeBigIntItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<IntegerTypeBigIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeBigIntItem.class);
+	public static final com.exedio.cope.Type<IntegerTypeBigIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeBigIntItem.class,IntegerTypeBigIntItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -110,7 +110,7 @@ public final class MD5Item extends Item
 	 * The persistent type information for mD5Item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MD5Item> TYPE = com.exedio.cope.TypesBound.newType(MD5Item.class);
+	public static final com.exedio.cope.Type<MD5Item> TYPE = com.exedio.cope.TypesBound.newType(MD5Item.class,MD5Item::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

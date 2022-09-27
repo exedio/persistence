@@ -185,7 +185,7 @@ public class UniqueHashedMediaAnnotationTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -203,7 +203,7 @@ public class UniqueHashedMediaAnnotationTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<SecretItem> TYPE = com.exedio.cope.TypesBound.newType(SecretItem.class);
+		private static final com.exedio.cope.Type<SecretItem> TYPE = com.exedio.cope.TypesBound.newType(SecretItem.class,SecretItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private SecretItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -221,7 +221,7 @@ public class UniqueHashedMediaAnnotationTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<FingerItem> TYPE = com.exedio.cope.TypesBound.newType(FingerItem.class);
+		private static final com.exedio.cope.Type<FingerItem> TYPE = com.exedio.cope.TypesBound.newType(FingerItem.class,FingerItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private FingerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -239,7 +239,7 @@ public class UniqueHashedMediaAnnotationTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<SecFinItem> TYPE = com.exedio.cope.TypesBound.newType(SecFinItem.class);
+		private static final com.exedio.cope.Type<SecFinItem> TYPE = com.exedio.cope.TypesBound.newType(SecFinItem.class,SecFinItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		private SecFinItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

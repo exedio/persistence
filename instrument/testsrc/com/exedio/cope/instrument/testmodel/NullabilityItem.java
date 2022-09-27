@@ -139,7 +139,7 @@ public final class NullabilityItem extends Item
 	 * The persistent type information for nullabilityItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<NullabilityItem> TYPE = com.exedio.cope.TypesBound.newType(NullabilityItem.class);
+	public static final com.exedio.cope.Type<NullabilityItem> TYPE = com.exedio.cope.TypesBound.newType(NullabilityItem.class,NullabilityItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -82,7 +82,7 @@ public class TypeMountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
+		private static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class,Item1::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -98,7 +98,7 @@ public class TypeMountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
+		private static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class,Item2::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item2(final com.exedio.cope.ActivationParameters ap){super(ap);}

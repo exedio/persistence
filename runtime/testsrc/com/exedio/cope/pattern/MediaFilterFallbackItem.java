@@ -870,7 +870,7 @@ final class MediaFilterFallbackItem extends Item
 	 * The persistent type information for mediaFilterFallbackItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MediaFilterFallbackItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFilterFallbackItem.class);
+	static final com.exedio.cope.Type<MediaFilterFallbackItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFilterFallbackItem.class,MediaFilterFallbackItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -137,7 +137,7 @@ public final class UniqueSingleItem extends Item
 	 * The persistent type information for uniqueSingleItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<UniqueSingleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleItem.class);
+	public static final com.exedio.cope.Type<UniqueSingleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleItem.class,UniqueSingleItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -218,7 +218,7 @@ public final class PlusLongItem extends Item
 	 * The persistent type information for plusLongItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PlusLongItem> TYPE = com.exedio.cope.TypesBound.newType(PlusLongItem.class);
+	public static final com.exedio.cope.Type<PlusLongItem> TYPE = com.exedio.cope.TypesBound.newType(PlusLongItem.class,PlusLongItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

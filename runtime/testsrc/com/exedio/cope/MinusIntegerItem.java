@@ -158,7 +158,7 @@ public final class MinusIntegerItem extends Item
 	 * The persistent type information for minusIntegerItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MinusIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(MinusIntegerItem.class);
+	public static final com.exedio.cope.Type<MinusIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(MinusIntegerItem.class,MinusIntegerItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

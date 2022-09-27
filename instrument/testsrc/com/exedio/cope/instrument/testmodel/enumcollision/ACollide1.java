@@ -48,7 +48,7 @@ final class ACollide1 extends Item
 	 * The persistent type information for aCollide1.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ACollide1> TYPE = com.exedio.cope.TypesBound.newType(ACollide1.class);
+	static final com.exedio.cope.Type<ACollide1> TYPE = com.exedio.cope.TypesBound.newType(ACollide1.class,ACollide1::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -119,7 +119,7 @@ public class Input extends Item
 	 * The persistent type information for input.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<Input> TYPE = com.exedio.cope.TypesBound.newType(Input.class);
+	public static final com.exedio.cope.Type<Input> TYPE = com.exedio.cope.TypesBound.newType(Input.class,Input::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

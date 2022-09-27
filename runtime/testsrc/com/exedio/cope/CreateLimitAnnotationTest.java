@@ -43,7 +43,7 @@ public class CreateLimitAnnotationTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<DefaultItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultItem.class);
+		private static final com.exedio.cope.Type<DefaultItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultItem.class,DefaultItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected DefaultItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -65,7 +65,7 @@ public class CreateLimitAnnotationTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<OkItem> TYPE = com.exedio.cope.TypesBound.newType(OkItem.class);
+		private static final com.exedio.cope.Type<OkItem> TYPE = com.exedio.cope.TypesBound.newType(OkItem.class,OkItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected OkItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -87,7 +87,7 @@ public class CreateLimitAnnotationTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<MinimumItem> TYPE = com.exedio.cope.TypesBound.newType(MinimumItem.class);
+		private static final com.exedio.cope.Type<MinimumItem> TYPE = com.exedio.cope.TypesBound.newType(MinimumItem.class,MinimumItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected MinimumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -119,7 +119,7 @@ public class CreateLimitAnnotationTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<LessMinimumItem> TYPE = com.exedio.cope.TypesBound.newType(LessMinimumItem.class);
+		private static final com.exedio.cope.Type<LessMinimumItem> TYPE = com.exedio.cope.TypesBound.newType(LessMinimumItem.class,LessMinimumItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected LessMinimumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -140,7 +140,7 @@ public class CreateLimitAnnotationTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
-		private static final com.exedio.cope.Type<SubOkItem> TYPE = com.exedio.cope.TypesBound.newType(SubOkItem.class);
+		private static final com.exedio.cope.Type<SubOkItem> TYPE = com.exedio.cope.TypesBound.newType(SubOkItem.class,SubOkItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected SubOkItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

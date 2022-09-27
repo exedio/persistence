@@ -72,7 +72,7 @@ public class MultiItemFieldComponentASub extends MultiItemFieldComponentA
 	 * The persistent type information for multiItemFieldComponentASub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MultiItemFieldComponentASub> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentASub.class);
+	public static final com.exedio.cope.Type<MultiItemFieldComponentASub> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentASub.class,MultiItemFieldComponentASub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

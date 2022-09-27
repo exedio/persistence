@@ -103,7 +103,7 @@ class IoqSourceSuper extends Item
 	 * The persistent type information for ioqSourceSuper.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqSourceSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSuper.class);
+	static final com.exedio.cope.Type<IoqSourceSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSuper.class,IoqSourceSuper::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

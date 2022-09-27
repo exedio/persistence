@@ -1516,7 +1516,7 @@ public final class Standard extends Item
 	 * The persistent type information for standard.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<Standard> TYPE = com.exedio.cope.TypesBound.newType(Standard.class);
+	public static final com.exedio.cope.Type<Standard> TYPE = com.exedio.cope.TypesBound.newType(Standard.class,Standard::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

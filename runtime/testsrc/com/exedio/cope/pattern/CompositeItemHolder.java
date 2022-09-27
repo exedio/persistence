@@ -83,7 +83,7 @@ public final class CompositeItemHolder extends Item
 	 * The persistent type information for compositeItemHolder.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CompositeItemHolder> TYPE = com.exedio.cope.TypesBound.newType(CompositeItemHolder.class);
+	public static final com.exedio.cope.Type<CompositeItemHolder> TYPE = com.exedio.cope.TypesBound.newType(CompositeItemHolder.class,CompositeItemHolder::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

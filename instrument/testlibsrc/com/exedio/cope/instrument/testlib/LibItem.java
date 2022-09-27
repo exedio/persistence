@@ -136,7 +136,7 @@ public abstract class LibItem<T> extends LibSuperItem
 	 * The persistent type information for libItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<LibItem<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+	public static final com.exedio.cope.Type<LibItem<?>> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

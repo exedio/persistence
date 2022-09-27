@@ -75,7 +75,7 @@ public class MediaFilterForSourceTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -92,7 +92,7 @@ public class MediaFilterForSourceTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class);
+		private static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class,ASubItem::new);
 
 		@com.exedio.cope.instrument.Generated
 		protected ASubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

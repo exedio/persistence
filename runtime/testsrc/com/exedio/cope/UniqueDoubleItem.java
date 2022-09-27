@@ -144,7 +144,7 @@ final class UniqueDoubleItem extends Item
 	 * The persistent type information for uniqueDoubleItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<UniqueDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueDoubleItem.class);
+	static final com.exedio.cope.Type<UniqueDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueDoubleItem.class,UniqueDoubleItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

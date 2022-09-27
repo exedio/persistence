@@ -112,7 +112,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for alpha.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Alpha> TYPE = com.exedio.cope.TypesBound.newType(Alpha.class);
+	private static final com.exedio.cope.Type<Alpha> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Alpha.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -149,7 +149,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for beta.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Beta> TYPE = com.exedio.cope.TypesBound.newType(Beta.class);
+	private static final com.exedio.cope.Type<Beta> TYPE = com.exedio.cope.TypesBound.newType(Beta.class,Beta::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -186,7 +186,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for gamma.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<Gamma> TYPE = com.exedio.cope.TypesBound.newType(Gamma.class);
+	private static final com.exedio.cope.Type<Gamma> TYPE = com.exedio.cope.TypesBound.newType(Gamma.class,Gamma::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

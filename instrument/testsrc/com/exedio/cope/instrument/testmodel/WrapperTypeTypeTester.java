@@ -42,7 +42,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for defaultPublic.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		public static final com.exedio.cope.Type<DefaultPublic> TYPE = com.exedio.cope.TypesBound.newType(DefaultPublic.class);
+		public static final com.exedio.cope.Type<DefaultPublic> TYPE = com.exedio.cope.TypesBound.newType(DefaultPublic.class,DefaultPublic::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -64,7 +64,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for defaultProtected.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		protected static final com.exedio.cope.Type<DefaultProtected> TYPE = com.exedio.cope.TypesBound.newType(DefaultProtected.class);
+		protected static final com.exedio.cope.Type<DefaultProtected> TYPE = com.exedio.cope.TypesBound.newType(DefaultProtected.class,DefaultProtected::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -85,7 +85,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for defaultPackage.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<DefaultPackage> TYPE = com.exedio.cope.TypesBound.newType(DefaultPackage.class);
+		static final com.exedio.cope.Type<DefaultPackage> TYPE = com.exedio.cope.TypesBound.newType(DefaultPackage.class,DefaultPackage::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -106,7 +106,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for defaultPrivate.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<DefaultPrivate> TYPE = com.exedio.cope.TypesBound.newType(DefaultPrivate.class);
+		private static final com.exedio.cope.Type<DefaultPrivate> TYPE = com.exedio.cope.TypesBound.newType(DefaultPrivate.class,DefaultPrivate::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -128,7 +128,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for setPublic.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		public static final com.exedio.cope.Type<SetPublic> TYPE = com.exedio.cope.TypesBound.newType(SetPublic.class);
+		public static final com.exedio.cope.Type<SetPublic> TYPE = com.exedio.cope.TypesBound.newType(SetPublic.class,SetPublic::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -150,7 +150,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for setProtected.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		protected static final com.exedio.cope.Type<SetProtected> TYPE = com.exedio.cope.TypesBound.newType(SetProtected.class);
+		protected static final com.exedio.cope.Type<SetProtected> TYPE = com.exedio.cope.TypesBound.newType(SetProtected.class,SetProtected::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -171,7 +171,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for setPackage.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<SetPackage> TYPE = com.exedio.cope.TypesBound.newType(SetPackage.class);
+		static final com.exedio.cope.Type<SetPackage> TYPE = com.exedio.cope.TypesBound.newType(SetPackage.class,SetPackage::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -192,7 +192,7 @@ public final class WrapperTypeTypeTester
 		 * The persistent type information for setPrivate.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		private static final com.exedio.cope.Type<SetPrivate> TYPE = com.exedio.cope.TypesBound.newType(SetPrivate.class);
+		private static final com.exedio.cope.Type<SetPrivate> TYPE = com.exedio.cope.TypesBound.newType(SetPrivate.class,SetPrivate::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

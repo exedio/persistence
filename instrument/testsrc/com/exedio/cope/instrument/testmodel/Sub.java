@@ -199,7 +199,7 @@ public final class Sub extends Super
 	 * The persistent type information for sub.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class);
+	public static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class,Sub::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

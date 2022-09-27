@@ -410,7 +410,7 @@ public final class HashItem extends Item
 	 * The persistent type information for hashItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HashItem> TYPE = com.exedio.cope.TypesBound.newType(HashItem.class);
+	public static final com.exedio.cope.Type<HashItem> TYPE = com.exedio.cope.TypesBound.newType(HashItem.class,HashItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

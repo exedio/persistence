@@ -95,7 +95,7 @@ class SuperContainer extends SuperItem
 	 * The persistent type information for superContainer.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class);
+	static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class,SuperContainer::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -154,7 +154,7 @@ public final class PasswordRecoveryItem extends Item
 	 * The persistent type information for passwordRecoveryItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PasswordRecoveryItem> TYPE = com.exedio.cope.TypesBound.newType(PasswordRecoveryItem.class);
+	public static final com.exedio.cope.Type<PasswordRecoveryItem> TYPE = com.exedio.cope.TypesBound.newType(PasswordRecoveryItem.class,PasswordRecoveryItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -115,7 +115,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	 * The persistent type information for checkConstraintHierarchyItemBottom.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CheckConstraintHierarchyItemBottom> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintHierarchyItemBottom.class);
+	public static final com.exedio.cope.Type<CheckConstraintHierarchyItemBottom> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintHierarchyItemBottom.class,CheckConstraintHierarchyItemBottom::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

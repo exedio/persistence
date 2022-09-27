@@ -251,7 +251,7 @@ final class CopySimpleSource extends Item
 	 * The persistent type information for copySimpleSource.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopySimpleSource> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleSource.class);
+	static final com.exedio.cope.Type<CopySimpleSource> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleSource.class,CopySimpleSource::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

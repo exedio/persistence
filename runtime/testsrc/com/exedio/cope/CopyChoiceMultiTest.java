@@ -344,7 +344,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class,Container::new);
 
 		@com.exedio.cope.instrument.Generated
 		private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -380,7 +380,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<PartA> TYPE = com.exedio.cope.TypesBound.newType(PartA.class);
+		static final com.exedio.cope.Type<PartA> TYPE = com.exedio.cope.TypesBound.newType(PartA.class,PartA::new);
 
 		@com.exedio.cope.instrument.Generated
 		private PartA(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -416,7 +416,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<PartB> TYPE = com.exedio.cope.TypesBound.newType(PartB.class);
+		static final com.exedio.cope.Type<PartB> TYPE = com.exedio.cope.TypesBound.newType(PartB.class,PartB::new);
 
 		@com.exedio.cope.instrument.Generated
 		private PartB(final com.exedio.cope.ActivationParameters ap){super(ap);}

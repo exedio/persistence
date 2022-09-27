@@ -70,7 +70,7 @@ public final class SubTarget extends Item
 	 * The persistent type information for subTarget.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SubTarget> TYPE = com.exedio.cope.TypesBound.newType(SubTarget.class);
+	public static final com.exedio.cope.Type<SubTarget> TYPE = com.exedio.cope.TypesBound.newType(SubTarget.class,SubTarget::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
