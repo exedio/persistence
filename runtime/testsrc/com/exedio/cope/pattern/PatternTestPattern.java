@@ -73,12 +73,12 @@ class PatternTestPattern extends Pattern
 		final Features features = new Features();
 		features.put(SUPER_TYPE_STRING, superTypeString, af("superTypeString"));
 		features.put(SUPER_TYPE_BOOLEAN, superTypeBoolean, af("superTypeBoolean"));
-		this.superType = newSourceType(PatternTestTypeAbstractItem.class, (Type<PatternTestTypeAbstractItem>)null, features, SUPER_TYPE_POSTFIX);
+		this.superType = newSourceTypeAbstract(PatternTestTypeAbstractItem.class, null, features, SUPER_TYPE_POSTFIX);
 
 		//Create sub type
 		features.clear();
 		features.put(SUBTYPE_INTEGER, subTypeInteger, af("subTypeInteger"));
-		this.subType = newSourceType(PatternTestTypeItem.class, superType, features, SUBTYPE_POSTFIX);
+		this.subType = newSourceType(PatternTestTypeItem.class, PatternTestTypeItem::new, superType, features, SUBTYPE_POSTFIX);
 
 		ownItem = subType.newItemField(NULLIFY);
 		assertSame(ownItem, addSourceFeature(ownItem, "ownItem", af("ownItem")));

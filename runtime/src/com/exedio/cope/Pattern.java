@@ -194,8 +194,9 @@ public abstract class Pattern extends Feature
 
 	/**
 	 * @see #getSourceTypes()
-	 * To be deprecated, use {@link #newSourceType(Class, Function, Features)} instead
+	 * @deprecated Use {@link #newSourceType(Class, Function, Features)} instead
 	 */
+	@Deprecated
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features)
@@ -216,8 +217,9 @@ public abstract class Pattern extends Feature
 
 	/**
 	 * @see #getSourceTypes()
-	 * To be deprecated, use {@link #newSourceType(Class, Function, Features, String)} instead
+	 * @deprecated Use {@link #newSourceType(Class, Function, Features, String)} instead
 	 */
+	@Deprecated
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features,
@@ -237,8 +239,9 @@ public abstract class Pattern extends Feature
 
 	/**
 	 * @see #getSourceTypes()
-	 * To be deprecated, use {@link #newSourceType(Class, Function, Type, Features, String)} instead
+	 * @deprecated Use {@link #newSourceType(Class, Function, Type, Features, String)} instead
 	 */
+	@Deprecated
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Type<? super T> supertype,
@@ -246,6 +249,18 @@ public abstract class Pattern extends Feature
 			final String postfix)
 	{
 		return newSourceType(javaClass, Type.reflectionActivator(javaClass), supertype, features, postfix);
+	}
+
+	/**
+	 * @see #getSourceTypes()
+	 */
+	protected final <T extends Item> Type<T> newSourceTypeAbstract(
+			final Class<T> javaClass,
+			final Type<? super T> supertype,
+			final Features features,
+			final String postfix)
+	{
+		return newSourceType(javaClass, null, supertype, features, postfix);
 	}
 
 	/**

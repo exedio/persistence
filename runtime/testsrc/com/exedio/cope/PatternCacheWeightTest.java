@@ -121,8 +121,8 @@ public class PatternCacheWeightTest
 		{
 			super.onMount();
 			final Features features = new Features();
-			this.absentType = newSourceType(AbsentType.class, features, "absent");
-			this.set333Type = newSourceType(Set333Type.class, features, "set333");
+			this.absentType = newSourceType(AbsentType.class, AbsentType::new, features, "absent");
+			this.set333Type = newSourceType(Set333Type.class, Set333Type::new, features, "set333");
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)

@@ -106,7 +106,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
 		copyWith.onMount(features, parent, element);
-		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
+		final Type<PatternItem> relationType = newSourceType(PatternItem.class, PatternItem::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
 

@@ -824,7 +824,7 @@ public final class Dispatcher extends Pattern
 			}
 			features.put("result", result, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
 			features.put("failure", failure);
-			type = newSourceType(Run.class, features, "Run");
+			type = newSourceType(Run.class, Run::new, features, "Run");
 		}
 
 		private <P extends Item> void newItem(

@@ -530,7 +530,7 @@ public final class Schedule extends Pattern
 			features.put("run",   run);
 			features.put("progress", progress);
 			features.put("elapsed", elapsed);
-			final Type<Run> runType = pattern.newSourceType(Run.class, features, "Run");
+			final Type<Run> runType = pattern.newSourceType(Run.class, Run::new, features, "Run");
 			this.mountIfMounted = new Mount(parent, runs, runType);
 		}
 

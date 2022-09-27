@@ -54,7 +54,7 @@ public final class SchemaTypeStringField extends Pattern
 
 		final Features features = new Features();
 		features.put("element", sourceField, new AnnotationProxy(this));
-		sourceTypeIfMounted = newSourceType(StringItem.class, features);
+		sourceTypeIfMounted = newSourceType(StringItem.class, StringItem::new, features);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

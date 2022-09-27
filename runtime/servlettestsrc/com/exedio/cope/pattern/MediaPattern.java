@@ -92,7 +92,7 @@ public final class MediaPattern extends Pattern
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("value", sourceTypeValue);
-		this.sourceType = newSourceType(SourceItem.class, features);
+		this.sourceType = newSourceType(SourceItem.class, SourceItem::new, features);
 	}
 
 	@Computed

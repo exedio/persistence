@@ -186,7 +186,7 @@ public final class History extends Pattern
 			features.put("events", events);
 			features.put("author", author);
 			features.put("new", New);
-			type = newSourceType(Event.class, features, "Event");
+			type = newSourceType(Event.class, Event::new, features, "Event");
 		}
 	}
 
@@ -298,7 +298,7 @@ public final class History extends Pattern
 			features.put("name", name);
 			features.put("old", old);
 			features.put("new", New);
-			type = newSourceType(Feature.class, features, "Feature");
+			type = newSourceType(Feature.class, Feature::new, features, "Feature");
 		}
 	}
 

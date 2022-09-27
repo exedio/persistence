@@ -174,7 +174,7 @@ public final class DynamicModel<L> extends Pattern
 		final Features features = new Features();
 		features.put("code", typeCode);
 		features.put("name", typeLocalization);
-		final com.exedio.cope.Type<Type<L>> typeType = castType(newSourceType(Type.class, features, "Type"));
+		final com.exedio.cope.Type<Type<L>> typeType = castType(newSourceType(Type.class, Type::new, features, "Type"));
 
 		features.clear();
 		final ItemField<Type<L>> fieldParent = typeType.newItemField(CASCADE).toFinal();
@@ -187,7 +187,7 @@ public final class DynamicModel<L> extends Pattern
 		features.put("code", fieldCode);
 		features.put("uniqueConstraintCode", UniqueConstraint.create(fieldParent, fieldCode));
 		features.put("name", fieldLocalization);
-		final com.exedio.cope.Type<Field<L>> fieldType = castField(newSourceType(Field.class, features, "Field"));
+		final com.exedio.cope.Type<Field<L>> fieldType = castField(newSourceType(Field.class, Field::new, features, "Field"));
 
 		ItemField<Field<L>> enumParent = null;
 		com.exedio.cope.Type<Enum<L>> enumType = null;
@@ -201,7 +201,7 @@ public final class DynamicModel<L> extends Pattern
 			features.put("code", enumCode);
 			features.put("uniqueCode", UniqueConstraint.create(enumParent, enumCode));
 			features.put("name", enumLocalization);
-			enumType = castEnum(newSourceType(Enum.class, features, "Enum"));
+			enumType = castEnum(newSourceType(Enum.class, Enum::new, features, "Enum"));
 
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
 			for(int i = 0; i<enums.length; i++)
