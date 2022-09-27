@@ -83,6 +83,7 @@ final class Kind
 	}
 
 	static final String TYPE_FACTORY_METHOD = "newType";
+	static final String ABSTRACT_TYPE_FACTORY_METHOD = "newTypeAbstract";
 
 
 	private static final HashMap<WrapType, Kind> kinds = new HashMap<>();

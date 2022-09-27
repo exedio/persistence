@@ -72,6 +72,7 @@ final class Generator
 	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
 	private final boolean useConstantForEmptySetValuesArray;
+	private final boolean activator;
 	private final Class<? extends Annotation> serialAnnotation;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -90,6 +91,7 @@ final class Generator
 		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.useConstantForEmptySetValuesArray = params.useConstantForEmptySetValuesArray;
+		this.activator = params.activator;
 		this.serialAnnotation = params.serialAnnotation ? SerialAccess.get() : null;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
@@ -805,8 +807,17 @@ final class Generator
 		writeWildcard(type);
 		write("> TYPE = ");
 		write(kind.typeFactory);
-		write("." + Kind.TYPE_FACTORY_METHOD + "(");
+		final boolean isAbstract = Modifier.isAbstract(type.javaClass.modifier);
+		write('.');
+		write((activator&&isAbstract) ? Kind.ABSTRACT_TYPE_FACTORY_METHOD : Kind.TYPE_FACTORY_METHOD);
+		write('(');
 		writeClass(type);
+		if(activator&&!isAbstract)
+		{
+			write(',');
+			write(type.getName());
+			write("::new");
+		}
 		write(");");
 		write(lineSeparator);
 	}
