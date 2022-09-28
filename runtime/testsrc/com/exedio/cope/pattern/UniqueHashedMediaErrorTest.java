@@ -108,7 +108,7 @@ public class UniqueHashedMediaErrorTest
 	{
 		try
 		{
-			newType(AbstractItem.class);
+			newType(AbstractItem.class, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
