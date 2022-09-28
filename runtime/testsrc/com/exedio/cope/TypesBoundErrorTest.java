@@ -44,7 +44,7 @@ public class TypesBoundErrorTest
 	@Test void classItem()
 	{
 		assertFails(
-				() -> newType(Item.class),
+				() -> newType(Item.class, failingActivator()),
 				IllegalArgumentException.class,
 				"Cannot make a type for " + Item.class + " itself, but only for subclasses.");
 	}
