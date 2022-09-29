@@ -727,7 +727,7 @@ public final class Dispatcher extends Pattern
 	{
 		static final int DEFAULT_FAILURE_LIMIT = 5;
 		static final int DEFAULT_SEARCH_SIZE = 1000;
-		static final int DEFAULT_SESSION_LIMIT = 100;
+		static final int DEFAULT_SESSION_LIMIT = 15;
 		static final Condition DEFAULT_NARROW_CONDITION = Condition.TRUE;
 
 		private final int failureLimit;

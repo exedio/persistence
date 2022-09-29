@@ -34,7 +34,7 @@ public class DispatcherPropertiesTest
 		final Config config = factory().create(Sources.EMPTY).get();
 		assertEquals(5,    config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
-		assertEquals(100,  config.getSessionLimit());
+		assertEquals(15,   config.getSessionLimit());
 	}
 
 	@Test void testCustom()
