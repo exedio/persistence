@@ -25,7 +25,6 @@ import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.function.ToDoubleFunction;
 
 final class ModelMetrics
@@ -156,14 +155,23 @@ final class ModelMetrics
 			final String nameSuffix,
 			final String description)
 	{
+		gaugeConnect(f, nameSuffix, description, Tags.empty());
+	}
+
+	void gaugeConnect(
+			final ToDoubleFunction<Connect> f,
+			final String nameSuffix,
+			final String description,
+			final Tags tags)
+	{
 		gauge(model,
 				m -> f.applyAsDouble(m.connect()),
-				nameSuffix, description);
+				nameSuffix, description, tags);
 	}
 
 
-	static Tags tag(final String key, final Instant value)
+	static double toEpoch(final Instant instant)
 	{
-		return Tags.of(key, DateTimeFormatter.ISO_INSTANT.format(value));
+		return ((double)instant.getEpochSecond()) + ((double)instant.getNano())/1_000_000_000;
 	}
 }
