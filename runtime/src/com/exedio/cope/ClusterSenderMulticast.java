@@ -28,12 +28,25 @@ final class ClusterSenderMulticast extends ClusterSender
 {
 	private final Send[] send;
 	private final DatagramSocket socket;
+	private final int localPort;
+	private final int sendBufferSize;
+	private final int trafficClass;
 
 	ClusterSenderMulticast(final ClusterProperties properties, final String modelName)
 	{
 		super(properties, modelName);
 		this.send = properties.send();
 		this.socket = properties.newSendSocket();
+		this.localPort = socket.getLocalPort();
+		try
+		{
+			this.sendBufferSize = socket.getSendBufferSize();
+			this.trafficClass = socket.getTrafficClass();
+		}
+		catch(final SocketException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -58,33 +71,19 @@ final class ClusterSenderMulticast extends ClusterSender
 	@Override
 	int getLocalPort()
 	{
-		return socket.getLocalPort();
+		return localPort;
 	}
 
 	@Override
 	int getSendBufferSize()
 	{
-		try
-		{
-			return socket.getSendBufferSize();
-		}
-		catch(final SocketException e)
-		{
-			throw new RuntimeException(e);
-		}
+		return sendBufferSize;
 	}
 
 	@Override
 	int getTrafficClass()
 	{
-		try
-		{
-			return socket.getTrafficClass();
-		}
-		catch(final SocketException e)
-		{
-			throw new RuntimeException(e);
-		}
+		return trafficClass;
 	}
 
 	void close()
