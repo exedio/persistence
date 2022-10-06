@@ -199,7 +199,7 @@ public class DataVaultInfoTest
 		assertEquals(
 				((Counter)meterCope(
 						DataField.class, "vault." + nameSuffix,
-						tag(MyItem.field).and("service", "default").and(tags))).count(),
+						tag(model).and(tag(MyItem.field)).and("service", "default").and(tags))).count(),
 				actual,
 				nameSuffix);
 	}
@@ -211,7 +211,7 @@ public class DataVaultInfoTest
 	{
 		return new CounterDeferredTester(
 				DataField.class, "vault." + name,
-				tag(MyItem.field).and("service", "default").and(tags));
+				tag(model).and(tag(MyItem.field)).and("service", "default").and(tags));
 	}
 
 

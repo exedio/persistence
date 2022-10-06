@@ -27,11 +27,11 @@ abstract class ClusterListenerModel extends ClusterListener
 
 	ClusterListenerModel(
 			final ClusterProperties properties,
-			final String modelName,
+			final MetricsBuilder metrics,
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{
-		super(properties, modelName, typeLength);
+		super(properties, metrics, typeLength);
 		this.sender = sender;
 		this.connect = connect;
 	}

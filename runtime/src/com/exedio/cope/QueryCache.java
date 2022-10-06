@@ -51,9 +51,9 @@ final class QueryCache
 	private final Counter stampsHit;
 	private final Counter stampsPurged;
 
-	QueryCache(final Model model, final int limit, final boolean stamps, final CacheStamp cacheStamp)
+	QueryCache(final MetricsBuilder metricsTemplate, final int limit, final boolean stamps, final CacheStamp cacheStamp)
 	{
-		final Metrics metrics = new Metrics(model);
+		final Metrics metrics = new Metrics(metricsTemplate);
 		metrics.gaugeD(
 				c -> c.map!=null ? c.map.maxSize : 0,
 				"maximumSize",                                "The maximum number of entries in this cache, causing eviction if exceeded"); // name conforms to com.google.common.cache.CacheBuilder
@@ -75,12 +75,10 @@ final class QueryCache
 	private static final class Metrics
 	{
 		final MetricsBuilder back;
-		final Model model;
 
-		Metrics(final Model model)
+		Metrics(final MetricsBuilder metricsTemplate)
 		{
-			this.back = new MetricsBuilder(QueryCache.class, model);
-			this.model = model;
+			this.back = metricsTemplate.name(QueryCache.class);
 		}
 
 		Counter counter(
@@ -104,8 +102,8 @@ final class QueryCache
 				final String nameSuffix,
 				final String description)
 		{
-			back.gauge(model,
-					m -> f.applyAsDouble(m.connect().queryCache),
+			back.gaugeConnect(
+					c -> f.applyAsDouble(c.queryCache),
 					nameSuffix, description);
 		}
 
@@ -114,9 +112,9 @@ final class QueryCache
 				final String nameSuffix,
 				final String description)
 		{
-			back.gauge(model, m ->
+			back.gaugeConnect(c ->
 					{
-						final QueryCache cache = m.connect().queryCache;
+						final QueryCache cache = c.queryCache;
 						final Map<?,?> map = f.apply(cache);
 						if(map==null)
 							return 0.0;
@@ -134,9 +132,9 @@ final class QueryCache
 				final String nameSuffix,
 				final String description)
 		{
-			back.gauge(model, m ->
+			back.gaugeConnect(c ->
 					{
-						final QueryCache cache = m.connect().queryCache;
+						final QueryCache cache = c.queryCache;
 						final ArrayDeque<?> deque = f.apply(cache);
 						if(deque==null)
 							return 0.0;

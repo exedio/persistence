@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import io.micrometer.core.instrument.Gauge;
-import io.micrometer.core.instrument.Metrics;
-import io.micrometer.core.instrument.Tags;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -42,11 +39,10 @@ final class Transactions
 	@SuppressWarnings("ThreadLocalNotStaticFinal") // OK: class is instantiated on static context only
 	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<>();
 
-	void onModelNameSet(final Tags tags)
+	void onModelNameSet(final MetricsBuilder metricsTemplate)
 	{
-		Gauge.
-				builder(
-						Transaction.class.getName() + ".open",
+		final MetricsBuilder metrics = metricsTemplate.name(Transaction.class);
+		metrics.gauge(
 						open,
 						// BEWARE:
 						// Must not use Collections#synchronizedCollection because
@@ -54,10 +50,9 @@ final class Transactions
 						// in this class uses "open" itself as mutex.
 						(s) -> {
 							//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parameter is actually field "open"
-							synchronized(s) { return s.size(); } }).
-				tags(tags).
-				description("The number of open (currently running) transactions.").
-				register(Metrics.globalRegistry);
+							synchronized(s) { return s.size(); } },
+						"open",
+						"The number of open (currently running) transactions.");
 	}
 
 	void add(final Transaction tx)

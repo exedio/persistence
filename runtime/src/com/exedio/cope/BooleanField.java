@@ -107,7 +107,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional)
+	Column createColumn(final Table table, final String name, final boolean optional, final MetricsBuilder metrics)
 	{
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}

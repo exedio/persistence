@@ -138,7 +138,7 @@ public final class DataField extends Field<DataField.Value>
 	private int bufferSizeLimit = -1;
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional)
+	Column createColumn(final Table table, final String name, final boolean optional, final MetricsBuilder metrics)
 	{
 		this.model = getType().getModel();
 		final ConnectProperties properties = model.getConnectProperties();
@@ -149,7 +149,7 @@ public final class DataField extends Field<DataField.Value>
 						isAnnotatedVault()
 					)
 				? new DataFieldBlobStore (this, table, name, optional, maximumLength)
-				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, model.connect());
+				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, model.connect(), metrics);
 		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault, maximumLength);
 		bufferSizeLimit   = min(properties.dataFieldBufferSizeLimit  , maximumLength);
 

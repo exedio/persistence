@@ -204,7 +204,7 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional)
+	Column createColumn(final Table table, final String name, final boolean optional, final MetricsBuilder metrics)
 	{
 		return new IntegerColumn(table, name, false, optional, minimum, maximum, true);
 	}

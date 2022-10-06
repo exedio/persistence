@@ -73,15 +73,15 @@ final class Connect
 	boolean revised = false;
 
 	Connect(
-			final Model model,
+			final MetricsBuilder metrics,
 			final Types types,
+			final ChangeListeners changeListeners,
 			final Revisions.Factory revisionsFactory,
 			final ConnectProperties properties,
 			final Transactions transactions)
 	{
 		this.properties = properties;
 
-		final String modelName = model.toString();
 		final CopeProbe probe = new CopeProbe(properties, properties.probeEnvironmentInfo());
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
@@ -108,7 +108,7 @@ final class Connect
 			final VaultProperties props = properties.vault;
 			final Function<String, BooleanSupplier> markPut = key ->
 			{
-				final VaultMarkPut result = new VaultMarkPut(model, key);
+				final VaultMarkPut result = new VaultMarkPut(metrics, key);
 				if(vaultMarkPut.putIfAbsent(key, result)!=null)
 					throw new RuntimeException(key);
 				return result;
@@ -127,19 +127,19 @@ final class Connect
 				revisions);
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);
-		this.itemCache = new ItemCache(model, properties, cacheStamp);
-		this.queryCache = new QueryCache(model, properties.getQueryCacheLimit(), properties.cacheStamps, cacheStamp);
+		this.itemCache = new ItemCache(metrics, types, properties, cacheStamp);
+		this.queryCache = new QueryCache(metrics, properties.getQueryCacheLimit(), properties.cacheStamps, cacheStamp);
 
 		{
 			final ClusterProperties props = properties.cluster;
 			//noinspection ThisEscapedInObjectConstruction
-			this.cluster = props!=null ? new Cluster(modelName, types, props, this) : null;
+			this.cluster = props!=null ? new Cluster(metrics, types, props, this) : null;
 		}
 
 		this.changeListenerDispatcher =
-				new ChangeListenerDispatcher(model, properties);
+				new ChangeListenerDispatcher(metrics, types, changeListeners, properties);
 
-		new MetricsBuilder(Model.class, model).gauge(
+		metrics.gauge(
 				date, d -> 1.0,
 				"connect", "Describes the connect of the model to the database.",
 				tag("date", date).and(probe.tags()));

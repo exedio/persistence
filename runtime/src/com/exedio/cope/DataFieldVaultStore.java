@@ -53,7 +53,8 @@ final class DataFieldVaultStore extends DataFieldStore
 			final String name,
 			final boolean optional,
 			final VaultProperties properties,
-			final Connect connect)
+			final Connect connect,
+			final MetricsBuilder metricsTemplate)
 	{
 		super(field);
 		final int length = properties.getAlgorithmLength();
@@ -68,7 +69,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		this.service = requireNonNull(connect.vaults.get(serviceKey));
 		this.trail = connect.database.vaultTrails.get(serviceKey);
 
-		final Metrics metrics = new Metrics(field, serviceKey);
+		final Metrics metrics = new Metrics(metricsTemplate, field, serviceKey);
 		getLength = metrics.counter("getLength");
 		getBytes  = metrics.counter("get", "sink", "bytes");
 		getStream = metrics.counter("get", "sink", "stream");
@@ -82,11 +83,11 @@ final class DataFieldVaultStore extends DataFieldStore
 	{
 		final MetricsBuilder back;
 
-		Metrics(final DataField field, final String service)
+		Metrics(final MetricsBuilder metricsTemplate, final DataField field, final String service)
 		{
-			this.back = new MetricsBuilder(DataField.class, Tags.of(
-					"feature", field.getID(),
-					"service", service));
+			this.back = metricsTemplate.name(DataField.class).
+					tag(field).
+					tag("service", service);
 		}
 
 		Counter counter(

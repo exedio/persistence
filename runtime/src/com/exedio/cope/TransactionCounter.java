@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 
@@ -29,23 +28,23 @@ final class TransactionCounter
 	private Timer rollbackWithout = new NoNameTimer();
 	private Timer rollbackWith    = new NoNameTimer();
 
-	void onModelNameSet(final Tags tags)
+	void onModelNameSet(final MetricsBuilder metricsTemplate)
 	{
-		commitWithout   = counter(tags, "commit", "without");
-		commitWith      = counter(tags, "commit", "with");
-		rollbackWithout = counter(tags, "rollback", "without");
-		rollbackWith    = counter(tags, "rollback", "with");
+		final MetricsBuilder metrics = metricsTemplate.name(Transaction.class);
+		commitWithout   = counter(metrics, "commit", "without");
+		commitWith      = counter(metrics, "commit", "with");
+		rollbackWithout = counter(metrics, "rollback", "without");
+		rollbackWith    = counter(metrics, "rollback", "with");
 	}
 
 	private static Timer counter(
-			final Tags tags,
+			final MetricsBuilder metrics,
 			final String end,
 			final String connection)
 	{
-		return Timer.builder(Transaction.class.getName() + ".finished").
-				tags(tags.and("end", end, "connection", connection)).
-				description("Transactions finished that required or did not require a database (JDBC) connection").
-				register(Metrics.globalRegistry);
+		return metrics.timer("finished",
+				"Transactions finished that required or did not require a database (JDBC) connection",
+				Tags.of("end", end, "connection", connection));
 	}
 
 	long countAndReturnNanos(final Timer.Sample start, final boolean commit, final boolean hadConnection)

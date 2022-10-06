@@ -43,22 +43,24 @@ final class ChangeListenerDispatcher implements Runnable
 	private final Counter exception;
 
 	ChangeListenerDispatcher(
-			final Model model,
+			final MetricsBuilder metricsTemplate,
+			final Types types,
+			final ChangeListeners manager,
 			final ConnectProperties properties)
 	{
-		this.types = model.types;
-		this.manager = model.changeListeners;
+		this.types = types;
+		this.manager = manager;
 		this.queue = new LimitedQueue<>(properties.changeListenersQueueCapacity);
 
 		//noinspection ThisEscapedInObjectConstruction
 		this.threads = new ThreadSwarm(
 				this,
-				"COPE Change Listener Dispatcher " + model,
+				"COPE Change Listener Dispatcher " + metricsTemplate.modelName,
 				properties.chaListThreads
 		);
 		threads.start();
 
-		final Metrics metrics = new Metrics(model);
+		final Metrics metrics = new Metrics(metricsTemplate);
 		overflow  = metrics.counter("overflow",          "How often the queue overflows, because ChangeEvents coming in faster than they can be dispatched to ChangeListeners.", Tags.empty());
 		exception = metrics.counter("dispatchEventFail", "How often dispatching a ChangeEvent to all ChangeListeners fails.", Tags.empty());
 		metrics.gauge(d -> d.queue.capacity,"capacity",  "How many ChangeEvents the queue can hold.");
@@ -68,12 +70,10 @@ final class ChangeListenerDispatcher implements Runnable
 	private static final class Metrics
 	{
 		final MetricsBuilder back;
-		final Model model;
 
-		Metrics(final Model model)
+		Metrics(final MetricsBuilder metricsTemplate)
 		{
-			this.back = new MetricsBuilder(ChangeListener.class, model);
-			this.model = model;
+			this.back = metricsTemplate.name(ChangeListener.class);
 		}
 
 		Counter counter(
@@ -89,8 +89,8 @@ final class ChangeListenerDispatcher implements Runnable
 				final String nameSuffix,
 				final String description)
 		{
-			back.gauge(model,
-					m -> f.applyAsDouble(m.connect().changeListenerDispatcher),
+			back.gaugeConnect(
+					c -> f.applyAsDouble(c.changeListenerDispatcher),
 					nameSuffix, description);
 		}
 	}

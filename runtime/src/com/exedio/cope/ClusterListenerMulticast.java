@@ -46,11 +46,11 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 
 	ClusterListenerMulticast(
 			final ClusterProperties properties,
-			final String modelName,
+			final MetricsBuilder metrics,
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{
-		super(properties, modelName, sender, typeLength, connect);
+		super(properties, metrics, sender, typeLength, connect);
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
 		this.networkInterface = properties.listenInterface;
@@ -67,7 +67,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		//noinspection ThisEscapedInObjectConstruction
 		this.threads = new ThreadSwarm(
 				this,
-				"COPE Cluster Listener " + modelName + ' ' + ClusterSenderInfo.toStringNodeID(properties.node),
+				"COPE Cluster Listener " + metrics.modelName + ' ' + ClusterSenderInfo.toStringNodeID(properties.node),
 				properties.listenThreads
 		);
 		threads.start();
