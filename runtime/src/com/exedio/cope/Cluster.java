@@ -24,8 +24,8 @@ import java.util.ArrayList;
 final class Cluster
 {
 	final ClusterProperties properties;
-	private final ClusterSenderMulticast sender;
-	private final ClusterListenerMulticast listener;
+	final ClusterSenderMulticast sender;
+	final ClusterListenerMulticast listener;
 
 	Cluster(
 			final ModelMetrics metricsTemplate,

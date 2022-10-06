@@ -22,6 +22,7 @@ import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import com.exedio.cope.util.Hex;
 import gnu.trove.TLongHashSet;
 import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Tags;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
@@ -858,11 +860,14 @@ public abstract class ClusterTest
 		assertEquals(123456, senderInfo.getLocalPort());
 		assertEquals(123457, senderInfo.getSendBufferSize());
 		assertEquals(123458, senderInfo.getTrafficClass());
+		assertEquals(NaN, gauge("sendBufferSize"));
+		assertEquals(NaN, gauge("trafficClass"));
 		assertEquals(invalidationSplit, senderInfo.getInvalidationSplit() - invalidationSplitBefore);
 		assertEquals(invalidationSplit, count("invalidationSplit")        - invalidationSplitBefore);
 
 		final ClusterListenerInfo listenerInfo = cl.getInfo();
 		assertEquals(234567, listenerInfo.getReceiveBufferSize());
+		assertEquals(NaN, gauge("receiveBufferSize"));
 		assertEquals(0, listenerInfo.getException());
 		assertEquals(0, count("fail"));
 		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic() - missingMagicBefore);
@@ -954,6 +959,13 @@ public abstract class ClusterTest
 		{
 			return 0;
 		}
+	}
+
+	private static double gauge(final String nameSuffix)
+	{
+		return ((Gauge)PrometheusMeterRegistrar.meter(
+				Cluster.class, nameSuffix,
+				Tags.of("model", "MOCK_MODEL_NAME"))).value();
 	}
 
 	private static final byte b0 = 0;
