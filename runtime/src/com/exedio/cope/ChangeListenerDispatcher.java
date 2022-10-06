@@ -43,7 +43,7 @@ final class ChangeListenerDispatcher implements Runnable
 	private final Counter exception;
 
 	ChangeListenerDispatcher(
-			final MetricsBuilder metricsTemplate,
+			final ModelMetrics metricsTemplate,
 			final Types types,
 			final ChangeListeners manager,
 			final ConnectProperties properties)
@@ -69,9 +69,9 @@ final class ChangeListenerDispatcher implements Runnable
 
 	private static final class Metrics
 	{
-		final MetricsBuilder back;
+		final ModelMetrics back;
 
-		Metrics(final MetricsBuilder metricsTemplate)
+		Metrics(final ModelMetrics metricsTemplate)
 		{
 			this.back = metricsTemplate.name(ChangeListener.class);
 		}

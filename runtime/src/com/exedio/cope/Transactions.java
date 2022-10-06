@@ -39,9 +39,9 @@ final class Transactions
 	@SuppressWarnings("ThreadLocalNotStaticFinal") // OK: class is instantiated on static context only
 	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<>();
 
-	void onModelNameSet(final MetricsBuilder metricsTemplate)
+	void onModelNameSet(final ModelMetrics metricsTemplate)
 	{
-		final MetricsBuilder metrics = metricsTemplate.name(Transaction.class);
+		final ModelMetrics metrics = metricsTemplate.name(Transaction.class);
 		metrics.gauge(
 						open,
 						// BEWARE:

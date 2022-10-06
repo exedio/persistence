@@ -51,7 +51,7 @@ final class QueryCache
 	private final Counter stampsHit;
 	private final Counter stampsPurged;
 
-	QueryCache(final MetricsBuilder metricsTemplate, final int limit, final boolean stamps, final CacheStamp cacheStamp)
+	QueryCache(final ModelMetrics metricsTemplate, final int limit, final boolean stamps, final CacheStamp cacheStamp)
 	{
 		final Metrics metrics = new Metrics(metricsTemplate);
 		metrics.gaugeD(
@@ -74,9 +74,9 @@ final class QueryCache
 
 	private static final class Metrics
 	{
-		final MetricsBuilder back;
+		final ModelMetrics back;
 
-		Metrics(final MetricsBuilder metricsTemplate)
+		Metrics(final ModelMetrics metricsTemplate)
 		{
 			this.back = metricsTemplate.name(QueryCache.class);
 		}

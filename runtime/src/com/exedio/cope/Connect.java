@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.MetricsBuilder.tag;
+import static com.exedio.cope.ModelMetrics.tag;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Collections.emptyMap;
@@ -73,7 +73,7 @@ final class Connect
 	boolean revised = false;
 
 	Connect(
-			final MetricsBuilder metrics,
+			final ModelMetrics metrics,
 			final Types types,
 			final ChangeListeners changeListeners,
 			final Revisions.Factory revisionsFactory,

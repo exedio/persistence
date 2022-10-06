@@ -27,7 +27,7 @@ abstract class ClusterListenerModel extends ClusterListener
 
 	ClusterListenerModel(
 			final ClusterProperties properties,
-			final MetricsBuilder metrics,
+			final ModelMetrics metrics,
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{

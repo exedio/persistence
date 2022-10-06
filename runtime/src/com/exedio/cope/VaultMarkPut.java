@@ -26,7 +26,7 @@ final class VaultMarkPut implements BooleanSupplier
 	volatile boolean value = false;
 
 	VaultMarkPut(
-			final MetricsBuilder metrics,
+			final ModelMetrics metrics,
 			final String serviceKey)
 	{
 		metrics.

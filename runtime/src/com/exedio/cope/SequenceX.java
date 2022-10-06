@@ -44,7 +44,7 @@ final class SequenceX
 		this.counter = new SequenceCounter(feature, start, minimum, maximum);
 	}
 
-	void onModelNameSet(final MetricsBuilder metrics)
+	void onModelNameSet(final ModelMetrics metrics)
 	{
 		counter.onModelNameSet(metrics);
 	}

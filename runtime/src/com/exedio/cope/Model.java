@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.MetricsBuilder.tag;
+import static com.exedio.cope.ModelMetrics.tag;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
@@ -110,7 +110,7 @@ public final class Model implements Serializable
 
 	private void onNameSet(final String name)
 	{
-		final MetricsBuilder metrics = new MetricsBuilder(this, name);
+		final ModelMetrics metrics = new ModelMetrics(this, name);
 		metrics.gauge(
 				initializeDate, d -> 1.0,
 				"initialize", "Describes the initialization of the model.",
@@ -146,7 +146,7 @@ public final class Model implements Serializable
 		if(properties.vault!=null)
 			properties.vault.checkServices(this);
 
-		final MetricsBuilder metrics = new MetricsBuilder(this, toString());
+		final ModelMetrics metrics = new ModelMetrics(this, toString());
 		synchronized(connectLock)
 		{
 			if(connectIfConnected!=null)

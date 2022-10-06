@@ -32,7 +32,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	private final int sendBufferSize;
 	private final int trafficClass;
 
-	ClusterSenderMulticast(final ClusterProperties properties, final MetricsBuilder metrics)
+	ClusterSenderMulticast(final ClusterProperties properties, final ModelMetrics metrics)
 	{
 		super(properties, metrics);
 		this.send = properties.send();

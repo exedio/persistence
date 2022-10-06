@@ -453,7 +453,7 @@ final class Types
 			}
 	}
 
-	void connect(final Database db, final MetricsBuilder metrics)
+	void connect(final Database db, final ModelMetrics metrics)
 	{
 		for(final Type<?> type : typesSorted)
 			type.connect(db, metrics);

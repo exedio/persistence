@@ -51,7 +51,7 @@ abstract class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-	ClusterSender(final ClusterProperties properties, final MetricsBuilder metrics)
+	ClusterSender(final ClusterProperties properties, final ModelMetrics metrics)
 	{
 		this.properties = properties;
 		{

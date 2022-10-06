@@ -351,7 +351,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	void onModelNameSet(final MetricsBuilder metrics)
+	void onModelNameSet(final ModelMetrics metrics)
 	{
 		if(supertype==null)
 			primaryKeySequence.onModelNameSet(metrics);
@@ -540,7 +540,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return annotationSource.getAnnotation(annotationClass);
 	}
 
-	void connect(final Database database, final MetricsBuilder metrics)
+	void connect(final Database database, final ModelMetrics metrics)
 	{
 		if(database==null)
 			throw new RuntimeException();

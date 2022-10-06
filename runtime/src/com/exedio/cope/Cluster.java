@@ -28,12 +28,12 @@ final class Cluster
 	private final ClusterListenerMulticast listener;
 
 	Cluster(
-			final MetricsBuilder metricsTemplate,
+			final ModelMetrics metricsTemplate,
 			final Types types,
 			final ClusterProperties properties,
 			final Connect connect)
 	{
-		final MetricsBuilder metrics = metricsTemplate.name(Cluster.class);
+		final ModelMetrics metrics = metricsTemplate.name(Cluster.class);
 		this.properties = properties;
 		this.sender   = new ClusterSenderMulticast(properties, metrics);
 		this.listener = new ClusterListenerMulticast(properties, metrics, sender, types.concreteTypeCount, connect);
