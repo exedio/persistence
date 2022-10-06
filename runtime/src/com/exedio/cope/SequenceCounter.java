@@ -75,9 +75,9 @@ final class SequenceCounter
 			: new SequenceInfo(feature, start, minimum, maximum);
 	}
 
-	void onModelNameSet(final Tags tags)
+	void onModelNameSet(final MetricsBuilder metricsTemplate)
 	{
-		final Metrics metrics = new Metrics(tags, this);
+		final Metrics metrics = new Metrics(metricsTemplate, this);
 		metrics.value(c -> c.start,   "start", "The initial value this sequence started with.");
 		metrics.value(c -> c.maximum, "end",   "The largest value possible value this sequence can produce.");
 		metrics.value(c -> c.last,    "last",  "The last value produced by this sequence. None, if no value was produced since last restart.");
@@ -88,9 +88,9 @@ final class SequenceCounter
 		final MetricsBuilder back;
 		final SequenceCounter counter;
 
-		Metrics(final Tags tags, final SequenceCounter counter)
+		Metrics(final MetricsBuilder metricsTemplate, final SequenceCounter counter)
 		{
-			this.back = new MetricsBuilder(Sequence.class, tags.and("feature", counter.feature.getID()));
+			this.back = metricsTemplate.name(Sequence.class).tag(counter.feature);
 			this.counter = counter;
 		}
 

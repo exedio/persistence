@@ -191,14 +191,14 @@ public abstract class Field<E> extends Feature implements Settable<E>
 
 	private Column column;
 
-	final void connect(final Table table)
+	final void connect(final Table table, final MetricsBuilder metrics)
 	{
 		if(table==null)
 			throw new NullPointerException();
 		if(column!=null)
 			throw new RuntimeException();
 
-		column = createColumn(table, getDeclaredSchemaName(), optional);
+		column = createColumn(table, getDeclaredSchemaName(), optional, metrics);
 	}
 
 	void disconnect()
@@ -214,7 +214,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return column;
 	}
 
-	abstract Column createColumn(Table table, String name, boolean optional);
+	abstract Column createColumn(Table table, String name, boolean optional, final MetricsBuilder metrics);
 	public abstract E get(Item item);
 	public abstract void set(Item item, E value);
 

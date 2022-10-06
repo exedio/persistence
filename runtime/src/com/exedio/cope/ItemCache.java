@@ -43,11 +43,12 @@ final class ItemCache
 
 	private final TypeStats[] typeStats;
 
-	ItemCache(final Model model, final ConnectProperties properties, final CacheStamp cacheStamp)
+	ItemCache(final MetricsBuilder metricsTemplate, final Types types, final ConnectProperties properties, final CacheStamp cacheStamp)
 	{
 		final int limit=properties.getItemCacheLimit();
+		final Metrics metrics = new Metrics(metricsTemplate);
 		final List<TypeStats> typesStatsList=new ArrayList<>();
-		for(final Type<?> type : model.types.typeListSorted)
+		for(final Type<?> type : types.typeListSorted)
 			if(!type.isAbstract)
 			{
 				final boolean cachingDisabled =
@@ -55,7 +56,7 @@ final class ItemCache
 						type.external ||
 						CopeCacheWeightHelper.isDisabled(type);
 
-				typesStatsList.add(cachingDisabled?null:new TypeStats(type));
+				typesStatsList.add(cachingDisabled?null:new TypeStats(metrics.back, type));
 			}
 
 		typeStats=typesStatsList.toArray(EMPTY_TYPE_STATS_ARRAY);
@@ -82,7 +83,6 @@ final class ItemCache
 			stampList=null;
 		}
 
-		final Metrics metrics = new Metrics(model);
 		metrics.gaugeD(c -> c.map.maxSize, "maximumSize", "The maximum number of entries in this cache, causing eviction if exceeded"); // name conforms to com.google.common.cache.CacheBuilder
 		metrics.gaugeM(c -> c.map,         "size",        "The exact number of entries in this cache"); // name conforms to CacheMeterBinder
 		metrics.gaugeL(c -> c.stampList,   "stamp.transactions", "Number of transactions in stamp list");
@@ -91,12 +91,10 @@ final class ItemCache
 	private static final class Metrics
 	{
 		final MetricsBuilder back;
-		final Model model;
 
-		Metrics(final Model model)
+		Metrics(final MetricsBuilder metricsTemplate)
 		{
-			this.back = new MetricsBuilder(ItemCache.class, model);
-			this.model = model;
+			this.back = metricsTemplate.name(ItemCache.class);
 		}
 
 		void gaugeD(
@@ -104,8 +102,8 @@ final class ItemCache
 				final String nameSuffix,
 				final String description)
 		{
-			back.gauge(model,
-					m -> f.applyAsDouble(m.connect().itemCache),
+			back.gaugeConnect(
+					c -> f.applyAsDouble(c.itemCache),
 					nameSuffix, description);
 		}
 
@@ -114,9 +112,9 @@ final class ItemCache
 				final String nameSuffix,
 				final String description)
 		{
-			back.gauge(model, m ->
+			back.gaugeConnect(c ->
 					{
-						final ItemCache cache = m.connect().itemCache;
+						final ItemCache cache = c.itemCache;
 						final Map<?,?> map = f.apply(cache);
 						if(map==null)
 							return 0.0;
@@ -134,9 +132,9 @@ final class ItemCache
 				final String nameSuffix,
 				final String description)
 		{
-			back.gauge(model, m ->
+			back.gaugeConnect(c ->
 					{
-						final ItemCache cache = m.connect().itemCache;
+						final ItemCache cache = c.itemCache;
 						final ArrayDeque<?> deque = f.apply(cache);
 						if(deque==null)
 							return 0.0;
@@ -370,10 +368,10 @@ final class ItemCache
 		final Counter stampsHit;
 		final Counter stampsPurged;
 
-		TypeStats(final Type<?> type)
+		TypeStats(final MetricsBuilder metricsTemplate, final Type<?> type)
 		{
 			this.type=type;
-			final Metrics metrics = new Metrics(type);
+			final Metrics metrics = new Metrics(metricsTemplate, type);
 			hits                = metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
 			misses              = metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
 			concurrentLoads     = metrics.counter("concurrentLoad", "How often an item was loaded concurrently");
@@ -388,11 +386,9 @@ final class ItemCache
 		{
 			final MetricsBuilder back;
 
-			Metrics(final Type<?> type)
+			Metrics(final MetricsBuilder metricsTemplate, final Type<?> type)
 			{
-				this.back = new MetricsBuilder(ItemCache.class, Tags.of(
-						"type", type.getID(),
-						"model", type.getModel().toString()));
+				this.back = metricsTemplate.name(ItemCache.class).tag(type);
 			}
 
 			Counter counter(

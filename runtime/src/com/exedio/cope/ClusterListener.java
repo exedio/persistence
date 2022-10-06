@@ -60,11 +60,11 @@ abstract class ClusterListener
 	private final int localNode;
 	private final int seqCheckCapacity;
 	private final int typeLength;
-	private final Tags tags;
+	private final MetricsBuilder metrics;
 
 	ClusterListener(
 			final ClusterProperties properties,
-			final String modelName,
+			final MetricsBuilder metrics,
 			final int typeLength)
 	{
 		this.properties = properties;
@@ -72,8 +72,7 @@ abstract class ClusterListener
 		this.localNode = properties.node;
 		this.seqCheckCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
-		this.tags = Tags.of("model", modelName);
-		final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, tags);
+		this.metrics = metrics;
 		exception    = metrics.counter("fail",         "How often a received packet failed to parse.", Tags.empty());
 		missingMagic = metrics.counter("missingMagic", "How often a received packet did not start with the magic bytes " + Hex.encodeUpper(MAGIC) + '.', Tags.empty());
 		wrongSecret  = metrics.counter("wrongSecret",  "How often a received packet did not carry the secret this cluster is configured with.", Tags.empty());
@@ -228,7 +227,7 @@ abstract class ClusterListener
 		Node(
 				final int id,
 				final DatagramPacket packet,
-				final Tags tags,
+				final MetricsBuilder metricsTemplate,
 				final int seqCheckCapacity)
 		{
 			this.id = id;
@@ -236,7 +235,7 @@ abstract class ClusterListener
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
-			final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, tags.and(
+			final MetricsBuilder metrics = metricsTemplate.tag(Tags.of(
 					"id", idString,
 					"address", Objects.toString(address),
 					"port", String.valueOf(port)));
@@ -367,7 +366,7 @@ abstract class ClusterListener
 			if(result!=null)
 				return result;
 
-			nodes.put(id, result = new Node(id, packet, tags, seqCheckCapacity));
+			nodes.put(id, result = new Node(id, packet, metrics, seqCheckCapacity));
 			return result;
 		}
 	}

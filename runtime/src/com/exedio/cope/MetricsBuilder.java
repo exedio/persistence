@@ -30,22 +30,53 @@ import java.util.function.ToDoubleFunction;
 
 final class MetricsBuilder
 {
+	private final Model model;
+	final String modelName;
 	private final String nameClass;
 	private final Tags tags;
 
 	MetricsBuilder(
-			final Class<?> nameClass,
-			final Model model)
+			final Model model,
+			final String modelName)
 	{
-		this(nameClass, Tags.of("model", model.toString()));
+		this(model, modelName, Model.class.getName(), Tags.of("model", modelName));
 	}
 
-	MetricsBuilder(
-			final Class<?> nameClass,
+	private MetricsBuilder(
+			final Model model,
+			final String modelName,
+			final String nameClass,
 			final Tags tags)
 	{
-		this.nameClass = nameClass.getName();
+		this.model = model;
+		this.modelName = modelName;
+		this.nameClass = nameClass;
 		this.tags = tags;
+	}
+
+	MetricsBuilder name(final Class<?> nameClass)
+	{
+		return new MetricsBuilder(model, modelName, nameClass.getName(), tags);
+	}
+
+	MetricsBuilder tag(final Tags tags)
+	{
+		return new MetricsBuilder(model, modelName, nameClass, this.tags.and(tags));
+	}
+
+	MetricsBuilder tag(final String key, final String value)
+	{
+		return new MetricsBuilder(model, modelName, nameClass, tags.and(key, value));
+	}
+
+	MetricsBuilder tag(final Feature value)
+	{
+		return tag("feature", value.getID());
+	}
+
+	MetricsBuilder tag(final Type<?> value)
+	{
+		return tag("type", value.getID());
 	}
 
 	private String name(final String suffix)
@@ -102,6 +133,16 @@ final class MetricsBuilder
 				description(description).
 				tags(this.tags.and(tags)).
 				register(Metrics.globalRegistry);
+	}
+
+	void gaugeConnect(
+			final ToDoubleFunction<Connect> f,
+			final String nameSuffix,
+			final String description)
+	{
+		gauge(model,
+				m -> f.applyAsDouble(m.connect()),
+				nameSuffix, description);
 	}
 
 

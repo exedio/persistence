@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
-import io.micrometer.core.instrument.Tags;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -139,7 +138,7 @@ public class SequenceCounterTest
 		assertNotNull(feature);
 		this.feature = feature;
 		final SequenceCounter result = new SequenceCounter(feature, start, minimum, maximum);
-		result.onModelNameSet(Tags.of("model", MODEL.toString()));
+		result.onModelNameSet(new MetricsBuilder(MODEL, MODEL.toString()).name(SequenceCounterTest.class/* deliberate nonsense */));
 		return result;
 	}
 
@@ -170,6 +169,5 @@ public class SequenceCounterTest
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@SuppressWarnings("unused") // makes sure model is loaded
 	private static final Model MODEL = new Model(MyItem.TYPE);
 }

@@ -33,7 +33,6 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.CharSet;
-import io.micrometer.core.instrument.Tags;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -352,14 +351,14 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	void onModelNameSet(final Tags tags)
+	void onModelNameSet(final MetricsBuilder metrics)
 	{
 		if(supertype==null)
-			primaryKeySequence.onModelNameSet(tags);
+			primaryKeySequence.onModelNameSet(metrics);
 
 		for(final Feature feature : features)
 			if(feature instanceof Sequence)
-				((Sequence)feature).sequenceX.onModelNameSet(tags);
+				((Sequence)feature).sequenceX.onModelNameSet(metrics);
 	}
 
 	void registerMounted(final Feature feature)
@@ -541,7 +540,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return annotationSource.getAnnotation(annotationClass);
 	}
 
-	void connect(final Database database)
+	void connect(final Database database, final MetricsBuilder metrics)
 	{
 		if(database==null)
 			throw new RuntimeException();
@@ -566,7 +565,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 
 		for(final Field<?> a : fields.declared)
-			a.connect(table);
+			a.connect(table, metrics);
 		for(final UniqueConstraint uc : uniqueConstraints.declared)
 			uc.connect(table);
 		table.setUniqueConstraints(uniqueConstraints.declared);

@@ -29,7 +29,6 @@ import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
-import io.micrometer.core.instrument.Tags;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -111,16 +110,16 @@ public final class Model implements Serializable
 
 	private void onNameSet(final String name)
 	{
-		final Tags tags = Tags.of("model", name);
-		new MetricsBuilder(Model.class, this).gauge(
+		final MetricsBuilder metrics = new MetricsBuilder(this, name);
+		metrics.gauge(
 				initializeDate, d -> 1.0,
 				"initialize", "Describes the initialization of the model.",
 				tag("date", initializeDate));
-		changeListeners.onModelNameSet(tags);
-		transactions.onModelNameSet(tags);
-		transactionCounter.onModelNameSet(tags);
+		changeListeners.onModelNameSet(metrics);
+		transactions.onModelNameSet(metrics);
+		transactionCounter.onModelNameSet(metrics);
 		for(final Type<?> type : types.typeListSorted)
-			type.onModelNameSet(tags);
+			type.onModelNameSet(metrics);
 	}
 
 	public boolean contains(final TypeSet typeSet)
@@ -147,13 +146,14 @@ public final class Model implements Serializable
 		if(properties.vault!=null)
 			properties.vault.checkServices(this);
 
+		final MetricsBuilder metrics = new MetricsBuilder(this, toString());
 		synchronized(connectLock)
 		{
 			if(connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			connectIfConnected = new Connect(this, types, revisions, properties, transactions);
-			types.connect(connectIfConnected.database);
+			connectIfConnected = new Connect(metrics, types, changeListeners, revisions, properties, transactions);
+			types.connect(connectIfConnected.database, metrics);
 		}
 
 		timer.finish("connect");

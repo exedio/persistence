@@ -434,7 +434,7 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional)
+	Column createColumn(final Table table, final String name, final boolean optional, final MetricsBuilder metrics)
 	{
 		return
 				getType().getModel().connect().supportsNativeDate

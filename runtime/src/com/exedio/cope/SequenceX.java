@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
-import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 
@@ -45,9 +44,9 @@ final class SequenceX
 		this.counter = new SequenceCounter(feature, start, minimum, maximum);
 	}
 
-	void onModelNameSet(final Tags tags)
+	void onModelNameSet(final MetricsBuilder metrics)
 	{
-		counter.onModelNameSet(tags);
+		counter.onModelNameSet(metrics);
 	}
 
 	private Timer.Builder timer()

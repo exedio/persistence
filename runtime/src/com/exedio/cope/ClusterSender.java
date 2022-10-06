@@ -51,7 +51,7 @@ abstract class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-	ClusterSender(final ClusterProperties properties, final String modelName)
+	ClusterSender(final ClusterProperties properties, final MetricsBuilder metrics)
 	{
 		this.properties = properties;
 		{
@@ -94,7 +94,6 @@ abstract class ClusterSender
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
 		}
-		final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, Tags.of("model", modelName));
 		invalidationSplit = metrics.counter("invalidationSplit", "How often an invalidation must be split before sending due to packet size constraint.", Tags.empty());
 	}
 

@@ -43,10 +43,10 @@ final class ChangeListeners
 	private Timer success = new NoNameTimer();
 	private Timer failed  = new NoNameTimer();
 
-	void onModelNameSet(final Tags tags)
+	void onModelNameSet(final MetricsBuilder metricsTemplate)
 	{
 		final MetricsBuilder metrics =
-				new MetricsBuilder(ChangeListener.class, tags);
+				metricsTemplate.name(ChangeListener.class);
 		cleared = metrics.counter("remove", "Number of ChangeListeners that were removed because they were eligible for garbage collection.", Tags.of("cause", "reference"));
 		removed = metrics.counter("remove", "Number of ChangeListeners removed via Model#removeChangeListener or #removeAllChangeListeners.", Tags.of("cause", "remove"));
 		success = metrics.timer("dispatch", "How often calls to ChangeListener#onChange did succeed.", Tags.of("result", "success"));
