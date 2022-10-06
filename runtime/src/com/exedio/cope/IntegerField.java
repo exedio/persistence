@@ -315,7 +315,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional, final MetricsBuilder metrics)
+	Column createColumn(final Table table, final String name, final boolean optional, final ModelMetrics metrics)
 	{
 		return new IntegerColumn(table, name, false, optional, minimum, maximum, false);
 	}

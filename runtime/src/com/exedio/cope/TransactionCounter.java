@@ -28,9 +28,9 @@ final class TransactionCounter
 	private Timer rollbackWithout = new NoNameTimer();
 	private Timer rollbackWith    = new NoNameTimer();
 
-	void onModelNameSet(final MetricsBuilder metricsTemplate)
+	void onModelNameSet(final ModelMetrics metricsTemplate)
 	{
-		final MetricsBuilder metrics = metricsTemplate.name(Transaction.class);
+		final ModelMetrics metrics = metricsTemplate.name(Transaction.class);
 		commitWithout   = counter(metrics, "commit", "without");
 		commitWith      = counter(metrics, "commit", "with");
 		rollbackWithout = counter(metrics, "rollback", "without");
@@ -38,7 +38,7 @@ final class TransactionCounter
 	}
 
 	private static Timer counter(
-			final MetricsBuilder metrics,
+			final ModelMetrics metrics,
 			final String end,
 			final String connection)
 	{

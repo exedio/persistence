@@ -43,7 +43,7 @@ final class ItemCache
 
 	private final TypeStats[] typeStats;
 
-	ItemCache(final MetricsBuilder metricsTemplate, final Types types, final ConnectProperties properties, final CacheStamp cacheStamp)
+	ItemCache(final ModelMetrics metricsTemplate, final Types types, final ConnectProperties properties, final CacheStamp cacheStamp)
 	{
 		final int limit=properties.getItemCacheLimit();
 		final Metrics metrics = new Metrics(metricsTemplate);
@@ -90,9 +90,9 @@ final class ItemCache
 
 	private static final class Metrics
 	{
-		final MetricsBuilder back;
+		final ModelMetrics back;
 
-		Metrics(final MetricsBuilder metricsTemplate)
+		Metrics(final ModelMetrics metricsTemplate)
 		{
 			this.back = metricsTemplate.name(ItemCache.class);
 		}
@@ -368,7 +368,7 @@ final class ItemCache
 		final Counter stampsHit;
 		final Counter stampsPurged;
 
-		TypeStats(final MetricsBuilder metricsTemplate, final Type<?> type)
+		TypeStats(final ModelMetrics metricsTemplate, final Type<?> type)
 		{
 			this.type=type;
 			final Metrics metrics = new Metrics(metricsTemplate, type);
@@ -384,9 +384,9 @@ final class ItemCache
 
 		private static final class Metrics
 		{
-			final MetricsBuilder back;
+			final ModelMetrics back;
 
-			Metrics(final MetricsBuilder metricsTemplate, final Type<?> type)
+			Metrics(final ModelMetrics metricsTemplate, final Type<?> type)
 			{
 				this.back = metricsTemplate.name(ItemCache.class).tag(type);
 			}

@@ -28,21 +28,21 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.function.ToDoubleFunction;
 
-final class MetricsBuilder
+final class ModelMetrics
 {
 	private final Model model;
 	final String modelName;
 	private final String nameClass;
 	private final Tags tags;
 
-	MetricsBuilder(
+	ModelMetrics(
 			final Model model,
 			final String modelName)
 	{
 		this(model, modelName, Model.class.getName(), Tags.of("model", modelName));
 	}
 
-	private MetricsBuilder(
+	private ModelMetrics(
 			final Model model,
 			final String modelName,
 			final String nameClass,
@@ -54,27 +54,27 @@ final class MetricsBuilder
 		this.tags = tags;
 	}
 
-	MetricsBuilder name(final Class<?> nameClass)
+	ModelMetrics name(final Class<?> nameClass)
 	{
-		return new MetricsBuilder(model, modelName, nameClass.getName(), tags);
+		return new ModelMetrics(model, modelName, nameClass.getName(), tags);
 	}
 
-	MetricsBuilder tag(final Tags tags)
+	ModelMetrics tag(final Tags tags)
 	{
-		return new MetricsBuilder(model, modelName, nameClass, this.tags.and(tags));
+		return new ModelMetrics(model, modelName, nameClass, this.tags.and(tags));
 	}
 
-	MetricsBuilder tag(final String key, final String value)
+	ModelMetrics tag(final String key, final String value)
 	{
-		return new MetricsBuilder(model, modelName, nameClass, tags.and(key, value));
+		return new ModelMetrics(model, modelName, nameClass, tags.and(key, value));
 	}
 
-	MetricsBuilder tag(final Feature value)
+	ModelMetrics tag(final Feature value)
 	{
 		return tag("feature", value.getID());
 	}
 
-	MetricsBuilder tag(final Type<?> value)
+	ModelMetrics tag(final Type<?> value)
 	{
 		return tag("type", value.getID());
 	}

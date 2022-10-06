@@ -138,7 +138,7 @@ public class SequenceCounterTest
 		assertNotNull(feature);
 		this.feature = feature;
 		final SequenceCounter result = new SequenceCounter(feature, start, minimum, maximum);
-		result.onModelNameSet(new MetricsBuilder(MODEL, MODEL.toString()).name(SequenceCounterTest.class/* deliberate nonsense */));
+		result.onModelNameSet(new ModelMetrics(MODEL, MODEL.toString()).name(SequenceCounterTest.class/* deliberate nonsense */));
 		return result;
 	}
 

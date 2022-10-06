@@ -34,22 +34,22 @@ public class ModelMetricsTest
 
 	@Test void test()
 	{
-		final MetricsBuilder metrics = new MetricsBuilder(null, "myModelName").name(CLAZZ);
+		final ModelMetrics metrics = new ModelMetrics(null, "myModelName").name(CLAZZ);
 		assertEquals("myModelName", metrics.modelName);
 		assertIt("counter", CLAZZ, empty(), metrics.counter("counterNameSuffix", "counterDesc", of("counterKey", "counterValue")));
 		assertIt("timer",   CLAZZ, empty(), metrics.timer(  "timerNameSuffix",   "timerDesc",   of("timerKey",   "timerValue")));
 
-		final MetricsBuilder metricsName = metrics.name(CLAZZ2);
+		final ModelMetrics metricsName = metrics.name(CLAZZ2);
 		assertEquals("myModelName", metricsName.modelName);
 		assertIt("counter2", CLAZZ2, empty(), metricsName.counter("counter2NameSuffix", "counter2Desc", of("counter2Key", "counter2Value")));
 		assertIt("timer2",   CLAZZ2, empty(), metricsName.timer(  "timer2NameSuffix",   "timer2Desc",   of("timer2Key",   "timer2Value")));
 
-		final MetricsBuilder metricsOneTag = metrics.tag("oneKey", "oneValue");
+		final ModelMetrics metricsOneTag = metrics.tag("oneKey", "oneValue");
 		assertEquals("myModelName", metricsOneTag.modelName);
 		assertIt("counter2", CLAZZ, of("oneKey", "oneValue"), metricsOneTag.counter("counter2NameSuffix", "counter2Desc", of("counter2Key", "counter2Value")));
 		assertIt("timer2",   CLAZZ, of("oneKey", "oneValue"), metricsOneTag.timer(  "timer2NameSuffix",   "timer2Desc",   of("timer2Key",   "timer2Value")));
 
-		final MetricsBuilder metricsTwoTags = metrics.tag(of("twoKey1", "twoValue1", "twoKey2", "twoValue2"));
+		final ModelMetrics metricsTwoTags = metrics.tag(of("twoKey1", "twoValue1", "twoKey2", "twoValue2"));
 		assertEquals("myModelName", metricsTwoTags.modelName);
 		assertIt("counter2", CLAZZ, of("twoKey1", "twoValue1", "twoKey2", "twoValue2"), metricsTwoTags.counter("counter2NameSuffix", "counter2Desc", of("counter2Key", "counter2Value")));
 		assertIt("timer2",   CLAZZ, of("twoKey1", "twoValue1", "twoKey2", "twoValue2"), metricsTwoTags.timer(  "timer2NameSuffix",   "timer2Desc",   of("timer2Key",   "timer2Value")));

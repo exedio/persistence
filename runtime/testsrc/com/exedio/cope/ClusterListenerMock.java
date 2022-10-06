@@ -30,7 +30,7 @@ final class ClusterListenerMock extends ClusterListener
 			final ClusterProperties properties,
 			final int typeLength)
 	{
-		super(properties, new MetricsBuilder(null, "MOCK_MODEL_NAME").name(Cluster.class), typeLength);
+		super(properties, new ModelMetrics(null, "MOCK_MODEL_NAME").name(Cluster.class), typeLength);
 	}
 
 	@Override

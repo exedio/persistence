@@ -27,7 +27,7 @@ final class ClusterSenderMock extends ClusterSender
 
 	ClusterSenderMock(final ClusterProperties properties)
 	{
-		super(properties, new MetricsBuilder(null, "MOCK_MODEL_NAME").name(Cluster.class));
+		super(properties, new ModelMetrics(null, "MOCK_MODEL_NAME").name(Cluster.class));
 	}
 
 	@Override

@@ -75,7 +75,7 @@ final class SequenceCounter
 			: new SequenceInfo(feature, start, minimum, maximum);
 	}
 
-	void onModelNameSet(final MetricsBuilder metricsTemplate)
+	void onModelNameSet(final ModelMetrics metricsTemplate)
 	{
 		final Metrics metrics = new Metrics(metricsTemplate, this);
 		metrics.value(c -> c.start,   "start", "The initial value this sequence started with.");
@@ -85,10 +85,10 @@ final class SequenceCounter
 
 	private static final class Metrics
 	{
-		final MetricsBuilder back;
+		final ModelMetrics back;
 		final SequenceCounter counter;
 
-		Metrics(final MetricsBuilder metricsTemplate, final SequenceCounter counter)
+		Metrics(final ModelMetrics metricsTemplate, final SequenceCounter counter)
 		{
 			this.back = metricsTemplate.name(Sequence.class).tag(counter.feature);
 			this.counter = counter;

@@ -54,7 +54,7 @@ final class DataFieldVaultStore extends DataFieldStore
 			final boolean optional,
 			final VaultProperties properties,
 			final Connect connect,
-			final MetricsBuilder metricsTemplate)
+			final ModelMetrics metricsTemplate)
 	{
 		super(field);
 		final int length = properties.getAlgorithmLength();
@@ -81,9 +81,9 @@ final class DataFieldVaultStore extends DataFieldStore
 
 	private static final class Metrics
 	{
-		final MetricsBuilder back;
+		final ModelMetrics back;
 
-		Metrics(final MetricsBuilder metricsTemplate, final DataField field, final String service)
+		Metrics(final ModelMetrics metricsTemplate, final DataField field, final String service)
 		{
 			this.back = metricsTemplate.name(DataField.class).
 					tag(field).

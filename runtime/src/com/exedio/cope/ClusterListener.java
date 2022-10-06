@@ -60,11 +60,11 @@ abstract class ClusterListener
 	private final int localNode;
 	private final int seqCheckCapacity;
 	private final int typeLength;
-	private final MetricsBuilder metrics;
+	private final ModelMetrics metrics;
 
 	ClusterListener(
 			final ClusterProperties properties,
-			final MetricsBuilder metrics,
+			final ModelMetrics metrics,
 			final int typeLength)
 	{
 		this.properties = properties;
@@ -227,7 +227,7 @@ abstract class ClusterListener
 		Node(
 				final int id,
 				final DatagramPacket packet,
-				final MetricsBuilder metricsTemplate,
+				final ModelMetrics metricsTemplate,
 				final int seqCheckCapacity)
 		{
 			this.id = id;
@@ -235,7 +235,7 @@ abstract class ClusterListener
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
-			final MetricsBuilder metrics = metricsTemplate.tag(Tags.of(
+			final ModelMetrics metrics = metricsTemplate.tag(Tags.of(
 					"id", idString,
 					"address", Objects.toString(address),
 					"port", String.valueOf(port)));
@@ -318,7 +318,7 @@ abstract class ClusterListener
 			private final IntConsumer lostConsumer;
 			private final Object lock = new Object();
 
-			SeqCheck(final int capacity, final MetricsBuilder metrics, final String kind)
+			SeqCheck(final int capacity, final ModelMetrics metrics, final String kind)
 			{
 				backing = new SequenceChecker2(capacity);
 
