@@ -560,7 +560,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				createLimit);
 		if(supertype==null)
 		{
-			primaryKeySequence.connectPrimaryKey(database, table.primaryKey);
+			primaryKeySequence.connectPrimaryKey(database, table.primaryKey, metrics);
 			database.addSequence(primaryKeySequence);
 		}
 
@@ -573,7 +573,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		table.finish();
 		for(final Feature f : featuresDeclared)
 			if(f instanceof Sequence)
-				((Sequence)f).connect(database);
+				((Sequence)f).connect(database, metrics);
 	}
 
 	private boolean hasUpdateableTable()

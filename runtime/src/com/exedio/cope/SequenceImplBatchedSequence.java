@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
-import io.micrometer.core.instrument.Timer;
 
 final class SequenceImplBatchedSequence implements SequenceImpl
 {
@@ -36,7 +35,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	private int indexInBatch = 0;
 
 	SequenceImplBatchedSequence(
-			final Timer.Builder timer,
+			final ModelMetrics metrics,
 			final IntegerColumn column,
 			final Sequence.Type type,
 			final long start,
@@ -44,7 +43,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 			final Database database)
 	{
 		this.type = type;
-		this.sequence = new SequenceImplSequence( timer, column, type, start, connectionPool, database, String.valueOf(BATCH_POWER) );
+		this.sequence = new SequenceImplSequence( metrics, column, type, start, connectionPool, database, String.valueOf(BATCH_POWER) );
 	}
 
 	@Override
