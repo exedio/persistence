@@ -50,6 +50,12 @@ public final class PrometheusMeterRegistrar
 			CollectorRegistry.defaultRegistry,
 			Clock.SYSTEM);
 
+	static String registryString()
+	{
+		//noinspection ObjectToString
+		return PROMETHEUS_REGISTRY.toString();
+	}
+
 	static
 	{
 		Metrics.globalRegistry.add(PROMETHEUS_REGISTRY);
@@ -112,7 +118,7 @@ public final class PrometheusMeterRegistrar
 			}
 		}
 		if(result==null)
-			throw new NotFound("not found: >" + name + "< " + tags);
+			throw new NotFound("not found: >" + name + "< " + tags + " in " + registry);
 		return result;
 	}
 
