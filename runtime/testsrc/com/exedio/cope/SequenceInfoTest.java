@@ -56,35 +56,37 @@ public class SequenceInfoTest extends TestWithEnvironment
 
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, next.getDefaultToNextInfoX());
-		assertTimer(0);
+		assertTimer(0, 0);
 
 		newItem("first", 5);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, next.getDefaultToNextInfoX());
-		assertTimer(1);
+		assertTimer(1, 0);
 
 		newItem("second");
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfoX());
-		assertTimer(2);
+		assertTimer(2, 1);
 
 		newItem("third");
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfoX());
-		assertTimer(3);
+		assertTimer(3, 2);
 	}
 
-	private static void assertTimer(final long expected)
+	private static void assertTimer(final long expectedThis, final long expectedNext)
 	{
 		final Tags tags = tag(TYPE.getThis()).and(tag(MODEL));
 		final PrimaryKeyGenerator pgen = MODEL.getConnectProperties().primaryKeyGenerator;
 		if(pgen.persistent)
-			assertEquals(Math.min((pgen==batchedSequence)?1:MAX_VALUE, expected), ((Timer)meter(Sequence.class, "fetch", tags)).count());
+			assertEquals(Math.min((pgen==batchedSequence)?1:MAX_VALUE, expectedThis), ((Timer)meter(Sequence.class, "fetch", tags)).count());
 		else
 			assertFails(
 					() -> meter(Sequence.class, "fetch", tags),
 					PrometheusMeterRegistrar.NotFound.class,
 					"not found: >com.exedio.cope.Sequence.fetch< [tag(feature=AnItem.this),tag(model=com.exedio.cope.SequenceInfoTest)]");
+
+		assertEquals(expectedNext, ((Timer)meter(Sequence.class, "fetch", tag(next).and(tag(MODEL)))).count());
 	}
 
 	private static void newItem(
