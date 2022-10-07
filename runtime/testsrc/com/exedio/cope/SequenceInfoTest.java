@@ -84,7 +84,10 @@ public class SequenceInfoTest extends TestWithEnvironment
 			assertFails(
 					() -> meter(Sequence.class, "fetch", tags),
 					PrometheusMeterRegistrar.NotFound.class,
-					"not found: >com.exedio.cope.Sequence.fetch< [tag(feature=AnItem.this),tag(model=com.exedio.cope.SequenceInfoTest)]");
+					"not found: " +
+					">com.exedio.cope.Sequence.fetch< " +
+					"[tag(feature=AnItem.this),tag(model=com.exedio.cope.SequenceInfoTest)] in " +
+					PrometheusMeterRegistrar.registryString());
 
 		assertEquals(expectedNext, ((Timer)meter(Sequence.class, "fetch", tag(next).and(tag(MODEL)))).count());
 	}
