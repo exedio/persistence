@@ -93,6 +93,22 @@ final class ModelMetrics
 
 	Counter counter(
 			final String nameSuffix,
+			final String key,
+			final String value,
+			final String description)
+	{
+		return counter(nameSuffix, description, Tags.of(key, value));
+	}
+
+	Counter counter(
+			final String nameSuffix,
+			final String description)
+	{
+		return counter(nameSuffix, description, Tags.empty());
+	}
+
+	Counter counter(
+			final String nameSuffix,
 			final String description,
 			final Tags tags)
 	{
