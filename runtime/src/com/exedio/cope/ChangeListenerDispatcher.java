@@ -25,7 +25,6 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.function.ToDoubleFunction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,39 +59,11 @@ final class ChangeListenerDispatcher implements Runnable
 		);
 		threads.start();
 
-		final Metrics metrics = new Metrics(metricsTemplate);
+		final ModelMetrics metrics = metricsTemplate.name(ChangeListener.class);
 		overflow  = metrics.counter("overflow",          "How often the queue overflows, because ChangeEvents coming in faster than they can be dispatched to ChangeListeners.", Tags.empty());
 		exception = metrics.counter("dispatchEventFail", "How often dispatching a ChangeEvent to all ChangeListeners fails.", Tags.empty());
-		metrics.gauge(d -> d.queue.capacity,"capacity",  "How many ChangeEvents the queue can hold.");
-		metrics.gauge(d -> d.queue.size(), "pending",    "How many ChangeEvents are in the queue waiting to be dispatched.");
-	}
-
-	private static final class Metrics
-	{
-		final ModelMetrics back;
-
-		Metrics(final ModelMetrics metricsTemplate)
-		{
-			this.back = metricsTemplate.name(ChangeListener.class);
-		}
-
-		Counter counter(
-				final String nameSuffix,
-				final String description,
-				final Tags tags)
-		{
-			return back.counter(nameSuffix, description, tags);
-		}
-
-		void gauge(
-				final ToDoubleFunction<ChangeListenerDispatcher> f,
-				final String nameSuffix,
-				final String description)
-		{
-			back.gaugeConnect(
-					c -> f.applyAsDouble(c.changeListenerDispatcher),
-					nameSuffix, description);
-		}
+		metrics.gaugeConnect(c -> c.changeListenerDispatcher.queue.capacity, "capacity", "How many ChangeEvents the queue can hold.");
+		metrics.gaugeConnect(c -> c.changeListenerDispatcher.queue.size(),   "pending",  "How many ChangeEvents are in the queue waiting to be dispatched.");
 	}
 
 	ChangeListenerDispatcherInfo getInfo()

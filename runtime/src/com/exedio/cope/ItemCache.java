@@ -21,7 +21,6 @@ package com.exedio.cope;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.Tags;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -370,8 +369,8 @@ final class ItemCache
 
 		TypeStats(final ModelMetrics metricsTemplate, final Type<?> type)
 		{
-			this.type=type;
-			final Metrics metrics = new Metrics(metricsTemplate, type);
+			this.type = type;
+			final ModelMetrics metrics = metricsTemplate.name(ItemCache.class).tag(type);
 			hits                = metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
 			misses              = metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
 			concurrentLoads     = metrics.counter("concurrentLoad", "How often an item was loaded concurrently");
@@ -380,32 +379,6 @@ final class ItemCache
 			invalidationsDone   = metrics.counter("invalidations", "effect", "actual", "Invalidations in the item cache, that were effective because the item was in cache");
 			stampsHit           = metrics.counter("stamp.hit",   "How often a stamp prevented an item from being stored");
 			stampsPurged        = metrics.counter("stamp.purge", "How many stamps were purged because there was no transaction older than the stamp");
-		}
-
-		private static final class Metrics
-		{
-			final ModelMetrics back;
-
-			Metrics(final ModelMetrics metricsTemplate, final Type<?> type)
-			{
-				this.back = metricsTemplate.name(ItemCache.class).tag(type);
-			}
-
-			Counter counter(
-					final String nameSuffix,
-					final String description)
-			{
-				return back.counter(nameSuffix, description, Tags.empty());
-			}
-
-			Counter counter(
-					final String nameSuffix,
-					final String key,
-					final String value,
-					final String description)
-			{
-				return back.counter(nameSuffix, description, Tags.of(key, value));
-			}
 		}
 
 		ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
