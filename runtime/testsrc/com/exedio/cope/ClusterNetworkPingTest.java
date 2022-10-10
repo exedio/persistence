@@ -247,7 +247,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	static double count(final String nameSuffix, final Model model)
 	{
-		return ((Counter)PrometheusMeterRegistrar.meterCope(
+		return ((Counter)PrometheusMeterRegistrar.meter(
 				Cluster.class, nameSuffix,
 				Tags.of("model", model.toString()))).count();
 	}
@@ -281,7 +281,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertNotSame(sendModel, listenModel);
 
 		final ClusterSenderInfo sendInfo = sendModel.getClusterSenderInfo();
-		return PrometheusMeterRegistrar.meterCope(
+		return PrometheusMeterRegistrar.meter(
 				Cluster.class, nameSuffix,
 				tags.and(
 						"model", listenModel.toString(),

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -225,17 +225,17 @@ public class ChangeListenersTest
 
 	private static double count(final String nameSuffix, final String key, final String value)
 	{
-		return ((Counter)meterCope(ChangeListener.class, nameSuffix, tag(model).and(key, value))).count();
+		return ((Counter)meter(ChangeListener.class, nameSuffix, tag(model).and(key, value))).count();
 	}
 
 	private static double timer(final String nameSuffix, final String key, final String value)
 	{
-		return ((Timer)meterCope(ChangeListener.class, nameSuffix, tag(model).and(key, value))).count();
+		return ((Timer)meter(ChangeListener.class, nameSuffix, tag(model).and(key, value))).count();
 	}
 
 	private static double gauge(final String nameSuffix)
 	{
-		return ((Gauge)meterCope(ChangeListener.class, nameSuffix, tag(model))).value();
+		return ((Gauge)meter(ChangeListener.class, nameSuffix, tag(model))).value();
 	}
 
 	private static final Model model = new Model(AnItem.TYPE);

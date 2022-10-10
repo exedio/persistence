@@ -7,6 +7,22 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Info api requires micrometer registry.
+	You must call io.micrometer.core.instrument.Metrics.globalRegistry.add(MeterRegistry)
+	in your project (probably you do already). If you don't, counters exposed by info api
+	will just stay at zero. This includes for example:
+	- TransactionCounters#get*()
+	- DataFieldVaultInfo#get*Count()
+	- ChangeListenerInfo#getCleared(), #getRemoved(), #getFailed()
+	- ChangeListenerDispatcherInfo#getOverflow(), #getException()
+	- ItemCacheInfo#getHits(), #getMisses(), #getConcurrentLoads(), #getReplacementsL(),
+		#getInvalidationsOrdered(), #getInvalidationsDone(), #getStampsHits(), #getStampsPurged()
+	- QueryCacheInfo#getHits(), #getMisses(), #getReplacements(), #getInvalidations(),
+		#getConcurrentLoads(), #getStampsHits(), #getStampsPurged()
+	- ClusterSenderInfo#getInvalidationSplit()
+	- ClusterListenerInfo#getException(), #getMissingMagic(), #getWrongSecret(), #getFromMyself()
+	- MediaInfo#get*() except #getPath()
+	- MediaPath#getNoSuchPath()
 * DispatcherProperties#sessionLimit defaults to 15 instead of 100.
 * Instrumentor uses activator. Affects instrumented code.
 	Use this parameter:

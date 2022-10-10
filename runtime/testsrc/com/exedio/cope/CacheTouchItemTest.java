@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
-import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -202,16 +202,16 @@ public class CacheTouchItemTest extends TestWithEnvironment
 
 	private static double count(final String nameSuffix)
 	{
-		return ((Counter)meterCope(ItemCache.class, nameSuffix, tag(TYPE))).count();
+		return ((Counter)meter(ItemCache.class, nameSuffix, tag(TYPE))).count();
 	}
 
 	private static double count(final String nameSuffix, final String key, final String value)
 	{
-		return ((Counter)meterCope(ItemCache.class, nameSuffix, tag(TYPE).and(key, value))).count();
+		return ((Counter)meter(ItemCache.class, nameSuffix, tag(TYPE).and(key, value))).count();
 	}
 
 	private double gauge(final String nameSuffix)
 	{
-		return ((Gauge)meterCope(ItemCache.class, nameSuffix, tag(model))).value();
+		return ((Gauge)meter(ItemCache.class, nameSuffix, tag(model))).value();
 	}
 }

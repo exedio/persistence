@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -103,7 +103,7 @@ public class TransactionCountersTest extends TestWithEnvironment
 
 	private double count(final String end, final String connection)
 	{
-		return ((Timer)meterCope(
+		return ((Timer)meter(
 				Transaction.class, "finished",
 				tag(model).and("end", end, "connection", connection))).count();
 	}

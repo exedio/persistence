@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
@@ -166,14 +166,14 @@ public class MetricsReconnectTest
 
 	private static double hits()
 	{
-		return ((Counter)meterCope(
+		return ((Counter)meter(
 				ItemCache.class, "gets",
 				tag(AnItem.TYPE).and("result", "hit"))).count();
 	}
 
 	private static double level()
 	{
-		return ((Gauge)meterCope(
+		return ((Gauge)meter(
 				ItemCache.class, "size",
 				tag(MODEL))).value();
 	}
