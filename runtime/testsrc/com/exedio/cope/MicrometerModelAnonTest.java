@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static java.time.format.DateTimeFormatter.ISO_INSTANT;
+import static com.exedio.cope.ModelMetrics.toEpoch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -81,7 +81,7 @@ public class MicrometerModelAnonTest
 		MODEL.enableSerialization(getClass(), "MODEL");
 
 		// initialize
-		assertEquals(1.0, ((Gauge)meterOther(ID_INITIALIZE)).value());
+		assertEquals(toEpoch(MODEL.getInitializeInstant()), ((Gauge)meterOther(ID_INITIALIZE)).value());
 
 		// change listeners remove TODO 2 are missing
 		assertEquals(0, ((Counter)meter(ID_CL_REMOVE)).count());
@@ -188,7 +188,7 @@ public class MicrometerModelAnonTest
 			new Model(MyItem.TYPE);
 
 	private static final Meter.Id ID_INITIALIZE = new Meter.Id(
-			Model.class.getName() + ".initialize", MODEL_TAGS.and("date", ISO_INSTANT.format(MODEL.getInitializeInstant())),
+			Model.class.getName() + ".initTime", MODEL_TAGS,
 			null, null, Meter.Type.GAUGE);
 
 	@BeforeEach

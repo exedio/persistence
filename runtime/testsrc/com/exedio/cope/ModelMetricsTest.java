@@ -18,13 +18,19 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ModelMetrics.toEpoch;
 import static io.micrometer.core.instrument.Tags.empty;
 import static io.micrometer.core.instrument.Tags.of;
+import static java.time.Month.DECEMBER;
+import static java.time.Month.JANUARY;
+import static java.time.Month.OCTOBER;
+import static java.time.ZoneOffset.UTC;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Tags;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 public class ModelMetricsTest
@@ -61,5 +67,23 @@ public class ModelMetricsTest
 		assertEquals(nameClass.getName() + "." + word + "NameSuffix", id.getName());
 		assertEquals(tags.and(word + "Key", word + "Value", "model", "myModelName").stream().collect(toList()), id.getTags());
 		assertEquals(word + "Desc", id.getDescription());
+	}
+
+
+	@Test void testToEpochAroundZero()
+	{
+		assertEquals( 44.123456789, toEpoch(LocalDateTime.of(1970, JANUARY,   1,  0,  0, 44, 123_456_789).toInstant(UTC)));
+		assertEquals(-44.123456789, toEpoch(LocalDateTime.of(1969, DECEMBER, 31, 23, 59, 15, 876_543_211).toInstant(UTC)));
+		assertEquals(  0.0,         toEpoch(LocalDateTime.of(1970, JANUARY,   1,  0,  0,  0,           0).toInstant(UTC)));
+		assertEquals(  0.000000001, toEpoch(LocalDateTime.of(1970, JANUARY,   1,  0,  0,  0,           1).toInstant(UTC)));
+	}
+
+	@Test void testToEpochNow()
+	{
+		assertEquals(1664928000.0,         toEpoch(LocalDateTime.of(2022, OCTOBER, 5, 0, 0, 0,           0).toInstant(UTC)));
+		assertEquals(1664960400.0,         toEpoch(LocalDateTime.of(2022, OCTOBER, 5, 9, 0, 0,           0).toInstant(UTC)));
+		assertEquals(1664960520.0,         toEpoch(LocalDateTime.of(2022, OCTOBER, 5, 9, 2, 0,           0).toInstant(UTC)));
+		assertEquals(1664960528.0,         toEpoch(LocalDateTime.of(2022, OCTOBER, 5, 9, 2, 8,           0).toInstant(UTC)));
+		assertEquals(1664960528.987654321, toEpoch(LocalDateTime.of(2022, OCTOBER, 5, 9, 2, 8, 987_654_321).toInstant(UTC)));
 	}
 }

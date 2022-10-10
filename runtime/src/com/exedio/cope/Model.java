@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ModelMetrics.tag;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
@@ -61,6 +60,7 @@ public final class Model implements Serializable
 
 	final Types types;
 	private final Instant initializeDate = Instant.now();
+	private final double initializeEpoch = ModelMetrics.toEpoch(initializeDate);
 	final ChangeHook changeHook;
 	final ChangeListeners changeListeners = new ChangeListeners();
 
@@ -112,9 +112,8 @@ public final class Model implements Serializable
 	{
 		final ModelMetrics metrics = new ModelMetrics(this, name);
 		metrics.gauge(
-				initializeDate, d -> 1.0,
-				"initialize", "Describes the initialization of the model.",
-				tag("date", initializeDate));
+				this, m -> m.initializeEpoch,
+				"initTime", "When the model was initialized as UNIX epoch.");
 		changeListeners.onModelNameSet(metrics);
 		transactions.onModelNameSet(metrics);
 		transactionCounter.onModelNameSet(metrics);

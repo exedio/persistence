@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ModelMetrics.tag;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Collections.emptyMap;
@@ -46,6 +45,7 @@ import java.util.function.Function;
 final class Connect
 {
 	final Instant date = Instant.now();
+	private final double dateEpoch = ModelMetrics.toEpoch(date);
 	private final RevisionsConnect revisions;
 	final ConnectProperties properties;
 	final Dialect dialect;
@@ -139,10 +139,13 @@ final class Connect
 		this.changeListenerDispatcher =
 				new ChangeListenerDispatcher(metrics, types, changeListeners, properties);
 
-		metrics.gauge(
-				date, d -> 1.0,
+		metrics.gaugeConnect(
+				c -> c.dateEpoch,
+				"connectTime", "When the model was connected as UNIX epoch.");
+		metrics.gaugeConnect(
+				ignored -> 1.0,
 				"connect", "Describes the connect of the model to the database.",
-				tag("date", date).and(probe.tags()));
+				probe.tags());
 	}
 
 	private static SortedSet<String> toUnmodifiableSortedSet(final String[] array)
