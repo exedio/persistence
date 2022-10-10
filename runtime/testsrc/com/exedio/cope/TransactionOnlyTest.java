@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
@@ -248,6 +248,6 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 	private double count()
 	{
-		return ((Gauge)meterCope(Transaction.class, "open", tag(model))).value();
+		return ((Gauge)meter(Transaction.class, "open", tag(model))).value();
 	}
 }

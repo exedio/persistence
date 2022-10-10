@@ -922,7 +922,7 @@ public abstract class ClusterTest
 
 	private static double count(final String nameSuffix)
 	{
-		return ((Counter)PrometheusMeterRegistrar.meterCope(
+		return ((Counter)PrometheusMeterRegistrar.meter(
 				Cluster.class, nameSuffix,
 				Tags.of("model", "MOCK_MODEL_NAME"))).count();
 	}
@@ -931,7 +931,7 @@ public abstract class ClusterTest
 			final String kind,
 			final String result)
 	{
-		return ((Counter)PrometheusMeterRegistrar.meterCope(
+		return ((Counter)PrometheusMeterRegistrar.meter(
 				Cluster.class, "sequence",
 				Tags.of(
 						"model", "MOCK_MODEL_NAME",

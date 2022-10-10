@@ -38,7 +38,7 @@ public class MicrometerModelNamedTest
 	@Test void test()
 	{
 		// initialize
-		assertEquals(toEpoch(MODEL.getInitializeInstant()), ((Gauge)meterOther(ID_INITIALIZE)).value());
+		assertEquals(toEpoch(MODEL.getInitializeInstant()), ((Gauge)meter(ID_INITIALIZE)).value());
 
 		// change listeners remove
 		assertEquals(0, ((Counter)meter(ID_CL_REMOVE)).count());
@@ -80,7 +80,7 @@ public class MicrometerModelNamedTest
 		MODEL.enableSerialization(getClass(), "MODEL");
 
 		// initialize
-		assertEquals(toEpoch(MODEL.getInitializeInstant()), ((Gauge)meterOther(ID_INITIALIZE)).value());
+		assertEquals(toEpoch(MODEL.getInitializeInstant()), ((Gauge)meter(ID_INITIALIZE)).value());
 
 		// change listeners remove
 		assertEquals(2, ((Counter)meter(ID_CL_REMOVE)).count());
@@ -137,15 +137,6 @@ public class MicrometerModelNamedTest
 			null, null, Meter.Type.COUNTER);
 
 	private static Meter meter(final Meter.Id id)
-	{
-		for(final Meter m : InfoRegistry.REGISTRY.getMeters())
-			if(id.equals(m.getId()))
-				return m;
-
-		throw new AssertionFailedError();
-	}
-
-	private static Meter meterOther(final Meter.Id id)
 	{
 		for(final Meter m : PrometheusMeterRegistrar.getMeters())
 			if(id.equals(m.getId()))

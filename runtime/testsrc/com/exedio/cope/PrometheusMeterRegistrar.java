@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.exedio.cope.pattern.MediaPath;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -73,26 +71,6 @@ public final class PrometheusMeterRegistrar
 	{
 		return meter(
 				PROMETHEUS_REGISTRY,
-				nameClass, nameSuffix, tags);
-	}
-
-	public static Meter meterCope(
-			final Class<?> nameClass,
-			final String nameSuffix,
-			final Tags tags)
-	{
-		assertTrue(asList(
-				// Model.class and Sequence.class not needed, as there are gauges only, no counters or timers
-				Transaction.class,
-				DataField.class,
-				ChangeListener.class,
-				Cluster.class,
-				ItemCache.class,
-				QueryCache.class,
-				MediaPath.class
-				).contains(nameClass), nameClass.getName());
-		return meter(
-				InfoRegistry.REGISTRY,
 				nameClass, nameSuffix, tags);
 	}
 

@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
-import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.TestSources.minimal;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
@@ -197,7 +197,7 @@ public class DataVaultInfoTest
 	private static void assertCount(final String nameSuffix, final Tags tags, final long actual)
 	{
 		assertEquals(
-				((Counter)meterCope(
+				((Counter)meter(
 						DataField.class, "vault." + nameSuffix,
 						tag(model).and(tag(MyItem.field)).and("service", "default").and(tags))).count(),
 				actual,

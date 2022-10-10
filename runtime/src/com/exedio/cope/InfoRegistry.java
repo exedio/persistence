@@ -19,63 +19,10 @@
 package com.exedio.cope;
 
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.Meter;
-import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Timer;
-import io.micrometer.core.instrument.config.MeterFilter;
-import io.micrometer.core.instrument.config.MeterFilterReply;
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
 final class InfoRegistry
 {
-	private static final String[] ACCEPTED = {
-			// Model.class and Sequence.class not needed, as there are gauges only, no counters or timers
-			Transaction.class.getName() + '.',
-			QueryCache.class.getName() + '.',
-			ItemCache.class.getName() + '.',
-			Cluster.class.getName() + '.',
-			ChangeListener.class.getName() + '.',
-			DataField.class.getName() + '.',
-			"com.exedio.cope.pattern.MediaPath."};
-
-	private static boolean isAccepted(final String name)
-	{
-		for(final String s : ACCEPTED)
-			if(name.startsWith(s))
-				return true;
-		return false;
-	}
-
-
-	static final SimpleMeterRegistry REGISTRY = new SimpleMeterRegistry();
-
-	static
-	{
-		REGISTRY.config().meterFilter(new MeterFilter()
-		{
-			@Override
-			public MeterFilterReply accept(final Meter.Id id)
-			{
-				return isAccepted(id.getName())
-						? MeterFilterReply.ACCEPT
-						: MeterFilterReply.DENY;
-			}
-		});
-		Metrics.globalRegistry.add(REGISTRY);
-	}
-
-	static Counter.Builder counter(final String name)
-	{
-		assert isAccepted(name) : name;
-		return Counter.builder(name);
-	}
-
-	static Timer.Builder timer(final String name)
-	{
-		assert isAccepted(name) : name;
-		return Timer.builder(name);
-	}
-
 	static long count(final Counter counter)
 	{
 		final double d = counter.count();

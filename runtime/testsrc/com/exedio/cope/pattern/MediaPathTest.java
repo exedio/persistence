@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.pattern.MediaPath.getNoSuchPath;
 import static com.exedio.cope.pattern.MediaPath.getNoSuchPathLogs;
@@ -680,13 +680,13 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		if(present)
 		{
-			return ((Counter)meterCope(MediaPath.class, nameSuffix, tags)).count();
+			return ((Counter)meter(MediaPath.class, nameSuffix, tags)).count();
 		}
 		else
 		{
 			assertThrows(
 					PrometheusMeterRegistrar.NotFound.class,
-					() -> meterCope(MediaPath.class, nameSuffix, tags));
+					() -> meter(MediaPath.class, nameSuffix, tags));
 			return 0;
 		}
 	}
@@ -694,7 +694,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	private static double timer(
 			final MediaPathFeature feature, final String nameSuffix)
 	{
-		return ((Timer)meterCope(MediaPath.class, nameSuffix, tag(feature))).count();
+		return ((Timer)meter(MediaPath.class, nameSuffix, tag(feature))).count();
 	}
 
 	private static void assertIt(final int expected, final List<MediaRequestLog> actual)

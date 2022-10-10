@@ -111,7 +111,7 @@ final class ModelMetrics
 			final String description,
 			final Tags tags)
 	{
-		return InfoRegistry.counter(name(nameSuffix)).
+		return Counter.builder(name(nameSuffix)).
 				description(description).
 				tags(this.tags.and(tags)).
 				register(Metrics.globalRegistry);
@@ -122,7 +122,7 @@ final class ModelMetrics
 			final String description,
 			final Tags tags)
 	{
-		return InfoRegistry.timer(name(nameSuffix)).
+		return Timer.builder(name(nameSuffix)).
 				description(description).
 				tags(this.tags.and(tags)).
 				register(Metrics.globalRegistry);
