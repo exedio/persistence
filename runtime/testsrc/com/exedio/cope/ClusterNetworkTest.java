@@ -22,6 +22,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
@@ -145,5 +146,11 @@ public abstract class ClusterNetworkTest
 	{
 		modelA.enableSerialization(ClusterNetworkTest.class, "modelA");
 		modelB.enableSerialization(ClusterNetworkTest.class, "modelB");
+	}
+
+
+	protected static void assertGreaterZero(final long actual)
+	{
+		assertTrue(actual>0, "" + actual);
 	}
 }

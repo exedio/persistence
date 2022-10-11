@@ -124,6 +124,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 	{
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
+		assertGreaterZero(senderA.getSendBufferSize());
+		assertGreaterZero(senderB.getSendBufferSize());
 		assertEquals(0, senderA.getTrafficClass());
 		assertEquals(0, senderB.getTrafficClass());
 		assertEquals(0, senderA.getInvalidationSplit());
@@ -172,6 +174,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			final Model model,
 			final ClusterListenerInfo actual)
 	{
+		assertGreaterZero(actual.getReceiveBufferSize());
 		assertEquals(0, actual.getException());
 		assertEquals(0, actual.getMissingMagic());
 		assertEquals(0, actual.getWrongSecret());
@@ -233,11 +236,6 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 						"id", actual.getIDString(),
 						"address", actual.getAddress().toString(),
 						"port", "" + actual.getPort()))).count());
-	}
-
-	private static void assertGreaterZero(final long actual)
-	{
-		assertTrue(actual>0, "" + actual);
 	}
 
 	private static void assertLessOrEqual(final long a, final long b)
