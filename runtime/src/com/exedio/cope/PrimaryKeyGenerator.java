@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.Sequence;
-import io.micrometer.core.instrument.Timer;
 
 enum PrimaryKeyGenerator
 {
@@ -27,7 +26,7 @@ enum PrimaryKeyGenerator
 	{
 		@Override
 		SequenceImpl newSequenceImpl(
-				final Timer.Builder timer,
+				final ModelMetrics metrics,
 				final IntegerColumn column,
 				final Sequence.Type type,
 				final long start,
@@ -41,21 +40,21 @@ enum PrimaryKeyGenerator
 	{
 		@Override
 		SequenceImpl newSequenceImpl(
-				final Timer.Builder timer,
+				final ModelMetrics metrics,
 				final IntegerColumn column,
 				final Sequence.Type type,
 				final long start,
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
-			return new SequenceImplSequence(timer, column, type, start, connectionPool, database, "");
+			return new SequenceImplSequence(metrics, column, type, start, connectionPool, database, "");
 		}
 	},
 	batchedSequence(true)
 	{
 		@Override
 		SequenceImpl newSequenceImpl(
-				final Timer.Builder timer,
+				final ModelMetrics metrics,
 				final IntegerColumn column,
 				final Sequence.Type type,
 				final long start,
@@ -63,8 +62,8 @@ enum PrimaryKeyGenerator
 				final Database database)
 		{
 			return column.kind.primaryKey()
-				? new SequenceImplBatchedSequence(timer, column, type, start, connectionPool, database)
-				: new SequenceImplSequence       (timer, column, type, start, connectionPool, database, "")
+				? new SequenceImplBatchedSequence(metrics, column, type, start, connectionPool, database)
+				: new SequenceImplSequence       (metrics, column, type, start, connectionPool, database, "")
 			;
 		}
 	};
@@ -77,7 +76,7 @@ enum PrimaryKeyGenerator
 	}
 
 	abstract SequenceImpl newSequenceImpl(
-			Timer.Builder timer,
+			ModelMetrics metrics,
 			IntegerColumn column,
 			Sequence.Type type,
 			long start,

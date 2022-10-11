@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
-import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 
@@ -35,7 +35,7 @@ final class SequenceImplSequence implements SequenceImpl
 	private final String quotedName;
 
 	SequenceImplSequence(
-			final Timer.Builder timer,
+			final ModelMetrics metrics,
 			final IntegerColumn column,
 			final Sequence.Type type,
 			final long start,
@@ -43,7 +43,7 @@ final class SequenceImplSequence implements SequenceImpl
 			final Database database,
 			final String nameSuffix)
 	{
-		this.timer = timer.register(Metrics.globalRegistry);
+		this.timer = timer(metrics);
 		this.type = type;
 		this.start = start;
 		this.executor = database.executor;
@@ -53,7 +53,7 @@ final class SequenceImplSequence implements SequenceImpl
 	}
 
 	SequenceImplSequence(
-			final Timer.Builder timer,
+			final ModelMetrics metrics,
 			final String name,
 			final Sequence.Type type,
 			final long start,
@@ -62,13 +62,18 @@ final class SequenceImplSequence implements SequenceImpl
 			final Executor executor,
 			final com.exedio.dsmf.Dialect dsmfDialect)
 	{
-		this.timer = timer.register(Metrics.globalRegistry);
+		this.timer = timer(metrics);
 		this.type = type;
 		this.start = start;
 		this.executor = executor;
 		this.connectionPool = connectionPool;
 		this.name = properties.filterTableName(name);
 		this.quotedName = dsmfDialect.quoteName(this.name);
+	}
+
+	private static Timer timer(final ModelMetrics metrics)
+	{
+		return metrics.timer("fetch", "How long fetching a sequence takes in the database", Tags.empty());
 	}
 
 	@Override
