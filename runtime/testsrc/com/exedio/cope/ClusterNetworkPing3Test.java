@@ -124,6 +124,12 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
 		final ClusterSenderInfo senderC = modelC.getClusterSenderInfo();
+		assertGreaterZero(senderA.getSendBufferSize());
+		assertGreaterZero(senderB.getSendBufferSize());
+		assertGreaterZero(senderC.getSendBufferSize());
+		assertEquals(0, senderA.getTrafficClass());
+		assertEquals(0, senderB.getTrafficClass());
+		assertEquals(0, senderC.getTrafficClass());
 		assertEquals(0, senderA.getInvalidationSplit());
 		assertEquals(0, senderB.getInvalidationSplit());
 		assertEquals(0, senderC.getInvalidationSplit());
@@ -203,6 +209,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 			final Model model,
 			final ClusterListenerInfo actual)
 	{
+		assertGreaterZero(actual.getReceiveBufferSize());
 		assertEquals(0, actual.getException());
 		assertEquals(0, actual.getMissingMagic());
 		assertEquals(0, actual.getWrongSecret());
