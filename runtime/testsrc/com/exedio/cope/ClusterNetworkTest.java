@@ -51,7 +51,6 @@ public abstract class ClusterNetworkTest
 		final Properties p = new Properties();
 		p.setProperty("cluster.multicast", "false");
 		p.setProperty("cluster.sendAddress"  , sendAddress.toString());
-		p.setProperty("cluster.listenAddress", "127.0.0.1");
 		p.setProperty("cluster.listenPort",          PORTS.get(listen));
 		return getProperties(p, "Connect Properties Source (singlecast " + listen + "<-" + java.util.Arrays.toString(send) + ")");
 	}
@@ -86,7 +85,7 @@ public abstract class ClusterNetworkTest
 		properties.setProperty("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
 		properties.setProperty("cluster", "true");
 		properties.setProperty("cluster.secret", "1234");
-		properties.setProperty("cluster.listenThreads", "2");
+		properties.setProperty("cluster.listen.threads.initial", "2");
 		return ConnectProperties.create(describe(description,
 				cascade(
 						view(properties, "ZACK"),

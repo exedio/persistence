@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.ClusterListenerInfo.Node;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.SequenceChecker;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
@@ -87,6 +88,9 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertNotNull(modelA.getClusterProperties());
 		assertNotNull(modelB.getClusterProperties());
 		assertNotNull(modelC.getClusterProperties());
+		assertEquals(Collections.emptySet(), modelA.getClusterProperties().getOrphanedKeys());
+		assertEquals(Collections.emptySet(), modelB.getClusterProperties().getOrphanedKeys());
+		assertEquals(Collections.emptySet(), modelC.getClusterProperties().getOrphanedKeys());
 
 		fromMyselfBeforeA = count("fromMyself", modelA);
 		fromMyselfBeforeB = count("fromMyself", modelB);

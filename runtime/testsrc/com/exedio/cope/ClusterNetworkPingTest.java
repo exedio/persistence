@@ -36,6 +36,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -104,6 +105,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertTrue(modelB.isConnected());
 		assertNotNull(modelA.getClusterProperties());
 		assertNotNull(modelB.getClusterProperties());
+		assertEquals(Collections.emptySet(), modelA.getClusterProperties().getOrphanedKeys());
+		assertEquals(Collections.emptySet(), modelB.getClusterProperties().getOrphanedKeys());
 
 		assertIt(0, 0);
 
