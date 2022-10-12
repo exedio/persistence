@@ -160,6 +160,34 @@ public class ClusterPropertiesTest
 				() -> assertEquals(expectedValue,   actual.getValue(),        expectedKey + " value"));
 	}
 
+	@Test void testCustom()
+	{
+		final Source s = cascade(
+				TestSources.minimal(),
+				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
+				single("cluster", true),
+				single("cluster.secret", 1234),
+				single("cluster.sendBufferDefault", false),
+				single("cluster.sendBuffer", 14888),
+				single("cluster.sendTrafficDefault", false),
+				single("cluster.sendTraffic", 44),
+				single("cluster.listenBufferDefault", false),
+				single("cluster.listenBuffer", 15888)
+		);
+
+		final ConnectProperties props = ConnectProperties.create(s);
+		assertEquals(true, props.isClusterEnabled());
+		model.connect(props);
+		assertEquals(true, model.isClusterEnabled());
+		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
+		assertEquals(emptySet(), p.getOrphanedKeys());
+		final ClusterSenderInfo sender = model.getClusterSenderInfo();
+		assertEquals(14888, sender.getSendBufferSize());
+		assertEquals(44, sender.getTrafficClass());
+		final ClusterListenerInfo listener = model.getClusterListenerInfo();
+		assertEquals(15888, listener.getReceiveBufferSize());
+	}
+
 	@Test void testFailListenThreads()
 	{
 		final Source s = describe("DESC", cascade(
