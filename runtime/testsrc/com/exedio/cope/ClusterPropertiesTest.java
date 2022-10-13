@@ -92,7 +92,7 @@ public class ClusterPropertiesTest
 		assertIt("listenAddress", ADDRESS, fields);
 		assertIt("listenPort", PORT, fields);
 		assertIt("listenInterface", "DEFAULT", fields);
-		assertIt("listenDisableLoopback", false, fields);
+		assertIt("listenLoopback", true, fields);
 		assertIt("listenBufferDefault", true, fields);
 		assertIt("listenBuffer", 50000, fields);
 		assertIt("listen.threads.initial", 1, fields);
@@ -175,7 +175,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendBuffer", 14888),
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 44),
-				single("cluster.listenDisableLoopback", true), // BEWARE of the negation introduced by "Disable"
+				single("cluster.listenLoopback", false),
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888)
 		);

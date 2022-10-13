@@ -70,7 +70,7 @@ final class ClusterProperties extends Properties
 	private final int     listenPort          = value("listenPort",          PORT, 1);
 	final NetworkInterface listenInterface    = multicast ? valNI("listenInterface") : null;
 	@SuppressWarnings("SimplifiableConditionalExpression")
-	private final boolean listenDisableLoopbk = multicast ? value("listenDisableLoopback", false) : false;
+	private final boolean listenLoopback      = multicast ? value("listenLoopback", true) : true;
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
 	final ThreadSwarmProperties listenThreads = valnp("listen.threads"     , ThreadSwarmProperties::new);
@@ -304,8 +304,8 @@ final class ClusterProperties extends Properties
 				@SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed", "SocketOpenedButNotSafelyClosed"}) // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				// TODO close socket if code below fails
-				if(listenDisableLoopbk)
-					resultMulti.setLoopbackMode(true);
+				if(!listenLoopback)
+					resultMulti.setLoopbackMode(true); // BEWARE of the negation introduced by MulticastSocket#getLoopbackMode()
 				resultMulti.joinGroup(listenAddress, listenInterface);
 				result = resultMulti;
 			}
