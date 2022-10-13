@@ -162,7 +162,7 @@ public class ClusterPropertiesTest
 				() -> assertEquals(expectedValue,   actual.getValue(),        expectedKey + " value"));
 	}
 
-	@Test void testCustom()
+	@Test void testCustomMulticast()
 	{
 		final Source s = cascade(
 				TestSources.minimal(),
@@ -191,6 +191,45 @@ public class ClusterPropertiesTest
 		assertEquals(44, sender.getTrafficClass());
 		final ClusterListenerInfo listener = model.getClusterListenerInfo();
 		assertEquals(15888, listener.getReceiveBufferSize());
+	}
+
+	@Test void testCustomSinglecast()
+	{
+		// https://tools.ietf.org/html/rfc5737
+		// The blocks 192.0.2.0/24 (TEST-NET-1), 198.51.100.0/24 (TEST-NET-2),
+		// and 203.0.113.0/24 (TEST-NET-3) are provided for use in
+		// documentation.
+		final String ADDRESS = "192.0.2.88";
+
+		final Source s = cascade(
+				TestSources.minimal(),
+				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
+				single("cluster", true),
+				single("cluster.secret", 1234),
+				single("cluster.multicast", false),
+				single("cluster.sendAddress", ADDRESS),
+				single("cluster.sendBufferDefault", false),
+				single("cluster.sendBuffer", 14999),
+				single("cluster.sendTrafficDefault", false),
+				single("cluster.sendTraffic", 66),
+				single("cluster.listenBufferDefault", false),
+				single("cluster.listenBuffer", 15999)
+		);
+
+		final ConnectProperties props = ConnectProperties.create(s);
+		assertEquals(true, props.isClusterEnabled());
+		model.connect(props);
+		assertEquals(true, model.isClusterEnabled());
+		assertEquals(14999, gauge("sendBufferSize", model));
+		assertEquals(66,    gauge("trafficClass", model));
+		assertEquals(15999, gauge("receiveBufferSize", model));
+		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
+		assertEquals(emptySet(), p.getOrphanedKeys());
+		final ClusterSenderInfo sender = model.getClusterSenderInfo();
+		assertEquals(14999, sender.getSendBufferSize());
+		assertEquals(66, sender.getTrafficClass());
+		final ClusterListenerInfo listener = model.getClusterListenerInfo();
+		assertEquals(15999, listener.getReceiveBufferSize());
 	}
 
 	@Test void testFailListenThreads()
