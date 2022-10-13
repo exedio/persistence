@@ -73,6 +73,7 @@ abstract class ClusterListener
 		this.seqCheckCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
 		this.metrics = metrics;
+		metrics.gaugeConnect(c -> c.cluster.listener.getReceiveBufferSize(), "receiveBufferSize", "DatagramSocket#getReceiveBufferSize");
 		exception    = metrics.counter("fail",         "How often a received packet failed to parse.", Tags.empty());
 		missingMagic = metrics.counter("missingMagic", "How often a received packet did not start with the magic bytes " + Hex.encodeUpper(MAGIC) + '.', Tags.empty());
 		wrongSecret  = metrics.counter("wrongSecret",  "How often a received packet did not carry the secret this cluster is configured with.", Tags.empty());

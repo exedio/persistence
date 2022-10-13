@@ -129,8 +129,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
 		assertGreaterZero(senderA.getSendBufferSize());
 		assertGreaterZero(senderB.getSendBufferSize());
+		assertEquals(senderA.getSendBufferSize(), gauge("sendBufferSize", modelA));
+		assertEquals(senderB.getSendBufferSize(), gauge("sendBufferSize", modelB));
 		assertEquals(0, senderA.getTrafficClass());
 		assertEquals(0, senderB.getTrafficClass());
+		assertEquals(0, gauge("trafficClass", modelA));
+		assertEquals(0, gauge("trafficClass", modelB));
 		assertEquals(0, senderA.getInvalidationSplit());
 		assertEquals(0, senderB.getInvalidationSplit());
 		assertEquals(0, count("invalidationSplit", modelA));
@@ -178,6 +182,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			final ClusterListenerInfo actual)
 	{
 		assertGreaterZero(actual.getReceiveBufferSize());
+		assertEquals(actual.getReceiveBufferSize(), gauge("receiveBufferSize", model));
 		assertEquals(0, actual.getException());
 		assertEquals(0, actual.getMissingMagic());
 		assertEquals(0, actual.getWrongSecret());
@@ -248,9 +253,19 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	static double count(final String nameSuffix, final Model model)
 	{
-		return ((Counter)PrometheusMeterRegistrar.meter(
+		return ((Counter)meter(nameSuffix, model)).count();
+	}
+
+	static double gauge(final String nameSuffix, final Model model)
+	{
+		return ((Gauge)meter(nameSuffix, model)).value();
+	}
+
+	private static Meter meter(final String nameSuffix, final Model model)
+	{
+		return PrometheusMeterRegistrar.meter(
 				Cluster.class, nameSuffix,
-				Tags.of("model", model.toString()))).count();
+				Tags.of("model", model.toString()));
 	}
 
 	private double countSequence(

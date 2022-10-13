@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.ClusterNetworkPingTest.assertLastRoundTripSet;
 import static com.exedio.cope.ClusterNetworkPingTest.count;
+import static com.exedio.cope.ClusterNetworkPingTest.gauge;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.sensitive;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
@@ -131,9 +132,15 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertGreaterZero(senderA.getSendBufferSize());
 		assertGreaterZero(senderB.getSendBufferSize());
 		assertGreaterZero(senderC.getSendBufferSize());
+		assertEquals(senderA.getSendBufferSize(), gauge("sendBufferSize", modelA));
+		assertEquals(senderB.getSendBufferSize(), gauge("sendBufferSize", modelB));
+		assertEquals(senderC.getSendBufferSize(), gauge("sendBufferSize", modelC));
 		assertEquals(0, senderA.getTrafficClass());
 		assertEquals(0, senderB.getTrafficClass());
 		assertEquals(0, senderC.getTrafficClass());
+		assertEquals(0, gauge("trafficClass", modelA));
+		assertEquals(0, gauge("trafficClass", modelB));
+		assertEquals(0, gauge("trafficClass", modelC));
 		assertEquals(0, senderA.getInvalidationSplit());
 		assertEquals(0, senderB.getInvalidationSplit());
 		assertEquals(0, senderC.getInvalidationSplit());
@@ -214,6 +221,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 			final ClusterListenerInfo actual)
 	{
 		assertGreaterZero(actual.getReceiveBufferSize());
+		assertEquals(actual.getReceiveBufferSize(), gauge("receiveBufferSize", model));
 		assertEquals(0, actual.getException());
 		assertEquals(0, actual.getMissingMagic());
 		assertEquals(0, actual.getWrongSecret());

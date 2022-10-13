@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterNetworkPingTest.gauge;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
@@ -59,6 +60,7 @@ public class ClusterPropertiesTest
 		assertEquals(true, props.isClusterEnabled());
 		model.connect(props);
 		assertEquals(true, model.isClusterEnabled());
+		assertEquals(0, gauge("trafficClass", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		assertEquals(5, p.listenThreads.initial);
@@ -179,6 +181,9 @@ public class ClusterPropertiesTest
 		assertEquals(true, props.isClusterEnabled());
 		model.connect(props);
 		assertEquals(true, model.isClusterEnabled());
+		assertEquals(14888, gauge("sendBufferSize", model));
+		assertEquals(44,    gauge("trafficClass", model));
+		assertEquals(15888, gauge("receiveBufferSize", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		final ClusterSenderInfo sender = model.getClusterSenderInfo();
