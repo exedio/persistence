@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.lang.Double.NaN;
 import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -61,6 +62,7 @@ public class ClusterPropertiesTest
 		model.connect(props);
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(0, gauge("trafficClass", model));
+		assertEquals(1, gauge("loopback", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		assertEquals(5, p.listenThreads.initial);
@@ -173,6 +175,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendBuffer", 14888),
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 44),
+				single("cluster.listenDisableLoopback", true), // BEWARE of the negation introduced by "Disable"
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888)
 		);
@@ -183,6 +186,7 @@ public class ClusterPropertiesTest
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(14888, gauge("sendBufferSize", model));
 		assertEquals(44,    gauge("trafficClass", model));
+		assertEquals(0,     gauge("loopback", model));
 		assertEquals(15888, gauge("receiveBufferSize", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
@@ -222,6 +226,7 @@ public class ClusterPropertiesTest
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(14999, gauge("sendBufferSize", model));
 		assertEquals(66,    gauge("trafficClass", model));
+		assertEquals(NaN,   gauge("loopback", model));
 		assertEquals(15999, gauge("receiveBufferSize", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());

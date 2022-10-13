@@ -39,6 +39,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private final InetSocketAddress address;
 	private final NetworkInterface networkInterface;
 	private final DatagramSocket socket;
+	private final Boolean loopback;
 	private final int receiveBufferSize;
 
 	private final ThreadSwarm threads;
@@ -57,6 +58,10 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.socket = properties.newListenSocket();
 		try
 		{
+			this.loopback =
+					socket instanceof MulticastSocket
+					? !((MulticastSocket)socket).getLoopbackMode() // BEWARE of the negation introduced by MulticastSocket#getLoopbackMode()
+					: null;
 			this.receiveBufferSize = socket.getReceiveBufferSize();
 		}
 		catch(final SocketException e)
@@ -132,6 +137,13 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final Thread t = Thread.currentThread();
 			logger.info("{} ({}) terminates.", t.getName(), t.getId());
 		}
+	}
+
+	boolean getLoopback()
+	{
+		// Will throw NullPointerException if loopback is null.
+		// This is intended, then the micrometer gauge will expose NaN.
+		return loopback;
 	}
 
 	@Override
