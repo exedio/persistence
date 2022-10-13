@@ -40,7 +40,7 @@ public class ModelMetricsTest
 
 	@Test void test()
 	{
-		final ModelMetrics metrics = new ModelMetrics(null, "myModelName").name(CLAZZ);
+		final ModelMetrics metrics = ModelMetricsNonConnected.create("myModelName").name(CLAZZ);
 		assertEquals("myModelName", metrics.modelName);
 		assertIt("counter", CLAZZ, empty(), metrics.counter("counterNameSuffix", "counterDesc", of("counterKey", "counterValue")));
 		assertIt("timer",   CLAZZ, empty(), metrics.timer(  "timerNameSuffix",   "timerDesc",   of("timerKey",   "timerValue")));
