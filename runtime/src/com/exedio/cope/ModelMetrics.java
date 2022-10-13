@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.CharSet;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
@@ -38,7 +41,11 @@ final class ModelMetrics
 			final Model model,
 			final String modelName)
 	{
-		this(model, modelName, Model.class.getName(), Tags.of("model", modelName));
+		this(
+				requireNonNull(model),
+				requireNonEmpty(modelName, "modelName"),
+				Model.class.getName(),
+				Tags.of("model", modelName));
 	}
 
 	private ModelMetrics(
