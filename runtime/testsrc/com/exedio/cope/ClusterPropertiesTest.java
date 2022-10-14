@@ -53,7 +53,6 @@ public class ClusterPropertiesTest
 				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
 				single("cluster.secret", 1234),
-				single("cluster.listen.threads.initial", 5),
 				single("cluster.listen.threads.max", 5)
 		);
 
@@ -63,10 +62,11 @@ public class ClusterPropertiesTest
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(0, gauge("trafficClass", model));
 		assertEquals(1, gauge("loopback", model));
+		assertEquals(1, gauge("listenThreads", model));
 		assertEquals(1400, gauge("packetSize", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
-		assertEquals(5, p.listenThreads.initial);
+		assertEquals(1, p.listenThreads.initial);
 		assertEquals(5, p.listenThreads.max);
 	}
 
@@ -179,6 +179,7 @@ public class ClusterPropertiesTest
 				single("cluster.listenLoopback", false),
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888),
+				single("cluster.listen.threads.initial", 8),
 				single("cluster.packetSize", 1415)
 		);
 
@@ -190,9 +191,12 @@ public class ClusterPropertiesTest
 		assertEquals(44,    gauge("trafficClass", model));
 		assertEquals(0,     gauge("loopback", model));
 		assertEquals(15888, gauge("receiveBufferSize", model));
+		assertEquals(8,     gauge("listenThreads", model));
 		assertEquals(1412,  gauge("packetSize", model)); // rounded down to multiples of 4
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
+		assertEquals(8, p.listenThreads.initial);
+		assertEquals(10, p.listenThreads.max);
 		final ClusterSenderInfo sender = model.getClusterSenderInfo();
 		assertEquals(14888, sender.getSendBufferSize());
 		assertEquals(44, sender.getTrafficClass());
@@ -221,6 +225,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendTraffic", 66),
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15999),
+				single("cluster.listen.threads.initial", 9),
 				single("cluster.packetSize", 1419)
 		);
 
@@ -232,9 +237,12 @@ public class ClusterPropertiesTest
 		assertEquals(66,    gauge("trafficClass", model));
 		assertEquals(NaN,   gauge("loopback", model));
 		assertEquals(15999, gauge("receiveBufferSize", model));
+		assertEquals(9,     gauge("listenThreads", model));
 		assertEquals(1416,  gauge("packetSize", model)); // rounded down to multiples of 4
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
+		assertEquals(9, p.listenThreads.initial);
+		assertEquals(10, p.listenThreads.max);
 		final ClusterSenderInfo sender = model.getClusterSenderInfo();
 		assertEquals(14999, sender.getSendBufferSize());
 		assertEquals(66, sender.getTrafficClass());
