@@ -7,6 +7,16 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: key cluster.listenDisableLoopback is renamed and negated.
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If this property is at its default (probably it is) you don't have to do anything.
+
+	Otherwise:
+		cluster.listenDisableLoopback=true
+	becomes:
+		cluster.listenLoopback=false
+
 * Info api requires micrometer registry.
 	You must call io.micrometer.core.instrument.Metrics.globalRegistry.add(MeterRegistry)
 	in your project (probably you do already). If you don't, counters exposed by info api
