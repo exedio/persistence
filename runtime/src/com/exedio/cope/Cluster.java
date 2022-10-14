@@ -37,6 +37,7 @@ final class Cluster
 		this.properties = properties;
 		this.sender   = new ClusterSenderMulticast(properties, metrics);
 		this.listener = new ClusterListenerMulticast(properties, metrics, sender, types.concreteTypeCount, connect);
+		metrics.gaugeConnect(c -> c.cluster.properties.listenThreads.initial, "listenThreads", "ClusterProperties#listenThreads#initial"); // TODO should expose the actual number of active threads
 		metrics.gaugeConnect(c -> c.cluster.properties.packetSize, "packetSize", "ClusterProperties#packetSize");
 	}
 
