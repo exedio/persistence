@@ -37,6 +37,7 @@ final class Cluster
 		this.properties = properties;
 		this.sender   = new ClusterSenderMulticast(properties, metrics);
 		this.listener = new ClusterListenerMulticast(properties, metrics, sender, types.concreteTypeCount, connect);
+		metrics.gaugeConnect(c -> c.cluster.properties.packetSize, "packetSize", "ClusterProperties#packetSize");
 	}
 
 	void sendInvalidate(final TLongHashSet[] invalidations)

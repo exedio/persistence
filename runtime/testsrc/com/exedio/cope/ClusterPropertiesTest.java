@@ -63,6 +63,7 @@ public class ClusterPropertiesTest
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(0, gauge("trafficClass", model));
 		assertEquals(1, gauge("loopback", model));
+		assertEquals(1400, gauge("packetSize", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		assertEquals(5, p.listenThreads.initial);
@@ -177,7 +178,8 @@ public class ClusterPropertiesTest
 				single("cluster.sendTraffic", 44),
 				single("cluster.listenLoopback", false),
 				single("cluster.listenBufferDefault", false),
-				single("cluster.listenBuffer", 15888)
+				single("cluster.listenBuffer", 15888),
+				single("cluster.packetSize", 1415)
 		);
 
 		final ConnectProperties props = ConnectProperties.create(s);
@@ -188,6 +190,7 @@ public class ClusterPropertiesTest
 		assertEquals(44,    gauge("trafficClass", model));
 		assertEquals(0,     gauge("loopback", model));
 		assertEquals(15888, gauge("receiveBufferSize", model));
+		assertEquals(1412,  gauge("packetSize", model)); // rounded down to multiples of 4
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		final ClusterSenderInfo sender = model.getClusterSenderInfo();
@@ -217,7 +220,8 @@ public class ClusterPropertiesTest
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 66),
 				single("cluster.listenBufferDefault", false),
-				single("cluster.listenBuffer", 15999)
+				single("cluster.listenBuffer", 15999),
+				single("cluster.packetSize", 1419)
 		);
 
 		final ConnectProperties props = ConnectProperties.create(s);
@@ -228,6 +232,7 @@ public class ClusterPropertiesTest
 		assertEquals(66,    gauge("trafficClass", model));
 		assertEquals(NaN,   gauge("loopback", model));
 		assertEquals(15999, gauge("receiveBufferSize", model));
+		assertEquals(1416,  gauge("packetSize", model)); // rounded down to multiples of 4
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		final ClusterSenderInfo sender = model.getClusterSenderInfo();
