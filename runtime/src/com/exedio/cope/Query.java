@@ -1353,7 +1353,7 @@ public final class Query<R> implements Serializable
 				while(resultSet.next())
 				{
 					if((--sizeLimitCountDown)<0)
-						throw new SearchSizeLimitExceededException("exceeded hard limit of " + sizeLimit + ": " + this);
+						throw new SearchSizeLimitExceededException("Query#getSearchSizeLimit() of " + sizeLimit + " exceeded: " + this);
 
 					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;

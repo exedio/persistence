@@ -83,7 +83,7 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 			assertFails(
 					q::search,
 					SearchSizeLimitExceededException.class,
-					"exceeded hard limit of 4: " +
+					"Query#getSearchSizeLimit() of 4 exceeded: " +
 					"select this from DayItem");
 		}
 
@@ -91,7 +91,7 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 		assertFails(
 				q::search,
 				SearchSizeLimitExceededException.class,
-				"exceeded hard limit of 4: " +
+				"Query#getSearchSizeLimit() of 4 exceeded: " +
 				"select this from DayItem");
 	}
 }
