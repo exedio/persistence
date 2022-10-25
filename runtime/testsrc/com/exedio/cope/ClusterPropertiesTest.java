@@ -25,6 +25,8 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static java.lang.Double.NaN;
+import static java.lang.Thread.MIN_PRIORITY;
+import static java.lang.Thread.NORM_PRIORITY;
 import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,6 +65,7 @@ public class ClusterPropertiesTest
 		assertEquals(0, gauge("trafficClass", model));
 		assertEquals(1, gauge("loopback", model));
 		assertEquals(1, gauge("listenThreads", model));
+		assertEquals(NORM_PRIORITY, gauge("listenThreadPriority", model));
 		assertEquals(1400, gauge("packetSize", model));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
@@ -180,6 +183,8 @@ public class ClusterPropertiesTest
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888),
 				single("cluster.listen.threads.initial", 8),
+				single("cluster.listen.threads.priority.set", true),
+				single("cluster.listen.threads.priority.value", NORM_PRIORITY-1),
 				single("cluster.packetSize", 1415)
 		);
 
@@ -192,6 +197,7 @@ public class ClusterPropertiesTest
 		assertEquals(0,     gauge("loopback", model));
 		assertEquals(15888, gauge("receiveBufferSize", model));
 		assertEquals(8,     gauge("listenThreads", model));
+		assertEquals(NORM_PRIORITY-1, gauge("listenThreadPriority", model));
 		assertEquals(1412,  gauge("packetSize", model)); // rounded down to multiples of 4
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
@@ -226,6 +232,8 @@ public class ClusterPropertiesTest
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15999),
 				single("cluster.listen.threads.initial", 9),
+				single("cluster.listen.threads.priority.set", true),
+				single("cluster.listen.threads.priority.value", MIN_PRIORITY),
 				single("cluster.packetSize", 1419)
 		);
 
@@ -238,6 +246,7 @@ public class ClusterPropertiesTest
 		assertEquals(NaN,   gauge("loopback", model));
 		assertEquals(15999, gauge("receiveBufferSize", model));
 		assertEquals(9,     gauge("listenThreads", model));
+		assertEquals(MIN_PRIORITY, gauge("listenThreadPriority", model));
 		assertEquals(1416,  gauge("packetSize", model)); // rounded down to multiples of 4
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());

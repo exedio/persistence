@@ -30,6 +30,7 @@ final class ThreadSwarmProperties extends Properties
 
 	private final boolean prioritySet   = value("priority.set", false);
 	private final int     priorityValue = value("priority.value", MAX_PRIORITY, MIN_PRIORITY);
+	final double priorityForGauge = prioritySet ? priorityValue : Thread.NORM_PRIORITY;
 
 
 	ThreadSwarmProperties(final Source source)
