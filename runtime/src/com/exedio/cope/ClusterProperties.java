@@ -305,7 +305,11 @@ final class ClusterProperties extends Properties
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				// TODO close socket if code below fails
 				if(!listenLoopback)
+				{
 					resultMulti.setLoopbackMode(true); // BEWARE of the negation introduced by MulticastSocket#getLoopbackMode()
+					if(!resultMulti.getLoopbackMode())
+						logger.error("disabling loopbackMode was ignored by MulticastSocket");
+				}
 				resultMulti.joinGroup(listenAddress, listenInterface);
 				result = resultMulti;
 			}
