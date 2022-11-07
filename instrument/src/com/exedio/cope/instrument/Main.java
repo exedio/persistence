@@ -41,7 +41,15 @@ final class Main
 		}
 
 		if(params.verify)
+		{
 			System.out.println("Instrumenting in verify mode.");
+
+			if(params.introCommentOneTime!=null)
+				throw new HumanReadableException(
+						"Parameter introCommentOneTime is forbidden in verify mode. " +
+						"This parameter is meant to be used for one-time mass insertions only. " +
+						"Do not commit it to any source control system.");
+		}
 
 		runJavac(params);
 	}
