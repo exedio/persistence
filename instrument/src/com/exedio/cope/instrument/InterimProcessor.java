@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
@@ -69,6 +70,13 @@ import javax.tools.JavaFileObject;
 
 final class InterimProcessor extends JavacProcessor
 {
+	private static final Set<String> ALLOWED_CLASS_TREE_KINDS = new HashSet<>(asList(
+			Tree.Kind.CLASS.name(),
+			Tree.Kind.INTERFACE.name(),
+			Tree.Kind.ENUM.name(),
+			"RECORD" // added by Java 14 (replace with constant once we require Java 14)
+	));
+
 	private final Path targetDirectory;
 	private final Params params;
 
@@ -529,14 +537,11 @@ final class InterimProcessor extends JavacProcessor
 
 		private String getTypeToken(final ClassTree ct)
 		{
-			//noinspection EnumSwitchStatementWhichMissesCases
-			switch (ct.getKind())
-			{
-				case CLASS: return "class";
-				case INTERFACE: return "interface";
-				case ENUM: return "enum";
-				default: throw new RuntimeException(ct.getKind().name());
-			}
+			final String name = ct.getKind().name();
+			if (ALLOWED_CLASS_TREE_KINDS.contains(name))
+				return name.toLowerCase(Locale.ROOT);
+			else
+				throw new RuntimeException(ct.getKind().name());
 		}
 
 		private boolean currentClassIsFeatureContainer()
