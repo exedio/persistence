@@ -306,6 +306,12 @@ final class ClusterProperties extends Properties
 				// TODO close socket if code below fails
 				if(!listenLoopback)
 				{
+					// BEWARE:
+					// The setLoopbackMode below does not work. Although getLoopbackMode reflects the change made,
+					// the sender socket still receives datagrams sent by itself. I have no idea why.
+					// https://tldp.org/HOWTO/Multicast-HOWTO-6.html
+					// Moving setLoopbackMode behind joinGroup did not help.
+					// Calling setLoopbackMode(false) did not help.
 					resultMulti.setLoopbackMode(true); // BEWARE of the negation introduced by MulticastSocket#getLoopbackMode()
 					if(!resultMulti.getLoopbackMode())
 						logger.error("disabling loopbackMode was ignored by MulticastSocket");
