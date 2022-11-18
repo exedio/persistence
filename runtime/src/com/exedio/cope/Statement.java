@@ -44,7 +44,7 @@ final class Statement
 	private final HashSet<Table> ambiguousTables;
 	private final boolean qualifyTable;
 
-	Statement(final Executor executor, final boolean qualifyTable)
+	Statement(final Executor executor, final boolean qualifyTable, final Mode mode)
 	{
 		if(executor==null)
 			throw new NullPointerException();
@@ -52,12 +52,14 @@ final class Statement
 		this.dialect = executor.dialect;
 		this.marshallers = executor.marshallers;
 		this.fulltextIndex = executor.fulltextIndex;
-		this.parameters = executor.prepare ? new ArrayList<>() : null;
+		this.parameters = (mode==Mode.NORMAL && executor.prepare) ? new ArrayList<>() : null;
 		this.tc = null;
 		this.joinTables = null;
 		this.ambiguousTables = null;
 		this.qualifyTable = qualifyTable;
 	}
+
+	enum Mode {NORMAL, SQL_ONLY}
 
 	Statement(final Dialect dialect, final Marshallers marshallers)
 	{

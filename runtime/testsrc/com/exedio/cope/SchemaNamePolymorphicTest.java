@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.checkCompleteness;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
@@ -28,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.tojunit.SI;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
@@ -88,6 +90,13 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 					model.getSchema().getTable(table).getConstraint("Ref_refType_EN").getRequiredCondition());
 		}
 		toModel();
+		assertEquals(
+				"SELECT COUNT(*) FROM " + q("Super") + " " +
+				"LEFT JOIN " + q("SubRenamed") + " " +
+				"ON " + q("Super") + "." + SI.pk(SchemaNamePolymorphicSuperItem.TYPE) + "=" + q("SubRenamed") + "." + SI.pk(SchemaNamePolymorphicSubItem.TYPE) + " " +
+				"WHERE " + q("SubRenamed") + "." + SI.pk(SchemaNamePolymorphicSubItem.TYPE) + " IS NULL " +
+				"AND " + q("Super") + "." + SI.type(SchemaNamePolymorphicSuperItem.TYPE) + "='SubRenamed'",
+				checkCompleteness(SchemaNamePolymorphicSuperItem.TYPE, SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompletenessL(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumnL());

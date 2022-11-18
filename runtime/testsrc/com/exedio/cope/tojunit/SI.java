@@ -49,9 +49,19 @@ public final class SI
 		return quoteName(type.getModel(), getPrimaryKeyColumnName(type));
 	}
 
+	public static String pkq(final Type<?> type)
+	{
+		return tab(type) + "." + pk(type);
+	}
+
 	public static String type(final Type<?> type)
 	{
 		return quoteName(type.getModel(), getTypeColumnName(type));
+	}
+
+	public static String typeq(final Type<?> type)
+	{
+		return tab(type) + "." + type(type);
 	}
 
 	public static String update(final Type<?> type)
