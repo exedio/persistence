@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;
@@ -92,75 +92,48 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(true, InstanceOfRefItem.ref.needsCheckTypeColumn());
 		assertEquals(false, InstanceOfRefItem.refb2.needsCheckTypeColumn());
 
-		try
-		{
-			InstanceOfAItem.TYPE.getThis().checkTypeColumnL();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no check for type column needed for InstanceOfAItem.this", e.getMessage());
-		}
+		assertFails(
+				() -> InstanceOfAItem.TYPE.getThis().checkTypeColumnL(),
+				IllegalArgumentException.class,
+				"no check for type column needed for InstanceOfAItem.this");
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumnL());
 
-		try
-		{
-			InstanceOfAItem.TYPE.checkCompletenessL(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("subType", e.getMessage());
-		}
-		try
-		{
-			InstanceOfAItem.TYPE.checkCompletenessL(InstanceOfAItem.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expected instantiable subtype of InstanceOfAItem, but was InstanceOfAItem", e.getMessage());
-		}
+		assertFails(
+				() -> InstanceOfAItem.TYPE.checkCompletenessL(null),
+				NullPointerException.class,
+				"subType");
+		assertFails(
+				() -> InstanceOfAItem.TYPE.checkCompletenessL(InstanceOfAItem.TYPE),
+				IllegalArgumentException.class,
+				"expected instantiable subtype of InstanceOfAItem, " +
+				"but was InstanceOfAItem");
 		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
 		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
 		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumnL());
-		try
-		{
-			assertEquals(0, InstanceOfRefItem.refb2.checkTypeColumnL());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no check for type column needed for InstanceOfRefItem.refb2", e.getMessage());
-		}
+		assertFails(
+				InstanceOfRefItem.refb2::checkTypeColumnL,
+				IllegalArgumentException.class,
+				"no check for type column needed for InstanceOfRefItem.refb2");
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: testing unchecked usage of api
 	@Test void testUnchecked()
 	{
-		try
-		{
-			InstanceOfB1Item.TYPE.checkCompletenessL((Type)InstanceOfAItem.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expected instantiable subtype of InstanceOfB1Item, but was InstanceOfAItem", e.getMessage());
-		}
-		try
-		{
-			InstanceOfB1Item.TYPE.checkCompletenessL((Type)InstanceOfB2Item.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expected instantiable subtype of InstanceOfB1Item, but was InstanceOfB2Item", e.getMessage());
-		}
+		assertFails(
+				() -> InstanceOfB1Item.TYPE.checkCompletenessL((Type)InstanceOfAItem.TYPE),
+				IllegalArgumentException.class,
+				"expected instantiable subtype of InstanceOfB1Item, " +
+				"but was InstanceOfAItem");
+		assertFails(
+				() -> InstanceOfB1Item.TYPE.checkCompletenessL((Type)InstanceOfB2Item.TYPE),
+				IllegalArgumentException.class,
+				"expected instantiable subtype of InstanceOfB1Item, " +
+				"but was InstanceOfB2Item");
 	}
 
 	@Test void testWrongA() throws SQLException
