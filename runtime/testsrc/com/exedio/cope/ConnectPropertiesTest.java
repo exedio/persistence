@@ -107,7 +107,6 @@ public class ConnectPropertiesTest
 				"schema.tableInNames",
 				"schema.revision.table",
 				"schema.revision.unique",
-				"schema.mysql.lower_case_table_names",
 				"revise.auto.enabled",
 				"revise.savepoint",
 				"connectionPool.idleInitial",

@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: key "schema.mysql.lower_case_table_names" no longer supported.
+	Check your deployed systems! Probably this key is at its default,
+	then you don't have to do anything.
 * ConnectProperties: key cluster.listenDisableLoopback is renamed and negated.
 
 	This breaks backwards API compatibility, check your deployed systems!

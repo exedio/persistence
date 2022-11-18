@@ -189,7 +189,7 @@ final class RuntimeTester
 
 	String filterTableName(final String name)
 	{
-		return model.getConnectProperties().filterTableName(name);
+		return name;
 	}
 
 	void assertCause(final UniqueViolationException e)

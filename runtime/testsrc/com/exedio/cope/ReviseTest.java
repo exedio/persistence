@@ -569,9 +569,10 @@ public class ReviseTest
 		assertTrue(Integer.parseInt(actual)>=expectedMinimum, actual);
 	}
 
+	@SuppressWarnings("MethodMayBeStatic") // TODO
 	final String filterTableName(final String name)
 	{
-		return props.filterTableName(name);
+		return name;
 	}
 
 	private static void reconnect()

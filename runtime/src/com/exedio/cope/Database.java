@@ -108,7 +108,7 @@ final class Database
 			final Sequence.Type type, final long start, final String name)
 	{
 		return
-			new SequenceImplSequence(metrics, name, type, start, properties, connectionPool, executor, dsmfDialect);
+			new SequenceImplSequence(metrics, name, type, start, connectionPool, executor, dsmfDialect);
 	}
 
 	void addTable(final Table table)

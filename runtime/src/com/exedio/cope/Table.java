@@ -30,7 +30,6 @@ final class Table
 {
 	final Database database;
 	final String id;
-	final String idLower;
 	final String quotedID;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
@@ -48,8 +47,7 @@ final class Table
 	{
 		this.database = database;
 		this.id = intern(database.makeName(TrimClass.Data, id));
-		this.idLower = database.properties.filterTableName(this.id);
-		this.quotedID = intern(database.dsmfDialect.quoteName(this.idLower));
+		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		//noinspection ThisEscapedInObjectConstruction
 		this.primaryKey =
 			(supertype!=null)
@@ -228,7 +226,7 @@ final class Table
 
 	void makeSchema(final Schema schema)
 	{
-		final com.exedio.dsmf.Table result = schema.newTable(idLower);
+		final com.exedio.dsmf.Table result = schema.newTable(id);
 
 		for(final Column c : getAllColumns())
 			c.makeSchema(result);

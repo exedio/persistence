@@ -48,7 +48,7 @@ final class SequenceImplSequence implements SequenceImpl
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
-		this.name = database.properties.filterTableName(column.makeGlobalID(TrimClass.Data, "Seq"+nameSuffix));
+		this.name = column.makeGlobalID(TrimClass.Data, "Seq"+nameSuffix);
 		this.quotedName = database.dsmfDialect.quoteName(this.name);
 	}
 
@@ -57,7 +57,6 @@ final class SequenceImplSequence implements SequenceImpl
 			final String name,
 			final Sequence.Type type,
 			final long start,
-			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final com.exedio.dsmf.Dialect dsmfDialect)
@@ -67,7 +66,7 @@ final class SequenceImplSequence implements SequenceImpl
 		this.start = start;
 		this.executor = executor;
 		this.connectionPool = connectionPool;
-		this.name = properties.filterTableName(name);
+		this.name = name;
 		this.quotedName = dsmfDialect.quoteName(this.name);
 	}
 

@@ -89,7 +89,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		if(cluster)
 			assertIt(sequences.next(), primaryKeySequenceName("Zain_this_Seq"), 0);
 		assertIt(sequences.next(), filterTableName("Zain_zinteger_Seq"), 1234);
-		assertIt(sequences.next(), props.filterTableName("Zain_zequence"), 555);
+		assertIt(sequences.next(), "Zain_zequence", 555);
 		if(cluster)
 			assertIt(sequences.next(), primaryKeySequenceName("Target_this_Seq"), 0);
 		assertFalse(sequences.hasNext());
