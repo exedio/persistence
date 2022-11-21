@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -93,15 +93,10 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 
 	private static void assertNotNeeded(final ItemFunction<?> f)
 	{
-		try
-		{
-			f.checkTypeColumnL();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no check for type column needed for " + f, e.getMessage());
-		}
+		assertFails(
+				f::checkTypeColumnL,
+				IllegalArgumentException.class,
+				"no check for type column needed for " + f);
 	}
 
 
