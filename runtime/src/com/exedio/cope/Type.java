@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
-import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
 import static com.exedio.cope.Intern.intern;
@@ -1328,7 +1327,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return supertype!=null && supertype.getTable().typeColumn!=null;
 	}
 
-	int checkTypeColumn()
+	long checkTypeColumn()
 	{
 		final Transaction tx = getModel().currentTransaction();
 		final Executor executor = tx.connect.executor;
@@ -1352,7 +1351,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		//System.out.println("CHECKT:"+bf.toString());
 
-		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
+		return executor.query(tx.getConnection(), bf, null, false, longResultSetHandler);
 	}
 
 	/**
