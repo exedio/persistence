@@ -94,7 +94,7 @@ public final class SchemaInfo
 	 */
 	public static String getTableName(final Type<?> type)
 	{
-		return type.table.idLower;
+		return type.table.id;
 	}
 
 	/**

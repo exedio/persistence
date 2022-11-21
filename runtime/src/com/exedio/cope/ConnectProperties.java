@@ -35,7 +35,6 @@ import java.io.File;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
@@ -257,16 +256,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * which cannot be used for java classes.
 	 */
 	final String revisionPrimaryKeyName = value("schema.revision.unique", factory.revisionPrimaryKeyName); // TODO rename key
-
-	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
-
-	String filterTableName(final String tableName)
-	{
-		return
-			mysqlLowerCaseTableNames
-			? tableName.toLowerCase(Locale.ENGLISH)
-			: tableName;
-	}
 
 
 	// revise
