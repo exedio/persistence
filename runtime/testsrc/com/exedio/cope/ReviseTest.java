@@ -351,8 +351,8 @@ public class ReviseTest
 
 	private void assertSchema(final Schema schema, final boolean model2, final boolean revised)
 	{
-		final Table table = schema.getTable(filterTableName(("ReviseItem")));
-		assertEquals(filterTableName("ReviseItem"), table.getName());
+		final Table table = schema.getTable(("ReviseItem"));
+		assertEquals("ReviseItem", table.getName());
 		assertEquals(true, table.required());
 		assertEquals(true, table.exists());
 		final Iterator<Column> columns = table.getColumns().iterator();
@@ -567,12 +567,6 @@ public class ReviseTest
 	private static void assertMinInt(final int expectedMinimum, final String actual)
 	{
 		assertTrue(Integer.parseInt(actual)>=expectedMinimum, actual);
-	}
-
-	@SuppressWarnings("MethodMayBeStatic") // TODO
-	final String filterTableName(final String name)
-	{
-		return name;
 	}
 
 	private static void reconnect()

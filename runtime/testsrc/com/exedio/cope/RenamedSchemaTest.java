@@ -54,7 +54,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 	@Test void testSchema()
 	{
-		assertEquals(filterTableName("Zain"), getTableName(TYPE));
+		assertEquals("Zain", getTableName(TYPE));
 		assertPrimaryKeySequenceName("Zain_this_Seq", TYPE);
 		assertEquals("zuniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zitem", getColumnName(item));
@@ -63,7 +63,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		assertEquals("zring", getColumnName(string));
 		assertEquals("zinteger", getColumnName(integer));
 		assertDefaultToNextSequenceName("Zain_zinteger_Seq", integer);
-		assertEquals(filterTableName("Zain_zequence"), getSequenceName(sequence));
+		assertEquals("Zain_zequence", getSequenceName(sequence));
 
 		final Schema schema = model.getVerifiedSchema();
 
@@ -88,16 +88,16 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		final Iterator<Sequence> sequences = schema.getSequences().iterator();
 		if(cluster)
 			assertIt(sequences.next(), primaryKeySequenceName("Zain_this_Seq"), 0);
-		assertIt(sequences.next(), filterTableName("Zain_zinteger_Seq"), 1234);
+		assertIt(sequences.next(), "Zain_zinteger_Seq", 1234);
 		assertIt(sequences.next(), "Zain_zequence", 555);
 		if(cluster)
 			assertIt(sequences.next(), primaryKeySequenceName("Target_this_Seq"), 0);
 		assertFalse(sequences.hasNext());
 	}
 
-	private void assertIt(final Sequence sequence, final String name, final int start)
+	private static void assertIt(final Sequence sequence, final String name, final int start)
 	{
-		assertEquals(filterTableName(name), sequence.getName());
+		assertEquals(name, sequence.getName());
 		assertEquals(start, sequence.getStartL());
 	}
 

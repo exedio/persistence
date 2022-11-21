@@ -91,7 +91,7 @@ public class NameTest extends TestWithEnvironment
 
 		// test schema
 
-		assertEquals(filterTableName("NameLongItem"), getTableName(NameLongItem.TYPE));
+		assertEquals("NameLongItem", getTableName(NameLongItem.TYPE));
 		assertEquals(synthetic("this", "NameLongItem"), getPrimaryKeyColumnName(NameLongItem.TYPE));
 		assertPrimaryKeySequenceName("NameLongItem_this_Seq", NameLongItem.TYPE);
 		assertEquals(synthetic("class", "NameLongItem"), getTypeColumnName(NameLongItem.TYPE));
@@ -105,14 +105,14 @@ public class NameTest extends TestWithEnvironment
 				: "NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
 				getForeignKeyConstraintName(NameLongItem_pointerLongName));
 
-		assertEquals(filterTableName("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem.TYPE));
+		assertEquals("NameCollisionloooooooItem", getTableName(NameCollisionlongaItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionloooItem"), getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
 		assertPrimaryKeySequenceName("NameCollisioItem_this_Seq", "NameCollisiItem_this_Seq6", NameCollisionlongaItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
 		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 
-		assertEquals(filterTableName("NameCollisionlongBItem"), getTableName(NameCollisionlongbItem.TYPE));
+		assertEquals("NameCollisionlongBItem", getTableName(NameCollisionlongbItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlonBItem"), getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
 		assertPrimaryKeySequenceName("NameCollisiBItem_this_Seq", "NameCollisBItem_this_Seq6", NameCollisionlongbItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
@@ -135,7 +135,7 @@ public class NameTest extends TestWithEnvironment
 			assertEquals("integer", nameSub.getColumn("integer").getName());
 			assertEquals("item",    nameSub.getColumn("item")   .getName());
 			assertUniqueConstraint(nameSub, "Sub_unique_Unq",   "("+q("unique")+")");
-			assertFkConstraint    (nameSub, "Sub_item_Fk",      "item", filterTableName("Sub"), getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertFkConstraint    (nameSub, "Sub_item_Fk",      "item", "Sub", getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "Sub_integers_Unq", "("+q("integer")+","+q("item")+")");
 			assertCheckConstraint (nameSub, "Sub_unique_MN",    q("unique")+">=-2147483648");
 			assertCheckConstraint (nameSub, "Sub_unique_MX",    q("unique")+"<=2147483647");
@@ -148,7 +148,7 @@ public class NameTest extends TestWithEnvironment
 			assertEquals("integerY", nameSub.getColumn("integerY").getName());
 			assertEquals("itemY",    nameSub.getColumn("itemY")   .getName());
 			assertUniqueConstraint(nameSub, "Sub_uniqueY_Unq",  "("+q("uniqueY")+")");
-			assertFkConstraint    (nameSub, "Sub_itemY_Fk",     "itemY", filterTableName("Sub"), getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertFkConstraint    (nameSub, "Sub_itemY_Fk",     "itemY", "Sub", getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "Sub_integersY_Unq","("+q("integerY")+","+q("itemY")+")");
 			assertCheckConstraint (nameSub, "Sub_uniqueY_MN",   q("uniqueY")+">=-2147483648");
 			assertCheckConstraint (nameSub, "Sub_uniqueY_MX",   q("uniqueY")+"<=2147483647");

@@ -49,8 +49,8 @@ public class SequenceTest extends TestWithEnvironment
 		// sequences are not part of a transaction
 		assertFalse(MODEL.hasCurrentTransaction());
 
-		assertEquals(filterTableName("SequenceItem_full"   ), getSequenceName(full));
-		assertEquals(filterTableName("SequenceItem_limited"), getSequenceName(limited));
+		assertEquals("SequenceItem_full",    getSequenceName(full));
+		assertEquals("SequenceItem_limited", getSequenceName(limited));
 
 		assertTimer(0, full);
 		assertTimer(0, limited);
