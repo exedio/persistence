@@ -270,6 +270,9 @@ public final class SchemaInfo
 		return constraint.getDatabaseID();
 	}
 
+	/**
+	 * @see Query#search()
+	 */
 	public static String search(final Query<?> query)
 	{
 		if(query.getCondition()==Condition.FALSE)
@@ -280,6 +283,9 @@ public final class SchemaInfo
 		return search(query, Query.Mode.SEARCH);
 	}
 
+	/**
+	 * @see Query#total()
+	 */
 	public static String total(final Query<?> query)
 	{
 		if(query.getCondition()==Condition.FALSE)
@@ -288,6 +294,9 @@ public final class SchemaInfo
 		return search(query, Query.Mode.TOTAL);
 	}
 
+	/**
+	 * @see Query#exists()
+	 */
 	public static String exists(final Query<?> query)
 	{
 		if(query.getCondition()==Condition.FALSE)
