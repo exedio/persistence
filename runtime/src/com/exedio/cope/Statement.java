@@ -339,7 +339,7 @@ final class Statement
 	 * <b>BEWARE:</b>
 	 * Does not consider {@link ConnectProperties#isSupportDisabledForNativeDate()}.
 	 */
-	<E> Statement appendParameterDateNativelyEvenIfSupportDisabled(final Date value)
+	Statement appendParameterDateNativelyEvenIfSupportDisabled(final Date value)
 	{
 		if(parameters==null)
 			text.append(dialect.toLiteral(value));
