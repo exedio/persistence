@@ -73,6 +73,12 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		return itemFunction.checkTypeColumnL();
 	}
 
+	@Override
+	public Statement checkTypeColumnStatement(final Statement.Mode mode)
+	{
+		return itemFunction.checkTypeColumnStatement(mode);
+	}
+
 	// convenience methods for conditions and views ---------------------------------
 
 	/**

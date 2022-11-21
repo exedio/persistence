@@ -36,8 +36,10 @@ public interface ItemFunction<E extends Item> extends Function<E>
 
 	/**
 	 * @see #needsCheckTypeColumn()
+	 * @see SchemaInfo#checkTypeColumn(ItemFunction)
 	 */
 	long checkTypeColumnL();
+	Statement checkTypeColumnStatement(Statement.Mode mode);
 
 	// convenience methods for conditions and views ---------------------------------
 

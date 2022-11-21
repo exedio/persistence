@@ -1330,11 +1330,19 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	long checkTypeColumn()
 	{
 		final Transaction tx = getModel().currentTransaction();
-		final Executor executor = tx.connect.executor;
+		return tx.connect.executor.query(
+				tx.getConnection(),
+				checkTypeColumnStatement(Statement.Mode.NORMAL),
+				null, false, longResultSetHandler);
+	}
+
+	Statement checkTypeColumnStatement(final Statement.Mode mode)
+	{
+		final Executor executor = getModel().connect().executor;
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
 
-		final Statement bf = executor.newStatement(true, Statement.Mode.NORMAL);
+		final Statement bf = executor.newStatement(true, mode);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
@@ -1351,7 +1359,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		//System.out.println("CHECKT:"+bf.toString());
 
-		return executor.query(tx.getConnection(), bf, null, false, longResultSetHandler);
+		return bf;
 	}
 
 	/**

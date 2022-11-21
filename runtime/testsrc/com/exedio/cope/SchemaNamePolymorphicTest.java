@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.checkCompleteness;
+import static com.exedio.cope.SchemaInfo.checkTypeColumn;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
@@ -91,12 +92,24 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		}
 		toModel();
 		assertEquals(
+				"SELECT COUNT(*) FROM " + q("SubRenamed") + "," + q("Super") + " " +
+				"WHERE " + q("SubRenamed") + "." + SI.pk(SchemaNamePolymorphicSubItem.TYPE) + "=" + q("Super") + "." + SI.pk(SchemaNamePolymorphicSuperItem.TYPE) + " " +
+				"AND 'SubRenamed'<>" + q("Super") + "." + SI.type(SchemaNamePolymorphicSuperItem.TYPE),
+				checkTypeColumn(SchemaNamePolymorphicSubItem.TYPE.getThis()));
+		assertEquals(
 				"SELECT COUNT(*) FROM " + q("Super") + " " +
 				"LEFT JOIN " + q("SubRenamed") + " " +
 				"ON " + q("Super") + "." + SI.pk(SchemaNamePolymorphicSuperItem.TYPE) + "=" + q("SubRenamed") + "." + SI.pk(SchemaNamePolymorphicSubItem.TYPE) + " " +
 				"WHERE " + q("SubRenamed") + "." + SI.pk(SchemaNamePolymorphicSubItem.TYPE) + " IS NULL " +
 				"AND " + q("Super") + "." + SI.type(SchemaNamePolymorphicSuperItem.TYPE) + "='SubRenamed'",
 				checkCompleteness(SchemaNamePolymorphicSuperItem.TYPE, SchemaNamePolymorphicSubItem.TYPE));
+		final String alias1 = SchemaInfo.quoteName(model, "return");
+		final String alias2 = SchemaInfo.quoteName(model, "break");
+		assertEquals(
+				"SELECT COUNT(*) FROM " + q("Ref") + " " + alias1 + "," + q("Super") + " " + alias2 + " " +
+				"WHERE " + alias1 + "." + q("ref") + "=" + alias2 + "." + SI.pk(SchemaNamePolymorphicSuperItem.TYPE) + " " +
+				"AND " + alias1 + "." + q("refType") + "<>" + alias2 + "." + SI.type(SchemaNamePolymorphicSuperItem.TYPE),
+				checkTypeColumn(SchemaNamePolymorphicRefItem.ref));
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompletenessL(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumnL());

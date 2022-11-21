@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.checkCompleteness;
+import static com.exedio.cope.SchemaInfo.checkTypeColumn;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -39,6 +40,40 @@ public class CheckTypeColumnSchemaInfoTest extends TestWithEnvironment
 	@Test void test()
 	{
 		assertFalse(model.hasCurrentTransaction());
+		assertFails(
+				() -> checkTypeColumn(InstanceOfAItem.TYPE.getThis()),
+				IllegalArgumentException.class,
+				"no check for type column needed for InstanceOfAItem.this");
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(InstanceOfB1Item.TYPE) +"," + SI.tab(InstanceOfAItem.TYPE) + " " +
+				"WHERE " + SI.pkq(InstanceOfB1Item.TYPE) + "=" + SI.pkq(InstanceOfAItem.TYPE) + " " +
+				"AND " + SI.typeq(InstanceOfB1Item.TYPE) + "<>" + SI.typeq(InstanceOfAItem.TYPE),
+				checkTypeColumn(InstanceOfB1Item.TYPE.getThis()));
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(InstanceOfB2Item.TYPE) + "," + SI.tab(InstanceOfAItem.TYPE) + " " +
+				"WHERE " + SI.pkq(InstanceOfB2Item.TYPE) + "=" + SI.pkq(InstanceOfAItem.TYPE) + " " +
+				"AND 'InstanceOfB2Item'<>" + SI.typeq(InstanceOfAItem.TYPE),
+				checkTypeColumn(InstanceOfB2Item.TYPE.getThis()));
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(InstanceOfC1Item.TYPE) + "," + SI.tab(InstanceOfB1Item.TYPE) + " " +
+				"WHERE " + SI.pkq(InstanceOfC1Item.TYPE) + "=" + SI.pkq(InstanceOfB1Item.TYPE) + " " +
+				"AND 'InstanceOfC1Item'<>" + SI.typeq(InstanceOfB1Item.TYPE),
+				checkTypeColumn(InstanceOfC1Item.TYPE.getThis()));
+		final String alias1 = SchemaInfo.quoteName(model, "return");
+		final String alias2 = SchemaInfo.quoteName(model, "break");
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(InstanceOfRefItem.TYPE) + " " + alias1 + "," + SI.tab(InstanceOfAItem.TYPE) + " " + alias2 + " " +
+				"WHERE " + alias1 + "." + SI.col(InstanceOfRefItem.ref) + "=" + alias2 + "." + SI.pk(InstanceOfAItem.TYPE) + " " +
+				"AND " + alias1 + "." + SI.type(InstanceOfRefItem.ref) + "<>" + alias2 + "." + SI.type(InstanceOfAItem.TYPE),
+				checkTypeColumn(InstanceOfRefItem.ref));
+		assertFails(
+				() -> checkTypeColumn(InstanceOfRefItem.refb2),
+				IllegalArgumentException.class,
+				"no check for type column needed for InstanceOfRefItem.refb2");
+		assertFails(
+				() -> checkTypeColumn(null),
+				NullPointerException.class,
+				"function");
 		assertEquals(
 				"SELECT COUNT(*) FROM " + SI.tab(InstanceOfAItem.TYPE) + " " +
 				"LEFT JOIN " + SI.tab(InstanceOfB1Item.TYPE) + " " +

@@ -313,6 +313,15 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @see ItemFunction#checkTypeColumnL()
+	 */
+	public static String checkTypeColumn(final ItemFunction<?> function)
+	{
+		return requireNonNull(function, "function").
+				checkTypeColumnStatement(Statement.Mode.SQL_ONLY).getText();
+	}
+
+	/**
 	 * @see Type#checkCompletenessL(Type)
 	 */
 	public static <T extends Item> String checkCompleteness(final Type<T> type, final Type<? extends T> subType)
