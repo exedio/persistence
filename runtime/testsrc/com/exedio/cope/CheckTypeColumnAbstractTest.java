@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.checkCompleteness;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,6 +56,12 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 
 	@Test void testIt() throws SQLException
 	{
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(HierarchySingleSuper.TYPE) + " " +
+				"LEFT JOIN " + SI.tab(HierarchySingleSub.TYPE) + " " +
+				"ON " + SI.pkq(HierarchySingleSuper.TYPE) + "=" + SI.pkq(HierarchySingleSub.TYPE) + " " +
+				"WHERE " + SI.pkq(HierarchySingleSub.TYPE) + " IS NULL",
+				checkCompleteness(HierarchySingleSuper.TYPE, HierarchySingleSub.TYPE));
 		assertEquals(0, HierarchySingleSuper.TYPE.checkCompletenessL(HierarchySingleSub.TYPE));
 
 		deleteRow(HierarchySingleSub.TYPE, item);

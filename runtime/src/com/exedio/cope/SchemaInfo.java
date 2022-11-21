@@ -312,6 +312,15 @@ public final class SchemaInfo
 		return bf.toString();
 	}
 
+	/**
+	 * @see Type#checkCompletenessL(Type)
+	 */
+	public static <T extends Item> String checkCompleteness(final Type<T> type, final Type<? extends T> subType)
+	{
+		return requireNonNull(type, "type").
+				checkCompletenessStatement(subType, Statement.Mode.SQL_ONLY).getText();
+	}
+
 
 	private SchemaInfo()
 	{

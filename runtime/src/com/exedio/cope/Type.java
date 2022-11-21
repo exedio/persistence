@@ -1335,7 +1335,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
 
-		final Statement bf = executor.newStatement(true);
+		final Statement bf = executor.newStatement(true, Statement.Mode.NORMAL);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
@@ -1357,19 +1357,29 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	/**
 	 * @param subType is allowed any type from {@link #getTypesOfInstances()}, but not itself.
+	 * @see SchemaInfo#checkCompleteness(Type, Type)
 	 */
 	public long checkCompletenessL(final Type<? extends T> subType)
+	{
+		final Transaction tx = getModel().currentTransaction();
+		final Executor executor = tx.connect.executor;
+		return executor.query(
+				tx.getConnection(),
+				checkCompletenessStatement(subType, Statement.Mode.NORMAL),
+				null, false, longResultSetHandler);
+	}
+
+	Statement checkCompletenessStatement(final Type<? extends T> subType, final Statement.Mode mode)
 	{
 		requireNonNull(subType, "subType");
 		if(equals(subType) || !getTypesOfInstances().contains(subType))
 			throw new IllegalArgumentException("expected instantiable subtype of " + this + ", but was " + subType);
 
-		final Transaction tx = getModel().currentTransaction();
-		final Executor executor = tx.connect.executor;
+		final Executor executor = getModel().connect().executor;
 		final Table table = getTable();
 		final Table subTable = subType.getTable();
 
-		final Statement bf = executor.newStatement(true);
+		final Statement bf = executor.newStatement(true, mode);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").append(table).
 			append(" LEFT JOIN ").append(subTable).
@@ -1378,7 +1388,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(table.typeColumn!=null)
 			bf.append(" AND ").append(table.typeColumn).append('=').appendParameter(subType.schemaId);
 
-		return executor.query(tx.getConnection(), bf, null, false, longResultSetHandler);
+		return bf;
 	}
 
 	public boolean needsCheckUpdateCounter()
@@ -1396,7 +1406,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
 
-		final Statement bf = executor.newStatement(true);
+		final Statement bf = executor.newStatement(true, Statement.Mode.NORMAL);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).

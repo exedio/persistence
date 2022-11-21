@@ -65,12 +65,12 @@ final class Executor
 
 	Statement newStatement()
 	{
-		return newStatement(true);
+		return newStatement(true, Statement.Mode.NORMAL);
 	}
 
-	Statement newStatement(final boolean qualifyTable)
+	Statement newStatement(final boolean qualifyTable, final Statement.Mode mode)
 	{
-		return new Statement(this, qualifyTable);
+		return new Statement(this, qualifyTable, mode);
 	}
 
 	Statement newStatement(final Query<?> query, final boolean sqlOnly)

@@ -242,7 +242,7 @@ final class Database
 
 		executor.testListener().load(connection, item);
 
-		final Statement bf = executor.newStatement(type.supertype!=null);
+		final Statement bf = executor.newStatement(type.supertype!=null, Statement.Mode.NORMAL);
 		bf.append("SELECT ");
 
 		boolean first = true;
