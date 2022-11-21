@@ -109,14 +109,14 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 		assertFeature(name, nameAnno, schema, null, schemaAnno, computed, arbitrary, f);
 	}
 
-	private void assertIt(
+	private static void assertIt(
 			final String name, final String nameAnno,
 			final String schema, final String schemaAnno,
 			final boolean computed,
 			final String arbitrary,
 			final Sequence f)
 	{
-		assertFeature(name, nameAnno, filterTableName(schema), SchemaInfo.getSequenceName(f), schemaAnno, computed, arbitrary, f);
+		assertFeature(name, nameAnno, schema, SchemaInfo.getSequenceName(f), schemaAnno, computed, arbitrary, f);
 	}
 
 	private static void assertFeature(

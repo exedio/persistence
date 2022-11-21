@@ -115,7 +115,7 @@ final class RuntimeTester
 			{
 				name = sequenceNameBase;
 			}
-			assertEquals(filterTableName(name), getPrimaryKeySequenceName(type));
+			assertEquals(name, getPrimaryKeySequenceName(type));
 		}
 		else
 		{
@@ -133,7 +133,7 @@ final class RuntimeTester
 
 	void assertDefaultToNextSequenceName(final String name, final IntegerField field)
 	{
-		assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
+		assertEquals(name, getDefaultToNextSequenceName(field));
 	}
 
 	TestByteArrayInputStream stream(final byte[] data)
@@ -184,11 +184,6 @@ final class RuntimeTester
 		{
 			name = nameBase;
 		}
-		return filterTableName( name );
-	}
-
-	String filterTableName(final String name)
-	{
 		return name;
 	}
 

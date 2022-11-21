@@ -93,7 +93,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		}
 
 		// with sub types
-		assertEquals(filterTableName("InstanceOfAItem"), getTableName(InstanceOfAItem.TYPE));
+		assertEquals("InstanceOfAItem", getTableName(InstanceOfAItem.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfAItem.TYPE);
 		assertEquals(synthetic("this", "InstanceOfAItem"), getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals(synthetic("class", "InstanceOfAItem"), getTypeColumnName(InstanceOfAItem.TYPE));
@@ -109,7 +109,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("InstanceOfC1Item_Sup", getSuperForeignKeyConstraintName(InstanceOfC1Item.TYPE));
 
 		// without sub types
-		assertEquals(filterTableName("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));
+		assertEquals("InstanceOfB2Item", getTableName(InstanceOfB2Item.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfB2Item.TYPE);
 		assertEquals(synthetic("this", "InstanceOfB2Item"), getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
 		try

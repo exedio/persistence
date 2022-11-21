@@ -87,9 +87,9 @@ public class NameLengthTest extends TestWithEnvironment
 	}
 
 
-	private void assertIt(final Type<?> type, final String name)
+	private static void assertIt(final Type<?> type, final String name)
 	{
-		assertEquals(filterTableName(name), getTableName(type));
+		assertEquals(name, getTableName(type));
 	}
 
 	private void assertSequence(final Type<?> type, final String name, final String batchedName)
@@ -100,10 +100,10 @@ public class NameLengthTest extends TestWithEnvironment
 			case memory:
 				break;
 			case sequence:
-				assertEquals(filterTableName(name), getPrimaryKeySequenceName(type));
+				assertEquals(name, getPrimaryKeySequenceName(type));
 				break;
 			case batchedSequence:
-				assertEquals(filterTableName(batchedName), getPrimaryKeySequenceName(type));
+				assertEquals(batchedName, getPrimaryKeySequenceName(type));
 				break;
 			default:
 				throw new RuntimeException("" + primaryKeyGenerator);
@@ -115,14 +115,14 @@ public class NameLengthTest extends TestWithEnvironment
 		assertEquals(name, getColumnName(field));
 	}
 
-	private void assertSequence(final IntegerField field, final String name)
+	private static void assertSequence(final IntegerField field, final String name)
 	{
-		assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
+		assertEquals(name, getDefaultToNextSequenceName(field));
 	}
 
-	private void assertIt(final Sequence sequence, final String name)
+	private static void assertIt(final Sequence sequence, final String name)
 	{
-		assertEquals(filterTableName(name), getSequenceName(sequence));
+		assertEquals(name, getSequenceName(sequence));
 	}
 
 	private static void assertIt(final Table table, final Constraint.Type type, final String name)

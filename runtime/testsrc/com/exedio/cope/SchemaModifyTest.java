@@ -46,7 +46,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 	{
 		final String TABLE1 = getTableName(SchemaItem.TYPE);
 		final String COLUMN1 = getColumnName(SchemaItem.nonFinalInteger);
-		assertEquals(filterTableName("Main"), TABLE1);
+		assertEquals("Main", TABLE1);
 		assertEquals("nonFinalInteger", COLUMN1);
 
 		final String column1Type;
