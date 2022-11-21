@@ -686,6 +686,7 @@ public final class Query<R> implements Serializable
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an {@code UnsupportedOperationException}.
+	 * @see SchemaInfo#search(Query)
 	 */
 	public List<R> search()
 	{
@@ -715,6 +716,7 @@ public final class Query<R> implements Serializable
 	 * {@link Collection#size() size} of what
 	 * {@link #search()} would have returned for this query with
 	 * {@link #setPageUnlimited(int)} reset set to {@code (0)}.
+	 * @see SchemaInfo#total(Query)
 	 */
 	public int total()
 	{
@@ -740,6 +742,7 @@ public final class Query<R> implements Serializable
 	 * Returns whether or not any result matches what
 	 * {@link #search()} would have returned for this query with
 	 * {@link #setPageUnlimited(int)} reset set to {@code (0)}.
+	 * @see SchemaInfo#exists(Query)
 	 */
 	public boolean exists()
 	{
