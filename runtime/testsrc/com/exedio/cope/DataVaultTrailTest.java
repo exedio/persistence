@@ -85,24 +85,22 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	}
 	private void test(final java.util.function.Function<String, DataField.Value> f) throws SQLException
 	{
-		final String alias1 = quoteName(model, "return");
-		final String alias2 = quoteName(model, "break");
 		final String trailTab  = quoteName(model, "VaultTrail_myService_Key");
 		final String trailTabD = quoteName(model, "VaultTrail_default");
 		final String trailHash = quoteName(model, "hash");
 		assertEquals(
-				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " + alias1 + " " +
-				"LEFT JOIN " + trailTab + " " + alias2 + " " +
-				"ON " + alias1 + "." + SI.col(MyItem.field) + "=" + alias2 + "." + trailHash + " " +
-				"WHERE " + alias1 + "." + SI.col(MyItem.field) + " IS NOT NULL " +
-				"AND " + alias2 + "." + trailHash + " IS NULL",
+				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " +
+				"LEFT JOIN " + trailTab + " " +
+				"ON " + SI.colq(MyItem.field) + "=" + trailTab + "." + trailHash + " " +
+				"WHERE " + SI.colq(MyItem.field) + " IS NOT NULL " +
+				"AND " + trailTab + "." + trailHash + " IS NULL",
 				checkVaultTrail(MyItem.field));
 		assertEquals(
-				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " + alias1 + " " +
-				"LEFT JOIN " + trailTabD + " " + alias2 + " " +
-				"ON " + alias1 + "." + SI.col(MyItem.other) + "=" + alias2 + "." + trailHash + " " +
-				"WHERE " + alias1 + "." + SI.col(MyItem.other) + " IS NOT NULL " +
-				"AND " + alias2 + "." + trailHash + " IS NULL",
+				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " +
+				"LEFT JOIN " + trailTabD + " " +
+				"ON " + SI.colq(MyItem.other) + "=" + trailTabD + "." + trailHash + " " +
+				"WHERE " + SI.colq(MyItem.other) + " IS NOT NULL " +
+				"AND " + trailTabD + "." + trailHash + " IS NULL",
 				checkVaultTrail(MyItem.other));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
