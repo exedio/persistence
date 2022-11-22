@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
@@ -942,9 +943,23 @@ public final class DataField extends Field<DataField.Value>
 		return store().getVaultServiceKey();
 	}
 
+	/**
+	 * @see SchemaInfo#checkVaultTrail(DataField)
+	 */
 	public long checkVaultTrail()
 	{
-		return store().checkVaultTrail();
+		final Statement statement = // must be first to throw Model.NotConnectedException when needed
+				checkVaultTrailStatement(Statement.Mode.NORMAL);
+		final Transaction tx = getType().getModel().currentTransaction();
+		return tx.connect.executor.query(
+				tx.getConnection(),
+				statement,
+				null, false, longResultSetHandler);
+	}
+
+	Statement checkVaultTrailStatement(final Statement.Mode mode)
+	{
+		return store().checkVaultTrail(mode);
 	}
 
 	/**

@@ -45,7 +45,7 @@ abstract class DataFieldStore
 		return null;
 	}
 
-	long checkVaultTrail()
+	Statement checkVaultTrail(final Statement.Mode mode)
 	{
 		throw new IllegalStateException("vault is disabled");
 	}

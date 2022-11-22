@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataFieldVaultStore.mysqlExtendedVarchar;
-import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.vault.VaultProperties;
@@ -231,16 +230,14 @@ final class VaultTrail
 	private static final String POSTFIX = " ...";
 
 
-	long check(final DataField field)
+	Statement check(final DataField field, final Statement.Mode mode)
 	{
 		final Type<?> type = field.getType();
-		final Transaction tx = type.getModel().currentTransaction();
-		final Connection connection = tx.getConnection();
-		final Executor executor = tx.connect.executor;
+		final Executor executor = type.getModel().connect().executor;
 		final String alias1 = executor.dialect.dsmfDialect.quoteName(com.exedio.cope.Table.SQL_ALIAS_1);
 		final String alias2 = executor.dialect.dsmfDialect.quoteName(com.exedio.cope.Table.SQL_ALIAS_2);
 
-		final Statement bf = executor.newStatement(false, Statement.Mode.NORMAL);
+		final Statement bf = executor.newStatement(false, mode);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 				append(type.getTable()).append(' ').append(alias1).
@@ -255,6 +252,6 @@ final class VaultTrail
 				append(" AND ").
 				append(alias2).append('.').append(hashQuoted).append(" IS NULL");
 
-		return executor.query(connection, bf, null, false, longResultSetHandler);
+		return bf;
 	}
 }

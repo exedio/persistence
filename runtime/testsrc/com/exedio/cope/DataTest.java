@@ -22,6 +22,7 @@ import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertData;
+import static com.exedio.cope.SchemaInfo.checkVaultTrail;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vaulttest.VaultServiceTest.AssertionErrorOutputStream;
@@ -435,13 +437,36 @@ public class DataTest extends TestWithEnvironment
 
 	@Test void testCheckVaultTrail()
 	{
+		assertFails(
+				() -> checkVaultTrail(null),
+				NullPointerException.class,
+				"field");
 		final VaultProperties vp = model.getConnectProperties().getVaultProperties();
 		if(vp==null)
+		{
 			assertFails(data::checkVaultTrail, IllegalStateException.class, "vault is disabled");
+			assertFails(() -> checkVaultTrail(data), IllegalStateException.class, "vault is disabled");
+		}
 		else if(!vp.isTrailEnabled())
+		{
 			assertFails(data::checkVaultTrail, IllegalStateException.class, "trail is disabled");
+			assertFails(() -> checkVaultTrail(data), IllegalStateException.class, "trail is disabled");
+		}
 		else
+		{
 			assertEquals(0, data.checkVaultTrail());
+			final String alias1 = SchemaInfo.quoteName(model, "return");
+			final String alias2 = SchemaInfo.quoteName(model, "break");
+			final String trailTab  = SchemaInfo.quoteName(model, "VaultTrail_default");
+			final String trailHash = SchemaInfo.quoteName(model, "hash");
+			assertEquals(
+					"SELECT COUNT(*) FROM " + SI.tab(DataItem.TYPE) + " " + alias1 + " " +
+					"LEFT JOIN " + trailTab + " " + alias2 + " " +
+					"ON " + alias1 + "." + SI.col(data) + "=" + alias2 + "." + trailHash + " " +
+					"WHERE " + alias1 + "." + SI.col(data) + " IS NOT NULL " +
+					"AND " + alias2 + "." + trailHash + " IS NULL",
+					checkVaultTrail(data));
+		}
 	}
 
 	private static final byte[] bytes0  = {};
