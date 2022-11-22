@@ -234,23 +234,21 @@ final class VaultTrail
 	{
 		final Type<?> type = field.getType();
 		final Executor executor = type.getModel().connect().executor;
-		final String alias1 = executor.dialect.dsmfDialect.quoteName(com.exedio.cope.Table.SQL_ALIAS_1);
-		final String alias2 = executor.dialect.dsmfDialect.quoteName(com.exedio.cope.Table.SQL_ALIAS_2);
 
-		final Statement bf = executor.newStatement(false, mode);
+		final Statement bf = executor.newStatement(true, mode);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
-				append(type.getTable()).append(' ').append(alias1).
+				append(type.getTable()).
 				append(" LEFT JOIN ").
-				append(tableQuoted).append(' ').append(alias2).
+				append(tableQuoted).
 				append(" ON ").
-				append(alias1).append('.').append(field.getColumn()).
+				append(field.getColumn()).
 				append('=').
-				append(alias2).append('.').append(hashQuoted).
+				append(tableQuoted).append('.').append(hashQuoted).
 				append(" WHERE ").
-				append(alias1).append('.').append(field.getColumn()).append(" IS NOT NULL").
+				append(field.getColumn()).append(" IS NOT NULL").
 				append(" AND ").
-				append(alias2).append('.').append(hashQuoted).append(" IS NULL");
+				append(tableQuoted).append('.').append(hashQuoted).append(" IS NULL");
 
 		return bf;
 	}

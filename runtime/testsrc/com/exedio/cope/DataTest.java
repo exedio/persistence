@@ -455,16 +455,14 @@ public class DataTest extends TestWithEnvironment
 		else
 		{
 			assertEquals(0, data.checkVaultTrail());
-			final String alias1 = SchemaInfo.quoteName(model, "return");
-			final String alias2 = SchemaInfo.quoteName(model, "break");
 			final String trailTab  = SchemaInfo.quoteName(model, "VaultTrail_default");
 			final String trailHash = SchemaInfo.quoteName(model, "hash");
 			assertEquals(
-					"SELECT COUNT(*) FROM " + SI.tab(DataItem.TYPE) + " " + alias1 + " " +
-					"LEFT JOIN " + trailTab + " " + alias2 + " " +
-					"ON " + alias1 + "." + SI.col(data) + "=" + alias2 + "." + trailHash + " " +
-					"WHERE " + alias1 + "." + SI.col(data) + " IS NOT NULL " +
-					"AND " + alias2 + "." + trailHash + " IS NULL",
+					"SELECT COUNT(*) FROM " + SI.tab(DataItem.TYPE) + " " +
+					"LEFT JOIN " + trailTab + " " +
+					"ON " + SI.colq(data) + "=" + trailTab + "." + trailHash + " " +
+					"WHERE " + SI.colq(data) + " IS NOT NULL " +
+					"AND " + trailTab + "." + trailHash + " IS NULL",
 					checkVaultTrail(data));
 		}
 	}
