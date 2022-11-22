@@ -1403,17 +1403,29 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return supertype!=null && getTable().updateCounter!=null;
 	}
 
+	/**
+	 * @see SchemaInfo#checkUpdateCounter(Type)
+	 */
 	public long checkUpdateCounterL()
+	{
+		final Transaction tx = getModel().currentTransaction();
+		return tx.connect.executor.query(
+				tx.getConnection(),
+				checkUpdateCounterStatement(Statement.Mode.NORMAL),
+				null, false, longResultSetHandler);
+
+	}
+
+	Statement checkUpdateCounterStatement(final Statement.Mode mode)
 	{
 		if(!needsCheckUpdateCounter())
 			throw new RuntimeException("no check for update counter needed for " + this);
 
-		final Transaction tx = getModel().currentTransaction();
-		final Executor executor = tx.connect.executor;
+		final Executor executor = getModel().connect().executor;
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
 
-		final Statement bf = executor.newStatement(true, Statement.Mode.NORMAL);
+		final Statement bf = executor.newStatement(true, mode);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
@@ -1424,7 +1436,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		//System.out.println("CHECKM:"+bf.toString());
 
-		return executor.query(tx.getConnection(), bf, null, false, longResultSetHandler);
+		return bf;
 	}
 
 	public Random random(final int seed)
