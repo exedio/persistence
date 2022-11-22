@@ -74,6 +74,11 @@ public final class SI
 		return quoteName(field.getType().getModel(), getColumnName(field));
 	}
 
+	public static String colq(final Field<?> field)
+	{
+		return tab(field.getType()) + "." + col(field);
+	}
+
 	public static String type(final ItemField<?> field)
 	{
 		return quoteName(field.getType().getModel(), getTypeColumnName(field));

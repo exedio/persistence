@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.tojunit.SI;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,12 @@ public class CopySimpleTest extends TestWithEnvironment
 
 	@Test void testOk1()
 	{
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(TYPE) + " " +
+				"JOIN " + SI.tab(CopySimpleTarget.TYPE) + " " +
+				"ON " + SI.colq(CopySimpleSource.targetItem) + "=" + SI.pkq(CopySimpleTarget.TYPE) + " " +
+				"WHERE " + SI.colq(CopySimpleSource.templateString) + "<>" + SI.colq(CopySimpleTarget.templateString),
+				SchemaInfo.check(templateStringCopyFromTarget));
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template1", "otherString1", value, new CopyValue());
 		assertContains(TYPE.search());
