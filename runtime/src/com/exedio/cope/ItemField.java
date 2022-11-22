@@ -25,7 +25,6 @@ import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
 import java.lang.reflect.AnnotatedElement;
-import java.sql.Connection;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.BiFunction;
@@ -562,18 +561,26 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public long checkTypeColumnL()
 	{
+		final Transaction tx = getType().getModel().currentTransaction();
+		return tx.connect.executor.query(
+				tx.getConnection(),
+				checkTypeColumnStatement(Statement.Mode.NORMAL),
+				null, false, longResultSetHandler);
+	}
+
+	@Override
+	public Statement checkTypeColumnStatement(final Statement.Mode mode)
+	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);
 
 		final Type<?> type = getType();
-		final Transaction tx = type.getModel().currentTransaction();
-		final Connection connection = tx.getConnection();
-		final Executor executor = tx.connect.executor;
+		final Executor executor = type.getModel().connect().executor;
 		final Table table = type.getTable();
 		final Table valueTable = getValueType().getTable();
 		final String alias1 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_1);
 		final String alias2 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_2);
 
-		final Statement bf = executor.newStatement(false, Statement.Mode.NORMAL);
+		final Statement bf = executor.newStatement(false, mode);
 		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(' ').append(alias1).
@@ -590,7 +597,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		//System.out.println("CHECKA:"+bf.toString());
 
-		return executor.query(connection, bf, null, false, longResultSetHandler);
+		return bf;
 	}
 
 	public enum DeletePolicy

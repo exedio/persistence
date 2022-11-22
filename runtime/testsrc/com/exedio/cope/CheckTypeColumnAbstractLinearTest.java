@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.checkTypeColumn;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.SI;
 import org.junit.jupiter.api.Test;
 
 public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
@@ -67,6 +69,23 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		assertNotNeeded(ref021C);
 
 
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(Type01C.TYPE) + "," + SI.tab(Type0A.TYPE) + " " +
+				"WHERE " + SI.pkq(Type01C.TYPE) + "=" + SI.pkq(Type0A.TYPE) + " " +
+				"AND 'Type01C'<>" + SI.typeq(Type0A.TYPE),
+				checkTypeColumn(this01C));
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(Type02A.TYPE) + "," + SI.tab(Type0A.TYPE) + " " +
+				"WHERE " + SI.pkq(Type02A.TYPE) + "=" + SI.pkq(Type0A.TYPE) + " " +
+				"AND 'Type021C'<>" + SI.typeq(Type0A.TYPE),
+				checkTypeColumn(this02A));
+		final String alias1 = SchemaInfo.quoteName(model, "return");
+		final String alias2 = SchemaInfo.quoteName(model, "break");
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(TypeRef.TYPE) + " " + alias1 + "," + SI.tab(Type0A.TYPE) + " " + alias2 + " " +
+				"WHERE " + alias1 + "." + SI.col(TypeRef.ref0A) + "=" + alias2 + "." + SI.pk(Type0A.TYPE) + " " +
+				"AND " + alias1 + "." + SI.type(TypeRef.ref0A) + "<>" + alias2 + "." + SI.type(Type0A.TYPE),
+				checkTypeColumn(ref0A));
 		assertEquals(0, this01C.checkTypeColumnL());
 		assertEquals(0, this02A.checkTypeColumnL());
 		assertEquals(0, ref0A  .checkTypeColumnL());
@@ -94,6 +113,10 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 
 	private static void assertNotNeeded(final ItemFunction<?> f)
 	{
+		assertFails(
+				() -> checkTypeColumn(f),
+				IllegalArgumentException.class,
+				"no check for type column needed for " + f);
 		assertFails(
 				f::checkTypeColumnL,
 				IllegalArgumentException.class,

@@ -140,5 +140,12 @@ public final class This<E extends Item> extends Feature
 		return type.checkTypeColumn();
 	}
 
+	@Override
+	public Statement checkTypeColumnStatement(final Statement.Mode mode)
+	{
+		ItemFunctionUtil.checkTypeColumnNeeded(this);
+		return type.checkTypeColumnStatement(mode);
+	}
+
 	// Note about isNull/isNotNull: a primary key can become null in queries using outer joins.
 }
