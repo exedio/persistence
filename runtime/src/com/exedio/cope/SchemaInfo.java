@@ -313,6 +313,15 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @see Type#checkUpdateCounterL()
+	 */
+	public static String checkUpdateCounter(final Type<?> type)
+	{
+		return requireNonNull(type, "type").
+				checkUpdateCounterStatement(Statement.Mode.SQL_ONLY).getText();
+	}
+
+	/**
 	 * @see ItemFunction#checkTypeColumnL()
 	 */
 	public static String checkTypeColumn(final ItemFunction<?> function)

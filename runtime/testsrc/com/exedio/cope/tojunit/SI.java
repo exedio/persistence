@@ -69,6 +69,11 @@ public final class SI
 		return quoteName(type.getModel(), getUpdateCounterColumnName(type));
 	}
 
+	public static String updateq(final Type<?> type)
+	{
+		return tab(type) + "." + update(type);
+	}
+
 	public static String col(final Field<?> field)
 	{
 		return quoteName(field.getType().getModel(), getColumnName(field));

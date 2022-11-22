@@ -19,9 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
+import static com.exedio.cope.SchemaInfo.checkUpdateCounter;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.misc.HiddenFeatures;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -142,6 +145,20 @@ public class HierarchyTest extends TestWithEnvironment
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
 		assertEquals(map(), HiddenFeatures.get(model));
+
+		assertFails(
+				() -> checkUpdateCounter(null),
+				NullPointerException.class,
+				"type");
+		assertFails(
+				() -> checkUpdateCounter(HierarchySuper.TYPE),
+				RuntimeException.class,
+				"no check for update counter needed for HierarchySuper");
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(HierarchyFirstSub.TYPE) + "," + SI.tab(HierarchySuper.TYPE) + " " +
+				"WHERE " + SI.pkq(HierarchyFirstSub.TYPE) + "=" + SI.pkq(HierarchySuper.TYPE) + " " +
+				"AND " + SI.updateq(HierarchyFirstSub.TYPE) + "<>" + SI.updateq(HierarchySuper.TYPE),
+				checkUpdateCounter(HierarchyFirstSub.TYPE));
 
 		// test persistence
 		assertCheckUpdateCounters();
