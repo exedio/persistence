@@ -183,6 +183,9 @@ public class DataVaultInfoTest
 				MyItem.field::checkVaultTrail);
 		assertThrows(
 				Model.NotConnectedException.class,
+				() -> SchemaInfo.checkVaultTrail(MyItem.field));
+		assertThrows(
+				Model.NotConnectedException.class,
 				MyItem.field::getVaultInfo);
 
 		assertCount("getLength", Tags.empty(), onSetup.getGetLengthCount());

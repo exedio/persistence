@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.SchemaInfo.checkVaultTrail;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
@@ -35,6 +36,7 @@ import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
@@ -83,6 +85,25 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	}
 	private void test(final java.util.function.Function<String, DataField.Value> f) throws SQLException
 	{
+		final String alias1 = quoteName(model, "return");
+		final String alias2 = quoteName(model, "break");
+		final String trailTab  = quoteName(model, "VaultTrail_myService_Key");
+		final String trailTabD = quoteName(model, "VaultTrail_default");
+		final String trailHash = quoteName(model, "hash");
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " + alias1 + " " +
+				"LEFT JOIN " + trailTab + " " + alias2 + " " +
+				"ON " + alias1 + "." + SI.col(MyItem.field) + "=" + alias2 + "." + trailHash + " " +
+				"WHERE " + alias1 + "." + SI.col(MyItem.field) + " IS NOT NULL " +
+				"AND " + alias2 + "." + trailHash + " IS NULL",
+				checkVaultTrail(MyItem.field));
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " + alias1 + " " +
+				"LEFT JOIN " + trailTabD + " " + alias2 + " " +
+				"ON " + alias1 + "." + SI.col(MyItem.other) + "=" + alias2 + "." + trailHash + " " +
+				"WHERE " + alias1 + "." + SI.col(MyItem.other) + " IS NOT NULL " +
+				"AND " + alias2 + "." + trailHash + " IS NULL",
+				checkVaultTrail(MyItem.other));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 

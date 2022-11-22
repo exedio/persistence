@@ -348,6 +348,15 @@ public final class SchemaInfo
 		return total(requireNonNull(constraint, "constraint").checkQuery());
 	}
 
+	/**
+	 * @see DataField#checkVaultTrail()
+	 */
+	public static String checkVaultTrail(final DataField field)
+	{
+		return requireNonNull(field, "field").
+				checkVaultTrailStatement(SQL_ONLY).getText();
+	}
+
 
 	private SchemaInfo()
 	{
