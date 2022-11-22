@@ -330,6 +330,14 @@ public final class SchemaInfo
 				checkCompletenessStatement(subType, Statement.Mode.SQL_ONLY).getText();
 	}
 
+	/**
+	 * @see CopyConstraint#check()
+	 */
+	public static String check(final CopyConstraint constraint)
+	{
+		return total(requireNonNull(constraint, "constraint").checkQuery());
+	}
+
 
 	private SchemaInfo()
 	{

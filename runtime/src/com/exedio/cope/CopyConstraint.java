@@ -185,13 +185,21 @@ public final class CopyConstraint extends Feature
 		return f1.getFunction().notEqual(f2);
 	}
 
+	/**
+	 * @see SchemaInfo#check(CopyConstraint)
+	 */
 	public int check()
+	{
+		return checkQuery().total();
+	}
+
+	Query<?> checkQuery()
 	{
 		final Query<?> q = getType().newQuery();
 		final Join j = q.join(target.getValueType());
 		j.setCondition(target.equalTarget(j));
 		q.setCondition(notEqual(copy, getTemplate().bind(j)));
-		return q.total();
+		return q;
 	}
 
 

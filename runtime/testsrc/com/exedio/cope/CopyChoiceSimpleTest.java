@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.check;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.Assert;
+import com.exedio.cope.tojunit.SI;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -34,6 +36,12 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 {
 	@Test void testOk()
 	{
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(Container.TYPE) + " " +
+				"JOIN " + SI.tab(Part.TYPE) + " " +
+				"ON " + SI.colq(Container.choice) + "=" + SI.pkq(Part.TYPE) + " " +
+				"WHERE " + SI.pkq(Container.TYPE) + "<>" + SI.colq(Part.parent),
+				check(Container.choice.getChoice()));
 		final Container c1 = new Container();
 		final Part p1 = new Part(c1);
 		final Part p2 = new Part(c1);

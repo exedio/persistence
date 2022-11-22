@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.tojunit.SI;
 import org.junit.jupiter.api.Test;
 
 public class CopySelfTest extends TestWithEnvironment
@@ -38,6 +39,13 @@ public class CopySelfTest extends TestWithEnvironment
 
 	@Test void testOk()
 	{
+		assertEquals(
+				"SELECT COUNT(*) FROM " + SI.tab(TYPE) + " CopySelfSource0 " +
+				"JOIN " + SI.tab(TYPE) + " CopySelfSource1 " +
+				"ON CopySelfSource0." + SI.col(CopySelfSource.selfTarget) + "=CopySelfSource1." + SI.pk(TYPE) + " " +
+				"WHERE CopySelfSource0." + SI.col(CopySelfSource.selfTemplate) + "<>CopySelfSource1." + SI.col(CopySelfSource.selfTemplate),
+				SchemaInfo.check(selfTemplateCopyFromTarget));
+
 		final CopyValue value = new CopyValue();
 		final CopySelfSource self = new CopySelfSource(null, value);
 		assertContains(self, TYPE.search());
