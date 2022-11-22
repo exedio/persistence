@@ -561,10 +561,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public long checkTypeColumnL()
 	{
+		final Statement statement = // must be first to throw Model.NotConnectedException when needed
+				checkTypeColumnStatement(Statement.Mode.NORMAL);
 		final Transaction tx = getType().getModel().currentTransaction();
 		return tx.connect.executor.query(
 				tx.getConnection(),
-				checkTypeColumnStatement(Statement.Mode.NORMAL),
+				statement,
 				null, false, longResultSetHandler);
 	}
 

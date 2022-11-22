@@ -1329,10 +1329,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	long checkTypeColumn()
 	{
+		final Statement statement = // must be first to throw Model.NotConnectedException when needed
+				checkTypeColumnStatement(Statement.Mode.NORMAL);
 		final Transaction tx = getModel().currentTransaction();
 		return tx.connect.executor.query(
 				tx.getConnection(),
-				checkTypeColumnStatement(Statement.Mode.NORMAL),
+				statement,
 				null, false, longResultSetHandler);
 	}
 
@@ -1368,11 +1370,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	public long checkCompletenessL(final Type<? extends T> subType)
 	{
+		final Statement statement = // must be first to throw Model.NotConnectedException when needed
+				checkCompletenessStatement(subType, Statement.Mode.NORMAL);
 		final Transaction tx = getModel().currentTransaction();
 		final Executor executor = tx.connect.executor;
 		return executor.query(
 				tx.getConnection(),
-				checkCompletenessStatement(subType, Statement.Mode.NORMAL),
+				statement,
 				null, false, longResultSetHandler);
 	}
 
@@ -1408,10 +1412,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	public long checkUpdateCounterL()
 	{
+		final Statement statement = // must be first to throw Model.NotConnectedException when needed
+				checkUpdateCounterStatement(Statement.Mode.NORMAL);
 		final Transaction tx = getModel().currentTransaction();
 		return tx.connect.executor.query(
 				tx.getConnection(),
-				checkUpdateCounterStatement(Statement.Mode.NORMAL),
+				statement,
 				null, false, longResultSetHandler);
 
 	}
