@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Statement.Mode.SQL_ONLY;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
@@ -318,7 +319,7 @@ public final class SchemaInfo
 	public static String checkUpdateCounter(final Type<?> type)
 	{
 		return requireNonNull(type, "type").
-				checkUpdateCounterStatement(Statement.Mode.SQL_ONLY).getText();
+				checkUpdateCounterStatement(SQL_ONLY).getText();
 	}
 
 	/**
@@ -327,7 +328,7 @@ public final class SchemaInfo
 	public static String checkTypeColumn(final ItemFunction<?> function)
 	{
 		return requireNonNull(function, "function").
-				checkTypeColumnStatement(Statement.Mode.SQL_ONLY).getText();
+				checkTypeColumnStatement(SQL_ONLY).getText();
 	}
 
 	/**
@@ -336,7 +337,7 @@ public final class SchemaInfo
 	public static <T extends Item> String checkCompleteness(final Type<T> type, final Type<? extends T> subType)
 	{
 		return requireNonNull(type, "type").
-				checkCompletenessStatement(subType, Statement.Mode.SQL_ONLY).getText();
+				checkCompletenessStatement(subType, SQL_ONLY).getText();
 	}
 
 	/**
