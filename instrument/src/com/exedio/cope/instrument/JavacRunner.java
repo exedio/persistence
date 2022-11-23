@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
 
-import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -38,24 +37,6 @@ import javax.tools.ToolProvider;
 
 final class JavacRunner
 {
-	static JavaCompiler getJavaCompiler(final Params params)
-	{
-		// "JavacTool.create()" is not part of the "exported" API
-		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
-		// The more stable alternative would be calling "ToolProvider.getSystemJavaCompiler()", but that causes
-		// class path issues when run as an ant task on JDK 8.
-		//
-		// On JDK 16 JavacTool.create() fails with
-		// java.lang.IllegalAccessError:
-		// class com.exedio.cope.instrument.JavacRunner (in unnamed module @0x4ebea736) cannot access
-		// class com.sun.tools.javac.api.JavacTool (in module jdk.compiler)
-		// because module jdk.compiler does not export com.sun.tools.javac.api
-		// to unnamed module @0x4ebea736
-		return params.toolProvider
-				? ToolProvider.getSystemJavaCompiler()
-				: JavacTool.create();
-	}
-
 	private final JavacProcessor[] processors;
 
 	JavacRunner(final JavacProcessor... processors)
@@ -65,10 +46,7 @@ final class JavacRunner
 
 	void run(final Params params) throws IOException, HumanReadableException
 	{
-		System.out.println(
-				"Instrumenting in " + (params.toolProvider?"ToolProvider":"JavacTool") + " mode (" + params.javaVersion + ").");
-
-		final JavaCompiler compiler=getJavaCompiler(params);
+		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
 			final List<File> sortedSourceFiles=params.getAllJavaSourceFiles();

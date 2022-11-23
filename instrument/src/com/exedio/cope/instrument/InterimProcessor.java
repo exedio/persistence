@@ -67,6 +67,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
+import javax.tools.ToolProvider;
 
 final class InterimProcessor extends JavacProcessor
 {
@@ -162,7 +163,7 @@ final class InterimProcessor extends JavacProcessor
 		try
 		{
 			this.interimClassLoader = compiler.compile(
-				JavacRunner.getJavaCompiler(params),
+				ToolProvider.getSystemJavaCompiler(),
 				JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath))
 			);
 			if (params.verbose)
