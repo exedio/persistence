@@ -315,6 +315,24 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	{
+		bf.append(function).
+			append(" ~ ").
+			// https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP
+			appendParameter("^" + regexp + "$");
+	}
+
+	@Override
+	String getClause(final String column, final String regexp)
+	{
+		return column + " ~ " +
+				 StringColumn.cacheToDatabaseStatic(
+						 "^" + regexp + "$"
+				 );
+	}
+
+	@Override
 	String getInComma()
 	{
 		return ", ";

@@ -121,5 +121,10 @@ public interface StringFunction extends Function<String>
 		return new CharSetCondition(this, charSet);
 	}
 
+	default RegexpLikeCondition regexpLike(final String pattern)
+	{
+		return new RegexpLikeCondition(this, pattern);
+	}
+
 	long serialVersionUID = 6196781661929849730L;
 }

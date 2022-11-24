@@ -28,6 +28,7 @@ class StringColumn extends Column
 	final int minimumLength;
 	final int maximumLength;
 	final CharSet charSet;
+	final String regexpPattern;
 	final SortedSet<String> allowedValues;
 	private final MysqlExtendedVarchar mysqlExtendedVarchar;
 
@@ -38,12 +39,14 @@ class StringColumn extends Column
 			final int minimumLength,
 			final int maximumLength,
 			final CharSet charSet,
+			final String regexpPattern,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		super(table, id, false, Kind.nonPrimaryKey(optional));
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
+		this.regexpPattern = regexpPattern;
 		this.allowedValues = null;
 		this.mysqlExtendedVarchar = mysqlExtendedVarchar;
 
@@ -63,6 +66,7 @@ class StringColumn extends Column
 		this.minimumLength = 0;
 		this.maximumLength = Math.max(minLength, maxLength(allowedValues));
 		this.charSet  = null;
+		this.regexpPattern = null;
 		this.allowedValues = allowedValues;
 		this.mysqlExtendedVarchar = null;
 
@@ -142,6 +146,11 @@ class StringColumn extends Column
 				final String clause = table.database.dialect.getClause(quotedID, charSet);
 				if(clause!=null)
 					newCheck(dsmf, "CS", clause);
+			}
+			if (regexpPattern!=null)
+			{
+				final String clause = table.database.dialect.getClause(quotedID, regexpPattern);
+				newCheck(dsmf, "RE", clause);
 			}
 		}
 	}

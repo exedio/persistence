@@ -387,6 +387,10 @@ abstract class Dialect
 		return ")";
 	}
 
+	abstract void appendRegexpLike(Statement bf, StringFunction function, String regexp);
+
+	@Nonnull abstract String getClause(String column, String regexp);
+
 	/**
 	 * Returns null, if the dialect does not support clauses for CharacterSet.
 	 */

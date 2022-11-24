@@ -62,6 +62,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class SchemaTest extends TestWithEnvironment
 {
@@ -173,6 +174,17 @@ public class SchemaTest extends TestWithEnvironment
 		final String regexpEnd   = icu ? "\\z": "$";
 		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"   +regexpEnd+"'" : "";
 		final String hexSQL   = mysql ? q(data)        +" REGEXP '"+regexpBegin+"[0-9a-f]*"+regexpEnd+"'" : "";
+		final String regexpSQL;
+		switch(dialect)
+		{
+			case hsqldb:     regexpSQL = "REGEXP_MATCHES("+q(stringUpper6)+",'(?s)\\A[A-B]*\\z')"; break;
+			case mysql:      regexpSQL = icu
+					? q(stringUpper6)+" REGEXP CAST('(?s)\\A[A-B]*\\z' AS CHAR)"
+					: q(stringUpper6)+" REGEXP CAST('^[A-B]*$' AS CHAR)"; break;
+			case postgresql: regexpSQL = q(stringUpper6)+" ~ '^[A-B]*$'"; break;
+			default:
+				throw new AssertionFailedError();
+		}
 
 		assertCheckConstraint(table, "Main_stringMin4_MN", l(stringMin4)+">=4");
 		assertCheckConstraint(table, "Main_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
@@ -185,6 +197,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_stringUpper6_MN", l(stringUpper6)+"=6");
 		assertCheckConstraint(table, "Main_stringUpper6_MX", null, false);
 		assertCheckConstraint(table, "Main_stringUpper6_CS", upperSQL, mysql);
+		assertCheckConstraint(table, "Main_stringUpper6_RE", regexpSQL);
 		assertCheckConstraint(table, "Main_stringEmpty_MN", null, false);
 		assertCheckConstraint(table, "Main_stringEmpty_MX", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
 		assertCheckConstraint(table, "Main_data_MX", l(data)+"<="+DataField.DEFAULT_LENGTH, !dataVault);
