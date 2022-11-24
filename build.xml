@@ -32,31 +32,9 @@
 			classpath="lib/ant-contrib.jar"
 			onerror="failall" />
 
-	<macrodef name="ljarn">
-		<attribute name="jarfile" />
-		<attribute name="name" />
-		<element name="implicit-element" optional="true" implicit="true" />
-		<sequential>
-			<!--echo message="local jar @{jarfile}" /-->
-			<jar jarfile="@{jarfile}" filesonly="true" duplicate="fail" strict="fail" level="9">
-				<implicit-element />
-				<manifest>
-					<attribute name="Specification-Title" value="exedio @{name}" />
-					<attribute name="Specification-Version" value="${build.tag}" />
-					<attribute name="Specification-Vendor" value="exedio GmbH" />
-					<attribute name="Implementation-Title" value="exedio @{name}" />
-					<attribute name="Implementation-Version" value="${build.tag}" />
-					<attribute name="Implementation-Vendor" value="exedio GmbH" />
-				</manifest>
-			</jar>
-			<plot file="@{jarfile}" />
-		</sequential>
-	</macrodef>
-
 	<macrodef name="ljar">
 		<attribute name="jarfile" />
 		<attribute name="name" />
-		<attribute name="classpath" />
 		<element name="implicit-element" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local jar @{jarfile}" /-->
@@ -69,7 +47,6 @@
 					<attribute name="Implementation-Title" value="exedio @{name}" />
 					<attribute name="Implementation-Version" value="${build.tag}" />
 					<attribute name="Implementation-Vendor" value="exedio GmbH" />
-					<attribute name="Class-Path" value="@{classpath}" />
 				</manifest>
 			</jar>
 			<plot file="@{jarfile}" />
@@ -297,7 +274,7 @@
 							runtime.servlet.compile" />
 
 	<target name="runtime.core.jar" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.protocol">
-		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove4j.jar exedio-cope-util.jar">
+		<ljar name="cope" jarfile="build/exedio-cope.jar">
 			<fileset dir="build/classes/dsmf/src" />
 			<fileset dir="build/classes/runtime/src" />
 			<fileset dir="build/classes/runtime/patternsrc" />
@@ -308,9 +285,9 @@
 	<target name="runtime.dialect.jar" depends="runtime.dialect.compile">
 		<foreachDialect>
 			<body>
-				<ljarn name="cope dialect @{name}" jarfile="build/exedio-cope-@{name}.jar">
+				<ljar name="cope dialect @{name}" jarfile="build/exedio-cope-@{name}.jar">
 					<fileset dir="build/classes/runtime/@{name}src" />
-				</ljarn>
+				</ljar>
 			</body>
 		</foreachDialect>
 	</target>
@@ -759,15 +736,15 @@
 	</target>
 
 	<target name="instrument.anno.jar" depends="instrument.anno.compile">
-		<ljarn name="cope instrumentor annotations" jarfile="build/exedio-cope-instrument-annotations.jar">
+		<ljar name="cope instrumentor annotations" jarfile="build/exedio-cope-instrument-annotations.jar">
 			<fileset dir="build/classes/instrument/annosrc" />
-		</ljarn>
+		</ljar>
 	</target>
 
 	<target name="instrument.completion.jar" depends="instrument.completion.compile">
-		<ljarn name="cope instrumentor completions" jarfile="build/exedio-cope-instrument-completion.jar">
+		<ljar name="cope instrumentor completions" jarfile="build/exedio-cope-instrument-completion.jar">
 			<fileset dir="build/classes/instrument/completionsrc" />
-		</ljarn>
+		</ljar>
 	</target>
 
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
@@ -806,7 +783,7 @@
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile, instrument.completion.compile" />
 
 	<target name="instrument.jar" depends="instrument.core.compile, instrument.ant.compile">
-		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope-instrument-annotations.jar exedio-cope.jar">
+		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar">
 			<fileset dir="build/classes/instrument/src" />
 			<fileset dir="build/classes/instrument/antsrc" />
 		</ljar>
