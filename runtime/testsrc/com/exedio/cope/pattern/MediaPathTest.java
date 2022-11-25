@@ -977,7 +977,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		{
 			return
 					out!=null
-					? new String(out.toByteArray(), StandardCharsets.US_ASCII)
+					? out.toString(StandardCharsets.US_ASCII)
 					: null;
 		}
 

@@ -156,7 +156,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 			{
 				throw new RuntimeException(e);
 			}
-			bf.append(new String(baos.toByteArray(), US_ASCII));
+			bf.append(baos.toString(US_ASCII));
 			bf.append("-----------");
 			for(final Dispatcher.Run run : getToTargetRuns())
 			{
