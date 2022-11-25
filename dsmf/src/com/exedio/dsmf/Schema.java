@@ -367,7 +367,7 @@ public final class Schema extends Node
 		return () ->
 		{
 			final ListIterator<E> iterator = l.listIterator(l.size());
-			return new Iterator<E>()
+			return new Iterator<>()
 			{
 				@Override
 				public boolean hasNext()

@@ -67,7 +67,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.values = Collections.unmodifiableList(Arrays.asList(enumConstants));
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
-		this.marshaller = new Marshaller<E>(1)
+		this.marshaller = new Marshaller<>(1)
 		{
 			@Override
 			E unmarshal(final ResultSet row, final int columnIndex) throws SQLException

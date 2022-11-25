@@ -306,7 +306,7 @@ public class QueryGroupOrderBySetterSelectableTest
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
 
-	private static final Selectable<?> nonFunction = new Selectable<Object>()
+	private static final Selectable<?> nonFunction = new Selectable<>()
 	{
 		@Override
 		public Class<Object> getValueClass()

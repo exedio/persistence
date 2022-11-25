@@ -126,7 +126,7 @@ public class ConnectTokenSetTest
 		assertNotSet();
 
 		final AtomicInteger supplied = new AtomicInteger(0);
-		ctr.set(new Supplier<ConnectProperties>()
+		ctr.set(new Supplier<>()
 		{
 			@Override
 			public ConnectProperties get()

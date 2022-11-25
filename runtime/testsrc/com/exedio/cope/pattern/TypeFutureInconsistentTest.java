@@ -206,7 +206,7 @@ public class TypeFutureInconsistentTest
 
 	private static ItemField<ValueClassItem> inconsistentField(final String clazz)
 	{
-		return ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>()
+		return ItemField.create(ValueClassItem.class, new TypeFuture<>()
 		{
 			@Override
 			@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
@@ -226,7 +226,7 @@ public class TypeFutureInconsistentTest
 
 	private static ItemField<ValueClassItem> nullField()
 	{
-		return ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>()
+		return ItemField.create(ValueClassItem.class, new TypeFuture<>()
 		{
 			@Override
 			public Type<ValueClassItem> get()

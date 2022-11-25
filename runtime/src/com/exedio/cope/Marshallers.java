@@ -37,7 +37,7 @@ final class Marshallers
 			final Dialect dialect,
 			final boolean supportsNativeDate)
 	{
-		put(SimpleSelectType.STRING, new Marshaller<String>(1) {
+		put(SimpleSelectType.STRING, new Marshaller<>(1) {
 			@Override
 			String unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
@@ -54,7 +54,7 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>(1) {
+		put(SimpleSelectType.BOOLEAN, new Marshaller<>(1) {
 			@Override
 			Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
@@ -83,7 +83,7 @@ final class Marshallers
 				return value ? BooleanField.TRUE : BooleanField.FALSE;
 			}
 		});
-		put(SimpleSelectType.INTEGER, new Marshaller<Integer>(1) {
+		put(SimpleSelectType.INTEGER, new Marshaller<>(1) {
 			@Override
 			Integer unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
@@ -105,7 +105,7 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(SimpleSelectType.LONG, new Marshaller<Long>(1) {
+		put(SimpleSelectType.LONG, new Marshaller<>(1) {
 			@Override
 			Long unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
@@ -124,7 +124,7 @@ final class Marshallers
 				return value;
 			}
 		});
-		put(SimpleSelectType.DOUBLE, new Marshaller<Double>(1) {
+		put(SimpleSelectType.DOUBLE, new Marshaller<>(1) {
 			@Override
 			Double unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
@@ -146,7 +146,7 @@ final class Marshallers
 		});
 
 		put(SimpleSelectType.DATE, supportsNativeDate
-			? new Marshaller<Date>(1) {
+			? new Marshaller<>(1) {
 				@Override
 				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
@@ -166,7 +166,7 @@ final class Marshallers
 					return new Timestamp(value.getTime());
 				}
 			}
-			: new Marshaller<Date>(1) {
+			: new Marshaller<>(1) {
 				@Override
 				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
@@ -185,7 +185,7 @@ final class Marshallers
 				}
 			});
 
-		put(SimpleSelectType.DAY, new Marshaller<Day>(1) {
+		put(SimpleSelectType.DAY, new Marshaller<>(1) {
 			@Override
 			Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
