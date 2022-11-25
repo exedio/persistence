@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Class-Path removed from jar manifest:
+	- exedio-cope.jar drops "Class-Path: trove4j.jar exedio-cope-util.jar"
+	- exedio-cope-instrument.jar drops "Class-Path: exedio-cope-instrument-annotations.jar exedio-cope.jar"
 * ConnectProperties: key "schema.mysql.lower_case_table_names" no longer supported.
 	Check your deployed systems! Probably this key is at its default,
 	then you don't have to do anything.
