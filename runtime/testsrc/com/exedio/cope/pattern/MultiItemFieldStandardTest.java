@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.instrument.WrapperType;
@@ -37,7 +38,7 @@ import org.junit.jupiter.api.Test;
 public class MultiItemFieldStandardTest
 {
 	@WrapperType(indent=2, comments=false)
-	private static final class AnMandatoryItem extends com.exedio.cope.Item
+	private static final class AnMandatoryItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
@@ -86,7 +87,7 @@ public class MultiItemFieldStandardTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	private static final class AnOptionalItem extends com.exedio.cope.Item
+	private static final class AnOptionalItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
@@ -129,7 +130,7 @@ public class MultiItemFieldStandardTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	private static final class AnFinalItem extends com.exedio.cope.Item
+	private static final class AnFinalItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
@@ -170,7 +171,7 @@ public class MultiItemFieldStandardTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	private static final class ThreeItem extends com.exedio.cope.Item
+	private static final class ThreeItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
@@ -241,7 +242,7 @@ public class MultiItemFieldStandardTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	private static final class FourItem extends com.exedio.cope.Item
+	private static final class FourItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
@@ -314,7 +315,7 @@ public class MultiItemFieldStandardTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	private static final class AnCascadeItem extends com.exedio.cope.Item
+	private static final class AnCascadeItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).

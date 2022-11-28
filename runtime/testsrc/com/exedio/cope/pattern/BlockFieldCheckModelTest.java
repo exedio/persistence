@@ -37,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import java.util.Arrays;
@@ -180,7 +181,7 @@ public class BlockFieldCheckModelTest
 	private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AnItem extends Item
 	{
 		static final StringField code = new StringField().toFinal();
 

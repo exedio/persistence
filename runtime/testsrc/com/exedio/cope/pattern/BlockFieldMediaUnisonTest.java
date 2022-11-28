@@ -29,6 +29,7 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapperType;
@@ -417,7 +418,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	private static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	private static final class AnItem extends Item
 	{
 		static final BlockField<ABlock> eins = BlockField.create(ABlock.TYPE);
 		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);

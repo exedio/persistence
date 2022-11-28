@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class DataVaultCharacterSetTest
@@ -55,7 +56,7 @@ public class DataVaultCharacterSetTest
 				"but was >" + value + "< (position " + position + ")");
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MyBlank extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -84,7 +85,7 @@ public class DataVaultCharacterSetTest
 	}
 
 	@Vault("MyOk-V")
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MyOk extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -109,7 +110,7 @@ public class DataVaultCharacterSetTest
 	}
 
 	@Vault("MyBroken.V")
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MyBroken extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)

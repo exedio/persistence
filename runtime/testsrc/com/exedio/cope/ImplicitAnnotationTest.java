@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import com.exedio.dsmf.Constraint;
 import java.lang.annotation.Retention;
@@ -147,7 +148,7 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 	}
 
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		@CopeName("uniq")

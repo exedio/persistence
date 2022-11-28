@@ -26,6 +26,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class UniqueTwiceTest
@@ -54,7 +55,7 @@ public class UniqueTwiceTest
 		assertEquals(asList(oneDup), constraintOneDup.getFields());
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final StringField one    = new StringField().unique();

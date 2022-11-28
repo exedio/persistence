@@ -30,8 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
@@ -125,8 +127,8 @@ public class ConditionsTest
 		}
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class AnItem extends Item
 	{
 		@WrapperIgnore static final StringField name1 = new StringField();
 		@WrapperIgnore static final StringField name2 = new StringField();

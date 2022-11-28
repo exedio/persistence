@@ -23,6 +23,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class UniqueDuplicateTest
@@ -44,7 +45,7 @@ public class UniqueDuplicateTest
 		}
 	}
 
-	@com.exedio.cope.instrument.WrapperType(type=NONE, constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
 		static final StringField one = new StringField();

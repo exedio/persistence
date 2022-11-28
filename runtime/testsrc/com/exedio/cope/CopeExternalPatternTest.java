@@ -63,7 +63,7 @@ public class CopeExternalPatternTest
 		return annotation!=null;
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final MyPattern absent = new MyPattern();

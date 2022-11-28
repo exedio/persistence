@@ -99,7 +99,7 @@ public class PartOfOrderReuseTest
 	private AContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	static final class APart extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class APart extends Item
 	{
 		static final ItemField<AContainer> container1 = ItemField.create(AContainer.class).cascade().toFinal();
 		static final ItemField<AContainer> container2 = ItemField.create(AContainer.class).cascade().toFinal();

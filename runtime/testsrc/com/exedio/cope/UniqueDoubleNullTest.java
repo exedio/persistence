@@ -23,6 +23,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperInitial;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -84,7 +85,7 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 		assertEquals(asList(expected), TYPE.search(null, TYPE.getThis(), true));
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		@WrapperInitial static final StringField string = new StringField().optional();

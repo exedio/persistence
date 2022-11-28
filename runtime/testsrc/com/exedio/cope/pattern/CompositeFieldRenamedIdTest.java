@@ -29,9 +29,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CopeName;
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class CompositeFieldRenamedIdTest
@@ -70,7 +72,7 @@ public class CompositeFieldRenamedIdTest
 		return a!=null ? a.value() : null;
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyComposite extends Composite
 	{
 		@WrapperIgnore static final StringField virgnTemp = new StringField();
@@ -84,8 +86,8 @@ public class CompositeFieldRenamedIdTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class MyItem extends Item
 	{
 		@WrapperIgnore static final CompositeField<MyComposite> virgnComp = CompositeField.create(MyComposite.class);
 		@CopeName("namedComp")

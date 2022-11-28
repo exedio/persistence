@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class ChangeHookDefaultAfterTest extends ChangeHookAbstractTest
@@ -50,7 +51,7 @@ public class ChangeHookDefaultAfterTest extends ChangeHookAbstractTest
 				"Item#beforeDelete(" + i + ")");
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
 		static final StringField field = new StringField().lengthMax(500);

@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.ArrayList;
@@ -214,7 +215,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 	}
 
 
-	@com.exedio.cope.instrument.WrapperType(constructor=PRIVATE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=PRIVATE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final StringField field = new StringField().unique();

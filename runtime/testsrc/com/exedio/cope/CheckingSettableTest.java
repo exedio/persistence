@@ -24,6 +24,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.instrument.WrapperType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -303,7 +304,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		}
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final MyPattern pattern = new MyPattern();
@@ -340,7 +341,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	private static final class OtherItem extends Item
 	{
 		static final StringField field = new StringField();

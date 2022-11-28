@@ -25,6 +25,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
@@ -68,7 +69,7 @@ public final class UpdateCounterInvalidTest extends TestWithEnvironment
 				SI.tab(TYPE) + "." + SI.update(TYPE) + "=-1 where " + SI.pk(TYPE) + "=0");
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final StringField field = new StringField().optional();

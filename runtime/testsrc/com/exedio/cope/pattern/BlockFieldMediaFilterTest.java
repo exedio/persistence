@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
@@ -318,7 +319,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }
 
-	private static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	private static final class AnItem extends Item
 	{
 		static final BlockField<ABlock> eins = BlockField.create(ABlock.TYPE);
 		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);

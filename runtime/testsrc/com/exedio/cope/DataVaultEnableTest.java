@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.AfterEach;
@@ -242,7 +243,7 @@ public class DataVaultEnableTest
 
 	static final Model model = new Model(MyBlank.TYPE, AnVault.TYPE);
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MyBlank extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -270,7 +271,7 @@ public class DataVaultEnableTest
 	}
 
 	@Vault("AnVault-V")
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class AnVault extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)

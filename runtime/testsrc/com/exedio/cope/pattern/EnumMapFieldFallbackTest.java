@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnItem.text;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
@@ -141,7 +142,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		present, missing, @CopeEnumFallback fallback
 	}
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AnItem extends Item
 	{
 		@WrapperInitial
 		static final EnumMapField<AnEnum, String> text =

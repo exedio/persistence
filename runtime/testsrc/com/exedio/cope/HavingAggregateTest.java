@@ -23,6 +23,7 @@ import static com.exedio.cope.HavingAggregateTest.MyItem.group;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -185,7 +186,7 @@ public class HavingAggregateTest extends TestWithEnvironment
 		assertEquals(!expected.isEmpty(), actual.exists());
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final StringField group = new StringField().toFinal();

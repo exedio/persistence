@@ -26,6 +26,7 @@ import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -89,7 +90,7 @@ public class QuerySerializeTest
 		one, two
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
 		@WrapperIgnore static final StringField field = new StringField();
