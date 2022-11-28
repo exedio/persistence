@@ -204,8 +204,6 @@ try
 					],
 			)
 
-			shSilent "source conf/replaceToolJar"
-
 			def dockerName = dockerNamePrefix + "-Idea"
 			docker.
 				build(
