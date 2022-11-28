@@ -4,11 +4,8 @@
 			xmlns:if="ant:if"
 			xmlns:unless="ant:unless">
 
-	<condition property="jdk9"><available classname="java.lang.Runtime$Version" /></condition>
 	<echo taskname="which ant" message="${ant.version}" />
 	<echo taskname="which java" message="${java.vm.name} ${java.version}" />
-	<echo taskname="which java" message="JDK >=9"       if:set="jdk9" />
-	<echo taskname="which java" message="JDK ==1.8" unless:set="jdk9" />
 	<!--suppress AntMissingPropertiesFileInspection -->
 	<property file="local.properties" />
 	<property file="project.properties" />
@@ -756,8 +753,8 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/jsr305.jar" />
 			</classpath>
-			<compilerarg if:set="jdk9" value="--add-exports" />
-			<compilerarg if:set="jdk9" value="jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED" />
+			<compilerarg value="--add-exports" />
+			<compilerarg value="jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED" />
 		</compile>
 	</target>
 
