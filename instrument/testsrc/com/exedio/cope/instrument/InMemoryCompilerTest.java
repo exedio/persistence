@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import static javax.tools.ToolProvider.getSystemJavaCompiler;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -62,10 +63,10 @@ public class InMemoryCompilerTest
 		final Path path = Paths.get("HelloWorld.java");
 		final InMemoryCompiler compilerA = new InMemoryCompiler();
 		compilerA.addJavaFile(path, "public class HelloWorld { public static String message() { return \"Hello World A\"; } }");
-		final ClassLoader clA = compilerA.compile(JavacRunner.getJavaCompiler(new Params()), "");
+		final ClassLoader clA = compilerA.compile(getSystemJavaCompiler(), "");
 		final InMemoryCompiler compilerB = new InMemoryCompiler();
 		compilerB.addJavaFile(path, "public class HelloWorld { public static String message() { return \"Hello World B\"; } }");
-		final ClassLoader clB = compilerB.compile(JavacRunner.getJavaCompiler(new Params()), "");
+		final ClassLoader clB = compilerB.compile(getSystemJavaCompiler(), "");
 		assertEquals("Hello World A", invokeStatic(clA, "HelloWorld", "message"));
 		assertEquals("Hello World B", invokeStatic(clB, "HelloWorld", "message"));
 	}
@@ -86,7 +87,7 @@ public class InMemoryCompilerTest
 				"String message() { return \"from second\"; } "+
 			"}"
 		);
-		final ClassLoader cl = compiler.compile(JavacRunner.getJavaCompiler(new Params()), "");
+		final ClassLoader cl = compiler.compile(getSystemJavaCompiler(), "");
 		assertEquals("from second", invokeStatic(cl, "FirstClass", "message"));
 	}
 
@@ -100,7 +101,7 @@ public class InMemoryCompilerTest
 				"public static String message() { return "+getClass().getName()+".calledFromInMemory(); } "+
 			"}"
 		);
-		final ClassLoader cl = compiler.compile(JavacRunner.getJavaCompiler(new Params()), "build/classes/instrument/testsrc");
+		final ClassLoader cl = compiler.compile(getSystemJavaCompiler(), "build/classes/instrument/testsrc");
 		assertEquals("from parent", invokeStatic(cl, "FirstClass", "message"));
 	}
 
@@ -116,10 +117,9 @@ public class InMemoryCompilerTest
 	{
 		final InMemoryCompiler compiler = new InMemoryCompiler();
 		compiler.addJavaFile(Paths.get("HelloWorld.java"), "clazz HelloWorld { }");
-		final Params params = new Params();
 		try
 		{
-			compiler.compile(JavacRunner.getJavaCompiler(params), "");
+			compiler.compile(getSystemJavaCompiler(), "");
 			fail();
 		}
 		catch (final InMemoryCompiler.CompileException e)
@@ -144,7 +144,7 @@ public class InMemoryCompilerTest
 		{
 			assertEquals("there already is a java file for HelloWorld.java; cope instrumentor does not support two top-level classes in one source file", e.getMessage());
 		}
-		assertEquals(1, invoke(compiler.compile(JavacRunner.getJavaCompiler(new Params()), ""), "HelloWorld", "version"));
+		assertEquals(1, invoke(compiler.compile(getSystemJavaCompiler(), ""), "HelloWorld", "version"));
 	}
 
 	@Test
@@ -161,6 +161,6 @@ public class InMemoryCompilerTest
 		{
 			assertEquals("path contains redundant elements", e.getMessage());
 		}
-		assertEquals(1, invoke(compiler.compile(JavacRunner.getJavaCompiler(new Params()), ""), "HelloWorld", "version"));
+		assertEquals(1, invoke(compiler.compile(getSystemJavaCompiler(), ""), "HelloWorld", "version"));
 	}
 }

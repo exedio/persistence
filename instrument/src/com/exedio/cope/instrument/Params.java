@@ -35,17 +35,6 @@ import java.util.regex.Pattern;
 
 final class Params
 {
-	final String javaVersion = System.getProperty("java.version");
-	boolean toolProvider = toolProvider("11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
-
-	private boolean toolProvider(final String... versions)
-	{
-		for(final String version : versions)
-			if(javaVersion.equals(version) || javaVersion.startsWith(version + "."))
-				return true;
-		return false;
-	}
-
 	List<File> sourceDirectories;
 	/** in {@link #sourceDirectories}, the files to look at for understanding source code, but not instrument */
 	List<File> ignoreFiles;
