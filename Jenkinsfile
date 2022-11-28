@@ -1,7 +1,7 @@
 #!'groovy'
 
 def projectName = env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/")) // depends on name and location of multibranch pipeline in jenkins
-def jdk = 'openjdk-8'
+def jdk = 'openjdk-11'
 def idea = '2022.1'
 def ideaSHA256 = '0400e6152fa0173e4e9a514c6398eef8f19150893298658c0b3eb1427e5bcbe5'
 def isRelease = env.BRANCH_NAME=="master"
@@ -203,8 +203,6 @@ try
 									ignoreCase: true),
 					],
 			)
-
-			shSilent "source conf/replaceToolJar"
 
 			def dockerName = dockerNamePrefix + "-Idea"
 			docker.

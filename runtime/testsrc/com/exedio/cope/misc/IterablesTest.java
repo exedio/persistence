@@ -29,7 +29,7 @@ public class IterablesTest
 {
 	@Test void testIt()
 	{
-		final Iterator<String> iterator = new Iterator<String>(){
+		final Iterator<String> iterator = new Iterator<>(){
 
 			@Override
 			public boolean hasNext()

@@ -536,6 +536,7 @@
     <inspection_tool class="JUnitDatapoint" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JUnitRule" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="Java8ArraySetAll" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="Java9CollectionFactory" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
     <inspection_tool class="JavaLangImport" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JavadocHtmlLint" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="LiteralAsArgToStringEquals" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -732,6 +733,7 @@
       <scope name="Tests" level="WARNING" enabled="false" />
     </inspection_tool>
     <inspection_tool class="StringEqualsEmptyString" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="StringRepeatCanBeUsed" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="StringToUpperWithoutLocale" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SubtractionInCompareTo" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SuspiciousArrayCast" enabled="true" level="WARNING" enabled_by_default="true" />

@@ -138,7 +138,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 			return;
 
 		final Path contentDir = DIR.resolve(CONTENT_DIR);
-		Files.walkFileTree(DIR, new SimpleFileVisitor<Path>()
+		Files.walkFileTree(DIR, new SimpleFileVisitor<>()
 		{
 			@Override
 			public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException

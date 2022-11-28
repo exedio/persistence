@@ -174,7 +174,7 @@ public final class TypesBound
 	// TODO use some direct future if javaclass is already in types
 	static <T extends Item> TypeFuture<T> future(final Class<T> javaClass)
 	{
-		return new TypeFuture<T>()
+		return new TypeFuture<>()
 		{
 			@Override
 			public Type<T> get()

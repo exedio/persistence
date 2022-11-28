@@ -76,7 +76,7 @@ public class TemporaryFolder extends MainRule
 	@Override
 	protected void after() throws IOException
 	{
-		Files.walkFileTree(root.toPath(), new SimpleFileVisitor<Path>()
+		Files.walkFileTree(root.toPath(), new SimpleFileVisitor<>()
 		{
 			@Override
 			public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs) throws IOException

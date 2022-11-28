@@ -111,7 +111,7 @@ public final class MockSecureRandom extends SecureRandom
 	}
 
 	@Override
-	public synchronized void setSeed(final byte[] seed)
+	public void setSeed(final byte[] seed)
 	{
 		throw new RuntimeException();
 	}

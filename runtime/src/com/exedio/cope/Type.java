@@ -947,7 +947,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private static <T extends Item> TypeFuture<T> future(final Type<T> type)
 	{
 		// NOTE: static helper method enforces static inner class
-		return new TypeFuture<T>()
+		return new TypeFuture<>()
 		{
 			@Override
 			public Type<T> get()

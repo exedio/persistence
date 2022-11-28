@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.DatabaseLogListener.Builder.LOGS_LIMIT_DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.lang.System.lineSeparator;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,13 +30,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.misc.DatabaseLogListener.Builder;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DatabaseLogListenerTest
 {
-	@Test void test() throws UnsupportedEncodingException
+	@Test void test()
 	{
 		final DatabaseLogListener l =
 				new Builder(print).build();
@@ -45,7 +45,7 @@ public class DatabaseLogListenerTest
 		assertEquals(0, l.getThreshold());
 		assertEquals(null, l.getSQL());
 		assertEquals(false, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("sql", asList("param1", "param2"), 1, 2, 3, 4);
 		assertIt("1|2|3|4|sql|[param1, param2]");
@@ -60,7 +60,7 @@ public class DatabaseLogListenerTest
 		assertIt("-1|-1|-1|-1|null");
 	}
 
-	@Test void testLogsLimit() throws UnsupportedEncodingException
+	@Test void testLogsLimit()
 	{
 		final DatabaseLogListener l = new Builder(print).
 				logsLimit(3).
@@ -73,7 +73,7 @@ public class DatabaseLogListenerTest
 		assertEquals(5, l.getThreshold());
 		assertEquals("sqlFilter", l.getSQL());
 		assertEquals(false, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("sqlFilter", null, 0, 0, 0, 0);
 		assertEmpty();
@@ -106,7 +106,7 @@ public class DatabaseLogListenerTest
 		assertEquals(3, l.getLogsLimit());
 	}
 
-	@Test void testThreshold() throws UnsupportedEncodingException
+	@Test void testThreshold()
 	{
 		final DatabaseLogListener l =
 				new Builder(print).durationThreshold(40).build();
@@ -116,7 +116,7 @@ public class DatabaseLogListenerTest
 		assertEquals(40, l.getThreshold());
 		assertEquals(null, l.getSQL());
 		assertEquals(false, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("sql", null, 10, 10, 10, 10);
 		assertIt("10|10|10|10|sql");
@@ -137,7 +137,7 @@ public class DatabaseLogListenerTest
 		assertIt("10|10|10|10|sql");
 	}
 
-	@Test void testSQL() throws UnsupportedEncodingException
+	@Test void testSQL()
 	{
 		final DatabaseLogListener l =
 				new Builder(print).sqlFilter("match").build();
@@ -147,7 +147,7 @@ public class DatabaseLogListenerTest
 		assertEquals(0, l.getThreshold());
 		assertEquals("match", l.getSQL());
 		assertEquals(false, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("match", null, 0, 0, 0, 0);
 		assertIt("0|0|0|0|match");
@@ -162,7 +162,7 @@ public class DatabaseLogListenerTest
 		assertIt("0|0|0|0|match");
 	}
 
-	@Test void testPrintStackTrace() throws UnsupportedEncodingException
+	@Test void testPrintStackTrace()
 	{
 		final DatabaseLogListener l =
 				new Builder(print).printStackTrace().build();
@@ -172,7 +172,7 @@ public class DatabaseLogListenerTest
 		assertEquals(0, l.getThreshold());
 		assertEquals(null, l.getSQL());
 		assertEquals(true, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("sql", null, 0, 0, 0, 0);
 		assertItStart(
@@ -186,39 +186,39 @@ public class DatabaseLogListenerTest
 	private ByteArrayOutputStream out;
 	private PrintStream print;
 
-	@BeforeEach void setUp() throws UnsupportedEncodingException
+	@BeforeEach void setUp()
 	{
 		out = new ByteArrayOutputStream();
-		print = new PrintStream(out, true, "UTF-8");
+		print = new PrintStream(out, true, UTF_8);
 	}
 
-	private void assertIt(final String expected) throws UnsupportedEncodingException
+	private void assertIt(final String expected)
 	{
-		final String actual = out.toString("UTF-8");
+		final String actual = out.toString(UTF_8);
 		out.reset();
 		assertTrue(actual.endsWith(lineSeparator()));
 		final int pos = actual.indexOf('|') + 1;
 		assertEquals(expected, actual.substring(pos, actual.length()-lineSeparator().length()));
 	}
 
-	private void assertItStart(final String expected) throws UnsupportedEncodingException
+	private void assertItStart(final String expected)
 	{
-		final String actual = out.toString("UTF-8");
+		final String actual = out.toString(UTF_8);
 		out.reset();
 		assertTrue(actual.endsWith(lineSeparator()));
 		final int pos = actual.indexOf('|') + 1;
 		assertTrue(actual.substring(pos, actual.length()-1).startsWith(expected), actual);
 	}
 
-	private void assertEmpty() throws UnsupportedEncodingException
+	private void assertEmpty()
 	{
 		print.flush();
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 	}
 
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api
-	@Test void testDeprecated() throws UnsupportedEncodingException
+	@Test void testDeprecated()
 	{
 		final DatabaseLogListener l =
 				new DatabaseLogListener(567, "sqlFilter", print);
@@ -228,7 +228,7 @@ public class DatabaseLogListenerTest
 		assertEquals(567, l.getThreshold());
 		assertEquals("sqlFilter", l.getSQL());
 		assertEquals(false, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("sqlFilter", asList(), 1, 2, 3, 567);
 		assertIt("1|2|3|567|sqlFilter|[]");
@@ -252,7 +252,7 @@ public class DatabaseLogListenerTest
 				"out");
 	}
 
-	@Test void testBuilderDefault() throws UnsupportedEncodingException
+	@Test void testBuilderDefault()
 	{
 		final DatabaseLogListener l = new Builder(print).build();
 		assertNotNull(l.getDate());
@@ -261,13 +261,13 @@ public class DatabaseLogListenerTest
 		assertEquals(0, l.getThreshold());
 		assertEquals(null, l.getSQL());
 		assertEquals(false, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("sql", asList(), 1, 2, 3, 4);
 		assertIt("1|2|3|4|sql|[]");
 	}
 
-	@Test void testBuilderNonDefault() throws UnsupportedEncodingException
+	@Test void testBuilderNonDefault()
 	{
 		final DatabaseLogListener l = new Builder(print).
 				logsLimit(8765432).
@@ -280,7 +280,7 @@ public class DatabaseLogListenerTest
 		assertEquals(567, l.getThreshold());
 		assertEquals("specialSql", l.getSQL());
 		assertEquals(false, l.isPrintStackTraceEnabled());
-		assertEquals("", out.toString("UTF-8"));
+		assertEquals("", out.toString(UTF_8));
 
 		l.onStatement("specialSql", asList(), 1, 2, 3, 567);
 		assertIt("1|2|3|567|specialSql|[]");

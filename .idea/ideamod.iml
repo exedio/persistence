@@ -12,7 +12,6 @@
     <libelement value="jar://$MODULE_DIR$/lib/log4j-bundle.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/slf4j-api.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/slf4j-log4j12.jar!/" />
-    <varelement var="jar://$TOOLS_JAR$!/" value="TOOLS_JAR" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/dsmf/src" expected_position="0" />
       <src_folder value="file://$MODULE_DIR$/runtime/src" expected_position="2" />
@@ -68,15 +67,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/ant/lib/ant.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="TOOLS_JAR">
-        <CLASSES>
-          <root url="jar://$TOOLS_JAR$!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

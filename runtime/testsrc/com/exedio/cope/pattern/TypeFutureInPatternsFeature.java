@@ -47,7 +47,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 
 	TypeFuture<TypeItem> sourceTypeFuture()
 	{
-		return new TypeFuture<TypeItem>(){
+		return new TypeFuture<>(){
 			@Override
 			public Type<TypeItem> get()
 			{

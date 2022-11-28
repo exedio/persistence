@@ -1,7 +1,7 @@
 
 timestamps
 {
-	def jdk = 'openjdk-8'
+	def jdk = 'openjdk-11'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
