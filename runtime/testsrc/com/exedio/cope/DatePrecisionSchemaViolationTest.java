@@ -118,7 +118,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 						case hsqldb:
 							assertEquals(
 									"integrity constraint violation: " +
-									"check constraint; " + constraintName + " " +
+									"check constraint ; " + constraintName + " " +
 									"table: " + tableName,
 									message);
 							break;

@@ -40,15 +40,15 @@ public class EnvironmentInfoConnectedTest
 		assertAll(
 				() -> assertEquals("PUBLIC", ei.getCatalog()),
 				() -> assertEquals("HSQL Database Engine", ei.getDatabaseProductName()),
-				() -> assertEquals("2.5.1", ei.getDatabaseProductVersion()),
+				() -> assertEquals("2.7.1", ei.getDatabaseProductVersion()),
 				() -> assertEquals(2, ei.getDatabaseMajorVersion()),
-				() -> assertEquals(5, ei.getDatabaseMinorVersion()),
-				() -> assertEquals("2.5.1", ei.getDatabaseVersionDescription()),
+				() -> assertEquals(7, ei.getDatabaseMinorVersion()),
+				() -> assertEquals("2.7.1", ei.getDatabaseVersionDescription()),
 				() -> assertEquals("HSQL Database Engine Driver", ei.getDriverName()),
-				() -> assertEquals("2.5.1", ei.getDriverVersion()),
+				() -> assertEquals("2.7.1", ei.getDriverVersion()),
 				() -> assertEquals(2, ei.getDriverMajorVersion()),
-				() -> assertEquals(5, ei.getDriverMinorVersion()),
-				() -> assertEquals("2.5.1", ei.getDriverVersionDescription()),
+				() -> assertEquals(7, ei.getDriverMinorVersion()),
+				() -> assertEquals("2.7.1", ei.getDriverVersionDescription()),
 				() -> assertEquals("org.hsqldb.jdbc.JDBCDriver", ei.getDriverClass()),
 				() -> assertEquals(HSQLDB_PROBE, ei.toString()));
 
