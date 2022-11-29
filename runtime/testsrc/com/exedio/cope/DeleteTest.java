@@ -85,23 +85,29 @@ public class DeleteTest extends TestWithEnvironment
 		item = new DeleteItem("item");
 		item.setOtherForbid(other);
 		assertDeleteFails(other, otherForbid);
-		assertAndResetBeforeDeleteCopeItemCalls();
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item [DeleteItem.otherForbid=other]");
 
 		// other item
 		final DeleteItem item2 = new DeleteItem("item2");
 		item.setOtherForbid(null);
 		item.setSelfForbid(item2);
 		assertDeleteFails(item2, selfForbid);
-		assertAndResetBeforeDeleteCopeItemCalls();
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item [DeleteItem.otherForbid=null]",
+				"set item [DeleteItem.selfForbid=item2]");
 
 		// same item
 		item.setSelfForbid(item);
 		// TODO allow self references
 		assertDeleteFails(item, selfForbid);
-		assertAndResetBeforeDeleteCopeItemCalls();
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item [DeleteItem.selfForbid=item]");
 		item.setSelfForbid(null);
 		assertDelete(item);
-		assertAndResetBeforeDeleteCopeItemCalls("item");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item [DeleteItem.selfForbid=null]",
+				"delete item");
 
 		// indirect forbid
 		item = new DeleteItem("itemb");
@@ -109,13 +115,19 @@ public class DeleteTest extends TestWithEnvironment
 		final DeleteItem item3 = new DeleteItem("item3");
 		item3.setSelfForbid(item2);
 		assertDeleteFails(item, selfForbid, item2);
-		assertAndResetBeforeDeleteCopeItemCalls();
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item2 [DeleteItem.selfCascade=itemb]",
+				"set item3 [DeleteItem.selfForbid=item2]");
 
 		assertDelete(other);
 		assertDelete(item3);
 		assertDelete(item2);
 		assertDelete(item);
-		assertAndResetBeforeDeleteCopeItemCalls("other", "item3", "item2", "itemb");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"delete other",
+				"delete item3",
+				"delete item2",
+				"delete itemb");
 	}
 
 	@Test void testNullify()
@@ -171,7 +183,10 @@ public class DeleteTest extends TestWithEnvironment
 		item.setOtherNullify(other);
 		assertEquals(other, item.getOtherNullify());
 		assertDelete(other);
-		assertAndResetBeforeDeleteCopeItemCalls("other");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set itema [DeleteItem.otherNullify=other]",
+				"delete other",
+				"set itema [DeleteItem.otherNullify=null]");
 		assertEquals(null, item.getOtherNullify());
 
 		// other item
@@ -179,13 +194,19 @@ public class DeleteTest extends TestWithEnvironment
 		item.setSelfNullify(item2);
 		assertEquals(item2, item.getSelfNullify());
 		assertDelete(item2);
-		assertAndResetBeforeDeleteCopeItemCalls("item");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set itema [DeleteItem.selfNullify=item]",
+				"delete item",
+				"set itema [DeleteItem.selfNullify=null]");
 		assertEquals(null, item.getSelfNullify());
 
 		// same item
 		item.setSelfNullify(item);
 		assertDelete(item);
-		assertAndResetBeforeDeleteCopeItemCalls("itema");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set itema [DeleteItem.selfNullify=itema]",
+				"delete itema",
+				"set itema [DeleteItem.selfNullify=null]");
 
 		// indirect nullify
 		item = new DeleteItem("itemb");
@@ -196,11 +217,17 @@ public class DeleteTest extends TestWithEnvironment
 		assertEquals(item2, item3.getSelfNullify());
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls("itemb", "item2b");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item2b [DeleteItem.selfCascade=itemb]",
+				"set item3b [DeleteItem.selfNullify=item2b]",
+				"delete itemb",
+				"delete item2b",
+				"set item3b [DeleteItem.selfNullify=null]");
 		assertEquals(null, item3.getSelfNullify());
 
 		assertDelete(item3);
-		assertAndResetBeforeDeleteCopeItemCalls("item3b");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"delete item3b");
 	}
 
 	@Test void testCascade()
@@ -221,7 +248,10 @@ public class DeleteTest extends TestWithEnvironment
 		assertEquals(other, item.getOtherCascade());
 		assertDelete(other);
 		assertTrue(!item.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls("other", "itema");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set itema [DeleteItem.otherCascade=other]",
+				"delete other",
+				"delete itema");
 
 		// other type with multiple sources
 		item = new DeleteItem("item");
@@ -238,9 +268,17 @@ public class DeleteTest extends TestWithEnvironment
 		assertTrue(!item2.existsCopeItem());
 		assertTrue(item3.existsCopeItem());
 		assertTrue(!item4.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls("other", "item", "item2", "item4");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item [DeleteItem.otherCascade=other]",
+				"set item2 [DeleteItem.otherCascade=other]",
+				"set item4 [DeleteItem.otherCascade=other]",
+				"delete other",
+				"delete item",
+				"delete item2",
+				"delete item4");
 		assertDelete(item3);
-		assertAndResetBeforeDeleteCopeItemCalls("item3");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"delete item3");
 
 		// other item
 		item = new DeleteItem("item");
@@ -261,10 +299,21 @@ public class DeleteTest extends TestWithEnvironment
 		assertTrue(!item4.existsCopeItem());
 		assertTrue(!item5.existsCopeItem());
 		assertTrue(!item6.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls("item3", "item4", "item5", "item6");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item2 [DeleteItem.selfCascade=item]",
+				"set item3 [DeleteItem.selfCascade=item]",
+				"set item4 [DeleteItem.selfCascade=item3]",
+				"set item5 [DeleteItem.selfCascade=item3]",
+				"set item6 [DeleteItem.selfCascade=item5]",
+				"delete item3",
+				"delete item4",
+				"delete item5",
+				"delete item6");
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls("item", "item2");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"delete item",
+				"delete item2");
 
 		// other item with diamond
 		item = new DeleteItem("item");
@@ -286,10 +335,22 @@ public class DeleteTest extends TestWithEnvironment
 		assertTrue(!item4.existsCopeItem());
 		assertTrue(!item5.existsCopeItem());
 		assertTrue(!item6.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls("item3", "item4", "item5", "item6");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set item2 [DeleteItem.selfCascade=item]",
+				"set item3 [DeleteItem.selfCascade=item]",
+				"set item4 [DeleteItem.selfCascade=item3]",
+				"set item5 [DeleteItem.selfCascade=item3]",
+				"set item6 [DeleteItem.selfCascade=item5]",
+				"set item5 [DeleteItem.selfCascade2=item4]",
+				"delete item3",
+				"delete item4",
+				"delete item5",
+				"delete item6");
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls("item", "item2");
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"delete item",
+				"delete item2");
 	}
 
 	@Test void testAtomicity()
@@ -320,7 +381,14 @@ public class DeleteTest extends TestWithEnvironment
 		assertEquals(todelete, middle2.getSelfNullify());
 		assertEquals(todelete, middle3.getSelfNullify());
 		assertTrue(item.existsCopeItem());
-		assertAndResetBeforeDeleteCopeItemCalls();
+		assertAndResetBeforeDeleteCopeItemCalls(
+				"set middle1 [DeleteItem.selfCascade=todelete]",
+				"set middle1 [DeleteItem.selfNullify=todelete]",
+				"set middle2 [DeleteItem.selfCascade=todelete]",
+				"set middle2 [DeleteItem.selfNullify=todelete]",
+				"set middle3 [DeleteItem.selfCascade=todelete]",
+				"set middle3 [DeleteItem.selfNullify=todelete]",
+				"set forbid [DeleteItem.selfForbid=middle2]");
 	}
 
 	@Test void testItemObjectPool() throws NoSuchIDException

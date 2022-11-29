@@ -56,9 +56,16 @@ final class DeleteItem extends Item
 	}
 
 	@Override
+	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
+	{
+		BEFORE_DELETE_COPE_ITEM_CALLS.get().add("set " + name + " " + java.util.Arrays.toString(setValues));
+		return setValues;
+	}
+
+	@Override
 	protected void beforeDeleteCopeItem()
 	{
-		BEFORE_DELETE_COPE_ITEM_CALLS.get().add(name);
+		BEFORE_DELETE_COPE_ITEM_CALLS.get().add("delete " + name);
 	}
 
 

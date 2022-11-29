@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 final class DeleteOtherItem extends Item
@@ -39,9 +40,16 @@ final class DeleteOtherItem extends Item
 	}
 
 	@Override
+	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
+	{
+		BEFORE_DELETE_COPE_ITEM_CALLS.get().add("set " + name + " " + java.util.Arrays.toString(setValues));
+		return setValues;
+	}
+
+	@Override
 	protected void beforeDeleteCopeItem()
 	{
-		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get().add(name);
+		BEFORE_DELETE_COPE_ITEM_CALLS.get().add("delete " + name);
 	}
 
 
