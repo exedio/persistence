@@ -32,7 +32,6 @@ import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -40,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -391,8 +391,8 @@ public class DeleteTest extends TestWithEnvironment
 	private static void assertAndResetBeforeDeleteCopeItemCalls(final String... itemNames)
 	{
 		final List<String> calls = DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get();
-		final String[] callArray = calls.toArray(new String[calls.size()]);
+		final List<String> callCopy = new ArrayList<>(calls);
 		calls.clear();
-		assertArrayEquals(itemNames, callArray, "Item#beforeDeleteCopeItem() method is not called as expected (expected: "+Arrays.toString(itemNames)+" | result: "+Arrays.toString(callArray)+").");
+		assertEquals(Arrays.asList(itemNames), callCopy);
 	}
 }
