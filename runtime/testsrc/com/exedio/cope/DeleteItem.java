@@ -24,7 +24,7 @@ import java.util.List;
 
 final class DeleteItem extends Item
 {
-	static final ThreadLocal<List<String>> BEFORE_DELETE_COPE_ITEM_CALLS = new ThreadLocal<>();
+	static final ThreadLocal<List<String>> BEFORE_COPE_ITEM_CALLS = new ThreadLocal<>();
 
 	static final ItemField<DeleteItem> selfForbid = ItemField.create(DeleteItem.class).optional();
 
@@ -58,14 +58,14 @@ final class DeleteItem extends Item
 	@Override
 	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
 	{
-		BEFORE_DELETE_COPE_ITEM_CALLS.get().add("set " + name + " " + java.util.Arrays.toString(setValues));
+		BEFORE_COPE_ITEM_CALLS.get().add("set " + name + " " + java.util.Arrays.toString(setValues));
 		return setValues;
 	}
 
 	@Override
 	protected void beforeDeleteCopeItem()
 	{
-		BEFORE_DELETE_COPE_ITEM_CALLS.get().add("delete " + name);
+		BEFORE_COPE_ITEM_CALLS.get().add("delete " + name);
 	}
 
 
