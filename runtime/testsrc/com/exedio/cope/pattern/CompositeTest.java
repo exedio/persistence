@@ -35,7 +35,6 @@ import com.exedio.cope.DoubleField;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
-import com.exedio.cope.JavaVersion;
 import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
@@ -404,20 +403,22 @@ public class CompositeTest
 
 	@Test void testSettableNonFunctionFieldCreate()
 	{
-		JavaVersion.assertThrowsClassCastException(
+		assertFails(
 				() -> new Value(PRICE_FIELD.map(Price.ZERO)),
-				PriceField.class,
-				FunctionField.class);
+				ClassCastException.class,
+				PriceField.class + " cannot be cast to " + FunctionField.class + " (" +
+				PriceField.class.getName() + " and " + FunctionField.class.getName() + " are in unnamed module of loader 'app')");
 	}
 
 	@Test void testSettableNonFunctionFieldSetMulti()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 
-		JavaVersion.assertThrowsClassCastException(
+		assertFails(
 				() -> value.set(PRICE_FIELD.map(Price.ZERO)),
-				PriceField.class,
-				FunctionField.class);
+				ClassCastException.class,
+				PriceField.class + " cannot be cast to " + FunctionField.class + " (" +
+				PriceField.class.getName() + " and " + FunctionField.class.getName() + " are in unnamed module of loader 'app')");
 	}
 
 	private static final PriceField PRICE_FIELD = new PriceField();

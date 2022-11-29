@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.JavaVersion.assertThrowsArrayIndexOutOfBoundsException;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.dates;
@@ -205,25 +204,31 @@ public class LimitedListFieldModelTest
 		final Date ts2 = new Date(3874656234632l);
 
 		// TODO return Condition.FALSE instead
-		assertThrowsArrayIndexOutOfBoundsException(
+		assertFails(
 				() -> nums.equal(asList(i1, i2, i3, i4)),
-				3);
-		assertThrowsArrayIndexOutOfBoundsException(
+				ArrayIndexOutOfBoundsException.class,
+				"Index 3 out of bounds for length 3");
+		assertFails(
 				() -> dates.equal(asList(ts1, ts2, ts1)),
-				2);
-		assertThrowsArrayIndexOutOfBoundsException(
+				ArrayIndexOutOfBoundsException.class,
+				"Index 2 out of bounds for length 2");
+		assertFails(
 				() -> strings.equal(asList("one", "two", "three", "four", "five")),
-				4);
+				ArrayIndexOutOfBoundsException.class,
+				"Index 4 out of bounds for length 4");
 		// TODO return Condition.TRUE instead
-		assertThrowsArrayIndexOutOfBoundsException(
+		assertFails(
 				() -> nums.notEqual(asList(i1, i2, i3, i4)),
-				3);
-		assertThrowsArrayIndexOutOfBoundsException(
+				ArrayIndexOutOfBoundsException.class,
+				"Index 3 out of bounds for length 3");
+		assertFails(
 				() -> dates.notEqual(asList(ts1, ts2, ts1)),
-				2);
-		assertThrowsArrayIndexOutOfBoundsException(
+				ArrayIndexOutOfBoundsException.class,
+				"Index 2 out of bounds for length 2");
+		assertFails(
 				() -> strings.notEqual(asList("one", "two", "three", "four", "five")),
-				4);
+				ArrayIndexOutOfBoundsException.class,
+				"Index 4 out of bounds for length 4");
 		final StringField template = new StringField();
 		assertFails(
 				() -> LimitedListField.create(template, -1, 55),

@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.JavaVersion.isAtLeastJava9;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -37,7 +36,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
-		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3744:3432);
+		final InvalidPlainTextException es = reserialize(e, 3744);
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
 		assertEquals(null, es.getPlainText());
@@ -54,7 +53,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
-		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3740:3428);
+		final InvalidPlainTextException es = reserialize(e, 3740);
 		assertEquals(null, es.getMessageWithoutFeature());
 		assertEquals("null for null", es.getMessage());
 		assertEquals(null, es.getPlainText());
@@ -71,7 +70,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
-		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3751:3439);
+		final InvalidPlainTextException es = reserialize(e, 3751);
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
 		assertEquals(null, es.getPlainText());
