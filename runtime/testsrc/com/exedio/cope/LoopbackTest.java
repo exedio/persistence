@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static java.net.StandardSocketOptions.IP_MULTICAST_LOOP;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
@@ -29,6 +30,12 @@ import org.junit.jupiter.api.Test;
 
 /**
  * This is a characterization test for the loopback functionality of the MulticastSocket.
+ * It shows, that documentation of {@link java.net.StandardSocketOptions#IP_MULTICAST_LOOP} is wrong:
+ * <blockquote>
+ *    The initial/default value of this socket option is TRUE.
+ * </blockquote>
+ * This option is {@code FALSE} by default, thus it is affected by the same negation semantics as
+ * {@link MulticastSocket#setLoopbackMode(boolean)} and {@link MulticastSocket#getLoopbackMode()}.
  */
 public class LoopbackTest
 {
@@ -45,6 +52,7 @@ public class LoopbackTest
 		socket = new MulticastSocket(14446);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
 		assertEquals(false, socket.getLoopbackMode());
+		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
 	}
 
 	@Test void testOldDefaultSet() throws IOException
@@ -53,6 +61,7 @@ public class LoopbackTest
 		socket.setLoopbackMode(false);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
 		assertEquals(false, socket.getLoopbackMode());
+		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
 	}
 
 	@Test void testOldSet() throws IOException
@@ -61,5 +70,24 @@ public class LoopbackTest
 		socket.setLoopbackMode(true);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
 		assertEquals(true, socket.getLoopbackMode());
+		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
+	}
+
+	@Test void testNewDefaultSet() throws IOException
+	{
+		socket = new MulticastSocket(14446);
+		socket.setOption(IP_MULTICAST_LOOP, false);
+		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
+		assertEquals(false, socket.getLoopbackMode());
+		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
+	}
+
+	@Test void testNewSet() throws IOException
+	{
+		socket = new MulticastSocket(14446);
+		socket.setOption(IP_MULTICAST_LOOP, true);
+		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
+		assertEquals(true, socket.getLoopbackMode());
+		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
 	}
 }
