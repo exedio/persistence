@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.JavaVersion.assertThrowsNegativeArraySizeException;
 import static com.exedio.cope.pattern.Money.array;
 import static com.exedio.cope.pattern.Money.nullToZero;
 import static com.exedio.cope.pattern.Money.storeOf;
@@ -145,9 +144,10 @@ public class MoneyTest
 
 	@Test void testArrayNegative()
 	{
-		assertThrowsNegativeArraySizeException(
+		assertFails(
 				() -> array(-1),
-				-1);
+				NegativeArraySizeException.class,
+				"-1");
 	}
 
 	@Test void testComputeDouble()

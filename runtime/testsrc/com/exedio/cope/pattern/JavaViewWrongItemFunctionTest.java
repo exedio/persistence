@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.activate;
-import static com.exedio.cope.JavaVersion.assertThrowsClassCastException;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,9 +48,11 @@ public class JavaViewWrongItemFunctionTest
 	@Test void testOther()
 	{
 		final OtherItem item = activate(OtherItem.TYPE, 66);
-		assertThrowsClassCastException(
+		assertFails(
 				() -> MyItem.view.get(item),
-				OtherItem.class, MyItem.class);
+				ClassCastException.class,
+				OtherItem.class + " cannot be cast to " + MyItem.class + " (" +
+				OtherItem.class.getName() + " and " + MyItem.class.getName() + " are in unnamed module of loader 'app')");
 	}
 
 

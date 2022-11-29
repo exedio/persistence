@@ -89,7 +89,7 @@ public class DataConsumerTest
 		assertFails(
 				() -> c.acceptBytes(input, 5),
 				ArrayIndexOutOfBoundsException.class,
-				JavaVersion.isAtLeastJava9 ? "arraycopy: last source index 5 out of bounds for byte[4]" : null);
+				"arraycopy: last source index 5 out of bounds for byte[4]");
 	}
 	@Test void testDisabled()
 	{
