@@ -141,7 +141,7 @@ final class Types
 		this.concreteTypeCount = concreteTypeCount;
 		this.concreteTypes = Collections.unmodifiableList(concreteTypes);
 		this.typesSorted = typesSorted.toArray(EMPTY_TYPE_ARRAY);
-		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
+		this.typeListSorted = List.of(this.typesSorted);
 
 		assert this.concreteTypeCount==this.concreteTypes.size();
 	}

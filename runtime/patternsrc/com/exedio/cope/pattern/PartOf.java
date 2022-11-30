@@ -36,8 +36,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -109,7 +107,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public List<OrderBy> getOrders()
 	{
-		return orders==null ? Collections.emptyList() : Collections.unmodifiableList(Arrays.asList(orders));
+		return orders==null ? List.of() : List.of(orders);
 	}
 
 	@Wrap(order=10, doc="Returns the container this item is part of by {0}.", nullability=NullableIfContainerOptional.class)

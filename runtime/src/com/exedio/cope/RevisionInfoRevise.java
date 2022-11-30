@@ -25,8 +25,6 @@ import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -115,7 +113,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 
 	public List<Body> getBody()
 	{
-		return Collections.unmodifiableList(Arrays.asList(body));
+		return List.of(body);
 	}
 
 	private static final String COMMENT = "comment";

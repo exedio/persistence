@@ -25,8 +25,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -64,7 +62,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 			ordinalsToNumbers[e.ordinal()] = schemaValue;
 		}
 		numbersToValues.trimToSize();
-		this.values = Collections.unmodifiableList(Arrays.asList(enumConstants));
+		this.values = List.of(enumConstants);
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
 		this.marshaller = new Marshaller<>(1)

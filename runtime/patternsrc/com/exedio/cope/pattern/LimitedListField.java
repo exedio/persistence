@@ -39,7 +39,6 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -208,7 +207,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public List<FunctionField<E>> getListSources()
 	{
-		return Collections.unmodifiableList(Arrays.asList(sources));
+		return List.of(sources);
 	}
 
 	public CheckConstraint getUnison()

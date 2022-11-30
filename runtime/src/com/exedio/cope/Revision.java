@@ -28,8 +28,6 @@ import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +77,7 @@ public final class Revision
 	 */
 	public List<String> getBody()
 	{
-		return Collections.unmodifiableList(Arrays.asList(body));
+		return List.of(body);
 	}
 
 	@Override

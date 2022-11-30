@@ -29,7 +29,6 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -84,7 +83,7 @@ public final class Revisions
 	 */
 	public List<Revision> getList()
 	{
-		return Collections.unmodifiableList(Arrays.asList(revisions));
+		return List.of(revisions);
 	}
 
 	List<Revision> getListToRun(final int departureNumber)
@@ -107,7 +106,7 @@ public final class Revisions
 		for(int i = startIndex; i>=0; i--)
 			result[resultIndex++] = revisions[i];
 
-		return Collections.unmodifiableList(Arrays.asList(result));
+		return List.of(result);
 	}
 
 

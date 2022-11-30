@@ -262,7 +262,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 	public List<Class<? extends Item>> getComponentClasses()
 	{
-		return Collections.unmodifiableList(java.util.Arrays.asList(componentClasses));
+		return List.of(componentClasses);
 	}
 
 	@Wrap(order=10, doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)

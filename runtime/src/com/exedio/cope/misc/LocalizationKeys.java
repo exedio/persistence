@@ -20,7 +20,6 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.CopeName;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +29,7 @@ import java.util.List;
 public final class LocalizationKeys
 {
 	/**
-	 * @return a {@link Collections#unmodifiableList(List) unmodifiable list}.
+	 * @return a immutable list.
 	 */
 	public static List<String> get(final Class<?> clazz)
 	{
@@ -40,11 +39,11 @@ public final class LocalizationKeys
 		// default package
 		if(pack==null || // until jdk1.8
 			pack.getName().isEmpty()) // since jdk9
-			return Collections.singletonList(withoutPackage);
+			return List.of(withoutPackage);
 
-		return Collections.unmodifiableList(Arrays.asList(
+		return List.of(
 				pack.getName() + '.' + withoutPackage,
-				withoutPackage));
+				withoutPackage);
 	}
 
 	private static String withoutPackage(final Class<?> clazz)
