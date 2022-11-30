@@ -93,6 +93,7 @@ public class ClusterPropertiesTest
 		assertIt("sendBuffer", 50000, fields);
 		assertIt("sendTrafficDefault", true, fields);
 		assertIt("sendTraffic", 0, fields);
+		assertIt("sendLoopback", true, fields);
 		assertIt("listenAddress", ADDRESS, fields);
 		assertIt("listenPort", PORT, fields);
 		assertIt("listenInterface", "DEFAULT", fields);
@@ -179,6 +180,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendBuffer", 14888),
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 44),
+				//single("cluster.sendLoopback", false), // fails on JDK 11: java.lang.UnsupportedOperationException: unsupported option
 				single("cluster.listenLoopback", false),
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888),

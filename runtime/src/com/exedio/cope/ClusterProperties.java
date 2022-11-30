@@ -67,6 +67,8 @@ final class ClusterProperties extends Properties
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
+	@SuppressWarnings("SimplifiableConditionalExpression")
+	private final boolean sendLoopback        = multicast ? value("sendLoopback", true) : true;
 	final InetSocketAddress listenAddress     = multicast ? new InetSocketAddress(valAd("listenAddress", MULTICAST_ADDRESS), 0)  : null;
 	private final int     listenPort          = value("listenPort",          PORT, 1);
 	final NetworkInterface listenInterface    = multicast ? valNI("listenInterface") : null;
@@ -286,9 +288,19 @@ final class ClusterProperties extends Properties
 			}
 			if(!sendTrafficDefault)
 				result.setTrafficClass(sendTraffic);
+			if(!sendLoopback)
+			{
+				// BEWARE:
+				// A call setOption(IP_MULTICAST_LOOP, xxx) throws a
+				//   java.lang.UnsupportedOperationException: unsupported option
+				// on JDK 11, but it works on JDK 17.
+				result.setOption(IP_MULTICAST_LOOP, false);
+				if(result.getOption(IP_MULTICAST_LOOP))
+					logger.error("disabling send loopbackMode was ignored by DatagramSocket");
+			}
 			return result;
 		}
-		catch(final SocketException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(String.valueOf(sendSourcePort), e);
 		}
@@ -313,9 +325,10 @@ final class ClusterProperties extends Properties
 					// https://tldp.org/HOWTO/Multicast-HOWTO-6.html
 					// Moving setOption behind joinGroup did not help.
 					// Calling setOption(IP_MULTICAST_LOOP, false) did not help.
+					// Setting this option at the sender sockets (see sendLoopback) works.
 					resultMulti.setOption(IP_MULTICAST_LOOP, true); // BEWARE of the negation introduced by IP_MULTICAST_LOOP
 					if(!resultMulti.getOption(IP_MULTICAST_LOOP))
-						logger.error("disabling IP_MULTICAST_LOOP was ignored by MulticastSocket");
+						logger.error("disabling listen IP_MULTICAST_LOOP was ignored by MulticastSocket");
 				}
 				resultMulti.joinGroup(listenAddress, listenInterface);
 				result = resultMulti;
