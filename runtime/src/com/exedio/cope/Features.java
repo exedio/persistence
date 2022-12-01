@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.misc.ListUtil;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -112,6 +111,6 @@ public final class Features
 			result.add(source);
 		}
 
-		return ListUtil.trimUnmodifiable(result);
+		return List.copyOf(result);
 	}
 }

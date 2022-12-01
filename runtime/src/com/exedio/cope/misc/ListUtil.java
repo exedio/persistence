@@ -20,11 +20,18 @@ package com.exedio.cope.misc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 public final class ListUtil
 {
+	/**
+	 * @deprecated
+	 * Use {@link List#copyOf(Collection)} instead
+	 * BUT ONLY if {@code list} does not contain null elements
+	 */
+	@Deprecated
 	public static <F> List<F> trimUnmodifiable(final ArrayList<F> list)
 	{
 		final int size = list.size();

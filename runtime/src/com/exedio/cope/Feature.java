@@ -22,7 +22,6 @@ import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.ListUtil;
 import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.util.CharSet;
 import java.io.IOException;
@@ -92,7 +91,7 @@ public abstract class Feature implements Serializable
 
 			final ArrayList<String> result = new ArrayList<>();
 			addLocalizationKeys(result);
-			localizationKeysIfInitialized = ListUtil.trimUnmodifiable(result);
+			localizationKeysIfInitialized = List.copyOf(result);
 			return localizationKeysIfInitialized;
 		}
 

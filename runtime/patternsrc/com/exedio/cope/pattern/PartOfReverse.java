@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Feature;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Type;
-import com.exedio.cope.misc.ListUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +66,7 @@ final class PartOfReverse
 				}
 			}
 
-			final List<PartOf<?>> result = ListUtil.trimUnmodifiable(resultModifiable);
+			final List<PartOf<?>> result = List.copyOf(resultModifiable);
 			cache.put(type, result);
 			return result;
 		}

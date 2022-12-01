@@ -833,7 +833,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // declared is unmodifiable
 	public List<? extends Field<?>> getDeclaredFields()
 	{
 		return fields.declared;
@@ -895,7 +894,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return localizationKeysIfInitialized;
 	}
 
-	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
 	public List<? extends UniqueConstraint> getDeclaredUniqueConstraints()
 	{
 		return uniqueConstraints.declared;
@@ -907,7 +906,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return uniqueConstraints.all;
 	}
 
-	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
 	public List<? extends CheckConstraint> getDeclaredCheckConstraints()
 	{
 		return checkConstraints.declared;
@@ -919,7 +918,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return checkConstraints.all;
 	}
 
-	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
 	public List<? extends CopyConstraint> getDeclaredCopyConstraints()
 	{
 		return copyConstraints.declared;
