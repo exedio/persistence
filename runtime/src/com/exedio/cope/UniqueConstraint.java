@@ -24,8 +24,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -43,7 +41,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	private UniqueConstraint(final FunctionField<?>[] fields)
 	{
 		this.fields = fields;
-		this.fieldList = Collections.unmodifiableList(Arrays.asList(fields));
+		this.fieldList = List.of(fields);
 		for(final FunctionField<?> f : fields)
 			//noinspection ThisEscapedInObjectConstruction
 			f.registerUniqueConstraint(this);

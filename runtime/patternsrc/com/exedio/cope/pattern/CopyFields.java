@@ -24,7 +24,6 @@ import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.ItemField;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -124,7 +123,7 @@ final class CopyFields implements Serializable
 
 	List<FunctionField<?>> getTemplates()
 	{
-		return fields==null ? Collections.emptyList() : Collections.unmodifiableList(Arrays.asList(fields));
+		return fields==null ? List.of() : List.of(fields);
 	}
 
 	<T> FunctionField<T> getCopyField(final FunctionField<T> template)

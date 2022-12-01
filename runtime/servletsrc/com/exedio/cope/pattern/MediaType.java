@@ -80,7 +80,7 @@ public final class MediaType
 	 */
 	public List<String> getExtensions()
 	{
-		return Collections.unmodifiableList( Arrays.asList(extensions) );
+		return List.of(extensions);
 	}
 
 	/**
@@ -100,9 +100,9 @@ public final class MediaType
 	public List<String> getAliases()
 	{
 		if( aliases.length>0 )
-			return Collections.unmodifiableList( Arrays.asList(aliases) );
+			return List.of(aliases);
 
-		return Collections.emptyList();
+		return List.of();
 	}
 
 	void addNameAndAliases(final ArrayList<String> list)

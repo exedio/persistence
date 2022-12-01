@@ -30,7 +30,6 @@ import static java.nio.file.Files.createDirectory;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -720,8 +719,8 @@ public class VaultFileServicePropertiesProbeTest
 				null);
 	}
 
-	private static final List<String> HEX_DIGITS = unmodifiableList(asList(
-			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"));
+	private static final List<String> HEX_DIGITS = List.of(
+			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
 
 	@Test void probeGroups() throws Exception

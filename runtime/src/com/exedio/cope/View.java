@@ -23,8 +23,6 @@ import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
@@ -52,7 +50,7 @@ public abstract class View<E> extends Feature
 	protected View(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		this.sources = requireNonEmptyAndCopy(sources, "sources");
-		this.sourceList = Collections.unmodifiableList(Arrays.asList(this.sources));
+		this.sourceList = List.of(this.sources);
 		this.name = name;
 		this.valueClass = valueClass;
 

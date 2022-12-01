@@ -240,6 +240,7 @@ public final class Assert
 
 	public static List<Object> list(final Object... o)
 	{
+		//noinspection Java9CollectionFactory OK: o may contain null
 		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
@@ -258,6 +259,7 @@ public final class Assert
 		final HashMap<Object, Object> result = new HashMap<>();
 		result.put(key1, value1);
 		result.put(key2, value2);
+		//noinspection Java9CollectionFactory OK: parameters may contain null
 		return Collections.unmodifiableMap(result);
 	}
 
@@ -268,6 +270,8 @@ public final class Assert
 	}
 
 	private static final HashSet<String> UNMODIFIABLE_COLLECTIONS = new HashSet<>(Arrays.asList(
+			"java.util.ImmutableCollections$List12",
+			"java.util.ImmutableCollections$ListN",
 			"java.util.Collections$UnmodifiableCollection",
 			"java.util.Collections$UnmodifiableRandomAccessList",
 			"java.util.Collections$SingletonList",

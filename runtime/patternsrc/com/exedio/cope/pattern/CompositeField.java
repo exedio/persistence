@@ -39,7 +39,6 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -121,7 +120,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 		this.templateToComponent = templateToComponent;
 		this.componentToTemplate = componentToTemplate;
-		this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
+		this.componentList = List.copyOf(templateToComponent.values());
 		this.mandatoryComponent = mandatoryComponent;
 		this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
 		this.unison = optional ? addSourceFeature(new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison") : null;

@@ -25,8 +25,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -65,7 +63,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		}
 		this.templateToComponent = templateToComponent;
 		this.componentToTemplate = componentToTemplate;
-		this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
+		this.componentList = List.copyOf(templateToComponent.values());
 	}
 
 	public static <E extends Block> BlockField<E> create(final BlockType<E> valueType)

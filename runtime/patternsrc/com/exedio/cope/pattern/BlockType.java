@@ -35,7 +35,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -76,7 +75,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 			throw new IllegalArgumentException(
 					"block has no templates: " + javaClass.getName());
 
-		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
+		this.templateList = List.copyOf(templates.values());
 	}
 
 	@Deprecated

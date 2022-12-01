@@ -22,8 +22,6 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -109,7 +107,7 @@ final class EnumContentType extends ContentType<Integer>
 	@Override
 	List<String> getAllowed()
 	{
-		return Collections.unmodifiableList(Arrays.asList(types));
+		return List.of(types);
 	}
 
 	@Override

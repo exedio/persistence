@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public final class TypeSet
 	{
 		check(explicitTypes);
 		this.explicitTypes = com.exedio.cope.misc.Arrays.copyOf(explicitTypes);
-		this.explicitTypesList = Collections.unmodifiableList(Arrays.asList(this.explicitTypes));
+		this.explicitTypesList = List.of(this.explicitTypes);
 	}
 
 	static void check(final Type<?>... explicitTypes)

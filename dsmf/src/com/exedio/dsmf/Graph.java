@@ -20,7 +20,6 @@ package com.exedio.dsmf;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -162,7 +161,7 @@ final class Graph
 
 		List<Edge> getEdges()
 		{
-			return Collections.unmodifiableList(Arrays.asList(edges));
+			return List.of(edges);
 		}
 
 		boolean isPossible(final HashSet<Edge> brokenEdges)

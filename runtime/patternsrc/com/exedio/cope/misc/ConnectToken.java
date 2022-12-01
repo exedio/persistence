@@ -24,8 +24,6 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -287,7 +285,7 @@ public final class ConnectToken implements AutoCloseable
 			{
 				result = tokens.toArray(EMPTY_CONNECT_TOKEN_ARRAY);
 			}
-			return Collections.unmodifiableList(Arrays.asList(result));
+			return List.of(result);
 		}
 	}
 

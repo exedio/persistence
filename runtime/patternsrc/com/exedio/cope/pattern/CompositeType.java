@@ -36,7 +36,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -106,10 +105,10 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 			throw new IllegalArgumentException(
 					"composite has no templates: " + javaClass.getName());
 
-		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
+		this.templateList = List.copyOf(templates.values());
 		this.componentSize = templates.size();
 		this.templatesFeature = templatesFeature;
-		this.templateListFeature = Collections.unmodifiableList(new ArrayList<>(templatesFeature.values()));
+		this.templateListFeature = List.copyOf(templatesFeature.values());
 	}
 
 	@Override

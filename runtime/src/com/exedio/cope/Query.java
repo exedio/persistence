@@ -165,9 +165,9 @@ public final class Query<R> implements Serializable
 	public List<Selectable<?>> getSelects()
 	{
 		if(selectSingle!=null)
-			return Collections.singletonList(selectSingle);
+			return List.of(selectSingle);
 		else
-			return Collections.unmodifiableList(Arrays.asList(selectsMulti));
+			return List.of(selectsMulti);
 	}
 
 	public void setSelect(final Selectable<? extends R> select)
@@ -287,16 +287,16 @@ public final class Query<R> implements Serializable
 	{
 		return
 			groupBy==null
-			? Collections.emptyList()
-			: Collections.unmodifiableList(Arrays.asList(groupBy));
+			? List.of()
+			: List.of(groupBy);
 	}
 
 	public List<? extends Function<?>> getGroupBys()
 	{
 		return
 			groupBy==null
-			? Collections.emptyList()
-			: Collections.unmodifiableList(Arrays.asList(groupBy));
+			? List.of()
+			: List.of(groupBy);
 	}
 
 	/**
@@ -349,16 +349,16 @@ public final class Query<R> implements Serializable
 	{
 		return
 			orderBy==null
-			? Collections.emptyList()
-			: Collections.unmodifiableList(Arrays.asList(orderBy));
+			? List.of()
+			: List.of(orderBy);
 	}
 
 	public List<? extends Function<?>> getOrderBys()
 	{
 		return
 			orderBy==null
-			? Collections.emptyList()
-			: Collections.unmodifiableList(Arrays.asList(orderBy));
+			? List.of()
+			: List.of(orderBy);
 	}
 
 	public List<Boolean> getOrderByAscending()
@@ -1373,6 +1373,7 @@ public final class Query<R> implements Serializable
 							result.add(resultCell);
 					}
 					if(resultRow!=null)
+						//noinspection Java9CollectionFactory OK: resultRow may contain null
 						result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
 				}
 
