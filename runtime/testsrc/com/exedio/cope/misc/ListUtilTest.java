@@ -33,7 +33,9 @@ public class ListUtilTest
 	{
 		assertEqualsUnmodifiable(list(), trimUnmodifiable(l()));
 		assertEqualsUnmodifiable(list("hallo"), trimUnmodifiable(l("hallo")));
+		assertEqualsUnmodifiable(list(new Object[]{null}), trimUnmodifiable(l(new String[]{null})));
 		assertEqualsUnmodifiable(list("hallo", "bello"), trimUnmodifiable(l("hallo", "bello")));
+		assertEqualsUnmodifiable(list("hallo", null), trimUnmodifiable(l("hallo", null)));
 
 		try
 		{
