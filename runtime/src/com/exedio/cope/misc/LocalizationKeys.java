@@ -20,7 +20,6 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.CopeName;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,7 +57,7 @@ public final class LocalizationKeys
 
 
 	/**
-	 * @return a {@link Collections#unmodifiableList(List) unmodifiable list}.
+	 * @return a immutable list.
 	 */
 	public static List<String> get(final Enum<?> value)
 	{
@@ -67,7 +66,7 @@ public final class LocalizationKeys
 		final ArrayList<String> result = new ArrayList<>(byType.size());
 		for(final String prefix : byType)
 			result.add(prefix + suffix);
-		return ListUtil.trimUnmodifiable(result);
+		return List.copyOf(result);
 	}
 
 

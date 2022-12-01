@@ -58,7 +58,7 @@ public final class SerializationCheck
 			}
 		}
 
-		return ListUtil.trimUnmodifiable(result);
+		return List.copyOf(result);
 	}
 
 	private SerializationCheck()

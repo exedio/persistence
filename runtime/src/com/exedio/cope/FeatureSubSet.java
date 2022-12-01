@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.misc.ListUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,7 +47,7 @@ final class FeatureSubSet<F extends Feature>
 				if(featureClass.isInstance(feature))
 					declared.add(featureClass.cast(feature));
 			}
-			this.declared = ListUtil.trimUnmodifiable(declared);
+			this.declared = List.copyOf(declared);
 		}
 
 		this.all = (inherited==null) ? this.declared : inherit(inherited.all, this.declared);

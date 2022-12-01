@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.misc.ListUtil;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import java.util.ArrayList;
@@ -299,9 +298,9 @@ final class Types
 		private static <X> List<X> finish(final ArrayList<X> list)
 		{
 			if(list==null)
-				return Collections.emptyList();
+				return List.of();
 			assert !list.isEmpty();
-			return ListUtil.trimUnmodifiable(list);
+			return List.copyOf(list);
 		}
 	}
 

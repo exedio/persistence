@@ -18,7 +18,6 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.misc.ListUtil.trimUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,17 +28,18 @@ import org.junit.jupiter.api.Test;
 
 public class ListUtilTest
 {
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testIt()
 	{
-		assertEqualsUnmodifiable(list(), trimUnmodifiable(l()));
-		assertEqualsUnmodifiable(list("hallo"), trimUnmodifiable(l("hallo")));
-		assertEqualsUnmodifiable(list(new Object[]{null}), trimUnmodifiable(l(new String[]{null})));
-		assertEqualsUnmodifiable(list("hallo", "bello"), trimUnmodifiable(l("hallo", "bello")));
-		assertEqualsUnmodifiable(list("hallo", null), trimUnmodifiable(l("hallo", null)));
+		assertEqualsUnmodifiable(list(), ListUtil.trimUnmodifiable(l()));
+		assertEqualsUnmodifiable(list("hallo"), ListUtil.trimUnmodifiable(l("hallo")));
+		assertEqualsUnmodifiable(list(new Object[]{null}), ListUtil.trimUnmodifiable(l(new String[]{null})));
+		assertEqualsUnmodifiable(list("hallo", "bello"), ListUtil.trimUnmodifiable(l("hallo", "bello")));
+		assertEqualsUnmodifiable(list("hallo", null), ListUtil.trimUnmodifiable(l("hallo", null)));
 
 		try
 		{
-			trimUnmodifiable(null);
+			ListUtil.trimUnmodifiable(null);
 			fail();
 		}
 		catch(final NullPointerException e)

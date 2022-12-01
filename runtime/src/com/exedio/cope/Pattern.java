@@ -24,7 +24,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.CopeSchemaNameElement;
-import com.exedio.cope.misc.ListUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Modifier;
@@ -409,7 +408,7 @@ public abstract class Pattern extends Feature
 		this.sourceFeatureList = sourceFeaturesGather.mountPattern(this, type, name);
 		this.sourceFeaturesGather = null;
 
-		this.sourceTypes = ListUtil.trimUnmodifiable(sourceTypesWhileGather);
+		this.sourceTypes = List.copyOf(sourceTypesWhileGather);
 		this.sourceTypesWhileGather = null;
 	}
 
