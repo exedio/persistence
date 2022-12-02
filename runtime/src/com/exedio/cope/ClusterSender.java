@@ -96,6 +96,7 @@ abstract class ClusterSender
 		}
 		metrics.gaugeConnect(c -> c.cluster.sender.getSendBufferSize(), "sendBufferSize", "DatagramSocket#getSendBufferSize");
 		metrics.gaugeConnect(c -> c.cluster.sender.getTrafficClass  (), "trafficClass",   "DatagramSocket#getTrafficClass");
+		metrics.gaugeConnect(c -> c.cluster.sender.getLoopback() ? 1.0 : 0.0, "sendLoopback", "MulticastSocket#getOption(IP_MULTICAST_LOOP)");
 		invalidationSplit = metrics.counter("invalidationSplit", "How often an invalidation must be split before sending due to packet size constraint.", Tags.empty());
 	}
 

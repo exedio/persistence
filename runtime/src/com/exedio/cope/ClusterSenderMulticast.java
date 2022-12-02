@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
+import static java.net.StandardSocketOptions.IP_MULTICAST_LOOP;
+
 import com.exedio.cope.ClusterProperties.Send;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 
 final class ClusterSenderMulticast extends ClusterSender
 {
@@ -31,6 +32,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	private final int localPort;
 	private final int sendBufferSize;
 	private final int trafficClass;
+	private final Boolean loopback;
 
 	ClusterSenderMulticast(final ClusterProperties properties, final ModelMetrics metrics)
 	{
@@ -42,10 +44,25 @@ final class ClusterSenderMulticast extends ClusterSender
 		{
 			this.sendBufferSize = socket.getSendBufferSize();
 			this.trafficClass = socket.getTrafficClass();
+			this.loopback = getMulticastLoop(socket);
 		}
-		catch(final SocketException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
+		}
+	}
+
+	private static Boolean getMulticastLoop(final DatagramSocket socket) throws IOException
+	{
+		try
+		{
+			return socket.getOption(IP_MULTICAST_LOOP);
+		}
+		catch(final UnsupportedOperationException ignored)
+		{
+			// Happens on JDK 11 for non-MulticastSocket sockets.
+			// Does not happen on JDK 17, even for non-MulticastSocket sockets.
+			return null;
 		}
 	}
 
@@ -84,6 +101,13 @@ final class ClusterSenderMulticast extends ClusterSender
 	int getTrafficClass()
 	{
 		return trafficClass;
+	}
+
+	boolean getLoopback()
+	{
+		// Will throw NullPointerException if loopback is null.
+		// This is intended, then the micrometer gauge will expose NaN.
+		return loopback;
 	}
 
 	void close()

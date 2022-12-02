@@ -270,14 +270,15 @@ final class ClusterProperties extends Properties
 
 	DatagramSocket newSendSocket()
 	{
+		final boolean loop = sendLoopback;
 		try
 		{
 			final DatagramSocket result =
 				sendSourcePortAuto
-				? new DatagramSocket()
+				? loop ? new DatagramSocket() : new MulticastSocket()
 				: (sendInterface==null
-					? new DatagramSocket(sendSourcePort)
-					: new DatagramSocket(sendSourcePort, sendInterface));
+					? loop ? new DatagramSocket(sendSourcePort) : new MulticastSocket(sendSourcePort)
+					: loop ? new DatagramSocket(sendSourcePort, sendInterface) : new MulticastSocket(new InetSocketAddress(sendInterface, sendSourcePort)));
 			// TODO close socket if code below fails
 			if(!sendBufferDefault)
 			{
@@ -288,19 +289,21 @@ final class ClusterProperties extends Properties
 			}
 			if(!sendTrafficDefault)
 				result.setTrafficClass(sendTraffic);
-			if(!sendLoopback)
+			if(!loop)
 			{
-				try
-				{
-					result.setOption(IP_MULTICAST_LOOP, false);
-					if(result.getOption(IP_MULTICAST_LOOP)) // getOption throws UnsupportedOperationException as well
-						logger.error("disabling send IP_MULTICAST_LOOP was ignored by DatagramSocket");
-				}
-				catch(final UnsupportedOperationException e)
-				{
-					// happens on JDK 11, but not on JDK 17.
-					logger.error("disabling send IP_MULTICAST_LOOP failed, probably because you don't run in JDK 17 or later", e);
-				}
+				// The semantics of IP_MULTICAST_LOOP changes between jdk versions:
+				// * on jdk 11 the default value of IP_MULTICAST_LOOP is false, which means loopback is enabled. To disable
+				//   it, you have to set it to true. That contradicts the documentation.
+				// * on jdk 17 the default value of IP_MULTICAST_LOOP is true, which means loopback is enabled. To disable
+				//   it, you have to set it to false. That conforms to the documentation.
+				// To be portable between jdk versions we will just negate the default value.
+				//
+				// Apart from that, get/setOption with IP_MULTICAST_LOOP required the socket to be a MulticastSocket
+				// on JDK 11, but not on JDK 17.
+				final boolean value = !result.getOption(IP_MULTICAST_LOOP);
+				result.setOption(IP_MULTICAST_LOOP, value);
+				if(result.getOption(IP_MULTICAST_LOOP)!=value)
+					logger.error("disabling send IP_MULTICAST_LOOP ({}) was ignored by MulticastSocket", value);
 			}
 			return result;
 		}
