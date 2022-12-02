@@ -315,7 +315,7 @@ final class ClusterProperties extends Properties
 					// Calling setOption(IP_MULTICAST_LOOP, false) did not help.
 					resultMulti.setOption(IP_MULTICAST_LOOP, true); // BEWARE of the negation introduced by IP_MULTICAST_LOOP
 					if(!resultMulti.getOption(IP_MULTICAST_LOOP))
-						logger.error("disabling loopbackMode was ignored by MulticastSocket");
+						logger.error("disabling IP_MULTICAST_LOOP was ignored by MulticastSocket");
 				}
 				resultMulti.joinGroup(listenAddress, listenInterface);
 				result = resultMulti;
