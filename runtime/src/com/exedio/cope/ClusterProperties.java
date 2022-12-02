@@ -290,13 +290,17 @@ final class ClusterProperties extends Properties
 				result.setTrafficClass(sendTraffic);
 			if(!sendLoopback)
 			{
-				// BEWARE:
-				// A call setOption(IP_MULTICAST_LOOP, xxx) throws a
-				//   java.lang.UnsupportedOperationException: unsupported option
-				// on JDK 11, but it works on JDK 17.
-				result.setOption(IP_MULTICAST_LOOP, false);
-				if(result.getOption(IP_MULTICAST_LOOP))
-					logger.error("disabling send loopbackMode was ignored by DatagramSocket");
+				try
+				{
+					result.setOption(IP_MULTICAST_LOOP, false);
+					if(result.getOption(IP_MULTICAST_LOOP)) // getOption throws UnsupportedOperationException as well
+						logger.error("disabling send IP_MULTICAST_LOOP was ignored by DatagramSocket");
+				}
+				catch(final UnsupportedOperationException e)
+				{
+					// happens on JDK 11, but not on JDK 17.
+					logger.error("disabling send IP_MULTICAST_LOOP failed, probably because you don't run in JDK 17 or later", e);
+				}
 			}
 			return result;
 		}

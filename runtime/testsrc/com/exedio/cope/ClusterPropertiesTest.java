@@ -180,7 +180,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendBuffer", 14888),
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 44),
-				//single("cluster.sendLoopback", false), // fails on JDK 11: java.lang.UnsupportedOperationException: unsupported option
+				single("cluster.sendLoopback", false), // does not work on JDK 11
 				single("cluster.listenLoopback", false),
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888),
