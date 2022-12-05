@@ -270,15 +270,15 @@ final class ClusterProperties extends Properties
 
 	DatagramSocket newSendSocket()
 	{
-		final boolean loop = sendLoopback;
+		final boolean single = sendLoopback || atLeastJdk17(); // single==false enables workaround for bug in JDK 11
 		try
 		{
 			final DatagramSocket result =
 				sendSourcePortAuto
-				? loop ? new DatagramSocket() : new MulticastSocket()
+				? single ? new DatagramSocket() : new MulticastSocket()
 				: (sendInterface==null
-					? loop ? new DatagramSocket(sendSourcePort) : new MulticastSocket(sendSourcePort)
-					: loop ? new DatagramSocket(sendSourcePort, sendInterface) : new MulticastSocket(new InetSocketAddress(sendInterface, sendSourcePort)));
+					? single ? new DatagramSocket(sendSourcePort) : new MulticastSocket(sendSourcePort)
+					: single ? new DatagramSocket(sendSourcePort, sendInterface) : new MulticastSocket(new InetSocketAddress(sendInterface, sendSourcePort)));
 			// TODO close socket if code below fails
 			if(!sendBufferDefault)
 			{
@@ -289,7 +289,7 @@ final class ClusterProperties extends Properties
 			}
 			if(!sendTrafficDefault)
 				result.setTrafficClass(sendTraffic);
-			if(!loop)
+			if(!sendLoopback)
 			{
 				// The semantics of IP_MULTICAST_LOOP changes between jdk versions:
 				// * on jdk 11 the default value of IP_MULTICAST_LOOP is false, which means loopback is enabled. To disable
@@ -298,7 +298,7 @@ final class ClusterProperties extends Properties
 				//   it, you have to set it to false. That conforms to the documentation.
 				// To be portable between jdk versions we will just negate the default value.
 				//
-				// Apart from that, get/setOption with IP_MULTICAST_LOOP required the socket to be a MulticastSocket
+				// Apart from that, get/setOption with IP_MULTICAST_LOOP requires the socket to be a MulticastSocket
 				// on JDK 11, but not on JDK 17.
 				final boolean value = !result.getOption(IP_MULTICAST_LOOP);
 				result.setOption(IP_MULTICAST_LOOP, value);
@@ -310,6 +310,24 @@ final class ClusterProperties extends Properties
 		catch(final IOException e)
 		{
 			throw new RuntimeException(String.valueOf(sendSourcePort), e);
+		}
+	}
+
+	private static boolean atLeastJdk17()
+	{
+		try
+		{
+			// https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/random/RandomGenerator.html
+			Class.forName("java.util.random.RandomGenerator", // available since JDK 17
+					false,
+					ClusterProperties.class.getClassLoader());
+			logger.info("JDK 17 or later detected");
+			return true;
+		}
+		catch(final ClassNotFoundException e)
+		{
+			logger.info("JDK earlier than 17 or later detected");
+			return false;
 		}
 	}
 
