@@ -67,6 +67,8 @@ final class ClusterProperties extends Properties
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
+	@SuppressWarnings("SimplifiableConditionalExpression")
+	private final boolean sendLoopback        = multicast ? value("sendLoopback", true) : true;
 	final InetSocketAddress listenAddress     = multicast ? new InetSocketAddress(valAd("listenAddress", MULTICAST_ADDRESS), 0)  : null;
 	private final int     listenPort          = value("listenPort",          PORT, 1);
 	final NetworkInterface listenInterface    = multicast ? valNI("listenInterface") : null;
@@ -268,14 +270,15 @@ final class ClusterProperties extends Properties
 
 	DatagramSocket newSendSocket()
 	{
+		final boolean single = sendLoopback || atLeastJdk17(); // single==false enables workaround for bug in JDK 11
 		try
 		{
 			final DatagramSocket result =
 				sendSourcePortAuto
-				? new DatagramSocket()
+				? single ? new DatagramSocket() : new MulticastSocket()
 				: (sendInterface==null
-					? new DatagramSocket(sendSourcePort)
-					: new DatagramSocket(sendSourcePort, sendInterface));
+					? single ? new DatagramSocket(sendSourcePort) : new MulticastSocket(sendSourcePort)
+					: single ? new DatagramSocket(sendSourcePort, sendInterface) : new MulticastSocket(new InetSocketAddress(sendInterface, sendSourcePort)));
 			// TODO close socket if code below fails
 			if(!sendBufferDefault)
 			{
@@ -286,11 +289,45 @@ final class ClusterProperties extends Properties
 			}
 			if(!sendTrafficDefault)
 				result.setTrafficClass(sendTraffic);
+			if(!sendLoopback)
+			{
+				// The semantics of IP_MULTICAST_LOOP changes between jdk versions:
+				// * on jdk 11 the default value of IP_MULTICAST_LOOP is false, which means loopback is enabled. To disable
+				//   it, you have to set it to true. That contradicts the documentation.
+				// * on jdk 17 the default value of IP_MULTICAST_LOOP is true, which means loopback is enabled. To disable
+				//   it, you have to set it to false. That conforms to the documentation.
+				// To be portable between jdk versions we will just negate the default value.
+				//
+				// Apart from that, get/setOption with IP_MULTICAST_LOOP requires the socket to be a MulticastSocket
+				// on JDK 11, but not on JDK 17.
+				final boolean value = !result.getOption(IP_MULTICAST_LOOP);
+				result.setOption(IP_MULTICAST_LOOP, value);
+				if(result.getOption(IP_MULTICAST_LOOP)!=value)
+					logger.error("disabling send IP_MULTICAST_LOOP ({}) was ignored by MulticastSocket", value);
+			}
 			return result;
 		}
-		catch(final SocketException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(String.valueOf(sendSourcePort), e);
+		}
+	}
+
+	private static boolean atLeastJdk17()
+	{
+		try
+		{
+			// https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/random/RandomGenerator.html
+			Class.forName("java.util.random.RandomGenerator", // available since JDK 17
+					false,
+					ClusterProperties.class.getClassLoader());
+			logger.info("JDK 17 or later detected");
+			return true;
+		}
+		catch(final ClassNotFoundException e)
+		{
+			logger.info("JDK earlier than 17 or later detected");
+			return false;
 		}
 	}
 
@@ -313,9 +350,10 @@ final class ClusterProperties extends Properties
 					// https://tldp.org/HOWTO/Multicast-HOWTO-6.html
 					// Moving setOption behind joinGroup did not help.
 					// Calling setOption(IP_MULTICAST_LOOP, false) did not help.
+					// Setting this option at the sender sockets (see sendLoopback) works.
 					resultMulti.setOption(IP_MULTICAST_LOOP, true); // BEWARE of the negation introduced by IP_MULTICAST_LOOP
 					if(!resultMulti.getOption(IP_MULTICAST_LOOP))
-						logger.error("disabling IP_MULTICAST_LOOP was ignored by MulticastSocket");
+						logger.error("disabling listen IP_MULTICAST_LOOP was ignored by MulticastSocket");
 				}
 				resultMulti.joinGroup(listenAddress, listenInterface);
 				result = resultMulti;
