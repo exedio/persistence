@@ -57,7 +57,7 @@
 			<exclude org="com.google.protobuf" module="protobuf-java" />
 		</dependency>
 		<dependency conf="mariadb->default" org="org.mariadb.jdbc" name="mariadb-java-client" rev="3.0.7" />
-		<dependency conf="postgresql->default" org="org.postgresql" name="postgresql" rev="42.4.2">
+		<dependency conf="postgresql->default" org="org.postgresql" name="postgresql" rev="42.5.1">
 			<exclude org="org.checkerframework" module="checker-qual" />
 		</dependency>
 
