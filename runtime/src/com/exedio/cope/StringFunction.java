@@ -34,6 +34,7 @@ public interface StringFunction extends Function<String>
 	 * if and only if the value of this function for that item
 	 * is matches the given parameter.
 	 */
+	@SuppressWarnings("deprecation")
 	default LikeCondition like(final String value)
 	{
 		return new LikeCondition(this, value);

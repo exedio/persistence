@@ -60,53 +60,61 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	}
 
 	// TODO allow Class<? extends Item> as well to be safely used in CheckConstraints
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, false, type1);
 	}
 
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2);
 	}
 
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2, type3);
 	}
 
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"rawtypes", "deprecation"})
 	default InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<>(this, false, types);
 	}
 
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, true, type1);
 	}
 
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2);
 	}
 
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2, type3);
 	}
 
+	@SuppressWarnings("deprecation")
 	default InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"rawtypes", "deprecation"})
 	default InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<>(this, true, types);

@@ -34,6 +34,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	private final Type<E>[] types;
 
 	/**
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see ItemFunction#instanceOf(Type)
@@ -47,6 +48,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	 * @see ItemFunction#notInstanceOf(Type, Type, Type, Type)
 	 * @see ItemFunction#notInstanceOf(Type[])
 	 */
+	@Deprecated
 	public InstanceOfCondition(
 			final ItemFunction<E> function,
 			final boolean not,
@@ -63,21 +65,37 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		return o;
 	}
 
+	/**
+	 * @deprecated Instead of using this constructor directly, use the convenience methods.
+	 */
+	@Deprecated
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
 	{
 		this(function, not, new Type<?>[]{type1});
 	}
 
+	/**
+	 * @deprecated Instead of using this constructor directly, use the convenience methods.
+	 */
+	@Deprecated
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		this(function, not, new Type<?>[]{type1, type2});
 	}
 
+	/**
+	 * @deprecated Instead of using this constructor directly, use the convenience methods.
+	 */
+	@Deprecated
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		this(function, not, new Type<?>[]{type1, type2, type3});
 	}
 
+	/**
+	 * @deprecated Instead of using this constructor directly, use the convenience methods.
+	 */
+	@Deprecated
 	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
 	{
 		this(function, not, new Type<?>[]{type1, type2, type3, type4});
