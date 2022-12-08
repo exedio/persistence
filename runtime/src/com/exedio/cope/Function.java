@@ -46,6 +46,7 @@ public interface Function<E> extends Selectable<E>
 	 * if and only if the value of this function for that item
 	 * is null.
 	 */
+	@SuppressWarnings("deprecation")
 	default IsNullCondition<E> isNull()
 	{
 		return new IsNullCondition<>(this, false);
@@ -56,6 +57,7 @@ public interface Function<E> extends Selectable<E>
 	 * if and only if the value of this function for that item
 	 * is not null.
 	 */
+	@SuppressWarnings("deprecation")
 	default IsNullCondition<E> isNotNull()
 	{
 		return new IsNullCondition<>(this, true);

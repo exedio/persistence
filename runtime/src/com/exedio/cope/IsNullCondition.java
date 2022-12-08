@@ -31,11 +31,13 @@ public final class IsNullCondition<E> extends Condition
 
 	/**
 	 * Creates a new IsNullCondition.
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the more type-safe wrapper methods.
 	 * @see com.exedio.cope.Function#isNull()
 	 * @see com.exedio.cope.Function#isNotNull()
 	 */
+	@Deprecated
 	public IsNullCondition(
 			final Selectable<E> function,
 			final boolean not)
@@ -44,6 +46,14 @@ public final class IsNullCondition<E> extends Condition
 		this.not = not;
 	}
 
+	/**
+	 * @deprecated
+	 * Instead of using this constructor directly,
+	 * you may want to use the more type-safe wrapper methods.
+	 * @see com.exedio.cope.Function#isNull()
+	 * @see com.exedio.cope.Function#isNotNull()
+	 */
+	@Deprecated
 	public IsNullCondition(
 			final Function<E> function,
 			final boolean not)
