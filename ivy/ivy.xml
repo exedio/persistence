@@ -68,7 +68,7 @@
 		<dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="build->default">
 			<exclude org="ant" module="ant" />
 		</dependency>
-		<dependency org="org.apache.tomcat" name="tomcat" rev="8.5.14" conf="build->default">
+		<dependency org="org.apache.tomcat" name="tomcat" rev="9.0.31" conf="build->default">
 			<artifact name="tomcat" type="tar.gz" />
 		</dependency>
 		<dependency org="org.junit.jupiter"  name="junit-jupiter-api"      rev="5.3.1" conf="build->default,sources" />
