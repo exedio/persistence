@@ -32,10 +32,19 @@ public final class CompareFunctionCondition<E> extends Condition
 	private final Function<E> left;
 	private final Function<? extends E> right;
 
+	static <E> CompareFunctionCondition<E> create(
+			final Operator operator,
+			final Function<E> left,
+			final Function<? extends E> right)
+	{
+		return new CompareFunctionCondition<>(operator, left, right);
+	}
+
 	/**
 	 * Creates a new CompareFunctionCondition.
+	 * @deprecated
 	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
+	 * use the convenience methods.
 	 * @see com.exedio.cope.Function#equal(Function)
 	 * @see com.exedio.cope.Function#notEqual(Function)
 	 * @see com.exedio.cope.Function#less(Function)
@@ -43,6 +52,7 @@ public final class CompareFunctionCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#greater(Function)
 	 * @see com.exedio.cope.Function#greaterOrEqual(Function)
 	 */
+	@Deprecated
 	public CompareFunctionCondition(
 			final Operator operator,
 			final Function<E> left,
