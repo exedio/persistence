@@ -23,11 +23,11 @@ import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.CompositeCondition.in;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CompositeCondition.Operator;
 import java.util.Collections;
@@ -45,114 +45,54 @@ public class CompositeConditionUtilTest
 
 		assertNotEqualsAndHash(TRUE, FALSE, c1, c2, c3);
 
-		try
-		{
-			newCompositeCondition(null, (Condition[])null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("operator", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(AND);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions must not be empty", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(AND, Collections.emptyList());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions must not be empty", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(OR);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions must not be empty", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(OR, Collections.emptyList());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions must not be empty", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(AND, asList((Condition)null));
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions[0]", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(OR, (Condition)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions[0]", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(OR, asList((Condition)null));
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions[0]", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(AND, TRUE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(AND, asList(TRUE));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(OR, TRUE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
-		}
-		try
-		{
-			newCompositeCondition(OR, asList(TRUE));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("conditions[0] must not be a literal, but was TRUE", e.getMessage());
-		}
+		assertFails(
+				() -> newCompositeCondition(null, (Condition[])null),
+				NullPointerException.class,
+				"operator");
+		assertFails(
+				() -> newCompositeCondition(AND),
+				IllegalArgumentException.class,
+				"conditions must not be empty");
+		assertFails(
+				() -> newCompositeCondition(AND, Collections.emptyList()),
+				IllegalArgumentException.class,
+				"conditions must not be empty");
+		assertFails(
+				() -> newCompositeCondition(OR),
+				IllegalArgumentException.class,
+				"conditions must not be empty");
+		assertFails(
+				() -> newCompositeCondition(OR, Collections.emptyList()),
+				IllegalArgumentException.class,
+				"conditions must not be empty");
+		assertFails(
+				() -> newCompositeCondition(AND, asList((Condition)null)),
+				NullPointerException.class,
+				"conditions[0]");
+		assertFails(
+				() -> newCompositeCondition(OR, (Condition)null),
+				NullPointerException.class,
+				"conditions[0]");
+		assertFails(
+				() -> newCompositeCondition(OR, asList((Condition)null)),
+				NullPointerException.class,
+				"conditions[0]");
+		assertFails(
+				() -> newCompositeCondition(AND, TRUE),
+				IllegalArgumentException.class,
+				"conditions[0] must not be a literal, but was TRUE");
+		assertFails(
+				() -> newCompositeCondition(AND, asList(TRUE)),
+				IllegalArgumentException.class,
+				"conditions[0] must not be a literal, but was TRUE");
+		assertFails(
+				() -> newCompositeCondition(OR, TRUE),
+				IllegalArgumentException.class,
+				"conditions[0] must not be a literal, but was TRUE");
+		assertFails(
+				() -> newCompositeCondition(OR, asList(TRUE)),
+				IllegalArgumentException.class,
+				"conditions[0] must not be a literal, but was TRUE");
 
 		// test flattening of CompositeCondition
 		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
@@ -170,24 +110,14 @@ public class CompositeConditionUtilTest
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
-		try
-		{
-			new NotCondition(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("argument", e.getMessage());
-		}
-		try
-		{
-			new NotCondition(TRUE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("argument must not be a literal", e.getMessage());
-		}
+		assertFails(
+				() -> new NotCondition(null),
+				NullPointerException.class,
+				"argument");
+		assertFails(
+				() -> new NotCondition(TRUE),
+				IllegalArgumentException.class,
+				"argument must not be a literal");
 		assertSame(TRUE, FALSE.not());
 		assertSame(FALSE, TRUE.not());
 		assertEquals(new NotCondition(c1), c1.not());
@@ -216,42 +146,22 @@ public class CompositeConditionUtilTest
 		assertSame(TRUE,  TRUE.or(FALSE));
 		assertSame(TRUE,  FALSE.or(TRUE));
 
-		try
-		{
-			FALSE.and(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("other", e.getMessage());
-		}
-		try
-		{
-			TRUE.or(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("other", e.getMessage());
-		}
-		try
-		{
-			TRUE.and(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("other", e.getMessage());
-		}
-		try
-		{
-			FALSE.or(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("other", e.getMessage());
-		}
+		assertFails(
+				() -> FALSE.and(null),
+				NullPointerException.class,
+				"other");
+		assertFails(
+				() -> TRUE.or(null),
+				NullPointerException.class,
+				"other");
+		assertFails(
+				() -> TRUE.and(null),
+				NullPointerException.class,
+				"other");
+		assertFails(
+				() -> FALSE.or(null),
+				NullPointerException.class,
+				"other");
 
 		// Function.in
 		assertEquals(newCompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
