@@ -92,6 +92,12 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
+	public Condition not()
+	{
+		return argument;
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof NotCondition))

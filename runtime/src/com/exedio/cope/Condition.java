@@ -61,13 +61,8 @@ public abstract class Condition implements Serializable
 
 	abstract Condition copy(CopyMapper mapper);
 
-	public final Condition not()
+	public Condition not()
 	{
-		if(this instanceof Literal)
-			return valueOf(!((Literal)this).value);
-		else if(this instanceof NotCondition)
-			return ((NotCondition)this).argument;
-
 		return new NotCondition(this, 0.0);
 	}
 
@@ -136,6 +131,12 @@ public abstract class Condition implements Serializable
 		Literal copy(final CopyMapper mapper)
 		{
 			return this;
+		}
+
+		@Override
+		public Condition not()
+		{
+			return valueOf(!value);
 		}
 
 		@Override
