@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 
 public final class NotCondition extends Condition
 {
@@ -30,17 +31,25 @@ public final class NotCondition extends Condition
 
 	/**
 	 * Creates a new NotCondition.
+	 * @deprecated
 	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper method.
+	 * use the more type-safe wrapper method.
 	 * @see Condition#not()
 	 * @throws NullPointerException if {@code argument} is null.
 	 */
+	@Deprecated
 	public NotCondition(final Condition argument)
 	{
 		requireNonNull(argument, "argument");
 		if(argument instanceof Literal)
 			throw new IllegalArgumentException("argument must not be a literal");
 
+		this.argument = argument;
+	}
+
+	NotCondition(@Nonnull final Condition argument, @SuppressWarnings("unused") final double dummy)
+	{
+		assert !(argument instanceof Literal);
 		this.argument = argument;
 	}
 
