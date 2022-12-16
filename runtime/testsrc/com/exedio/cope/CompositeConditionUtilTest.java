@@ -116,6 +116,7 @@ public class CompositeConditionUtilTest
 		assertSame(c1, c1.not().not());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testNotConstructor()
 	{
 		final DoubleField field = new DoubleField().optional();

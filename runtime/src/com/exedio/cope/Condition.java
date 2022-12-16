@@ -68,7 +68,7 @@ public abstract class Condition implements Serializable
 		else if(this instanceof NotCondition)
 			return ((NotCondition)this).argument;
 
-		return new NotCondition(this);
+		return new NotCondition(this, 0.0);
 	}
 
 	public final Condition and(final Condition other)
