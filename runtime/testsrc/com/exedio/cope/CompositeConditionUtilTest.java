@@ -110,6 +110,16 @@ public class CompositeConditionUtilTest
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
+		assertSame(TRUE, FALSE.not());
+		assertSame(FALSE, TRUE.not());
+		assertEquals("!(" + c1 + ")", c1.not().toString());
+		assertSame(c1, c1.not().not());
+	}
+
+	@Test void testNotConstructor()
+	{
+		final DoubleField field = new DoubleField().optional();
+		final Condition c1 = field.equal(1d);
 		assertFails(
 				() -> new NotCondition(null),
 				NullPointerException.class,
@@ -118,10 +128,7 @@ public class CompositeConditionUtilTest
 				() -> new NotCondition(TRUE),
 				IllegalArgumentException.class,
 				"argument must not be a literal");
-		assertSame(TRUE, FALSE.not());
-		assertSame(FALSE, TRUE.not());
-		assertEquals(new NotCondition(c1), c1.not());
-		assertSame(c1, c1.not().not());
+		assertEquals(c1.not(), new NotCondition(c1));
 	}
 
 	@Test void testNeutrumAbsolutum()
