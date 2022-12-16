@@ -148,7 +148,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<>(Operator.Equal, this, right);
+		return CompareFunctionCondition.create(Operator.Equal, this, right);
 	}
 
 	/**
@@ -158,7 +158,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<>(Operator.NotEqual, this, right);
+		return CompareFunctionCondition.create(Operator.NotEqual, this, right);
 	}
 
 	/**
@@ -168,7 +168,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<>(Operator.Less, this, right);
+		return CompareFunctionCondition.create(Operator.Less, this, right);
 	}
 
 	/**
@@ -178,7 +178,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<>(Operator.LessEqual, this, right);
+		return CompareFunctionCondition.create(Operator.LessEqual, this, right);
 	}
 
 	/**
@@ -188,7 +188,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<>(Operator.Greater, this, right);
+		return CompareFunctionCondition.create(Operator.Greater, this, right);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<>(Operator.GreaterEqual, this, right);
+		return CompareFunctionCondition.create(Operator.GreaterEqual, this, right);
 	}
 
 	default ExtremumAggregate<E> min()
