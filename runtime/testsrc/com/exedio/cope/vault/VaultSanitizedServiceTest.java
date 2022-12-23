@@ -403,13 +403,8 @@ public class VaultSanitizedServiceTest
 				MessageDigestUtil.getInstance("MD5").digest(value));
 	}
 
-	private static final VaultPutInfo PUT_INFO = new VaultPutInfo()
+	private static final VaultPutInfo PUT_INFO = new AssertionFailedVaultPutInfo()
 	{
-		@Override
-		public String getOrigin()
-		{
-			return null;
-		}
 		@Override
 		public String toString()
 		{

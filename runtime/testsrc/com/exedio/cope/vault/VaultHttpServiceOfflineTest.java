@@ -59,7 +59,13 @@ public class VaultHttpServiceOfflineTest
 				"testServiceKey",
 				false,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut
-		final VaultPutInfoString info = new VaultPutInfoString("myInfo");
+		final VaultPutInfo info = new AssertionFailedVaultPutInfo()
+		{
+			@Override public String toString()
+			{
+				return "myInfo";
+			}
+		};
 		try(VaultHttpService s = new VaultHttpService(params, props))
 		{
 			assertFails(
