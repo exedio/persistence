@@ -346,13 +346,13 @@ public class VaultSanitizedServiceTest
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), value, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes VaultServiceTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes VaultSanitizedServiceTest#PUT_INFO\n");
 	}
 	@Test void putStream() throws IOException
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), new ByteArrayInputStream(value), PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream VaultServiceTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream VaultSanitizedServiceTest#PUT_INFO\n");
 	}
 	@Test void putPath() throws IOException
 	{
@@ -360,7 +360,7 @@ public class VaultSanitizedServiceTest
 		final Path path = files.newPath(value);
 		Files.write(path, value);
 		s.put(hash(value), path, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultServiceTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultSanitizedServiceTest#PUT_INFO\n");
 	}
 	@Test void probeGenuineServiceKey() throws Exception
 	{
@@ -408,7 +408,7 @@ public class VaultSanitizedServiceTest
 		@Override
 		public String toString()
 		{
-			return "VaultServiceTest#PUT_INFO";
+			return "VaultSanitizedServiceTest#PUT_INFO";
 		}
 	};
 
