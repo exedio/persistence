@@ -149,6 +149,21 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
+		log.assertEmpty();
+	}
+
+	@Test void testEmpty() throws SQLException
+	{
+		queryTrail("myService_Key", rs -> {});
+		queryTrail("default", rs -> {});
+		assertEquals(0, MyItem.field.checkVaultTrail());
+		assertEquals(0, MyItem.other.checkVaultTrail());
+
+		new MyItem(toValue(decodeLower("")));
+		queryTrail("myService_Key", rs -> {}); // TODO should contain empty hash
+		queryTrail("default", rs -> {});
+		assertEquals(1, MyItem.field.checkVaultTrail()); // TODO should be 0
+		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		log.assertEmpty();
 	}
