@@ -573,18 +573,18 @@ public class VaultPropertiesTest
 	private static final Properties.Factory<VaultProperties> factory = VaultProperties.factory();
 
 
-	public static final Map<String, VaultService> unsanitize(final Map<String, VaultService> services)
+	public static final Map<String, VaultService> unsanitize(final Map<String, VaultResilientService> services)
 	{
 		assertUnmodifiable(services);
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
-		for(final Map.Entry<String, VaultService> e : services.entrySet())
+		for(final Map.Entry<String, VaultResilientService> e : services.entrySet())
 		{
 			result.put(e.getKey(), unsanitize(e.getValue()));
 		}
 		return Collections.unmodifiableMap(result);
 	}
 
-	public static VaultService unsanitize(final VaultService service)
+	public static VaultService unsanitize(final VaultResilientService service)
 	{
 		assertEquals(VaultSanitizedService.class, service.getClass());
 		return ((VaultSanitizedService)service).service;

@@ -31,7 +31,7 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import javax.annotation.Nonnull;
 
-final class VaultSanitizedService implements VaultService
+final class VaultSanitizedService implements VaultResilientService // TODO rename to VaultResilientServiceProxy
 {
 	final VaultService service;
 	private final int hashLength;
@@ -42,7 +42,7 @@ final class VaultSanitizedService implements VaultService
 			final VaultService service,
 			final VaultProperties properties)
 	{
-		if(service instanceof VaultSanitizedService)
+		if(service instanceof VaultResilientService)
 			throw new IllegalArgumentException();
 
 		this.service = requireNonNull(service, "service");

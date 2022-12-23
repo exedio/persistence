@@ -35,7 +35,8 @@ import javax.annotation.Nonnull;
  * {@link VaultProperties#probeMore()}.
  * <p>
  * All methods are guaranteed not to be called for the empty byte sequence -
- * this special case must be handled by the caller.
+ * this special case must be handled by the caller -
+ * unless your instance of {@code VaultService} implements {@link VaultResilientService} as well.
  */
 @SuppressWarnings("JavadocReference") // OK: protected member of public class is part of public API
 public interface VaultService extends AutoCloseable

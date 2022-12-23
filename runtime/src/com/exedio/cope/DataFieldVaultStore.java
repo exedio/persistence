@@ -27,7 +27,7 @@ import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
-import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultResilientService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
@@ -43,7 +43,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final MessageDigestFactory algorithm;
 	private final String algorithmName;
 	private final String serviceKey;
-	private final VaultService service;
+	private final VaultResilientService service;
 	private final VaultTrail trail;
 	private final Dialect dialect;
 	private final Counter getLength, getBytes, getStream, putInitial, putRedundant, putInitialSize, putRedundantSize;
