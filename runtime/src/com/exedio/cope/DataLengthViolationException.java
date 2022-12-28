@@ -36,7 +36,7 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 	private final boolean lengthExact;
 
 	/**
-	 * Creates a new LengthViolationRuntimeException with the necessary information about the violation.
+	 * Creates a new DataLengthViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param length initializes, what is returned by {@link #getLength()}.

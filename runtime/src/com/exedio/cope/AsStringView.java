@@ -25,7 +25,7 @@ public final class AsStringView extends StringView
 	private final NumberFunction<?> source;
 
 	/**
-	 * Creates a new LengthView.
+	 * Creates a new AsStringView.
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
 	 * {@link NumberFunction#asString()}.
