@@ -40,7 +40,7 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 	private final String value;
 
 	/**
-	 * Creates a new LengthViolationException with the necessary information about the violation.
+	 * Creates a new StringLengthViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 * @param value initializes, what is returned by {@link #getValue()}.
