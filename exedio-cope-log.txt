@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: key "vault.trail" no longer supported.
+	Check your deployed systems! Probably this key is at its default (true),
+	then you don't have to do anything.
 * hsqldb 2.7.1 required.
 	Fixes CVE-2022-41853, you may want to remove your dependency check suppression.
 * JDK 11 required.

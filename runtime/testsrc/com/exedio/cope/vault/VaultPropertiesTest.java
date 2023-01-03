@@ -576,10 +576,10 @@ public class VaultPropertiesTest
 				single("trail", false)
 		));
 		final VaultProperties props = factory.create(source);
-		assertEquals(false, props.isTrailEnabled());
-		assertFails(props::getTrailStartLimit,  IllegalStateException.class, "trail is disabled");
-		assertFails(props::getTrailFieldLimit,  IllegalStateException.class, "trail is disabled");
-		assertFails(props::getTrailOriginLimit, IllegalStateException.class, "trail is disabled");
+		assertEquals(true, props.isTrailEnabled());
+		assertEquals(20, props.getTrailStartLimit());
+		assertEquals(80, props.getTrailFieldLimit());
+		assertEquals(80, props.getTrailOriginLimit());
 	}
 
 

@@ -306,9 +306,6 @@ final class DataFieldVaultStore extends DataFieldStore
 	@Override
 	Statement checkVaultTrail(final Statement.Mode mode)
 	{
-		if(trail==null)
-			throw new IllegalStateException("trail is disabled");
-
 		return trail.check(field, mode);
 	}
 

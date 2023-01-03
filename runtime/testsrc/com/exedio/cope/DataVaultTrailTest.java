@@ -435,7 +435,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	void beforeEach() throws SQLException
 	{
 		final VaultProperties vaultProperties = model.getConnectProperties().getVaultProperties();
-		assumeTrue(vaultProperties!=null && vaultProperties.isTrailEnabled());
+		assumeTrue(vaultProperties!=null);
 		model.setVaultRequiredToMarkPut("myService-Key", false);
 		model.setVaultRequiredToMarkPut("default", false);
 		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_myService_Key"));
