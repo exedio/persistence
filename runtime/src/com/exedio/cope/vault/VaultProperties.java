@@ -230,7 +230,12 @@ public final class VaultProperties extends AbstractVaultProperties
 		return valnp("trail", TrailProperties::new);
 	}
 
-	// TODO @Deprecated
+	/**
+	 * @deprecated
+	 * This method always returns true.
+	 * Disabling vault trail is no longer supported.
+	 */
+	@Deprecated
 	public boolean isTrailEnabled()
 	{
 		return true;

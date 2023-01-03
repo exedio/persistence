@@ -497,7 +497,6 @@ public class VaultPropertiesTest
 				single("service", VaultMockService.class)
 		));
 		final VaultProperties props = factory.create(source);
-		assertEquals(true, props.isTrailEnabled());
 		assertEquals(20, props.getTrailStartLimit());
 		assertEquals(80, props.getTrailFieldLimit());
 		assertEquals(80, props.getTrailOriginLimit());
@@ -511,7 +510,6 @@ public class VaultPropertiesTest
 				single("trail.originLimit", 88)
 		));
 		final VaultProperties props = factory.create(source);
-		assertEquals(true, props.isTrailEnabled());
 		assertEquals(66, props.getTrailStartLimit());
 		assertEquals(77, props.getTrailFieldLimit());
 		assertEquals(88, props.getTrailOriginLimit());
@@ -525,7 +523,6 @@ public class VaultPropertiesTest
 				single("trail.originLimit", 4)
 		));
 		final VaultProperties props = factory.create(source);
-		assertEquals(true, props.isTrailEnabled());
 		assertEquals(4, props.getTrailStartLimit());
 		assertEquals(4, props.getTrailFieldLimit());
 		assertEquals(4, props.getTrailOriginLimit());
@@ -568,18 +565,6 @@ public class VaultPropertiesTest
 				"property trail.originLimit in DESC " +
 				"must be an integer greater or equal 4, " +
 				"but was 3");
-	}
-	@Test void trailDisabled()
-	{
-		final Source source = describe("DESC", cascade(
-				single("service", VaultMockService.class),
-				single("trail", false)
-		));
-		final VaultProperties props = factory.create(source);
-		assertEquals(true, props.isTrailEnabled());
-		assertEquals(20, props.getTrailStartLimit());
-		assertEquals(80, props.getTrailFieldLimit());
-		assertEquals(80, props.getTrailOriginLimit());
 	}
 
 
