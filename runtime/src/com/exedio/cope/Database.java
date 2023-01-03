@@ -77,7 +77,6 @@ final class Database
 		final VaultProperties vp = properties.getVaultProperties();
 		if(vp!=null)
 		{
-			if(vp.isTrailEnabled())
 			{
 				final Trimmer trimmer = nameTrimmers.get(TrimClass.PrimaryKeyCheckConstraint); // is correct, 60 character from the beginning
 				final LinkedHashMap<String, VaultTrail> vaultTrails = new LinkedHashMap<>();
@@ -88,8 +87,6 @@ final class Database
 				}
 				this.vaultTrails = Collections.unmodifiableMap(vaultTrails);
 			}
-			else
-				vaultTrails = Collections.emptyMap();
 		}
 		else
 			vaultTrails = null;

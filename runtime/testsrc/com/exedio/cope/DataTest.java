@@ -447,11 +447,6 @@ public class DataTest extends TestWithEnvironment
 			assertFails(data::checkVaultTrail, IllegalStateException.class, "vault is disabled");
 			assertFails(() -> checkVaultTrail(data), IllegalStateException.class, "vault is disabled");
 		}
-		else if(!vp.isTrailEnabled())
-		{
-			assertFails(data::checkVaultTrail, IllegalStateException.class, "trail is disabled");
-			assertFails(() -> checkVaultTrail(data), IllegalStateException.class, "trail is disabled");
-		}
 		else
 		{
 			assertEquals(0, data.checkVaultTrail());

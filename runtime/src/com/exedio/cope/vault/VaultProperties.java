@@ -227,12 +227,13 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	private TrailProperties valueTrail()
 	{
-		return value("trail", true, TrailProperties::new);
+		return valnp("trail", TrailProperties::new);
 	}
 
+	// TODO @Deprecated
 	public boolean isTrailEnabled()
 	{
-		return trail!=null;
+		return true;
 	}
 
 	public int getTrailStartLimit()
@@ -252,9 +253,7 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	private TrailProperties trail()
 	{
-		if(trail==null)
-			throw new IllegalStateException("trail is disabled");
-
+		// TODO inline method
 		return trail;
 	}
 

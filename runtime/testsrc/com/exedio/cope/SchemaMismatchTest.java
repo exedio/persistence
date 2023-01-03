@@ -167,8 +167,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 
 		final VaultProperties vaultProperties =
 				model.getConnectProperties().getVaultProperties();
-		if(vaultProperties==null ||
-			!vaultProperties.isTrailEnabled())
+		if(vaultProperties==null)
 			return plain;
 
 		// insert trailTable before the first unused table, or append to the end if there is no unused table
