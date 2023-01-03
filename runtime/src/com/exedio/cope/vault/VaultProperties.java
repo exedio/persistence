@@ -243,23 +243,17 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	public int getTrailStartLimit()
 	{
-		return trail().startLimit;
+		return trail.startLimit;
 	}
 
 	public int getTrailFieldLimit()
 	{
-		return trail().fieldLimit;
+		return trail.fieldLimit;
 	}
 
 	public int getTrailOriginLimit()
 	{
-		return trail().originLimit;
-	}
-
-	private TrailProperties trail()
-	{
-		// TODO inline method
-		return trail;
+		return trail.originLimit;
 	}
 
 
