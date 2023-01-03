@@ -154,6 +154,43 @@ public class QueryCopyTest
 				query);
 	}
 
+	@Test void testBind()
+	{
+		final Query<?> query = TYPE.newQuery();
+		final Join firstJoin = query.join(TYPE);
+		firstJoin.setCondition(intx.bind(firstJoin).equal(intx));
+		final Join secondJoin = query.join(TYPE);
+		secondJoin.setCondition(intx.bind(secondJoin).equal(intx));
+		final Condition condition = Cope.and(
+				string.equal("zack0"),
+				string.bind(firstJoin).equal("zack1"),
+				string.bind(secondJoin).equal("zack2"));
+		query.setCondition(condition);
+
+		assertIt(
+				false, TYPE,
+				asList(firstJoin, secondJoin), condition,
+				null, null, null,
+				0, -1,
+				"select this from AnItem " +
+				"join AnItem a1 on a1.intx=intx " +
+				"join AnItem a2 on a2.intx=intx " +
+				"where (string='zack0' and a1.string='zack1' and a2.string='zack2')",
+				query);
+
+		final Query<String> copy = new Query<>(string, query);
+		assertIt(
+				false, TYPE,
+				asList(firstJoin, secondJoin), condition,
+				null, null, null,
+				0, -1,
+				"select string from AnItem " +
+				"join AnItem a1 on a1.intx=intx " +
+				"join AnItem a2 on a2.intx=intx " +
+				"where (string='zack0' and a1.string='zack1' and a2.string='zack2')",
+				copy);
+	}
+
 	@Test void testMulti()
 	{
 		final Query<?> query = Query.newQuery(new Selectable<?>[]{string, date}, TYPE, null);
