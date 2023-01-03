@@ -103,11 +103,35 @@ public final class Query<R> implements Serializable
 
 	/**
 	 * Copy Constructor
+	 *
+	 * @see #newQuery(Selectable[], Query) for multiple selectables
 	 */
 	public Query(final Selectable<? extends R> select, final Query<?> query)
 	{
 		this.model = query.model;
 		this.selectSingle = select;
+		this.distinct = query.distinct;
+		this.type = query.type;
+		this.joinIndex = query.joinIndex;
+		this.joins = query.joins!=null ? new ArrayList<>(query.joins) : null;
+		this.condition = query.condition;
+		this.groupBy = query.groupBy;
+		this.having = query.having;
+		this.orderBy = query.orderBy;
+		this.orderAscending = query.orderAscending;
+		this.pageOffset = query.pageOffset;
+		this.pageLimit = query.pageLimit;
+		this.searchSizeLimit = query.searchSizeLimit;
+		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
+	}
+
+	/**
+	 * Copy Constructor
+	 */
+	private Query(final Selectable<?>[] selectsMulti, final Query<?> query)
+	{
+		this.model = query.model;
+		this.selectsMulti = checkAndCopy(selectsMulti);
 		this.distinct = query.distinct;
 		this.type = query.type;
 		this.joinIndex = query.joinIndex;
@@ -143,6 +167,16 @@ public final class Query<R> implements Serializable
 	public static Query<List<Object>> newQuery(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
 		return new Query<>(selects, type, condition);
+	}
+
+	/**
+	 *	Create copy with multiple selectables.
+	 *
+	 * @see #Query(Selectable, Query) for single selectable
+	 */
+	public static Query<List<Object>> newQuery(final Selectable<?>[] selects, final Query<?> query)
+	{
+		return new Query<>(selects, query);
 	}
 
 	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public

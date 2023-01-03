@@ -23,6 +23,7 @@ import static com.exedio.cope.QueryCopyTest.AnItem.date;
 import static com.exedio.cope.QueryCopyTest.AnItem.intx;
 import static com.exedio.cope.QueryCopyTest.AnItem.string;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -56,6 +57,14 @@ public class QueryCopyTest
 		assertEquals(77, copy.getSearchSizeLimit());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
 
+		final Query<?> multiCopy = Query.newQuery(new Selectable<?>[]{string, intx}, query);
+		assertIt(
+				false, TYPE, null, null, null, null, null, 0, -1,
+				"select string,intx from AnItem",
+				multiCopy);
+		assertEquals(77, multiCopy.getSearchSizeLimit());
+		assertEquals(66, multiCopy.getSearchSizeCacheLimit());
+
 		query.setDistinct(true);
 		final Join joinQuery = query.join(TYPE);
 		final Condition conditionQuery = string.equal("zack");
@@ -84,6 +93,12 @@ public class QueryCopyTest
 				copy);
 		assertEquals(77, copy.getSearchSizeLimit());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
+		assertIt(
+				false, TYPE, null, null, null, null, null, 0, -1,
+				"select string,intx from AnItem",
+				multiCopy);
+		assertEquals(77, multiCopy.getSearchSizeLimit());
+		assertEquals(66, multiCopy.getSearchSizeCacheLimit());
 	}
 
 	@Test void testAdvanced()
@@ -189,6 +204,18 @@ public class QueryCopyTest
 				"join AnItem a2 on a2.intx=intx " +
 				"where (string='zack0' and a1.string='zack1' and a2.string='zack2')",
 				copy);
+
+		final Query<List<Object>> multiCopy = Query.newQuery(new Selectable<?>[]{string, intx}, query);
+		assertIt(
+				false, TYPE,
+				asList(firstJoin, secondJoin), condition,
+				null, null, null,
+				0, -1,
+				"select string,intx from AnItem " +
+				"join AnItem a1 on a1.intx=intx " +
+				"join AnItem a2 on a2.intx=intx " +
+				"where (string='zack0' and a1.string='zack1' and a2.string='zack2')",
+				multiCopy);
 	}
 
 	@Test void testMulti()
@@ -222,6 +249,15 @@ public class QueryCopyTest
 					"having string='haveItOrNot'",
 					copy);
 		}
+	}
+
+	@Test void newQueryNeedsMultiple()
+	{
+		assertFails(
+				() -> Query.newQuery(new Selectable<?>[]{string}, TYPE.newQuery()),
+				IllegalArgumentException.class,
+				"must have at least 2 selects, but was [AnItem.string]"
+		);
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
