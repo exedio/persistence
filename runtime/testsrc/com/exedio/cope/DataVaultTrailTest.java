@@ -160,9 +160,10 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		new MyItem(toValue(decodeLower("")));
-		queryTrail("myService_Key", rs -> {}); // TODO should contain empty hash
+		queryTrail("myService_Key", rs ->
+			assertRow(emptyHash, 0, "", "MyItem.field", rs));
 		queryTrail("default", rs -> {});
-		assertEquals(1, MyItem.field.checkVaultTrail()); // TODO should be 0
+		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		log.assertEmpty();
@@ -192,8 +193,9 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs -> {});
-		assertEquals(1, MyItem.field.checkVaultTrail());
+		queryTrail("myService_Key", rs ->
+			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
+		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		log.assertEmpty();
@@ -212,7 +214,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		vs.clear();
 		log.assertEmpty();
 		item.setField(toValue(decodeLower("abcdef")));
-		log.assertError(abcdefHash);
+		log.assertEmpty();
 		queryTrail("myService_Key", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
@@ -282,7 +284,10 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		queryTrail("myService_Key", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 
-		log.assertEmpty();
+		if(mysql)
+			log.assertError(abcdefHash + " rows 2"); // TODO drop logger at all
+		else
+			log.assertEmpty();
 	}
 
 	@Test void testFieldLong() throws SQLException
@@ -414,6 +419,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	private static final String abcdefHash = "d5d81c66c3b1a0efb49e980ebc5629c352342dc3332c0697cbeeb55f892a85264496aa239ee29997708fce8510594cb01fe08b8a6132b98a1e113ae96d016b42";
 	private static final String abcde0Hash = "e1602c8a5003d0d6493ac36803f2441cf96036ba85ab642f7316c72840bcde43e1dd7b00f618c00d2298717f74a4f09e444e22c82d66385514c590294c5392a2";
 	private static final String abcde01234Hash = "0675b012cc3da89b2b2a552e685f1853189c94a5478957578c05edeb53d7c76e763ffad50a7290f0e9a1d52d1b1e98ccbe7e712db6eed18e3c5ca60a13efe9db";
+	private static final String emptyHash = "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"; // https://en.wikipedia.org/wiki/SHA-2
 
 	@Override
 	public Properties.Source override(final Properties.Source s)

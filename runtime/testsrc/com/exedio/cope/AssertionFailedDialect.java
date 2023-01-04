@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
+import com.exedio.cope.vault.VaultPutInfo;
 import java.sql.Connection;
 import java.util.List;
 
@@ -107,6 +108,17 @@ class AssertionFailedDialect extends Dialect
 	}
 	@Override
 	Long getNextSequence(final Executor executor, final Connection connection, final String name)
+	{
+		throw new AssertionError();
+	}
+	@Override
+	void append(
+			final VaultTrail trail,
+			final Statement bf,
+			final String hashValue,
+			final DataConsumer consumer,
+			final boolean markPutEnabled,
+			final VaultPutInfo putInfo)
 	{
 		throw new AssertionError();
 	}

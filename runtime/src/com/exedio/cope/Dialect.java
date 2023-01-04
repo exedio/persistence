@@ -24,6 +24,7 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.vault.VaultPutInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -426,6 +427,14 @@ abstract class Dialect
 	{
 		// empty default implementation
 	}
+
+	abstract void append(
+			VaultTrail trail,
+			Statement bf,
+			String hashValue,
+			DataConsumer consumer,
+			boolean markPutEnabled,
+			VaultPutInfo putInfo);
 
 	/**
 	 * @param connectionPool used by subclasses

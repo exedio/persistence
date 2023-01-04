@@ -22,6 +22,7 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.ServiceProperties;
+import com.exedio.cope.vault.VaultPutInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -431,5 +432,31 @@ final class PostgresqlDialect extends Dialect
 		{
 			connectionPool.put(connection);
 		}
+	}
+
+	@Override
+	void append(
+			final VaultTrail trail,
+			final Statement bf,
+			final String hashValue,
+			final DataConsumer consumer,
+			final boolean markPutEnabled,
+			final VaultPutInfo putInfo)
+	{
+		trail.appendInsert(bf, hashValue, consumer, markPutEnabled, putInfo);
+
+		// https://www.postgresql.org/docs/11/sql-insert.html#SQL-ON-CONFLICT
+		bf.
+				append("ON CONFLICT ON CONSTRAINT ").
+				append(dsmfDialect.quoteName(trail.hashPK)). // TODO precompute hashPKQuoted
+				append(" DO ");
+
+		if(markPutEnabled)
+		{
+			bf.append("UPDATE SET ");
+			trail.appendSetMarkPut(bf);
+		}
+		else
+			bf.append("NOTHING");
 	}
 }
