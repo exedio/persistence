@@ -67,7 +67,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		final String serviceKeyExplicit = field.getAnnotatedVaultValue();
 		this.serviceKey = serviceKeyExplicit!=null ? serviceKeyExplicit : Vault.DEFAULT;
 		this.service = requireNonNull(connect.vaults.get(serviceKey));
-		this.trail = connect.database.vaultTrails.get(serviceKey);
+		this.trail = requireNonNull(connect.database.vaultTrails.get(serviceKey));
 
 		final Metrics metrics = new Metrics(metricsTemplate, field, serviceKey);
 		getLength = metrics.counter("getLength");
@@ -242,7 +242,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 
 		final MessageDigest messageDigest = algorithm.newInstance();
-		final DataConsumer consumer = trail!=null ? trail.newDataConsumer() : new DataConsumer(0);
+		final DataConsumer consumer = trail.newDataConsumer();
 		try
 		{
 			data = data.update(messageDigest, consumer, field,
@@ -291,8 +291,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 		(result ? putInitial : putRedundant).increment();
 		(result ? putInitialSize : putRedundantSize).increment(consumer.length());
-		if(trail!=null)
-			trail.put(hash, consumer, info, result);
+		trail.put(hash, consumer, info, result);
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
