@@ -38,8 +38,8 @@ final class VaultTrail
 
 	private final VaultProperties props;
 	private final int startLimit;
-	final int fieldLimit;
-	final int originLimit;
+	private final int fieldLimit;
+	private final int originLimit;
 
 	private final String table;
 	private final String hash;
@@ -53,12 +53,12 @@ final class VaultTrail
 
 	final String tableQuoted;
 	final String hashQuoted;
-	final String lengthQuoted;
-	final String startQuoted;
-	final String markPutQuoted;
-	final String dateQuoted;
-	final String fieldQuoted;
-	final String originQuoted;
+	private final String lengthQuoted;
+	private final String startQuoted;
+	private final String markPutQuoted;
+	private final String dateQuoted;
+	private final String fieldQuoted;
+	private final String originQuoted;
 
 	VaultTrail(
 			final String serviceKey,
@@ -130,7 +130,21 @@ final class VaultTrail
 		// Do not use INSERT IGNORE on MySQL, as it ignores more than just duplicate keys:
 		// https://dev.mysql.com/doc/refman/5.7/en/insert.html
 		bf.append("INSERT INTO ").append(tableQuoted).
-				append('(').append(hashQuoted).
+				append('(');
+		appendInsertColumns(bf, markPutEnabled);
+		bf.
+				append(")VALUES(").
+				appendParameter(hashValue);
+		appendInsertValuesAfterHash(bf, consumer, markPutEnabled, putInfo);
+		bf.append(')');
+	}
+
+	void appendInsertColumns(
+			final Statement bf,
+			final boolean markPutEnabled)
+	{
+		bf.
+				append(hashQuoted).
 				append(',').append(lengthQuoted).
 				append(',').append(startQuoted);
 
@@ -140,9 +154,16 @@ final class VaultTrail
 		bf.
 				append(',').append(dateQuoted).
 				append(',').append(fieldQuoted).
-				append(',').append(originQuoted).
-				append(")VALUES(").
-				appendParameter(hashValue).
+				append(',').append(originQuoted);
+	}
+
+	void appendInsertValuesAfterHash(
+			final Statement bf,
+			final DataConsumer consumer,
+			final boolean markPutEnabled,
+			final VaultPutInfo putInfo)
+	{
+		bf.
 				append(',').
 				appendParameter(consumer.length()).
 				append(',').
@@ -157,8 +178,7 @@ final class VaultTrail
 				append(',').
 				appendParameter(truncate(putInfo.getFieldString(), fieldLimit)).
 				append(',').
-				appendParameter(truncate(putInfo.getOrigin(), originLimit)).
-				append(')');
+				appendParameter(truncate(putInfo.getOrigin(), originLimit));
 	}
 
 	void appendSetMarkPut(final Statement bf)
@@ -192,7 +212,7 @@ final class VaultTrail
 		}
 	}
 
-	static final int MARK_PUT_VALUE = 1; // TODO could be customizable to avoid resetting the column between vault garbage collections
+	private static final int MARK_PUT_VALUE = 1; // TODO could be customizable to avoid resetting the column between vault garbage collections
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultTrail.class);
 
