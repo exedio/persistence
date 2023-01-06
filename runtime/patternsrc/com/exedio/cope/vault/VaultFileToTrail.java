@@ -179,14 +179,23 @@ public final class VaultFileToTrail
 				}
 
 				out.println(
-						"INSERT IGNORE INTO `VaultTrail_" + serviceKey + "`" +
+						// BEWARE:
+						// Do not use INSERT IGNORE on MySQL, as it ignores more than just duplicate keys:
+						// https://dev.mysql.com/doc/refman/5.7/en/insert.html
+						"INSERT INTO `VaultTrail_" + serviceKey + "`" +
 						"(`hash`,`length`,`start20`,`date`,`origin`) " +
 						"VALUES (" +
 						"'" + directoryHashes + filename + "'" + "," +
 						length + "," +
 						"x'" + Hex.encodeLower(start) + "'" + "," + // https://dev.mysql.com/doc/refman/5.7/en/hexadecimal-literals.html
 						"{ts '" + dateFormatter.format(LocalDateTime.ofInstant(Files.getLastModifiedTime(file).toInstant(), UTC)) + "'}" + "," +
-						"'" + origin + "'" + ");");
+						"'" + origin + "'" + ") " +
+						// https://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html
+						"ON DUPLICATE KEY " +
+						// Below is a workaround for a hypothetical ON DUPLICATE KEY UPDATE DO NOTHING.
+						// According to stackoverflow it does not trigger an actual row update:
+						// https://stackoverflow.com/questions/4596390/insert-on-duplicate-key-do-nothing
+						"UPDATE `hash`=`hash`;");
 				return FileVisitResult.CONTINUE;
 			}
 		});
