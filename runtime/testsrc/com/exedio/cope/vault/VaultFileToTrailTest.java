@@ -132,11 +132,12 @@ public class VaultFileToTrailTest
 					outLines.subList(0, HEADER_END));
 
 			final String pre =
-					"INSERT IGNORE INTO `VaultTrail_myService`" +
+					"INSERT INTO `VaultTrail_myService`" +
 					"(`hash`,`length`,`start20`,`date`,`origin`) " +
 					"VALUES (";
 			final String post =
-					",{ts '2012-03-16 08:10:22.000'},'VaultFileToTrail');";
+					",{ts '2012-03-16 08:10:22.000'},'VaultFileToTrail') " +
+					"ON DUPLICATE KEY UPDATE `hash`=`hash`;";
 			assertEquals(Set.of(
 					pre + "'70903e79b7575e3f4e7ffa15c2608ac7',10,x'010203040506070809'" + post,
 					pre + "'8596c1af55b14b7b320112944fcb8536',9,x'010203040506070809'" + post,
@@ -189,11 +190,12 @@ public class VaultFileToTrailTest
 					outLines.subList(0, HEADER_END));
 
 			final String pre =
-					"INSERT IGNORE INTO `VaultTrail_myService`" +
+					"INSERT INTO `VaultTrail_myService`" +
 					"(`hash`,`length`,`start20`,`date`,`origin`) " +
 					"VALUES (";
 			final String post =
-					",{ts '2014-08-05 16:44:55.000'},'VaultFileToTrail');";
+					",{ts '2014-08-05 16:44:55.000'},'VaultFileToTrail') " +
+					"ON DUPLICATE KEY UPDATE `hash`=`hash`;";
 
 			assertEquals(Set.of(
 					pre + "'1a68212b64dfc3cc83a13c427cad7ce0',19,x'0102030405060708090a0b0c0d0e0f10111213'"   + post,
