@@ -448,7 +448,7 @@ final class PostgresqlDialect extends Dialect
 		// https://www.postgresql.org/docs/11/sql-insert.html#SQL-ON-CONFLICT
 		bf.
 				append("ON CONFLICT ON CONSTRAINT ").
-				append(dsmfDialect.quoteName(trail.hashPK)). // TODO precompute hashPKQuoted
+				append(trail.hashPKQuoted).
 				append(" DO ");
 
 		if(markPutEnabled)

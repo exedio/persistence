@@ -43,7 +43,7 @@ final class VaultTrail
 
 	private final String table;
 	private final String hash;
-	final String hashPK;
+	private final String hashPK;
 	private final String length;
 	private final String start;
 	private final String markPut;
@@ -53,6 +53,7 @@ final class VaultTrail
 
 	final String tableQuoted;
 	final String hashQuoted;
+	final String hashPKQuoted;
 	private final String lengthQuoted;
 	private final String startQuoted;
 	private final String markPutQuoted;
@@ -90,6 +91,7 @@ final class VaultTrail
 		final com.exedio.dsmf.Dialect d = executor.dialect.dsmfDialect;
 		tableQuoted   = d.quoteName(table);
 		hashQuoted    = d.quoteName(hash);
+		hashPKQuoted  = d.quoteName(hashPK);
 		lengthQuoted  = d.quoteName(length);
 		startQuoted   = d.quoteName(start);
 		markPutQuoted = d.quoteName(markPut);
