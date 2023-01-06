@@ -27,8 +27,6 @@ import static com.exedio.cope.HsqldbSchemaDialect.SMALLINT;
 import static com.exedio.cope.HsqldbSchemaDialect.TIMESTAMP_3;
 import static com.exedio.cope.HsqldbSchemaDialect.TINYINT;
 import static com.exedio.cope.HsqldbSchemaDialect.VARCHAR;
-import static com.exedio.cope.VaultTrail.MARK_PUT_VALUE;
-import static com.exedio.cope.VaultTrail.truncate;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Hex;
@@ -39,7 +37,6 @@ import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @ServiceProperties(HsqldbDialect.Props.class)
@@ -367,34 +364,12 @@ final class HsqldbDialect extends Dialect
 				append(trail.tableQuoted).
 				append('.').
 				append(trail.hashQuoted).
-				append("=vals.\"x\" WHEN NOT MATCHED THEN INSERT(").
-				append(trail.hashQuoted).
-				append(',').append(trail.lengthQuoted).
-				append(',').append(trail.startQuoted);
-
-		if(markPutEnabled)
-			bf.append(',').append(trail.markPutQuoted);
-
+				append("=vals.\"x\" WHEN NOT MATCHED THEN INSERT(");
+		trail.appendInsertColumns(bf, markPutEnabled);
 		bf.
-				append(',').append(trail.dateQuoted).
-				append(',').append(trail.fieldQuoted).
-				append(',').append(trail.originQuoted).
 				append(")VALUES ").
-				append("vals.\"x\",").
-				appendParameter(consumer.length()).
-				append(',').
-				appendParameterBlob(consumer.start());
-
-		if(markPutEnabled)
-			bf.append(',').appendParameter(MARK_PUT_VALUE);
-
-		bf.
-				append(',').
-				appendParameterDateNativelyEvenIfSupportDisabled(new Date()).
-				append(',').
-				appendParameter(truncate(putInfo.getFieldString(), trail.fieldLimit)).
-				append(',').
-				appendParameter(truncate(putInfo.getOrigin(), trail.originLimit));
+				append("vals.\"x\"");
+		trail.appendInsertValuesAfterHash(bf, consumer, markPutEnabled, putInfo);
 
 		if(markPutEnabled)
 		{
