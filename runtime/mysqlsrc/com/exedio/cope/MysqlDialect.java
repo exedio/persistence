@@ -26,6 +26,7 @@ import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ServiceProperties;
+import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -861,6 +862,32 @@ final class MysqlDialect extends Dialect
 		{
 			connectionPool.put(connection);
 		}
+	}
+
+	@Override
+	void append(
+			final VaultTrail trail,
+			final Statement bf,
+			final String hashValue,
+			final DataConsumer consumer,
+			final boolean markPutEnabled,
+			final VaultPutInfo putInfo)
+	{
+		trail.appendInsert(bf, hashValue, consumer, markPutEnabled, putInfo);
+
+		// https://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html
+		bf.append("ON DUPLICATE KEY UPDATE ");
+
+		if(markPutEnabled)
+			trail.appendSetMarkPut(bf);
+		else
+			bf.
+					// Below is a workaround for a hypothetical ON DUPLICATE KEY UPDATE DO NOTHING.
+					// According to stackoverflow it does not trigger an actual row update:
+					// https://stackoverflow.com/questions/4596390/insert-on-duplicate-key-do-nothing
+					append(trail.hashQuoted).
+					append('=').
+					append(trail.hashQuoted);
 	}
 
 	@Override

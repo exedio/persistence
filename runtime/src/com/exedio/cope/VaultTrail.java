@@ -23,7 +23,6 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
-import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.Connection;
@@ -39,12 +38,12 @@ final class VaultTrail
 
 	private final VaultProperties props;
 	private final int startLimit;
-	private final int fieldLimit;
-	private final int originLimit;
+	final int fieldLimit;
+	final int originLimit;
 
 	private final String table;
 	private final String hash;
-	private final String hashPK;
+	final String hashPK;
 	private final String length;
 	private final String start;
 	private final String markPut;
@@ -52,14 +51,14 @@ final class VaultTrail
 	private final String field;
 	private final String origin;
 
-	private final String tableQuoted;
-	private final String hashQuoted;
-	private final String lengthQuoted;
-	private final String startQuoted;
-	private final String markPutQuoted;
-	private final String dateQuoted;
-	private final String fieldQuoted;
-	private final String originQuoted;
+	final String tableQuoted;
+	final String hashQuoted;
+	final String lengthQuoted;
+	final String startQuoted;
+	final String markPutQuoted;
+	final String dateQuoted;
+	final String fieldQuoted;
+	final String originQuoted;
 
 	VaultTrail(
 			final String serviceKey,
@@ -120,26 +119,16 @@ final class VaultTrail
 		return new DataConsumer(startLimit);
 	}
 
-	void put(
+	void appendInsert(
+			final Statement bf,
 			final String hashValue,
 			final DataConsumer consumer,
-			final VaultPutInfo putInfo,
-			final boolean result)
-	{
-		if(result)
-			putInitial(hashValue, consumer, putInfo);
-		else
-			putRedundant(hashValue);
-	}
-
-	private void putInitial(
-			final String hashValue,
-			final DataConsumer consumer,
+			final boolean markPutEnabled,
 			final VaultPutInfo putInfo)
 	{
-		final boolean markPutEnabled = markPutSupplier.value;
-
-		final Statement bf = executor.newStatement();
+		// BEWARE:
+		// Do not use INSERT IGNORE on MySQL, as it ignores more than just duplicate keys:
+		// https://dev.mysql.com/doc/refman/5.7/en/insert.html
 		bf.append("INSERT INTO ").append(tableQuoted).
 				append('(').append(hashQuoted).
 				append(',').append(lengthQuoted).
@@ -170,6 +159,25 @@ final class VaultTrail
 				append(',').
 				appendParameter(truncate(putInfo.getOrigin(), originLimit)).
 				append(')');
+	}
+
+	void appendSetMarkPut(final Statement bf)
+	{
+		bf.
+				append(markPutQuoted).
+				append('=').
+				appendParameter(MARK_PUT_VALUE);
+	}
+
+	void put(
+			final Dialect dialect,
+			final String hashValue,
+			final DataConsumer consumer,
+			final VaultPutInfo putInfo)
+	{
+		final Statement bf = executor.newStatement();
+
+		dialect.append(this, bf, hashValue, consumer, markPutSupplier.value, putInfo);
 
 		final Connection connection = connectionPool.get(true);
 		try
@@ -178,41 +186,13 @@ final class VaultTrail
 			if(rows>1)
 				logger.error("{} rows {}", hashValue, rows);
 		}
-		catch(final SQLRuntimeException e)
-		{
-			if(logger.isErrorEnabled())
-				logger.error(hashValue, e);
-		}
 		finally
 		{
 			connectionPool.put(connection);
 		}
 	}
 
-	private void putRedundant(
-			final String hashValue)
-	{
-		if(!markPutSupplier.value)
-			return;
-
-		final Statement bf = executor.newStatement();
-		bf.
-				append("UPDATE ").append(tableQuoted).
-				append(" SET ").append(markPutQuoted).append('=').appendParameter(MARK_PUT_VALUE).
-				append(" WHERE ").append(hashQuoted).append('=').appendParameter(hashValue);
-
-		final Connection connection = connectionPool.get(true);
-		try
-		{
-			executor.update(connection, null, bf);
-		}
-		finally
-		{
-			connectionPool.put(connection);
-		}
-	}
-
-	private static final int MARK_PUT_VALUE = 1; // TODO could be customizable to avoid resetting the column between vault garbage collections
+	static final int MARK_PUT_VALUE = 1; // TODO could be customizable to avoid resetting the column between vault garbage collections
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultTrail.class);
 

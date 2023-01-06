@@ -45,6 +45,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final String serviceKey;
 	private final VaultService service;
 	private final VaultTrail trail;
+	private final Dialect dialect;
 	private final Counter getLength, getBytes, getStream, putInitial, putRedundant, putInitialSize, putRedundantSize;
 
 	DataFieldVaultStore(
@@ -68,6 +69,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		this.serviceKey = serviceKeyExplicit!=null ? serviceKeyExplicit : Vault.DEFAULT;
 		this.service = requireNonNull(connect.vaults.get(serviceKey));
 		this.trail = requireNonNull(connect.database.vaultTrails.get(serviceKey));
+		this.dialect = connect.dialect;
 
 		final Metrics metrics = new Metrics(metricsTemplate, field, serviceKey);
 		getLength = metrics.counter("getLength");
@@ -291,7 +293,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 		(result ? putInitial : putRedundant).increment();
 		(result ? putInitialSize : putRedundantSize).increment(consumer.length());
-		trail.put(hash, consumer, info, result);
+		trail.put(dialect, hash, consumer, info);
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
