@@ -27,8 +27,6 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.Connection;
 import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 final class VaultTrail
 {
@@ -204,9 +202,8 @@ final class VaultTrail
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			final int rows = executor.update(connection, null, bf);
-			if(rows>1)
-				logger.error("{} rows {}", hashValue, rows);
+			// result (rows affected) contains nonsense on MySQL, see branch VaultTrailMetrics
+			executor.update(connection, null, bf);
 		}
 		finally
 		{
@@ -215,8 +212,6 @@ final class VaultTrail
 	}
 
 	private static final int MARK_PUT_VALUE = 1; // TODO could be customizable to avoid resetting the column between vault garbage collections
-
-	private static final Logger logger = LoggerFactory.getLogger(VaultTrail.class);
 
 	static String truncate(final String s, final int limit)
 	{
