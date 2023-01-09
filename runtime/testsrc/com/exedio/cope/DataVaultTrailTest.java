@@ -284,10 +284,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		queryTrail("myService_Key", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 
-		if(mysql)
-			log.assertError(abcdefHash + " rows 2"); // TODO drop logger at all
-		else
-			log.assertEmpty();
+		log.assertEmpty();
 	}
 
 	@Test void testFieldLong() throws SQLException
