@@ -34,7 +34,6 @@ import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
-import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.tojunit.SI;
@@ -149,7 +148,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
-		log.assertEmpty();
 	}
 
 	@Test void testEmpty() throws SQLException
@@ -165,8 +163,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		queryTrail("default", rs -> {});
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
-
-		log.assertEmpty();
 	}
 
 	@Test void testRedundant() throws SQLException
@@ -197,8 +193,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
-
-		log.assertEmpty();
 	}
 
 	@Test void testCollision() throws SQLException
@@ -212,13 +206,9 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final VaultMockService vs = (VaultMockService)unsanitize(model.connect().vaults.get("myService-Key"));
 		assertNotNull(vs);
 		vs.clear();
-		log.assertEmpty();
 		item.setField(toValue(decodeLower("abcdef")));
-		log.assertEmpty();
 		queryTrail("myService_Key", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
-
-		log.assertEmpty();
 	}
 
 	@Test void testStartOverflow() throws SQLException
@@ -231,8 +221,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 						"64551e4605d5b8973ddee826d90e0841b06dc933cf7874b81632cc0e67176d70a319ae6fe7b23bb400f0704be45abb3aa74eb29df34753c390bef492bff3baf5",
 						21,
 						"0001020304050607080900010203040506070809", "MyItem.field", rs));
-
-		log.assertEmpty();
 	}
 
 	@Test void testStartOverflowAlmost() throws SQLException
@@ -245,8 +233,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 						"7d1e2e25f25b9861f2cd8682301aa19cae07c8aa304418040d05c8926bc6ea995c923c0c5628c668980b099385f4ba58dc94e623f72f2d70cb24baf83636ce8c",
 						20,
 						"0001020304050607080900010203040506070809", "MyItem.field", rs));
-
-		log.assertEmpty();
 	}
 
 	@Test void testMarkPutInitial() throws SQLException
@@ -264,8 +250,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		item.setField(toValue(decodeLower("abcdef")));
 		queryTrail("myService_Key", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
-
-		log.assertEmpty();
 	}
 
 	@Test void testMarkPutRedundant() throws SQLException
@@ -283,8 +267,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		item.setField(toValue(decodeLower("abcdef")));
 		queryTrail("myService_Key", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
-
-		log.assertEmpty();
 	}
 
 	@Test void testFieldLong() throws SQLException
@@ -307,8 +289,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.veryLong.checkVaultTrail());
-
-		log.assertEmpty();
 	}
 
 
@@ -391,7 +371,6 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	private final ConnectionRule connection = new ConnectionRule(model);
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
-	private final LogRule log = new LogRule(VaultTrail.class);
 
 	private static final String ORIGIN = getOrigin();
 
