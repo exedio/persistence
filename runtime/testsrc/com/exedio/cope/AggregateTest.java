@@ -176,6 +176,33 @@ class AggregateTest
 		assertEqualsAndHash(a, as);
 	}
 
+	@Test void testDistinct()
+	{
+		final Aggregate<Integer> a = MyItem.field.distinct();
+		assertSame(MyItem.field, a.getSource());
+		assertEquals("distinct", a.getName());
+		assertSame(Integer.class, a.getValueClass());
+		assertSame(SimpleSelectType.INTEGER, a.getValueType());
+		assertSame(MyItem.TYPE, a.getType());
+		assertFieldsCovered(asList(MyItem.field), a);
+		assertEquals("distinct(MyItem.field)", a.toString());
+		assertEqualsAndHash(a, MyItem.field.distinct());
+
+		assertFails(
+				() -> a.get((Item)null),
+				UnsupportedGetException.class,
+				"distinct(MyItem.field)");
+
+		final Aggregate<Integer> as = reserialize(a, 730);
+		assertSame(MyItem.field, as.getSource());
+		assertEquals("distinct", as.getName());
+		assertSame(Integer.class, as.getValueClass());
+		assertSame(SimpleSelectType.INTEGER, as.getValueType());
+		assertSame(MyItem.TYPE, as.getType());
+		assertEquals("distinct(MyItem.field)", as.toString());
+		assertEqualsAndHash(a, as);
+	}
+
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MyItem extends Item

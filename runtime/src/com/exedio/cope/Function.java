@@ -221,6 +221,16 @@ public interface Function<E> extends Selectable<E>
 		return new AnyAggregate<>(this);
 	}
 
+	default Aggregate<E> distinct()
+	{
+		return new Distinct<>(this);
+	}
+
+	default Count count()
+	{
+		return new Count(this);
+	}
+
 	default BindFunction<E> bind(final Join join)
 	{
 		return new BindFunction<>(this, join);
