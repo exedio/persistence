@@ -32,6 +32,7 @@ public class HavingAggregateTest extends TestWithEnvironment
 	private static final String group1 = "group1";
 	private static final String group2 = "group2";
 	private static final String group3 = "group3";
+	private static final String group4 = "group4";
 	private static final String groupN = "groupN";
 
 	public HavingAggregateTest()
@@ -53,6 +54,10 @@ public class HavingAggregateTest extends TestWithEnvironment
 		new MyItem(group3, 31);
 		new MyItem(group3, 32);
 		new MyItem(group3, 33);
+		new MyItem(group4, 42);
+		new MyItem(group4, 42);
+		new MyItem(group4, 42);
+		new MyItem(group4, null);
 		new MyItem(groupN, null);
 
 		final Query<List<Object>> cntQ = newQuery(cnt);
@@ -61,11 +66,11 @@ public class HavingAggregateTest extends TestWithEnvironment
 		final Query<List<Object>> sumQ = newQuery(sum);
 		final Query<List<Object>> avgQ = newQuery(avg);
 
-		assertIt(asList(asList(group1,  1  ), asList(group2,  2  ), asList(group3,  3  ), asList(groupN,    1)), cntQ);
-		assertIt(asList(asList(group1, 11  ), asList(group2, 21  ), asList(group3, 31  ), asList(groupN, null)), minQ);
-		assertIt(asList(asList(group1, 11  ), asList(group2, 22  ), asList(group3, 33  ), asList(groupN, null)), maxQ);
-		assertIt(asList(asList(group1, 11  ), asList(group2, 43  ), asList(group3, 96  ), asList(groupN, null)), sumQ);
-		assertIt(asList(asList(group1, 11.0), asList(group2, 21.5), asList(group3, 32.0), asList(groupN, null)), avgQ);
+		assertIt(asList(asList(group1,  1  ), asList(group2,  2  ), asList(group3,  3  ), asList(group4,   4  ), asList(groupN,    1)), cntQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 21  ), asList(group3, 31  ), asList(group4,  42  ), asList(groupN, null)), minQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 22  ), asList(group3, 33  ), asList(group4,  42  ), asList(groupN, null)), maxQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 43  ), asList(group3, 96  ), asList(group4, 126  ), asList(groupN, null)), sumQ);
+		assertIt(asList(asList(group1, 11.0), asList(group2, 21.5), asList(group3, 32.0), asList(group4,  42.0), asList(groupN, null)), avgQ);
 
 		cntQ.setHaving(cnt.equal( 2));
 		minQ.setHaving(min.equal(21));
@@ -83,11 +88,11 @@ public class HavingAggregateTest extends TestWithEnvironment
 		maxQ.setHaving(max.notEqual(22));
 		sumQ.setHaving(sum.notEqual(43));
 		avgQ.setHaving(avg.notEqual(21.5));
-		assertIt(asList(asList(group1,  1  ), asList(group3,  3  ), asList(groupN, 1)), cntQ);
-		assertIt(asList(asList(group1, 11  ), asList(group3, 31  )), minQ);
-		assertIt(asList(asList(group1, 11  ), asList(group3, 33  )), maxQ);
-		assertIt(asList(asList(group1, 11  ), asList(group3, 96  )), sumQ);
-		assertIt(asList(asList(group1, 11.0), asList(group3, 32.0)), avgQ);
+		assertIt(asList(asList(group1,  1  ), asList(group3,  3  ), asList(group4,   4  ), asList(groupN, 1)), cntQ);
+		assertIt(asList(asList(group1, 11  ), asList(group3, 31  ), asList(group4,  42  )), minQ);
+		assertIt(asList(asList(group1, 11  ), asList(group3, 33  ), asList(group4,  42  )), maxQ);
+		assertIt(asList(asList(group1, 11  ), asList(group3, 96  ), asList(group4, 126  )), sumQ);
+		assertIt(asList(asList(group1, 11.0), asList(group3, 32.0), asList(group4,  42.0)), avgQ);
 
 		cntQ.setHaving(cnt.equal((Integer)null));
 		minQ.setHaving(min.equal((Integer)null));
@@ -105,11 +110,11 @@ public class HavingAggregateTest extends TestWithEnvironment
 		maxQ.setHaving(max.notEqual((Integer)null));
 		sumQ.setHaving(sum.notEqual((Integer)null));
 		avgQ.setHaving(avg.notEqual((Double) null));
-		assertIt(asList(asList(group1,  1  ), asList(group3,  3  ), asList(groupN,  1  )), cntQ);
-		assertIt(asList(asList(group1, 11  ), asList(group2, 21  ), asList(group3, 31  )), minQ);
-		assertIt(asList(asList(group1, 11  ), asList(group2, 22  ), asList(group3, 33  )), maxQ);
-		assertIt(asList(asList(group1, 11  ), asList(group2, 43  ), asList(group3, 96  )), sumQ);
-		assertIt(asList(asList(group1, 11.0), asList(group2, 21.5), asList(group3, 32.0)), avgQ);
+		assertIt(asList(asList(group1,  1  ), asList(group3,  3  ), asList(group4,  4  ), asList(groupN,   1  )), cntQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 21  ), asList(group3, 31  ), asList(group4,  42  )), minQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 22  ), asList(group3, 33  ), asList(group4,  42  )), maxQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 43  ), asList(group3, 96  ), asList(group4, 126  )), sumQ);
+		assertIt(asList(asList(group1, 11.0), asList(group2, 21.5), asList(group3, 32.0), asList(group4,  42.0)), avgQ);
 
 		cntQ.setHaving(cnt.less( 2));
 		minQ.setHaving(min.less(21));
@@ -138,22 +143,22 @@ public class HavingAggregateTest extends TestWithEnvironment
 		maxQ.setHaving(max.greater(22));
 		sumQ.setHaving(sum.greater(43));
 		avgQ.setHaving(avg.greater(21.5));
-		assertIt(asList(asList(group3,  3  )), cntQ);
-		assertIt(asList(asList(group3, 31  )), minQ);
-		assertIt(asList(asList(group3, 33  )), maxQ);
-		assertIt(asList(asList(group3, 96  )), sumQ);
-		assertIt(asList(asList(group3, 32.0)), avgQ);
+		assertIt(asList(asList(group3,  3  ), asList(group4,   4  )), cntQ);
+		assertIt(asList(asList(group3, 31  ), asList(group4,  42  )), minQ);
+		assertIt(asList(asList(group3, 33  ), asList(group4,  42  )), maxQ);
+		assertIt(asList(asList(group3, 96  ), asList(group4, 126  )), sumQ);
+		assertIt(asList(asList(group3, 32.0), asList(group4,  42.0)), avgQ);
 
 		cntQ.setHaving(cnt.greaterOrEqual( 2));
 		minQ.setHaving(min.greaterOrEqual(21));
 		maxQ.setHaving(max.greaterOrEqual(22));
 		sumQ.setHaving(sum.greaterOrEqual(43));
 		avgQ.setHaving(avg.greaterOrEqual(21.5));
-		assertIt(asList(asList(group2,  2  ), asList(group3,  3  )), cntQ);
-		assertIt(asList(asList(group2, 21  ), asList(group3, 31  )), minQ);
-		assertIt(asList(asList(group2, 22  ), asList(group3, 33  )), maxQ);
-		assertIt(asList(asList(group2, 43  ), asList(group3, 96  )), sumQ);
-		assertIt(asList(asList(group2, 21.5), asList(group3, 32.0)), avgQ);
+		assertIt(asList(asList(group2,  2  ), asList(group3,  3  ), asList(group4,   4 )), cntQ);
+		assertIt(asList(asList(group2, 21  ), asList(group3, 31  ), asList(group4,  42 )), minQ);
+		assertIt(asList(asList(group2, 22  ), asList(group3, 33  ), asList(group4,  42 )), maxQ);
+		assertIt(asList(asList(group2, 43  ), asList(group3, 96  ), asList(group4, 126 )), sumQ);
+		assertIt(asList(asList(group2, 21.5), asList(group3, 32.0), asList(group4, 42.0)), avgQ);
 
 		cntQ.setHaving(cnt.between( 2,    3  ));
 		minQ.setHaving(min.between(21,   31  ));
