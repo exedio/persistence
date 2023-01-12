@@ -24,10 +24,25 @@ import java.util.function.Consumer;
  * Use only as select in query using groupBy
  * <p>
  * Grouping functionality is 'beta' - API may change
+ *
+ * @see Function#count()
  */
 public final class Count implements Function<Integer>
 {
 	private static final long serialVersionUID = 1l;
+
+	private final Function<?> source;
+
+	public Count()
+	{
+		this(null);
+	}
+
+	Count(final Function<?> source)
+	{
+		this.source = source;
+	}
+
 
 	@Override
 	public Class<Integer> getValueClass()
@@ -44,13 +59,21 @@ public final class Count implements Function<Integer>
 	@Override
 	public Type<?> getType()
 	{
-		throw new UnsupportedOperationException( "Not supported yet." );
+		if (source==null)
+			throw new UnsupportedOperationException( "Not supported yet." );
+		else
+			return source.getType();
 	}
 
 	@Override
 	public void toString( final StringBuilder bf, final Type<?> defaultType )
 	{
-		bf.append( "count(*)" );
+		bf.append("count(");
+		if (source==null)
+			bf.append('*');
+		else
+			source.toString(bf, defaultType);
+		bf.append(')');
 	}
 
 	/**
@@ -76,7 +99,12 @@ public final class Count implements Function<Integer>
 	@Override
 	public void append( final Statement bf, final Join join )
 	{
-		bf.append("COUNT(*)");
+		bf.append("COUNT(");
+		if (source==null)
+			bf.append('*');
+		else
+			source.append(bf, join);
+		bf.append(')');
 	}
 
 	/**
@@ -86,7 +114,12 @@ public final class Count implements Function<Integer>
 	@Override
 	public void appendSelect( final Statement bf, final Join join )
 	{
-		bf.append("COUNT(*)");
+		bf.append("COUNT(");
+		if (source==null)
+			bf.append('*');
+		else
+			source.appendSelect(bf, join);
+		bf.append(')');
 	}
 
 

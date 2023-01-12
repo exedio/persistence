@@ -75,7 +75,13 @@ public class QuerySerializeTest
 	@Test void countQuery()
 	{
 		final Query<Integer> q = new Query<>(new Count(), TYPE, null);
-		assertSerializedEquals(q, 769);
+		assertSerializedEquals(q, 808);
+	}
+
+	@Test void distinctStringsQuery()
+	{
+		final Query<String> q = new Query<>(field.distinct(), TYPE, null);
+		assertSerializedEquals(q, 1143);
 	}
 
 
