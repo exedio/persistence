@@ -19,17 +19,20 @@
 package com.exedio.cope;
 
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.Timer;
 
 final class InfoRegistry
 {
-	static long count(final Counter counter)
+	private static long count(final Counter counter) // TODO inline
 	{
-		final double d = counter.count();
+		return count(counter.count());
+	}
+
+	static long count(final double d)
+	{
 		final long l = Math.round(d);
 		//noinspection FloatingPointEquality OK: tests backward conversion
 		if(l!=d)
-			throw new IllegalStateException(counter.getId().toString() + '/' + d);
+			throw new IllegalStateException("" + d);
 		return l;
 	}
 
@@ -38,9 +41,9 @@ final class InfoRegistry
 		return Math.toIntExact(count(counter));
 	}
 
-	static int countInt(final Timer timer)
+	static int countInt(final double d) // TODO inline
 	{
-		return Math.toIntExact(timer.count());
+		return Math.toIntExact(count(d));
 	}
 
 

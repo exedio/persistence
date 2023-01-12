@@ -24,8 +24,8 @@ import io.micrometer.core.instrument.Counter;
 
 public final class ChangeListenerDispatcherInfo
 {
-	private final long overflow;
-	private final long exception;
+	private final double overflow;
+	private final double exception;
 	private final int pending;
 
 	ChangeListenerDispatcherInfo(
@@ -33,19 +33,19 @@ public final class ChangeListenerDispatcherInfo
 			final Counter exception,
 			final int pending)
 	{
-		this.overflow = count(overflow);
-		this.exception = count(exception);
+		this.overflow = overflow.count();
+		this.exception = exception.count();
 		this.pending  = pending;
 	}
 
 	public long getOverflow()
 	{
-		return overflow;
+		return count(overflow);
 	}
 
 	public long getException()
 	{
-		return exception;
+		return count(exception);
 	}
 
 	public int getPending()

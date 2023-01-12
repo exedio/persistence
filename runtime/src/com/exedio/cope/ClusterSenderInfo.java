@@ -28,7 +28,7 @@ public final class ClusterSenderInfo
 	private final int localPort;
 	private final int sendBufferSize;
 	private final int trafficClass;
-	private final long invalidationSplit;
+	private final double invalidationSplit;
 
 	ClusterSenderInfo(
 			final int nodeID,
@@ -41,7 +41,7 @@ public final class ClusterSenderInfo
 		this.localPort = localPort;
 		this.sendBufferSize = sendBufferSize;
 		this.trafficClass = trafficClass;
-		this.invalidationSplit = count(invalidationSplit);
+		this.invalidationSplit = invalidationSplit.count();
 	}
 
 	/**
@@ -79,7 +79,7 @@ public final class ClusterSenderInfo
 
 	public long getInvalidationSplit()
 	{
-		return invalidationSplit;
+		return count(invalidationSplit);
 	}
 
 	public static String toStringNodeID(final int nodeID)

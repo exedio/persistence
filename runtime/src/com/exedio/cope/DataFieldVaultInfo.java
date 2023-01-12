@@ -28,11 +28,11 @@ public final class DataFieldVaultInfo
 	private final DataField field;
 	private final String serviceKey;
 	private final String service;
-	private final long getLength;
-	private final long getBytes;
-	private final long getStream;
-	private final long putInitial;
-	private final long putRedundant;
+	private final double getLength;
+	private final double getBytes;
+	private final double getStream;
+	private final double putInitial;
+	private final double putRedundant;
 
 	DataFieldVaultInfo(
 			final DataField field,
@@ -47,11 +47,11 @@ public final class DataFieldVaultInfo
 		this.field = field;
 		this.serviceKey = serviceKey;
 		this.service = service.toString();
-		this.getLength = count(getLength);
-		this.getBytes = count(getBytes);
-		this.getStream = count(getStream);
-		this.putInitial = count(putInitial);
-		this.putRedundant = count(putRedundant);
+		this.getLength = getLength.count();
+		this.getBytes = getBytes.count();
+		this.getStream = getStream.count();
+		this.putInitial = putInitial.count();
+		this.putRedundant = putRedundant.count();
 	}
 
 	public DataField getField()
@@ -71,36 +71,36 @@ public final class DataFieldVaultInfo
 
 	public long getGetLengthCount()
 	{
-		return getLength;
+		return count(getLength);
 	}
 
 	public long getGetBytesCount()
 	{
-		return getBytes;
+		return count(getBytes);
 	}
 
 	public long getGetStreamCount()
 	{
-		return getStream;
+		return count(getStream);
 	}
 
 	public long getGetCount()
 	{
-		return getLength + getBytes + getStream;
+		return count(getLength) + count(getBytes) + count(getStream);
 	}
 
 	public long getPutInitialCount()
 	{
-		return putInitial;
+		return count(putInitial);
 	}
 
 	public long getPutRedundantCount()
 	{
-		return putRedundant;
+		return count(putRedundant);
 	}
 
 	public long getPutCount()
 	{
-		return putInitial + putRedundant;
+		return count(putInitial) + count(putRedundant);
 	}
 }

@@ -31,10 +31,10 @@ import java.util.List;
 public final class ClusterListenerInfo
 {
 	private final int receiveBufferSize;
-	private final long exception;
-	private final long missingMagic;
-	private final long wrongSecret;
-	private final long fromMyself;
+	private final double exception;
+	private final double missingMagic;
+	private final double wrongSecret;
+	private final double fromMyself;
 	private final List<Node> nodes;
 
 	ClusterListenerInfo(
@@ -46,10 +46,10 @@ public final class ClusterListenerInfo
 			final List<Node> nodes)
 	{
 		this.receiveBufferSize = receiveBufferSize;
-		this.exception = count(exception);
-		this.missingMagic = count(missingMagic);
-		this.wrongSecret = count(wrongSecret);
-		this.fromMyself = count(fromMyself);
+		this.exception = exception.count();
+		this.missingMagic = missingMagic.count();
+		this.wrongSecret = wrongSecret.count();
+		this.fromMyself = fromMyself.count();
 		this.nodes = Collections.unmodifiableList(nodes);
 	}
 
@@ -60,22 +60,22 @@ public final class ClusterListenerInfo
 
 	public long getException()
 	{
-		return exception;
+		return count(exception);
 	}
 
 	public long getMissingMagic()
 	{
-		return missingMagic;
+		return count(missingMagic);
 	}
 
 	public long getWrongSecret()
 	{
-		return wrongSecret;
+		return count(wrongSecret);
 	}
 
 	public long getFromMyself()
 	{
-		return fromMyself;
+		return count(fromMyself);
 	}
 
 	public List<Node> getNodes()
