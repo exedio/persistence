@@ -18,7 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.InfoRegistry.countInt;
+import static com.exedio.cope.InfoRegistry.count;
+import static java.lang.Math.toIntExact;
 
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Timer;
@@ -49,16 +50,16 @@ public final class ChangeListenerInfo
 
 	public int getCleared()
 	{
-		return countInt(cleared);
+		return toIntExact(count(cleared));
 	}
 
 	public int getRemoved()
 	{
-		return countInt(removed);
+		return toIntExact(count(removed));
 	}
 
 	public int getFailed()
 	{
-		return countInt(failed);
+		return toIntExact(count(failed));
 	}
 }
