@@ -41,11 +41,6 @@ final class InfoRegistry
 		return Math.toIntExact(count(counter));
 	}
 
-	static int countInt(final double d) // TODO inline
-	{
-		return Math.toIntExact(count(d));
-	}
-
 
 	private InfoRegistry()
 	{
