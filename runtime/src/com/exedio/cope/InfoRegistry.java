@@ -18,15 +18,8 @@
 
 package com.exedio.cope;
 
-import io.micrometer.core.instrument.Counter;
-
 final class InfoRegistry
 {
-	private static long count(final Counter counter) // TODO inline
-	{
-		return count(counter.count());
-	}
-
 	static long count(final double d)
 	{
 		final long l = Math.round(d);
@@ -34,11 +27,6 @@ final class InfoRegistry
 		if(l!=d)
 			throw new IllegalStateException("" + d);
 		return l;
-	}
-
-	static int countInt(final Counter counter)
-	{
-		return Math.toIntExact(count(counter));
 	}
 
 

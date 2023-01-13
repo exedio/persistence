@@ -27,7 +27,6 @@ import static com.exedio.cope.ClusterUtil.MAGIC1;
 import static com.exedio.cope.ClusterUtil.MAGIC2;
 import static com.exedio.cope.ClusterUtil.MAGIC3;
 import static com.exedio.cope.ClusterUtil.pingString;
-import static com.exedio.cope.InfoRegistry.countInt;
 
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.SequenceChecker;
@@ -356,6 +355,11 @@ abstract class ClusterListener
 						countInt(lost),
 						countInt(counters.get(Result.late)),
 						backing.getPending());
+			}
+
+			private static int countInt(final Counter counter)
+			{
+				return Math.toIntExact(InfoRegistry.count(counter.count()));
 			}
 		}
 	}
