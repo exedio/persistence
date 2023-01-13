@@ -26,9 +26,9 @@ import io.micrometer.core.instrument.Timer;
 public final class ChangeListenerInfo
 {
 	private final int size;
-	private final int cleared;
-	private final int removed;
-	private final int failed;
+	private final double cleared;
+	private final double removed;
+	private final double failed;
 
 	ChangeListenerInfo(
 			final int size,
@@ -37,9 +37,9 @@ public final class ChangeListenerInfo
 			final Timer failed)
 	{
 		this.size = size;
-		this.cleared = countInt(cleared);
-		this.removed = countInt(removed);
-		this.failed  = countInt(failed);
+		this.cleared = cleared.count();
+		this.removed = removed.count();
+		this.failed  = failed.count();
 	}
 
 	public int getSize()
@@ -49,16 +49,16 @@ public final class ChangeListenerInfo
 
 	public int getCleared()
 	{
-		return cleared;
+		return countInt(cleared);
 	}
 
 	public int getRemoved()
 	{
-		return removed;
+		return countInt(removed);
 	}
 
 	public int getFailed()
 	{
-		return failed;
+		return countInt(failed);
 	}
 }

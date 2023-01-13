@@ -24,14 +24,14 @@ import io.micrometer.core.instrument.Counter;
 
 public final class QueryCacheInfo
 {
-	private final long hits;
-	private final long misses;
-	private final long replacements;
-	private final long invalidations;
-	private final long concurrentLoads;
+	private final double hits;
+	private final double misses;
+	private final double replacements;
+	private final double invalidations;
+	private final double concurrentLoads;
 	private final int  stampsSize;
-	private final long stampsHits;
-	private final long stampsPurged;
+	private final double stampsHits;
+	private final double stampsPurged;
 	private final int level;
 
 	QueryCacheInfo(
@@ -45,40 +45,40 @@ public final class QueryCacheInfo
 			final Counter stampsPurged,
 			final int level)
 	{
-		this.hits = count(hits);
-		this.misses = count(misses);
-		this.replacements = count(replacements);
-		this.invalidations = count(invalidations);
-		this.concurrentLoads = count(concurrentLoads);
+		this.hits = hits.count();
+		this.misses = misses.count();
+		this.replacements = replacements.count();
+		this.invalidations = invalidations.count();
+		this.concurrentLoads = concurrentLoads.count();
 		this.stampsSize   = stampsSize;
-		this.stampsHits   = count(stampsHits);
-		this.stampsPurged = count(stampsPurged);
+		this.stampsHits   = stampsHits.count();
+		this.stampsPurged = stampsPurged.count();
 		this.level = level;
 	}
 
 	public long getHits()
 	{
-		return hits;
+		return count(hits);
 	}
 
 	public long getMisses()
 	{
-		return misses;
+		return count(misses);
 	}
 
 	public long getReplacements()
 	{
-		return replacements;
+		return count(replacements);
 	}
 
 	public long getInvalidations()
 	{
-		return invalidations;
+		return count(invalidations);
 	}
 
 	public long getConcurrentLoads()
 	{
-		return concurrentLoads;
+		return count(concurrentLoads);
 	}
 
 	public int getStampsSize()
@@ -88,12 +88,12 @@ public final class QueryCacheInfo
 
 	public long getStampsHits()
 	{
-		return stampsHits;
+		return count(stampsHits);
 	}
 
 	public long getStampsPurged()
 	{
-		return stampsPurged;
+		return count(stampsPurged);
 	}
 
 	public int getLevel()
@@ -109,6 +109,7 @@ public final class QueryCacheInfo
 
 		final QueryCacheInfo o = (QueryCacheInfo)other;
 
+		//noinspection FloatingPointEquality
 		return
 				hits==o.hits &&
 				misses==o.misses &&

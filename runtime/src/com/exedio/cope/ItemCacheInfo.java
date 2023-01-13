@@ -28,15 +28,15 @@ public final class ItemCacheInfo
 {
 	private final Type<?> type;
 	private final int level;
-	private final long hits;
-	private final long misses;
-	private final long concurrentLoads;
-	private final long replacements;
-	private final long invalidationsOrdered;
-	private final long invalidationsDone;
+	private final double hits;
+	private final double misses;
+	private final double concurrentLoads;
+	private final double replacements;
+	private final double invalidationsOrdered;
+	private final double invalidationsDone;
 	private final int  stampsSize;
-	private final long stampsHits;
-	private final long stampsPurged;
+	private final double stampsHits;
+	private final double stampsPurged;
 
 	ItemCacheInfo(
 			final Type<?> type,
@@ -50,15 +50,15 @@ public final class ItemCacheInfo
 	{
 		this.type = type;
 		this.level = level;
-		this.hits = count(hits);
-		this.misses = count(misses);
-		this.concurrentLoads = count(concurrentLoads);
-		this.replacements = count(replacements);
-		this.invalidationsDone = count(invalidationsDone);
-		this.invalidationsOrdered = count(invalidationsFutile) + this.invalidationsDone;
+		this.hits = hits.count();
+		this.misses = misses.count();
+		this.concurrentLoads = concurrentLoads.count();
+		this.replacements = replacements.count();
+		this.invalidationsDone = invalidationsDone.count();
+		this.invalidationsOrdered = invalidationsFutile.count() + this.invalidationsDone;
 		this.stampsSize   = stampsSize;
-		this.stampsHits   = count(stampsHits);
-		this.stampsPurged = count(stampsPurged);
+		this.stampsHits   = stampsHits.count();
+		this.stampsPurged = stampsPurged.count();
 	}
 
 	public Type<?> getType()
@@ -76,32 +76,32 @@ public final class ItemCacheInfo
 
 	public long getHits()
 	{
-		return hits;
+		return count(hits);
 	}
 
 	public long getMisses()
 	{
-		return misses;
+		return count(misses);
 	}
 
 	public long getConcurrentLoads()
 	{
-		return concurrentLoads;
+		return count(concurrentLoads);
 	}
 
 	public long getReplacementsL()
 	{
-		return replacements;
+		return count(replacements);
 	}
 
 	public long getInvalidationsOrdered()
 	{
-		return invalidationsOrdered;
+		return count(invalidationsOrdered);
 	}
 
 	public long getInvalidationsDone()
 	{
-		return invalidationsDone;
+		return count(invalidationsDone);
 	}
 
 	public int getStampsSize()
@@ -111,12 +111,12 @@ public final class ItemCacheInfo
 
 	public long getStampsHits()
 	{
-		return stampsHits;
+		return count(stampsHits);
 	}
 
 	public long getStampsPurged()
 	{
-		return stampsPurged;
+		return count(stampsPurged);
 	}
 
 	// ------------------- deprecated stuff -------------------
