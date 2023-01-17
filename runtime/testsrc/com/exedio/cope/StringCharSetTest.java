@@ -86,8 +86,8 @@ public class StringCharSetTest extends TestWithEnvironment
 	{
 		assertEquals(
 				"StringCharSetItem.any conformsTo [A-Z]",
-				new CharSetCondition(any, new CharSet('A', 'Z')).toString());
-		assertFieldsCovered(asList(any), new CharSetCondition(any, new CharSet('A', 'Z')));
+				any.conformsTo(new CharSet('A', 'Z')).toString());
+		assertFieldsCovered(asList(any), any.conformsTo(new CharSet('A', 'Z')));
 
 		any("nullV", null);
 		final StringCharSetItem abc   = any("abc", "abcd");
@@ -195,7 +195,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	{
 		assertEquals(isSubsetOfAscii, cs.isSubsetOfAscii(), "isSubsetOfAscii");
 		assertEquals(asList(result), Arrays.stream(result).sorted().collect(toList()));
-		final CharSetCondition c = new CharSetCondition(any, cs);
+		final CharSetCondition c = (CharSetCondition)any.conformsTo(cs);
 		final HashSet<StringCharSetItem> resultSet = new HashSet<>(asList(result));
 		for(final StringCharSetItem i : TYPE.search(null, TYPE.getThis(), true))
 			assertEquals(resultSet.contains(i), c.get(i), i.getCode());
@@ -229,7 +229,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		final StringCharSetItem yes   = any("yes", "AB'CD");
 		final StringCharSetItem no    = any("no" , "aB'CD");
 
-		final CharSetCondition c = new CharSetCondition(any, cs);
+		final CharSetCondition c = (CharSetCondition)any.conformsTo(cs);
 		assertEquals(true,  c.get(yes));
 		assertEquals(false, c.get(no));
 
@@ -245,7 +245,7 @@ public class StringCharSetTest extends TestWithEnvironment
 
 	@Test void testNot()
 	{
-		final CharSetCondition condition = new CharSetCondition(any, new CharSet('a', 'd'));
+		final CharSetCondition condition = (CharSetCondition)any.conformsTo(new CharSet('a', 'd'));
 		final Condition conditionNot = condition.not();
 		final StringCharSetItem itemTrue  = any("true",  "abcd");
 		final StringCharSetItem itemFalse = any("false", "abcX");
