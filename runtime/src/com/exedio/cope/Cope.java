@@ -30,12 +30,12 @@ public final class Cope
 {
 	public static <E> Condition equal(final Function<E> function, final E value)
 	{
-		return value!=null ? new CompareCondition<>(Operator.Equal, function, value) : new IsNullCondition<>(function, false);
+		return value!=null ? new CompareCondition<>(Operator.Equal, function, value) : function.isNull();
 	}
 
 	public static <E> Condition notEqual(final Function<E> function, final E value)
 	{
-		return value!=null ? new CompareCondition<>(Operator.NotEqual, function, value) : new IsNullCondition<>(function, true);
+		return value!=null ? new CompareCondition<>(Operator.NotEqual, function, value) : function.isNotNull();
 	}
 
 	public static Condition and(final List<? extends Condition> conditions)
