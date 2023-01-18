@@ -430,7 +430,7 @@ public class CompareConditionTest extends TestWithEnvironment
 	@Test void testGetAggregateIsNull()
 	{
 		final CompareConditionItem item = new CompareConditionItem(null, null, null, null, null, null, null);
-		final Condition c = new IsNullCondition<>(day.max(), true);
+		final Condition c = day.max().isNotNull();
 		assertFails(
 				() -> c.get(item),
 				IllegalArgumentException.class,

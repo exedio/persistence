@@ -249,13 +249,13 @@ public class IntegerFieldTest
 	private static IsNullCondition<Integer> in(
 			final IntegerField field)
 	{
-		return new IsNullCondition<>(field, false);
+		return field.isNull();
 	}
 
 	private static IsNullCondition<Integer> nn(
 			final IntegerField field)
 	{
-		return new IsNullCondition<>(field, true);
+		return field.isNotNull();
 	}
 
 	private static CompareCondition<Integer> cc(

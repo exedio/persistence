@@ -599,13 +599,13 @@ public class DoubleTest extends TestWithEnvironment
 	private static IsNullCondition<Double> in(
 			final DoubleField field)
 	{
-		return new IsNullCondition<>(field, false);
+		return field.isNull();
 	}
 
 	private static IsNullCondition<Double> nn(
 			final DoubleField field)
 	{
-		return new IsNullCondition<>(field, true);
+		return field.isNotNull();
 	}
 
 	private static CompareCondition<Double> cc(
