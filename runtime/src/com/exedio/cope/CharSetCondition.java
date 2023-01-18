@@ -32,9 +32,12 @@ public final class CharSetCondition extends Condition
 
 	/**
 	 * Creates a new CharSetCondition.
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method.
+	 * @see StringFunction#conformsTo(CharSet)
 	 */
+	@Deprecated
 	public CharSetCondition(
 			final StringFunction function,
 			final CharSet value)

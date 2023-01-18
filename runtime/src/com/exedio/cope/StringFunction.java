@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.CharSet;
 
 public interface StringFunction extends Function<String>
 {
@@ -107,6 +108,15 @@ public interface StringFunction extends Function<String>
 	default LikeCondition containsIgnoreCase(final String value)
 	{
 		return CaseView.containsIgnoreCase(this, value);
+	}
+
+	// TODO
+	// StringField could override this method and return FALSE, if its own
+	// Charset constraint is disjunctive to the CharSet given to this method.
+	@SuppressWarnings("deprecation")
+	default Condition conformsTo(final CharSet charSet)
+	{
+		return new CharSetCondition(this, charSet);
 	}
 
 	long serialVersionUID = 6196781661929849730L;

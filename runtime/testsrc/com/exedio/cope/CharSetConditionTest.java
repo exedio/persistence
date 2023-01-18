@@ -284,7 +284,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 			expected.removeIf(item -> item.getField().startsWith(BEYOND_BMP));
 
 		final CharSetCondition condition =
-				new CharSetCondition(AnItem.field, charSet);
+				(CharSetCondition)AnItem.field.conformsTo(charSet);
 		assertIt(condition, charSet, expected);
 
 		final ArrayList<AnItem> expectedNot = new ArrayList<>(all);
