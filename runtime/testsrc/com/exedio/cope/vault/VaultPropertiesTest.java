@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.ConnectPropertiesTest.assertMatches;
 import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -61,8 +62,8 @@ public class VaultPropertiesTest
 						single("service.example", "probeExampleValue")
 				));
 		final VaultProperties props = factory.create(source);
-		assertEquals("VaultMockService:probeExampleValue", probe(props));
-		assertEquals("[VaultMockService:probeExampleValue, mock:default]", probeDeprecated(props));
+		assertMatches("VaultMockService:probeExampleValue [0-9a-f]{16}xx128", (String)probe(props));
+		assertMatches("\\[VaultMockService:probeExampleValue [0-9a-f]{16}xx128, mock:default]", probeDeprecated(props));
 	}
 	@Test void probeFailGet()
 	{
@@ -125,8 +126,8 @@ public class VaultPropertiesTest
 				));
 		final VaultProperties props = factory.create(source);
 		assertEquals("mock:default", probeGenuineServiceKey(props));
-		assertEquals("VaultMockService:exampleDefault", probe(props));
-		assertEquals("[VaultMockService:exampleDefault, mock:default]", probeDeprecated(props));
+		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", (String)probe(props));
+		assertMatches("\\[VaultMockService:exampleDefault [0-9a-f]{16}xx128, mock:default]", probeDeprecated(props));
 	}
 	@Test void probeGenuineServiceKeyAbort() throws Exception
 	{
@@ -140,8 +141,8 @@ public class VaultPropertiesTest
 				() -> probeGenuineServiceKey(props),
 				ProbeAbortedException.class,
 				"ABORT in test(default)");
-		assertEquals("VaultMockService:exampleDefault", probe(props));
-		assertEquals("VaultMockService:exampleDefault", probeDeprecated(props));
+		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", (String)probe(props));
+		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", probeDeprecated(props));
 	}
 	@Test void probeGenuineServiceKeyFail() throws Exception
 	{
@@ -155,7 +156,7 @@ public class VaultPropertiesTest
 				() -> probeGenuineServiceKey(props),
 				IllegalStateException.class,
 				"FAIL in test(default)");
-		assertEquals("VaultMockService:exampleDefault", probe(props));
+		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", (String)probe(props));
 		assertFails(() -> probeDeprecated(props), IllegalStateException.class, "FAIL in test(default)");
 	}
 	private static Object probeGenuineServiceKey(final VaultProperties p) throws Exception

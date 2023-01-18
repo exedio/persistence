@@ -773,7 +773,7 @@ public class ConnectPropertiesTest
 				single("vault.service.example", "probeExampleValue"),
 				single("vault.service.probe.result", "probeMockResultOverride"),
 				TestSources.minimal()));
-		final String VAULT = "VaultMockService:probeExampleValue";
+		final String VAULT = "VaultMockService:probeExampleValue [0-9a-f]{16}xx128";
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -783,12 +783,12 @@ public class ConnectPropertiesTest
 				"vault.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
-		assertIt("vault.default", VAULT, String.class, probes);
+		assertRg("vault.default", VAULT, probes);
 		assertIt("vault.default.genuineServiceKey", "mock:default", String.class, probes);
 		assertIt("vault.service.Mock", "probeMockResultOverride", String.class, probes);
 
-		assertEquals(HSQLDB_PROBE + " [" + VAULT + ", mock:default]", probe(p));
-		assertIt("probe", HSQLDB_PROBE + " [" + VAULT + ", mock:default]", String.class, getProbeTest(p));
+		assertMatches(HSQLDB_PROBE + " \\[" + VAULT + ", mock:default]", probe(p));
+		assertRg("probe", HSQLDB_PROBE + " \\[" + VAULT + ", mock:default]", getProbeTest(p));
 	}
 
 	public static final String HSQLDB_PROBE =
@@ -808,6 +808,16 @@ public class ConnectPropertiesTest
 		assertIt(expectedName, expectedResultString, expectedResultClass, actual);
 	}
 
+	static void assertRg(
+			final String expectedName,
+			final String expectedResultRegexp,
+			final Map<String,Callable<?>> probes) throws Exception
+	{
+		final Callable<?> actual = probes.get(expectedName);
+		assertNotNull(actual, expectedName);
+		assertRg(expectedName, expectedResultRegexp, actual);
+	}
+
 	static void assertIt(
 			final String expectedName,
 			final String expectedResultString,
@@ -818,6 +828,21 @@ public class ConnectPropertiesTest
 		final Object actualResult = actual.call();
 		assertEquals(expectedResultString, actualResult.toString());
 		assertSame(expectedResultClass, actualResult.getClass());
+	}
+
+	static void assertRg(
+			final String expectedName,
+			final String expectedResultRegexp,
+			final Callable<?> actual) throws Exception
+	{
+		assertEquals(expectedName, actual.toString());
+		final String actualResult = (String)actual.call();
+		assertMatches(expectedResultRegexp, actualResult);
+	}
+
+	public static void assertMatches(final String expectedRegexp, final String actual)
+	{
+		assertTrue(actual.matches("\\A" + expectedRegexp + "\\z"), actual);
 	}
 
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
