@@ -107,7 +107,7 @@ final class VaultProbe implements Callable<String>
 		probeGetAndPut(service, hash, value, true,  info);
 		probeGetAndPut(service, hash, value, false, info);
 
-		return info + " " + anonymiseHash(hash);
+		return info + ' ' + anonymiseHash(hash);
 	}
 
 	private static void probeGetAndPut(
