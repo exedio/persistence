@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.ConnectPropertiesTest.HSQLDB_PROBE;
 import static com.exedio.cope.ConnectPropertiesTest.assertIt;
+import static com.exedio.cope.ConnectPropertiesTest.assertMatches;
+import static com.exedio.cope.ConnectPropertiesTest.assertRg;
 import static com.exedio.cope.ConnectPropertiesTest.getProbeTest;
 import static com.exedio.cope.ConnectPropertiesTest.probe;
 import static com.exedio.cope.DataField.toValue;
@@ -123,10 +125,10 @@ public class VaultMultiTest
 
 	@Test void testProbe() throws Exception
 	{
-		final String VAULT = "[" +
-				"VaultMockService:defaultEx"+", mock:default, " +
-				"VaultMockService:alphaEx"  +", mock:alpha, "   +
-				"VaultMockService:betaEx"   +", mock:beta]";
+		final String VAULT = "\\[" +
+				"VaultMockService:defaultEx"+" [0-9a-f]{16}xx128, mock:default, " +
+				"VaultMockService:alphaEx"  +" [0-9a-f]{16}xx128, mock:alpha, "   +
+				"VaultMockService:betaEx"   +" [0-9a-f]{16}xx128, mock:beta]";
 		final ConnectProperties p = MODEL.getConnectProperties();
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -142,18 +144,18 @@ public class VaultMultiTest
 				"vault.service.beta.Mock"),
 				new ArrayList<>(probes.keySet()));
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
-		assertIt("vault.default", "VaultMockService:defaultEx",      String.class, probes);
+		assertRg("vault.default", "VaultMockService:defaultEx [0-9a-f]{16}xx128",  probes);
 		assertIt("vault.default.genuineServiceKey", "mock:default",  String.class, probes);
-		assertIt("vault.alpha",   "VaultMockService:alphaEx",        String.class, probes);
+		assertRg("vault.alpha",   "VaultMockService:alphaEx [0-9a-f]{16}xx128",    probes);
 		assertIt("vault.alpha.genuineServiceKey",   "mock:alpha",    String.class, probes);
-		assertIt("vault.beta",    "VaultMockService:betaEx",         String.class, probes);
+		assertRg("vault.beta",    "VaultMockService:betaEx [0-9a-f]{16}xx128",     probes);
 		assertIt("vault.beta.genuineServiceKey",    "mock:beta",     String.class, probes);
 		assertIt("vault.service.default.Mock", "probeResultDefault", String.class, probes);
 		assertIt("vault.service.alpha.Mock",   "probeResultAlpha",   String.class, probes);
 		assertIt("vault.service.beta.Mock",    "probeResultBeta",    String.class, probes);
 
-		assertEquals(HSQLDB_PROBE + " " + VAULT, probe(p));
-		assertIt("probe", HSQLDB_PROBE + " " + VAULT, String.class, getProbeTest(p));
+		assertMatches(HSQLDB_PROBE + " " + VAULT, probe(p));
+		assertRg("probe", HSQLDB_PROBE + " " + VAULT, getProbeTest(p));
 	}
 
 	@Test void testDifferent()
