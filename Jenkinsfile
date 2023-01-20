@@ -183,6 +183,40 @@ try
 		}
 	}
 
+	parallelBranches["Github"] =
+	{
+		//noinspection GroovyAssignabilityCheck
+		nodeCheckoutAndDelete
+		{
+			def dockerName = dockerNamePrefix + "-Github"
+			def mainImage = docker.build(
+					'exedio-jenkins:' + dockerName + '-' + dockerDate,
+					'--build-arg JDK=' + jdk + ' ' +
+					'conf/github')
+
+			withBridge(dockerName + "-net")
+			{
+				bridge ->
+
+				mainImage.inside(
+						"--name '" + dockerName + "' " +
+						"--cap-drop all " +
+						"--security-opt no-new-privileges " +
+						"--network " + bridge)
+				{
+					// corresponds to .github/workflows/ant.yml
+					shSilent ant + " -Dgithub=true clean jenkins"
+				}
+			}
+
+			junit(
+					allowEmptyResults: false,
+					testResults: 'build/testresults/**/*.xml',
+					skipPublishingChecks: true
+			)
+		}
+	}
+
 	parallelBranches["Idea"] =
 	{
 		//noinspection GroovyAssignabilityCheck

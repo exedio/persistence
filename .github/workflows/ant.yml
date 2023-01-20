@@ -16,4 +16,5 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+    # corresponds to Jenkinsfile parallelBranches["Github"]
     - run: ant/bin/ant -noinput -Dgithub=true clean jenkins
