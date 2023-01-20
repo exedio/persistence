@@ -31,10 +31,12 @@ public final class LikeCondition extends Condition
 
 	/**
 	 * Creates a new LikeCondition.
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the more convenient wrapper method
 	 * {@link StringFunction#like(String)}.
 	 */
+	@Deprecated
 	public LikeCondition(
 			final StringFunction function,
 			final String value)
