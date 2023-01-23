@@ -48,7 +48,7 @@ public class VaultFileServicePropertiesTest
 
 		final Props p = new Props(source);
 		assertEquals("myFileValue", p.filePosixGroup);
-		assertEquals("", p.directory.posixGroup);
+		assertEquals("myFileValue", p.directory.posixGroup); // inherited from filePosixGroup
 	}
 	@Test void testPosixGroupDirectory()
 	{
@@ -83,6 +83,6 @@ public class VaultFileServicePropertiesTest
 
 		final Props p = new Props(source);
 		assertEquals("myFileValue", p.filePosixGroup);
-		assertEquals("", p.directory.posixGroup);
+		assertEquals("", p.directory.posixGroup); // explicitly disabled directory.posixGroup still wins against filePosixGroup
 	}
 }
