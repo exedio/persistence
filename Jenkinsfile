@@ -276,6 +276,9 @@ finally
 	if(!tryCompleted)
 		currentBuild.result = 'FAILURE'
 
+	// workaround for Mailer plugin: set result status explicitly to SUCCESS if empty, otherwise no mail will be triggered if a build gets successful after a previous unsuccessful build
+	if(currentBuild.result==null)
+		currentBuild.result = 'SUCCESS'
 	node('email')
 	{
 		step([$class: 'Mailer',
