@@ -376,7 +376,7 @@ public final class VaultFileService implements VaultService
 
 		final String filePosixGroup = writable ? value("posixGroup", "") : null;
 
-		final DirProps directory = value("directory", true, s -> new DirProps(s, writable));
+		final DirProps directory = value("directory", true, s -> new DirProps(s, writable, filePosixGroup));
 		private final Path temp = writable ? valueSP("temp", root, false, ".tempVaultFileService") : null;
 
 		Props(final Source source)
@@ -574,13 +574,16 @@ public final class VaultFileService implements VaultService
 
 
 		@SuppressWarnings("AssignmentToSuperclassField") // OK: bug in idea, premised is not assigned but just read here
-		DirProps(final Source source, final boolean writable)
+		DirProps(
+				final Source source,
+				final boolean writable,
+				final String posixGroupDefault)
 		{
 			super(source, writable);
 			final boolean writableReally = writable && !premised;
 			posixPermissions = writableReally ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) : null;
 			posixPermissionsAfterwards = writableReally ? valuePP("posixPermissionsAfterwards") : null;
-			posixGroup = writableReally ? value("posixGroup", "") : null;
+			posixGroup = writableReally ? value("posixGroup", posixGroupDefault) : null;
 		}
 	}
 

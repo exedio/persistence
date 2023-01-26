@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultFileService properties: key "directory.posixGroup" defaults to the value
+	of key "posixGroup". Before, it defaulted to the empty string.
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If both keys "posixGroup" and "directory.posixGroup" are at its default
+	(probably they are) you don't have to do anything.
+
 * ConnectProperties: key "vault.trail" no longer supported.
 	Check your deployed systems! Probably this key is at its default (true),
 	then you don't have to do anything.
