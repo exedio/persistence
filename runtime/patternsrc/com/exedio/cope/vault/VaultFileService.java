@@ -23,9 +23,14 @@ import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import static java.nio.file.attribute.FileTime.fromMillis;
+import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
+import static java.nio.file.attribute.PosixFilePermission.GROUP_READ;
+import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
+import static java.nio.file.attribute.PosixFilePermission.OTHERS_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.ServiceProperties;
 import java.io.IOException;
@@ -45,6 +50,7 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.time.Clock;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
@@ -376,7 +382,7 @@ public final class VaultFileService implements VaultService
 
 		final String filePosixGroup = writable ? value("posixGroup", "") : null;
 
-		final DirProps directory = value("directory", true, s -> new DirProps(s, writable, filePosixGroup));
+		final DirProps directory = value("directory", true, s -> new DirProps(s, writable, filePosixPermissions, filePosixGroup));
 		private final Path temp = writable ? valueSP("temp", root, false, ".tempVaultFileService") : null;
 
 		Props(final Source source)
@@ -577,14 +583,30 @@ public final class VaultFileService implements VaultService
 		DirProps(
 				final Source source,
 				final boolean writable,
+				final Set<PosixFilePermission> filePosixPermissions,
 				final String posixGroupDefault)
 		{
 			super(source, writable);
 			final boolean writableReally = writable && !premised;
-			posixPermissions = writableReally ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) : null;
+			posixPermissions = writableReally ? valuePP("posixPermissions", amend(filePosixPermissions, OWNER_READ, OWNER_WRITE, OWNER_EXECUTE)) : null;
 			posixPermissionsAfterwards = writableReally ? valuePP("posixPermissionsAfterwards") : null;
 			posixGroup = writableReally ? value("posixGroup", posixGroupDefault) : null;
 		}
+
+		private static PosixFilePermission[] amend(
+				final Set<PosixFilePermission> filePerms,
+				final PosixFilePermission... own)
+		{
+			if(filePerms==null)
+				return own;
+
+			final EnumSet<PosixFilePermission> result = EnumSet.copyOf(asList(own));
+			if(filePerms.contains( GROUP_READ)) result.add( GROUP_EXECUTE);
+			if(filePerms.contains(OTHERS_READ)) result.add(OTHERS_EXECUTE);
+			return result.toArray(EMPTY_FILE_PERMS);
+		}
+
+		private static final PosixFilePermission[] EMPTY_FILE_PERMS = new PosixFilePermission[0];
 	}
 
 

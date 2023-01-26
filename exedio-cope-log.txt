@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultFileService properties: default of key "directory.posixPermissions"
+	depends on the value of key "posixPermissions".
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If "posixPermissions" is at its default or directory.posixPermissions
+	is set explicitly you don't have to do anything.
+
 * VaultFileService properties: key "directory.posixGroup" defaults to the value
 	of key "posixGroup". Before, it defaulted to the empty string.
 
