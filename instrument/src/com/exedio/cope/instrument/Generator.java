@@ -849,7 +849,7 @@ final class Generator
 
 	private TypeContext typeContext = null;
 
-	void write(final Charset charset)
+	void write(final Charset charset) throws HumanReadableException
 	{
 		final String buffer = new String(javaFile.getSourceWithoutGeneratedFragments(), charset);
 		int previousClassEndPosition = 0;
@@ -868,7 +868,7 @@ final class Generator
 				{
 					if(typeContext!=null)
 						throw new RuntimeException(type.getName());
-					typeContext = new TypeContext(type.getOption());
+					typeContext = new TypeContext(type);
 					writeClassFeatures(type);
 					typeContext = null;
 				}
@@ -946,12 +946,16 @@ final class Generator
 		final String[] indent = new String[4];
 		final boolean comments;
 
-		TypeContext(final WrapperType option)
+		TypeContext(final LocalCopeType type) throws HumanReadableException
 		{
+			final WrapperType option = type.getOption();
 			final int level = option.indent();
-			final StringBuilder bf = new StringBuilder();
-			for(int i = 0; i<level; i++)
-				bf.append('\t');
+			if(level<0)
+				throw new HumanReadableException(
+						"@WrapperType(indent) at type " + type.getCanonicalName() + " must not be negative, " +
+						"but was " + level + '.');
+
+			final StringBuilder bf = new StringBuilder("\t".repeat(level));
 			for(int i = 0; i<indent.length; i++)
 			{
 				indent[i] = bf.toString();
