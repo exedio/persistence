@@ -50,11 +50,15 @@ final class Context
 	private String getClassToken()
 	{
 		final CopeType<?> type = feature.parent;
-		final int typeParameters = type.getTypeParameters();
-		if(typeParameters==0)
-			return type.getName();
+		return nameWithWildcards(type.getName(), type.getTypeParameters());
+	}
 
-		final StringBuilder bf = new StringBuilder(type.getName());
+	static String nameWithWildcards(final String typeName, final int typeParameters)
+	{
+		if(typeParameters==0)
+			return typeName;
+
+		final StringBuilder bf = new StringBuilder(typeName);
 		if(typeParameters>0)
 		{
 			bf.append("<?");
