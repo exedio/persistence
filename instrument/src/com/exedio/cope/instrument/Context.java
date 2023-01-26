@@ -53,16 +53,16 @@ final class Context
 		return nameWithWildcards(type.getName(), type.getTypeParameters());
 	}
 
-	static String nameWithWildcards(final String typeName, final int typeParameters)
+	static String nameWithWildcards(final String name, final int parameters)
 	{
-		if(typeParameters==0)
-			return typeName;
+		if(parameters==0)
+			return name;
 
-		final StringBuilder bf = new StringBuilder(typeName);
-		if(typeParameters>0)
+		final StringBuilder bf = new StringBuilder(name);
+		if(parameters>0)
 		{
 			bf.append("<?");
-			for(int i = 1; i<typeParameters; i++)
+			for(int i = 1; i<parameters; i++)
 				bf.append(",?");
 			bf.append('>');
 		}
