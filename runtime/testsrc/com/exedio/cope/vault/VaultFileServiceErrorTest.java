@@ -144,6 +144,24 @@ public class VaultFileServiceErrorTest
 				"but was ''");
 	}
 
+	@Test void posixAfterwardsBroken()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.posixPermissionsAfterwards", "zack");
+
+		final Factory<VaultProperties> factory = VaultProperties.factory();
+		final Source sourceView = Sources.view(source, "DESC");
+		assertFails(
+				() -> factory.create(sourceView),
+				IllegalPropertiesException.class,
+				"property service.posixPermissionsAfterwards in DESC " +
+				"must be posix file permissions according to PosixFilePermissions.fromString, " +
+				"but was 'zack'");
+	}
+
 	@Test void posixDirectoryBroken()
 	{
 		final Properties source = new Properties();
@@ -178,6 +196,24 @@ public class VaultFileServiceErrorTest
 				"property service.directory.posixPermissions in DESC " +
 				"must be posix file permissions according to PosixFilePermissions.fromString, " +
 				"but was ''");
+	}
+
+	@Test void posixDirectoryAfterwardsBroken()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.directory.posixPermissionsAfterwards", "zack");
+
+		final Factory<VaultProperties> factory = VaultProperties.factory();
+		final Source sourceView = Sources.view(source, "DESC");
+		assertFails(
+				() -> factory.create(sourceView),
+				IllegalPropertiesException.class,
+				"property service.directory.posixPermissionsAfterwards in DESC " +
+				"must be posix file permissions according to PosixFilePermissions.fromString, " +
+				"but was 'zack'");
 	}
 
 	@Test void directoryLengthTooLong()
