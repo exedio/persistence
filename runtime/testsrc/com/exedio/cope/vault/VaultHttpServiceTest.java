@@ -169,7 +169,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 				filter(s -> "service.root.Exists".equals(s.toString())).
 				findFirst().
 				get();
-		assertEquals(new java.net.URL(URL+'/'), probe.call());
+		assertEquals(new java.net.URI(URL+'/'), probe.call());
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 
 		Files.write(keyPath, new byte[]{});
 		assertEquals(
-				new java.net.URL(URL + "/VaultGenuineServiceKey/myKey"),
+				new java.net.URI(URL + "/VaultGenuineServiceKey/myKey"),
 				getService().probeGenuineServiceKey("myKey"));
 		assertEquals(
 				keyPath.toAbsolutePath(),

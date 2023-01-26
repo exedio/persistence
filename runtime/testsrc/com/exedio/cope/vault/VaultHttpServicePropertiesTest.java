@@ -66,8 +66,8 @@ public class VaultHttpServicePropertiesTest
 		assumeNotGithub();
 		assertFails(
 				rootExists::call,
-				ConnectException.class, // UnknownHostException happens outside of jenkins when network is available
-				"Connection refused (Connection refused)");
+				ConnectException.class, // other exception happens outside of jenkins when network is available
+				"Connection refused");
 	}
 	@Test void rootTrailingSlash()
 	{
