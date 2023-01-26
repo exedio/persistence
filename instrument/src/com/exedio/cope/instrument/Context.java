@@ -55,17 +55,14 @@ final class Context
 
 	static String nameWithWildcards(final String name, final int parameters)
 	{
-		if(parameters==0)
+		if(parameters<=0)
 			return name;
 
 		final StringBuilder bf = new StringBuilder(name);
-		if(parameters>0)
-		{
-			bf.append("<?");
-			for(int i = 1; i<parameters; i++)
-				bf.append(",?");
-			bf.append('>');
-		}
+		bf.append("<?");
+		for(int i = 1; i<parameters; i++)
+			bf.append(",?");
+		bf.append('>');
 		return bf.toString();
 	}
 
