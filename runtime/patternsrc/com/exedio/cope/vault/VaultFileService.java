@@ -260,6 +260,11 @@ public final class VaultFileService implements VaultService
 		{
 			return; // ok
 		}
+		// NOTE:
+		// It is crucial for data consistency, that directoryPermissionsAfterwards
+		// and directoryGroup are applied, even if the directory does exist already.
+		// Otherwise, an interruption immediately after directory creation may
+		// leave a directory without correct properties indefinitely.
 		setPermissions(file, directoryPermissionsAfterwards, directoryGroup);
 	}
 
