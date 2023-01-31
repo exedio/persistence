@@ -78,7 +78,7 @@ timestamps
 							"--security-opt no-new-privileges " +
 							"--tmpfs /var/lib/mysql:rw " +
 							"--network " + dbBridge + " " +
-							"--network-alias=test_db_host " +
+							"--network-alias=test-db-host " +
 							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
 					{ c ->
 						mainImage.inside(
@@ -93,7 +93,7 @@ timestamps
 									' "-Dbuild.tag=' + buildTag + '"' +
 									' -Dskip.instrument=true' + // already verified in Jenkinsfile
 									' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +
-									' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test_db_host/' +
+									' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
 									' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
 									' -Ddisable-ansi-colors=true'
 						}
@@ -168,7 +168,7 @@ def writeEnv(name, driver, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:' + (driver=='mariadb-java-client' ? 'mariadb' : 'mysql') + '://test_db_host/test_db_schema\n' +
+					'connection.url=jdbc:' + (driver=='mariadb-java-client' ? 'mariadb' : 'mysql') + '://test-db-host/test_db_schema\n' +
 					'connection.username=test_db_user\n' +
 					'connection.password=test_db_password\n' +
 					'x-build.dialect=mysql\n' +
