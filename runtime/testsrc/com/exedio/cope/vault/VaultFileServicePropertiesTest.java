@@ -52,12 +52,12 @@ public class VaultFileServicePropertiesTest
 		assertPosixPermissionsFile("---------", "rwx------");
 		assertPosixPermissionsFile("r--------", "rwx------");
 		assertPosixPermissionsFile("rw-------", "rwx------");
-		assertPosixPermissionsFile("rw-r-----", "rwx------");
-		assertPosixPermissionsFile("r--r-----", "rwx------");
-		assertPosixPermissionsFile("rw-rw----", "rwx------");
-		assertPosixPermissionsFile("r--r--r--", "rwx------");
-		assertPosixPermissionsFile("rw-rw-rw-", "rwx------");
-		assertPosixPermissionsFile("rwxrwxrwx", "rwx------");
+		assertPosixPermissionsFile("rw-r-----", "rwx--x---"); // a common case
+		assertPosixPermissionsFile("r--r-----", "rwx--x---");
+		assertPosixPermissionsFile("rw-rw----", "rwx--x---");
+		assertPosixPermissionsFile("r--r--r--", "rwx--x--x");
+		assertPosixPermissionsFile("rw-rw-rw-", "rwx--x--x");
+		assertPosixPermissionsFile("rwxrwxrwx", "rwx--x--x");
 	}
 	private static void assertPosixPermissionsFile(final String file, final String directory)
 	{
