@@ -25,6 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultFileService.Props;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 public class VaultFileServicePropertiesTest
@@ -36,9 +39,71 @@ public class VaultFileServicePropertiesTest
 		));
 
 		final Props p = new Props(source);
+		assertEquals("rw-------", s(p.filePosixPermissions));
+		assertEquals("rwx------", s(p.directory.posixPermissions));
+		assertEquals(null, p.filePosixPermissionsAfterwards);
+		assertEquals(null, p.directory.posixPermissionsAfterwards);
 		assertEquals("", p.filePosixGroup);
 		assertEquals("", p.directory.posixGroup);
 	}
+
+	@Test void testPosixPermissionsFile()
+	{
+		assertPosixPermissionsFile("---------", "rwx------");
+		assertPosixPermissionsFile("r--------", "rwx------");
+		assertPosixPermissionsFile("rw-------", "rwx------");
+		assertPosixPermissionsFile("rw-r-----", "rwx------");
+		assertPosixPermissionsFile("r--r-----", "rwx------");
+		assertPosixPermissionsFile("rw-rw----", "rwx------");
+		assertPosixPermissionsFile("r--r--r--", "rwx------");
+		assertPosixPermissionsFile("rw-rw-rw-", "rwx------");
+		assertPosixPermissionsFile("rwxrwxrwx", "rwx------");
+	}
+	private static void assertPosixPermissionsFile(final String file, final String directory)
+	{
+		final Source source = describe("DESC", cascade(
+				single("root", "DONT_USE"),
+				single("posixPermissions", file)
+		));
+
+		final Props p = new Props(source);
+		assertEquals(file, s(p.filePosixPermissions));
+		assertEquals(directory, s(p.directory.posixPermissions));
+		assertEquals(null, p.filePosixPermissionsAfterwards);
+		assertEquals(null, p.directory.posixPermissionsAfterwards);
+	}
+	@Test void testPosixPermissionsDirectory()
+	{
+		final Source source = describe("DESC", cascade(
+				single("root", "DONT_USE"),
+				single("directory.posixPermissions", "---------")
+		));
+
+		final Props p = new Props(source);
+		assertEquals("rw-------", s(p.filePosixPermissions));
+		assertEquals("---------", s(p.directory.posixPermissions));
+		assertEquals(null, p.filePosixPermissionsAfterwards);
+		assertEquals(null, p.directory.posixPermissionsAfterwards);
+	}
+	@Test void testPosixPermissionsFileAndDirectory()
+	{
+		final Source source = describe("DESC", cascade(
+				single("root", "DONT_USE"),
+				single("posixPermissions", "rwxrwxrwx"),
+				single("directory.posixPermissions", "---------")
+		));
+
+		final Props p = new Props(source);
+		assertEquals("rwxrwxrwx", s(p.filePosixPermissions));
+		assertEquals("---------", s(p.directory.posixPermissions));
+		assertEquals(null, p.filePosixPermissionsAfterwards);
+		assertEquals(null, p.directory.posixPermissionsAfterwards);
+	}
+	private static String s(final Set<PosixFilePermission> perms)
+	{
+		return perms!=null ? PosixFilePermissions.toString(perms) : null;
+	}
+
 	@Test void testPosixGroupFile()
 	{
 		final Source source = describe("DESC", cascade(
