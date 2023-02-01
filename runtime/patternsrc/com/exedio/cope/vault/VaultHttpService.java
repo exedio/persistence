@@ -158,8 +158,8 @@ public final class VaultHttpService extends VaultNonWritableService
 			throw new IllegalStateException(
 					"response code " + responseCode + ':' + url);
 		final long size = connection.getContentLength();
-		if(size!=0 && // file must not have any content, because it is likely exposed to public
-			size!=-1) // result -1 is returned if there is no Content-Length header, which happens for empty files as well
+		if(size!=-1 && // result -1 is returned if there is no Content-Length header, which happens for empty files as well
+			size!=0) // file must not have any content, because it is likely exposed to public
 			throw new IllegalStateException(
 					"is not empty, but has size " + size + ':' + url);
 
