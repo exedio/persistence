@@ -53,7 +53,7 @@ try
 						"--cap-add SETUID " + // in apache.log fixes: [unixd:alert] (1)Operation not permitted: AH02162: setuid: unable to change to uid: 33
 						"--security-opt no-new-privileges " +
 						"--network " + bridge + " " +
-						"--network-alias=test_apache_host " +
+						"--network-alias=test-apache-host " +
 						"--mount type=bind,src=" + env.WORKSPACE + "/VaultHttpServiceDocumentRoot/myContent,target=/usr/local/apache2/htdocs " +
 						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
 				{ a ->
@@ -76,7 +76,7 @@ try
 							' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
 							' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
 							' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
-							' -Druntime.test.VaultHttpServiceTest.url=http://test_apache_host' +
+							' -Druntime.test.VaultHttpServiceTest.url=http://test-apache-host' +
 							' -Druntime.test.VaultHttpServiceTest.dir=VaultHttpServiceDocumentRoot'
 				}
 					sh "docker logs " + a.id + " &> apache.log"
