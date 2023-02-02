@@ -23,7 +23,7 @@ import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import java.io.InputStream;
 import java.nio.file.Path;
 
-abstract class VaultNonWritableService implements VaultService
+public abstract class VaultNonWritableService implements VaultService
 {
 	protected VaultNonWritableService(
 			final VaultServiceParameters parameters)
