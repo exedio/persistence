@@ -122,7 +122,7 @@ public final class VaultHttpService extends VaultNonWritableService
 
 		final URL url = new URL(rootUrl + '/' + directory.path(hash));
 		final HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-		properties.setConnection(connection, true);
+		properties.setConnection(connection);
 		if(requestMethod!=null)
 			connection.setRequestMethod(requestMethod);
 		final int responseCode = connection.getResponseCode();
@@ -151,7 +151,7 @@ public final class VaultHttpService extends VaultNonWritableService
 	{
 		final URL url = new URL(rootUrl + '/' + VAULT_GENUINE_SERVICE_KEY + '/' + serviceKey);
 		final HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-		properties.setConnection(connection, false);
+		properties.setConnection(connection);
 		connection.setRequestMethod(REQUEST_METHOD_HEAD);
 		final int responseCode = connection.getResponseCode();
 		if(responseCode!=HTTP_OK)
@@ -199,7 +199,6 @@ public final class VaultHttpService extends VaultNonWritableService
 
 		private final int connectTimeout = valueTimeout("connectTimeout", ofSeconds(3));
 		private final int    readTimeout = valueTimeout(   "readTimeout", ofSeconds(3));
-		private final boolean useCaches       = value("useCaches", false);
 		private final boolean followRedirects = value("followRedirects", false);
 
 		private int valueTimeout(
@@ -210,11 +209,11 @@ public final class VaultHttpService extends VaultNonWritableService
 					value(key, defaultValue, ofSeconds(1), ofMillis(Integer.MAX_VALUE)).toMillis());
 		}
 
-		void setConnection(final HttpURLConnection connection, final boolean useCaches)
+		void setConnection(final HttpURLConnection connection)
 		{
 			connection.setConnectTimeout(connectTimeout);
 			connection.setReadTimeout(readTimeout);
-			connection.setUseCaches(useCaches && this.useCaches);
+			connection.setUseCaches(false);
 			connection.setInstanceFollowRedirects(followRedirects);
 		}
 
@@ -223,7 +222,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		{
 			final URL url = new URL(root + '/');
 			final HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-			setConnection(connection, false);
+			setConnection(connection);
 			connection.setRequestMethod(REQUEST_METHOD_HEAD);
 			final int responseCode = connection.getResponseCode();
 			switch(responseCode)

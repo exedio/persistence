@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultFileService properties: key "useCaches" no longer supported.
+	Check your deployed systems! Probably this key is at its default (false),
+	then you don't have to do anything.
 * VaultFileService properties: default of key "directory.posixPermissions"
 	depends on the value of key "posixPermissions".
 
