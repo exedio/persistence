@@ -186,15 +186,21 @@ public final class VaultHttpService extends VaultNonWritableService
 
 			if(root.endsWith("/"))
 				throw newException("root", "must not end with slash, but was >" + root + '<');
+			final URL url;
 			try
 			{
-				//noinspection ResultOfObjectAllocationIgnored OK: just for checking that url is valid
-				new URL(root);
+				url = new URL(root);
 			}
 			catch(final MalformedURLException e)
 			{
 				throw newException("root", "is malformed: >" + root + '<', e);
 			}
+			final String scheme = url.getProtocol();
+			if(!"http".equals(scheme) &&
+				!"https".equals(scheme))
+				throw newException("root",
+						"must be a url with scheme http(s), " +
+						"but was >" + root + "< with scheme >" + scheme + '<');
 		}
 
 		private final int connectTimeout = valueTimeout("connectTimeout", ofSeconds(3));

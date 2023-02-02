@@ -90,4 +90,16 @@ public class VaultHttpServicePropertiesTest
 		assertEquals("no protocol: http//VaultHttpServicePropertiesTest.invalid", e.getCause().getMessage());
 		assertEquals(MalformedURLException.class, e.getCause().getClass());
 	}
+	@Test void rootNonHttp()
+	{
+		final Source source = describe("DESC", cascade(
+				single("root", "mailto:oops@VaultHttpServicePropertiesTest.invalid")));
+
+		final IllegalPropertiesException e = assertFails(
+				() -> new Props(source),
+				IllegalPropertiesException.class,
+				"property root in DESC must be a url with scheme http(s), " +
+				"but was >mailto:oops@VaultHttpServicePropertiesTest.invalid< with scheme >mailto<");
+		assertEquals(null, e.getCause());
+	}
 }
