@@ -162,6 +162,9 @@ public class MediaTypeTest
 		assertEquals(Set.of(forName(MediaType.WEBP)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.webp")));
 		assertEquals(Set.of(forName(MediaType.AVIF)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.avif")));
 		assertEquals(Set.of(forName(MediaType.TIFF)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.tiff")));
+		assertEquals(Set.of(forName("video/mp4" )), forMagics(files.newPath(MediaTypeTest.class, "teapot.mp4")));
+		assertEquals(Set.of(forName("video/webm")), forMagics(files.newPath(MediaTypeTest.class, "teapot.webm")));
+		assertEquals(Set.of(forName("video/ogg" )), forMagics(files.newPath(MediaTypeTest.class, "teapot.ogg")));
 		assertEquals(Set.of(
 				forName(MediaType.ZIP),
 				forName(MediaType.JAR),

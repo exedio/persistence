@@ -210,6 +210,23 @@ public final class MediaType
 					new StartsWith(new byte[]{0, 0, 1, 0}),
 					ICON, "image/icon", "image/x-icon"),
 			new MediaType(
+					// https://en.wikipedia.org/wiki/MP4_file_format
+					".mp4",
+					// https://en.wikipedia.org/wiki/List_of_file_signatures
+					new StartsWith(4, new byte[]{0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6F, 0x6D}),
+					"video/mp4"),
+			new MediaType(
+					// https://en.wikipedia.org/wiki/WebM
+					".webm",
+					// https://en.wikipedia.org/wiki/List_of_file_signatures
+					new StartsWith(new byte[]{0x1A, 0x45, (byte)0xDF, (byte)0xA3}),
+					"video/webm"),
+			new MediaType(
+					// https://en.wikipedia.org/wiki/Ogg
+					".ogg",
+					new StartsWith((byte)'O', (byte)'g', (byte)'g', (byte)'S'),
+					"video/ogg"),
+			new MediaType(
 					".zip",
 					// https://en.wikipedia.org/wiki/ZIP_(file_format)
 					ZIP_MAGIC,

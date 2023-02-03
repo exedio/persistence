@@ -37,6 +37,9 @@ public class MediaTypeMediaTest
 	private static final String AVIF = "6674797061766966";
 	private static final String TIFF = "49492a00";
 	private static final String ICO = "00000100";
+	private static final String MP4 = "6674797069736f6d";
+	private static final String WEBM = "1a45dfa3";
+	private static final String OGG = "4f676753";
 	private static final String ZIP = "504b0304";
 	private static final String PDF = "25504446";
 	private static final String STL = "736f6c6964";
@@ -55,6 +58,9 @@ public class MediaTypeMediaTest
 				"("+c+"='image/avif' and !("+b+" startsWith offset 4 '"+AVIF+"')) or " +
 				"("+c+"='image/tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
 				"(("+c+"='image/vnd.microsoft.icon' or "+c+"='image/icon' or "+c+"='image/x-icon') and !("+b+" startsWith '"+ICO+"')) or " +
+				"("+c+"='video/mp4' and !("+b+" startsWith offset 4 '"+MP4+"')) or " +
+				"("+c+"='video/webm' and !("+b+" startsWith '"+WEBM+"')) or " +
+				"("+c+"='video/ogg' and !("+b+" startsWith '"+OGG+"')) or " +
 				"(("+c+"='application/zip' or "+c+"='application/java-archive' or "+c+"='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or "+c+"='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' or "+c+"='application/x-zip-compressed') and !("+b+" startsWith '"+ZIP+"')) or " +
 				"(("+c+"='application/font-woff' or "+c+"='font/woff' or "+c+"='font/x-woff') and !("+b+" startsWith '774f4646')) or " +
 				"("+c+"='font/woff2' and !("+b+" startsWith '774f4632')) or " +
