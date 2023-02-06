@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +44,8 @@ public class MatchConditionTest
 				new MatchCondition(FIELD1, "one"),
 				new MatchCondition(FIELD2, "one"),
 				new MatchCondition(FIELD1, "two"));
+		assertSame(FIELD1, new MatchCondition(FIELD1, "one").getFunction());
+		assertSame("one", new MatchCondition(FIELD1, "one").getValue());
 	}
 	@Test void testToString()
 	{

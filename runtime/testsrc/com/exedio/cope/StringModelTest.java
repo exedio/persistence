@@ -32,6 +32,7 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.CharSet;
 import org.junit.jupiter.api.Test;
@@ -99,6 +100,8 @@ public class StringModelTest
 				any.like("hallo"),
 				any.equal(mandatory),
 				any.equal(any));
+		assertSame(any, any.like("hallo").getFunction());
+		assertSame("hallo", any.like("hallo").getValue());
 	}
 
 	@Test void testConditionsConvenience()
