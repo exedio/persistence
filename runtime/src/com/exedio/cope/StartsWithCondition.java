@@ -28,7 +28,16 @@ public final class StartsWithCondition extends Condition
 {
 	private static final long serialVersionUID = 1l;
 
+	/**
+	 * @deprecated Use {@link #getField()} instead
+	 */
+	@Deprecated
 	public final DataField field;
+
+	/**
+	 * @deprecated Use {@link #getValue()} instead
+	 */
+	@Deprecated
 	public final byte[] value;
 
 	/**
@@ -45,6 +54,16 @@ public final class StartsWithCondition extends Condition
 
 		if(value.length==0)
 			throw new IllegalArgumentException("value must not be empty");
+	}
+
+	public DataField getField()
+	{
+		return field;
+	}
+
+	public byte[] getValue()
+	{
+		return com.exedio.cope.misc.Arrays.copyOf(value);
 	}
 
 	@Override

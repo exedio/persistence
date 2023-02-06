@@ -37,7 +37,16 @@ public final class MatchCondition extends Condition
 {
 	private static final long serialVersionUID = 1l;
 
+	/**
+	 * @deprecated Use {@link #getFunction()} instead
+	 */
+	@Deprecated
 	public final StringFunction function;
+
+	/**
+	 * @deprecated Use {@link #getValue()} instead
+	 */
+	@Deprecated
 	public final String value;
 
 	/**
@@ -49,6 +58,16 @@ public final class MatchCondition extends Condition
 	{
 		this.function = requireNonNull(function, "function");
 		this.value = requireNonNull(value, "value");
+	}
+
+	public StringFunction getFunction()
+	{
+		return function;
+	}
+
+	public String getValue()
+	{
+		return value;
 	}
 
 	@Override

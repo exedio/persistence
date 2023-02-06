@@ -24,6 +24,7 @@ import static com.exedio.cope.util.CharSet.ALPHA_LOWER;
 import static com.exedio.cope.util.CharSet.ALPHA_UPPER;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
@@ -285,6 +286,8 @@ public class CharSetConditionTest extends TestWithEnvironment
 
 		final CharSetCondition condition =
 				(CharSetCondition)AnItem.field.conformsTo(charSet);
+		assertSame(AnItem.field, condition.getFunction());
+		assertSame(charSet, condition.getValue());
 		assertIt(condition, charSet, expected);
 
 		final ArrayList<AnItem> expectedNot = new ArrayList<>(all);

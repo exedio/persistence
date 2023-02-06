@@ -29,7 +29,9 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -110,6 +112,9 @@ public class DataModelTest
 				data.startsWithIfSupported(bytes6),
 				data.startsWithIfSupported(bytes6x4),
 				data10.startsWithIfSupported(bytes4));
+		assertEquals(data, data.startsWithIfSupported(bytes4).getField());
+		assertArrayEquals(bytes4, data.startsWithIfSupported(bytes4).getValue());
+		assertNotSame(bytes4, data.startsWithIfSupported(bytes4).getValue());
 		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWithIfSupported(bytes4).toString());
 	}
 
