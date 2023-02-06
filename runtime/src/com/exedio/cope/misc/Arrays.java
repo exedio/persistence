@@ -18,43 +18,26 @@
 
 package com.exedio.cope.misc;
 
-import static java.lang.System.arraycopy;
-
-import java.lang.reflect.Array;
-
 public final class Arrays
 {
 	public static boolean[] copyOf(final boolean[] original)
 	{
-		final int l = original.length;
-		final boolean[] copy = new boolean[l];
-		arraycopy(original, 0, copy, 0, l);
-		return copy;
+		return java.util.Arrays.copyOf(original, original.length);
 	}
 
 	public static byte[] copyOf(final byte[] original)
 	{
-		final int l = original.length;
-		final byte[] copy = new byte[l];
-		arraycopy(original, 0, copy, 0, l);
-		return copy;
+		return java.util.Arrays.copyOf(original, original.length);
 	}
 
 	public static int[] copyOf(final int[] original)
 	{
-		final int l = original.length;
-		final int[] copy = new int[l];
-		arraycopy(original, 0, copy, 0, l);
-		return copy;
+		return java.util.Arrays.copyOf(original, original.length);
 	}
 
 	public static <T> T[] copyOf(final T[] original)
 	{
-		final int l = original.length;
-		@SuppressWarnings("unchecked")
-		final T[] copy = (T[])Array.newInstance(original.getClass().getComponentType(), l);
-		arraycopy(original, 0, copy, 0, l);
-		return copy;
+		return java.util.Arrays.copyOf(original, original.length);
 	}
 
 	/**
