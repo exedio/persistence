@@ -233,8 +233,7 @@ public interface Function<E> extends Selectable<E>
 		return new Count(this);
 	}
 
-	@SuppressWarnings("deprecation")
-	default BindFunction<E> bind(final Join join)
+	default Function<E> bind(final Join join)
 	{
 		return new BindFunction<>(this, join);
 	}

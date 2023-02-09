@@ -18,19 +18,12 @@
 
 package com.exedio.cope;
 
-public final class BindStringFunction extends BindFunction<String>
+final class BindStringFunction extends BindFunction<String>
 	implements StringFunction
 {
 	private static final long serialVersionUID = 1l;
 
-	/**
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see NumberFunction#bind(Join)
-	 */
-	@Deprecated
-	public BindStringFunction(final StringFunction function, final Join join)
+	BindStringFunction(final StringFunction function, final Join join)
 	{
 		super(function, join);
 	}
@@ -41,7 +34,7 @@ public final class BindStringFunction extends BindFunction<String>
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public BindStringFunction bind(final Join join)
+	public StringFunction bind(final Join join)
 	{
 		return this;
 	}

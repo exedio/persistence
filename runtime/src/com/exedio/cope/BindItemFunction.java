@@ -20,21 +20,14 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
 
-public final class BindItemFunction<E extends Item> extends BindFunction<E>
+final class BindItemFunction<E extends Item> extends BindFunction<E>
 	implements ItemFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
 	final ItemFunction<E> itemFunction;
 
-	/**
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see ItemFunction#bind(Join)
-	 */
-	@Deprecated
-	public BindItemFunction(final ItemFunction<E> function, final Join join)
+	BindItemFunction(final ItemFunction<E> function, final Join join)
 	{
 		super(function, join);
 		this.itemFunction = function;
@@ -89,7 +82,7 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public BindItemFunction<E> bind(final Join join)
+	public ItemFunction<E> bind(final Join join)
 	{
 		return this;
 	}
