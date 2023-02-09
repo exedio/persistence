@@ -24,10 +24,12 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	private static final long serialVersionUID = 1l;
 
 	/**
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see NumberFunction#bind(Join)
 	 */
+	@Deprecated
 	public BindNumberFunction(final NumberFunction<E> function, final Join join)
 	{
 		super(function, join);

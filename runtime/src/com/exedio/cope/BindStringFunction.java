@@ -24,10 +24,12 @@ public final class BindStringFunction extends BindFunction<String>
 	private static final long serialVersionUID = 1l;
 
 	/**
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see NumberFunction#bind(Join)
 	 */
+	@Deprecated
 	public BindStringFunction(final StringFunction function, final Join join)
 	{
 		super(function, join);

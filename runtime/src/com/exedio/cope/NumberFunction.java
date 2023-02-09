@@ -23,6 +23,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
+	@SuppressWarnings("deprecation")
 	default BindNumberFunction<E> bind(final Join join)
 	{
 		return new BindNumberFunction<>(this, join);
