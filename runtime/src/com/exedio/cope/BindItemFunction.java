@@ -28,10 +28,12 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	final ItemFunction<E> itemFunction;
 
 	/**
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see ItemFunction#bind(Join)
 	 */
+	@Deprecated
 	public BindItemFunction(final ItemFunction<E> function, final Join join)
 	{
 		super(function, join);

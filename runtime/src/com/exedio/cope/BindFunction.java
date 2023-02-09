@@ -30,10 +30,12 @@ public class BindFunction<E> implements Function<E>
 	final Join join;
 
 	/**
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see Function#bind(Join)
 	 */
+	@Deprecated
 	public BindFunction(final Function<E> function, final Join join)
 	{
 		this.function = requireNonNull(function, "function");
