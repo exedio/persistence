@@ -211,6 +211,25 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	{
+		bf.append("REGEXP_MATCHES(").
+			append(function).
+			append(',').
+			appendParameter(RegexpLikeCondition.getIcuRegexp(regexp)).
+			append(')');
+	}
+
+	@Override
+	String getClause(final String column, final String regexp)
+	{
+		return "REGEXP_MATCHES("+column + "," +
+				 StringColumn.cacheToDatabaseStatic(
+						 RegexpLikeCondition.getIcuRegexp(regexp)
+				 ) + ")";
+	}
+
+	@Override
 	Long nextSequence(
 			final Executor executor,
 			final Connection connection,

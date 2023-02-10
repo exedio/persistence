@@ -53,7 +53,7 @@ final class SchemaItem extends Item
 	static final StringField stringMax4 = new StringField().optional().lengthMax(4);
 	static final StringField stringMin4Max8 = new StringField().optional().lengthRange(4, 8);
 	static final StringField stringExact6 = new StringField().optional().lengthExact(6);
-	static final StringField stringUpper6 = new StringField().optional().lengthExact(6).charSet(CharSet.ALPHA_UPPER);
+	static final StringField stringUpper6 = new StringField().optional().lengthExact(6).charSet(CharSet.ALPHA_UPPER).regexp("[A-B]*");
 	static final StringField stringEmpty = new StringField().optional().lengthMin(0);
 	static final StringField stringLong = new StringField().lengthMax(100000);
 

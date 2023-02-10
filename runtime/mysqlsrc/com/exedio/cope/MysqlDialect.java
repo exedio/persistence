@@ -496,6 +496,28 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	{
+		bf.append(function).
+			append(" REGEXP CAST(").
+			appendParameter(regexpICU
+					? RegexpLikeCondition.getIcuRegexp(regexp)
+					: "^" + regexp + "$").
+			append(" AS CHAR)");
+	}
+
+	@Override
+	String getClause(final String column, final String regexp)
+	{
+		return column + " REGEXP CAST(" +
+				 StringColumn.cacheToDatabaseStatic(
+						 regexpICU
+								? RegexpLikeCondition.getIcuRegexp(regexp)
+								: "^" + regexp + "$") +
+				 " AS CHAR)";
+	}
+
+	@Override
 	String getClause(final String column, final CharSet set)
 	{
 		if(regexpICU || set.isSubsetOfAscii())

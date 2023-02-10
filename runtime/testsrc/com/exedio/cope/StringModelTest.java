@@ -28,6 +28,7 @@ import static com.exedio.cope.testmodel.StringItem.max4;
 import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
@@ -35,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.CharSet;
+import java.util.regex.PatternSyntaxException;
 import org.junit.jupiter.api.Test;
 
 public class StringModelTest
@@ -98,6 +100,7 @@ public class StringModelTest
 				any.equal("bello"),
 				any.equal((String)null),
 				any.like("hallo"),
+				any.regexpLike("regexp"),
 				any.equal(mandatory),
 				any.equal(any));
 		assertSame(any, any.like("hallo").getFunction());
@@ -114,5 +117,31 @@ public class StringModelTest
 		assertEquals(any.startsWithIgnoreCase("lowerUPPER" ), any.toLowerCase().like ( "lowerupper%"));
 		assertEquals(any.  endsWithIgnoreCase("lowerUPPER" ), any.toLowerCase().like ("%lowerupper" ));
 		assertEquals(any.  containsIgnoreCase("lowerUPPER" ), any.toLowerCase().like ("%lowerupper%"));
+	}
+
+	@SuppressWarnings("HardcodedLineSeparator")
+	@Test void testRegexp()
+	{
+		assertEquals(any + " regexp '(?s)\\A[C-F]*\\z'", any.regexpLike("[C-F]*").toString());
+		assertEqualsAndHash(
+				any.regexpLike("regexp"),
+				any.regexpLike("regexp"));
+		assertNotEqualsAndHash(
+				any.regexpLike("regexp"),
+				any.regexpLike("regexp2"),
+				mandatory.regexpLike("regexp"));
+		assertFails(
+				() -> any.regexpLike(null),
+				NullPointerException.class,
+				"regexp");
+		assertFails(
+				() -> any.regexpLike(""),
+				IllegalArgumentException.class,
+				"regexp must not be empty");
+		assertFails(
+				() -> any.regexpLike("[A-"),
+				PatternSyntaxException.class,
+				"Illegal/unsupported escape sequence near index 10\n(?s)\\A[A-\\z\n          ^"
+		);
 	}
 }

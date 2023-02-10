@@ -86,4 +86,54 @@ public class CheckConstraintCheckTest
 				NullPointerException.class,
 				null);
 	}
+
+	private static final StringField c = new StringField();
+
+	@SuppressWarnings("HardcodedLineSeparator")
+	@Test void testRegexpLike()
+	{
+		final CheckConstraint cc =
+				new CheckConstraint(c.regexpLike("[a-z]+"));
+		final HashMap<FunctionField<?>, Object> values = new HashMap<>();
+		values.put(c, "test");
+		cc.check(values);
+		values.put(c, "t");
+		cc.check(values);
+
+		values.put(c, "test ");
+		assertFails(
+				() -> cc.check(values),
+				CheckViolationException.class,
+				"check violation for " + cc);
+
+		values.put(c, "Test");
+		assertFails(
+				() -> cc.check(values),
+				CheckViolationException.class,
+				"check violation for " + cc);
+
+		values.put(c, "Test\n");
+		assertFails(
+				() -> cc.check(values),
+				CheckViolationException.class,
+				"check violation for " + cc);
+
+		values.put(c, "Test\r");
+		assertFails(
+				() -> cc.check(values),
+				CheckViolationException.class,
+				"check violation for " + cc);
+
+		values.put(c, "Test\r\n");
+		assertFails(
+				() -> cc.check(values),
+				CheckViolationException.class,
+				"check violation for " + cc);
+
+		values.put(c, "Test\t");
+		assertFails(
+				() -> cc.check(values),
+				CheckViolationException.class,
+				"check violation for " + cc);
+	}
 }

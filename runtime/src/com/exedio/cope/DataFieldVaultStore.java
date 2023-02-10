@@ -61,7 +61,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		final int length = properties.getAlgorithmLength();
 		this.column = new StringColumn(
 				table, name, optional, length, length,
-				CharSet.HEX_LOWER,
+				CharSet.HEX_LOWER, null,
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
 		this.algorithmName = algorithm.getAlgorithm();

@@ -90,6 +90,16 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
+	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	{
+		throw new AssertionError();
+	}
+	@Override
+	String getClause(final String column, final String regexp)
+	{
+		throw new AssertionError();
+	}
+	@Override
 	void deleteSchema(final List<Table> tables, final List<SequenceX> sequences, final boolean forTest, final ConnectionPool connectionPool)
 	{
 		throw new AssertionError();

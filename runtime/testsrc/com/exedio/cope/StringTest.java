@@ -477,6 +477,7 @@ public class StringTest extends TestWithEnvironment
 		return new String(buf);
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator")
 	void assertString(final Item item, final Item item2, final StringField sa)
 			throws UnsupportedGetException
 	{
@@ -516,6 +517,10 @@ public class StringTest extends TestWithEnvironment
 			assertContains(item, type.search(sa.like(VALUE)));
 			assertContains(item, item2, type.search(sa.like(VALUE+"%")));
 			assertContains(item2, type.search(sa.like(VALUE2+"%")));
+
+			assertContains(item, type.search(sa.regexpLike("[a-z]{4}S[a-z]{5}")));
+			assertContains(type.search(sa.regexpLike("[a-z]{4}S[a-z]{6}")));
+			assertContains(item2, type.search(sa.regexpLike("[a-z]{4}S[a-z]{5}2")));
 
 			assertContains(item, type.search(saup.equal(VALUE_UPPER)));
 			assertContains(item2, type.search(saup.notEqual(VALUE_UPPER)));
@@ -627,6 +632,17 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(null, saup.get(item2));
 		assertEquals(null, saln.get(item2));
 		assertContains(item, item2, type.search(sa.isNull()));
+
+		sa.set(item, "\ntest\n1234\n");
+
+		assertContains(item, type.search(sa.regexpLike(".*[a-z]{4}.*")));
+		assertContains(type.search(sa.regexpLike("[a-z]{4}")));
+
+		assertContains(item, type.search(sa.regexpLike("\n[a-z]{4}\n[0-9]{4}\n")));
+		if (!mysql || model.getEnvironmentInfo().isDatabaseVersionAtLeast(8,0))
+		{
+			assertContains(item, type.search(sa.regexpLike("\\n[a-z]{4}\\n[0-9]{4}\\n")));
+		}
 	}
 
 	private void assertStringSet(final Item item, final StringField sa, final String value)
