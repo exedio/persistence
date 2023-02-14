@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
 import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
@@ -31,8 +32,8 @@ import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultHttpService.Props;
+import java.net.ConnectException;
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -62,10 +63,11 @@ public class VaultHttpServicePropertiesTest
 				new ArrayList<>(probes.keySet()));
 
 		final Callable<?> rootExists = probes.get("root.Exists");
+		assumeNotGithub();
 		assertFails(
 				rootExists::call,
-				UnknownHostException.class,
-				"VaultHttpServicePropertiesTest.invalid");
+				ConnectException.class, // UnknownHostException happens outside of jenkins when network is available
+				"Connection refused (Connection refused)");
 	}
 	@Test void rootTrailingSlash()
 	{
