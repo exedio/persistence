@@ -19,7 +19,6 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
-import static java.lang.Math.toIntExact;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -28,7 +27,6 @@ import static java.time.Duration.ofSeconds;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -110,15 +108,19 @@ public final class VaultHttpService extends VaultNonWritableService
 	@Override
 	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
-		final HttpResponse<InputStream> response = getOk(hash, null, BodySubscribers::ofInputStream);
-		final byte[] result = new byte[toIntExact(Math.min(getContentLength(response, hash), 8*1024))];
-		try(InputStream in = response.body())
-		{
-			for(int len = in.read(result); len>=0; len = in.read(result))
-			{
-				sink.write(result, 0, len);
-			}
-		}
+		getOk(hash, null, () -> BodySubscribers.ofByteArrayConsumer(
+				o -> o.ifPresent(x ->
+				{
+					try
+					{
+						sink.write(x);
+					}
+					catch(final IOException e)
+					{
+						throw wrap(hash, e);
+					}
+				})
+		));
 	}
 
 	private <T> HttpResponse<T> getOk(
