@@ -67,7 +67,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	 * <pre>
 	 * Alias "/VaultHttpServiceDocumentRoot" "PROJECT_DIR/VaultHttpServiceDocumentRoot/myContent"
 	 *
-	 * <Location /VaultHttpServiceDocumentRoot>
+	 * &lt;Location /VaultHttpServiceDocumentRoot>
 	 *    Require all granted
 	 * &lt;/Location>
 	 * </pre>
