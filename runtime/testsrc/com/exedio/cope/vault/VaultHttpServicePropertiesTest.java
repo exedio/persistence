@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,15 +34,18 @@ import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultHttpService.Props;
 import java.net.ConnectException;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
 
 public class VaultHttpServicePropertiesTest
 {
-	@Test void probe()
+	@Test void probe() throws URISyntaxException
 	{
 		final Source source = describe("DESC", cascade(
 				single("root", "http://VaultHttpServicePropertiesTest.invalid")));
@@ -57,6 +61,10 @@ public class VaultHttpServicePropertiesTest
 				"followRedirects"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
+		assertEquals(HttpClient.Version.HTTP_2, p.client.version());
+		assertEquals(Optional.of(ofSeconds(3)), p.client.connectTimeout());
+		assertEquals(Optional.of(ofSeconds(3)), p.newRequest(new URI(p.root), null).timeout());
+		assertEquals(HttpClient.Redirect.NEVER, p.client.followRedirects());
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -69,6 +77,22 @@ public class VaultHttpServicePropertiesTest
 				rootExists::call,
 				ConnectException.class, // other exception happens outside of jenkins when network is available
 				"Connection refused");
+	}
+	@Test void nonDefault() throws URISyntaxException
+	{
+		final Source source = describe("DESC", cascade(
+				single("root", "http://VaultHttpServicePropertiesTest.invalid"),
+				single("version", "HTTP_1_1"),
+				single("connectTimeout", "PT33S"),
+				single("requestTimeout", "PT44S"),
+				single("followRedirects", "ALWAYS")));
+
+		final Props p = new Props(source);
+		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
+		assertEquals(HttpClient.Version.HTTP_1_1, p.client.version());
+		assertEquals(Optional.of(ofSeconds(33)), p.client.connectTimeout());
+		assertEquals(Optional.of(ofSeconds(44)), p.newRequest(new URI(p.root), null).timeout());
+		assertEquals(HttpClient.Redirect.ALWAYS, p.client.followRedirects());
 	}
 	@Test void rootTrailingSlash()
 	{
