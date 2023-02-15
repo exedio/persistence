@@ -33,6 +33,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
+import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
@@ -225,7 +226,7 @@ public final class VaultHttpService extends VaultNonWritableService
 
 		private final Duration connectTimeout = valueTimeout("connectTimeout", ofSeconds(3));
 		private final Duration requestTimeout = valueTimeout("requestTimeout", ofSeconds(3));
-		private final boolean followRedirects = value("followRedirects", false);
+		private final Redirect followRedirects = value("followRedirects", Redirect.NEVER);
 
 		private Duration valueTimeout(
 				final String key,
@@ -237,7 +238,7 @@ public final class VaultHttpService extends VaultNonWritableService
 
 		final HttpClient client = HttpClient.newBuilder().
 					connectTimeout(connectTimeout).
-					followRedirects(followRedirects ? HttpClient.Redirect.ALWAYS : HttpClient.Redirect.NEVER).
+					followRedirects(followRedirects).
 					build();
 
 		HttpRequest newRequest(final URI uri, final String method)

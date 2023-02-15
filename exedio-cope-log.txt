@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultHttpService properties: key "followRedirects" changes type from boolean
+	to enum.
+	Check your deployed systems! Probably this key is at its default (false),
+	then you don't have to do anything. Otherwise replace:
+		false -> NEVER
+		true  -> ALWAYS
+	Note, that ALWAYS may redirect from https to http. Consider using NORMAL
+	instead.
+
 * VaultHttpService properties: key "readTimeout" renamed to "requestTimeout".
 	Check your deployed systems! Probably this key is at its default,
 	then you don't have to do anything.
