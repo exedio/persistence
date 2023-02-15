@@ -181,11 +181,13 @@ public final class VaultHttpService extends VaultNonWritableService
 		if(responseCode!=HTTP_OK)
 			throw new IllegalStateException(
 					"response code " + responseCode + ':' + uri);
-		final OptionalLong size = getContentLength(response);
-		if(size.isPresent() && // Content-Length header may be absent for empty files
-			size.getAsLong()!=0) // file must not have any content, because it is likely exposed to public
-			throw new IllegalStateException(
-					"is not empty, but has size " + size.getAsLong() + ':' + uri);
+		getContentLength(response).ifPresent( // Content-Length header may be absent for empty files
+				size ->
+				{
+					if(size!=0) // file must not have any content, because it is likely exposed to public
+						throw new IllegalStateException(
+								"is not empty, but has size " + size + ':' + uri);
+				});
 
 		return uri;
 	}
