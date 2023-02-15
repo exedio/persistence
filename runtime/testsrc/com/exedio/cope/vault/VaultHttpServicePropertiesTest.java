@@ -28,12 +28,14 @@ import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultHttpService.Props;
 import java.net.ConnectException;
+import java.net.PasswordAuthentication;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -58,13 +60,15 @@ public class VaultHttpServicePropertiesTest
 				"version",
 				"connectTimeout",
 				"requestTimeout",
-				"followRedirects"),
+				"followRedirects",
+				"authenticator"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
 		assertEquals(HttpClient.Version.HTTP_2, p.client.version());
 		assertEquals(Optional.of(ofSeconds(3)), p.client.connectTimeout());
 		assertEquals(Optional.of(ofSeconds(3)), p.newRequest(new URI(p.root), null).timeout());
 		assertEquals(HttpClient.Redirect.NEVER, p.client.followRedirects());
+		assertTrue(p.client.authenticator().isEmpty());
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -85,7 +89,10 @@ public class VaultHttpServicePropertiesTest
 				single("version", "HTTP_1_1"),
 				single("connectTimeout", "PT33S"),
 				single("requestTimeout", "PT44S"),
-				single("followRedirects", "ALWAYS")));
+				single("followRedirects", "ALWAYS"),
+				single("authenticator", true),
+				single("authenticator.username", "myUsername"),
+				single("authenticator.password", "myPassword")));
 
 		final Props p = new Props(source);
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
@@ -93,6 +100,10 @@ public class VaultHttpServicePropertiesTest
 		assertEquals(Optional.of(ofSeconds(33)), p.client.connectTimeout());
 		assertEquals(Optional.of(ofSeconds(44)), p.newRequest(new URI(p.root), null).timeout());
 		assertEquals(HttpClient.Redirect.ALWAYS, p.client.followRedirects());
+		final PasswordAuthentication auth =
+				((AuthenticatorProperties.MyAuth)p.client.authenticator().orElseThrow()).getPasswordAuthentication();
+		assertEquals("myUsername", auth.getUserName());
+		assertEquals("myPassword", new String(auth.getPassword()));
 	}
 	@Test void rootTrailingSlash()
 	{
