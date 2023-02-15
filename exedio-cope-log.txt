@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultHttpService properties: key "readTimeout" renamed to "requestTimeout".
+	Check your deployed systems! Probably this key is at its default,
+	then you don't have to do anything.
 * VaultHttpService properties: key "useCaches" no longer supported.
 	Check your deployed systems! Probably this key is at its default (false),
 	then you don't have to do anything.

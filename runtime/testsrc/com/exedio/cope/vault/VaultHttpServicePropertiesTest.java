@@ -52,7 +52,7 @@ public class VaultHttpServicePropertiesTest
 				"directory",
 				"directory.length",
 				"connectTimeout",
-				"readTimeout",
+				"requestTimeout",
 				"followRedirects"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);

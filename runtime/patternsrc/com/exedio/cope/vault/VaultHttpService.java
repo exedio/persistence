@@ -226,7 +226,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		}
 
 		private final Duration connectTimeout = valueTimeout("connectTimeout", ofSeconds(3));
-		private final Duration    readTimeout = valueTimeout(   "readTimeout", ofSeconds(3));
+		private final Duration requestTimeout = valueTimeout("requestTimeout", ofSeconds(3));
 		private final boolean followRedirects = value("followRedirects", false);
 
 		private Duration valueTimeout(
@@ -247,7 +247,7 @@ public final class VaultHttpService extends VaultNonWritableService
 			final HttpRequest.Builder result = HttpRequest.newBuilder(uri);
 			if(method!=null)
 				result.method(method, BodyPublishers.noBody());
-			return result.timeout(readTimeout).build();
+			return result.timeout(requestTimeout).build();
 		}
 
 		@Probe(name="root.Exists")
