@@ -100,7 +100,7 @@ public class VaultHttpServicePropertiesTest
 		final IllegalPropertiesException e = assertFails(
 				() -> new Props(source),
 				IllegalPropertiesException.class,
-				"property root in DESC must be a url with scheme http(s), " +
+				"property root in DESC must be a uri with scheme http(s), " +
 				"but was >mailto:oops@VaultHttpServicePropertiesTest.invalid< with scheme >mailto<");
 		assertEquals(null, e.getCause());
 	}
