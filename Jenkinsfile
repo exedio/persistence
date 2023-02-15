@@ -64,7 +64,10 @@ try
 						"--group-add copevaultfilesv2 " + // VaultFileServicePosixGroupTest#testGroupDirectory
 						"--cap-drop all " +
 						"--security-opt no-new-privileges " +
-						"--network " + bridge)
+						"--network " + bridge + " " +
+						// avoids 20s dns timeout when probes do futilely try to connect
+						"--add-host VaultHttpServicePropertiesTest.invalid:0.0.0.0 " +
+						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
 				{
 					shSilent ant + " clean jenkins" +
 							' "-Dbuild.revision=${BUILD_NUMBER}"' +
