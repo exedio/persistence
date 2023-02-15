@@ -34,6 +34,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
+import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
@@ -224,6 +225,7 @@ public final class VaultHttpService extends VaultNonWritableService
 						"but was >" + root + "< with scheme >" + scheme + '<');
 		}
 
+		private final Version version = value("version", Version.HTTP_2);
 		private final Duration connectTimeout = valueTimeout("connectTimeout", ofSeconds(3));
 		private final Duration requestTimeout = valueTimeout("requestTimeout", ofSeconds(3));
 		private final Redirect followRedirects = value("followRedirects", Redirect.NEVER);
@@ -237,6 +239,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		}
 
 		final HttpClient client = HttpClient.newBuilder().
+					version(version).
 					connectTimeout(connectTimeout).
 					followRedirects(followRedirects).
 					build();

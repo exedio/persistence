@@ -51,6 +51,7 @@ public class VaultHttpServicePropertiesTest
 				"root",
 				"directory",
 				"directory.length",
+				"version",
 				"connectTimeout",
 				"requestTimeout",
 				"followRedirects"),
