@@ -83,13 +83,13 @@ public class VaultHttpServicePropertiesTest
 	@Test void rootMalformed()
 	{
 		final Source source = describe("DESC", cascade(
-				single("root", "http//VaultHttpServicePropertiesTest.invalid")));
+				single("root", ":VaultHttpServicePropertiesTest.invalid")));
 
 		final IllegalPropertiesException e = assertFails(
 				() -> new Props(source),
 				IllegalPropertiesException.class,
-				"property root in DESC is malformed: >http//VaultHttpServicePropertiesTest.invalid<");
-		assertEquals("no protocol: http//VaultHttpServicePropertiesTest.invalid", e.getCause().getMessage());
+				"property root in DESC is malformed: >:VaultHttpServicePropertiesTest.invalid<");
+		assertEquals("no protocol: :VaultHttpServicePropertiesTest.invalid", e.getCause().getMessage());
 		assertEquals(MalformedURLException.class, e.getCause().getClass());
 	}
 	@Test void rootNonHttp()
