@@ -46,7 +46,7 @@ import java.util.function.Supplier;
 @ServiceProperties(VaultHttpService.Props.class)
 public final class VaultHttpService extends VaultNonWritableService
 {
-	private final String rootUrl;
+	private final String rootUri;
 	private final VaultDirectory directory;
 	private final Props properties;
 
@@ -55,7 +55,7 @@ public final class VaultHttpService extends VaultNonWritableService
 			final Props properties)
 	{
 		super(parameters);
-		this.rootUrl = properties.root;
+		this.rootUri = properties.root;
 		this.directory = VaultDirectory.instance(properties.directory, parameters);
 		this.properties = properties;
 	}
@@ -80,7 +80,7 @@ public final class VaultHttpService extends VaultNonWritableService
 	{
 		return getContentLength(response).orElseThrow(
 				() -> new RuntimeException(
-						CONTENT_LENGTH + " header missing at " + rootUrl + ':' + anonymiseHash(hash)));
+						CONTENT_LENGTH + " header missing at " + rootUri + ':' + anonymiseHash(hash)));
 	}
 
 	private static OptionalLong getContentLength(
@@ -135,9 +135,9 @@ public final class VaultHttpService extends VaultNonWritableService
 		final HttpResponse<T> response;
 		try
 		{
-			final URI url = new URI(rootUrl + '/' + directory.path(hash));
+			final URI uri = new URI(rootUri + '/' + directory.path(hash));
 			response = properties.client.send(
-					properties.newRequest(url, requestMethod),
+					properties.newRequest(uri, requestMethod),
 					info -> info.statusCode()==HTTP_OK
 					? bodySubscriberOk.get()
 					: BodySubscribers.replacing(null));
@@ -155,44 +155,44 @@ public final class VaultHttpService extends VaultNonWritableService
 			case HTTP_NOT_FOUND:
 				throw new VaultNotFoundException(hash);
 			default:
-				throw new RuntimeException(rootUrl + ':' + responseCode + ':' + anonymiseHash(hash));
+				throw new RuntimeException(rootUri + ':' + responseCode + ':' + anonymiseHash(hash));
 		}
 	}
 
 	private RuntimeException wrap(final String hash, final Exception exception)
 	{
-		throw new RuntimeException(rootUrl + ':' + anonymiseHash(hash), exception);
+		throw new RuntimeException(rootUri + ':' + anonymiseHash(hash), exception);
 	}
 
 
 	@Override
 	// Method signature shall NOT narrow down specification from VaultService to
-	//   URL probeGenuineServiceKey(String serviceKey) throws IOException
+	//   URI probeGenuineServiceKey(String serviceKey) throws IOException
 	// so we are free to change signature in the future without breaking API compatibility.
 	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
 	{
-		final URI url = new URI(rootUrl + '/' + VAULT_GENUINE_SERVICE_KEY + '/' + serviceKey);
+		final URI uri = new URI(rootUri + '/' + VAULT_GENUINE_SERVICE_KEY + '/' + serviceKey);
 		final HttpResponse<Void> response = properties.client.send(
-				properties.newRequest(url, REQUEST_METHOD_HEAD),
+				properties.newRequest(uri, REQUEST_METHOD_HEAD),
 				responseInfo -> BodySubscribers.discarding());
 		final int responseCode = response.statusCode();
 		if(responseCode!=HTTP_OK)
 			throw new IllegalStateException(
-					"response code " + responseCode + ':' + url);
+					"response code " + responseCode + ':' + uri);
 		final OptionalLong size = getContentLength(response);
 		if(size.isPresent() && // Content-Length header may be absent for empty files
 			size.getAsLong()!=0) // file must not have any content, because it is likely exposed to public
 			throw new IllegalStateException(
-					"is not empty, but has size " + size.getAsLong() + ':' + url);
+					"is not empty, but has size " + size.getAsLong() + ':' + uri);
 
-		return url;
+		return uri;
 	}
 
 
 	@Override
 	public String toString()
 	{
-		return getClass().getSimpleName() + ':' + rootUrl;
+		return getClass().getSimpleName() + ':' + rootUri;
 	}
 
 
@@ -208,20 +208,20 @@ public final class VaultHttpService extends VaultNonWritableService
 
 			if(root.endsWith("/"))
 				throw newException("root", "must not end with slash, but was >" + root + '<');
-			final URL url;
+			final URL uri;
 			try
 			{
-				url = new URL(root);
+				uri = new URL(root);
 			}
 			catch(final MalformedURLException e)
 			{
 				throw newException("root", "is malformed: >" + root + '<', e);
 			}
-			final String scheme = url.getProtocol();
+			final String scheme = uri.getProtocol();
 			if(!"http".equals(scheme) &&
 				!"https".equals(scheme))
 				throw newException("root",
-						"must be a url with scheme http(s), " +
+						"must be a uri with scheme http(s), " +
 						"but was >" + root + "< with scheme >" + scheme + '<');
 		}
 
@@ -253,9 +253,9 @@ public final class VaultHttpService extends VaultNonWritableService
 		@Probe(name="root.Exists")
 		private URI probeRootExists() throws URISyntaxException, IOException, InterruptedException
 		{
-			final URI url = new URI(root + '/');
+			final URI uri = new URI(root + '/');
 			final HttpResponse<Void> response = client.send(
-					newRequest(url, REQUEST_METHOD_HEAD),
+					newRequest(uri, REQUEST_METHOD_HEAD),
 					info -> BodySubscribers.discarding());
 			final int responseCode = response.statusCode();
 			switch(responseCode)
@@ -265,11 +265,11 @@ public final class VaultHttpService extends VaultNonWritableService
 				// there is no index.html as well. At least we check whether host is reachable.
 				case HTTP_FORBIDDEN:
 				case HTTP_NOT_FOUND:
-					return url;
+					return uri;
 				default:
 					throw new IllegalArgumentException(
 							"does respond with code other than " + HTTP_OK + ", " + HTTP_FORBIDDEN + " or " + HTTP_NOT_FOUND + ": " +
-							responseCode + " >" + url + '<');
+							responseCode + " >" + uri + '<');
 			}
 		}
 	}
