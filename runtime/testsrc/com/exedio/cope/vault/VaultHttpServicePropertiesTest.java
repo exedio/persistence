@@ -33,7 +33,7 @@ import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultHttpService.Props;
 import java.net.ConnectException;
-import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -80,7 +80,7 @@ public class VaultHttpServicePropertiesTest
 				"property root in DESC must not end with slash, " +
 				"but was >http://VaultHttpServicePropertiesTest.invalid/<");
 	}
-	@Test void rootMalformed()
+	@Test void uriSyntax()
 	{
 		final Source source = describe("DESC", cascade(
 				single("root", ":VaultHttpServicePropertiesTest.invalid")));
@@ -88,9 +88,9 @@ public class VaultHttpServicePropertiesTest
 		final IllegalPropertiesException e = assertFails(
 				() -> new Props(source),
 				IllegalPropertiesException.class,
-				"property root in DESC is malformed: >:VaultHttpServicePropertiesTest.invalid<");
-		assertEquals("no protocol: :VaultHttpServicePropertiesTest.invalid", e.getCause().getMessage());
-		assertEquals(MalformedURLException.class, e.getCause().getClass());
+				"property root in DESC syntax exception: >:VaultHttpServicePropertiesTest.invalid<");
+		assertEquals("Expected scheme name at index 0: :VaultHttpServicePropertiesTest.invalid", e.getCause().getMessage());
+		assertEquals(URISyntaxException.class, e.getCause().getClass());
 	}
 	@Test void rootNonHttp()
 	{

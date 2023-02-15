@@ -30,10 +30,8 @@ import com.exedio.cope.util.ServiceProperties;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
@@ -208,16 +206,16 @@ public final class VaultHttpService extends VaultNonWritableService
 
 			if(root.endsWith("/"))
 				throw newException("root", "must not end with slash, but was >" + root + '<');
-			final URL uri;
+			final URI uri;
 			try
 			{
-				uri = new URL(root);
+				uri = new URI(root);
 			}
-			catch(final MalformedURLException e)
+			catch(final URISyntaxException e)
 			{
-				throw newException("root", "is malformed: >" + root + '<', e);
+				throw newException("root", "syntax exception: >" + root + '<', e);
 			}
-			final String scheme = uri.getProtocol();
+			final String scheme = uri.getScheme();
 			if(!"http".equals(scheme) &&
 				!"https".equals(scheme))
 				throw newException("root",
