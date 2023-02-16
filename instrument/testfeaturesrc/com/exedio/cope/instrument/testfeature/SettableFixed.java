@@ -50,4 +50,6 @@ public class SettableFixed extends AssertionFailedSettable<AtomicBoolean>
 	{
 		return AtomicBoolean.class;
 	}
+
+	private static final long serialVersionUID = 1l;
 }

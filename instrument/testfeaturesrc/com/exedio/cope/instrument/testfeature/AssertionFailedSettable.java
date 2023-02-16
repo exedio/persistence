@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -25,7 +26,7 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 import java.util.Set;
 
-public class AssertionFailedSettable<E> implements Settable<E>
+public class AssertionFailedSettable<E> extends Feature implements Settable<E>
 {
 	@Override
 	public SetValue<E> map(final E value)
@@ -68,4 +69,6 @@ public class AssertionFailedSettable<E> implements Settable<E>
 	{
 		throw new AssertionError();
 	}
+
+	private static final long serialVersionUID = 1l;
 }

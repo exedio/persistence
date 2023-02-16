@@ -64,4 +64,6 @@ public class SettableOpen<Z> extends AssertionFailedSettable<Z>
 	{
 		return type;
 	}
+
+	private static final long serialVersionUID = 1l;
 }

@@ -51,4 +51,6 @@ public class SettableFixedParamWildcard extends AssertionFailedSettable<AtomicRe
 	{
 		return ReflectionTypes.parameterized(AtomicReference.class, ReflectionTypes.sub(Object.class));
 	}
+
+	private static final long serialVersionUID = 1l;
 }
