@@ -64,21 +64,15 @@ public final class VaultHttpService extends VaultNonWritableService
 	{
 		try
 		{
-			return getContentLength(getOk(hash, REQUEST_METHOD_HEAD, BodySubscribers::discarding), hash);
+			return getContentLength(getOk(hash, REQUEST_METHOD_HEAD, BodySubscribers::discarding)).
+					orElseThrow(() ->
+							new RuntimeException(
+									CONTENT_LENGTH + " header missing at " + rootUri + ':' + anonymiseHash(hash)));
 		}
 		catch(final IOException e)
 		{
 			throw wrap(hash, e);
 		}
-	}
-
-	private long getContentLength(
-			final HttpResponse<?> response,
-			final String hash)
-	{
-		return getContentLength(response).orElseThrow(
-				() -> new RuntimeException(
-						CONTENT_LENGTH + " header missing at " + rootUri + ':' + anonymiseHash(hash)));
 	}
 
 	private static OptionalLong getContentLength(
