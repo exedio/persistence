@@ -208,6 +208,7 @@ public final class LongField extends NumberField<Long>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return new IntegerColumn(table, name, false, optional, minimum, maximum, true);

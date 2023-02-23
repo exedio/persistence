@@ -420,6 +420,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		final Type<E> valueType = getValueType();

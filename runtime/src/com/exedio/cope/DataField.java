@@ -143,10 +143,11 @@ public final class DataField extends Field<DataField.Value>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		this.model = getType().getModel();
-		final ConnectProperties properties = model.getConnectProperties();
+		final ConnectProperties properties = connect.properties;
 		final VaultProperties vaultProperties = properties.vault;
 		store = vaultProperties==null ||
 					!(
@@ -154,7 +155,7 @@ public final class DataField extends Field<DataField.Value>
 						isAnnotatedVault()
 					)
 				? new DataFieldBlobStore (this, table, name, optional, maximumLength)
-				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, model.connect(), metrics);
+				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, connect, metrics);
 		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault, maximumLength);
 		bufferSizeLimit   = min(properties.dataFieldBufferSizeLimit  , maximumLength);
 

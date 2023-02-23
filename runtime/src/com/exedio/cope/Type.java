@@ -539,8 +539,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return annotationSource.getAnnotation(annotationClass);
 	}
 
-	void connect(final Database database, final ModelMetrics metrics)
+	void connect(final Connect connect, final ModelMetrics metrics)
 	{
+		final Database database = connect.database;
 		if(database==null)
 			throw new RuntimeException();
 
@@ -564,7 +565,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 
 		for(final Field<?> a : fields.declared)
-			a.connect(table, metrics);
+			a.connect(table, connect, metrics);
 		for(final UniqueConstraint uc : uniqueConstraints.declared)
 			uc.connect(table);
 		table.setUniqueConstraints(uniqueConstraints.declared);

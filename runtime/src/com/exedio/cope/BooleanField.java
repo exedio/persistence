@@ -111,6 +111,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);

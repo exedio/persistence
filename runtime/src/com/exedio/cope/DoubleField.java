@@ -169,6 +169,7 @@ public final class DoubleField extends NumberField<Double>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return new DoubleColumn(table, name, optional, minimum, maximum);
