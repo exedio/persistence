@@ -258,7 +258,11 @@ public final class StringField extends FunctionField<String>
 
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional, final ModelMetrics metrics)
+	Column createColumn(
+			final Table table,
+			final String name,
+			final boolean optional,
+			final ModelMetrics metrics)
 	{
 		return new StringColumn(table, name, optional, minimumLength, maximumLength, charSet, regexp, getAnnotation(MysqlExtendedVarchar.class));
 	}

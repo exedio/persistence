@@ -218,7 +218,11 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional, final ModelMetrics metrics)
+	Column createColumn(
+			final Table table,
+			final String name,
+			final boolean optional,
+			final ModelMetrics metrics)
 	{
 		return new DayColumn(table, name, optional, minimum, maximum);
 	}
