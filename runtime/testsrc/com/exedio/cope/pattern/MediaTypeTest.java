@@ -39,8 +39,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -197,13 +195,8 @@ public class MediaTypeTest
 	private void assertMagic(final String magic, final MediaType... types) throws IOException
 	{
 		final byte[] magicBytes = decodeLower(magic);
-		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
-		assertEqualsUnmodifiable(set(types), forMagics(files.newFile(magicBytes)));
-		assertEqualsUnmodifiable(set(types), forMagics(files.newPath(magicBytes)));
-	}
-
-	private static Set<Object> set(final MediaType... o)
-	{
-		return new LinkedHashSet<>(Arrays.asList(o));
+		assertEqualsUnmodifiable(Set.of(types), forMagics(magicBytes));
+		assertEqualsUnmodifiable(Set.of(types), forMagics(files.newFile(magicBytes)));
+		assertEqualsUnmodifiable(Set.of(types), forMagics(files.newPath(magicBytes)));
 	}
 }
