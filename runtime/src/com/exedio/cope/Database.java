@@ -38,9 +38,10 @@ import org.slf4j.LoggerFactory;
 final class Database
 {
 	private final EnumMap<TrimClass, Trimmer> nameTrimmers = new EnumMap<>(TrimClass.class);
-	private final ArrayList<Table> tables = new ArrayList<>();
-	private final ArrayList<SequenceX> sequences = new ArrayList<>();
-	private boolean buildStage = true;
+	private ArrayList<Table> tablesModifiable = new ArrayList<>();
+	private List<Table> tables;
+	private ArrayList<SequenceX> sequencesModifiable = new ArrayList<>();
+	private List<SequenceX> sequences;
 	final ConnectProperties properties;
 	final com.exedio.dsmf.Dialect dsmfDialect;
 	final CopeProbe probe;
@@ -108,21 +109,24 @@ final class Database
 
 	void addTable(final Table table)
 	{
-		if(!buildStage)
-			throw new RuntimeException();
-		tables.add(table);
+		tablesModifiable.add(table);
 	}
 
 	void addSequence(final SequenceX sequence)
 	{
-		if(!buildStage)
-			throw new RuntimeException();
-		sequences.add(sequence);
+		sequencesModifiable.add(sequence);
 	}
 
 	void finish()
 	{
-		buildStage = false;
+		//noinspection ZeroLengthArrayAllocation
+		final List<Table> tables = List.of(tablesModifiable.toArray(new Table[]{}));
+		tablesModifiable = null;
+		//noinspection ZeroLengthArrayAllocation
+		final List<SequenceX> sequences = List.of(sequencesModifiable.toArray(new SequenceX[]{}));
+		sequencesModifiable = null;
+		this.tables = tables;
+		this.sequences = sequences;
 	}
 
 	List<SequenceInfo> getSequenceInfo()
@@ -544,8 +548,8 @@ final class Database
 
 	void deleteSchema(final boolean forTest)
 	{
-		final ArrayList<Table> tables;
-		final ArrayList<SequenceX> sequences;
+		final List<Table> tables;
+		final List<SequenceX> sequences;
 		if(forTest)
 		{
 			tables = new ArrayList<>();
