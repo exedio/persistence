@@ -18,17 +18,30 @@
 
 package com.exedio.cope.tojunit;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.rules.TemporaryFolder;
 
 public final class MyTemporaryFolder extends TemporaryFolder
 {
+	public Path newPath(final Class<?> clazz, final String name) throws IOException
+	{
+		final Path result = newFile().toPath();
+		try(InputStream resource = clazz.getResourceAsStream(name))
+		{
+			Files.copy(resource, result, REPLACE_EXISTING);
+		}
+		return result;
+	}
+
 	public Path newPath(final byte[] bytes) throws IOException
 	{
 		return newFile(bytes).toPath();

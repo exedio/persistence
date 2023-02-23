@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.DataTest;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.File;
@@ -151,6 +152,21 @@ public class MediaTypeTest
 		assertMagic(stealTail(JPEG));
 		assertMagic(stealTail(PNG));
 		assertMagic(stealTail(ZIP));
+	}
+
+	@Test void testForMagicReal() throws IOException
+	{
+		assertEquals(Set.of(forName(MediaType.JPEG)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.jpg" )));
+		assertEquals(Set.of(forName(MediaType.PNG )), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.png" )));
+		assertEquals(Set.of(forName(MediaType.GIF )), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.gif" )));
+		assertEquals(Set.of(forName(MediaType.WEBP)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.webp")));
+		assertEquals(Set.of(forName(MediaType.TIFF)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.tiff")));
+		assertEquals(Set.of(
+				forName(MediaType.ZIP),
+				forName(MediaType.JAR),
+				forName(MediaType.DOCX),
+				forName(MediaType.XLSX)),
+				forMagics(files.newPath(DataTest.class, "DataTest.zip")));
 	}
 
 	@Test void testForMagicFails() throws IOException
