@@ -456,6 +456,7 @@ final class Types
 	{
 		for(final Type<?> type : typesSorted)
 			type.connect(connect, metrics);
+		connect.database.finish();
 	}
 
 	void disconnect()
