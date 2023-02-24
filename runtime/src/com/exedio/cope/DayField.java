@@ -222,6 +222,7 @@ public final class DayField extends FunctionField<Day>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return new DayColumn(table, name, optional, minimum, maximum);

@@ -262,6 +262,7 @@ public final class StringField extends FunctionField<String>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return new StringColumn(table, name, optional, minimumLength, maximumLength, charSet, regexp, getAnnotation(MysqlExtendedVarchar.class));

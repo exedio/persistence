@@ -151,8 +151,9 @@ public final class Model implements Serializable
 			if(connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			connectIfConnected = new Connect(metrics, types, changeListeners, revisions, properties, transactions);
-			types.connect(connectIfConnected.database, metrics);
+			final Connect connect = new Connect(metrics, types, changeListeners, revisions, properties, transactions);
+			types.connect(connect, metrics);
+			connectIfConnected = connect; // assignment must be the last thing in connectLock to prevent premature use
 		}
 
 		timer.finish("connect");
@@ -165,7 +166,7 @@ public final class Model implements Serializable
 		synchronized(connectLock)
 		{
 			final Connect connect = connect();
-			this.connectIfConnected = null;
+			this.connectIfConnected = null; // assignment must be the almost first thing in connectLock to prevent use of outdated connect
 			types.disconnect();
 			connect.close();
 		}

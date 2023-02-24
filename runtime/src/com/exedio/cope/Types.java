@@ -452,10 +452,10 @@ final class Types
 			}
 	}
 
-	void connect(final Database db, final ModelMetrics metrics)
+	void connect(final Connect connect, final ModelMetrics metrics)
 	{
 		for(final Type<?> type : typesSorted)
-			type.connect(db, metrics);
+			type.connect(connect, metrics);
 	}
 
 	void disconnect()

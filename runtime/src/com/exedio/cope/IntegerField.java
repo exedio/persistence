@@ -319,6 +319,7 @@ public final class IntegerField extends NumberField<Integer>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return new IntegerColumn(table, name, false, optional, minimum, maximum, false);

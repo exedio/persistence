@@ -438,10 +438,11 @@ public final class DateField extends FunctionField<Date>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return
-				getType().getModel().connect().supportsNativeDate
+				connect.supportsNativeDate
 				? new TimestampColumn(table, name, optional, minimum, maximum, precision)
 				: new IntegerColumn  (table, name, false, optional, minimum, maximum, true, precision);
 	}

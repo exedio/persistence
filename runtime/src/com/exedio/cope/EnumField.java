@@ -168,6 +168,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final Table table,
 			final String name,
 			final boolean optional,
+			final Connect connect,
 			final ModelMetrics metrics)
 	{
 		return new IntegerColumn(table, name, optional, valueType.getNumbers());
