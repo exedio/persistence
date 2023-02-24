@@ -120,6 +120,11 @@ final class Database
 		sequences.add(sequence);
 	}
 
+	void finish()
+	{
+		buildStage = false;
+	}
+
 	List<SequenceInfo> getSequenceInfo()
 	{
 		final ArrayList<SequenceInfo> result = new ArrayList<>(sequences.size());
@@ -130,8 +135,6 @@ final class Database
 
 	void createSchema()
 	{
-		buildStage = false;
-
 		makeSchema().create();
 
 		if(revisions!=null)
@@ -145,44 +148,32 @@ final class Database
 
 	void createSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		buildStage = false;
-
 		makeSchema().createConstraints(types);
 	}
 
 	void dropSchema()
 	{
-		buildStage = false;
-
 		flushSequences();
 		makeSchema().drop();
 	}
 
 	void dropSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		buildStage = false;
-
 		makeSchema().dropConstraints(types);
 	}
 
 	void tearDownSchema()
 	{
-		buildStage = false;
-
 		makeSchema().tearDown();
 	}
 
 	void tearDownSchemaConstraints(final EnumSet<Constraint.Type> types)
 	{
-		buildStage = false;
-
 		makeSchema().tearDownConstraints(types);
 	}
 
 	void checkEmptySchema(final Connection connection)
 	{
-		buildStage = false;
-
 		final StringBuilder bf = new StringBuilder();
 		bf.append("SELECT t,c FROM(");
 		int n = 0;
@@ -231,8 +222,6 @@ final class Database
 
 	WrittenState load(final Connection connection, final Item item)
 	{
-		buildStage = false;
-
 		final Type<?> type = item.type;
 
 		executor.testListener().load(connection, item);
@@ -370,7 +359,6 @@ final class Database
 			final IdentityHashMap<BlobColumn, byte[]> blobs,
 			final Type<?> type)
 	{
-		buildStage = false;
 		assert present || incrementUpdateCounter;
 
 		final Type<?> supertype = type.supertype;
