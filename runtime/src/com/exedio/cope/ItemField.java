@@ -416,7 +416,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	private StringColumn typeColumn = null;
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional, final ModelMetrics metrics)
+	Column createColumn(
+			final Table table,
+			final String name,
+			final boolean optional,
+			final ModelMetrics metrics)
 	{
 		final Type<E> valueType = getValueType();
 		if(connected)

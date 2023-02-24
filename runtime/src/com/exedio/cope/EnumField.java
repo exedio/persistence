@@ -164,7 +164,11 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional, final ModelMetrics metrics)
+	Column createColumn(
+			final Table table,
+			final String name,
+			final boolean optional,
+			final ModelMetrics metrics)
 	{
 		return new IntegerColumn(table, name, optional, valueType.getNumbers());
 	}

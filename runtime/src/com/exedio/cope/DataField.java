@@ -139,7 +139,11 @@ public final class DataField extends Field<DataField.Value>
 	private int bufferSizeLimit = -1;
 
 	@Override
-	Column createColumn(final Table table, final String name, final boolean optional, final ModelMetrics metrics)
+	Column createColumn(
+			final Table table,
+			final String name,
+			final boolean optional,
+			final ModelMetrics metrics)
 	{
 		this.model = getType().getModel();
 		final ConnectProperties properties = model.getConnectProperties();
