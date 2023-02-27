@@ -89,9 +89,9 @@ public class SetValuesDuplicateTest extends TestWithEnvironment
 
 	private static final SetValue<?>[] FIRST_SECOND = { SetValue.map(AnItem.field, "first"), SetValue.map(AnItem.field, "second") };
 	private static final SetValue<?>[] SAME_SAME    = { SetValue.map(AnItem.field, "same"),  SetValue.map(AnItem.field, "same")   };
-	private static final SetValue<?>[] FIRST_NULL   = { SetValue.map(AnItem.field, "first"), AnItem.field.mapNull()               };
-	private static final SetValue<?>[] NULL_SECOND  = { AnItem.field.mapNull(),              SetValue.map(AnItem.field, "second") };
-	private static final SetValue<?>[] NULL_NULL    = { AnItem.field.mapNull(),              AnItem.field.mapNull()               };
+	private static final SetValue<?>[] FIRST_NULL   = { SetValue.map(AnItem.field, "first"), SetValue.map(AnItem.field, null)     };
+	private static final SetValue<?>[] NULL_SECOND  = { SetValue.map(AnItem.field, null),    SetValue.map(AnItem.field, "second") };
+	private static final SetValue<?>[] NULL_NULL    = { SetValue.map(AnItem.field, null),    SetValue.map(AnItem.field, null)     };
 
 	private static void assertFailsDup(final Executable executable)
 	{

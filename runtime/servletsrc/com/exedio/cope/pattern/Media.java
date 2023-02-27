@@ -724,7 +724,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			if(contentTypeField!=null)
 				values.add(SetValue.map(contentTypeField, null));
 			values.add(SetValue.map(this.lastModified, null));
-			values.add(this.body.mapNull());
+			values.add(SetValue.map(this.body, null));
 
 			return SetValueUtil.toArray(values);
 		}
