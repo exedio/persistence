@@ -82,4 +82,6 @@ public final class GenericFeatureReference<E> extends AssertionFailedSettable<E>
 	{
 		return Collections.emptySet();
 	}
+
+	private static final long serialVersionUID = 1l;
 }

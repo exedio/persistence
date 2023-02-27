@@ -56,4 +56,6 @@ public class SettableVarargs<E> extends AssertionFailedSettable<E>
 	{
 		return type;
 	}
+
+	private static final long serialVersionUID = 1l;
 }

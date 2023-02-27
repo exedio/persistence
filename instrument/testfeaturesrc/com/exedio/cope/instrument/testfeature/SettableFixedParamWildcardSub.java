@@ -20,5 +20,5 @@ package com.exedio.cope.instrument.testfeature;
 
 public class SettableFixedParamWildcardSub extends SettableFixedParamWildcard
 {
-	// empty
+	private static final long serialVersionUID = 1l;
 }

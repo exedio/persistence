@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapFeature;
@@ -29,7 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 @WrapFeature
-public class SettableFixedParamImpl implements SettableFixedParamInterface
+public class SettableFixedParamImpl extends Feature implements SettableFixedParamInterface
 {
 	@Override
 	public boolean isInitial()
@@ -75,4 +76,6 @@ public class SettableFixedParamImpl implements SettableFixedParamInterface
 	{
 		return ReflectionTypes.parameterized(AtomicReference.class, AtomicBoolean.class);
 	}
+
+	private static final long serialVersionUID = 1l;
 }

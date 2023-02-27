@@ -33,4 +33,6 @@ public final class SettableVarargsInteger extends SettableVarargs<Integer>
 	{
 		return mandatory;
 	}
+
+	private static final long serialVersionUID = 1l;
 }

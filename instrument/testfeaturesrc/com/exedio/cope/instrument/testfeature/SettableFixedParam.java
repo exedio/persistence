@@ -52,4 +52,6 @@ public class SettableFixedParam extends AssertionFailedSettable<AtomicReference<
 	{
 		return ReflectionTypes.parameterized(AtomicReference.class, AtomicBoolean.class);
 	}
+
+	private static final long serialVersionUID = 1l;
 }
