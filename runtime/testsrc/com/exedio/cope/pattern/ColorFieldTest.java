@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +55,7 @@ public class ColorFieldTest extends TestWithEnvironment
 
 		assertMandatory(new Color(11, 12, 13));
 
-		i.set(mandatory.map(new Color(21, 22, 23)));
+		i.set(SetValue.map(mandatory, new Color(21, 22, 23)));
 		assertEquals(new Color(21, 22, 23), i.getMandatory());
 
 		assertMandatory(new Color( 31,  32,  33, 255));
@@ -93,7 +94,7 @@ public class ColorFieldTest extends TestWithEnvironment
 
 		try
 		{
-			i.set(mandatory.map(null));
+			i.set(SetValue.map(mandatory, null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -207,7 +208,7 @@ public class ColorFieldTest extends TestWithEnvironment
 
 		try
 		{
-			i.set(mandatory.map(alpha));
+			i.set(SetValue.map(mandatory, alpha));
 			fail();
 		}
 		catch(final ColorAlphaViolationException e)
@@ -264,7 +265,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		i.setOptional(new Color(11, 12, 13));
 		assertEquals(new Color(11, 12, 13), i.getOptional());
 
-		i.set(optional.map(null));
+		i.set(SetValue.map(optional, null));
 		assertEquals(null, i.getOptional());
 	}
 

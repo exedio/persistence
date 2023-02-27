@@ -36,14 +36,14 @@ final class CopySelfSource extends Item
 	static CopySelfSource omitCopy(final CopySelfSource selfTarget)
 	{
 		return new CopySelfSource(
-			CopySelfSource.selfTarget.map(selfTarget)
+			SetValue.map(CopySelfSource.selfTarget, selfTarget)
 		);
 	}
 
 	static CopySelfSource omitTarget(final CopyValue selfTemplate)
 	{
 		return new CopySelfSource(
-			CopySelfSource.selfTemplate.map(selfTemplate)
+			SetValue.map(CopySelfSource.selfTemplate, selfTemplate)
 		);
 	}
 

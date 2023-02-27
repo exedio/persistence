@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.SetValue;
 
 public final class MoneyFieldItem extends Item
 {
@@ -33,10 +34,10 @@ public final class MoneyFieldItem extends Item
 	static MoneyFieldItem fixeOpt(final Money<CurrFix> fixeOpt)
 	{
 		return new MoneyFieldItem(
-			MoneyFieldItem.fixeOpt.map(fixeOpt),
-			MoneyFieldItem.currency.map(gbp),
-			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp)),
-			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
+			SetValue.map(MoneyFieldItem.fixeOpt, fixeOpt),
+			SetValue.map(MoneyFieldItem.currency, gbp),
+			SetValue.map(MoneyFieldItem.sharMan, valueOf(8888.88, gbp)),
+			SetValue.map(MoneyFieldItem.exclMan, valueOf(9999.99, gbp))
 		);
 	}
 
@@ -49,10 +50,10 @@ public final class MoneyFieldItem extends Item
 	static MoneyFieldItem fixeEnu(final Money<Currency> fixeEnu)
 	{
 		return new MoneyFieldItem(
-			MoneyFieldItem.fixeEnu.map(fixeEnu),
-			MoneyFieldItem.currency.map(gbp),
-			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp)),
-			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
+			SetValue.map(MoneyFieldItem.fixeEnu, fixeEnu),
+			SetValue.map(MoneyFieldItem.currency, gbp),
+			SetValue.map(MoneyFieldItem.sharMan, valueOf(8888.88, gbp)),
+			SetValue.map(MoneyFieldItem.exclMan, valueOf(9999.99, gbp))
 		);
 	}
 
@@ -64,10 +65,10 @@ public final class MoneyFieldItem extends Item
 	static MoneyFieldItem sharOpt(final Currency currency, final Money<Currency> sharOpt)
 	{
 		return new MoneyFieldItem(
-			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.sharOpt.map(sharOpt),
-			MoneyFieldItem.sharMan.map(eurX),
-			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
+			SetValue.map(MoneyFieldItem.currency, currency),
+			SetValue.map(MoneyFieldItem.sharOpt, sharOpt),
+			SetValue.map(MoneyFieldItem.sharMan, eurX),
+			SetValue.map(MoneyFieldItem.exclMan, valueOf(9999.99, gbp))
 		);
 	}
 
@@ -80,10 +81,10 @@ public final class MoneyFieldItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
-			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.sharOpt.map(eurX),
-			MoneyFieldItem.sharMan.map(sharMan),
-			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
+			SetValue.map(MoneyFieldItem.currency, currency),
+			SetValue.map(MoneyFieldItem.sharOpt, eurX),
+			SetValue.map(MoneyFieldItem.sharMan, sharMan),
+			SetValue.map(MoneyFieldItem.exclMan, valueOf(9999.99, gbp))
 		);
 	}
 
@@ -93,10 +94,10 @@ public final class MoneyFieldItem extends Item
 			final Money<Currency> sharMan)
 	{
 		return new MoneyFieldItem(
-			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.sharOpt.map(sharOpt),
-			MoneyFieldItem.sharMan.map(sharMan),
-			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
+			SetValue.map(MoneyFieldItem.currency, currency),
+			SetValue.map(MoneyFieldItem.sharOpt, sharOpt),
+			SetValue.map(MoneyFieldItem.sharMan, sharMan),
+			SetValue.map(MoneyFieldItem.exclMan, valueOf(9999.99, gbp))
 		);
 	}
 
@@ -107,10 +108,10 @@ public final class MoneyFieldItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
-			MoneyFieldItem.currency.map(eur),
-			MoneyFieldItem.sharMan.map(eurX),
-			MoneyFieldItem.exclOpt.map(exclOpt),
-			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
+			SetValue.map(MoneyFieldItem.currency, eur),
+			SetValue.map(MoneyFieldItem.sharMan, eurX),
+			SetValue.map(MoneyFieldItem.exclOpt, exclOpt),
+			SetValue.map(MoneyFieldItem.exclMan, valueOf(9999.99, gbp))
 		);
 	}
 
@@ -126,9 +127,9 @@ public final class MoneyFieldItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
-			MoneyFieldItem.currency.map(eur),
-			MoneyFieldItem.sharMan.map(eurX),
-			MoneyFieldItem.exclMan.map(exclMan)
+			SetValue.map(MoneyFieldItem.currency, eur),
+			SetValue.map(MoneyFieldItem.sharMan, eurX),
+			SetValue.map(MoneyFieldItem.exclMan, exclMan)
 		);
 	}
 
@@ -145,10 +146,10 @@ public final class MoneyFieldItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
-			MoneyFieldItem.currency.map(eur),
-			MoneyFieldItem.sharMan.map(eurX),
-			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp)),
-			MoneyFieldItem.byItem.map(byItem)
+			SetValue.map(MoneyFieldItem.currency, eur),
+			SetValue.map(MoneyFieldItem.sharMan, eurX),
+			SetValue.map(MoneyFieldItem.exclMan, valueOf(9999.99, gbp)),
+			SetValue.map(MoneyFieldItem.byItem, byItem)
 		);
 	}
 

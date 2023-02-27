@@ -120,8 +120,8 @@ public class PriceFieldTest extends TestWithEnvironment
 		try
 		{
 			new PriceFieldItem(new SetValue<?>[]{
-					finalPrice.map(storeOf(567)),
-					bigPrice.map(null),
+					SetValue.map(finalPrice, storeOf(567)),
+					SetValue.map(bigPrice, null),
 			});
 			fail();
 		}
@@ -133,7 +133,7 @@ public class PriceFieldTest extends TestWithEnvironment
 		try
 		{
 			new PriceFieldItem(new SetValue<?>[]{
-					finalPrice.map(storeOf(567)),
+					SetValue.map(finalPrice, storeOf(567)),
 			});
 			fail();
 		}
@@ -144,8 +144,8 @@ public class PriceFieldTest extends TestWithEnvironment
 		}
 
 		final PriceFieldItem item2 = new PriceFieldItem(new SetValue<?>[]{
-				finalPrice.map(storeOf(567)),
-				bigPrice.map(storeOf(5001)),
+				SetValue.map(finalPrice, storeOf(567)),
+				SetValue.map(bigPrice, storeOf(5001)),
 		});
 		assertEquals(storeOf(567), item2.getFinalPrice());
 		assertEquals(null, item2.getOptionalPrice());

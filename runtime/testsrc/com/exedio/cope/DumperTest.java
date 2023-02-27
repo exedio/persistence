@@ -71,9 +71,9 @@ public class DumperTest extends TestWithEnvironment
 
 		final StringBuilder out = new StringBuilder();
 		final DumperItem item = dumper.newItem(out, TYPE,
-				string.map("string0"),
-				unique.map("unique0"),
-				data.map(toValue(decodeLower("aabbcc"))));
+				SetValue.map(string, "string0"),
+				SetValue.map(unique, "unique0"),
+				SetValue.map(data, toValue(decodeLower("aabbcc"))));
 		assertEquals("DumperItem-0", item.getCopeID());
 		assertEquals(
 				"insert into " + tab(TYPE) +
@@ -90,10 +90,10 @@ public class DumperTest extends TestWithEnvironment
 
 		final StringBuilder out = new StringBuilder();
 		final DumperItem item = dumper.newItem(out, DumperSubItem.TYPE,
-				string.map("string0"),
-				unique.map("unique0"),
-				data.map(toValue(decodeLower("aabbcc"))),
-				subString.map("subString0"));
+				SetValue.map(string, "string0"),
+				SetValue.map(unique, "unique0"),
+				SetValue.map(data, toValue(decodeLower("aabbcc"))),
+				SetValue.map(subString, "subString0"));
 		assertEquals("DumperSubItem-0", item.getCopeID());
 		assertEquals(
 				"insert into " + tab(TYPE) +
@@ -111,8 +111,8 @@ public class DumperTest extends TestWithEnvironment
 		try
 		{
 			dumper.newItem(null, TYPE,
-					string.map(null),
-					unique.map("unique"));
+					SetValue.map(string, null),
+					SetValue.map(unique, "unique"));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -128,8 +128,8 @@ public class DumperTest extends TestWithEnvironment
 		try
 		{
 			dumper.newItem(null, TYPE,
-					string.map("string"),
-					unique.map("unique"));
+					SetValue.map(string, "string"),
+					SetValue.map(unique, "unique"));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -145,8 +145,8 @@ public class DumperTest extends TestWithEnvironment
 		try
 		{
 			dumper.newItem(null, TYPE,
-					string.map("12345678901"),
-					unique.map("unique"));
+					SetValue.map(string, "12345678901"),
+					SetValue.map(unique, "unique"));
 			fail();
 		}
 		catch(final StringLengthViolationException e)
@@ -199,9 +199,9 @@ public class DumperTest extends TestWithEnvironment
 		try
 		{
 			dumper.newItem(out, TYPE,
-					string.map("string0"),
-					unique.map("unique0"),
-					data.map(toValue(decodeLower("aabbcc"))));
+					SetValue.map(string, "string0"),
+					SetValue.map(unique, "unique0"),
+					SetValue.map(data, toValue(decodeLower("aabbcc"))));
 			fail();
 		}
 		catch(final RuntimeException e)

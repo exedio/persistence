@@ -31,6 +31,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.Arrays;
@@ -149,8 +150,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 				final byte[] duoBody, final String duoContentType)
 		{
 			item().set(
-					field().of(uno).map(Media.toValue(unoBody, unoContentType)),
-					field().of(duo).map(Media.toValue(duoBody, duoContentType)));
+					SetValue.map(field().of(uno), Media.toValue(unoBody, unoContentType)),
+					SetValue.map(field().of(duo), Media.toValue(duoBody, duoContentType)));
 		}
 
 		static final CheckConstraint chk = new CheckConstraint(Cope.or(

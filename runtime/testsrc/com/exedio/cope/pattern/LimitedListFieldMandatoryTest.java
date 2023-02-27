@@ -29,6 +29,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapperType;
@@ -87,7 +88,7 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals(null,  field.getListSources().get(2).get(item));
 
-		item.set(field.map(asList("one", "two", "thr")));
+		item.set(SetValue.map(field, asList("one", "two", "thr")));
 		assertEquals(asList("one", "two", "thr"), item.getField());
 		assertEquals(3,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
@@ -148,7 +149,7 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 
 		AnItem(@Nonnull final Collection<String> field)
 		{
-			this(AnItem.field.map(field));
+			this(SetValue.map(AnItem.field, field));
 		}
 
 

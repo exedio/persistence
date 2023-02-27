@@ -246,8 +246,8 @@ public class StringTest extends TestWithEnvironment
 		try
 		{
 			TYPE.newItem(
-					mandatory.map("defaultByMax4"),
-					max4.map("12345")
+					SetValue.map(mandatory, "defaultByMax4"),
+					SetValue.map(max4, "12345")
 			);
 			fail();
 		}
@@ -393,8 +393,8 @@ public class StringTest extends TestWithEnvironment
 		try
 		{
 			TYPE.newItem(
-					mandatory.map("defaultByExact6"),
-					exact6.map("1234567")
+					SetValue.map(mandatory, "defaultByExact6"),
+					SetValue.map(exact6, "1234567")
 			);
 			fail();
 		}

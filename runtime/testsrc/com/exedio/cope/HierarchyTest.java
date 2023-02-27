@@ -293,7 +293,7 @@ public class HierarchyTest extends TestWithEnvironment
 		}
 		try
 		{
-			firstItem.set(HierarchySecondSub.firstSubString.map("zack"));
+			firstItem.set(SetValue.map(HierarchySecondSub.firstSubString, "zack"));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -302,7 +302,7 @@ public class HierarchyTest extends TestWithEnvironment
 		}
 		try
 		{
-			HierarchyFirstSub.TYPE.newItem(HierarchySecondSub.firstSubString.map("zack"));
+			HierarchyFirstSub.TYPE.newItem(SetValue.map(HierarchySecondSub.firstSubString, "zack"));
 			fail();
 		}
 		catch(final IllegalArgumentException e)

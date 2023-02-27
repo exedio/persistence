@@ -222,8 +222,8 @@ public class CompositeTest
 		assertEqualBits(6.6, value.getDoubleField());
 
 		value.set(
-				Value.intMax4.map(-4),
-				Value.longField.map(-5l));
+				SetValue.map(Value.intMax4, -4),
+				SetValue.map(Value.longField, -5l));
 		assertEquals("1234", value.getString4());
 		assertEquals(-4, value.getIntMax4());
 		assertEquals(-5l, value.getLongField());
@@ -273,10 +273,10 @@ public class CompositeTest
 
 		assertFails(
 				() -> value.set(
-						Value.string4.map("3456"),
-						Value.intMax4.map(44), // fails
-						Value.longField.map(55l),
-						Value.doubleField.map(66.6)),
+						SetValue.map(Value.string4, "3456"),
+						SetValue.map(Value.intMax4, 44), // fails
+						SetValue.map(Value.longField, 55l),
+						SetValue.map(Value.doubleField, 66.6)),
 				IntegerRangeViolationException.class,
 				"range violation, 44 is too big for " + Value.intMax4 + ", " +
 				"must be at most 4",
@@ -371,10 +371,10 @@ public class CompositeTest
 		assertFails(() -> value.set(ValueX.booleanField, valueOf(true)), IllegalArgumentException.class, "not a member");
 
 		// setMulti
-		assertFails(() -> value.set(ValueX.stringField.map("77s")), IllegalArgumentException.class, "not a member");
-		assertFails(() -> value.set(ValueX.intField.map(valueOf(7))), IllegalArgumentException.class, "not a member");
-		assertFails(() -> value.set(ValueX.doubleField.map(valueOf(7.7))), IllegalArgumentException.class, "not a member");
-		assertFails(() -> value.set(ValueX.booleanField.map(valueOf(true))), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(SetValue.map(ValueX.stringField, "77s")), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(SetValue.map(ValueX.intField, valueOf(7))), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(SetValue.map(ValueX.doubleField, valueOf(7.7))), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(SetValue.map(ValueX.booleanField, valueOf(true))), IllegalArgumentException.class, "not a member");
 	}
 
 	@Test void testTouchDate()
@@ -404,7 +404,7 @@ public class CompositeTest
 	@Test void testSettableNonFunctionFieldCreate()
 	{
 		assertFails(
-				() -> new Value(PRICE_FIELD.map(Price.ZERO)),
+				() -> new Value(SetValue.map(PRICE_FIELD, Price.ZERO)),
 				ClassCastException.class,
 				PriceField.class + " cannot be cast to " + FunctionField.class + " (" +
 				PriceField.class.getName() + " and " + FunctionField.class.getName() + " are in unnamed module of loader 'app')");
@@ -415,7 +415,7 @@ public class CompositeTest
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 
 		assertFails(
-				() -> value.set(PRICE_FIELD.map(Price.ZERO)),
+				() -> value.set(SetValue.map(PRICE_FIELD, Price.ZERO)),
 				ClassCastException.class,
 				PriceField.class + " cannot be cast to " + FunctionField.class + " (" +
 				PriceField.class.getName() + " and " + FunctionField.class.getName() + " are in unnamed module of loader 'app')");
@@ -428,12 +428,12 @@ public class CompositeTest
 	{
 		assertFails(
 				() -> new Value(
-						Value.string4.map("1234"),
-						Value.intMax4.map(4),
-						Value.longField.map(5l),
-						Value.doubleField.map(6.6),
-						Value.booleanField.map(false),
-						((FunctionField)Value.booleanOptional).map("")
+						SetValue.map(Value.string4, "1234"),
+						SetValue.map(Value.intMax4, 4),
+						SetValue.map(Value.longField, 5l),
+						SetValue.map(Value.doubleField, 6.6),
+						SetValue.map(Value.booleanField, false),
+						SetValue.map((FunctionField)Value.booleanOptional, "")
 				),
 				ClassCastException.class,
 				"expected a java.lang.Boolean, " +
@@ -458,7 +458,7 @@ public class CompositeTest
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertFails(
-				() -> value.set(((FunctionField)Value.booleanOptional).map("")),
+				() -> value.set(SetValue.map(((FunctionField)Value.booleanOptional), "")),
 				ClassCastException.class,
 				"expected a java.lang.Boolean, " +
 				"but was a java.lang.String for " +
@@ -488,12 +488,12 @@ public class CompositeTest
 		{
 			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(new com.exedio.cope.SetValue<?>[]{
-					Value.string4.map("1234"),
-					(optional ? Value.stringDefaultOptional : Value.stringDefault).map(stringDefault),
-					Value.intMax4.map(4),
-					Value.longField.map(5l),
-					Value.doubleField.map(6.6),
-					Value.booleanField.map(false),
+					SetValue.map(Value.string4, "1234"),
+					SetValue.map(optional ? Value.stringDefaultOptional : Value.stringDefault, stringDefault),
+					SetValue.map(Value.intMax4, 4),
+					SetValue.map(Value.longField, 5l),
+					SetValue.map(Value.doubleField, 6.6),
+					SetValue.map(Value.booleanField, false),
 			});
 		}
 

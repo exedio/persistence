@@ -39,11 +39,11 @@ public class CreateTest extends TestWithEnvironment
 			assertEquals("normal.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
-			final CreateItem item = new CreateItem(CreateSuperItem.text.map("generic"));
+			final CreateItem item = new CreateItem(SetValue.map(CreateSuperItem.text, "generic"));
 			assertEquals("generic.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		{
-			final CreateItem item = CreateItem.TYPE.newItem(CreateSuperItem.text.map("type"));
+			final CreateItem item = CreateItem.TYPE.newItem(SetValue.map(CreateSuperItem.text, "type"));
 			assertEquals("type.preCreate.preCreateSuper.postCreate", item.getText());
 		}
 		try
@@ -58,7 +58,7 @@ public class CreateTest extends TestWithEnvironment
 		}
 		try
 		{
-			new CreateItem(CreateSuperItem.text.map("fail"));
+			new CreateItem(SetValue.map(CreateSuperItem.text, "fail"));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -68,7 +68,7 @@ public class CreateTest extends TestWithEnvironment
 		}
 		try
 		{
-			CreateItem.TYPE.newItem(CreateSuperItem.text.map("fail"));
+			CreateItem.TYPE.newItem(SetValue.map(CreateSuperItem.text, "fail"));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -82,11 +82,11 @@ public class CreateTest extends TestWithEnvironment
 			assertEquals("normal.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
-			final CreateSuperItem item = new CreateSuperItem(CreateSuperItem.text.map("generic"));
+			final CreateSuperItem item = new CreateSuperItem(SetValue.map(CreateSuperItem.text, "generic"));
 			assertEquals("generic.preCreateSuper.postCreateSuper", item.getText());
 		}
 		{
-			final CreateSuperItem item = CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("type"));
+			final CreateSuperItem item = CreateSuperItem.TYPE.newItem(SetValue.map(CreateSuperItem.text, "type"));
 			assertEquals("type.preCreateSuper.postCreateSuper", item.getText());
 		}
 		try
@@ -101,7 +101,7 @@ public class CreateTest extends TestWithEnvironment
 		}
 		try
 		{
-			new CreateSuperItem(CreateSuperItem.text.map("fail"));
+			new CreateSuperItem(SetValue.map(CreateSuperItem.text, "fail"));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -111,7 +111,7 @@ public class CreateTest extends TestWithEnvironment
 		}
 		try
 		{
-			CreateSuperItem.TYPE.newItem(CreateSuperItem.text.map("fail"));
+			CreateSuperItem.TYPE.newItem(SetValue.map(CreateSuperItem.text, "fail"));
 			fail();
 		}
 		catch(final MandatoryViolationException e)

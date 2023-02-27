@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.RevisionInfo;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
@@ -189,11 +190,11 @@ public class SampleTest extends ConnectedTest
 	private static void touch()
 	{
 		SampledModelItem.TYPE.newItem(
-				SampledModelItem.code.map("zack"),
-				SampledModelItem.mediaA.map(Media.toValue(new byte[]{1,2,3}, "zick/zack")),
-				SampledModelItem.mediaB.map(Media.toValue(new byte[]{1,2,3}, "zick/zack"))
+				SetValue.map(SampledModelItem.code, "zack"),
+				SetValue.map(SampledModelItem.mediaA, Media.toValue(new byte[]{1,2,3}, "zick/zack")),
+				SetValue.map(SampledModelItem.mediaB, Media.toValue(new byte[]{1,2,3}, "zick/zack"))
 		);
-		SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack"));
+		SampledModelItem2.TYPE.newItem(SetValue.map(SampledModelItem2.code, "zack"));
 		MODEL.commit();
 		SampledModelItem.mediaA.incrementDelivered();
 		SampledModelItem.mediaB.incrementDelivered();

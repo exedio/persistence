@@ -22,6 +22,7 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.pattern.Price.storeOf;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapperType;
 
 @WrapperType(genericConstructor=PACKAGE)
@@ -36,9 +37,9 @@ public final class PriceFieldItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new PriceFieldItem(new com.exedio.cope.SetValue<?>[]{
-				PriceFieldItem.finalPrice.map(finalPrice),
-				PriceFieldItem.optionalPrice.map(optionalPrice),
-				PriceFieldItem.bigPrice.map(storeOf(8888)),
+				SetValue.map(PriceFieldItem.finalPrice, finalPrice),
+				SetValue.map(PriceFieldItem.optionalPrice, optionalPrice),
+				SetValue.map(PriceFieldItem.bigPrice, storeOf(8888)),
 			});
 	}
 

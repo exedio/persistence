@@ -20,6 +20,7 @@ package com.exedio.cope.hookaudit;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperType;
 
@@ -29,7 +30,7 @@ final class HookAuditItemSub extends HookAuditItem
 	@SuppressWarnings("MethodOverridesStaticMethodOfSuperclass")
 	static HookAuditItemSub newWithField(final String field)
 	{
-		return new HookAuditItemSub(HookAuditItem.field.map(field));
+		return new HookAuditItemSub(SetValue.map(HookAuditItem.field, field));
 	}
 
 
@@ -38,7 +39,7 @@ final class HookAuditItemSub extends HookAuditItem
 
 	static HookAuditItemSub newWithSubField(final String subField)
 	{
-		return new HookAuditItemSub(HookAuditItemSub.subField.map(subField));
+		return new HookAuditItemSub(SetValue.map(HookAuditItemSub.subField, subField));
 	}
 
 

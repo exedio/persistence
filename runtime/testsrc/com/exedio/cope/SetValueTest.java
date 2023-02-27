@@ -132,6 +132,7 @@ public class SetValueTest
 		}
 
 		@Override
+		@SuppressWarnings({"deprecation","unused"}) // OK: testing deprecated API
 		public SetValue<String> map(final String value)
 		{
 			throw new RuntimeException();

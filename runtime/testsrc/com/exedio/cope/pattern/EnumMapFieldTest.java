@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import com.exedio.cope.Condition;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import com.exedio.cope.tojunit.Assert;
@@ -134,20 +135,20 @@ public class EnumMapFieldTest extends TestWithEnvironment
 
 		final EnumMap<Language, String> map = new EnumMap<>(Language.class);
 		map.put(DE, "nameDE");
-		item.set(name.map(map));
+		item.set(SetValue.map(name, map));
 		assertEquals("nameDE", item.getName(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getName(PL));
 
 		map.remove(DE);
 		map.put(PL, "namePL");
-		item.set(name.map(map));
+		item.set(SetValue.map(name, map));
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals("namePL", item.getName(PL));
 
 		map.remove(PL);
-		item.set(name.map(map));
+		item.set(SetValue.map(name, map));
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals(null, item.getName(PL));
@@ -157,7 +158,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 	{
 		try
 		{
-			item.set(name.map(null));
+			item.set(SetValue.map(name, null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -172,7 +173,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		final EnumMap<Language, String> map = new EnumMap<>(Language.class);
 		map.put(DE, null);
 		map.put(PL, "namePL");
-		item.set(name.map(map));
+		item.set(SetValue.map(name, map));
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getName(EN));
 		assertEquals("namePL", item.getName(PL));

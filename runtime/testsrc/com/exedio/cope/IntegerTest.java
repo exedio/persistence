@@ -180,8 +180,8 @@ public class IntegerTest extends TestWithEnvironment
 		try
 		{
 			TYPE.newItem(
-					mandatory.map(1234567),
-					max4.map(5)
+					SetValue.map(mandatory, 1234567),
+					SetValue.map(max4, 5)
 			);
 			fail();
 		}

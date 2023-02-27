@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
@@ -58,7 +59,7 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		}
 		try
 		{
-			item.set(password.map(null));
+			item.set(SetValue.map(password, null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)

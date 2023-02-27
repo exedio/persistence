@@ -43,7 +43,7 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 	@Test void test()
 	{
 		final AnItem item = new AnItem(valueOf(3.3));
-		final SetValue<?> setValue = isfinal.map(valueOf(5.5));
+		final SetValue<?> setValue = SetValue.map(isfinal, valueOf(5.5));
 
 		try
 		{

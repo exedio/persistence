@@ -24,6 +24,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LengthView;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.PlusView;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UppercaseView;
@@ -62,15 +63,15 @@ public final class StringItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(
-				StringItem.mandatory.map("defaultByAny"),
-				StringItem.any.map(any)
+				SetValue.map(StringItem.mandatory, "defaultByAny"),
+				SetValue.map(StringItem.any, any)
 		);
 	}
 
 	public StringItem(final String mandatory, @SuppressWarnings("unused") final double dummy) throws MandatoryViolationException
 	{
 		this(
-				StringItem.mandatory.map(mandatory)
+				SetValue.map(StringItem.mandatory, mandatory)
 		);
 	}
 
@@ -78,8 +79,8 @@ public final class StringItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(
-				StringItem.mandatory.map("defaultByExact6"),
-				StringItem.exact6.map(exact6)
+				SetValue.map(StringItem.mandatory, "defaultByExact6"),
+				SetValue.map(StringItem.exact6, exact6)
 		);
 	}
 
@@ -87,8 +88,8 @@ public final class StringItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(
-				StringItem.mandatory.map("defaultByMax4"),
-				StringItem.max4.map(max4)
+				SetValue.map(StringItem.mandatory, "defaultByMax4"),
+				SetValue.map(StringItem.max4, max4)
 		);
 	}
 

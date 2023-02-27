@@ -41,16 +41,16 @@ public class SetValueUtilTest
 		final StringField f2 = new StringField();
 		final ArrayList<SetValue<?>> l = new ArrayList<>();
 
-		final SetValue<String> m1 = f1.map("value1a");
+		final SetValue<String> m1 = SetValue.map(f1, "value1a");
 		l.add(m1);
 		assertGetFirst(m1, "value1a", l, f1);
 		assertGetFirst(null, null,    l, f2);
 
-		l.add(f1.map("value1b"));
+		l.add(SetValue.map(f1, "value1b"));
 		assertGetFirst(m1, "value1a", l, f1);
 		assertGetFirst(null, null,    l, f2);
 
-		final SetValue<String> m2 = f2.map("value2");
+		final SetValue<String> m2 = SetValue.map(f2, "value2");
 		l.add(m2);
 		assertGetFirst(m1, "value1a", l, f1);
 		assertGetFirst(m2, "value2",  l, f2);
@@ -105,9 +105,9 @@ public class SetValueUtilTest
 
 	@Test void testAdd()
 	{
-		final SetValue<?> m1 = new StringField().map("v1");
-		final SetValue<?> m2 = new StringField().map("v2");
-		final SetValue<?> mX = new StringField().map("vX");
+		final SetValue<?> m1 = SetValue.map(new StringField(), "v1");
+		final SetValue<?> m2 = SetValue.map(new StringField(), "v2");
+		final SetValue<?> mX = SetValue.map(new StringField(), "vX");
 
 		assertEquals(asList(mX        ), asList(add(SetValue.EMPTY_ARRAY,      mX)));
 		assertEquals(asList(m1,     mX), asList(add(new SetValue<?>[]{m1    }, mX)));
@@ -116,7 +116,7 @@ public class SetValueUtilTest
 
 	@Test void testAddNullSetValues()
 	{
-		final SetValue<?> m = new StringField().map("vX");
+		final SetValue<?> m = SetValue.map(new StringField(), "vX");
 		try
 		{
 			add(null, m);

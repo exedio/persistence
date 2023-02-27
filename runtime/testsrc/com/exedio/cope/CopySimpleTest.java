@@ -59,9 +59,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(source, TYPE.search());
 		check();
@@ -77,9 +77,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		assertEquals("template2", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map("template2"),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, "template2"),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(source, TYPE.search());
 		check();
@@ -94,9 +94,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		assertEquals(null, source.getTemplateString());
 		assertEquals(null, source.getTemplateItem());
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map(null),
-				CopySimpleSource.templateItem.map(null));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, null),
+				SetValue.map(CopySimpleSource.templateItem, null));
 
 		assertContains(source, TYPE.search());
 		check();
@@ -111,9 +111,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		assertEquals("templateN", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(null),
-				CopySimpleSource.templateString.map("templateN"),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, null),
+				SetValue.map(CopySimpleSource.templateString, "templateN"),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(source, TYPE.search());
 		check();
@@ -138,9 +138,9 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was 'template1'", e);
 		}
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(TYPE.search());
 		check();
@@ -152,9 +152,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
 		final CopySimpleSource source = new CopySimpleSource(target, "template2", value);
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map("template2"),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, "template2"),
+				SetValue.map(CopySimpleSource.templateItem, value));
 		try
 		{
 			source.setTemplateString("template1");
@@ -171,7 +171,7 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was 'template1'", e);
 		}
 		assertBeforeSetCopeItem(source,
-				CopySimpleSource.templateString.map("template1"));
+				SetValue.map(CopySimpleSource.templateString, "template1"));
 		assertEquals("template2", source.getTemplateString());
 		check();
 	}
@@ -182,9 +182,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
 		final CopySimpleSource source = new CopySimpleSource(target1, "template1", value1);
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target1),
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.templateItem.map(value1));
+				SetValue.map(CopySimpleSource.targetItem, target1),
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.templateItem, value1));
 		assertEquals(target1, source.getTargetItem());
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value1, source.getTemplateItem());
@@ -195,7 +195,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		source.setTargetItem(target2);
 		// wrong string is automatically fixed by cope when setting target
 		assertBeforeSetCopeItem(source,
-				CopySimpleSource.targetItem.map(target2));
+				SetValue.map(CopySimpleSource.targetItem, target2));
 		assertEquals(target2, source.getTargetItem());
 		assertEquals("template2", source.getTemplateString());
 		assertEquals(value2, source.getTemplateItem());
@@ -208,9 +208,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
 		final CopySimpleSource source = new CopySimpleSource(target1, "template1", value1);
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target1),
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.templateItem.map(value1));
+				SetValue.map(CopySimpleSource.targetItem, target1),
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.templateItem, value1));
 		assertEquals(target1, source.getTargetItem());
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value1, source.getTemplateItem());
@@ -220,8 +220,8 @@ public class CopySimpleTest extends TestWithEnvironment
 		final CopySimpleTarget target2 = new CopySimpleTarget("template2", "otherString2", value2, new CopyValue());
 		source.setTemplateStringAndTargetItem("template2", target2);
 		assertBeforeSetCopeItem(source,
-				CopySimpleSource.templateString.map("template2"),
-				CopySimpleSource.targetItem.map(target2));
+				SetValue.map(CopySimpleSource.templateString, "template2"),
+				SetValue.map(CopySimpleSource.targetItem, target2));
 		assertEquals(target2, source.getTargetItem());
 		assertEquals("template2", source.getTemplateString());
 		assertEquals(value2, source.getTemplateItem());
@@ -234,9 +234,9 @@ public class CopySimpleTest extends TestWithEnvironment
 		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
 		final CopySimpleSource source = new CopySimpleSource(target1, "template1", value1);
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target1),
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.templateItem.map(value1));
+				SetValue.map(CopySimpleSource.targetItem, target1),
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.templateItem, value1));
 		assertEquals(target1, source.getTargetItem());
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value1, source.getTemplateItem());
@@ -260,8 +260,8 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was 'template1'", e);
 		}
 		assertBeforeSetCopeItem(source,
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.targetItem.map(target2));
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.targetItem, target2));
 		assertEquals(target1, source.getTargetItem());
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value1, source.getTemplateItem());
@@ -287,9 +287,9 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was null", e);
 		}
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map(null),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, null),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(TYPE.search());
 		check();
@@ -315,9 +315,9 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was '" + value1.getCopeID() + "'", e);
 		}
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map("template2"),
-				CopySimpleSource.templateItem.map(value1));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, "template2"),
+				SetValue.map(CopySimpleSource.templateItem, value1));
 
 		assertContains(TYPE.search());
 		check();
@@ -342,9 +342,9 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was null", e);
 		}
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map("template2"),
-				CopySimpleSource.templateItem.map(null));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, "template2"),
+				SetValue.map(CopySimpleSource.templateItem, null));
 
 		assertContains(TYPE.search());
 		check();
@@ -369,9 +369,9 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was 'template1'", e);
 		}
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(TYPE.search());
 		check();
@@ -396,9 +396,9 @@ public class CopySimpleTest extends TestWithEnvironment
 					"but was '" + value.getCopeID() + "'", e);
 		}
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target),
-				CopySimpleSource.templateString.map(null),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.targetItem, target),
+				SetValue.map(CopySimpleSource.templateString, null),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(TYPE.search());
 		check();
@@ -414,7 +414,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
 		assertBeforeNewCopeItem(
-				CopySimpleSource.targetItem.map(target));
+				SetValue.map(CopySimpleSource.targetItem, target));
 
 		assertContains(source, TYPE.search());
 		check();
@@ -422,7 +422,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		final CopySimpleTarget target2 = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
 		source.setTargetItem(target2);
 		assertBeforeSetCopeItem(source,
-				CopySimpleSource.targetItem.map(target2));
+				SetValue.map(CopySimpleSource.targetItem, target2));
 		assertEquals(target2, source.getTargetItem());
 		assertEquals("template2", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
@@ -437,8 +437,8 @@ public class CopySimpleTest extends TestWithEnvironment
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
 		assertBeforeNewCopeItem(
-				CopySimpleSource.templateString.map("template1"),
-				CopySimpleSource.templateItem.map(value));
+				SetValue.map(CopySimpleSource.templateString, "template1"),
+				SetValue.map(CopySimpleSource.templateItem, value));
 
 		assertContains(source, TYPE.search());
 		check();

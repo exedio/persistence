@@ -118,15 +118,15 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		for(final LongField field : fields)
-			sv.add(field.map(field.getMinimum()));
+			sv.add(SetValue.map(field, field.getMinimum()));
 		final SchemaTypeIntegerItem min = TYPE.newItem(sv);
 		sv.clear();
 		for(final LongField field : fields)
-			sv.add(field.map(field.getMaximum()));
+			sv.add(SetValue.map(field, field.getMaximum()));
 		final SchemaTypeIntegerItem max = TYPE.newItem(sv);
 		sv.clear();
 		for(final LongField field : fields)
-			sv.add(field.map(0l));
+			sv.add(SetValue.map(field, 0l));
 		final SchemaTypeIntegerItem zero = TYPE.newItem(sv);
 
 		for(final LongField field : fields)

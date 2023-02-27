@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
@@ -67,13 +68,13 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 		item = new MyItem();
 		final MyItem item = new MyItem();
 		final Run run = MyItem.report.getRunType().newItem(
-				MyItem.reportRunParent().map(item),
-				MyItem.report.getRunInterval().map(DAILY),
-				MyItem.report.getRunFrom ().map(date("2014-11-29 00:00")),
-				MyItem.report.getRunUntil().map(date("2014-11-30 00:00")),
-				MyItem.report.getRunRun  ().map(date("2014-11-30 00:00")),
-				MyItem.report.getRunProgress().map(0),
-				MyItem.report.getRunElapsed().map(5000l));
+				SetValue.map(MyItem.reportRunParent(), item),
+				SetValue.map(MyItem.report.getRunInterval(), DAILY),
+				SetValue.map(MyItem.report.getRunFrom (), date("2014-11-29 00:00")),
+				SetValue.map(MyItem.report.getRunUntil(), date("2014-11-30 00:00")),
+				SetValue.map(MyItem.report.getRunRun  (), date("2014-11-30 00:00")),
+				SetValue.map(MyItem.report.getRunProgress(), 0),
+				SetValue.map(MyItem.report.getRunElapsed(), 5000l));
 		clockRule.override(clock);
 		expectedRuns = new ArrayList<>();
 		expectedRuns.add(new ExpectedRun(run));

@@ -490,8 +490,8 @@ public class DoubleTest extends TestWithEnvironment
 		try
 		{
 			TYPE.newItem(
-					mandatory.map(12345.67),
-					max4.map(4.1)
+					SetValue.map(mandatory, 12345.67),
+					SetValue.map(max4, 4.1)
 			);
 			fail();
 		}

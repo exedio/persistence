@@ -320,15 +320,15 @@ public class UniqueTest extends TestWithEnvironment
 		final UniqueSingleItem item2 = new UniqueSingleItem();
 
 		item1.set(
-				uniqueString.map("uniqueString1"),
-				otherString.map("otherString1")
+				SetValue.map(uniqueString, "uniqueString1"),
+				SetValue.map(otherString, "otherString1")
 		);
 		assertEquals("uniqueString1", item1.getUniqueString());
 		assertEquals("otherString1", item1.getOtherString());
 
 		item2.set(
-				uniqueString.map("uniqueString2"),
-				otherString.map("otherString2")
+				SetValue.map(uniqueString, "uniqueString2"),
+				SetValue.map(otherString, "otherString2")
 		);
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -337,8 +337,8 @@ public class UniqueTest extends TestWithEnvironment
 		try
 		{
 			item2.set(
-					uniqueString.map("uniqueString1"),
-					otherString.map("otherString1")
+					SetValue.map(uniqueString, "uniqueString1"),
+					SetValue.map(otherString, "otherString1")
 			);
 			fail();
 		}
@@ -354,8 +354,8 @@ public class UniqueTest extends TestWithEnvironment
 
 		// test setting the value already set
 		item2.set(
-				uniqueString.map("uniqueString2"),
-				otherString.map("otherString1")
+				SetValue.map(uniqueString, "uniqueString2"),
+				SetValue.map(otherString, "otherString1")
 		);
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString1", item2.getOtherString());
@@ -432,7 +432,7 @@ public class UniqueTest extends TestWithEnvironment
 		assertContains(item, UniqueSingleNotNullItem.TYPE.search(null));
 		try
 		{
-			UniqueSingleNotNullItem.TYPE.newItem(uniqueNotNullString.map(null));
+			UniqueSingleNotNullItem.TYPE.newItem(SetValue.map(uniqueNotNullString, null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)

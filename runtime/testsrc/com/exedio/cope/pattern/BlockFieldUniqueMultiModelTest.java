@@ -36,6 +36,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import java.util.Arrays;
@@ -241,15 +242,15 @@ public class BlockFieldUniqueMultiModelTest
 		{
 			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(
-				AnItem.code.map(code),
-				AnItem.eins.of(alpha).map(code + '-' + n + 'A'),
-				AnItem.eins.of(beta).map(n),
-				AnItem.zwei.of(alpha).map(code + '-' + n + 'B'),
-				AnItem.zwei.of(beta).map(n + 10),
-				AnItem.eins.of(alphaPrice).map(Price.storeOf(150+n)),
-				AnItem.eins.of( betaPrice).map(Price.storeOf(160+n)),
-				AnItem.zwei.of(alphaPrice).map(Price.storeOf(250+n)),
-				AnItem.zwei.of( betaPrice).map(Price.storeOf(260+n)));
+				SetValue.map(AnItem.code, code),
+				SetValue.map(AnItem.eins.of(alpha), code + '-' + n + 'A'),
+				SetValue.map(AnItem.eins.of(beta), n),
+				SetValue.map(AnItem.zwei.of(alpha), code + '-' + n + 'B'),
+				SetValue.map(AnItem.zwei.of(beta), n + 10),
+				SetValue.map(AnItem.eins.of(alphaPrice), Price.storeOf(150+n)),
+				SetValue.map(AnItem.eins.of( betaPrice), Price.storeOf(160+n)),
+				SetValue.map(AnItem.zwei.of(alphaPrice), Price.storeOf(250+n)),
+				SetValue.map(AnItem.zwei.of( betaPrice), Price.storeOf(260+n)));
 		}
 
 

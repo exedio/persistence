@@ -126,8 +126,8 @@ public class SequenceInfoTest extends TestWithEnvironment
 				final int next)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.field.map(field),
-				AnItem.next.map(next),
+				SetValue.map(AnItem.field, field),
+				SetValue.map(AnItem.next, next),
 			});
 		}
 

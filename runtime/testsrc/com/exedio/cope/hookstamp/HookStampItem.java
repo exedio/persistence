@@ -20,6 +20,7 @@ package com.exedio.cope.hookstamp;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
@@ -32,7 +33,7 @@ class HookStampItem extends HookStampItemSuper
 
 	static HookStampItem newWithField(final String field)
 	{
-		return new HookStampItem(HookStampItem.field.map(field));
+		return new HookStampItem(SetValue.map(HookStampItem.field, field));
 	}
 
 
@@ -43,7 +44,7 @@ class HookStampItem extends HookStampItemSuper
 
 	static final HookStampItem newWithNotCovered(final String notCovered)
 	{
-		return new HookStampItem(HookStampItem.notCovered.map(notCovered));
+		return new HookStampItem(SetValue.map(HookStampItem.notCovered, notCovered));
 	}
 
 

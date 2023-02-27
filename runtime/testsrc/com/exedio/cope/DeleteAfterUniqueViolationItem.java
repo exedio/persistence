@@ -30,8 +30,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(new com.exedio.cope.SetValue<?>[]{
-				DeleteAfterUniqueViolationItem.uniqueString.map(name),
-				DeleteAfterUniqueViolationItem.name.map(name),
+				SetValue.map(DeleteAfterUniqueViolationItem.uniqueString, name),
+				SetValue.map(DeleteAfterUniqueViolationItem.name, name),
 		});
 	}
 

@@ -20,6 +20,7 @@ package com.exedio.cope.hookaudit;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
@@ -33,7 +34,7 @@ class HookAuditItem extends HookAuditItemSuper
 
 	static HookAuditItem newWithField(final String field)
 	{
-		return new HookAuditItem(HookAuditItem.field.map(field));
+		return new HookAuditItem(SetValue.map(HookAuditItem.field, field));
 	}
 
 
@@ -44,7 +45,7 @@ class HookAuditItem extends HookAuditItemSuper
 
 	static final HookAuditItem newWithNotCovered(final String notCovered)
 	{
-		return new HookAuditItem(HookAuditItem.notCovered.map(notCovered));
+		return new HookAuditItem(SetValue.map(HookAuditItem.notCovered, notCovered));
 	}
 
 

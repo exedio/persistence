@@ -425,21 +425,21 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	@Test void testMap()
 	{
 		final MultiItemFieldComponentxA a = new MultiItemFieldComponentxA();
-		assertEquals(SetValue.map(MultiItemFieldItem.field, a), MultiItemFieldItem.field.map(a));
-		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxA-0", MultiItemFieldItem.field.map(a).toString());
+		assertEquals(SetValue.map(MultiItemFieldItem.field, a), SetValue.map(MultiItemFieldItem.field, a));
+		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxA-0", SetValue.map(MultiItemFieldItem.field, a).toString());
 	}
 
 	@Test void testMapNull()
 	{
-		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, null), MultiItemFieldItem.optionalField.map(null));
-		assertEquals("MultiItemFieldItem.optionalField=null", MultiItemFieldItem.optionalField.map(null).toString());
+		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, null), SetValue.map(MultiItemFieldItem.optionalField, null));
+		assertEquals("MultiItemFieldItem.optionalField=null", SetValue.map(MultiItemFieldItem.optionalField, null).toString());
 	}
 
 	@Test void testMapInvalid()
 	{
 		final MultiItemFieldComponentxC c = new MultiItemFieldComponentxC();
-		assertEquals(SetValue.map(MultiItemFieldItem.field, c), MultiItemFieldItem.field.map(c));
-		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxC-0", MultiItemFieldItem.field.map(c).toString());
+		assertEquals(SetValue.map(MultiItemFieldItem.field, c), SetValue.map(MultiItemFieldItem.field, c));
+		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxC-0", SetValue.map(MultiItemFieldItem.field, c).toString());
 	}
 
 	@WrapperType(indent=2)

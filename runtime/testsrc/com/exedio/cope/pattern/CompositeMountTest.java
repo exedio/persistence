@@ -287,8 +287,8 @@ public class CompositeMountTest
 	@Test void testNewValue()
 	{
 		final MyComposite value = type.newValue(
-				MyComposite.string4.map("1234"),
-				MyComposite.intMax4.map(4));
+				SetValue.map(MyComposite.string4, "1234"),
+				SetValue.map(MyComposite.intMax4, 4));
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 	}
@@ -297,8 +297,8 @@ public class CompositeMountTest
 	{
 		assertFails(
 				() -> type.newValue(
-						MyComposite.string4.map("12345"),
-						MyComposite.intMax4.map(4)),
+						SetValue.map(MyComposite.string4, "12345"),
+						SetValue.map(MyComposite.intMax4, 4)),
 				StringLengthViolationException.class,
 				"length violation, '12345' is too long for " + MyComposite.string4 + ", must be at most 4 characters, but was 5");
 	}

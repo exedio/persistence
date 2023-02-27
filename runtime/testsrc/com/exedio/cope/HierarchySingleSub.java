@@ -28,8 +28,8 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	public HierarchySingleSub(final int initialSuperInt, final String subString)
 	{
 		super(new com.exedio.cope.SetValue<?>[]{
-			HierarchySingleSuper.superInt.map(initialSuperInt),
-			HierarchySingleSub.subString.map(subString),
+			SetValue.map(HierarchySingleSuper.superInt, initialSuperInt),
+			SetValue.map(HierarchySingleSub.subString, subString),
 		});
 	}
 

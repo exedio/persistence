@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MoneyFieldItem.Currency;
 import org.junit.jupiter.api.Test;
@@ -139,10 +140,10 @@ public class MoneyFieldTest extends TestWithEnvironment
 		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 
-		i.set(fixeOpt.map(valueOf(6.66, fix)));
+		i.set(SetValue.map(fixeOpt, valueOf(6.66, fix)));
 		assertEquals(valueOf(6.66, fix), i.getFixeOpt());
 
-		i.set(fixeOpt.map(null));
+		i.set(SetValue.map(fixeOpt, null));
 		assertEquals(null, i.getFixeOpt());
 	}
 	@Test void testFixedConsistencyBrokenCreate()
@@ -196,7 +197,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 
 		try
 		{
-			i.set(fixeOpt.map(valueOf(6.66, fixOther)));
+			i.set(SetValue.map(fixeOpt, valueOf(6.66, fixOther)));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
@@ -250,11 +251,11 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
-		i.set(sharOpt.map(valueOf(6.66, eur)));
+		i.set(SetValue.map(sharOpt, valueOf(6.66, eur)));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharOpt());
 
-		i.set(sharOpt.map(null));
+		i.set(SetValue.map(sharOpt, null));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getSharOpt());
 	}
@@ -264,11 +265,11 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
-		i.set(sharOpt.map(valueOf(6.66, eur)), currency.map(eur));
+		i.set(SetValue.map(sharOpt, valueOf(6.66, eur)), SetValue.map(currency, eur));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharOpt());
 
-		i.set(sharOpt.map(null), currency.map(eur));
+		i.set(SetValue.map(sharOpt, null), SetValue.map(currency, eur));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getSharOpt());
 	}
@@ -280,14 +281,14 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(valueOf(25.55, eur), i.getSharMan());
 
 		i.set(
-				sharOpt.map(valueOf(16.66, gbp)),
-				sharMan.map(valueOf(26.66, gbp)),
-				currency.map(gbp));
+				SetValue.map(sharOpt, valueOf(16.66, gbp)),
+				SetValue.map(sharMan, valueOf(26.66, gbp)),
+				SetValue.map(currency, gbp));
 		assertEquals(gbp , i.getCurrency());
 		assertEquals(valueOf(16.66, gbp), i.getSharOpt());
 		assertEquals(valueOf(26.66, gbp), i.getSharMan());
 
-		i.set(sharOpt.map(null), currency.map(gbp));
+		i.set(SetValue.map(sharOpt, null), SetValue.map(currency, gbp));
 		assertEquals(gbp , i.getCurrency());
 		assertEquals(null, i.getSharOpt());
 	}
@@ -321,13 +322,13 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getSharMan());
 
-		i.set(sharMan.map(valueOf(6.66, eur)));
+		i.set(SetValue.map(sharMan, valueOf(6.66, eur)));
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharMan());
 
 		try
 		{
-			i.set(sharMan.map(null));
+			i.set(SetValue.map(sharMan, null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -392,7 +393,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 
 		try
 		{
-			i.set(sharOpt.map(valueOf(6.66, gbp)));
+			i.set(SetValue.map(sharOpt, valueOf(6.66, gbp)));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
@@ -418,7 +419,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 
 		try
 		{
-			i.set(sharOpt.map(valueOf(6.66, gbp)), currency.map(eur));
+			i.set(SetValue.map(sharOpt, valueOf(6.66, gbp)), SetValue.map(currency, eur));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
@@ -466,15 +467,15 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(valueOf(5.55, eur), i.getExclOpt());
 		assertEquals(eur, i.getExclOptCurrency());
 
-		i.set(exclOpt.map(valueOf(6.66, eur)));
+		i.set(SetValue.map(exclOpt, valueOf(6.66, eur)));
 		assertEquals(valueOf(6.66, eur), i.getExclOpt());
 		assertEquals(eur, i.getExclOptCurrency());
 
-		i.set(exclOpt.map(valueOf(7.77, gbp)));
+		i.set(SetValue.map(exclOpt, valueOf(7.77, gbp)));
 		assertEquals(valueOf(7.77, gbp), i.getExclOpt());
 		assertEquals(gbp, i.getExclOptCurrency());
 
-		i.set(exclOpt.map(null));
+		i.set(SetValue.map(exclOpt, null));
 		assertEquals(null, i.getExclOpt());
 		assertEquals(null, i.getExclOptCurrency());
 	}
@@ -526,17 +527,17 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(valueOf(5.55, eur), i.getExclMan());
 		assertEquals(eur, i.getExclManCurrency());
 
-		i.set(exclMan.map(valueOf(6.66, eur)));
+		i.set(SetValue.map(exclMan, valueOf(6.66, eur)));
 		assertEquals(valueOf(6.66, eur), i.getExclMan());
 		assertEquals(eur, i.getExclManCurrency());
 
-		i.set(exclMan.map(valueOf(7.77, gbp)));
+		i.set(SetValue.map(exclMan, valueOf(7.77, gbp)));
 		assertEquals(valueOf(7.77, gbp), i.getExclMan());
 		assertEquals(gbp, i.getExclManCurrency());
 
 		try
 		{
-			i.set(exclMan.map(null));
+			i.set(SetValue.map(exclMan, null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)

@@ -26,6 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
 import com.exedio.cope.instrument.WrapperType;
@@ -99,8 +100,8 @@ final class TypeFutureInPatternsFeature extends Pattern
 	public TypeItem create(final int field, final TypeItem self)
 	{
 		return sourceType().newItem(
-				this.field.map(field),
-				self().map(self));
+				SetValue.map(this.field, field),
+				SetValue.map(self(), self));
 	}
 
 

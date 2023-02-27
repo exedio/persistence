@@ -42,7 +42,7 @@ public class SettableFinalSyntheticTest extends TestWithEnvironment
 	@Test void test()
 	{
 		final AnItem item = new AnItem(3);
-		final SetValue<?> setValue = isfinal.map(5);
+		final SetValue<?> setValue = SetValue.map(isfinal, 5);
 
 		try
 		{

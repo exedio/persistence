@@ -36,9 +36,9 @@ public final class DivideLongItem extends Item
 	public DivideLongItem(final long initialNumA, final long initialNumB, final long initialNumC)
 	{
 		super(new SetValue<?>[]{
-			numA.map(initialNumA),
-			numB.map(initialNumB),
-			numC.map(initialNumC),
+			SetValue.map(numA, initialNumA),
+			SetValue.map(numB, initialNumB),
+			SetValue.map(numC, initialNumC),
 		});
 	}
 

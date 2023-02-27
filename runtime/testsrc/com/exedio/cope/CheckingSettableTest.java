@@ -44,15 +44,15 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		final MyItem item = new MyItem(pattern.map("createValue"));
+		final MyItem item = new MyItem(SetValue.map(pattern, "createValue"));
 		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
 				"{MyItem.pattern-source=createValue}"));
 
-		item.set(pattern.map("setValue"));
+		item.set(SetValue.map(pattern, "setValue"));
 		pattern.assertLogs(new Log("setValue", "setValue", null, null, item,
 				"{MyItem.pattern-source=setValue}(" + item + ")"));
 
-		item.set(pattern.map(null));
+		item.set(SetValue.map(pattern, null));
 		pattern.assertLogs(new Log(null, null, null, null, item,
 				"{MyItem.pattern-source=null}(" + item + ")"));
 	}
@@ -65,75 +65,75 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 	@Test void testCreateNull()
 	{
-		new MyItem(pattern.map(null));
+		new MyItem(SetValue.map(pattern, null));
 		pattern.assertLogs(new Log(null, null, null, null, null,
 				"{MyItem.pattern-source=null}"));
 	}
 
 	@Test void testSource2Create()
 	{
-		new MyItem(pattern.map("createValue/2"));
+		new MyItem(SetValue.map(pattern, "createValue/2"));
 		pattern.assertLogs(new Log("createValue/2", "createValue/2", "2(createValue/2)", null, null,
 				"{MyItem.pattern-source=createValue/2, MyItem.pattern-source2=2(createValue/2)}"));
 	}
 
 	@Test void testSource2Set()
 	{
-		final MyItem item = new MyItem(pattern.map("createValue"));
+		final MyItem item = new MyItem(SetValue.map(pattern, "createValue"));
 		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
 				"{MyItem.pattern-source=createValue}"));
 
-		item.set(pattern.map("setValue/2"));
+		item.set(SetValue.map(pattern, "setValue/2"));
 		pattern.assertLogs(new Log("setValue/2", "setValue/2", "2(setValue/2)", null, item,
 				"{MyItem.pattern-source=setValue/2, MyItem.pattern-source2=2(setValue/2)}(" + item + ")"));
 	}
 
 	@Test void testSource2DirectlyCreate()
 	{
-		new MyItem(pattern.source2.map("createValue/2"));
+		new MyItem(SetValue.map(pattern.source2, "createValue/2"));
 		pattern.assertLogs();
 	}
 
 	@Test void testSource2DirectlySet()
 	{
-		final MyItem item = new MyItem(pattern.map("createValue"));
+		final MyItem item = new MyItem(SetValue.map(pattern, "createValue"));
 		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
 				"{MyItem.pattern-source=createValue}"));
 
-		item.set(pattern.source2.map("setValue/2"));
+		item.set(SetValue.map(pattern.source2, "setValue/2"));
 		pattern.assertLogs();
 	}
 
 	@Test void testField2()
 	{
 		final MyItem item = new MyItem(
-				pattern.map("createValue"),
-				field2.map("createValue2"));
+				SetValue.map(pattern, "createValue"),
+				SetValue.map(field2, "createValue2"));
 		pattern.assertLogs(new Log("createValue", "createValue", null, "createValue2", null,
 				"{MyItem.pattern-source=createValue, MyItem.field2=createValue2}"));
 
 		item.set(
-				pattern.map("setValue"),
-				field2.map("setValue2"));
+				SetValue.map(pattern, "setValue"),
+				SetValue.map(field2, "setValue2"));
 		pattern.assertLogs(new Log("setValue", "setValue", null, "setValue2", item,
 				"{MyItem.pattern-source=setValue, MyItem.field2=setValue2}(" + item + ")"));
 
 		item.set(
-				pattern.map(null),
-				field2.map(null));
+				SetValue.map(pattern, null),
+				SetValue.map(field2, null));
 		pattern.assertLogs(new Log(null, null, null, null, item,
 				"{MyItem.pattern-source=null, MyItem.field2=null}(" + item + ")"));
 	}
 
 	@Test void testField2Only()
 	{
-		final MyItem item = new MyItem(field2.map("createValue2"));
+		final MyItem item = new MyItem(SetValue.map(field2, "createValue2"));
 		pattern.assertLogs();
 
-		item.set(field2.map("setValue2"));
+		item.set(SetValue.map(field2, "setValue2"));
 		pattern.assertLogs();
 
-		item.set(field2.map(null));
+		item.set(SetValue.map(field2, null));
 		pattern.assertLogs();
 	}
 
@@ -213,10 +213,10 @@ public class CheckingSettableTest extends TestWithEnvironment
 		{
 			if(value!=null && value.endsWith("/2"))
 				return new SetValue<?>[]{
-						source.map(value),
-						source2.map("2(" + value + ")")};
+						SetValue.map(source, value),
+						SetValue.map(source2, "2(" + value + ")")};
 
-			return new SetValue<?>[]{source.map(value)};
+			return new SetValue<?>[]{SetValue.map(source, value)};
 		}
 
 		@Override

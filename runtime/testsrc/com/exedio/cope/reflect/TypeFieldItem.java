@@ -42,9 +42,9 @@ public final class TypeFieldItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new TypeFieldItem(new SetValue<?>[]{
-			TypeFieldItem.standard.map(TYPE),
-			TypeFieldItem.isFinal.map(TYPE),
-			TypeFieldItem.restricted.map((Type)restricted),
+			SetValue.map(TypeFieldItem.standard, TYPE),
+			SetValue.map(TypeFieldItem.isFinal, TYPE),
+			SetValue.map(TypeFieldItem.restricted, (Type)restricted),
 		});
 	}
 

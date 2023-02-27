@@ -190,7 +190,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(      TYPE.search(strings.lengthGreaterOrEqual(      3)));
 		assertContains(      TYPE.search(strings.lengthGreaterOrEqual(null, 3)));
 
-		item.set(strings.map(asList("zicko", "zacko", "zocko")));
+		item.set(SetValue.map(strings, asList("zicko", "zacko", "zocko")));
 		assertEqualsUnmodifiable(list("zicko", "zacko", "zocko"), item.getStrings());
 		assertEquals("zicko", item.getString0());
 		assertEquals("zacko", item.getString1());
@@ -198,7 +198,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		final LimitedListFieldItem item2 = new LimitedListFieldItem(strings.map(asList("lets1", "lets2", "lets3", "lets4")));
+		final LimitedListFieldItem item2 = new LimitedListFieldItem(SetValue.map(strings, asList("lets1", "lets2", "lets3", "lets4")));
 		assertEqualsUnmodifiable(list("lets1", "lets2", "lets3", "lets4"), item2.getStrings());
 		assertEquals("lets1", item2.getString0());
 		assertEquals("lets2", item2.getString1());
@@ -206,7 +206,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals("lets4", item2.getString3());
 		assertEquals(4, item2.getStringLength());
 
-		final LimitedListFieldItem item3 = TYPE.newItem(strings.map(asList("fetz1", null, null, null)));
+		final LimitedListFieldItem item3 = TYPE.newItem(SetValue.map(strings, asList("fetz1", null, null, null)));
 		assertEqualsUnmodifiable(list("fetz1", null, null, null), item3.getStrings());
 		assertEquals("fetz1", item3.getString0());
 		assertEquals(null, item3.getString1());
@@ -265,7 +265,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test void testListSettableNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
-		final SetValue<Collection<String>> map = strings.map(null);
+		final SetValue<Collection<String>> map = SetValue.map(strings, null);
 
 		try
 		{

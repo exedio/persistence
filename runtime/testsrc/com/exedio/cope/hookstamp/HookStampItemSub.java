@@ -20,6 +20,7 @@ package com.exedio.cope.hookstamp;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 
@@ -28,7 +29,7 @@ final class HookStampItemSub extends HookStampItem
 	@SuppressWarnings("MethodOverridesStaticMethodOfSuperclass")
 	static HookStampItemSub newWithField(final String field)
 	{
-		return new HookStampItemSub(HookStampItem.field.map(field));
+		return new HookStampItemSub(SetValue.map(HookStampItem.field, field));
 	}
 
 
@@ -37,7 +38,7 @@ final class HookStampItemSub extends HookStampItem
 
 	static HookStampItemSub newWithSubField(final String subField)
 	{
-		return new HookStampItemSub(HookStampItemSub.subField.map(subField));
+		return new HookStampItemSub(SetValue.map(HookStampItemSub.subField, subField));
 	}
 
 	@HookStampWatcher

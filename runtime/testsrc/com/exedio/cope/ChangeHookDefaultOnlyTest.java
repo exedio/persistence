@@ -56,7 +56,7 @@ public class ChangeHookDefaultOnlyTest extends ChangeHookAbstractTest
 		{
 			final String value = value(field, sv);
 			addEvent("Item#beforeNew(" + value + ")");
-			sv[0] = field.map(value + " / Item#beforeNew");
+			sv[0] = SetValue.map(field, value + " / Item#beforeNew");
 			return sv;
 		}
 
@@ -69,7 +69,7 @@ public class ChangeHookDefaultOnlyTest extends ChangeHookAbstractTest
 		{
 			final String value = value(field, sv);
 			addEvent("Item#beforeSet(" + this + "," + value + ")");
-			sv[0] = field.map(value + " / Item#beforeSet");
+			sv[0] = SetValue.map(field, value + " / Item#beforeSet");
 			return sv;
 		}
 

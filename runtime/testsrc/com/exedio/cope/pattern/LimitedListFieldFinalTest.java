@@ -88,7 +88,7 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		assertEquals(asList(), item.getField());
 
 		assertFails(
-				() -> item.set(field.map(asList("zack"))),
+				() -> item.set(SetValue.map(field, asList("zack"))),
 				FinalViolationException.class,
 				"final violation on " + item + " for " + field);
 		assertEquals(asList(), item.getField());

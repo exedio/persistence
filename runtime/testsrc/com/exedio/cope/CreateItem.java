@@ -28,7 +28,7 @@ final class CreateItem extends CreateSuperItem
 	@SuppressWarnings("MethodOverridesInaccessibleMethodOfSuper")
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
-		setValues[0] = text.map(value(setValues) + ".preCreate");
+		setValues[0] = SetValue.map(text, value(setValues) + ".preCreate");
 		return setValues;
 	}
 

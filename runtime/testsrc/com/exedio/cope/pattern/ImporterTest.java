@@ -59,14 +59,14 @@ public class ImporterTest extends TestWithEnvironment
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
 		final ImporterItem itemA =
-			importByCode("codeA", description.map("descA"), description2.map("desc2A"));
+			importByCode("codeA", SetValue.map(description, "descA"), SetValue.map(description2, "desc2A"));
 		assertEquals(list(itemA), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA",  itemA.getCode());
 		assertEquals("descA",  itemA.getDescription());
 		assertEquals("desc2A", itemA.getDescription2());
 
 		final ImporterItem itemB =
-			importByCode("codeB", description.map("descB"), description2.map("desc2B"));
+			importByCode("codeB", SetValue.map(description, "descB"), SetValue.map(description2, "desc2B"));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA",  itemA.getCode());
 		assertEquals("descA",  itemA.getDescription());
@@ -76,7 +76,7 @@ public class ImporterTest extends TestWithEnvironment
 		assertEquals("desc2B", itemB.getDescription2());
 
 		assertEquals(itemA,
-			importByCode("codeA", description.map("descAx"), description2.map("desc2Ax")));
+			importByCode("codeA", SetValue.map(description, "descAx"), SetValue.map(description2, "desc2Ax")));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA", itemA.getCode());
 		assertEquals("descAx", itemA.getDescription());
@@ -86,8 +86,8 @@ public class ImporterTest extends TestWithEnvironment
 		assertEquals("desc2B", itemB.getDescription2());
 
 		final ArrayList<SetValue<?>> list = new ArrayList<>();
-		list.add(description.map("descBl"));
-		list.add(description2.map("desc2Bl"));
+		list.add(SetValue.map(description, "descBl"));
+		list.add(SetValue.map(description2, "desc2Bl"));
 		assertEquals(itemB, importByCode("codeB", list));
 		assertEquals(list(itemA, itemB), TYPE.search(null, TYPE.getThis(), true));
 		assertEquals("codeA", itemA.getCode());

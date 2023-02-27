@@ -29,12 +29,6 @@ public final class SetValue<E>
 	public final Settable<E> settable;
 	public final E value;
 
-	/**
-	 * Creates a new SetValue.
-	 * Instead of using this method directly,
-	 * you may want to use the convenience functions.
-	 * @see Settable#map(Object)
-	 */
 	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
 	{
 		return new SetValue<>(settable, value);
