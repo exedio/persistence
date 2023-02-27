@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Instrumentor enables directSetValueMap by default. Affects instrumented code.
+	Use this parameter:
+		<instrument directSetValueMap="false" ...
+	to enable previous behaviour.
 * VaultHttpService properties: key "followRedirects" changes type from boolean
 	to enum.
 	Check your deployed systems! Probably this key is at its default (false),
