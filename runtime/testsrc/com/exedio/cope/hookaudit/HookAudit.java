@@ -50,7 +50,7 @@ final class HookAudit extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			HookAudit.value.map(value),
+			com.exedio.cope.SetValue.map(HookAudit.value,value),
 		});
 	}
 

@@ -277,7 +277,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ParentInCatalog.catalog.map(catalog),
+				com.exedio.cope.SetValue.map(ParentInCatalog.catalog,catalog),
 			});
 		}
 
@@ -338,7 +338,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ElementInCatalog.javaNameIsNotCatalog.map(javaNameIsNotCatalog),
+				com.exedio.cope.SetValue.map(ElementInCatalog.javaNameIsNotCatalog,javaNameIsNotCatalog),
 			});
 		}
 
@@ -367,7 +367,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 					@javax.annotation.Nullable final java.lang.Integer number)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ElementWithNumber.number.map(number),
+				com.exedio.cope.SetValue.map(ElementWithNumber.number,number),
 			});
 		}
 
@@ -402,7 +402,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 					@javax.annotation.Nullable final java.lang.Integer number)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ParentWithNumber.number.map(number),
+				com.exedio.cope.SetValue.map(ParentWithNumber.number,number),
 			});
 		}
 

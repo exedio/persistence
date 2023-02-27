@@ -40,7 +40,7 @@ public class LibComposite extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			LibComposite.superField.map(superField),
+			com.exedio.cope.SetValue.map(LibComposite.superField,superField),
 		});
 	}
 

@@ -371,11 +371,11 @@ public class VaultMultiTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.none.map(none),
-				AnItem.defaulT.map(defaulT),
-				AnItem.alpha.map(alpha),
-				AnItem.beta1.map(beta1),
-				AnItem.beta2.map(beta2),
+				com.exedio.cope.SetValue.map(AnItem.none,none),
+				com.exedio.cope.SetValue.map(AnItem.defaulT,defaulT),
+				com.exedio.cope.SetValue.map(AnItem.alpha,alpha),
+				com.exedio.cope.SetValue.map(AnItem.beta1,beta1),
+				com.exedio.cope.SetValue.map(AnItem.beta2,beta2),
 			});
 		}
 

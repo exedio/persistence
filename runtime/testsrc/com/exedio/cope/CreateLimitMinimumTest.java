@@ -75,7 +75,7 @@ public class CreateLimitMinimumTest extends TestWithEnvironment
 				final int number)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.number.map(number),
+			com.exedio.cope.SetValue.map(AnItem.number,number),
 		});
 	}
 

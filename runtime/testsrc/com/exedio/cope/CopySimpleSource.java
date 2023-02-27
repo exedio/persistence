@@ -167,9 +167,9 @@ final class CopySimpleSource extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CopySimpleSource.targetItem.map(targetItem),
-			CopySimpleSource.templateString.map(templateString),
-			CopySimpleSource.templateItem.map(templateItem),
+			com.exedio.cope.SetValue.map(CopySimpleSource.targetItem,targetItem),
+			com.exedio.cope.SetValue.map(CopySimpleSource.templateString,templateString),
+			com.exedio.cope.SetValue.map(CopySimpleSource.templateItem,templateItem),
 		});
 	}
 

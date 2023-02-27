@@ -55,8 +55,8 @@ public abstract class Super extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			Super.superMandatory.map(superMandatory),
-			Super.superInitial.map(superInitial),
+			com.exedio.cope.SetValue.map(Super.superMandatory,superMandatory),
+			com.exedio.cope.SetValue.map(Super.superInitial,superInitial),
 		});
 	}
 

@@ -53,9 +53,9 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 				@javax.annotation.Nonnull final GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			GenericComplexSuper.toSub.map(toSub),
-			GenericComplexSuper.toMid.map(toMid),
-			GenericComplexSuper.toSuper.map(toSuper),
+			com.exedio.cope.SetValue.map(GenericComplexSuper.toSub,toSub),
+			com.exedio.cope.SetValue.map(GenericComplexSuper.toMid,toMid),
+			com.exedio.cope.SetValue.map(GenericComplexSuper.toSuper,toSuper),
 		});
 	}
 

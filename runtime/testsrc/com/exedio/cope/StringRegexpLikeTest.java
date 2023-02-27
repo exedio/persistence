@@ -127,8 +127,8 @@ public class StringRegexpLikeTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.code.map(code),
-				AnItem.field.map(field),
+				com.exedio.cope.SetValue.map(AnItem.code,code),
+				com.exedio.cope.SetValue.map(AnItem.field,field),
 			});
 		}
 

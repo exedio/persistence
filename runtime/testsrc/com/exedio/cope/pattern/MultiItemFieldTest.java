@@ -463,7 +463,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnCascadeItem.field.map(field),
+				com.exedio.cope.SetValue.map(AnCascadeItem.field,field),
 			});
 		}
 

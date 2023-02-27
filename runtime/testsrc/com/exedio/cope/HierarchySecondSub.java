@@ -36,7 +36,7 @@ public final class HierarchySecondSub extends HierarchySuper
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.HierarchySuper.superInt.map(superInt),
+			com.exedio.cope.SetValue.map(com.exedio.cope.HierarchySuper.superInt,superInt),
 		});
 	}
 

@@ -367,7 +367,7 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.body.map(body),
+				com.exedio.cope.SetValue.map(MyItem.body,body),
 			});
 		}
 

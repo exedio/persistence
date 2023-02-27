@@ -149,7 +149,7 @@ public class CopyChoiceDeleteNullifyForbidTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Part.parent.map(parent),
+				com.exedio.cope.SetValue.map(Part.parent,parent),
 			});
 		}
 

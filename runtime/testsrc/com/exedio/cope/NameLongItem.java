@@ -48,7 +48,7 @@ class NameLongItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			NameLongItem.code.map(code),
+			com.exedio.cope.SetValue.map(NameLongItem.code,code),
 		});
 	}
 

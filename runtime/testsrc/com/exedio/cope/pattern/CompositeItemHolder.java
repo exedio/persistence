@@ -43,7 +43,7 @@ public final class CompositeItemHolder extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompositeItemHolder.anItem.map(anItem),
+			com.exedio.cope.SetValue.map(CompositeItemHolder.anItem,anItem),
 		});
 	}
 

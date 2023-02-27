@@ -68,12 +68,12 @@ class LibUser extends LibItem<String>
 				@javax.annotation.Nonnull final LibItem<?> ref)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testlib.LibSuperItem.inSuper.map(inSuper),
-			com.exedio.cope.instrument.testlib.LibItem.a.map(a),
-			com.exedio.cope.instrument.testlib.LibItem.inner.map(inner),
-			com.exedio.cope.instrument.testlib.LibItem.strings.map(strings),
-			com.exedio.cope.instrument.testlib.LibItem.nestedGenerics.map(nestedGenerics),
-			LibUser.ref.map(ref),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.LibSuperItem.inSuper,inSuper),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.LibItem.a,a),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.LibItem.inner,inner),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.LibItem.strings,strings),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.LibItem.nestedGenerics,nestedGenerics),
+			com.exedio.cope.SetValue.map(LibUser.ref,ref),
 		});
 	}
 

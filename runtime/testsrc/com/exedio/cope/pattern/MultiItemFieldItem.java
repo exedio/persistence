@@ -75,7 +75,7 @@ final class MultiItemFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MultiItemFieldItem.field.map(field),
+			com.exedio.cope.SetValue.map(MultiItemFieldItem.field,field),
 		});
 	}
 

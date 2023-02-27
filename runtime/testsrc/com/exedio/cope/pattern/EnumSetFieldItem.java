@@ -55,7 +55,7 @@ public final class EnumSetFieldItem extends Item
 				@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			EnumSetFieldItem.activeLanguage.map(activeLanguage),
+			com.exedio.cope.SetValue.map(EnumSetFieldItem.activeLanguage,activeLanguage),
 		});
 	}
 

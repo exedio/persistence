@@ -44,8 +44,8 @@ public final class InstrumentedInDefaultPackage extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			InstrumentedInDefaultPackage.field.map(field),
-			InstrumentedInDefaultPackage.item.map(item),
+			com.exedio.cope.SetValue.map(InstrumentedInDefaultPackage.field,field),
+			com.exedio.cope.SetValue.map(InstrumentedInDefaultPackage.item,item),
 		});
 	}
 

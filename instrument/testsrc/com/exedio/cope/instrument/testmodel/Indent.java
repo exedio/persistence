@@ -47,7 +47,7 @@ final class Indent extends Item
 						com.exedio.cope.UniqueViolationException
 			{
 				this(new com.exedio.cope.SetValue<?>[]{
-					Indent.two.map(two),
+					com.exedio.cope.SetValue.map(Indent.two,two),
 				});
 			}
 

@@ -36,8 +36,8 @@ public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.GenericSimpleSuper<?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testmodel.GenericSimpleSuper.toSub.map(toSub),
-			com.exedio.cope.instrument.testmodel.GenericSimpleSuper.toSuper.map(toSuper),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.GenericSimpleSuper.toSub,toSub),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.GenericSimpleSuper.toSuper,toSuper),
 		});
 	}
 

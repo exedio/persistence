@@ -39,7 +39,7 @@ class PartOfWithOptionalContainerItem extends Item
 				@javax.annotation.Nullable final PartOfOptionalContainerItem container)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			PartOfWithOptionalContainerItem.container.map(container),
+			com.exedio.cope.SetValue.map(PartOfWithOptionalContainerItem.container,container),
 		});
 	}
 

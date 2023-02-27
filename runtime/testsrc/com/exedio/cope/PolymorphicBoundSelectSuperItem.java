@@ -32,7 +32,7 @@ public class PolymorphicBoundSelectSuperItem extends Item
 				@javax.annotation.Nullable final PolymorphicBoundSelectSuperItem parent)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			PolymorphicBoundSelectSuperItem.parent.map(parent),
+			com.exedio.cope.SetValue.map(PolymorphicBoundSelectSuperItem.parent,parent),
 		});
 	}
 

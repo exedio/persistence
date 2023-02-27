@@ -43,7 +43,7 @@ public final class LimitedListFieldItemFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			LimitedListFieldItemFieldItem.limitedListFieldItem.map(limitedListFieldItem),
+			com.exedio.cope.SetValue.map(LimitedListFieldItemFieldItem.limitedListFieldItem,limitedListFieldItem),
 		});
 	}
 

@@ -95,19 +95,19 @@ final class SettableItem extends Item
 				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<? extends java.util.concurrent.atomic.AtomicLong> fixedParamBoundSub)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			SettableItem.open.map(open),
-			SettableItem.openParam.map(openParam),
-			SettableItem.openParamWildcard.map(openParamWildcard),
-			SettableItem.openParamBound.map(openParamBound),
-			SettableItem.fixed.map(fixed),
-			SettableItem.fixedSub.map(fixedSub),
-			SettableItem.fixedParam.map(fixedParam),
-			SettableItem.fixedParamSub.map(fixedParamSub),
-			SettableItem.fixedParamImpl.map(fixedParamImpl),
-			SettableItem.fixedParamWildcard.map(fixedParamWildcard),
-			SettableItem.fixedParamWildcardSub.map(fixedParamWildcardSub),
-			SettableItem.fixedParamBound.map(fixedParamBound),
-			SettableItem.fixedParamBoundSub.map(fixedParamBoundSub),
+			com.exedio.cope.SetValue.map(SettableItem.open,open),
+			com.exedio.cope.SetValue.map(SettableItem.openParam,openParam),
+			com.exedio.cope.SetValue.map(SettableItem.openParamWildcard,openParamWildcard),
+			com.exedio.cope.SetValue.map(SettableItem.openParamBound,openParamBound),
+			com.exedio.cope.SetValue.map(SettableItem.fixed,fixed),
+			com.exedio.cope.SetValue.map(SettableItem.fixedSub,fixedSub),
+			com.exedio.cope.SetValue.map(SettableItem.fixedParam,fixedParam),
+			com.exedio.cope.SetValue.map(SettableItem.fixedParamSub,fixedParamSub),
+			com.exedio.cope.SetValue.map(SettableItem.fixedParamImpl,fixedParamImpl),
+			com.exedio.cope.SetValue.map(SettableItem.fixedParamWildcard,fixedParamWildcard),
+			com.exedio.cope.SetValue.map(SettableItem.fixedParamWildcardSub,fixedParamWildcardSub),
+			com.exedio.cope.SetValue.map(SettableItem.fixedParamBound,fixedParamBound),
+			com.exedio.cope.SetValue.map(SettableItem.fixedParamBoundSub,fixedParamBoundSub),
 		});
 	}
 

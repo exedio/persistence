@@ -41,8 +41,8 @@ public final class DefaultTextInput extends Input
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testmodel.Input.string.map(string),
-			com.exedio.cope.instrument.testmodel.Input.integer.map(integer),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.Input.string,string),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.Input.integer,integer),
 		});
 	}
 

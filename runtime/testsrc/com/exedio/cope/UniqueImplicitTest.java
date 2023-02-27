@@ -185,15 +185,15 @@ public class UniqueImplicitTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.booleanField.map(booleanField),
-				MyItem.integerField.map(integerField),
-				MyItem.longField.map(longField),
-				MyItem.doubleField.map(doubleField),
-				MyItem.stringField.map(stringField),
-				MyItem.dateField.map(dateField),
-				MyItem.dayField.map(dayField),
-				MyItem.enumField.map(enumField),
-				MyItem.itemField.map(itemField),
+				com.exedio.cope.SetValue.map(MyItem.booleanField,booleanField),
+				com.exedio.cope.SetValue.map(MyItem.integerField,integerField),
+				com.exedio.cope.SetValue.map(MyItem.longField,longField),
+				com.exedio.cope.SetValue.map(MyItem.doubleField,doubleField),
+				com.exedio.cope.SetValue.map(MyItem.stringField,stringField),
+				com.exedio.cope.SetValue.map(MyItem.dateField,dateField),
+				com.exedio.cope.SetValue.map(MyItem.dayField,dayField),
+				com.exedio.cope.SetValue.map(MyItem.enumField,enumField),
+				com.exedio.cope.SetValue.map(MyItem.itemField,itemField),
 			});
 		}
 

@@ -39,8 +39,8 @@ final class GroupItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			GroupItem.day.map(day),
-			GroupItem.number.map(number),
+			com.exedio.cope.SetValue.map(GroupItem.day,day),
+			com.exedio.cope.SetValue.map(GroupItem.number,number),
 		});
 	}
 

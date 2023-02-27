@@ -105,10 +105,10 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.booleanField.map(booleanField),
-				MyItem.integerField.map(integerField),
-				MyItem.longField.map(longField),
-				MyItem.doubleField.map(doubleField),
+				com.exedio.cope.SetValue.map(MyItem.booleanField,booleanField),
+				com.exedio.cope.SetValue.map(MyItem.integerField,integerField),
+				com.exedio.cope.SetValue.map(MyItem.longField,longField),
+				com.exedio.cope.SetValue.map(MyItem.doubleField,doubleField),
 			});
 		}
 

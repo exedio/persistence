@@ -63,8 +63,8 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DeleteSchemaItem.field.map(field),
-			DeleteSchemaItem.nextUnused.map(nextUnused),
+			com.exedio.cope.SetValue.map(DeleteSchemaItem.field,field),
+			com.exedio.cope.SetValue.map(DeleteSchemaItem.nextUnused,nextUnused),
 		});
 	}
 

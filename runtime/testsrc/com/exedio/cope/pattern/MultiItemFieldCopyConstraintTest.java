@@ -202,9 +202,9 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				DoubleCopyConstraintItem.value.map(value),
-				DoubleCopyConstraintItem.template.map(template),
-				DoubleCopyConstraintItem.field.map(field),
+				com.exedio.cope.SetValue.map(DoubleCopyConstraintItem.value,value),
+				com.exedio.cope.SetValue.map(DoubleCopyConstraintItem.template,template),
+				com.exedio.cope.SetValue.map(DoubleCopyConstraintItem.field,field),
 			});
 		}
 
@@ -291,8 +291,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AllCopyConstraintItem.value.map(value),
-				AllCopyConstraintItem.field.map(field),
+				com.exedio.cope.SetValue.map(AllCopyConstraintItem.value,value),
+				com.exedio.cope.SetValue.map(AllCopyConstraintItem.field,field),
 			});
 		}
 
@@ -368,8 +368,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				PartialCopyConstraintItem.value.map(value),
-				PartialCopyConstraintItem.field.map(field),
+				com.exedio.cope.SetValue.map(PartialCopyConstraintItem.value,value),
+				com.exedio.cope.SetValue.map(PartialCopyConstraintItem.field,field),
 			});
 		}
 
@@ -440,7 +440,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				A.value.map(value),
+				com.exedio.cope.SetValue.map(A.value,value),
 			});
 		}
 
@@ -500,7 +500,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				B.value.map(value),
+				com.exedio.cope.SetValue.map(B.value,value),
 			});
 		}
 
@@ -563,8 +563,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				C.value.map(value),
-				C.template.map(template),
+				com.exedio.cope.SetValue.map(C.value,value),
+				com.exedio.cope.SetValue.map(C.template,template),
 			});
 		}
 

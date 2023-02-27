@@ -112,8 +112,8 @@ public class MinusViewTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Supplier.stockable.map(stockable),
-				Supplier.keepSupplierStockReserve.map(keepSupplierStockReserve),
+				com.exedio.cope.SetValue.map(Supplier.stockable,stockable),
+				com.exedio.cope.SetValue.map(Supplier.keepSupplierStockReserve,keepSupplierStockReserve),
 			});
 		}
 
@@ -148,8 +148,8 @@ public class MinusViewTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				StockAccounting.supplier.map(supplier),
-				StockAccounting.amount.map(amount),
+				com.exedio.cope.SetValue.map(StockAccounting.supplier,supplier),
+				com.exedio.cope.SetValue.map(StockAccounting.amount,amount),
 			});
 		}
 

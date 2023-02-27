@@ -43,7 +43,7 @@ public final class HashItemHolder extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			HashItemHolder.hashItem.map(hashItem),
+			com.exedio.cope.SetValue.map(HashItemHolder.hashItem,hashItem),
 		});
 	}
 

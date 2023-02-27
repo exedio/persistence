@@ -74,11 +74,11 @@ public abstract class LibItem<T> extends LibSuperItem
 				@javax.annotation.Nonnull final Set<List<Object>> nestedGenerics)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testlib.LibSuperItem.inSuper.map(inSuper),
-			LibItem.a.map(a),
-			LibItem.inner.map(inner),
-			LibItem.strings.map(strings),
-			LibItem.nestedGenerics.map(nestedGenerics),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.LibSuperItem.inSuper,inSuper),
+			com.exedio.cope.SetValue.map(LibItem.a,a),
+			com.exedio.cope.SetValue.map(LibItem.inner,inner),
+			com.exedio.cope.SetValue.map(LibItem.strings,strings),
+			com.exedio.cope.SetValue.map(LibItem.nestedGenerics,nestedGenerics),
 		});
 	}
 

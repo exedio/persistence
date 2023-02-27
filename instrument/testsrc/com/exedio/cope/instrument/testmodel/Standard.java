@@ -233,16 +233,16 @@ public final class Standard extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			Standard.notNullString.map(notNullString),
-			Standard.finalString.map(finalString),
-			Standard.initialString.map(initialString),
-			Standard.nativeInteger.map(nativeInteger),
-			Standard.nativeLong.map(nativeLong),
-			Standard.nativeDouble.map(nativeDouble),
-			Standard.nativeBoolean.map(nativeBoolean),
-			Standard.mandatoryDate.map(mandatoryDate),
-			Standard.mandatoryHash.map(mandatoryHash),
-			Standard.privateSetterHash.map(privateSetterHash),
+			com.exedio.cope.SetValue.map(Standard.notNullString,notNullString),
+			com.exedio.cope.SetValue.map(Standard.finalString,finalString),
+			com.exedio.cope.SetValue.map(Standard.initialString,initialString),
+			com.exedio.cope.SetValue.map(Standard.nativeInteger,nativeInteger),
+			com.exedio.cope.SetValue.map(Standard.nativeLong,nativeLong),
+			com.exedio.cope.SetValue.map(Standard.nativeDouble,nativeDouble),
+			com.exedio.cope.SetValue.map(Standard.nativeBoolean,nativeBoolean),
+			com.exedio.cope.SetValue.map(Standard.mandatoryDate,mandatoryDate),
+			com.exedio.cope.SetValue.map(Standard.mandatoryHash,mandatoryHash),
+			com.exedio.cope.SetValue.map(Standard.privateSetterHash,privateSetterHash),
 		});
 	}
 

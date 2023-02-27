@@ -85,7 +85,7 @@ public class SettableMandatorySyntheticTest extends TestWithEnvironment
 				final int mandatory)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.mandatory.map(mandatory),
+			com.exedio.cope.SetValue.map(AnItem.mandatory,mandatory),
 		});
 	}
 

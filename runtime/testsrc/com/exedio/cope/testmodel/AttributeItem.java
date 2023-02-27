@@ -177,13 +177,13 @@ public final class AttributeItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AttributeItem.someNotNullString.map(someNotNullString),
-			AttributeItem.someNotNullInteger.map(someNotNullInteger),
-			AttributeItem.someNotNullLong.map(someNotNullLong),
-			AttributeItem.someNotNullDouble.map(someNotNullDouble),
-			AttributeItem.someNotNullBoolean.map(someNotNullBoolean),
-			AttributeItem.someNotNullItem.map(someNotNullItem),
-			AttributeItem.someNotNullEnum.map(someNotNullEnum),
+			com.exedio.cope.SetValue.map(AttributeItem.someNotNullString,someNotNullString),
+			com.exedio.cope.SetValue.map(AttributeItem.someNotNullInteger,someNotNullInteger),
+			com.exedio.cope.SetValue.map(AttributeItem.someNotNullLong,someNotNullLong),
+			com.exedio.cope.SetValue.map(AttributeItem.someNotNullDouble,someNotNullDouble),
+			com.exedio.cope.SetValue.map(AttributeItem.someNotNullBoolean,someNotNullBoolean),
+			com.exedio.cope.SetValue.map(AttributeItem.someNotNullItem,someNotNullItem),
+			com.exedio.cope.SetValue.map(AttributeItem.someNotNullEnum,someNotNullEnum),
 		});
 	}
 

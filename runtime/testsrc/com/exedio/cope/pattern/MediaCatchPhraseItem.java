@@ -60,8 +60,8 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature.map(feature),
-			MediaCatchPhraseItem.catchphrase.map(catchphrase),
+			com.exedio.cope.SetValue.map(com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature,feature),
+			com.exedio.cope.SetValue.map(MediaCatchPhraseItem.catchphrase,catchphrase),
 		});
 	}
 

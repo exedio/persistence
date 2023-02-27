@@ -38,7 +38,7 @@ final class CopyMultiTargetA extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CopyMultiTargetA.copy.map(copy),
+			com.exedio.cope.SetValue.map(CopyMultiTargetA.copy,copy),
 		});
 	}
 

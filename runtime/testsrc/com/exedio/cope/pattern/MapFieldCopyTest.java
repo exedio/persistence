@@ -266,8 +266,8 @@ public class MapFieldCopyTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MapFieldCopyItem.field.map(field),
-				MapFieldCopyItem.otherField.map(otherField),
+				com.exedio.cope.SetValue.map(MapFieldCopyItem.field,field),
+				com.exedio.cope.SetValue.map(MapFieldCopyItem.otherField,otherField),
 			});
 		}
 

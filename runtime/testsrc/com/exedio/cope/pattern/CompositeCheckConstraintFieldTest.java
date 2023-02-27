@@ -103,7 +103,7 @@ public class CompositeCheckConstraintFieldTest
 					@javax.annotation.Nullable final MyComposite field)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.field.map(field),
+				com.exedio.cope.SetValue.map(MyItem.field,field),
 			});
 		}
 

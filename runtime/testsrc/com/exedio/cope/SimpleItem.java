@@ -39,7 +39,7 @@ public final class SimpleItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			SimpleItem.name.map(name),
+			com.exedio.cope.SetValue.map(SimpleItem.name,name),
 		});
 	}
 

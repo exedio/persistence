@@ -454,7 +454,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.field.map(field),
+				com.exedio.cope.SetValue.map(MyItem.field,field),
 			});
 		}
 

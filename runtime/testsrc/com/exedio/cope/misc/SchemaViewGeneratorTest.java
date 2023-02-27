@@ -202,8 +202,8 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 					@javax.annotation.Nullable final MyEnum supEnum)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MySuperItem.supPlain.map(supPlain),
-				MySuperItem.supEnum.map(supEnum),
+				com.exedio.cope.SetValue.map(MySuperItem.supPlain,supPlain),
+				com.exedio.cope.SetValue.map(MySuperItem.supEnum,supEnum),
 			});
 		}
 
@@ -244,11 +244,11 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 					@javax.annotation.Nullable final java.util.Date date)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				com.exedio.cope.misc.SchemaViewGeneratorTest.MySuperItem.supPlain.map(supPlain),
-				com.exedio.cope.misc.SchemaViewGeneratorTest.MySuperItem.supEnum.map(supEnum),
-				MyItem.plain.map(plain),
-				MyItem.myenum.map(myenum),
-				MyItem.date.map(date),
+				com.exedio.cope.SetValue.map(com.exedio.cope.misc.SchemaViewGeneratorTest.MySuperItem.supPlain,supPlain),
+				com.exedio.cope.SetValue.map(com.exedio.cope.misc.SchemaViewGeneratorTest.MySuperItem.supEnum,supEnum),
+				com.exedio.cope.SetValue.map(MyItem.plain,plain),
+				com.exedio.cope.SetValue.map(MyItem.myenum,myenum),
+				com.exedio.cope.SetValue.map(MyItem.date,date),
 			});
 		}
 

@@ -228,8 +228,8 @@ public class HavingAggregateTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.group.map(group),
-				MyItem.aggregated.map(aggregated),
+				com.exedio.cope.SetValue.map(MyItem.group,group),
+				com.exedio.cope.SetValue.map(MyItem.aggregated,aggregated),
 			});
 		}
 

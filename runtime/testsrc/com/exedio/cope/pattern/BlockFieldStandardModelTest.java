@@ -707,7 +707,7 @@ public class BlockFieldStandardModelTest
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.code.map(code),
+				com.exedio.cope.SetValue.map(AnItem.code,code),
 			});
 		}
 

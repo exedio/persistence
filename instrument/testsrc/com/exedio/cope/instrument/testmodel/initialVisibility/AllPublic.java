@@ -36,7 +36,7 @@ public final class AllPublic extends Item
 				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AllPublic.field.map(field),
+			com.exedio.cope.SetValue.map(AllPublic.field,field),
 		});
 	}
 

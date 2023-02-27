@@ -71,8 +71,8 @@ final class ColorFieldItem extends Item
 				com.exedio.cope.pattern.ColorAlphaViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			ColorFieldItem.mandatory.map(mandatory),
-			ColorFieldItem.finalColor.map(finalColor),
+			com.exedio.cope.SetValue.map(ColorFieldItem.mandatory,mandatory),
+			com.exedio.cope.SetValue.map(ColorFieldItem.finalColor,finalColor),
 		});
 	}
 

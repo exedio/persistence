@@ -37,7 +37,7 @@ final class IoqTargetSub extends IoqTargetSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instanceOfQuery.IoqTargetSuper.code.map(code),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instanceOfQuery.IoqTargetSuper.code,code),
 		});
 	}
 

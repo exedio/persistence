@@ -51,7 +51,7 @@ final class DrivebyHashMigrationItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DrivebyHashMigrationItem.password.map(password),
+			com.exedio.cope.SetValue.map(DrivebyHashMigrationItem.password,password),
 		});
 	}
 

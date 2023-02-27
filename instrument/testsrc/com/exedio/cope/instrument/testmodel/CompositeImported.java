@@ -40,7 +40,7 @@ public final class CompositeImported extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompositeImported.field.map(field),
+			com.exedio.cope.SetValue.map(CompositeImported.field,field),
 		});
 	}
 

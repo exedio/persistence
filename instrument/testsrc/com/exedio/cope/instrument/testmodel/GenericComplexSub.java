@@ -39,9 +39,9 @@ public final class GenericComplexSub extends GenericComplexMid<List<String>>
 				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testmodel.GenericComplexSuper.toSub.map(toSub),
-			com.exedio.cope.instrument.testmodel.GenericComplexSuper.toMid.map(toMid),
-			com.exedio.cope.instrument.testmodel.GenericComplexSuper.toSuper.map(toSuper),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.GenericComplexSuper.toSub,toSub),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.GenericComplexSuper.toMid,toMid),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.GenericComplexSuper.toSuper,toSuper),
 		});
 	}
 

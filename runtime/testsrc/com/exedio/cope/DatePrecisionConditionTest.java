@@ -160,8 +160,8 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.exact.map(exact),
-			AnItem.rounded.map(rounded),
+			com.exedio.cope.SetValue.map(AnItem.exact,exact),
+			com.exedio.cope.SetValue.map(AnItem.rounded,rounded),
 		});
 	}
 

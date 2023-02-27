@@ -143,8 +143,8 @@ public class UniqueConstraintTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				UniqueConstraintItem.a.map(a),
-				UniqueConstraintItem.b.map(b),
+				com.exedio.cope.SetValue.map(UniqueConstraintItem.a,a),
+				com.exedio.cope.SetValue.map(UniqueConstraintItem.b,b),
 			});
 		}
 

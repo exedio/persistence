@@ -149,8 +149,8 @@ public class EnumMapFieldFallbackModelTest
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.noneMand.map(noneMand),
-			AnItem.fallMand.map(fallMand),
+			com.exedio.cope.SetValue.map(AnItem.noneMand,noneMand),
+			com.exedio.cope.SetValue.map(AnItem.fallMand,fallMand),
 		});
 	}
 

@@ -43,8 +43,8 @@ final class CompositeFieldRenamedSchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompositeFieldRenamedSchemaItem.virgnComp.map(virgnComp),
-			CompositeFieldRenamedSchemaItem.wrongComp.map(wrongComp),
+			com.exedio.cope.SetValue.map(CompositeFieldRenamedSchemaItem.virgnComp,virgnComp),
+			com.exedio.cope.SetValue.map(CompositeFieldRenamedSchemaItem.wrongComp,wrongComp),
 		});
 	}
 

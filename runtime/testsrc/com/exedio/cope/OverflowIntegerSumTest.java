@@ -174,7 +174,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 				final int field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.field.map(field),
+			com.exedio.cope.SetValue.map(AnItem.field,field),
 		});
 	}
 

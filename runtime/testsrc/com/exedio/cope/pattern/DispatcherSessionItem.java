@@ -124,7 +124,7 @@ public final class DispatcherSessionItem extends Item
 				final boolean fail)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DispatcherSessionItem.fail.map(fail),
+			com.exedio.cope.SetValue.map(DispatcherSessionItem.fail,fail),
 		});
 	}
 

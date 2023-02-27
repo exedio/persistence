@@ -112,20 +112,20 @@ final class CompareFunctionConditionItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompareFunctionConditionItem.stringA.map(stringA),
-			CompareFunctionConditionItem.stringB.map(stringB),
-			CompareFunctionConditionItem.intA.map(intA),
-			CompareFunctionConditionItem.intB.map(intB),
-			CompareFunctionConditionItem.longA.map(longA),
-			CompareFunctionConditionItem.longB.map(longB),
-			CompareFunctionConditionItem.doubleA.map(doubleA),
-			CompareFunctionConditionItem.doubleB.map(doubleB),
-			CompareFunctionConditionItem.dateA.map(dateA),
-			CompareFunctionConditionItem.dateB.map(dateB),
-			CompareFunctionConditionItem.dayA.map(dayA),
-			CompareFunctionConditionItem.dayB.map(dayB),
-			CompareFunctionConditionItem.enumA.map(enumA),
-			CompareFunctionConditionItem.enumB.map(enumB),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.stringA,stringA),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.stringB,stringB),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.intA,intA),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.intB,intB),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.longA,longA),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.longB,longB),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.doubleA,doubleA),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.doubleB,doubleB),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.dateA,dateA),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.dateB,dateB),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.dayA,dayA),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.dayB,dayB),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.enumA,enumA),
+			com.exedio.cope.SetValue.map(CompareFunctionConditionItem.enumB,enumB),
 		});
 	}
 

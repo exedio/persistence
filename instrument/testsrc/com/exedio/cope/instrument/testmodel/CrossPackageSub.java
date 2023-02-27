@@ -51,13 +51,13 @@ final class CrossPackageSub extends CrossPackageSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testmodel.CrossPackageSuper.superField.map(superField),
-			com.exedio.cope.instrument.testmodel.CrossPackageSuper.superField2.map(superField2),
-			com.exedio.cope.instrument.testmodel.CrossPackageSuper.externalEnum.map(externalEnum),
-			com.exedio.cope.instrument.testmodel.CrossPackageSuper.shortExternalEnum.map(shortExternalEnum),
-			com.exedio.cope.instrument.testmodel.CrossPackageSuper.compositeImported.map(compositeImported),
-			com.exedio.cope.instrument.testmodel.CrossPackageSuper.compositeFully.map(compositeFully),
-			CrossPackageSub.subField.map(subField),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.CrossPackageSuper.superField,superField),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.CrossPackageSuper.superField2,superField2),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.CrossPackageSuper.externalEnum,externalEnum),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.CrossPackageSuper.shortExternalEnum,shortExternalEnum),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.CrossPackageSuper.compositeImported,compositeImported),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.CrossPackageSuper.compositeFully,compositeFully),
+			com.exedio.cope.SetValue.map(CrossPackageSub.subField,subField),
 		});
 	}
 

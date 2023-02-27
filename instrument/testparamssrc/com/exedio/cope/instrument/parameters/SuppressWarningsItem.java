@@ -41,7 +41,7 @@ final class SuppressWarningsItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.SetValue.map(SuppressWarningsItem.field,field),
+			SuppressWarningsItem.field.map(field),
 		});
 	}
 

@@ -134,7 +134,7 @@ public final class DispatcherWithoutRemainingItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DispatcherWithoutRemainingItem.body.map(body),
+			com.exedio.cope.SetValue.map(DispatcherWithoutRemainingItem.body,body),
 		});
 	}
 

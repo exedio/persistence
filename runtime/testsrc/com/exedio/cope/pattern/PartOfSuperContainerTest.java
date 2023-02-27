@@ -76,8 +76,8 @@ public class PartOfSuperContainerTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				com.exedio.cope.pattern.PartOfSuperContainerTest.Super.container.map(container),
-				Sub.order.map(order),
+				com.exedio.cope.SetValue.map(com.exedio.cope.pattern.PartOfSuperContainerTest.Super.container,container),
+				com.exedio.cope.SetValue.map(Sub.order,order),
 			});
 		}
 

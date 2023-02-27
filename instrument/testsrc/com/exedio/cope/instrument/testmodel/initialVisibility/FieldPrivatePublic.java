@@ -39,8 +39,8 @@ public final class FieldPrivatePublic extends Item
 				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean fieldPublic)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			FieldPrivatePublic.field.map(field),
-			FieldPrivatePublic.fieldPublic.map(fieldPublic),
+			com.exedio.cope.SetValue.map(FieldPrivatePublic.field,field),
+			com.exedio.cope.SetValue.map(FieldPrivatePublic.fieldPublic,fieldPublic),
 		});
 	}
 

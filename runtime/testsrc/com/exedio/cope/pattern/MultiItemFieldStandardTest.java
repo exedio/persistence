@@ -52,7 +52,7 @@ public class MultiItemFieldStandardTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnMandatoryItem.field.map(field),
+				com.exedio.cope.SetValue.map(AnMandatoryItem.field,field),
 			});
 		}
 
@@ -145,7 +145,7 @@ public class MultiItemFieldStandardTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnFinalItem.field.map(field),
+				com.exedio.cope.SetValue.map(AnFinalItem.field,field),
 			});
 		}
 
@@ -192,7 +192,7 @@ public class MultiItemFieldStandardTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ThreeItem.mandatory.map(mandatory),
+				com.exedio.cope.SetValue.map(ThreeItem.mandatory,mandatory),
 			});
 		}
 
@@ -265,7 +265,7 @@ public class MultiItemFieldStandardTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				FourItem.mandatory.map(mandatory),
+				com.exedio.cope.SetValue.map(FourItem.mandatory,mandatory),
 			});
 		}
 
@@ -330,7 +330,7 @@ public class MultiItemFieldStandardTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnCascadeItem.field.map(field),
+				com.exedio.cope.SetValue.map(AnCascadeItem.field,field),
 			});
 		}
 

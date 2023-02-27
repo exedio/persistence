@@ -216,8 +216,8 @@ public class CopyDefaultTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Source.target.map(target),
-				Source.field.map(field),
+				com.exedio.cope.SetValue.map(Source.target,target),
+				com.exedio.cope.SetValue.map(Source.field,field),
 			});
 		}
 
@@ -306,7 +306,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Target.field.map(field),
+				com.exedio.cope.SetValue.map(Target.field,field),
 			});
 		}
 

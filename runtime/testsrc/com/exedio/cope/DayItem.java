@@ -37,7 +37,7 @@ final class DayItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DayItem.mandatory.map(mandatory),
+			com.exedio.cope.SetValue.map(DayItem.mandatory,mandatory),
 		});
 	}
 

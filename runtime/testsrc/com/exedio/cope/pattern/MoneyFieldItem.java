@@ -172,9 +172,9 @@ public final class MoneyFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.sharMan.map(sharMan),
-			MoneyFieldItem.exclMan.map(exclMan),
+			com.exedio.cope.SetValue.map(MoneyFieldItem.currency,currency),
+			com.exedio.cope.SetValue.map(MoneyFieldItem.sharMan,sharMan),
+			com.exedio.cope.SetValue.map(MoneyFieldItem.exclMan,exclMan),
 		});
 	}
 

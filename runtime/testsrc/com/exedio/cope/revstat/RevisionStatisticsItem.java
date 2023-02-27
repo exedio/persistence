@@ -49,8 +49,8 @@ final class RevisionStatisticsItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			RevisionStatisticsItem.field.map(field),
-			RevisionStatisticsItem.num.map(num),
+			com.exedio.cope.SetValue.map(RevisionStatisticsItem.field,field),
+			com.exedio.cope.SetValue.map(RevisionStatisticsItem.num,num),
 		});
 	}
 

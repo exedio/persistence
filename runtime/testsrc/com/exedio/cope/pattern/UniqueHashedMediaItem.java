@@ -44,7 +44,7 @@ public final class UniqueHashedMediaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			UniqueHashedMediaItem.value.map(value),
+			com.exedio.cope.SetValue.map(UniqueHashedMediaItem.value,value),
 		});
 	}
 

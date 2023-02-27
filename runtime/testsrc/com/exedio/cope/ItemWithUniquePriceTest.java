@@ -89,8 +89,8 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ItemWithUniquePrice.price.map(price),
-				ItemWithUniquePrice.other.map(other),
+				com.exedio.cope.SetValue.map(ItemWithUniquePrice.price,price),
+				com.exedio.cope.SetValue.map(ItemWithUniquePrice.other,other),
 			});
 		}
 

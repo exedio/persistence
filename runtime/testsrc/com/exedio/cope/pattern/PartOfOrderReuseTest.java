@@ -127,9 +127,9 @@ public class PartOfOrderReuseTest
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			APart.container1.map(container1),
-			APart.container2.map(container2),
-			APart.order.map(order),
+			com.exedio.cope.SetValue.map(APart.container1,container1),
+			com.exedio.cope.SetValue.map(APart.container2,container2),
+			com.exedio.cope.SetValue.map(APart.order,order),
 		});
 	}
 

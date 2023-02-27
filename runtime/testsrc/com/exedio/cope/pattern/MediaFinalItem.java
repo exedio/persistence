@@ -53,7 +53,7 @@ public final class MediaFinalItem extends Item
 				@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaFinalItem.file.map(file),
+			com.exedio.cope.SetValue.map(MediaFinalItem.file,file),
 		});
 	}
 

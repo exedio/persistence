@@ -39,7 +39,7 @@ public final class CompositeFully extends com.exedio.cope.pattern.Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompositeFully.field.map(field),
+			com.exedio.cope.SetValue.map(CompositeFully.field,field),
 		});
 	}
 

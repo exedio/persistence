@@ -251,8 +251,8 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.field.map(field),
-				MyItem.other.map(other),
+				com.exedio.cope.SetValue.map(MyItem.field,field),
+				com.exedio.cope.SetValue.map(MyItem.other,other),
 			});
 		}
 

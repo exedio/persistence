@@ -222,7 +222,7 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 					@javax.annotation.Nullable final Container parent)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				SuperPart.parent.map(parent),
+				com.exedio.cope.SetValue.map(SuperPart.parent,parent),
 			});
 		}
 
@@ -256,7 +256,7 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 					@javax.annotation.Nullable final com.exedio.cope.CopyChoiceHierarchyTest.Container parent)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				com.exedio.cope.CopyChoiceHierarchyTest.SuperPart.parent.map(parent),
+				com.exedio.cope.SetValue.map(com.exedio.cope.CopyChoiceHierarchyTest.SuperPart.parent,parent),
 			});
 		}
 

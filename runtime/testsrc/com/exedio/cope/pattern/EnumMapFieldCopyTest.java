@@ -92,7 +92,7 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				EnumMapFieldCopyItem.field.map(field),
+				com.exedio.cope.SetValue.map(EnumMapFieldCopyItem.field,field),
 			});
 		}
 
@@ -139,7 +139,7 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				EnumMapFieldCopyValue.field.map(field),
+				com.exedio.cope.SetValue.map(EnumMapFieldCopyValue.field,field),
 			});
 		}
 

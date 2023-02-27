@@ -232,9 +232,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ItemB.hours.map(hours),
-				ItemB.minutes.map(minutes),
-				ItemB.seconds.map(seconds),
+				com.exedio.cope.SetValue.map(ItemB.hours,hours),
+				com.exedio.cope.SetValue.map(ItemB.minutes,minutes),
+				com.exedio.cope.SetValue.map(ItemB.seconds,seconds),
 			});
 		}
 

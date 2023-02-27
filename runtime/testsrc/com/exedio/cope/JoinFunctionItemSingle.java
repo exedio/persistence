@@ -41,7 +41,7 @@ public final class JoinFunctionItemSingle extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			JoinFunctionItemSingle.name.map(name),
+			com.exedio.cope.SetValue.map(JoinFunctionItemSingle.name,name),
 		});
 	}
 

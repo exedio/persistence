@@ -47,10 +47,10 @@ final class ReviseItem2 extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			ReviseItem2.field5.map(field5),
-			ReviseItem2.field6.map(field6),
-			ReviseItem2.field6b.map(field6b),
-			ReviseItem2.field7.map(field7),
+			com.exedio.cope.SetValue.map(ReviseItem2.field5,field5),
+			com.exedio.cope.SetValue.map(ReviseItem2.field6,field6),
+			com.exedio.cope.SetValue.map(ReviseItem2.field6b,field6b),
+			com.exedio.cope.SetValue.map(ReviseItem2.field7,field7),
 		});
 	}
 

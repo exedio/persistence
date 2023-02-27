@@ -45,9 +45,9 @@ class SuperContainer extends SuperItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.badquery.SuperItem.code.map(code),
-			SuperContainer.queryItem.map(queryItem),
-			SuperContainer.superflag.map(superflag),
+			com.exedio.cope.SetValue.map(com.exedio.cope.badquery.SuperItem.code,code),
+			com.exedio.cope.SetValue.map(SuperContainer.queryItem,queryItem),
+			com.exedio.cope.SetValue.map(SuperContainer.superflag,superflag),
 		});
 	}
 

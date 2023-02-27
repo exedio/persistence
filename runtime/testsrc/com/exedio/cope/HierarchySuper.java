@@ -39,7 +39,7 @@ public abstract class HierarchySuper extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			HierarchySuper.superInt.map(superInt),
+			com.exedio.cope.SetValue.map(HierarchySuper.superInt,superInt),
 		});
 	}
 

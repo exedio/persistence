@@ -125,7 +125,7 @@ public final class DispatcherWithoutPurgeItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DispatcherWithoutPurgeItem.body.map(body),
+			com.exedio.cope.SetValue.map(DispatcherWithoutPurgeItem.body,body),
 		});
 	}
 

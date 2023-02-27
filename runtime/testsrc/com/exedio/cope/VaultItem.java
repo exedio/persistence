@@ -152,7 +152,7 @@ final class VaultItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			VaultItem.field.map(field),
+			com.exedio.cope.SetValue.map(VaultItem.field,field),
 		});
 	}
 
