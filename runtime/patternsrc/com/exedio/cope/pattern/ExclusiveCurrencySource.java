@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.misc.Conditions.unisonNull;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
@@ -79,7 +80,7 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	{
 		return new SetValue<?>[]{
 			amount,
-			currency.map( value!=null ? value.getCurrency() : null )
+			map(currency, value!=null ? value.getCurrency() : null)
 		};
 	}
 

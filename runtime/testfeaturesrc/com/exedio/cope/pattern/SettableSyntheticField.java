@@ -81,7 +81,7 @@ public final class SettableSyntheticField extends Pattern implements Settable<In
 	@Override
 	public SetValue<?>[] execute(final Integer value, final Item exceptionItem)
 	{
-		return new SetValue<?>[]{ source.map(value) };
+		return new SetValue<?>[]{ SetValue.map(source, value) };
 	}
 }
 

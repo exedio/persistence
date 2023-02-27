@@ -278,7 +278,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	@Override
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		return new SetValue<?>[]{ idField.map(executeValue(value, exceptionItem)) };
+		return new SetValue<?>[]{ SetValue.map(idField, executeValue(value, exceptionItem)) };
 	}
 
 	private String executeValue(final E value, final Item exceptionItem)

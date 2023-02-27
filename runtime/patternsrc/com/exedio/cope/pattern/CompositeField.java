@@ -227,7 +227,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		int i = 0;
 		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
 		{
-			initargs[i++] = ((FunctionField)e.getKey()).map(e.getValue().get(item));
+			initargs[i++] = SetValue.map(((FunctionField)e.getKey()), e.getValue().get(item));
 		}
 		return newValue(initargs);
 	}
@@ -249,7 +249,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		final SetValue[] setValues = new SetValue[componentSize];
 		int i = 0;
 		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
-			setValues[i++] = ((FunctionField)e.getValue()).map(value!=null ? value.get(e.getKey()) : null);
+			setValues[i++] = SetValue.map(((FunctionField) e.getValue()), value!=null ? value.get(e.getKey()) : null);
 		item.set(setValues);
 	}
 
@@ -260,7 +260,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		final SetValue[] result = new SetValue[componentSize];
 		int i = 0;
 		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
-			result[i++] = ((FunctionField)e.getValue()).map(value!=null ? value.get(e.getKey()) : null);
+			result[i++] = SetValue.map(((FunctionField)e.getValue()), value!=null ? value.get(e.getKey()) : null);
 		return result;
 	}
 

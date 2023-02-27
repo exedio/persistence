@@ -296,8 +296,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		{
 			// throws an IllegalContentTypeException
 			return type.newItem(
-					media.map(valueWithHash.media),
-					hash .map(valueWithHash.hash));
+					SetValue.map(media, valueWithHash.media),
+					SetValue.map(hash, valueWithHash.hash));
 		}
 	}
 
@@ -359,7 +359,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			hash  = null;
 		}
 		final List<SetValue<?>> setValues = new ArrayList<>(Arrays.asList(this.media.execute(media, exceptionItem)));
-		setValues.add(this.hash.map(hash));
+		setValues.add(SetValue.map(this.hash, hash));
 		return setValues.toArray(SetValue.EMPTY_ARRAY);
 	}
 

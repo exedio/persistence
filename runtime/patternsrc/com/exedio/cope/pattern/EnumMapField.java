@@ -222,7 +222,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			{
 				value = null;
 			}
-			sv[i++] = fields.get(key).map(value);
+			sv[i++] = SetValue.map(fields.get(key), value);
 		}
 
 		item.set(sv);
@@ -237,7 +237,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		final K[] keys = keyClass.getEnumConstants();
 		final SetValue<?>[] result = new SetValue<?>[keys.length];
 		for(final K key : keys)
-			result[key.ordinal()] = fields.get(key).map(value.get(key));
+			result[key.ordinal()] = SetValue.map(fields.get(key), value.get(key));
 		return result;
 	}
 

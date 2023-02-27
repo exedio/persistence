@@ -191,7 +191,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue<?>[]{ integer.map(value!=null ? value.store() : null) };
+		return new SetValue<?>[]{ SetValue.map(integer, value!=null ? value.store() : null) };
 	}
 
 	// convenience methods for conditions and views ---------------------------------

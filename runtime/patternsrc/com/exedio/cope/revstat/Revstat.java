@@ -18,6 +18,7 @@
 
 package com.exedio.cope.revstat;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 
 import com.exedio.cope.ActivationParameters;
@@ -83,12 +84,12 @@ final class Revstat extends Item
 			try
 			{
 				result = TYPE.newItem(
-					Revstat.number.map(number),
-					Revstat.date.map(revision.getDate()),
-					Revstat.size.map(bodies.size()),
-					Revstat.rows.map(rows),
-					Revstat.elapsed.map(elapsed),
-					Revstat.comment.map(comment));
+					map(Revstat.number, number),
+					map(Revstat.date, revision.getDate()),
+					map(Revstat.size, bodies.size()),
+					map(Revstat.rows, rows),
+					map(Revstat.elapsed, elapsed),
+					map(Revstat.comment, comment));
 			}
 			catch(final UniqueViolationException e)
 			{

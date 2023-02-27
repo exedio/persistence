@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.maD;
 import static java.util.Objects.requireNonNull;
 
@@ -125,11 +126,11 @@ public class Sampler
 		{
 			//noinspection RedundantOperationOnEmptyContainer
 			sv.clear();
-			sv.add(SamplerModel.from.map(from.date));
-			sv.add(SamplerModel.date.map(to.date));
-			sv.add(SamplerModel.duration.map(to.duration));
-			sv.add(SamplerModel.initialized.map(Date.from(to.initialized)));
-			sv.add(SamplerModel.connected.map(Date.from(to.connected)));
+			sv.add(map(SamplerModel.from, from.date));
+			sv.add(map(SamplerModel.date, to.date));
+			sv.add(map(SamplerModel.duration, to.duration));
+			sv.add(map(SamplerModel.initialized, Date.from(to.initialized)));
+			sv.add(map(SamplerModel.connected, Date.from(to.connected)));
 			sv.addAll(SamplerModel.mapIt(from.connectionPoolInfo, to.connectionPoolInfo));
 			sv.add(maD(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
 			sv.addAll(SamplerModel.mapTransactionCountersDummy());
@@ -137,7 +138,7 @@ public class Sampler
 			sv.addAll(SamplerModel.mapQueryCacheInfoDummy());
 			sv.addAll(SamplerModel.mapChangeListenerInfoDummy());
 			sv.addAll(SamplerModel.mapChangeListenerDispatcherInfoDummy());
-			sv.add(SamplerModel.mediasNoSuchPath.map(SamplerModel.DUMMY));
+			sv.add(map(SamplerModel.mediasNoSuchPath, SamplerModel.DUMMY));
 			sv.addAll(SamplerModel.mapMediaSummaryDummy());
 			sv.add(SamplerModel.mapClusterSenderInfoDummy());
 			sv.add(SamplerModel.mapClusterListenerInfoDummy());

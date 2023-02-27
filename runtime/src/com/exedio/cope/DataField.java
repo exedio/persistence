@@ -333,7 +333,7 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Value data)
 	{
-		item.set(map(data));
+		item.set(SetValue.map(this, data));
 	}
 
 	/**
@@ -474,22 +474,22 @@ public final class DataField extends Field<DataField.Value>
 
 	public SetValue<?> map(final byte[] array)
 	{
-		return map(toValue(array));
+		return SetValue.map(this, toValue(array));
 	}
 
 	public SetValue<?> map(final InputStream stream)
 	{
-		return map(toValue(stream));
+		return SetValue.map(this, toValue(stream));
 	}
 
 	public SetValue<?> map(final Path path)
 	{
-		return map(toValue(path));
+		return SetValue.map(this, toValue(path));
 	}
 
 	public SetValue<?> map(final File file)
 	{
-		return map(toValue(file));
+		return SetValue.map(this, toValue(file));
 	}
 
 	@Override

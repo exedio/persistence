@@ -306,14 +306,14 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
-			setValues[i] = sources[i].map(it.next());
+			setValues[i] = SetValue.map(sources[i], it.next());
 
 		final int length = i;
 
 		for(; i<sources.length; i++)
-			setValues[i] = sources[i].map(null);
+			setValues[i] = SetValue.map(sources[i], null);
 
-		setValues[i] = this.length.map(length);
+		setValues[i] = SetValue.map(this.length, length);
 
 		item.set(setValues);
 	}
@@ -333,7 +333,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		for(; i<sources.length; i++)
 			result[i] = Cope.mapAndCast(sources[i], null);
 
-		result[i] = this.length.map(length);
+		result[i] = SetValue.map(this.length, length);
 
 		return result;
 	}

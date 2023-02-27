@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
@@ -119,8 +120,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	{
 		final Mount mount = mount();
 		return mount.pasteType.newItem(
-				pasteKey.map(key),
-				pasteValue.map(value),
+				map(pasteKey, key),
+				map(pasteValue, value),
 				Cope.mapAndCast(mount.pasteParent, item));
 	}
 
@@ -150,8 +151,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 		if(existing==null)
 			return mount.pasteType.newItem(
-					pasteKey.map(key),
-					pasteValue.map(value),
+					map(pasteKey, key),
+					map(pasteValue, value),
 					Cope.mapAndCast(mount.pasteParent, item));
 		else
 		{

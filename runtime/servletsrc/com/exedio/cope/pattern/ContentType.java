@@ -73,7 +73,7 @@ abstract class ContentType<B>
 
 	final SetValue<B> map(final String contentType)
 	{
-		return field.map(set(contentType));
+		return SetValue.map(field, set(contentType));
 	}
 
 	protected static final StringField makeField(final int maxLength, final CharSet charSet)

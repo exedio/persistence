@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.SetValue.map;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
@@ -253,8 +254,8 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		final int newOrder = max!=null ? (max+1) : 0;
 		mount.relationType.newItem(
 				Cope.mapAndCast(mount.parent, item),
-				this.order.map(newOrder),
-				this.element.map(value));
+				map(this.order, newOrder),
+				map(this.element, value));
 	}
 
 	/**
@@ -310,8 +311,8 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 				{
 					mount.relationType.newItem(
 							Cope.mapAndCast(mount.parent, item),
-							this.element.map(expected.next()),
-							this.order.map(order++)
+							map(this.element, expected.next()),
+							map(this.order, order++)
 					);
 				}
 				return;

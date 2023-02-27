@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
+import static com.exedio.cope.SetValue.map;
 import static java.lang.Math.max;
 
 import com.exedio.cope.ActivationParameters;
@@ -265,7 +266,7 @@ public final class DynamicModel<L> extends Pattern
 
 	public Type<L> createType(final String code)
 	{
-		return mount().typeType.newItem(typeCode.map(code));
+		return mount().typeType.newItem(map(typeCode, code));
 	}
 
 	public List<Type<L>> getTypes()
@@ -331,9 +332,9 @@ public final class DynamicModel<L> extends Pattern
 					", but must be " + this);
 
 		final SetValue<?>[] values = new SetValue<?>[1+fields.length];
-		values[0] = mount().type.map(type);
+		values[0] = map(mount().type, type);
 		for(int i = 0; i<fields.length; i++)
-			values[1+i] = fields[i].map(null);
+			values[1+i] = map(fields[i], null);
 		item.set(values);
 	}
 
@@ -477,11 +478,11 @@ public final class DynamicModel<L> extends Pattern
 			p.assertCapacity(valueType, positionPerValuetype);
 			return
 					m.fieldType.newItem(
-							m.fieldParent.map(this),
-							p.fieldPosition.map(position),
-							p.fieldCode.map(code),
-							p.fieldValueType.map(valueType),
-							p.fieldPositionPerValueType.map(positionPerValuetype));
+							map(m.fieldParent, this),
+							map(p.fieldPosition, position),
+							map(p.fieldCode, code),
+							map(p.fieldValueType, valueType),
+							map(p.fieldPositionPerValueType, positionPerValuetype));
 		}
 
 		private List<Field<L>> getFields(final DynamicModel<L> p, final Mount<L> m, final ValueType valueType)
@@ -626,9 +627,9 @@ public final class DynamicModel<L> extends Pattern
 			final int position = values.isEmpty() ? 0 : (values.get(values.size()-1).getPosition()+1);
 			return
 					m.enumType.newItem(
-							m.enumParent.map(this),
-							p.enumPosition.map(position),
-							p.enumCode.map(code));
+							map(m.enumParent, this),
+							map(p.enumPosition, position),
+							map(p.enumCode, code));
 		}
 
 		public Enum<L> as(final Enum<?> value)

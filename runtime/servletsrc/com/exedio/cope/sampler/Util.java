@@ -84,7 +84,7 @@ final class Util
 			if(logger.isWarnEnabled())
 				logger.warn("integer exceeded for {} {}", settable, result);
 
-			return settable.map(Integer.MAX_VALUE);
+			return SetValue.map(settable, Integer.MAX_VALUE);
 		}
 		return SetValue.map(settable, (int)result);
 	}

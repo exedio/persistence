@@ -18,6 +18,8 @@
 
 package com.exedio.cope.revstat;
 
+import static com.exedio.cope.SetValue.map;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.DateField;
@@ -57,10 +59,10 @@ final class RevstatBody extends Item
 	static void get(final Revstat revision, final int bodyNumber, final Body body)
 	{
 		TYPE.newItem(
-				RevstatBody.revision.map(revision),
-				RevstatBody.bodyNumber.map(bodyNumber),
-				RevstatBody.rows.map(body.getRows()),
-				RevstatBody.elapsed.map(body.getElapsed()),
+				map(RevstatBody.revision, revision),
+				map(RevstatBody.bodyNumber, bodyNumber),
+				map(RevstatBody.rows, body.getRows()),
+				map(RevstatBody.elapsed, body.getElapsed()),
 				Util.cutAndMap(RevstatBody.sql, body.getSQL()));
 	}
 
