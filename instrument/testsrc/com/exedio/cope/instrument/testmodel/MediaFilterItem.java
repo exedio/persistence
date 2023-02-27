@@ -48,8 +48,8 @@ public class MediaFilterItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaFilterItem.text.map(text),
-			MediaFilterItem.textOrImage.map(textOrImage),
+			com.exedio.cope.SetValue.map(MediaFilterItem.text,text),
+			com.exedio.cope.SetValue.map(MediaFilterItem.textOrImage,textOrImage),
 		});
 	}
 

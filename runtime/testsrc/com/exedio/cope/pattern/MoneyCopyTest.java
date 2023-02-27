@@ -251,10 +251,10 @@ public class MoneyCopyTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Source.target.map(target),
-				Source.currency.map(currency),
-				Source.fixed.map(fixed),
-				Source.shared.map(shared),
+				com.exedio.cope.SetValue.map(Source.target,target),
+				com.exedio.cope.SetValue.map(Source.currency,currency),
+				com.exedio.cope.SetValue.map(Source.fixed,fixed),
+				com.exedio.cope.SetValue.map(Source.shared,shared),
 			});
 		}
 
@@ -390,7 +390,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Target.currency.map(currency),
+				com.exedio.cope.SetValue.map(Target.currency,currency),
 			});
 		}
 

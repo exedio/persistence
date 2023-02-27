@@ -73,8 +73,8 @@ final class StringCharSetItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			StringCharSetItem.code.map(code),
-			StringCharSetItem.any.map(any),
+			com.exedio.cope.SetValue.map(StringCharSetItem.code,code),
+			com.exedio.cope.SetValue.map(StringCharSetItem.any,any),
 		});
 	}
 

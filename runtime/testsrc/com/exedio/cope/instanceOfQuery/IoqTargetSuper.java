@@ -46,7 +46,7 @@ class IoqTargetSuper extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			IoqTargetSuper.code.map(code),
+			com.exedio.cope.SetValue.map(IoqTargetSuper.code,code),
 		});
 	}
 

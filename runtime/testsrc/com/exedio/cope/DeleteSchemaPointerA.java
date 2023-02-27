@@ -36,7 +36,7 @@ final class DeleteSchemaPointerA extends Item
 				final int code)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DeleteSchemaPointerA.code.map(code),
+			com.exedio.cope.SetValue.map(DeleteSchemaPointerA.code,code),
 		});
 	}
 

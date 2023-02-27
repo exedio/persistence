@@ -65,7 +65,7 @@ class HookStampItem extends HookStampItemSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			HookStampItem.field.map(field),
+			com.exedio.cope.SetValue.map(HookStampItem.field,field),
 		});
 	}
 

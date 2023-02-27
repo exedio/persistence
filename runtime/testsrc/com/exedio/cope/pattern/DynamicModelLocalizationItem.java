@@ -40,7 +40,7 @@ public final class DynamicModelLocalizationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DynamicModelLocalizationItem.isoCode.map(isoCode),
+			com.exedio.cope.SetValue.map(DynamicModelLocalizationItem.isoCode,isoCode),
 		});
 	}
 

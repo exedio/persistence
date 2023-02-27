@@ -43,8 +43,8 @@ class LibCompositeUser extends LibComposite
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testlib.LibComposite.superField.map(superField),
-			LibCompositeUser.subField.map(subField),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.LibComposite.superField,superField),
+			com.exedio.cope.SetValue.map(LibCompositeUser.subField,subField),
 		});
 	}
 

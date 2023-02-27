@@ -75,18 +75,18 @@ public final class DatePrecisionItemInstrumented extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DatePrecisionItemInstrumented.millis.map(millis),
-			DatePrecisionItemInstrumented.seconds.map(seconds),
-			DatePrecisionItemInstrumented.minutes.map(minutes),
-			DatePrecisionItemInstrumented.hours.map(hours),
-			DatePrecisionItemInstrumented.finalMillis.map(finalMillis),
-			DatePrecisionItemInstrumented.finalSeconds.map(finalSeconds),
-			DatePrecisionItemInstrumented.finalMinutes.map(finalMinutes),
-			DatePrecisionItemInstrumented.finalHours.map(finalHours),
-			DatePrecisionItemInstrumented.pastMillis.map(pastMillis),
-			DatePrecisionItemInstrumented.pastSeconds.map(pastSeconds),
-			DatePrecisionItemInstrumented.pastMinutes.map(pastMinutes),
-			DatePrecisionItemInstrumented.pastHours.map(pastHours),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.millis,millis),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.seconds,seconds),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.minutes,minutes),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.hours,hours),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.finalMillis,finalMillis),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.finalSeconds,finalSeconds),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.finalMinutes,finalMinutes),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.finalHours,finalHours),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.pastMillis,pastMillis),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.pastSeconds,pastSeconds),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.pastMinutes,pastMinutes),
+			com.exedio.cope.SetValue.map(DatePrecisionItemInstrumented.pastHours,pastHours),
 		});
 	}
 

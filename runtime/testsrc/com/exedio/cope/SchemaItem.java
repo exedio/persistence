@@ -100,17 +100,17 @@ final class SchemaItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			SchemaItem.nonFinalInteger.map(nonFinalInteger),
-			SchemaItem.string.map(string),
-			SchemaItem.integ.map(integ),
-			SchemaItem.doub.map(doub),
-			SchemaItem.date.map(date),
-			SchemaItem.day.map(day),
-			SchemaItem.bool.map(bool),
-			SchemaItem.anEnum.map(anEnum),
-			SchemaItem.item.map(item),
-			SchemaItem.poly.map(poly),
-			SchemaItem.stringLong.map(stringLong),
+			com.exedio.cope.SetValue.map(SchemaItem.nonFinalInteger,nonFinalInteger),
+			com.exedio.cope.SetValue.map(SchemaItem.string,string),
+			com.exedio.cope.SetValue.map(SchemaItem.integ,integ),
+			com.exedio.cope.SetValue.map(SchemaItem.doub,doub),
+			com.exedio.cope.SetValue.map(SchemaItem.date,date),
+			com.exedio.cope.SetValue.map(SchemaItem.day,day),
+			com.exedio.cope.SetValue.map(SchemaItem.bool,bool),
+			com.exedio.cope.SetValue.map(SchemaItem.anEnum,anEnum),
+			com.exedio.cope.SetValue.map(SchemaItem.item,item),
+			com.exedio.cope.SetValue.map(SchemaItem.poly,poly),
+			com.exedio.cope.SetValue.map(SchemaItem.stringLong,stringLong),
 		});
 	}
 

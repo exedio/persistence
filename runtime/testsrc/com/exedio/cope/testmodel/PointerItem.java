@@ -52,8 +52,8 @@ public final class PointerItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			PointerItem.code.map(code),
-			PointerItem.pointer.map(pointer),
+			com.exedio.cope.SetValue.map(PointerItem.code,code),
+			com.exedio.cope.SetValue.map(PointerItem.pointer,pointer),
 		});
 	}
 

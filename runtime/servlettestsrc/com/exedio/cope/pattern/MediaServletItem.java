@@ -160,7 +160,7 @@ final class MediaServletItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaServletItem.name.map(name),
+			com.exedio.cope.SetValue.map(MediaServletItem.name,name),
 		});
 	}
 

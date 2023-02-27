@@ -133,7 +133,7 @@ public class FeatureFieldForbiddenClassTest extends TestWithEnvironment
 					com.exedio.cope.reflect.ForbiddenFeatureException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.field.map(field),
+				com.exedio.cope.SetValue.map(MyItem.field,field),
 			});
 		}
 

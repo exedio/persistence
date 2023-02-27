@@ -63,9 +63,9 @@ public class CheckConstraintSuperItem extends Item
 				@javax.annotation.Nullable final java.lang.Integer drei)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CheckConstraintSuperItem.eins.map(eins),
-			CheckConstraintSuperItem.zwei.map(zwei),
-			CheckConstraintSuperItem.drei.map(drei),
+			com.exedio.cope.SetValue.map(CheckConstraintSuperItem.eins,eins),
+			com.exedio.cope.SetValue.map(CheckConstraintSuperItem.zwei,zwei),
+			com.exedio.cope.SetValue.map(CheckConstraintSuperItem.drei,drei),
 		});
 	}
 

@@ -60,10 +60,10 @@ final class InnerContainer
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			Super.superField.map(superField),
-			Super.superField2.map(superField2),
-			Super.externalEnum.map(externalEnum),
-			Super.shortExternalEnum.map(shortExternalEnum),
+			com.exedio.cope.SetValue.map(Super.superField,superField),
+			com.exedio.cope.SetValue.map(Super.superField2,superField2),
+			com.exedio.cope.SetValue.map(Super.externalEnum,externalEnum),
+			com.exedio.cope.SetValue.map(Super.shortExternalEnum,shortExternalEnum),
 		});
 	}
 
@@ -165,12 +165,12 @@ final class InnerContainer
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testmodel.InnerContainer.Super.superField.map(superField),
-			com.exedio.cope.instrument.testmodel.InnerContainer.Super.superField2.map(superField2),
-			com.exedio.cope.instrument.testmodel.InnerContainer.Super.externalEnum.map(externalEnum),
-			com.exedio.cope.instrument.testmodel.InnerContainer.Super.shortExternalEnum.map(shortExternalEnum),
-			Sub.subField.map(subField),
-			Sub.subReference.map(subReference),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.InnerContainer.Super.superField,superField),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.InnerContainer.Super.superField2,superField2),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.InnerContainer.Super.externalEnum,externalEnum),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.InnerContainer.Super.shortExternalEnum,shortExternalEnum),
+			com.exedio.cope.SetValue.map(Sub.subField,subField),
+			com.exedio.cope.SetValue.map(Sub.subReference,subReference),
 		});
 	}
 

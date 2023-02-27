@@ -77,7 +77,7 @@ public final class EnumMapFieldFinalItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			EnumMapFieldFinalItem.text.map(text),
+			com.exedio.cope.SetValue.map(EnumMapFieldFinalItem.text,text),
 		});
 	}
 

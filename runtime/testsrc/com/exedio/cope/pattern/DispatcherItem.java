@@ -160,7 +160,7 @@ public final class DispatcherItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DispatcherItem.body.map(body),
+			com.exedio.cope.SetValue.map(DispatcherItem.body,body),
 		});
 	}
 

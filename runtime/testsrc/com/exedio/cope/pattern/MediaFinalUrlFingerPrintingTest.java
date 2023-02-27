@@ -72,10 +72,10 @@ public class MediaFinalUrlFingerPrintingTest
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.nonFinal.map(nonFinal),
-			AnItem.isFinal.map(isFinal),
-			AnItem.nonFinalFinger.map(nonFinalFinger),
-			AnItem.isFinalFinger.map(isFinalFinger),
+			com.exedio.cope.SetValue.map(AnItem.nonFinal,nonFinal),
+			com.exedio.cope.SetValue.map(AnItem.isFinal,isFinal),
+			com.exedio.cope.SetValue.map(AnItem.nonFinalFinger,nonFinalFinger),
+			com.exedio.cope.SetValue.map(AnItem.isFinalFinger,isFinalFinger),
 		});
 	}
 

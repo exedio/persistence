@@ -52,7 +52,7 @@ final class NestedHashMigrationItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			NestedHashMigrationItem.password.map(password),
+			com.exedio.cope.SetValue.map(NestedHashMigrationItem.password,password),
 		});
 	}
 

@@ -102,8 +102,8 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ItemWithComplexTemplate.other.map(other),
-				ItemWithComplexTemplate.value.map(value),
+				com.exedio.cope.SetValue.map(ItemWithComplexTemplate.other,other),
+				com.exedio.cope.SetValue.map(ItemWithComplexTemplate.value,value),
 			});
 		}
 

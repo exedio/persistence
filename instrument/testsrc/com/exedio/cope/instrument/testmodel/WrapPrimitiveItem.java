@@ -61,11 +61,11 @@ final class WrapPrimitiveItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			WrapPrimitiveItem.integer.map(integer),
-			WrapPrimitiveItem.date.map(date),
-			WrapPrimitiveItem.booleanField.map(booleanField),
-			WrapPrimitiveItem.longField.map(longField),
-			WrapPrimitiveItem.doubleField.map(doubleField),
+			com.exedio.cope.SetValue.map(WrapPrimitiveItem.integer,integer),
+			com.exedio.cope.SetValue.map(WrapPrimitiveItem.date,date),
+			com.exedio.cope.SetValue.map(WrapPrimitiveItem.booleanField,booleanField),
+			com.exedio.cope.SetValue.map(WrapPrimitiveItem.longField,longField),
+			com.exedio.cope.SetValue.map(WrapPrimitiveItem.doubleField,doubleField),
 		});
 	}
 

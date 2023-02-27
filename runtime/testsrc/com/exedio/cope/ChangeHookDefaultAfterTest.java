@@ -92,7 +92,7 @@ public class ChangeHookDefaultAfterTest extends ChangeHookAbstractTest
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.field.map(field),
+				com.exedio.cope.SetValue.map(MyItem.field,field),
 			});
 		}
 

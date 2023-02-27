@@ -89,7 +89,7 @@ public class SettableMandatoryPriceTest extends TestWithEnvironment
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.mandatory.map(mandatory),
+			com.exedio.cope.SetValue.map(AnItem.mandatory,mandatory),
 		});
 	}
 

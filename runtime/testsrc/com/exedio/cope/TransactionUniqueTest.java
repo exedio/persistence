@@ -242,7 +242,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.field.map(field),
+				com.exedio.cope.SetValue.map(MyItem.field,field),
 			});
 		}
 

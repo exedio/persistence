@@ -64,8 +64,8 @@ final class CopySelfSource extends Item
 				@javax.annotation.Nullable final CopyValue selfTemplate)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CopySelfSource.selfTarget.map(selfTarget),
-			CopySelfSource.selfTemplate.map(selfTemplate),
+			com.exedio.cope.SetValue.map(CopySelfSource.selfTarget,selfTarget),
+			com.exedio.cope.SetValue.map(CopySelfSource.selfTemplate,selfTemplate),
 		});
 	}
 

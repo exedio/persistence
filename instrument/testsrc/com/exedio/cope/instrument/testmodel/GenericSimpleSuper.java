@@ -47,8 +47,8 @@ public class GenericSimpleSuper<N extends Number> extends Item
 				@javax.annotation.Nonnull final GenericSimpleSuper<?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			GenericSimpleSuper.toSub.map(toSub),
-			GenericSimpleSuper.toSuper.map(toSuper),
+			com.exedio.cope.SetValue.map(GenericSimpleSuper.toSub,toSub),
+			com.exedio.cope.SetValue.map(GenericSimpleSuper.toSuper,toSuper),
 		});
 	}
 

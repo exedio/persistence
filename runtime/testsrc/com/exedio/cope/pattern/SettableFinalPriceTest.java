@@ -74,7 +74,7 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 				@javax.annotation.Nullable final com.exedio.cope.pattern.Price isfinal)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.isfinal.map(isfinal),
+			com.exedio.cope.SetValue.map(AnItem.isfinal,isfinal),
 		});
 	}
 

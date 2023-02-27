@@ -53,10 +53,10 @@ final class MediaFilterFallbackItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaFilterFallbackItem.any.map(any),
-			MediaFilterFallbackItem.nonSupported.map(nonSupported),
-			MediaFilterFallbackItem.supported.map(supported),
-			MediaFilterFallbackItem.supportedTwo.map(supportedTwo),
+			com.exedio.cope.SetValue.map(MediaFilterFallbackItem.any,any),
+			com.exedio.cope.SetValue.map(MediaFilterFallbackItem.nonSupported,nonSupported),
+			com.exedio.cope.SetValue.map(MediaFilterFallbackItem.supported,supported),
+			com.exedio.cope.SetValue.map(MediaFilterFallbackItem.supportedTwo,supportedTwo),
 		});
 	}
 

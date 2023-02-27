@@ -97,7 +97,7 @@ public class MediaRootUrlTest
 				@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.file.map(file),
+			com.exedio.cope.SetValue.map(AnItem.file,file),
 		});
 	}
 

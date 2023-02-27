@@ -44,8 +44,8 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompositeFieldRenamedSchemaComposite.virgnTemp.map(virgnTemp),
-			CompositeFieldRenamedSchemaComposite.wrongTemp.map(wrongTemp),
+			com.exedio.cope.SetValue.map(CompositeFieldRenamedSchemaComposite.virgnTemp,virgnTemp),
+			com.exedio.cope.SetValue.map(CompositeFieldRenamedSchemaComposite.wrongTemp,wrongTemp),
 		});
 	}
 

@@ -45,7 +45,7 @@ class InstanceOfAItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			InstanceOfAItem.code.map(code),
+			com.exedio.cope.SetValue.map(InstanceOfAItem.code,code),
 		});
 	}
 

@@ -161,7 +161,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.text.map(text),
+			com.exedio.cope.SetValue.map(AnItem.text,text),
 		});
 	}
 

@@ -116,9 +116,9 @@ final class CopyMultiTargetSource extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CopyMultiTargetSource.targetA.map(targetA),
-			CopyMultiTargetSource.targetB.map(targetB),
-			CopyMultiTargetSource.copy.map(copy),
+			com.exedio.cope.SetValue.map(CopyMultiTargetSource.targetA,targetA),
+			com.exedio.cope.SetValue.map(CopyMultiTargetSource.targetB,targetB),
+			com.exedio.cope.SetValue.map(CopyMultiTargetSource.copy,copy),
 		});
 	}
 

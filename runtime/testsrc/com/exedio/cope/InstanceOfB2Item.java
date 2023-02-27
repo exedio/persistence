@@ -41,7 +41,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.InstanceOfAItem.code.map(code),
+			com.exedio.cope.SetValue.map(com.exedio.cope.InstanceOfAItem.code,code),
 		});
 	}
 

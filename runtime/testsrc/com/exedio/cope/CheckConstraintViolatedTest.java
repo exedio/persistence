@@ -124,8 +124,8 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 				@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.alpha.map(alpha),
-			AnItem.beta.map(beta),
+			com.exedio.cope.SetValue.map(AnItem.alpha,alpha),
+			com.exedio.cope.SetValue.map(AnItem.beta,beta),
 		});
 	}
 

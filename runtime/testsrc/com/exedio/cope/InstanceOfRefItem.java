@@ -59,8 +59,8 @@ final class InstanceOfRefItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			InstanceOfRefItem.ref.map(ref),
-			InstanceOfRefItem.code.map(code),
+			com.exedio.cope.SetValue.map(InstanceOfRefItem.ref,ref),
+			com.exedio.cope.SetValue.map(InstanceOfRefItem.code,code),
 		});
 	}
 

@@ -98,7 +98,7 @@ public class EnumSetFieldFinalTest
 				@javax.annotation.Nonnull final java.util.EnumSet<AnEnum> field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.field.map(field),
+			com.exedio.cope.SetValue.map(AnItem.field,field),
 		});
 	}
 

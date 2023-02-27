@@ -63,13 +63,13 @@ final class CompareConditionItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompareConditionItem.string.map(string),
-			CompareConditionItem.intx.map(intx),
-			CompareConditionItem.longx.map(longx),
-			CompareConditionItem.doublex.map(doublex),
-			CompareConditionItem.date.map(date),
-			CompareConditionItem.day.map(day),
-			CompareConditionItem.enumx.map(enumx),
+			com.exedio.cope.SetValue.map(CompareConditionItem.string,string),
+			com.exedio.cope.SetValue.map(CompareConditionItem.intx,intx),
+			com.exedio.cope.SetValue.map(CompareConditionItem.longx,longx),
+			com.exedio.cope.SetValue.map(CompareConditionItem.doublex,doublex),
+			com.exedio.cope.SetValue.map(CompareConditionItem.date,date),
+			com.exedio.cope.SetValue.map(CompareConditionItem.day,day),
+			com.exedio.cope.SetValue.map(CompareConditionItem.enumx,enumx),
 		});
 	}
 

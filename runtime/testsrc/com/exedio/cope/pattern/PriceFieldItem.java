@@ -60,8 +60,8 @@ public final class PriceFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			PriceFieldItem.finalPrice.map(finalPrice),
-			PriceFieldItem.bigPrice.map(bigPrice),
+			com.exedio.cope.SetValue.map(PriceFieldItem.finalPrice,finalPrice),
+			com.exedio.cope.SetValue.map(PriceFieldItem.bigPrice,bigPrice),
 		});
 	}
 

@@ -99,7 +99,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 					@javax.annotation.Nullable final java.lang.String initialFeature)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnnotatedItem.initialFeature.map(initialFeature),
+				com.exedio.cope.SetValue.map(AnnotatedItem.initialFeature,initialFeature),
 			});
 		}
 

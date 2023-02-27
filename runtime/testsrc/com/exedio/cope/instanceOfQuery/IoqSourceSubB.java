@@ -43,9 +43,9 @@ final class IoqSourceSubB extends IoqSourceSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instanceOfQuery.IoqSourceSuper.ref.map(ref),
-			com.exedio.cope.instanceOfQuery.IoqSourceSuper.code.map(code),
-			IoqSourceSubB.brother.map(brother),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instanceOfQuery.IoqSourceSuper.ref,ref),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instanceOfQuery.IoqSourceSuper.code,code),
+			com.exedio.cope.SetValue.map(IoqSourceSubB.brother,brother),
 		});
 	}
 

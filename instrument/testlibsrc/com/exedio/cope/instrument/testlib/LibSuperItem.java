@@ -37,7 +37,7 @@ public class LibSuperItem extends Item
 				@javax.annotation.Nullable final java.lang.String inSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			LibSuperItem.inSuper.map(inSuper),
+			com.exedio.cope.SetValue.map(LibSuperItem.inSuper,inSuper),
 		});
 	}
 

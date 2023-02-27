@@ -219,7 +219,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 					@javax.annotation.Nullable final Container parent)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Part.parent.map(parent),
+				com.exedio.cope.SetValue.map(Part.parent,parent),
 			});
 		}
 

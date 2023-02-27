@@ -74,9 +74,9 @@ public final class TypeFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			TypeFieldItem.standard.map(standard),
-			TypeFieldItem.isFinal.map(isFinal),
-			TypeFieldItem.restricted.map(restricted),
+			com.exedio.cope.SetValue.map(TypeFieldItem.standard,standard),
+			com.exedio.cope.SetValue.map(TypeFieldItem.isFinal,isFinal),
+			com.exedio.cope.SetValue.map(TypeFieldItem.restricted,restricted),
 		});
 	}
 

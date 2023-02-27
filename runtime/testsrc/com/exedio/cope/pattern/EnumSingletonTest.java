@@ -106,7 +106,7 @@ public class EnumSingletonTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.prime.map(prime),
+				com.exedio.cope.SetValue.map(MyItem.prime,prime),
 			});
 		}
 

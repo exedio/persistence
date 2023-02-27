@@ -43,7 +43,7 @@ public final class MediaItemHolder extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaItemHolder.mediaItem.map(mediaItem),
+			com.exedio.cope.SetValue.map(MediaItemHolder.mediaItem,mediaItem),
 		});
 	}
 

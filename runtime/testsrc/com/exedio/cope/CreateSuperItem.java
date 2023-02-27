@@ -88,7 +88,7 @@ class CreateSuperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CreateSuperItem.text.map(text),
+			com.exedio.cope.SetValue.map(CreateSuperItem.text,text),
 		});
 	}
 

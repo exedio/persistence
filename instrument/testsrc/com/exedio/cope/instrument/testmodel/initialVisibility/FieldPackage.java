@@ -36,7 +36,7 @@ public final class FieldPackage extends Item
 				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			FieldPackage.field.map(field),
+			com.exedio.cope.SetValue.map(FieldPackage.field,field),
 		});
 	}
 

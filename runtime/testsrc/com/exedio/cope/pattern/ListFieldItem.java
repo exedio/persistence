@@ -50,7 +50,7 @@ public final class ListFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			ListFieldItem.value.map(value),
+			com.exedio.cope.SetValue.map(ListFieldItem.value,value),
 		});
 	}
 

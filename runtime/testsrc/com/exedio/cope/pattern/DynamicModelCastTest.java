@@ -118,7 +118,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			ModelItem.name.map(name),
+			com.exedio.cope.SetValue.map(ModelItem.name,name),
 		});
 	}
 

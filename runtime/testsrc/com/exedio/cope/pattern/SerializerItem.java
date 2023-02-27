@@ -50,7 +50,7 @@ public final class SerializerItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			SerializerItem.mandatoryString.map(mandatoryString),
+			com.exedio.cope.SetValue.map(SerializerItem.mandatoryString,mandatoryString),
 		});
 	}
 

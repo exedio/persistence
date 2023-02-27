@@ -41,8 +41,8 @@ public final class FullQualifyInput extends com.exedio.cope.instrument.testmodel
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testmodel.Input.string.map(string),
-			com.exedio.cope.instrument.testmodel.Input.integer.map(integer),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.Input.string,string),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.Input.integer,integer),
 		});
 	}
 

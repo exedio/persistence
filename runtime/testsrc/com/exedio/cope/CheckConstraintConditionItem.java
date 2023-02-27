@@ -77,9 +77,9 @@ final class CheckConstraintConditionItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CheckConstraintConditionItem.integer1.map(integer1),
-			CheckConstraintConditionItem.integer2.map(integer2),
-			CheckConstraintConditionItem.item.map(item),
+			com.exedio.cope.SetValue.map(CheckConstraintConditionItem.integer1,integer1),
+			com.exedio.cope.SetValue.map(CheckConstraintConditionItem.integer2,integer2),
+			com.exedio.cope.SetValue.map(CheckConstraintConditionItem.item,item),
 		});
 	}
 

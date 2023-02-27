@@ -104,8 +104,8 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.string.map(string),
-				MyItem.integer.map(integer),
+				com.exedio.cope.SetValue.map(MyItem.string,string),
+				com.exedio.cope.SetValue.map(MyItem.integer,integer),
 			});
 		}
 

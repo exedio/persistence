@@ -51,8 +51,8 @@ class IoqSourceSuper extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			IoqSourceSuper.ref.map(ref),
-			IoqSourceSuper.code.map(code),
+			com.exedio.cope.SetValue.map(IoqSourceSuper.ref,ref),
+			com.exedio.cope.SetValue.map(IoqSourceSuper.code,code),
 		});
 	}
 

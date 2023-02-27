@@ -47,10 +47,10 @@ final class SubContainer extends SuperContainer
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.badquery.SuperItem.code.map(code),
-			com.exedio.cope.badquery.SuperContainer.queryItem.map(queryItem),
-			com.exedio.cope.badquery.SuperContainer.superflag.map(superflag),
-			SubContainer.superContainer.map(superContainer),
+			com.exedio.cope.SetValue.map(com.exedio.cope.badquery.SuperItem.code,code),
+			com.exedio.cope.SetValue.map(com.exedio.cope.badquery.SuperContainer.queryItem,queryItem),
+			com.exedio.cope.SetValue.map(com.exedio.cope.badquery.SuperContainer.superflag,superflag),
+			com.exedio.cope.SetValue.map(SubContainer.superContainer,superContainer),
 		});
 	}
 

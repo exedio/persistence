@@ -49,10 +49,10 @@ final class HardJoinB3Item extends HardJoinB2Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.HardJoinB1Item.code.map(code),
-			com.exedio.cope.HardJoinB1Item.b1.map(b1),
-			com.exedio.cope.HardJoinB2Item.b2.map(b2),
-			HardJoinB3Item.b3.map(b3),
+			com.exedio.cope.SetValue.map(com.exedio.cope.HardJoinB1Item.code,code),
+			com.exedio.cope.SetValue.map(com.exedio.cope.HardJoinB1Item.b1,b1),
+			com.exedio.cope.SetValue.map(com.exedio.cope.HardJoinB2Item.b2,b2),
+			com.exedio.cope.SetValue.map(HardJoinB3Item.b3,b3),
 		});
 	}
 

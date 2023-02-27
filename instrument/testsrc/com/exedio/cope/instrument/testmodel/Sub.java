@@ -63,11 +63,11 @@ public final class Sub extends Super
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.instrument.testmodel.Super.superMandatory.map(superMandatory),
-			com.exedio.cope.instrument.testmodel.Super.superInitial.map(superInitial),
-			Sub.subMandatory.map(subMandatory),
-			Sub.subInitial.map(subInitial),
-			Sub.subInitialAnnotated.map(subInitialAnnotated),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.Super.superMandatory,superMandatory),
+			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testmodel.Super.superInitial,superInitial),
+			com.exedio.cope.SetValue.map(Sub.subMandatory,subMandatory),
+			com.exedio.cope.SetValue.map(Sub.subInitial,subInitial),
+			com.exedio.cope.SetValue.map(Sub.subInitialAnnotated,subInitialAnnotated),
 		});
 	}
 

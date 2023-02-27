@@ -361,7 +361,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 					@javax.annotation.Nullable final Container parent)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				PartA.parent.map(parent),
+				com.exedio.cope.SetValue.map(PartA.parent,parent),
 			});
 		}
 
@@ -397,7 +397,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 					@javax.annotation.Nullable final Container parent)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				PartB.parent.map(parent),
+				com.exedio.cope.SetValue.map(PartB.parent,parent),
 			});
 		}
 

@@ -96,10 +96,10 @@ public class PartOfOrderMultiTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Part.container.map(container),
-				Part.order1.map(order1),
-				Part.order2.map(order2),
-				Part.order3.map(order3),
+				com.exedio.cope.SetValue.map(Part.container,container),
+				com.exedio.cope.SetValue.map(Part.order1,order1),
+				com.exedio.cope.SetValue.map(Part.order2,order2),
+				com.exedio.cope.SetValue.map(Part.order3,order3),
 			});
 		}
 

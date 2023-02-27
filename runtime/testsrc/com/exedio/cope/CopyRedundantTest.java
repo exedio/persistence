@@ -81,9 +81,9 @@ public class CopyRedundantTest
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.targetMan.map(targetMan),
-				AnItem.copyNone.map(copyNone),
-				AnItem.copyOpt.map(copyOpt),
+				com.exedio.cope.SetValue.map(AnItem.targetMan,targetMan),
+				com.exedio.cope.SetValue.map(AnItem.copyNone,copyNone),
+				com.exedio.cope.SetValue.map(AnItem.copyOpt,copyOpt),
 			});
 		}
 

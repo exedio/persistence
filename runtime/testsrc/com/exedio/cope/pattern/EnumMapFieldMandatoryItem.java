@@ -55,7 +55,7 @@ public final class EnumMapFieldMandatoryItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			EnumMapFieldMandatoryItem.text.map(text),
+			com.exedio.cope.SetValue.map(EnumMapFieldMandatoryItem.text,text),
 		});
 	}
 

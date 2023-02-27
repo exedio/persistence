@@ -37,7 +37,7 @@ public final class MD5Item extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MD5Item.password.map(password),
+			com.exedio.cope.SetValue.map(MD5Item.password,password),
 		});
 	}
 

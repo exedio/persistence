@@ -39,7 +39,7 @@ public final class CacheIsolationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CacheIsolationItem.name.map(name),
+			com.exedio.cope.SetValue.map(CacheIsolationItem.name,name),
 		});
 	}
 

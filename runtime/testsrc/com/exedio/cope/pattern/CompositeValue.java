@@ -66,10 +66,10 @@ public final class CompositeValue extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CompositeValue.aString.map(aString),
-			CompositeValue.anInt.map(anInt),
-			CompositeValue.anEnum.map(anEnum),
-			CompositeValue.anItem.map(anItem),
+			com.exedio.cope.SetValue.map(CompositeValue.aString,aString),
+			com.exedio.cope.SetValue.map(CompositeValue.anInt,anInt),
+			com.exedio.cope.SetValue.map(CompositeValue.anEnum,anEnum),
+			com.exedio.cope.SetValue.map(CompositeValue.anItem,anItem),
 		});
 	}
 

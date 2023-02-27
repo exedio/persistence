@@ -98,7 +98,7 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 					final int value)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				LimitedListCopyItem.value.map(value),
+				com.exedio.cope.SetValue.map(LimitedListCopyItem.value,value),
 			});
 		}
 

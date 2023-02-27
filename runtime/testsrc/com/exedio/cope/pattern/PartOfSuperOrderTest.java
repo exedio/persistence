@@ -98,8 +98,8 @@ public class PartOfSuperOrderTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				com.exedio.cope.pattern.PartOfSuperOrderTest.Super.order.map(order),
-				Sub.container.map(container),
+				com.exedio.cope.SetValue.map(com.exedio.cope.pattern.PartOfSuperOrderTest.Super.order,order),
+				com.exedio.cope.SetValue.map(Sub.container,container),
 			});
 		}
 

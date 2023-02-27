@@ -197,8 +197,8 @@ public class CompositeCheckConstraintTest
 					@javax.annotation.Nullable final java.lang.Integer gamma)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyComposite.alpha.map(alpha),
-				MyComposite.gamma.map(gamma),
+				com.exedio.cope.SetValue.map(MyComposite.alpha,alpha),
+				com.exedio.cope.SetValue.map(MyComposite.gamma,gamma),
 			});
 		}
 

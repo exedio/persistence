@@ -184,8 +184,8 @@ public class TimeZoneTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.date.map(date),
-				AnItem.day.map(day),
+				com.exedio.cope.SetValue.map(AnItem.date,date),
+				com.exedio.cope.SetValue.map(AnItem.day,day),
 			});
 		}
 

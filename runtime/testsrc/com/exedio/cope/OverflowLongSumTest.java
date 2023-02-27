@@ -182,7 +182,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 				final long field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.field.map(field),
+			com.exedio.cope.SetValue.map(AnItem.field,field),
 		});
 	}
 

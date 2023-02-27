@@ -46,7 +46,7 @@ class SuperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			SuperItem.code.map(code),
+			com.exedio.cope.SetValue.map(SuperItem.code,code),
 		});
 	}
 

@@ -36,7 +36,7 @@ final class DateItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DateItem.mandatory.map(mandatory),
+			com.exedio.cope.SetValue.map(DateItem.mandatory,mandatory),
 		});
 	}
 

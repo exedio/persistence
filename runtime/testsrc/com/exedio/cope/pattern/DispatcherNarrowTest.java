@@ -133,7 +133,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 					final boolean dropByNarrowCondition)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				MyItem.dropByNarrowCondition.map(dropByNarrowCondition),
+				com.exedio.cope.SetValue.map(MyItem.dropByNarrowCondition,dropByNarrowCondition),
 			});
 		}
 

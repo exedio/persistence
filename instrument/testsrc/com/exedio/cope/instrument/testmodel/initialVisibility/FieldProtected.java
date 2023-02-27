@@ -37,7 +37,7 @@ public final class FieldProtected extends Item
 				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			FieldProtected.field.map(field),
+			com.exedio.cope.SetValue.map(FieldProtected.field,field),
 		});
 	}
 

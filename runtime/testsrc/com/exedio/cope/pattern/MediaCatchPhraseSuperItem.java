@@ -47,7 +47,7 @@ public class MediaCatchPhraseSuperItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaCatchPhraseSuperItem.feature.map(feature),
+			com.exedio.cope.SetValue.map(MediaCatchPhraseSuperItem.feature,feature),
 		});
 	}
 

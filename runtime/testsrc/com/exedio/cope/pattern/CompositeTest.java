@@ -522,11 +522,11 @@ public class CompositeTest
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Value.string4.map(string4),
-				Value.intMax4.map(intMax4),
-				Value.longField.map(longField),
-				Value.doubleField.map(doubleField),
-				Value.booleanField.map(booleanField),
+				com.exedio.cope.SetValue.map(Value.string4,string4),
+				com.exedio.cope.SetValue.map(Value.intMax4,intMax4),
+				com.exedio.cope.SetValue.map(Value.longField,longField),
+				com.exedio.cope.SetValue.map(Value.doubleField,doubleField),
+				com.exedio.cope.SetValue.map(Value.booleanField,booleanField),
 			});
 		}
 
@@ -862,11 +862,11 @@ public class CompositeTest
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ValueX.stringField.map(stringField),
-				ValueX.intField.map(intField),
-				ValueX.longField.map(longField),
-				ValueX.doubleField.map(doubleField),
-				ValueX.booleanField.map(booleanField),
+				com.exedio.cope.SetValue.map(ValueX.stringField,stringField),
+				com.exedio.cope.SetValue.map(ValueX.intField,intField),
+				com.exedio.cope.SetValue.map(ValueX.longField,longField),
+				com.exedio.cope.SetValue.map(ValueX.doubleField,doubleField),
+				com.exedio.cope.SetValue.map(ValueX.booleanField,booleanField),
 			});
 		}
 

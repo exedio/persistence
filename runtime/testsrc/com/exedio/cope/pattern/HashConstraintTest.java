@@ -171,8 +171,8 @@ public class HashConstraintTest
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.hash.map(hash),
-				AnItem.data.map(data),
+				com.exedio.cope.SetValue.map(AnItem.hash,hash),
+				com.exedio.cope.SetValue.map(AnItem.data,data),
 			});
 		}
 

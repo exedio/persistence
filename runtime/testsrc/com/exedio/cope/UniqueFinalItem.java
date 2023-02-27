@@ -44,7 +44,7 @@ public final class UniqueFinalItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			UniqueFinalItem.uniqueFinalString.map(uniqueFinalString),
+			com.exedio.cope.SetValue.map(UniqueFinalItem.uniqueFinalString,uniqueFinalString),
 		});
 	}
 

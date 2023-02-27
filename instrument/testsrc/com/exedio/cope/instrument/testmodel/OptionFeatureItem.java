@@ -132,7 +132,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 				final boolean booleanAs)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			OptionFeatureItem.booleanAs.map(booleanAs),
+			com.exedio.cope.SetValue.map(OptionFeatureItem.booleanAs,booleanAs),
 		});
 	}
 

@@ -37,7 +37,7 @@ final class SchemaNamePolymorphicRefItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			SchemaNamePolymorphicRefItem.ref.map(ref),
+			com.exedio.cope.SetValue.map(SchemaNamePolymorphicRefItem.ref,ref),
 		});
 	}
 

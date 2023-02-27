@@ -58,10 +58,10 @@ final class CopySimpleTarget extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			CopySimpleTarget.templateString.map(templateString),
-			CopySimpleTarget.otherString.map(otherString),
-			CopySimpleTarget.templateItem.map(templateItem),
-			CopySimpleTarget.otherItem.map(otherItem),
+			com.exedio.cope.SetValue.map(CopySimpleTarget.templateString,templateString),
+			com.exedio.cope.SetValue.map(CopySimpleTarget.otherString,otherString),
+			com.exedio.cope.SetValue.map(CopySimpleTarget.templateItem,templateItem),
+			com.exedio.cope.SetValue.map(CopySimpleTarget.otherItem,otherItem),
 		});
 	}
 

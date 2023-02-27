@@ -73,7 +73,7 @@ public final class PartOfContainerItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			PartOfContainerItem.containerString.map(containerString),
+			com.exedio.cope.SetValue.map(PartOfContainerItem.containerString,containerString),
 		});
 	}
 

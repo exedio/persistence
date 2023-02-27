@@ -185,10 +185,10 @@ public class NameLengthTest extends TestWithEnvironment
 				com.exedio.cope.UniqueViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.fieldLong.map(fieldLong),
-			AnItem.fieldShort.map(fieldShort),
-			AnItem.foreignLong.map(foreignLong),
-			AnItem.foreignShort.map(foreignShort),
+			com.exedio.cope.SetValue.map(AnItem.fieldLong,fieldLong),
+			com.exedio.cope.SetValue.map(AnItem.fieldShort,fieldShort),
+			com.exedio.cope.SetValue.map(AnItem.foreignLong,foreignLong),
+			com.exedio.cope.SetValue.map(AnItem.foreignShort,foreignShort),
 		});
 	}
 

@@ -209,8 +209,8 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Source.targetA.map(targetA),
-				Source.targetB.map(targetB),
+				com.exedio.cope.SetValue.map(Source.targetA,targetA),
+				com.exedio.cope.SetValue.map(Source.targetB,targetB),
 			});
 		}
 
@@ -279,7 +279,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 					final int copy)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Target.copy.map(copy),
+				com.exedio.cope.SetValue.map(Target.copy,copy),
 			});
 		}
 

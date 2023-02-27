@@ -59,7 +59,7 @@ class CountDistinctTest extends TestWithEnvironment
 					@javax.annotation.Nullable final java.lang.Integer value)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				SimpleItem.value.map(value),
+				com.exedio.cope.SetValue.map(SimpleItem.value,value),
 			});
 		}
 

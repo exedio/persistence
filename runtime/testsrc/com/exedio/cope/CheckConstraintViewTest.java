@@ -103,9 +103,9 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 					final int sum)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.one.map(one),
-				AnItem.two.map(two),
-				AnItem.sum.map(sum),
+				com.exedio.cope.SetValue.map(AnItem.one,one),
+				com.exedio.cope.SetValue.map(AnItem.two,two),
+				com.exedio.cope.SetValue.map(AnItem.sum,sum),
 			});
 		}
 

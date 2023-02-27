@@ -343,8 +343,8 @@ public class GroupByTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.string.map(string),
-				AnItem.integer.map(integer),
+				com.exedio.cope.SetValue.map(AnItem.string,string),
+				com.exedio.cope.SetValue.map(AnItem.integer,integer),
 			});
 		}
 

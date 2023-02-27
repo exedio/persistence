@@ -41,9 +41,9 @@ final class AsStringItem extends Item
 				@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			AsStringItem.intx.map(intx),
-			AsStringItem.longx.map(longx),
-			AsStringItem.doublex.map(doublex),
+			com.exedio.cope.SetValue.map(AsStringItem.intx,intx),
+			com.exedio.cope.SetValue.map(AsStringItem.longx,longx),
+			com.exedio.cope.SetValue.map(AsStringItem.doublex,doublex),
 		});
 	}
 

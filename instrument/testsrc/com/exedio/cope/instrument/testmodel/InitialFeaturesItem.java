@@ -55,9 +55,9 @@ final class InitialFeaturesItem extends Item
 				@javax.annotation.Nullable final java.lang.String redundantInitial)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			InitialFeaturesItem.initialByDefault.map(initialByDefault),
-			InitialFeaturesItem.customInitial.map(customInitial),
-			InitialFeaturesItem.redundantInitial.map(redundantInitial),
+			com.exedio.cope.SetValue.map(InitialFeaturesItem.initialByDefault,initialByDefault),
+			com.exedio.cope.SetValue.map(InitialFeaturesItem.customInitial,customInitial),
+			com.exedio.cope.SetValue.map(InitialFeaturesItem.redundantInitial,redundantInitial),
 		});
 	}
 

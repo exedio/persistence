@@ -159,7 +159,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 					final int intField)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Type01C.intField.map(intField),
+				com.exedio.cope.SetValue.map(Type01C.intField,intField),
 			});
 		}
 
@@ -226,7 +226,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 					final int intField)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Type021C.intField.map(intField),
+				com.exedio.cope.SetValue.map(Type021C.intField,intField),
 			});
 		}
 
@@ -274,7 +274,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				TypeRef.ref0A.map(ref0A),
+				com.exedio.cope.SetValue.map(TypeRef.ref0A,ref0A),
 			});
 		}
 
