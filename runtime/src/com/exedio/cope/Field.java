@@ -120,6 +120,10 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return valueClass;
 	}
 
+	/**
+	 * @deprecated Use {@link SetValue#map(Feature, Object) SetValue.map(this,null)} instead
+	 */
+	@Deprecated
 	public final SetValue<E> mapNull()
 	{
 		return SetValue.map(this, null);

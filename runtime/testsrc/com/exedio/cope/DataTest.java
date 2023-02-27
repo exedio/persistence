@@ -349,8 +349,8 @@ public class DataTest extends TestWithEnvironment
 		assertData(bytes10, item.getData10Array());
 
 		item.set(
-				data.mapNull(),
-				data10.mapNull()
+				SetValue.map(data, null),
+				SetValue.map(data10, null)
 		);
 		assertNull(item.getDataArray());
 		assertNull(item.getData10Array());

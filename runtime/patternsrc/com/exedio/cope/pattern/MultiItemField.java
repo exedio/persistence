@@ -383,7 +383,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			}
 			else
 			{
-				result[i] = component.mapNull();
+				result[i] = SetValue.map(component, null);
 			}
 		}
 		if(value!=null && !valueSet)
