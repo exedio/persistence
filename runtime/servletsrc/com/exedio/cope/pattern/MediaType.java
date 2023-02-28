@@ -22,7 +22,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
-import com.exedio.cope.util.Hex;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,7 +42,7 @@ public final class MediaType
 	private static final MediaType[] EMPTY_MEDIA_TYPE_ARRAY = new MediaType[0];
 	private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-	private final byte[] magic;
+	private final StartsWith startsWith;
 	private final String[] extensions;
 	private final String name;
 	private final String[] aliases;
@@ -53,25 +52,24 @@ public final class MediaType
 		this(extension, null, name, aliases);
 	}
 
-	private MediaType(final String extension, final byte[] magic, final String name, final String... aliases)
+	private MediaType(final String extension, final StartsWith startsWith, final String name, final String... aliases)
 	{
-		this(new String[]{extension}, magic, name, aliases);
+		this(new String[]{extension}, startsWith, name, aliases);
 	}
 
-	private MediaType(final String[] extensions, final byte[] magic, final String name, final String... aliases)
+	private MediaType(final String[] extensions, final StartsWith startsWith, final String name, final String... aliases)
 	{
-		this.magic = magic;
+		this.startsWith = startsWith;
 		this.extensions = extensions;
 		this.name = name;
 		this.aliases = aliases;
-		assert magic==null || magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
 		assert extensions!=null;
 		assert extensions.length>0;
 	}
 
 	public boolean hasMagic()
 	{
-		return magic!=null;
+		return startsWith!=null;
 	}
 
 	/**
@@ -130,11 +128,9 @@ public final class MediaType
 	}
 
 
-	private static final int MAGIC_MAX_LENGTH = 8;
-
 	public static int magicMaxLength() // use method to prevent the compiler from inlining
 	{
-		return MAGIC_MAX_LENGTH;
+		return StartsWith.MAX_LENGTH;
 	}
 
 	public static final String JPEG = "image/jpeg";
@@ -156,7 +152,7 @@ public final class MediaType
 	public static final String XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 	public static final String STL = "model/stl";
 
-	private static final byte[] ZIP_MAGIC = {(byte)'P', (byte)'K', 0x03, 0x04};
+	private static final StartsWith ZIP_MAGIC = new StartsWith(new byte[]{(byte)'P', (byte)'K', 0x03, 0x04});
 
 	private static final MediaType[] types = {
 
@@ -180,32 +176,32 @@ public final class MediaType
 			new MediaType(
 					new String[]{".jpg",".jpeg"},
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
-					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
+					new StartsWith((byte)0xFF, (byte)0xD8, (byte)0xFF),
 					JPEG, "image/pjpeg"),
 			new MediaType(
 					".png",
 					// RFC 2083 section 3.1. PNG file signature
-					new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10},
+					new StartsWith(new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10}),
 					PNG, "image/x-png"),
 			new MediaType(
 					".gif",
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
-					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
+					new StartsWith((byte)'G', (byte)'I', (byte)'F', (byte)'8'), // TODO test for "GIF89a" or "GIF87a"
 					GIF),
 			new MediaType(
 					".webp",
 					// https://en.wikipedia.org/wiki/WebP
-					new byte[]{(byte)'R', (byte)'I', (byte)'F', (byte)'F'},
+					new StartsWith((byte)'R', (byte)'I', (byte)'F', (byte)'F'),
 					WEBP),
 			new MediaType(
 					new String[]{".tif",".tiff"},
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
-					new byte[]{(byte)'I', (byte)'I', 42, 0}, // TODO allow MM (big endian) as well
+					new StartsWith(new byte[]{(byte)'I', (byte)'I', 42, 0}), // TODO allow MM (big endian) as well
 					TIFF),
 			new MediaType(
 					".ico",
 					// https://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
-					new byte[]{0, 0, 1, 0},
+					new StartsWith(new byte[]{0, 0, 1, 0}),
 					ICON, "image/icon", "image/x-icon"),
 			new MediaType(
 					".zip",
@@ -231,7 +227,7 @@ public final class MediaType
 			new MediaType(
 					".woff",
 					// https://www.w3.org/TR/WOFF/
-					new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'F'},
+					new StartsWith((byte)'w', (byte)'O', (byte)'F', (byte)'F'),
 					WOFF,
 					"font/woff", // https://tools.ietf.org/html/rfc8081#section-4.4.5
 					"font/x-woff"),
@@ -239,19 +235,19 @@ public final class MediaType
 					// still a draft
 					".woff2",
 					// https://www.w3.org/TR/2016/CR-WOFF2-20160315/
-					new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'2'},
+					new StartsWith((byte)'w', (byte)'O', (byte)'F', (byte)'2'),
 					WOFF2),
 			new MediaType(
 					".ttf",
 					// https://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc
-					new byte[]{0x00,0x01,0x00,0x00,0x00},
+					new StartsWith(new byte[]{0x00,0x01,0x00,0x00,0x00}),
 					TTF,
 					"application/x-font-truetype",
 					"font/ttf"),
 			new MediaType(
 					".pdf",
 					// https://en.wikipedia.org/wiki/PDF
-					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
+					new StartsWith((byte)'%', (byte)'P', (byte)'D', (byte)'F'),
 					// https://tools.ietf.org/html/rfc3778
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
@@ -266,7 +262,7 @@ public final class MediaType
 			new MediaType(
 					".stl",
 					// https://en.wikipedia.org/wiki/STL_(file_format)
-					new byte[]{(byte)'s', (byte)'o', (byte)'l', (byte)'i', (byte)'d'},
+					new StartsWith((byte)'s', (byte)'o', (byte)'l', (byte)'i', (byte)'d'),
 					STL,
 					"model/x.stl-ascii"
 			)
@@ -353,7 +349,7 @@ public final class MediaType
 
 		final LinkedHashSet<MediaType> result = new LinkedHashSet<>();
 		for(final Magic type : typesWithMagic)
-			if(type.matches(magic))
+			if(type.startsWith.matches(magic))
 				type.addAllTypes(result);
 
 		return Collections.unmodifiableSet(result);
@@ -374,7 +370,7 @@ public final class MediaType
 	{
 		requireNonNull(path, "path");
 
-		final byte[] bytes = new byte[(int)Math.min(Files.size(path), MAGIC_MAX_LENGTH)];
+		final byte[] bytes = new byte[(int)Math.min(Files.size(path), StartsWith.MAX_LENGTH)];
 		try(InputStream stream = Files.newInputStream(path))
 		{
 			final int bytesRead = stream.read(bytes);
@@ -386,16 +382,15 @@ public final class MediaType
 
 	private static final class Magic
 	{
-		private final byte[] magic;
+		final StartsWith startsWith;
 		private final MediaType[] types;
 		private final String[] typeNames;
 
-		Magic(final String magic, final ArrayList<MediaType> types)
+		Magic(final StartsWith startsWith, final ArrayList<MediaType> types)
 		{
-			this.magic = Hex.decodeLower(magic);
+			this.startsWith = requireNonNull(startsWith);
 			this.types = types.toArray(EMPTY_MEDIA_TYPE_ARRAY);
 			this.typeNames = names(this.types);
-			assert magic!=null && this.magic.length<=MAGIC_MAX_LENGTH : magic;
 		}
 
 		private static String[] names(final MediaType[] types)
@@ -411,25 +406,12 @@ public final class MediaType
 			set.addAll(Arrays.asList(types));
 		}
 
-		boolean matches(final byte[] m)
-		{
-			final int l = magic.length;
-			if(m.length<l)
-				return false;
-
-			for(int i = 0; i<l; i++)
-				if(magic[i]!=m[i])
-					return false;
-
-			return true;
-		}
-
 		Condition mismatchesInstanceIfSupported(final Media media)
 		{
 			final Condition[] nameConditions = new Condition[typeNames.length];
 			for(int i = 0; i<typeNames.length; i++)
 				nameConditions[i] = media.contentTypeEqual(typeNames[i]);
-			return Cope.or(nameConditions).and(media.getBody().startsWithIfSupported(magic).not());
+			return Cope.or(nameConditions).and(startsWith.matchesIfSupported(media.getBody()).not());
 		}
 	}
 
@@ -437,14 +419,14 @@ public final class MediaType
 
 	private static Magic[] retainMagic(final MediaType[] source)
 	{
-		final LinkedHashMap<String, ArrayList<MediaType>> map = new LinkedHashMap<>();
+		final LinkedHashMap<StartsWith, ArrayList<MediaType>> map = new LinkedHashMap<>();
 		for(final MediaType t : source)
-			if(t.magic!=null)
-				map.computeIfAbsent(Hex.encodeLower(t.magic), k -> new ArrayList<>()).add(t);
+			if(t.startsWith!=null)
+				map.computeIfAbsent(t.startsWith, k -> new ArrayList<>()).add(t);
 
 		final Magic[] result = new Magic[map.size()];
 		int i = 0;
-		for(final Map.Entry<String, ArrayList<MediaType>> e : map.entrySet())
+		for(final Map.Entry<StartsWith, ArrayList<MediaType>> e : map.entrySet())
 			result[i++] = new Magic(e.getKey(), e.getValue());
 		return result;
 	}
