@@ -35,7 +35,7 @@ final class ModelMetrics
 	private final Model model;
 	final String modelName;
 	private final String nameClass;
-	private final Tags tags;
+	final Tags tags;
 
 	ModelMetrics(
 			final Model model,

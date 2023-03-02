@@ -64,17 +64,6 @@ final class Util
 	 */
 	static SetValue<Integer> maD(
 			final IntegerField settable,
-			final int from,
-			final int to)
-	{
-		return SetValue.map(settable, to - from);
-	}
-
-	/**
-	 * diffAndMap
-	 */
-	static SetValue<Integer> maD(
-			final IntegerField settable,
 			final long from,
 			final long to)
 	{

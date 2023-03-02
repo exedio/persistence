@@ -22,6 +22,7 @@ import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.dsmf.SQLRuntimeException;
+import io.micrometer.core.instrument.Metrics;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -30,10 +31,12 @@ final class ConnectionPool
 	private final Pool<Connection> pool;
 
 	ConnectionPool(
+			final ModelMetrics metrics,
 			final ConnectionFactory factory,
 			final PoolProperties properties)
 	{
 		this.pool = new Pool<>(factory, properties, new PoolCounter());
+		pool.register(ConnectionPool.class.getName(), metrics.tags, Metrics.globalRegistry);
 	}
 
 	Connection get(final boolean autoCommit)

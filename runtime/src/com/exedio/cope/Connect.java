@@ -93,7 +93,7 @@ final class Connect
 		supportsUniqueViolation = !properties.isSupportDisabledForUniqueViolation() && dialect.supportsUniqueViolation();
 
 		this.connectionFactory = new ConnectionFactory(properties, probe.environmentInfo.sqlDriver, dialect);
-		this.connectionPool = new ConnectionPool(connectionFactory, properties.connectionPool);
+		this.connectionPool = new ConnectionPool(metrics, connectionFactory, properties.connectionPool);
 		this.marshallers = new Marshallers(dialect, supportsNativeDate);
 		this.executor = new Executor(dialect, supportsUniqueViolation, properties, marshallers);
 		{
