@@ -34,6 +34,7 @@ public class MediaTypeMediaTest
 	private static final String PNG = "89504e470d0a1a0a";
 	private static final String GIF = "47494638";
 	private static final String WEBP = "52494646";
+	private static final String AVIF = "6674797061766966";
 	private static final String TIFF = "49492a00";
 	private static final String ICO = "00000100";
 	private static final String ZIP = "504b0304";
@@ -51,6 +52,7 @@ public class MediaTypeMediaTest
 				"(("+c+"='image/png' or "+c+"='image/x-png') and !("+b+" startsWith '"+PNG+"')) or " +
 				"("+c+"='image/gif' and !("+b+" startsWith '"+GIF+"')) or " +
 				"("+c+"='image/webp' and !("+b+" startsWith '"+WEBP+"')) or " +
+				"("+c+"='image/avif' and !("+b+" startsWith offset 4 '"+AVIF+"')) or " +
 				"("+c+"='image/tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
 				"(("+c+"='image/vnd.microsoft.icon' or "+c+"='image/icon' or "+c+"='image/x-icon') and !("+b+" startsWith '"+ICO+"')) or " +
 				"(("+c+"='application/zip' or "+c+"='application/java-archive' or "+c+"='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or "+c+"='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' or "+c+"='application/x-zip-compressed') and !("+b+" startsWith '"+ZIP+"')) or " +
@@ -143,6 +145,7 @@ public class MediaTypeMediaTest
 				"(("+c+"='png' or "+c+"='x-png') and !("+b+" startsWith '"+PNG+"')) or " +
 				"("+c+"='gif' and !("+b+" startsWith '"+GIF+"')) or " +
 				"("+c+"='webp' and !("+b+" startsWith '"+WEBP+"')) or " +
+				"("+c+"='avif' and !("+b+" startsWith offset 4 '"+AVIF+"')) or " +
 				"("+c+"='tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
 				"(("+c+"='vnd.microsoft.icon' or "+c+"='icon' or "+c+"='x-icon') and !("+b+" startsWith '"+ICO+"'))" +
 				")",
