@@ -106,16 +106,24 @@ public class DataModelTest
 
 		// condition startsWith
 		assertFieldsCovered(asList(data), data.startsWithIfSupported(bytes4));
+		assertFieldsCovered(asList(data), data.startsWithIfSupported(6, bytes4));
 		assertEqualsAndHash(data.startsWithIfSupported(bytes4), data.startsWithIfSupported(bytes4));
+		assertEqualsAndHash(data.startsWithIfSupported(bytes4), data.startsWithIfSupported(0, bytes4));
+		assertEqualsAndHash(data.startsWithIfSupported(5, bytes4), data.startsWithIfSupported(5, bytes4));
 		assertNotEqualsAndHash(
 				data.startsWithIfSupported(bytes4),
 				data.startsWithIfSupported(bytes6),
 				data.startsWithIfSupported(bytes6x4),
+				data.startsWithIfSupported(6, bytes4),
 				data10.startsWithIfSupported(bytes4));
 		assertEquals(data, data.startsWithIfSupported(bytes4).getField());
+		assertEquals(data, ((StartsWithCondition)data.startsWithIfSupported(6, bytes4)).getField());
 		assertArrayEquals(bytes4, data.startsWithIfSupported(bytes4).getValue());
+		assertArrayEquals(bytes4, ((StartsWithCondition)data.startsWithIfSupported(6, bytes4)).getValue());
 		assertNotSame(bytes4, data.startsWithIfSupported(bytes4).getValue());
+		assertNotSame(bytes4, ((StartsWithCondition)data.startsWithIfSupported(6, bytes4)).getValue());
 		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWithIfSupported(bytes4).toString());
+		assertEquals("DataItem.data startsWith offset 6 'aa7af817'", data.startsWithIfSupported(6, bytes4).toString());
 	}
 
 	@Test void testSinkNullStream()
@@ -171,6 +179,14 @@ public class DataModelTest
 				"value");
 	}
 
+	@Test void testStartsWithValueNullOffset()
+	{
+		assertFails(
+				() -> data.startsWithIfSupported(6, null),
+				NullPointerException.class,
+				"value");
+	}
+
 	@Test void testStartsWithValueEmpty()
 	{
 		// TODO treat as to isNotNull
@@ -178,6 +194,23 @@ public class DataModelTest
 				() -> data.startsWithIfSupported(bytes0),
 				IllegalArgumentException.class,
 				"value must not be empty");
+	}
+
+	@Test void testStartsWithValueEmptyOffset()
+	{
+		// TODO treat as to isNotNull
+		assertFails(
+				() -> data.startsWithIfSupported(6, bytes0),
+				IllegalArgumentException.class,
+				"value must not be empty");
+	}
+
+	@Test void testStartsWithOffsetNegative()
+	{
+		assertFails(
+				() -> data.startsWithIfSupported(-1, bytes4),
+				IllegalArgumentException.class,
+				"offset must not be negative, but was -1");
 	}
 
 	private static final byte[] bytes0  = {};

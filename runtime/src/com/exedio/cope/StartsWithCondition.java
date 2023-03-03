@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Hex;
@@ -34,6 +35,8 @@ public final class StartsWithCondition extends Condition
 	@Deprecated
 	public final DataField field;
 
+	private final int offset;
+
 	/**
 	 * @deprecated Use {@link #getValue()} instead
 	 */
@@ -49,7 +52,16 @@ public final class StartsWithCondition extends Condition
 			final DataField field,
 			final byte[] value)
 	{
+		this(field, 0, value);
+	}
+
+	StartsWithCondition(
+			final DataField field,
+			final int offset,
+			final byte[] value)
+	{
 		this.field = requireNonNull(field, "field");
+		this.offset = requireNonNegative(offset, "offset");
 		this.value = requireNonNull(value, "value");
 
 		if(value.length==0)
@@ -69,7 +81,7 @@ public final class StartsWithCondition extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		bf.dialect.appendStartsWith(bf, field.getBlobColumnIfSupported("startsWith"), value);
+		bf.dialect.appendStartsWith(bf, field.getBlobColumnIfSupported("startsWith"), offset, value);
 	}
 
 	@Override
@@ -113,20 +125,27 @@ public final class StartsWithCondition extends Condition
 
 		final StartsWithCondition o = (StartsWithCondition)other;
 
-		return field.equals(o.field) && Arrays.equals(value, o.value);
+		return field.equals(o.field) && offset==o.offset && Arrays.equals(value, o.value);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return field.hashCode() ^ Arrays.hashCode(value) ^ 1872643;
+		return field.hashCode() ^ offset ^ Arrays.hashCode(value) ^ 1872643;
 	}
 
 	@Override
 	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
 	{
 		field.toString(bf, defaultType);
-		bf.append(" startsWith '");
+		bf.append(" startsWith ");
+		if(offset>0)
+		{
+			bf.append("offset ").
+				append(offset).
+				append(' ');
+		}
+		bf.append('\'');
 		Hex.append(bf, value, value.length);
 		bf.append('\'');
 	}

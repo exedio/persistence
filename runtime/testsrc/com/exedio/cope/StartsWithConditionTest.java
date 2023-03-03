@@ -24,6 +24,7 @@ import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
 
+import com.exedio.cope.util.Hex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,19 +35,25 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		super(DataModelTest.MODEL);
 	}
 
-	private DataItem item0, item4, item6, item6x4;
+	private DataItem item0, item4, item4o3, item6, item6o4, item6x4, item6x4o4;
 
 	@BeforeEach final void setUp()
 	{
 		item0 = new DataItem();
 		item4 = new DataItem();
+		item4o3 = new DataItem();
 		item6 = new DataItem();
+		item6o4 = new DataItem();
 		item6x4 = new DataItem();
+		item6x4o4 = new DataItem();
 		new DataItem(); // is null
 		item0.setData(bytes0);
 		item4.setData(bytes4);
+		item4o3.setData(concat( new byte[]{0,0,0}, bytes4));
 		item6.setData(bytes6);
+		item6o4.setData(concat( new byte[]{0,0,0,0}, bytes6));
 		item6x4.setData(bytes6x4);
+		item6x4o4.setData(concat( new byte[]{0,0,0,0}, bytes6x4));
 	}
 
 	@Test void testCondition()
@@ -55,8 +62,11 @@ public class StartsWithConditionTest extends TestWithEnvironment
 			return;
 
 		assertCondition(item4, TYPE, data.startsWithIfSupported(bytes4));
+		assertCondition(item4o3, TYPE, data.startsWithIfSupported(3, bytes4));
 		assertCondition(item6, TYPE, data.startsWithIfSupported(bytes6));
+		assertCondition(item6o4, TYPE, data.startsWithIfSupported(4, bytes6));
 		assertCondition(item6, item6x4, TYPE, data.startsWithIfSupported(bytes6x4));
+		assertCondition(item6o4, item6x4o4, TYPE, data.startsWithIfSupported(4, bytes6x4));
 	}
 
 	@Test void testNot()
@@ -64,9 +74,12 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		if(!isSupported(data.startsWithIfSupported(bytes4).not()))
 			return;
 
-		assertCondition(asList(item0, item6, item6x4), TYPE, data.startsWithIfSupported(bytes4  ).not(), data.startsWithIfSupported(bytes4  ));
-		assertCondition(asList(item0, item4, item6x4), TYPE, data.startsWithIfSupported(bytes6  ).not(), data.startsWithIfSupported(bytes6  ));
-		assertCondition(asList(item0, item4         ), TYPE, data.startsWithIfSupported(bytes6x4).not(), data.startsWithIfSupported(bytes6x4));
+		assertCondition(asList(item0,        item4o3, item6, item6o4, item6x4, item6x4o4), TYPE, data.startsWithIfSupported(   bytes4).not(), data.startsWithIfSupported(   bytes4));
+		assertCondition(asList(item0, item4,          item6, item6o4, item6x4, item6x4o4), TYPE, data.startsWithIfSupported(3, bytes4).not(), data.startsWithIfSupported(3, bytes4));
+		assertCondition(asList(item0, item4, item4o3,        item6o4, item6x4, item6x4o4), TYPE, data.startsWithIfSupported(   bytes6).not(), data.startsWithIfSupported(   bytes6));
+		assertCondition(asList(item0, item4, item4o3, item6,          item6x4, item6x4o4), TYPE, data.startsWithIfSupported(4, bytes6).not(), data.startsWithIfSupported(4, bytes6));
+		assertCondition(asList(item0, item4, item4o3,        item6o4,          item6x4o4), TYPE, data.startsWithIfSupported(   bytes6x4).not(), data.startsWithIfSupported(   bytes6x4));
+		assertCondition(asList(item0, item4, item4o3, item6,          item6x4           ), TYPE, data.startsWithIfSupported(4, bytes6x4).not(), data.startsWithIfSupported(4, bytes6x4));
 	}
 
 
@@ -85,4 +98,9 @@ public class StartsWithConditionTest extends TestWithEnvironment
 	private static final byte[] bytes4  = {-86,122,-8,23};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
 	private static final byte[] bytes6x4= {-97,35,-126,86};
+
+	private static byte[] concat(final byte[] bytes1, final byte[] bytes2)
+	{
+		return Hex.decodeLower( Hex.encodeLower(bytes1) + Hex.encodeLower(bytes2) );
+	}
 }

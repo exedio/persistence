@@ -304,11 +304,13 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
+	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
 	{
 		bf.append("ENCODE(SUBSTRING(").
 			append(column).
-			append(" FROM 1 FOR ").
+			append(" FROM ").
+			appendParameter(offset+1).
+			append(" FOR ").
 			appendParameter(value.length).
 			append("),'hex')=").
 			appendParameter(Hex.encodeLower(value));
