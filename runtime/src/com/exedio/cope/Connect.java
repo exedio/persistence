@@ -23,12 +23,9 @@ import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Collections.emptyMap;
 
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.Pool;
-import com.exedio.cope.util.PoolCounter;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
 import gnu.trove.TLongHashSet;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -96,11 +93,7 @@ final class Connect
 		supportsUniqueViolation = !properties.isSupportDisabledForUniqueViolation() && dialect.supportsUniqueViolation();
 
 		this.connectionFactory = new ConnectionFactory(properties, probe.environmentInfo.sqlDriver, dialect);
-		final Pool<Connection> pool = new Pool<>(
-				connectionFactory,
-				properties.connectionPool,
-				new PoolCounter());
-		this.connectionPool = new ConnectionPool(pool);
+		this.connectionPool = new ConnectionPool(connectionFactory, properties.connectionPool);
 		this.marshallers = new Marshallers(dialect, supportsNativeDate);
 		this.executor = new Executor(dialect, supportsUniqueViolation, properties, marshallers);
 		{
