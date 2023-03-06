@@ -20,8 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.PoolCounter;
 import io.micrometer.core.instrument.Timer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,6 +41,9 @@ public class TransactionCountersTest extends TestWithEnvironment
 	private long commitWithConnectionStart;
 	private long rollbackWithoutConnectionStart;
 	private long rollbackWithConnectionStart;
+	private int poolGetStart;
+	private int poolPutStart;
+	private boolean m;
 
 	@BeforeEach final void setUp()
 	{
@@ -46,45 +52,51 @@ public class TransactionCountersTest extends TestWithEnvironment
 		commitWithConnectionStart      = c.getCommitWithConnection();
 		rollbackWithoutConnectionStart = c.getRollbackWithoutConnection();
 		rollbackWithConnectionStart    = c.getRollbackWithConnection();
+		final Pool.Info pi = model.getConnectionPoolInfo();
+		poolGetStart = pi.getCounter().getGetCounter();
+		poolPutStart = pi.getCounter().getPutCounter();
+		m = model.getConnectProperties().primaryKeyGenerator!=PrimaryKeyGenerator.sequence;
 	}
 
 	@Test void testIt()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
-		assertIt(0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0);
 
 		model.startTransaction("emptyCommit");
-		assertIt(0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0);
 
 		model.commit();
-		assertIt(1, 0, 0, 0);
+		assertIt(1, 0, 0, 0, 0, 0);
 
 		model.startTransaction("nonemptyCommit");
 		new CacheIsolationItem("commit").deleteCopeItem();
-		assertIt(1, 0, 0, 0);
+		assertIt(1, 0, 0, 0, 2, 1);
 
 		model.commit();
-		assertIt(1, 1, 0, 0);
+		assertIt(1, 1, 0, 0, 2, 2);
 
 		model.startTransaction("emptyRollback");
-		assertIt(1, 1, 0, 0);
+		assertIt(1, 1, 0, 0, 2, 2);
 
 		model.rollback();
-		assertIt(1, 1, 1, 0);
+		assertIt(1, 1, 1, 0, 2, 2);
 
 		model.startTransaction("nonemptyRollback");
 		new CacheIsolationItem("rollback");
-		assertIt(1, 1, 1, 0);
+		assertIt(1, 1, 1, 0, m?3:4, m?2:3);
 
 		model.rollback();
-		assertIt(1, 1, 1, 1);
+		assertIt(1, 1, 1, 1, m?3:4, m?3:4);
 	}
 
 	private void assertIt(
 			final long commitWithoutConnection,
 			final long commitWithConnection,
 			final long rollbackWithoutConnection,
-			final long rollbackWithConnection)
+			final long rollbackWithConnection,
+			final int poolGet,
+			final int poolPut)
 	{
 		final TransactionCounters c = model.getTransactionCounters();
 		assertEquals(  commitWithoutConnectionStart +   commitWithoutConnection, c.getCommitWithoutConnection());
@@ -99,6 +111,14 @@ public class TransactionCountersTest extends TestWithEnvironment
 		assertEquals(c.getCommitWithConnection(),      count("commit",   "with"));
 		assertEquals(c.getRollbackWithoutConnection(), count("rollback", "without"));
 		assertEquals(c.getRollbackWithConnection(),    count("rollback", "with"));
+
+		final Pool.Info pi = model.getConnectionPoolInfo();
+		final PoolCounter pc = pi.getCounter();
+		assertAll(
+				() -> assertEquals(poolGet, pc.getGetCounter() - poolGetStart, "pool get"),
+				() -> assertEquals(poolPut, pc.getPutCounter() - poolPutStart, "pool put"),
+				() -> assertEquals(0, pi.getInvalidOnGet(), "pool invalid on get"),
+				() -> assertEquals(0, pi.getInvalidOnPut(), "pool invalid on put"));
 	}
 
 	private double count(final String end, final String connection)
