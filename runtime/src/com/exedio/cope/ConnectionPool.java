@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.Pool;
+import com.exedio.cope.util.PoolCounter;
+import com.exedio.cope.util.PoolProperties;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,9 +29,11 @@ final class ConnectionPool
 {
 	private final Pool<Connection> pool;
 
-	ConnectionPool(final Pool<Connection> pool)
+	ConnectionPool(
+			final ConnectionFactory factory,
+			final PoolProperties properties)
 	{
-		this.pool = pool;
+		this.pool = new Pool<>(factory, properties, new PoolCounter());
 	}
 
 	Connection get(final boolean autoCommit)
