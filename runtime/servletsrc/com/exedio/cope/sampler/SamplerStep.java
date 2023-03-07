@@ -20,7 +20,6 @@ package com.exedio.cope.sampler;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
-import com.exedio.cope.util.Pool;
 import io.micrometer.core.instrument.Timer;
 import java.time.Duration;
 import java.time.Instant;
@@ -33,7 +32,6 @@ final class SamplerStep
 	final Date date;
 	final Instant initialized;
 	final Instant connected;
-	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final long duration;
 
@@ -48,7 +46,6 @@ final class SamplerStep
 		date = new Date();
 		initialized = sampledModel.getInitializeInstant();
 		connected = sampledModel.getConnectInstant();
-		connectionPoolInfo = sampledModel.getConnectionPoolInfo();
 		nextTransactionId = sampledModel.getNextTransactionId();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
 		duration = Sampler.stop(start, sampledModel, "gather");

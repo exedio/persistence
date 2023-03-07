@@ -20,7 +20,6 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.field;
-import static com.exedio.cope.sampler.Util.maD;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CheckConstraint;
@@ -34,7 +33,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
-import com.exedio.cope.util.Pool;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,16 +55,14 @@ final class SamplerModel extends Item
 	private static final IntegerField connectionPoolInvalidOnGet = field(0);
 	private static final IntegerField connectionPoolInvalidOnPut = field(0);
 
-	static List<SetValue<?>> mapIt(
-			final Pool.Info from,
-			final Pool.Info to)
+	static List<SetValue<?>> mapConnectionPoolDummy()
 	{
 		return Arrays.asList(
-			map(connectionPoolIdle, to.getIdleLevel()),
-			maD(connectionPoolGet, from.getCounter().getGetCounter(), to.getCounter().getGetCounter()),
-			maD(connectionPoolPut, from.getCounter().getPutCounter(), to.getCounter().getPutCounter()),
-			maD(connectionPoolInvalidOnGet, from.getInvalidOnGet(), to.getInvalidOnGet()),
-			maD(connectionPoolInvalidOnPut, from.getInvalidOnPut(), to.getInvalidOnPut()));
+			map(connectionPoolIdle, DUMMY),
+			map(connectionPoolGet, DUMMY),
+			map(connectionPoolPut, DUMMY),
+			map(connectionPoolInvalidOnGet, DUMMY),
+			map(connectionPoolInvalidOnPut, DUMMY));
 	}
 
 

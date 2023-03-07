@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Timer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,8 @@ public class TransactionCountersTest extends TestWithEnvironment
 	private long rollbackWithConnectionStart;
 	private int poolGetStart;
 	private int poolPutStart;
+	private double poolGetMicrometerStart;
+	private double poolPutMicrometerStart;
 	private boolean m;
 
 	@BeforeEach final void setUp()
@@ -55,6 +58,8 @@ public class TransactionCountersTest extends TestWithEnvironment
 		final Pool.Info pi = model.getConnectionPoolInfo();
 		poolGetStart = pi.getCounter().getGetCounter();
 		poolPutStart = pi.getCounter().getPutCounter();
+		poolGetMicrometerStart = countPool("usage", "get");
+		poolPutMicrometerStart = countPool("usage", "put");
 		m = model.getConnectProperties().primaryKeyGenerator!=PrimaryKeyGenerator.sequence;
 	}
 
@@ -119,6 +124,11 @@ public class TransactionCountersTest extends TestWithEnvironment
 				() -> assertEquals(poolPut, pc.getPutCounter() - poolPutStart, "pool put"),
 				() -> assertEquals(0, pi.getInvalidOnGet(), "pool invalid on get"),
 				() -> assertEquals(0, pi.getInvalidOnPut(), "pool invalid on put"));
+
+		assertEquals(poolGet, countPool("usage", "get") - poolGetMicrometerStart);
+		assertEquals(poolPut, countPool("usage", "put") - poolPutMicrometerStart);
+		assertEquals(0, countPool("invalid", "get"));
+		assertEquals(0, countPool("invalid", "put"));
 	}
 
 	private double count(final String end, final String connection)
@@ -126,5 +136,12 @@ public class TransactionCountersTest extends TestWithEnvironment
 		return ((Timer)meter(
 				Transaction.class, "finished",
 				tag(model).and("end", end, "connection", connection))).count();
+	}
+
+	private double countPool(final String nameSuffix, final String operation)
+	{
+		return ((Counter)meter(
+				ConnectionPool.class, nameSuffix,
+				tag(model).and("operation", operation))).count();
 	}
 }
