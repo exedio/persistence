@@ -16,10 +16,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.cope.junit;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.misc.Holder;
 import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
@@ -28,7 +29,7 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-abstract class HolderExtension<E> implements BeforeEachCallback, AfterEachCallback, ParameterResolver
+public abstract class HolderExtension<E> implements BeforeEachCallback, AfterEachCallback, ParameterResolver
 {
 	private final Holder<E> holder;
 
@@ -37,7 +38,7 @@ abstract class HolderExtension<E> implements BeforeEachCallback, AfterEachCallba
 		this.holder = requireNonNull(holder, "holder");
 	}
 
-	final void override(final E value)
+	public final void override(final E value)
 	{
 		holder.override(value);
 	}
