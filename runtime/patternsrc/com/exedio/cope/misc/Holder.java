@@ -16,33 +16,33 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.cope.misc;
 
 import static java.util.Objects.requireNonNull;
 
 // TODO to be replaced by an equivalent class in copeutil
-final class Holder<E>
+public final class Holder<E>
 {
 	private final E value;
 	private E overriddenValue;
 
-	Holder(final E value)
+	public Holder(final E value)
 	{
 		this.value = requireNonNull(value, "value");
 		overriddenValue = value;
 	}
 
-	E get()
+	public E get()
 	{
 		return overriddenValue;
 	}
 
-	void override(final E value)
+	public void override(final E value)
 	{
 		overriddenValue = requireNonNull(value, "value");
 	}
 
-	void clearOverride()
+	public void clearOverride()
 	{
 		overriddenValue = value;
 	}
