@@ -56,12 +56,18 @@ public final class SamplerProperties extends Properties
 	@SuppressWarnings("unused") // TODO test
 	public void sample(final Sampler sampler)
 	{
-		sample(sampler, null);
+		sampler.sampleInternal(transactionDuration);
 	}
 
-	public void sample(final Sampler sampler, final String buildTag)
+	/**
+	 * @deprecated
+	 * Sampler no longer supports recording buildTag.
+	 * Use {@link #sample(Sampler)} instead.
+	 */
+	@Deprecated
+	public void sample(final Sampler sampler, @SuppressWarnings("unused") final String buildTag)
 	{
-		sampler.sampleInternal(transactionDuration, buildTag);
+		sample(sampler);
 	}
 
 

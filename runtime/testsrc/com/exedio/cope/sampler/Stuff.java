@@ -47,7 +47,7 @@ public final class Stuff
 
 		SamplerModel sampleInternal()
 		{
-			return sampleInternal(Duration.ZERO, "example buildTag");
+			return sampleInternal(Duration.ZERO);
 		}
 	}
 

@@ -105,14 +105,8 @@ public class Sampler
 
 	private SamplerStep lastStep = null;
 
-	SamplerModel sampleInternal(final Duration transactionDuration, final String buildTag)
+	SamplerModel sampleInternal(final Duration transactionDuration)
 	{
-		try(TransactionTry tx = samplerModel.startTransactionTry(this + " sample environment"))
-		{
-			SamplerEnvironment.sample(sampledModel, buildTag);
-			tx.commit();
-		}
-
 		final SamplerStep to = new SamplerStep(sampledModel, transactionDuration);
 		final SamplerStep from = lastStep;
 		lastStep = to;
