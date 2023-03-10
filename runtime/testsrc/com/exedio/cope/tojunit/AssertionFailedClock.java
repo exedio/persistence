@@ -38,7 +38,25 @@ public class AssertionFailedClock extends Clock
 	}
 
 	@Override
+	public long millis()
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
 	public Instant instant()
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public boolean equals(final Object obj)
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
+	public int hashCode()
 	{
 		throw new AssertionFailedError();
 	}
