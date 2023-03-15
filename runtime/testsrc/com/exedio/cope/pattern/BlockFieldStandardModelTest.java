@@ -36,8 +36,10 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.misc.LocalizationKeys;
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class BlockFieldStandardModelTest
@@ -137,6 +139,60 @@ public class BlockFieldStandardModelTest
 				() -> eins.getTemplate(zweiString),
 				IllegalArgumentException.class,
 				"AnItem.zwei-aString is not a component of AnItem.eins");
+	}
+
+	/**
+	 * @see com.exedio.cope.LocalizationKeysPatternTest#testVerbose()
+	 */
+	@Test public void testLocalizationKeys()
+	{
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock",
+				"BlockFieldStandardModelTest.ABlock"),
+				ABlock.TYPE.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock",
+				"BlockFieldStandardModelTest.ABlock"),
+				LocalizationKeys.get(ABlock.class));
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem",
+				"BlockFieldStandardModelTest.AnItem"),
+				AnItem.TYPE.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins",
+				"BlockFieldStandardModelTest.AnItem.eins",
+				"eins"),
+				eins.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt", // TODO must appear after item
+				"BlockFieldStandardModelTest.ABlock.anInt",
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins.anInt",
+				"BlockFieldStandardModelTest.AnItem.eins.anInt",
+				"anInt"),
+				eins.of(anInt).getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt",
+				"BlockFieldStandardModelTest.ABlock.anInt",
+				"anInt"),
+				ABlock.anInt.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.PatternItem",
+				"PatternItem"),
+				eins.of(aList).getRelationType().getLocalizationKeys());
+		assertFails(
+				aList::getRelationType,
+				IllegalStateException.class,
+				"feature not mounted");
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.PatternItem.order",
+				"PatternItem.order",
+				"order"),
+				eins.of(aList).getOrder().getLocalizationKeys());
+		final IntegerField aListOrder = aList.getOrder();
+		assertFails(
+				aListOrder::getLocalizationKeys,
+				IllegalStateException.class,
+				"feature not mounted");
 	}
 
 	@WrapperType(indent=2)

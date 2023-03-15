@@ -44,6 +44,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.Sources;
@@ -354,5 +355,52 @@ public class DispatcherModelTest
 				"probe",
 				"purge"),
 				getMeters(toTarget));
+	}
+
+	/**
+	 * @see com.exedio.cope.LocalizationKeysPatternTest#testVerbose()
+	 */
+	@Test public void testLocalizationKeys()
+	{
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.DispatcherItem",
+				"DispatcherItem"),
+				TYPE.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.DispatcherItem",
+				"DispatcherItem"),
+				LocalizationKeys.get(DispatcherItem.class));
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.DispatcherItem.toTarget",
+				"DispatcherItem.toTarget",
+				"toTarget"),
+				toTarget.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.Dispatcher.pending", // TODO must appear after item
+				"Dispatcher.pending",
+				"com.exedio.cope.pattern.DispatcherItem.toTarget.pending",
+				"DispatcherItem.toTarget.pending",
+				"pending"),
+				toTarget.getPending().getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.Dispatcher.Unpend.success", // TODO must appear after item
+				"Dispatcher.Unpend.success",
+				"com.exedio.cope.pattern.DispatcherItem.toTarget.unpend.success",
+				"DispatcherItem.toTarget.unpend.success",
+				"success"),
+				toTarget.getUnpendSuccess().getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.Dispatcher.Unpend",
+				"Dispatcher.Unpend"),
+				LocalizationKeys.get(toTarget.getUnpend().getValueClass()));
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.Dispatcher.Run",
+				"Dispatcher.Run"),
+				toTarget.getRunType().getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.Dispatcher.Run.elapsed",
+				"Dispatcher.Run.elapsed",
+				"elapsed"),
+				toTarget.getRunElapsed().getLocalizationKeys());
 	}
 }
