@@ -376,17 +376,17 @@ public class DispatcherModelTest
 				"toTarget"),
 				toTarget.getLocalizationKeys());
 		assertEquals(List.of(
-				"com.exedio.cope.pattern.Dispatcher.pending", // TODO must appear after item
-				"Dispatcher.pending",
 				"com.exedio.cope.pattern.DispatcherItem.toTarget.pending",
 				"DispatcherItem.toTarget.pending",
+				"com.exedio.cope.pattern.Dispatcher.pending",
+				"Dispatcher.pending",
 				"pending"),
 				toTarget.getPending().getLocalizationKeys());
 		assertEquals(List.of(
-				"com.exedio.cope.pattern.Dispatcher.Unpend.success", // TODO must appear after item
-				"Dispatcher.Unpend.success",
 				"com.exedio.cope.pattern.DispatcherItem.toTarget.unpend.success",
 				"DispatcherItem.toTarget.unpend.success",
+				"com.exedio.cope.pattern.Dispatcher.Unpend.success",
+				"Dispatcher.Unpend.success",
 				"success"),
 				toTarget.getUnpendSuccess().getLocalizationKeys());
 		assertEquals(List.of(
