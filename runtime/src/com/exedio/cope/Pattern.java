@@ -277,7 +277,7 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
 		final String id = newSourceTypeId(getType().getID(), getName(), postfix);
-		final Type<T> result = new Type<>(javaClass, activator, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, supertype, features);
+		final Type<T> result = new Type<>(javaClass, activator, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, postfix, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
 	}

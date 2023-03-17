@@ -112,7 +112,7 @@ public final class TypesBound
 				javaClass, // annotationSource
 				true, // bound
 				id,
-				null, // pattern
+				null, null, // pattern[Postfix]
 				supertype,
 				features);
 

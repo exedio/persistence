@@ -176,6 +176,11 @@ public class BlockFieldStandardModelTest
 				"anInt"),
 				ABlock.anInt.getLocalizationKeys());
 		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins.aList.SourceType",
+				"BlockFieldStandardModelTest.AnItem.eins.aList.SourceType",
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList.SourceType",
+				"BlockFieldStandardModelTest.ABlock.aList.SourceType",
+				"aList.SourceType",
 				"com.exedio.cope.pattern.PatternItem",
 				"PatternItem"),
 				eins.of(aList).getRelationType().getLocalizationKeys());
@@ -184,6 +189,11 @@ public class BlockFieldStandardModelTest
 				IllegalStateException.class,
 				"feature not mounted");
 		assertEquals(List.of(
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins.aList.SourceType.order",
+				"BlockFieldStandardModelTest.AnItem.eins.aList.SourceType.order",
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList.SourceType.order",
+				"BlockFieldStandardModelTest.ABlock.aList.SourceType.order",
+				"aList.SourceType.order",
 				"com.exedio.cope.pattern.PatternItem.order",
 				"PatternItem.order",
 				"order"),

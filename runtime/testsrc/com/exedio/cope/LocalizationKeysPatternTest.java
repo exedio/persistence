@@ -69,10 +69,16 @@ public class LocalizationKeysPatternTest
 				"compField"),
 				MyItem.itemComp.of(MyComp.compField).getLocalizationKeys());
 		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyItem.itemPatt.SourceItemZack",
+				"LocalizationKeysPatternTest.MyItem.itemPatt.SourceItemZack",
+				"itemPatt.SourceItemZack",
 				"com.exedio.cope.LocalizationKeysPatternTest.MyPatt.SourceItem",
 				"LocalizationKeysPatternTest.MyPatt.SourceItem"),
 				MyItem.itemPatt.sourceType().getLocalizationKeys());
 		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyItem.itemPatt.SourceItemZack.sourceTypeField",
+				"LocalizationKeysPatternTest.MyItem.itemPatt.SourceItemZack.sourceTypeField",
+				"itemPatt.SourceItemZack.sourceTypeField",
 				"com.exedio.cope.LocalizationKeysPatternTest.MyPatt.SourceItem.sourceTypeField",
 				"LocalizationKeysPatternTest.MyPatt.SourceItem.sourceTypeField",
 				"sourceTypeField"),
@@ -120,19 +126,19 @@ public class LocalizationKeysPatternTest
 		assertIt("MyItem.itemBlokActual.blokPattern.sourceFeature",       "MyPatt.sourceFeature", "sourceFeature", MyItem.itemBlokPure.of(MyBlok.blokPattern    ).sourceFeature);
 		assertIt("MyItem.itemBlokActual.blokPatternActual.sourceFeature", "MyPatt.sourceFeature", "sourceFeature", MyItem.itemBlokPure.of(MyBlok.blokPatternPure).sourceFeature);
 
-		assertIt("MyPatt.SourceItem", MyItem.itemBlok    .of(MyBlok.blokPattern    ).sourceType());
-		assertIt("MyPatt.SourceItem", MyItem.itemBlok    .of(MyBlok.blokPatternPure).sourceType());
-		assertIt("MyPatt.SourceItem", MyItem.itemBlokPure.of(MyBlok.blokPattern    ).sourceType());
-		assertIt("MyPatt.SourceItem", MyItem.itemBlokPure.of(MyBlok.blokPatternPure).sourceType());
-		assertIt("MyPatt.SourceItem", MyItem.itemPatt    .sourceType());
-		assertIt("MyPatt.SourceItem", MyItem.itemPattPure.sourceType());
+		assertIt("MyItem.itemBlok" +  ".blokPattern" +  ".SourceItemZack", "MyBlok.blokPattern" +  ".SourceItemZack", "blokPattern" +  ".SourceItemZack", "MyPatt.SourceItem", MyItem.itemBlok    .of(MyBlok.blokPattern    ).sourceType());
+		assertIt("MyItem.itemBlok" +  ".blokPatternActual.SourceItemZack", "MyBlok.blokPatternActual.SourceItemZack", "blokPatternActual.SourceItemZack", "MyPatt.SourceItem", MyItem.itemBlok    .of(MyBlok.blokPatternPure).sourceType());
+		assertIt("MyItem.itemBlokActual.blokPattern" +  ".SourceItemZack", "MyBlok.blokPattern" +  ".SourceItemZack", "blokPattern" +  ".SourceItemZack", "MyPatt.SourceItem", MyItem.itemBlokPure.of(MyBlok.blokPattern    ).sourceType());
+		assertIt("MyItem.itemBlokActual.blokPatternActual.SourceItemZack", "MyBlok.blokPatternActual.SourceItemZack", "blokPatternActual.SourceItemZack", "MyPatt.SourceItem", MyItem.itemBlokPure.of(MyBlok.blokPatternPure).sourceType());
+		assertIt("MyItem.itemPatt" +  ".SourceItemZack", "itemPatt" +  ".SourceItemZack", "MyPatt.SourceItem", MyItem.itemPatt    .sourceType());
+		assertIt("MyItem.itemPattActual.SourceItemZack", "itemPattActual.SourceItemZack", "MyPatt.SourceItem", MyItem.itemPattPure.sourceType());
 
-		assertIt("MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlok    .of(MyBlok.blokPattern    ).sourceTypeField);
-		assertIt("MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlok    .of(MyBlok.blokPatternPure).sourceTypeField);
-		assertIt("MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlokPure.of(MyBlok.blokPattern    ).sourceTypeField);
-		assertIt("MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlokPure.of(MyBlok.blokPatternPure).sourceTypeField);
-		assertIt("MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemPatt    .sourceTypeField);
-		assertIt("MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemPattPure.sourceTypeField);
+		assertIt("MyItem.itemBlok" +  ".blokPattern" +  ".SourceItemZack.sourceTypeField", "MyBlok.blokPattern" +  ".SourceItemZack.sourceTypeField", "blokPattern" +  ".SourceItemZack.sourceTypeField", "MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlok    .of(MyBlok.blokPattern    ).sourceTypeField);
+		assertIt("MyItem.itemBlok" +  ".blokPatternActual.SourceItemZack.sourceTypeField", "MyBlok.blokPatternActual.SourceItemZack.sourceTypeField", "blokPatternActual.SourceItemZack.sourceTypeField", "MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlok    .of(MyBlok.blokPatternPure).sourceTypeField);
+		assertIt("MyItem.itemBlokActual.blokPattern" +  ".SourceItemZack.sourceTypeField", "MyBlok.blokPattern" +  ".SourceItemZack.sourceTypeField", "blokPattern" +  ".SourceItemZack.sourceTypeField", "MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlokPure.of(MyBlok.blokPattern    ).sourceTypeField);
+		assertIt("MyItem.itemBlokActual.blokPatternActual.SourceItemZack.sourceTypeField", "MyBlok.blokPatternActual.SourceItemZack.sourceTypeField", "blokPatternActual.SourceItemZack.sourceTypeField", "MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemBlokPure.of(MyBlok.blokPatternPure).sourceTypeField);
+		assertIt("MyItem.itemPatt" +  ".SourceItemZack.sourceTypeField", "itemPatt" +  ".SourceItemZack.sourceTypeField", "MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemPatt    .sourceTypeField);
+		assertIt("MyItem.itemPattActual.SourceItemZack.sourceTypeField", "itemPattActual.SourceItemZack.sourceTypeField", "MyPatt.SourceItem.sourceTypeField", "sourceTypeField", MyItem.itemPattPure.sourceTypeField);
 
 		// caching
 		assertSame(MyComp_TYPE.getLocalizationKeys(), MyComp_TYPE.getLocalizationKeys());
@@ -149,6 +155,39 @@ public class LocalizationKeysPatternTest
 		assertEqualsUnmodifiable(asList(
 				TEST1 + expected,
 				TEST2 + expected),
+				t.getLocalizationKeys());
+	}
+
+	private static void assertIt(
+			final String expected1,
+			final String expectedSimple,
+			final String expected2,
+			final AbstractType<?> t)
+	{
+		assertEqualsUnmodifiable(asList(
+				TEST1 + expected1,
+				TEST2 + expected1,
+				expectedSimple,
+				TEST1 + expected2,
+				TEST2 + expected2),
+				t.getLocalizationKeys());
+	}
+
+	private static void assertIt(
+			final String expected1,
+			final String expected2,
+			final String expectedSimple,
+			final String expected3,
+			final AbstractType<?> t)
+	{
+		assertEqualsUnmodifiable(asList(
+				TEST1 + expected1,
+				TEST2 + expected1,
+				TEST1 + expected2,
+				TEST2 + expected2,
+				expectedSimple,
+				TEST1 + expected3,
+				TEST2 + expected3),
 				t.getLocalizationKeys());
 	}
 
@@ -176,6 +215,43 @@ public class LocalizationKeysPatternTest
 				TEST1 + expected2,
 				TEST2 + expected2,
 				expectedSimple),
+				f.getLocalizationKeys());
+	}
+
+	private static void assertIt(
+			final String expected1,
+			final String expectedSimple,
+			final String expected2,
+			final String expectedSimple2,
+			final Feature f)
+	{
+		assertEqualsUnmodifiable(asList(
+				TEST1 + expected1,
+				TEST2 + expected1,
+				expectedSimple,
+				TEST1 + expected2,
+				TEST2 + expected2,
+				expectedSimple2),
+				f.getLocalizationKeys());
+	}
+
+	private static void assertIt(
+			final String expected1,
+			final String expected2,
+			final String expectedSimple,
+			final String expected3,
+			final String expectedSimple3,
+			final Feature f)
+	{
+		assertEqualsUnmodifiable(asList(
+				TEST1 + expected1,
+				TEST2 + expected1,
+				TEST1 + expected2,
+				TEST2 + expected2,
+				expectedSimple,
+				TEST1 + expected3,
+				TEST2 + expected3,
+				expectedSimple3),
 				f.getLocalizationKeys());
 	}
 

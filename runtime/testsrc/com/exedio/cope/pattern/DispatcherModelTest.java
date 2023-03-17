@@ -394,10 +394,16 @@ public class DispatcherModelTest
 				"Dispatcher.Unpend"),
 				LocalizationKeys.get(toTarget.getUnpend().getValueClass()));
 		assertEquals(List.of(
+				"com.exedio.cope.pattern.DispatcherItem.toTarget.Run",
+				"DispatcherItem.toTarget.Run",
+				"toTarget.Run",
 				"com.exedio.cope.pattern.Dispatcher.Run",
 				"Dispatcher.Run"),
 				toTarget.getRunType().getLocalizationKeys());
 		assertEquals(List.of(
+				"com.exedio.cope.pattern.DispatcherItem.toTarget.Run.elapsed",
+				"DispatcherItem.toTarget.Run.elapsed",
+				"toTarget.Run.elapsed",
 				"com.exedio.cope.pattern.Dispatcher.Run.elapsed",
 				"Dispatcher.Run.elapsed",
 				"elapsed"),
