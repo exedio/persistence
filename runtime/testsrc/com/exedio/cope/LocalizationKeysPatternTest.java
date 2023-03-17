@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -31,10 +32,52 @@ import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.pattern.CompositeType;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class LocalizationKeysPatternTest
 {
+	/**
+	 * @see com.exedio.cope.pattern.DispatcherModelTest#testLocalizationKeys()
+	 * @see com.exedio.cope.pattern.BlockFieldStandardModelTest#testLocalizationKeys()
+	 */
+	@Test public void testVerbose()
+	{
+		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyComp.compField",
+				"LocalizationKeysPatternTest.MyComp.compField",
+				"compField"),
+				MyComp.compField.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyItem.itemPatt",
+				"LocalizationKeysPatternTest.MyItem.itemPatt",
+				"itemPatt"),
+				MyItem.itemPatt.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyPatt.sourceFeature", // TODO must appear after item
+				"LocalizationKeysPatternTest.MyPatt.sourceFeature",
+				"com.exedio.cope.LocalizationKeysPatternTest.MyItem.itemPatt.sourceFeature",
+				"LocalizationKeysPatternTest.MyItem.itemPatt.sourceFeature",
+				"sourceFeature"),
+				MyItem.itemPatt.sourceFeature.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyComp.compField", // TODO must appear after item
+				"LocalizationKeysPatternTest.MyComp.compField",
+				"com.exedio.cope.LocalizationKeysPatternTest.MyItem.itemComp.compField",
+				"LocalizationKeysPatternTest.MyItem.itemComp.compField",
+				"compField"),
+				MyItem.itemComp.of(MyComp.compField).getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyPatt.SourceItem",
+				"LocalizationKeysPatternTest.MyPatt.SourceItem"),
+				MyItem.itemPatt.sourceType().getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.LocalizationKeysPatternTest.MyPatt.SourceItem.sourceTypeField",
+				"LocalizationKeysPatternTest.MyPatt.SourceItem.sourceTypeField",
+				"sourceTypeField"),
+				MyItem.itemPatt.sourceTypeField.getLocalizationKeys());
+	}
+
 	@Test void testIt()
 	{
 		assertIt("MyComp", MyComp_TYPE);
