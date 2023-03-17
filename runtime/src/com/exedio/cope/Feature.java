@@ -120,22 +120,22 @@ public abstract class Feature implements Serializable
 	{
 		final Type<?> type;
 		final String id;
-		final Class<?> precedingLocalizationKeysClass;
-		final String precedingLocalizationKeysPostfix;
+		final Class<?> innerLocalizationKeysClass;
+		final String   innerLocalizationKeysPostfix;
 
 		MountType(
 				final Type<?> type,
 				final String name,
 				final AnnotatedElement annotationSource,
 				final Pattern pattern,
-				final Class<?> precedingLocalizationKeysClass,
-				final String   precedingLocalizationKeysPostfix)
+				final Class<?> innerLocalizationKeysClass,
+				final String   innerLocalizationKeysPostfix)
 		{
 			super(type, name, annotationSource, pattern);
 			this.type = requireNonNull(type);
 			this.id =   intern(type.id + '.' + name);
-			this.precedingLocalizationKeysClass   = precedingLocalizationKeysClass;
-			this.precedingLocalizationKeysPostfix = precedingLocalizationKeysPostfix;
+			this.innerLocalizationKeysClass   = innerLocalizationKeysClass;
+			this.innerLocalizationKeysPostfix = innerLocalizationKeysPostfix;
 		}
 
 		@Override
@@ -167,10 +167,10 @@ public abstract class Feature implements Serializable
 		@Override
 		void addInnerLocalizationKeys(final ArrayList<String> result)
 		{
-			if(precedingLocalizationKeysClass!=null)
+			if(innerLocalizationKeysClass!=null)
 			{
-				final String suffix = '.' + precedingLocalizationKeysPostfix;
-				for(final String prefix : LocalizationKeys.get(precedingLocalizationKeysClass))
+				final String suffix = '.' + innerLocalizationKeysPostfix;
+				for(final String prefix : LocalizationKeys.get(innerLocalizationKeysClass))
 					result.add(prefix + suffix);
 			}
 
@@ -250,14 +250,14 @@ public abstract class Feature implements Serializable
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted);
 		mountIfMounted = new MountType(
 				type, name, annotationSource, patternUntilMount,
-				precedingLocalizationKeysClassUntilMount,
-				precedingLocalizationKeysPostfixUntilMount);
+				innerLocalizationKeysClassUntilMount,
+				innerLocalizationKeysPostfixUntilMount);
 
 		type.registerMounted(this);
 
 		this.patternUntilMount = null;
-		this.precedingLocalizationKeysClassUntilMount   = null;
-		this.precedingLocalizationKeysPostfixUntilMount = null;
+		this.innerLocalizationKeysClassUntilMount = null;
+		this.innerLocalizationKeysPostfixUntilMount = null;
 	}
 
 	public final void mount(
@@ -429,13 +429,13 @@ public abstract class Feature implements Serializable
 	// patterns ------------------
 
 	private Pattern patternUntilMount = null;
-	private Class<?> precedingLocalizationKeysClassUntilMount;
-	private String   precedingLocalizationKeysPostfixUntilMount;
+	private Class<?> innerLocalizationKeysClassUntilMount;
+	private String   innerLocalizationKeysPostfixUntilMount;
 
 	final void registerPattern(
 			final Pattern pattern,
-			final Class<?> precedingLocalizationKeysClass,
-			final String precedingLocalizationKeysPostfix)
+			final Class<?> innerLocalizationKeysClass,
+			final String   innerLocalizationKeysPostfix)
 	{
 		assertNotMounted();
 		requireNonNull(pattern);
@@ -446,8 +446,8 @@ public abstract class Feature implements Serializable
 					" and tried to register a new one: " + pattern);
 
 		patternUntilMount = pattern;
-		precedingLocalizationKeysClassUntilMount   = precedingLocalizationKeysClass;
-		precedingLocalizationKeysPostfixUntilMount = precedingLocalizationKeysPostfix;
+		innerLocalizationKeysClassUntilMount   = innerLocalizationKeysClass;
+		innerLocalizationKeysPostfixUntilMount = innerLocalizationKeysPostfix;
 	}
 
 	public final boolean isSourceAlready()

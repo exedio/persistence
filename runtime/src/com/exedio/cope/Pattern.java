@@ -78,15 +78,15 @@ public abstract class Pattern extends Feature
 			final F feature,
 			final String postfix,
 			final AnnotatedElement annotationSource,
-			final Class<?> precedingLocalizationKeysClass)
+			final Class<?> innerLocalizationKeysClass)
 	{
 		requireNonNull(feature, "feature");
 		requireNonEmpty(postfix, "postfix");
-		requireNonNull(precedingLocalizationKeysClass, "precedingLocalizationKeysClass");
+		requireNonNull(innerLocalizationKeysClass, "innerLocalizationKeysClass");
 		if(sourceFeaturesGather==null)
 			throw new IllegalStateException("addSourceFeature can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;
-		feature.registerPattern(this, precedingLocalizationKeysClass, postfix);
+		feature.registerPattern(this, innerLocalizationKeysClass, postfix);
 		sourceFeaturesGather.put(postfix, feature, new SourceFeatureAnnotationProxy(annotationSource, postfix));
 		return feature;
 	}
@@ -530,8 +530,8 @@ public abstract class Pattern extends Feature
 			final Feature feature,
 			final String postfix,
 			final AnnotatedElement annotationSource,
-			final Class<?> precedingLocalizationKeysClass)
+			final Class<?> innerLocalizationKeysClass)
 	{
-		addSourceFeature(feature, postfix, annotationSource, precedingLocalizationKeysClass);
+		addSourceFeature(feature, postfix, annotationSource, innerLocalizationKeysClass);
 	}
 }
