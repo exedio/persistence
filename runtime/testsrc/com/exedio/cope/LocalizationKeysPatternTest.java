@@ -96,28 +96,28 @@ public class LocalizationKeysPatternTest
 		assertIt("MyItem.itemBlok",       "itemBlok",       MyItem.itemBlok);
 		assertIt("MyItem.itemBlokActual", "itemBlokActual", MyItem.itemBlokPure);
 
-		assertIt("MyPatt.sourceFeature", "MyItem.itemPatt.sourceFeature",       "sourceFeature", MyItem.itemPatt    .sourceFeature);
-		assertIt("MyPatt.sourceFeature", "MyItem.itemPattActual.sourceFeature", "sourceFeature", MyItem.itemPattPure.sourceFeature);
+		assertIt("MyItem.itemPatt.sourceFeature",       "MyPatt.sourceFeature", "sourceFeature", MyItem.itemPatt    .sourceFeature);
+		assertIt("MyItem.itemPattActual.sourceFeature", "MyPatt.sourceFeature", "sourceFeature", MyItem.itemPattPure.sourceFeature);
 
-		assertIt("MyComp.compField",       "MyItem.itemComp.compField",             "compField",       MyItem.itemComp    .of(MyComp.compField));
-		assertIt("MyComp.compFieldActual", "MyItem.itemComp.compFieldActual",       "compFieldActual", MyItem.itemComp    .of(MyComp.compFieldPure));
-		assertIt("MyComp.compField",       "MyItem.itemCompActual.compField",       "compField",       MyItem.itemCompPure.of(MyComp.compField));
-		assertIt("MyComp.compFieldActual", "MyItem.itemCompActual.compFieldActual", "compFieldActual", MyItem.itemCompPure.of(MyComp.compFieldPure));
+		assertIt("MyItem.itemComp.compField",             "MyComp.compField",       "compField",       MyItem.itemComp    .of(MyComp.compField));
+		assertIt("MyItem.itemComp.compFieldActual",       "MyComp.compFieldActual", "compFieldActual", MyItem.itemComp    .of(MyComp.compFieldPure));
+		assertIt("MyItem.itemCompActual.compField",       "MyComp.compField",       "compField",       MyItem.itemCompPure.of(MyComp.compField));
+		assertIt("MyItem.itemCompActual.compFieldActual", "MyComp.compFieldActual", "compFieldActual", MyItem.itemCompPure.of(MyComp.compFieldPure));
 
-		assertIt("MyBlok.blokField",       "MyItem.itemBlok.blokField",             "blokField",       MyItem.itemBlok    .of(MyBlok.blokField));
-		assertIt("MyBlok.blokFieldActual", "MyItem.itemBlok.blokFieldActual",       "blokFieldActual", MyItem.itemBlok    .of(MyBlok.blokFieldPure));
-		assertIt("MyBlok.blokField",       "MyItem.itemBlokActual.blokField",       "blokField",       MyItem.itemBlokPure.of(MyBlok.blokField));
-		assertIt("MyBlok.blokFieldActual", "MyItem.itemBlokActual.blokFieldActual", "blokFieldActual", MyItem.itemBlokPure.of(MyBlok.blokFieldPure));
+		assertIt("MyItem.itemBlok.blokField",             "MyBlok.blokField",       "blokField",       MyItem.itemBlok    .of(MyBlok.blokField));
+		assertIt("MyItem.itemBlok.blokFieldActual",       "MyBlok.blokFieldActual", "blokFieldActual", MyItem.itemBlok    .of(MyBlok.blokFieldPure));
+		assertIt("MyItem.itemBlokActual.blokField",       "MyBlok.blokField",       "blokField",       MyItem.itemBlokPure.of(MyBlok.blokField));
+		assertIt("MyItem.itemBlokActual.blokFieldActual", "MyBlok.blokFieldActual", "blokFieldActual", MyItem.itemBlokPure.of(MyBlok.blokFieldPure));
 
-		assertIt("MyBlok.blokPattern",       "MyItem.itemBlok.blokPattern",             "blokPattern",       MyItem.itemBlok    .of(MyBlok.blokPattern));
-		assertIt("MyBlok.blokPatternActual", "MyItem.itemBlok.blokPatternActual",       "blokPatternActual", MyItem.itemBlok    .of(MyBlok.blokPatternPure));
-		assertIt("MyBlok.blokPattern",       "MyItem.itemBlokActual.blokPattern",       "blokPattern",       MyItem.itemBlokPure.of(MyBlok.blokPattern));
-		assertIt("MyBlok.blokPatternActual", "MyItem.itemBlokActual.blokPatternActual", "blokPatternActual", MyItem.itemBlokPure.of(MyBlok.blokPatternPure));
+		assertIt("MyItem.itemBlok.blokPattern",             "MyBlok.blokPattern",       "blokPattern",       MyItem.itemBlok    .of(MyBlok.blokPattern));
+		assertIt("MyItem.itemBlok.blokPatternActual",       "MyBlok.blokPatternActual", "blokPatternActual", MyItem.itemBlok    .of(MyBlok.blokPatternPure));
+		assertIt("MyItem.itemBlokActual.blokPattern",       "MyBlok.blokPattern",       "blokPattern",       MyItem.itemBlokPure.of(MyBlok.blokPattern));
+		assertIt("MyItem.itemBlokActual.blokPatternActual", "MyBlok.blokPatternActual", "blokPatternActual", MyItem.itemBlokPure.of(MyBlok.blokPatternPure));
 
-		assertIt("MyPatt.sourceFeature", "MyItem.itemBlok.blokPattern.sourceFeature",             "sourceFeature", MyItem.itemBlok    .of(MyBlok.blokPattern    ).sourceFeature);
-		assertIt("MyPatt.sourceFeature", "MyItem.itemBlok.blokPatternActual.sourceFeature",       "sourceFeature", MyItem.itemBlok    .of(MyBlok.blokPatternPure).sourceFeature);
-		assertIt("MyPatt.sourceFeature", "MyItem.itemBlokActual.blokPattern.sourceFeature",       "sourceFeature", MyItem.itemBlokPure.of(MyBlok.blokPattern    ).sourceFeature);
-		assertIt("MyPatt.sourceFeature", "MyItem.itemBlokActual.blokPatternActual.sourceFeature", "sourceFeature", MyItem.itemBlokPure.of(MyBlok.blokPatternPure).sourceFeature);
+		assertIt("MyItem.itemBlok.blokPattern.sourceFeature",             "MyPatt.sourceFeature", "sourceFeature", MyItem.itemBlok    .of(MyBlok.blokPattern    ).sourceFeature);
+		assertIt("MyItem.itemBlok.blokPatternActual.sourceFeature",       "MyPatt.sourceFeature", "sourceFeature", MyItem.itemBlok    .of(MyBlok.blokPatternPure).sourceFeature);
+		assertIt("MyItem.itemBlokActual.blokPattern.sourceFeature",       "MyPatt.sourceFeature", "sourceFeature", MyItem.itemBlokPure.of(MyBlok.blokPattern    ).sourceFeature);
+		assertIt("MyItem.itemBlokActual.blokPatternActual.sourceFeature", "MyPatt.sourceFeature", "sourceFeature", MyItem.itemBlokPure.of(MyBlok.blokPatternPure).sourceFeature);
 
 		assertIt("MyPatt.SourceItem", MyItem.itemBlok    .of(MyBlok.blokPattern    ).sourceType());
 		assertIt("MyPatt.SourceItem", MyItem.itemBlok    .of(MyBlok.blokPatternPure).sourceType());
@@ -164,8 +164,8 @@ public class LocalizationKeysPatternTest
 	}
 
 	private static void assertIt(
-			final String expected2, // TODO fix order of parameters
 			final String expected1,
+			final String expected2,
 			final String expectedSimple,
 			final Feature f)
 	{
