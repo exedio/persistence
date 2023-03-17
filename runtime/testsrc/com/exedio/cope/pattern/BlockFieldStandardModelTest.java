@@ -164,10 +164,10 @@ public class BlockFieldStandardModelTest
 				"eins"),
 				eins.getLocalizationKeys());
 		assertEquals(List.of(
-				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt", // TODO must appear after item
-				"BlockFieldStandardModelTest.ABlock.anInt",
 				"com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins.anInt",
 				"BlockFieldStandardModelTest.AnItem.eins.anInt",
+				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt",
+				"BlockFieldStandardModelTest.ABlock.anInt",
 				"anInt"),
 				eins.of(anInt).getLocalizationKeys());
 		assertEquals(List.of(

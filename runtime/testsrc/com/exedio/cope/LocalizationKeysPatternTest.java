@@ -54,17 +54,17 @@ public class LocalizationKeysPatternTest
 				"itemPatt"),
 				MyItem.itemPatt.getLocalizationKeys());
 		assertEquals(List.of(
-				"com.exedio.cope.LocalizationKeysPatternTest.MyPatt.sourceFeature", // TODO must appear after item
-				"LocalizationKeysPatternTest.MyPatt.sourceFeature",
 				"com.exedio.cope.LocalizationKeysPatternTest.MyItem.itemPatt.sourceFeature",
 				"LocalizationKeysPatternTest.MyItem.itemPatt.sourceFeature",
+				"com.exedio.cope.LocalizationKeysPatternTest.MyPatt.sourceFeature",
+				"LocalizationKeysPatternTest.MyPatt.sourceFeature",
 				"sourceFeature"),
 				MyItem.itemPatt.sourceFeature.getLocalizationKeys());
 		assertEquals(List.of(
-				"com.exedio.cope.LocalizationKeysPatternTest.MyComp.compField", // TODO must appear after item
-				"LocalizationKeysPatternTest.MyComp.compField",
 				"com.exedio.cope.LocalizationKeysPatternTest.MyItem.itemComp.compField",
 				"LocalizationKeysPatternTest.MyItem.itemComp.compField",
+				"com.exedio.cope.LocalizationKeysPatternTest.MyComp.compField",
+				"LocalizationKeysPatternTest.MyComp.compField",
 				"compField"),
 				MyItem.itemComp.of(MyComp.compField).getLocalizationKeys());
 		assertEquals(List.of(
@@ -164,8 +164,8 @@ public class LocalizationKeysPatternTest
 	}
 
 	private static void assertIt(
+			final String expected2, // TODO fix order of parameters
 			final String expected1,
-			final String expected2,
 			final String expectedSimple,
 			final Feature f)
 	{

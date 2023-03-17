@@ -95,14 +95,21 @@ public abstract class Feature implements Serializable
 			return localizationKeysIfInitialized;
 		}
 
-		void addLocalizationKeys(final ArrayList<String> result)
+		final void addLocalizationKeys(final ArrayList<String> result)
 		{
 			final String suffix = '.' + name.replace('-', '.');
 			for(final String prefix : type.getLocalizationKeys())
 				result.add(prefix + suffix);
 
+			addInnerLocalizationKeys(result);
+
 			final int dashIndex = name.lastIndexOf('-');
 			result.add(dashIndex>=0 ? name.substring(dashIndex+1) : name);
+		}
+
+		void addInnerLocalizationKeys(final ArrayList<String> result)
+		{
+			// empty default implementation
 		}
 
 		abstract void toString(StringBuilder bf, Type<?> defaultType);
@@ -158,7 +165,7 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		void addLocalizationKeys(final ArrayList<String> result)
+		void addInnerLocalizationKeys(final ArrayList<String> result)
 		{
 			if(precedingLocalizationKeysClass!=null)
 			{
@@ -167,7 +174,7 @@ public abstract class Feature implements Serializable
 					result.add(prefix + suffix);
 			}
 
-			super.addLocalizationKeys(result);
+			super.addInnerLocalizationKeys(result);
 		}
 
 		@Override
