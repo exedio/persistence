@@ -20,15 +20,12 @@ package com.exedio.cope.misc;
 
 import static java.lang.Math.subtractExact;
 import static java.time.Duration.ofSeconds;
-import static java.time.ZoneOffset.UTC;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
 import java.time.Clock;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,16 +55,16 @@ public final class SlowTransactionLogger
 			if(start<=thresholdWarn)
 			{
 				final Thread t = tx.getBoundThread();
-				final String startDate = DATE_FORMATTER.format(LocalDateTime.ofInstant(tx.getStartDate().toInstant(), UTC));
+				final long age = date - start;
 				final String format = t==null ? FORMAT_THREAD_NONE : FORMAT_THREAD;
 				final Object[] args = t==null
 						? new Object[] {
-								tx.getID(), startDate, tx.getName(),
+								tx.getID(), age, tx.getName(),
 								tx.getInvalidationSize(),
 								tx.getPreCommitHookCount (), tx.getPreCommitHookDuplicates (),
 								tx.getPostCommitHookCount(), tx.getPostCommitHookDuplicates() }
 						: new Object[] {
-								tx.getID(), startDate, tx.getName(),
+								tx.getID(), age, tx.getName(),
 								tx.getInvalidationSize(),
 								tx.getPreCommitHookCount (), tx.getPreCommitHookDuplicates (),
 								tx.getPostCommitHookCount(), tx.getPostCommitHookDuplicates(),
@@ -82,16 +79,19 @@ public final class SlowTransactionLogger
 
 	static final Holder<Clock> now = new Holder<>(Clock.systemUTC());
 
-	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-
 	// almost equal to code in SamplerThread
 	static String toString(final StackTraceElement[] trace)
 	{
 		final StringBuilder bf = new StringBuilder();
+		boolean first = true;
 		for(final StackTraceElement e : trace)
 		{
+			if(first)
+				first = false;
+			else
+				bf.append(' ');
+
 			bf.
-					append(' ').
 					append(e.getClassName()).
 					append('.').
 					append(e.getMethodName()).
@@ -102,9 +102,9 @@ public final class SlowTransactionLogger
 		return bf.length()!=0 ? bf.toString() : null;
 	}
 
-	private static final String FORMAT = "exceeds threshold id={} started={} {} inv={} pre={}({}) post={}({}) thread ";
-	private static final String FORMAT_THREAD = FORMAT + "id={} prio={} state={} {} stackTrace{}";
-	private static final String FORMAT_THREAD_NONE = FORMAT + "none";
+	private static final String FORMAT = "exceeds threshold id={} age={}ms name=\"{}\" inv={} pre={} predup={} post={} postdup={} "; // https://www.cloudbees.com/blog/logfmt-a-log-format-thats-easy-to-read-and-write
+	private static final String FORMAT_THREAD = FORMAT + "threadId={} prio={} state={} threadName=\"{}\" stackTrace=\"{}\"";
+	private static final String FORMAT_THREAD_NONE = FORMAT + "unbound";
 
 	public static final class Properties extends com.exedio.cope.util.Properties
 	{
