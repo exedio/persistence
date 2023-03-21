@@ -19,7 +19,6 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static java.time.ZoneOffset.UTC;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -37,8 +36,6 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.Sources;
 import java.time.Clock;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,15 +52,14 @@ public class SlowTransactionLoggerTest
 	{
 		final Thread t = Thread.currentThread();
 		final Transaction tx = MODEL.startTransaction("tx1Name");
-		final String startDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS").
-				format(LocalDateTime.ofInstant(tx.getStartDate().toInstant(), UTC));
+		final long txStart = tx.getStartDate().getTime();
 		now.override(EMPTY_PROPS.thresholdError);
 		final StackTraceElement[] stackTrace = run();
 		log.assertError(
 				"exceeds threshold " +
-				"id=" + tx.getID() + " started=" + startDate + " tx1Name inv=0 pre=0(0) post=0(0) " +
-				"thread id=" + t.getId() + " prio=" + t.getPriority() + " state=RUNNABLE " + t.getName() + " " +
-				"stackTrace" + SlowTransactionLogger.toString(stackTrace));
+				"id=" + tx.getID() + " age=" + (now.lastResult - txStart) + "ms name=\"tx1Name\" inv=0 pre=0 predup=0 post=0 postdup=0 " +
+				"threadId=" + t.getId() + " prio=" + t.getPriority() + " state=RUNNABLE threadName=\"" + t.getName() + "\" " +
+				"stackTrace=\"" + SlowTransactionLogger.toString(stackTrace) + "\"");
 
 		MODEL.commit();
 		run();
@@ -74,22 +70,21 @@ public class SlowTransactionLoggerTest
 	{
 		final Thread t = Thread.currentThread();
 		final Transaction tx = MODEL.startTransaction("tx2Name");
-		final String startDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS").
-				format(LocalDateTime.ofInstant(tx.getStartDate().toInstant(), UTC));
+		final long txStart = tx.getStartDate().getTime();
 		now.override(EMPTY_PROPS.thresholdWarn);
 		final StackTraceElement[] stackTrace = run();
 		log.assertWarn(
 				"exceeds threshold " +
-				"id=" + tx.getID() + " started=" + startDate + " tx2Name inv=0 pre=0(0) post=0(0) " +
-				"thread id=" + t.getId() + " prio=" + t.getPriority() + " state=RUNNABLE " + t.getName() + " " +
-				"stackTrace" + SlowTransactionLogger.toString(stackTrace));
+				"id=" + tx.getID() + " age=" + (now.lastResult - txStart) + "ms name=\"tx2Name\" inv=0 pre=0 predup=0 post=0 postdup=0 " +
+				"threadId=" + t.getId() + " prio=" + t.getPriority() + " state=RUNNABLE threadName=\"" + t.getName() + "\" " +
+				"stackTrace=\"" + SlowTransactionLogger.toString(stackTrace) + "\"");
 
 		assertSame(tx, MODEL.leaveTransaction());
 		run();
 		log.assertWarn(
 				"exceeds threshold " +
-				"id=" + tx.getID() + " started=" + startDate + " tx2Name inv=0 pre=0(0) post=0(0) " +
-				"thread none");
+				"id=" + tx.getID() + " age=" + (now.lastResult - txStart) + "ms name=\"tx2Name\" inv=0 pre=0 predup=0 post=0 postdup=0 " +
+				"unbound");
 
 		MODEL.joinTransaction(tx);
 		MODEL.commit();
@@ -101,6 +96,8 @@ public class SlowTransactionLoggerTest
 
 	public static final class NowClock extends HolderExtension<Clock>
 	{
+		long lastResult = -1;
+
 		public NowClock()
 		{
 			super(SlowTransactionLogger.now);
@@ -112,7 +109,8 @@ public class SlowTransactionLoggerTest
 			{
 				@Override public long millis()
 				{
-					return System.currentTimeMillis() + offset.toMillis();
+					lastResult = System.currentTimeMillis() + offset.toMillis();
+					return lastResult;
 				}
 			});
 		}
@@ -125,7 +123,7 @@ public class SlowTransactionLoggerTest
 		final LinkedList<StackTraceElement> result = new LinkedList<>(asList(original));
 		result.add(1, new StackTraceElement( // position 0 contains java.lang.Thread.getStackTrace(Thread.java:1602)
 				SlowTransactionLogger.class.getName(), "run",
-				SlowTransactionLogger.class.getSimpleName() + ".java", 74));
+				SlowTransactionLogger.class.getSimpleName() + ".java", 71));
 		return result.toArray(new StackTraceElement[]{});
 	}
 
