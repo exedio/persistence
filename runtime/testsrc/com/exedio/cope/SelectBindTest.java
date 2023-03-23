@@ -49,8 +49,7 @@ public class SelectBindTest extends TestWithEnvironment
 	{
 		{
 			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);
-			final Join j = q.join(TYPE);
-			j.setCondition(string.bind(j).greater(string));
+			q.join(TYPE, j -> string.bind(j).greater(string));
 			q.setOrderBy(string, false);
 			assertEquals(
 					"select string,intx from CompareConditionItem " +
@@ -65,7 +64,7 @@ public class SelectBindTest extends TestWithEnvironment
 		}
 		{
 			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);
-			final Join j = q.join(TYPE); j.setCondition(string.bind(j).greater(string));
+			final Join j = q.join(TYPE, join -> string.bind(join).greater(string));
 			q.setSelects(new Function<?>[]{string, intx, string.bind(j), intx.bind(j)});
 			q.setOrderBy(string, false);
 			assertEquals(
@@ -81,8 +80,8 @@ public class SelectBindTest extends TestWithEnvironment
 		}
 		{
 			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);
-			final Join j1 = q.join(TYPE); j1.setCondition(string.bind(j1).greater(string));
-			final Join j2 = q.join(TYPE); j2.setCondition(string.bind(j2).greater(string));
+			final Join j1 = q.join(TYPE, join -> string.bind(join).greater(string));
+			final Join j2 = q.join(TYPE, join -> string.bind(join).greater(string));
 			q.setSelects(new Function<?>[]{string, intx, string.bind(j1), intx.bind(j1), string.bind(j2), intx.bind(j2)});
 			q.setOrderBy(string, false);
 			assertEquals(

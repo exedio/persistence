@@ -130,12 +130,10 @@ public class MediaTest extends TestWithEnvironment
 
 		{
 			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(TYPE);
-			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
+			final Join join1 = query.join(TYPE, MediaItemHolder.mediaItem::equalTarget);
 			query.narrow( name.bind(join1).startsWith("other") );
 
-			final Join join2 = query.join(TYPE);
-			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
+			final Join join2 = query.join(TYPE, MediaItemHolder.mediaItem::equalTarget);
 			query.narrow( photo.isNull(join2) );
 
 			assertEquals( list(m2), query.search() );
@@ -143,12 +141,10 @@ public class MediaTest extends TestWithEnvironment
 
 		{
 			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(TYPE);
-			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
+			final Join join1 = query.join(TYPE, MediaItemHolder.mediaItem::equalTarget);
 			query.narrow( name.bind(join1).startsWith("other") );
 
-			final Join join2 = query.join(TYPE);
-			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
+			final Join join2 = query.join(TYPE, MediaItemHolder.mediaItem::equalTarget);
 			query.narrow( photo.isNotNull(join2) );
 
 			assertEquals( list(), query.search() );

@@ -509,12 +509,10 @@ public class CompositeFieldTest extends TestWithEnvironment
 
 		{
 			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(CompositeOptionalItem.TYPE);
-			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
+			final Join join1 = query.join(CompositeOptionalItem.TYPE, CompositeItemHolder.anItem::equalTarget);
 			query.narrow( uno.of(aString).bind(join1).startsWith( "uno1" ) );
 
-			final Join join2 = query.join(CompositeOptionalItem.TYPE);
-			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
+			final Join join2 = query.join(CompositeOptionalItem.TYPE, CompositeItemHolder.anItem::equalTarget);
 			query.narrow( duo.isNotNull(join2) );
 
 			assertTrue( query.search().isEmpty() );
