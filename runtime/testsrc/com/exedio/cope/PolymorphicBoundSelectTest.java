@@ -43,7 +43,7 @@ public class PolymorphicBoundSelectTest extends TestWithEnvironment
 			PolymorphicBoundSelectSubItem.TYPE,
 			null
 		);
-		final Join j = q.joinOuterLeft(PolymorphicBoundSelectSuperItem.TYPE, null);
+		final Join j = q.joinOuterLeft(PolymorphicBoundSelectSuperItem.TYPE, (Condition)null);
 		j.setCondition(PolymorphicBoundSelectSuperItem.parent.equalTarget(j));
 		q.setSelects(PolymorphicBoundSelectSubItem.TYPE.getThis(), PolymorphicBoundSelectSuperItem.parent.bind(j));
 		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent.bind(j));
@@ -60,7 +60,7 @@ public class PolymorphicBoundSelectTest extends TestWithEnvironment
 			PolymorphicBoundSelectSuperItem.TYPE,
 			null
 		);
-		final Join j = q.joinOuterLeft(PolymorphicBoundSelectSuperItem.TYPE, null);
+		final Join j = q.joinOuterLeft(PolymorphicBoundSelectSuperItem.TYPE, (Condition)null);
 		j.setCondition(PolymorphicBoundSelectSuperItem.parent.equalTarget(j));
 		q.setSelects(PolymorphicBoundSelectSuperItem.TYPE.getThis().bind(j), PolymorphicBoundSelectSuperItem.parent);
 		q.addOrderBy(PolymorphicBoundSelectSuperItem.parent);

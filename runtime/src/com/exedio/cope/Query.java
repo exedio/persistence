@@ -295,14 +295,39 @@ public final class Query<R> implements Serializable
 		return join(new Join(joinIndex++, Join.Kind.INNER, type, condition));
 	}
 
+	/**
+	 * Does an inner join with the given type, on the join condition produced by the given conditionFunction applied
+	 * to this join.
+	 */
+	public Join join(final Type<?> type, final java.util.function.Function<Join,Condition> conditionFunction)
+	{
+		final Join join = join(type);
+		join.setCondition(conditionFunction.apply(join));
+		return join;
+	}
+
 	public Join joinOuterLeft(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_LEFT, type, condition));
 	}
 
+	public Join joinOuterLeft(final Type<?> type, final java.util.function.Function<Join,Condition> conditionFunction)
+	{
+		final Join join = joinOuterLeft(type, (Condition)null);
+		join.setCondition(conditionFunction.apply(join));
+		return join;
+	}
+
 	public Join joinOuterRight(final Type<?> type, final Condition condition)
 	{
 		return join(new Join(joinIndex++, Join.Kind.OUTER_RIGHT, type, condition));
+	}
+
+	public Join joinOuterRight(final Type<?> type, final java.util.function.Function<Join,Condition> conditionFunction)
+	{
+		final Join join = joinOuterRight(type, (Condition)null);
+		join.setCondition(conditionFunction.apply(join));
+		return join;
 	}
 
 	public List<Join> getJoins()
