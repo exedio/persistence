@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* Query#join[OuterLeft|OuterRight](Type,Function<Join,Condition>) added
+	Code that calls Query#join[OuterLeft|OuterRight] and passes null as condition won't compile any more.
+		Join j = query.joinOuterLeft(TYPE, null);
+		j.setCondition(field.bind(j));
+	Easiest fix is to just add a cast to Condition:
+		Join j = query.joinOuterLeft(TYPE, (Condition)null);
+		j.setCondition(field.bind(j));
+	But in many cases you can make your code more readable by making use of the new methods:
+		query.joinOuterLeft(TYPE, j -> field.bind(j));
 * bugfix: Feature#getLocalizationKeys() fixes order of pattern source features.
 	So far, the order of localization keys was:
 		com.exedio.SomeComposite.someField

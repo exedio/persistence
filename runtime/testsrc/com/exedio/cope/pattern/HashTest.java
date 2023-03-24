@@ -325,12 +325,10 @@ public class HashTest extends TestWithEnvironment
 
 		{
 			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(TYPE);
-			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
+			final Join join1 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
 			query.narrow( implicitExternal.getStorage().bind(join1).isNull() );
 
-			final Join join2 = query.join(TYPE);
-			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
+			final Join join2 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
 			query.narrow( implicitExternal.isNull(join2) );
 
 			assertEquals( list(h1), query.search() );
@@ -338,12 +336,10 @@ public class HashTest extends TestWithEnvironment
 
 		{
 			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(TYPE);
-			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
+			final Join join1 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
 			query.narrow( implicitExternal.getStorage().bind(join1).isNotNull() );
 
-			final Join join2 = query.join(TYPE);
-			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
+			final Join join2 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
 			query.narrow( implicitExternal.isNotNull(join2) );
 
 			assertEquals( list(h2), query.search() );

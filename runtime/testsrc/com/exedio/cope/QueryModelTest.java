@@ -242,6 +242,30 @@ public class QueryModelTest
 		assertEquals("select this from AnItem", q.toString());
 	}
 
+	@Test void joinConditionFunction()
+	{
+		final Query<AnItem> q = TYPE.newQuery(null);
+		final Join join = q.join(TYPE, j -> field1.equal(field1.bind(j)));
+		assertEquals(Join.Kind.INNER, join.getKind());
+		assertEquals(field1.equal(field1.bind(join)), join.getCondition());
+	}
+
+	@Test void joinOuterLeftConditionFunction()
+	{
+		final Query<AnItem> q = TYPE.newQuery(null);
+		final Join join = q.joinOuterLeft(TYPE, j -> field1.equal(field1.bind(j)));
+		assertEquals(Join.Kind.OUTER_LEFT, join.getKind());
+		assertEquals(field1.equal(field1.bind(join)), join.getCondition());
+	}
+
+	@Test void joinOuterRightConditionFunction()
+	{
+		final Query<AnItem> q = TYPE.newQuery(null);
+		final Join join = q.joinOuterRight(TYPE, j -> field1.equal(field1.bind(j)));
+		assertEquals(Join.Kind.OUTER_RIGHT, join.getKind());
+		assertEquals(field1.equal(field1.bind(join)), join.getCondition());
+	}
+
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{

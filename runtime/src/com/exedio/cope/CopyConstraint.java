@@ -196,8 +196,7 @@ public final class CopyConstraint extends Feature
 	Query<?> checkQuery()
 	{
 		final Query<?> q = getType().newQuery();
-		final Join j = q.join(target.getValueType());
-		j.setCondition(target.equalTarget(j));
+		final Join j = q.join(target.getValueType(), target::equalTarget);
 		q.setCondition(notEqual(copy, getTemplate().bind(j)));
 		return q;
 	}
