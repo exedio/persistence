@@ -59,11 +59,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 	final long pk;
 
 	/**
-	 * Returns a string unique for this item in all other items of the model.
-	 * For any item {@code a</tt> in its model <tt>m}
+	 * Returns a string unique for this item among all other items of the model.
+	 * For any item {@code a} in its model {@code m}
 	 * the following holds true:
 	 * {@code a.equals(m.getItem(a.getCopeID()).}
-	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
 	 * @see Model#getItem(String)
 	 */
