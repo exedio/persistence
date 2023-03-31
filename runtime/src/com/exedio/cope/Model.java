@@ -573,7 +573,6 @@ public final class Model implements Serializable
 
 	/**
 	 * Returns the item with the given ID.
-	 * Always returns {@link Item#activeCopeItem() active} objects.
 	 * @see Item#getCopeID()
 	 * @throws NoSuchIDException if there is no item with the given id.
 	 */
