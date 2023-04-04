@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.util.Check.requireAtLeast;
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.lang.Math.subtractExact;
 import static java.time.Duration.ofSeconds;
 import static java.util.Objects.requireNonNull;
@@ -108,8 +110,8 @@ public final class SlowTransactionLogger
 
 	public static final class Properties extends com.exedio.cope.util.Properties
 	{
-		final Duration thresholdWarn  = value("threshold.warn",  ofSeconds(10), Duration.ZERO);
-		final Duration thresholdError = value("threshold.error", max(ofSeconds(30), thresholdWarn), thresholdWarn);
+		final Duration thresholdWarn;
+		final Duration thresholdError;
 
 		private static Duration max(final Duration a, final Duration b)
 		{
@@ -118,12 +120,41 @@ public final class SlowTransactionLogger
 
 		public static Factory<Properties> factory()
 		{
-			return Properties::new;
+			return new F(ofSeconds(10), ofSeconds(30));
 		}
 
-		private Properties(final Source source)
+		public static Factory<Properties> factory(
+				final Duration thresholdWarnDefault,
+				final Duration thresholdErrorDefault)
+		{
+			return new F(thresholdWarnDefault, thresholdErrorDefault);
+		}
+
+		private Properties(final Source source, final F factory)
 		{
 			super(source);
+			thresholdWarn  = value("threshold.warn",  factory.thresholdWarnDefault, Duration.ZERO);
+			thresholdError = value("threshold.error", max(factory.thresholdErrorDefault, thresholdWarn), thresholdWarn);
+		}
+
+		private static final class F implements Factory<Properties>
+		{
+			final Duration thresholdWarnDefault;
+			final Duration thresholdErrorDefault;
+
+			F(
+					final Duration thresholdWarnDefault,
+					final Duration thresholdErrorDefault)
+			{
+				this.thresholdWarnDefault = requireNonNegative(thresholdWarnDefault,  "thresholdWarnDefault");
+				this.thresholdErrorDefault = requireAtLeast(thresholdErrorDefault, "thresholdErrorDefault", thresholdWarnDefault);
+			}
+
+			@Override
+			public Properties create(final Source source)
+			{
+				return new Properties(source, this);
+			}
 		}
 	}
 

@@ -123,7 +123,7 @@ public class SlowTransactionLoggerTest
 		final LinkedList<StackTraceElement> result = new LinkedList<>(asList(original));
 		result.add(1, new StackTraceElement( // position 0 contains java.lang.Thread.getStackTrace(Thread.java:1602)
 				SlowTransactionLogger.class.getName(), "run",
-				SlowTransactionLogger.class.getSimpleName() + ".java", 71));
+				SlowTransactionLogger.class.getSimpleName() + ".java", 73));
 		return result.toArray(new StackTraceElement[]{});
 	}
 

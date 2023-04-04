@@ -22,6 +22,7 @@ import static com.exedio.cope.misc.SlowTransactionLogger.run;
 import static com.exedio.cope.misc.SlowTransactionLoggerTest.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
+import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -100,5 +101,61 @@ public class SlowTransactionLoggerUnconnectedTest
 				"in threshold.warn=PT34S / threshold.error=PT33S " +
 				"must be a duration greater or equal PT34S, " +
 				"but was PT33S");
+	}
+	@Test void factoryNormal()
+	{
+		final Properties p =  Properties.factory(ofSeconds(33), ofSeconds(44)).create(Sources.EMPTY);
+		assertEquals(ofSeconds(33), p.thresholdWarn);
+		assertEquals(ofSeconds(44), p.thresholdError);
+	}
+	@Test void factorySame()
+	{
+		final Properties p =  Properties.factory(ofSeconds(33), ofSeconds(33)).create(Sources.EMPTY);
+		assertEquals(ofSeconds(33), p.thresholdWarn);
+		assertEquals(ofSeconds(33), p.thresholdError);
+	}
+	@Test void factoryMinimum()
+	{
+		final Properties p =  Properties.factory(ofSeconds(0), ofSeconds(0)).create(Sources.EMPTY);
+		assertEquals(ofSeconds(0), p.thresholdWarn);
+		assertEquals(ofSeconds(0), p.thresholdError);
+	}
+	@Test void factoryWarnNull()
+	{
+		assertFails(
+				() -> Properties.factory(null, null),
+				NullPointerException.class,
+				"thresholdWarnDefault");
+	}
+	@Test void factoryErrorNull()
+	{
+		assertFails(
+				() -> Properties.factory(ofSeconds(33), null),
+				NullPointerException.class,
+				"thresholdErrorDefault");
+	}
+	@Test void factoryWarnNegative()
+	{
+		assertFails(
+				() -> Properties.factory(ofMillis(-1), null),
+				IllegalArgumentException.class,
+				"thresholdWarnDefault must not be negative, " +
+				"but was PT-0.001S");
+	}
+	@Test void factoryErrorNegative()
+	{
+		assertFails(
+				() -> Properties.factory(ofSeconds(33), ofMillis(-1)),
+				IllegalArgumentException.class,
+				"thresholdErrorDefault must be at least PT33S, " +
+				"but was PT-0.001S");
+	}
+	@Test void factoryInvalid()
+	{
+		assertFails(
+				() -> Properties.factory(ofSeconds(33), ofSeconds(32)),
+				IllegalArgumentException.class,
+				"thresholdErrorDefault must be at least PT33S, " +
+				"but was PT32S");
 	}
 }
