@@ -48,6 +48,14 @@ public class SlowTransactionLoggerUnconnectedTest
 				NullPointerException.class,
 				"properties");
 	}
+	@Test void suppressedNull()
+	{
+		final Properties p =  Properties.factory().create(Sources.EMPTY);
+		assertFails(
+				() -> run(MODEL, p, null),
+				NullPointerException.class,
+				"suppressed");
+	}
 	@Test void normal()
 	{
 		run(MODEL, Properties.factory().create(Sources.EMPTY));

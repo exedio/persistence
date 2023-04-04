@@ -29,6 +29,7 @@ import com.exedio.cope.Transaction;
 import java.time.Clock;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +39,21 @@ public final class SlowTransactionLogger
 			final Model model,
 			final Properties properties)
 	{
+		run(model, properties, tx -> false);
+	}
+
+	/**
+	 * @param suppressed
+	 * May be used to omit certain transactions from consideration for logging.
+	 */
+	public static void run(
+			final Model model,
+			final Properties properties,
+			final Predicate<Transaction> suppressed)
+	{
 		requireNonNull(model, "model");
 		requireNonNull(properties, "properties");
+		requireNonNull(suppressed, "suppressed");
 
 		if(!logger.isErrorEnabled())
 			return;
@@ -56,6 +70,9 @@ public final class SlowTransactionLogger
 			final long start = tx.getStartDate().getTime();
 			if(start<=thresholdWarn)
 			{
+				if(suppressed.test(tx))
+					continue;
+
 				final Thread t = tx.getBoundThread();
 				final long age = date - start;
 				final String format = t==null ? FORMAT_THREAD_NONE : FORMAT_THREAD;
