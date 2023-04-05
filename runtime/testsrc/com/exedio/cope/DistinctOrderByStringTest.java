@@ -50,24 +50,7 @@ final class DistinctOrderByStringTest extends TestWithEnvironment
 	{
 		final Query<MyItem> query = createQuery();
 		query.addOrderBy(text.toUpperCase());
-		final EnvironmentInfo env = model.getEnvironmentInfo();
-		switch(dialect)
-		{
-			case hsqldb:
-				notAllowed(query, s -> s.startsWith("invalid ORDER BY expression"));
-				break;
-			case mysql:
-				if(env.isDatabaseVersionAtLeast(5, 7))
-					notAllowed(query, s -> s.contains("ORDER BY clause is not in SELECT list"));
-				else
-					assertEquals(List.of(a, b), query.search());
-				break;
-			case postgresql:
-				notAllowed(query, s -> s.contains("SELECT DISTINCT, ORDER BY expressions"));
-				break;
-			default:
-				throw new RuntimeException(dialect.name());
-		}
+		assertEquals(List.of(a, b), query.search());
 	}
 
 	@Nonnull

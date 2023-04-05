@@ -395,10 +395,11 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"select distinct this from PlusIntegerItem " +
 				"order by plus(numA,numB)",
 				query.toString());
+		final boolean selectPlus = !(mysql && model.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 7));
 		assertEquals(
-				"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+				"SELECT DISTINCT " + SI.pk(TYPE) + (selectPlus ? (",(" + SI.col(numA) + "+" + SI.col(numB) + ")") : "") + " " +
 				"FROM " + SI.tab(TYPE) + " " +
-				"ORDER BY (" + SI.col(numA) + "+" + SI.col(numB) + ")"+NULLS_FIRST,
+				"ORDER BY " + ANY_VALUE("(" + SI.col(numA) + "+" + SI.col(numB) + ")") + NULLS_FIRST,
 				SchemaInfo.search(query));
 		assertEquals(
 				"SELECT COUNT(*) FROM ( " +
@@ -415,36 +416,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
-
-		final EnvironmentInfo env = model.getEnvironmentInfo();
-		switch(dialect)
-		{
-			case hsqldb:
-				notAllowed(query,
-						"invalid ORDER BY expression" +
-						ifPrep(
-								" in statement [" +
-								"SELECT DISTINCT " + SI.pk(TYPE) + " " +
-								"FROM " + SI.tab(TYPE) + " " +
-								"ORDER BY (" + SI.col(numA) + "+" + SI.col(numB) + ")]"));
-				break;
-			case mysql:
-				if(env.isDatabaseVersionAtLeast(5, 7))
-					notAllowed(query,
-							"Expression #1 of ORDER BY clause is not in SELECT list, " +
-							"references column '" + env.getCatalog() + ".PlusIntegerItem.numA' which is not in SELECT list; " +
-							"this is incompatible with DISTINCT");
-				else
-					assertContains(item2, item3, item1, query.search());
-				break;
-			case postgresql:
-				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
-						postgresqlPosition(57));
-				break;
-			default:
-				throw new RuntimeException(dialect.name());
-		}
+		assertContains(item2, item3, item1, query.search());
 	}
 
 	@Test void testDistinctOrderByJoinedPlus()

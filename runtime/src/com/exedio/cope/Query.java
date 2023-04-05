@@ -1445,9 +1445,20 @@ public final class Query<R> implements Serializable
 
 	private boolean isOrderByDependent(final Selectable<?> selectable)
 	{
-		return
-				selectable instanceof FunctionField && // TODO could be broader, same join as select
-				selectable.getType()==type;
+		if (selectable instanceof FunctionField) // TODO could be broader, same join as select
+		{
+			return selectable.getType()==type;
+		}
+		else if (selectable instanceof View)
+		{
+			for(final Function<?> source : ((View<?>) selectable).getSources())
+			{
+				if (!isOrderByDependent(source))
+					return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 
