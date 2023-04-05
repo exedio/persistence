@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.GroupByTest.postgresqlPosition;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
+import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.numC;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
@@ -378,6 +379,137 @@ public class DistinctOrderByTest extends TestWithEnvironment
 			case postgresql:
 				notAllowedStartsWith(query,
 						"ERROR: function any_value(integer) does not exist\n");
+				break;
+			default:
+				throw new RuntimeException(dialect.name());
+		}
+	}
+
+	@Test void testDistinctOrderByPlus()
+	{
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		query.setDistinct(true);
+		query.setOrderBy(numA.plus(numB), true);
+
+		assertEquals(
+				"select distinct this from PlusIntegerItem " +
+				"order by plus(numA,numB)",
+				query.toString());
+		assertEquals(
+				"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " +
+				"ORDER BY (" + SI.col(numA) + "+" + SI.col(numB) + ")"+NULLS_FIRST,
+				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) FROM ( " +
+				"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " +
+				")" + cope_total_distinct,
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+						"SELECT " + SI.pk(TYPE) + " " +
+						"FROM " + SI.tab(TYPE)
+				),
+				SchemaInfo.exists(query));
+
+		assertEquals(3, query.total());
+		assertTrue(query.exists());
+
+		final EnvironmentInfo env = model.getEnvironmentInfo();
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowed(query,
+						"invalid ORDER BY expression" +
+						ifPrep(
+								" in statement [" +
+								"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+								"FROM " + SI.tab(TYPE) + " " +
+								"ORDER BY (" + SI.col(numA) + "+" + SI.col(numB) + ")]"));
+				break;
+			case mysql:
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					notAllowed(query,
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + env.getCatalog() + ".PlusIntegerItem.numA' which is not in SELECT list; " +
+							"this is incompatible with DISTINCT");
+				else
+					assertContains(item2, item3, item1, query.search());
+				break;
+			case postgresql:
+				notAllowed(query,
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
+						postgresqlPosition(57));
+				break;
+			default:
+				throw new RuntimeException(dialect.name());
+		}
+	}
+
+	@Test void testDistinctOrderByJoinedPlus()
+	{
+		// must not add any() if the order-by-view includes a joined field
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
+		query.setDistinct(true);
+		query.setOrderBy(numA.plus(numB.bind(join)), true);
+
+		assertEquals(
+				"select distinct this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 " +
+				"order by plus(numA,p1.numB)",
+				query.toString());
+		assertEquals(
+				"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+				"cross join " + SI.tab(TYPE) + " PlusIntegerItem1 " +
+				"ORDER BY (PlusIntegerItem0." + SI.col(numA) + "+PlusIntegerItem1." + SI.col(numB) + ")"+NULLS_FIRST,
+				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) FROM ( " +
+				"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+				"cross join " + SI.tab(TYPE) + " PlusIntegerItem1 " +
+				")" + cope_total_distinct,
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+						"SELECT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+						"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+						"cross join " + SI.tab(TYPE) + " PlusIntegerItem1"
+				),
+				SchemaInfo.exists(query));
+
+		assertEquals(3, query.total());
+		assertTrue(query.exists());
+
+		final EnvironmentInfo env = model.getEnvironmentInfo();
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowed(query,
+						"invalid ORDER BY expression" +
+						ifPrep(
+								" in statement [" +
+								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+								"cross join " + SI.tab(TYPE) + " PlusIntegerItem1 " +
+								"ORDER BY (PlusIntegerItem0." + SI.col(numA) + "+PlusIntegerItem1." + SI.col(numB) + ")]"));
+				break;
+			case mysql:
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					notAllowed(query,
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + env.getCatalog() + ".PlusIntegerItem0.numA' which is not in SELECT list; " +
+							"this is incompatible with DISTINCT");
+				else
+					assertContains(item2, item3, item1, query.search());
+				break;
+			case postgresql:
+				notAllowed(query,
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
+						postgresqlPosition(137));
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
