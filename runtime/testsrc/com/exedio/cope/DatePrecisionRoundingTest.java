@@ -356,6 +356,5 @@ public class DatePrecisionRoundingTest
 		assertEquals(1409234400000l, df.parse("2014-08-28 16:00:00.000").getTime());
 		// leap second on June 30th, 2015
 		assertEquals(1440770400000l, df.parse("2015-08-28 16:00:00.000").getTime());
-		assertEquals(DateField.Precision.HOUR, DateField.Precision.HOUR);
 	}
 }

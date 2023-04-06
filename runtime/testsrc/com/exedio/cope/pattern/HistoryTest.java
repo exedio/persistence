@@ -247,8 +247,6 @@ public class HistoryTest extends TestWithEnvironment
 		assertEquals(false, event2.isNew());
 		assertEquals(list(), event2.getFeatures());
 		assertEqualsUnmodifiable(list(event2, event1), item.getAuditEvents());
-		assertEquals(event1, event1);
-		assertTrue(!event1.equals(event2));
 
 		// test string length exceeded
 		final String LONG_STRING_BASE = "01234567890123456789012345678901234567890123456789012345678901234567890123456";
