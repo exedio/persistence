@@ -87,6 +87,7 @@ public final class VaultFileToTrail
 				args.length>2 ? parseInt(args[2]) : defaultProvider.startLimit);
 	}
 
+	@SuppressWarnings("ConfusingMainMethod")
 	private static void main(
 			final PrintStream out,
 			final PrintStream err,
