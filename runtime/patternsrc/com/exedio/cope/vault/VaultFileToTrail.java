@@ -176,7 +176,7 @@ public final class VaultFileToTrail
 				{
 					final int result = in.read(start);
 					if(result!=start.length)
-						throw new IllegalStateException("" + result + '/' + start.length + '/' + file.toAbsolutePath());
+						throw new IllegalStateException(result + "/" + start.length + '/' + file.toAbsolutePath());
 				}
 
 				out.println(

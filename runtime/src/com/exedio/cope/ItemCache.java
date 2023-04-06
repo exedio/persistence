@@ -67,7 +67,7 @@ final class ItemCache
 
 			final Type<?> type = stats.type;
 			if(type.cacheIdTransiently!=i)
-				throw new RuntimeException("" + type.cacheIdTransiently + '/' + type.id + '/' + i);
+				throw new RuntimeException(type.cacheIdTransiently + "/" + type.id + '/' + i);
 		}
 
 		map = new LRUMap<>(limit, eldest ->

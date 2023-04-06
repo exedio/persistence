@@ -200,7 +200,7 @@ class ClassVisitor extends GeneratedAwareScanner
 
 	private void addGeneratedFragment(final int start, final int end)
 	{
-		if (start<previousGeneratedFragmentEnd) throw new RuntimeException(""+start+"<"+previousGeneratedFragmentEnd);
+		if (start<previousGeneratedFragmentEnd) throw new RuntimeException(start+"<"+previousGeneratedFragmentEnd);
 		final int realStart=Math.max(previousGeneratedFragmentEnd, includeLeadingWhitespaceLine(start, true));
 		final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
 		final int realEnd;

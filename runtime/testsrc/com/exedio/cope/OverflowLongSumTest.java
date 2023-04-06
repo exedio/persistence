@@ -151,7 +151,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 						expectedArithmeticException = "Bad value for type long : " + expected;
 						break;
 					default:
-						throw new RuntimeException("" + dialect, e);
+						throw new RuntimeException(String.valueOf(dialect), e);
 				}
 
 				assertEquals(expectedArithmeticException, e.getCause().getMessage());

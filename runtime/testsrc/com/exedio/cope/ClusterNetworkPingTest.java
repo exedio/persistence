@@ -243,12 +243,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 						"model", expectedLocalModel.toString(),
 						"id", actual.getIDString(),
 						"address", actual.getAddress().toString(),
-						"port", "" + actual.getPort()))).count());
+						"port", String.valueOf(actual.getPort())))).count());
 	}
 
 	private static void assertLessOrEqual(final long a, final long b)
 	{
-		assertTrue(a<=b, "" + a + "<=" + b);
+		assertTrue(a<=b, a + "<=" + b);
 	}
 
 	static double count(final String nameSuffix, final Model model)
@@ -303,7 +303,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 						"model", listenModel.toString(),
 						"id", sendInfo.getNodeIDString(),
 						"address", localhost,
-						"port", "" + sendInfo.getLocalPort(),
+						"port", String.valueOf(sendInfo.getLocalPort()),
 						"kind", kind));
 	}
 }

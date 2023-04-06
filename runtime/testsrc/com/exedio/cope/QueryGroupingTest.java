@@ -184,7 +184,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 				break;
 			}
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 

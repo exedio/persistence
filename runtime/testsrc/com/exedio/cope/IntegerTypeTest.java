@@ -313,7 +313,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					expectedDataType = expectedPostgresqlDataType;
 				break;
 				default:
-					throw new RuntimeException("" + dialect);
+					throw new RuntimeException(String.valueOf(dialect));
 			}
 
 			assertEquals(

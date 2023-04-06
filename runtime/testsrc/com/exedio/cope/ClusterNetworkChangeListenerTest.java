@@ -156,7 +156,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertEquals(expectedTransaction.getName(), event.getTransactionName());
 			assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
 			assertTrue(event.getTransactionDuration().compareTo(Duration.ZERO) > 0);
-			assertEquals("" + expectedItems + ' ' + expectedTransaction.getID() + " ClusterNetworkChangeListenerTest#transactionA", event.toString());
+			assertEquals(expectedItems + " " + expectedTransaction.getID() + " ClusterNetworkChangeListenerTest#transactionA", event.toString());
 			assertNull(expectedTransaction.getBoundThread());
 			assertTrue(expectedTransaction.isClosed());
 

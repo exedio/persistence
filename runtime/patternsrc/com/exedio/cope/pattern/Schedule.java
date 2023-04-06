@@ -439,7 +439,7 @@ public final class Schedule extends Pattern
 		assert !now.isBefore(until);
 		assert count>0 : count;
 		assert total>0 : total;
-		assert count<=total : "" + count + '/' + total;
+		assert count<=total : count + "/" + total;
 
 		deferOrStopIfRequested(ctx);
 		{

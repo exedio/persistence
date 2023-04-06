@@ -114,6 +114,6 @@ final class Trimmer
 	@Override
 	public String toString()
 	{
-		return "" + maxLength;
+		return String.valueOf(maxLength);
 	}
 }

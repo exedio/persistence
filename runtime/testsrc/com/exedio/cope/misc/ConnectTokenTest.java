@@ -105,7 +105,7 @@ public class ConnectTokenTest
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", false, true, false, token0);
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0(token0Name)", token0.toString());
-		log.assertInfo("" + model + ": connected 0 (token0Name)");
+		log.assertInfo(model + ": connected 0 (token0Name)");
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = issue(model,
@@ -117,7 +117,7 @@ public class ConnectTokenTest
 		assertEqualsUnmodifiable(list(token0, token1), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
-		log.assertInfo("" + model + ": issued 1 (token1Name)");
+		log.assertInfo(model + ": issued 1 (token1Name)");
 
 		final Date before2 = new Date();
 		final ConnectToken token2 = issueIfConnected(model, "token2Name");
@@ -129,7 +129,7 @@ public class ConnectTokenTest
 		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
 		assertToken(2, before2, after2, "token2Name", true,  false, false, token2);
-		log.assertInfo("" + model + ": issued conditionally 2 (token2Name)");
+		log.assertInfo(model + ": issued conditionally 2 (token2Name)");
 
 		assertEquals(false, token0.returnStrictly());
 		assertTrue(model.isConnected());
@@ -139,7 +139,7 @@ public class ConnectTokenTest
 		assertToken(0, before0, after0, "token0Name", false, true,  true,  token0);
 		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
 		assertToken(2, before2, after2, "token2Name", true,  false, false, token2);
-		log.assertInfo("" + model + ": returned 0 (token0Name)");
+		log.assertInfo(model + ": returned 0 (token0Name)");
 
 		assertEquals(false, token2.returnStrictly());
 		assertTrue(model.isConnected());
@@ -149,14 +149,14 @@ public class ConnectTokenTest
 		assertToken(0, before0, after0, "token0Name", false, true,  true,  token0);
 		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
 		assertToken(2, before2, after2, "token2Name", true,  false, true,  token2);
-		log.assertInfo("" + model + ": returned 2 (token2Name)");
+		log.assertInfo(model + ": returned 2 (token2Name)");
 
 		assertEquals(true, token1.returnStrictly());
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
 		assertToken(2, before2, after2, "token2Name", true,  false, true,  token2);
-		log.assertInfo("" + model + ": disconnected 1 (token1Name)");
+		log.assertInfo(model + ": disconnected 1 (token1Name)");
 
 		try
 		{
@@ -198,7 +198,7 @@ public class ConnectTokenTest
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", false, true, false, token0);
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0(token0Name)", token0.toString());
-		log.assertInfo("" + model + ": connected 0 (token0Name)");
+		log.assertInfo(model + ": connected 0 (token0Name)");
 
 		final Date before1 = new Date();
 		final ConnectToken token1 = issue(model,
@@ -210,31 +210,31 @@ public class ConnectTokenTest
 		assertEqualsUnmodifiable(list(token0, token1), getTokens(model));
 		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, false, token1);
-		log.assertInfo("" + model + ": issued 1 (token1Name)");
+		log.assertInfo(model + ": issued 1 (token1Name)");
 
 		assertEquals(false, token1.returnItConditionally());
 		assertTrue(model.isConnected());
 		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true,  token1);
-		log.assertInfo("" + model + ": returned 1 (token1Name)");
+		log.assertInfo(model + ": returned 1 (token1Name)");
 
 		assertEquals(false, token1.returnItConditionally());
 		assertTrue(model.isConnected());
 		assertToken(0, before0, after0, "token0Name", false, true,  false, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true,  token1);
-		log.assertWarn("" + model + ": returned 1 excessively (token1Name)");
+		log.assertWarn(model + ": returned 1 excessively (token1Name)");
 
 		assertEquals(true, token0.returnItConditionally());
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
-		log.assertInfo("" + model + ": disconnected 0 (token0Name)");
+		log.assertInfo(model + ": disconnected 0 (token0Name)");
 
 		assertEquals(false, token0.returnItConditionally());
 		assertNotConnected();
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
-		log.assertWarn("" + model + ": returned 0 excessively (token0Name)");
+		log.assertWarn(model + ": returned 0 excessively (token0Name)");
 	}
 
 	@Test void testReturnOnFailureOfOk()
@@ -418,12 +418,12 @@ public class ConnectTokenTest
 		assertEqualsUnmodifiable(list(token0), getTokens(model));
 		assertToken(0, before0, after0, null, false, true, false, token0);
 		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0", token0.toString());
-		log.assertInfo("" + model + ": connected 0 (null)");
+		log.assertInfo(model + ": connected 0 (null)");
 
 		assertEquals(true, token0.returnStrictly());
 		assertNotConnected();
 		assertToken(0, before0, after0, null, false, true,  true, token0);
-		log.assertInfo("" + model + ": disconnected 0 (null)");
+		log.assertInfo(model + ": disconnected 0 (null)");
 	}
 
 	@Test void testSetDuplicate()

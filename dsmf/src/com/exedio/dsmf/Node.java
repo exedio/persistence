@@ -193,7 +193,7 @@ public abstract class Node
 			this.cumulativeColor = cumulativeColor;
 
 			if(particularColor.ordinal()>cumulativeColor.ordinal())
-				throw new IllegalArgumentException("" + particularColor + '>' + cumulativeColor);
+				throw new IllegalArgumentException(particularColor + ">" + cumulativeColor);
 		}
 
 		private Result(

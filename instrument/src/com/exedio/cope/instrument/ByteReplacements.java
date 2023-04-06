@@ -139,7 +139,7 @@ final class ByteReplacements
 
 		Replacement(final int startInclusive, final int endExclusive, final byte[] replacementBytes)
 		{
-			if (startInclusive<0 || startInclusive>endExclusive) throw new RuntimeException("" + startInclusive + '-' + endExclusive);
+			if (startInclusive<0 || startInclusive>endExclusive) throw new RuntimeException(startInclusive + "-" + endExclusive);
 			this.startInclusive=startInclusive;
 			this.endExclusive=endExclusive;
 			this.replacementBytes=replacementBytes;

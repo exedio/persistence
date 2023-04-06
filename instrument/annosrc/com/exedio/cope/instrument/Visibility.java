@@ -62,7 +62,7 @@ public enum Visibility
 			case PROTECTED: return Modifier.PROTECTED;
 			case PUBLIC:    return Modifier.PUBLIC;
 			default:
-				throw new RuntimeException("" + this);
+				throw new RuntimeException(String.valueOf(this));
 		}
 	}
 }

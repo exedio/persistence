@@ -254,7 +254,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
 		if(offset!=null)
-			source.setProperty("media.fingerprintOffset", "" + offset);
+			source.setProperty("media.fingerprintOffset", String.valueOf(offset));
 		return Sources.view(source , "MediaUrlFingerOffsetPropertiesTest");
 	}
 }

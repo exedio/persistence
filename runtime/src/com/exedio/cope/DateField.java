@@ -283,7 +283,7 @@ public final class DateField extends FunctionField<Date>
 		String sql()
 		{
 			if(sql==null)
-				throw new IllegalArgumentException("" + this);
+				throw new IllegalArgumentException(String.valueOf(this));
 
 			return sql;
 		}

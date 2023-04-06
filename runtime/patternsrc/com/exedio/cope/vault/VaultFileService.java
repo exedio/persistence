@@ -320,7 +320,7 @@ public final class VaultFileService implements VaultService
 
 	private RuntimeException wrap(final String hash, final IOException exception)
 	{
-		throw new RuntimeException("" + contentDir.toAbsolutePath() + ':' + anonymiseHash(hash), exception);
+		throw new RuntimeException(contentDir.toAbsolutePath() + ":" + anonymiseHash(hash), exception);
 	}
 
 

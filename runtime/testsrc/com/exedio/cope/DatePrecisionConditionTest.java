@@ -129,7 +129,7 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 
 	private static int less(final int limit, final int value)
 	{
-		assertTrue(value<limit, "" + value + " " + limit);
+		assertTrue(value<limit, value + " " + limit);
 		return value;
 	}
 
