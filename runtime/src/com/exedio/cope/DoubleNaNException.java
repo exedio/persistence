@@ -23,7 +23,7 @@ import com.exedio.cope.instrument.ConstructorComment;
 /**
  * Signals, that an attempt to write an {@link DoubleField} has been failed,
  * because the value to be written is an {@link Double#isNaN() NaN}.
- *
+ * <p>
  * This exception will be thrown by {@link FunctionField#set(Item,Object)}
  * and item constructors.
  *

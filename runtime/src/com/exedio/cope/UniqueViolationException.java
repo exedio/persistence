@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Signals, that an attempt to write an field has been failed,
  * and the value to be set violated a unique constraint.
- *
+ * <p>
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
  * and item constructors
  * if that field is covered by a {@link UniqueConstraint unique constraint}

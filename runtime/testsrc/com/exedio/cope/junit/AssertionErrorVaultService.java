@@ -33,7 +33,7 @@ import java.nio.file.Path;
  * An implementation of {@link VaultService} where
  * all methods do fail with an
  * {@link AssertionError}.
- *
+ * <p>
  * You may want to subclass this class instead of
  * implementing {@link VaultService} directly
  * to make your subclass cope with new methods

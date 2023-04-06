@@ -236,7 +236,7 @@ public final class Model implements Serializable
 
 	/**
 	 * If this method returns successfully, the model's revisions (if any) have been executed.
-	 *
+	 * <p>
 	 * Automatic execution of revisions is controlled by connect property revise.auto.enabled.
 	 * This method will throw an exception if auto-revisions are not enabled and revisions are pending.
 	 */

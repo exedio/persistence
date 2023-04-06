@@ -26,11 +26,11 @@ import java.lang.annotation.Target;
 
 /**
  * Sets a lower limit for the length of the type column.
- *
+ * <p>
  * In general the length of the type column is determined from the longest
  * possible value in the type column. This annotation overrides this
  * for a longer length.
- *
+ * <p>
  * Setting this length may help you to avoid schema changes.
  *
  * @see SchemaInfo#getTypeColumnValue(Type)

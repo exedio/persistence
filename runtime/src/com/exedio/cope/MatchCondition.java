@@ -24,11 +24,11 @@ import java.util.function.Consumer;
 
 /**
  * A condition matching a fulltext index. EXPERIMENTAL!!!
- *
+ * <p>
  * Cope has no support for creating fulltext indexes
  * together with the schema yet,
  * so you have to do this manually.
- *
+ * <p>
  * MySQL: create fulltext index index_name on table_name (column_name)
  *
  * @author Ralf Wiebicke

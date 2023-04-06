@@ -21,7 +21,7 @@ package com.exedio.cope;
 /**
  * Signals, that an attempt to use a {@link Query} failed,
  * because some part of the query is not supported by the current database.
- *
+ * <p>
  * This exception will be thrown by
  * {@link Query#search()}, {@link Query#total()},
  * {@link SchemaInfo#search(Query)}, and {@link SchemaInfo#total(Query)}.

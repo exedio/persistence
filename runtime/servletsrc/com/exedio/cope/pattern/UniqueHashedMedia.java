@@ -86,7 +86,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 
 	/**
 	 * Creates a new HashedMedia on the given media template.
-	 *
+	 * <p>
 	 * Note: given media template must be mandatory
 	 */
 	public UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)

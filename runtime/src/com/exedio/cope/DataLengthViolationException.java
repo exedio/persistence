@@ -21,7 +21,7 @@ package com.exedio.cope;
 /**
  * Signals, that an attempt to write a {@link DataField data field} has been failed,
  * because value to be written violated the length constraint on that field.
- *
+ * <p>
  * This exception will be thrown by {@link DataField#set(Item,byte[])} etc.
  * and item constructors.
  *

@@ -300,7 +300,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	/**
 	 * NOT EQUAL Condition.
-	 *
+	 * <p>
 	 * Note: according to SQL, a NULL value is evaluated to unknown, so a NOT EQUAL using a non null RHS is false for null values
 	 */
 	@Override

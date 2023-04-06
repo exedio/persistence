@@ -21,7 +21,7 @@ package com.exedio.cope;
 /**
  * Signals, that an attempt to find an item by its ID has been failed,
  * because there is no item with such an ID.
- *
+ * <p>
  * This exception will be thrown by {@link Model#getItem(String) Model.getItem},
  * if there is no item with the given ID.
  *

@@ -57,7 +57,7 @@ final class PostgresqlProperties extends Properties
 	 * Requires pgcrypto extension in the schema set in this property.
 	 * Set to {@code <disabled>}, if pgcrypto extension should not be required.
 	 * Then cope will just support MD5.
-	 *
+	 * <p>
 	 * To enable pgcrypto do
 	 * <pre>
 	 * sudo su - postgres

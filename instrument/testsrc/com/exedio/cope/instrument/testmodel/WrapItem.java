@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testfeature.WrapFeature;
 import com.exedio.cope.instrument.testfeature.WrapGeneric;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ import java.util.zip.ZipEntry;
 
 final class WrapItem extends Item
 {
+	@Wrapper(wrap="documentedMulti", suppressWarnings="JavadocBlankLines")
 	static final WrapFeature feature = new WrapFeature();
 
 	static final WrapGeneric<ZipEntry, InputStream, OutputStream> generic = new WrapGeneric<>();
@@ -118,7 +120,7 @@ final class WrapItem extends Item
 	 *         throws documentation IllegalArgumentException line 3 {@link #feature} feature wrapItem Feature {4}
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="documentedMulti")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"JavadocBlankLines","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static int documentedFeatureMulti(final int paramNameXfeatureXwrapItemXFeature)
 			throws
 				java.lang.RuntimeException,

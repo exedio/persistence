@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 /**
  * Signals, that an attempt to write an field has been failed,
  * because it cannot be written with any value.
- *
+ * <p>
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
  * if that field is {@link Field#isFinal() final}.
  *

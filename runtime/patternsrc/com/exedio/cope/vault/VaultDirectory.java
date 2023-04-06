@@ -122,7 +122,7 @@ abstract class VaultDirectory
 		 * This field is similar to directive {@code CacheDirLength} of Apache mod_cache_disk,
 		 * however a value of {@code 2} in mod_cache_disk is equivalent to a value of {@code 3} here,
 		 * as mod_cache_disk uses Base64 for encoding hashes and we use hexadecimal representation.
-		 *
+		 * <p>
 		 * See <a href="https://httpd.apache.org/docs/2.4/mod/mod_cache_disk.html#cachedirlength">CacheDirLength Directive</a>
 		 */
 		final int length = value("length", 3, 1);
