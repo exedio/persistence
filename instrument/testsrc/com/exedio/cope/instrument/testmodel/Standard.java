@@ -54,6 +54,7 @@ public final class Standard extends Item
 	public static final StringField finalString = new StringField().toFinal().optional();
 	public static final StringField defaultToString = new StringField().defaultTo("defaultConstant for finalDefaultString");
 	private static final StringField defaultToLessThanSignString = new StringField().lengthMax(256).defaultTo("<");
+	@SuppressWarnings("UnnecessaryUnicodeEscape") // OK: testing escape sequence
 	private static final StringField defaultToEscapedLessThanSignString = new StringField().lengthMax(256).defaultTo("\u003C");
 	private static final StringField lessThanSignInCommentString = new StringField(/*<*/).optional();
 
