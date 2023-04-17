@@ -59,7 +59,6 @@ import com.exedio.cope.util.JobContext;
 import io.micrometer.core.instrument.Timer;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -558,13 +557,9 @@ public final class Dispatcher extends Pattern
 					tx.rollbackIfNotCommitted();
 
 					final ByteArrayOutputStream failureCauseStackTrace = new ByteArrayOutputStream();
-					try(PrintStream out = new PrintStream(failureCauseStackTrace, false, ENCODING.name()))
+					try(PrintStream out = new PrintStream(failureCauseStackTrace, false, ENCODING))
 					{
 						failureCause.printStackTrace(out);
-					}
-					catch(final UnsupportedEncodingException e)
-					{
-						throw new RuntimeException(ENCODING.name(), e);
 					}
 
 					tx.startTransaction(id + " register failure " + itemID);
