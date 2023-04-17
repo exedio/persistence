@@ -68,7 +68,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public static <C extends Item> PartOf<C> create(final ItemField<C> container, final OrderBy... orders)
 	{
-		//noinspection ConstantConditions
+		//noinspection DataFlowIssue
 		return new PartOf<>(container,
 				(orders==null||orders.length>0) ? requireNonEmptyAndCopy(orders, "orders") : null);
 	}

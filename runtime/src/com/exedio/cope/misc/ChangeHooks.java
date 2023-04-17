@@ -62,7 +62,7 @@ public final class ChangeHooks
 		if(hooks!=null && hooks.length==0)
 			return EMPTY;
 
-		//noinspection ConstantConditions OK: should fail if null
+		//noinspection DataFlowIssue OK: should fail if null
 		hooks = requireNonEmptyAndCopy(hooks, "hooks");
 		if(hooks.length==1)
 			return hooks[0];

@@ -98,7 +98,7 @@ final class Context
 
 	private String write(final TypeVariable<?> t)
 	{
-		//noinspection ConstantConditions
+		//noinspection DataFlowIssue
 		if(wrapper.matchesStaticToken(t))
 			return getClassToken();
 

@@ -1017,7 +1017,7 @@ public final class Dispatcher extends Pattern
 		}
 		else
 		{
-			//noinspection ConstantConditions OK: getUnpendSuccess cannot return null if supportsPurge return true
+			//noinspection DataFlowIssue OK: getUnpendSuccess cannot return null if supportsPurge return true
 			dateCondition = Cope.or(
 					getUnpendSuccess().equal(true ).and(dateBefore(now, success)),
 					getUnpendSuccess().equal(false).and(dateBefore(now, failure))
@@ -1036,7 +1036,7 @@ public final class Dispatcher extends Pattern
 		if(duration.isZero())
 			return Condition.FALSE;
 
-		//noinspection ConstantConditions OK: getUnpendDate cannot return null if supportsPurge return true
+		//noinspection DataFlowIssue OK: getUnpendDate cannot return null if supportsPurge return true
 		return getUnpendDate().less(new Date(now - duration.toMillis()));
 	}
 

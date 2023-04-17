@@ -96,7 +96,7 @@ public class LocalizationKeysTest
 		normal,
 		body
 		{
-			@SuppressWarnings({"RedundantMethodOverride", "unused"}) // OK: method just has to be present for testing
+			@SuppressWarnings("unused") // OK: method just has to be present for testing
 			@Override void method()
 			{
 				// empty

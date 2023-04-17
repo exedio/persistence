@@ -46,7 +46,7 @@ import com.exedio.cope.pattern.MessageDigestHash;
  * TODO: functions
  * TODO: qualifiers
  */
-@SuppressWarnings({"ProtectedMemberInFinalClass", "UnusedReturnValue", "ClassInitializerMayBeStatic", "EmptyClassInitializer"})
+@SuppressWarnings({"ProtectedMemberInFinalClass", "UnusedReturnValue", "EmptyClassInitializer"})
 public final class Standard extends Item
 {
 	public static final StringField defaultString = new StringField().optional();

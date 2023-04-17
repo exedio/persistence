@@ -33,7 +33,6 @@ public class VaultTestServiceTest extends VaultServiceTest
 	}
 
 	@Override
-	@SuppressWarnings("RedundantMethodOverride") // OK: makes sure that no other test than testing super class is put here
 	@Test protected void probeGenuineServiceKey() throws Exception
 	{
 		// must test VaultServiceTest#probeGenuineServiceKey as well, so leave this method as it is

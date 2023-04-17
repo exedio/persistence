@@ -106,7 +106,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
-		//noinspection ConstantConditions OK: is checked before (contentType==null)
+		//noinspection DataFlowIssue OK: is checked before (contentType==null)
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
@@ -136,7 +136,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
-		//noinspection ConstantConditions OK: is checked before (contentType==null)
+		//noinspection DataFlowIssue OK: is checked before (contentType==null)
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
@@ -203,7 +203,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		checkContentType( item );
 		final Set<String> brokenCodes = new HashSet<>();
 		final byte[] sourceByte = getSource().getBody().getArray( item );
-		//noinspection ConstantConditions OK: is checked before (contentType==null)
+		//noinspection DataFlowIssue OK: is checked before (contentType==null)
 		final String srcString = new String( sourceByte, charset );
 		substitutePastes(null, brokenCodes, srcString, item, null);
 		return brokenCodes;
