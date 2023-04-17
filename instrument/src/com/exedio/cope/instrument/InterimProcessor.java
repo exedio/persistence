@@ -117,6 +117,8 @@ final class InterimProcessor extends JavacProcessor
 			final InterimVisitor interimVisitor = new InterimVisitor(docTrees, blockRegistry);
 			interimVisitor.scan(tp.getCompilationUnit(), null);
 			interimVisitors.add(interimVisitor);
+			// OK: has side effects
+			//noinspection NonShortCircuitBooleanExpression
 			foundInterim |= interimVisitor.writeInterimFile();
 		}
 		if (!foundInterim)
