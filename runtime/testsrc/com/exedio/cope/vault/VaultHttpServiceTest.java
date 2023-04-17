@@ -110,7 +110,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 
 	abstract Source sourcesPut();
 
-	@BeforeEach private void setUp() throws IOException
+	@BeforeEach final void setUp() throws IOException
 	{
 		assumeNotGithub();
 		flushDir();
@@ -132,7 +132,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	}
 
 	@AfterEach
-	private void flushDir() throws IOException
+	final void flushDir() throws IOException
 	{
 		if(!Files.exists(DIR))
 			return;
