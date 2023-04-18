@@ -122,6 +122,7 @@ public class SerializationCheckTest
 		private PatternItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
+	@SuppressWarnings("unused")
 	private static class PatternFeature extends Pattern
 	{
 		@Override

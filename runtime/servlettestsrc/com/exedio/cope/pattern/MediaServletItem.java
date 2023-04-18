@@ -129,7 +129,7 @@ final class MediaServletItem extends Item
 	static final DateField nameServerLastModified = new DateField().optional();
 
 	@WrapperIgnore // required because MediaNameServer inherits @WrapFeature
-	@SuppressWarnings("unused")
+	@UsageEntryPoint
 	static final MediaNameServer nameServer = new MediaNameServer(name, nameServerLastModified);
 
 

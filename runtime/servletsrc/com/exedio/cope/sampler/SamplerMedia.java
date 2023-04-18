@@ -36,11 +36,11 @@ import com.exedio.cope.UniqueConstraint;
 @CopeSchemaName("DiffMedia")
 final class SamplerMedia extends Item
 {
-	private static final ItemField<SamplerModel  > model = field(SamplerModel  .class);
-	private static final ItemField<SamplerMediaId> media = field(SamplerMediaId.class);
+	@UsageEntryPoint private static final ItemField<SamplerModel  > model = field(SamplerModel  .class);
+	@UsageEntryPoint private static final ItemField<SamplerMediaId> media = field(SamplerMediaId.class);
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
-	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = UniqueConstraint.create(date, media); // date must be first, so purging can use the index
+	@UsageEntryPoint private static final UniqueConstraint dateAndMedia = UniqueConstraint.create(date, media); // date must be first, so purging can use the index
 
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField redirectFrom   = field(0);

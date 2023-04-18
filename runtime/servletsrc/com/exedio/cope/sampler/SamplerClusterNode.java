@@ -36,11 +36,11 @@ import com.exedio.cope.pattern.CompositeField;
 @CopeSchemaName("DiffClusterNode")
 final class SamplerClusterNode extends Item
 {
-	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
+	@UsageEntryPoint private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 	private static final IntegerField id = new IntegerField().toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
-	@SuppressWarnings("unused") private static final UniqueConstraint dateAndId = UniqueConstraint.create(date, id); // date must be first, so purging can use the index
+	@UsageEntryPoint private static final UniqueConstraint dateAndId = UniqueConstraint.create(date, id); // date must be first, so purging can use the index
 
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final DateField    firstEncounter = new DateField   ().toFinal();

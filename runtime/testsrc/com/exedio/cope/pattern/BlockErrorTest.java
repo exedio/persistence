@@ -34,6 +34,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -279,7 +280,7 @@ public class BlockErrorTest
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class NotCopyableField extends Block
 	{
-		@SuppressWarnings("unused") // OK: test bad API usage
+		@UsageEntryPoint // OK: test bad API usage
 		static final NotCopyable notCopyableField = new NotCopyable();
 
 		@com.exedio.cope.instrument.Generated

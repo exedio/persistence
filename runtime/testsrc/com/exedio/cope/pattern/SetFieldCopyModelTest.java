@@ -36,6 +36,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import org.junit.jupiter.api.Test;
 
 public class SetFieldCopyModelTest
@@ -269,7 +270,7 @@ public class SetFieldCopyModelTest
 		static final StringField field = new StringField().toFinal();
 
 		@Wrapper(wrap="*", visibility=NONE)
-		@SuppressWarnings("unused") // OK used indirectly
+		@UsageEntryPoint
 		static final SetField<DoesntHaveField> noTarget = SetField.create(ItemField.create(DoesntHaveField.class)).copyWith(field);
 
 
@@ -290,7 +291,7 @@ public class SetFieldCopyModelTest
 		static final IntegerField stuff = new IntegerField();
 
 		@Wrapper(wrap="*", visibility=NONE)
-		@SuppressWarnings("unused") // OK used indirectly
+		@UsageEntryPoint
 		static final SetField<BrokenNonFinalTemplate> set = SetField.create(ItemField.create(BrokenNonFinalTemplate.class)).copyWith(stuff);
 
 

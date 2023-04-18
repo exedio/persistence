@@ -29,6 +29,7 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import org.junit.jupiter.api.Test;
 
 public class MoneyFieldUtilTest
@@ -113,7 +114,7 @@ public class MoneyFieldUtilTest
 	private static final class FieldItem extends Item
 	{
 		@WrapperIgnore
-		@SuppressWarnings("unused")
+		@UsageEntryPoint
 		static final MoneyField<CurrencyEnum> field = MoneyField.shared(CurrencyItem.currency);
 
 		@com.exedio.cope.instrument.Generated

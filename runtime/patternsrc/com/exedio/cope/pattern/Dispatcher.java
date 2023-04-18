@@ -157,6 +157,7 @@ public final class Dispatcher extends Pattern
 	@FunctionalInterface
 	public interface Target<I extends Item>
 	{
+		@SuppressWarnings("unused") // OK: bug in idea, ignores method reference
 		void dispatch(I item) throws Exception;
 	}
 

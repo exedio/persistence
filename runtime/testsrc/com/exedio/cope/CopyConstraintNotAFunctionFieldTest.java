@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import org.junit.jupiter.api.Test;
 
 public class CopyConstraintNotAFunctionFieldTest
@@ -50,7 +51,7 @@ public class CopyConstraintNotAFunctionFieldTest
 		@WrapperIgnore
 		static final ItemField<Target> target = ItemField.create(Target.class).toFinal();
 		@WrapperIgnore
-		@SuppressWarnings("unused") // OK: test bad API usage
+		@UsageEntryPoint // OK: test bad API usage
 		static final StringField field = new StringField().toFinal().copyFrom(target);
 
 		@com.exedio.cope.instrument.Generated

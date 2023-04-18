@@ -26,6 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import org.junit.jupiter.api.Test;
 
 public class PatternErrorAbstractTest
@@ -40,7 +41,7 @@ public class PatternErrorAbstractTest
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ContainerAbstract extends Item
 	{
-		@SuppressWarnings("unused") // OK: used by reflection
+		@UsageEntryPoint // OK: used by reflection
 		static final MyPattern pattern = new MyPattern(TypeAbstract.class, false);
 
 		@com.exedio.cope.instrument.Generated
@@ -74,7 +75,7 @@ public class PatternErrorAbstractTest
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ContainerConcrete extends Item
 	{
-		@SuppressWarnings("unused") // OK: used by reflection
+		@UsageEntryPoint // OK: used by reflection
 		static final MyPattern pattern = new MyPattern(TypeConcrete.class, true);
 
 		@com.exedio.cope.instrument.Generated

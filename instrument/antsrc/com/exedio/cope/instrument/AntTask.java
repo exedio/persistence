@@ -206,6 +206,7 @@ public final class AntTask extends Task
 	}
 
 	@Override
+	@SuppressWarnings("unused")
 	public void execute() throws BuildException
 	{
 		if (params.sourceDirectories==null)

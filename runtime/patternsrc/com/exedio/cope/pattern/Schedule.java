@@ -193,6 +193,7 @@ public final class Schedule extends Pattern
 	@FunctionalInterface
 	public interface Target<I extends Item>
 	{
+		@SuppressWarnings("unused") // OK: bug in idea, ignores method reference
 		void run(I item, Date from, Date until, JobContext ctx);
 	}
 

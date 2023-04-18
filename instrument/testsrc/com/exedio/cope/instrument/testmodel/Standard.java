@@ -32,6 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.UsageEntryPoint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
@@ -147,7 +148,7 @@ public final class Standard extends Item
 	}
 
 	@WrapperIgnore
-	@SuppressWarnings("unused") // OK: test bad API usage
+	@UsageEntryPoint // OK: test bad API usage
 	public static final StringField brokenString = new StringField().defaultTo(brokenFunction());
 
 	static final DoubleField defaultFeature = new DoubleField().optional().unique().range(1.0, 2.0);
