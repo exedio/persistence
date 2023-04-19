@@ -111,4 +111,11 @@ public class DivideIntegerTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(divideBC.equal(3)));
 		assertContains(item, TYPE.search(numA.divide(numB).equal((Integer)null)));
 	}
+
+
+	@Test void divideByCount()
+	{
+		final Query<Integer> query = new Query<>(numA.sum().divide(numA.count()), TYPE, Condition.TRUE);
+		assertEquals((Integer)18, query.searchSingleton());
+	}
 }

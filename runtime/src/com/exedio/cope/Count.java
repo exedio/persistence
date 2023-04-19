@@ -27,7 +27,7 @@ import java.util.function.Consumer;
  *
  * @see Function#count()
  */
-public final class Count implements Function<Integer>
+public final class Count implements NumberFunction<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
