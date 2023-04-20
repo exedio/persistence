@@ -16,31 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.tojunit;
 
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Sets a lower limit for the length of the type column.
- * <p>
- * In general the length of the type column is determined from the longest
- * possible value in the type column. This annotation overrides this
- * for a longer length.
- * <p>
- * Setting this length may help you to avoid schema changes.
- *
- * @see SchemaInfo#getTypeColumnValue(Type)
- */
-@Target(TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface CopeTypeColumnMinLength
+@Target({TYPE, FIELD, METHOD})
+@Retention(RetentionPolicy.SOURCE)
+public @interface UsageEntryPoint
 {
-	/**
-	 * must be greater zero
-	 */
-	int value();
+	// no parameters
 }

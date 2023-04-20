@@ -179,7 +179,7 @@ final class TreeApiContext
 		if (pos<0) throw new ArrayIndexOutOfBoundsException(pos);
 		final byte[] allBytes=getAllBytes();
 		if (pos+search.length>allBytes.length)
-			throw new IllegalArgumentException(""+pos+"+"+search.length+">"+allBytes.length);
+			throw new IllegalArgumentException(pos+"+"+search.length+">"+allBytes.length);
 		for (int i=0; i<search.length; i++)
 		{
 			if ( allBytes[pos+i]!=search[i] )

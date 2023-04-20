@@ -31,7 +31,6 @@ import com.exedio.cope.IntegrityViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.WrapperType;
@@ -420,26 +419,6 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		a.deleteCopeItem();
 		assertEquals(true, nullify.existsCopeItem());
 		assertEquals(null, nullify.getField());
-	}
-
-	@Test void testMap()
-	{
-		final MultiItemFieldComponentxA a = new MultiItemFieldComponentxA();
-		assertEquals(SetValue.map(MultiItemFieldItem.field, a), SetValue.map(MultiItemFieldItem.field, a));
-		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxA-0", SetValue.map(MultiItemFieldItem.field, a).toString());
-	}
-
-	@Test void testMapNull()
-	{
-		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, null), SetValue.map(MultiItemFieldItem.optionalField, null));
-		assertEquals("MultiItemFieldItem.optionalField=null", SetValue.map(MultiItemFieldItem.optionalField, null).toString());
-	}
-
-	@Test void testMapInvalid()
-	{
-		final MultiItemFieldComponentxC c = new MultiItemFieldComponentxC();
-		assertEquals(SetValue.map(MultiItemFieldItem.field, c), SetValue.map(MultiItemFieldItem.field, c));
-		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxC-0", SetValue.map(MultiItemFieldItem.field, c).toString());
 	}
 
 	@WrapperType(indent=2)

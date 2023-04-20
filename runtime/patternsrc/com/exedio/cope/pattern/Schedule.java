@@ -193,6 +193,7 @@ public final class Schedule extends Pattern
 	@FunctionalInterface
 	public interface Target<I extends Item>
 	{
+		@SuppressWarnings("unused") // OK: bug in idea, ignores method reference
 		void run(I item, Date from, Date until, JobContext ctx);
 	}
 
@@ -439,7 +440,7 @@ public final class Schedule extends Pattern
 		assert !now.isBefore(until);
 		assert count>0 : count;
 		assert total>0 : total;
-		assert count<=total : "" + count + '/' + total;
+		assert count<=total : count + "/" + total;
 
 		deferOrStopIfRequested(ctx);
 		{

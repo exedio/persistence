@@ -36,7 +36,6 @@ import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -148,13 +147,9 @@ public class DispatchableRependTest extends TestWithEnvironment
 			final StringBuilder bf = new StringBuilder();
 			bf.append("-----------");
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			try(PrintStream ps = new PrintStream(baos, false, US_ASCII.name()))
+			try(PrintStream ps = new PrintStream(baos, false, US_ASCII))
 			{
 				new Exception("Stack trace").printStackTrace(ps);
-			}
-			catch(final UnsupportedEncodingException e)
-			{
-				throw new RuntimeException(e);
 			}
 			bf.append(baos.toString(US_ASCII));
 			bf.append("-----------");

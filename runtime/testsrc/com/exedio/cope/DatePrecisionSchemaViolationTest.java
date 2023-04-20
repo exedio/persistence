@@ -132,7 +132,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 						case mysql: // MySQL does not support check constraints
 						default:
-							throw new RuntimeException("" + dialect + '/' + message);
+							throw new RuntimeException(dialect + "/" + message);
 
 					}
 				}

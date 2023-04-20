@@ -34,7 +34,7 @@ public final class CompareAssert
 			{
 				assertEquals(
 						Integer.compare(ni, nj), i.compareTo(j), 
-						"" + i + '/' + j + '(' + ni + '/' + nj + ')');
+						i + "/" + j + '(' + ni + '/' + nj + ')');
 
 				nj++;
 			}

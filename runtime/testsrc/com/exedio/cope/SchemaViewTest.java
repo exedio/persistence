@@ -65,7 +65,7 @@ public class SchemaViewTest extends TestWithEnvironment
 				// TODO nothing so far
 				break;
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 
 		final Schema schema2 = MODEL.getVerifiedSchema();
@@ -85,7 +85,7 @@ public class SchemaViewTest extends TestWithEnvironment
 				// nothing so far
 				break;
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 

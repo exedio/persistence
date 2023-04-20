@@ -116,7 +116,9 @@ public class QueryTest extends TestWithEnvironment
 		assertEquals(0, Query.Result.empty().getTotal());
 		assertEquals(0, Query.Result.empty().getPageOffset());
 		assertEquals(-1, Query.Result.empty().getPageLimitOrMinusOne());
+		//noinspection EqualsWithItself
 		assertSame(Query.Result.empty(), Query.Result.empty());
+		//noinspection EqualsWithItself
 		assertEquals(Query.Result.empty(), Query.Result.empty());
 		assertEquals(Query.Result.empty().hashCode(), Query.Result.empty().hashCode());
 

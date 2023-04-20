@@ -27,7 +27,7 @@ import java.awt.Color;
 /**
  * Signals, that an attempt to write an {@link ColorField} has been failed,
  * because the value to be written had a alpha component.
- *
+ * <p>
  * This exception will be thrown by {@link FunctionField#set(Item,Object)}
  * and item constructors.
  *

@@ -51,7 +51,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 			case mysql:      testBlocks(); break;
 			case postgresql: testBlocks(); break;
 			default:
-				fail("" + dialect);
+				fail(String.valueOf(dialect));
 		}
 	}
 
@@ -137,7 +137,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 				break;
 			case hsqldb: // runs testFails
 			default:
-				fail("" + dialect);
+				fail(String.valueOf(dialect));
 		}
 		assertEquals(asList(), new ArrayList<>(MODEL.getOpenTransactions()));
 

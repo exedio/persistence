@@ -59,7 +59,7 @@ final class Revstat extends Item
 			final JobContext ctx)
 	{
 		if(number!=revision.getNumber())
-			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
+			throw new IllegalArgumentException(number + "/" + revision.getNumber());
 
 		deferOrStopIfRequested(ctx);
 

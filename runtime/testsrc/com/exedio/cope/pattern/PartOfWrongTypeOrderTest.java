@@ -28,6 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -69,7 +70,7 @@ public class PartOfWrongTypeOrderTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final ItemField<Container> container = ItemField.create(Container.class).toFinal().cascade();
 
-		@SuppressWarnings("unused")
+		@UsageEntryPoint
 		@Wrapper(wrap="*", visibility=NONE)
 		static final PartOf<Container> partOf = PartOf.create(container, Container.order);
 

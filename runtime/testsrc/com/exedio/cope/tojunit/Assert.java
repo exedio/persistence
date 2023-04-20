@@ -240,7 +240,6 @@ public final class Assert
 
 	public static List<Object> list(final Object... o)
 	{
-		//noinspection Java9CollectionFactory OK: o may contain null
 		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
@@ -259,7 +258,6 @@ public final class Assert
 		final HashMap<Object, Object> result = new HashMap<>();
 		result.put(key1, value1);
 		result.put(key2, value2);
-		//noinspection Java9CollectionFactory OK: parameters may contain null
 		return Collections.unmodifiableMap(result);
 	}
 
@@ -443,7 +441,6 @@ public final class Assert
 		System.out.println("INFO-------------------");
 		final List<QueryInfo> infos = transaction.getQueryInfos();
 		transaction.setQueryInfoEnabled(false);
-		//noinspection ConstantConditions OK: cannot be null after setQueryInfoEnabled(true)
 		for(final QueryInfo info : infos)
 			info.print(System.out);
 		return result;

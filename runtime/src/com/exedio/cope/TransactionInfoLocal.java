@@ -84,6 +84,6 @@ final class TransactionInfoLocal extends TransactionInfo
 	@Override
 	public String toString()
 	{
-		return "" + id + ' ' + name;
+		return id + " " + name;
 	}
 }

@@ -86,7 +86,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 
 	/**
 	 * Creates a new HashedMedia on the given media template.
-	 *
+	 * <p>
 	 * Note: given media template must be mandatory
 	 */
 	public UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)
@@ -173,7 +173,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Nonnull
 	public String getURL(@Nonnull final Item item)
 	{
-		//noinspection ConstantConditions OK: media is mandatory
+		//noinspection DataFlowIssue OK: media is mandatory
 		return media.getURL(item);
 	}
 
@@ -181,7 +181,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Nonnull
 	public MediaPath.Locator getLocator(@Nonnull final Item item)
 	{
-		//noinspection ConstantConditions OK: media is mandatory
+		//noinspection DataFlowIssue OK: media is mandatory
 		return media.getLocator(item);
 	}
 

@@ -106,7 +106,7 @@ public class NameLengthTest extends TestWithEnvironment
 				assertEquals(batchedName, getPrimaryKeySequenceName(type));
 				break;
 			default:
-				throw new RuntimeException("" + primaryKeyGenerator);
+				throw new RuntimeException(String.valueOf(primaryKeyGenerator));
 		}
 	}
 

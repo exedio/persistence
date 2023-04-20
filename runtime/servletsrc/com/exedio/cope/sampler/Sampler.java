@@ -182,7 +182,7 @@ public class Sampler
 			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			tx.commit();
 		}
-		//noinspection ConstantConditions OK: searchSingleton cannot return null on aggregation with multiple selects
+		//noinspection DataFlowIssue OK: searchSingleton cannot return null on aggregation with multiple selects
 		return new Date[] {
 				(Date)dates.get(0),
 				(Date)dates.get(1),

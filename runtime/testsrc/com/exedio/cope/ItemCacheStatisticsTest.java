@@ -68,7 +68,7 @@ public class ItemCacheStatisticsTest
 			@Override
 			public void increment(final double amount)
 			{
-				throw new AssertionFailedError("" + amount);
+				throw new AssertionFailedError(String.valueOf(amount));
 			}
 
 			@Override

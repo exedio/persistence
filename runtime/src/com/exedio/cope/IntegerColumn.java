@@ -92,7 +92,7 @@ class IntegerColumn extends Column
 		{
 			final int allowedValue = allowedValues[i];
 			if(current>=allowedValue)
-				throw new IllegalArgumentException("" + current + ">=" + allowedValue + " at " + i);
+				throw new IllegalArgumentException(current + ">=" + allowedValue + " at " + i);
 			current = allowedValue;
 		}
 		return allowedValues;

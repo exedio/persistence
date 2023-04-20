@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Test expenses for System.nanoTime against atomic sequences
- *
+ * <p>
  * Typical result:
  * System.currentTimeMillis()     267 ms
  * System.nanoTime()              195 ms

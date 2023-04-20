@@ -353,7 +353,7 @@ public abstract class Dialect
 				case bit31: return bit31;
 				case bit63: return bit63;
 				default:
-					throw new RuntimeException("" + type);
+					throw new RuntimeException(String.valueOf(type));
 			}
 		}
 

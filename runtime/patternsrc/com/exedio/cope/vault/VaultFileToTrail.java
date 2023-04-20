@@ -35,6 +35,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * You may generate a dump file for importing into the database calling:
@@ -86,6 +87,7 @@ public final class VaultFileToTrail
 				args.length>2 ? parseInt(args[2]) : defaultProvider.startLimit);
 	}
 
+	@SuppressWarnings("ConfusingMainMethod")
 	private static void main(
 			final PrintStream out,
 			final PrintStream err,
@@ -110,7 +112,7 @@ public final class VaultFileToTrail
 		out.println("--   startLimit=" + startLimit);
 		out.println("SET TIME_ZONE='+00:00';");
 
-		final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
 
 		final String origin = VaultFileToTrail.class.getSimpleName();
 
@@ -175,7 +177,7 @@ public final class VaultFileToTrail
 				{
 					final int result = in.read(start);
 					if(result!=start.length)
-						throw new IllegalStateException("" + result + '/' + start.length + '/' + file.toAbsolutePath());
+						throw new IllegalStateException(result + "/" + start.length + '/' + file.toAbsolutePath());
 				}
 
 				out.println(

@@ -82,6 +82,7 @@ final class Graph
 		{
 			final LinkedList<Node> allNodesRest = new LinkedList<>(allNodes);
 			final LinkedHashSet<Edge> allEdgesRest = new LinkedHashSet<>(allEdges);
+			//noinspection ConditionalBreakInInfiniteLoop
 			do
 			{
 				boolean wasPossible;

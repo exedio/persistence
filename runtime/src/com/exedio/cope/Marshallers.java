@@ -69,7 +69,7 @@ final class Marshallers
 					case 1:
 						return Boolean.TRUE;
 					default:
-						throw new RuntimeException("" + cell);
+						throw new RuntimeException(String.valueOf(cell));
 				}
 			}
 			@Override

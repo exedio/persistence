@@ -104,7 +104,7 @@ public final class SchemaView
 					append(table(type));
 
 				for(
-						//noinspection ConstantConditions OK: bug in idea
+						//noinspection DataFlowIssue OK: bug in idea
 						Type<?> superType = type.getSupertype();
 						superType!=null;
 						superType=superType.getSupertype())

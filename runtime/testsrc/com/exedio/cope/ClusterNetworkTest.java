@@ -150,6 +150,6 @@ public abstract class ClusterNetworkTest
 
 	protected static void assertGreaterZero(final long actual)
 	{
-		assertTrue(actual>0, "" + actual);
+		assertTrue(actual>0, String.valueOf(actual));
 	}
 }

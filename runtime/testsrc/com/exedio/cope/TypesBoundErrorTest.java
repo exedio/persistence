@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import org.junit.jupiter.api.Test;
@@ -256,7 +257,7 @@ public class TypesBoundErrorTest
 	private static class DuplicateFeature extends Item
 	{
 		static final Feature origin = new IntegerField();
-		@SuppressWarnings("unused") // OK: test bad API usage
+		@UsageEntryPoint // OK: test bad API usage
 		static final Feature duplicate = origin;
 
 		@com.exedio.cope.instrument.Generated
@@ -389,7 +390,7 @@ public class TypesBoundErrorTest
 	{
 		@WrapperIgnore private static final IntegerField subField=new IntegerField();
 
-		@SuppressWarnings("unused")
+		@UsageEntryPoint
 		@WrapperIgnore private static final UniqueConstraint superAndSub=UniqueConstraint.create(superField, subField);
 
 		@com.exedio.cope.instrument.Generated

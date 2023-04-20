@@ -114,7 +114,7 @@ public abstract class MediaPath extends Pattern
 		if(!(
 				annotationClass==PreventUrlGuessing.class ||
 				annotationClass==UrlFingerPrinting.class  ))
-			throw new IllegalArgumentException("" + annotationClass);
+			throw new IllegalArgumentException(String.valueOf(annotationClass));
 	}
 
 	@Override

@@ -49,6 +49,7 @@ final class HsqldbDialect extends Dialect
 	{
 		final Approximate approximate = value("approximate", Approximate.nothing);
 
+		@SuppressWarnings("unused") // OK: called by reflection
 		Props(final Source source) { super(source); }
 	}
 

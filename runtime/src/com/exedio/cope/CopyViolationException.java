@@ -138,14 +138,13 @@ public final class CopyViolationException extends ConstraintViolationException
 		}
 		else
 		{
-			assert additionalTargetItem!=null; // suppresses idea inspection ConstantConditions
 			return
 				"copy violation" + getItemPhrase() +
 				" for " + feature + " and " + additionalFeature +
 				", expected " + toString(expectedValue) +
 				" from target " + targetItem.getCopeID() +
 				" but also " + toString(actualValue) +
-				" from target " + additionalTargetItem.getCopeID();
+				" from target " + requireNonNull(additionalTargetItem).getCopeID();
 		}
 	}
 }

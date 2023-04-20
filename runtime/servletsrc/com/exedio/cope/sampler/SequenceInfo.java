@@ -39,6 +39,7 @@ final class SequenceInfo extends Composite
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField pending    = new IntegerField().min(0);
 
+	@SuppressWarnings("unused") // OK: called by reflection
 	private SequenceInfo(final SetValue<?>... setValues)
 	{
 		super(setValues);

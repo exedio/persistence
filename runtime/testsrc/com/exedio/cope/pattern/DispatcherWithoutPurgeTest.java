@@ -38,6 +38,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobStop;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -216,8 +217,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 	{
 		model.commit();
 		final Date[] dates = new Date[expectedDates];
-		for(int i = 0; i<expectedDates; i++)
-			dates[i] = new Date(clock.addOffset(10));
+		Arrays.setAll(dates, i -> new Date(clock.addOffset(10)));
 		log.assertEmpty();
 		try
 		{

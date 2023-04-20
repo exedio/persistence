@@ -73,7 +73,7 @@ final class Database
 
 		dialect.setNameTrimmers(nameTrimmers);
 		if(nameTrimmers.size()!=TrimClass.values().length)
-			throw new RuntimeException("" + nameTrimmers);
+			throw new RuntimeException(String.valueOf(nameTrimmers));
 
 		final VaultProperties vp = properties.getVaultProperties();
 		if(vp!=null)

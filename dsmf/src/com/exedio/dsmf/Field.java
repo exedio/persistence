@@ -46,7 +46,7 @@ final class Field<T>
 		requireNonNull(value, "value");
 
 		if(existing!=null && !existing.equals(value))
-			throw new IllegalArgumentException("" + existing + '/' + value);
+			throw new IllegalArgumentException(existing + "/" + value);
 
 		this.existing = value;
 	}

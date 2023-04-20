@@ -140,7 +140,7 @@ public class MultiItemFieldErrorTest
 		{
 			final String expected = "componentClasses must not be super-classes of each other: "
 					+MultiItemFieldComponentA.class+" is assignable from "
-					+MultiItemFieldComponentASub.class+"";
+					+MultiItemFieldComponentASub.class;
 			assertEquals(expected, e.getMessage());
 		}
 	}

@@ -71,7 +71,7 @@ final class Main
 				}
 				if ( file.isDirectory() )
 				{
-					//noinspection ConstantConditions OK: checks isDirectory before calling listFiles
+					//noinspection DataFlowIssue OK: checks isDirectory before calling listFiles
 					if ( !noFilesModifiedAfter(asList(file.listFiles()), referenceFile, verbose) )
 					{
 						return false;

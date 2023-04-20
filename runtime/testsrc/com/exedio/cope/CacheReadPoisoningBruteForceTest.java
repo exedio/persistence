@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.lang.System.lineSeparator;
 
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import java.util.Arrays;
 import java.util.Objects;
 import org.junit.jupiter.api.AfterEach;
@@ -37,7 +38,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@SuppressWarnings("unused")
+	@UsageEntryPoint
 	private final WithinPurgeStampsRule withinPurgeStamps = new WithinPurgeStampsRule(
 			CacheIsolationTest.MODEL,
 			Thread::yield);

@@ -206,6 +206,7 @@ public final class AntTask extends Task
 	}
 
 	@Override
+	@SuppressWarnings("unused")
 	public void execute() throws BuildException
 	{
 		if (params.sourceDirectories==null)
@@ -326,7 +327,7 @@ public final class AntTask extends Task
 		}
 		if (expandDirectories && fileOrDir.isDirectory())
 		{
-			//noinspection ConstantConditions OK: checks isDirectory before calling listFiles
+			//noinspection DataFlowIssue OK: checks isDirectory before calling listFiles
 			for (final File entry: fileOrDir.listFiles())
 			{
 				//noinspection ConstantConditions OK: seems to be bug in inspection

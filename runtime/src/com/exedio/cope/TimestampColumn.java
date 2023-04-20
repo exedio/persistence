@@ -83,7 +83,7 @@ final class TimestampColumn extends Column
 				break; // nothing
 
 			default:
-				throw new RuntimeException("" + precision);
+				throw new RuntimeException(String.valueOf(precision));
 		}
 	}
 

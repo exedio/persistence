@@ -108,7 +108,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case postgresql: return "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
 
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 
@@ -122,7 +122,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case postgresql: return "\"floor\"(" + s + ")";
 
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 
@@ -135,7 +135,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case mysql     : return "(" + SI.col(field) + " MOD " + divisor + ")=0";
 			case postgresql: return "(" + SI.col(field) +  " % "  + divisor + ")=0";
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 

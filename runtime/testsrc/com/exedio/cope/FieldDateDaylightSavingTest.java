@@ -201,9 +201,9 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		assertEquals(Date.class, actual.getClass());
 		assertEquals(
 				date, actual,
-				"" + (actual.getTime()-date.getTime()) +
-				" " + df().format(date) +
-				" " + df().format(actual));
+				(actual.getTime()-date.getTime()) + " " +
+				df().format(date) + " " +
+				df().format(actual));
 	}
 
 	private static void assertDiff(final long diff, final Date d1, final Date d2)

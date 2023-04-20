@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A servlet providing access to the contents of {@link MediaPath}
  * and its subclasses.
- *
+ * <p>
  * In order to use it, you have to deploy the servlet in your {@code web.xml},
  * providing the name of the cope model via an init-parameter.
  * Typically, your {@code web.xml} would contain a snippet like this:

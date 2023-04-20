@@ -29,7 +29,7 @@ import java.util.Date;
 /**
  * Signals, that an attempt to write a {@link DateField date field} has been failed,
  * because the value to be written violated the precision constraint on that field.
- *
+ * <p>
  * This exception will be thrown by {@link FunctionField#set(Item,Object)}
  * and item constructors.
  *

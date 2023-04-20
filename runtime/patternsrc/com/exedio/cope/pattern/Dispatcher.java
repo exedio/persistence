@@ -59,7 +59,6 @@ import com.exedio.cope.util.JobContext;
 import io.micrometer.core.instrument.Timer;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -158,6 +157,7 @@ public final class Dispatcher extends Pattern
 	@FunctionalInterface
 	public interface Target<I extends Item>
 	{
+		@SuppressWarnings("unused") // OK: bug in idea, ignores method reference
 		void dispatch(I item) throws Exception;
 	}
 
@@ -558,13 +558,9 @@ public final class Dispatcher extends Pattern
 					tx.rollbackIfNotCommitted();
 
 					final ByteArrayOutputStream failureCauseStackTrace = new ByteArrayOutputStream();
-					try(PrintStream out = new PrintStream(failureCauseStackTrace, false, ENCODING.name()))
+					try(PrintStream out = new PrintStream(failureCauseStackTrace, false, ENCODING))
 					{
 						failureCause.printStackTrace(out);
-					}
-					catch(final UnsupportedEncodingException e)
-					{
-						throw new RuntimeException(ENCODING.name(), e);
 					}
 
 					tx.startTransaction(id + " register failure " + itemID);
@@ -1022,7 +1018,7 @@ public final class Dispatcher extends Pattern
 		}
 		else
 		{
-			//noinspection ConstantConditions OK: getUnpendSuccess cannot return null if supportsPurge return true
+			//noinspection DataFlowIssue OK: getUnpendSuccess cannot return null if supportsPurge return true
 			dateCondition = Cope.or(
 					getUnpendSuccess().equal(true ).and(dateBefore(now, success)),
 					getUnpendSuccess().equal(false).and(dateBefore(now, failure))
@@ -1041,7 +1037,7 @@ public final class Dispatcher extends Pattern
 		if(duration.isZero())
 			return Condition.FALSE;
 
-		//noinspection ConstantConditions OK: getUnpendDate cannot return null if supportsPurge return true
+		//noinspection DataFlowIssue OK: getUnpendDate cannot return null if supportsPurge return true
 		return getUnpendDate().less(new Date(now - duration.toMillis()));
 	}
 

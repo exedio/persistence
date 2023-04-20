@@ -56,7 +56,7 @@ public class DispatcherSessionCreateFailsTest
 		@Wrapper(wrap="dispatch", parameters={Config.class, Runnable.class, JobContext.class}, visibility=NONE)
 		static final Dispatcher toTarget = Dispatcher.createWithSession(
 				() -> { throw new IllegalStateException("toTarget session create"); },
-				(item, session) -> { throw new AssertionFailedError("" + item); });
+				(item, session) -> { throw new AssertionFailedError(String.valueOf(item)); });
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}

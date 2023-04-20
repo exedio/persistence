@@ -222,7 +222,7 @@ public final class ClusterListenerInfo
 		@Override
 		public String toString()
 		{
-			return "" + date;
+			return String.valueOf(date);
 		}
 	}
 }

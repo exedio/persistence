@@ -37,6 +37,7 @@ final class JavaRepositoryBuilder
 
 	private static boolean equalOrParent(final File f, final File g)
 	{
+		//noinspection TailRecursion
 		return f.equals(g) || (f.getParentFile()!=null && equalOrParent(f.getParentFile(), g));
 	}
 

@@ -32,6 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.UsageEntryPoint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
@@ -46,7 +47,7 @@ import com.exedio.cope.pattern.MessageDigestHash;
  * TODO: functions
  * TODO: qualifiers
  */
-@SuppressWarnings({"ProtectedMemberInFinalClass", "UnusedReturnValue", "ClassInitializerMayBeStatic", "EmptyClassInitializer"})
+@SuppressWarnings({"ProtectedMemberInFinalClass", "UnusedReturnValue", "EmptyClassInitializer"})
 public final class Standard extends Item
 {
 	public static final StringField defaultString = new StringField().optional();
@@ -54,6 +55,7 @@ public final class Standard extends Item
 	public static final StringField finalString = new StringField().toFinal().optional();
 	public static final StringField defaultToString = new StringField().defaultTo("defaultConstant for finalDefaultString");
 	private static final StringField defaultToLessThanSignString = new StringField().lengthMax(256).defaultTo("<");
+	@SuppressWarnings("UnnecessaryUnicodeEscape") // OK: testing escape sequence
 	private static final StringField defaultToEscapedLessThanSignString = new StringField().lengthMax(256).defaultTo("\u003C");
 	private static final StringField lessThanSignInCommentString = new StringField(/*<*/).optional();
 
@@ -146,7 +148,7 @@ public final class Standard extends Item
 	}
 
 	@WrapperIgnore
-	@SuppressWarnings("unused") // OK: test bad API usage
+	@UsageEntryPoint // OK: test bad API usage
 	public static final StringField brokenString = new StringField().defaultTo(brokenFunction());
 
 	static final DoubleField defaultFeature = new DoubleField().optional().unique().range(1.0, 2.0);

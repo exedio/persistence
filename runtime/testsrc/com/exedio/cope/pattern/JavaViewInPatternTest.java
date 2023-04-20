@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.UsageEntryPoint;
 import org.junit.jupiter.api.Test;
 
 public class JavaViewInPatternTest
@@ -42,7 +43,7 @@ public class JavaViewInPatternTest
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
-		@SuppressWarnings("unused") // accessed by reflection
+		@UsageEntryPoint // accessed by reflection
 		static final Muster muster = new Muster();
 
 		@SuppressWarnings("unused") // accessed by reflection

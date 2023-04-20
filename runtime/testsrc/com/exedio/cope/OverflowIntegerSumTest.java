@@ -107,7 +107,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 					expectedObject = BigDecimal.valueOf(expected);
 					break;
 				default:
-					throw new RuntimeException("" + dialect);
+					throw new RuntimeException(String.valueOf(dialect));
 			}
 			assertEquals(expectedObject, rs.getObject(1));
 		}
@@ -143,7 +143,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 						expectedArithmeticException = "Bad value for type int : " + expected;
 						break;
 					default:
-						throw new RuntimeException("" + dialect, e);
+						throw new RuntimeException(String.valueOf(dialect), e);
 				}
 
 				assertEquals(expectedArithmeticException, e.getCause().getMessage());

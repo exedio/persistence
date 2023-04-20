@@ -167,13 +167,13 @@ public final class Sequence extends Node
 			else if(maxValue==Long.MAX_VALUE)
 				return bit63;
 			else
-				throw new IllegalArgumentException("" + maxValue);
+				throw new IllegalArgumentException(String.valueOf(maxValue));
 		}
 
 		public static Type fromMaxValueLenient(final long maxValue)
 		{
 			if(maxValue<0)
-				throw new IllegalArgumentException("" + maxValue);
+				throw new IllegalArgumentException(String.valueOf(maxValue));
 
 			return (maxValue<=Integer.MAX_VALUE) ? bit31 : bit63;
 		}

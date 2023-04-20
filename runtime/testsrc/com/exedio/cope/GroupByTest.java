@@ -132,7 +132,7 @@ public class GroupByTest extends TestWithEnvironment
 				break;
 			}
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 
@@ -177,7 +177,7 @@ public class GroupByTest extends TestWithEnvironment
 						postgresqlPosition(58));
 				break;
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 
@@ -217,7 +217,7 @@ public class GroupByTest extends TestWithEnvironment
 						postgresqlPosition(49));
 				break;
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 
@@ -310,7 +310,7 @@ public class GroupByTest extends TestWithEnvironment
 				break;
 			}
 			default:
-				throw new RuntimeException("" + dialect);
+				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
 

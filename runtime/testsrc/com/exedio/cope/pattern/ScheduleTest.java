@@ -863,7 +863,7 @@ public class ScheduleTest extends TestWithEnvironment
 		@Override
 		public String toString()
 		{
-			return "" + parent + ' ' + interval + ' ' + df(true).format(from) + "---" + df(true).format(until) + "---" + df(true).format(run);
+			return parent + " " + interval + ' ' + df(true).format(from) + "---" + df(true).format(until) + "---" + df(true).format(run);
 		}
 	}
 

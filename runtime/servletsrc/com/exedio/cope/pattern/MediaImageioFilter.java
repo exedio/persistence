@@ -162,7 +162,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		final BufferedImage srcBuf;
 
 		{
-			//noinspection ConstantConditions OK: is checked before (contentType==null)
+			//noinspection DataFlowIssue OK: is checked before (contentType==null)
 			try(MemoryCacheImageInputStream input = new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)))
 			{
 				final ImageReader imageReader = spi.createReaderInstance();

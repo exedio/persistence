@@ -26,7 +26,7 @@ import com.exedio.cope.instrument.ConstructorComment;
 /**
  * Signals, that an attempt to write a {@link AbstractListField list field} has been failed,
  * because value to be written violated the size constraint on that field.
- *
+ * <p>
  * This exception will be thrown by {@link FunctionField#set(Item,Object)}
  * and item constructors.
  *

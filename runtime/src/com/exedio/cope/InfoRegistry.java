@@ -25,7 +25,7 @@ final class InfoRegistry
 		final long l = Math.round(d);
 		//noinspection FloatingPointEquality OK: tests backward conversion
 		if(l!=d)
-			throw new IllegalStateException("" + d);
+			throw new IllegalStateException(String.valueOf(d));
 		return l;
 	}
 

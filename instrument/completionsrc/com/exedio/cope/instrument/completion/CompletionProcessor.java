@@ -142,6 +142,7 @@ public class CompletionProcessor extends AbstractProcessor
 	{
 		private final Map<String, List<String>> completionData;
 
+		@SuppressWarnings("unused")
 		private CompletionCollector(final Map<String, List<String>> completionData)
 		{
 			this.completionData=completionData;
