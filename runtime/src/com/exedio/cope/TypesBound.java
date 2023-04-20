@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
-import java.util.function.Function;
 
 import com.exedio.cope.misc.CopeNameUtil;
 import java.lang.reflect.Field;
@@ -29,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.function.Function;
 import javax.annotation.Nonnull;
 
 public final class TypesBound
