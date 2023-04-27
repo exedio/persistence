@@ -92,6 +92,26 @@ public class SlowTransactionLoggerTest
 		log.assertEmpty();
 	}
 
+	@Test void testSuppress(final NowClock now)
+	{
+		final Thread t = Thread.currentThread();
+		final Transaction tx = MODEL.startTransaction("tx1Name");
+		final long txStart = tx.getStartDate().getTime();
+		now.override(EMPTY_PROPS.thresholdError);
+		final StackTraceElement[] stackTrace = run();
+		log.assertError(
+				"exceeds threshold " +
+				"id=" + tx.getID() + " age=" + (now.lastResult - txStart) + "ms name=\"tx1Name\" inv=0 pre=0 predup=0 post=0 postdup=0 " +
+				"threadId=" + t.getId() + " prio=" + t.getPriority() + " state=RUNNABLE threadName=\"" + t.getName() + "\" " +
+				"stackTrace=\"" + SlowTransactionLogger.toString(stackTrace) + "\"");
+		SlowTransactionLogger.run(MODEL, EMPTY_PROPS, currentTx ->
+		{
+			assertSame(tx, currentTx);
+			return true;
+		});
+		log.assertEmpty();
+	}
+
 	private static final Properties EMPTY_PROPS = Properties.factory().create(Sources.EMPTY);
 
 	public static final class NowClock extends HolderExtension<Clock>
@@ -123,7 +143,10 @@ public class SlowTransactionLoggerTest
 		final LinkedList<StackTraceElement> result = new LinkedList<>(asList(original));
 		result.add(1, new StackTraceElement( // position 0 contains java.lang.Thread.getStackTrace(Thread.java:1602)
 				SlowTransactionLogger.class.getName(), "run",
-				SlowTransactionLogger.class.getSimpleName() + ".java", 73));
+				SlowTransactionLogger.class.getSimpleName() + ".java", 90));
+		result.add(2, new StackTraceElement(
+				SlowTransactionLogger.class.getName(), "run",
+				SlowTransactionLogger.class.getSimpleName() + ".java", 42));
 		return result.toArray(new StackTraceElement[]{});
 	}
 
