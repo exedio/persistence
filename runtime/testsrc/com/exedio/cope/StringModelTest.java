@@ -109,14 +109,15 @@ public class StringModelTest
 
 	@Test void testConditionsConvenience()
 	{
-		assertEquals(any.startsWith("lowerUPPER"), any.like( "lowerUPPER%"));
-		assertEquals(any.  endsWith("lowerUPPER"), any.like("%lowerUPPER" ));
-		assertEquals(any.  contains("lowerUPPER"), any.like("%lowerUPPER%"));
-		assertEquals(any.     equalIgnoreCase("lowerUPPER" ), any.toLowerCase().equal( "lowerupper" ));
-		assertEquals(any.      likeIgnoreCase("lowerUPPER%"), any.toLowerCase().like ( "lowerupper%"));
-		assertEquals(any.startsWithIgnoreCase("lowerUPPER" ), any.toLowerCase().like ( "lowerupper%"));
-		assertEquals(any.  endsWithIgnoreCase("lowerUPPER" ), any.toLowerCase().like ("%lowerupper" ));
-		assertEquals(any.  containsIgnoreCase("lowerUPPER" ), any.toLowerCase().like ("%lowerupper%"));
+		assertEquals(any.like( "lowerUPPER%"), any.startsWith("lowerUPPER"));
+		assertEquals(any.like("%lowerUPPER" ), any.  endsWith("lowerUPPER"));
+		assertEquals(any.like("%lowerUPPER%"), any.  contains("lowerUPPER"));
+		final CaseView anyL = any.toLowerCase();
+		assertEquals(anyL.equal( "lowerupper" ), any.     equalIgnoreCase("lowerUPPER" ));
+		assertEquals(anyL.like ( "lowerupper%"), any.      likeIgnoreCase("lowerUPPER%"));
+		assertEquals(anyL.like ( "lowerupper%"), any.startsWithIgnoreCase("lowerUPPER" ));
+		assertEquals(anyL.like ("%lowerupper" ), any.  endsWithIgnoreCase("lowerUPPER" ));
+		assertEquals(anyL.like ("%lowerupper%"), any.  containsIgnoreCase("lowerUPPER" ));
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
