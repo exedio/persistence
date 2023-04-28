@@ -120,6 +120,31 @@ public class StringModelTest
 		assertEquals(anyL.like ("%lowerupper%"), any.  containsIgnoreCase("lowerUPPER" ));
 	}
 
+	@Test void testConditionsConvenienceEmpty() // TODO should be isNotNull
+	{
+		assertEquals(any.like("%" ), any.startsWith(""));
+		assertEquals(any.like("%" ), any.  endsWith(""));
+		assertEquals(any.like("%%"), any.  contains(""));
+		final CaseView anyL = any.toLowerCase();
+		assertEquals(anyL.equal(""  ), any.     equalIgnoreCase("" ));
+		assertEquals(anyL.like ("%" ), any.      likeIgnoreCase("%"));
+		assertEquals(anyL.like ("%" ), any.startsWithIgnoreCase("" ));
+		assertEquals(anyL.like ("%" ), any.  endsWithIgnoreCase("" ));
+		assertEquals(anyL.like ("%%"), any.  containsIgnoreCase("" ));
+	}
+
+	@Test void testConditionsConvenienceNull()
+	{
+		assertEquals(any.like( "null%"), any.startsWith(null)); // TODO should fail
+		assertEquals(any.like("%null" ), any.  endsWith(null)); // TODO should fail
+		assertEquals(any.like("%null%"), any.  contains(null)); // TODO should fail
+		assertFails(() -> any.     equalIgnoreCase(null), NullPointerException.class, null);
+		assertFails(() -> any.      likeIgnoreCase(null), NullPointerException.class, null);
+		assertFails(() -> any.startsWithIgnoreCase(null), NullPointerException.class, null);
+		assertFails(() -> any.  endsWithIgnoreCase(null), NullPointerException.class, null);
+		assertFails(() -> any.  containsIgnoreCase(null), NullPointerException.class, null);
+	}
+
 	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testRegexp()
 	{
