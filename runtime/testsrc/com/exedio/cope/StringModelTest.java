@@ -135,9 +135,9 @@ public class StringModelTest
 
 	@Test void testConditionsConvenienceNull()
 	{
-		assertEquals(any.like( "null%"), any.startsWith(null)); // TODO should fail
-		assertEquals(any.like("%null" ), any.  endsWith(null)); // TODO should fail
-		assertEquals(any.like("%null%"), any.  contains(null)); // TODO should fail
+		assertFails(() -> any.startsWith(null), NullPointerException.class, null);
+		assertFails(() -> any.  endsWith(null), NullPointerException.class, null);
+		assertFails(() -> any.  contains(null), NullPointerException.class, null);
 		assertFails(() -> any.     equalIgnoreCase(null), NullPointerException.class, null);
 		assertFails(() -> any.      likeIgnoreCase(null), NullPointerException.class, null);
 		assertFails(() -> any.startsWithIgnoreCase(null), NullPointerException.class, null);

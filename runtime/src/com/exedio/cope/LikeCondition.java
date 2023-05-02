@@ -135,16 +135,16 @@ public final class LikeCondition extends Condition
 
 	public static LikeCondition startsWith(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, value + WILDCARD);
+		return new LikeCondition(function, requireNonNull(value) + WILDCARD);
 	}
 
 	public static LikeCondition endsWith(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, WILDCARD + value);
+		return new LikeCondition(function, WILDCARD + requireNonNull(value));
 	}
 
 	public static LikeCondition contains(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, WILDCARD + value + WILDCARD);
+		return new LikeCondition(function, WILDCARD + requireNonNull(value) + WILDCARD);
 	}
 }
