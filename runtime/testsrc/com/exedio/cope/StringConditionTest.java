@@ -34,6 +34,85 @@ public class StringConditionTest extends TestWithEnvironment
 		super(StringModelTest.MODEL);
 	}
 
+	@Test void testLikeEmpty()
+	{
+		final StringItem some = new StringItem("startEnd", true);
+		final StringItem other = new StringItem("other", true);
+		final StringItem empty = new StringItem("", true);
+		new StringItem(null, true);
+
+		assertEquals(asList(some), search(any.startsWith("start")));
+		assertEquals(asList(some), search(any.  endsWith("End")));
+		assertEquals(asList(some), search(any.  contains("tE")));
+		assertEquals(asList(some), search(any.startsWithIgnoreCase("START")));
+		assertEquals(asList(some), search(any.  endsWithIgnoreCase("END")));
+		assertEquals(asList(some), search(any.  containsIgnoreCase("TE")));
+		assertEquals(asList(some, other, empty), search(any.startsWith("")));
+		assertEquals(asList(some, other, empty), search(any.  endsWith("")));
+		assertEquals(asList(some, other, empty), search(any.  contains("")));
+		assertEquals(asList(some, other, empty), search(any.startsWithIgnoreCase("")));
+		assertEquals(asList(some, other, empty), search(any.  endsWithIgnoreCase("")));
+		assertEquals(asList(some, other, empty), search(any.  containsIgnoreCase("")));
+	}
+
+	@Test void testLikeWildcard()
+	{
+		final StringItem some = new StringItem("startEnd", true);
+		final StringItem someP = new StringItem("start%End", true);
+		final StringItem someU = new StringItem("start_End", true);
+		final StringItem someB = new StringItem("start\\End", true);
+		final StringItem someX = new StringItem("startXEnd", true);
+		final StringItem someXY = new StringItem("startXYEnd", true);
+		new StringItem("other", true);
+		new StringItem("", true);
+		new StringItem(null, true);
+
+		// https://hsqldb.org/doc/2.0/guide/dataaccess-chapt.html#dac_sql_predicates
+		// https://dev.mysql.com/doc/refman/8.0/en/string-comparison-functions.html#operator_like
+		// https://www.postgresql.org/docs/11/functions-matching.html#FUNCTIONS-LIKE
+		final boolean bs = postgresql || (mysql && !model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0));
+		assertEquals(asList(some                                    ), search(any.like("sta%tEnd")));
+		assertEquals(asList(some                                    ), search(any.like("sta_tEnd")));
+		assertEquals(asList(some                                    ), search(any.like("startEnd")));
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.like("start%End")));
+		assertEquals(asList(      someP, someU, someB, someX        ), search(any.like("start_End")));
+		assertEquals(bs ? asList(some ) : asList(someB), search(any.like("start\\End"))); // TODO should fail
+		assertEquals(bs ? asList(someB) : asList(     ), search(any.like("start\\\\End"))); // TODO should find someB only
+		assertEquals(bs ? asList(someP) : asList(someB), search(any.like("start\\%End"))); // TODO should find someP only
+		assertEquals(bs ? asList(someU) : asList(     ), search(any.like("start\\_End"))); // TODO should find someU only
+
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("start")));
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("st%t"))); // TODO should find nothing
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("st_rt"))); // TODO should find nothing
+		assertEquals(asList(some                                    ), search(any.startsWith("startEn")));
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("start%E"))); // TODO should find someP only
+		assertEquals(asList(      someP, someU, someB, someX        ), search(any.startsWith("start_E"))); // TODO should find someU only
+
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("End")));
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("E%d"))); // TODO should find nothing
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("E_d"))); // TODO should find nothing
+		assertEquals(asList(some                                    ), search(any.endsWith("rtEnd")));
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("rt%End"))); // TODO should find someP only
+		assertEquals(asList(      someP, someU, someB, someX        ), search(any.endsWith("rt_End"))); // TODO should find someU only
+
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("tart")));
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("ta%t"))); // TODO should find nothing
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("ta_t"))); // TODO should find nothing
+		assertEquals(asList(some                                    ), search(any.contains("tartEn")));
+		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("tart%En"))); // TODO should find someP only
+		assertEquals(asList(      someP, someU, someB, someX        ), search(any.contains("tart_En"))); // TODO should find someU only
+
+		assertEquals(bs ? asList(someP) : asList(someB), search(any.startsWith("start\\%E"))); // TODO should find nothing
+		assertEquals(bs ? asList(someU) : asList(     ), search(any.startsWith("start\\_E"))); // TODO should find nothing
+		assertEquals(bs ? asList(someB) : asList(     ), search(any.startsWith("start\\\\E"))); // TODO should find nothing
+		assertEquals(bs ? asList(someP) : asList(someB), search(any.endsWith("art\\%End"))); // TODO should find nothing
+		assertEquals(bs ? asList(someU) : asList(     ), search(any.endsWith("art\\_End"))); // TODO should find nothing
+		assertEquals(bs ? asList(someB) : asList(     ), search(any.endsWith("art\\\\End"))); // TODO should find nothing
+		assertEquals(bs ? asList(someP) : asList(someB), search(any.contains("art\\%En"))); // TODO should find nothing
+		assertEquals(bs ? asList(someU) : asList(     ), search(any.contains("art\\_En"))); // TODO should find nothing
+		assertEquals(bs ? asList(someB) : asList(     ), search(any.contains("art\\\\En"))); // TODO should find nothing
+	}
+
 	@Test void testIgnoreCase()
 	{
 		final StringItem mixed = new StringItem("lowerUPPER", true);
