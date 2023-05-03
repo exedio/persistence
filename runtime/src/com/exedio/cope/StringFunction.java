@@ -45,7 +45,7 @@ public interface StringFunction extends Function<String>
 	 * if and only if the value of this function for that item
 	 * starts with the given parameter.
 	 */
-	default LikeCondition startsWith(final String value)
+	default Condition startsWith(final String value)
 	{
 		return LikeCondition.startsWith(this, value);
 	}
@@ -55,7 +55,7 @@ public interface StringFunction extends Function<String>
 	 * if and only if the value of this function for that item
 	 * ends with the given parameter.
 	 */
-	default LikeCondition endsWith(final String value)
+	default Condition endsWith(final String value)
 	{
 		return LikeCondition.endsWith(this, value);
 	}
@@ -65,7 +65,7 @@ public interface StringFunction extends Function<String>
 	 * if and only if the value of this function for that item
 	 * contains the given parameter.
 	 */
-	default LikeCondition contains(final String value)
+	default Condition contains(final String value)
 	{
 		return LikeCondition.contains(this, value);
 	}
@@ -96,17 +96,17 @@ public interface StringFunction extends Function<String>
 		return CaseView.likeIgnoreCase(this, value);
 	}
 
-	default LikeCondition startsWithIgnoreCase(final String value)
+	default Condition startsWithIgnoreCase(final String value)
 	{
 		return CaseView.startsWithIgnoreCase(this, value);
 	}
 
-	default LikeCondition endsWithIgnoreCase(final String value)
+	default Condition endsWithIgnoreCase(final String value)
 	{
 		return CaseView.endsWithIgnoreCase(this, value);
 	}
 
-	default LikeCondition containsIgnoreCase(final String value)
+	default Condition containsIgnoreCase(final String value)
 	{
 		return CaseView.containsIgnoreCase(this, value);
 	}
