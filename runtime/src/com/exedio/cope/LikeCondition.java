@@ -68,7 +68,7 @@ public final class LikeCondition extends Condition
 	void append(final Statement bf)
 	{
 		bf.append(function).
-			append(" like ").
+			append(" LIKE ").
 			appendParameterAny(value);
 	}
 
