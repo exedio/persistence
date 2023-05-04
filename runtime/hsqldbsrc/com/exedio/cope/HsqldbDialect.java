@@ -38,6 +38,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @ServiceProperties(HsqldbDialect.Props.class)
 @DialectProbeInfo({
@@ -213,6 +214,32 @@ final class HsqldbDialect extends Dialect
 	String getAveragePostfix()
 	{
 		return " AS DOUBLE))";
+	}
+
+	@Override
+	String maskLikePattern(final String pattern)
+	{
+		return maskLikePatternInternal(pattern);
+	}
+
+	/**
+	 * Without this method a backslash not followed by backslash, percent sign or underscore
+	 * causes a
+	 * <pre>
+	 * org.hsqldb.HsqlException: data exception: invalid escape sequence
+	 * </pre>
+	 */
+	static String maskLikePatternInternal(final String pattern)
+	{
+		return LIKE_PATTERN.matcher(pattern).replaceAll("$1$2");
+	}
+
+	private static final Pattern LIKE_PATTERN = Pattern.compile("([^\\\\]|^)\\\\([^\\\\%_]|$)");
+
+	@Override
+	boolean likeRequiresEscapeBackslash()
+	{
+		return true;
 	}
 
 	@Override
