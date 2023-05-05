@@ -11,7 +11,7 @@ timestamps
 			))
 	])
 
-	def database = '11.12'
+	def databasePostgresql = '11.12'
 
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && docker')
@@ -70,7 +70,7 @@ timestamps
 						'conf/main')
 				def dbImage = docker.build(
 						'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
-						'--build-arg VERSION=' + database + ' ' +
+						'--build-arg VERSION=' + databasePostgresql + ' ' +
 						'conf/postgresql')
 
 				def dbBridge = sh ( script:

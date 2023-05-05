@@ -11,7 +11,7 @@ timestamps
 			))
 	])
 
-	def database = '8.0.28'
+	def databaseMysql80 = '8.0.28'
 
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && docker')
@@ -132,7 +132,7 @@ timestamps
 						'conf/main')
 				def dbImage = docker.build(
 						'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
-						'--build-arg VERSION=' + database + ' ' +
+						'--build-arg VERSION=' + databaseMysql80 + ' ' +
 						'--build-arg CONF=my80.cnf ' +
 						'conf/mysql')
 
