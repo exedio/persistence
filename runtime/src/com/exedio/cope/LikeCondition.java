@@ -139,16 +139,21 @@ public final class LikeCondition extends Condition
 
 	public static LikeCondition startsWith(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, requireNonNull(value) + WILDCARD);
+		return new LikeCondition(function, escapeSpecials(value) + WILDCARD);
 	}
 
 	public static LikeCondition endsWith(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, WILDCARD + requireNonNull(value));
+		return new LikeCondition(function, WILDCARD + escapeSpecials(value));
 	}
 
 	public static LikeCondition contains(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, WILDCARD + requireNonNull(value) + WILDCARD);
+		return new LikeCondition(function, WILDCARD + escapeSpecials(value) + WILDCARD);
+	}
+
+	private static String escapeSpecials(final String value)
+	{
+		return value.replaceAll("([\\\\%_])", "\\\\$1");
 	}
 }
