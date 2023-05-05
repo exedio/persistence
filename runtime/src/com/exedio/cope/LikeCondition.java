@@ -67,9 +67,13 @@ public final class LikeCondition extends Condition
 	@Override
 	void append(final Statement bf)
 	{
+		final Dialect dialect = bf.dialect;
 		bf.append(function).
 			append(" LIKE ").
-			appendParameterAny(value);
+			appendParameterAny(dialect.maskLikePattern(value));
+
+		if(dialect.likeRequiresEscapeBackslash())
+			bf.append(" ESCAPE '\\'");
 	}
 
 	@Override

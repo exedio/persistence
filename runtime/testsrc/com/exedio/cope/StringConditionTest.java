@@ -70,16 +70,15 @@ public class StringConditionTest extends TestWithEnvironment
 		// https://hsqldb.org/doc/2.0/guide/dataaccess-chapt.html#dac_sql_predicates
 		// https://dev.mysql.com/doc/refman/8.0/en/string-comparison-functions.html#operator_like
 		// https://www.postgresql.org/docs/11/functions-matching.html#FUNCTIONS-LIKE
-		final boolean bs = postgresql || (mysql && !model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0));
 		assertEquals(asList(some                                    ), search(any.like("sta%tEnd")));
 		assertEquals(asList(some                                    ), search(any.like("sta_tEnd")));
 		assertEquals(asList(some                                    ), search(any.like("startEnd")));
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.like("start%End")));
 		assertEquals(asList(      someP, someU, someB, someX        ), search(any.like("start_End")));
-		assertEquals(bs ? asList(some ) : asList(someB), search(any.like("start\\End"))); // TODO should fail
-		assertEquals(bs ? asList(someB) : asList(     ), search(any.like("start\\\\End"))); // TODO should find someB only
-		assertEquals(bs ? asList(someP) : asList(someB), search(any.like("start\\%End"))); // TODO should find someP only
-		assertEquals(bs ? asList(someU) : asList(     ), search(any.like("start\\_End"))); // TODO should find someU only
+		assertEquals(asList(some), search(any.like("start\\End")));
+		assertEquals(asList(someB), search(any.like("start\\\\End")));
+		assertEquals(asList(someP), search(any.like("start\\%End")));
+		assertEquals(asList(someU), search(any.like("start\\_End")));
 
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("start")));
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("st%t"))); // TODO should find nothing
@@ -102,15 +101,15 @@ public class StringConditionTest extends TestWithEnvironment
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("tart%En"))); // TODO should find someP only
 		assertEquals(asList(      someP, someU, someB, someX        ), search(any.contains("tart_En"))); // TODO should find someU only
 
-		assertEquals(bs ? asList(someP) : asList(someB), search(any.startsWith("start\\%E"))); // TODO should find nothing
-		assertEquals(bs ? asList(someU) : asList(     ), search(any.startsWith("start\\_E"))); // TODO should find nothing
-		assertEquals(bs ? asList(someB) : asList(     ), search(any.startsWith("start\\\\E"))); // TODO should find nothing
-		assertEquals(bs ? asList(someP) : asList(someB), search(any.endsWith("art\\%End"))); // TODO should find nothing
-		assertEquals(bs ? asList(someU) : asList(     ), search(any.endsWith("art\\_End"))); // TODO should find nothing
-		assertEquals(bs ? asList(someB) : asList(     ), search(any.endsWith("art\\\\End"))); // TODO should find nothing
-		assertEquals(bs ? asList(someP) : asList(someB), search(any.contains("art\\%En"))); // TODO should find nothing
-		assertEquals(bs ? asList(someU) : asList(     ), search(any.contains("art\\_En"))); // TODO should find nothing
-		assertEquals(bs ? asList(someB) : asList(     ), search(any.contains("art\\\\En"))); // TODO should find nothing
+		assertEquals(asList(someP), search(any.startsWith("start\\%E"))); // TODO should find nothing
+		assertEquals(asList(someU), search(any.startsWith("start\\_E"))); // TODO should find nothing
+		assertEquals(asList(someB), search(any.startsWith("start\\\\E"))); // TODO should find nothing
+		assertEquals(asList(someP), search(any.endsWith("art\\%End"))); // TODO should find nothing
+		assertEquals(asList(someU), search(any.endsWith("art\\_End"))); // TODO should find nothing
+		assertEquals(asList(someB), search(any.endsWith("art\\\\End"))); // TODO should find nothing
+		assertEquals(asList(someP), search(any.contains("art\\%En"))); // TODO should find nothing
+		assertEquals(asList(someU), search(any.contains("art\\_En"))); // TODO should find nothing
+		assertEquals(asList(someB), search(any.contains("art\\\\En"))); // TODO should find nothing
 	}
 
 	@Test void testIgnoreCase()

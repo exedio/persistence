@@ -102,6 +102,7 @@ final class MysqlDialect extends Dialect
 	private final boolean shortConstraintNames;
 	private final boolean supportsAnyValue;
 	private final int purgeSequenceLimit;
+	private final boolean likeRequiresEscapeBackslash;
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
 
@@ -144,6 +145,7 @@ final class MysqlDialect extends Dialect
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		purgeSequenceLimit = properties.purgeSequenceLimit;
+		likeRequiresEscapeBackslash = mysql8;
 
 		// Starting with MySQL 8.0.4 regular expression support uses a library called
 		// "International Components for Unicode (ICU)"
@@ -495,6 +497,12 @@ final class MysqlDialect extends Dialect
 			appendParameter(value.length).
 			append("))=").
 			appendParameter(Hex.encodeUpper(value));
+	}
+
+	@Override
+	boolean likeRequiresEscapeBackslash()
+	{
+		return likeRequiresEscapeBackslash;
 	}
 
 	@Override

@@ -387,6 +387,21 @@ abstract class Dialect
 		return ")";
 	}
 
+	/**
+	 * Allows a dialect to modify the LIKE pattern before sending it to the database.
+	 * Should be used to avoid failures due to invalid patterns,
+	 * such as backslash not followed by backslash, percent sign or underscore.
+	 */
+	String maskLikePattern(final String pattern)
+	{
+		return pattern;
+	}
+
+	boolean likeRequiresEscapeBackslash()
+	{
+		return false;
+	}
+
 	abstract void appendRegexpLike(Statement bf, StringFunction function, String regexp);
 
 	@Nonnull abstract String getClause(String column, String regexp);
