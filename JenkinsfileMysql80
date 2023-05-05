@@ -28,54 +28,54 @@ timestamps
 
 				sh 'rm -f conf/environment/*.properties'
 
-				writeEnv(
+				envMysql80(
 						'my80',
 						'mysql-connector-java',
 						''
 				)
-				writeEnv(
+				envMysql80(
 						'my80-compress',
 						'mysql-connector-java',
 						'dialect.rowFormat=COMPRESSED\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-legacy',
 						'mysql-connector-java',
 						'disableSupport.nativeDate=true\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-nprep',
 						'mysql-connector-java',
 						'disableSupport.preparedStatements=true\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-nstmp',
 						'mysql-connector-java',
 						'cache.stamps=false\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-nstmp-sq',
 						'mysql-connector-java',
 						'cache.stamps=false\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-sq',
 						'mysql-connector-java',
 						'dialect.connection.compress=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-sqb',
 						'mysql-connector-java',
 						'schema.primaryKeyGenerator=batchedSequence\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-unique',
 						'mysql-connector-java',
 						'disableSupport.uniqueViolation=true\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80-vault',
 						'mysql-connector-java',
 						'vault=true\n' +
@@ -83,39 +83,39 @@ timestamps
 						'vault.isAppliedToAllFields=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80m',
 						'mariadb-java-client',
 						''
 				)
-				writeEnv(
+				envMysql80(
 						'my80m-legacy',
 						'mariadb-java-client',
 						'disableSupport.nativeDate=true\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80m-nprep',
 						'mariadb-java-client',
 						'disableSupport.preparedStatements=true\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80m-nstmp',
 						'mariadb-java-client',
 						'cache.stamps=false\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80m-nstmp-sq',
 						'mariadb-java-client',
 						'cache.stamps=false\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80m-sq',
 						'mariadb-java-client',
 						'dialect.connection.compress=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql80(
 						'my80m-vault',
 						'mariadb-java-client',
 						'vault=true\n' +
@@ -237,7 +237,7 @@ def makeBuildTag(scmResult)
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
 }
 
-def writeEnv(name, driver, text)
+def envMysql80(name, driver, text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',

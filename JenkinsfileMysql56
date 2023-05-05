@@ -28,46 +28,46 @@ timestamps
 
 				sh 'rm -f conf/environment/*.properties'
 
-				writeEnv(
+				envMysql56(
 						'my56',
 						''
 				)
-				writeEnv(
+				envMysql56(
 						'my56-legacy',
 						'dialect.longConstraintNames=false\n' +
 						'dialect.smallIntegerTypes=false\n' +
 						'dialect.utf8mb4=false\n' +
 						'disableSupport.nativeDate=true\n'
 				)
-				writeEnv(
+				envMysql56(
 						'my56-nprep',
 						'disableSupport.preparedStatements=true\n'
 				)
-				writeEnv(
+				envMysql56(
 						'my56-nprep-legacy',
 						'dialect.longConstraintNames=false\n' +
 						'dialect.smallIntegerTypes=false\n' +
 						'dialect.utf8mb4=false\n' +
 						'disableSupport.preparedStatements=true\n'
 				)
-				writeEnv(
+				envMysql56(
 						'my56-nstmp',
 						'cache.stamps=false\n'
 				)
-				writeEnv(
+				envMysql56(
 						'my56-nstmp-sq',
 						'cache.stamps=false\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql56(
 						'my56-sq',
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql56(
 						'my56-sqb',
 						'schema.primaryKeyGenerator=batchedSequence\n'
 				)
-				writeEnv(
+				envMysql56(
 						'my56-unique',
 						'disableSupport.uniqueViolation=true\n'
 				)
@@ -185,7 +185,7 @@ def makeBuildTag(scmResult)
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
 }
 
-def writeEnv(name, text)
+def envMysql56(name, text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',

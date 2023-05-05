@@ -28,33 +28,33 @@ timestamps
 
 				sh 'rm -f conf/environment/*.properties'
 
-				writeEnv(
+				envPostgresql(
 						'pg11',
 						''
 				)
-				writeEnv(
+				envPostgresql(
 						'pg11-mysql',
 						'disableSupport.nativeDate=true\n'
 				)
-				writeEnv(
+				envPostgresql(
 						'pg11-nprep',
 						'disableSupport.preparedStatements=true\n'
 				)
-				writeEnv(
+				envPostgresql(
 						'pg11-nstmp',
 						'cache.stamps=false\n'
 				)
-				writeEnv(
+				envPostgresql(
 						'pg11-public',
 						'dialect.connection.schema=public\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envPostgresql(
 						'pg11-sq',
 						'schema.primaryKeyGenerator=sequence\n' +
 						'dialect.pgcryptoSchema=<disabled>\n'
 				)
-				writeEnv(
+				envPostgresql(
 						'pg11-vault',
 						'vault=true\n' +
 						'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
@@ -173,7 +173,7 @@ def makeBuildTag(scmResult)
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
 }
 
-def writeEnv(name, text)
+def envPostgresql(name, text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',

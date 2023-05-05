@@ -28,54 +28,54 @@ timestamps
 
 				sh 'rm -f conf/environment/*.properties'
 
-				writeEnv(
+				envMysql57(
 						'my57',
 						'mysql-connector-java',
 						''
 				)
-				writeEnv(
+				envMysql57(
 						'my57-compress',
 						'mysql-connector-java',
 						'dialect.rowFormat=COMPRESSED\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-legacy',
 						'mysql-connector-java',
 						'disableSupport.nativeDate=true\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-nprep',
 						'mysql-connector-java',
 						'disableSupport.preparedStatements=true\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-nstmp',
 						'mysql-connector-java',
 						'cache.stamps=false\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-nstmp-sq',
 						'mysql-connector-java',
 						'cache.stamps=false\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-sq',
 						'mysql-connector-java',
 						'dialect.connection.compress=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-sqb',
 						'mysql-connector-java',
 						'schema.primaryKeyGenerator=batchedSequence\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-unique',
 						'mysql-connector-java',
 						'disableSupport.uniqueViolation=true\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-vault',
 						'mysql-connector-java',
 						'vault=true\n' +
@@ -83,39 +83,39 @@ timestamps
 						'vault.isAppliedToAllFields=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m',
 						'mariadb-java-client',
 						''
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-legacy',
 						'mariadb-java-client',
 						'disableSupport.nativeDate=true\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-nprep',
 						'mariadb-java-client',
 						'disableSupport.preparedStatements=true\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-nstmp',
 						'mariadb-java-client',
 						'cache.stamps=false\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-nstmp-sq',
 						'mariadb-java-client',
 						'cache.stamps=false\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-sq',
 						'mariadb-java-client',
 						'dialect.connection.compress=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-vault',
 						'mariadb-java-client',
 						'vault=true\n' +
@@ -237,7 +237,7 @@ def makeBuildTag(scmResult)
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
 }
 
-def writeEnv(name, driver, text)
+def envMysql57(name, driver, text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
