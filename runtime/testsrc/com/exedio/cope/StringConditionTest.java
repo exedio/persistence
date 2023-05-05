@@ -75,41 +75,41 @@ public class StringConditionTest extends TestWithEnvironment
 		assertEquals(asList(some                                    ), search(any.like("startEnd")));
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.like("start%End")));
 		assertEquals(asList(      someP, someU, someB, someX        ), search(any.like("start_End")));
-		assertEquals(asList(some), search(any.like("start\\End")));
+		assertEquals(asList(some ), search(any.like("start\\End")));
 		assertEquals(asList(someB), search(any.like("start\\\\End")));
 		assertEquals(asList(someP), search(any.like("start\\%End")));
 		assertEquals(asList(someU), search(any.like("start\\_End")));
 
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("start")));
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("st%t"))); // TODO should find nothing
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("st_rt"))); // TODO should find nothing
+		assertEquals(asList(                                        ), search(any.startsWith("st%t")));
+		assertEquals(asList(                                        ), search(any.startsWith("st_rt")));
 		assertEquals(asList(some                                    ), search(any.startsWith("startEn")));
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.startsWith("start%E"))); // TODO should find someP only
-		assertEquals(asList(      someP, someU, someB, someX        ), search(any.startsWith("start_E"))); // TODO should find someU only
+		assertEquals(asList(      someP                             ), search(any.startsWith("start%E")));
+		assertEquals(asList(             someU                      ), search(any.startsWith("start_E")));
 
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("End")));
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("E%d"))); // TODO should find nothing
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("E_d"))); // TODO should find nothing
+		assertEquals(asList(                                        ), search(any.endsWith("E%d")));
+		assertEquals(asList(                                        ), search(any.endsWith("E_d")));
 		assertEquals(asList(some                                    ), search(any.endsWith("rtEnd")));
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.endsWith("rt%End"))); // TODO should find someP only
-		assertEquals(asList(      someP, someU, someB, someX        ), search(any.endsWith("rt_End"))); // TODO should find someU only
+		assertEquals(asList(      someP                             ), search(any.endsWith("rt%End")));
+		assertEquals(asList(             someU                      ), search(any.endsWith("rt_End")));
 
 		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("tart")));
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("ta%t"))); // TODO should find nothing
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("ta_t"))); // TODO should find nothing
+		assertEquals(asList(                                        ), search(any.contains("ta%t")));
+		assertEquals(asList(                                        ), search(any.contains("ta_t")));
 		assertEquals(asList(some                                    ), search(any.contains("tartEn")));
-		assertEquals(asList(some, someP, someU, someB, someX, someXY), search(any.contains("tart%En"))); // TODO should find someP only
-		assertEquals(asList(      someP, someU, someB, someX        ), search(any.contains("tart_En"))); // TODO should find someU only
+		assertEquals(asList(      someP                             ), search(any.contains("tart%En")));
+		assertEquals(asList(             someU                      ), search(any.contains("tart_En")));
 
-		assertEquals(asList(someP), search(any.startsWith("start\\%E"))); // TODO should find nothing
-		assertEquals(asList(someU), search(any.startsWith("start\\_E"))); // TODO should find nothing
-		assertEquals(asList(someB), search(any.startsWith("start\\\\E"))); // TODO should find nothing
-		assertEquals(asList(someP), search(any.endsWith("art\\%End"))); // TODO should find nothing
-		assertEquals(asList(someU), search(any.endsWith("art\\_End"))); // TODO should find nothing
-		assertEquals(asList(someB), search(any.endsWith("art\\\\End"))); // TODO should find nothing
-		assertEquals(asList(someP), search(any.contains("art\\%En"))); // TODO should find nothing
-		assertEquals(asList(someU), search(any.contains("art\\_En"))); // TODO should find nothing
-		assertEquals(asList(someB), search(any.contains("art\\\\En"))); // TODO should find nothing
+		assertEquals(asList(), search(any.startsWith("start\\%E")));
+		assertEquals(asList(), search(any.startsWith("start\\_E")));
+		assertEquals(asList(), search(any.startsWith("start\\\\E")));
+		assertEquals(asList(), search(any.endsWith("art\\%End")));
+		assertEquals(asList(), search(any.endsWith("art\\_End")));
+		assertEquals(asList(), search(any.endsWith("art\\\\End")));
+		assertEquals(asList(), search(any.contains("art\\%En")));
+		assertEquals(asList(), search(any.contains("art\\_En")));
+		assertEquals(asList(), search(any.contains("art\\\\En")));
 	}
 
 	@Test void testIgnoreCase()
