@@ -28,22 +28,22 @@ timestamps
 
 				sh 'rm -f conf/environment/*.properties'
 
-				writeEnv(
+				envMysql57(
 						'my57-stampsA',
 						'mysql-connector-java',
 						'cache.stamps=true'
 				)
-				writeEnv(
+				envMysql57(
 						'my57-stampsB',
 						'mysql-connector-java',
 						'cache.stamps=false'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-stampsA',
 						'mariadb-java-client',
 						'cache.stamps=true'
 				)
-				writeEnv(
+				envMysql57(
 						'my57m-stampsB',
 						'mariadb-java-client',
 						'cache.stamps=false'
@@ -163,7 +163,7 @@ def makeBuildTag(scmResult)
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
 }
 
-def writeEnv(name, driver, text)
+def envMysql57(name, driver, text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
