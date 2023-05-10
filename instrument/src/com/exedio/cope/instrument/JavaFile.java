@@ -170,6 +170,11 @@ final class JavaFile
 		}
 	}
 
+	public Class<?> findTypeExternallyOrFail(final String typename) throws ClassNotFoundException
+	{
+		return interimClassLoader.loadClass(typename);
+	}
+
 	void overwrite(final CharSequence content, final Charset charset)
 	{
 		try(final OutputStreamWriter w = new OutputStreamWriter(sourceFile.openOutputStream(), charset))
