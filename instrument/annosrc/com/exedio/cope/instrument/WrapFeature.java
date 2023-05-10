@@ -28,6 +28,7 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
+@WrapAnnotateInterim
 public @interface WrapFeature
 {
 	// empty
