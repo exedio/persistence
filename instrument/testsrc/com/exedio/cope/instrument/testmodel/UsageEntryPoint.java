@@ -16,20 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument;
+package com.exedio.cope.instrument.testmodel;
 
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
 
-import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@WrapAnnotateInterim
-public @interface WrapFeature
+@Target({TYPE, FIELD, METHOD})
+@Retention(RetentionPolicy.SOURCE)
+public @interface UsageEntryPoint
 {
-	// empty
+	// no parameters
 }
