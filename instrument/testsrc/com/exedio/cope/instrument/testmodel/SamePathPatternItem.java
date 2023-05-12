@@ -42,6 +42,20 @@ public class SamePathPatternItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected SamePathPatternItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="wrappedNullable")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	static final java.lang.String wrappedFeatureNullable(@javax.annotation.Nullable final java.lang.String feature)
+	{
+		return SamePathPatternItem.feature.wrappedNullable(feature);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="wrappedNonnull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	static final java.lang.String wrappedFeatureNonnull(@javax.annotation.Nonnull final java.lang.String feature)
+	{
+		return SamePathPatternItem.feature.wrappedNonnull(feature);
+	}
+
 	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 

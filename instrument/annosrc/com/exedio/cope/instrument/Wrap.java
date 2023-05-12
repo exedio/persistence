@@ -26,6 +26,7 @@ import java.lang.annotation.Target;
 
 @Target(METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@WrapAnnotateInterim
 public @interface Wrap
 {
 	/**
