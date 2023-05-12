@@ -44,6 +44,7 @@ public class SamePathPatternItem extends Item
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="wrappedNullable")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
 	static final java.lang.String wrappedFeatureNullable(@javax.annotation.Nullable final java.lang.String feature)
 	{
 		return SamePathPatternItem.feature.wrappedNullable(feature);
@@ -51,6 +52,7 @@ public class SamePathPatternItem extends Item
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="wrappedNonnull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
 	static final java.lang.String wrappedFeatureNonnull(@javax.annotation.Nonnull final java.lang.String feature)
 	{
 		return SamePathPatternItem.feature.wrappedNonnull(feature);

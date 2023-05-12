@@ -837,7 +837,7 @@ final class InterimProcessor extends JavacProcessor
 			for (final AnnotationTree annotation : annotations)
 			{
 				final TypeElement annotationType = (TypeElement)getElement(annotation.getAnnotationType());
-				if (annotationType.getAnnotation(WrapAnnotateInterim.class)!=null)
+				if (addAnnotationToInterimCode(annotationType))
 					interimAnnotations.add(annotation);
 			}
 			return interimAnnotations;
@@ -887,6 +887,13 @@ final class InterimProcessor extends JavacProcessor
 				return null;
 			}
 		}
+	}
+
+	private static boolean addAnnotationToInterimCode(final TypeElement annotationType)
+	{
+		return annotationType.getAnnotation(WrapAnnotateInterim.class)!=null
+				 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nonnull")
+				 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nullable");
 	}
 
 	private static class Code
