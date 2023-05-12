@@ -848,9 +848,7 @@ final class InterimProcessor extends JavacProcessor
 			final StringBuilder result = new StringBuilder();
 			for (final AnnotationTree annotation : getInterimAnnotations(modifiers.getAnnotations()))
 			{
-				final TypeElement annotationType = (TypeElement)getElement(annotation.getAnnotationType());
-				if (annotationType.getAnnotation(WrapAnnotateInterim.class)!=null)
-					result.append(annotation).append(" ");
+				result.append(annotation).append(" ");
 			}
 			for (final Modifier modifier : modifiers.getFlags())
 			{
