@@ -47,7 +47,7 @@ final class JavacRunner
 	void run(final Params params) throws IOException, HumanReadableException
 	{
 		final JavaCompiler compiler=ToolProvider.getSystemJavaCompiler();
-		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
+		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, params.charset))
 		{
 			final List<File> sortedSourceFiles=params.getAllJavaSourceFiles();
 			// We have to sort files to have a deterministic order - otherwise, resolving classes by

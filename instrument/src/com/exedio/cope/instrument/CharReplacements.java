@@ -18,35 +18,29 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-final class ByteReplacements
+final class CharReplacements
 {
 	private final List<Replacement> replacements=new ArrayList<>();
 
 	private int bufferSize=1024;
 
 	/** @return this */
-	ByteReplacements setBufferSize(final int bufferSize)
+	CharReplacements setBufferSize(final int bufferSize)
 	{
 		if (bufferSize<1) throw new RuntimeException();
 		this.bufferSize=bufferSize;
 		return this;
 	}
 
-	void addReplacement(final int start, final int end, final String replacementAscii)
-	{
-		addReplacement(start, end, replacementAscii.getBytes(StandardCharsets.US_ASCII));
-	}
-
-	void addReplacement(final int start, final int end, final byte[] replacement) throws IllegalArgumentException
+	void addReplacement(final int start, final int end, final String replacement) throws IllegalArgumentException
 	{
 		if (!replacements.isEmpty())
 		{
@@ -57,9 +51,9 @@ final class ByteReplacements
 		replacements.add(new Replacement(start, end, replacement));
 	}
 
-	byte[] applyReplacements(final byte[] originalSource)
+	String applyReplacements(final String originalSource)
 	{
-		try (ByteArrayInputStream bais=new ByteArrayInputStream(originalSource))
+		try (StringReader bais=new StringReader(originalSource))
 		{
 			return applyReplacements(bais);
 		}
@@ -69,19 +63,19 @@ final class ByteReplacements
 		}
 	}
 
-	byte[] applyReplacements(final InputStream inputStream) throws IOException
+	String applyReplacements(final Reader reader) throws IOException
 	{
 		final Iterator<Replacement> replacementIter=replacements.iterator();
-		try (final ByteArrayOutputStream os = new ByteArrayOutputStream(InstrumentorWriteProcessor.INITIAL_BUFFER_SIZE))
+		try (final StringWriter os = new StringWriter(InstrumentorWriteProcessor.INITIAL_BUFFER_SIZE))
 		{
-			final byte[] buffer = new byte[bufferSize];
+			final char[] buffer = new char[bufferSize];
 			int indexInSource = 0;
 			while (replacementIter.hasNext())
 			{
 				final Replacement replacement=replacementIter.next();
 				while (indexInSource<replacement.startInclusive)
 				{
-					final int read=inputStream.read(buffer, 0, Math.min(buffer.length, replacement.startInclusive-indexInSource));
+					final int read=reader.read(buffer, 0, Math.min(buffer.length, replacement.startInclusive-indexInSource));
 					if (read==-1) throw new RuntimeException("unexpected EOF");
 					indexInSource+=read;
 					os.write(buffer, 0, read);
@@ -90,27 +84,27 @@ final class ByteReplacements
 				int reallySkipped=0;
 				while (reallySkipped<skip)
 				{
-					final int skippedNow=inputStream.read(buffer, 0, Math.min(buffer.length, skip-reallySkipped));
+					final int skippedNow=reader.read(buffer, 0, Math.min(buffer.length, skip-reallySkipped));
 					if (skippedNow==-1) throw new RuntimeException("unexpected EOF while skipping "+replacement);
 					reallySkipped+=skippedNow;
 				}
 				indexInSource+=reallySkipped;
-				os.write(replacement.replacementBytes);
+				os.write(replacement.replacementString);
 			}
 			// write the rest
 			int read;
-			while ((read=inputStream.read(buffer, 0, buffer.length))>=0)
+			while ((read=reader.read(buffer, 0, buffer.length))>=0)
 			{
 				os.write(buffer, 0, read);
 			}
-			return os.toByteArray();
+			return os.toString();
 		}
 	}
 
 	int translateToPositionInOutput(final int positionInInput)
 	{
-		int droppedBytes = 0;
-		int addedBytes = 0;
+		int droppedChars = 0;
+		int addedChars = 0;
 		for (final Replacement replacement : replacements)
 		{
 			if (replacement.startInclusive<=positionInInput)
@@ -119,8 +113,8 @@ final class ByteReplacements
 				{
 					throw new RuntimeException("in replaced part");
 				}
-				droppedBytes += (replacement.endExclusive-replacement.startInclusive);
-				addedBytes += replacement.replacementBytes.length;
+				droppedChars += (replacement.endExclusive-replacement.startInclusive);
+				addedChars += replacement.replacementString.length();
 			}
 			else
 			{
@@ -128,21 +122,21 @@ final class ByteReplacements
 			}
 		}
 
-		return positionInInput+addedBytes-droppedBytes;
+		return positionInInput+addedChars-droppedChars;
 	}
 
 	private static class Replacement
 	{
 		final int startInclusive;
 		final int endExclusive;
-		final byte[] replacementBytes;
+		final String replacementString;
 
-		Replacement(final int startInclusive, final int endExclusive, final byte[] replacementBytes)
+		Replacement(final int startInclusive, final int endExclusive, final String replacementString)
 		{
 			if (startInclusive<0 || startInclusive>endExclusive) throw new RuntimeException(startInclusive + "-" + endExclusive);
 			this.startInclusive=startInclusive;
 			this.endExclusive=endExclusive;
-			this.replacementBytes=replacementBytes;
+			this.replacementString=replacementString;
 		}
 
 		@Override

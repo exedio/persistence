@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 
 public class JavaFileTest
@@ -67,7 +66,7 @@ public class JavaFileTest
 
 	@Test void sourceWithoutGeneratedFragments()
 	{
-		final JavaFile javaFile=new JavaFile(createJavaRepository(), null, new DummyJavaFileObject("x").withDummyBytes(10), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), null, new DummyJavaFileObject("x").withDummyChars(10), "y");
 		javaFile.markFragmentAsGenerated(1, 2);
 		assertSourcesWithoutGeneratedFragments("023456789", javaFile);
 
@@ -77,7 +76,7 @@ public class JavaFileTest
 
 	@Test void generatedFragmentBehindEnd()
 	{
-		final JavaFile javaFile=new JavaFile(createJavaRepository(), null, new DummyJavaFileObject("x").withDummyBytes(10), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), null, new DummyJavaFileObject("x").withDummyChars(10), "y");
 		javaFile.markFragmentAsGenerated(1, 2);
 		javaFile.markFragmentAsGenerated(11, 12);
 		try
@@ -93,7 +92,7 @@ public class JavaFileTest
 
 	@Test void generatedFragmentIncludingEnd()
 	{
-		final JavaFile javaFile=new JavaFile(createJavaRepository(), null, new DummyJavaFileObject("x").withDummyBytes(10), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), null, new DummyJavaFileObject("x").withDummyChars(10), "y");
 		javaFile.markFragmentAsGenerated(9, 12);
 		try
 		{
@@ -108,7 +107,7 @@ public class JavaFileTest
 
 	private static void assertSourcesWithoutGeneratedFragments(final String expected, final JavaFile javaFile)
 	{
-		assertEquals(expected, new String(javaFile.getSourceWithoutGeneratedFragments(), StandardCharsets.US_ASCII));
+		assertEquals(expected, javaFile.getSourceWithoutGeneratedFragments());
 	}
 
 	private static JavaRepository createJavaRepository()

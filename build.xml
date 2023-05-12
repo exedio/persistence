@@ -875,6 +875,7 @@
 		<instrument
 				dir="instrument/testparamssrc"
 				verify="${instrument.verify}"
+				encoding="utf8"
 				serialVersionUIDSuffix="none"
 				useConstantForEmptySetValuesArray="false"
 				activator="false"
@@ -954,7 +955,7 @@
 	</target>
 
 	<target name="instrument.testparams.compile" depends="instrument.test.paramssrcinstrument, instrument.test.compile">
-		<compile srcdir="instrument/testparamssrc">
+		<compile srcdir="instrument/testparamssrc" encoding="utf8">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />

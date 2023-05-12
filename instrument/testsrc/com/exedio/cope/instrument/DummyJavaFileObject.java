@@ -18,10 +18,10 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
 import java.net.URI;
 import javax.lang.model.element.Modifier;
@@ -31,16 +31,16 @@ import javax.tools.JavaFileObject;
 class DummyJavaFileObject implements JavaFileObject
 {
 	private final String name;
-	private int dummyByteCount=-1;
+	private int dummyCharCount=-1;
 
 	DummyJavaFileObject(final String name)
 	{
 		this.name=name;
 	}
 
-	DummyJavaFileObject withDummyBytes(final int byteCount)
+	DummyJavaFileObject withDummyChars(final int charCount)
 	{
-		dummyByteCount=byteCount;
+		dummyCharCount=charCount;
 		return this;
 	}
 
@@ -83,16 +83,7 @@ class DummyJavaFileObject implements JavaFileObject
 	@Override
 	public InputStream openInputStream()
 	{
-		if (dummyByteCount==-1)
-		{
-			throw new RuntimeException();
-		}
-		final byte[] bytes=new byte[dummyByteCount];
-		for (int i=0; i<dummyByteCount; i++)
-		{
-			bytes[i]=(byte)('0'+i%10);
-		}
-		return new ByteArrayInputStream(bytes);
+		throw new RuntimeException();
 	}
 
 	@Override
@@ -104,7 +95,16 @@ class DummyJavaFileObject implements JavaFileObject
 	@Override
 	public Reader openReader(final boolean ignoreEncodingErrors)
 	{
-		throw new RuntimeException();
+		if (dummyCharCount == -1)
+		{
+			throw new RuntimeException();
+		}
+		final char[] chars=new char[dummyCharCount];
+		for (int i = 0; i < dummyCharCount; i++)
+		{
+			chars[i]=(char) ('0'+i%10);
+		}
+		return new StringReader(new String(chars));
 	}
 
 	@Override

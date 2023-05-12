@@ -64,7 +64,7 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
 				final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds, disabledWraps);
-				generator.write(params.charset);
+				generator.write();
 
 				if(! javaFile.inputEqual(buffer, params.charset))
 				{
