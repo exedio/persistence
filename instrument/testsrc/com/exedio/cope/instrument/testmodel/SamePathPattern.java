@@ -32,7 +32,7 @@ public final class SamePathPattern<T extends Item> extends Pattern
 {
 	@WrapInterim
 	@SuppressWarnings({"unused", "FieldCanBeLocal"})
-	private final ItemField<?> field;
+	private final ItemField<T> field;
 
 	@WrapInterim
 	private SamePathPattern(final ItemField<T> field)

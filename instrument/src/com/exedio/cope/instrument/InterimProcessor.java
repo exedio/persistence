@@ -706,8 +706,9 @@ final class InterimProcessor extends JavacProcessor
 			{
 				case IDENTIFIER:
 				case MEMBER_SELECT:
-					final TypeElement typeElement = (TypeElement)getRequiredElement(typeTree);
-					requiredTypes.add(typeElement);
+					final Element typeElement = getRequiredElement(typeTree);
+					if (typeElement instanceof TypeElement) // TypeParameterElement for generics
+						requiredTypes.add((TypeElement) typeElement);
 					break;
 				case PARAMETERIZED_TYPE:
 					final ParameterizedTypeTree ptt = (ParameterizedTypeTree)typeTree;
