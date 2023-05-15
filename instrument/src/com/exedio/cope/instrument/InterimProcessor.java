@@ -599,7 +599,10 @@ final class InterimProcessor extends JavacProcessor
 				for (final VariableTree parameter : mt.getParameters())
 				{
 					comma.appendTo(part.line);
-					part.continueLine(parameter.toString());
+					part.continueLine(toStringWithoutMostAnnotations(parameter.getModifiers()));
+					part.continueLine(parameter.getType().toString());
+					part.continueLine(" ");
+					part.continueLine(parameter.getName().toString());
 				}
 				part.continueLine(")");
 				final boolean methodIsAbstract = mt.getModifiers().getFlags().contains(Modifier.ABSTRACT);
