@@ -12,13 +12,12 @@
 			<javac srcdir="@{srcdir}"
 					 destdir="build/classes/@{srcdir}"
 					 includeAntRuntime="@{includeAntRuntime}"
+					 encoding="ascii"
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">
 				<implicit-element />
 				<compilerarg value="-Xlint:all,-path" />
-				<compilerarg value="-encoding" />
-				<compilerarg value="ascii" />
 				<compilerarg value="-Xmaxwarns" />
 				<compilerarg value="10000" />
 			</javac>
