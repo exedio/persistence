@@ -86,4 +86,9 @@ class DoInstrument implements InterfaceThatUsesDontInstrument
 		// empty
 	}
 
+	@WrapInterim
+	void doSomething(@AnnotationNotInInterim final int param)
+	{
+		// empty
+	}
 }
