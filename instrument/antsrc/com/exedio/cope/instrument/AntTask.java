@@ -90,9 +90,16 @@ public final class AntTask extends Task
 		params.verify = value;
 	}
 
-	public void setCharset(final String value)
+	public void setEncoding(final String value)
 	{
 		params.charset = Charset.forName(value);
+	}
+
+	public void setCharset(final String value)
+	{
+		throw new BuildException(
+				"Attribute charset is no longer supported. " +
+				"Use encoding instead.");
 	}
 
 	public void setMaxwarns(final int value)

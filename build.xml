@@ -826,7 +826,7 @@
 		<instrument
 				dir="instrument/testsrc"
 				verify="${instrument.verify}"
-				charset="ascii"
+				encoding="ascii"
 				maxwarns="20000"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
@@ -880,7 +880,7 @@
 		<instrument
 				dir="instrument/testlibsrc"
 				verify="${instrument.verify}"
-				charset="ascii"
+				encoding="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="capital"
 				finalMethodInFinalClass="false"
