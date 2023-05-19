@@ -60,6 +60,20 @@
 			<mkdir dir="build/testresults" />
 			<mkdir dir="build/testtmpdir" />
 			<fail if:true="false">ant >= 1.9.1 required, see https://ant.apache.org/manual/ifunless.html</fail>
+			<propertyregex property="scansrc-expanded"
+					input="@{scansrc}"
+					regexp=":"
+					replace=":build/classes/"
+					defaultvalue="@{scansrc}"
+					global="true"
+					override="true"
+			/>
+			<propertyregex property="scansrc-primary"
+					input="@{scansrc}"
+					regexp="([^:]+).*"
+					select="\1"
+					override="true"
+			/>
 			<java taskname="junit" fork="yes" dir="${basedir}"
 					failonerror="true"
 					classname="org.junit.platform.console.ConsoleLauncher">
@@ -69,11 +83,11 @@
 				<implicit-element />
 				<arg line="--fail-if-no-tests" />
 				<arg line="--include-classname .{0,}" unless:set="@{testproperty}" /> <!-- regexp ".*" doesn't work on Windows -->
-				<arg line="--scan-class-path build/classes/@{scansrc}" unless:set="@{testproperty}" />
+				<arg line="--scan-class-path build/classes/${scansrc-expanded}" unless:set="@{testproperty}" />
 				<arg line="@{line}" unless:set="@{testproperty}" />
 				<arg line="--select-class ${@{testproperty}}" if:set="@{testproperty}" unless:set="method" />
 				<arg line="--select-method ${@{testproperty}}#${method}" if:set="method" />
-				<arg line="--reports-dir build/testresults/@{scansrc}/@{env}" />
+				<arg line="--reports-dir build/testresults/${scansrc-primary}/@{env}" />
 				<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 				<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 				<sysproperty key="user.country"  value="${test-DefaultCountry}" />
@@ -867,6 +881,10 @@
 				directSetValueMap="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
+			<classpath>
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
+			</classpath>
 			<suppressWarnings>
 				<type>type-single</type>
 				<constructor>constructor-first</constructor>
@@ -935,12 +953,16 @@
 		</compile>
 	</target>
 
-	<target name="instrument.testparams.compile" depends="instrument.test.paramssrcinstrument">
+	<target name="instrument.testparams.compile" depends="instrument.test.paramssrcinstrument, instrument.test.compile">
 		<compile srcdir="instrument/testparamssrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
+				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
+				<pathelement location="build/classes/instrument/testsrc" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
@@ -948,7 +970,7 @@
 
 	<target name="instrument.test"
 				depends="runtime.compile, instrument.compile, instrument.test.compile, instrument.testparams.compile">
-		<ljunit scansrc="instrument/testsrc" testproperty="instrument.test">
+		<ljunit scansrc="instrument/testsrc:instrument/testparamssrc" testproperty="instrument.test">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
@@ -959,6 +981,7 @@
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="build/classes/instrument/testsrc" />
+				<pathelement location="build/classes/instrument/testparamssrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
