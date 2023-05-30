@@ -25,7 +25,8 @@ import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -41,7 +42,7 @@ final class TreeApiContext
 	private final CompilationUnitTree compilationUnit;
 	private final DocSourcePositions sourcePositions;
 
-	private char[] allChars;
+	private String allChars;
 
 	TreeApiContext(final Params params, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
@@ -104,13 +105,13 @@ final class TreeApiContext
 		return element;
 	}
 
-	private char[] getAllChars()
+	private String getAllChars()
 	{
 		if ( allChars==null )
 		{
-			try (final InputStream inputStream=compilationUnit.getSourceFile().openInputStream())
+			try
 			{
-				allChars=new String(inputStream.readAllBytes(), params.charset).toCharArray();
+				allChars = Files.readString(Path.of(compilationUnit.getSourceFile().toUri()), params.charset);
 			}
 			catch (final IOException e)
 			{
@@ -122,13 +123,13 @@ final class TreeApiContext
 
 	String getSourceString(final int start, final int end)
 	{
-		return new String(getAllChars(), start, end-start);
+		return getAllChars().substring(start, end);
 	}
 
 	/** @return -1 if not found */
-	int searchBefore(final int pos, final char[] search)
+	int searchBefore(final int pos, final String search)
 	{
-		int searchPos=pos-search.length;
+		int searchPos=pos-search.length();
 		while (true)
 		{
 			if ( searchPos<0 )
@@ -145,15 +146,15 @@ final class TreeApiContext
 	}
 
 	/** @return -1 if not found */
-	int searchAfter(final int pos, final char[] search)
+	int searchAfter(final int pos, final String search)
 	{
 		int searchPos=pos+1;
-		final char[] allChars=getAllChars();
-		while (searchPos+search.length<=allChars.length)
+		final String allChars=getAllChars();
+		while (searchPos+search.length()<=allChars.length())
 		{
 			if ( charsMatch(searchPos, search) )
 			{
-				return searchPos+search.length;
+				return searchPos+search.length();
 			}
 			else
 			{
@@ -163,15 +164,15 @@ final class TreeApiContext
 		return -1;
 	}
 
-	private boolean charsMatch(final int pos, final char[] search)
+	private boolean charsMatch(final int pos, final String search)
 	{
 		if (pos<0) throw new ArrayIndexOutOfBoundsException(pos);
-		final char[] allChars=getAllChars();
-		if (pos+search.length>allChars.length)
-			throw new IllegalArgumentException(pos+"+"+search.length+">"+allChars.length);
-		for (int i=0; i<search.length; i++)
+		final String allChars=getAllChars();
+		if (pos+search.length()>allChars.length())
+			throw new IllegalArgumentException(pos+"+"+search.length()+">"+allChars.length());
+		for (int i=0; i<search.length(); i++)
 		{
-			if ( allChars[pos+i]!=search[i] )
+			if ( allChars.charAt(pos+i)!=search.charAt(i) )
 			{
 				return false;
 			}
