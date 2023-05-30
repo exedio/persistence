@@ -24,7 +24,6 @@ import com.sun.source.tree.Tree;
 import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -110,7 +109,7 @@ final class TreeApiContext
 		{
 			try (final InputStream inputStream=compilationUnit.getSourceFile().openInputStream())
 			{
-				allBytes=readFully(inputStream);
+				allBytes=inputStream.readAllBytes();
 			}
 			catch (final IOException e)
 			{
@@ -123,17 +122,6 @@ final class TreeApiContext
 	String getSourceString(final int start, final int end)
 	{
 		return new String(getAllBytes(), start, end-start, StandardCharsets.US_ASCII);
-	}
-
-	private static byte[] readFully(final InputStream fis) throws IOException
-	{
-		final ByteArrayOutputStream baos=new ByteArrayOutputStream();
-		int b;
-		while ( (b=fis.read())!=-1 )
-		{
-			baos.write(b);
-		}
-		return baos.toByteArray();
 	}
 
 	/** @return -1 if not found */
