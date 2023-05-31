@@ -302,11 +302,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	// cache
 
-	/**
-	 * DO NOT USE the value of itemCacheLimitOLD, just for default of itemCacheLimit.
-	 */
-	private final int itemCacheLimitOLD   = value("cache.item.limit",     100000, 0);
-	private final int itemCacheLimit      = value("cache.item.globalLimit", itemCacheLimitOLD, 0);
+	private final int itemCacheLimit      = value("cache.item.limit",     100000, 0);
 	private final int queryCacheLimit     = value("cache.query.limit",     10000, 0);
 	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
 	        final boolean cacheStamps     = value("cache.stamps", true);
