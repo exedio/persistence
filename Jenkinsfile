@@ -33,8 +33,8 @@ properties([
 		gitLabConnection(env.GITLAB_CONNECTION),
 		buildDiscarder(
 			logRotator(
-				numToKeepStr         : isRelease ? '50' : '30',
-				artifactNumToKeepStr : isRelease ? '10' :  '2'
+				numToKeepStr         : isRelease ? '150' : '30', // 150 corresponds to plot numBuilds
+				artifactNumToKeepStr : isRelease ?  '10' :  '2'
 		))
 ])
 
