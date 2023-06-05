@@ -20,8 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.CopeExternalTest.CachedItem;
 import com.exedio.cope.CopeExternalTest.NoCacheItem;
@@ -33,29 +32,21 @@ public class CopeExternalModelTest
 	@Test void testInvalidCached() throws ClassNotFoundException
 	{
 		Class.forName(InvalidCachedItem.class.getName(), true, getClass().getClassLoader());
-		try
-		{
-			TypesBound.newType(InvalidCachedItem.class, failingActivator());
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("@CopeExternal must be set consistently at type and supertype", e.getMessage());
-		}
+		assertFails(
+				() -> TypesBound.newType(InvalidCachedItem.class, failingActivator()),
+				IllegalArgumentException.class,
+				"@CopeExternal must be set consistently " +
+				"at type and supertype");
 	}
 
 	@Test void testInvalidUncached() throws ClassNotFoundException
 	{
 		Class.forName(InvalidUncachedItem.class.getName(), true, getClass().getClassLoader());
-		try
-		{
-			TypesBound.newType(InvalidUncachedItem.class, failingActivator());
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("@CopeExternal must be set consistently at type and supertype", e.getMessage());
-		}
+		assertFails(
+				() -> TypesBound.newType(InvalidUncachedItem.class, failingActivator()),
+				IllegalArgumentException.class,
+				"@CopeExternal must be set consistently " +
+				"at type and supertype");
 	}
 
 
