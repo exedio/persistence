@@ -501,28 +501,7 @@ public class ConnectPropertiesTest
 	{
 		final Source source =
 				cascade(
-						single("cache.item.globalLimit", 123), // key does no longer exist
-						TestSources.minimal()
-				);
-		assertEquals(100000, ConnectProperties.create(source).getItemCacheLimit());
-	}
-
-	@Test void testItemCacheLimitFallback()
-	{
-		final Source source =
-				cascade(
 						single("cache.item.limit", 123),
-						TestSources.minimal()
-				);
-		assertEquals(123, ConnectProperties.create(source).getItemCacheLimit());
-	}
-
-	@Test void testItemCacheLimitOverride()
-	{
-		final Source source =
-				cascade(
-						single("cache.item.limit", 123),
-						single("cache.item.globalLimit", 456), // key does no longer exist
 						TestSources.minimal()
 				);
 		assertEquals(123, ConnectProperties.create(source).getItemCacheLimit());
