@@ -315,7 +315,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(supertype!=null && this.external!=supertype.external)
 			throw new IllegalArgumentException(
 					"@"+CopeExternal.class.getSimpleName() +
-					" must be set consistently at type and supertype");
+					" must be set consistently at type " + id + " and its supertype " + supertype);
 
 		this.expectedMaxRowSize =
 				fields.all.size() +

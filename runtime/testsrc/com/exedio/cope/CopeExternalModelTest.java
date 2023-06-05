@@ -36,7 +36,7 @@ public class CopeExternalModelTest
 				() -> TypesBound.newType(InvalidCachedItem.class, failingActivator()),
 				IllegalArgumentException.class,
 				"@CopeExternal must be set consistently " +
-				"at type and supertype");
+				"at type InvalidCachedItem and its supertype NoCacheItem");
 	}
 
 	@Test void testInvalidUncached() throws ClassNotFoundException
@@ -46,7 +46,7 @@ public class CopeExternalModelTest
 				() -> TypesBound.newType(InvalidUncachedItem.class, failingActivator()),
 				IllegalArgumentException.class,
 				"@CopeExternal must be set consistently " +
-				"at type and supertype");
+				"at type InvalidUncachedItem and its supertype CachedItem");
 	}
 
 
