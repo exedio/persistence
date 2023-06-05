@@ -91,8 +91,7 @@ public class CopeExternalTest extends TestWithEnvironment
 		assertEquals(0, getQueryCacheInfo(model).getLevel());
 
 		WeightZeroItem.TYPE.search();
-		assertEquals(oneIfCacheActive, getQueryCacheInfo(model).getLevel());
-		model.clearCache();
+		assertEquals(0, getQueryCacheInfo(model).getLevel());
 
 		searchJoin(CachedItem.TYPE, CachedItem.TYPE);
 		assertEquals(oneIfCacheActive, getQueryCacheInfo(model).getLevel());
@@ -165,8 +164,7 @@ public class CopeExternalTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	@SuppressWarnings("deprecation")
-	@CopeCacheWeight(0)
+	@CopeExternal
 	private static class WeightZeroItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
