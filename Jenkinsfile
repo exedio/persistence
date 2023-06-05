@@ -1,191 +1,182 @@
 #!'groovy'
+import groovy.transform.Field
+import groovy.transform.stc.ClosureParams
+import groovy.transform.stc.SimpleType
 
-def projectName = env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/")) // depends on name and location of multibranch pipeline in jenkins
-def jdk = 'openjdk-11'
-def idea = '2023.1'
-def ideaSHA256 = 'e6fe45c9df8e763ee3278444b5fb1003910c436752e83221e0303a62c5e81eaa'
-def databaseMysql56 = '5.6.33'
-def databaseMysql57 = '5.7.37'
-def databaseMysql80 = '8.0.28'
-def databasePostgresql = '11.12'
-def isRelease = env.BRANCH_NAME=="master"
-def dockerNamePrefix = env.JOB_NAME.replace("/", "-").replace(" ", "_") + "-" + env.BUILD_NUMBER
-def dockerDate = new Date().format("yyyyMMdd")
-def ant = 'ant/bin/ant -noinput'
+@Field
+String jdk = 'openjdk-11'
+@Field
+String idea = '2023.1'
+@Field
+String ideaSHA256 = 'e6fe45c9df8e763ee3278444b5fb1003910c436752e83221e0303a62c5e81eaa'
+@Field
+String databaseMysql56 = '5.6.33'
+@Field
+String databaseMysql57 = '5.7.37'
+@Field
+String databaseMysql80 = '8.0.28'
+@Field
+String databasePostgresql = '11.12'
+
+String projectName = env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/")) // depends on name and location of multibranch pipeline in jenkins
+boolean isRelease = env.BRANCH_NAME=="master"
+
+Map<String, ?> recordIssuesDefaults = [
+	failOnError         : true,
+	enabledForFailure   : true,
+	ignoreFailedBuilds  : false,
+	skipPublishingChecks: true,
+	qualityGates        : [[threshold: 1, type: 'TOTAL', unstable: true]],
+]
 
 properties([
 		gitLabConnection(env.GITLAB_CONNECTION),
-		buildDiscarder(logRotator(
+		buildDiscarder(
+			logRotator(
 				numToKeepStr         : isRelease ? '50' : '30',
 				artifactNumToKeepStr : isRelease ? '10' :  '2'
 		))
 ])
 
-tryCompleted = false
+boolean tryCompleted = false
 try
 {
-	def parallelBranches = [:]
+	Map<String, Closure<?>> parallelBranches = [:]
 
-	parallelBranches["Main"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
-			scmResult ->
+	parallelBranches["Main"] = {
+		nodeCheckoutAndDelete { scmResult ->
 			def buildTag = makeBuildTag(scmResult)
 
-			def dockerName = dockerNamePrefix + "-Main"
-			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'--build-arg JENKINS_OWNER=' + env.JENKINS_OWNER + ' ' +
-					'conf/main')
-			def apacheImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate + '-apache',
-					'conf/apache')
+			def mainImage = mainImage(imageName("Main"))
+			def dbImage = docker.build(
+				imageName('Main', 'apache'),
+				'conf/apache')
 			shSilent "mkdir VaultHttpServiceDocumentRoot"
 			shSilent "mkdir VaultHttpServiceDocumentRoot/myContent"
 
-			withBridge(dockerName + "-net")
-			{
-				bridge ->
-
-				apacheImage.withRun(
-						"--name '" + dockerName + "-apache' " +
-						"--cap-drop all " +
-						"--cap-add SETGID " + // in apache.log get rid of: [unixd:alert] (1)Operation not permitted: AH02156: setgid: unable to set group id to Group 33
-						"--cap-add SETUID " + // in apache.log fixes: [unixd:alert] (1)Operation not permitted: AH02162: setuid: unable to change to uid: 33
-						"--security-opt no-new-privileges " +
-						"--network " + bridge + " " +
-						"--network-alias=test-apache-host " +
-						"--mount type=bind,src=" + env.WORKSPACE + "/VaultHttpServiceDocumentRoot/myContent,target=/usr/local/apache2/htdocs " +
-						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-				{ a ->
-
-				mainImage.inside(
-						"--name '" + dockerName + "' " +
+			withBridge("Main-db") { dbBridge ->
+				dbImage.withRun(
+					dockerRunDefaults(dbBridge, 'test-apache-host') +
+					"--cap-add SETGID " + // in apache.log get rid of: [unixd:alert] (1)Operation not permitted: AH02156: setgid: unable to set group id to Group 33
+					"--cap-add SETUID " + // in apache.log fixes: [unixd:alert] (1)Operation not permitted: AH02162: setuid: unable to change to uid: 33
+					"--mount type=bind,src=" + env.WORKSPACE + "/VaultHttpServiceDocumentRoot/myContent,target=/usr/local/apache2/htdocs "
+				) { c ->
+					mainImage.inside(
+						dockerRunDefaults(dbBridge) +
 						"--group-add copevaultfilesv1 " + // VaultFileServicePosixGroupTest#testGroupFile
 						"--group-add copevaultfilesv2 " + // VaultFileServicePosixGroupTest#testGroupDirectory
-						"--cap-drop all " +
-						"--security-opt no-new-privileges " +
-						"--network " + bridge + " " +
 						// avoids 20s dns timeout when probes do futilely try to connect
-						"--add-host VaultHttpServicePropertiesTest.invalid:0.0.0.0 " +
-						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-				{
-					shSilent ant + " clean jenkins" +
-							' "-Dbuild.revision=${BUILD_NUMBER}"' +
-							' "-Dbuild.tag=' + buildTag + '"' +
-							' -Dbuild.status=' + (isRelease?'release':'integration') +
-							' -Dinstrument.verify=true' +
-							' -Ddisable-ansi-colors=true' +
-							' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
-							' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
-							' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
-							' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
-							' -Druntime.test.VaultHttpServiceTest.url=http://test-apache-host' +
-							' -Druntime.test.VaultHttpServiceTest.dir=VaultHttpServiceDocumentRoot'
-				}
-					sh "docker logs " + a.id + " &> apache.log"
+						"--add-host VaultHttpServicePropertiesTest.invalid:0.0.0.0 "
+					) {
+						ant 'clean jenkins' +
+						    ' "-Dbuild.revision=${BUILD_NUMBER}"' +
+						    ' "-Dbuild.tag=' + buildTag + '"' +
+						    ' -Dbuild.status=' + (isRelease?'release':'integration') +
+						    ' -Dinstrument.verify=true' +
+						    ' -Ddisable-ansi-colors=true' +
+						    ' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
+						    ' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
+						    ' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
+						    ' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
+						    ' -Druntime.test.VaultHttpServiceTest.url=http://test-apache-host' +
+						    ' -Druntime.test.VaultHttpServiceTest.dir=VaultHttpServiceDocumentRoot'
+					}
+					sh "docker logs " + c.id + " &> apache.log"
 					archiveArtifacts 'apache.log'
 				}
 			}
 
 			recordIssues(
-					failOnError: true,
-					enabledForFailure: true,
-					ignoreFailedBuilds: false,
-					qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]],
-					tools: [
-						java(),
-					],
-					skipPublishingChecks: true,
+				*: recordIssuesDefaults,
+				tools: [
+					java(),
+				],
 			)
 			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-					skipPublishingChecks: true
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
 			)
 			archiveArtifacts(
-					'build/ThumbnailTest/*,' +
-					'build/testprotocol.*,' +
-					'build/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-					'build/*.log,' +
-					'tomcat/logs/*,' +
-					'build/testtmpdir'
+				'build/ThumbnailTest/*,' +
+				'build/testprotocol.*,' +
+				'build/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'build/*.log,' +
+				'tomcat/logs/*,' +
+				'build/testtmpdir'
 			)
-			if(isRelease || env.BRANCH_NAME.contains("archiveSuccessArtifacts"))
+			if (isRelease || env.BRANCH_NAME.contains("archiveSuccessArtifacts"))
 				archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
 			plot(
-					csvFileName: 'plots.csv',
-					exclZero: false,
-					keepRecords: false,
-					group: 'Sizes',
-					title: '1: exedio-cope.jar',
-					numBuilds: '150',
-					style: 'line',
-					useDescr: false,
-					propertiesSeries: [
-						[ file: 'build/exedio-cope.jar-plot.properties',     label: 'exedio-cope.jar' ],
-						[ file: 'build/exedio-cope-src.zip-plot.properties', label: 'exedio-cope-src.zip' ],
-					],
+				csvFileName: 'plots.csv',
+				exclZero: false,
+				keepRecords: false,
+				group: 'Sizes',
+				title: '1: exedio-cope.jar',
+				numBuilds: '150',
+				style: 'line',
+				useDescr: false,
+				propertiesSeries: [
+					[ file: 'build/exedio-cope.jar-plot.properties',     label: 'exedio-cope.jar' ],
+					[ file: 'build/exedio-cope-src.zip-plot.properties', label: 'exedio-cope-src.zip' ],
+				],
 			)
 			plot(
-					csvFileName: 'plots-dialect.csv',
-					exclZero: false,
-					keepRecords: false,
-					group: 'Sizes',
-					title: '2: exedio-cope-dialect.jar',
-					numBuilds: '150',
-					style: 'line',
-					useDescr: false,
-					propertiesSeries: [
-						[ file: 'build/exedio-cope-hsqldb.jar-plot.properties',     label: 'exedio-cope-hsqldb.jar' ],
-						[ file: 'build/exedio-cope-mysql.jar-plot.properties',      label: 'exedio-cope-mysql.jar' ],
-						[ file: 'build/exedio-cope-postgresql.jar-plot.properties', label: 'exedio-cope-postgresql.jar' ],
-					],
+				csvFileName: 'plots-dialect.csv',
+				exclZero: false,
+				keepRecords: false,
+				group: 'Sizes',
+				title: '2: exedio-cope-dialect.jar',
+				numBuilds: '150',
+				style: 'line',
+				useDescr: false,
+				propertiesSeries: [
+					[ file: 'build/exedio-cope-hsqldb.jar-plot.properties',     label: 'exedio-cope-hsqldb.jar' ],
+					[ file: 'build/exedio-cope-mysql.jar-plot.properties',      label: 'exedio-cope-mysql.jar' ],
+					[ file: 'build/exedio-cope-postgresql.jar-plot.properties', label: 'exedio-cope-postgresql.jar' ],
+				],
 			)
 			plot(
-					csvFileName: 'plots-instrument.csv',
-					exclZero: false,
-					keepRecords: false,
-					group: 'Sizes',
-					title: '3: exedio-cope-instrument.jar',
-					numBuilds: '150',
-					style: 'line',
-					useDescr: false,
-					propertiesSeries: [[
-						file: 'build/exedio-cope-instrument.jar-plot.properties',
-						label:      'exedio-cope-instrument.jar',
-					]],
+				csvFileName: 'plots-instrument.csv',
+				exclZero: false,
+				keepRecords: false,
+				group: 'Sizes',
+				title: '3: exedio-cope-instrument.jar',
+				numBuilds: '150',
+				style: 'line',
+				useDescr: false,
+				propertiesSeries: [[
+					file: 'build/exedio-cope-instrument.jar-plot.properties',
+					label:      'exedio-cope-instrument.jar',
+				]],
 			)
 			plot(
-					csvFileName: 'plots-instrument-annotations.csv',
-					exclZero: false,
-					keepRecords: false,
-					group: 'Sizes',
-					title: '4: exedio-cope-instrument-annotations.jar',
-					numBuilds: '150',
-					style: 'line',
-					useDescr: false,
-					propertiesSeries: [[
-						file: 'build/exedio-cope-instrument-annotations.jar-plot.properties',
-						label:      'exedio-cope-instrument-annotations.jar',
-					]],
+				csvFileName: 'plots-instrument-annotations.csv',
+				exclZero: false,
+				keepRecords: false,
+				group: 'Sizes',
+				title: '4: exedio-cope-instrument-annotations.jar',
+				numBuilds: '150',
+				style: 'line',
+				useDescr: false,
+				propertiesSeries: [[
+					file: 'build/exedio-cope-instrument-annotations.jar-plot.properties',
+					label:      'exedio-cope-instrument-annotations.jar',
+				]],
 			)
 			plot(
-					csvFileName: 'plots-instrument-completion.csv',
-					exclZero: false,
-					keepRecords: false,
-					group: 'Sizes',
-					title: '5: exedio-cope-instrument-completion.jar',
-					numBuilds: '150',
-					style: 'line',
-					useDescr: false,
-					propertiesSeries: [[
-						file: 'build/exedio-cope-instrument-completion.jar-plot.properties',
-						label:      'exedio-cope-instrument-completion.jar',
-					]],
+				csvFileName: 'plots-instrument-completion.csv',
+				exclZero: false,
+				keepRecords: false,
+				group: 'Sizes',
+				title: '5: exedio-cope-instrument-completion.jar',
+				numBuilds: '150',
+				style: 'line',
+				useDescr: false,
+				propertiesSeries: [[
+					file: 'build/exedio-cope-instrument-completion.jar-plot.properties',
+					label:      'exedio-cope-instrument-completion.jar',
+				]],
 			)
 		}
 	}
@@ -195,766 +186,636 @@ try
 		//noinspection GroovyAssignabilityCheck
 		nodeCheckoutAndDelete
 		{
-			def dockerName = dockerNamePrefix + "-Github"
 			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'conf/github')
+				imageName('Main', 'apache'),
+				'--build-arg JDK=' + jdk + ' ' +
+				'conf/github')
 
-			withBridge(dockerName + "-net")
-			{
-				bridge ->
-
-				mainImage.inside(
-						"--name '" + dockerName + "' " +
-						"--cap-drop all " +
-						"--security-opt no-new-privileges " +
-						"--network " + bridge)
+			withBridge("Github-db") { bridge ->
+				mainImage.inside(dockerRunDefaults(bridge))
 				{
 					// corresponds to .github/workflows/ant.yml
-					shSilent ant + " -Dgithub=true clean jenkins"
+					ant '-Dgithub=true clean jenkins'
 				}
 			}
 
 			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-					skipPublishingChecks: true
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
 			)
 		}
 	}
 
-	parallelBranches["Idea"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
-			recordIssues(
-					failOnError: true,
-					enabledForFailure: true,
-					ignoreFailedBuilds: false,
-					qualityGates: [[threshold: 1, type: 'TOTAL_HIGH', unstable: true]],
-					tools: [
-							taskScanner(
-									excludePattern:
-											'.git/**,lib/**,ant/**,' +
-											'**/*.jar,**/*.zip,**/*.tgz,**/*.jpg,**/*.gif,**/*.png,**/*.tif,**/*.webp,**/*.pdf,**/*.eot,**/*.ttf,**/*.woff,**/*.woff2,**/keystore', // binary file types
-									highTags: 'FIX' + 'ME', // causes build to become unstable, concatenation prevents matching this line
-									normalTags: 'TODO', // does not cause build to become unstable
-									ignoreCase: true),
-					],
-			)
+	parallelBranches["Forensic"] = {
+		nodeCheckoutAndDelete {
+			discoverGitReferenceBuild()
+			gitDiffStat()
+			if (isRelease || env.BRANCH_NAME.contains("forensic")) mineRepository()
 
-			def dockerName = dockerNamePrefix + "-Idea"
-			docker.
-				build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'--build-arg IDEA=' + idea + ' ' +
-					'--build-arg IDEA_SHA256=' + ideaSHA256 + ' ' +
-					'conf/idea').
-				inside(
-					"--name '" + dockerName + "' " +
-					"--cap-drop all " +
-					"--security-opt no-new-privileges " +
-					"--network none")
-				{
-					shSilent "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
-				}
+			recordIssues(
+				*: recordIssuesDefaults,
+				qualityGates: [[threshold: 1, type: 'TOTAL_HIGH', unstable: true]],
+				tools: [
+					taskScanner(
+						excludePattern:
+							'.git/**,lib/**,ant/**,' +
+							// binary file types
+							'**/*.jar,**/*.zip,**/*.tgz,**/*.jpg,**/*.jpeg,**/*.gif,**/*.png,**/*.tif,**/*.webp,**/*.pdf,**/*.eot,**/*.ttf,**/*.woff,**/*.woff2,**/keystore,**/*.ico,**/*.xls,**/*.kdbx,**/*.bcmap,**/*.dat,**/*.cur,**/*.otf,**/*.zargo,**/*.gz',
+						// causes build to become unstable, concatenation prevents matching this line
+						highTags: 'FIX' + 'ME',
+						// does not cause build to become unstable
+						normalTags: 'TODO',
+						ignoreCase: true),
+				],
+			)
+		}
+	}
+
+	parallelBranches["Idea"] = {
+		nodeCheckoutAndDelete {
+			def ideaImage = docker.build(
+				imageName('Idea'),
+				'--build-arg JDK=' + jdk + ' ' +
+				'--build-arg IDEA=' + idea + ' ' +
+				'--build-arg IDEA_SHA256=' + ideaSHA256 + ' ' +
+				'conf/idea')
+			ideaImage.inside(dockerRunDefaults()) {
+				shSilent "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
+			}
 			archiveArtifacts 'idea-inspection-output/**'
 			// replace project dir to prevent UnsupportedOperationException - will not be exposed in artifacts
-			shSilent "find idea-inspection-output -name '*.xml' | xargs --no-run-if-empty sed --in-place -- 's=\\\$PROJECT_DIR\\\$="+env.WORKSPACE+"=g'"
+			shSilent "find idea-inspection-output -name '*.xml' | " +
+			         "xargs --no-run-if-empty sed --in-place -- 's=\\\$PROJECT_DIR\\\$=" + env.WORKSPACE + "=g'"
 			recordIssues(
-					failOnError: true,
-					enabledForFailure: true,
-					ignoreFailedBuilds: false,
-					qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]],
-					tools: [
-						ideaInspection(pattern: 'idea-inspection-output/**'),
-					],
+				*: recordIssuesDefaults,
+				tools: [ideaInspection(pattern: 'idea-inspection-output/**')],
 			)
 		}
 	}
 
 	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql56"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
-			scmResult ->
-			def buildTag = makeBuildTag(scmResult)
+	parallelBranches["Mysql56"] = {
+		nodeCheckoutAndDelete { scmResult ->
+			String buildTag = makeBuildTag(scmResult)
 
 			sh 'rm -f conf/environment/*.properties'
 
 			envMysql56(
-					'my56',
-					''
+				'my56',
+				''
 			)
 			envMysql56(
-					'my56-legacy',
-					'dialect.longConstraintNames=false\n' +
-					'dialect.smallIntegerTypes=false\n' +
-					'dialect.utf8mb4=false\n' +
-					'disableSupport.nativeDate=true\n'
+				'my56-legacy',
+				'dialect.longConstraintNames=false\n' +
+				'dialect.smallIntegerTypes=false\n' +
+				'dialect.utf8mb4=false\n' +
+				'disableSupport.nativeDate=true\n'
 			)
 			envMysql56(
-					'my56-nprep',
-					'disableSupport.preparedStatements=true\n'
+				'my56-nprep',
+				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql56(
-					'my56-nprep-legacy',
-					'dialect.longConstraintNames=false\n' +
-					'dialect.smallIntegerTypes=false\n' +
-					'dialect.utf8mb4=false\n' +
-					'disableSupport.preparedStatements=true\n'
+				'my56-nprep-legacy',
+				'dialect.longConstraintNames=false\n' +
+				'dialect.smallIntegerTypes=false\n' +
+				'dialect.utf8mb4=false\n' +
+				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql56(
-					'my56-nstmp',
-					'cache.stamps=false\n'
+				'my56-nstmp',
+				'cache.stamps=false\n'
 			)
 			envMysql56(
-					'my56-nstmp-sq',
-					'cache.stamps=false\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my56-nstmp-sq',
+				'cache.stamps=false\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql56(
-					'my56-sq',
-					'schema.primaryKeyGenerator=sequence\n'
+				'my56-sq',
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql56(
-					'my56-sqb',
-					'schema.primaryKeyGenerator=batchedSequence\n'
+				'my56-sqb',
+				'schema.primaryKeyGenerator=batchedSequence\n'
 			)
 			envMysql56(
-					'my56-unique',
-					'disableSupport.uniqueViolation=true\n'
+				'my56-unique',
+				'disableSupport.uniqueViolation=true\n'
 			)
 
-			def dockerName = dockerNamePrefix + "-Mysql56"
-			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'conf/main')
+			def mainImage = mainImage(imageName("Mysql56"))
 			def dbImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
-					'--build-arg VERSION=' + databaseMysql56 + ' ' +
-					'--build-arg CONF=my56.cnf ' +
-					'conf/mysql')
+				imageName('Mysql56', 'db'),
+				'--build-arg VERSION=' + databaseMysql56 + ' ' +
+				'--build-arg CONF=my56.cnf ' +
+				'conf/mysql')
 
-			withBridge(dockerName + "-net")
-			{
-				bridge ->
-
+			withBridge("Mysql56-db") { dbBridge ->
 				dbImage.withRun(
-						"--name '" + dockerName + "-db' " +
-						"--cap-drop all " +
-						"--cap-add CHOWN " +
-						"--cap-add SETGID " +
-						"--cap-add SETUID " +
-						"--security-opt no-new-privileges " +
-						"--tmpfs /var/lib/mysql:rw " +
-						"--network " + bridge + " " +
-						"--network-alias=test-db-host " +
-						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-				{ c ->
+					dockerRunDefaults(dbBridge, 'test-db-host') +
+					"--cap-add CHOWN " +
+					"--cap-add SETGID " +
+					"--cap-add SETUID " +
+					"--tmpfs /var/lib/mysql:rw "
+				) { c ->
 					mainImage.inside(
-							"--name '" + dockerName + "' " +
-							"--cap-drop all " +
-							"--security-opt no-new-privileges " +
-							"--hostname mydockerhostname " +
-							"--network " + bridge + " " +
-							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-					{
-						shSilent ant + " clean testWithEnv" +
-								' "-Dbuild.tag=' + buildTag + '"' +
-								' -Dskip.instrument=true' + // already verified in branch Main
-								' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-								' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql56.sql' +
-								' -Ddisable-ansi-colors=true'
+						dockerRunDefaults(dbBridge) +
+						"--hostname mydockerhostname "
+					) {
+						ant 'clean testWithEnv' +
+						    ' "-Dbuild.tag=' + buildTag + '"' +
+						    ' -Dskip.instrument=true' + // already verified in branch Main
+						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql56.sql' +
+						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Mysql56.log"
 					archiveArtifacts 'db-Mysql56.log'
 				}
 			}
 			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-					skipPublishingChecks: true
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
 			)
 			sh "mv build buildMysql56"
 			archiveArtifacts(
-					'buildMysql56/testprotocol.*,' +
-					'buildMysql56/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-					'buildMysql56/*.log,' +
-					'buildMysql56/testtmpdir'
+				'buildMysql56/testprotocol.*,' +
+				'buildMysql56/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'buildMysql56/*.log,' +
+				'buildMysql56/testtmpdir'
 			)
 		}
 	}
 
 	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql57"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
-			scmResult ->
-			def buildTag = makeBuildTag(scmResult)
+	parallelBranches["Mysql57"] = {
+		nodeCheckoutAndDelete { scmResult ->
+			String buildTag = makeBuildTag(scmResult)
 
 			sh 'rm -f conf/environment/*.properties'
 
 			envMysql57(
-					'my57',
-					'mysql-connector-java',
-					''
+				'my57',
+				'mysql-connector-java',
+				''
 			)
 			envMysql57(
-					'my57-compress',
-					'mysql-connector-java',
-					'dialect.rowFormat=COMPRESSED\n'
+				'my57-compress',
+				'mysql-connector-java',
+				'dialect.rowFormat=COMPRESSED\n'
 			)
 			envMysql57(
-					'my57-legacy',
-					'mysql-connector-java',
-					'disableSupport.nativeDate=true\n'
+				'my57-legacy',
+				'mysql-connector-java',
+				'disableSupport.nativeDate=true\n'
 			)
 			envMysql57(
-					'my57-nprep',
-					'mysql-connector-java',
-					'disableSupport.preparedStatements=true\n'
+				'my57-nprep',
+				'mysql-connector-java',
+				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql57(
-					'my57-nstmp',
-					'mysql-connector-java',
-					'cache.stamps=false\n'
+				'my57-nstmp',
+				'mysql-connector-java',
+				'cache.stamps=false\n'
 			)
 			envMysql57(
-					'my57-nstmp-sq',
-					'mysql-connector-java',
-					'cache.stamps=false\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my57-nstmp-sq',
+				'mysql-connector-java',
+				'cache.stamps=false\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
-					'my57-sq',
-					'mysql-connector-java',
-					'dialect.connection.compress=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my57-sq',
+				'mysql-connector-java',
+				'dialect.connection.compress=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
-					'my57-sqb',
-					'mysql-connector-java',
-					'schema.primaryKeyGenerator=batchedSequence\n'
+				'my57-sqb',
+				'mysql-connector-java',
+				'schema.primaryKeyGenerator=batchedSequence\n'
 			)
 			envMysql57(
-					'my57-unique',
-					'mysql-connector-java',
-					'disableSupport.uniqueViolation=true\n'
+				'my57-unique',
+				'mysql-connector-java',
+				'disableSupport.uniqueViolation=true\n'
 			)
 			envMysql57(
-					'my57-vault',
-					'mysql-connector-java',
-					'vault=true\n' +
-					'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-					'vault.isAppliedToAllFields=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my57-vault',
+				'mysql-connector-java',
+				'vault=true\n' +
+				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.isAppliedToAllFields=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
-					'my57m',
-					'mariadb-java-client',
-					''
+				'my57m',
+				'mariadb-java-client',
+				''
 			)
 			envMysql57(
-					'my57m-legacy',
-					'mariadb-java-client',
-					'disableSupport.nativeDate=true\n'
+				'my57m-legacy',
+				'mariadb-java-client',
+				'disableSupport.nativeDate=true\n'
 			)
 			envMysql57(
-					'my57m-nprep',
-					'mariadb-java-client',
-					'disableSupport.preparedStatements=true\n'
+				'my57m-nprep',
+				'mariadb-java-client',
+				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql57(
-					'my57m-nstmp',
-					'mariadb-java-client',
-					'cache.stamps=false\n'
+				'my57m-nstmp',
+				'mariadb-java-client',
+				'cache.stamps=false\n'
 			)
 			envMysql57(
-					'my57m-nstmp-sq',
-					'mariadb-java-client',
-					'cache.stamps=false\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my57m-nstmp-sq',
+				'mariadb-java-client',
+				'cache.stamps=false\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
-					'my57m-sq',
-					'mariadb-java-client',
-					'dialect.connection.compress=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my57m-sq',
+				'mariadb-java-client',
+				'dialect.connection.compress=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
-					'my57m-vault',
-					'mariadb-java-client',
-					'vault=true\n' +
-					'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-					'vault.isAppliedToAllFields=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my57m-vault',
+				'mariadb-java-client',
+				'vault=true\n' +
+				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.isAppliedToAllFields=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 
-			def dockerName = dockerNamePrefix + "-Mysql57"
-			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'conf/main')
+			def mainImage = mainImage(imageName("Mysql57"))
 			def dbImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
-					'--build-arg VERSION=' + databaseMysql57 + ' ' +
-					'--build-arg CONF=my57.cnf ' +
-					'conf/mysql')
+				imageName('Mysql57', 'db'),
+				'--build-arg VERSION=' + databaseMysql57 + ' ' +
+				'--build-arg CONF=my57.cnf ' +
+				'conf/mysql')
 
-			withBridge(dockerName + "-net")
-			{
-				bridge ->
-
+			withBridge("Mysql57-db") { dbBridge ->
 				dbImage.withRun(
-						"--name '" + dockerName + "-db' " +
-						"--cap-drop all " +
-						"--cap-add CHOWN " +
-						"--cap-add SETGID " +
-						"--cap-add SETUID " +
-						"--security-opt no-new-privileges " +
-						"--tmpfs /var/lib/mysql:rw " +
-						"--network " + bridge + " " +
-						"--network-alias=test-db-host " +
-						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-				{ c ->
+					dockerRunDefaults(dbBridge, 'test-db-host') +
+					"--cap-add CHOWN " +
+					"--cap-add SETGID " +
+					"--cap-add SETUID " +
+					"--tmpfs /var/lib/mysql:rw "
+				) { c ->
 					mainImage.inside(
-							"--name '" + dockerName + "' " +
-							"--cap-drop all " +
-							"--security-opt no-new-privileges " +
-							"--hostname mydockerhostname " +
-							"--network " + bridge + " " +
-							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-					{
-						shSilent ant + " clean testWithEnv" +
-								' "-Dbuild.tag=' + buildTag + '"' +
-								' -Dskip.instrument=true' + // already verified in branch Main
-								' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-								' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
-								' -Ddisable-ansi-colors=true'
+						dockerRunDefaults(dbBridge) +
+						"--hostname mydockerhostname "
+					) {
+						ant 'clean testWithEnv' +
+						    ' "-Dbuild.tag=' + buildTag + '"' +
+						    ' -Dskip.instrument=true' + // already verified in branch Main
+						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
+						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Mysql57.log"
 					archiveArtifacts 'db-Mysql57.log'
 				}
 			}
 			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-					skipPublishingChecks: true
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
 			)
 			sh "mv build buildMysql57"
 			archiveArtifacts(
-					'buildMysql57/testprotocol.*,' +
-					'buildMysql57/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-					'buildMysql57/*.log,' +
-					'buildMysql57/testtmpdir'
+				'buildMysql57/testprotocol.*,' +
+				'buildMysql57/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'buildMysql57/*.log,' +
+				'buildMysql57/testtmpdir'
 			)
 		}
 	}
 
 	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql57CR"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
-			scmResult ->
-			def buildTag = makeBuildTag(scmResult)
+	parallelBranches["Mysql57CR"] = {
+		nodeCheckoutAndDelete { scmResult ->
+			String buildTag = makeBuildTag(scmResult)
 
 			sh 'rm -f conf/environment/*.properties'
 
 			envMysql57(
-					'my57-stampsA',
-					'mysql-connector-java',
-					'cache.stamps=true'
+				'my57-stampsA',
+				'mysql-connector-java',
+				'cache.stamps=true'
 			)
 			envMysql57(
-					'my57-stampsB',
-					'mysql-connector-java',
-					'cache.stamps=false'
+				'my57-stampsB',
+				'mysql-connector-java',
+				'cache.stamps=false'
 			)
 			envMysql57(
-					'my57m-stampsA',
-					'mariadb-java-client',
-					'cache.stamps=true'
+				'my57m-stampsA',
+				'mariadb-java-client',
+				'cache.stamps=true'
 			)
 			envMysql57(
-					'my57m-stampsB',
-					'mariadb-java-client',
-					'cache.stamps=false'
+				'my57m-stampsB',
+				'mariadb-java-client',
+				'cache.stamps=false'
 			)
 
-			def dockerName = dockerNamePrefix + "-Mysql57CR"
-			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'conf/main')
+			def mainImage = mainImage(imageName("Mysql57CR"))
 			def dbImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
-					'--build-arg VERSION=' + databaseMysql57 + ' ' +
-					'--build-arg CONF=my57.cnf ' +
-					'conf/mysql')
+				imageName('Mysql57CR', 'db'),
+				'--build-arg VERSION=' + databaseMysql57 + ' ' +
+				'--build-arg CONF=my57.cnf ' +
+				'conf/mysql')
 
-			withBridge(dockerName + "-net")
-			{
-				bridge ->
-
+			withBridge("Mysql57CR-db") { dbBridge ->
 				dbImage.withRun(
-						"--name '" + dockerName + "-db' " +
-						"--cap-drop all " +
-						"--cap-add CHOWN " +
-						"--cap-add SETGID " +
-						"--cap-add SETUID " +
-						"--security-opt no-new-privileges " +
-						"--tmpfs /var/lib/mysql:rw " +
-						"--network " + bridge + " " +
-						"--network-alias=test-db-host " +
-						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-				{ c ->
+					dockerRunDefaults(dbBridge, 'test-db-host') +
+					"--cap-add CHOWN " +
+					"--cap-add SETGID " +
+					"--cap-add SETUID " +
+					"--tmpfs /var/lib/mysql:rw "
+				) { c ->
 					mainImage.inside(
-							"--name '" + dockerName + "' " +
-							"--cap-drop all " +
-							"--security-opt no-new-privileges " +
-							"--hostname mydockerhostname " +
-							"--network " + bridge + " " +
-							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-					{
-						shSilent ant + " clean testWithEnv" +
-								' "-Dbuild.tag=' + buildTag + '"' +
-								' -Dskip.instrument=true' + // already verified in branch Main
-								' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +
-								' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-								' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
-								' -Ddisable-ansi-colors=true'
+						dockerRunDefaults(dbBridge) +
+						"--hostname mydockerhostname "
+					) {
+						ant 'clean testWithEnv' +
+						    ' "-Dbuild.tag=' + buildTag + '"' +
+						    ' -Dskip.instrument=true' + // already verified in branch Main
+						    ' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +
+						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
+						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Mysql57CR.log"
 					archiveArtifacts 'db-Mysql57CR.log'
 				}
 			}
 			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-					skipPublishingChecks: true
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
 			)
 			sh "mv build buildMysql57CR"
 			archiveArtifacts(
-					'buildMysql57CR/testprotocol.*,' +
-					'buildMysql57CR/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-					'buildMysql57CR/*.log,' +
-					'buildMysql57CR/testtmpdir'
+				'buildMysql57CR/testprotocol.*,' +
+				'buildMysql57CR/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'buildMysql57CR/*.log,' +
+				'buildMysql57CR/testtmpdir'
 			)
 		}
 	}
 
 	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql80"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
-			scmResult ->
-			def buildTag = makeBuildTag(scmResult)
+	parallelBranches["Mysql80"] = {
+		nodeCheckoutAndDelete { scmResult ->
+			String buildTag = makeBuildTag(scmResult)
 
 			sh 'rm -f conf/environment/*.properties'
 
 			envMysql80(
-					'my80',
-					'mysql-connector-java',
-					''
+				'my80',
+				'mysql-connector-java',
+				''
 			)
 			envMysql80(
-					'my80-compress',
-					'mysql-connector-java',
-					'dialect.rowFormat=COMPRESSED\n'
+				'my80-compress',
+				'mysql-connector-java',
+				'dialect.rowFormat=COMPRESSED\n'
 			)
 			envMysql80(
-					'my80-legacy',
-					'mysql-connector-java',
-					'disableSupport.nativeDate=true\n'
+				'my80-legacy',
+				'mysql-connector-java',
+				'disableSupport.nativeDate=true\n'
 			)
 			envMysql80(
-					'my80-nprep',
-					'mysql-connector-java',
-					'disableSupport.preparedStatements=true\n'
+				'my80-nprep',
+				'mysql-connector-java',
+				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql80(
-					'my80-nstmp',
-					'mysql-connector-java',
-					'cache.stamps=false\n'
+				'my80-nstmp',
+				'mysql-connector-java',
+				'cache.stamps=false\n'
 			)
 			envMysql80(
-					'my80-nstmp-sq',
-					'mysql-connector-java',
-					'cache.stamps=false\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my80-nstmp-sq',
+				'mysql-connector-java',
+				'cache.stamps=false\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
-					'my80-sq',
-					'mysql-connector-java',
-					'dialect.connection.compress=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my80-sq',
+				'mysql-connector-java',
+				'dialect.connection.compress=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
-					'my80-sqb',
-					'mysql-connector-java',
-					'schema.primaryKeyGenerator=batchedSequence\n'
+				'my80-sqb',
+				'mysql-connector-java',
+				'schema.primaryKeyGenerator=batchedSequence\n'
 			)
 			envMysql80(
-					'my80-unique',
-					'mysql-connector-java',
-					'disableSupport.uniqueViolation=true\n'
+				'my80-unique',
+				'mysql-connector-java',
+				'disableSupport.uniqueViolation=true\n'
 			)
 			envMysql80(
-					'my80-vault',
-					'mysql-connector-java',
-					'vault=true\n' +
-					'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-					'vault.isAppliedToAllFields=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my80-vault',
+				'mysql-connector-java',
+				'vault=true\n' +
+				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.isAppliedToAllFields=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
-					'my80m',
-					'mariadb-java-client',
-					''
+				'my80m',
+				'mariadb-java-client',
+				''
 			)
 			envMysql80(
-					'my80m-legacy',
-					'mariadb-java-client',
-					'disableSupport.nativeDate=true\n'
+				'my80m-legacy',
+				'mariadb-java-client',
+				'disableSupport.nativeDate=true\n'
 			)
 			envMysql80(
-					'my80m-nprep',
-					'mariadb-java-client',
-					'disableSupport.preparedStatements=true\n'
+				'my80m-nprep',
+				'mariadb-java-client',
+				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql80(
-					'my80m-nstmp',
-					'mariadb-java-client',
-					'cache.stamps=false\n'
+				'my80m-nstmp',
+				'mariadb-java-client',
+				'cache.stamps=false\n'
 			)
 			envMysql80(
-					'my80m-nstmp-sq',
-					'mariadb-java-client',
-					'cache.stamps=false\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my80m-nstmp-sq',
+				'mariadb-java-client',
+				'cache.stamps=false\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
-					'my80m-sq',
-					'mariadb-java-client',
-					'dialect.connection.compress=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my80m-sq',
+				'mariadb-java-client',
+				'dialect.connection.compress=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
-					'my80m-vault',
-					'mariadb-java-client',
-					'vault=true\n' +
-					'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-					'vault.isAppliedToAllFields=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'my80m-vault',
+				'mariadb-java-client',
+				'vault=true\n' +
+				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.isAppliedToAllFields=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 
-			def dockerName = dockerNamePrefix + "-Mysql80"
-			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'conf/main')
+			def mainImage = mainImage(imageName("Mysql80"))
 			def dbImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
-					'--build-arg VERSION=' + databaseMysql80 + ' ' +
-					'--build-arg CONF=my80.cnf ' +
-					'conf/mysql')
+				imageName('Mysql80', 'db'),
+				'--build-arg VERSION=' + databaseMysql80 + ' ' +
+				'--build-arg CONF=my80.cnf ' +
+				'conf/mysql')
 
-			withBridge(dockerName + "-net")
-			{
-				bridge ->
-
+			withBridge("Mysql80-db") { dbBridge ->
 				dbImage.withRun(
-						"--name '" + dockerName + "-db' " +
-						"--cap-drop all " +
-						"--cap-add CHOWN " +
-						"--cap-add SETGID " +
-						"--cap-add SETUID " +
-						"--security-opt no-new-privileges " +
-						"--tmpfs /var/lib/mysql:rw " +
-						"--network " + bridge + " " +
-						"--network-alias=test-db-host " +
-						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-				{ c ->
+					dockerRunDefaults(dbBridge, 'test-db-host') +
+					"--cap-add CHOWN " +
+					"--cap-add SETGID " +
+					"--cap-add SETUID " +
+					"--tmpfs /var/lib/mysql:rw "
+				) { c ->
 					mainImage.inside(
-							"--name '" + dockerName + "' " +
-							"--cap-drop all " +
-							"--security-opt no-new-privileges " +
-							"--hostname mydockerhostname " +
-							"--network " + bridge + " " +
-							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-					{
-						shSilent ant + " clean testWithEnv" +
-								' "-Dbuild.tag=' + buildTag + '"' +
-								' -Dskip.instrument=true' + // already verified in branch Main
-								' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-								' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
-								' -Ddisable-ansi-colors=true'
+						dockerRunDefaults(dbBridge) +
+						"--hostname mydockerhostname "
+					) {
+						ant 'clean testWithEnv' +
+						    ' "-Dbuild.tag=' + buildTag + '"' +
+						    ' -Dskip.instrument=true' + // already verified in branch Main
+						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
+						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Mysql80.log"
 					archiveArtifacts 'db-Mysql80.log'
 				}
 			}
 			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-					skipPublishingChecks: true
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
 			)
 			sh "mv build buildMysql80"
 			archiveArtifacts(
-					'buildMysql80/testprotocol.*,' +
-					'buildMysql80/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-					'buildMysql80/*.log,' +
-					'buildMysql80/testtmpdir'
+				'buildMysql80/testprotocol.*,' +
+				'buildMysql80/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'buildMysql80/*.log,' +
+				'buildMysql80/testtmpdir'
 			)
 		}
 	}
 
 	if(branchConsidersDatabase("Postgresql"))
-	parallelBranches["Postgresql"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
-			scmResult ->
-			def buildTag = makeBuildTag(scmResult)
+	parallelBranches["Postgresql"] = {
+		nodeCheckoutAndDelete { scmResult ->
+			String buildTag = makeBuildTag(scmResult)
 
 			sh 'rm -f conf/environment/*.properties'
 
 			envPostgresql(
-					'pg11',
-					''
+				'pg11',
+				''
 			)
 			envPostgresql(
-					'pg11-mysql',
-					'disableSupport.nativeDate=true\n'
+				'pg11-mysql',
+				'disableSupport.nativeDate=true\n'
 			)
 			envPostgresql(
-					'pg11-nprep',
-					'disableSupport.preparedStatements=true\n'
+				'pg11-nprep',
+				'disableSupport.preparedStatements=true\n'
 			)
 			envPostgresql(
-					'pg11-nstmp',
-					'cache.stamps=false\n'
+				'pg11-nstmp',
+				'cache.stamps=false\n'
 			)
 			envPostgresql(
-					'pg11-public',
-					'dialect.connection.schema=public\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'pg11-public',
+				'dialect.connection.schema=public\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envPostgresql(
-					'pg11-sq',
-					'schema.primaryKeyGenerator=sequence\n' +
-					'dialect.pgcryptoSchema=<disabled>\n'
+				'pg11-sq',
+				'schema.primaryKeyGenerator=sequence\n' +
+				'dialect.pgcryptoSchema=<disabled>\n'
 			)
 			envPostgresql(
-					'pg11-vault',
-					'vault=true\n' +
-					'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-					'vault.isAppliedToAllFields=true\n' +
-					'schema.primaryKeyGenerator=sequence\n'
+				'pg11-vault',
+				'vault=true\n' +
+				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.isAppliedToAllFields=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
 			)
 
-			def dockerName = dockerNamePrefix + "-Postgresql"
-			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'conf/main')
+			def mainImage = mainImage(imageName("Postgresql"))
 			def dbImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
-					'--build-arg VERSION=' + databasePostgresql + ' ' +
-					'conf/postgresql')
+				imageName('Postgresql', 'db'),
+				'--build-arg VERSION=' + databasePostgresql + ' ' +
+				'conf/postgresql')
 
-			withBridge(dockerName + "-net")
-			{
-				bridge ->
-
+			withBridge("Postgresql-db") { dbBridge ->
 				dbImage.withRun(
-						"--name '" + dockerName + "-db' " +
-						"--cap-drop all " +
-						"--cap-add CHOWN " +
-						"--cap-add SETGID " +
-						"--cap-add SETUID " +
-						"--security-opt no-new-privileges " +
-						"--tmpfs /var/lib/postgresql/data:rw " +
-						"--network " + bridge + " " +
-						"--network-alias=test-db-host " +
-						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-				{ c ->
+					dockerRunDefaults(dbBridge, 'test-db-host') +
+					"--cap-add CHOWN " +
+					"--cap-add SETGID " +
+					"--cap-add SETUID " +
+					"--tmpfs /var/lib/postgresql/data:rw "
+				) { c ->
 					mainImage.inside(
-							"--name '" + dockerName + "' " +
-							"--cap-drop all " +
-							"--security-opt no-new-privileges " +
-							"--hostname mydockerhostname " +
-							"--network " + bridge + " " +
-							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
-					{
-						shSilent ant + " clean testWithEnv" +
-								' "-Dbuild.tag=' + buildTag + '"' +
-								' -Dskip.instrument=true' + // already verified in branch Main
-								' -Druntime.test.withEnv.setup.postgresql.url=jdbc:postgresql://test-db-host/' +
-								' -Ddisable-ansi-colors=true'
+						dockerRunDefaults(dbBridge) +
+						"--hostname mydockerhostname "
+					) {
+						ant 'clean testWithEnv' +
+						    ' "-Dbuild.tag=' + buildTag + '"' +
+						    ' -Dskip.instrument=true' + // already verified in branch Main
+						    ' -Druntime.test.withEnv.setup.postgresql.url=jdbc:postgresql://test-db-host/' +
+						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Postgresql.log"
 					archiveArtifacts 'db-Postgresql.log'
 				}
 			}
 			junit(
-					allowEmptyResults: false,
-					testResults: 'build/testresults/**/*.xml',
-					skipPublishingChecks: true
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
 			)
 			sh "mv build buildPostgresql"
 			archiveArtifacts(
-					'buildPostgresql/testprotocol.*,' +
-					'buildPostgresql/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-					'buildPostgresql/*.log,' +
-					'buildPostgresql/testtmpdir'
+				'buildPostgresql/testprotocol.*,' +
+				'buildPostgresql/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'buildPostgresql/*.log,' +
+				'buildPostgresql/testtmpdir'
 			)
 		}
 	}
 
-	parallelBranches["Ivy"] =
-	{
+	parallelBranches["Ivy"] = {
 		def cache = 'jenkins-build-survivor-' + projectName + "-Ivy"
-		//noinspection GroovyAssignabilityCheck
-		lockNodeCheckoutAndDelete(cache)
-		{
-			def dockerName = dockerNamePrefix + "-Ivy"
-			def mainImage = docker.build(
-					'exedio-jenkins:' + dockerName + '-' + dockerDate,
-					'--build-arg JDK=' + jdk + ' ' +
-					'--build-arg JENKINS_OWNER=' + env.JENKINS_OWNER + ' ' +
-					'conf/main')
-			mainImage.inside(
-					"--name '" + dockerName + "' " +
-					"--cap-drop all " +
-					"--security-opt no-new-privileges " +
-					"--mount type=volume,src=" + cache + ",target=/var/jenkins-build-survivor")
-			{
-				shSilent ant +
-					" -buildfile ivy" +
-					" -Divy.user.home=/var/jenkins-build-survivor"
+		lockNodeCheckoutAndDelete(cache) {
+			mainImage(imageName('Ivy')).inside(
+				dockerRunDefaults('bridge') +
+				"--mount type=volume,src=" + cache + ",target=/var/jenkins-build-survivor") {
+				ant "-buildfile ivy" +
+				    " -Divy.user.home=/var/jenkins-build-survivor"
 			}
 			archiveArtifacts 'ivy/artifacts/report/**'
 
-			def gitStatus = sh (script: "git status --porcelain --untracked-files=normal", returnStdout: true).trim()
-			if(gitStatus!='')
-			{
-				error 'FAILURE because fetching dependencies produces git diff:\n' + gitStatus
-			}
+			assertGitUnchanged()
 		}
 	}
 
@@ -964,36 +825,36 @@ try
 }
 finally
 {
-	if(!tryCompleted)
+	if (!tryCompleted)
 		currentBuild.result = 'FAILURE'
 
 	// workaround for Mailer plugin: set result status explicitly to SUCCESS if empty, otherwise no mail will be triggered if a build gets successful after a previous unsuccessful build
-	if(currentBuild.result==null)
+	if (currentBuild.result == null)
 		currentBuild.result = 'SUCCESS'
-	node('email')
-	{
-		step([$class: 'Mailer',
-				recipients: emailextrecipients([isRelease ? culprits() : developers(), requestor()]),
-				notifyEveryUnstableBuild: true])
+	node('email') {
+		step(
+			[$class                  : 'Mailer',
+			 recipients              : emailextrecipients([isRelease ? culprits() : developers(), requestor()]),
+			 notifyEveryUnstableBuild: true])
 	}
-	updateGitlabCommitStatus state: currentBuild.resultIsBetterOrEqualTo("SUCCESS") ? "success" : "failed" // https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit
+	// https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit
+	updateGitlabCommitStatus state: currentBuild.resultIsBetterOrEqualTo("SUCCESS") ? "success" : "failed"
 }
 
-def lockNodeCheckoutAndDelete(resource, Closure body)
+// ------------------- LIBRARY ----------------------------
+// The code below is meant to be equal across all projects.
+
+void lockNodeCheckoutAndDelete(resource, Closure body)
 {
-	lock(resource)
-	{
+	lock(resource) {
 		nodeCheckoutAndDelete(body)
 	}
 }
 
-def nodeCheckoutAndDelete(Closure body)
+void nodeCheckoutAndDelete(@ClosureParams(value = SimpleType, options = ["Map<String, String>"]) Closure body)
 {
-	node('GitCloneExedio && docker')
-	{
-		env.JENKINS_OWNER =
-			sh (script: "id --user",  returnStdout: true).trim() + ':' +
-			sh (script: "id --group", returnStdout: true).trim()
+	node('GitCloneExedio && docker') {
+		env.JENKINS_OWNER = shStdout("id --user") + ':' + shStdout("id --group")
 		try
 		{
 			deleteDir()
@@ -1009,14 +870,21 @@ def nodeCheckoutAndDelete(Closure body)
 	}
 }
 
-def withBridge(name, Closure body)
+String jobNameAndBuildNumber()
 {
-	def bridge = sh ( script:
-			"docker network create " +
-					name + " " +
-					"--driver bridge " +
-					"--internal",
-			returnStdout: true).trim()
+	env.JOB_NAME.replace("/", "-").replace(" ", "_") + "-" + env.BUILD_NUMBER
+}
+
+void withBridge(String namePart, @ClosureParams(value = SimpleType, options = ["String"]) Closure<?> body)
+{
+	String name = jobNameAndBuildNumber() + "-" + namePart
+	String bridge = shStdout(
+		"docker network create " +
+		// using hashCode because name of network may become too long for long branch names
+		"network" + name.hashCode() + " " +
+		"--label JenkinsfileName=" + name + " " +
+		"--driver bridge " +
+		"--internal")
 	try
 	{
 		body.call(bridge)
@@ -1027,25 +895,72 @@ def withBridge(name, Closure body)
 	}
 }
 
-def makeBuildTag(scmResult)
+def mainImage(String imageName)
 {
-	return 'build ' +
-			env.BRANCH_NAME + ' ' +
-			env.BUILD_NUMBER + ' ' +
-			new Date().format("yyyy-MM-dd") + ' ' +
-			scmResult.GIT_COMMIT + ' ' +
-			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
+	return docker.build(
+		imageName,
+		'--build-arg JDK=' + jdk + ' ' +
+		'--build-arg JENKINS_OWNER=' + env.JENKINS_OWNER + ' ' +
+		'conf/main')
 }
 
-def shSilent(script)
+String imageName(String pipelineBranch, String subImage = '')
+{
+	String isoToday = new Date().format("yyyyMMdd")
+	String name = 'exedio-jenkins:' + jobNameAndBuildNumber() + '-' + pipelineBranch + '-' + isoToday
+	if (!subImage.isBlank()) name += '-' + subImage
+	return name
+}
+
+static String dockerRunDefaults(String network = 'none', String hostname = '')
+{
+	return "--cap-drop all " +
+	       "--security-opt no-new-privileges " +
+	       "--network " + network + " " +
+	       (hostname != '' ? "--network-alias " + hostname + " " : "") +
+	       "--dns-opt timeout:1 " + // seconds; default is 5
+	       "--dns-opt attempts:1 " // default is 2
+}
+
+String makeBuildTag(Map<String, String> scmResult)
+{
+	String treeHash = shStdout "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'"
+	return 'build ' +
+	       env.BRANCH_NAME + ' ' +
+	       env.BUILD_NUMBER + ' ' +
+	       new Date().format("yyyy-MM-dd") + ' ' +
+	       scmResult.GIT_COMMIT + ' ' +
+	       treeHash
+}
+
+void shSilent(script)
 {
 	try
 	{
 		sh script
 	}
-	catch(Exception ignored)
+	catch (Exception ignored)
 	{
 		currentBuild.result = 'FAILURE'
+	}
+}
+
+String shStdout(String script)
+{
+	return ((String) sh(script: script, returnStdout: true)).trim()
+}
+
+void ant(String script)
+{
+	shSilent 'ant/bin/ant -noinput ' + script
+}
+
+void assertGitUnchanged()
+{
+	String gitStatus = shStdout "git status --porcelain --untracked-files=normal"
+	if (gitStatus != '')
+	{
+		error 'FAILURE because fetching dependencies produces git diff:\n' + gitStatus
 	}
 }
 
