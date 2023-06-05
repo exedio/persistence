@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopeCacheWeightHelper.value;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
@@ -297,11 +296,8 @@ public abstract class Pattern extends Feature
 		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
-			@SuppressWarnings("deprecation")
-			final Class<?> copeCacheWeightClass=CopeCacheWeight.class;
 			if(CopeSchemaName.class==annotationClass ||
 				Computed.class==annotationClass ||
-				copeCacheWeightClass==annotationClass ||
 				CopeCreateLimit.class==annotationClass ||
 				CopeExternal.class==annotationClass)
 			{
@@ -314,8 +310,6 @@ public abstract class Pattern extends Feature
 		@Override
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
-			@SuppressWarnings("deprecation")
-			final Class<CopeCacheWeight> copeCacheWeightClass=CopeCacheWeight.class;
 			if(CopeSchemaName.class==annotationClass)
 			{
 				if(source.getAnnotation(annotationClass)!=null)
@@ -340,21 +334,6 @@ public abstract class Pattern extends Feature
 				if(patternAnn!=null)
 					return patternAnn;
 				return source.getAnnotation(annotationClass);
-			}
-			else if(copeCacheWeightClass==annotationClass)
-			{
-				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
-				final T sourceAnn = source.getAnnotation(annotationClass);
-
-				if(patternAnn==null)
-					return sourceAnn;
-				else if(sourceAnn==null)
-					return patternAnn;
-				else
-					throw new IllegalStateException(
-							"conflicting @CopeCacheWeight: " +
-							value(copeCacheWeightClass.cast(patternAnn)) + " vs. " +
-							value(copeCacheWeightClass.cast(sourceAnn )));
 			}
 
 			return source.getAnnotation(annotationClass);
