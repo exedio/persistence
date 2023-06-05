@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-@SuppressWarnings("deprecation")
-@CopeCacheWeight(0)
 final class InstanceOfB2Item extends InstanceOfAItem
 {
 	static final StringField textb2 = new StringField().optional();
