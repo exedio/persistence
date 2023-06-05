@@ -187,7 +187,7 @@ try
 		nodeCheckoutAndDelete
 		{
 			def mainImage = docker.build(
-				imageName('Main', 'apache'),
+				imageName('Github'),
 				'--build-arg JDK=' + jdk + ' ' +
 				'conf/github')
 
