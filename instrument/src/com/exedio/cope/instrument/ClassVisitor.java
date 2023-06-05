@@ -27,7 +27,6 @@ import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.tree.WildcardTree;
 import java.lang.annotation.Annotation;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
@@ -39,7 +38,7 @@ import javax.lang.model.element.VariableElement;
 class ClassVisitor extends GeneratedAwareScanner
 {
 	private static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE = EnumSet.of(Modifier.FINAL, Modifier.STATIC);
-	private final byte[] LINE_SEPARATOR_BYTES=System.lineSeparator().getBytes(StandardCharsets.US_ASCII);
+	private static final char[] LINE_SEPARATOR_CHARS = System.lineSeparator().toCharArray();
 
 	private final JavaClass outerClass;
 
@@ -202,7 +201,7 @@ class ClassVisitor extends GeneratedAwareScanner
 	{
 		if (start<previousGeneratedFragmentEnd) throw new RuntimeException(start+"<"+previousGeneratedFragmentEnd);
 		final int realStart=Math.max(previousGeneratedFragmentEnd, includeLeadingWhitespaceLine(start, true));
-		final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
+		final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_CHARS);
 		final int realEnd;
 		if (lineEnd==-1)
 		{
@@ -226,7 +225,7 @@ class ClassVisitor extends GeneratedAwareScanner
 	 */
 	private int includeLeadingWhitespaceLine(final int pos, final boolean posOfLineSep)
 	{
-		final int lineStart=context.searchBefore(pos, LINE_SEPARATOR_BYTES);
+		final int lineStart=context.searchBefore(pos, LINE_SEPARATOR_CHARS);
 		if (lineStart==-1)
 		{
 			return pos;
@@ -235,7 +234,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		{
 			final String lineBeforeStart=context.getSourceString(lineStart, pos);
 			if (allWhitespace(lineBeforeStart))
-				return lineStart+(posOfLineSep?0:LINE_SEPARATOR_BYTES.length);
+				return lineStart+(posOfLineSep?0:LINE_SEPARATOR_CHARS.length);
 			else
 				return pos;
 		}
@@ -260,13 +259,13 @@ class ClassVisitor extends GeneratedAwareScanner
 			if ( docCommentTree.getFirstSentence().isEmpty() && docCommentTree.getBody().isEmpty() && docCommentTree.getBlockTags().isEmpty() )
 			{
 				// getStartPosition doesn't work for empty comments - search from commented element instead:
-				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**".getBytes(StandardCharsets.US_ASCII) );
-				docEnd=context.searchAfter( Math.toIntExact(docStart), "*/".getBytes(StandardCharsets.US_ASCII) );
+				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**".toCharArray() );
+				docEnd=context.searchAfter( Math.toIntExact(docStart), "*/".toCharArray() );
 			}
 			else
 			{
-				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
-				docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
+				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".toCharArray() );
+				docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".toCharArray() );
 			}
 			if ( docEnd>=start ) throw new RuntimeException();
 			final String commentSource=context.getSourceString(docStart, docEnd);

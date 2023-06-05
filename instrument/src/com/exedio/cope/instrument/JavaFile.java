@@ -19,11 +19,12 @@
 
 package com.exedio.cope.instrument;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +48,7 @@ final class JavaFile
 	final ClassLoader interimClassLoader;
 	final ArrayList<JavaClass> classes = new ArrayList<>();
 
-	private final ByteReplacements generatedFragments = new ByteReplacements();
+	private final CharReplacements generatedFragments = new CharReplacements();
 
 	JavaFile(final JavaRepository repository, final ClassLoader interimClassLoader, final JavaFileObject sourceFile, final String packagename)
 	{
@@ -68,21 +69,19 @@ final class JavaFile
 
 	void markFragmentAsGenerated(final int startInclusive, final int endExclusive)
 	{
-		generatedFragments.addReplacement(startInclusive, endExclusive, EMPTY_BYTES);
+		generatedFragments.addReplacement(startInclusive, endExclusive, "");
 	}
-
-	private static final byte[] EMPTY_BYTES = {};
 
 	int translateToPositionInSourceWithoutGeneratedFragments(final int positionInRawSource)
 	{
 		return generatedFragments.translateToPositionInOutput(positionInRawSource);
 	}
 
-	byte[] getSourceWithoutGeneratedFragments()
+	String getSourceWithoutGeneratedFragments()
 	{
-		try (final InputStream inputStream=new BufferedInputStream(sourceFile.openInputStream()))
+		try (final Reader reader = new BufferedReader(sourceFile.openReader(false)))
 		{
-			return generatedFragments.applyReplacements(inputStream);
+			return generatedFragments.applyReplacements(reader);
 		}
 		catch (final IOException e)
 		{

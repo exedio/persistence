@@ -87,6 +87,11 @@ final class LocalCopeFeature extends CopeFeature
 			throw new RuntimeException();
 	}
 
+	String getInitializer()
+	{
+		return javaField.getInitializer();
+	}
+
 	private static final Wrapper OPTION_DEFAULT = new Wrapper()
 	{
 		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }

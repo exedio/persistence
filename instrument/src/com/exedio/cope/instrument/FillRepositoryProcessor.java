@@ -29,11 +29,13 @@ import javax.lang.model.element.Element;
 
 final class FillRepositoryProcessor extends JavacProcessor
 {
+	private final Params params;
 	private final JavaRepository javaRepository;
 	private final InterimProcessor interimProcessor;
 
-	FillRepositoryProcessor(final JavaRepository javaRepository, final InterimProcessor interimProcessor)
+	FillRepositoryProcessor(final Params params, final JavaRepository javaRepository, final InterimProcessor interimProcessor)
 	{
+		this.params = params;
 		this.javaRepository = javaRepository;
 		this.interimProcessor = interimProcessor;
 	}
@@ -57,7 +59,7 @@ final class FillRepositoryProcessor extends JavacProcessor
 			final CompilationUnitTree compilationUnit=tp.getCompilationUnit();
 			compilationUnitGuard.check(compilationUnit);
 			final JavaFile javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit));
-			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
+			final TreeApiContext treeApiContext=new TreeApiContext(params, processingEnv, javaFile, compilationUnit);
 			if (isFileIgnored(compilationUnit.getSourceFile()))
 			{
 				new WarnForGeneratedVisitor(treeApiContext).scan(tp, null);

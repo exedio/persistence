@@ -24,11 +24,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 
-public class ByteReplacementsTest
+public class CharReplacementsTest
 {
 	@Test void replacementsMustBeSequential()
 	{
-		final ByteReplacements replacements=new ByteReplacements();
+		final CharReplacements replacements=new CharReplacements();
 		replacements.addReplacement(10, 15, "");
 		replacements.addReplacement(15, 20, "");
 
@@ -56,7 +56,7 @@ public class ByteReplacementsTest
 
 	@Test void replacementsMustHaveValidRange()
 	{
-		final ByteReplacements replacements=new ByteReplacements();
+		final CharReplacements replacements=new CharReplacements();
 		try
 		{
 			replacements.addReplacement(10, 9, "");
@@ -80,7 +80,7 @@ public class ByteReplacementsTest
 
 	@Test void applyReplacementsWithDifferentBufferSizes()
 	{
-		for (final ByteReplacements replacements: new ByteReplacements[]{new ByteReplacements(), new ByteReplacements().setBufferSize(1), new ByteReplacements().setBufferSize(3)})
+		for (final CharReplacements replacements: new CharReplacements[]{new CharReplacements(), new CharReplacements().setBufferSize(1), new CharReplacements().setBufferSize(3)})
 		{
 			replacements.addReplacement(0, 0, "x");
 			assertReplacements("x0123456789", replacements);
@@ -95,7 +95,7 @@ public class ByteReplacementsTest
 
 	@Test void manyReplacementsAtSameIndex()
 	{
-		final ByteReplacements replacements=new ByteReplacements();
+		final CharReplacements replacements=new CharReplacements();
 		replacements.addReplacement(3, 3, "a");
 		replacements.addReplacement(3, 3, "b");
 		assertReplacements("012ab3456789", replacements);
@@ -103,19 +103,19 @@ public class ByteReplacementsTest
 
 	@Test void replacementsAtBeginning()
 	{
-		final ByteReplacements replacements=new ByteReplacements();
+		final CharReplacements replacements=new CharReplacements();
 		replacements.addReplacement(0, 3, "AB");
 		assertReplacements("AB3456789", replacements);
 	}
 
 	@Test void replacementsBehindEnd()
 	{
-		final ByteReplacements replacements=new ByteReplacements();
+		final CharReplacements replacements=new CharReplacements();
 		replacements.addReplacement(1, 2, "");
 		replacements.addReplacement(11, 12, "");
 		try
 		{
-			replacements.applyReplacements(new byte[10]);
+			replacements.applyReplacements(new String(new char[10]));
 			fail();
 		}
 		catch (final RuntimeException e)
@@ -126,11 +126,11 @@ public class ByteReplacementsTest
 
 	@Test void replacementsIncludingEnd()
 	{
-		final ByteReplacements replacements=new ByteReplacements();
+		final CharReplacements replacements=new CharReplacements();
 		replacements.addReplacement(9, 12, "");
 		try
 		{
-			replacements.applyReplacements(new byte[10]);
+			replacements.applyReplacements(new String(new char[10]));
 			fail();
 		}
 		catch (final RuntimeException e)
@@ -139,23 +139,23 @@ public class ByteReplacementsTest
 		}
 	}
 
-	private static void assertReplacements(final String expected, final ByteReplacements replacements)
+	private static void assertReplacements(final String expected, final CharReplacements replacements)
 	{
 		final byte[] bytes=new byte[10];
 		for (int i=0; i<bytes.length; i++)
 		{
 			bytes[i]=(byte)('0'+i%10);
 		}
-		final byte[] replaced=replacements.applyReplacements(bytes);
-		assertEquals(expected, new String(replaced, StandardCharsets.US_ASCII));
+		final String replaced=replacements.applyReplacements(new String(bytes, StandardCharsets.US_ASCII));
+		assertEquals(expected, replaced);
 	}
 
 	@Test void positions()
 	{
-		final ByteReplacements replacements=new ByteReplacements();
+		final CharReplacements replacements=new CharReplacements();
 		assertEquals(10, replacements.translateToPositionInOutput(10));
 
-		replacements.addReplacement(2, 3, new byte[0]);
+		replacements.addReplacement(2, 3, new String(new char[0]));
 		assertEquals(1, replacements.translateToPositionInOutput(1));
 		try
 		{
@@ -168,10 +168,10 @@ public class ByteReplacementsTest
 		}
 		assertEquals(2, replacements.translateToPositionInOutput(3));
 
-		replacements.addReplacement(3, 3, new byte[10]);
+		replacements.addReplacement(3, 3, new String(new char[10]));
 		assertEquals(12, replacements.translateToPositionInOutput(3));
 
-		replacements.addReplacement(3, 5, new byte[10]);
+		replacements.addReplacement(3, 5, new String(new char[10]));
 		assertEquals(22, replacements.translateToPositionInOutput(5));
 	}
 

@@ -86,7 +86,7 @@ final class Main
 	{
 		final JavaRepository repository = new JavaRepository();
 		final InterimProcessor interimProcessor = new InterimProcessor(params);
-		final FillRepositoryProcessor fillRepositoryProcessor = new FillRepositoryProcessor(repository, interimProcessor);
+		final FillRepositoryProcessor fillRepositoryProcessor = new FillRepositoryProcessor(params, repository, interimProcessor);
 		final InstrumentorWriteProcessor writeProcessor = new InstrumentorWriteProcessor(params, repository, interimProcessor);
 		new JavacRunner(interimProcessor, fillRepositoryProcessor, writeProcessor).run(params);
 	}

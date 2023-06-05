@@ -5,6 +5,7 @@
 	<macrodef name="compile">
 		<attribute name="srcdir" />
 		<attribute name="includeAntRuntime" default="false" />
+		<attribute name="encoding" default="ascii" />
 		<element name="implicit-element" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local compile @{srcdir}" /-->
@@ -12,7 +13,7 @@
 			<javac srcdir="@{srcdir}"
 					 destdir="build/classes/@{srcdir}"
 					 includeAntRuntime="@{includeAntRuntime}"
-					 encoding="ascii"
+					 encoding="@{encoding}"
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">

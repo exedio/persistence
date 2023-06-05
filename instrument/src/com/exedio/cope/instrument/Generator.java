@@ -30,7 +30,6 @@ import com.exedio.cope.SetValue;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -849,9 +848,9 @@ final class Generator
 
 	private TypeContext typeContext = null;
 
-	void write(final Charset charset) throws HumanReadableException
+	void write() throws HumanReadableException
 	{
-		final String buffer = new String(javaFile.getSourceWithoutGeneratedFragments(), charset);
+		final String buffer = javaFile.getSourceWithoutGeneratedFragments();
 		int previousClassEndPosition = 0;
 		for(final JavaClass javaClass : javaFile.getClasses())
 		{

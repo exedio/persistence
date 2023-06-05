@@ -26,7 +26,6 @@ import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -35,16 +34,18 @@ import javax.lang.model.type.DeclaredType;
 
 final class TreeApiContext
 {
+	private final Params params;
 	private final DocTrees docTrees;
 	final Messager messager;
 	final JavaFile javaFile;
 	private final CompilationUnitTree compilationUnit;
 	private final DocSourcePositions sourcePositions;
 
-	private byte[] allBytes;
+	private char[] allChars;
 
-	TreeApiContext(final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final Params params, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
+		this.params = params;
 		this.docTrees=DocTrees.instance(processingEnv);
 		this.messager=processingEnv.getMessager();
 		this.javaFile=javaFile;
@@ -103,36 +104,36 @@ final class TreeApiContext
 		return element;
 	}
 
-	private byte[] getAllBytes()
+	private char[] getAllChars()
 	{
-		if ( allBytes==null )
+		if ( allChars==null )
 		{
 			try (final InputStream inputStream=compilationUnit.getSourceFile().openInputStream())
 			{
-				allBytes=inputStream.readAllBytes();
+				allChars=new String(inputStream.readAllBytes(), params.charset).toCharArray();
 			}
 			catch (final IOException e)
 			{
 				throw new RuntimeException(e);
 			}
 		}
-		return allBytes;
+		return allChars;
 	}
 
 	String getSourceString(final int start, final int end)
 	{
-		return new String(getAllBytes(), start, end-start, StandardCharsets.US_ASCII);
+		return new String(getAllChars(), start, end-start);
 	}
 
 	/** @return -1 if not found */
-	int searchBefore(final int pos, final byte[] search)
+	int searchBefore(final int pos, final char[] search)
 	{
 		int searchPos=pos-search.length;
 		while (true)
 		{
 			if ( searchPos<0 )
 				return -1;
-			if ( bytesMatch(searchPos, search) )
+			if ( charsMatch(searchPos, search) )
 			{
 				return searchPos;
 			}
@@ -144,13 +145,13 @@ final class TreeApiContext
 	}
 
 	/** @return -1 if not found */
-	int searchAfter(final int pos, final byte[] search)
+	int searchAfter(final int pos, final char[] search)
 	{
 		int searchPos=pos+1;
-		final byte[] allBytes=getAllBytes();
-		while (searchPos+search.length<=allBytes.length)
+		final char[] allChars=getAllChars();
+		while (searchPos+search.length<=allChars.length)
 		{
-			if ( bytesMatch(searchPos, search) )
+			if ( charsMatch(searchPos, search) )
 			{
 				return searchPos+search.length;
 			}
@@ -162,15 +163,15 @@ final class TreeApiContext
 		return -1;
 	}
 
-	private boolean bytesMatch(final int pos, final byte[] search)
+	private boolean charsMatch(final int pos, final char[] search)
 	{
 		if (pos<0) throw new ArrayIndexOutOfBoundsException(pos);
-		final byte[] allBytes=getAllBytes();
-		if (pos+search.length>allBytes.length)
-			throw new IllegalArgumentException(pos+"+"+search.length+">"+allBytes.length);
+		final char[] allChars=getAllChars();
+		if (pos+search.length>allChars.length)
+			throw new IllegalArgumentException(pos+"+"+search.length+">"+allChars.length);
 		for (int i=0; i<search.length; i++)
 		{
-			if ( allBytes[pos+i]!=search[i] )
+			if ( allChars[pos+i]!=search[i] )
 			{
 				return false;
 			}
