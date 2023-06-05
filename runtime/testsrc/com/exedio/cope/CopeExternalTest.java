@@ -29,8 +29,7 @@ public class CopeExternalTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(
 		CachedItem.TYPE,
-		NoCacheItem.TYPE,
-		WeightZeroItem.TYPE
+		NoCacheItem.TYPE
 	);
 
 	public CopeExternalTest()
@@ -47,7 +46,6 @@ public class CopeExternalTest extends TestWithEnvironment
 	{
 		final CachedItem cachedItem=new CachedItem();
 		final NoCacheItem noCacheItem=new NoCacheItem();
-		final WeightZeroItem weightZeroItem=new WeightZeroItem();
 		model.commit();
 		assertCacheInfo(CachedItem.TYPE);
 		if (model.getConnectProperties().getItemCacheLimit()>0)
@@ -63,7 +61,6 @@ public class CopeExternalTest extends TestWithEnvironment
 		{
 			cachedItem.activeCopeItem();
 			noCacheItem.activeCopeItem();
-			weightZeroItem.activeCopeItem();
 			tx.commit();
 		}
 		if (model.getConnectProperties().getItemCacheLimit()>0)
@@ -88,9 +85,6 @@ public class CopeExternalTest extends TestWithEnvironment
 		model.clearCache();
 
 		NoCacheItem.TYPE.search();
-		assertEquals(0, getQueryCacheInfo(model).getLevel());
-
-		WeightZeroItem.TYPE.search();
 		assertEquals(0, getQueryCacheInfo(model).getLevel());
 
 		searchJoin(CachedItem.TYPE, CachedItem.TYPE);
@@ -161,29 +155,5 @@ public class CopeExternalTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		protected NoCacheItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-	}
-
-	@WrapperType(indent=2, comments=false)
-	@CopeExternal
-	private static class WeightZeroItem extends Item
-	{
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		private WeightZeroItem()
-		{
-			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		protected WeightZeroItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-		@com.exedio.cope.instrument.Generated
-		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<WeightZeroItem> TYPE = com.exedio.cope.TypesBound.newType(WeightZeroItem.class,WeightZeroItem::new);
-
-		@com.exedio.cope.instrument.Generated
-		protected WeightZeroItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
