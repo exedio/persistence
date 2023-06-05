@@ -52,8 +52,7 @@ final class ItemCache
 			{
 				final boolean cachingDisabled =
 						limit==0 ||
-						type.external ||
-						CopeCacheWeightHelper.isDisabled(type);
+						type.external;
 
 				typesStatsList.add(cachingDisabled?null:new TypeStats(metrics.back, type));
 			}
