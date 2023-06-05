@@ -302,6 +302,7 @@ public abstract class Pattern extends Feature
 			if(CopeSchemaName.class==annotationClass ||
 				Computed.class==annotationClass ||
 				copeCacheWeightClass==annotationClass ||
+				CopeCreateLimit.class==annotationClass ||
 				CopeExternal.class==annotationClass)
 			{
 				return getAnnotation(annotationClass)!=null;
@@ -333,7 +334,7 @@ public abstract class Pattern extends Feature
 					));
 				}
 			}
-			else if(Computed.class==annotationClass || CopeExternal.class==annotationClass)
+			else if(Computed.class==annotationClass || CopeCreateLimit.class==annotationClass || CopeExternal.class==annotationClass)
 			{
 				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
 				if(patternAnn!=null)

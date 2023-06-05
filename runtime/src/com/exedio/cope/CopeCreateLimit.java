@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.TYPE;
 
 import java.lang.annotation.Retention;
@@ -50,8 +51,17 @@ import java.lang.annotation.Target;
  * <li>foreign key columns of {@link ItemField item fields} referring the type or its subtypes, and</li>
  * <li>the {@link SchemaInfo#getPrimaryKeySequenceName(Type) sequence} for creating primary keys of the type.</li>
  * </ul>
+ * <p>
+ * This annotation is essentially applicable to types (@Target(TYPE)) only.
+ * When applying it to {@link Feature features} (@Target(FIELD)) that are {@link Pattern patterns},
+ * the annotation is forwarded to all
+ * {@link Pattern#getSourceTypes() source types} of that pattern.
+ * When applying it to features that are not patterns,
+ * there is no effect at all.
+ * <p>
+ * If such a source type is annotated as well, the annotation of the pattern has precedence.
  */
-@Target(TYPE)
+@Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CopeCreateLimit
 {
