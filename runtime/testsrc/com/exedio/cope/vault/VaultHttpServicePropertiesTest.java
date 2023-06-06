@@ -53,6 +53,7 @@ public class VaultHttpServicePropertiesTest
 				single("root", "http://VaultHttpServicePropertiesTest.invalid")));
 
 		final Props p = new Props(source);
+		final HttpClient client = p.newClient();
 		assertEquals(asList(
 				"root",
 				"directory",
@@ -64,11 +65,11 @@ public class VaultHttpServicePropertiesTest
 				"authenticator"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
-		assertEquals(HttpClient.Version.HTTP_2, p.client.version());
-		assertEquals(Optional.of(ofSeconds(3)), p.client.connectTimeout());
+		assertEquals(HttpClient.Version.HTTP_2, client.version());
+		assertEquals(Optional.of(ofSeconds(3)), client.connectTimeout());
 		assertEquals(Optional.of(ofSeconds(3)), p.newRequest(new URI(p.root), null).timeout());
-		assertEquals(HttpClient.Redirect.NEVER, p.client.followRedirects());
-		assertTrue(p.client.authenticator().isEmpty());
+		assertEquals(HttpClient.Redirect.NEVER, client.followRedirects());
+		assertTrue(client.authenticator().isEmpty());
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -95,13 +96,14 @@ public class VaultHttpServicePropertiesTest
 				single("authenticator.password", "myPassword")));
 
 		final Props p = new Props(source);
+		final HttpClient client = p.newClient();
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
-		assertEquals(HttpClient.Version.HTTP_1_1, p.client.version());
-		assertEquals(Optional.of(ofSeconds(33)), p.client.connectTimeout());
+		assertEquals(HttpClient.Version.HTTP_1_1, client.version());
+		assertEquals(Optional.of(ofSeconds(33)), client.connectTimeout());
 		assertEquals(Optional.of(ofSeconds(44)), p.newRequest(new URI(p.root), null).timeout());
-		assertEquals(HttpClient.Redirect.ALWAYS, p.client.followRedirects());
+		assertEquals(HttpClient.Redirect.ALWAYS, client.followRedirects());
 		final PasswordAuthentication auth =
-				((AuthenticatorProperties.MyAuth)p.client.authenticator().orElseThrow()).getPasswordAuthentication();
+				((AuthenticatorProperties.MyAuth)client.authenticator().orElseThrow()).getPasswordAuthentication();
 		assertEquals("myUsername", auth.getUserName());
 		assertEquals("myPassword", new String(auth.getPassword()));
 	}
