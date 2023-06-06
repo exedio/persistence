@@ -37,7 +37,9 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.LocalizationKeys;
 import java.util.Date;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class SetFieldModelTest
@@ -238,5 +240,34 @@ public class SetFieldModelTest
 				ClassCastException.class,
 				"parentClass requires " + SetFieldItem.class.getName() + ", " +
 				"but was " + Item.class.getName());
+	}
+
+	/**
+	 * @see com.exedio.cope.LocalizationKeysPatternTest#testVerbose()
+	 */
+	@Test public void testLocalizationKeys()
+	{
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.SetFieldItem",
+				"SetFieldItem"),
+				TYPE.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.SetFieldItem",
+				"SetFieldItem"),
+				LocalizationKeys.get(SetFieldItem.class));
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.SetFieldItem.strings",
+				"SetFieldItem.strings",
+				"strings"),
+				strings.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.PatternItem",
+				"PatternItem"),
+				stringsType.getLocalizationKeys());
+		assertEquals(List.of(
+				"com.exedio.cope.pattern.PatternItem.element",
+				"PatternItem.element",
+				"element"),
+				stringsElement.getLocalizationKeys());
 	}
 }
