@@ -47,6 +47,7 @@ public final class VaultHttpService extends VaultNonWritableService
 	private final String rootUri;
 	private final VaultDirectory directory;
 	private final Props properties;
+	private final HttpClient client;
 
 	VaultHttpService(
 			final VaultServiceParameters parameters,
@@ -56,6 +57,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		this.rootUri = properties.root;
 		this.directory = VaultDirectory.instance(properties.directory, parameters);
 		this.properties = properties;
+		this.client = properties.newClient();
 	}
 
 
@@ -132,7 +134,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		try
 		{
 			final URI uri = new URI(rootUri + '/' + directory.path(hash));
-			response = properties.client.send(
+			response = client.send(
 					properties.newRequest(uri, requestMethod),
 					info -> info.statusCode()==HTTP_OK
 					? bodySubscriberOk.get()
@@ -168,7 +170,7 @@ public final class VaultHttpService extends VaultNonWritableService
 	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
 	{
 		final URI uri = new URI(rootUri + '/' + VAULT_GENUINE_SERVICE_KEY + '/' + serviceKey);
-		final HttpResponse<Void> response = properties.client.send(
+		final HttpResponse<Void> response = client.send(
 				properties.newRequest(uri, REQUEST_METHOD_HEAD),
 				responseInfo -> BodySubscribers.discarding());
 		final int responseCode = response.statusCode();
@@ -237,9 +239,7 @@ public final class VaultHttpService extends VaultNonWritableService
 					value(key, defaultValue, ofSeconds(1));
 		}
 
-		final HttpClient client = newClient();
-
-		private HttpClient newClient()
+		HttpClient newClient()
 		{
 			final HttpClient.Builder builder = HttpClient.newBuilder().
 					version(version).
@@ -262,7 +262,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		private URI probeRootExists() throws URISyntaxException, IOException, InterruptedException
 		{
 			final URI uri = new URI(root + '/');
-			final HttpResponse<Void> response = client.send(
+			final HttpResponse<Void> response = newClient().send(
 					newRequest(uri, REQUEST_METHOD_HEAD),
 					info -> BodySubscribers.discarding());
 			final int responseCode = response.statusCode();
