@@ -219,6 +219,12 @@ public final class StringField extends FunctionField<String>
 		return SimpleSelectType.STRING;
 	}
 
+	@Override
+	public StringFunction bind(final Join join)
+	{
+		return new BindStringFunction(this, join);
+	}
+
 	/**
 	 * The result causes an {@link UnsupportedQueryException} when used,
 	 * <ul>

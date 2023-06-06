@@ -51,6 +51,12 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
+	public NumberFunction<E> bind(final Join join)
+	{
+		return new MultiplyView<>(BindFunction.bind(multipliers, join));
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public E mapJava(final Object[] sourceValues)
 	{

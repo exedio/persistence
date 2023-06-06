@@ -27,10 +27,20 @@ final class BindItemFunction<E extends Item> extends BindFunction<E>
 
 	private final ItemFunction<E> function;
 
-	BindItemFunction(final ItemFunction<E> function, final Join join)
+	private BindItemFunction(final ItemFunction<E> function, final Join join)
 	{
 		super(function, join);
 		this.function = function;
+	}
+
+	static <E extends Item> BindItemFunction<E> create(final This<E> function, final Join join)
+	{
+		return new BindItemFunction<>(function, join);
+	}
+
+	static <E extends Item> BindItemFunction<E> create(final ItemField<E> function, final Join join)
+	{
+		return new BindItemFunction<>(function, join);
 	}
 
 	@Override

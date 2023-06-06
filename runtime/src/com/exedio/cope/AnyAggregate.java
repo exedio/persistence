@@ -26,4 +26,10 @@ final class AnyAggregate<E> extends Aggregate<E,E>
 	{
 		super(source, "any", "ANY_VALUE", source.getValueType());
 	}
+
+	@Override
+	public Function<E> bind(final Join join)
+	{
+		return new AnyAggregate<>(source.bind(join));
+	}
 }

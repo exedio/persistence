@@ -34,6 +34,12 @@ public class CaseView extends StringView
 		this.upper = upper;
 	}
 
+	@Override
+	public StringFunction bind(final Join join)
+	{
+		return new CaseView(source.bind(join), upper);
+	}
+
 	private String toCase(final String s)
 	{
 		return

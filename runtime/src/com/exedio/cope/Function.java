@@ -235,10 +235,7 @@ public interface Function<E> extends Selectable<E>
 		return new Count(this);
 	}
 
-	default Function<E> bind(final Join join)
-	{
-		return new BindFunction<>(this, join);
-	}
+	Function<E> bind(Join join);
 
 	long serialVersionUID = 8575436913882709690L;
 }

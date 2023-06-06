@@ -47,6 +47,12 @@ public final class MinusView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
+	public NumberFunction<E> bind(final Join join)
+	{
+		return new MinusView<>(minuend.bind(join), subtrahend.bind(join));
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public E mapJava(final Object[] sourceValues)
 	{

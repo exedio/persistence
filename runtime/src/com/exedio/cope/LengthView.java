@@ -44,6 +44,12 @@ public final class LengthView extends NumberView<Integer>
 	}
 
 	@Override
+	public NumberFunction<Integer> bind(final Join join)
+	{
+		return new LengthView(source.bind(join));
+	}
+
+	@Override
 	@SuppressWarnings("OverlyStrongTypeCast")
 	public Integer mapJava(final Object[] sourceValues)
 	{

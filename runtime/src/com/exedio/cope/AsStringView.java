@@ -37,6 +37,12 @@ public final class AsStringView extends StringView
 	}
 
 	@Override
+	public StringFunction bind(final Join join)
+	{
+		return new AsStringView(source.bind(join));
+	}
+
+	@Override
 	public String mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;

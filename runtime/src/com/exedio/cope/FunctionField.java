@@ -337,6 +337,12 @@ public abstract class FunctionField<E> extends Field<E>
 	}
 
 	@Override
+	public Function<E> bind(final Join join)
+	{
+		return new BindFunction<>(this, join);
+	}
+
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();

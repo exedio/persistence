@@ -49,6 +49,12 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
+	public NumberFunction<E> bind(final Join join)
+	{
+		return new MultiplyLiteralView<>(left.bind(join), right);
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public E mapJava(final Object[] sourceValues)
 	{

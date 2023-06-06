@@ -40,17 +40,17 @@ public class BindTest
 		assertIt("a1.x", "AnItem1.\"x\"", x.bind(a1).bind(a2)); // idempotence
 		assertIt("plus(x,y)", "(AnItem0.\"x\"+AnItem0.\"y\")", x.plus(y));
 		assertIt("plus(a1.x,y)", "(AnItem1.\"x\"+AnItem0.\"y\")", x.bind(a1).plus(y));
-		assertIt("a2.plus(a1.x,y)", "(AnItem1.\"x\"+AnItem2.\"y\")", x.bind(a1).plus(y).bind(a2));
+		assertIt("plus(a1.x,a2.y)", "(AnItem1.\"x\"+AnItem2.\"y\")", x.bind(a1).plus(y).bind(a2));
 		assertIt("plus(a1.x,a2.y)", "(AnItem1.\"x\"+AnItem2.\"y\")", x.bind(a1).plus(y.bind(a2)));
-		assertIt("a1.plus(x,y)", "(AnItem1.\"x\"+AnItem1.\"y\")", x.plus(y).bind(a1));
-		assertIt("a1.plus(x,y)", "(AnItem1.\"x\"+AnItem1.\"y\")", x.plus(y).bind(a1).bind(a2)); // idempotence
-		assertIt("a2.plus(a1.x,a1.y)", "(AnItem1.\"x\"+AnItem1.\"y\")", x.bind(a1).plus(y.bind(a1)).bind(a2));
+		assertIt("plus(a1.x,a1.y)", "(AnItem1.\"x\"+AnItem1.\"y\")", x.plus(y).bind(a1));
+		assertIt("plus(a1.x,a1.y)", "(AnItem1.\"x\"+AnItem1.\"y\")", x.plus(y).bind(a1).bind(a2)); // idempotence
+		assertIt("plus(a1.x,a1.y)", "(AnItem1.\"x\"+AnItem1.\"y\")", x.bind(a1).plus(y.bind(a1)).bind(a2));
 
 		assertIt("max(x)", "MAX(AnItem0.\"x\")", x.max());
 		assertIt("max(a1.x)", "MAX(AnItem1.\"x\")", x.bind(a1).max());
-		assertIt("a2.max(x)", "MAX(AnItem2.\"x\")", x.max().bind(a2));
-		assertIt("a2.max(x)", "MAX(AnItem2.\"x\")", x.max().bind(a2).bind(a1)); // idempotence
-		assertIt("a2.max(a1.x)", "MAX(AnItem1.\"x\")", x.bind(a1).max().bind(a2));
+		assertIt("max(a2.x)", "MAX(AnItem2.\"x\")", x.max().bind(a2));
+		assertIt("max(a2.x)", "MAX(AnItem2.\"x\")", x.max().bind(a2).bind(a1)); // idempotence
+		assertIt("max(a1.x)", "MAX(AnItem1.\"x\")", x.bind(a1).max().bind(a2));
 	}
 
 	private Query<Integer> query;

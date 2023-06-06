@@ -48,4 +48,10 @@ public final class ExtremumAggregate<E> extends Aggregate<E,E>
 	{
 		return !minimum;
 	}
+
+	@Override
+	public Function<E> bind(final Join join)
+	{
+		return new ExtremumAggregate<>(source.bind(join), minimum);
+	}
 }

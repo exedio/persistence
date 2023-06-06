@@ -58,6 +58,12 @@ public final class Count implements NumberFunction<Integer>
 	}
 
 	@Override
+	public Count bind(final Join join)
+	{
+		return new Count(source.bind(join));
+	}
+
+	@Override
 	public Type<?> getType()
 	{
 		if (source==null)

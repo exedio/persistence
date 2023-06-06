@@ -24,10 +24,7 @@ public interface StringFunction extends Function<String>
 {
 	// convenience methods for conditions and views ---------------------------------
 	@Override
-	default StringFunction bind(final Join join)
-	{
-		return new BindStringFunction(this, join);
-	}
+	StringFunction bind(Join join); // narrows return type for implementations
 
 	/**
 	 * Returns a condition, that is true for all items,
