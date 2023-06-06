@@ -38,6 +38,7 @@ import org.junit.jupiter.api.Test;
 public class LocalizationKeysPatternTest
 {
 	/**
+	 * @see com.exedio.cope.pattern.SetFieldModelTest#testLocalizationKeys()
 	 * @see com.exedio.cope.pattern.DispatcherModelTest#testLocalizationKeys()
 	 * @see com.exedio.cope.pattern.BlockFieldStandardModelTest#testLocalizationKeys()
 	 */
