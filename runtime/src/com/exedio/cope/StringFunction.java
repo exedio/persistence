@@ -24,8 +24,7 @@ public interface StringFunction extends Function<String>
 {
 	// convenience methods for conditions and views ---------------------------------
 	@Override
-	@SuppressWarnings("deprecation")
-	default BindStringFunction bind(final Join join)
+	default StringFunction bind(final Join join)
 	{
 		return new BindStringFunction(this, join);
 	}

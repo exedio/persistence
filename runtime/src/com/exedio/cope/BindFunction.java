@@ -22,21 +22,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Consumer;
 
-public class BindFunction<E> implements Function<E>
+class BindFunction<E> implements Function<E>
 {
 	private static final long serialVersionUID = 1l;
 
 	final Function<E> function;
 	final Join join;
 
-	/**
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see Function#bind(Join)
-	 */
-	@Deprecated
-	public BindFunction(final Function<E> function, final Join join)
+	BindFunction(final Function<E> function, final Join join)
 	{
 		this.function = requireNonNull(function, "function");
 		this.join = requireNonNull(join, "join");
@@ -145,7 +138,7 @@ public class BindFunction<E> implements Function<E>
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public BindFunction<E> bind(final Join join)
+	public Function<E> bind(final Join join)
 	{
 		return this;
 	}

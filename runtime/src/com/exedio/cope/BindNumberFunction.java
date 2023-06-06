@@ -18,19 +18,12 @@
 
 package com.exedio.cope;
 
-public final class BindNumberFunction<E extends Number> extends BindFunction<E>
+final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	implements NumberFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	/**
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see NumberFunction#bind(Join)
-	 */
-	@Deprecated
-	public BindNumberFunction(final NumberFunction<E> function, final Join join)
+	BindNumberFunction(final NumberFunction<E> function, final Join join)
 	{
 		super(function, join);
 	}
@@ -43,7 +36,7 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public BindNumberFunction<E> bind(final Join join)
+	public NumberFunction<E> bind(final Join join)
 	{
 		return this;
 	}

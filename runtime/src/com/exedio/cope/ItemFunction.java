@@ -44,8 +44,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
-	@SuppressWarnings("deprecation")
-	default BindItemFunction<E> bind(final Join join)
+	default ItemFunction<E> bind(final Join join)
 	{
 		return new BindItemFunction<>(this, join);
 	}
