@@ -149,114 +149,114 @@ public class LocalizationKeysPatternTest
 
 
 	private static void assertIt(
-			final String expected,
+			final String expectedPrefixed,
 			final AbstractType<?> t)
 	{
 		assertEqualsUnmodifiable(asList(
-				TEST1 + expected,
-				TEST2 + expected),
+				PREFIX1 + expectedPrefixed,
+				PREFIX2 + expectedPrefixed),
 				t.getLocalizationKeys());
 	}
 
 	private static void assertIt(
-			final String expected1,
-			final String expectedSimple,
+			final String expected1Prefixed,
 			final String expected2,
+			final String expected3Prefixed,
 			final AbstractType<?> t)
 	{
 		assertEqualsUnmodifiable(asList(
-				TEST1 + expected1,
-				TEST2 + expected1,
-				expectedSimple,
-				TEST1 + expected2,
-				TEST2 + expected2),
+				PREFIX1 + expected1Prefixed,
+				PREFIX2 + expected1Prefixed,
+				expected2,
+				PREFIX1 + expected3Prefixed,
+				PREFIX2 + expected3Prefixed),
 				t.getLocalizationKeys());
 	}
 
 	private static void assertIt(
-			final String expected1,
-			final String expected2,
-			final String expectedSimple,
+			final String expected1Prefixed,
+			final String expected2Prefixed,
 			final String expected3,
+			final String expected4Prefixed,
 			final AbstractType<?> t)
 	{
 		assertEqualsUnmodifiable(asList(
-				TEST1 + expected1,
-				TEST2 + expected1,
-				TEST1 + expected2,
-				TEST2 + expected2,
-				expectedSimple,
-				TEST1 + expected3,
-				TEST2 + expected3),
+				PREFIX1 + expected1Prefixed,
+				PREFIX2 + expected1Prefixed,
+				PREFIX1 + expected2Prefixed,
+				PREFIX2 + expected2Prefixed,
+				expected3,
+				PREFIX1 + expected4Prefixed,
+				PREFIX2 + expected4Prefixed),
 				t.getLocalizationKeys());
 	}
 
 	private static void assertIt(
-			final String expected,
-			final String expectedSimple,
+			final String expected1Prefixed,
+			final String expected2,
 			final Feature f)
 	{
 		assertEqualsUnmodifiable(asList(
-				TEST1 + expected,
-				TEST2 + expected,
-				expectedSimple),
+				PREFIX1 + expected1Prefixed,
+				PREFIX2 + expected1Prefixed,
+				expected2),
 				f.getLocalizationKeys());
 	}
 
 	private static void assertIt(
-			final String expected1,
-			final String expected2,
-			final String expectedSimple,
-			final Feature f)
-	{
-		assertEqualsUnmodifiable(asList(
-				TEST1 + expected1,
-				TEST2 + expected1,
-				TEST1 + expected2,
-				TEST2 + expected2,
-				expectedSimple),
-				f.getLocalizationKeys());
-	}
-
-	private static void assertIt(
-			final String expected1,
-			final String expectedSimple,
-			final String expected2,
-			final String expectedSimple2,
-			final Feature f)
-	{
-		assertEqualsUnmodifiable(asList(
-				TEST1 + expected1,
-				TEST2 + expected1,
-				expectedSimple,
-				TEST1 + expected2,
-				TEST2 + expected2,
-				expectedSimple2),
-				f.getLocalizationKeys());
-	}
-
-	private static void assertIt(
-			final String expected1,
-			final String expected2,
-			final String expectedSimple,
+			final String expected1Prefixed,
+			final String expected2Prefixed,
 			final String expected3,
-			final String expectedSimple3,
 			final Feature f)
 	{
 		assertEqualsUnmodifiable(asList(
-				TEST1 + expected1,
-				TEST2 + expected1,
-				TEST1 + expected2,
-				TEST2 + expected2,
-				expectedSimple,
-				TEST1 + expected3,
-				TEST2 + expected3,
-				expectedSimple3),
+				PREFIX1 + expected1Prefixed,
+				PREFIX2 + expected1Prefixed,
+				PREFIX1 + expected2Prefixed,
+				PREFIX2 + expected2Prefixed,
+				expected3),
 				f.getLocalizationKeys());
 	}
 
-	private static final String TEST1 = LocalizationKeysPatternTest.class.getName() + '.';
-	private static final String TEST2 = LocalizationKeysPatternTest.class.getSimpleName() + '.';
+	private static void assertIt(
+			final String expected1Prefixed,
+			final String expected2,
+			final String expected3Prefixed,
+			final String expected4,
+			final Feature f)
+	{
+		assertEqualsUnmodifiable(asList(
+				PREFIX1 + expected1Prefixed,
+				PREFIX2 + expected1Prefixed,
+				expected2,
+				PREFIX1 + expected3Prefixed,
+				PREFIX2 + expected3Prefixed,
+				expected4),
+				f.getLocalizationKeys());
+	}
+
+	private static void assertIt(
+			final String expected1Prefixed,
+			final String expected2Prefixed,
+			final String expected3,
+			final String expected4Prefixed,
+			final String expected5,
+			final Feature f)
+	{
+		assertEqualsUnmodifiable(asList(
+				PREFIX1 + expected1Prefixed,
+				PREFIX2 + expected1Prefixed,
+				PREFIX1 + expected2Prefixed,
+				PREFIX2 + expected2Prefixed,
+				expected3,
+				PREFIX1 + expected4Prefixed,
+				PREFIX2 + expected4Prefixed,
+				expected5),
+				f.getLocalizationKeys());
+	}
+
+	private static final String PREFIX1 = LocalizationKeysPatternTest.class.getName() + '.';
+	private static final String PREFIX2 = LocalizationKeysPatternTest.class.getSimpleName() + '.';
 
 
 	private static final class MyPatt extends Pattern implements Copyable
