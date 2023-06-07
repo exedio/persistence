@@ -97,10 +97,7 @@ public final class MediaType
 
 	public List<String> getAliases()
 	{
-		if( aliases.length>0 )
-			return List.of(aliases);
-
-		return List.of();
+		return List.of(aliases);
 	}
 
 	void addNameAndAliases(final ArrayList<String> list)

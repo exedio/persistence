@@ -119,11 +119,9 @@ final class Database
 
 	void finish()
 	{
-		//noinspection ZeroLengthArrayAllocation
-		final List<Table> tables = List.of(tablesModifiable.toArray(new Table[]{}));
+		final List<Table> tables = List.copyOf(tablesModifiable);
 		tablesModifiable = null;
-		//noinspection ZeroLengthArrayAllocation
-		final List<SequenceX> sequences = List.of(sequencesModifiable.toArray(new SequenceX[]{}));
+		final List<SequenceX> sequences = List.copyOf(sequencesModifiable);
 		sequencesModifiable = null;
 		this.tables = tables;
 		this.sequences = sequences;
