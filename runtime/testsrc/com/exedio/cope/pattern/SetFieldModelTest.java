@@ -261,10 +261,16 @@ public class SetFieldModelTest
 				"strings"),
 				strings.getLocalizationKeys());
 		assertEquals(List.of(
+				"com.exedio.cope.pattern.SetFieldItem.strings.SourceType",
+				"SetFieldItem.strings.SourceType",
+				"strings.SourceType",
 				"com.exedio.cope.pattern.PatternItem",
 				"PatternItem"),
 				stringsType.getLocalizationKeys());
 		assertEquals(List.of(
+				"com.exedio.cope.pattern.SetFieldItem.strings.SourceType.element",
+				"SetFieldItem.strings.SourceType.element",
+				"strings.SourceType.element",
 				"com.exedio.cope.pattern.PatternItem.element",
 				"PatternItem.element",
 				"element"),

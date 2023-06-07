@@ -66,6 +66,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	final String schemaId;
 	final int typeColumnMinLength;
 	private final Pattern pattern;
+	private final String patternPostfix;
 	final boolean isAbstract;
 	final Type<? super T> supertype;
 	final Type<? super T> toptype;
@@ -161,6 +162,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			final boolean bound,
 			final String id,
 			final Pattern pattern,
+			final String patternPostfix,
 			final Type<? super T> supertype,
 			final Features featuresParameter)
 	{
@@ -189,6 +191,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
 		this.schemaId = intern(schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id);
 		this.pattern = pattern;
+		this.patternPostfix = patternPostfix;
 		this.isAbstract = Modifier.isAbstract(javaClass.getModifiers());
 		this.supertype = supertype;
 		this.typeColumnMinLength = getTypeColumnMinLength();
@@ -891,8 +894,23 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(localizationKeysIfInitialized!=null)
 			return localizationKeysIfInitialized;
 
-		localizationKeysIfInitialized = LocalizationKeys.get(javaClass);
+		localizationKeysIfInitialized = createLocalizationKeys();
 		return localizationKeysIfInitialized;
+	}
+
+	private List<String> createLocalizationKeys()
+	{
+		final List<String> byJavaClass = LocalizationKeys.get(javaClass);
+		if(pattern==null)
+			return byJavaClass;
+
+		final List<String> byPattern = pattern.getLocalizationKeys();
+		final ArrayList<String> result = new ArrayList<>(byPattern.size() + byJavaClass.size());
+		final String postfix = patternPostfix!=null ? patternPostfix : "SourceType";
+		for(final String key : byPattern)
+			result.add(key + '.' + postfix);
+		result.addAll(byJavaClass);
+		return List.copyOf(result);
 	}
 
 	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
