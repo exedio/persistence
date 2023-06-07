@@ -170,14 +170,7 @@ final class TreeApiContext
 		final String allChars=getAllChars();
 		if (pos+search.length()>allChars.length())
 			throw new IllegalArgumentException(pos+"+"+search.length()+">"+allChars.length());
-		for (int i=0; i<search.length(); i++)
-		{
-			if ( allChars.charAt(pos+i)!=search.charAt(i) )
-			{
-				return false;
-			}
-		}
-		return true;
+		return allChars.regionMatches(pos, search, 0, search.length());
 	}
 
 	String getFullyQualifiedSuperclass(final TreePath typePath)
