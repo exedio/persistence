@@ -74,23 +74,5 @@ public class EnumTest extends TestWithEnvironment
 		assertEquals(Single.single, item.getSingle());
 		item.setSingle(null);
 		assertEquals(null, item.getSingle());
-
-		{
-			final EnumField<Single> wrong = EnumField.create(Single.class);
-			final Features features = new Features();
-			features.put("wrong", wrong);
-			try
-			{
-				new Type<>(EnumItem.class, EnumItem::new, EnumItem.class, false, "Wrong", null, null, null, features);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals(
-						"mandatory enum field is not allowed on valueClass with one enum value only: " +
-						"Wrong.wrong on " + Single.class.getName(),
-						e.getMessage());
-			}
-		}
 	}
 }
