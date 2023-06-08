@@ -80,7 +80,7 @@ public final class Standard extends Item
 	public static final DateField nowDate = new DateField().defaultToNow();
 
 	public static final EnumField<Enum1> mandatoryEnum = EnumField.create(Enum1.class).defaultTo(Enum1.ENUM1A);
-	protected static final EnumField<Enum2> protectedEnum = EnumField.create(Enum2.class).optional().defaultTo(Enum2.ENUM2A);
+	protected static final EnumField<Enum2> protectedEnum = EnumField.createEvenIfRedundant(Enum2.class).optional().defaultTo(Enum2.ENUM2A);
 	protected static final EnumField<EnumContainer.Enum3> externalEnum = EnumField.create(EnumContainer.Enum3.class).optional().defaultTo(EnumContainer.Enum3.ENUM3A);
 	protected static final EnumField<Enum4> shortExternalEnum = EnumField.create(Enum4.class).optional().defaultTo(Enum4.ENUM4A);
 

@@ -40,7 +40,7 @@ final class EnumItem extends Item
 		single
 	}
 
-	static final EnumField<Single> single = EnumField.create(Single.class).optional();
+	static final EnumField<Single> single = EnumField.createEvenIfRedundant(Single.class).optional();
 
 	/**
 	 * Creates a new EnumItem with all the fields initially needed.

@@ -78,7 +78,6 @@ class IntegerColumn extends Column
 		this.maximum = allowedValues[allowedValues.length-1];
 		this.precision = Precision.MILLI;
 
-		assert allowedValues.length>(optional?0:1) : id;
 		assert assertMembers();
 	}
 
