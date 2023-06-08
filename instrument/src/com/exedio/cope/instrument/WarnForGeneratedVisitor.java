@@ -30,6 +30,6 @@ final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 	@Override
 	void visitGeneratedPath()
 	{
-		printWarning(NON_GENERATED, "@Generated annotation in non-generated code");
+		printWarning(NON_GENERATED, "Generated annotation in non-generated code");
 	}
 }
