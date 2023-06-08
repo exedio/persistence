@@ -27,7 +27,6 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -258,21 +257,39 @@ public class ChangeListenerTest extends TestWithEnvironment
 				throw new RuntimeException(e);
 			}
 			if((shortcut--)<0)
-				fail("shortcut");
+				fail("shortcut pending");
 		}
-		//System.out.println("-- " + (shortcut));
 
-		// Sleep even longer, because the dispatcher thread
-		// needs some more time after taking the event
-		// out of the queue.
-		try
+		shortcut = 50;
+		while(!allThreadsWaiting())
 		{
-			sleepLongerThan(50);
+			try
+			{
+				//noinspection BusyWait
+				Thread.sleep(1);
+			}
+			catch (final InterruptedException e)
+			{
+				throw new RuntimeException(e);
+			}
+			if((shortcut--)<0)
+				fail("shortcut allThreadsWaiting");
 		}
-		catch (final InterruptedException e)
+	}
+
+	private boolean allThreadsWaiting()
+	{
+		for(final ThreadController tc : model.getThreadControllers())
 		{
-			throw new RuntimeException(e);
+			if(!tc.getName().startsWith("COPE Change Listener Dispatcher ") ||
+				!tc.isAlive())
+				continue;
+
+			final Thread.State state = tc.getState();
+			if(state!=Thread.State.WAITING)
+				return false;
 		}
+		return true;
 	}
 
 	private void assertInfo(final int size, final int removed, final int success, final int failed)
