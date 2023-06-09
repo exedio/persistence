@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -45,46 +43,46 @@ public class IntegerFieldTest
 		assertEquals(in(any), any.equal((Integer)null));
 		assertEquals(nn(any), any.notEqual((Integer)null));
 		assertEquals(cc(Operator.Equal, any, 0), any.equal(0));
-		assertEquals(cc(Operator.Equal, any, MIN_VALUE), any.equal(MIN_VALUE));
-		assertEquals(cc(Operator.Equal, any, MAX_VALUE), any.equal(MAX_VALUE));
+		assertEquals(cc(Operator.Equal, any, MIN), any.equal(MIN));
+		assertEquals(cc(Operator.Equal, any, MAX), any.equal(MAX));
 		assertEquals(cc(Operator.NotEqual, any, 0), any.notEqual(0));
-		assertEquals(cc(Operator.NotEqual, any, MIN_VALUE), any.notEqual(MIN_VALUE));
-		assertEquals(cc(Operator.NotEqual, any, MAX_VALUE), any.notEqual(MAX_VALUE));
+		assertEquals(cc(Operator.NotEqual, any, MIN), any.notEqual(MIN));
+		assertEquals(cc(Operator.NotEqual, any, MAX), any.notEqual(MAX));
 		assertEquals(cc(Operator.Less, any, 0), any.less(0));
-		assertEquals(cc(Operator.Less, any, MIN_VALUE), any.less(MIN_VALUE));
-		assertEquals(cc(Operator.Less, any, MAX_VALUE), any.less(MAX_VALUE));
+		assertEquals(cc(Operator.Less, any, MIN), any.less(MIN));
+		assertEquals(cc(Operator.Less, any, MAX), any.less(MAX));
 		assertEquals(cc(Operator.LessEqual, any, 0), any.lessOrEqual(0));
-		assertEquals(cc(Operator.LessEqual, any, MIN_VALUE), any.lessOrEqual(MIN_VALUE));
-		assertEquals(cc(Operator.LessEqual, any, MAX_VALUE), any.lessOrEqual(MAX_VALUE));
+		assertEquals(cc(Operator.LessEqual, any, MIN), any.lessOrEqual(MIN));
+		assertEquals(cc(Operator.LessEqual, any, MAX), any.lessOrEqual(MAX));
 		assertEquals(cc(Operator.Greater, any, 0), any.greater(0));
-		assertEquals(cc(Operator.Greater, any, MIN_VALUE), any.greater(MIN_VALUE));
-		assertEquals(cc(Operator.Greater, any, MAX_VALUE), any.greater(MAX_VALUE));
+		assertEquals(cc(Operator.Greater, any, MIN), any.greater(MIN));
+		assertEquals(cc(Operator.Greater, any, MAX), any.greater(MAX));
 		assertEquals(cc(Operator.GreaterEqual, any, 0), any.greaterOrEqual(0));
-		assertEquals(cc(Operator.GreaterEqual, any, MIN_VALUE), any.greaterOrEqual(MIN_VALUE));
-		assertEquals(cc(Operator.GreaterEqual, any, MAX_VALUE), any.greaterOrEqual(MAX_VALUE));
+		assertEquals(cc(Operator.GreaterEqual, any, MIN), any.greaterOrEqual(MIN));
+		assertEquals(cc(Operator.GreaterEqual, any, MAX), any.greaterOrEqual(MAX));
 
 		assertEquals(in(mandatory), mandatory.isNull());
 		assertEquals(nn(mandatory), mandatory.isNotNull());
 		assertEquals(in(mandatory), mandatory.equal((Integer)null));
 		assertEquals(nn(mandatory), mandatory.notEqual((Integer)null));
 		assertEquals(cc(Operator.Equal, mandatory, 0), mandatory.equal(0));
-		assertEquals(cc(Operator.Equal, mandatory, MIN_VALUE), mandatory.equal(MIN_VALUE));
-		assertEquals(cc(Operator.Equal, mandatory, MAX_VALUE), mandatory.equal(MAX_VALUE));
+		assertEquals(cc(Operator.Equal, mandatory, MIN), mandatory.equal(MIN));
+		assertEquals(cc(Operator.Equal, mandatory, MAX), mandatory.equal(MAX));
 
 		assertEquals(in(min4), min4.equal((Integer)null));
 		assertEquals(FALSE, min4.equal(0));
 		assertEquals(FALSE, min4.equal(3));
 		assertEquals(cc(Operator.Equal, min4, 4), min4.equal(4));
-		assertEquals(FALSE, min4.equal(MIN_VALUE));
-		assertEquals(cc(Operator.Equal, min4, MAX_VALUE), min4.equal(MAX_VALUE));
+		assertEquals(FALSE, min4.equal(MIN));
+		assertEquals(cc(Operator.Equal, min4, MAX), min4.equal(MAX));
 
 		assertEquals(in(max4), max4.equal((Integer)null));
 		assertEquals(cc(Operator.Equal, max4, 0), max4.equal(0));
 		assertEquals(cc(Operator.Equal, max4, 3), max4.equal(3));
 		assertEquals(cc(Operator.Equal, max4, 4), max4.equal(4));
 		assertEquals(FALSE, max4.equal(5));
-		assertEquals(cc(Operator.Equal, max4, MIN_VALUE), max4.equal(MIN_VALUE));
-		assertEquals(FALSE, max4.equal(MAX_VALUE));
+		assertEquals(cc(Operator.Equal, max4, MIN), max4.equal(MIN));
+		assertEquals(FALSE, max4.equal(MAX));
 
 		assertEquals(in(min4Max8), min4Max8.isNull());
 		assertEquals(nn(min4Max8), min4Max8.isNotNull());
@@ -95,21 +93,21 @@ public class IntegerFieldTest
 		assertEquals(cc(Operator.Equal, min4Max8, 4), min4Max8.equal(4));
 		assertEquals(cc(Operator.Equal, min4Max8, 8), min4Max8.equal(8));
 		assertEquals(FALSE, min4Max8.equal(9));
-		assertEquals(FALSE, min4Max8.equal(MIN_VALUE));
-		assertEquals(FALSE, min4Max8.equal(MAX_VALUE));
+		assertEquals(FALSE, min4Max8.equal(MIN));
+		assertEquals(FALSE, min4Max8.equal(MAX));
 		assertEquals(TRUE,  min4Max8.notEqual(0));
 		assertEquals(TRUE,  min4Max8.notEqual(3));
 		assertEquals(cc(Operator.NotEqual, min4Max8, 4), min4Max8.notEqual(4));
 		assertEquals(cc(Operator.NotEqual, min4Max8, 8), min4Max8.notEqual(8));
 		assertEquals(TRUE, min4Max8.notEqual(9));
-		assertEquals(TRUE, min4Max8.notEqual(MIN_VALUE));
-		assertEquals(TRUE, min4Max8.notEqual(MAX_VALUE));
+		assertEquals(TRUE, min4Max8.notEqual(MIN));
+		assertEquals(TRUE, min4Max8.notEqual(MAX));
 		assertEquals(cc(Operator.Less, min4Max8, 0), min4Max8.less(0));
 		assertEquals(cc(Operator.Less, min4Max8, 3), min4Max8.less(3));
 		assertEquals(cc(Operator.Less, min4Max8, 4), min4Max8.less(4));
 		assertEquals(cc(Operator.Less, min4Max8, 5), min4Max8.less(5));
-		assertEquals(cc(Operator.Less, min4Max8, MIN_VALUE), min4Max8.less(MIN_VALUE));
-		assertEquals(cc(Operator.Less, min4Max8, MAX_VALUE), min4Max8.less(MAX_VALUE));
+		assertEquals(cc(Operator.Less, min4Max8, MIN), min4Max8.less(MIN));
+		assertEquals(cc(Operator.Less, min4Max8, MAX), min4Max8.less(MAX));
 		assertEquals(cc(Operator.LessEqual, min4Max8,  0), min4Max8.lessOrEqual( 0));
 		assertEquals(cc(Operator.LessEqual, min4Max8,  3), min4Max8.lessOrEqual( 3));
 		assertEquals(cc(Operator.LessEqual, min4Max8,  4), min4Max8.lessOrEqual( 4));
@@ -117,8 +115,8 @@ public class IntegerFieldTest
 		assertEquals(cc(Operator.LessEqual, min4Max8,  8), min4Max8.lessOrEqual( 8));
 		assertEquals(cc(Operator.LessEqual, min4Max8,  9), min4Max8.lessOrEqual( 9));
 		assertEquals(cc(Operator.LessEqual, min4Max8, 10), min4Max8.lessOrEqual(10));
-		assertEquals(cc(Operator.LessEqual, min4Max8, MIN_VALUE), min4Max8.lessOrEqual(MIN_VALUE));
-		assertEquals(cc(Operator.LessEqual, min4Max8, MAX_VALUE), min4Max8.lessOrEqual(MAX_VALUE));
+		assertEquals(cc(Operator.LessEqual, min4Max8, MIN), min4Max8.lessOrEqual(MIN));
+		assertEquals(cc(Operator.LessEqual, min4Max8, MAX), min4Max8.lessOrEqual(MAX));
 		assertEquals(cc(Operator.Greater, min4Max8, 0), min4Max8.greater(0));
 		assertEquals(cc(Operator.Greater, min4Max8, 2), min4Max8.greater(2));
 		assertEquals(cc(Operator.Greater, min4Max8, 3), min4Max8.greater(3));
@@ -127,8 +125,8 @@ public class IntegerFieldTest
 		assertEquals(cc(Operator.Greater, min4Max8, 7), min4Max8.greater(7));
 		assertEquals(cc(Operator.Greater, min4Max8, 8), min4Max8.greater(8));
 		assertEquals(cc(Operator.Greater, min4Max8, 9), min4Max8.greater(9));
-		assertEquals(cc(Operator.Greater, min4Max8, MIN_VALUE), min4Max8.greater(MIN_VALUE));
-		assertEquals(cc(Operator.Greater, min4Max8, MAX_VALUE), min4Max8.greater(MAX_VALUE));
+		assertEquals(cc(Operator.Greater, min4Max8, MIN), min4Max8.greater(MIN));
+		assertEquals(cc(Operator.Greater, min4Max8, MAX), min4Max8.greater(MAX));
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, 0), min4Max8.greaterOrEqual(0));
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, 2), min4Max8.greaterOrEqual(2));
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, 3), min4Max8.greaterOrEqual(3));
@@ -137,8 +135,8 @@ public class IntegerFieldTest
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, 7), min4Max8.greaterOrEqual(7));
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, 8), min4Max8.greaterOrEqual(8));
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, 9), min4Max8.greaterOrEqual(9));
-		assertEquals(cc(Operator.GreaterEqual, min4Max8, MIN_VALUE), min4Max8.greaterOrEqual(MIN_VALUE));
-		assertEquals(cc(Operator.GreaterEqual, min4Max8, MAX_VALUE), min4Max8.greaterOrEqual(MAX_VALUE));
+		assertEquals(cc(Operator.GreaterEqual, min4Max8, MIN), min4Max8.greaterOrEqual(MIN));
+		assertEquals(cc(Operator.GreaterEqual, min4Max8, MAX), min4Max8.greaterOrEqual(MAX));
 	}
 
 	@Test void testOptional()
@@ -146,14 +144,14 @@ public class IntegerFieldTest
 		final IntegerField orig = new IntegerField().optional();
 		assertEquals(false, orig.isFinal());
 		assertEquals(false, orig.isMandatory());
-		assertEquals(MIN_VALUE, orig.getMinimum());
-		assertEquals(MAX_VALUE, orig.getMaximum());
+		assertEquals(MIN, orig.getMinimum());
+		assertEquals(MAX, orig.getMaximum());
 
 		final IntegerField copy = orig.copy();
 		assertEquals(false, copy.isFinal());
 		assertEquals(false, copy.isMandatory());
-		assertEquals(MIN_VALUE, copy.getMinimum());
-		assertEquals(MAX_VALUE, copy.getMaximum());
+		assertEquals(MIN, copy.getMinimum());
+		assertEquals(MAX, copy.getMaximum());
 	}
 
 	@Test void testMin()
@@ -163,14 +161,14 @@ public class IntegerFieldTest
 		assertEquals(false, orig.isMandatory());
 		assertNull(orig.getImplicitUniqueConstraint());
 		assertEquals(10, orig.getMinimum());
-		assertEquals(MAX_VALUE, orig.getMaximum());
+		assertEquals(MAX, orig.getMaximum());
 
 		final IntegerField copy = orig.copy();
 		assertEquals(true, copy.isFinal());
 		assertEquals(false, copy.isMandatory());
 		assertNull(copy.getImplicitUniqueConstraint());
 		assertEquals(10, copy.getMinimum());
-		assertEquals(MAX_VALUE, copy.getMaximum());
+		assertEquals(MAX, copy.getMaximum());
 	}
 
 	@Test void testUnique()
@@ -180,14 +178,14 @@ public class IntegerFieldTest
 		assertEquals(false, orig.isMandatory());
 		assertNotNull(orig.getImplicitUniqueConstraint());
 		assertEquals(20, orig.getMinimum());
-		assertEquals(MAX_VALUE, orig.getMaximum());
+		assertEquals(MAX, orig.getMaximum());
 
 		final IntegerField copy = orig.copy();
 		assertEquals(true, copy.isFinal());
 		assertEquals(false, copy.isMandatory());
 		assertNotNull(copy.getImplicitUniqueConstraint());
 		assertEquals(20, copy.getMinimum());
-		assertEquals(MAX_VALUE, copy.getMaximum());
+		assertEquals(MAX, copy.getMaximum());
 	}
 
 	@Test void testMax()
@@ -196,14 +194,14 @@ public class IntegerFieldTest
 		assertEquals(true, orig.isFinal());
 		assertEquals(false, orig.isMandatory());
 		assertNull(orig.getImplicitUniqueConstraint());
-		assertEquals(MIN_VALUE, orig.getMinimum());
+		assertEquals(MIN, orig.getMinimum());
 		assertEquals(30, orig.getMaximum());
 
 		final IntegerField copy = orig.copy();
 		assertEquals(true, copy.isFinal());
 		assertEquals(false, copy.isMandatory());
 		assertNull(copy.getImplicitUniqueConstraint());
-		assertEquals(MIN_VALUE, copy.getMinimum());
+		assertEquals(MIN, copy.getMinimum());
 		assertEquals(30, copy.getMaximum());
 	}
 
@@ -227,9 +225,9 @@ public class IntegerFieldTest
 		assertIllegalRange(0,  0,  "maximum must be greater than minimum, but was 0 and 0");
 		assertIllegalRange(22, 22, "maximum must be greater than minimum, but was 22 and 22");
 		assertIllegalRange(22, 21, "maximum must be greater than minimum, but was 21 and 22");
-		assertIllegalRange(MAX_VALUE, MIN_VALUE, "maximum must be greater than minimum, but was " + MIN_VALUE + " and " + MAX_VALUE);
-		assertIllegalRange(MIN_VALUE, MIN_VALUE, "maximum must be greater than minimum, but was " + MIN_VALUE + " and " + MIN_VALUE);
-		assertIllegalRange(MAX_VALUE, MAX_VALUE, "maximum must be greater than minimum, but was " + MAX_VALUE + " and " + MAX_VALUE);
+		assertIllegalRange(MAX, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MAX);
+		assertIllegalRange(MIN, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MIN);
+		assertIllegalRange(MAX, MAX, "maximum must be greater than minimum, but was " + MAX + " and " + MAX);
 	}
 
 	private static void assertIllegalRange(final int minimum, final int maximum, final String message)
@@ -260,4 +258,7 @@ public class IntegerFieldTest
 	{
 		return new CompareCondition<>(operator, field, value);
 	}
+
+	private static final int MAX = Integer.MAX_VALUE;
+	private static final int MIN = Integer.MIN_VALUE;
 }
