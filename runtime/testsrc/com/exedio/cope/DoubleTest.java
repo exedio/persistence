@@ -25,6 +25,7 @@ import static com.exedio.cope.DoubleItem.max4;
 import static com.exedio.cope.DoubleItem.min4;
 import static com.exedio.cope.DoubleItem.min4Max8;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -571,29 +572,20 @@ public class DoubleTest extends TestWithEnvironment
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 	@Test void testUnchecked()
 	{
-		try
-		{
-			item.set((FunctionField)any, "hallo");
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + Double.class.getName() + ", but was a " + String.class.getName() + " for " + any + '.', e.getMessage());
-		}
+		assertFails(
+				() -> item.set((FunctionField)any, "hallo"),
+				ClassCastException.class,
+				"expected a " + Double.class.getName() + ", " +
+				"but was a " + String.class.getName() + " for " + any + ".");
 	}
 
 	void assertIllegalRange(final double minimum, final double maximum, final String message)
 	{
 		final DoubleField f = new DoubleField().optional();
-		try
-		{
-			f.range(minimum, maximum);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
+		assertFails(
+				() -> f.range(minimum, maximum),
+				IllegalArgumentException.class,
+				message);
 	}
 
 	private static IsNullCondition<Double> in(
