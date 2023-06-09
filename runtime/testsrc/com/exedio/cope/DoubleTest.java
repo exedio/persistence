@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Condition.FALSE;
+import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.DoubleItem.TYPE;
 import static com.exedio.cope.DoubleItem.any;
 import static com.exedio.cope.DoubleItem.mandatory;
@@ -54,9 +56,6 @@ public class DoubleTest extends TestWithEnvironment
 
 	private static final double MIN = -Double.MAX_VALUE;
 	private static final double MAX = Double.MAX_VALUE;
-
-	private static final Condition TRUE  = Condition.TRUE;
-	private static final Condition FALSE = Condition.FALSE;
 
 	private DoubleItem item;
 	private int numberOfItems;
