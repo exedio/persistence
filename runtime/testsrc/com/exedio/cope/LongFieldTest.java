@@ -26,12 +26,12 @@ public class LongFieldTest
 {
 	@Test void testIllegalRange()
 	{
-		assertIllegalRange(0,  0,  "maximum must be greater than minimum, but was 0 and 0");
-		assertIllegalRange(22, 22, "maximum must be greater than minimum, but was 22 and 22");
-		assertIllegalRange(22, 21, "maximum must be greater than minimum, but was 21 and 22");
-		assertIllegalRange(MAX, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MAX);
-		assertIllegalRange(MIN, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MIN);
-		assertIllegalRange(MAX, MAX, "maximum must be greater than minimum, but was " + MAX + " and " + MAX);
+		assertIllegalRange(0,  0,  "Redundant field with minimum==maximum (0) is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		assertIllegalRange(22, 22, "Redundant field with minimum==maximum (22) is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		assertIllegalRange(22, 21, "maximum must be at least minimum, but was 21 and 22");
+		assertIllegalRange(MAX, MIN, "maximum must be at least minimum, but was " + MIN + " and " + MAX);
+		assertIllegalRange(MIN, MIN, "Redundant field with minimum==maximum (" + MIN + ") is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		assertIllegalRange(MAX, MAX, "Redundant field with minimum==maximum (" + MAX + ") is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
 	}
 
 	private static void assertIllegalRange(final long minimum, final long maximum, final String message)

@@ -50,8 +50,8 @@ public final class DoubleField extends NumberField<Double>
 
 		assertLimit(minimum, "minimum");
 		assertLimit(maximum, "maximum");
-		if(minimum>=maximum)
-			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
+		if(minimum>maximum)
+			throw new IllegalArgumentException("maximum must be at least minimum, but was " + maximum + " and " + minimum);
 
 		mountDefault();
 	}
@@ -123,19 +123,35 @@ public final class DoubleField extends NumberField<Double>
 		return new DoubleField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
 	}
 
-	public DoubleField range(final double minimum, final double maximum)
+	public DoubleField rangeEvenIfRedundant(final double minimum, final double maximum)
 	{
 		return new DoubleField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+	}
+
+	public DoubleField range(final double minimum, final double maximum)
+	{
+		return rangeEvenIfRedundant(minimum, maximum).failOnRedundantRange();
 	}
 
 	public DoubleField min(final double minimum)
 	{
-		return new DoubleField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
 	}
 
 	public DoubleField max(final double maximum)
 	{
-		return new DoubleField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
+	}
+
+	private DoubleField failOnRedundantRange()
+	{
+		//noinspection FloatingPointEquality OK: the redundant case
+		if(minimum==maximum)
+			throw new IllegalArgumentException(
+					"Redundant field with minimum==maximum " +
+					"(" + minimum + ") is probably a mistake. " +
+					"You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		return this;
 	}
 
 	public double getMinimum()

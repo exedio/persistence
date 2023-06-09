@@ -43,12 +43,12 @@ public class DoubleFieldTest
 
 	@Test void testIllegalRange()
 	{
-		assertIllegalRange( 0.0,  0.0,  "maximum must be greater than minimum, but was 0.0 and 0.0");
-		assertIllegalRange(22.2, 22.2, "maximum must be greater than minimum, but was 22.2 and 22.2");
-		assertIllegalRange(22.2, 21.1, "maximum must be greater than minimum, but was 21.1 and 22.2");
-		assertIllegalRange(MAX, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MAX);
-		assertIllegalRange(MIN, MIN, "maximum must be greater than minimum, but was " + MIN + " and " + MIN);
-		assertIllegalRange(MAX, MAX, "maximum must be greater than minimum, but was " + MAX + " and " + MAX);
+		assertIllegalRange( 0.0,  0.0,  "Redundant field with minimum==maximum (0.0) is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		assertIllegalRange(22.2, 22.2, "Redundant field with minimum==maximum (22.2) is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		assertIllegalRange(22.2, 21.1, "maximum must be at least minimum, but was 21.1 and 22.2");
+		assertIllegalRange(MAX, MIN, "maximum must be at least minimum, but was " + MIN + " and " + MAX);
+		assertIllegalRange(MIN, MIN, "Redundant field with minimum==maximum (" + MIN + ") is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		assertIllegalRange(MAX, MAX, "Redundant field with minimum==maximum (" + MAX + ") is probably a mistake. You may call method rangeEvenIfRedundant if you are sure this is ok.");
 	}
 
 	private static void assertIllegalRange(final double minimum, final double maximum, final String message)
