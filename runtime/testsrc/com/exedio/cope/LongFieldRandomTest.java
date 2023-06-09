@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Random;
 import org.junit.jupiter.api.Test;
@@ -76,52 +76,36 @@ public class LongFieldRandomTest
 	@Test void testUnsupportedMin()
 	{
 		final LongField s = new LongField().min(1);
-		try
-		{
-			s.defaultToRandom(r);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("defaultToRandom supports minimum of -9223372036854775808 or 0 only, but was 1", e.getMessage());
-		}
+		assertFails(
+				() -> s.defaultToRandom(r),
+				IllegalArgumentException.class,
+				"defaultToRandom supports minimum of -9223372036854775808 or 0 only, " +
+				"but was 1");
 	}
 
 	@Test void testUnsupportedMax()
 	{
 		final LongField s = new LongField().max(1);
-		try
-		{
-			s.defaultToRandom(r);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("defaultToRandom supports maximum of 9223372036854775807 only, but was 1", e.getMessage());
-		}
+		assertFails(
+				() -> s.defaultToRandom(r),
+				IllegalArgumentException.class,
+				"defaultToRandom supports maximum of 9223372036854775807 only, " +
+				"but was 1");
 	}
 
 	@Test void testUnsupportedMinMax()
 	{
 		final LongField s = new LongField().defaultToRandom(r);
-		try
-		{
-			s.min(1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("defaultToRandom supports minimum of -9223372036854775808 or 0 only, but was 1", e.getMessage());
-		}
-		try
-		{
-			s.max(1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("defaultToRandom supports maximum of 9223372036854775807 only, but was 1", e.getMessage());
-		}
+		assertFails(
+				() -> s.min(1),
+				IllegalArgumentException.class,
+				"defaultToRandom supports minimum of -9223372036854775808 or 0 only, " +
+				"but was 1");
+		assertFails(
+				() -> s.max(1),
+				IllegalArgumentException.class,
+				"defaultToRandom supports maximum of 9223372036854775807 only, " +
+				"but was 1");
 	}
 
 	@Test void testFull()

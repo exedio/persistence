@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,14 +39,9 @@ public class LongFieldTest
 	private static void assertIllegalRange(final long minimum, final long maximum, final String message)
 	{
 		final LongField f = new LongField().optional();
-		try
-		{
-			f.range(minimum, maximum);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
+		assertFails(
+				() -> f.range(minimum, maximum),
+				IllegalArgumentException.class,
+				message);
 	}
 }
