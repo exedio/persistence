@@ -280,19 +280,19 @@ public class ChangeListenerTest extends TestWithEnvironment
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
 		final ChangeListenerDispatcherInfo dispatcherInfo = model.getChangeListenerDispatcherInfo();
 		assertAll(
-				() -> assertEquals(size,    info.getSize(),    "size"),
-				() -> assertEquals(0,       info.getCleared(), "cleared"),
-				() -> assertEquals(removed, info.getRemoved(), "removed"),
-				() -> assertEquals(failed,  info.getFailed (), "failed" ),
+				() -> assertEquals(size,    info.getSize(),    "info-size"),
+				() -> assertEquals(0,       info.getCleared(), "info-cleared"),
+				() -> assertEquals(removed, info.getRemoved(), "info-removed"),
+				() -> assertEquals(failed,  info.getFailed (), "info-failed" ),
 				() -> assertEquals(size,    gauge("size"), "size"),
 				() -> assertEquals(0,       count("remove", "cause", "reference"), "cleared"),
 				() -> assertEquals(removed, count("remove", "cause", "remove"),    "removed"),
 				() -> assertEquals(success, timer("dispatch", "result", "success"), "success"),
 				() -> assertEquals(failed,  timer("dispatch", "result", "failure"), "failed" ),
 
-				() -> assertEquals(0, dispatcherInfo.getOverflow (), "overflow" ),
-				() -> assertEquals(0, dispatcherInfo.getException(), "exception"),
-				() -> assertEquals(0, dispatcherInfo.getPending  (), "pending"  ),
+				() -> assertEquals(0, dispatcherInfo.getOverflow (), "info-overflow" ),
+				() -> assertEquals(0, dispatcherInfo.getException(), "info-exception"),
+				() -> assertEquals(0, dispatcherInfo.getPending  (), "info-pending"  ),
 				() -> assertEquals(0, count("overflow"),          "overflow" ),
 				() -> assertEquals(0, count("dispatchEventFail"), "exception"),
 				() -> assertEquals(0, gauge("pending"),           "pending"  ),
