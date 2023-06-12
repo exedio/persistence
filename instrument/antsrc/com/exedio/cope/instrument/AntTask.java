@@ -180,6 +180,11 @@ public final class AntTask extends Task
 		params.serialAnnotation = value;
 	}
 
+	public void setIntroCommentOneTime(final String value)
+	{
+		params.introCommentOneTime = value;
+	}
+
 	public void setWildcardClass(final boolean value)
 	{
 		throwNoLongerSupported("wildcardClass", true);

@@ -62,6 +62,7 @@ final class Params
 	boolean useConstantForEmptySetValuesArray = true;
 	boolean activator = true;
 	boolean serialAnnotation = false;
+	String introCommentOneTime = null;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;
