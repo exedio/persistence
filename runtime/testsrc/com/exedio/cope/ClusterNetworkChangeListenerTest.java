@@ -99,7 +99,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	{
 		final Model model;
 		final Model remoteModel;
-		ChangeEvent event = null;
+		volatile ChangeEvent event = null;
 
 		MockListener(final Model model, final Model remoteModel)
 		{

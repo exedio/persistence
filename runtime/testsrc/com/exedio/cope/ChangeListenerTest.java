@@ -160,8 +160,8 @@ public class ChangeListenerTest extends TestWithEnvironment
 
 	private final class MockListener implements ChangeListener
 	{
-		ChangeEvent event = null;
-		boolean exception = false;
+		volatile ChangeEvent event = null;
+		volatile boolean exception = false;
 
 		MockListener()
 		{
