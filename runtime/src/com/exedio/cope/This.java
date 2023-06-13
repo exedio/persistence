@@ -87,10 +87,9 @@ public final class This<E extends Item> extends Feature
 	@Deprecated // OK: for internal use within COPE only
 	public void appendSelect(final Statement bf, final Join join)
 	{
-		final Type<?> selectType = getType();
-		bf.appendPK(selectType, join);
+		bf.appendPK(type, join);
 
-		final IntegerColumn column = selectType.getTable().primaryKey;
+		final IntegerColumn column = type.getTable().primaryKey;
 		assert column.kind.primaryKey();
 
 		final StringColumn typeColumn = column.table.typeColumn;
