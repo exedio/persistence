@@ -25,18 +25,18 @@ final class BindItemFunction<E extends Item> extends BindFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	final ItemFunction<E> itemFunction;
+	private final ItemFunction<E> function;
 
 	BindItemFunction(final ItemFunction<E> function, final Join join)
 	{
 		super(function, join);
-		this.itemFunction = function;
+		this.function = function;
 	}
 
 	@Override
 	public Type<E> getValueType()
 	{
-		return itemFunction.getValueType();
+		return function.getValueType();
 	}
 
 	/**
@@ -46,13 +46,13 @@ final class BindItemFunction<E extends Item> extends BindFunction<E>
 	@Deprecated // OK: for internal use within COPE only
 	public void appendType(final Statement bf, final Join join)
 	{
-		itemFunction.appendType(bf, this.join);
+		function.appendType(bf, this.join);
 	}
 
 	@Override
 	public boolean needsCheckTypeColumn()
 	{
-		return itemFunction.needsCheckTypeColumn();
+		return function.needsCheckTypeColumn();
 	}
 
 	@Override
@@ -65,13 +65,13 @@ final class BindItemFunction<E extends Item> extends BindFunction<E>
 	@Override
 	public long checkTypeColumnL()
 	{
-		return itemFunction.checkTypeColumnL();
+		return function.checkTypeColumnL();
 	}
 
 	@Override
 	public Statement checkTypeColumnStatement(final Statement.Mode mode)
 	{
-		return itemFunction.checkTypeColumnStatement(mode);
+		return function.checkTypeColumnStatement(mode);
 	}
 
 	// convenience methods for conditions and views ---------------------------------
