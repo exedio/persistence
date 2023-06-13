@@ -122,11 +122,14 @@ public class InstanceOfTest extends TestWithEnvironment
 		final SQLRuntimeException e = assertFails(
 				q::search,
 				SQLRuntimeException.class,
-				"SELECT coalesce(" + SI.pk(TYPE_A) + "," + param + ") FROM " + SI.tab(TYPE_A));
+				"SELECT coalesce(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + "," + param + ") FROM " + SI.tab(TYPE_A));
 		switch(dialect)
 		{
 			case hsqldb:
-				assertEquals("Column not found: 2", e.getCause().getMessage());
+				assertEquals(
+						"incompatible data types in combination" + ifPrep(" in statement [" +
+						"SELECT coalesce(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ",?) FROM " + SI.tab(TYPE_A) + "]"),
+						e.getCause().getMessage());
 				break;
 			case mysql:
 				assertEquals(
@@ -136,7 +139,11 @@ public class InstanceOfTest extends TestWithEnvironment
 						e.getCause().getMessage());
 				break;
 			case postgresql:
-				assertEquals("The column index is out of range: 2, number of columns: 1.", e.getCause().getMessage());
+				//noinspection HardcodedLineSeparator
+				assertEquals(
+						"ERROR: COALESCE types integer and character varying cannot be matched\n" +
+						"  Position: 24",
+						e.getCause().getMessage());
 				break;
 			default:
 				throw new RuntimeException(String.valueOf(dialect));
@@ -152,11 +159,14 @@ public class InstanceOfTest extends TestWithEnvironment
 		final SQLRuntimeException e = assertFails(
 				q::search,
 				SQLRuntimeException.class,
-				"SELECT coalesce(" + SI.col(ref) + "," + param + ") FROM " + SI.tab(TYPE_REF));
+				"SELECT coalesce(" + SI.col(ref) + "," + SI.type(ref) + "," + param + ") FROM " + SI.tab(TYPE_REF));
 		switch(dialect)
 		{
 			case hsqldb:
-				assertEquals("Column not found: 2", e.getCause().getMessage());
+				assertEquals(
+						"incompatible data types in combination" + ifPrep(" in statement [" +
+						"SELECT coalesce(" + SI.col(ref) + "," + SI.type(ref) + ",?) FROM " + SI.tab(TYPE_REF) + "]"),
+						e.getCause().getMessage());
 				break;
 			case mysql:
 				assertEquals(
@@ -166,7 +176,11 @@ public class InstanceOfTest extends TestWithEnvironment
 						e.getCause().getMessage());
 				break;
 			case postgresql:
-				assertEquals("The column index is out of range: 2, number of columns: 1.", e.getCause().getMessage());
+				//noinspection HardcodedLineSeparator
+				assertEquals(
+						"ERROR: COALESCE types integer and character varying cannot be matched\n" +
+						"  Position: 23",
+						e.getCause().getMessage());
 				break;
 			default:
 				throw new RuntimeException(String.valueOf(dialect));

@@ -39,6 +39,7 @@ final class Statement
 	private final boolean fulltextIndex;
 	final StringBuilder text = new StringBuilder();
 	private final ArrayList<Object> parameters;
+	boolean typeColumnsRequired = false;
 	final TC tc;
 	private final HashMap<JoinTable, JoinTable> joinTables;
 	private final HashSet<Table> ambiguousTables;
@@ -177,13 +178,6 @@ final class Statement
 	Statement append(final Selectable<?> select, final Join join)
 	{
 		select.append(this, join);
-		return this;
-	}
-
-	@SuppressWarnings("deprecation") // OK: Selectable.appendSelect is for internal use within COPE only
-	Statement appendSelect(final Selectable<?> select, final Join join)
-	{
-		select.appendSelect(this, join);
 		return this;
 	}
 

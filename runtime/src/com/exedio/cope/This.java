@@ -81,14 +81,13 @@ public final class This<E extends Item> extends Feature
 	public void append(final Statement bf, final Join join)
 	{
 		bf.appendPK(type, join);
+
+		if(bf.typeColumnsRequired)
+			appendTypeColumn(bf, join);
 	}
 
-	@Override
-	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join)
+	private void appendTypeColumn(final Statement bf, final Join join)
 	{
-		bf.appendPK(type, join);
-
 		final IntegerColumn column = type.getTable().primaryKey;
 		assert column.kind.primaryKey();
 

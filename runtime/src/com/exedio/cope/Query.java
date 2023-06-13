@@ -1262,6 +1262,7 @@ public final class Query<R> implements Serializable
 			if(distinct && !mode.isExists())
 				bf.append("DISTINCT ");
 
+			bf.typeColumnsRequired = true;
 			selectMarshallers = new Marshaller<?>[selects.length];
 			final Marshallers marshallers = model.connect().marshallers;
 			int copeTotalDistinctCount = 0;
@@ -1270,7 +1271,7 @@ public final class Query<R> implements Serializable
 				if(i>0)
 					bf.append(',');
 
-				bf.appendSelect(selects[i], null);
+				bf.append(selects[i], null);
 				if(mode.isTotal() && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
 					bf.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
 				selectMarshallers[i] = marshallers.get(selects[i]);
@@ -1284,10 +1285,11 @@ public final class Query<R> implements Serializable
 					if(isOrderByDependent(selectable))
 					{
 						bf.append(',');
-						bf.appendSelect(selectable, null);
+						bf.append(selectable, null);
 					}
 				}
 			}
+			bf.typeColumnsRequired = false;
 		}
 
 		bf.append(" FROM ").
@@ -1307,6 +1309,7 @@ public final class Query<R> implements Serializable
 
 		if (groupBy!=null)
 		{
+			bf.typeColumnsRequired = true;
 			for ( int i=0; i<groupBy.length; i++ )
 			{
 				if(i==0)
@@ -1314,8 +1317,9 @@ public final class Query<R> implements Serializable
 				else
 					bf.append(',');
 
-				bf.appendSelect(groupBy[i], null);
+				bf.append(groupBy[i], null);
 			}
+			bf.typeColumnsRequired = false;
 		}
 
 		if(having!=null)

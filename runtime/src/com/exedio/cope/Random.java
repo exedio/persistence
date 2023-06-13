@@ -120,13 +120,6 @@ public final class Random implements NumberFunction<Double>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join)
-	{
-		append(bf, join);
-	}
-
-	@Override
-	@Deprecated // OK: for internal use within COPE only
 	public void check(final TC tc, final Join join)
 	{
 		// nothing to do here, since there are no sources
