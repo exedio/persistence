@@ -24,9 +24,12 @@ import static com.exedio.cope.InstanceOfRefItem.ref;
 import static com.exedio.cope.InstanceOfRefItem.refb2;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.tojunit.SI;
+import com.exedio.dsmf.SQLRuntimeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -71,6 +74,7 @@ public class InstanceOfTest extends TestWithEnvironment
 	@Test void testAll()
 	{
 		assertContains(itema, itemb1, itemb2, itemc1,        TYPE_A.search(null));
+		assertContains(itema, itemb1, itemb2, itemc1, null,  new Query<>(ref, TYPE_REF, null).search());
 		assertContains(reffa, reffb1, reffb2, reffc1, reffN, TYPE_REF.search(null));
 	}
 
@@ -107,6 +111,144 @@ public class InstanceOfTest extends TestWithEnvironment
 	@Test void testCheckTypeColumns()
 	{
 		model.checkTypeColumns();
+	}
+
+	@Test void testBrokenSelectViewThis()
+	{
+		// TODO would be better if this did work
+		final Query<InstanceOfAItem> q =
+				new Query<>(CoalesceView.coalesce(TYPE_A.getThis(), itemc1), TYPE_A, null);
+		final String param = model.getConnectProperties().isSupportDisabledForPreparedStatements() ? "3" : "?3?";
+		final SQLRuntimeException e = assertFails(
+				q::search,
+				SQLRuntimeException.class,
+				"SELECT coalesce(" + SI.pk(TYPE_A) + "," + param + ") FROM " + SI.tab(TYPE_A));
+		switch(dialect)
+		{
+			case hsqldb:
+				assertEquals("Column not found: 2", e.getCause().getMessage());
+				break;
+			case mysql:
+				assertEquals(
+						mariaDriver
+						? "Wrong index position. Is 2 but must be in 1-1 range"
+						: "Column Index out of range, 2 > 1. ",
+						e.getCause().getMessage());
+				break;
+			case postgresql:
+				assertEquals("The column index is out of range: 2, number of columns: 1.", e.getCause().getMessage());
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(dialect));
+		}
+	}
+
+	@Test void testBrokenSelectViewItemField()
+	{
+		// TODO would be better if this did work
+		final Query<InstanceOfAItem> q =
+				new Query<>(CoalesceView.coalesce(ref, itemc1), TYPE_REF, null);
+		final String param = model.getConnectProperties().isSupportDisabledForPreparedStatements() ? "3" : "?3?";
+		final SQLRuntimeException e = assertFails(
+				q::search,
+				SQLRuntimeException.class,
+				"SELECT coalesce(" + SI.col(ref) + "," + param + ") FROM " + SI.tab(TYPE_REF));
+		switch(dialect)
+		{
+			case hsqldb:
+				assertEquals("Column not found: 2", e.getCause().getMessage());
+				break;
+			case mysql:
+				assertEquals(
+						mariaDriver
+						? "Wrong index position. Is 2 but must be in 1-1 range"
+						: "Column Index out of range, 2 > 1. ",
+						e.getCause().getMessage());
+				break;
+			case postgresql:
+				assertEquals("The column index is out of range: 2, number of columns: 1.", e.getCause().getMessage());
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(dialect));
+		}
+	}
+
+	@Test void testBrokenSelectAggregateThis()
+	{
+		// TODO would be better if this did work
+		final Query<InstanceOfAItem> q =
+				new Query<>(TYPE_A.getThis().max(), TYPE_A, null);
+		final SQLRuntimeException e = assertFails(
+				q::search,
+				SQLRuntimeException.class,
+				"SELECT MAX(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A));
+		switch(dialect)
+		{
+			case hsqldb:
+				assertEquals(
+						"unexpected token : , required: )" + ifPrep(" in statement [" +
+						"SELECT MAX(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "]"),
+						e.getCause().getMessage());
+				break;
+			case mysql:
+				assertEquals(
+						"You have an error in your SQL syntax; check the manual that corresponds " +
+						"to your MySQL server version for the right syntax to use near " +
+						"'" + (model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)?",":"") +
+						SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "' at line 1",
+						dropMariaConnectionId(e.getCause().getMessage()));
+				break;
+			case postgresql:
+				//noinspection HardcodedLineSeparator
+				assertEquals(
+						"ERROR: function max(integer, character varying) does not exist\n" +
+						"  Hint: No function matches the given name and argument types. " +
+							"You might need to add explicit type casts.\n" +
+						"  Position: 8",
+						e.getCause().getMessage());
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(dialect));
+		}
+	}
+
+	@Test void testBrokenSelectAggregateItemField()
+	{
+		// TODO would be better if this did work
+		final Query<InstanceOfAItem> q =
+				new Query<>(ref.max(), TYPE_REF, null);
+		final SQLRuntimeException e = assertFails(
+				q::search,
+				SQLRuntimeException.class,
+				"SELECT MAX(" + SI.col(ref) + "," + SI.type(ref) + ") FROM " + SI.tab(TYPE_REF));
+		switch(dialect)
+		{
+			case hsqldb:
+				assertEquals(
+						"unexpected token : , required: )" + ifPrep(" in statement [" +
+						"SELECT MAX(" + SI.col(ref) + "," + SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "]"),
+						e.getCause().getMessage());
+				break;
+			case mysql:
+				assertEquals(
+						"You have an error in your SQL syntax; check the manual that corresponds " +
+						"to your MySQL server version for the right syntax to use near " +
+						"'" + (model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)?",":"") +
+						SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "' at line 1",
+						dropMariaConnectionId(e.getCause().getMessage()));
+				break;
+			case postgresql:
+				//noinspection HardcodedLineSeparator
+				assertEquals(
+						"ERROR: function max(integer, character varying) does not exist\n" +
+						"  Hint: No function matches the given name and argument types. " +
+							"You might need to add explicit type casts.\n" +
+						"  Position: 8",
+						e.getCause().getMessage());
+				break;
+			default:
+				throw new RuntimeException(String.valueOf(dialect));
+		}
 	}
 
 	@Test void testSelfJoinsAndInheritance()
