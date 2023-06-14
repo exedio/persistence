@@ -47,7 +47,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		final EnumField<E> result = createEvenIfRedundant(valueClass);
 		if(result.valueType.isSingle())
 			throw new IllegalArgumentException(
-					"Redundant EnumField on a valueClass with one enum constant only " +
+					"Redundant field on a valueClass with one enum constant only " +
 					"(" + valueClass.getName() + ") is probably a mistake. " +
 					"You may call method createEvenIfRedundant if you are sure this is ok.");
 		return result;
