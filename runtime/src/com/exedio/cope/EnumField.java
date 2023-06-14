@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
@@ -44,6 +43,17 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	public static <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)
+	{
+		final EnumField<E> result = createEvenIfRedundant(valueClass);
+		if(result.valueType.isSingle())
+			throw new IllegalArgumentException(
+					"Redundant EnumField on a valueClass with one enum constant only " +
+					"(" + valueClass.getName() + ") is probably a mistake. " +
+					"You may call method createEvenIfRedundant if you are sure this is ok.");
+		return result;
+	}
+
+	public static <E extends Enum<E>> EnumField<E> createEvenIfRedundant(final Class<E> valueClass)
 	{
 		return new EnumField<>(false, false, valueClass, false, null, null);
 	}
@@ -149,18 +159,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		@SuppressWarnings("unchecked") // OK: is checked on runtime
 		final EnumField<X> result = (EnumField<X>)this;
 		return result;
-	}
-
-	@Override
-	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
-	{
-		if(!optional && valueType.isSingle())
-			throw new IllegalArgumentException(
-					"mandatory enum field is not allowed on valueClass with one enum value only: "
-					+ type.getID() + '.' + name +
-					" on " + getValueClass().getName());
-
-		super.mount(type, name, annotationSource);
 	}
 
 	@Override
