@@ -24,9 +24,9 @@ import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
@@ -156,15 +156,10 @@ public class PriceFieldModelTest
 		assertEquals(2000,           f.getInt().getMinimum());
 		assertEquals(Long.MAX_VALUE, f.getInt().getMaximum());
 
-		try
-		{
-			f.min(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(
+				() -> f.min(null),
+				NullPointerException.class,
+				null);
 	}
 
 	@Test void testMax()
@@ -175,15 +170,10 @@ public class PriceFieldModelTest
 		assertEquals(Long.MIN_VALUE+1, f.getInt().getMinimum());
 		assertEquals(4000,             f.getInt().getMaximum());
 
-		try
-		{
-			f.max(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(
+				() -> f.max(null),
+				NullPointerException.class,
+				null);
 	}
 
 	@Test void testRange()
@@ -194,33 +184,19 @@ public class PriceFieldModelTest
 		assertEquals(2000, f.getInt().getMinimum());
 		assertEquals(4000, f.getInt().getMaximum());
 
-		try
-		{
-			f.range(null, Price.ZERO);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			f.range(Price.ZERO, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			f.range(Price.ZERO, Price.ZERO);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("maximum must be greater than minimum, but was 0 and 0", e.getMessage());
-		}
+		assertFails(
+				() -> f.range(null, Price.ZERO),
+				NullPointerException.class,
+				null);
+		assertFails(
+				() -> f.range(Price.ZERO, null),
+				NullPointerException.class,
+				null);
+		assertFails(
+				() -> f.range(Price.ZERO, Price.ZERO),
+				IllegalArgumentException.class,
+				"maximum must be greater than minimum, " +
+				"but was 0 and 0");
 	}
 
 	@Test void testDefaultConstant()
@@ -233,14 +209,9 @@ public class PriceFieldModelTest
 		assertEquals(Price.storeOf(2000), df.getDefaultConstant());
 		assertEquals(false, df.isInitial());
 
-		try
-		{
-			f.defaultTo(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(
+				() -> f.defaultTo(null),
+				NullPointerException.class,
+				null);
 	}
 }
