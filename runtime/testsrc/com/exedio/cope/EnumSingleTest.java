@@ -36,7 +36,7 @@ public class EnumSingleTest
 		assertFails(
 				() -> EnumField.create(AnEnum.class),
 				IllegalArgumentException.class,
-				"Redundant EnumField on a valueClass with one enum constant only " +
+				"Redundant field on a valueClass with one enum constant only " +
 				"(" + AnEnum.class.getName() + ") is probably a mistake. " +
 				"You may call method createEvenIfRedundant if you are sure this is ok.");
 	}
