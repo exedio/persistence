@@ -192,11 +192,14 @@ public class PriceFieldModelTest
 				() -> f.range(Price.ZERO, null),
 				NullPointerException.class,
 				null);
+		final PriceField redundant = f.rangeEvenIfRedundant(Price.ZERO, Price.ZERO);
+		assertEquals(Price.ZERO, redundant.getMinimum());
+		assertEquals(Price.ZERO, redundant.getMinimum());
 		assertFails(
 				() -> f.range(Price.ZERO, Price.ZERO),
 				IllegalArgumentException.class,
-				"maximum must be greater than minimum, " +
-				"but was 0 and 0");
+				"Redundant field with minimum==maximum (0) is probably a mistake. " +
+				"You may call method rangeEvenIfRedundant if you are sure this is ok.");
 	}
 
 	@Test void testDefaultConstant()

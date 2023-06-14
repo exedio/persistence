@@ -54,8 +54,8 @@ public final class IntegerField extends NumberField<Integer>
 		this.minimum = minimum;
 		this.maximum = maximum;
 
-		if(minimum>=maximum)
-			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
+		if(minimum>maximum)
+			throw new IllegalArgumentException("maximum must be at least minimum, but was " + maximum + " and " + minimum);
 
 		mountDefault();
 	}
@@ -242,19 +242,34 @@ public final class IntegerField extends NumberField<Integer>
 		return new IntegerField(isfinal, optional, unique, copyFrom, new DefaultNext(start), minimum, maximum);
 	}
 
-	public IntegerField range(final int minimum, final int maximum)
+	public IntegerField rangeEvenIfRedundant(final int minimum, final int maximum)
 	{
 		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+	}
+
+	public IntegerField range(final int minimum, final int maximum)
+	{
+		return rangeEvenIfRedundant(minimum, maximum).failOnRedundantRange();
 	}
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
+	}
+
+	private IntegerField failOnRedundantRange()
+	{
+		if(minimum==maximum)
+			throw new IllegalArgumentException(
+					"Redundant field with minimum==maximum " +
+					"(" + minimum + ") is probably a mistake. " +
+					"You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		return this;
 	}
 
 	/**

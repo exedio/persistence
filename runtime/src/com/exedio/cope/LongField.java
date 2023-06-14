@@ -50,8 +50,8 @@ public final class LongField extends NumberField<Long>
 		this.minimum = minimum;
 		this.maximum = maximum;
 
-		if(minimum>=maximum)
-			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
+		if(minimum>maximum)
+			throw new IllegalArgumentException("maximum must be at least minimum, but was " + maximum + " and " + minimum);
 
 		mountDefault();
 	}
@@ -163,19 +163,34 @@ public final class LongField extends NumberField<Long>
 		return new LongField(isfinal, optional, unique, copyFrom, new DefaultRandom(source), minimum, maximum);
 	}
 
-	public LongField range(final long minimum, final long maximum)
+	public LongField rangeEvenIfRedundant(final long minimum, final long maximum)
 	{
 		return new LongField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+	}
+
+	public LongField range(final long minimum, final long maximum)
+	{
+		return rangeEvenIfRedundant(minimum, maximum).failOnRedundantRange();
 	}
 
 	public LongField min(final long minimum)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
 	}
 
 	public LongField max(final long maximum)
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new LongField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
+	}
+
+	private LongField failOnRedundantRange()
+	{
+		if(minimum==maximum)
+			throw new IllegalArgumentException(
+					"Redundant field with minimum==maximum " +
+					"(" + minimum + ") is probably a mistake. " +
+					"You may call method rangeEvenIfRedundant if you are sure this is ok.");
+		return this;
 	}
 
 	public long getMinimum()

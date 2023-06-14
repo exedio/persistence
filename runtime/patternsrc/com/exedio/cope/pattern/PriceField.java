@@ -87,6 +87,11 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return new PriceField(integer.defaultTo(defaultConstant.store()));
 	}
 
+	public PriceField rangeEvenIfRedundant(final Price minimum, final Price maximum)
+	{
+		return new PriceField(integer.rangeEvenIfRedundant(minimum.store(), maximum.store()));
+	}
+
 	public PriceField range(final Price minimum, final Price maximum)
 	{
 		return new PriceField(integer.range(minimum.store(), maximum.store()));
