@@ -62,7 +62,6 @@ public class SingletonTest extends TestWithEnvironment
 				einzigartig,
 				einzigartig.getSource(),
 				einzigartig.getSource().getImplicitUniqueConstraint(),
-				einzigartig.getCheck(),
 			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -72,7 +71,6 @@ public class SingletonTest extends TestWithEnvironment
 				einzigartig,
 				einzigartig.getSource(),
 				einzigartig.getSource().getImplicitUniqueConstraint(),
-				einzigartig.getCheck(),
 			}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, einzigartig.getSource().getType());
