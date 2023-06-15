@@ -154,7 +154,7 @@ final class PostgresqlSchemaDialect extends Dialect
 						"ut.relname," + // 1
 						"uc.conname," + // 2
 						"uc.contype," + // 3
-						"uc.consrc "  + // 4
+						"pg_get_constraintdef(uc.oid) "  + // 4
 				"FROM pg_constraint uc " +
 				"INNER JOIN pg_class ut ON uc.conrelid=ut.oid " +
 				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p')",
@@ -169,8 +169,8 @@ final class PostgresqlSchemaDialect extends Dialect
 				{
 					String searchCondition = resultSet.getString(4);
 					//System.out.println("searchCondition:>"+searchCondition+"<");
-					if(searchCondition.startsWith("(")&& searchCondition.endsWith(")"))
-						searchCondition = searchCondition.substring(1, searchCondition.length()-1);
+					if(searchCondition.startsWith("CHECK ((")&& searchCondition.endsWith("))"))
+						searchCondition = searchCondition.substring(8, searchCondition.length()-2);
 					notifyExistentCheck(table, constraintName, searchCondition);
 				}
 				else
