@@ -16,7 +16,7 @@ String databaseMysql57 = '5.7.37'
 @Field
 String databaseMysql80 = '8.0.28'
 @Field
-String databasePostgresql = '11.12'
+String databasePostgresql = '13.11'
 
 String projectName = env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/")) // depends on name and location of multibranch pipeline in jenkins
 boolean isRelease = env.BRANCH_NAME=="master"
@@ -728,33 +728,33 @@ try
 			sh 'rm -f conf/environment/*.properties'
 
 			envPostgresql(
-				'pg11',
+				'pg',
 				''
 			)
 			envPostgresql(
-				'pg11-mysql',
+				'pg-mysql',
 				'disableSupport.nativeDate=true\n'
 			)
 			envPostgresql(
-				'pg11-nprep',
+				'pg-nprep',
 				'disableSupport.preparedStatements=true\n'
 			)
 			envPostgresql(
-				'pg11-nstmp',
+				'pg-nstmp',
 				'cache.stamps=false\n'
 			)
 			envPostgresql(
-				'pg11-public',
+				'pg-public',
 				'dialect.connection.schema=public\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envPostgresql(
-				'pg11-sq',
+				'pg-sq',
 				'schema.primaryKeyGenerator=sequence\n' +
 				'dialect.pgcryptoSchema=<disabled>\n'
 			)
 			envPostgresql(
-				'pg11-vault',
+				'pg-vault',
 				'vault=true\n' +
 				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +

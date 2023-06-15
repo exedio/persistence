@@ -1,5 +1,5 @@
 ARG VERSION
-FROM postgres:${VERSION}-buster
+FROM postgres:${VERSION}-bullseye
 
 ENV POSTGRES_PASSWORD password-JUST-FOR-SETUP
 
