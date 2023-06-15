@@ -38,7 +38,6 @@ final class PostgresqlSchemaDialect extends Dialect
 		add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
 		add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
 		add(  p("("  + digits + "(?:\\." + digits + ")?)") +"::double precision\\b", "$1");
-		add(p(p("(-" + digits +    "\\." + digits +   ")"))+"::double precision\\b", "$1");
 		add("('.*?')::character varying\\b", "$1");
 		add("('.*?')::\"text\"", "$1");
 		add(p("(\"\\w*\")")+"::\"text\"", "$1");
