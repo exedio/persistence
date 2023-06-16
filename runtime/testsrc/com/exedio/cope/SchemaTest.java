@@ -130,12 +130,15 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_polyType_EN", hp(t(poly))+" IN ("+hp("'Polymorphic'")+","+sac()+hp("'Target'")+")");
 		assertCheckConstraint(table, "Main_polyType_NS", null, false);
 
-		assertCheckConstraint(table, "Main_integRed_MN", q(integRed)+">=110");
-		assertCheckConstraint(table, "Main_integRed_MX", q(integRed)+"<=110");
-		assertCheckConstraint(table, "Main_longRed_MN", q(longRed)+">=112");
-		assertCheckConstraint(table, "Main_longRed_MX", q(longRed)+"<=112");
-		assertCheckConstraint(table, "Main_doubRed_MN", q(doubRed)+">=111.1");
-		assertCheckConstraint(table, "Main_doubRed_MX", q(doubRed)+"<=111.1");
+		assertCheckConstraint(table, "Main_integRed_RD", q(integRed)+"=110");
+		assertCheckConstraint(table, "Main_integRed_MN", null, false);
+		assertCheckConstraint(table, "Main_integRed_MX", null, false);
+		assertCheckConstraint(table, "Main_longRed_RD", q(longRed)+"=112");
+		assertCheckConstraint(table, "Main_longRed_MN", null, false);
+		assertCheckConstraint(table, "Main_longRed_MX", null, false);
+		assertCheckConstraint(table, "Main_doubRed_RD", q(doubRed)+"=111.1");
+		assertCheckConstraint(table, "Main_doubRed_MN", null, false);
+		assertCheckConstraint(table, "Main_doubRed_MX", null, false);
 
 		assertCheckConstraint(table, "Main_stringOpt_MN", l(stringOpt)+">=1");
 		assertCheckConstraint(table, "Main_stringOpt_MX", l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);

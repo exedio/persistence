@@ -158,8 +158,15 @@ class IntegerColumn extends Column
 		}
 		else
 		{
-			newCheck(dsmf, "MN", quotedID + ">=" + minimum);
-			newCheck(dsmf, "MX", quotedID + "<=" + maximum);
+			if(minimum==maximum)
+			{
+				newCheck(dsmf, "RD", quotedID + "=" + minimum);
+			}
+			else
+			{
+				newCheck(dsmf, "MN", quotedID + ">=" + minimum);
+				newCheck(dsmf, "MX", quotedID + "<=" + maximum);
+			}
 
 			if(precision.constrains())
 				newCheck(dsmf, "PR",
