@@ -40,6 +40,7 @@ final class SchemaItem extends Item
 	static final IntegerField integRed = new IntegerField().rangeEvenIfRedundant(110, 110);
 	static final LongField longRed = new LongField().rangeEvenIfRedundant(112, 112);
 	static final DoubleField doubRed = new DoubleField().rangeEvenIfRedundant(111.1, 111.1);
+	static final EnumField<RedundantEnum> enumRed = EnumField.createEvenIfRedundant(RedundantEnum.class);
 
 	static final StringField stringOpt = new StringField().optional();
 	static final IntegerField integOpt = new IntegerField().range(-10, 10).optional();
@@ -64,6 +65,11 @@ final class SchemaItem extends Item
 
 	static final DataField data = new DataField().optional();
 
+	enum RedundantEnum
+	{
+		onlyFacet
+	}
+
 	/**
 	 * Creates a new SchemaItem with all the fields initially needed.
 	 * @param nonFinalInteger the initial value for field {@link #nonFinalInteger}.
@@ -80,11 +86,12 @@ final class SchemaItem extends Item
 	 * @param integRed the initial value for field {@link #integRed}.
 	 * @param longRed the initial value for field {@link #longRed}.
 	 * @param doubRed the initial value for field {@link #doubRed}.
+	 * @param enumRed the initial value for field {@link #enumRed}.
 	 * @param stringLong the initial value for field {@link #stringLong}.
 	 * @throws com.exedio.cope.DoubleRangeViolationException if doub, doubRed violates its range constraint.
 	 * @throws com.exedio.cope.IntegerRangeViolationException if integ, integRed violates its range constraint.
 	 * @throws com.exedio.cope.LongRangeViolationException if aLong, longRed violates its range constraint.
-	 * @throws com.exedio.cope.MandatoryViolationException if string, date, day, anEnum, item, poly, stringLong is null.
+	 * @throws com.exedio.cope.MandatoryViolationException if string, date, day, anEnum, item, poly, enumRed, stringLong is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if string, stringLong violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if string, anEnum is not unique.
 	 */
@@ -105,6 +112,7 @@ final class SchemaItem extends Item
 				final int integRed,
 				final long longRed,
 				final double doubRed,
+				@javax.annotation.Nonnull final RedundantEnum enumRed,
 				@javax.annotation.Nonnull final java.lang.String stringLong)
 			throws
 				com.exedio.cope.DoubleRangeViolationException,
@@ -129,6 +137,7 @@ final class SchemaItem extends Item
 			com.exedio.cope.SetValue.map(SchemaItem.integRed,integRed),
 			com.exedio.cope.SetValue.map(SchemaItem.longRed,longRed),
 			com.exedio.cope.SetValue.map(SchemaItem.doubRed,doubRed),
+			com.exedio.cope.SetValue.map(SchemaItem.enumRed,enumRed),
 			com.exedio.cope.SetValue.map(SchemaItem.stringLong,stringLong),
 		});
 	}
@@ -470,6 +479,29 @@ final class SchemaItem extends Item
 				com.exedio.cope.DoubleRangeViolationException
 	{
 		SchemaItem.doubRed.set(this,doubRed);
+	}
+
+	/**
+	 * Returns the value of {@link #enumRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	RedundantEnum getEnumRed()
+	{
+		return SchemaItem.enumRed.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #enumRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setEnumRed(@javax.annotation.Nonnull final RedundantEnum enumRed)
+			throws
+				com.exedio.cope.MandatoryViolationException
+	{
+		SchemaItem.enumRed.set(this,enumRed);
 	}
 
 	/**

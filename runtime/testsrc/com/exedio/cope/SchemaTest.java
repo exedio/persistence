@@ -37,6 +37,7 @@ import static com.exedio.cope.SchemaItem.doub;
 import static com.exedio.cope.SchemaItem.doubOpt;
 import static com.exedio.cope.SchemaItem.doubRed;
 import static com.exedio.cope.SchemaItem.enumOpt;
+import static com.exedio.cope.SchemaItem.enumRed;
 import static com.exedio.cope.SchemaItem.integ;
 import static com.exedio.cope.SchemaItem.integOpt;
 import static com.exedio.cope.SchemaItem.integRed;
@@ -139,6 +140,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_doubRed_RD", q(doubRed)+"=111.1");
 		assertCheckConstraint(table, "Main_doubRed_MN", null, false);
 		assertCheckConstraint(table, "Main_doubRed_MX", null, false);
+		assertCheckConstraint(table, "Main_enumRed_RD", q(enumRed)+"=10");
+		assertCheckConstraint(table, "Main_enumRed_EN", null, false);
 
 		assertCheckConstraint(table, "Main_stringOpt_MN", l(stringOpt)+">=1");
 		assertCheckConstraint(table, "Main_stringOpt_MX", l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);

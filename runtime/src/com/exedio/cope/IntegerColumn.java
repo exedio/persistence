@@ -129,7 +129,7 @@ class IntegerColumn extends Column
 	@Override
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
-		if(allowedValues!=null)
+		if(allowedValues!=null && allowedValues.length>1)
 		{
 			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
 			final String comma = table.database.dialect.getInComma();
