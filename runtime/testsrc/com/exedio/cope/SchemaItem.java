@@ -28,6 +28,7 @@ final class SchemaItem extends Item
 
 	static final StringField string = new StringField();
 	static final IntegerField integ = new IntegerField().range(-10, 10);
+	static final LongField aLong = new LongField().range(-12, 12);
 	static final DoubleField doub = new DoubleField().range(-11.1, 11.1);
 	static final DateField date = new DateField();
 	static final DayField day = new DayField();
@@ -35,6 +36,10 @@ final class SchemaItem extends Item
 	static final EnumField<SomeEnum> anEnum = EnumField.create(SomeEnum.class);
 	static final ItemField<SchemaTargetItem> item = ItemField.create(SchemaTargetItem.class);
 	static final ItemField<SchemaTargetPolymorphicItem> poly = ItemField.create(SchemaTargetPolymorphicItem.class);
+
+	static final IntegerField integRed = new IntegerField().rangeEvenIfRedundant(110, 110);
+	static final LongField longRed = new LongField().rangeEvenIfRedundant(112, 112);
+	static final DoubleField doubRed = new DoubleField().rangeEvenIfRedundant(111.1, 111.1);
 
 	static final StringField stringOpt = new StringField().optional();
 	static final IntegerField integOpt = new IntegerField().range(-10, 10).optional();
@@ -64,6 +69,7 @@ final class SchemaItem extends Item
 	 * @param nonFinalInteger the initial value for field {@link #nonFinalInteger}.
 	 * @param string the initial value for field {@link #string}.
 	 * @param integ the initial value for field {@link #integ}.
+	 * @param aLong the initial value for field {@link #aLong}.
 	 * @param doub the initial value for field {@link #doub}.
 	 * @param date the initial value for field {@link #date}.
 	 * @param day the initial value for field {@link #day}.
@@ -71,9 +77,13 @@ final class SchemaItem extends Item
 	 * @param anEnum the initial value for field {@link #anEnum}.
 	 * @param item the initial value for field {@link #item}.
 	 * @param poly the initial value for field {@link #poly}.
+	 * @param integRed the initial value for field {@link #integRed}.
+	 * @param longRed the initial value for field {@link #longRed}.
+	 * @param doubRed the initial value for field {@link #doubRed}.
 	 * @param stringLong the initial value for field {@link #stringLong}.
-	 * @throws com.exedio.cope.DoubleRangeViolationException if doub violates its range constraint.
-	 * @throws com.exedio.cope.IntegerRangeViolationException if integ violates its range constraint.
+	 * @throws com.exedio.cope.DoubleRangeViolationException if doub, doubRed violates its range constraint.
+	 * @throws com.exedio.cope.IntegerRangeViolationException if integ, integRed violates its range constraint.
+	 * @throws com.exedio.cope.LongRangeViolationException if aLong, longRed violates its range constraint.
 	 * @throws com.exedio.cope.MandatoryViolationException if string, date, day, anEnum, item, poly, stringLong is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if string, stringLong violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if string, anEnum is not unique.
@@ -84,6 +94,7 @@ final class SchemaItem extends Item
 				final int nonFinalInteger,
 				@javax.annotation.Nonnull final java.lang.String string,
 				final int integ,
+				final long aLong,
 				final double doub,
 				@javax.annotation.Nonnull final java.util.Date date,
 				@javax.annotation.Nonnull final com.exedio.cope.util.Day day,
@@ -91,10 +102,14 @@ final class SchemaItem extends Item
 				@javax.annotation.Nonnull final SomeEnum anEnum,
 				@javax.annotation.Nonnull final SchemaTargetItem item,
 				@javax.annotation.Nonnull final SchemaTargetPolymorphicItem poly,
+				final int integRed,
+				final long longRed,
+				final double doubRed,
 				@javax.annotation.Nonnull final java.lang.String stringLong)
 			throws
 				com.exedio.cope.DoubleRangeViolationException,
 				com.exedio.cope.IntegerRangeViolationException,
+				com.exedio.cope.LongRangeViolationException,
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -103,6 +118,7 @@ final class SchemaItem extends Item
 			com.exedio.cope.SetValue.map(SchemaItem.nonFinalInteger,nonFinalInteger),
 			com.exedio.cope.SetValue.map(SchemaItem.string,string),
 			com.exedio.cope.SetValue.map(SchemaItem.integ,integ),
+			com.exedio.cope.SetValue.map(SchemaItem.aLong,aLong),
 			com.exedio.cope.SetValue.map(SchemaItem.doub,doub),
 			com.exedio.cope.SetValue.map(SchemaItem.date,date),
 			com.exedio.cope.SetValue.map(SchemaItem.day,day),
@@ -110,6 +126,9 @@ final class SchemaItem extends Item
 			com.exedio.cope.SetValue.map(SchemaItem.anEnum,anEnum),
 			com.exedio.cope.SetValue.map(SchemaItem.item,item),
 			com.exedio.cope.SetValue.map(SchemaItem.poly,poly),
+			com.exedio.cope.SetValue.map(SchemaItem.integRed,integRed),
+			com.exedio.cope.SetValue.map(SchemaItem.longRed,longRed),
+			com.exedio.cope.SetValue.map(SchemaItem.doubRed,doubRed),
 			com.exedio.cope.SetValue.map(SchemaItem.stringLong,stringLong),
 		});
 	}
@@ -185,6 +204,28 @@ final class SchemaItem extends Item
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		SchemaItem.integ.set(this,integ);
+	}
+
+	/**
+	 * Returns the value of {@link #aLong}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	long getALong()
+	{
+		return SchemaItem.aLong.getMandatory(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #aLong}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setALong(final long aLong)
+			throws
+				com.exedio.cope.LongRangeViolationException
+	{
+		SchemaItem.aLong.set(this,aLong);
 	}
 
 	/**
@@ -363,6 +404,72 @@ final class SchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		SchemaItem.poly.set(this,poly);
+	}
+
+	/**
+	 * Returns the value of {@link #integRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	int getIntegRed()
+	{
+		return SchemaItem.integRed.getMandatory(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #integRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setIntegRed(final int integRed)
+			throws
+				com.exedio.cope.IntegerRangeViolationException
+	{
+		SchemaItem.integRed.set(this,integRed);
+	}
+
+	/**
+	 * Returns the value of {@link #longRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	long getLongRed()
+	{
+		return SchemaItem.longRed.getMandatory(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #longRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setLongRed(final long longRed)
+			throws
+				com.exedio.cope.LongRangeViolationException
+	{
+		SchemaItem.longRed.set(this,longRed);
+	}
+
+	/**
+	 * Returns the value of {@link #doubRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	double getDoubRed()
+	{
+		return SchemaItem.doubRed.getMandatory(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #doubRed}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setDoubRed(final double doubRed)
+			throws
+				com.exedio.cope.DoubleRangeViolationException
+	{
+		SchemaItem.doubRed.set(this,doubRed);
 	}
 
 	/**
