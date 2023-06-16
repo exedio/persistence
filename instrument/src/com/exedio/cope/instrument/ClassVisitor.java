@@ -38,7 +38,7 @@ import javax.lang.model.element.VariableElement;
 class ClassVisitor extends GeneratedAwareScanner
 {
 	private static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE = EnumSet.of(Modifier.FINAL, Modifier.STATIC);
-	private static final char[] LINE_SEPARATOR_CHARS = System.lineSeparator().toCharArray();
+	private static final String LINE_SEPARATOR_CHARS = System.lineSeparator();
 
 	private final JavaClass outerClass;
 
@@ -234,7 +234,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		{
 			final String lineBeforeStart=context.getSourceString(lineStart, pos);
 			if (allWhitespace(lineBeforeStart))
-				return lineStart+(posOfLineSep?0:LINE_SEPARATOR_CHARS.length);
+				return lineStart+(posOfLineSep?0:LINE_SEPARATOR_CHARS.length());
 			else
 				return pos;
 		}
@@ -259,13 +259,13 @@ class ClassVisitor extends GeneratedAwareScanner
 			if ( docCommentTree.getFirstSentence().isEmpty() && docCommentTree.getBody().isEmpty() && docCommentTree.getBlockTags().isEmpty() )
 			{
 				// getStartPosition doesn't work for empty comments - search from commented element instead:
-				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**".toCharArray() );
-				docEnd=context.searchAfter( Math.toIntExact(docStart), "*/".toCharArray() );
+				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**" );
+				docEnd=context.searchAfter( Math.toIntExact(docStart), "*/" );
 			}
 			else
 			{
-				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".toCharArray() );
-				docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".toCharArray() );
+				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**" );
+				docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/" );
 			}
 			if ( docEnd>=start ) throw new RuntimeException();
 			final String commentSource=context.getSourceString(docStart, docEnd);
