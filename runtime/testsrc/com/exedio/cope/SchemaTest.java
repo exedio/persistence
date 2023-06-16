@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaItem.TYPE;
+import static com.exedio.cope.SchemaItem.aLong;
 import static com.exedio.cope.SchemaItem.anEnum;
 import static com.exedio.cope.SchemaItem.bool;
 import static com.exedio.cope.SchemaItem.boolOpt;
@@ -34,11 +35,14 @@ import static com.exedio.cope.SchemaItem.day;
 import static com.exedio.cope.SchemaItem.dayOpt;
 import static com.exedio.cope.SchemaItem.doub;
 import static com.exedio.cope.SchemaItem.doubOpt;
+import static com.exedio.cope.SchemaItem.doubRed;
 import static com.exedio.cope.SchemaItem.enumOpt;
 import static com.exedio.cope.SchemaItem.integ;
 import static com.exedio.cope.SchemaItem.integOpt;
+import static com.exedio.cope.SchemaItem.integRed;
 import static com.exedio.cope.SchemaItem.item;
 import static com.exedio.cope.SchemaItem.itemOpt;
+import static com.exedio.cope.SchemaItem.longRed;
 import static com.exedio.cope.SchemaItem.poly;
 import static com.exedio.cope.SchemaItem.polyOpt;
 import static com.exedio.cope.SchemaItem.string;
@@ -109,6 +113,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_string_MX", l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
 		assertCheckConstraint(table, "Main_integ_MN", q(integ)+">=-10");
 		assertCheckConstraint(table, "Main_integ_MX", q(integ)+"<=10");
+		assertCheckConstraint(table, "Main_aLong_MN", q(aLong)+">=-12");
+		assertCheckConstraint(table, "Main_aLong_MX", q(aLong)+"<=12");
 		assertCheckConstraint(table, "Main_doub_MN", q(doub)+">=-11.1");
 		assertCheckConstraint(table, "Main_doub_MX", q(doub)+"<=11.1");
 		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+(nativeDate?dateMinimum:DateField.getDefaultMinimum().getTime()));
@@ -123,6 +129,13 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_poly_MX", q(poly)+"<=567");
 		assertCheckConstraint(table, "Main_polyType_EN", hp(t(poly))+" IN ("+hp("'Polymorphic'")+","+sac()+hp("'Target'")+")");
 		assertCheckConstraint(table, "Main_polyType_NS", null, false);
+
+		assertCheckConstraint(table, "Main_integRed_MN", q(integRed)+">=110");
+		assertCheckConstraint(table, "Main_integRed_MX", q(integRed)+"<=110");
+		assertCheckConstraint(table, "Main_longRed_MN", q(longRed)+">=112");
+		assertCheckConstraint(table, "Main_longRed_MX", q(longRed)+"<=112");
+		assertCheckConstraint(table, "Main_doubRed_MN", q(doubRed)+">=111.1");
+		assertCheckConstraint(table, "Main_doubRed_MX", q(doubRed)+"<=111.1");
 
 		assertCheckConstraint(table, "Main_stringOpt_MN", l(stringOpt)+">=1");
 		assertCheckConstraint(table, "Main_stringOpt_MX", l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
