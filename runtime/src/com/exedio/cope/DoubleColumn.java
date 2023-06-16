@@ -53,8 +53,16 @@ final class DoubleColumn extends Column
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		final Dialect dialect = table.database.dialect;
-		newCheck(dsmf, "MN", quotedID + ">=" + dialect.format(minimum));
-		newCheck(dsmf, "MX", quotedID + "<=" + dialect.format(maximum));
+		//noinspection FloatingPointEquality
+		if(minimum==maximum)
+		{
+			newCheck(dsmf, "RD", quotedID + "=" + dialect.format(minimum));
+		}
+		else
+		{
+			newCheck(dsmf, "MN", quotedID + ">=" + dialect.format(minimum));
+			newCheck(dsmf, "MX", quotedID + "<=" + dialect.format(maximum));
+		}
 	}
 
 	@Override
