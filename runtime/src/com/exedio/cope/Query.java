@@ -39,7 +39,7 @@ public final class Query<R> implements Serializable
 	static final int UNLIMITED = -66;
 
 	final Model model;
-	private Selectable<? extends R> selectSingle;
+	private Selectable<R> selectSingle;
 	private Selectable<?>[] selectsMulti;
 	private boolean distinct = false;
 	final Type<?> type;
@@ -65,12 +65,12 @@ public final class Query<R> implements Serializable
 	private static final int SEARCH_SIZE_CACHE_LIMIT_DEFAULT = Integer.MIN_VALUE;
 	private int searchSizeCacheLimit = SEARCH_SIZE_CACHE_LIMIT_DEFAULT;
 
-	public Query(final Selectable<? extends R> select)
+	public Query(final Selectable<R> select)
 	{
 		this(select, (Condition)null);
 	}
 
-	public Query(final Selectable<? extends R> select, final Condition condition)
+	public Query(final Selectable<R> select, final Condition condition)
 	{
 		this.selectSingle = select;
 		this.type = select.getType();
@@ -106,7 +106,7 @@ public final class Query<R> implements Serializable
 	 *
 	 * @see #newQuery(Selectable[], Query) for multiple selectables
 	 */
-	public Query(final Selectable<? extends R> select, final Query<?> query)
+	public Query(final Selectable<R> select, final Query<?> query)
 	{
 		this.model = query.model;
 		this.selectSingle = select;
@@ -188,9 +188,9 @@ public final class Query<R> implements Serializable
 			return selectsMulti;
 	}
 
-	public Selectable<? extends R> getSelectSingle()
+	public Selectable<R> getSelectSingle()
 	{
-		final Selectable<? extends R> result = selectSingle;
+		final Selectable<R> result = selectSingle;
 		if(result==null)
 			throw new IllegalStateException("use getSelects instead");
 		return result;
@@ -204,7 +204,7 @@ public final class Query<R> implements Serializable
 			return List.of(selectsMulti);
 	}
 
-	public void setSelect(final Selectable<? extends R> select)
+	public void setSelect(final Selectable<R> select)
 	{
 		if(selectSingle==null)
 			throw new IllegalStateException("use setSelects instead");
