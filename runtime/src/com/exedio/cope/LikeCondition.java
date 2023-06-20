@@ -137,17 +137,17 @@ public final class LikeCondition extends Condition
 
 	public static final char WILDCARD = '%';
 
-	public static LikeCondition startsWith(final StringFunction function, final String value)
+	public static Condition startsWith(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, escapeSpecials(value) + WILDCARD);
 	}
 
-	public static LikeCondition endsWith(final StringFunction function, final String value)
+	public static Condition endsWith(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, WILDCARD + escapeSpecials(value));
 	}
 
-	public static LikeCondition contains(final StringFunction function, final String value)
+	public static Condition contains(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, WILDCARD + escapeSpecials(value) + WILDCARD);
 	}

@@ -71,17 +71,17 @@ public class CaseView extends StringView
 		return normalizeCase(function).like(normalizeCase(value));
 	}
 
-	public static LikeCondition startsWithIgnoreCase(final Function<String> function, final String value)
+	public static Condition startsWithIgnoreCase(final Function<String> function, final String value)
 	{
 		return LikeCondition.startsWith(normalizeCase(function), normalizeCase(value));
 	}
 
-	public static LikeCondition endsWithIgnoreCase(final Function<String> function, final String value)
+	public static Condition endsWithIgnoreCase(final Function<String> function, final String value)
 	{
 		return LikeCondition.endsWith(normalizeCase(function), normalizeCase(value));
 	}
 
-	public static LikeCondition containsIgnoreCase(final Function<String> function, final String value)
+	public static Condition containsIgnoreCase(final Function<String> function, final String value)
 	{
 		return LikeCondition.contains(normalizeCase(function), normalizeCase(value));
 	}

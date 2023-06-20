@@ -49,13 +49,13 @@ public class ContainsEscapeTest
 
 	private static void assertIt(final String pattern)
 	{
-		assertEquals(WILDCARD + pattern + WILDCARD, LikeCondition.contains(FUNCTION, pattern).getValue());
+		assertEquals(WILDCARD + pattern + WILDCARD, ((LikeCondition)LikeCondition.contains(FUNCTION, pattern)).getValue());
 	}
 
 	private static void assertIt(final String pattern, final String result)
 	{
 		assertNotEquals(pattern, result, "USE assertIt(String) INSTEAD");
-		assertEquals(WILDCARD + result + WILDCARD, LikeCondition.contains(FUNCTION, pattern).getValue());
+		assertEquals(WILDCARD + result + WILDCARD, ((LikeCondition)LikeCondition.contains(FUNCTION, pattern)).getValue());
 	}
 
 	private static final StringFunction FUNCTION = new StringField();
