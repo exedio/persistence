@@ -34,6 +34,15 @@ public final class SetValue<E>
 		return new SetValue<>(settable, value);
 	}
 
+	/**
+	 * @throws ClassCastException if {@code settable} is not an instance of class {@link Feature}.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <E, F extends Feature & Settable<E>> SetValue<E> mapAndCastToFeature(final Settable<E> settable, final E value)
+	{
+		return map((F)settable, value);
+	}
+
 	SetValue(final Settable<E> settable, final E value)
 	{
 		this.settable = requireNonNull(settable, "settable");
