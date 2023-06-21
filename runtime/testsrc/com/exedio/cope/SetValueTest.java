@@ -19,10 +19,10 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -73,15 +73,10 @@ public class SetValueTest
 
 	@Test void testNullFeature()
 	{
-		try
-		{
-			map(null, "nullValue");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("settable", e.getMessage());
-		}
+		assertFails(
+				() -> map(null, "nullValue"),
+				NullPointerException.class,
+				"settable");
 	}
 
 	private static final class MockSettable extends Feature implements Settable<String>
