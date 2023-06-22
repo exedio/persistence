@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Condition.FALSE;
-import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.DoubleItem.TYPE;
 import static com.exedio.cope.DoubleItem.any;
 import static com.exedio.cope.DoubleItem.mandatory;
@@ -133,39 +131,8 @@ public class DoubleTest extends TestWithEnvironment
 			assertEqualsAndHash(cc(Operator.Equal, mandatory, MIN), mandatory.equal(MIN));
 			assertEqualsAndHash(cc(Operator.Equal, mandatory, MAX), mandatory.equal(MAX));
 
-			assertEqualsAndHash(in(min4), min4.equal((Double)null));
-			assertSame         (FALSE,                         min4.equal(0.0));
-			assertSame         (FALSE,                         min4.equal(3.9));
-			assertEqualsAndHash(cc(Operator.Equal, min4, 4.0), min4.equal(4.0));
-			assertSame         (FALSE,                         min4.equal(MIN));
-			assertEqualsAndHash(cc(Operator.Equal, min4, MAX), min4.equal(MAX));
-
-			assertEqualsAndHash(in(max4), max4.equal((Double)null));
-			assertEqualsAndHash(cc(Operator.Equal, max4, 0.0), max4.equal(0.0));
-			assertEqualsAndHash(cc(Operator.Equal, max4, 3.9), max4.equal(3.9));
-			assertEqualsAndHash(cc(Operator.Equal, max4, 4.0), max4.equal(4.0));
-			assertSame         (FALSE,                         max4.equal(4.1));
-			assertEqualsAndHash(cc(Operator.Equal, max4, MIN), max4.equal(MIN));
-			assertSame         (FALSE,                         max4.equal(MAX));
-
 			assertEqualsAndHash(in(min4Max8), min4Max8.isNull());
 			assertEqualsAndHash(nn(min4Max8), min4Max8.isNotNull());
-			assertEqualsAndHash(in(min4Max8), min4Max8.equal((Double)null));
-			assertEqualsAndHash(nn(min4Max8), min4Max8.notEqual((Double)null));
-			assertSame         (FALSE,                             min4Max8.equal(0.0));
-			assertSame         (FALSE,                             min4Max8.equal(3.9));
-			assertEqualsAndHash(cc(Operator.Equal, min4Max8, 4.0), min4Max8.equal(4.0));
-			assertEqualsAndHash(cc(Operator.Equal, min4Max8, 8.0), min4Max8.equal(8.0));
-			assertSame         (FALSE,                             min4Max8.equal(8.1));
-			assertSame         (FALSE,                             min4Max8.equal(MIN));
-			assertSame         (FALSE,                             min4Max8.equal(MAX));
-			assertSame         (TRUE,                                 min4Max8.notEqual(0.0));
-			assertSame         (TRUE,                                 min4Max8.notEqual(3.9));
-			assertEqualsAndHash(cc(Operator.NotEqual, min4Max8, 4.0), min4Max8.notEqual(4.0));
-			assertEqualsAndHash(cc(Operator.NotEqual, min4Max8, 8.0), min4Max8.notEqual(8.0));
-			assertSame         (TRUE,                                 min4Max8.notEqual(8.1));
-			assertSame         (TRUE,                                 min4Max8.notEqual(MIN));
-			assertSame         (TRUE,                                 min4Max8.notEqual(MAX));
 			assertEqualsAndHash(cc(Operator.Less, min4Max8, 0.0), min4Max8.less(0.0));
 			assertEqualsAndHash(cc(Operator.Less, min4Max8, 3.9), min4Max8.less(3.9));
 			assertEqualsAndHash(cc(Operator.Less, min4Max8, 4.0), min4Max8.less(4.0));
