@@ -81,22 +81,7 @@ public final class This<E extends Item> extends Feature
 	public void append(final Statement bf, final Join join)
 	{
 		bf.appendPK(type, join);
-
-		if(bf.typeColumnsRequired)
-			appendTypeColumn(bf, join);
-	}
-
-	private void appendTypeColumn(final Statement bf, final Join join)
-	{
-		final IntegerColumn column = type.getTable().primaryKey;
-		assert column.kind.primaryKey();
-
-		final StringColumn typeColumn = column.table.typeColumn;
-		if(typeColumn!=null)
-		{
-			bf.append(',').
-				append(typeColumn, join);
-		}
+		bf.appendTypeColumnIfRequired(type.getTable().typeColumn, join);
 	}
 
 	@Override
