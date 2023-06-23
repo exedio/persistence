@@ -18,14 +18,14 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Condition.FALSE;
-import static com.exedio.cope.Condition.TRUE;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class IntegerFieldTest
@@ -34,8 +34,6 @@ public class IntegerFieldTest
 	{
 		final IntegerField any = new IntegerField().optional();
 		final IntegerField mandatory = new IntegerField();
-		final IntegerField min4 = new IntegerField().optional().min(4);
-		final IntegerField max4 = new IntegerField().optional().max(4);
 		final IntegerField min4Max8 = new IntegerField().optional().range(4, 8);
 
 		assertEquals(in(any), any.isNull());
@@ -69,39 +67,8 @@ public class IntegerFieldTest
 		assertEquals(cc(Operator.Equal, mandatory, MIN), mandatory.equal(MIN));
 		assertEquals(cc(Operator.Equal, mandatory, MAX), mandatory.equal(MAX));
 
-		assertEquals(in(min4), min4.equal((Integer)null));
-		assertEquals(FALSE, min4.equal(0));
-		assertEquals(FALSE, min4.equal(3));
-		assertEquals(cc(Operator.Equal, min4, 4), min4.equal(4));
-		assertEquals(FALSE, min4.equal(MIN));
-		assertEquals(cc(Operator.Equal, min4, MAX), min4.equal(MAX));
-
-		assertEquals(in(max4), max4.equal((Integer)null));
-		assertEquals(cc(Operator.Equal, max4, 0), max4.equal(0));
-		assertEquals(cc(Operator.Equal, max4, 3), max4.equal(3));
-		assertEquals(cc(Operator.Equal, max4, 4), max4.equal(4));
-		assertEquals(FALSE, max4.equal(5));
-		assertEquals(cc(Operator.Equal, max4, MIN), max4.equal(MIN));
-		assertEquals(FALSE, max4.equal(MAX));
-
 		assertEquals(in(min4Max8), min4Max8.isNull());
 		assertEquals(nn(min4Max8), min4Max8.isNotNull());
-		assertEquals(in(min4Max8), min4Max8.equal((Integer)null));
-		assertEquals(nn(min4Max8), min4Max8.notEqual((Integer)null));
-		assertEquals(FALSE, min4Max8.equal(0));
-		assertEquals(FALSE, min4Max8.equal(3));
-		assertEquals(cc(Operator.Equal, min4Max8, 4), min4Max8.equal(4));
-		assertEquals(cc(Operator.Equal, min4Max8, 8), min4Max8.equal(8));
-		assertEquals(FALSE, min4Max8.equal(9));
-		assertEquals(FALSE, min4Max8.equal(MIN));
-		assertEquals(FALSE, min4Max8.equal(MAX));
-		assertEquals(TRUE,  min4Max8.notEqual(0));
-		assertEquals(TRUE,  min4Max8.notEqual(3));
-		assertEquals(cc(Operator.NotEqual, min4Max8, 4), min4Max8.notEqual(4));
-		assertEquals(cc(Operator.NotEqual, min4Max8, 8), min4Max8.notEqual(8));
-		assertEquals(TRUE, min4Max8.notEqual(9));
-		assertEquals(TRUE, min4Max8.notEqual(MIN));
-		assertEquals(TRUE, min4Max8.notEqual(MAX));
 		assertEquals(cc(Operator.Less, min4Max8, 0), min4Max8.less(0));
 		assertEquals(cc(Operator.Less, min4Max8, 3), min4Max8.less(3));
 		assertEquals(cc(Operator.Less, min4Max8, 4), min4Max8.less(4));
@@ -239,6 +206,48 @@ public class IntegerFieldTest
 				message);
 	}
 
+	@Test void testRangeShortcutEqual()
+	{
+		final IntegerField f = new IntegerField().optional().range(-3, 5);
+		assertEquals(f+" is null", f.equal((Integer)null).toString());
+		assertEquals("FALSE", f.equal(-4).toString());
+		assertEquals(f+"='-3'", f.equal(-3).toString());
+		assertEquals(f+"='5'", f.equal(5).toString());
+		assertEquals("FALSE", f.equal(6).toString());
+		assertEquals("FALSE", f.equal(MIN).toString());
+		assertEquals("FALSE", f.equal(MAX).toString());
+
+		final NumberFunction<Integer> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
+		assertEquals("a1."+f+" is null", b.equal((Integer)null).toString());
+		assertEquals("a1."+f+"='-4'", b.equal(-4).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='-3'", b.equal(-3).toString());
+		assertEquals("a1."+f+"='5'", b.equal(5).toString());
+		assertEquals("a1."+f+"='6'", b.equal(6).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MIN+"'", b.equal(MIN).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MAX+"'", b.equal(MAX).toString()); // TODO should be "FALSE"
+	}
+
+	@Test void testRangeShortcutNotEqual()
+	{
+		final IntegerField f = new IntegerField().optional().range(-3, 5);
+		assertEquals(f+" is not null", f.notEqual((Integer)null).toString());
+		assertEquals("TRUE",  f.notEqual(-4).toString());
+		assertEquals(f+"<>'-3'", f.notEqual(-3).toString());
+		assertEquals(f+"<>'5'", f.notEqual(5).toString());
+		assertEquals("TRUE", f.notEqual(6).toString());
+		assertEquals("TRUE", f.notEqual(MIN).toString());
+		assertEquals("TRUE", f.notEqual(MAX).toString());
+
+		final NumberFunction<Integer> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
+		assertEquals("a1."+f+" is not null", b.notEqual((Integer)null).toString());
+		assertEquals("a1."+f+"<>'-4'", b.notEqual(-4).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'-3'", b.notEqual(-3).toString());
+		assertEquals("a1."+f+"<>'5'", b.notEqual(5).toString());
+		assertEquals("a1."+f+"<>'6'", b.notEqual(6).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MIN+"'", b.notEqual(MIN).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MAX+"'", b.notEqual(MAX).toString()); // TODO should be "TRUE"
+	}
+
 	private static IsNullCondition<Integer> in(
 			final IntegerField field)
 	{
@@ -261,4 +270,20 @@ public class IntegerFieldTest
 
 	private static final int MAX = Integer.MAX_VALUE;
 	private static final int MIN = Integer.MIN_VALUE;
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class AnItem extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@SuppressWarnings("unused") // OK: just for initializing teh model
+	private static final Model model = new Model(AnItem.TYPE);
 }

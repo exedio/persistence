@@ -275,6 +275,7 @@ public final class DoubleField extends NumberField<Double>
 	{
 		if(value!=null)
 		{
+			// TODO does not work with BindFunction
 			final double valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.FALSE;
@@ -290,6 +291,7 @@ public final class DoubleField extends NumberField<Double>
 	{
 		if(value!=null)
 		{
+			// TODO does not work with BindFunction
 			final double valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.TRUE;

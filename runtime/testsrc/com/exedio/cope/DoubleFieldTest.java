@@ -18,11 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.NaN;
 import static java.lang.Double.POSITIVE_INFINITY;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class DoubleFieldTest
@@ -60,6 +63,64 @@ public class DoubleFieldTest
 				message);
 	}
 
+	@Test void testRangeShortcutEqual()
+	{
+		final DoubleField f = new DoubleField().optional().range(-3, 5);
+		assertEquals(f+" is null", f.equal((Double)null).toString());
+		assertEquals("FALSE", f.equal(-3.1).toString());
+		assertEquals(f+"='-3.0'", f.equal(-3d).toString());
+		assertEquals(f+"='5.0'", f.equal(5d).toString());
+		assertEquals("FALSE", f.equal(5.1).toString());
+		assertEquals("FALSE", f.equal(MIN).toString());
+		assertEquals("FALSE", f.equal(MAX).toString());
+
+		final NumberFunction<Double> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
+		assertEquals("a1."+f+" is null", b.equal((Double)null).toString());
+		assertEquals("a1."+f+"='-3.1'", b.equal(-3.1).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='-3.0'", b.equal(-3d).toString());
+		assertEquals("a1."+f+"='5.0'", b.equal(5d).toString());
+		assertEquals("a1."+f+"='5.1'", b.equal(5.1).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MIN+"'", b.equal(MIN).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MAX+"'", b.equal(MAX).toString()); // TODO should be "FALSE"
+	}
+
+	@Test void testRangeShortcutNotEqual()
+	{
+		final DoubleField f = new DoubleField().optional().range(-3, 5);
+		assertEquals(f+" is not null", f.notEqual((Double)null).toString());
+		assertEquals("TRUE",  f.notEqual(-3.1).toString());
+		assertEquals(f+"<>'-3.0'", f.notEqual(-3d).toString());
+		assertEquals(f+"<>'5.0'", f.notEqual(5d).toString());
+		assertEquals("TRUE", f.notEqual(5.1).toString());
+		assertEquals("TRUE", f.notEqual(MIN).toString());
+		assertEquals("TRUE", f.notEqual(MAX).toString());
+
+		final NumberFunction<Double> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
+		assertEquals("a1."+f+" is not null", b.notEqual((Double)null).toString());
+		assertEquals("a1."+f+"<>'-3.1'", b.notEqual(-3.1).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'-3.0'", b.notEqual(-3d).toString());
+		assertEquals("a1."+f+"<>'5.0'", b.notEqual(5d).toString());
+		assertEquals("a1."+f+"<>'5.1'", b.notEqual(5.1).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MIN+"'", b.notEqual(MIN).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MAX+"'", b.notEqual(MAX).toString()); // TODO should be "TRUE"
+	}
+
 	private static final double MIN = -Double.MAX_VALUE;
 	private static final double MAX = Double.MAX_VALUE;
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class AnItem extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@SuppressWarnings("unused") // OK: just for initializing teh model
+	private static final Model model = new Model(AnItem.TYPE);
 }

@@ -453,6 +453,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		if(value!=null)
 		{
+			// TODO does not work with BindFunction
 			final int valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.FALSE;
@@ -468,6 +469,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		if(value!=null)
 		{
+			// TODO does not work with BindFunction
 			final int valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.TRUE;
