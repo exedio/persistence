@@ -483,16 +483,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public void append(final Statement bf, final Join join)
 	{
 		super.append(bf, join);
-
-		if(bf.typeColumnsRequired)
-			appendTypeColumn(bf, join);
-	}
-
-	private void appendTypeColumn(final Statement bf, final Join join)
-	{
-		final StringColumn typeColumn = getTypeColumn();
-		if(typeColumn!=null)
-			bf.append(',').append(typeColumn, join);
+		bf.appendTypeColumnIfRequired(getTypeColumn(), join);
 	}
 
 	/**

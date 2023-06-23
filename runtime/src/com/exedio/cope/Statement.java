@@ -242,6 +242,12 @@ final class Statement
 		return this;
 	}
 
+	void appendTypeColumnIfRequired(final StringColumn typeColumn, final Join join)
+	{
+		if(typeColumnsRequired && typeColumn!=null)
+			append(',').append(typeColumn, join);
+	}
+
 	<E> Statement appendParameterAny(final E value)
 	{
 		@SuppressWarnings({"unchecked","rawtypes"})
