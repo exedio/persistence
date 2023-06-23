@@ -46,18 +46,4 @@ public final class AverageAggregate extends Aggregate<Double>
 			append(getSource(), join).
 			append(dialect.getAveragePostfix());
 	}
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Override
-	@Deprecated // OK: for internal use within COPE only
-	@SuppressWarnings("deprecation") // needed for idea
-	public void appendSelect(final Statement bf, final Join join)
-	{
-		final Dialect dialect = bf.dialect;
-		bf.append(dialect.getAveragePrefix()).
-			appendSelect(getSource(), join).
-			append(dialect.getAveragePostfix());
-	}
 }

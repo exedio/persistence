@@ -85,16 +85,6 @@ class BindFunction<E> implements Function<E>
 		function.append(bf, this.join);
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Override
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join)
-	{
-		function.appendSelect(bf, this.join);
-	}
-
 	@Override
 	public final Type<?> getType()
 	{

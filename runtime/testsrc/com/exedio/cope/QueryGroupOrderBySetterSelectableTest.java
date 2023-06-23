@@ -345,12 +345,6 @@ public class QueryGroupOrderBySetterSelectableTest
 		{
 			throw new AssertionFailedError();
 		}
-		@Override
-		@Deprecated
-		public void appendSelect(final Statement bf, final Join join)
-		{
-			throw new AssertionFailedError();
-		}
 		private static final long serialVersionUID = -1l;
 	};
 

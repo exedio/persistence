@@ -133,16 +133,6 @@ public abstract class View<E> extends Feature
 		return valueClass;
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Override
-	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join)
-	{
-		append(bf, join);
-	}
-
 	@Override
 	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
 	{

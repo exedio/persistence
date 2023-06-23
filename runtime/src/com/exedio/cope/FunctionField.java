@@ -308,17 +308,7 @@ public abstract class FunctionField<E> extends Field<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
-	{
-		bf.append(getColumn(), join);
-	}
-
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Override
-	@Deprecated // OK: for internal use within COPE only
-	public void appendSelect(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append(getColumn(), join);
 	}

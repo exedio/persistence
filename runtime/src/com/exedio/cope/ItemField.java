@@ -480,9 +480,16 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	@Deprecated // OK: for internal use within COPE only
 	@SuppressWarnings("deprecation") // needed for idea
-	public void appendSelect(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
-		super.appendSelect(bf, join);
+		super.append(bf, join);
+
+		if(bf.typeColumnsRequired)
+			appendTypeColumn(bf, join);
+	}
+
+	private void appendTypeColumn(final Statement bf, final Join join)
+	{
 		final StringColumn typeColumn = getTypeColumn();
 		if(typeColumn!=null)
 			bf.append(',').append(typeColumn, join);

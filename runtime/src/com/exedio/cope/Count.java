@@ -107,21 +107,6 @@ public final class Count implements NumberFunction<Integer>
 		bf.append(')');
 	}
 
-	/**
-	 * @deprecated For internal use within COPE only.
-	 */
-	@Deprecated // OK: for internal use within COPE only
-	@Override
-	public void appendSelect( final Statement bf, final Join join )
-	{
-		bf.append("COUNT(");
-		if (source==null)
-			bf.append('*');
-		else
-			source.appendSelect(bf, join);
-		bf.append(')');
-	}
-
 
 	@Override
 	public void requireSupportForGet() throws UnsupportedGetException
