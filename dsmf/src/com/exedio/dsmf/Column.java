@@ -123,7 +123,7 @@ public final class Column extends Node
 			return Result.missing;
 
 		if(!required())
-			return Result.unusedWarning;
+			return Result.unused(table.required() && type.get().contains(Dialect.NOT_NULL));
 
 		if(type.mismatches())
 			return Result.error(
