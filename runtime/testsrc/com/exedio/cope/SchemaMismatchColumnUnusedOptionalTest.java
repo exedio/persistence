@@ -40,11 +40,11 @@ import com.exedio.dsmf.Table;
 import org.junit.jupiter.api.Test;
 
 /**
- * @see SchemaMismatchColumnUnusedOptionalTest
+ * @see SchemaMismatchColumnUnusedTest
  */
-public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
+public class SchemaMismatchColumnUnusedOptionalTest extends SchemaMismatchTest
 {
-	public SchemaMismatchColumnUnusedTest()
+	public SchemaMismatchColumnUnusedOptionalTest()
 	{
 		super(modelA, modelB);
 	}
@@ -115,13 +115,14 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ItemA extends Item
 	{
-		static final BooleanField field = new BooleanField().toFinal(); // avoid update counter
+		static final BooleanField field = new BooleanField().optional().toFinal(); // avoid update counter
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		boolean getField()
+		@javax.annotation.Nullable
+		java.lang.Boolean getField()
 		{
-			return ItemA.field.getMandatory(this);
+			return ItemA.field.get(this);
 		}
 
 		@com.exedio.cope.instrument.Generated
