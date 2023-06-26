@@ -125,9 +125,7 @@ public abstract class Constraint extends Node
 				: Result.unsupported;
 
 		if(!required())
-			return table.required()
-				? Result.unusedError
-				: Result.unusedWarning;
+			return Result.unused(table.required());
 
 		final String existingConditionAdjusted =
 				existingCondition!=null
