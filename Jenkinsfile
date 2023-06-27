@@ -14,7 +14,7 @@ String databaseMysql56 = '5.6.33'
 @Field
 String databaseMysql57 = '5.7.37'
 @Field
-String databaseMysql80 = '8.0.28'
+String databaseMysql80 = '8.0.33'
 @Field
 String databasePostgresql = '13.11'
 
@@ -688,7 +688,8 @@ try
 					"--cap-add CHOWN " +
 					"--cap-add SETGID " +
 					"--cap-add SETUID " +
-					"--tmpfs /var/lib/mysql:rw "
+					"--tmpfs /var/lib/mysql:rw " +
+					"--tmpfs /var/lib/mysql-files:rw "
 				) { c ->
 					mainImage.inside(
 						dockerRunDefaults(dbBridge) +
