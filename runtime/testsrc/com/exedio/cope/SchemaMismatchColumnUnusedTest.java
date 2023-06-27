@@ -25,7 +25,6 @@ import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
-import static com.exedio.dsmf.Node.Color.WARNING;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -56,15 +55,15 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 		assertEquals(name(ItemA.TYPE), name(ItemB.TYPE));
 
 		final Schema schema = modelB.getVerifiedSchema();
-		assertIt(null, OK, supportsCheckConstraints(model)?ERROR:WARNING, schema);
+		assertIt(null, OK, ERROR, schema);
 
 		final Table table = schema.getTable(name(ItemA.TYPE));
-		assertIt(null, OK, supportsCheckConstraints(model)?ERROR:WARNING, table);
+		assertIt(null, OK, ERROR, table);
 
 		final Column pk, field;
 		{
 			assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
-			assertIt("unused", WARNING, WARNING, field = table.getColumn(name(ItemA.field)));
+			assertIt("unused", ERROR, ERROR, field = table.getColumn(name(ItemA.field)));
 
 			assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
 		}

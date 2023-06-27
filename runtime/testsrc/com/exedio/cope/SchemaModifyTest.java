@@ -110,7 +110,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 				assertEquals(false, columnX.required());
 				assertEquals(true, columnX.exists());
 				assertEquals("unused", columnX.getError());
-				assertEquals(WARNING, columnX.getParticularColor());
+				assertEquals(ERROR, columnX.getParticularColor());
 				assertEquals(column1Type, columnX.getType());
 
 				columnX.renameTo(COLUMN1);
