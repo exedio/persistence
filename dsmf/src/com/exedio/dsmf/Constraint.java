@@ -116,12 +116,9 @@ public abstract class Constraint extends Node
 	@Override
 	final Result computeResult()
 	{
-		// TODO: make this dependent on type of constraint:
-		// check/not null constraint are yellow only if missing
-		// foreign key/unique constraint are red when missing or unused
 		if(!exists())
 			return isSupported()
-				? Result.missing
+				? Result.missing(type!=Type.Check)
 				: Result.unsupported;
 
 		if(!required())

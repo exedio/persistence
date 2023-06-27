@@ -24,6 +24,7 @@ import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
+import static com.exedio.dsmf.Node.Color.WARNING;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -79,8 +80,8 @@ public class SchemaMismatchColumnMissingTest extends SchemaMismatchTest
 			final Constraint checkA = table.getConstraint(nameCkEnum(ItemA.field));
 			assertIt(
 					supported ? "missing" : "unsupported",
-					supported ? ERROR : OK,
-					supported ? ERROR : OK, Check,
+					supported ? WARNING : OK,
+					supported ? WARNING : OK, Check,
 					checkA);
 			assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 
