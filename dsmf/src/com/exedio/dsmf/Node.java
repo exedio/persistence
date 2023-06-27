@@ -232,7 +232,12 @@ public abstract class Node
 		static final Result missing = new Result("missing", Color.ERROR);
 		static final Result unsupported = new Result("unsupported", Color.OK);
 		static final Result unusedWarning = new Result("unused", Color.WARNING);
-		static final Result unusedError = new Result("unused", Color.ERROR);
+		private static final Result unusedError = new Result("unused", Color.ERROR);
+
+		static Result unused(final boolean error)
+		{
+			return error ? unusedError : unusedWarning;
+		}
 
 		static Result error(final String error)
 		{
