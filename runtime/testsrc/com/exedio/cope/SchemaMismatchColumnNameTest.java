@@ -25,6 +25,7 @@ import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
+import static com.exedio.dsmf.Node.Color.WARNING;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -82,8 +83,8 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			final Constraint checkB = table.getConstraint(nameCkEnum(ItemB.fieldB));
 			if(supported)
 			{
-				assertIt("unused",   ERROR, ERROR, Check, checkA);
-				assertIt("missing",  ERROR, ERROR, Check, checkB);
+				assertIt("unused",   ERROR,   ERROR,   Check, checkA);
+				assertIt("missing",  WARNING, WARNING, Check, checkB);
 				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 			}
 			else
