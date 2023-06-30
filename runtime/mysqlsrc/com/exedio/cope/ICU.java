@@ -22,7 +22,7 @@ import com.exedio.cope.util.CharSet;
 
 /**
  * Converts a {@link CharSet} into a regular expression supported by
- * <a href="http://userguide.icu-project.org/strings/regexp">ICU</a>
+ * <a href="https://unicode-org.github.io/icu/userguide/strings/regexp.html">ICU</a>
  */
 final class ICU
 {
