@@ -133,7 +133,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		if (mysql)
 		{
 			assertNotNull(table.getConstraint(charSetConstraintName(nonascii)));
-			if(MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
+			if(atLeastMysql8())
 				assertNotNull(table.getConstraint(charSetConstraintName(asciiplus)));
 			else
 				assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
@@ -202,7 +202,7 @@ public class StringCharSetTest extends TestWithEnvironment
 
 		if(mysql)
 		{
-			if(isSubsetOfAscii || MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
+			if(isSubsetOfAscii || atLeastMysql8())
 			{
 				assertEquals(asList(result), TYPE.search(c, TYPE.getThis(), true));
 			}

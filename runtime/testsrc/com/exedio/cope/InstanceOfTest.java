@@ -208,7 +208,7 @@ public class InstanceOfTest extends TestWithEnvironment
 				assertEquals(
 						"You have an error in your SQL syntax; check the manual that corresponds " +
 						"to your MySQL server version for the right syntax to use near " +
-						"'" + (model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)?",":"") +
+						"'" + (atLeastMysql8()?",":"") +
 						SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "' at line 1",
 						dropMariaConnectionId(e.getCause().getMessage()));
 				break;
@@ -247,7 +247,7 @@ public class InstanceOfTest extends TestWithEnvironment
 				assertEquals(
 						"You have an error in your SQL syntax; check the manual that corresponds " +
 						"to your MySQL server version for the right syntax to use near " +
-						"'" + (model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)?",":"") +
+						"'" + (atLeastMysql8()?",":"") +
 						SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "' at line 1",
 						dropMariaConnectionId(e.getCause().getMessage()));
 				break;

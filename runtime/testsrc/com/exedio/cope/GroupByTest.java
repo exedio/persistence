@@ -91,7 +91,6 @@ public class GroupByTest extends TestWithEnvironment
 
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(integer);
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		switch(dialect)
 		{
@@ -107,14 +106,14 @@ public class GroupByTest extends TestWithEnvironment
 			case mysql:
 			{
 				final String message =
-						env.isDatabaseVersionAtLeast(5, 7)
+						atLeastMysql57()
 						?
 						"Expression #1 of SELECT list is not in GROUP BY clause and " +
-						"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
 						"which is not functionally dependent on columns in GROUP BY clause; " +
 						"this is incompatible with sql_mode=only_full_group_by"
 						:
-						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+						"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY";
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
@@ -144,7 +143,6 @@ public class GroupByTest extends TestWithEnvironment
 
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(integer);
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		assertEquals(4, query.total());
 		assertTrue(query.exists());
@@ -161,14 +159,14 @@ public class GroupByTest extends TestWithEnvironment
 				break;
 			case mysql:
 				notAllowed(query,
-						env.isDatabaseVersionAtLeast(5, 7)
+						atLeastMysql57()
 						?
 						"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
-						"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
 						"which is not functionally dependent on columns in GROUP BY clause; " +
 						"this is incompatible with sql_mode=only_full_group_by"
 						:
-						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
+						"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case postgresql:
 				notAllowed(query,
@@ -187,8 +185,6 @@ public class GroupByTest extends TestWithEnvironment
 		query.setDistinct(true);
 		query.setOrderBy(integer, true);
 
-		final EnvironmentInfo env = model.getEnvironmentInfo();
-
 		assertEquals(4, query.total());
 		assertTrue(query.exists());
 
@@ -203,10 +199,10 @@ public class GroupByTest extends TestWithEnvironment
 								"ORDER BY \"integer\"]"));
 				break;
 			case mysql:
-				if(env.isDatabaseVersionAtLeast(5, 7))
+				if(atLeastMysql57())
 					notAllowed(query,
 							"Expression #1 of ORDER BY clause is not in SELECT list, " +
-							"references column '" + env.getCatalog() + ".AnItem.integer' " +
+							"references column '" + dbCat() + ".AnItem.integer' " +
 							"which is not in SELECT list; this is incompatible with DISTINCT");
 				else
 					assertContains("foo", "bar", "goo", "car", query.search());
@@ -270,7 +266,6 @@ public class GroupByTest extends TestWithEnvironment
 
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(integer);
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)
 		{
 			case hsqldb:
@@ -285,14 +280,14 @@ public class GroupByTest extends TestWithEnvironment
 			case mysql:
 			{
 				final String message =
-						env.isDatabaseVersionAtLeast(5, 7)
+						atLeastMysql57()
 						?
 						"Expression #2 of SELECT list is not in GROUP BY clause and " +
-						"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
 						"which is not functionally dependent on columns in GROUP BY clause; " +
 						"this is incompatible with sql_mode=only_full_group_by"
 						:
-						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+						"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY";
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
