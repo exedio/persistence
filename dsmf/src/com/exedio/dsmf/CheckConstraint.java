@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.dsmf.Dialect.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -64,7 +66,11 @@ public final class CheckConstraint extends Constraint
 	@Override
 	public boolean isSupported()
 	{
-		return !dialect.disableCheckConstraint && dialect.supportsCheckConstraint();
+		return
+				!dialect.disableCheckConstraint &&
+				dialect.supportsCheckConstraint() &&
+				dialect.supportsCheckConstraint(
+						requireNonNull(requiredCondition, name)); // isSupported must be called for required constraints only
 	}
 
 	@Override

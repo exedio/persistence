@@ -56,6 +56,15 @@ public abstract class Dialect
 		return true;
 	}
 
+	/**
+	 * Method is guaranteed to be called only if {@link #supportsCheckConstraint()}
+	 * has returned true before.
+	 */
+	public boolean supportsCheckConstraint(final String condition)
+	{
+		return true;
+	}
+
 	protected String adjustExistingCheckConstraintCondition(final String s)
 	{
 		return s;

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MysqlDialect.REGEXP;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
@@ -258,7 +259,7 @@ final class RuntimeTester
 			final String condition)
 	{
 		final Constraint constraint = table.getConstraint(name);
-		final boolean expectedSupported = type!=CheckConstraint.class || supportsCheckConstraint(model);
+		final boolean expectedSupported = type!=CheckConstraint.class || (supportsCheckConstraint(model)&&!condition.contains(REGEXP));
 		assertNotNull(constraint, "no such constraint "+name+", but has "+table.getConstraints());
 		assertEquals(type, constraint.getClass(), name);
 		assertEquals(condition, constraint.getRequiredCondition(), name);
@@ -332,7 +333,7 @@ final class RuntimeTester
 			{
 				final String message = table.getName() + '#' + constraint.getName();
 				if(constraint instanceof CheckConstraint &&
-					!supportsCheckConstraint(model))
+					(!supportsCheckConstraint(model) || constraint.getRequiredCondition().contains(REGEXP)))
 				{
 					assertEquals("unsupported", constraint.getError(), message);
 					assertEquals(Node.Color.OK, constraint.getParticularColor(), message);

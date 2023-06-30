@@ -46,6 +46,12 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
+	public boolean supportsCheckConstraint(final String condition)
+	{
+		throw new AssertionFailedError();
+	}
+
+	@Override
 	protected String adjustExistingCheckConstraintCondition(final String s)
 	{
 		throw new AssertionFailedError();

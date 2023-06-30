@@ -22,5 +22,5 @@ enum TrimClass
 {
 	Data,
 	ForeignKeyUniqueConstraint,
-	PrimaryKeyCheckConstraint // on MySQL does not have a name or is not supported at all
+	PrimaryKeyCheckConstraint // on MySQL a primary key constraint does not have a name
 }
