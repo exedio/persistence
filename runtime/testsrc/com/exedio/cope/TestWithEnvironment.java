@@ -93,7 +93,7 @@ public abstract class TestWithEnvironment
 		mysql  = tester.mysql;
 		postgresql = tester.postgresql;
 		cache = tester.cache;
-		mariaDriver = model.getEnvironmentInfo().getDriverName().startsWith("MariaDB");
+		mariaDriver = envInfo().getDriverName().startsWith("MariaDB");
 		for(final VaultService vault : unsanitize(model.connect().vaults).values())
 			((VaultMockService)vault).clear();
 	}
@@ -328,6 +328,38 @@ public abstract class TestWithEnvironment
 			return message;
 
 		return matcher.group(1);
+	}
+
+	protected final EnvironmentInfo envInfo()
+	{
+		return model.getEnvironmentInfo();
+	}
+
+	private boolean dbAtLeast(final String name, final int major, final int minor)
+	{
+		final EnvironmentInfo info = envInfo();
+		assertEquals(name, info.getDatabaseProductName());
+		return info.isDatabaseVersionAtLeast(major, minor);
+	}
+
+	private boolean dbAtLeastMysql(final int major, final int minor)
+	{
+		return dbAtLeast("MySQL", major, minor);
+	}
+
+	protected final boolean atLeastMysql57()
+	{
+		return dbAtLeastMysql(5, 7);
+	}
+
+	protected final boolean atLeastMysql8()
+	{
+		return dbAtLeastMysql(8, 0);
+	}
+
+	protected final String dbCat()
+	{
+		return envInfo().getCatalog();
 	}
 
 	static

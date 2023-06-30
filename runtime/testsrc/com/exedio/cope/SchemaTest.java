@@ -188,7 +188,7 @@ public class SchemaTest extends TestWithEnvironment
 		}
 		assertEquals(string8, min4Max8Column.getType());
 
-		final boolean icu = mysql && MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0);
+		final boolean icu = mysql && atLeastMysql8();
 		final String regexpBegin = icu ? "\\A": "^";
 		final String regexpEnd   = icu ? "\\z": "$";
 		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"   +regexpEnd+"'" : "";

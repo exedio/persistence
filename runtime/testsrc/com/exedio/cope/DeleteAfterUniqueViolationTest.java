@@ -44,7 +44,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 	@BeforeEach final void setUp()
 	{
 		unq = model.connect().supportsUniqueViolation;
-		unqPrefix = (unq && mysql && model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)) ? "Main." : "";
+		unqPrefix = (unq && mysql && atLeastMysql8()) ? "Main." : "";
 	}
 
 	@Test void testCommit()

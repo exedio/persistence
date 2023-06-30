@@ -46,7 +46,7 @@ public class ProtocolWriter extends TestWithEnvironment
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
 		assertNotNull(prefix);
 
-		final Properties databaseInfo = model.getEnvironmentInfo().asProperties();
+		final Properties databaseInfo = envInfo().asProperties();
 		final Properties prefixed = new Properties();
 		final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
 		for(final Object nameObject : databaseInfo.keySet())

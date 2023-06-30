@@ -35,7 +35,6 @@ import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.CopeSchemaValue;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
-import com.exedio.cope.EnvironmentInfo;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -90,9 +89,8 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		assumeTrue(mysql, "mysql"); // TODO other databases as well, amend SchemaViewTest
 		sv.create();
 		connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 		final String nnd = SchemaInfo.supportsNativeDate(model) ? "" : "0";
-		final String intType = mariaDriver&&env.isDatabaseVersionAtLeast(5, 7) ? "INTEGER" : "INT";
+		final String intType = mariaDriver&&atLeastMysql57() ? "INTEGER" : "INT";
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
 			{

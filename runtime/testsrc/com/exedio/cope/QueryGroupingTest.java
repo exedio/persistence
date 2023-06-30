@@ -143,7 +143,6 @@ public class QueryGroupingTest extends TestWithEnvironment
 
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(day);
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)
 		{
 			case hsqldb:
@@ -158,15 +157,15 @@ public class QueryGroupingTest extends TestWithEnvironment
 			case mysql:
 			{
 				final String message;
-				if(env.isDatabaseVersionAtLeast(5, 7))
+				if(atLeastMysql57())
 					message =
 							"Expression #1 of SELECT list is not in GROUP BY clause and " +
-							"contains nonaggregated column '" + env.getCatalog() + ".GroupItem.day' " +
+							"contains nonaggregated column '" + dbCat() + ".GroupItem.day' " +
 							"which is not functionally dependent on columns in GROUP BY clause; " +
 							"this is incompatible with sql_mode=only_full_group_by";
 				else
 					message =
-							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+							"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY";
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);

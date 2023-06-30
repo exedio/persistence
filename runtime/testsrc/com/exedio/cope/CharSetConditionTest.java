@@ -281,7 +281,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 
 		// TODO the "if" below works around a bug in cope
 		if(charSet.contains('\uD800') && charSet.contains('\uDFFF') &&
-			mysql && MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
+			mysql && atLeastMysql8())
 			expected.removeIf(item -> item.getField().startsWith(BEYOND_BMP));
 
 		final CharSetCondition condition =
@@ -303,7 +303,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case mysql:
-				if(charSet.isSubsetOfAscii() || MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
+				if(charSet.isSubsetOfAscii() || atLeastMysql8())
 					assertEquals(
 							expected,
 							AnItem.TYPE.search(condition, AnItem.TYPE.getThis(), true),

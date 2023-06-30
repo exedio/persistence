@@ -639,7 +639,7 @@ public class StringTest extends TestWithEnvironment
 		assertContains(type.search(sa.regexpLike("[a-z]{4}")));
 
 		assertContains(item, type.search(sa.regexpLike("\n[a-z]{4}\n[0-9]{4}\n")));
-		if (!mysql || model.getEnvironmentInfo().isDatabaseVersionAtLeast(8,0))
+		if (!mysql || atLeastMysql8())
 		{
 			assertContains(item, type.search(sa.regexpLike("\\n[a-z]{4}\\n[0-9]{4}\\n")));
 		}
