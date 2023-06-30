@@ -42,7 +42,7 @@ final class CheckConstraintConditionItem extends Item
 	static final CheckConstraint compareFunction = new CheckConstraint(integer1.less(integer2));
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
-	static final CheckConstraint not = new CheckConstraint(integer1.less(integer2).not());
+	static final CheckConstraint not = new CheckConstraint(string.regexpLike("[a-z]").not());
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compositeAnd = new CheckConstraint(integer1.isNull().and(integer2.isNull()));
