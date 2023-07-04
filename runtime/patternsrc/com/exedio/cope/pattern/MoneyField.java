@@ -122,6 +122,30 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	/**
+	 * @return true iff this field has been created by {@link #fixed(Money.Currency)}.
+	 */
+	public boolean isCurrencyFixed()
+	{
+		return currency instanceof FixedCurrencySource;
+	}
+
+	/**
+	 * @return true iff this field has been created by {@link #shared(FunctionField)}.
+	 */
+	public boolean isCurrencyShared()
+	{
+		return currency instanceof SharedCurrencySource;
+	}
+
+	/**
+	 * @return true iff this field has been created by {@link #exclusive(FunctionField)}.
+	 */
+	public boolean isCurrencyExclusive()
+	{
+		return currency instanceof ExclusiveCurrencySource;
+	}
+
+	/**
 	 * BEWARE:
 	 * This method returns null, if the currency is not stored
 	 * in a field.

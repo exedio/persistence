@@ -100,6 +100,25 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(Currency.class, exclOpt.getCurrencyClass());
 		assertEquals(Currency.class, exclMan.getCurrencyClass());
 
+		assertEquals(true,  fixeOpt.isCurrencyFixed());
+		assertEquals(true,  fixeEnu.isCurrencyFixed());
+		assertEquals(false, sharOpt.isCurrencyFixed());
+		assertEquals(false, sharMan.isCurrencyFixed());
+		assertEquals(false, exclOpt.isCurrencyFixed());
+		assertEquals(false, exclMan.isCurrencyFixed());
+		assertEquals(false, fixeOpt.isCurrencyShared());
+		assertEquals(false, fixeEnu.isCurrencyShared());
+		assertEquals(true,  sharOpt.isCurrencyShared());
+		assertEquals(true,  sharMan.isCurrencyShared());
+		assertEquals(false, exclOpt.isCurrencyShared());
+		assertEquals(false, exclMan.isCurrencyShared());
+		assertEquals(false, fixeOpt.isCurrencyExclusive());
+		assertEquals(false, fixeEnu.isCurrencyExclusive());
+		assertEquals(false, sharOpt.isCurrencyExclusive());
+		assertEquals(false, sharMan.isCurrencyExclusive());
+		assertEquals(true,  exclOpt.isCurrencyExclusive());
+		assertEquals(true,  exclMan.isCurrencyExclusive());
+
 		assertEquals(null, fixeOpt.getUnison());
 		assertEquals(null, fixeEnu.getUnison());
 		assertEquals(null, sharOpt.getUnison());
