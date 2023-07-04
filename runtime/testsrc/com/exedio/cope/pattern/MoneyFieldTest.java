@@ -55,34 +55,34 @@ public class MoneyFieldTest extends TestWithEnvironment
 
 	@Test void testNames()
 	{
-		assertEquals("fixeOpt",            fixeOpt                     .getName());
-		assertEquals("fixeOpt-amount",     fixeOpt.getAmount()         .getName());
-		assertEquals("fixeOpt-amount-int", fixeOpt.getAmount().getInt().getName());
+		assertEquals("fixeOpt",            fixeOpt                   .getName());
+		assertEquals("fixeOpt-amount",     fixeOpt.getAmount()       .getName());
+		assertEquals("fixeOpt-amount-int", fixeOpt.getAmountInt()    .getName());
 		assertEquals(null,                 fixeOpt.getCurrencyField());
 		assertEquals(fix,                  fixeOpt.getCurrencyValue());
-		assertEquals("fixeEnu",            fixeEnu                     .getName());
-		assertEquals("fixeEnu-amount",     fixeEnu.getAmount()         .getName());
-		assertEquals("fixeEnu-amount-int", fixeEnu.getAmount().getInt().getName());
+		assertEquals("fixeEnu",            fixeEnu                   .getName());
+		assertEquals("fixeEnu-amount",     fixeEnu.getAmount()       .getName());
+		assertEquals("fixeEnu-amount-int", fixeEnu.getAmountInt()    .getName());
 		assertEquals(null,                 fixeEnu.getCurrencyField());
 		assertEquals(eur,                  fixeEnu.getCurrencyValue());
-		assertEquals("sharOpt",            sharOpt                     .getName());
-		assertEquals("sharOpt-amount",     sharOpt.getAmount()         .getName());
-		assertEquals("sharOpt-amount-int", sharOpt.getAmount().getInt().getName());
-		assertEquals("sharMan",            sharMan                     .getName());
-		assertEquals("sharMan-amount",     sharMan.getAmount()         .getName());
-		assertEquals("sharMan-amount-int", sharMan.getAmount().getInt().getName());
-		assertEquals("currency",           sharOpt.getCurrencyField()  .getName());
+		assertEquals("sharOpt",            sharOpt                   .getName());
+		assertEquals("sharOpt-amount",     sharOpt.getAmount()       .getName());
+		assertEquals("sharOpt-amount-int", sharOpt.getAmountInt()    .getName());
+		assertEquals("sharMan",            sharMan                   .getName());
+		assertEquals("sharMan-amount",     sharMan.getAmount()       .getName());
+		assertEquals("sharMan-amount-int", sharMan.getAmountInt()    .getName());
+		assertEquals("currency",           sharOpt.getCurrencyField().getName());
 		assertEquals(null,                 sharOpt.getCurrencyValue());
-		assertEquals("exclOpt",            exclOpt                     .getName());
-		assertEquals("exclOpt-amount",     exclOpt.getAmount()         .getName());
-		assertEquals("exclOpt-amount-int", exclOpt.getAmount().getInt().getName());
-		assertEquals("exclOpt-currency",   exclOpt.getCurrencyField()  .getName());
-		assertEquals("exclOpt-unison",     exclOpt.getUnison()         .getName());
+		assertEquals("exclOpt",            exclOpt                   .getName());
+		assertEquals("exclOpt-amount",     exclOpt.getAmount()       .getName());
+		assertEquals("exclOpt-amount-int", exclOpt.getAmountInt()    .getName());
+		assertEquals("exclOpt-currency",   exclOpt.getCurrencyField().getName());
+		assertEquals("exclOpt-unison",     exclOpt.getUnison()       .getName());
 		assertEquals(null,                 exclOpt.getCurrencyValue());
-		assertEquals("exclMan",            exclMan                     .getName());
-		assertEquals("exclMan-amount",     exclMan.getAmount()         .getName());
-		assertEquals("exclMan-amount-int", exclMan.getAmount().getInt().getName());
-		assertEquals("exclMan-currency",   exclMan.getCurrencyField()  .getName());
+		assertEquals("exclMan",            exclMan                   .getName());
+		assertEquals("exclMan-amount",     exclMan.getAmount()       .getName());
+		assertEquals("exclMan-amount-int", exclMan.getAmountInt()    .getName());
+		assertEquals("exclMan-currency",   exclMan.getCurrencyField().getName());
 		assertEquals(null,                 exclMan.getCurrencyValue());
 		assertSame(sharOpt.getCurrencyField(), sharMan.getCurrencyField());
 
@@ -117,13 +117,13 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclOpt.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclMan.getInitialType().toString());
 
-		assertEquals("fixeOpt_int",      getColumnName(fixeOpt.getAmount().getInt()));
-		assertEquals("fixeEnu_int",      getColumnName(fixeEnu.getAmount().getInt()));
-		assertEquals("sharOpt_int",      getColumnName(sharOpt.getAmount().getInt()));
+		assertEquals("fixeOpt_int",      getColumnName(fixeOpt.getAmountInt()));
+		assertEquals("fixeEnu_int",      getColumnName(fixeEnu.getAmountInt()));
+		assertEquals("sharOpt_int",      getColumnName(sharOpt.getAmountInt()));
 		assertEquals("currency" ,        getColumnName(sharOpt.getCurrencyField()));
-		assertEquals("exclOpt_int",      getColumnName(exclOpt.getAmount().getInt()));
+		assertEquals("exclOpt_int",      getColumnName(exclOpt.getAmountInt()));
 		assertEquals("exclOpt_currency", getColumnName(exclOpt.getCurrencyField()));
-		assertEquals("exclMan_int",      getColumnName(exclMan.getAmount().getInt()));
+		assertEquals("exclMan_int",      getColumnName(exclMan.getAmountInt()));
 		assertEquals("exclMan_currency", getColumnName(exclMan.getCurrencyField()));
 	}
 	@Test void testFixedConsistencyOkSingle()
