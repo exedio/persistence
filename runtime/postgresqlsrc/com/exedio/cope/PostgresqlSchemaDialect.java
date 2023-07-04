@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Dialect.strip;
+
 import com.exedio.dsmf.Dialect;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -167,10 +169,8 @@ final class PostgresqlSchemaDialect extends Dialect
 				//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
 				if(getBooleanStrict(resultSet, 3, "c", "p"))
 				{
-					String searchCondition = resultSet.getString(4);
+					final String searchCondition = strip(resultSet.getString(4), "CHECK ((", "))");
 					//System.out.println("searchCondition:>"+searchCondition+"<");
-					if(searchCondition.startsWith("CHECK ((")&& searchCondition.endsWith("))"))
-						searchCondition = searchCondition.substring(8, searchCondition.length()-2);
 					notifyExistentCheck(table, constraintName, searchCondition);
 				}
 				else
