@@ -25,6 +25,7 @@ import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
+import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -104,9 +105,20 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		return new MoneyField<>(amount.min(Price.ZERO), currency.copy());
 	}
 
+	/**
+	 * Better use {@link #getAmountInt()} if possible.
+	 */
 	public PriceField getAmount()
 	{
 		return amount;
+	}
+
+	/**
+	 * Equivalent to {@link #getAmount()}.{@link PriceField#getInt() getInt()}.
+	 */
+	public LongField getAmountInt()
+	{
+		return amount.getInt();
 	}
 
 	/**

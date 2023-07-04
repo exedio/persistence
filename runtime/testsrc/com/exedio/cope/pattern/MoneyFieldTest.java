@@ -86,6 +86,13 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(null,                 exclMan.getCurrencyValue());
 		assertSame(sharOpt.getCurrencyField(), sharMan.getCurrencyField());
 
+		assertSame(fixeOpt.getAmount().getInt(), fixeOpt.getAmountInt());
+		assertSame(fixeEnu.getAmount().getInt(), fixeEnu.getAmountInt());
+		assertSame(sharOpt.getAmount().getInt(), sharOpt.getAmountInt());
+		assertSame(sharMan.getAmount().getInt(), sharMan.getAmountInt());
+		assertSame(exclOpt.getAmount().getInt(), exclOpt.getAmountInt());
+		assertSame(exclMan.getAmount().getInt(), exclMan.getAmountInt());
+
 		assertEquals(CurrFix.class , fixeOpt.getCurrencyClass());
 		assertEquals(Currency.class, fixeEnu.getCurrencyClass());
 		assertEquals(Currency.class, sharOpt.getCurrencyClass());
