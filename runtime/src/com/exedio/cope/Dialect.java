@@ -463,4 +463,12 @@ abstract class Dialect
 	{
 		throw new SchemaSavepointNotAvailableException("not supported by " + getClass().getName());
 	}
+
+	static String strip(final String s, final String prefix, final String suffix)
+	{
+		return
+				s.startsWith(prefix) && s.endsWith(suffix)
+				? s.substring(prefix.length(), s.length()-suffix.length())
+				: s;
+	}
 }
