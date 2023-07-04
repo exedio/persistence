@@ -29,7 +29,6 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -43,8 +42,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-@SuppressWarnings("RedundantInterfaceDeclaration") // TODO required by deficiency of instrumentor
-public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>, CheckingSettable<Money<C>> // TODO currency
+public final class MoneyField<C extends Money.Currency> extends Pattern implements CheckingSettable<Money<C>> // TODO currency
 {
 	private static final long serialVersionUID = 1l;
 
