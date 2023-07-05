@@ -146,7 +146,7 @@ public final class Join implements Serializable
 			if(kind!=Kind.INNER)
 				throw new RuntimeException("outer join must have join condition");
 
-			bf.append(" cross join ");
+			bf.append(" CROSS JOIN ");
 		}
 		else
 		{
