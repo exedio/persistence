@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.SetValue.mapAndCastToFeature;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -75,6 +76,31 @@ public class SetValueTest
 	{
 		assertFails(
 				() -> map(null, "nullValue"),
+				NullPointerException.class,
+				"settable");
+	}
+
+	@Test void testMapAndCastToFeature()
+	{
+		final MockSettable settable = new MockSettable("alpha");
+		final SetValue<String> value = mapAndCastToFeature(settable, "alphaValue");
+		assertEquals("alpha=alphaValue", value.toString());
+	}
+
+	@Test void testMapAndCastToFeatureSettableOnly()
+	{
+		final MockSettableOnly settable = new MockSettableOnly();
+		assertFails(
+				() -> mapAndCastToFeature(settable, "alphaValue"),
+				ClassCastException.class,
+				MockSettableOnly.class + " cannot be cast to " + Feature.class + " " +
+				"(" + MockSettableOnly.class.getName() + " and " + Feature.class.getName() + " are in unnamed module of loader 'app')");
+	}
+
+	@Test void testMapAndCastToFeatureNullFeature()
+	{
+		assertFails(
+				() -> mapAndCastToFeature(null, "nullValue"),
 				NullPointerException.class,
 				"settable");
 	}
@@ -137,6 +163,52 @@ public class SetValueTest
 		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type<?> defaultType)
 		{
 			bf.append(toString);
+		}
+	}
+
+	private static final class MockSettableOnly implements Settable<String>
+	{
+		@Override
+		public SetValue<?>[] execute(final String value, final Item exceptionItem)
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		public Set<Class<? extends Throwable>> getInitialExceptions()
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		public Type getInitialType()
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		public boolean isFinal()
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		public boolean isMandatory()
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		public boolean isInitial()
+		{
+			throw new RuntimeException();
+		}
+
+		@Override
+		@SuppressWarnings({"deprecation","unused"}) // OK: testing deprecated API
+		public SetValue<String> map(final String value)
+		{
+			throw new RuntimeException();
 		}
 	}
 }
