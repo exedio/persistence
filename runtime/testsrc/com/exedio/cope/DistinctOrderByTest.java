@@ -433,21 +433,21 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(
 				"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
-				"cross join " + SI.tab(TYPE) + " PlusIntegerItem1 " +
+				"CROSS JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 " +
 				"ORDER BY (PlusIntegerItem0." + SI.col(numA) + "+PlusIntegerItem1." + SI.col(numB) + ")"+NULLS_FIRST,
 				SchemaInfo.search(query));
 		assertEquals(
 				"SELECT COUNT(*) FROM ( " +
 				"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
-				"cross join " + SI.tab(TYPE) + " PlusIntegerItem1 " +
+				"CROSS JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 " +
 				")" + cope_total_distinct,
 				SchemaInfo.total(query));
 		assertEquals(
 				SELECT_EXISTS(
 						"SELECT PlusIntegerItem0." + SI.pk(TYPE) + " " +
 						"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
-						"cross join " + SI.tab(TYPE) + " PlusIntegerItem1"
+						"CROSS JOIN " + SI.tab(TYPE) + " PlusIntegerItem1"
 				),
 				SchemaInfo.exists(query));
 
@@ -463,7 +463,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 								" in statement [" +
 								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
 								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
-								"cross join " + SI.tab(TYPE) + " PlusIntegerItem1 " +
+								"CROSS JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 " +
 								"ORDER BY (PlusIntegerItem0." + SI.col(numA) + "+PlusIntegerItem1." + SI.col(numB) + ")]"));
 				break;
 			case mysql:
