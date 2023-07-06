@@ -78,7 +78,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 			assertEquals(
-					hp(q(column)) + " IN ("+hp("'SubRenamed'")+","+sac()+hp("'Super'")+")",
+					q(column) + " IN ('SubRenamed',"+sac()+"'Super')",
 					model.getSchema().getTable(table).getConstraint("Super_class_EN").getRequiredCondition());
 		}
 		{
@@ -87,7 +87,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 			assertEquals(
-					hp(q(column)) + " IN ("+hp("'SubRenamed'")+","+sac()+hp("'Super'")+")",
+					q(column) + " IN ('SubRenamed',"+sac()+"'Super')",
 					model.getSchema().getTable(table).getConstraint("Ref_refType_EN").getRequiredCondition());
 		}
 		toModel();
@@ -160,10 +160,5 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 	private String q(final String s)
 	{
 		return SchemaInfo.quoteName(model, s);
-	}
-
-	private static String hp(final String s)
-	{
-		return s;
 	}
 }

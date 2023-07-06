@@ -122,13 +122,13 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+(nativeDate?dateMaximum:DateField.getDefaultMaximum().getTime()));
 		assertCheckConstraint(table, "Main_day_MN", q(day)+">="+dayMinimum);
 		assertCheckConstraint(table, "Main_day_MX", q(day)+"<="+dayMaximum);
-		assertCheckConstraint(table, "Main_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+sac()+hp("1")+")");
-		assertCheckConstraint(table, "Main_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+sac()+hp("20")+","+sac()+hp("30")+")");
+		assertCheckConstraint(table, "Main_bool_EN", q(bool)+" IN (0,"+sac()+"1)");
+		assertCheckConstraint(table, "Main_anEnum_EN", q(anEnum)+" IN (10,"+sac()+"20,"+sac()+"30)");
 		assertCheckConstraint(table, "Main_item_MN", q(item)+">=0");
 		assertCheckConstraint(table, "Main_item_MX", q(item)+"<=567");
 		assertCheckConstraint(table, "Main_poly_MN", q(poly)+">=0");
 		assertCheckConstraint(table, "Main_poly_MX", q(poly)+"<=567");
-		assertCheckConstraint(table, "Main_polyType_EN", hp(t(poly))+" IN ("+hp("'Polymorphic'")+","+sac()+hp("'Target'")+")");
+		assertCheckConstraint(table, "Main_polyType_EN", t(poly)+" IN ('Polymorphic',"+sac()+"'Target')");
 		assertCheckConstraint(table, "Main_polyType_NS", null, false);
 
 		assertCheckConstraint(table, "Main_integRed_RD", q(integRed)+"=110");
@@ -153,13 +153,13 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+(nativeDate?dateMaximum:DateField.getDefaultMaximum().getTime()));
 		assertCheckConstraint(table, "Main_dayOpt_MN", q(dayOpt)+">="+dayMinimum);
 		assertCheckConstraint(table, "Main_dayOpt_MX", q(dayOpt)+"<="+dayMaximum);
-		assertCheckConstraint(table, "Main_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+sac()+hp("1")+")");
-		assertCheckConstraint(table, "Main_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+sac()+hp("20")+","+sac()+hp("30")+")");
+		assertCheckConstraint(table, "Main_boolOpt_EN", q(boolOpt)+" IN (0,"+sac()+"1)");
+		assertCheckConstraint(table, "Main_enumOpt_EN", q(enumOpt)+" IN (10,"+sac()+"20,"+sac()+"30)");
 		assertCheckConstraint(table, "Main_itemOpt_MN", q(itemOpt)+">=0");
 		assertCheckConstraint(table, "Main_itemOpt_MX", q(itemOpt)+"<=567");
 		assertCheckConstraint(table, "Main_polyOpt_MN", q(polyOpt)+">=0");
 		assertCheckConstraint(table, "Main_polyOpt_MX", q(polyOpt)+"<=567");
-		assertCheckConstraint(table, "Main_polyOptType_EN", hp(t(polyOpt))+" IN ("+hp("'Polymorphic'")+","+sac()+hp("'Target'")+")");
+		assertCheckConstraint(table, "Main_polyOptType_EN", t(polyOpt)+" IN ('Polymorphic',"+sac()+"'Target')");
 		assertCheckConstraint(table, "Main_polyOptType_NS",
 				"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
 				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
@@ -273,11 +273,6 @@ public class SchemaTest extends TestWithEnvironment
 			return model.connect().database.dialect.getBlobLength() + '(' + q(f) + ')';
 		else
 			return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
-	}
-
-	protected static String hp(final String s)
-	{
-		return s;
 	}
 
 	private void assertCheckConstraint(
