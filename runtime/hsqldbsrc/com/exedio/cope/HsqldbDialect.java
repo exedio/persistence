@@ -83,16 +83,6 @@ final class HsqldbDialect extends Dialect
 		this.approximate = props.approximate;
 	}
 
-	/**
-	 * Additional parenthesis are needed for hsqldb,
-	 */
-	@Override
-	boolean inRequiresParenthesis()
-	{
-		// https://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
-		return true;
-	}
-
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{

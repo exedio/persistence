@@ -25,6 +25,8 @@ import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 final class HsqldbSchemaDialect extends Dialect
 {
@@ -34,6 +36,8 @@ final class HsqldbSchemaDialect extends Dialect
 	{
 		super(null);
 		this.supportsCheckConstraints = supportsCheckConstraints;
+		adjustExistingCheckConstraintCondition.
+				add("(\"\\w*\")!=", "$1<>");
 	}
 
 	@Override
@@ -41,6 +45,35 @@ final class HsqldbSchemaDialect extends Dialect
 	{
 		return supportsCheckConstraints;
 	}
+
+	@Override
+	protected String adjustExistingCheckConstraintCondition(String s)
+	{
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseIn, "IN");
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotIn, "NOT IN");
+		return adjustExistingCheckConstraintCondition.apply(s);
+	}
+
+	private static String adjustExistingCheckConstraintInCondition(
+			final String s,
+			final Pattern pattern,
+			final String oparator)
+	{
+		// https://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
+		final Matcher matcher = pattern.matcher(s);
+		return matcher.matches()
+			? matcher.replaceAll(matchResult ->
+					matchResult.group(1) + ' ' + oparator + " (" +
+					checkClauseInnerComma.matcher(matchResult.group(2)).replaceAll(",") + ')')
+			: s;
+	}
+
+	private static final Pattern checkClauseIn = Pattern.compile("\\((\"\\w*\")\\) IN \\(\\((.*)\\)\\)");
+	private static final Pattern checkClauseNotIn = Pattern.compile("NOT \\(\\((\"\\w*\")\\) IN \\(\\((.*)\\)\\)\\)");
+	private static final Pattern checkClauseInnerComma = Pattern.compile("\\),\\(");
+
+	private final Replacements adjustExistingCheckConstraintCondition = new Replacements();
+
 
 	@Override
 	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException

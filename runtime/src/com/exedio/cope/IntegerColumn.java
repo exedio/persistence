@@ -131,26 +131,17 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null && allowedValues.length>1)
 		{
-			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
 			final String comma = table.database.dialect.getInComma();
 
 			final StringBuilder bf = new StringBuilder();
-			if(parenthesis)
-				bf.append('(');
 			bf.append(quotedID);
-			if(parenthesis)
-				bf.append(')');
 			bf.append(" IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
 					bf.append(comma);
-				if(parenthesis)
-					bf.append('(');
 				bf.append(allowedValues[j]);
-				if(parenthesis)
-					bf.append(')');
 			}
 			bf.append(')');
 
