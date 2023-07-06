@@ -24,10 +24,12 @@ public final class SumAggregate<E extends Number> extends Aggregate<E> implement
 
 	/**
 	 * Creates a new SumAggregate.
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see com.exedio.cope.NumberFunction#sum()
 	 */
+	@Deprecated
 	public SumAggregate(final Function<E> source)
 	{
 		super(source, "sum", "SUM", source.getValueType());

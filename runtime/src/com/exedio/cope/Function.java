@@ -203,11 +203,13 @@ public interface Function<E> extends Selectable<E>
 		return CompareFunctionCondition.create(Operator.GreaterEqual, this, right);
 	}
 
+	@SuppressWarnings("deprecation")
 	default ExtremumAggregate<E> min()
 	{
 		return new ExtremumAggregate<>(this, true);
 	}
 
+	@SuppressWarnings("deprecation")
 	default ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<>(this, false);

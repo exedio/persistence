@@ -26,11 +26,13 @@ public final class ExtremumAggregate<E> extends Aggregate<E>
 
 	/**
 	 * Creates a new ExtremumAggregate.
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see Function#min()
 	 * @see Function#max()
 	 */
+	@Deprecated
 	public ExtremumAggregate(final Function<E> source, final boolean minimum)
 	{
 		super(source, minimum?"min":"max", minimum?"MIN":"MAX", source.getValueType());

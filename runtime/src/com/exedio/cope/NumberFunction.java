@@ -81,11 +81,13 @@ public interface NumberFunction<E extends Number> extends Function<E>
 		return DivideView.divide(this, other);
 	}
 
+	@SuppressWarnings("deprecation")
 	default SumAggregate<E> sum()
 	{
 		return new SumAggregate<>(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	default AverageAggregate average()
 	{
 		return new AverageAggregate(this);
