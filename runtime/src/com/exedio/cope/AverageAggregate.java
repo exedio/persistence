@@ -24,10 +24,12 @@ public final class AverageAggregate extends Aggregate<Double>
 
 	/**
 	 * Creates a new AverageAggregate.
+	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
 	 * @see com.exedio.cope.NumberFunction#average()
 	 */
+	@Deprecated
 	public AverageAggregate(final Function<? extends Number> source)
 	{
 		super(source, "avg", "AVG", SimpleSelectType.DOUBLE);
