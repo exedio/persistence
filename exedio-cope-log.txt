@@ -15,16 +15,18 @@ The items are sorted inversely, i.e. the latest items are on top.
 	* StringFunction#[startsWith|endsWith|contains][IgnoreCase]
 
 	This breaks backwards API compatibility, causes compiler errors.
-	You MUST update insightcope and copeview (if present in your project) to
+	You MUST update insightcope (if present in your project) to
 	versions yet to be published.
+	You MUST update copeview (if present in your project) to rev>=3086.
 
 * class BindFunction and subclasses BindItemFunction, BindNumberFunction and
 	BindStringFunction are no longer public. Therefore return type of
 	Function#bind changes to super type.
 
 	This breaks backwards API compatibility, causes compiler errors.
-	You MUST update insightcope and copeview (if present in your project) to
+	You MUST update insightcope (if present in your project) to
 	versions yet to be published.
+	You MUST update copeview (if present in your project) to rev>=3086.
 
 * @CopeCacheWeight dropped.
 	Due to changes of the cache implementation, cache weighting is not required any more
