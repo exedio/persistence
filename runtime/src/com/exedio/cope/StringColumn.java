@@ -134,12 +134,14 @@ class StringColumn extends Column
 		}
 		else
 		{
-			final String length = table.database.dialect.getStringLength();
-			final boolean exact = minimumLength==maximumLength;
-			if(minimumLength>0)
-				newCheck(dsmf, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
-			if(!exact)
-				newCheck(dsmf, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
+			{
+				final String length = table.database.dialect.getStringLength();
+				final boolean exact = minimumLength==maximumLength;
+				if(minimumLength>0)
+					newCheck(dsmf, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
+				if(!exact)
+					newCheck(dsmf, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
+			}
 
 			if(charSet!=null)
 			{
@@ -147,11 +149,9 @@ class StringColumn extends Column
 				if(clause!=null)
 					newCheck(dsmf, "CS", clause);
 			}
-			if (regexpPattern!=null)
-			{
-				final String clause = table.database.dialect.getClause(quotedID, regexpPattern);
-				newCheck(dsmf, "RE", clause);
-			}
+			if(regexpPattern!=null)
+				newCheck(dsmf, "RE",
+						table.database.dialect.getClause(quotedID, regexpPattern));
 		}
 	}
 
