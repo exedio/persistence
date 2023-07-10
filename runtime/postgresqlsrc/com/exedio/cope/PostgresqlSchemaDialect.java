@@ -46,6 +46,7 @@ final class PostgresqlSchemaDialect extends Dialect
 		cc.add( " = ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " IN ($1)");
 		cc.add(" <> ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " NOT IN ($1)");
 		cc.add(" (=|<>|>=|<=|>|<) ", "$1");
+		cc.add("\"octet_length\"(\\(\"\\w*\"\\))", "OCTET_LENGTH$1");
 	}
 
 	private static String p(final String s)

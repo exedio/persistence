@@ -219,7 +219,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_stringUpper6_RE", regexpSQL);
 		assertCheckConstraint(table, "Main_stringEmpty_MN", null, false);
 		assertCheckConstraint(table, "Main_stringEmpty_MX", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "Main_data_MX", l(data)+"<="+DataField.DEFAULT_LENGTH, !dataVault);
+		assertCheckConstraint(table, "Main_data_MX", "OCTET_LENGTH("+q(data)+")<="+DataField.DEFAULT_LENGTH, !dataVault);
 		assertCheckConstraint(table, "Main_data_MN", l(data)+"=128", dataVault);
 		assertCheckConstraint(table, "Main_data_CS", hexSQL, dataVault && mysql);
 
@@ -270,7 +270,7 @@ public class SchemaTest extends TestWithEnvironment
 	private String l(final DataField f)
 	{
 		if(f.getVaultInfo()==null)
-			return model.connect().database.dialect.getBlobLength() + '(' + q(f) + ')';
+			return "ERROR(" + f + ")";
 		else
 			return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
 	}
