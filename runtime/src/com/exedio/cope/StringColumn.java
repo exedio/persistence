@@ -101,15 +101,10 @@ class StringColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
-			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
 			final String comma = table.database.dialect.getInComma();
 			final StringBuilder bf = new StringBuilder();
 
-			if(parenthesis)
-				bf.append('(');
 			bf.append(quotedID);
-			if(parenthesis)
-				bf.append(')');
 			bf.append(" IN (");
 
 			boolean first = true;
@@ -120,13 +115,9 @@ class StringColumn extends Column
 				else
 					bf.append(comma);
 
-				if(parenthesis)
-					bf.append('(');
 				bf.append('\'').
 					append(allowedValue).
 					append('\'');
-				if(parenthesis)
-					bf.append(')');
 			}
 			bf.append(')');
 

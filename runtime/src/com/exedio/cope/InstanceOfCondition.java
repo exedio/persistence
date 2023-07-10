@@ -125,26 +125,16 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		if(typeIds.isEmpty())
 			throw new RuntimeException("no concrete type for " + Arrays.toString(types));
 
-		final boolean parenthesis = bf.dialect.inRequiresParenthesis();
-
 		if(typeIds.size()==1)
 		{
 			appendType(bf);
-			bf.append(not ? (parenthesis?"!=":"<>") : "=");
+			bf.append(not ? "<>" : "=");
 			bf.appendParameter(typeIds.iterator().next());
 		}
 		else
 		{
-			if(not && parenthesis)
-					bf.append("NOT (");
-
-			if(parenthesis)
-				bf.append('(');
 			appendType(bf);
-			if(parenthesis)
-				bf.append(')');
-
-			if(not && !parenthesis)
+			if(not)
 				bf.append(" NOT");
 			bf.append(" IN (");
 
@@ -157,16 +147,9 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 				else
 					bf.append(comma);
 
-				if(parenthesis)
-					bf.append('(');
 				bf.appendParameter(id);
-				if(parenthesis)
-					bf.append(')');
 			}
 			bf.append(')');
-
-			if(parenthesis && not)
-				bf.append(')');
 		}
 	}
 

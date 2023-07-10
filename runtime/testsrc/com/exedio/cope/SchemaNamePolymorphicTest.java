@@ -162,11 +162,8 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		return SchemaInfo.quoteName(model, s);
 	}
 
-	private String hp(final String s)
+	private static String hp(final String s)
 	{
-		if(hsqldb)
-			return "(" + s + ")";
-		else
-			return s;
+		return s;
 	}
 }

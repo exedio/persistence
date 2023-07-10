@@ -275,12 +275,9 @@ public class SchemaTest extends TestWithEnvironment
 			return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
 	}
 
-	protected final String hp(final String s)
+	protected static String hp(final String s)
 	{
-		if(hsqldb)
-			return "(" + s + ")";
-		else
-			return s;
+		return s;
 	}
 
 	private void assertCheckConstraint(
