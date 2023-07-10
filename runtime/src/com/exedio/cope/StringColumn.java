@@ -104,8 +104,8 @@ class StringColumn extends Column
 			final String comma = table.database.dialect.getInComma();
 			final StringBuilder bf = new StringBuilder();
 
-			bf.append(quotedID);
-			bf.append(" IN (");
+			bf.append(quotedID).
+				append(" IN (");
 
 			boolean first = true;
 			for(final String allowedValue : allowedValues)
