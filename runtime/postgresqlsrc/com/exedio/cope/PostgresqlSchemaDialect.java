@@ -25,8 +25,6 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 final class PostgresqlSchemaDialect extends Dialect
 {
@@ -35,18 +33,19 @@ final class PostgresqlSchemaDialect extends Dialect
 		super(schema);
 
 		final String digits = "\\d*";
+		final Replacements cc = adjustExistingCheckConstraintCondition;
 		// TODO do omit outside string literals only
-		add(p("(" + digits + ")")+"::bigint\\b", "$1"); // for DateField precision without native date
-		add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
-		add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
-		add(  p("("  + digits + "(?:\\." + digits + ")?)") +"::double precision\\b", "$1");
-		add("('.*?')::character varying\\b", "$1");
-		add("('.*?')::\"text\"", "$1");
-		add(p("(\"\\w*\")")+"::\"text\"", "$1");
-		add( " = ANY "+  p("ARRAY\\[(.*?)]"),                     " IN ($1)");
-		add( " = ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " IN ($1)");
-		add(" <> ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " NOT IN ($1)");
-		add(" (=|<>|>=|<=|>|<) ", "$1");
+		cc.add(p("(" + digits + ")")+"::bigint\\b", "$1"); // for DateField precision without native date
+		cc.add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
+		cc.add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
+		cc.add(  p("("  + digits + "(?:\\." + digits + ")?)") +"::double precision\\b", "$1");
+		cc.add("('.*?')::character varying\\b", "$1");
+		cc.add("('.*?')::\"text\"", "$1");
+		cc.add(p("(\"\\w*\")")+"::\"text\"", "$1");
+		cc.add( " = ANY "+  p("ARRAY\\[(.*?)]"),                     " IN ($1)");
+		cc.add( " = ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " IN ($1)");
+		cc.add(" <> ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " NOT IN ($1)");
+		cc.add(" (=|<>|>=|<=|>|<) ", "$1");
 	}
 
 	private static String p(final String s)
@@ -54,37 +53,13 @@ final class PostgresqlSchemaDialect extends Dialect
 		return "\\(" + s  + "\\)";
 	}
 
-	private void add(final String regex, final String replacement)
-	{
-		adjustExistingCheckConstraintCondition.add(new Replacement(Pattern.compile(regex), replacement));
-	}
-
 	@Override
-	protected String adjustExistingCheckConstraintCondition(String s)
+	protected String adjustExistingCheckConstraintCondition(final String s)
 	{
-		for(final Replacement replacement : adjustExistingCheckConstraintCondition)
-			s = replacement.apply(s);
-		return s;
+		return adjustExistingCheckConstraintCondition.apply(s);
 	}
 
-	private static final class Replacement
-	{
-		private final Pattern pattern;
-		private final String replacement;
-
-		Replacement(final Pattern pattern, final String replacement)
-		{
-			this.pattern = pattern;
-			this.replacement = replacement;
-		}
-
-		String apply(final String s)
-		{
-			return pattern.matcher(s).replaceAll(replacement);
-		}
-	}
-
-	private final ArrayList<Replacement> adjustExistingCheckConstraintCondition = new ArrayList<>();
+	private final Replacements adjustExistingCheckConstraintCondition = new Replacements();
 
 	@Override
 	protected String getColumnType(final int dataType, final ResultSet resultSet)
