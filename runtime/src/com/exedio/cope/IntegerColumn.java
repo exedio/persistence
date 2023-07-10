@@ -134,8 +134,8 @@ class IntegerColumn extends Column
 			final String comma = table.database.dialect.getInComma();
 
 			final StringBuilder bf = new StringBuilder();
-			bf.append(quotedID);
-			bf.append(" IN (");
+			bf.append(quotedID).
+				append(" IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
