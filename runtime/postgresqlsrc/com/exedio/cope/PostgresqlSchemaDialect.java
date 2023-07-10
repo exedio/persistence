@@ -25,6 +25,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
+import java.util.regex.Pattern;
 
 final class PostgresqlSchemaDialect extends Dialect
 {
@@ -42,9 +43,6 @@ final class PostgresqlSchemaDialect extends Dialect
 		cc.add("('.*?')::character varying\\b", "$1");
 		cc.add("('.*?')::\"text\"", "$1");
 		cc.add(p("(\"\\w*\")")+"::\"text\"", "$1");
-		cc.add( " = ANY "+  p("ARRAY\\[(.*?)]"),                     " IN ($1)");
-		cc.add( " = ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " IN ($1)");
-		cc.add(" <> ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " NOT IN ($1)");
 		cc.add(" (=|<>|>=|<=|>|<) ", "$1");
 		cc.add("\"char_length\"(\\(\"\\w*\"\\))", "CHAR_LENGTH$1");
 		cc.add("\"octet_length\"(\\(\"\\w*\"\\))", "OCTET_LENGTH$1");
@@ -57,12 +55,32 @@ final class PostgresqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected String adjustExistingCheckConstraintCondition(final String s)
+	protected String adjustExistingCheckConstraintCondition(String s)
 	{
-		return adjustExistingCheckConstraintCondition.apply(s);
+		s = adjustExistingCheckConstraintCondition.apply(s);
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseIn, "IN");
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseInText, "IN");
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotIn, "NOT IN");
+		return s;
 	}
 
+	private static String adjustExistingCheckConstraintInCondition(
+			final String s,
+			final Pattern pattern,
+			final String operator)
+	{
+		return pattern.matcher(s).replaceAll(matchResult ->
+				matchResult.group(1) + ' ' + operator + " (" +
+				checkClauseInnerComma.matcher(matchResult.group(2)).replaceAll(",") + ')');
+	}
+
+	private static final Pattern checkClauseIn = Pattern.compile("(\"\\w*\")=ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"));
+	private static final Pattern checkClauseInText = Pattern.compile("(\"\\w*\")=ANY "+p("ARRAY\\[(.*?)]"));
+	private static final Pattern checkClauseNotIn = Pattern.compile("(\"\\w*\")<>ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"));
+	private static final Pattern checkClauseInnerComma = Pattern.compile(", ");
+
 	private final Replacements adjustExistingCheckConstraintCondition = new Replacements();
+
 
 	@Override
 	protected String getColumnType(final int dataType, final ResultSet resultSet)

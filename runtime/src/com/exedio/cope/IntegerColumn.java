@@ -131,8 +131,6 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null && allowedValues.length>1)
 		{
-			final String comma = table.database.dialect.getInComma();
-
 			final StringBuilder bf = new StringBuilder();
 			bf.append(quotedID).
 				append(" IN (");
@@ -140,7 +138,7 @@ class IntegerColumn extends Column
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
-					bf.append(comma);
+					bf.append(',');
 				bf.append(allowedValues[j]);
 			}
 			bf.append(')');

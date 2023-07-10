@@ -101,7 +101,6 @@ class StringColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
-			final String comma = table.database.dialect.getInComma();
 			final StringBuilder bf = new StringBuilder();
 
 			bf.append(quotedID).
@@ -113,7 +112,7 @@ class StringColumn extends Column
 				if(first)
 					first = false;
 				else
-					bf.append(comma);
+					bf.append(',');
 
 				bf.append('\'').
 					append(allowedValue).
