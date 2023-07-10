@@ -101,8 +101,8 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		assertEquals(start, sequence.getStartL());
 	}
 
-	private String l(final StringField f)
+	private static String l(final StringField f)
 	{
-		return model.connect().database.dialect.getStringLength() + '(' + SI.col(f) + ')';
+		return "CHAR_LENGTH" + '(' + SI.col(f) + ')';
 	}
 }

@@ -121,12 +121,6 @@ final class PostgresqlDialect extends Dialect
 		return (maxChars>10485760) ? "\"text\"" : "character varying("+maxChars+')';
 	}
 
-	@Override
-	String getStringLength()
-	{
-		return "\"length\"";
-	}
-
 	/**
 	 * See <a href="https://www.postgresql.org/docs/9.6/datatype-datetime.html">Date/Time Types</a>
 	 */

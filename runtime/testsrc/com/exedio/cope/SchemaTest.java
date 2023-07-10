@@ -262,17 +262,17 @@ public class SchemaTest extends TestWithEnvironment
 		return SI.type(f);
 	}
 
-	private String l(final StringField f)
+	private static String l(final StringField f)
 	{
-		return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
+		return "CHAR_LENGTH" + '(' + q(f) + ')';
 	}
 
-	private String l(final DataField f)
+	private static String l(final DataField f)
 	{
 		if(f.getVaultInfo()==null)
 			return "ERROR(" + f + ")";
 		else
-			return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
+			return "CHAR_LENGTH" + '(' + q(f) + ')';
 	}
 
 	private void assertCheckConstraint(

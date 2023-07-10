@@ -55,8 +55,7 @@ public final class LengthView extends NumberView<Integer>
 	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{
-		bf.append(bf.dialect.getStringLength()).
-			append('(').
+		bf.append("CHAR_LENGTH(").
 			append(source, join).
 			append(')');
 	}
