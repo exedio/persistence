@@ -112,6 +112,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressWarnings("DuplicateBranchesInSwitch") // TODO fix in separate MR
 	private String floor(final String s)
 	{
 		switch(dialect)
@@ -119,7 +120,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case hsqldb    : // fall through
 			case mysql     : return "FLOOR(" + s + ")";
 
-			case postgresql: return "\"floor\"(" + s + ")";
+			case postgresql: return "FLOOR(" + s + ")";
 
 			default:
 				throw new RuntimeException(String.valueOf(dialect));

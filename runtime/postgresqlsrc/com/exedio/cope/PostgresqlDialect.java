@@ -171,12 +171,6 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	String getFloor(final String quotedName)
-	{
-		return "\"floor\"(" + quotedName + ')';
-	}
-
-	@Override
 	String getDateIntegerPrecision(final String quotedName, final Precision precision)
 	{
 		return "(" + quotedName + " % " + precision.divisor() + ")=0";

@@ -276,18 +276,13 @@ abstract class Dialect
 		final String seconds = getDateExtract(quotedName, DateField.Precision.SECOND);
 		return
 				isSecond
-				? (seconds + '=' + getFloor(seconds)) // is an integer
+				? (seconds + "=FLOOR("+seconds+')') // is an integer
 				: (seconds + "=0");
 	}
 
 	String getDateExtract(final String quotedName, final Precision precision)
 	{
 		return "EXTRACT(" + precision.sql() + " FROM " + quotedName + ')';
-	}
-
-	String getFloor(final String quotedName)
-	{
-		return "FLOOR(" + quotedName + ')';
 	}
 
 	abstract String getDateIntegerPrecision(String quotedName, Precision precision);
