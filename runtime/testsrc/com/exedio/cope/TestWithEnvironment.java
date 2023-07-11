@@ -266,9 +266,9 @@ public abstract class TestWithEnvironment
 	/**
 	 * space after comma
 	 */
-	protected final String sac()
+	protected static String sac()
 	{
-		return postgresql ? " " : "";
+		return "";
 	}
 
 

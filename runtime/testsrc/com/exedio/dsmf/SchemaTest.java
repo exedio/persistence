@@ -40,6 +40,7 @@ public abstract class SchemaTest
 	String intType;
 	String intType2;
 	boolean supportsCheckConstraints;
+	@SuppressWarnings("FieldCanBeLocal") // will be fixed in separate MR
 	private boolean postgresql = false;
 	private SimpleConnectionProvider provider;
 	private final ArrayList<Connection> connections = new ArrayList<>();
@@ -192,8 +193,8 @@ public abstract class SchemaTest
 	/**
 	 * space after comma
 	 */
-	protected final String sac()
+	protected static String sac()
 	{
-		return postgresql ? " " : "";
+		return "";
 	}
 }
