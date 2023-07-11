@@ -110,8 +110,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(null, table.getError());
 		assertEquals(OK, table.getParticularColor());
 
-		assertCheckConstraint(table, "Main_string_MN", l(string)+">=1");
-		assertCheckConstraint(table, "Main_string_MX", l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_string_MN", "CHAR_LENGTH("+q(string)+")>=1");
+		assertCheckConstraint(table, "Main_string_MX", "CHAR_LENGTH("+q(string)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
 		assertCheckConstraint(table, "Main_integ_MN", q(integ)+">=-10");
 		assertCheckConstraint(table, "Main_integ_MX", q(integ)+"<=10");
 		assertCheckConstraint(table, "Main_aLong_MN", q(aLong)+">=-12");
@@ -143,8 +143,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_enumRed_RD", q(enumRed)+"=10");
 		assertCheckConstraint(table, "Main_enumRed_EN", null, false);
 
-		assertCheckConstraint(table, "Main_stringOpt_MN", l(stringOpt)+">=1");
-		assertCheckConstraint(table, "Main_stringOpt_MX", l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_stringOpt_MN", "CHAR_LENGTH("+q(stringOpt)+")>=1");
+		assertCheckConstraint(table, "Main_stringOpt_MX", "CHAR_LENGTH("+q(stringOpt)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
 		assertCheckConstraint(table, "Main_integOpt_MN", q(integOpt)+">=-10");
 		assertCheckConstraint(table, "Main_integOpt_MX", q(integOpt)+"<=10");
 		assertCheckConstraint(table, "Main_doubOpt_MN", q(doubOpt)+">=-11.1");
@@ -205,22 +205,22 @@ public class SchemaTest extends TestWithEnvironment
 				throw new AssertionFailedError();
 		}
 
-		assertCheckConstraint(table, "Main_stringMin4_MN", l(stringMin4)+">=4");
-		assertCheckConstraint(table, "Main_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "Main_stringMax4_MN", l(stringMax4)+">=1");
-		assertCheckConstraint(table, "Main_stringMax4_MX", l(stringMax4)+"<=4");
-		assertCheckConstraint(table, "Main_stringMin4Max8_MN", l(stringMin4Max8)+">=4");
-		assertCheckConstraint(table, "Main_stringMin4Max8_MX", l(stringMin4Max8)+"<=8");
-		assertCheckConstraint(table, "Main_stringExact6_MN", l(stringExact6)+"=6");
+		assertCheckConstraint(table, "Main_stringMin4_MN", "CHAR_LENGTH("+q(stringMin4)+")>=4");
+		assertCheckConstraint(table, "Main_stringMin4_MX", "CHAR_LENGTH("+q(stringMin4)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_stringMax4_MN", "CHAR_LENGTH("+q(stringMax4)+")>=1");
+		assertCheckConstraint(table, "Main_stringMax4_MX", "CHAR_LENGTH("+q(stringMax4)+")<=4");
+		assertCheckConstraint(table, "Main_stringMin4Max8_MN", "CHAR_LENGTH("+q(stringMin4Max8)+")>=4");
+		assertCheckConstraint(table, "Main_stringMin4Max8_MX", "CHAR_LENGTH("+q(stringMin4Max8)+")<=8");
+		assertCheckConstraint(table, "Main_stringExact6_MN", "CHAR_LENGTH("+q(stringExact6)+")=6");
 		assertCheckConstraint(table, "Main_strinExact6_MX", null, false);
-		assertCheckConstraint(table, "Main_stringUpper6_MN", l(stringUpper6)+"=6");
+		assertCheckConstraint(table, "Main_stringUpper6_MN", "CHAR_LENGTH("+q(stringUpper6)+")=6");
 		assertCheckConstraint(table, "Main_stringUpper6_MX", null, false);
 		assertCheckConstraint(table, "Main_stringUpper6_CS", upperSQL, mysql);
 		assertCheckConstraint(table, "Main_stringUpper6_RE", regexpSQL);
 		assertCheckConstraint(table, "Main_stringEmpty_MN", null, false);
-		assertCheckConstraint(table, "Main_stringEmpty_MX", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_stringEmpty_MX", "CHAR_LENGTH("+q(stringEmpty)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
 		assertCheckConstraint(table, "Main_data_MX", "OCTET_LENGTH("+q(data)+")<="+DataField.DEFAULT_LENGTH, !dataVault);
-		assertCheckConstraint(table, "Main_data_MN", l(data)+"=128", dataVault);
+		assertCheckConstraint(table, "Main_data_MN", "CHAR_LENGTH("+q(data)+")=128", dataVault);
 		assertCheckConstraint(table, "Main_data_CS", hexSQL, dataVault && mysql);
 
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
@@ -260,19 +260,6 @@ public class SchemaTest extends TestWithEnvironment
 	private static String t(final ItemField<?> f)
 	{
 		return SI.type(f);
-	}
-
-	private static String l(final StringField f)
-	{
-		return "CHAR_LENGTH" + '(' + q(f) + ')';
-	}
-
-	private static String l(final DataField f)
-	{
-		if(f.getVaultInfo()==null)
-			return "ERROR(" + f + ")";
-		else
-			return "CHAR_LENGTH" + '(' + q(f) + ')';
 	}
 
 	private void assertCheckConstraint(
