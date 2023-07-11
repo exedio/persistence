@@ -80,8 +80,8 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		assertUniqueConstraint(table, "Zain_zuniqueDouble_Unq", "("+SI.col(uniqueDouble1)+","+SI.col(uniqueDouble2)+")");
 
-		assertCheckConstraint(table, "Zain_zring_MN", l(string)+">=1");
-		assertCheckConstraint(table, "Zain_zring_MX", l(string)+"<=4");
+		assertCheckConstraint(table, "Zain_zring_MN", "CHAR_LENGTH("+SI.col(string)+")>=1");
+		assertCheckConstraint(table, "Zain_zring_MX", "CHAR_LENGTH("+SI.col(string)+")<=4");
 
 		final ConnectProperties props = model.getConnectProperties();
 		final boolean cluster = props.primaryKeyGenerator.persistent;
@@ -99,10 +99,5 @@ public class RenamedSchemaTest extends TestWithEnvironment
 	{
 		assertEquals(name, sequence.getName());
 		assertEquals(start, sequence.getStartL());
-	}
-
-	private static String l(final StringField f)
-	{
-		return "CHAR_LENGTH" + '(' + SI.col(f) + ')';
 	}
 }
