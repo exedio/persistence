@@ -48,7 +48,7 @@ final class BlobColumn extends Column
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		newCheck(dsmf, "MX",
-				table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + maximumLength);
+				"OCTET_LENGTH(" + quotedID + ")<=" + maximumLength);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ final class BlobColumn extends Column
 		final Table table = this.table;
 		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
-		bf.append("SELECT ").append(table.database.dialect.getBlobLength()).append('(').
+		bf.append("SELECT OCTET_LENGTH(").
 			append(quotedID).
 			append(") FROM ").
 			append(table.quotedID).

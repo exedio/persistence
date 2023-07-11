@@ -365,11 +365,6 @@ abstract class Dialect
 			appendParameterAny(LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 
-	String getBlobLength()
-	{
-		return "OCTET_LENGTH";
-	}
-
 	abstract void appendStartsWith(Statement bf, BlobColumn column, int offset, byte[] value);
 
 	String getAveragePrefix()
