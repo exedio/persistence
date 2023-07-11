@@ -263,14 +263,6 @@ public abstract class TestWithEnvironment
 		tester.assertCacheInfo(types);
 	}
 
-	/**
-	 * space after comma
-	 */
-	protected static String sac()
-	{
-		return "";
-	}
-
 
 	protected final boolean propertiesHsqldbMysql56()
 	{
