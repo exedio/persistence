@@ -212,11 +212,6 @@ abstract class Dialect
 
 	abstract String getStringType(int maxChars, MysqlExtendedVarchar mysqlExtendedVarchar);
 
-	String getStringLength()
-	{
-		return "CHAR_LENGTH";
-	}
-
 	String getWeekOfYear()
 	{
 		return "WEEK";

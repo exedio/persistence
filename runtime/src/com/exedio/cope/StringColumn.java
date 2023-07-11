@@ -126,12 +126,11 @@ class StringColumn extends Column
 		else
 		{
 			{
-				final String length = table.database.dialect.getStringLength();
 				final boolean exact = minimumLength==maximumLength;
 				if(minimumLength>0)
-					newCheck(dsmf, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
+					newCheck(dsmf, "MN", "CHAR_LENGTH(" + quotedID + (exact?")=":")>=") + minimumLength);
 				if(!exact)
-					newCheck(dsmf, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
+					newCheck(dsmf, "MX", "CHAR_LENGTH(" + quotedID +             ")<="  + maximumLength);
 			}
 
 			if(charSet!=null)
