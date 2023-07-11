@@ -25,7 +25,6 @@ import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 final class HsqldbSchemaDialect extends Dialect
@@ -49,8 +48,8 @@ final class HsqldbSchemaDialect extends Dialect
 	@Override
 	protected String adjustExistingCheckConstraintCondition(String s)
 	{
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotIn, "NOT IN"); // checkClauseNotIn must come first, is more specific
 		s = adjustExistingCheckConstraintInCondition(s, checkClauseIn, "IN");
-		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotIn, "NOT IN");
 		return adjustExistingCheckConstraintCondition.apply(s);
 	}
 
@@ -60,12 +59,9 @@ final class HsqldbSchemaDialect extends Dialect
 			final String operator)
 	{
 		// https://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
-		final Matcher matcher = pattern.matcher(s);
-		return matcher.matches()
-			? matcher.replaceAll(matchResult ->
-					matchResult.group(1) + ' ' + operator + " (" +
-					checkClauseInnerComma.matcher(matchResult.group(2)).replaceAll(",") + ')')
-			: s;
+		return pattern.matcher(s).replaceAll(matchResult ->
+				matchResult.group(1) + ' ' + operator + " (" +
+				checkClauseInnerComma.matcher(matchResult.group(2)).replaceAll(",") + ')');
 	}
 
 	private static final Pattern checkClauseIn = Pattern.compile("\\((\"\\w*\")\\) IN \\(\\((.*)\\)\\)");
