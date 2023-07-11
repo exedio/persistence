@@ -40,8 +40,6 @@ public abstract class SchemaTest
 	String intType;
 	String intType2;
 	boolean supportsCheckConstraints;
-	@SuppressWarnings("FieldCanBeLocal") // will be fixed in separate MR
-	private boolean postgresql = false;
 	private SimpleConnectionProvider provider;
 	private final ArrayList<Connection> connections = new ArrayList<>();
 
@@ -73,6 +71,7 @@ public abstract class SchemaTest
 		info.setProperty("password", password);
 
 		int numberOfConnections = 1;
+		boolean postgresql = false;
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
 			// see HsqldbDialect#completeConnectionInfo
@@ -82,7 +81,6 @@ public abstract class SchemaTest
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
 			intType2 = "BIGINT";
-			postgresql = false;
 		}
 		else if(url.startsWith("jdbc:mysql:")||url.startsWith("jdbc:mariadb:"))
 		{
@@ -98,7 +96,6 @@ public abstract class SchemaTest
 			stringType = "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 			intType = "int";
 			intType2 = "bigint";
-			postgresql = false;
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
@@ -188,13 +185,5 @@ public abstract class SchemaTest
 	protected final String p(final String name)
 	{
 		return dialect.quoteName(name);
-	}
-
-	/**
-	 * space after comma
-	 */
-	protected static String sac()
-	{
-		return "";
 	}
 }

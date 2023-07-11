@@ -77,7 +77,7 @@ public class ConstraintTest extends SchemaReadyTest
 			this.nn = nn.newCheck(NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 
 			final Column check = table.newColumn(CHECK_COLUMN, intType);
-			ck = check.newCheck(CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,"+sac()+"1))");
+			ck = check.newCheck(CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
 			ct = table.newCheck(CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0");
 		}
 
@@ -112,7 +112,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		assertSame(nn, assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"));
-		assertSame(ck, assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,"+sac()+"1))"));
+		assertSame(ck, assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))"));
 		assertSame(ct ,assertCheckConstraint(table, CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0"));
 		assertSame(pk, assertPkConstraint(table, PK_NAME, null, PK_COLUMN));
 		assertSame(fk, assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN));
