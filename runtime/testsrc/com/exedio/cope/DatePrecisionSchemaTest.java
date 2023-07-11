@@ -74,7 +74,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		{
 			assertEquals(extract(hours  , MINUTE)+"=0",   hoursPM.getRequiredCondition());
 
-			assertEquals(mysql?"EXTRACT("+    "MICROSECOND FROM `seconds`)=0":extract(seconds, SECOND)+"=" + floor(extract(seconds, SECOND)), secondsPS.getRequiredCondition());
+			assertEquals(mysql?"EXTRACT("+    "MICROSECOND FROM `seconds`)=0":extract(seconds, SECOND)+"=FLOOR("+extract(seconds, SECOND)+")", secondsPS.getRequiredCondition());
 			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `minutes`)=0":extract(minutes, SECOND)+"=0", minutesPS.getRequiredCondition());
 			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `hours`)=0"  :extract(hours  , SECOND)+"=0",   hoursPS.getRequiredCondition());
 
@@ -106,21 +106,6 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case mysql     : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
 
 			case postgresql: return "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
-
-			default:
-				throw new RuntimeException(String.valueOf(dialect));
-		}
-	}
-
-	@SuppressWarnings("DuplicateBranchesInSwitch") // TODO fix in separate MR
-	private String floor(final String s)
-	{
-		switch(dialect)
-		{
-			case hsqldb    : // fall through
-			case mysql     : return "FLOOR(" + s + ")";
-
-			case postgresql: return "FLOOR(" + s + ")";
 
 			default:
 				throw new RuntimeException(String.valueOf(dialect));
