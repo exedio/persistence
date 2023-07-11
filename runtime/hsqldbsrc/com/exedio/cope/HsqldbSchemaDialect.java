@@ -57,13 +57,13 @@ final class HsqldbSchemaDialect extends Dialect
 	private static String adjustExistingCheckConstraintInCondition(
 			final String s,
 			final Pattern pattern,
-			final String oparator)
+			final String operator)
 	{
 		// https://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
 		final Matcher matcher = pattern.matcher(s);
 		return matcher.matches()
 			? matcher.replaceAll(matchResult ->
-					matchResult.group(1) + ' ' + oparator + " (" +
+					matchResult.group(1) + ' ' + operator + " (" +
 					checkClauseInnerComma.matcher(matchResult.group(2)).replaceAll(",") + ')')
 			: s;
 	}
