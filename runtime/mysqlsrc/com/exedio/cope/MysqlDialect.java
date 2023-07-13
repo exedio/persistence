@@ -882,7 +882,7 @@ final class MysqlDialect extends Dialect
 					ctx.incrementProgress(rows);
 
 					if(rows>0 && logger.isInfoEnabled())
-						logger.info("sequence {} purge less {} rows {}", new Object[]{name, max, rows});
+						logger.info("sequence {} purge less {} rows {}", name, max, rows);
 
 					if(rows<purgeSequenceLimit)
 						break;

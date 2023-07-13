@@ -52,7 +52,7 @@ final class Timer
 	{
 		@SuppressWarnings("NonAtomicOperationOnVolatileField")
 		final long currentAccu = totalElapsed += elapsed;
-		logger.info("{} {}ms total{} {}ms", new Object[]{msg, elapsed, this.msg, currentAccu});
+		logger.info("{} {}ms total{} {}ms", msg, elapsed, this.msg, currentAccu);
 	}
 
 	final class Interval

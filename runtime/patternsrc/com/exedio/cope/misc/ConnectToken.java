@@ -69,10 +69,10 @@ public final class ConnectToken implements AutoCloseable
 
 		if(logger.isInfoEnabled())
 			logger.info(
-					"{}: {} {} ({})", new Object[] {
+					"{}: {} {} ({})",
 						model,
 						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
-						id, name } );
+						id, name);
 	}
 
 	void onReturn(final boolean disconnect)
@@ -82,10 +82,10 @@ public final class ConnectToken implements AutoCloseable
 
 		if(logger.isInfoEnabled())
 			logger.info(
-					"{}: {} {} ({})", new Object[] {
+					"{}: {} {} ({})",
 							model,
 							disconnect ? "disconnected" : "returned",
-							id, name } );
+							id, name);
 	}
 
 	public Model getModel()
@@ -161,7 +161,7 @@ public final class ConnectToken implements AutoCloseable
 		{
 			logger.warn(
 					"{}: returned {} excessively ({})",
-					new Object[]{model, id, name});
+					model, id, name);
 			return false;
 		}
 
