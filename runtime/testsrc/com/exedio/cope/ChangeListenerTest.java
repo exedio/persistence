@@ -260,7 +260,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 				fail("shortcut pending");
 		}
 
-		shortcut = 50;
+		shortcut = 150;
 		while(!allThreadsWaiting())
 		{
 			try
