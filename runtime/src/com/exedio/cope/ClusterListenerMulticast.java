@@ -118,7 +118,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 					if(logger.isInfoEnabled())
 					{
 						final Thread t = Thread.currentThread();
-						logger.info("{} ({}) gracefully terminates: {}", new Object[]{t.getName(), t.getId(), e.getMessage()});
+						logger.info("{} ({}) gracefully terminates: {}", t.getName(), t.getId(), e.getMessage());
 					}
 				}
 			}

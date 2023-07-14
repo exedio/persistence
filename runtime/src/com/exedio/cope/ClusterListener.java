@@ -176,7 +176,7 @@ abstract class ClusterListener
 		if(node.pingPong(ping, sequence))
 		{
 			if(logger.isWarnEnabled())
-				logger.warn("{} duplicate {} from {}", new Object[]{pingString(ping), sequence, packet.getAddress()});
+				logger.warn("{} duplicate {} from {}", pingString(ping), sequence, packet.getAddress());
 			return;
 		}
 
@@ -280,10 +280,10 @@ abstract class ClusterListener
 			}
 
 			if(logger.isInfoEnabled())
-				logger.info("ping pong round trip via {} ({}:{}) took {}ns", new Object[]{
+				logger.info("ping pong round trip via {} ({}:{}) took {}ns",
 						idString,
 						address, port,
-						formatNanos(nanos)});
+						formatNanos(nanos));
 		}
 
 		private static String formatNanos(final long nanos)
