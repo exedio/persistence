@@ -321,10 +321,10 @@ final class RuntimeTester
 			for(final com.exedio.dsmf.Column column : table.getColumns())
 				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
 
-			for(final com.exedio.dsmf.Constraint constraint : table.getConstraints())
+			for(final Constraint constraint : table.getConstraints())
 			{
 				final String message = table.getName() + '#' + constraint.getName();
-				if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
+				if(constraint instanceof CheckConstraint &&
 					!SchemaInfo.supportsCheckConstraints(model))
 				{
 					assertEquals("unsupported", constraint.getError(), message);
@@ -346,7 +346,7 @@ final class RuntimeTester
 		assertOk("schema", schema);
 	}
 
-	private static void assertOk(final String message, final com.exedio.dsmf.Node node)
+	private static void assertOk(final String message, final Node node)
 	{
 		assertEquals(null, node.getError(), message);
 		assertEquals(Node.Color.OK, node.getParticularColor(), message);
