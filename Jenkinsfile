@@ -6,9 +6,9 @@ import groovy.transform.stc.SimpleType
 @Field
 String jdk = 'openjdk-11'
 @Field
-String idea = '2023.1'
+String idea = '2023.2'
 @Field
-String ideaSHA256 = 'e6fe45c9df8e763ee3278444b5fb1003910c436752e83221e0303a62c5e81eaa'
+String ideaSHA256 = 'b1a5c267ca86850764b0541bee0c27af7d2082e55516e95a0c8d30539571735c'
 @Field
 String databaseMysql56 = '5.6.33'
 @Field
