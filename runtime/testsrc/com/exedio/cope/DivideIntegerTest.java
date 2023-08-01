@@ -115,7 +115,7 @@ public class DivideIntegerTest extends TestWithEnvironment
 
 	@Test void divideByCount()
 	{
-		final Query<Integer> query = new Query<>(numA.sum().divide(numA.count()), TYPE, Condition.TRUE);
+		final Query<Integer> query = new Query<>(numA.sum().divide(numA.count()), TYPE, Condition.ofTrue());
 		assertEquals((Integer)18, query.searchSingleton());
 	}
 }

@@ -239,7 +239,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 
 		if(now!=null)
 			clock.add(now);
-		final Query<? extends Item> query = DispatcherItem.toTarget.purgeQuery(purgeProps, restriction!=null ? restriction : Condition.TRUE);
+		final Query<? extends Item> query = DispatcherItem.toTarget.purgeQuery(purgeProps, restriction!=null ? restriction : Condition.ofTrue());
 		clock.assertEmpty();
 
 		model.startTransaction("DispatcherPurgeTest");

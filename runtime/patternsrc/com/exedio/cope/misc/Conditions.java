@@ -46,7 +46,7 @@ public final class Conditions
 	public static Condition unisonNull(final List<? extends Function<?>> functions)
 	{
 		if(functions.size()<=1)
-			return Condition.TRUE;
+			return Condition.ofTrue();
 
 		final int size = functions.size();
 		final ArrayList<Condition> isNull    = new ArrayList<>(size);

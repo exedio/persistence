@@ -76,8 +76,16 @@ public abstract class Condition implements Serializable
 		return CompositeCondition.composite(CompositeCondition.Operator.OR, this, other);
 	}
 
+	/**
+	 * @deprecated Use {@link #ofTrue()} instead.
+	 */
+	@Deprecated
 	@SuppressWarnings("StaticInitializerReferencesSubClass") // TODO is a serious problem
 	public static final Literal TRUE  = new Literal(true , "TRUE" );
+	/**
+	 * @deprecated Use {@link #ofFalse()}} instead.
+	 */
+	@Deprecated
 	@SuppressWarnings("StaticInitializerReferencesSubClass") // TODO is a serious problem
 	public static final Literal FALSE = new Literal(false, "FALSE");
 
@@ -168,13 +176,23 @@ public abstract class Condition implements Serializable
 		}
 	}
 
+	public static final Condition ofTrue()
+	{
+		return TRUE;
+	}
+
+	public static final Condition ofFalse()
+	{
+		return FALSE;
+	}
+
 	/**
-	 * Returns {@link #TRUE} if {@code value} is true,
-	 * otherwise {@link #FALSE}.
+	 * Returns {@link #ofTrue()} if {@code value} is true,
+	 * otherwise {@link #ofFalse()}.
 	 */
 	public static final Condition valueOf(final boolean value)
 	{
-		return value ? TRUE : FALSE;
+		return value ? ofTrue() : ofFalse();
 	}
 
 	@Override

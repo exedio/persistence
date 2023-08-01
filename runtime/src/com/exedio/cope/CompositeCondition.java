@@ -180,7 +180,7 @@ public final class CompositeCondition extends Condition
 		switch(values.length)
 		{
 			case 0:
-				return FALSE;
+				return ofFalse();
 			case 1:
 				return function.equal(values[0]);
 			default:
@@ -199,7 +199,7 @@ public final class CompositeCondition extends Condition
 		switch(values.size())
 		{
 			case 0:
-				return FALSE;
+				return ofFalse();
 			case 1:
 				return function.equal(values.iterator().next());
 			default:
@@ -215,7 +215,9 @@ public final class CompositeCondition extends Condition
 
 	public enum Operator
 	{
+		@SuppressWarnings("deprecation") // OK: deprecation will be dropped when no longer public
 		AND(" and ", " AND ", FALSE, TRUE),
+		@SuppressWarnings("deprecation") // OK: deprecation will be dropped when no longer public
 		OR (" or ",  " OR ",  TRUE, FALSE);
 
 		final String forToString;

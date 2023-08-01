@@ -385,7 +385,7 @@ public class CompareConditionTest extends TestWithEnvironment
 	{
 		new CompareConditionItem("s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1);
 		new CompareConditionItem("s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1);
-		final Query<List<Object>> q = Query.newQuery( new Selectable<?>[]{day, intx/*.sum()*/}, TYPE, Condition.TRUE );
+		final Query<List<Object>> q = Query.newQuery(new Selectable<?>[]{day, intx/*.sum()*/}, TYPE, Condition.ofTrue());
 
 		assertContainsList(
 			list(

@@ -116,6 +116,6 @@ final class SubContentType extends ContentType<String>
 		return
 			contentType.startsWith(prefix)
 			? field.equal(contentType.substring(prefixLength))
-			: Condition.FALSE;
+			: Condition.ofFalse();
 	}
 }

@@ -92,8 +92,8 @@ public class MediaFixedTest extends TestWithEnvironment
 
 		assertNull(photo.getUnison());
 
-		assertEquals(Condition.TRUE,        photo.contentTypeEqual("image/jpeg"));
-		assertEquals(Condition.FALSE,       photo.contentTypeEqual("major/minor"));
+		assertEquals(Condition.ofTrue(),    photo.contentTypeEqual("image/jpeg"));
+		assertEquals(Condition.ofFalse(),   photo.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(), photo.contentTypeEqual(null));
 
 		// test persistence

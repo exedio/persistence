@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -172,4 +171,6 @@ public class DispatcherConfigTest
 			NullPointerException.class,
 			"other");
 	}
+
+	private static final Condition TRUE = Condition.ofTrue();
 }

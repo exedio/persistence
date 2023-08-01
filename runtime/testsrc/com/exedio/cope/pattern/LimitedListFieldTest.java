@@ -387,7 +387,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		final ItemWithSimpleFields simple4 = new ItemWithSimpleFields();
 		simple4.setNum(4);
 
-		final Query<List<Object>> query = Query.newQuery(new Selectable<?>[]{TYPE.getThis(), ItemWithSimpleFields.TYPE.getThis()}, TYPE, Condition.TRUE);
+		final Query<List<Object>> query = Query.newQuery(new Selectable<?>[]{TYPE.getThis(), ItemWithSimpleFields.TYPE.getThis()}, TYPE, Condition.ofTrue());
 		query.join(ItemWithSimpleFields.TYPE, nums.contains(ItemWithSimpleFields.num));
 		assertEquals(
 				asList(asList(item, simple2)),

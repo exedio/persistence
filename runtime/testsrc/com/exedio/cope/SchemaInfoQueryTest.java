@@ -54,7 +54,7 @@ public class SchemaInfoQueryTest
 
 	@Test void testConditionTrue()
 	{
-		final Query<?> q = TYPE.newQuery(Condition.TRUE);
+		final Query<?> q = TYPE.newQuery(Condition.ofTrue());
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
@@ -67,7 +67,7 @@ public class SchemaInfoQueryTest
 
 	@Test void testConditionFalse()
 	{
-		final Query<?> q = TYPE.newQuery(Condition.FALSE);
+		final Query<?> q = TYPE.newQuery(Condition.ofFalse());
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());

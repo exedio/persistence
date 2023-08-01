@@ -111,8 +111,8 @@ public class MediaSubTest extends TestWithEnvironment
 		assertEquals(contentType.equal("png"),  image.contentTypeEqual("image/png"));
 		assertEquals(contentType.equal("jpeg"), image.contentTypeEqual("image/jpeg"));
 		assertEquals(contentType.equal("svg+xml"),  image.contentTypeEqual("image/svg+xml"));
-		assertEquals(Condition.FALSE,           image.contentTypeEqual("image"));
-		assertEquals(Condition.FALSE,           image.contentTypeEqual("major/minor"));
+		assertEquals(Condition.ofFalse(),       image.contentTypeEqual("image"));
+		assertEquals(Condition.ofFalse(),       image.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(),     image.contentTypeEqual(null));
 
 		// test persistence

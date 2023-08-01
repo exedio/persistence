@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Condition.FALSE;
-import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.DayItem.TYPE;
 import static com.exedio.cope.DayItem.mandatory;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
@@ -263,4 +261,8 @@ public class QueryTest extends TestWithEnvironment
 			query.search()
 		);
 	}
+
+
+	private static final Condition TRUE = Condition.ofTrue();
+	private static final Condition FALSE = Condition.ofFalse();
 }

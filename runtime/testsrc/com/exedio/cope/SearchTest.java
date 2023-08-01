@@ -140,11 +140,11 @@ public class SearchTest extends TestmodelTest
 		}
 
 		// Condition.Literal.get
-		assertEquals(true,  Condition.TRUE .get(item));
-		assertEquals(false, Condition.FALSE.get(item));
+		assertEquals(true,  Condition.ofTrue() .get(item));
+		assertEquals(false, Condition.ofFalse().get(item));
 		try
 		{
-			Condition.TRUE.get(null);
+			Condition.ofTrue().get(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -153,7 +153,7 @@ public class SearchTest extends TestmodelTest
 		}
 		try
 		{
-			Condition.FALSE.get(null);
+			Condition.ofFalse().get(null);
 			fail();
 		}
 		catch(final NullPointerException e)

@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.CompositeCondition.in;
-import static com.exedio.cope.Condition.FALSE;
-import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
@@ -194,6 +192,14 @@ public class CompositeConditionUtilTest
 		assertSame(FALSE, Condition.valueOf(false));
 	}
 
+	@Test
+	@Deprecated // OK: testing deprecated API
+	void testDeprecatedLiteral()
+	{
+		assertSame(TRUE, Condition.TRUE);
+		assertSame(FALSE, Condition.FALSE);
+	}
+
 
 	@SuppressWarnings({"deprecation", "UnusedReturnValue"})
 	private static CompositeCondition newCompositeCondition(
@@ -210,4 +216,7 @@ public class CompositeConditionUtilTest
 	{
 		return new CompositeCondition(operator, conditions);
 	}
+
+	private static final Condition TRUE = Condition.ofTrue();
+	private static final Condition FALSE = Condition.ofFalse();
 }
