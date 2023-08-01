@@ -103,6 +103,7 @@ final class JavacRunner
 		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
 	}
 
+	@SuppressWarnings("ExtractMethodRecommender")
 	private static String toClasspath(final ClassLoader cl)
 	{
 		if(cl instanceof URLClassLoader)
