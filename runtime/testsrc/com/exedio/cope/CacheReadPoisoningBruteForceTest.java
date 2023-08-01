@@ -167,6 +167,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		{
 			thread.join();
 			if(thread.failure!=null)
+				//noinspection CallToPrintStackTrace
 				thread.failure.printStackTrace();
 			assertEquals(null, thread.errorName, "error name " + thread);
 			assertEquals(true, thread.finished, "not finished normally " + thread);
