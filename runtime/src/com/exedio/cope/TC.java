@@ -30,7 +30,6 @@ final class TC
 	private HashSet<Type<?>> ambiguousThisTypes = null;
 	private final HashMap<Type<?>, Join> distinctAllTypes = new HashMap<>();
 	private HashSet<Type<?>> ambiguousAllTypes = null;
-	@SuppressWarnings("UnusedAssignment") // prevents calls to putType outside of constructor
 	private boolean frozen = false;
 	private final HashMap<Join, HashSet<Table>> tables = new HashMap<>();
 

@@ -116,7 +116,7 @@ public final class ChangeHooks
 
 		final ChangeHook result = factory.create(model);
 
-		//noinspection ConstantConditions OK: checking bad behaviour
+		//noinspection ConstantValue OK: checking bad behaviour
 		if(result==null)
 			throw new NullPointerException(
 					"ChangeHook.Factory returned null: " + factory);

@@ -39,7 +39,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 			final Feature feature,
 			final Item item)
 	{
-		//noinspection ConstantConditions OK: this is the check
+		//noinspection ConstantValue OK: this is the check
 		if(value==null)
 			throw create(feature, item);
 	}
