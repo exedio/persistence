@@ -213,6 +213,7 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Long> getValueType()
 	{
 		return SimpleSelectType.LONG;

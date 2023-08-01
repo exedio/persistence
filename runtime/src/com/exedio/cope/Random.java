@@ -54,6 +54,7 @@ public final class Random implements NumberFunction<Double>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Double> getValueType()
 	{
 		return SimpleSelectType.DOUBLE;
@@ -108,7 +109,7 @@ public final class Random implements NumberFunction<Double>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		if(!type.getModel().supportsRandom())
 			throw new IllegalArgumentException("random not supported by this dialect");
@@ -120,7 +121,7 @@ public final class Random implements NumberFunction<Double>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void check(final TC tc, final Join join)
+	public void check(@SuppressWarnings("ClassEscapesDefinedScope") final TC tc, final Join join)
 	{
 		// nothing to do here, since there are no sources
 	}

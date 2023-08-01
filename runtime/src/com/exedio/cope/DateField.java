@@ -393,6 +393,7 @@ public final class DateField extends FunctionField<Date>
 
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Date> getValueType()
 	{
 		return SimpleSelectType.DATE;

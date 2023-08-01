@@ -175,6 +175,7 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Double> getValueType()
 	{
 		return SimpleSelectType.DOUBLE;

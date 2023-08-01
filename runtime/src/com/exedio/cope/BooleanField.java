@@ -101,6 +101,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Boolean> getValueType()
 	{
 		return SimpleSelectType.BOOLEAN;

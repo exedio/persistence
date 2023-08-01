@@ -480,7 +480,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	@Deprecated // OK: for internal use within COPE only
 	@SuppressWarnings("deprecation") // needed for idea
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		super.append(bf, join);
 		bf.appendTypeColumnIfRequired(getTypeColumn(), join);
@@ -491,7 +491,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void appendType(final Statement bf, final Join join)
+	public void appendType(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append(Statement.assertTypeColumn(getTypeColumn(), getValueType()), join);
 	}
@@ -574,6 +574,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public Statement checkTypeColumnStatement(final Statement.Mode mode)
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);

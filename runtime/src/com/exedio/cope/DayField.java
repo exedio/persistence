@@ -190,6 +190,7 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Day> getValueType()
 	{
 		return SimpleSelectType.DAY;

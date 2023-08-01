@@ -41,7 +41,7 @@ public final class AverageAggregate extends Aggregate<Double>
 	@Override
 	@Deprecated // OK: for internal use within COPE only
 	@SuppressWarnings("deprecation") // needed for idea
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		final Dialect dialect = bf.dialect;
 		bf.append(dialect.getAveragePrefix()).

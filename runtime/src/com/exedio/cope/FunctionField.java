@@ -298,7 +298,7 @@ public abstract class FunctionField<E> extends Field<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void check(final TC tc, final Join join)
+	public final void check(@SuppressWarnings("ClassEscapesDefinedScope") final TC tc, final Join join)
 	{
 		tc.check(this, join);
 	}
@@ -308,7 +308,7 @@ public abstract class FunctionField<E> extends Field<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append(getColumn(), join);
 	}

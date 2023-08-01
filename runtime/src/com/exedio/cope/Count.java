@@ -51,6 +51,7 @@ public final class Count implements NumberFunction<Integer>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;
@@ -81,7 +82,7 @@ public final class Count implements NumberFunction<Integer>
 	 */
 	@Deprecated // OK: for internal use within COPE only
 	@Override
-	public void check( final TC tc, final Join join )
+	public void check(@SuppressWarnings("ClassEscapesDefinedScope") final TC tc, final Join join)
 	{
 		// TODO
 		// probably: nothing to do here, since there are no sources
@@ -97,7 +98,7 @@ public final class Count implements NumberFunction<Integer>
 	 */
 	@Deprecated // OK: for internal use within COPE only
 	@Override
-	public void append( final Statement bf, final Join join )
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append("COUNT(");
 		if (source==null)

@@ -58,6 +58,7 @@ public final class CoalesceView<E> extends View<E>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<E> getValueType()
 	{
 		return parameters[0].getValueType();
@@ -97,7 +98,7 @@ public final class CoalesceView<E> extends View<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append("coalesce(");
 		boolean first = true;

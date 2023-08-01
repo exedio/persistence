@@ -37,6 +37,7 @@ public final class LengthView extends NumberView<Integer>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;
@@ -53,7 +54,7 @@ public final class LengthView extends NumberView<Integer>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append("CHAR_LENGTH(").
 			append(source, join).

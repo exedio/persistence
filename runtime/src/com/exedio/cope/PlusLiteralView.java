@@ -42,6 +42,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<E> getValueType()
 	{
 		return left.getValueType();
@@ -84,7 +85,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append('(');
 		bf.append(left, join);

@@ -52,7 +52,7 @@ public class CaseView extends StringView
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append(upper? "UPPER(" : "LOWER(").
 			append(source, join).

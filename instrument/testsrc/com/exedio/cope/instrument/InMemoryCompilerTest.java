@@ -58,6 +58,7 @@ public class InMemoryCompilerTest
 	}
 
 	@Test
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public void sameClassTwoCompilers() throws InMemoryCompiler.CompileException
 	{
 		final Path path = Paths.get("HelloWorld.java");
@@ -72,6 +73,7 @@ public class InMemoryCompilerTest
 	}
 
 	@Test
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public void twoClasses() throws InMemoryCompiler.CompileException
 	{
 		final InMemoryCompiler compiler = new InMemoryCompiler();
@@ -92,6 +94,7 @@ public class InMemoryCompilerTest
 	}
 
 	@Test
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public void callParent() throws InMemoryCompiler.CompileException
 	{
 		final InMemoryCompiler compiler = new InMemoryCompiler();
@@ -130,6 +133,7 @@ public class InMemoryCompilerTest
 	}
 
 	@Test
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public void duplicatePath() throws InMemoryCompiler.CompileException
 	{
 		final Path path = Paths.get("HelloWorld.java");
@@ -148,6 +152,7 @@ public class InMemoryCompilerTest
 	}
 
 	@Test
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public void unnormalizedPath() throws InMemoryCompiler.CompileException
 	{
 		final InMemoryCompiler compiler = new InMemoryCompiler();
