@@ -845,7 +845,7 @@ finally
 // ------------------- LIBRARY ----------------------------
 // The code below is meant to be equal across all projects.
 
-void lockNodeCheckoutAndDelete(resource, Closure body)
+void lockNodeCheckoutAndDelete(String resource, Closure body)
 {
 	lock(resource) {
 		nodeCheckoutAndDelete(body)
@@ -934,7 +934,7 @@ String makeBuildTag(Map<String, String> scmResult)
 	       treeHash
 }
 
-void shSilent(script)
+void shSilent(String script)
 {
 	try
 	{
