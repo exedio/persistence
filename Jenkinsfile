@@ -980,7 +980,7 @@ def multicastAddress()
 
 def branchConsidersDatabase(name)
 {
-	return env.BRANCH_NAME.contains(name) || env.BRANCH_NAME.contains("AllDB") || env.BRANCH_NAME.contains("master");
+	return env.BRANCH_NAME.contains(name) || env.BRANCH_NAME.contains("AllDB") || env.BRANCH_NAME.contains("master")
 }
 
 def envMysql56(name, text)
