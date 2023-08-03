@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Condition.FALSE;
+import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
@@ -751,7 +753,7 @@ public final class Query<R> implements Serializable
 	{
 		final Transaction transaction = model.currentTransaction();
 
-		if(pageLimit==0 || condition==Condition.FALSE)
+		if(pageLimit==0 || condition==FALSE)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
@@ -781,7 +783,7 @@ public final class Query<R> implements Serializable
 	{
 		final Transaction transaction = model.currentTransaction();
 
-		if(condition==Condition.FALSE)
+		if(condition==FALSE)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
@@ -807,7 +809,7 @@ public final class Query<R> implements Serializable
 	{
 		final Transaction transaction = model.currentTransaction();
 
-		if(condition==Condition.FALSE)
+		if(condition==FALSE)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
@@ -1210,7 +1212,7 @@ public final class Query<R> implements Serializable
 
 	private static Condition replaceTrue(final Condition c)
 	{
-		return c==Condition.TRUE ? null : c;
+		return c==TRUE ? null : c;
 	}
 
 	ArrayList<Object> search(
