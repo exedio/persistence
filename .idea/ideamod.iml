@@ -96,5 +96,6 @@
         <jarDirectory url="file://$MODULE_DIR$/lib/compile-annotations" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jenkins" level="project" />
   </component>
 </module>

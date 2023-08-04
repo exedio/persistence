@@ -1,0 +1,19 @@
+
+CHANGELOG for pipeline gdsl
+
+This file lists all changes relevant for the user - especially all
+API changes and new features recommended for most users. The log may
+omit bug fixes.
+The items are sorted inversely, i.e. the latest items are on top.
+
+--------------------------------------------------------------------------
+
+* add new recordIssues.junitParser
+* add new recordCoverage step (code-coverage-api-plugin 4.*)
+* BREAKING CHANGE: sh is returning Object now
+	- returnStatus: true will return int
+	- returnStdout: true will return String
+	- only script parameter will return nothing/void
+* add withCredentials and usernamePassword
+* add pipelineTriggers and cron
+* initial GDSL for Jenkins 2.361.4 (2023-03-30)

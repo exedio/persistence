@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jenkins">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib/jenkins" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/jenkins" recursive="false" />
+  </library>
+</component>
