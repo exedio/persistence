@@ -342,8 +342,7 @@ public final class AntTask extends Task
 			//noinspection DataFlowIssue OK: checks isDirectory before calling listFiles
 			for (final File entry: fileOrDir.listFiles())
 			{
-				//noinspection ConstantConditions OK: seems to be bug in inspection
-				addRecursively(entry, addTo, expandDirectories);
+				addRecursively(entry, addTo, true);
 			}
 			return;
 		}
