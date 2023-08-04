@@ -32,7 +32,7 @@ import java.io.InputStream;
  *
  * @author Ralf Wiebicke
  */
-class TestByteArrayInputStream extends InputStream
+public class TestByteArrayInputStream extends InputStream
 {
 	private final ByteArrayInputStream in;
 	boolean closed = false;
