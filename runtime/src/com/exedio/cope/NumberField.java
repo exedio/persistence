@@ -23,7 +23,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	protected NumberField(
+	NumberField(
 			final boolean isfinal,
 			final boolean optional,
 			final Class<E> valueClass,
