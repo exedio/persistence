@@ -2,7 +2,6 @@
 /runtime/servlettestweb/WEB-INF/classes/
 /runtime/servlettestweb/WEB-INF/lib/
 /tomcat/
-/ivy/artifacts/
 /cope.properties
 /local.properties
 /.idea-output/
