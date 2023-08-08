@@ -359,54 +359,54 @@ try
 
 			envMysql57(
 				'my57',
-				'mysql-connector-java',
+				'mysql',
 				''
 			)
 			envMysql57(
 				'my57-compress',
-				'mysql-connector-java',
+				'mysql',
 				'dialect.rowFormat=COMPRESSED\n'
 			)
 			envMysql57(
 				'my57-legacy',
-				'mysql-connector-java',
+				'mysql',
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql57(
 				'my57-nprep',
-				'mysql-connector-java',
+				'mysql',
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql57(
 				'my57-nstmp',
-				'mysql-connector-java',
+				'mysql',
 				'cache.stamps=false\n'
 			)
 			envMysql57(
 				'my57-nstmp-sq',
-				'mysql-connector-java',
+				'mysql',
 				'cache.stamps=false\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
 				'my57-sq',
-				'mysql-connector-java',
+				'mysql',
 				'dialect.connection.compress=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
 				'my57-sqb',
-				'mysql-connector-java',
+				'mysql',
 				'schema.primaryKeyGenerator=batchedSequence\n'
 			)
 			envMysql57(
 				'my57-unique',
-				'mysql-connector-java',
+				'mysql',
 				'disableSupport.uniqueViolation=true\n'
 			)
 			envMysql57(
 				'my57-vault',
-				'mysql-connector-java',
+				'mysql',
 				'vault=true\n' +
 				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
@@ -414,39 +414,39 @@ try
 			)
 			envMysql57(
 				'my57m',
-				'mariadb-java-client',
+				'mariadb',
 				''
 			)
 			envMysql57(
 				'my57m-legacy',
-				'mariadb-java-client',
+				'mariadb',
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql57(
 				'my57m-nprep',
-				'mariadb-java-client',
+				'mariadb',
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql57(
 				'my57m-nstmp',
-				'mariadb-java-client',
+				'mariadb',
 				'cache.stamps=false\n'
 			)
 			envMysql57(
 				'my57m-nstmp-sq',
-				'mariadb-java-client',
+				'mariadb',
 				'cache.stamps=false\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
 				'my57m-sq',
-				'mariadb-java-client',
+				'mariadb',
 				'dialect.connection.compress=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
 				'my57m-vault',
-				'mariadb-java-client',
+				'mariadb',
 				'vault=true\n' +
 				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
@@ -507,22 +507,22 @@ try
 
 			envMysql57(
 				'my57-stampsA',
-				'mysql-connector-java',
+				'mysql',
 				'cache.stamps=true'
 			)
 			envMysql57(
 				'my57-stampsB',
-				'mysql-connector-java',
+				'mysql',
 				'cache.stamps=false'
 			)
 			envMysql57(
 				'my57m-stampsA',
-				'mariadb-java-client',
+				'mariadb',
 				'cache.stamps=true'
 			)
 			envMysql57(
 				'my57m-stampsB',
-				'mariadb-java-client',
+				'mariadb',
 				'cache.stamps=false'
 			)
 
@@ -581,54 +581,54 @@ try
 
 			envMysql80(
 				'my80',
-				'mysql-connector-java',
+				'mysql',
 				''
 			)
 			envMysql80(
 				'my80-compress',
-				'mysql-connector-java',
+				'mysql',
 				'dialect.rowFormat=COMPRESSED\n'
 			)
 			envMysql80(
 				'my80-legacy',
-				'mysql-connector-java',
+				'mysql',
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql80(
 				'my80-nprep',
-				'mysql-connector-java',
+				'mysql',
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql80(
 				'my80-nstmp',
-				'mysql-connector-java',
+				'mysql',
 				'cache.stamps=false\n'
 			)
 			envMysql80(
 				'my80-nstmp-sq',
-				'mysql-connector-java',
+				'mysql',
 				'cache.stamps=false\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
 				'my80-sq',
-				'mysql-connector-java',
+				'mysql',
 				'dialect.connection.compress=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
 				'my80-sqb',
-				'mysql-connector-java',
+				'mysql',
 				'schema.primaryKeyGenerator=batchedSequence\n'
 			)
 			envMysql80(
 				'my80-unique',
-				'mysql-connector-java',
+				'mysql',
 				'disableSupport.uniqueViolation=true\n'
 			)
 			envMysql80(
 				'my80-vault',
-				'mysql-connector-java',
+				'mysql',
 				'vault=true\n' +
 				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
@@ -636,39 +636,39 @@ try
 			)
 			envMysql80(
 				'my80m',
-				'mariadb-java-client',
+				'mariadb',
 				''
 			)
 			envMysql80(
 				'my80m-legacy',
-				'mariadb-java-client',
+				'mariadb',
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql80(
 				'my80m-nprep',
-				'mariadb-java-client',
+				'mariadb',
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql80(
 				'my80m-nstmp',
-				'mariadb-java-client',
+				'mariadb',
 				'cache.stamps=false\n'
 			)
 			envMysql80(
 				'my80m-nstmp-sq',
-				'mariadb-java-client',
+				'mariadb',
 				'cache.stamps=false\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
 				'my80m-sq',
-				'mariadb-java-client',
+				'mariadb',
 				'dialect.connection.compress=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
 				'my80m-vault',
-				'mariadb-java-client',
+				'mariadb',
 				'vault=true\n' +
 				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
@@ -817,6 +817,29 @@ try
 			archiveArtifacts 'ivy/artifacts/report/**'
 
 			assertGitUnchanged()
+
+			// There should be an assertIvyExtends for each <conf name="abc" extends="def" /> in ivy/ivy.xml.
+			assertIvyExtends("servlet", "runtime")
+			assertIvyExtends("instrument", "runtime")
+			assertIvyExtends("test", "runtime")
+			assertIvyExtends("test", "servlet")
+			assertIvyExtends("hsqldb", "runtime")
+			assertIvyExtends("mysql", "runtime")
+			assertIvyExtends("mariadb", "runtime")
+			assertIvyExtends("postgresql", "runtime")
+			assertIvyExtends("testhsqldb",     "test")
+			assertIvyExtends("testmysql",      "test")
+			assertIvyExtends("testmariadb",    "test")
+			assertIvyExtends("testpostgresql", "test")
+			assertIvyExtends("testhsqldb",     "hsqldb")
+			assertIvyExtends("testmysql",      "mysql")
+			assertIvyExtends("testmariadb",    "mariadb")
+			assertIvyExtends("testpostgresql", "postgresql")
+			assertIvyExtends("ide", "runtime")
+			assertIvyExtends("ide", "test")
+			assertIvyExtends("ide", "hsqldb")
+			assertIvyExtends("ide", "mysql")
+			assertIvyExtends("ide", "postgresql")
 		}
 	}
 
@@ -934,6 +957,25 @@ String makeBuildTag(Map<String, String> scmResult)
 	       treeHash
 }
 
+void assertIvyExtends(String extendingConf, String parentConf)
+{
+	int status = shStatus(
+		"LC_ALL=C" +
+		" diff --recursive lib/" + parentConf + " lib/" + extendingConf +
+		" | grep --invert-match '^Only in lib/" + extendingConf + ": '" +
+		" > ivy/artifacts/ivyExtends" + extendingConf + ".txt")
+	if (status!=0 && status!=1) // https://www.man7.org/linux/man-pages/man1/diff.1.html
+	{
+		error 'FAILURE because diff had trouble'
+	}
+	String result = readFile "ivy/artifacts/ivyExtends" + extendingConf + ".txt"
+	if (result != '')
+	{
+		error 'FAILURE because ivy conf "' + extendingConf + '" does not just add jar-files to "' + parentConf + '":\n' +
+		      result
+	}
+}
+
 void shSilent(String script)
 {
 	try
@@ -944,6 +986,11 @@ void shSilent(String script)
 	{
 		currentBuild.result = 'FAILURE'
 	}
+}
+
+int shStatus(String script)
+{
+	return (int) sh(script: script, returnStatus: true)
 }
 
 String shStdout(String script)
@@ -999,7 +1046,7 @@ def envMysql56(name, text)
 							' doDB=binlogtest' +
 							'\n' +
 					'x-build.dialect=mysql\n' +
-					'x-build.driver=mysql-connector-java.jar\n' +
+					'x-build.driver=mysql\n' +
 					text
 		)
 }
@@ -1009,7 +1056,7 @@ def envMysql57(name, driver, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:' + (driver=='mariadb-java-client' ? 'mariadb' : 'mysql') + '://test-db-host/test_db_schema\n' +
+					'connection.url=jdbc:' + driver + '://test-db-host/test_db_schema\n' +
 					'connection.username=test_db_user\n' +
 					'connection.password=test_db_password\n' +
 					'x-build.schemasavepoint=' +
@@ -1020,7 +1067,7 @@ def envMysql57(name, driver, text)
 							' doDB=binlogtest' +
 							'\n' +
 					'x-build.dialect=mysql\n' +
-					'x-build.driver=' + driver + '.jar\n' +
+					'x-build.driver=' + driver + '\n' +
 					text
 		)
 }
@@ -1030,7 +1077,7 @@ def envMysql80(name, driver, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:' + (driver=='mariadb-java-client' ? 'mariadb' : 'mysql') + '://test-db-host/test_db_schema\n' +
+					'connection.url=jdbc:' + driver + '://test-db-host/test_db_schema\n' +
 					'connection.username=test_db_user\n' +
 					'connection.password=test_db_password\n' +
 					'x-build.schemasavepoint=' +
@@ -1041,7 +1088,7 @@ def envMysql80(name, driver, text)
 							' doDB=binlogtest' +
 							'\n' +
 					'x-build.dialect=mysql\n' +
-					'x-build.driver=' + driver + '.jar\n' +
+					'x-build.driver=' + driver + '\n' +
 					'x-build.mysql80=true\n' +
 					text
 		)
@@ -1058,7 +1105,7 @@ def envPostgresql(name, text)
 					'dialect.connection.schema=test_db_schema\n' +
 					'dialect.pgcryptoSchema=test_db_pgcrypto_schema\n' +
 					'x-build.dialect=postgresql\n' +
-					'x-build.driver=postgresql.jar\n' +
+					'x-build.driver=postgresql\n' +
 					text
 		)
 }

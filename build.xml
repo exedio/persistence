@@ -19,15 +19,16 @@
 
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" onerror="failall" />
 
-	<taskdef
-			resource="net/sf/antcontrib/antcontrib.properties"
-			classpath="lib/ant-contrib.jar"
-			onerror="failall" />
-	<taskdef
-			name="for"
-			classname="net.sf.antcontrib.logic.ForTask"
-			classpath="lib/ant-contrib.jar"
-			onerror="failall" />
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" onerror="failall">
+		<classpath>
+			<fileset dir="lib/ant-contrib" />
+		</classpath>
+	</taskdef>
+	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" onerror="failall">
+		<classpath>
+			<fileset dir="lib/ant-contrib" />
+		</classpath>
+	</taskdef>
 
 	<macrodef name="ljar">
 		<attribute name="jarfile" />
@@ -154,7 +155,7 @@
 
 	<target name="catalina">
 		<property name="catalina.root" value="apache-tomcat-9.0.31" />
-		<untar src="lib/tomcat.tar.gz"
+		<untar src="lib/tomcat/tomcat.tar.gz"
 				 compression="gzip"
 				 dest="${basedir}">
 			<patternset>
@@ -186,8 +187,8 @@
 	<target name="dsmf.compile">
 		<compile srcdir="dsmf/src">
 			<classpath>
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/jsr305.jar" />
+				<fileset dir="lib/runtime" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -203,12 +204,8 @@
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
+				<fileset dir="lib/runtime" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -222,11 +219,8 @@
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
 						<pathelement location="build/classes/instrument/annosrc" />
-						<pathelement location="lib/exedio-cope-util.jar" />
-						<pathelement location="lib/trove4j.jar" />
-						<pathelement location="lib/slf4j-api.jar" />
-						<pathelement location="lib/jsr305.jar" />
-						<pathelement location="lib/annotations.jar" />
+						<fileset dir="lib/runtime" />
+						<fileset dir="lib/compile-annotations" />
 					</classpath>
 				</compile>
 				<copy todir="build/classes/runtime/dialects">
@@ -252,11 +246,8 @@
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
+				<fileset dir="lib/runtime" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -268,12 +259,8 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
+				<fileset dir="lib/servlet" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -324,13 +311,8 @@
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/junit-platform-commons.jar" />
-				<pathelement location="lib/opentest4j.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
+				<fileset dir="lib/test" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -343,21 +325,8 @@
 		<pathelement location="build/classes/runtime/servletsrc" />
 		<pathelement location="build/classes/runtime/testfeaturesrc" />
 		<pathelement location="build/classes/instrument/annosrc" />
-		<pathelement location="lib/trove4j.jar" />
-		<pathelement location="lib/javax.servlet-api.jar" />
-		<pathelement location="lib/junit-jupiter-api.jar" />
-		<pathelement location="lib/junit-platform-commons.jar" />
-		<pathelement location="lib/apiguardian-api.jar" />
-		<pathelement location="lib/opentest4j.jar" />
-		<pathelement location="lib/slf4j-api.jar" />
-		<pathelement location="lib/log4j-bundle.jar" />
-		<pathelement location="lib/micrometer-core.jar" />
-		<pathelement location="lib/micrometer-registry-prometheus.jar" />
-		<pathelement location="lib/simpleclient-bundle.jar" />
-		<pathelement location="lib/simpleclient_common-bundle.jar" />
-		<pathelement location="lib/exedio-cope-util.jar" />
-		<pathelement location="lib/jsr305.jar" />
-		<pathelement location="lib/annotations.jar" />
+		<fileset dir="lib/test" />
+		<fileset dir="lib/compile-annotations" />
 	</path>
 
 	<target
@@ -401,13 +370,15 @@
 
 	<target name="runtime.test.withEnv.setup.mysql" if="runtime.test.withEnv.setup.mysql.url">
 		<sql
-				classpath="lib/mysql-connector-java.jar"
 				driver="com.mysql.cj.jdbc.Driver"
 				url="${runtime.test.withEnv.setup.mysql.url}"
 				src="${runtime.test.withEnv.setup.mysql.sql}"
 				userid="root"
 				password="${runtime.test.withEnv.setup.password}"
 		>
+			<classpath>
+				<fileset dir="lib/mysql" />
+			</classpath>
 			<!-- see MysqlDialect#completeConnectionInfo -->
 			<connectionProperty name="allowPublicKeyRetrieval" value="true" />
 			<connectionProperty name="useSSL" value="false" />
@@ -419,21 +390,27 @@
 
 	<target name="runtime.test.withEnv.setup.postgresql" if="runtime.test.withEnv.setup.postgresql.url">
 		<sql
-				classpath="lib/postgresql.jar"
 				driver="org.postgresql.Driver"
 				url="${runtime.test.withEnv.setup.postgresql.url}"
 				src="conf/setup-postgresql-createDatabase.sql"
 				userid="postgres"
 				password="${runtime.test.withEnv.setup.password}"
-				autocommit="true" />
+				autocommit="true">
+			<classpath>
+				<fileset dir="lib/postgresql" />
+			</classpath>
+		</sql>
 		<sql
-				classpath="lib/postgresql.jar"
 				driver="org.postgresql.Driver"
 				url="${runtime.test.withEnv.setup.postgresql.url}test_db_database"
 				src="conf/setup-postgresql-useDatabase.sql"
 				userid="postgres"
 				password="${runtime.test.withEnv.setup.password}"
-				autocommit="true" />
+				autocommit="true">
+			<classpath>
+				<fileset dir="lib/postgresql" />
+			</classpath>
+		</sql>
 	</target>
 
 	<target
@@ -453,25 +430,7 @@
 				<pathelement location="build/classes/runtime/testsrc" />
 				<pathelement location=              "runtime/testresources" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/hsqldb.jar" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/junit-jupiter-engine.jar" />
-				<pathelement location="lib/junit-platform-console.jar" />
-				<pathelement location="lib/junit-platform-launcher.jar" />
-				<pathelement location="lib/junit-platform-engine.jar" />
-				<pathelement location="lib/junit-platform-commons.jar" />
-				<pathelement location="lib/opentest4j.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/slf4j-log4j12.jar" />
-				<pathelement location="lib/log4j-bundle.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/LatencyUtils.jar" />
-				<pathelement location="lib/micrometer-registry-prometheus.jar" />
-				<pathelement location="lib/simpleclient-bundle.jar" />
-				<pathelement location="lib/simpleclient_common-bundle.jar" />
-				<pathelement location="lib/exedio-cope-util.jar" />
+				<fileset dir="lib/testhsqldb" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.multicast"   value="${runtime.test.ClusterNetworkTest.multicast}" />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.A"      value="${runtime.test.ClusterNetworkTest.port.A}"    />
@@ -497,25 +456,7 @@
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="build/classes/instrument/annosrc" />
-						<pathelement location="lib/trove4j.jar" />
-						<pathelement location="lib/javax.servlet-api.jar" />
-						<pathelement location="lib/@{env.driver}" />
-						<pathelement location="lib/junit-jupiter-api.jar" />
-						<pathelement location="lib/junit-jupiter-engine.jar" />
-						<pathelement location="lib/junit-platform-console.jar" />
-						<pathelement location="lib/junit-platform-launcher.jar" />
-						<pathelement location="lib/junit-platform-engine.jar" />
-						<pathelement location="lib/junit-platform-commons.jar" />
-						<pathelement location="lib/opentest4j.jar" />
-						<pathelement location="lib/slf4j-api.jar" />
-						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j-bundle.jar" />
-						<pathelement location="lib/micrometer-core.jar" />
-						<pathelement location="lib/LatencyUtils.jar" />
-						<pathelement location="lib/micrometer-registry-prometheus.jar" />
-						<pathelement location="lib/simpleclient-bundle.jar" />
-						<pathelement location="lib/simpleclient_common-bundle.jar" />
-						<pathelement location="lib/exedio-cope-util.jar" />
+						<fileset dir="lib/test@{env.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
@@ -542,25 +483,7 @@
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="build/classes/instrument/annosrc" />
-						<pathelement location="lib/trove4j.jar" />
-						<pathelement location="lib/javax.servlet-api.jar" />
-						<pathelement location="lib/@{env.driver}" />
-						<pathelement location="lib/junit-jupiter-api.jar" />
-						<pathelement location="lib/junit-jupiter-engine.jar" />
-						<pathelement location="lib/junit-platform-console.jar" />
-						<pathelement location="lib/junit-platform-launcher.jar" />
-						<pathelement location="lib/junit-platform-engine.jar" />
-						<pathelement location="lib/junit-platform-commons.jar" />
-						<pathelement location="lib/opentest4j.jar" />
-						<pathelement location="lib/slf4j-api.jar" />
-						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j-bundle.jar" />
-						<pathelement location="lib/micrometer-core.jar" />
-						<pathelement location="lib/LatencyUtils.jar" />
-						<pathelement location="lib/micrometer-registry-prometheus.jar" />
-						<pathelement location="lib/simpleclient-bundle.jar" />
-						<pathelement location="lib/simpleclient_common-bundle.jar" />
-						<pathelement location="lib/exedio-cope-util.jar" />
+						<fileset dir="lib/test@{env.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
@@ -586,18 +509,10 @@
 					<fileset dir="build/classes/runtime/testsrc" />
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
-					<fileset file="lib/trove4j.jar" />
-					<fileset file="lib/slf4j-api.jar" />
-					<fileset file="lib/micrometer-core.jar" />
-					<fileset file="lib/LatencyUtils.jar" />
-					<fileset file="lib/micrometer-registry-prometheus.jar" />
-					<fileset file="lib/simpleclient-bundle.jar" />
-					<fileset file="lib/simpleclient_common-bundle.jar" />
-					<fileset file="lib/opentest4j.jar" />
-					<fileset file="lib/exedio-cope-util.jar" />
-					<fileset file="lib/exedio-cope-console.jar" />
-					<fileset file="lib/exedio-cops.jar" />
-					<fileset file="lib/@{env.driver}" />
+					<fileset dir="lib/test@{env.driver}">
+						<exclude name="javax.servlet-api.jar" />
+					</fileset>
+					<fileset dir="lib/copeconsole" />
 				</copy>
 				<copy tofile="build/runtime/web-@{env}/WEB-INF/cope.properties" file="@{env.file}" />
 				<copy todir="build/runtime/web-@{env}/WEB-INF/"
@@ -628,7 +543,7 @@
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
+				<pathelement location="lib/servlet/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 			</classpath>
 			<resources refid="instrument.resources" />
 			<suppressWarnings>
@@ -650,10 +565,8 @@
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
+				<fileset dir="lib/servlet" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
@@ -667,17 +580,8 @@
 		<copy file ="runtime/servlettestweb/log4j.properties"
 				todir="runtime/servlettestweb/WEB-INF/classes" />
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
-			<fileset file="lib/trove4j.jar" />
-			<fileset file="lib/exedio-cope-util.jar" />
-			<fileset file="lib/exedio-cope-console.jar" />
-			<fileset file="lib/exedio-cops.jar" />
-			<fileset file="lib/hsqldb.jar" />
-			<fileset file="lib/slf4j-api.jar" />
-			<fileset file="lib/slf4j-log4j12.jar" />
-			<fileset file="lib/log4j-bundle.jar" />
-			<fileset file="lib/micrometer-core.jar" />
-			<fileset file="lib/LatencyUtils.jar" />
-			<fileset file="lib/opentest4j.jar" />
+			<fileset dir="lib/hsqldb" />
+			<fileset dir="lib/copeconsole" />
 		</copy>
 	</target>
 
@@ -689,10 +593,8 @@
 	<target name="runtime.servlet.webtest.compile">
 		<compile srcdir="runtime/servlettestwebsrc">
 			<classpath>
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/jsr305.jar"/>
+				<fileset dir="lib/test" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -706,14 +608,8 @@
 				<ljunit scansrc="runtime/servlettestwebsrc">
 					<classpath>
 						<pathelement location="build/classes/runtime/servlettestwebsrc" />
-						<pathelement location="lib/exedio-cope-util.jar" />
-						<pathelement location="lib/junit-jupiter-api.jar" />
-						<pathelement location="lib/junit-jupiter-engine.jar" />
-						<pathelement location="lib/junit-platform-console.jar" />
-						<pathelement location="lib/junit-platform-launcher.jar" />
-						<pathelement location="lib/junit-platform-engine.jar" />
-						<pathelement location="lib/junit-platform-commons.jar" />
-						<pathelement location="lib/opentest4j.jar" />
+						<fileset dir="lib/test" />
+						<fileset dir="lib/compile-annotations" />
 					</classpath>
 					<sysproperty key="tomcat.port.http" value="${tomcat.port.http}" />
 				</ljunit>
@@ -740,7 +636,7 @@
 	<target name="instrument.anno.compile">
 		<compile srcdir="instrument/annosrc">
 			<classpath>
-				<pathelement location="lib/jsr305.jar"/>
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -763,8 +659,8 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/jsr305.jar" />
+				<fileset dir="lib/runtime" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 			<compilerarg value="--add-exports" />
 			<compilerarg value="jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED" />
@@ -775,7 +671,8 @@
 		<compile srcdir="instrument/antsrc" includeAntRuntime="true">
 			<classpath>
 				<pathelement location="build/classes/instrument/src" />
-				<pathelement location="lib/jsr305.jar" />
+				<fileset dir="lib/runtime" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -805,10 +702,8 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
+				<fileset dir="lib/servlet" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -822,12 +717,8 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/LatencyUtils.jar" />
+				<fileset dir="lib/runtime" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</taskdef>
 		<mkdir dir="build/timestamps"/>
@@ -849,9 +740,8 @@
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
+				<fileset dir="lib/test" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 			<ignore>
 				<fileset file="instrument/testsrc/com/exedio/cope/instrument/testmodel/DontInstrument.java" />
@@ -882,8 +772,7 @@
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<classpath>
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
+				<fileset dir="lib/test" />
 			</classpath>
 			<suppressWarnings>
 				<type>type-single</type>
@@ -927,8 +816,8 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/jsr305.jar" />
+				<fileset dir="lib/runtime" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -943,12 +832,8 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testlibsrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/opentest4j.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
+				<fileset dir="lib/test" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -961,9 +846,8 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/testsrc" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/jsr305.jar" />
+				<fileset dir="lib/test" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</compile>
 	</target>
@@ -982,19 +866,8 @@
 				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="build/classes/instrument/testsrc" />
 				<pathelement location="build/classes/instrument/testparamssrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/junit-jupiter-engine.jar" />
-				<pathelement location="lib/junit-platform-console.jar" />
-				<pathelement location="lib/junit-platform-launcher.jar" />
-				<pathelement location="lib/junit-platform-engine.jar" />
-				<pathelement location="lib/junit-platform-commons.jar" />
-				<pathelement location="lib/opentest4j.jar" />
-				<pathelement location="lib/jsr305.jar" />
+				<fileset dir="lib/test" />
+				<fileset dir="lib/compile-annotations" />
 			</classpath>
 		</ljunit>
 	</target>
@@ -1069,14 +942,9 @@
 				<fileset dir="instrument/antsrc" includes="**/*.java" />
 			</src>
 			<myClasspath>
-				<pathelement location="lib/trove4j.jar" />
+				<fileset dir="lib/servlet" />
+				<fileset dir="lib/compile-annotations" />
 				<pathelement location="${ant.core.lib}" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/jsr305.jar" />
-				<pathelement location="lib/annotations.jar" />
 			</myClasspath>
 		</api>
 	</target>
@@ -1087,16 +955,8 @@
 				fork="yes" failonerror="yes">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cope-console.jar" />
-				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/micrometer-registry-prometheus.jar" />
-				<pathelement location="lib/simpleclient-bundle.jar" />
-				<pathelement location="lib/simpleclient_common-bundle.jar" />
+				<fileset dir="lib/test" />
+				<fileset dir="lib/copeconsole" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
 			<assertions><enable/></assertions>

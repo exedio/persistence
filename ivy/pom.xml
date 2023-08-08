@@ -176,6 +176,18 @@
           <groupId>com.exedio</groupId>
           <artifactId>copeservletutil</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>javax.servlet-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.exedio</groupId>
+          <artifactId>copeutil</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
   </dependencies>

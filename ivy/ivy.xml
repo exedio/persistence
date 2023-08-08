@@ -12,20 +12,33 @@
 				url="https://opensource.org/licenses/lgpl-license.html" />
 	</info>
 	<configurations>
+		<!-- There should be an assertIvyExtends in Jenkinsfile for each <conf name="abc" extends="def" /> here. -->
 		<conf name="runtime" />
+		<conf visibility="private" name="compile-annotations" />
 		<conf name="sources" />
 		<conf name="changelog" />
 		<conf name="servlet" extends="runtime" />
 		<conf name="idea" />
 		<conf name="completion" description="For fetching exedio-cope-instrument-completion.jar" />
 		<conf name="instrument" extends="runtime" />
-		<conf name="build" extends="runtime" visibility="private" />
+		<conf visibility="private" name="ant-contrib" />
+		<conf visibility="private" name="test" extends="runtime,servlet" />
+		<conf visibility="private" name="tomcat" />
+		<conf visibility="private" name="copeconsole" />
 
 		<!-- dialects -->
 		<conf extends="runtime" name="hsqldb"     description="dialect for HSQLDB" />
 		<conf extends="runtime" name="mysql"      description="dialect for MySQL via MySQL Connector/J" />
 		<conf extends="runtime" name="mariadb"    description="dialect for MySQL via MariaDB Connector/J" />
 		<conf extends="runtime" name="postgresql" description="dialect for PostgreSQL" />
+
+		<conf visibility="private" name="testhsqldb"     extends="test,hsqldb"     />
+		<conf visibility="private" name="testmysql"      extends="test,mysql"      />
+		<conf visibility="private" name="testmariadb"    extends="test,mariadb"    />
+		<conf visibility="private" name="testpostgresql" extends="test,postgresql" />
+
+		<conf visibility="private" name="ide" extends="runtime,test,hsqldb,mysql,postgresql"
+				description="classpath for IDEs such as Eclipse and IntelliJ, includes java sources and changelogs" />
 	</configurations>
 	<publications defaultconf="SPECIFY_A_CONFIGURATION">
 		<artifact name="exedio-cope" conf="runtime" />
@@ -39,18 +52,18 @@
 		<artifact name="exedio-cope-instrument-completion" conf="completion" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION->*">
-		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0" conf="servlet->default; build->sources" />
-		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" conf="runtime->default; build->sources" />
-		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25" conf="runtime->default; build->sources" />
-		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.25" conf="build->default" />
-		<dependency org="io.micrometer" name="micrometer-core" rev="1.8.5" conf="runtime->default; build->sources">
+		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0" conf="servlet->default; ide->sources" />
+		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" conf="runtime->default; ide->sources" />
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25" conf="runtime->default; ide->sources" />
+		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.25" conf="test->default" />
+		<dependency org="io.micrometer" name="micrometer-core" rev="1.8.5" conf="runtime->default; ide->sources">
 			<exclude org="org.hdrhistogram" module="HdrHistogram" />
 		</dependency>
-		<dependency org="io.micrometer" name="micrometer-registry-prometheus" rev="1.8.5" conf="build->default">
+		<dependency org="io.micrometer" name="micrometer-registry-prometheus" rev="1.8.5" conf="test->default">
 			<exclude org="io.prometheus" module="simpleclient_tracer_otel" />
 			<exclude org="io.prometheus" module="simpleclient_tracer_otel_agent" />
 		</dependency>
-		<dependency org="com.exedio" name="copeutil" rev="994" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="copeutil" rev="994" conf="runtime->runtime; ide->runtime,sources,changelog" />
 
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.7.1" />
@@ -63,23 +76,26 @@
 		</dependency>
 
 		<!-- idea -->
-		<dependency org="org.jetbrains" name="annotations" rev="22.0.0" conf="idea->default; build->sources"/>
+		<dependency org="org.jetbrains" name="annotations" rev="22.0.0" conf="idea,compile-annotations->default; ide->sources"/>
 
 		<!-- build dependencies -->
-		<dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="build->default">
+		<dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="ant-contrib->default">
 			<exclude org="ant" module="ant" />
 		</dependency>
-		<dependency org="org.apache.tomcat" name="tomcat" rev="9.0.31" conf="build->default">
+		<dependency org="org.apache.tomcat" name="tomcat" rev="9.0.31" conf="tomcat->default">
 			<artifact name="tomcat" type="tar.gz" />
 		</dependency>
-		<dependency org="org.junit.jupiter"  name="junit-jupiter-api"      rev="5.3.1" conf="build->default,sources" />
-		<dependency org="org.junit.jupiter"  name="junit-jupiter-engine"   rev="5.3.1" conf="build->default" />
-		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.3.1" conf="build->default" />
-		<dependency org="org.apiguardian"    name="apiguardian-api"        rev="1.0.0" conf="build->default" />
-		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="build->default" />
-		<dependency org="com.exedio" name="copeconsole" rev="7051" conf="build->runtime,changelog">
+		<dependency org="org.junit.jupiter"  name="junit-jupiter-api"      rev="5.3.1" conf="test->default; ide->sources" />
+		<dependency org="org.junit.jupiter"  name="junit-jupiter-engine"   rev="5.3.1" conf="test->default" />
+		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.3.1" conf="test->default" />
+		<dependency org="org.apiguardian"    name="apiguardian-api"        rev="1.0.0" conf="test->default" />
+		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="compile-annotations->default" />
+		<dependency org="com.exedio" name="copeconsole" rev="7051" conf="copeconsole->runtime,changelog">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
 			<exclude org="com.exedio" module="copeservletutil" /><!-- redundant dependency of cope since r10333 -->
+			<exclude org="javax.servlet" module="javax.servlet-api" />
+			<exclude org="org.slf4j" module="slf4j-api" />
+			<exclude org="com.exedio" module="copeutil" />
 		</dependency>
 	</dependencies>
 </ivy-module>
