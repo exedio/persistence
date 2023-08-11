@@ -216,7 +216,7 @@
 	<target name="runtime.dialect.compile" depends="dsmf.compile, runtime.core.compile, instrument.anno.compile">
 		<foreachDialect>
 			<body>
-				<echo message="Compiling dialect @{name} with @{jar}." />
+				<echo message="Compiling dialect @{name}." />
 				<compile srcdir="runtime/@{name}src">
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
@@ -227,7 +227,6 @@
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/jsr305.jar" />
 						<pathelement location="lib/annotations.jar" />
-						<pathelement location="lib/@{jar}" />
 					</classpath>
 				</compile>
 				<copy todir="build/classes/runtime/dialects">
