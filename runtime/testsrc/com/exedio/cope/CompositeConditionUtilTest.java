@@ -188,8 +188,8 @@ public class CompositeConditionUtilTest
 		assertSame(FALSE, in(field, asList()));
 
 		// Condition.valueOf
-		assertSame(TRUE,  Condition.valueOf(true));
-		assertSame(FALSE, Condition.valueOf(false));
+		assertSame(TRUE,  Condition.of(true));
+		assertSame(FALSE, Condition.of(false));
 	}
 
 	@Test
