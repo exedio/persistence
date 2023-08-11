@@ -22,6 +22,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.vault.VaultFileToTrail.mainInternal;
+import static java.io.File.separator;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.time.ZoneOffset.UTC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -147,8 +148,8 @@ public class VaultFileToTrailTest
 					new HashSet<>(outLines.subList(HEADER_END, outLines.size())));
 
 			assertEquals(Set.of(
-					"Skipping non-hex directory " + root.toAbsolutePath() + "/.tempVaultFileService",
-					"Skipping empty file " + root.toAbsolutePath() + "/d41/d8cd98f00b204e9800998ecf8427e",
+					"Skipping non-hex directory " + root.toAbsolutePath() + separator + ".tempVaultFileService",
+					"Skipping empty file " + root.toAbsolutePath() + separator + "d41" + separator + "d8cd98f00b204e9800998ecf8427e",
 					"Skipping non-hex file " + skippedFile.toAbsolutePath()),
 					new HashSet<>(readAllLines(err)));
 		}
