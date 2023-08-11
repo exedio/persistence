@@ -294,7 +294,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		if (value == null)
 			return rgb.isNull();
 		if (!alphaAllowed && value.getAlpha() != 255)
-			return Condition.FALSE;
+			return Condition.ofFalse();
 		return rgb.equal(reverseAlpha(value.getRGB()));
 	}
 

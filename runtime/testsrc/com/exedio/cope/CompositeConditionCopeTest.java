@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
-import static com.exedio.cope.Condition.FALSE;
-import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.equal;
 import static com.exedio.cope.Cope.notEqual;
@@ -210,4 +208,8 @@ public class CompositeConditionCopeTest
 		assertEquals(f + " is " +"null",    equal(f, null).toString());
 		assertEquals(f + " is not null", notEqual(f, null).toString());
 	}
+
+
+	private static final Condition TRUE = Condition.ofTrue();
+	private static final Condition FALSE = Condition.ofFalse();
 }

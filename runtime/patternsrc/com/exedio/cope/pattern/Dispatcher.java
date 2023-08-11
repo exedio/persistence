@@ -725,7 +725,7 @@ public final class Dispatcher extends Pattern
 		static final int DEFAULT_FAILURE_LIMIT = 5;
 		static final int DEFAULT_SEARCH_SIZE = 1000;
 		static final int DEFAULT_SESSION_LIMIT = 15;
-		static final Condition DEFAULT_NARROW_CONDITION = Condition.TRUE;
+		static final Condition DEFAULT_NARROW_CONDITION = Condition.ofTrue();
 
 		private final int failureLimit;
 		private final int searchSize;
@@ -967,7 +967,7 @@ public final class Dispatcher extends Pattern
 	{
 		requireNonNull(properties, "properties");
 		requireNonNull(ctx, "ctx");
-		purge(properties, Condition.TRUE, ctx);
+		purge(properties, Condition.ofTrue(), ctx);
 	}
 
 	/**
@@ -1035,7 +1035,7 @@ public final class Dispatcher extends Pattern
 	private Condition dateBefore(final long now, final Duration duration)
 	{
 		if(duration.isZero())
-			return Condition.FALSE;
+			return Condition.ofFalse();
 
 		//noinspection DataFlowIssue OK: getUnpendDate cannot return null if supportsPurge return true
 		return getUnpendDate().less(new Date(now - duration.toMillis()));

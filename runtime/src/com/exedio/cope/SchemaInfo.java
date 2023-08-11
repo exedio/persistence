@@ -276,7 +276,7 @@ public final class SchemaInfo
 	 */
 	public static String search(final Query<?> query)
 	{
-		if(query.getCondition()==Condition.FALSE)
+		if(query.getCondition()==Condition.ofFalse())
 			return "skipped because condition==false: " + query;
 		if(query.getPageLimitOrMinusOne()==0)
 			return "skipped because limit==0: " + query;
@@ -289,7 +289,7 @@ public final class SchemaInfo
 	 */
 	public static String total(final Query<?> query)
 	{
-		if(query.getCondition()==Condition.FALSE)
+		if(query.getCondition()==Condition.ofFalse())
 			return "skipped because condition==false: " + query;
 
 		return search(query, Query.Mode.TOTAL);
@@ -300,7 +300,7 @@ public final class SchemaInfo
 	 */
 	public static String exists(final Query<?> query)
 	{
-		if(query.getCondition()==Condition.FALSE)
+		if(query.getCondition()==Condition.ofFalse())
 			return "skipped because condition==false: " + query;
 
 		return search(query, Query.Mode.EXISTS);

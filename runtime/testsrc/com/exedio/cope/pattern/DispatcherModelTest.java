@@ -312,7 +312,7 @@ public class DispatcherModelTest
 
 		try
 		{
-			purgeToTarget(properties, Condition.FALSE, null);
+			purgeToTarget(properties, Condition.ofFalse(), null);
 			fail();
 		}
 		catch(final NullPointerException e)

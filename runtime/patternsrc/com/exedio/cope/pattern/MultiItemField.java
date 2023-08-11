@@ -358,7 +358,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				return Cope.equalAndCast(component, value);
 			}
 		}
-		return Condition.FALSE;
+		return Condition.ofFalse();
 	}
 
 	@Override

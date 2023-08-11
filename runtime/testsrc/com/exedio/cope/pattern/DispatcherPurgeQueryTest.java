@@ -158,7 +158,7 @@ public class DispatcherPurgeQueryTest
 				"and (" +
 					"(toTarget-unpend-success='true' and toTarget-unpend-date<'1969-12-12 00:00:00.555') or " +
 					"(toTarget-unpend-success='false' and toTarget-unpend-date<'1969-12-22 00:00:00.555')))",
-				query(20, 10, Condition.TRUE));
+				query(20, 10, Condition.ofTrue()));
 		clock.assertEmpty();
 	}
 
@@ -168,14 +168,14 @@ public class DispatcherPurgeQueryTest
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where FALSE",
-				query(20, 10, Condition.FALSE));
+				query(20, 10, Condition.ofFalse()));
 		clock.assertEmpty();
 	}
 
 
 	private static String query(final Integer success, final Integer failure)
 	{
-		return query(success, failure, Condition.TRUE);
+		return query(success, failure, Condition.ofTrue());
 	}
 
 	private static String query(final Integer success, final Integer failure, final Condition restriction)

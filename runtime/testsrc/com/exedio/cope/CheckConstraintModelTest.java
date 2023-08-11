@@ -99,12 +99,12 @@ public class CheckConstraintModelTest
 				NullPointerException.class,
 				"condition");
 		assertFails(
-				() -> new CheckConstraint(Condition.TRUE),
+				() -> new CheckConstraint(Condition.ofTrue()),
 				IllegalArgumentException.class,
 				"literal condition makes no sense, " +
 				"but was Condition.TRUE");
 		assertFails(
-				() -> new CheckConstraint(Condition.FALSE),
+				() -> new CheckConstraint(Condition.ofFalse()),
 				IllegalArgumentException.class,
 				"literal condition makes no sense, " +
 				"but was Condition.FALSE");

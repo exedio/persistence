@@ -112,7 +112,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 				functions.add(contentTypeField);
 			functions.add(this.lastModified);
 			final Condition condition = Conditions.unisonNull(functions);
-			this.unison = (condition!=Condition.TRUE) ? addSourceFeature(new CheckConstraint(condition), "unison") : null;
+			this.unison = (condition!=Condition.ofTrue()) ? addSourceFeature(new CheckConstraint(condition), "unison") : null;
 		}
 		else
 		{

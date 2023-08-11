@@ -74,7 +74,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	@Test void testEqualConditionInvalidClass()
 	{
 		final MultiItemFieldComponentxC invalid = new MultiItemFieldComponentxC();
-		assertEquals(Condition.FALSE, MultiItemFieldItem.field.equal(invalid));
+		assertEquals(Condition.ofFalse(), MultiItemFieldItem.field.equal(invalid));
 	}
 
 	@Test void testGet()

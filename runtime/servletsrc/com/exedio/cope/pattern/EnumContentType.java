@@ -132,6 +132,6 @@ final class EnumContentType extends ContentType<Integer>
 		return
 			number!=null
 			? field.equal(number)
-			: Condition.FALSE;
+			: Condition.ofFalse();
 	}
 }

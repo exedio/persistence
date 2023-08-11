@@ -83,7 +83,7 @@ public class MediaTypeMediaTest
 	@Test void testFixedNone()
 	{
 		final Media m = new Media().contentType("ding/dong");
-		assertEquals(Condition.FALSE, m.bodyMismatchesContentTypeIfSupported());
+		assertEquals(Condition.ofFalse(), m.bodyMismatchesContentTypeIfSupported());
 	}
 
 	@Test void testEnum()
@@ -161,7 +161,7 @@ public class MediaTypeMediaTest
 	@Test void testSubNone()
 	{
 		final Media m = new Media().contentTypeSub("ding");
-		assertEquals(Condition.FALSE, m.bodyMismatchesContentTypeIfSupported());
+		assertEquals(Condition.ofFalse(), m.bodyMismatchesContentTypeIfSupported());
 	}
 
 	@Test void testAllowed()

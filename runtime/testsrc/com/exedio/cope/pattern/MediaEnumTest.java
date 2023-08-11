@@ -110,7 +110,7 @@ public class MediaEnumTest extends TestWithEnvironment
 
 		assertEquals(contentType.equal(0),  sheet.contentTypeEqual("application/pdf"));
 		assertEquals(contentType.equal(1),  sheet.contentTypeEqual("image/png"));
-		assertEquals(Condition.FALSE,       sheet.contentTypeEqual("major/minor"));
+		assertEquals(Condition.ofFalse(),   sheet.contentTypeEqual("major/minor"));
 		assertEquals(lastModified.isNull(), sheet.contentTypeEqual(null));
 
 		// test persistence
