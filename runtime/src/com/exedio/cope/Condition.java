@@ -144,7 +144,7 @@ public abstract class Condition implements Serializable
 		@Override
 		public Condition not()
 		{
-			return valueOf(!value);
+			return of(!value);
 		}
 
 		@Override
@@ -172,7 +172,7 @@ public abstract class Condition implements Serializable
 		 */
 		private Object readResolve()
 		{
-			return Condition.valueOf(value);
+			return Condition.of(value);
 		}
 	}
 
@@ -190,9 +190,18 @@ public abstract class Condition implements Serializable
 	 * Returns {@link #ofTrue()} if {@code value} is true,
 	 * otherwise {@link #ofFalse()}.
 	 */
-	public static final Condition valueOf(final boolean value)
+	public static final Condition of(final boolean value)
 	{
 		return value ? ofTrue() : ofFalse();
+	}
+
+	/**
+	 * @deprecated Use {@link #of(boolean)} instead.
+	 */
+	@Deprecated
+	public static final Condition valueOf(final boolean value)
+	{
+		return of(value);
 	}
 
 	@Override

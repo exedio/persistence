@@ -246,7 +246,7 @@ public final class CompositeCondition extends Condition
 	{
 		if(left instanceof Literal)
 			if(right instanceof Literal)
-				return valueOf(
+				return of(
 					(operator==Operator.AND)
 					? ( ((Literal)left).value && ((Literal)right).value )
 					: ( ((Literal)left).value || ((Literal)right).value ));

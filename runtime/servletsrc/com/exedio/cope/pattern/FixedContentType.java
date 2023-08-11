@@ -90,6 +90,6 @@ final class FixedContentType extends ContentType<Void>
 	@Override
 	Condition equal(final String contentType)
 	{
-		return Condition.valueOf(full.equals(contentType));
+		return Condition.of(full.equals(contentType));
 	}
 }
