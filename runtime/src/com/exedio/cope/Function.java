@@ -220,12 +220,12 @@ public interface Function<E> extends Selectable<E>
 	 * This aggregate works on MySQL 5.7 or later only.
 	 * See <a href="https://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value">ANY_VALUE</a>.
 	 */
-	default Aggregate<E> any()
+	default Aggregate<E,E> any()
 	{
 		return new AnyAggregate<>(this);
 	}
 
-	default Aggregate<E> distinct()
+	default Aggregate<E,E> distinct()
 	{
 		return new Distinct<>(this);
 	}

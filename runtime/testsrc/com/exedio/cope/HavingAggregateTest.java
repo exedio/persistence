@@ -44,10 +44,10 @@ public class HavingAggregateTest extends TestWithEnvironment
 	{
 		final Count cnt = new Count();
 		final Count cds = aggregated.distinct().count();
-		final Aggregate<Integer> min = aggregated.min();
-		final Aggregate<Integer> max = aggregated.max();
-		final Aggregate<Integer> sum = aggregated.sum();
-		final Aggregate<Double > avg = aggregated.average();
+		final Aggregate<Integer,Integer> min = aggregated.min();
+		final Aggregate<Integer,Integer> max = aggregated.max();
+		final Aggregate<Integer,Integer> sum = aggregated.sum();
+		final Aggregate<Double ,Integer> avg = aggregated.average();
 
 		new MyItem(group1, 11);
 		new MyItem(group2, 21);

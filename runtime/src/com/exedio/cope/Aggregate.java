@@ -22,17 +22,17 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Consumer;
 
-public abstract class Aggregate<E> implements Function<E>
+public abstract class Aggregate<E,S> implements Function<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	final Function<?> source;
+	final Function<S> source;
 	private final String name;
 	private final String sqlPrefix;
 	private final SelectType<E> valueType;
 
 	Aggregate(
-			final Function<?> source,
+			final Function<S> source,
 			final String name, final String sqlName,
 			final SelectType<E> valueType)
 	{
@@ -42,7 +42,7 @@ public abstract class Aggregate<E> implements Function<E>
 		this.valueType = requireNonNull(valueType);
 	}
 
-	public final Function<?> getSource()
+	public final Function<S> getSource()
 	{
 		return source;
 	}
@@ -116,10 +116,10 @@ public abstract class Aggregate<E> implements Function<E>
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof Aggregate<?>))
+		if(!(other instanceof Aggregate<?,?>))
 			return false;
 
-		final Aggregate<?> a = (Aggregate<?>)other;
+		final Aggregate<?,?> a = (Aggregate<?,?>)other;
 
 		return name.equals(a.name) && source.equals(a.source);
 	}

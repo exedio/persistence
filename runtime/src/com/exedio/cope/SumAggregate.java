@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class SumAggregate<E extends Number> extends Aggregate<E> implements NumberFunction<E>
+public final class SumAggregate<E extends Number> extends Aggregate<E,E> implements NumberFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 

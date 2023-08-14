@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class ExtremumAggregate<E> extends Aggregate<E>
+public final class ExtremumAggregate<E> extends Aggregate<E,E>
 {
 	private static final long serialVersionUID = 1l;
 
