@@ -64,15 +64,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/ant/lib/ant.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
       <library name="lib">
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib/ide" />

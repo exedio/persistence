@@ -21,6 +21,7 @@
 		<conf name="idea" />
 		<conf name="completion" description="For fetching exedio-cope-instrument-completion.jar" />
 		<conf name="instrument" extends="runtime" />
+		<conf visibility="private" name="ant" />
 		<conf visibility="private" name="ant-contrib" />
 		<conf visibility="private" name="test" extends="runtime,servlet" />
 		<conf visibility="private" name="jenkins" />
@@ -38,7 +39,7 @@
 		<conf visibility="private" name="testmariadb"    extends="test,mariadb"    />
 		<conf visibility="private" name="testpostgresql" extends="test,postgresql" />
 
-		<conf visibility="private" name="ide" extends="runtime,test,hsqldb,mysql,postgresql"
+		<conf visibility="private" name="ide" extends="runtime,test,ant,hsqldb,mysql,postgresql"
 				description="classpath for IDEs such as Eclipse and IntelliJ, includes java sources and changelogs" />
 	</configurations>
 	<publications defaultconf="SPECIFY_A_CONFIGURATION">
@@ -80,6 +81,7 @@
 		<dependency org="org.jetbrains" name="annotations" rev="22.0.0" conf="idea,compile-annotations->default; ide->sources"/>
 
 		<!-- build dependencies -->
+		<dependency org="org.apache.ant" name="ant" rev="1.10.11" conf="ant->default" />
 		<dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="ant-contrib->default">
 			<exclude org="ant" module="ant" />
 		</dependency>
