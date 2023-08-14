@@ -75,16 +75,26 @@
     <orderEntry type="module-library">
       <library name="lib">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/lib" />
+          <root url="file://$MODULE_DIR$/lib/ide" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/lib" />
+          <root url="file://$MODULE_DIR$/lib/ide" />
         </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" type="SOURCES" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/ide" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/ide" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="compile-annotations">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/compile-annotations" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/compile-annotations" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

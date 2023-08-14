@@ -30,7 +30,7 @@
 	</target>
 
 	<target name="resolve" depends="prepare">
-		<ivy:retrieve pattern="artifacts/lib/[artifact]-[type].[ext]" />
+		<ivy:retrieve pattern="artifacts/lib/[conf]/[artifact]-[type].[ext]" />
 		<fixcrlf srcDir="artifacts/lib" includes="**/*-log.txt,**/*-userlog.txt" fixlast="false" />
 		<ivy:report todir="artifacts/reportraw" graph="false" />
 		<copy todir="artifacts/report">
