@@ -55,6 +55,9 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			final NetworkInterface networkInterface = interfaceI.nextElement();
 			if("lo".equals(networkInterface.getName()))
 				continue;
+			if (networkInterface.getDisplayName()!=null && networkInterface.getDisplayName().startsWith("Hyper-V Virtual Ethernet Adapter"))
+				// Windows Subsystem for Linux virtual adapter
+				continue;
 
 			for(final Enumeration<InetAddress> addressI = networkInterface.getInetAddresses(); addressI.hasMoreElements(); )
 			{
