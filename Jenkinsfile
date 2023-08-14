@@ -1025,12 +1025,12 @@ def multicastAddress()
 	return "224.0.0." + (60 + env.EXECUTOR_NUMBER_HOST_OFFSET.toInteger() + env.EXECUTOR_NUMBER.toInteger())
 }
 
-def branchConsidersDatabase(name)
+def branchConsidersDatabase(String name)
 {
 	return env.BRANCH_NAME.contains(name) || env.BRANCH_NAME.contains("AllDB") || env.BRANCH_NAME.contains("master")
 }
 
-def envMysql56(name, text)
+def envMysql56(String name, String text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
@@ -1051,7 +1051,7 @@ def envMysql56(name, text)
 		)
 }
 
-def envMysql57(name, driver, text)
+def envMysql57(String name, String driver, String text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
@@ -1072,7 +1072,7 @@ def envMysql57(name, driver, text)
 		)
 }
 
-def envMysql80(name, driver, text)
+def envMysql80(String name, String driver, String text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
@@ -1094,7 +1094,7 @@ def envMysql80(name, driver, text)
 		)
 }
 
-def envPostgresql(name, text)
+def envPostgresql(String name, String text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
