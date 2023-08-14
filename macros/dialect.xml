@@ -5,22 +5,9 @@
 	<macrodef name="foreachDialect">
 		<element name="body" optional="false" />
 		<sequential>
-			<for param="dialect.file">
-				<path>
-					<fileset dir="${basedir}/conf/dialect" includes="*.properties" />
-				</path>
+			<for param="name" list="hsqldb,mysql,postgresql">
 				<sequential>
-					<basename file="@{dialect.file}" property="@{dialect.file}.name" suffix=".properties" />
-					<property file="@{dialect.file}" prefix="@{dialect.file}." />
-					<for param="name" list="${@{dialect.file}.name}"><!-- dummy loop for creating attribute -->
-						<sequential>
-							<for param="jar" list="${@{dialect.file}.jar}"><!-- dummy loop for creating attribute -->
-								<sequential>
-									<body />
-								</sequential>
-							</for>
-						</sequential>
-					</for>
+					<body />
 				</sequential>
 			</for>
 		</sequential>
