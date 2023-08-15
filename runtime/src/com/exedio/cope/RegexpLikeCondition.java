@@ -77,7 +77,7 @@ public final class RegexpLikeCondition extends Condition
 	@Override
 	RegexpLikeCondition copy(final CopyMapper mapper)
 	{
-		return new RegexpLikeCondition(function, regexp);
+		return new RegexpLikeCondition(mapper.getS(function), regexp);
 	}
 
 	@Override
