@@ -219,7 +219,7 @@ try
 				tools: [
 					taskScanner(
 						excludePattern:
-							'.git/**,lib/**,ant/**,' +
+							'.git/**,lib/**,' +
 							// binary file types
 							'**/*.jar,**/*.zip,**/*.tgz,**/*.jpg,**/*.jpeg,**/*.gif,**/*.png,**/*.tif,**/*.webp,**/*.pdf,**/*.eot,**/*.ttf,**/*.woff,**/*.woff2,**/keystore,**/*.ico,**/*.xls,**/*.kdbx,**/*.bcmap,**/*.dat,**/*.cur,**/*.otf,**/*.zargo,**/*.gz',
 						// causes build to become unstable, concatenation prevents matching this line
@@ -837,6 +837,7 @@ try
 			assertIvyExtends("testpostgresql", "postgresql")
 			assertIvyExtends("ide", "runtime")
 			assertIvyExtends("ide", "test")
+			assertIvyExtends("ide", "ant")
 			assertIvyExtends("ide", "hsqldb")
 			assertIvyExtends("ide", "mysql")
 			assertIvyExtends("ide", "postgresql")
@@ -1000,7 +1001,7 @@ String shStdout(String script)
 
 void ant(String script)
 {
-	shSilent 'ant/bin/ant -noinput ' + script
+	shSilent 'java -jar lib/ant/ant-launcher.jar -noinput ' + script
 }
 
 void assertGitUnchanged()
