@@ -88,9 +88,9 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	@SuppressWarnings("deprecation")
-	default AverageAggregate average()
+	default AverageAggregate<E> average()
 	{
-		return new AverageAggregate(this);
+		return new AverageAggregate<>(this);
 	}
 
 	long serialVersionUID = 3484464008830007161L;

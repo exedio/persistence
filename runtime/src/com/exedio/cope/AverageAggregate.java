@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class AverageAggregate extends Aggregate<Double>
+public final class AverageAggregate<S extends Number> extends Aggregate<Double,S>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -30,7 +30,7 @@ public final class AverageAggregate extends Aggregate<Double>
 	 * @see com.exedio.cope.NumberFunction#average()
 	 */
 	@Deprecated
-	public AverageAggregate(final Function<? extends Number> source)
+	public AverageAggregate(final Function<S> source)
 	{
 		super(source, "avg", "AVG", SimpleSelectType.DOUBLE);
 	}

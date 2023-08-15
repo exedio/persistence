@@ -1,6 +1,6 @@
 package com.exedio.cope;
 
-public final class Distinct<E> extends Aggregate<E>
+public final class Distinct<E> extends Aggregate<E,E>
 {
 	private static final long serialVersionUID = 1L;
 

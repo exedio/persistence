@@ -124,7 +124,7 @@ class AggregateTest
 
 	@Test void testAverage()
 	{
-		final AverageAggregate a = MyItem.field.average();
+		final AverageAggregate<Integer> a = MyItem.field.average();
 		assertSame(MyItem.field, a.getSource());
 		assertEquals("avg", a.getName());
 		assertSame(Double.class, a.getValueClass());
@@ -139,7 +139,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"avg(MyItem.field)");
 
-		final AverageAggregate as = reserialize(a, 727);
+		final AverageAggregate<Integer> as = reserialize(a, 727);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("avg", as.getName());
 		assertSame(Double.class, as.getValueClass());
@@ -151,7 +151,7 @@ class AggregateTest
 
 	@Test void testAny()
 	{
-		final Aggregate<Integer> a = MyItem.field.any();
+		final Aggregate<Integer,Integer> a = MyItem.field.any();
 		assertSame(MyItem.field, a.getSource());
 		assertEquals("any", a.getName());
 		assertSame(Integer.class, a.getValueClass());
@@ -166,7 +166,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"any(MyItem.field)");
 
-		final Aggregate<Integer> as = reserialize(a, 730);
+		final Aggregate<Integer,Integer> as = reserialize(a, 730);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("any", as.getName());
 		assertSame(Integer.class, as.getValueClass());
@@ -178,7 +178,7 @@ class AggregateTest
 
 	@Test void testDistinct()
 	{
-		final Aggregate<Integer> a = MyItem.field.distinct();
+		final Aggregate<Integer,Integer> a = MyItem.field.distinct();
 		assertSame(MyItem.field, a.getSource());
 		assertEquals("distinct", a.getName());
 		assertSame(Integer.class, a.getValueClass());
@@ -193,7 +193,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"distinct(MyItem.field)");
 
-		final Aggregate<Integer> as = reserialize(a, 730);
+		final Aggregate<Integer,Integer> as = reserialize(a, 730);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("distinct", as.getName());
 		assertSame(Integer.class, as.getValueClass());
