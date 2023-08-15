@@ -102,6 +102,12 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		return new IsNullCondition<>(((Function<?>)function).bind(join), not);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof IsNullCondition<?>))

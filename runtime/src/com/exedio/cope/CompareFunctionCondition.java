@@ -126,6 +126,12 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		return new CompareFunctionCondition<>(operator, left.bind(join), right.bind(join));
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompareFunctionCondition<?>))

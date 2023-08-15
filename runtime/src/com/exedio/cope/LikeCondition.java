@@ -110,6 +110,12 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		return new LikeCondition(function.bind(join), value);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof LikeCondition))

@@ -131,6 +131,17 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		final Condition[] c = new Condition[conditions.length];
+		//noinspection Java8ArraySetAll OK: performance
+		for(int i = 0; i<c.length; i++)
+			c[i] = conditions[i].bind(join);
+
+		return new CompositeCondition(operator, c);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompositeCondition))
