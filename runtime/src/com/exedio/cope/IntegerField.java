@@ -324,6 +324,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<Integer> getValueType()
 	{
 		return SimpleSelectType.INTEGER;

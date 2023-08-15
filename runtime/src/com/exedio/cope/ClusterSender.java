@@ -66,7 +66,7 @@ abstract class ClusterSender
 			assert pos==KIND;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
 			assert pos==SEQUENCE;
-			//noinspection ConstantConditions
+			//noinspection ConstantValue
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 			assert pos==PING_NANOS;
@@ -90,7 +90,7 @@ abstract class ClusterSender
 			assert pos==KIND;
 			pos = marshal(pos, invalidateTemplate, KIND_INVALIDATE);
 			assert pos==SEQUENCE;
-			//noinspection ConstantConditions
+			//noinspection ConstantValue
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
 		}

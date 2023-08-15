@@ -140,7 +140,7 @@ public final class AntTask extends Task
 		params.nullabilityAnnotations = value;
 	}
 
-	public void setSerialVersionUIDSuffix(final IntegerTypeSuffix value)
+	public void setSerialVersionUIDSuffix(@SuppressWarnings("ClassEscapesDefinedScope") final IntegerTypeSuffix value)
 	{
 		params.serialVersionUIDSuffix = value;
 	}

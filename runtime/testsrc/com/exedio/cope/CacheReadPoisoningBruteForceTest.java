@@ -45,6 +45,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 	boolean stamps;
 	CacheIsolationItem item;
+	@SuppressWarnings("InstantiatingAThreadWithDefaultRunMethod") // OK: run is implemented by subclasses
 	final ThreadStoppable[] threads = new ThreadStoppable[10];
 	final StringBuilder failures = new StringBuilder();
 
@@ -167,6 +168,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		{
 			thread.join();
 			if(thread.failure!=null)
+				//noinspection CallToPrintStackTrace
 				thread.failure.printStackTrace();
 			assertEquals(null, thread.errorName, "error name " + thread);
 			assertEquals(true, thread.finished, "not finished normally " + thread);

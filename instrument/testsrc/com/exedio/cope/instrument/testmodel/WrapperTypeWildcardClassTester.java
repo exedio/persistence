@@ -30,7 +30,7 @@ import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperType;
 
-@SuppressWarnings({"EmptyClass", "unused"}) // OK: just for testing instrumentor
+@SuppressWarnings({"EmptyClass", "ClassEscapesDefinedScope", "unused"}) // OK: just for testing instrumentor
 public final class WrapperTypeWildcardClassTester
 {
 	@WrapperType(wildcardClass=DEFAULT,

@@ -77,7 +77,7 @@ public abstract class View<E> extends Feature
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void check(final TC tc, final Join join)
+	public final void check(@SuppressWarnings("ClassEscapesDefinedScope") final TC tc, final Join join)
 	{
 		for(final Function<?> source : sources)
 			source.check(tc, join);

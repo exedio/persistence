@@ -213,6 +213,7 @@ public final class StringField extends FunctionField<String>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<String> getValueType()
 	{
 		return SimpleSelectType.STRING;

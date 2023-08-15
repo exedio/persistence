@@ -127,6 +127,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<E> getValueType()
 	{
 		return valueType;

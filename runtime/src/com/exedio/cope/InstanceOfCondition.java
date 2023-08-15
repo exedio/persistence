@@ -107,6 +107,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		function.appendType(bf, null);
 	}
 
+	@SuppressWarnings("ExtractMethodRecommender")
 	@Override
 	void append(final Statement bf)
 	{

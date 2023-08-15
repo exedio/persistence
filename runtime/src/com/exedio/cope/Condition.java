@@ -80,13 +80,13 @@ public abstract class Condition implements Serializable
 	 * @deprecated Use {@link #ofTrue()} instead.
 	 */
 	@Deprecated
-	@SuppressWarnings("StaticInitializerReferencesSubClass") // TODO is a serious problem
+	@SuppressWarnings({"ClassEscapesDefinedScope", "StaticInitializerReferencesSubClass"}) // TODO StaticInitializerReferencesSubClass is a serious problem
 	public static final Literal TRUE  = new Literal(true , "TRUE" );
 	/**
 	 * @deprecated Use {@link #ofFalse()}} instead.
 	 */
 	@Deprecated
-	@SuppressWarnings("StaticInitializerReferencesSubClass") // TODO is a serious problem
+	@SuppressWarnings({"ClassEscapesDefinedScope", "StaticInitializerReferencesSubClass"}) // StaticInitializerReferencesSubClass TODO is a serious problem
 	public static final Literal FALSE = new Literal(false, "FALSE");
 
 	static final class Literal extends Condition

@@ -40,6 +40,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<E> getValueType()
 	{
 		return minuend.getValueType();
@@ -75,7 +76,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append('(').
 			append(minuend, join).

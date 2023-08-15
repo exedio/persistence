@@ -27,7 +27,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	void appendType(Statement bf, Join join);
+	void appendType(@SuppressWarnings("ClassEscapesDefinedScope") Statement bf, Join join);
 
 	/**
 	 * @see #checkTypeColumn()
@@ -39,6 +39,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @see SchemaInfo#checkTypeColumn(ItemFunction)
 	 */
 	long checkTypeColumnL();
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	Statement checkTypeColumnStatement(Statement.Mode mode);
 
 	// convenience methods for conditions and views ---------------------------------

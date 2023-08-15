@@ -29,6 +29,7 @@ public abstract class StringView extends View<String>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public SelectType<String> getValueType()
 	{
 		return SimpleSelectType.STRING;

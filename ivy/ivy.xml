@@ -23,6 +23,7 @@
 		<conf name="instrument" extends="runtime" />
 		<conf visibility="private" name="ant-contrib" />
 		<conf visibility="private" name="test" extends="runtime,servlet" />
+		<conf visibility="private" name="jenkins" />
 		<conf visibility="private" name="tomcat" />
 		<conf visibility="private" name="copeconsole" />
 
@@ -97,5 +98,6 @@
 			<exclude org="org.slf4j" module="slf4j-api" />
 			<exclude org="com.exedio" module="copeutil" />
 		</dependency>
+		<dependency org="com.exedio" name="pipeline-gdsl" rev="26" conf="jenkins->runtime; ide->changelog" />
 	</dependencies>
 </ivy-module>

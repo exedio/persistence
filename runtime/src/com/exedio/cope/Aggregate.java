@@ -59,6 +59,7 @@ public abstract class Aggregate<E> implements Function<E>
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public final SelectType<E> getValueType()
 	{
 		return valueType;
@@ -75,7 +76,7 @@ public abstract class Aggregate<E> implements Function<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void check(final TC tc, final Join join)
+	public final void check(@SuppressWarnings("ClassEscapesDefinedScope") final TC tc, final Join join)
 	{
 		source.check(tc, join);
 	}
@@ -91,7 +92,7 @@ public abstract class Aggregate<E> implements Function<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
 			append(source, join).

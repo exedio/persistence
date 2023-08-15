@@ -66,7 +66,7 @@ public final class This<E extends Item> extends Feature
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void check(final TC tc, final Join join)
+	public void check(@SuppressWarnings("ClassEscapesDefinedScope") final TC tc, final Join join)
 	{
 		tc.check(this, join);
 	}
@@ -78,7 +78,7 @@ public final class This<E extends Item> extends Feature
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.appendPK(type, join);
 		bf.appendTypeColumnIfRequired(type.getTable().typeColumn, join);
@@ -86,13 +86,13 @@ public final class This<E extends Item> extends Feature
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void appendType(final Statement bf, final Join join)
+	public void appendType(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendParameter(final Statement bf, final E value)
+	public void appendParameter(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final E value)
 	{
 		bf.appendParameter(value.pk);
 	}
@@ -124,6 +124,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Override
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	public Statement checkTypeColumnStatement(final Statement.Mode mode)
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);

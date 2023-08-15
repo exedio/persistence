@@ -226,6 +226,7 @@ final class Generator
 		write(lineSeparator);
 	}
 
+	@SuppressWarnings("ExtractMethodRecommender") // TODO
 	private void writeInitialConstructor(final LocalCopeType type)
 	{
 		if(!type.kind.hasGenericConstructor) // without generic constructor there can be no initial constructor

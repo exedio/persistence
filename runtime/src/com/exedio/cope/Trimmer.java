@@ -36,6 +36,7 @@ final class Trimmer
 		this.maxLength = requireGreaterZero(maxLength, "maxLength");
 	}
 
+	@SuppressWarnings("ExtractMethodRecommender")
 	String trimString(final String longString)
 	{
 		requireNonEmpty(longString, "longString");

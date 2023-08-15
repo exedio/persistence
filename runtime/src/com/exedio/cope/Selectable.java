@@ -28,6 +28,7 @@ public interface Selectable<E> extends Serializable
 	 */
 	Class<E> getValueClass();
 
+	@SuppressWarnings("ClassEscapesDefinedScope")
 	SelectType<E> getValueType();
 
 	Type<?> getType();
@@ -38,7 +39,7 @@ public interface Selectable<E> extends Serializable
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	void check(TC tc, Join join);
+	void check(@SuppressWarnings("ClassEscapesDefinedScope") TC tc, Join join);
 
 	void acceptFieldsCovered(Consumer<Field<?>> consumer);
 
@@ -46,5 +47,5 @@ public interface Selectable<E> extends Serializable
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	void append(Statement bf, Join join);
+	void append(@SuppressWarnings("ClassEscapesDefinedScope") Statement bf, Join join);
 }
