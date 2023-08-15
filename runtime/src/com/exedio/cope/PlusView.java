@@ -77,6 +77,12 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
+	public NumberFunction<E> bind(final Join join)
+	{
+		return new PlusView<>(BindFunction.bind(addends, join));
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public E mapJava(final Object[] sourceValues)
 	{

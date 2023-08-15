@@ -33,4 +33,10 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	{
 		super(isfinal, optional, valueClass, unique, copyFrom, defaultS);
 	}
+
+	@Override
+	public NumberFunction<E> bind(final Join join)
+	{
+		return BindNumberFunction.create(this, join);
+	}
 }

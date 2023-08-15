@@ -104,6 +104,12 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Override
+	public ItemFunction<E> bind(final Join join)
+	{
+		return BindItemFunction.create(this, join);
+	}
+
+	@Override
 	public boolean needsCheckTypeColumn()
 	{
 		return type.needsCheckTypeColumn();

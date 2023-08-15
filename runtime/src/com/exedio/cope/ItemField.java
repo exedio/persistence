@@ -410,6 +410,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return resolveValueTypeFuture();
 	}
 
+	@Override
+	public ItemFunction<E> bind(final Join join)
+	{
+		return BindItemFunction.create(this, join);
+	}
+
 
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;

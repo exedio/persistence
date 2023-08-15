@@ -25,7 +25,7 @@ public final class DayPartView extends NumberView<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final DayField source;
+	private final Function<Day> source;
 	private final Part part;
 
 	enum Part {
@@ -106,7 +106,7 @@ public final class DayPartView extends NumberView<Integer>
 		abstract int getPart(final Day day);
 	}
 
-	DayPartView(final DayField source, final Part part)
+	DayPartView(final Function<Day> source, final Part part)
 	{
 		super(new Function<?>[]{source}, part.viewName, Integer.class);
 		this.source = source;
@@ -120,12 +120,18 @@ public final class DayPartView extends NumberView<Integer>
 		return SimpleSelectType.INTEGER;
 	}
 
+	@Override
+	public DayPartView bind(final Join join)
+	{
+		return new DayPartView(source.bind(join), part);
+	}
+
 	Part getPart()
 	{
 		return part;
 	}
 
-	DayField getSource()
+	Function<Day> getSource()
 	{
 		return source;
 	}

@@ -34,4 +34,10 @@ public final class SumAggregate<E extends Number> extends Aggregate<E,E> impleme
 	{
 		super(source, "sum", "SUM", source.getValueType());
 	}
+
+	@Override
+	public NumberFunction<E> bind(final Join join)
+	{
+		return new SumAggregate<>(source.bind(join));
+	}
 }

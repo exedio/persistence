@@ -67,6 +67,12 @@ public final class Random implements NumberFunction<Double>
 	}
 
 	@Override
+	public NumberFunction<Double> bind(final Join join)
+	{
+		return BindNumberFunction.create(this, join);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof Random))

@@ -45,10 +45,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
-	default ItemFunction<E> bind(final Join join)
-	{
-		return new BindItemFunction<>(this, join);
-	}
+	ItemFunction<E> bind(Join join); // narrows return type for implementations
 
 	default CompareFunctionCondition<?> equalTarget()
 	{

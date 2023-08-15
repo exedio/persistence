@@ -33,6 +33,11 @@ class BindFunction<E> implements Function<E>
 	{
 		this.function = requireNonNull(function, "function");
 		this.join = requireNonNull(join, "join");
+		if(!(
+				function instanceof This ||
+				function instanceof FunctionField ||
+				function instanceof Random))
+			throw new IllegalArgumentException(function.getClass().getName());
 	}
 
 	@Override
@@ -131,5 +136,14 @@ class BindFunction<E> implements Function<E>
 	public Function<E> bind(final Join join)
 	{
 		return this;
+	}
+
+	static <E> Function<E>[] bind(final Function<E>[] functions, final Join join)
+	{
+		@SuppressWarnings({"unchecked","rawtypes","RedundantSuppression"})
+		final Function<E>[] result = new Function[functions.length];
+		for(int i = 0; i<functions.length; i++)
+			result[i] = functions[i].bind(join);
+		return result;
 	}
 }

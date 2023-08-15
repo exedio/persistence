@@ -23,7 +23,7 @@ final class BindStringFunction extends BindFunction<String>
 {
 	private static final long serialVersionUID = 1l;
 
-	BindStringFunction(final StringFunction function, final Join join)
+	BindStringFunction(final StringField function, final Join join)
 	{
 		super(function, join);
 	}

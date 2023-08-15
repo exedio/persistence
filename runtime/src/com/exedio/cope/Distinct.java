@@ -11,4 +11,10 @@ public final class Distinct<E> extends Aggregate<E,E>
 	{
 		super(source, "distinct", "DISTINCT", source.getValueType());
 	}
+
+	@Override
+	public Function<E> bind(final Join join)
+	{
+		return new Distinct<>(source.bind(join));
+	}
 }

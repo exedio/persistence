@@ -65,6 +65,12 @@ public final class CoalesceView<E> extends View<E>
 	}
 
 	@Override
+	public Function<E> bind(final Join join)
+	{
+		return new CoalesceView<>(BindFunction.bind(parameters, join), literal);
+	}
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public E mapJava(final Object[] sourceValues)
 	{

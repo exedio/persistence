@@ -23,9 +23,19 @@ final class BindNumberFunction<E extends Number> extends BindFunction<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	BindNumberFunction(final NumberFunction<E> function, final Join join)
+	private BindNumberFunction(final NumberFunction<E> function, final Join join)
 	{
 		super(function, join);
+	}
+
+	static <E extends Number> BindNumberFunction<E> create(final NumberField<E> function, final Join join)
+	{
+		return new BindNumberFunction<>(function, join);
+	}
+
+	static BindNumberFunction<Double> create(final Random function, final Join join)
+	{
+		return new BindNumberFunction<>(function, join);
 	}
 
 	// convenience methods for conditions and views ---------------------------------

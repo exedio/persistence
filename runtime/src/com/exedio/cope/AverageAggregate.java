@@ -35,6 +35,12 @@ public final class AverageAggregate<S extends Number> extends Aggregate<Double,S
 		super(source, "avg", "AVG", SimpleSelectType.DOUBLE);
 	}
 
+	@Override
+	public Function<Double> bind(final Join join)
+	{
+		return new AverageAggregate<>(source.bind(join));
+	}
+
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */

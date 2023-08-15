@@ -101,7 +101,7 @@ public class JoinMultipleTest extends TestmodelTest
 			query.setCondition((num1.plus(num2)).greater(2));
 			assertEquals("select this from PointerItem join PointerTargetItem p1 where plus(PointerTargetItem.num1,PointerTargetItem.num2)>'2'", query.toString());
 			query.setCondition((num1.plus(num2)).bind(join1).greater(2));
-			assertEquals("select this from PointerItem join PointerTargetItem p1 where p1.plus(PointerTargetItem.num1,PointerTargetItem.num2)>'2'", query.toString()); // TODO put join on fields
+			assertEquals("select this from PointerItem join PointerTargetItem p1 where plus(p1.PointerTargetItem.num1,p1.PointerTargetItem.num2)>'2'", query.toString());
 		}
 	}
 }
