@@ -201,6 +201,11 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 	// convenience methods for conditions and views ---------------------------------
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 * Replace {@code field.bind(j).equal(Price.ZERO)} by {@code field.equal(Price.ZERO).bind(j)}.
+	 */
+	@Deprecated
 	public PriceFunction bind(final Join join)
 	{
 		return new PriceBindFunction(this, join);

@@ -41,6 +41,7 @@ public class ColorFieldConditionsStringTest
 	{
 		final Query<?> q = ColorFieldItem.TYPE.newQuery();
 		final Join j = q.join(ColorFieldItem.TYPE);
+		@SuppressWarnings("deprecation") // OK testing deprecated api
 		final ColorFunction b = f.bind(j);
 
 		assertEquals("c1."+s, b.toString());
@@ -65,6 +66,7 @@ public class ColorFieldConditionsStringTest
 		assertEquals("c1."+s+"<>'16711680'", f.notEqual(v1).bind(j).toString());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testJoinNull()
 	{
 		assertFails(
