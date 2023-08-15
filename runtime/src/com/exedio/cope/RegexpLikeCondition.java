@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
+import javax.annotation.Nonnull;
 
 /**
  * This condition exposes underlying database regexp functionality.
@@ -77,7 +78,19 @@ public final class RegexpLikeCondition extends Condition
 	@Override
 	RegexpLikeCondition copy(final CopyMapper mapper)
 	{
-		return new RegexpLikeCondition(mapper.getS(function), regexp);
+		return new RegexpLikeCondition(mapper.getS(function), this);
+	}
+
+	/**
+	 * Constructor avoids recomputation of {@link #icuPattern}.
+	 */
+	private RegexpLikeCondition(
+			@Nonnull final StringFunction function,
+			@Nonnull final RegexpLikeCondition regexpTemplate)
+	{
+		this.function = function;
+		this.regexp = regexpTemplate.regexp;
+		this.icuPattern = regexpTemplate.icuPattern;
 	}
 
 	@Override
