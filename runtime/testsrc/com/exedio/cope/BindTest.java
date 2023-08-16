@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.BindTest.AnItem.TYPE;
+import static com.exedio.cope.BindTest.AnItem.i;
+import static com.exedio.cope.BindTest.AnItem.s;
 import static com.exedio.cope.BindTest.AnItem.x;
 import static com.exedio.cope.BindTest.AnItem.y;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -27,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.util.CharSet;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,6 +54,27 @@ public class BindTest
 		assertIt("max(a2.x)", "MAX(AnItem2.\"x\")", x.max().bind(a2));
 		assertIt("max(a2.x)", "MAX(AnItem2.\"x\")", x.max().bind(a2).bind(a1)); // idempotence
 		assertIt("max(a1.x)", "MAX(AnItem1.\"x\")", x.bind(a1).max().bind(a2));
+	}
+
+	@SuppressWarnings("SuspiciousNameCombination")
+	@Test void testConditions()
+	{
+		assertIt(   "x<'1'", x.less(1));
+		assertIt("a1.x<'1'", x.less(1).bind(a1));
+		assertIt(   "x<y",    x.less(y));
+		assertIt("a1.x<a1.y", x.less(y).bind(a1));
+		assertIt("a1.x<a1.y", x.bind(a1).less(y.bind(a1)));
+		assertIt("("+"x<'1' and "+"y<'2')", x.less(1)         .and(y.less(2)));
+		assertIt("(a1.x<'1' and a1.y<'2')", x.less(1)         .and(y.less(2)).bind(a1));
+		assertIt("(a1.x<'1' and a2.y<'2')", x.less(1).bind(a1).and(y.less(2)).bind(a2));
+		assertIt(   "x is null", x.isNull());
+		assertIt("a1.x is null", x.isNull().bind(a1));
+		assertIt("!(a1.x<'1')", x.less(1).not().bind(a1));
+		assertIt("a1.s conformsTo [A-Z]", s.conformsTo(CharSet.ALPHA_UPPER).bind(a1));
+		assertIt("a1.s like 'a%b'", s.like("a%b").bind(a1));
+		assertIt("a1.s regexp '(?s)\\Aa.*b\\z'", s.regexpLike("a.*b").bind(a1));
+		assertIt("a1.s matches 'ab'", new MatchCondition(s, "ab").bind(a1));
+		assertIt("a1.i instanceOf AnItem", i.instanceOf(TYPE).bind(a1));
 	}
 
 	private Query<Integer> query;
@@ -78,12 +102,22 @@ public class BindTest
 	private void assertIt(final String s, final String sql, final Function<Integer> function)
 	{
 		query.setSelect(function);
+		query.setCondition(null);
 		assertEquals(
 				"select " + s + " from AnItem join AnItem a1 join AnItem a2",
 				query.toString());
 		assertEquals(
 				"SELECT " + sql + " FROM \"AnItem\" AnItem0 CROSS JOIN \"AnItem\" AnItem1 CROSS JOIN \"AnItem\" AnItem2",
 				SchemaInfo.search(query));
+	}
+
+	private void assertIt(final String s, final Condition condition)
+	{
+		query.setCondition(condition);
+		query.setSelect(x);
+		assertEquals(
+				"select x from AnItem join AnItem a1 join AnItem a2 where " + s,
+				query.toString());
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -93,6 +127,10 @@ public class BindTest
 		static final IntegerField x = new IntegerField();
 		@WrapperIgnore
 		static final IntegerField y = new IntegerField();
+		@WrapperIgnore
+		static final StringField s = new StringField();
+		@WrapperIgnore
+		static final ItemField<AnItem> i = ItemField.create(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

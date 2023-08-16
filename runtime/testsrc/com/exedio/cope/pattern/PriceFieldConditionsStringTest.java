@@ -49,27 +49,38 @@ public class PriceFieldConditionsStringTest
 
 		assertEquals(      s+" is null"    , f.isNull()    .toString());
 		assertEquals("p1."+s+" is null"    , b.isNull()    .toString());
+		assertEquals("p1."+s+" is null"    , f.isNull().bind(j).toString());
 		assertEquals(      s+" is not null", f.isNotNull() .toString());
 		assertEquals("p1."+s+" is not null", b.isNotNull() .toString());
+		assertEquals("p1."+s+" is not null", f.isNotNull().bind(j).toString());
 		assertEquals(      s+" is null"    , f.equal(vN)   .toString());
 		assertEquals("p1."+s+" is null"    , b.equal(vN)   .toString());
+		assertEquals("p1."+s+" is null"    , f.equal(vN).bind(j).toString());
 		assertEquals(      s+" is not null", f.notEqual(vN).toString());
 		assertEquals("p1."+s+" is not null", b.notEqual(vN).toString());
+		assertEquals("p1."+s+" is not null", f.notEqual(vN).bind(j).toString());
 		assertEquals(      s+"='111'"      , f.equal(v1)   .toString());
 		assertEquals("p1."+s+"='111'"      , b.equal(v1)   .toString());
+		assertEquals("p1."+s+"='111'"      , f.equal(v1).bind(j).toString());
 		assertEquals(      s+"<>'111'"     , f.notEqual(v1).toString());
 		assertEquals("p1."+s+"<>'111'"     , b.notEqual(v1).toString());
+		assertEquals("p1."+s+"<>'111'"     , f.notEqual(v1).bind(j).toString());
 
 		assertEquals(      s+"<'222'" , f.less          (v2).toString());
 		assertEquals("p1."+s+"<'222'" , b.less          (v2).toString());
+		assertEquals("p1."+s+"<'222'" , f.less          (v2).bind(j).toString());
 		assertEquals(      s+"<='222'", f.lessOrEqual   (v2).toString());
 		assertEquals("p1."+s+"<='222'", b.lessOrEqual   (v2).toString());
+		assertEquals("p1."+s+"<='222'", f.lessOrEqual   (v2).bind(j).toString());
 		assertEquals(      s+">='222'", f.greaterOrEqual(v2).toString());
 		assertEquals("p1."+s+">='222'", b.greaterOrEqual(v2).toString());
+		assertEquals("p1."+s+">='222'", f.greaterOrEqual(v2).bind(j).toString());
 		assertEquals(      s+">'222'" , f.greater       (v2).toString());
 		assertEquals("p1."+s+">'222'" , b.greater       (v2).toString());
+		assertEquals("p1."+s+">'222'" , f.greater       (v2).bind(j).toString());
 		assertEquals("("   +s+">='222' and "   +s+"<='333')", f.between(v2, v3).toString());
 		assertEquals("(p1."+s+">='222' and p1."+s+"<='333')", b.between(v2, v3).toString());
+		assertEquals("(p1."+s+">='222' and p1."+s+"<='333')", f.between(v2, v3).bind(j).toString());
 	}
 
 	@Test void testJoinNull()

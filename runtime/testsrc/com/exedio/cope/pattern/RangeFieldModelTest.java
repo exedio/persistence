@@ -30,8 +30,10 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.StringLengthViolationException;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -135,5 +137,26 @@ public class RangeFieldModelTest
 	{
 		assertEquals("com.exedio.cope.pattern.Range<java.lang.Integer>", valid.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Range<java.lang.String>" , text .getInitialType().toString());
+	}
+
+	@Test void testContainsBind()
+	{
+		final Query<?> q = TYPE.newQuery();
+		assertEquals(
+				"select this from RangeFieldItem",
+				q.toString());
+		q.setCondition(valid.contains(55));
+		assertEquals(
+				"select this from RangeFieldItem " +
+				"where ((valid-from is null or valid-from<='55') and (valid-to is null or valid-to>='55'))",
+				q.toString());
+		final Join j = q.join(TYPE);
+		q.setCondition(valid.contains(66).bind(j));
+		assertEquals(
+				"select this from RangeFieldItem " +
+				"join RangeFieldItem r1 " +
+				"where ((r1.valid-from is null or r1.valid-from<='66') " +
+				"and (r1.valid-to is null or r1.valid-to>='66'))",
+				q.toString());
 	}
 }

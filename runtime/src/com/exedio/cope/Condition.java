@@ -61,6 +61,8 @@ public abstract class Condition implements Serializable
 
 	abstract Condition copy(CopyMapper mapper);
 
+	public abstract Condition bind(Join join);
+
 	public Condition not()
 	{
 		return new NotCondition(this, 0.0);
@@ -138,6 +140,13 @@ public abstract class Condition implements Serializable
 		@Override
 		Literal copy(final CopyMapper mapper)
 		{
+			return this;
+		}
+
+		@Override
+		public Condition bind(final Join join)
+		{
+			requireNonNull(join);
 			return this;
 		}
 

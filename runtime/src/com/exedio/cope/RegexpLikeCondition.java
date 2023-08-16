@@ -81,6 +81,12 @@ public final class RegexpLikeCondition extends Condition
 		return new RegexpLikeCondition(mapper.getS(function), this);
 	}
 
+	@Override
+	public Condition bind(final Join join)
+	{
+		return new RegexpLikeCondition(function.bind(join), this);
+	}
+
 	/**
 	 * Constructor avoids recomputation of {@link #icuPattern}.
 	 */

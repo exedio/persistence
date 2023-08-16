@@ -110,6 +110,12 @@ public final class MatchCondition extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		return new MatchCondition(function.bind(join), value);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof MatchCondition))

@@ -92,6 +92,12 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		return new NotCondition(argument.bind(join));
+	}
+
+	@Override
 	public Condition not()
 	{
 		return argument;

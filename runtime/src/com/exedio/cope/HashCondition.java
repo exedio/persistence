@@ -89,6 +89,15 @@ final class HashCondition extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		throw new RuntimeException("not yet implemented");
+		// Should be implemented as
+		//   return new HashCondition(hash.bind(join), algorithm, data.bind(join));
+		// but so far there is no DataField#bind(Join).
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof HashCondition))

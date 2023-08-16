@@ -118,6 +118,15 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
+	public Condition bind(final Join join)
+	{
+		throw new RuntimeException("not yet implemented");
+		// Should be implemented as
+		//   return new StartsWithCondition(field.bind(join), offset, value);
+		// but so far there is no DataField#bind(Join).
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof StartsWithCondition))
