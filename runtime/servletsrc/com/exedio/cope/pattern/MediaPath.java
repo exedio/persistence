@@ -987,9 +987,11 @@ public abstract class MediaPath extends Pattern
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} returns null.
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
 	 * @param join the join the returned condition should be bound to
 	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
+	@Deprecated
 	public final Condition isNull(final Join join) { return isNull().bind(join); }
 
 	/**
@@ -1000,9 +1002,11 @@ public abstract class MediaPath extends Pattern
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
 	 * @param join the join the returned condition should be bound to
 	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
+	@Deprecated
 	public final Condition isNotNull(final Join join) { return isNotNull().bind(join); }
 
 	private  UnsupportedOperationException unsupportedCondition()

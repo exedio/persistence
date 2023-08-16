@@ -119,6 +119,7 @@ public class MediaTest extends TestWithEnvironment
 		assertSerializedSame(custom, 374);
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testConditions()
 	{
 		final MediaItem item2 = new MediaItem("other media item");
