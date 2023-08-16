@@ -18,54 +18,50 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.ColorField.toRGB;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Join;
-import com.exedio.cope.NumberFunction;
 import java.awt.Color;
 
 final class ColorBindFunction implements ColorFunction
 {
-	final NumberFunction<Integer> integer;
+	private final ColorField field;
+	private final Join join;
 
-	ColorBindFunction(final ColorField function, final Join join)
+	ColorBindFunction(final ColorField field, final Join join)
 	{
-		integer = function.getRGB().bind(join);
+		this.field = field;
+		this.join = requireNonNull(join, "join");
 	}
 
 	@Override
 	public Condition isNull()
 	{
-		return integer.isNull();
+		return field.isNull().bind(join);
 	}
 
 	@Override
 	public Condition isNotNull()
 	{
-		return integer.isNotNull();
+		return field.isNotNull().bind(join);
 	}
 
 	@Override
 	public Condition equal(final Color value)
 	{
-		return integer.equal(store(value));
+		return field.equal(value).bind(join);
 	}
 
 	@Override
 	public Condition notEqual(final Color value)
 	{
-		return integer.notEqual(store(value));
-	}
-
-	private static Integer store(final Color c)
-	{
-		return c!=null ? toRGB(c) : null;
+		return field.notEqual(value).bind(join);
 	}
 
 	@Override
 	public String toString()
 	{
-		return integer.toString();
+		return field.getRGB().bind(join).toString();
 	}
 }

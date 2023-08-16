@@ -18,81 +18,79 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.Join;
-import com.exedio.cope.NumberFunction;
 
 final class PriceBindFunction implements PriceFunction
 {
-	final NumberFunction<Long> integer;
+	private final PriceField field;
+	private final Join join;
 
-	PriceBindFunction(final PriceField function, final Join join)
+	PriceBindFunction(final PriceField field, final Join join)
 	{
-		integer = function.getInt().bind(join);
+		this.field = field;
+		this.join = requireNonNull(join, "join");
 	}
 
 	@Override
 	public Condition isNull()
 	{
-		return integer.isNull();
+		return field.isNull().bind(join);
 	}
 
 	@Override
 	public Condition isNotNull()
 	{
-		return integer.isNotNull();
+		return field.isNotNull().bind(join);
 	}
 
 	@Override
 	public Condition equal(final Price value)
 	{
-		return integer.equal(store(value));
+		return field.equal(value).bind(join);
 	}
 
 	@Override
 	public Condition notEqual(final Price value)
 	{
-		return integer.notEqual(store(value));
+		return field.notEqual(value).bind(join);
 	}
 
 	@Override
 	public Condition less(final Price value)
 	{
-		return integer.less(value.store());
+		return field.less(value).bind(join);
 	}
 
 	@Override
 	public Condition lessOrEqual(final Price value)
 	{
-		return integer.lessOrEqual(value.store());
+		return field.lessOrEqual(value).bind(join);
 	}
 
 	@Override
 	public Condition greater(final Price value)
 	{
-		return integer.greater(value.store());
+		return field.greater(value).bind(join);
 	}
 
 	@Override
 	public Condition greaterOrEqual(final Price value)
 	{
-		return integer.greaterOrEqual(value.store());
+		return field.greaterOrEqual(value).bind(join);
 	}
 
 	@Override
 	public Condition between(final Price lowerBound, final Price upperBound)
 	{
-		return integer.between(lowerBound.store(), upperBound.store());
-	}
-
-	private static Long store(final Price p)
-	{
-		return p!=null ? p.store() : null;
+		return field.between(lowerBound, upperBound).bind(join);
 	}
 
 	@Override
 	public String toString()
 	{
-		return integer.toString();
+		return field.getInt().bind(join).toString();
 	}
 }
