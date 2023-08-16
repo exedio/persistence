@@ -43,6 +43,7 @@ public class PriceFieldConditionsStringTest
 	{
 		final Query<?> q = PriceFieldItem.TYPE.newQuery();
 		final Join j = q.join(PriceFieldItem.TYPE);
+		@SuppressWarnings("deprecation") // OK testing deprecated api
 		final PriceFunction b = f.bind(j);
 
 		assertEquals("p1."+s, b.toString());
@@ -83,6 +84,7 @@ public class PriceFieldConditionsStringTest
 		assertEquals("(p1."+s+">='222' and p1."+s+"<='333')", f.between(v2, v3).bind(j).toString());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testJoinNull()
 	{
 		assertFails(

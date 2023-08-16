@@ -271,6 +271,11 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	// convenience methods for conditions and views ---------------------------------
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 * Replace {@code field.bind(j).equal(red)} by {@code field.equal(red).bind(j)}.
+	 */
+	@Deprecated
 	public ColorFunction bind(final Join join)
 	{
 		return new ColorBindFunction(this, join);
