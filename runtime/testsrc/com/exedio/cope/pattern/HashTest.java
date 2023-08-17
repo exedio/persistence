@@ -313,6 +313,7 @@ public class HashTest extends TestWithEnvironment
 		assertEquals(true,  item.checkInternal(tooLong));
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testConditions()
 	{
 		final HashItem item2 = new HashItem();
