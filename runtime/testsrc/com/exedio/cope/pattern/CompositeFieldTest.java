@@ -486,6 +486,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testBindingInConditions()
 	{
 		final CompositeItemHolder h1 = new CompositeItemHolder(target1);
