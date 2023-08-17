@@ -338,6 +338,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition equal(final Join join, final Collection<E> value)
 	{
 		return bind(equal(value), join);
@@ -358,6 +362,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return Cope.and(conditions);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition notEqual(final Join join, final Collection<E> value)
 	{
 		return bind(notEqual(value), join);
@@ -380,6 +388,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return Cope.or(conditions);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition contains(final Join join, final E value)
 	{
 		return bind(contains(value), join);
@@ -420,6 +432,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return join == null ? source : source.bind(join);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition containsAny(final Join join, final Collection<E> set)
 	{
 		return bind(containsAny(set), join);
@@ -465,31 +481,55 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return length.greaterOrEqual(value);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition lengthEqual(final Join join, final int value)
 	{
 		return bind(lengthEqual(value), join);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition lengthNotEqual(final Join join, final int value)
 	{
 		return bind(lengthNotEqual(value), join);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition lengthLess(final Join join, final int value)
 	{
 		return bind(lengthLess(value), join);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition lengthLessOrEqual(final Join join, final int value)
 	{
 		return bind(lengthLessOrEqual(value), join);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition lengthGreater(final Join join, final int value)
 	{
 		return bind(lengthGreater(value), join);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition lengthGreaterOrEqual(final Join join, final int value)
 	{
 		return bind(lengthGreaterOrEqual(value), join);
