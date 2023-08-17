@@ -23,7 +23,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
 import java.util.ArrayList;
@@ -115,21 +114,9 @@ public abstract class MediaFilter extends MediaPath
 	}
 
 	@Override
-	public final Condition isNull(final Join join)
-	{
-		return source.isNull(join); // TODO check for getSupportedSourceContentTypes
-	}
-
-	@Override
 	public final Condition isNotNull()
 	{
 		return source.isNotNull(); // TODO check for getSupportedSourceContentTypes
-	}
-
-	@Override
-	public final Condition isNotNull(final Join join)
-	{
-		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
 	}
 
 

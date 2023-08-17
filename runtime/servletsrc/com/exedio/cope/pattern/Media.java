@@ -32,7 +32,6 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -781,21 +780,9 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	@Override
-	public Condition isNull(final Join join)
-	{
-		return lastModified.bind(join).isNull();
-	}
-
-	@Override
 	public Condition isNotNull()
 	{
 		return lastModified.isNotNull();
-	}
-
-	@Override
-	public Condition isNotNull(final Join join)
-	{
-		return lastModified.bind(join).isNotNull();
 	}
 
 	public Condition contentTypeEqual(final String contentType)

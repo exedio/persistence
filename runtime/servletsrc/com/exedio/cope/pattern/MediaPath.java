@@ -990,7 +990,7 @@ public abstract class MediaPath extends Pattern
 	 * @param join the join the returned condition should be bound to
 	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
-	public Condition isNull(final Join join) { throw unsupportedCondition(); }
+	public final Condition isNull(final Join join) { return isNull().bind(join); }
 
 	/**
 	 * Returns a condition matching all items, for which {@link #getLocator(Item)} does not return null.
@@ -1003,7 +1003,7 @@ public abstract class MediaPath extends Pattern
 	 * @param join the join the returned condition should be bound to
 	 * @throws UnsupportedOperationException if the condition is not supported by this path
 	 */
-	public Condition isNotNull(final Join join) { throw unsupportedCondition(); }
+	public final Condition isNotNull(final Join join) { return isNotNull().bind(join); }
 
 	private  UnsupportedOperationException unsupportedCondition()
 	{

@@ -23,7 +23,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.StringField;
 import java.io.IOException;
 import java.util.Date;
@@ -96,20 +95,8 @@ final class MediaNameServer extends MediaPath
 	}
 
 	@Override
-	public Condition isNull(final Join join)
-	{
-		return source.bind( join ).isNull();
-	}
-
-	@Override
 	public Condition isNotNull()
 	{
 		return source.isNotNull();
-	}
-
-	@Override
-	public Condition isNotNull(final Join join)
-	{
-		return source.bind(join).isNotNull();
 	}
 }
