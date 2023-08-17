@@ -430,9 +430,13 @@ public final class Hash extends Pattern implements HashInterface
 		return storage.isNull();
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition isNull(final Join join)
 	{
-		return storage.bind(join).isNull();
+		return isNull().bind(join);
 	}
 
 	public Condition isNotNull()
@@ -440,9 +444,13 @@ public final class Hash extends Pattern implements HashInterface
 		return storage.isNotNull();
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition isNotNull(final Join join)
 	{
-		return storage.bind(join).isNotNull();
+		return isNotNull().bind(join);
 	}
 
 	@Deprecated
