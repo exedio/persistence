@@ -166,29 +166,17 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(TYPE.search(strings.contains((String)null)));
 		assertContains(TYPE.search(strings.contains("zollo")));
 		assertContains(item, TYPE.search(strings.lengthEqual(      2)));
-		assertContains(item, TYPE.search(strings.lengthEqual(null, 2)));
 		assertContains(      TYPE.search(strings.lengthEqual(      3)));
-		assertContains(      TYPE.search(strings.lengthEqual(null, 3)));
 		assertContains(item, TYPE.search(strings.lengthNotEqual(      3)));
-		assertContains(item, TYPE.search(strings.lengthNotEqual(null, 3)));
 		assertContains(      TYPE.search(strings.lengthNotEqual(      2)));
-		assertContains(      TYPE.search(strings.lengthNotEqual(null, 2)));
 		assertContains(item, TYPE.search(strings.lengthLess(      3)));
-		assertContains(item, TYPE.search(strings.lengthLess(null, 3)));
 		assertContains(      TYPE.search(strings.lengthLess(      2)));
-		assertContains(      TYPE.search(strings.lengthLess(null, 2)));
 		assertContains(item, TYPE.search(strings.lengthLessOrEqual(      2)));
-		assertContains(item, TYPE.search(strings.lengthLessOrEqual(null, 2)));
 		assertContains(      TYPE.search(strings.lengthLessOrEqual(      1)));
-		assertContains(      TYPE.search(strings.lengthLessOrEqual(null, 1)));
 		assertContains(item, TYPE.search(strings.lengthGreater(      1)));
-		assertContains(item, TYPE.search(strings.lengthGreater(null, 1)));
 		assertContains(      TYPE.search(strings.lengthGreater(      2)));
-		assertContains(      TYPE.search(strings.lengthGreater(null, 2)));
 		assertContains(item, TYPE.search(strings.lengthGreaterOrEqual(      2)));
-		assertContains(item, TYPE.search(strings.lengthGreaterOrEqual(null, 2)));
 		assertContains(      TYPE.search(strings.lengthGreaterOrEqual(      3)));
-		assertContains(      TYPE.search(strings.lengthGreaterOrEqual(null, 3)));
 
 		item.set(SetValue.map(strings, asList("zicko", "zacko", "zocko")));
 		assertEqualsUnmodifiable(list("zicko", "zacko", "zocko"), item.getStrings());
@@ -297,6 +285,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testContainsInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
@@ -338,6 +327,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 			strings.containsAny(asList("a","b")).toString());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testContainsAnyInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
@@ -354,6 +344,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 			strings.containsAny(join, asList("a","b")).toString());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testEqualInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
@@ -367,6 +358,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 				strings.equal(j, Collections.emptyList()).toString());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testNotEqualInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
