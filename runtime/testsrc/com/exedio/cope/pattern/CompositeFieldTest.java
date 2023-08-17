@@ -504,6 +504,13 @@ public class CompositeFieldTest extends TestWithEnvironment
 			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
 			query.narrow( duo.isNull(join2) );
 
+			assertEquals(
+					"select this from CompositeItemHolder " +
+					"join CompositeOptionalItem c1 on anItem=c1.CompositeOptionalItem.this " +
+					"join CompositeOptionalItem c2 on anItem=c2.CompositeOptionalItem.this " +
+					"where (c1.CompositeOptionalItem.uno-aString like 'uno1%' " +
+					"and c2.CompositeOptionalItem.duo-aString is null)",
+					query.toString());
 			assertEquals( list(h1), query.search() );
 		}
 
@@ -515,6 +522,13 @@ public class CompositeFieldTest extends TestWithEnvironment
 			final Join join2 = query.join(CompositeOptionalItem.TYPE, CompositeItemHolder.anItem::equalTarget);
 			query.narrow( duo.isNotNull(join2) );
 
+			assertEquals(
+					"select this from CompositeItemHolder " +
+					"join CompositeOptionalItem c1 on anItem=c1.CompositeOptionalItem.this " +
+					"join CompositeOptionalItem c2 on anItem=c2.CompositeOptionalItem.this " +
+					"where (c1.CompositeOptionalItem.uno-aString like 'uno1%' " +
+					"and c2.CompositeOptionalItem.duo-aString is not null)",
+					query.toString());
 			assertTrue( query.search().isEmpty() );
 		}
 
