@@ -63,7 +63,7 @@ public class JoinMultipleTest extends TestmodelTest
 			join2.setCondition(pointer2.equalTarget(join2));
 			assertEqualsUnmodifiable(list(source), query.search());
 
-			query.setCondition(code.equal(join1, "target1"));
+			query.setCondition(code.equal("target1").bind(join1));
 			assertEqualsUnmodifiable(list(source), query.search());
 		}
 		{
@@ -81,7 +81,7 @@ public class JoinMultipleTest extends TestmodelTest
 			join2.setCondition(pointer2.equal(PointerTargetItem.TYPE.getThis().bind(join2)));
 			assertEqualsUnmodifiable(list(source), query.search());
 
-			query.setCondition(code.equal(join1, "target1"));
+			query.setCondition(code.equal("target1").bind(join1));
 			assertEqualsUnmodifiable(list(source), query.search());
 
 			assertEquals(
