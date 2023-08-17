@@ -318,6 +318,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return isNullComponent.isNull();
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition isNull(final Join join)
 	{
 		return isNull().bind(join);
@@ -328,6 +332,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return isNullComponent.isNotNull();
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	public Condition isNotNull(final Join join)
 	{
 		return isNotNull().bind(join);
