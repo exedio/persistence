@@ -73,6 +73,10 @@ public interface Function<E> extends Selectable<E>
 		return Cope.equal(this, value);
 	}
 
+	/**
+	 * @deprecated Use {@link Condition#bind(Join)} instead.
+	 */
+	@Deprecated
 	default Condition equal(final Join join, final E value)
 	{
 		return equal(value).bind(join);
