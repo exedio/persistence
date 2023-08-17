@@ -338,61 +338,61 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 
-	public Condition equal(final Collection<E> value)
+	public Condition equal(final Join join, final Collection<E> value)
 	{
-		return equal(null, value);
+		return bind(equal(value), join);
 	}
 
-	public Condition equal(final Join join, final Collection<E> value)
+	public Condition equal(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 
 		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(final Iterator<E> it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = bind(sources[i], join).equal(it.next());
+			conditions[i] = sources[i].equal(it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = bind(sources[i], join).equal((E)null);
+			conditions[i] = sources[i].equal((E)null);
 
 		return Cope.and(conditions);
 	}
 
-	public Condition notEqual(final Collection<E> value)
+	public Condition notEqual(final Join join, final Collection<E> value)
 	{
-		return notEqual(null, value);
+		return bind(notEqual(value), join);
 	}
 
-	public Condition notEqual(final Join join, final Collection<E> value)
+	public Condition notEqual(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 
 		for(final E v : value)
 		{
-			conditions[i] = bind(sources[i], join).notEqual(v).or(bind(sources[i], join).isNull());
+			conditions[i] = sources[i].notEqual(v).or(sources[i].isNull());
 			i++;
 		}
 
 		for(; i<sources.length; i++)
-			conditions[i] = bind(sources[i], join).isNotNull();
+			conditions[i] = sources[i].isNotNull();
 
 		return Cope.or(conditions);
 	}
 
-	public Condition contains(final E value)
+	public Condition contains(final Join join, final E value)
 	{
-		return contains(null, value);
+		return bind(contains(value), join);
 	}
 
-	public Condition contains(final Join join, final E value)
+	public Condition contains(final E value)
 	{
 		final Condition[] conditions = new Condition[sources.length];
 
-		final Function<Integer> l = value==null ? bind(length, join) : null;
+		final Function<Integer> l = value==null ? length : null;
 		for(int i = 0; i<sources.length; i++)
 		{
-			conditions[i] = bind(sources[i], join).equal(value);
+			conditions[i] = sources[i].equal(value);
 			if(value==null)
 				conditions[i] = conditions[i].and(l.greater(i));
 		}
@@ -420,17 +420,17 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return join == null ? source : source.bind(join);
 	}
 
-	public Condition containsAny(final Collection<E> set)
+	public Condition containsAny(final Join join, final Collection<E> set)
 	{
-		return containsAny(null, set);
+		return bind(containsAny(set), join);
 	}
 
-	public Condition containsAny(final Join join, final Collection<E> set)
+	public Condition containsAny(final Collection<E> set)
 	{
 		final Condition[] conditions = new Condition[set.size()];
 		int i = 0;
 		for(final E item : set)
-			conditions[i++] = contains(join, item);
+			conditions[i++] = contains(item);
 
 		return Cope.or(conditions);
 	}
@@ -467,31 +467,36 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public Condition lengthEqual(final Join join, final int value)
 	{
-		return bind(length, join).equal(value);
+		return bind(lengthEqual(value), join);
 	}
 
 	public Condition lengthNotEqual(final Join join, final int value)
 	{
-		return bind(length, join).notEqual(value);
+		return bind(lengthNotEqual(value), join);
 	}
 
 	public Condition lengthLess(final Join join, final int value)
 	{
-		return bind(length, join).less(value);
+		return bind(lengthLess(value), join);
 	}
 
 	public Condition lengthLessOrEqual(final Join join, final int value)
 	{
-		return bind(length, join).lessOrEqual(value);
+		return bind(lengthLessOrEqual(value), join);
 	}
 
 	public Condition lengthGreater(final Join join, final int value)
 	{
-		return bind(length, join).greater(value);
+		return bind(lengthGreater(value), join);
 	}
 
 	public Condition lengthGreaterOrEqual(final Join join, final int value)
 	{
-		return bind(length, join).greaterOrEqual(value);
+		return bind(lengthGreaterOrEqual(value), join);
+	}
+
+	private static Condition bind(final Condition condition, final Join join)
+	{
+		return join==null ? condition : condition.bind(join);
 	}
 }
