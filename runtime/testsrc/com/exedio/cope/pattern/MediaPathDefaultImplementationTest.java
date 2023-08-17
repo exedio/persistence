@@ -55,6 +55,7 @@ public class MediaPathDefaultImplementationTest
 			"condition not supported by AnItem.path of " + APath.class.getName());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testNullJoin()
 	{
 		assertFails(() ->
@@ -71,6 +72,7 @@ public class MediaPathDefaultImplementationTest
 			"condition not supported by AnItem.path of " + APath.class.getName());
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testNotNullJoin()
 	{
 		assertFails(() ->
