@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrap;
@@ -92,19 +91,7 @@ public final class MediaLongLastModifiedPath extends MediaPath
 	}
 
 	@Override
-	public Condition isNull(final Join join)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
 	public Condition isNotNull()
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public Condition isNotNull(final Join join)
 	{
 		throw new AssertionError();
 	}
