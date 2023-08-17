@@ -320,7 +320,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	public Condition isNull(final Join join)
 	{
-		return isNullComponent.bind(join).isNull();
+		return isNull().bind(join);
 	}
 
 	public IsNullCondition<?> isNotNull()
@@ -330,6 +330,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	public Condition isNotNull(final Join join)
 	{
-		return isNullComponent.bind(join).isNotNull();
+		return isNotNull().bind(join);
 	}
 }
