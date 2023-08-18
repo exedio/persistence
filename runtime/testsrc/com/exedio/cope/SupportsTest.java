@@ -25,7 +25,6 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.sql.Connection;
@@ -34,6 +33,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class SupportsTest extends TestWithEnvironment
 {
@@ -47,6 +47,7 @@ public class SupportsTest extends TestWithEnvironment
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
+		final String databaseProductName;
 		boolean utf8mb4 = true;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		boolean random = false;
@@ -56,22 +57,27 @@ public class SupportsTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
+				databaseProductName = "HSQL Database Engine";
 				dataHashAlgorithms.clear(); // TODO support more
 				checkConstraints = !propertiesHsqldbMysql56();
 				break;
 			case mysql:
+				databaseProductName = "MySQL";
 				utf8mb4 = propertiesUtf8mb4();
 				random = true;
 				checkConstraints = false;
 				uniqueViolation = true;
 				break;
 			case postgresql:
+				databaseProductName = "PostgreSQL";
 				if(model.getConnectProperties().getField("dialect.pgcryptoSchema").get().equals("<disabled>"))
 					dataHashAlgorithms.retainAll(asList("MD5"));
 				break;
 			default:
-				fail(dialect.name());
+				throw new AssertionFailedError(dialect.name());
 		}
+
+		assertEquals(databaseProductName, model.getEnvironmentInfo().getDatabaseProductName());
 
 		assertEquals(utf8mb4, model.supportsUTF8mb4());
 		assertEquals(dataHashAlgorithms, new ArrayList<>(model.getSupportedDataHashAlgorithms()));
