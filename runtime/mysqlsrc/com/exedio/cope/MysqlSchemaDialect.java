@@ -39,15 +39,16 @@ final class MysqlSchemaDialect extends Dialect
 	private final String rowFormat;
 
 	MysqlSchemaDialect(
-			final boolean mysql80,
-			final String rowFormat)
+			final CopeProbe probe,
+			final MysqlProperties properties)
 	{
 		super(null);
+		final boolean mysql80 = probe.environmentInfo.isDatabaseVersionAtLeast(8, 0);
 		this.renameColumn = mysql80; // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		this.foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
-		this.rowFormat = rowFormat;
+		this.rowFormat = properties.rowFormat.sql();
 	}
 
 	private static final char QUOTE_CHARACTER = '`';
