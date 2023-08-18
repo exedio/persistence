@@ -31,7 +31,7 @@ import java.sql.SQLException;
  * <p>
  * This information is needed only, if you want to access
  * the database without cope.
- * In this case you should really know, what you are doing.
+ * In this case you should really know what you are doing.
  * Any INSERT/UPDATE/DELETE on the database bypassing cope
  * may lead to <b>inconsistent caches</b>.
  * Please note, that the results of all methods may vary,
@@ -43,7 +43,7 @@ import java.sql.SQLException;
 public final class SchemaInfo
 {
 	/**
-	 * Its your responsibility to close the returned connection.
+	 * It's your responsibility to close the returned connection.
 	 * @see Connection#close()
 	 */
 	public static Connection newConnection(final Model model) throws SQLException
