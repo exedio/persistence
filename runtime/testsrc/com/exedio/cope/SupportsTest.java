@@ -84,7 +84,7 @@ public class SupportsTest extends TestWithEnvironment
 		assertEquals(random, model.supportsRandom());
 
 		// SchemaInfo
-		assertEquals(checkConstraint,                                                 supportsCheckConstraint(model));
+		assertEquals(checkConstraint && !props.disableCheckConstraint,                supportsCheckConstraint(model));
 		assertEquals(                   !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}

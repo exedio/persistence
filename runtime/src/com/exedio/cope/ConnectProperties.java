@@ -171,6 +171,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	// disableSupport
 
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
+	        final boolean disableCheckConstraint    = value("disableSupport.checkConstraint", false);
 	private final boolean disableNativeDate         = value("disableSupport.nativeDate", factory.disableNativeDate);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 

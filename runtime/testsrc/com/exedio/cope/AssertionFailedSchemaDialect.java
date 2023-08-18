@@ -28,6 +28,11 @@ import org.opentest4j.AssertionFailedError;
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 public class AssertionFailedSchemaDialect extends Dialect
 {
+	public AssertionFailedSchemaDialect()
+	{
+		super(false);
+	}
+
 	@Override
 	public String quoteName(final String name)
 	{
