@@ -18,22 +18,22 @@
 
 package com.exedio.dsmf;
 
-import static com.exedio.cope.ConnectProperties.getDefaultPropertyFile;
+import static com.exedio.cope.DsmfTestHelper.dialect;
+import static com.exedio.cope.instrument.Visibility.NONE;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.tojunit.ModelConnector;
-import com.exedio.cope.util.Sources;
-import java.lang.reflect.Constructor;
+import com.exedio.cope.instrument.WrapperType;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-@TestWithEnvironment.Tag
-public abstract class SchemaTest
+public abstract class SchemaTest extends TestWithEnvironment
 {
 	private Dialect dialect;
 	String stringType;
@@ -43,40 +43,14 @@ public abstract class SchemaTest
 	private SimpleConnectionProvider provider;
 	private final ArrayList<Connection> connections = new ArrayList<>();
 
-	private static final class Properties extends com.exedio.cope.util.Properties
+	@BeforeEach final void setUpSchemaTest() throws SQLException
 	{
-		final String connectionUrl      = value      ("connection.url",      (String)null);
-		final String connectionUsername = value      ("connection.username", (String)null);
-		final String connectionPassword = valueHidden("connection.password", null);
-		final String mysqlRowFormat     = value      ("dialect.rowFormat", "NONE");
-		final boolean mysql80           = value      ("x-build.mysql80", false);
-		final String connectionPostgresqlSchema = value("dialect.connection.schema", connectionUsername);
-
-		Properties()
-		{
-			super(Sources.load(getDefaultPropertyFile()));
-		}
-	}
-
-	@BeforeEach final void setUpSchemaTest() throws SQLException, ReflectiveOperationException
-	{
-		ModelConnector.reset();
-		final Properties config = new Properties();
-		final String url = config.connectionUrl;
-		final String username = config.connectionUsername;
-		final String password = config.connectionPassword;
-		final String mysqlRowFormat = config.mysqlRowFormat;
-		final java.util.Properties info = new java.util.Properties();
-		info.setProperty("user", username);
-		info.setProperty("password", password);
+		dialect = dialect(MODEL);
+		final String url = MODEL.getConnectProperties().getConnectionUrl();
 
 		int numberOfConnections = 1;
-		boolean postgresql = false;
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
-			// see HsqldbDialect#completeConnectionInfo
-			info.setProperty("hsqldb.tx", "mvcc"); // fixes sparse dead locks when running tests, mostly on travis-ci
-			dialect = newD("Hsqldb", true);
 			numberOfConnections = 2;
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
@@ -84,65 +58,24 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:mysql:")||url.startsWith("jdbc:mariadb:"))
 		{
-			// see MysqlDialect#completeConnectionInfo
-			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
-			info.setProperty("sslMode", "DISABLED");
-			info.setProperty("serverTimezone", "UTC");
-			info.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
-			info.setProperty("allowLocalInfile", "false"); // MariaDB driver
-			dialect = newD("Mysql",
-					config.mysql80,
-					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
 			stringType = "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 			intType = "int";
 			intType2 = "bigint";
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
-			dialect = newD("Postgresql", config.connectionPostgresqlSchema);
 			stringType = "character varying(8)";
 			intType  = "integer";
 			intType2 = "bigint";
-			postgresql = true;
 		}
 		else
 			throw new RuntimeException(url);
 
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
 		for(int i = 0; i<numberOfConnections; i++)
-			connections.add(DriverManager.getConnection(url, info));
-
-		if(postgresql)
-		{
-			for(final Connection connection : connections)
-			{
-				try(java.sql.Statement st = connection.createStatement())
-				{
-					// https://www.postgresql.org/docs/9.6/runtime-config-client.html#GUC-SEARCH-PATH
-					st.execute("SET SCHEMA '" + config.connectionPostgresqlSchema + "'");
-				}
-			}
-		}
+			connections.add(SchemaInfo.newConnection(MODEL));
 
 		provider = new SimpleConnectionProvider(connections);
-	}
-
-	private static Dialect newD(final String name, final Object... initargs) throws ReflectiveOperationException
-	{
-		final Class<?>[] parameterTypes = new Class<?>[initargs.length];
-		for(int i = 0; i<parameterTypes.length; i++)
-		{
-			Class<?> clazz = initargs[i]!=null ? initargs[i].getClass() : String.class;
-			if(clazz==Boolean.class)
-				clazz=boolean.class;
-			parameterTypes[i] = clazz;
-		}
-		final Constructor<? extends Dialect> c =
-				Class.forName("com.exedio.cope." + name + "SchemaDialect").
-				asSubclass(Dialect.class).
-				getDeclaredConstructor(parameterTypes);
-		c.setAccessible(true);
-		return c.newInstance(initargs);
 	}
 
 	@AfterEach final void tearDownSchemaTest() throws SQLException
@@ -185,5 +118,25 @@ public abstract class SchemaTest
 	protected final String p(final String name)
 	{
 		return dialect.quoteName(name);
+	}
+
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class SchemaTestItem extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<SchemaTestItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTestItem.class,SchemaTestItem::new);
+
+		@com.exedio.cope.instrument.Generated
+		private SchemaTestItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+	private static final Model MODEL = new Model(SchemaTestItem.TYPE);
+	SchemaTest()
+	{
+		super(MODEL);
+		copeRule.omitTransaction();
 	}
 }
