@@ -49,18 +49,14 @@ public abstract class SchemaTest extends TestWithEnvironment
 	@BeforeEach final void setUpSchemaTest() throws SQLException
 	{
 		dialect = dialect(MODEL);
-		final String url = MODEL.getConnectProperties().getConnectionUrl();
-
-		int numberOfConnections = 1;
-		if(url.startsWith("jdbc:hsqldb:"))
-			numberOfConnections = 2;
-
 		stringType = getStringType(MODEL, 8);
 		intType  = getIntegerType(MODEL, 0, Integer.MAX_VALUE);
 		intType2 = getIntegerType(MODEL, 0, Long.MAX_VALUE);
 		assertNotEquals(intType, intType2);
 
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
+		final int numberOfConnections =
+				"HSQL Database Engine".equals(MODEL.getEnvironmentInfo().getDatabaseProductName()) ? 2 : 1;
 		for(int i = 0; i<numberOfConnections; i++)
 			connections.add(SchemaInfo.newConnection(MODEL));
 
