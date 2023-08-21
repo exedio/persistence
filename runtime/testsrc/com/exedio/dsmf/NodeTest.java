@@ -18,13 +18,13 @@
 
 package com.exedio.dsmf;
 
-import static com.exedio.cope.DsmfTestHelper.newHsqldbDialect;
 import static com.exedio.dsmf.Dialect.notifyExistentColumn;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.AssertionFailedSchemaDialect;
 import java.sql.Connection;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +32,7 @@ public class NodeTest
 {
 	@Test void testColumnOk()
 	{
-		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new AssertionFailedSchemaDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -66,7 +66,7 @@ public class NodeTest
 
 	@Test void testColumnWrongName()
 	{
-		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new AssertionFailedSchemaDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -127,7 +127,7 @@ public class NodeTest
 
 	@Test void testColumnWrongType()
 	{
-		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new AssertionFailedSchemaDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -160,7 +160,7 @@ public class NodeTest
 
 	@Test void testColumnNonRequires()
 	{
-		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new AssertionFailedSchemaDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 
 		final Column c = notifyExistentColumn(table, "colName", "existingType");

@@ -18,9 +18,9 @@
 
 package com.exedio.dsmf;
 
-import static com.exedio.cope.DsmfTestHelper.newHsqldbDialect;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.AssertionFailedSchemaDialect;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +35,7 @@ public class GraphTest
 
 	@BeforeEach final void setUp()
 	{
-		schema = new Schema(newHsqldbDialect(), new ConnectionProvider(){
+		schema = new Schema(new AssertionFailedSchemaDialect(), new ConnectionProvider(){
 			@Override
 			public Connection getConnection() { throw new RuntimeException(); }
 			@Override
