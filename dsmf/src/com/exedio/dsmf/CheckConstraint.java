@@ -116,9 +116,6 @@ public final class CheckConstraint extends Constraint
 	@Override
 	void drop(final StringBuilder bf)
 	{
-		bf.append("ALTER TABLE ").
-			append(quoteName(table.name)).
-			append(" DROP CONSTRAINT ").
-			append(quoteName(name));
+		Dialect.dropConstraint(bf, quoteName(table.name), quoteName(name));
 	}
 }
