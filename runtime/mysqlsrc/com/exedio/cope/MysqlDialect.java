@@ -112,8 +112,8 @@ final class MysqlDialect extends Dialect
 	{
 		super(
 				new MysqlSchemaDialect(
-						probe.environmentInfo.isDatabaseVersionAtLeast(8, 0), // foreignKeyRule
-						properties.rowFormat.sql()));
+						probe,
+						properties));
 
 		final EnvironmentInfo env = probe.environmentInfo;
 		env.requireDatabaseVersionAtLeast("MySQL", 5, 6);
