@@ -27,11 +27,6 @@ import org.junit.jupiter.api.Test;
 
 public class ConstraintTest extends SchemaReadyTest
 {
-	private static final Class<?> CHECK = CheckConstraint.class;
-	private static final Class<?> PK = PrimaryKeyConstraint.class;
-	private static final Class<?> FK = ForeignKeyConstraint.class;
-	private static final Class<?> UNIQUE = UniqueConstraint.class;
-
 	private static final String TABLE = "ConstraintTable";
 
 	private static final String NOT_NULL_COLUMN = "notNull";
@@ -108,13 +103,13 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(null, table.getError());
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
-		assertSame(nn, assertCheckConstraintX(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"));
-		assertSame(ck, assertCheckConstraintX(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))"));
-		assertSame(ct ,assertCheckConstraintX(table, CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0"));
-		assertSame(pk, assertPkConstraintX(table, PK_NAME, null, PK_COLUMN));
-		assertSame(fk, assertFkConstraintX(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN));
-		assertSame(us, assertUniqueConstraintX(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")"));
-		assertSame(ud, assertUniqueConstraintX(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")"));
+		assertSame(nn, assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"));
+		assertSame(ck, assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))"));
+		assertSame(ct ,assertCheckConstraint(table, CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0"));
+		assertSame(pk, assertPkConstraint(table, PK_NAME, null, PK_COLUMN));
+		assertSame(fk, assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN));
+		assertSame(us, assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")"));
+		assertSame(ud, assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")"));
 
 		assertEquals(asList(nn, ck, ct, pk, fk, us, ud), table.getConstraints());
 		assertEquals(asList(ct, ud), table.getTableConstraints());
@@ -140,53 +135,4 @@ public class ConstraintTest extends SchemaReadyTest
 		table.getConstraint(UNIQUE_DOUBLE_NAME).drop();
 		table.getConstraint(UNIQUE_DOUBLE_NAME).create();
 	}
-
-	private CheckConstraint assertCheckConstraintX(final Table table, final String constraintName, final String requiredCondition)
-	{
-		return
-			(CheckConstraint)assertConstraint(table, CHECK, constraintName, requiredCondition);
-	}
-
-	private PrimaryKeyConstraint assertPkConstraintX(final Table table, final String constraintName, final String requiredCondition, final String primaryKeyColumn)
-	{
-		final PrimaryKeyConstraint constraint =
-			(PrimaryKeyConstraint)assertConstraint(table, PK, constraintName, requiredCondition);
-
-		assertEquals(primaryKeyColumn, constraint.getPrimaryKeyColumn());
-		return constraint;
-	}
-
-	private ForeignKeyConstraint assertFkConstraintX(final Table table, final String constraintName, final String foreignKeyColumn, final String targetTable, final String targetColumn)
-	{
-		final ForeignKeyConstraint constraint =
-			(ForeignKeyConstraint)assertConstraint(table, FK, constraintName, foreignKeyColumn + "->" + targetTable + '.' + targetColumn);
-
-		assertEquals(foreignKeyColumn, constraint.getForeignKeyColumn());
-		assertEquals(targetTable, constraint.getTargetTable());
-		assertEquals(targetColumn, constraint.getTargetColumn());
-		return constraint;
-	}
-
-	private UniqueConstraint assertUniqueConstraintX(final Table table, final String constraintName, final String clause)
-	{
-		final UniqueConstraint constraint =
-			(UniqueConstraint)assertConstraint(table, UNIQUE, constraintName, clause);
-
-		assertEquals(clause, constraint.getClause());
-		return constraint;
-	}
-
-	private Constraint assertConstraint(final Table table, final Class<?> constraintType, final String constraintName, final String requiredCondition)
-	{
-		final Constraint constraint = table.getConstraint(constraintName);
-		final boolean expectedSupported = supportsCheckConstraints || constraintType!=CHECK;
-		assertNotNull(constraint, "no such constraint "+constraintName+", but has "+table.getConstraints());
-		assertEquals(constraintType, constraint.getClass(), constraintName);
-		assertEquals(requiredCondition, constraint.getRequiredCondition(), constraintName);
-		assertEquals(expectedSupported ? null : "unsupported", constraint.getError(), constraintName);
-		assertEquals(Node.Color.OK, constraint.getParticularColor(), constraintName);
-
-		return constraint;
-	}
-
 }

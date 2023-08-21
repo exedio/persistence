@@ -32,7 +32,10 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.dsmf.CheckConstraint;
+import com.exedio.dsmf.ForeignKeyConstraint;
+import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.UniqueConstraint;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -202,31 +205,31 @@ public abstract class TestWithEnvironment
 		tester.assertPrimaryKeySequenceName(sequenceNameBase, batchedSequenceNameBase, type);
 	}
 
-	protected final void assertPkConstraint(
+	protected final PrimaryKeyConstraint assertPkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String condition,
 			final String column)
 	{
-		tester.assertPkConstraint(table, name, condition, column);
+		return tester.assertPkConstraint(table, name, condition, column);
 	}
 
-	protected final void assertFkConstraint(
+	protected final ForeignKeyConstraint assertFkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String column,
 			final String targetTable,
 			final String targetColumn)
 	{
-		tester.assertFkConstraint(table, name, column, targetTable, targetColumn);
+		return tester.assertFkConstraint(table, name, column, targetTable, targetColumn);
 	}
 
-	protected final void assertUniqueConstraint(
+	protected final UniqueConstraint assertUniqueConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String clause)
 	{
-		tester.assertUniqueConstraint(table, name, clause);
+		return tester.assertUniqueConstraint(table, name, clause);
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
