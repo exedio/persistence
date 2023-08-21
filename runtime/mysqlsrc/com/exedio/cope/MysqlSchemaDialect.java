@@ -34,6 +34,7 @@ import java.util.Map;
 
 final class MysqlSchemaDialect extends Dialect
 {
+	private final boolean mysql80;
 	private final boolean renameColumn;
 	private final String foreignKeyRule;
 	private final String rowFormat;
@@ -43,7 +44,7 @@ final class MysqlSchemaDialect extends Dialect
 			final MysqlProperties properties)
 	{
 		super(null);
-		final boolean mysql80 = probe.environmentInfo.isDatabaseVersionAtLeast(8, 0);
+		mysql80 = probe.environmentInfo.isDatabaseVersionAtLeast(8, 0);
 		this.renameColumn = mysql80; // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html#mysqld-8-0-3-sql-syntax
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
@@ -358,6 +359,12 @@ final class MysqlSchemaDialect extends Dialect
 	@Override
 	protected void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
+		if(mysql80) // supported since MySQL 8.0.19: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-19.html#mysqld-8-0-19-sql-syntax
+		{
+			super.dropForeignKeyConstraint(bf, tableName, constraintName);
+			return;
+		}
+
 		bf.append("ALTER TABLE ").
 			append(tableName).
 			append(" DROP FOREIGN KEY ").
@@ -367,6 +374,12 @@ final class MysqlSchemaDialect extends Dialect
 	@Override
 	protected void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
+		if(mysql80) // supported since MySQL 8.0.19: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-19.html#mysqld-8-0-19-sql-syntax
+		{
+			super.dropUniqueConstraint(bf, tableName, constraintName);
+			return;
+		}
+
 		bf.append("ALTER TABLE ").
 			append(tableName).
 			append(" DROP INDEX ").
