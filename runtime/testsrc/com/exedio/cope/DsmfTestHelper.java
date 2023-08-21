@@ -27,17 +27,22 @@ public final class DsmfTestHelper
 {
 	public static Dialect dialect(final Model model)
 	{
-		return model.connect().dialect.dsmfDialect;
+		return copeDialect(model).dsmfDialect;
 	}
 
 	public static String getIntegerType(final Model model, final long minimum, final long maximum)
 	{
-		return model.connect().dialect.getIntegerType(minimum, maximum);
+		return copeDialect(model).getIntegerType(minimum, maximum);
 	}
 
 	public static String getStringType(final Model model, final int maxChars)
 	{
-		return model.connect().dialect.getStringType(maxChars, null);
+		return copeDialect(model).getStringType(maxChars, null);
+	}
+
+	private static com.exedio.cope.Dialect copeDialect(final Model model)
+	{
+		return model.connect().dialect;
 	}
 
 
