@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.HsqldbDialect.Props;
 import com.exedio.dsmf.Dialect;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -31,10 +32,10 @@ final class HsqldbSchemaDialect extends Dialect
 {
 	private final boolean supportsCheckConstraints;
 
-	HsqldbSchemaDialect(final boolean supportsCheckConstraints)
+	HsqldbSchemaDialect(final Props properties)
 	{
 		super(null);
-		this.supportsCheckConstraints = supportsCheckConstraints;
+		this.supportsCheckConstraints = properties.approximate.supportsCheckConstraints();
 		adjustExistingCheckConstraintCondition.
 				add("(\"\\w*\")!=", "$1<>");
 	}

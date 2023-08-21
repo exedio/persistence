@@ -76,7 +76,7 @@ final class HsqldbDialect extends Dialect
 	HsqldbDialect(final CopeProbe probe, final Props props)
 	{
 		super(
-				new HsqldbSchemaDialect(props.approximate.supportsCheckConstraints()));
+				new HsqldbSchemaDialect(props));
 
 		probe.environmentInfo.requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 5);
 
