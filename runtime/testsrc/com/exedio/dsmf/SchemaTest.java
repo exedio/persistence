@@ -19,7 +19,10 @@
 package com.exedio.dsmf;
 
 import static com.exedio.cope.DsmfTestHelper.dialect;
+import static com.exedio.cope.DsmfTestHelper.getIntegerType;
+import static com.exedio.cope.DsmfTestHelper.getStringType;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -50,26 +53,12 @@ public abstract class SchemaTest extends TestWithEnvironment
 
 		int numberOfConnections = 1;
 		if(url.startsWith("jdbc:hsqldb:"))
-		{
 			numberOfConnections = 2;
-			stringType = "VARCHAR(8)";
-			intType = "INTEGER";
-			intType2 = "BIGINT";
-		}
-		else if(url.startsWith("jdbc:mysql:")||url.startsWith("jdbc:mariadb:"))
-		{
-			stringType = "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
-			intType = "int";
-			intType2 = "bigint";
-		}
-		else if(url.startsWith("jdbc:postgresql:"))
-		{
-			stringType = "character varying(8)";
-			intType  = "integer";
-			intType2 = "bigint";
-		}
-		else
-			throw new RuntimeException(url);
+
+		stringType = getStringType(MODEL, 8);
+		intType  = getIntegerType(MODEL, 0, Integer.MAX_VALUE);
+		intType2 = getIntegerType(MODEL, 0, Long.MAX_VALUE);
+		assertNotEquals(intType, intType2);
 
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
 		for(int i = 0; i<numberOfConnections; i++)

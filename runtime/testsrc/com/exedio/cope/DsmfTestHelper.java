@@ -30,6 +30,17 @@ public final class DsmfTestHelper
 		return model.connect().dialect.dsmfDialect;
 	}
 
+	public static String getIntegerType(final Model model, final long minimum, final long maximum)
+	{
+		return model.connect().dialect.getIntegerType(minimum, maximum);
+	}
+
+	public static String getStringType(final Model model, final int maxChars)
+	{
+		return model.connect().dialect.getStringType(maxChars, null);
+	}
+
+
 	private DsmfTestHelper()
 	{
 		// prevent instantiation
