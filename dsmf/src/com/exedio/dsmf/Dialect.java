@@ -543,14 +543,6 @@ public abstract class Dialect
 		return false;
 	}
 
-	// derby needs a different syntax
-	public String renameTable(final String tableName, final String newTableName)
-	{
-		return
-				"ALTER TABLE " + tableName +
-				" RENAME TO " + newTableName;
-	}
-
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		return

@@ -295,7 +295,9 @@ public final class Table extends Node
 
 	public void renameTo(final String newName, final StatementListener listener)
 	{
-		executeSQL(dialect.renameTable(quoteName(name), quoteName(newName)), listener);
+		executeSQL(
+				"ALTER TABLE " + quoteName(name) +
+				" RENAME TO " + quoteName(newName), listener);
 	}
 
 	public void checkUnsupportedConstraints()
