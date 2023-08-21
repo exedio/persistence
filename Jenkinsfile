@@ -1090,7 +1090,6 @@ def envMysql80(String name, String driver, String text)
 							'\n' +
 					'x-build.dialect=mysql\n' +
 					'x-build.driver=' + driver + '\n' +
-					'x-build.mysql80=true\n' +
 					text
 		)
 }
