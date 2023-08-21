@@ -44,7 +44,7 @@ final class MysqlSchemaDialect extends Dialect
 	{
 		super(null);
 		final boolean mysql80 = probe.environmentInfo.isDatabaseVersionAtLeast(8, 0);
-		this.renameColumn = mysql80; // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html
+		this.renameColumn = mysql80; // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html#mysqld-8-0-3-sql-syntax
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		this.foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
