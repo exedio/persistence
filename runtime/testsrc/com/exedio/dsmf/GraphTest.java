@@ -18,9 +18,9 @@
 
 package com.exedio.dsmf;
 
+import static com.exedio.cope.DsmfTestHelper.newHsqldbDialect;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +33,7 @@ public class GraphTest
 {
 	private Schema schema = null;
 
-	@BeforeEach final void setUp() throws ReflectiveOperationException
+	@BeforeEach final void setUp()
 	{
 		schema = new Schema(newHsqldbDialect(), new ConnectionProvider(){
 			@Override
@@ -41,20 +41,6 @@ public class GraphTest
 			@Override
 			public void putConnection(final Connection connection) { throw new RuntimeException(); }
 		});
-	}
-
-	static Dialect newHsqldbDialect() throws ReflectiveOperationException
-	{
-		// Use reflection because otherwise class fails to load when running
-		// ant target runtime.test.withEnv causing
-		// ClassNotFoundException: com.exedio.cope.HsqldbSchemaDialect
-		// during classpath scanning.
-		final Constructor<? extends Dialect> c =
-				Class.forName("com.exedio.cope.HsqldbSchemaDialect").
-						asSubclass(Dialect.class).
-						getDeclaredConstructor(boolean.class);
-		c.setAccessible(true);
-		return c.newInstance(true);
 	}
 
 	@Test void testOk()
