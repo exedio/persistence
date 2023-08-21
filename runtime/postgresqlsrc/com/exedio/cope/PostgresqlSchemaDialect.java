@@ -29,9 +29,11 @@ import java.util.regex.Pattern;
 
 final class PostgresqlSchemaDialect extends Dialect
 {
-	PostgresqlSchemaDialect(final String schema)
+	PostgresqlSchemaDialect(
+			final CopeProbe probe,
+			final PostgresqlProperties properties)
 	{
-		super(schema);
+		super(properties.schema(probe.properties));
 
 		final String digits = "\\d*";
 		final Replacements cc = adjustExistingCheckConstraintCondition;
