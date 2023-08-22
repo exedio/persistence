@@ -209,7 +209,7 @@ final class RuntimeTester
 		return assertConstraint(table, CheckConstraint.class, name, condition);
 	}
 
-	void assertPkConstraint(
+	PrimaryKeyConstraint assertPkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String condition,
@@ -218,9 +218,11 @@ final class RuntimeTester
 		final PrimaryKeyConstraint constraint = assertConstraint(table, PrimaryKeyConstraint.class, name, condition);
 
 		assertEquals(column, constraint.getPrimaryKeyColumn());
+
+		return constraint;
 	}
 
-	void assertFkConstraint(
+	ForeignKeyConstraint assertFkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String column,
@@ -232,9 +234,11 @@ final class RuntimeTester
 		assertEquals(column, constraint.getForeignKeyColumn());
 		assertEquals(targetTable, constraint.getTargetTable());
 		assertEquals(targetColumn, constraint.getTargetColumn());
+
+		return constraint;
 	}
 
-	void assertUniqueConstraint(
+	UniqueConstraint assertUniqueConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String clause)
@@ -242,6 +246,8 @@ final class RuntimeTester
 		final UniqueConstraint constraint = assertConstraint(table, UniqueConstraint.class, name, clause);
 
 		assertEquals(clause, constraint.getClause());
+
+		return constraint;
 	}
 
 	<C extends Constraint> C assertConstraint(
