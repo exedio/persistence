@@ -71,15 +71,12 @@ public class ConstraintTest extends SchemaReadyTest
 		final Schema result = newSchema();
 		table = result.newTable(TABLE);
 
-		if(supportsCheckConstraints)
-		{
-			final Column nn = table.newColumn(NOT_NULL_COLUMN, stringType);
-			this.nn = nn.newCheck(NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
+		final Column nn = table.newColumn(NOT_NULL_COLUMN, stringType);
+		this.nn = nn.newCheck(NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 
-			final Column check = table.newColumn(CHECK_COLUMN, intType);
-			ck = check.newCheck(CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
-			ct = table.newCheck(CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0");
-		}
+		final Column check = table.newColumn(CHECK_COLUMN, intType);
+		ck = check.newCheck(CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))");
+		ct = table.newCheck(CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0");
 
 		final Column pk = table.newColumn(PK_COLUMN, stringType);
 		this.pk = pk.newPrimaryKey(PK_NAME);
@@ -119,21 +116,10 @@ public class ConstraintTest extends SchemaReadyTest
 		assertSame(us, assertUniqueConstraintX(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")"));
 		assertSame(ud, assertUniqueConstraintX(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")"));
 
-		assertEquals(
-				supportsCheckConstraints
-				? asList(nn, ck, ct, pk, fk, us, ud)
-				: asList(pk, fk, us, ud),
-				table.getConstraints());
-		assertEquals(
-				supportsCheckConstraints
-				? asList(ct, ud)
-				: asList(ud),
-				table.getTableConstraints());
-		if(supportsCheckConstraints)
-		{
-			assertEquals(asList(nn), table.getColumn(NOT_NULL_COLUMN).getConstraints());
-			assertEquals(asList(ck), table.getColumn(CHECK_NAME).getConstraints());
-		}
+		assertEquals(asList(nn, ck, ct, pk, fk, us, ud), table.getConstraints());
+		assertEquals(asList(ct, ud), table.getTableConstraints());
+		assertEquals(asList(nn), table.getColumn(NOT_NULL_COLUMN).getConstraints());
+		assertEquals(asList(ck), table.getColumn(CHECK_NAME).getConstraints());
 		assertEquals(asList(pk), table.getColumn(PK_COLUMN).getConstraints());
 		assertEquals(asList(fk), table.getColumn(FK_COLUMN).getConstraints());
 		assertEquals(asList(us), table.getColumn(UNIQUE_SINGLE_COLUMN).getConstraints());
@@ -193,16 +179,12 @@ public class ConstraintTest extends SchemaReadyTest
 	private Constraint assertConstraint(final Table table, final Class<?> constraintType, final String constraintName, final String requiredCondition)
 	{
 		final Constraint constraint = table.getConstraint(constraintName);
-		if(supportsCheckConstraints || constraintType!=CHECK)
-		{
-			assertNotNull(constraint, "no such constraint "+constraintName+", but has "+table.getConstraints());
-			assertEquals(constraintType, constraint.getClass(), constraintName);
-			assertEquals(requiredCondition, constraint.getRequiredCondition(), constraintName);
-			assertEquals(null, constraint.getError(), constraintName);
-			assertEquals(Node.Color.OK, constraint.getParticularColor(), constraintName);
-		}
-		else
-			assertEquals(null, constraint, constraintName);
+		final boolean expectedSupported = supportsCheckConstraints || constraintType!=CHECK;
+		assertNotNull(constraint, "no such constraint "+constraintName+", but has "+table.getConstraints());
+		assertEquals(constraintType, constraint.getClass(), constraintName);
+		assertEquals(requiredCondition, constraint.getRequiredCondition(), constraintName);
+		assertEquals(expectedSupported ? null : "unsupported", constraint.getError(), constraintName);
+		assertEquals(Node.Color.OK, constraint.getParticularColor(), constraintName);
 
 		return constraint;
 	}
