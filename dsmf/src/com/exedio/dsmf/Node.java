@@ -71,7 +71,7 @@ public abstract class Node
 
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
-		dialect.querySQL(connectionProvider, statement, resultSetHandler);
+		Dialect.querySQL(connectionProvider, statement, resultSetHandler);
 	}
 
 	final void executeSQL(final String statement, final StatementListener listener)

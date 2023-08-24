@@ -30,16 +30,8 @@ public abstract class Dialect
 {
 	public static final String NOT_NULL = " not null";
 
-	private final String schema;
-
-	protected Dialect(final String schema)
+	protected Dialect()
 	{
-		this.schema = schema;
-	}
-
-	protected final String getSchemaLiteral()
-	{
-		return '\'' + requireNonNull(schema) + '\'';
 	}
 
 	/**
@@ -451,7 +443,7 @@ public abstract class Dialect
 		void run(ResultSet resultSet) throws SQLException;
 	}
 
-	protected final void querySQL(
+	protected static void querySQL(
 			final Schema schema,
 			final String statement,
 			final ResultSetHandler resultSetHandler)
@@ -459,7 +451,7 @@ public abstract class Dialect
 		querySQL(schema.connectionProvider, statement, resultSetHandler);
 	}
 
-	final void querySQL(
+	static void querySQL(
 			final ConnectionProvider connectionProvider,
 			final String statement,
 			final ResultSetHandler resultSetHandler)
@@ -474,7 +466,7 @@ public abstract class Dialect
 			if(GET_COLUMNS==statement)
 			{
 				try(ResultSet resultSet = connection.getMetaData().
-						getColumns(null, schema, null, null))
+						getColumns(null, connection.getSchema(), null, null))
 				{
 					resultSetHandler.run(resultSet);
 				}

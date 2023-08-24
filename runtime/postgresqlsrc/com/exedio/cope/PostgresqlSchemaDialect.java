@@ -29,11 +29,13 @@ import java.util.regex.Pattern;
 
 final class PostgresqlSchemaDialect extends Dialect
 {
+	private final String schemaName;
+
 	PostgresqlSchemaDialect(
 			final CopeProbe probe,
 			final PostgresqlProperties properties)
 	{
-		super(properties.schema(probe.properties));
+		schemaName = properties.schema(probe.properties);
 
 		final String digits = "\\d*";
 		final Replacements cc = adjustExistingCheckConstraintCondition;
@@ -94,7 +96,7 @@ final class PostgresqlSchemaDialect extends Dialect
 	protected void verify(final Schema schema)
 	{
 		final String catalog = getCatalogLiteral(schema);
-		final String schemaL = getSchemaLiteral();
+		final String schemaL = '\'' + this.schemaName + '\'';
 
 		verifyTables(schema,
 				//language=SQL
