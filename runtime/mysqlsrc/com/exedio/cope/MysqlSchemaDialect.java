@@ -65,7 +65,7 @@ final class MysqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	public boolean supportsCheckConstraints()
+	public boolean supportsCheckConstraint()
 	{
 		return false;
 	}

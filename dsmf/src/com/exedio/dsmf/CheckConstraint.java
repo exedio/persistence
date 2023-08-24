@@ -64,7 +64,7 @@ public final class CheckConstraint extends Constraint
 	@Override
 	public boolean isSupported()
 	{
-		return dialect.supportsCheckConstraints();
+		return dialect.supportsCheckConstraint();
 	}
 
 	@Override

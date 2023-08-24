@@ -48,7 +48,7 @@ public abstract class Dialect
 		return '"' + name + '"';
 	}
 
-	public boolean supportsCheckConstraints()
+	public boolean supportsCheckConstraint()
 	{
 		return true;
 	}

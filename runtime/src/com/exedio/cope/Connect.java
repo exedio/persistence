@@ -50,7 +50,7 @@ final class Connect
 	final boolean supportsUTF8mb4;
 	final SortedSet<String> supportedDataHashAlgorithms;
 	final boolean supportsRandom;
-	final boolean supportsCheckConstraints;
+	final boolean supportsCheckConstraint;
 	final boolean supportsNativeDate;
 	final boolean supportsUniqueViolation;
 
@@ -88,7 +88,7 @@ final class Connect
 		supportedDataHashAlgorithms = toUnmodifiableSortedSet(dialect.getBlobHashAlgorithms());
 		supportsRandom = dialect.supportsRandom();
 		// SchemaInfo
-		supportsCheckConstraints = dialect.dsmfDialect.supportsCheckConstraints();
+		supportsCheckConstraint = dialect.dsmfDialect.supportsCheckConstraint();
 		supportsNativeDate = !properties.isSupportDisabledForNativeDate();
 		supportsUniqueViolation = !properties.isSupportDisabledForUniqueViolation() && dialect.supportsUniqueViolation();
 
