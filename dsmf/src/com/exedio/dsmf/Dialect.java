@@ -538,11 +538,6 @@ public abstract class Dialect
 		// empty default implementation
 	}
 
-	protected boolean needsTargetColumnName()
-	{
-		return false;
-	}
-
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		return

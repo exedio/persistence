@@ -95,14 +95,10 @@ public final class ForeignKeyConstraint extends Constraint
 			append(" FOREIGN KEY (").
 			append(quoteName(foreignKeyColumn)).
 			append(") REFERENCES ").
-			append(quoteName(targetTable));
-
-		if(dialect.needsTargetColumnName())
-		{
-			bf.append('(').
-				append(quoteName(targetColumn)).
-				append(')');
-		}
+			append(quoteName(targetTable)).
+			append('(').
+			append(quoteName(targetColumn)).
+			append(')');
 	}
 
 	@Override
