@@ -392,6 +392,7 @@ try
 				'my57-sq',
 				'mysql',
 				'dialect.connection.compress=true\n' +
+				'disableSupport.checkConstraint=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
@@ -442,6 +443,7 @@ try
 				'my57m-sq',
 				'mariadb',
 				'dialect.connection.compress=true\n' +
+				'disableSupport.checkConstraint=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql57(
@@ -614,6 +616,7 @@ try
 				'my80-sq',
 				'mysql',
 				'dialect.connection.compress=true\n' +
+				'disableSupport.checkConstraint=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(
@@ -664,6 +667,7 @@ try
 				'my80m-sq',
 				'mariadb',
 				'dialect.connection.compress=true\n' +
+				'disableSupport.checkConstraint=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
 			envMysql80(

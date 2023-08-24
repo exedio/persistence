@@ -99,6 +99,7 @@ public class ConnectPropertiesTest
 				"dialect",
 				"dialect.approximate",
 				"disableSupport.preparedStatements",
+				"disableSupport.checkConstraint",
 				"disableSupport.nativeDate",
 				"disableSupport.uniqueViolation",
 				"fulltextIndex",

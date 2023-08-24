@@ -30,8 +30,11 @@ public abstract class Dialect
 {
 	public static final String NOT_NULL = " not null";
 
-	protected Dialect()
+	final boolean disableCheckConstraint;
+
+	protected Dialect(final boolean disableCheckConstraint)
 	{
+		this.disableCheckConstraint = disableCheckConstraint;
 	}
 
 	/**

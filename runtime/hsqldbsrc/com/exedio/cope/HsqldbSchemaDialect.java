@@ -32,8 +32,9 @@ final class HsqldbSchemaDialect extends Dialect
 {
 	private final boolean supportsCheckConstraint;
 
-	HsqldbSchemaDialect(final Props properties)
+	HsqldbSchemaDialect(final CopeProbe probe, final Props properties)
 	{
+		super(probe.properties.disableCheckConstraint);
 		this.supportsCheckConstraint = properties.approximate.supportsCheckConstraint();
 		adjustExistingCheckConstraintCondition.
 				add("(\"\\w*\")!=", "$1<>");

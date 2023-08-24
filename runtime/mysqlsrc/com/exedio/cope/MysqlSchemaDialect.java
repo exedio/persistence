@@ -42,6 +42,7 @@ final class MysqlSchemaDialect extends Dialect
 			final CopeProbe probe,
 			final MysqlProperties properties)
 	{
+		super(probe.properties.disableCheckConstraint);
 		mysql80 = probe.environmentInfo.isDatabaseVersionAtLeast(8, 0);
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses

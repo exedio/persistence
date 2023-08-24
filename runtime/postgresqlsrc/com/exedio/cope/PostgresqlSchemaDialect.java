@@ -35,6 +35,7 @@ final class PostgresqlSchemaDialect extends Dialect
 			final CopeProbe probe,
 			final PostgresqlProperties properties)
 	{
+		super(probe.properties.disableCheckConstraint);
 		schemaName = properties.schema(probe.properties);
 
 		final String digits = "\\d*";
