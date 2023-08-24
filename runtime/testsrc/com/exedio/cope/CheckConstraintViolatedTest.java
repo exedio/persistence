@@ -22,7 +22,7 @@ import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.TYPE;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.alpha;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.beta;
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -60,7 +60,7 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 		insert(4, null, null);
 		model.checkUnsupportedConstraints();
 
-		final boolean supported = supportsCheckConstraints(model);
+		final boolean supported = supportsCheckConstraint(model);
 		try
 		{
 			insert(5, 20, 10);

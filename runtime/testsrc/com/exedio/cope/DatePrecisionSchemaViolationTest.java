@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -103,7 +103,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 		try(TransactionTry tx = modelB.startTransactionTry("itemB wrong " + constraintName))
 		{
-			if(supportsCheckConstraints(modelB))
+			if(supportsCheckConstraint(modelB))
 			{
 				try
 				{

@@ -98,7 +98,7 @@ public final class CheckConstraint extends Feature implements Copyable
 	 * if the check constraints are located within the same database table.
 	 * <p>
 	 * The result of this method does not depend on
-	 * {@link SchemaInfo#supportsCheckConstraints(Model)}.
+	 * {@link SchemaInfo#supportsCheckConstraint(Model)}.
 	 * <p>
 	 * If returns false, you should call {@link #check()} for checking
 	 * database consistency after any modifications of the database

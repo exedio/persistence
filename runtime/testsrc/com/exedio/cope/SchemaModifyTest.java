@@ -128,7 +128,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 			assertEquals(OK, table.getParticularColor());
 
 			final Constraint constraint = table.getConstraint("Main_nonFinalInteger_MN");
-			if(SchemaInfo.supportsCheckConstraints(model))
+			if(SchemaInfo.supportsCheckConstraint(model))
 				constraint.drop();
 
 			final Column column = table.getColumn(COLUMN1);

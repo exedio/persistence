@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.UpdateCounterInvalidTest.MyItem.TYPE;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -48,7 +48,7 @@ public final class UpdateCounterInvalidTest extends TestWithEnvironment
 		assertEquals(true, item.existsCopeItem());
 		commit();
 
-		if(supportsCheckConstraints(model))
+		if(supportsCheckConstraint(model))
 			// this model is used just by this test,
 			// therefore we don't have to repair the schema
 			// (recreate the check constraint)

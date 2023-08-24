@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Constraint.Type.Check;
@@ -56,10 +56,10 @@ public class SchemaMismatchColumnUnusedOptionalTest extends SchemaMismatchTest
 		assertEquals(name(ItemA.TYPE), name(ItemB.TYPE));
 
 		final Schema schema = modelB.getVerifiedSchema();
-		assertIt(null, OK, supportsCheckConstraints(model)?ERROR:WARNING, schema);
+		assertIt(null, OK, supportsCheckConstraint(model)?ERROR:WARNING, schema);
 
 		final Table table = schema.getTable(name(ItemA.TYPE));
-		assertIt(null, OK, supportsCheckConstraints(model)?ERROR:WARNING, table);
+		assertIt(null, OK, supportsCheckConstraint(model)?ERROR:WARNING, table);
 
 		final Column pk, field;
 		{
@@ -71,7 +71,7 @@ public class SchemaMismatchColumnUnusedOptionalTest extends SchemaMismatchTest
 
 		// test check constraints as well
 		{
-			final boolean supported = supportsCheckConstraints(model);
+			final boolean supported = supportsCheckConstraint(model);
 			final Constraint pkPk, checkPkMin, checkPkMax;
 			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_PK"));
 			assertIt(
