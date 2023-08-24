@@ -70,12 +70,6 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected boolean needsTargetColumnName()
-	{
-		throw new AssertionFailedError();
-	}
-
-	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		throw new AssertionFailedError();

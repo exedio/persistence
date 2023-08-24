@@ -322,12 +322,6 @@ final class MysqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected boolean needsTargetColumnName()
-	{
-		return true;
-	}
-
-	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
 		if(mysql80) // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html#mysqld-8-0-3-sql-syntax
