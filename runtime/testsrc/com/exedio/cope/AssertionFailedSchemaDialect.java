@@ -35,7 +35,7 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	public boolean supportsCheckConstraints()
+	public boolean supportsCheckConstraint()
 	{
 		throw new AssertionFailedError();
 	}

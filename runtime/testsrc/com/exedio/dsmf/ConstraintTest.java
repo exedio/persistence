@@ -122,7 +122,7 @@ public class ConstraintTest extends SchemaReadyTest
 		table.getConstraint(FK_NAME).drop();
 		table.getConstraint(FK_NAME).create();
 
-		if(supportsCheckConstraints)
+		if(supportsCheckConstraint)
 		{
 			table.getConstraint(CHECK_NAME).drop();
 			table.getConstraint(CHECK_NAME).create();

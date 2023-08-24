@@ -42,7 +42,7 @@ public abstract class SchemaTest extends TestWithEnvironment
 	String stringType;
 	String intType;
 	String intType2;
-	boolean supportsCheckConstraints;
+	boolean supportsCheckConstraint;
 	private SimpleConnectionProvider provider;
 	private final ArrayList<Connection> connections = new ArrayList<>();
 
@@ -54,7 +54,7 @@ public abstract class SchemaTest extends TestWithEnvironment
 		intType2 = getIntegerType(MODEL, 0, Long.MAX_VALUE);
 		assertNotEquals(intType, intType2);
 
-		supportsCheckConstraints = dialect.supportsCheckConstraints();
+		supportsCheckConstraint = dialect.supportsCheckConstraint();
 		final int numberOfConnections =
 				"HSQL Database Engine".equals(MODEL.getEnvironmentInfo().getDatabaseProductName()) ? 2 : 1;
 		for(int i = 0; i<numberOfConnections; i++)

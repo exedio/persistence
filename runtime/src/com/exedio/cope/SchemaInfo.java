@@ -76,7 +76,7 @@ public final class SchemaInfo
 
 	public static boolean supportsCheckConstraint(final Model model)
 	{
-		return model.connect().supportsCheckConstraints;
+		return model.connect().supportsCheckConstraint;
 	}
 
 	public static boolean supportsNativeDate(final Model model)

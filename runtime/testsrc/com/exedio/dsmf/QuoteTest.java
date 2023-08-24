@@ -105,7 +105,7 @@ public class QuoteTest extends SchemaReadyTest
 		assertSame(table, ckc.getTable());
 		assertEquals(CHK_NAME, ckc.getName());
 		assertEquals("(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)", ckc.getRequiredCondition());
-		assertEquals(supportsCheckConstraints ? null : "unsupported", ckc.getError());
+		assertEquals(supportsCheckConstraint ? null : "unsupported", ckc.getError());
 	}
 
 	@Test void testNonVerified()
@@ -118,7 +118,7 @@ public class QuoteTest extends SchemaReadyTest
 		final UniqueConstraint unc = (UniqueConstraint)table.getConstraint(UNQ_NAME);
 		final CheckConstraint ckc = (CheckConstraint)table.getConstraint(CHK_NAME);
 
-		if(supportsCheckConstraints)
+		if(supportsCheckConstraint)
 			ckc.drop();
 		fkc.drop(); // in mysql fk constraint must be dropped before unique constraint on the same column
 		unc.drop();
@@ -129,7 +129,7 @@ public class QuoteTest extends SchemaReadyTest
 		pkc.create();
 		fkc.create();
 		unc.create();
-		if(supportsCheckConstraints)
+		if(supportsCheckConstraint)
 			ckc.create();
 
 		schema.drop();

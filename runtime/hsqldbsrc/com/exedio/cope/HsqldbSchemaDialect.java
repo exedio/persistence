@@ -30,19 +30,19 @@ import java.util.regex.Pattern;
 
 final class HsqldbSchemaDialect extends Dialect
 {
-	private final boolean supportsCheckConstraints;
+	private final boolean supportsCheckConstraint;
 
 	HsqldbSchemaDialect(final Props properties)
 	{
-		this.supportsCheckConstraints = properties.approximate.supportsCheckConstraints();
+		this.supportsCheckConstraint = properties.approximate.supportsCheckConstraint();
 		adjustExistingCheckConstraintCondition.
 				add("(\"\\w*\")!=", "$1<>");
 	}
 
 	@Override
-	public boolean supportsCheckConstraints()
+	public boolean supportsCheckConstraint()
 	{
-		return supportsCheckConstraints;
+		return supportsCheckConstraint;
 	}
 
 	@Override

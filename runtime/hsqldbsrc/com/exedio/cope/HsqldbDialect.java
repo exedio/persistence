@@ -60,11 +60,11 @@ final class HsqldbDialect extends Dialect
 		@SuppressWarnings("unused")
 		mysql56
 		{
-			@Override boolean supportsCheckConstraints() { return false; }
+			@Override boolean supportsCheckConstraint() { return false; }
 			@Override boolean supportsSchemaSavepoint() { return true; }
 		};
 
-		boolean supportsCheckConstraints() { return true; }
+		boolean supportsCheckConstraint() { return true; }
 		boolean supportsSchemaSavepoint() { return false; }
 	}
 
