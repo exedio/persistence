@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
@@ -67,7 +67,7 @@ public class SchemaMismatchColumnMissingTest extends SchemaMismatchTest
 
 		// test check constraints as well
 		{
-			final boolean supported = supportsCheckConstraints(model);
+			final boolean supported = supportsCheckConstraint(model);
 			final Constraint pkPk, checkPkMin, checkPkMax;
 			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_PK"));
 			assertIt(

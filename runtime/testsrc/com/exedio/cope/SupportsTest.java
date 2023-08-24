@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
 import static java.util.Arrays.asList;
@@ -51,7 +51,7 @@ public class SupportsTest extends TestWithEnvironment
 		boolean utf8mb4 = true;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		boolean random = false;
-		boolean checkConstraints = true;
+		boolean checkConstraint = true;
 		boolean uniqueViolation = false;
 
 		switch(dialect)
@@ -59,13 +59,13 @@ public class SupportsTest extends TestWithEnvironment
 			case hsqldb:
 				databaseProductName = "HSQL Database Engine";
 				dataHashAlgorithms.clear(); // TODO support more
-				checkConstraints = !propertiesHsqldbMysql56();
+				checkConstraint = !propertiesHsqldbMysql56();
 				break;
 			case mysql:
 				databaseProductName = "MySQL";
 				utf8mb4 = propertiesUtf8mb4();
 				random = true;
-				checkConstraints = false;
+				checkConstraint = false;
 				uniqueViolation = true;
 				break;
 			case postgresql:
@@ -84,7 +84,7 @@ public class SupportsTest extends TestWithEnvironment
 		assertEquals(random, model.supportsRandom());
 
 		// SchemaInfo
-		assertEquals(checkConstraints, supportsCheckConstraints(model));
+		assertEquals(checkConstraint,                                                 supportsCheckConstraint(model));
 		assertEquals(                   !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}

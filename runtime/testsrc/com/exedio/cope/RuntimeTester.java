@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -258,7 +258,7 @@ final class RuntimeTester
 			final String condition)
 	{
 		final Constraint constraint = table.getConstraint(name);
-		final boolean expectedSupported = type!=CheckConstraint.class || supportsCheckConstraints(model);
+		final boolean expectedSupported = type!=CheckConstraint.class || supportsCheckConstraint(model);
 		assertNotNull(constraint, "no such constraint "+name+", but has "+table.getConstraints());
 		assertEquals(type, constraint.getClass(), name);
 		assertEquals(condition, constraint.getRequiredCondition(), name);
@@ -332,7 +332,7 @@ final class RuntimeTester
 			{
 				final String message = table.getName() + '#' + constraint.getName();
 				if(constraint instanceof CheckConstraint &&
-					!supportsCheckConstraints(model))
+					!supportsCheckConstraint(model))
 				{
 					assertEquals("unsupported", constraint.getError(), message);
 					assertEquals(Node.Color.OK, constraint.getParticularColor(), message);

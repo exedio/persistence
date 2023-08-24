@@ -65,7 +65,16 @@ public final class SchemaInfo
 		return model.connect().dialect.dsmfDialect.quoteName(name);
 	}
 
+	/**
+	 * @deprecated Use {@link #supportsCheckConstraint(Model)} instead.
+	 */
+	@Deprecated
 	public static boolean supportsCheckConstraints(final Model model)
+	{
+		return supportsCheckConstraint(model);
+	}
+
+	public static boolean supportsCheckConstraint(final Model model)
 	{
 		return model.connect().supportsCheckConstraints;
 	}

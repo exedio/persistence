@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Node.Color.ERROR;
@@ -48,7 +48,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 
 		assertEquals(name(ItemA.TYPE), name(ItemB.TYPE));
 
-		final boolean supported = supportsCheckConstraints(model);
+		final boolean supported = supportsCheckConstraint(model);
 		final Schema schema = modelB.getVerifiedSchema();
 		assertIt(null, OK, supported ? ERROR : OK, schema);
 
