@@ -89,7 +89,7 @@ public class SupportsTest extends TestWithEnvironment
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
-	@Test void testCompression() throws SQLException
+	@Test void testConnection() throws SQLException
 	{
 		assumeTrue(mysql);
 
@@ -102,6 +102,22 @@ public class SupportsTest extends TestWithEnvironment
 			assertTrue(rs.next());
 			assertEquals("Compression", rs.getString(1));
 			assertEquals(enabled ? "ON" : "OFF", rs.getString(2));
+			assertFalse(rs.next());
+		}
+		try(Connection c = SchemaInfo.newConnection(model);
+			 Statement s = c.createStatement();
+			 ResultSet rs = s.executeQuery("SELECT @@sql_mode"))
+		{
+			assertTrue(rs.next());
+			assertEquals(
+					"ONLY_FULL_GROUP_BY," +
+					"NO_BACKSLASH_ESCAPES," +
+					(mariaDriver?"":"STRICT_TRANS_TABLES,") +
+					"STRICT_ALL_TABLES," +
+					"NO_ZERO_IN_DATE," +
+					"NO_ZERO_DATE," +
+					"NO_ENGINE_SUBSTITUTION",
+					rs.getString(1));
 			assertFalse(rs.next());
 		}
 	}
