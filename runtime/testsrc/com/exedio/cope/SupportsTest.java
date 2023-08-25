@@ -25,7 +25,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -34,6 +34,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
+import org.opentest4j.TestAbortedException;
 
 public class SupportsTest extends TestWithEnvironment
 {
@@ -91,51 +92,58 @@ public class SupportsTest extends TestWithEnvironment
 
 	@Test void testConnection() throws SQLException
 	{
-		assumeTrue(mysql);
-
-		final boolean enabled = (Boolean)model.getConnectProperties().getField("dialect.connection.compress").get();
-
-		try(Connection c = SchemaInfo.newConnection(model);
-			 Statement s = c.createStatement();
-			 ResultSet rs = s.executeQuery("SHOW STATUS LIKE 'Compression'"))
+		switch(dialect)
 		{
-			assertTrue(rs.next());
-			assertEquals("Compression", rs.getString(1));
-			assertEquals(enabled ? "ON" : "OFF", rs.getString(2));
-			assertFalse(rs.next());
-		}
-		try(Connection c = SchemaInfo.newConnection(model);
-			 Statement s = c.createStatement();
-			 ResultSet rs = s.executeQuery("SELECT @@sql_mode"))
-		{
-			assertTrue(rs.next());
-			assertEquals(
-					"ONLY_FULL_GROUP_BY," +
-					"NO_BACKSLASH_ESCAPES," +
-					(mariaDriver?"":"STRICT_TRANS_TABLES,") +
-					"STRICT_ALL_TABLES," +
-					"NO_ZERO_IN_DATE," +
-					"NO_ZERO_DATE," +
-					"NO_ENGINE_SUBSTITUTION",
-					rs.getString(1));
-			assertFalse(rs.next());
-		}
-	}
+			case hsqldb:
+				throw new TestAbortedException("hsqldb");
+			case mysql:
+			{
+				final boolean enabled = (Boolean)model.getConnectProperties().getField("dialect.connection.compress").get();
 
-	@Test void testSchema() throws SQLException
-	{
-		assumeTrue(postgresql);
+				try(Connection c = SchemaInfo.newConnection(model);
+					 Statement s = c.createStatement())
+				{
+					try(ResultSet rs = s.executeQuery("SHOW STATUS LIKE 'Compression'"))
+					{
+						assertTrue(rs.next());
+						assertEquals("Compression", rs.getString(1));
+						assertEquals(enabled ? "ON" : "OFF", rs.getString(2));
+						assertFalse(rs.next());
+					}
+					try(ResultSet rs = s.executeQuery("SELECT @@sql_mode"))
+					{
+						assertTrue(rs.next());
+						assertEquals(
+								"ONLY_FULL_GROUP_BY," +
+								"NO_BACKSLASH_ESCAPES," +
+								(mariaDriver?"":"STRICT_TRANS_TABLES,") +
+								"STRICT_ALL_TABLES," +
+								"NO_ZERO_IN_DATE," +
+								"NO_ZERO_DATE," +
+								"NO_ENGINE_SUBSTITUTION",
+								rs.getString(1));
+						assertFalse(rs.next());
+					}
+				}
+			}
+			break;
+			case postgresql:
+			{
+				final ConnectProperties props = model.getConnectProperties();
+				final String property = (String)props.getField("dialect.connection.schema").get();
 
-		final ConnectProperties props = model.getConnectProperties();
-		final String property = (String)props.getField("dialect.connection.schema").get();
-
-		try(Connection c = SchemaInfo.newConnection(model);
-			 Statement s = c.createStatement();
-			 ResultSet rs = s.executeQuery("SHOW search_path"))
-		{
-			assertTrue(rs.next());
-			assertEquals("$user".equals(property) ? "\"$user\"" : property, rs.getString(1));
-			assertFalse(rs.next());
+				try(Connection c = SchemaInfo.newConnection(model);
+					 Statement s = c.createStatement();
+					 ResultSet rs = s.executeQuery("SHOW search_path"))
+				{
+					assertTrue(rs.next());
+					assertEquals("$user".equals(property) ? "\"$user\"" : property, rs.getString(1));
+					assertFalse(rs.next());
+				}
+			}
+			break;
+			default:
+				fail(dialect.name());
 		}
 	}
 }
