@@ -260,13 +260,16 @@ final class MysqlDialect extends Dialect
 	}
 
 	private static final String CHARSET = "utf8";
+	/**
+	 * Canonical order of sql modes as reported by {@code SELECT @@sql_mode}.
+	 */
 	private static final String SQL_MODE =
-			"STRICT_ALL_TABLES," +
-			"NO_ZERO_DATE," +
-			"NO_ZERO_IN_DATE," +
-			"NO_ENGINE_SUBSTITUTION," +
+			"ONLY_FULL_GROUP_BY," +
 			"NO_BACKSLASH_ESCAPES," +
-			"ONLY_FULL_GROUP_BY";
+			"STRICT_ALL_TABLES," +
+			"NO_ZERO_IN_DATE," +
+			"NO_ZERO_DATE," +
+			"NO_ENGINE_SUBSTITUTION";
 	private static final String TRUE = "true";
 
 	@Override
