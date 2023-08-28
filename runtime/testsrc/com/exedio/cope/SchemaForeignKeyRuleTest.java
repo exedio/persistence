@@ -37,7 +37,6 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SchemaForeignKeyRuleTest extends TestWithEnvironment
@@ -118,14 +117,14 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 
 	private static final String FK_NAME = "ForeignKeyRule_field_Fk";
 
-	@BeforeEach void beforeEach()
-	{
-		MODEL.tearDownSchema();
-		MODEL.createSchema();
-	}
 	@AfterEach void afterEach()
 	{
-		MODEL.tearDownSchema();
+		final Constraint fk = model.
+				getSchema().
+				getTable(getTableName(MyItem.TYPE)).
+				getConstraint(FK_NAME);
+		fk.drop();
+		fk.create();
 	}
 
 	@CopeSchemaName("ForeignKeyRule")
