@@ -36,6 +36,8 @@ import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.SQLException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SchemaForeignKeyRuleTest extends TestWithEnvironment
@@ -48,17 +50,27 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 
 	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@Test void test() throws SQLException
+	@Test void testDeleteCascade() throws SQLException
 	{
 		assertSchema(null, OK);
 
 		testRules(
 				"ON DELETE Cascade",
 				"unexpected delete rule CASCADE");
+	}
+
+	@Test void testUpdateNull() throws SQLException
+	{
+		assertSchema(null, OK);
 
 		testRules(
 				"ON UPDATE set NULL",
 				"unexpected update rule SET NULL");
+	}
+
+	@Test void testDeleteNullUpdateCascade() throws SQLException
+	{
+		assertSchema(null, OK);
 
 		testRules(
 				"ON DELETE SET NULL ON UPDATE CASCADE",
@@ -105,6 +117,16 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 	}
 
 	private static final String FK_NAME = "ForeignKeyRule_field_Fk";
+
+	@BeforeEach void beforeEach()
+	{
+		MODEL.tearDownSchema();
+		MODEL.createSchema();
+	}
+	@AfterEach void afterEach()
+	{
+		MODEL.tearDownSchema();
+	}
 
 	@CopeSchemaName("ForeignKeyRule")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
