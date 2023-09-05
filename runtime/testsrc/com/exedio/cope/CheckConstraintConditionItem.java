@@ -29,7 +29,7 @@ final class CheckConstraintConditionItem extends Item
 	static final IntegerField integer1 = new IntegerField();
 	static final IntegerField integer2 = new IntegerField();
 	static final ItemField<CheckConstraintConditionItemTarget> item = ItemField.create(CheckConstraintConditionItemTarget.class);
-	//static final StringField string = new StringField();
+	static final StringField string = new StringField();
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint isNull     = new CheckConstraint(integer1.isNull());
@@ -49,6 +49,8 @@ final class CheckConstraintConditionItem extends Item
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compositeOr  = new CheckConstraint(integer1.isNull().or (integer2.isNull()));
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint regexpLike = new CheckConstraint(string.regexpLike("[A-Z]"));
 	//static final CheckConstraint charSet = new CheckConstraint(new CharSetCondition(string, CharSet.ALPHA_LOWER)); TODO
 	//static final CheckConstraint like = new CheckConstraint(string.like("like it")); TODO
 
@@ -108,6 +110,24 @@ final class CheckConstraintConditionItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CheckConstraintConditionItem.item.set(this,item);
+	}
+
+	@com.exedio.cope.instrument.Generated
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	java.lang.String getString()
+	{
+		return CheckConstraintConditionItem.string.get(this);
+	}
+
+	@com.exedio.cope.instrument.Generated
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setString(@javax.annotation.Nonnull final java.lang.String string)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.StringLengthViolationException
+	{
+		CheckConstraintConditionItem.string.set(this,string);
 	}
 
 	@com.exedio.cope.instrument.Generated
