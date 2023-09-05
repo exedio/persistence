@@ -18,7 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
+import com.exedio.cope.instrument.WrapperType;
+
 @CopeSchemaName("Checkconstraintconditionitem")
+@WrapperType(constructor=NONE, genericConstructor=NONE, comments=false)
 final class CheckConstraintConditionItem extends Item
 {
 	static final IntegerField integer1 = new IntegerField();
@@ -60,79 +65,35 @@ final class CheckConstraintConditionItem extends Item
 	static final CheckConstraint startsWith = new CheckConstraint(integer1.isNotNull());
 
 
-	/**
-	 * Creates a new CheckConstraintConditionItem with all the fields initially needed.
-	 * @param integer1 the initial value for field {@link #integer1}.
-	 * @param integer2 the initial value for field {@link #integer2}.
-	 * @param item the initial value for field {@link #item}.
-	 * @throws com.exedio.cope.MandatoryViolationException if item is null.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	CheckConstraintConditionItem(
-				final int integer1,
-				final int integer2,
-				@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
-			throws
-				com.exedio.cope.MandatoryViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.SetValue.map(CheckConstraintConditionItem.integer1,integer1),
-			com.exedio.cope.SetValue.map(CheckConstraintConditionItem.integer2,integer2),
-			com.exedio.cope.SetValue.map(CheckConstraintConditionItem.item,item),
-		});
-	}
-
-	/**
-	 * Creates a new CheckConstraintConditionItem and sets the given fields initially.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
-	private CheckConstraintConditionItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #integer1}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteger1()
 	{
 		return CheckConstraintConditionItem.integer1.getMandatory(this);
 	}
 
-	/**
-	 * Sets a new value for {@link #integer1}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger1(final int integer1)
 	{
 		CheckConstraintConditionItem.integer1.set(this,integer1);
 	}
 
-	/**
-	 * Returns the value of {@link #integer2}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteger2()
 	{
 		return CheckConstraintConditionItem.integer2.getMandatory(this);
 	}
 
-	/**
-	 * Sets a new value for {@link #integer2}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger2(final int integer2)
 	{
 		CheckConstraintConditionItem.integer2.set(this,integer2);
 	}
 
-	/**
-	 * Returns the value of {@link #item}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CheckConstraintConditionItemTarget getItem()
@@ -140,10 +101,7 @@ final class CheckConstraintConditionItem extends Item
 		return CheckConstraintConditionItem.item.get(this);
 	}
 
-	/**
-	 * Sets a new value for {@link #item}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItem(@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
 			throws
@@ -155,16 +113,9 @@ final class CheckConstraintConditionItem extends Item
 	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
-	/**
-	 * The persistent type information for checkConstraintConditionItem.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated
 	static final com.exedio.cope.Type<CheckConstraintConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItem.class,CheckConstraintConditionItem::new);
 
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
 	@com.exedio.cope.instrument.Generated
 	private CheckConstraintConditionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
