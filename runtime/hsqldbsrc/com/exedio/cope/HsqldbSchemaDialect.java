@@ -36,8 +36,9 @@ final class HsqldbSchemaDialect extends Dialect
 	{
 		super(probe.properties.disableCheckConstraint);
 		this.supportsCheckConstraint = properties.approximate.supportsCheckConstraint();
-		adjustExistingCheckConstraintCondition.
-				add("(\"\\w*\")!=", "$1<>");
+		@SuppressWarnings("UnnecessaryLocalVariable") // OK: prepares later extension
+		final Replacements cc = adjustExistingCheckConstraintCondition;
+		cc.add("(\"\\w*\")!=", "$1<>");
 	}
 
 	@Override
