@@ -50,6 +50,8 @@ public class SchemaModifyTest extends TestWithEnvironment
 		assertEquals("nonFinalInteger", COLUMN1);
 
 		final String column1Type;
+		final boolean dropCheckConstraintWhileRenamed =
+				mysql && SchemaInfo.supportsCheckConstraint(model);
 		// OK
 		{
 			final Schema schema = model.getVerifiedSchema();
@@ -70,6 +72,14 @@ public class SchemaModifyTest extends TestWithEnvironment
 			column1Type = column.getType();
 			assertNotNull(column1Type);
 
+			if(dropCheckConstraintWhileRenamed)
+			{
+				// Without dropping constraints before, column.renameTo will fail:
+				// Check constraint 'Main_nonFinalInteger_MN' uses column 'nonFinalInteger', hence column cannot be dropped or renamed.
+				// Check constraint 'Main_nonFinalInteger_MX' uses column 'nonFinalInteger', hence column cannot be dropped or renamed.
+				table.getConstraint("Main_nonFinalInteger_MN").drop();
+				table.getConstraint("Main_nonFinalInteger_MX").drop();
+			}
 			column.renameTo(COLUMN1X);
 		}
 		// OK without verify
@@ -114,6 +124,11 @@ public class SchemaModifyTest extends TestWithEnvironment
 				assertEquals(column1Type, columnX.getType());
 
 				columnX.renameTo(COLUMN1);
+			}
+			if(dropCheckConstraintWhileRenamed)
+			{
+				table.getConstraint("Main_nonFinalInteger_MN").create();
+				table.getConstraint("Main_nonFinalInteger_MX").create();
 			}
 		}
 		// OK

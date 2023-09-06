@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Dialect.strip;
+import static com.exedio.cope.MysqlDialect.REGEXP;
 import static com.exedio.cope.MysqlDialect.sequenceColumnName;
 import static java.util.Objects.requireNonNull;
 
@@ -48,7 +50,40 @@ final class MysqlSchemaDialect extends Dialect
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
 		rowFormat = properties.rowFormat.sql();
+
+		if(mysql80)
+		{
+			final Replacements r = new Replacements();
+			r.add("\\bchar_length(\\(`\\w*`\\))",  "CHAR_LENGTH$1");
+			r.add("\\b" + "length(\\(`\\w*`\\))", "OCTET_LENGTH$1"); // https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_length
+			r.add(" (=|<>|>=|<=|>|<) ", "$1");
+			r.add("-\\(" + "([0-9.E]*)\\)", "-$1");
+			r.add(" not in ", " NOT IN ");
+			r.add(" in ", " IN ");
+			r.add("\\b_utf8mb4\\\\'(\\w*)\\\\'", "'$1'");
+			r.add("\\bTIMESTAMP\\\\'(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3})\\\\'", "TIMESTAMP'$1'");
+			r.add("\\bDATE" + "\\\\'(\\d{4}-\\d{2}-\\d{2}" +                        ")\\\\'", "DATE" + "'$1'");
+			r.add(" is "+ "null\\b", " IS "+ "NULL");
+			r.add(" is not null\\b", " IS NOT NULL");
+			r.add(" or ",  " OR ");
+			r.add(" and ", " AND ");
+			r.add("\\bextract\\(microsecond"   + " from `(\\w*)`\\)", "EXTRACT(MICROSECOND"   + " FROM `$1`)");
+			r.add("\\bextract\\(second_microsecond from `(\\w*)`\\)", "EXTRACT(SECOND_MICROSECOND FROM `$1`)");
+			r.add("\\bextract\\(minute"        + " from `(\\w*)`\\)", "EXTRACT(MINUTE"        + " FROM `$1`)");
+			r.add("\\(`(\\w*)` % (1000|60000|3600000)\\)=0", "(`$1` MOD $2)=0");
+			adjustExistingCheckConstraintCondition = r;
+		}
+		else
+			adjustExistingCheckConstraintCondition = null;
 	}
+
+	@Override
+	protected String adjustExistingCheckConstraintCondition(final String s)
+	{
+		return adjustExistingCheckConstraintCondition.apply(s);
+	}
+
+	private final Replacements adjustExistingCheckConstraintCondition;
 
 	private static final char QUOTE_CHARACTER = '`';
 
@@ -68,7 +103,15 @@ final class MysqlSchemaDialect extends Dialect
 	@Override
 	public boolean supportsCheckConstraint()
 	{
-		return false;
+		return mysql80;
+	}
+
+	@Override
+	public boolean supportsCheckConstraint(final String condition)
+	{
+		// https://bugs.mysql.com/bug.php?id=111737
+		// https://bugs.mysql.com/bug.php?id=112179
+		return !condition.contains(REGEXP);
 	}
 
 	@Override
@@ -170,6 +213,35 @@ final class MysqlSchemaDialect extends Dialect
 				notifyExistentColumn(table, columnName, type.toString());
 			}
 		});
+
+		if(mysql80) // check constraints
+		{
+			querySQL(schema,
+					//language=SQL
+					"SELECT " +
+							"tc.TABLE_NAME," + // 1
+							"cc.CONSTRAINT_NAME," + // 2
+							"cc.CHECK_CLAUSE " + // 3
+					"FROM information_schema.CHECK_CONSTRAINTS cc " +
+					"INNER JOIN information_schema.TABLE_CONSTRAINTS tc " +
+							"ON cc.CONSTRAINT_NAME=tc.CONSTRAINT_NAME " +
+					"WHERE cc.CONSTRAINT_SCHEMA=" + catalog + " " +
+							"AND tc.CONSTRAINT_TYPE='CHECK' " +
+							"AND tc.CONSTRAINT_SCHEMA=" + catalog + " " +
+							"AND tc.TABLE_SCHEMA=" + catalog + " " +
+							"AND tc.ENFORCED='YES'",
+			resultSet ->
+			{
+				while(resultSet.next())
+				{
+					final Table table = getTableStrict(schema, resultSet, 1);
+					final String constraintName = resultSet.getString(2);
+					final String clause = strip(resultSet.getString(3), "(", ")");
+					//System.out.println("tableName:"+table+" constraintName:"+constraintName+" clause:>"+clause+"<");
+					notifyExistentCheck(table, constraintName, clause);
+				}
+			});
+		}
 
 		{
 			// Querying REFERENTIAL_CONSTRAINTS and KEY_COLUMN_USAGE separately is faster

@@ -62,6 +62,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 	{
 		assertSchema(null, OK);
 
+		dropCheckIfNeeded();
 		testRules(
 				"ON UPDATE set NULL",
 				"unexpected update rule SET NULL");
@@ -71,6 +72,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 	{
 		assertSchema(null, OK);
 
+		dropCheckIfNeeded();
 		testRules(
 				"ON DELETE SET NULL ON UPDATE CASCADE",
 				"unexpected delete rule SET NULL, unexpected update rule CASCADE");
@@ -96,6 +98,27 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 				() -> assertEquals(OK,    schema.getParticularColor(), "schema.particularColor"),
 				() -> assertEquals(color, schema.getCumulativeColor(), "schema.cumulativeColor"));
 	}
+
+	private void dropCheckIfNeeded()
+	{
+		if(!mysql || !SchemaInfo.supportsCheckConstraint(MODEL))
+			return;
+
+		// "Foreign key referential actions (ON UPDATE, ON DELETE) are prohibited
+		// on columns used in CHECK constraints."
+		// https://dev.mysql.com/doc/refman/8.0/en/create-table-check-constraints.html
+		// Error message is:
+		// Column 'field' cannot be used in a check constraint 'ForeignKeyRule_field_MN':
+		// needed in a foreign key constraint 'ForeignKeyRule_field_Fk' referential action.
+		final Table table = model.
+				getSchema().
+				getTable(getTableName(MyItem.TYPE));
+		table.getConstraint("ForeignKeyRule_field_MN").drop();
+		table.getConstraint("ForeignKeyRule_field_MX").drop();
+		checkDropped = true;
+	}
+
+	private boolean checkDropped = false;
 
 	private void testRules(final String rule, final String error) throws SQLException
 	{
@@ -125,6 +148,15 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 				getConstraint(FK_NAME);
 		fk.drop();
 		fk.create();
+
+		if(checkDropped)
+		{
+			final Table table = model.
+					getSchema().
+					getTable(getTableName(MyItem.TYPE));
+			table.getConstraint("ForeignKeyRule_field_MN").create();
+			table.getConstraint("ForeignKeyRule_field_MX").create();
+		}
 	}
 
 	@CopeSchemaName("ForeignKeyRule")

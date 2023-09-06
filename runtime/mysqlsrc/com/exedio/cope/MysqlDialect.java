@@ -589,7 +589,7 @@ final class MysqlDialect extends Dialect
 			append(" AS CHAR)");
 	}
 
-	private static final String REGEXP = " REGEXP ";
+	static final String REGEXP = " REGEXP ";
 
 	@Override
 	QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)

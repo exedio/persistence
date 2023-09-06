@@ -122,6 +122,11 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 									"table: " + tableName,
 									message);
 							break;
+						case mysql:
+							assertEquals(
+									"Check constraint '" + constraintName + "' is violated.",
+									dropMariaConnectionId(message));
+							break;
 						case postgresql:
 							assertTrue(
 									message.startsWith(
@@ -130,7 +135,6 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 									message);
 							break;
 
-						case mysql: // MySQL does not support check constraints
 						default:
 							throw new RuntimeException(dialect + "/" + message);
 

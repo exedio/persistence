@@ -62,7 +62,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 					"unexpected condition " +
 					">>>" + q("field") + "<=66<<<";
 
-			if(postgresql)
+			if(mysql || postgresql)
 				error +=
 						" (originally >>>"+ q("field") + " <= 66<<<)";
 

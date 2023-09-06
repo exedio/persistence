@@ -98,7 +98,7 @@ abstract class Dialect
 	{
 		// MySQL maximum length is 63:
 		// https://dev.mysql.com/doc/refman/5.6/en/identifiers.html
-		// MySQL does not support check constraints.
+		// MySQL does support check constraints only since version 8.
 
 		// PostgreSQL maximum length is 63:
 		// https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
