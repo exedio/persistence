@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,6 +37,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
+		assumeNotGithub(); // expectedSize 3746 on github
 		final InvalidPlainTextException es = reserialize(e, 3744);
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
@@ -53,6 +55,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
+		assumeNotGithub(); // expectedSize 3742 on github
 		final InvalidPlainTextException es = reserialize(e, 3740);
 		assertEquals(null, es.getMessageWithoutFeature());
 		assertEquals("null for null", es.getMessage());
@@ -70,6 +73,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
+		assumeNotGithub(); // expectedSize 3753 on github
 		final InvalidPlainTextException es = reserialize(e, 3751);
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
