@@ -49,6 +49,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import org.opentest4j.AssertionFailedError;
 
 @MainRule.Tag
 @SuppressWarnings("HardcodedLineSeparator")
@@ -242,6 +243,16 @@ public class VaultSanitizedServiceTest
 				IllegalStateException.class,
 				"closed");
 		m.assertIt("");
+	}
+	@Test void closeClosed()
+	{
+		s.close();
+		m.assertIt("close\n");
+		assertFails(
+				() -> s.close(),
+				AssertionFailedError.class,
+				"expected: <false> but was: <true>");
+		m.assertIt("close\n");
 	}
 	@Test void getLengthClosed()
 	{
