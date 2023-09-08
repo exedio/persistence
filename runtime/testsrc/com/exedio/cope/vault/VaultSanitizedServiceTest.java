@@ -148,6 +148,16 @@ public class VaultSanitizedServiceTest
 		assertEquals(false, s.put(emptyHash, value, PUT_INFO));
 		m.assertIt("");
 	}
+	@Test void putBytesEmptyButNonEmptyHash()
+	{
+		final byte[] value = {};
+		assertFails(
+				() -> s.put("0123456789abcdef0123456789abcdef", value, PUT_INFO),
+				IllegalArgumentException.class,
+				"hash >0123456789abcdefxx32< put with empty value, " +
+				"but empty hash is >" + emptyHash + "<");
+		m.assertIt("");
+	}
 	@Test void putStreamEmpty() throws IOException
 	{
 		final byte[] value = {};
