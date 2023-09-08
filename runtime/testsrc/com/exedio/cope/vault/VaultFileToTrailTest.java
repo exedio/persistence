@@ -208,7 +208,7 @@ public class VaultFileToTrailTest
 
 	private static final int HEADER_END = 5;
 
-	private static List<String> readAllLines(final ByteArrayOutputStream out) throws IOException
+	static List<String> readAllLines(final ByteArrayOutputStream out) throws IOException
 	{
 		try(BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(out.toByteArray()), US_ASCII)))
 		{
