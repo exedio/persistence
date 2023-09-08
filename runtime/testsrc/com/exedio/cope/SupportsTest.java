@@ -66,7 +66,7 @@ public class SupportsTest extends TestWithEnvironment
 				databaseProductName = "MySQL";
 				utf8mb4 = propertiesUtf8mb4();
 				random = true;
-				checkConstraint = model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0);
+				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
 				break;
 			case postgresql:
