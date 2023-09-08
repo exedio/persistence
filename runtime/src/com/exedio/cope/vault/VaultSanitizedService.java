@@ -116,6 +116,11 @@ final class VaultSanitizedService implements VaultService
 		if(isEmptyHash(hash))
 			return false;
 
+		if(value.length==0)
+			throw new IllegalArgumentException(
+					"hash >" + anonymiseHash(hash) + "< put with empty value, " +
+					"but empty hash is >" + hashEmpty + '<');
+
 		return service.put(hash, value, info);
 	}
 
