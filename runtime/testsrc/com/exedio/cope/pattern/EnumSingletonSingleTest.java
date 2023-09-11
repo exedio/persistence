@@ -16,33 +16,23 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.EnumSingleton.create;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.EnumSingleTest.AnEnum;
 import org.junit.jupiter.api.Test;
 
-public class EnumSingleTest
+public class EnumSingletonSingleTest
 {
 	@Test void testOk()
 	{
-		final EnumField<?> field = EnumField.createEvenIfRedundant(AnEnum.class);
-		assertEquals(AnEnum.class, field.getValueClass());
-	}
-
-	@Test void testFails()
-	{
 		assertFails(
-				() -> EnumField.create(AnEnum.class),
+				() -> create(AnEnum.class),
 				IllegalArgumentException.class,
 				"Redundant field on a valueClass with one enum constant only " +
 				"(" + AnEnum.class.getName() + ") is probably a mistake. " +
 				"You may call method createEvenIfRedundant if you are sure this is ok.");
-	}
-
-	public enum AnEnum
-	{
-		onlyFacet
 	}
 }
