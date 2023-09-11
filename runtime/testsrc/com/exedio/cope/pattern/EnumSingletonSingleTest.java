@@ -19,7 +19,9 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.EnumSingleton.create;
+import static com.exedio.cope.pattern.EnumSingleton.createEvenIfRedundant;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.EnumSingleTest.AnEnum;
 import org.junit.jupiter.api.Test;
@@ -34,5 +36,12 @@ public class EnumSingletonSingleTest
 				"Redundant field on a valueClass with one enum constant only " +
 				"(" + AnEnum.class.getName() + ") is probably a mistake. " +
 				"You may call method createEvenIfRedundant if you are sure this is ok.");
+	}
+
+	@Test void testFails()
+	{
+		final EnumSingleton<AnEnum> f = createEvenIfRedundant(AnEnum.class);
+		assertEquals(AnEnum.class, f.getInitialType());
+		assertEquals(AnEnum.class, f.getOnce().getValueClass());
 	}
 }
