@@ -26,6 +26,7 @@ import java.lang.annotation.Target;
 
 @Target(PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
+@WrapAnnotateInterim
 public @interface Parameter
 {
 	String value() default "";
