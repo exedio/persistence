@@ -39,14 +39,22 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 
 	private final EnumField<E> once;
 
-	private EnumSingleton(final Class<E> valueClass)
+	private EnumSingleton(final Class<E> valueClass, final boolean evenIfRedundant)
 	{
-		once = addSourceFeature(EnumField.create(valueClass).toFinal().unique(), "once", CustomAnnotatedElement.create(CopeSchemaNameElement.getEmpty()));
+		once = addSourceFeature(
+				(evenIfRedundant ? EnumField.createEvenIfRedundant(valueClass) : EnumField.create(valueClass)).toFinal().unique(),
+				"once",
+				CustomAnnotatedElement.create(CopeSchemaNameElement.getEmpty()));
 	}
 
 	public static <E extends Enum<E>> EnumSingleton<E> create(final Class<E> valueClass)
 	{
-		return new EnumSingleton<>(valueClass);
+		return new EnumSingleton<>(valueClass, false);
+	}
+
+	public static <E extends Enum<E>> EnumSingleton<E> createEvenIfRedundant(final Class<E> valueClass)
+	{
+		return new EnumSingleton<>(valueClass, true);
 	}
 
 	public EnumField<E> getOnce()
