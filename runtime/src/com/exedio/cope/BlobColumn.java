@@ -109,7 +109,7 @@ final class BlobColumn extends Column
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
-				tx.connect.executor.dialect.fetchBlob(resultSet, 1, item, sink, field);
+				tx.connect.executor.dialect.fetchBlob(resultSet, 1, field.wrap(sink, item));
 
 				return null;
 			}

@@ -27,7 +27,6 @@ import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultPutInfo;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -107,7 +106,7 @@ abstract class Dialect
 
 	void fetchBlob(
 			final ResultSet resultSet, final int columnIndex,
-			final Item item, final OutputStream sink, final DataField field)
+			final DataLengthViolationOutputStream sink)
 	throws SQLException
 	{
 		final Blob blob = resultSet.getBlob(columnIndex);
@@ -115,11 +114,11 @@ abstract class Dialect
 		{
 			try(InputStream source = blob.getBinaryStream())
 			{
-				field.copy(source, sink, item);
+				source.transferTo(sink);
 			}
 			catch(final IOException e)
 			{
-				throw new RuntimeException(field.toString(), e);
+				throw new RuntimeException(sink.fieldString(), e);
 			}
 		}
 	}

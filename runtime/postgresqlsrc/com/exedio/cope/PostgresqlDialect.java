@@ -25,7 +25,6 @@ import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -194,17 +193,17 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	void fetchBlob(
 			final ResultSet resultSet, final int columnIndex,
-			final Item item, final OutputStream sink, final DataField field)
+			final DataLengthViolationOutputStream sink)
 	throws SQLException
 	{
 		try(InputStream source = resultSet.getBinaryStream(columnIndex))
 		{
 			if(source!=null)
-				field.copy(source, sink, item);
+				source.transferTo(sink);
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(field.toString(), e);
+			throw new RuntimeException(sink.fieldString(), e);
 		}
 	}
 
