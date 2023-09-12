@@ -118,8 +118,6 @@ public class ConnectPropertiesTest
 				"cache.query.limit",
 				"cache.query.sizeLimit",
 				"cache.stamps",
-				"dataField.bufferSizeDefault",
-				"dataField.bufferSizeLimit",
 				"vault",
 				"comparableCheck",
 				"changeListeners.queueCapacity",

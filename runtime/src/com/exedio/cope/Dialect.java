@@ -115,7 +115,7 @@ abstract class Dialect
 		{
 			try(InputStream source = blob.getBinaryStream())
 			{
-				field.copy(source, sink, blob.length(), item);
+				field.copy(source, sink, item);
 			}
 			catch(final IOException e)
 			{
