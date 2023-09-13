@@ -31,6 +31,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 /**
  * Imports vault data from a database into an arbitrary vault service.
@@ -53,6 +55,12 @@ import java.sql.Statement;
  * Note, that the query here is not sorted deterministically,
  * you may want to append a {@code ORDER BY hash} for example.
  * For testing with small subsets you may want to append a {@code LIMIT 5}.
+ * <p>
+ * Before the import, all {@link com.exedio.cope.util.Properties.Probe probes} of the service are run.
+ * You may suppress indidivual probes in {@code config.properties}:
+ * <pre>
+ * targetProbesSuppressed=root.Exists root.Free
+ * </pre>
  */
 public final class VaultJdbcToService
 {
@@ -90,6 +98,7 @@ public final class VaultJdbcToService
 	{
 		final Props props = new Props(Sources.load(Path.of(config)));
 		props.ensureValidity();
+		props.probeService(out);
 		final VaultService service = props.target.newServices(DEFAULT).get(DEFAULT);
 
 		try(Connection connection = props.newConnection();
@@ -144,6 +153,45 @@ public final class VaultJdbcToService
 		final String query = value("source.query", (String)null);
 
 		final VaultProperties target = valnp("target", VaultProperties.factory());
+
+		final Set<String> targetProbesSuppressed = Set.of(value("targetProbesSuppressed", "").split(" "));
+
+		void probeService(final PrintStream out)
+		{
+			final String NAME_PREFIX = "service.";
+
+			for(final Callable<?> probe : target.getProbes())
+			{
+				final String fullName = probe.toString();
+				if(!fullName.startsWith(NAME_PREFIX))
+					continue;
+				final String name = fullName.substring(NAME_PREFIX.length());
+
+				if(targetProbesSuppressed.contains(name))
+				{
+					out.println("Probing " + name + " suppressed");
+					continue;
+				}
+
+				out.println("Probing " + name + " ...");
+				try
+				{
+					final Object result = probe.call();
+					out.println("  success" + ((result!=null) ? ": " + result : ""));
+				}
+				catch(final Properties.ProbeAbortedException e)
+				{
+					final Object result = e.getMessage();
+					out.println("  aborted" + ((result!=null) ? ": " + result : ""));
+				}
+				catch(final Exception e)
+				{
+					throw e instanceof RuntimeException
+							? (RuntimeException)e
+							: new RuntimeException(e);
+				}
+			}
+		}
 
 		Props(final Source source)
 		{

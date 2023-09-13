@@ -39,6 +39,7 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.ServiceProperties;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -51,6 +52,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
+import org.opentest4j.AssertionFailedError;
 
 public class VaultJdbcToServiceTest extends TestWithEnvironment
 {
@@ -88,6 +90,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"ORDER BY " + SI.pk(MyItem.TYPE));
 		props.setProperty("target.algorithm", "MD5");
 		props.setProperty("target.service", TestService.class.getName());
+		props.setProperty("targetProbesSuppressed", "4Fails 4FailsOther");
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -100,6 +103,14 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"fa2345678901234567890123456789ab - 010204 - redundant"),
 				SERVICE_PUTS);
 		assertEquals(List.of(
+				"Probing 1Ok ...",
+				"  success: probe1Ok result",
+				"Probing 2OkVoid ...",
+				"  success",
+				"Probing 3Aborts ...",
+				"  aborted: probe3Aborts cause",
+				"Probing 4Fails suppressed",
+				"Probing 4FailsOther suppressed",
 				"Skipping null at row 0: hash",
 				"Skipping illegal argument at row 1: hash >< must have length 32, but has 0",
 				"Skipping illegal argument at row 2: hash >ab< must have length 32, but has 2",
@@ -149,14 +160,16 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 
 	private static final Model MODEL = new Model(MyItem.TYPE);
 
+	@ServiceProperties(TestProperties.class)
 	private static final class TestService extends AssertionErrorVaultService
 	{
-		TestService(final VaultServiceParameters parameters)
+		TestService(final VaultServiceParameters parameters, final TestProperties properties)
 		{
 			assertNotNull(parameters);
 			assertEquals("MD5", parameters.getVaultProperties().getAlgorithm());
 			assertEquals("default", parameters.getServiceKey());
 			assertEquals(true, parameters.isWritable());
+			assertNotNull(properties);
 		}
 
 		@Override
@@ -165,6 +178,34 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 			final boolean result = !hash.startsWith("fa");
 			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
 			return result;
+		}
+	}
+
+	private static final class TestProperties extends com.exedio.cope.util.Properties
+	{
+		TestProperties(final Source source)
+		{
+			super(source);
+		}
+		@Probe String probe1Ok()
+		{
+			return "probe1Ok result";
+		}
+		@Probe void probe2OkVoid()
+		{
+			// do nothing
+		}
+		@Probe String probe3Aborts() throws ProbeAbortedException
+		{
+			throw newProbeAbortedException("probe3Aborts cause");
+		}
+		@Probe String probe4Fails()
+		{
+			throw new AssertionFailedError("probe4Fails cause");
+		}
+		@Probe String probe4FailsOther()
+		{
+			throw new AssertionFailedError("probe4FailsOther cause");
 		}
 	}
 
