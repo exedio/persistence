@@ -203,11 +203,11 @@ public class VaultPropertiesTest
 				new HashSet<>(asList("alpha", "beta", "gamma")),
 				p.services.keySet());
 
-		assertServices(unsanitize(p.newServices("alpha", "beta", "gamma")), "alpha", "beta", "gamma");
-		assertServices(unsanitize(p.newServices("alpha", "gamma", "beta")), "alpha", "gamma", "beta");
-		assertServices(unsanitize(p.newServices("alpha", "gamma")), "alpha", "gamma");
-		assertServices(unsanitize(p.newServices("beta")), "beta");
-		assertServices(unsanitize(p.newServices(new String[]{})));
+		assertServices(deresiliate(p.newServices("alpha", "beta", "gamma")), "alpha", "beta", "gamma");
+		assertServices(deresiliate(p.newServices("alpha", "gamma", "beta")), "alpha", "gamma", "beta");
+		assertServices(deresiliate(p.newServices("alpha", "gamma")), "alpha", "gamma");
+		assertServices(deresiliate(p.newServices("beta")), "beta");
+		assertServices(deresiliate(p.newServices(new String[]{})));
 		assertFails(
 				() -> p.newServices("alpha", "beta", "gamma", "delta"),
 				IllegalArgumentException.class,
@@ -230,10 +230,10 @@ public class VaultPropertiesTest
 				() -> p.newServices("alpha", "beta", "alpha"),
 				IllegalArgumentException.class,
 				"keys[2] is a duplicate of index 0: >alpha<");
-		assertServices(p.newServicesUnsanitized("alpha", "beta", "gamma"), "alpha", "beta", "gamma");
-		assertServices(p.newServicesUnsanitized(new String[]{}));
+		assertServices(p.newServicesNonResilient("alpha", "beta", "gamma"), "alpha", "beta", "gamma");
+		assertServices(p.newServicesNonResilient(new String[]{}));
 
-		assertServices(unsanitize(p.newServices()), "alpha", "beta", "gamma");
+		assertServices(deresiliate(p.newServices()), "alpha", "beta", "gamma");
 	}
 	@Test void serviceDeprecated()
 	{
@@ -245,15 +245,15 @@ public class VaultPropertiesTest
 				));
 		final VaultProperties p = factory.create(source);
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
-		final VaultService service = unsanitize(p.newService());
+		final VaultService service = deresiliate(p.newService());
 		assertEquals(VaultMockService.class, service.getClass());
 		assertEquals("onlyEx", ((VaultMockService)service).serviceProperties.example);
 
-		assertServices(p.newServicesUnsanitized("only"), "only");
-		assertServices(p.newServicesUnsanitized(new String[]{}));
-		assertServices(unsanitize(p.newServices("only")), "only");
-		assertServices(unsanitize(p.newServices(new String[]{})));
-		assertServices(unsanitize(p.newServices()), "only");
+		assertServices(p.newServicesNonResilient("only"), "only");
+		assertServices(p.newServicesNonResilient(new String[]{}));
+		assertServices(deresiliate(p.newServices("only")), "only");
+		assertServices(deresiliate(p.newServices(new String[]{})));
+		assertServices(deresiliate(p.newServices()), "only");
 	}
 	private static void assertServices(final Map<String, VaultService> s, final String... expectedKeys)
 	{
@@ -355,7 +355,7 @@ public class VaultPropertiesTest
 				));
 
 		final VaultProperties props = factory.create(source);
-		final ServicePropertiesMissing service = (ServicePropertiesMissing)unsanitize(props.newServices(DEFAULT)).get(DEFAULT);
+		final ServicePropertiesMissing service = (ServicePropertiesMissing)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		assertSame(props, service.parameters.getVaultProperties());
 	}
 	@Test void servicePropertiesMissingReference()
@@ -367,7 +367,7 @@ public class VaultPropertiesTest
 						single("service.reference", ServicePropertiesMissing.class)
 				));
 		final VaultProperties props = factory.create(source);
-		final VaultReferenceService service = (VaultReferenceService)unsanitize(props.newServices(DEFAULT)).get(DEFAULT);
+		final VaultReferenceService service = (VaultReferenceService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();
 		assertSame(props, main.parameters.getVaultProperties());
@@ -573,20 +573,20 @@ public class VaultPropertiesTest
 	private static final Properties.Factory<VaultProperties> factory = VaultProperties.factory();
 
 
-	public static final Map<String, VaultService> unsanitize(final Map<String, VaultResilientService> services)
+	public static final Map<String, VaultService> deresiliate(final Map<String, VaultResilientService> services)
 	{
 		assertUnmodifiable(services);
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final Map.Entry<String, VaultResilientService> e : services.entrySet())
 		{
-			result.put(e.getKey(), unsanitize(e.getValue()));
+			result.put(e.getKey(), deresiliate(e.getValue()));
 		}
 		return Collections.unmodifiableMap(result);
 	}
 
-	public static VaultService unsanitize(final VaultResilientService service)
+	public static VaultService deresiliate(final VaultResilientService service)
 	{
-		assertEquals(VaultSanitizedService.class, service.getClass());
-		return ((VaultSanitizedService)service).service;
+		assertEquals(VaultResilientServiceProxy.class, service.getClass());
+		return ((VaultResilientServiceProxy)service).service;
 	}
 }

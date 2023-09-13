@@ -123,7 +123,7 @@ public class VaultReferenceServiceGenuineKeyTest
 				single("service.reference", VaultMockService.class),
 				single("service.reference.genuineServiceKey", reference)
 		);
-		return (VaultReferenceService)VaultProperties.factory().create(source).newServicesUnsanitized(DEFAULT).get(DEFAULT);
+		return (VaultReferenceService)VaultProperties.factory().create(source).newServicesNonResilient(DEFAULT).get(DEFAULT);
 	}
 	private static void assertStackTrace(final boolean expected, final Exception actual)
 	{

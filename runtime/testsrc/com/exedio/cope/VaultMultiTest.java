@@ -36,7 +36,7 @@ import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static com.exedio.cope.util.Sources.cascade;
-import static com.exedio.cope.vault.VaultPropertiesTest.unsanitize;
+import static com.exedio.cope.vault.VaultPropertiesTest.deresiliate;
 import static java.lang.Double.NaN;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -92,7 +92,7 @@ public class VaultMultiTest
 				single("vault.service.beta.genuineServiceKey", "beta"),
 				TestSources.minimal()
 		)));
-		final Map<String, VaultService> vaults = unsanitize(MODEL.connect().vaults);
+		final Map<String, VaultService> vaults = deresiliate(MODEL.connect().vaults);
 		serviceDefault = (VaultMockService)vaults.get("default");
 		serviceAlpha   = (VaultMockService)vaults.get("alpha");
 		serviceBeta    = (VaultMockService)vaults.get("beta");

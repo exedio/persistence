@@ -53,10 +53,10 @@ import org.opentest4j.AssertionFailedError;
 
 @MainRule.Tag
 @SuppressWarnings("HardcodedLineSeparator")
-public class VaultSanitizedServiceTest
+public class VaultResilientServiceProxyTest
 {
 	String emptyHash;
-	VaultSanitizedService s;
+	VaultResilientServiceProxy s;
 	VaultMockService m;
 
 	@BeforeEach void before()
@@ -68,8 +68,8 @@ public class VaultSanitizedServiceTest
 				));
 		final VaultProperties props = factory.create(source);
 		emptyHash = props.getAlgorithmDigestForEmptyByteSequence();
-		s = (VaultSanitizedService)props.newServices(DEFAULT).get(DEFAULT);
-		m = (VaultMockService)VaultPropertiesTest.unsanitize(s);
+		s = (VaultResilientServiceProxy)props.newServices(DEFAULT).get(DEFAULT);
+		m = (VaultMockService)VaultPropertiesTest.deresiliate(s);
 	}
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
@@ -225,7 +225,7 @@ public class VaultSanitizedServiceTest
 	}
 	@Test void putPathInfoNull()
 	{
-		final Path value = Paths.get("VaultSanitizedServiceTest");
+		final Path value = Paths.get("VaultResilientServiceProxyTest");
 		assertFails(
 				() -> s.put("0123456789abcdef0123456789abcdef", value, null),
 				NullPointerException.class,
@@ -367,13 +367,13 @@ public class VaultSanitizedServiceTest
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), value, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes VaultSanitizedServiceTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes VaultResilientServiceProxyTest#PUT_INFO\n");
 	}
 	@Test void putStream() throws IOException
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), new ByteArrayInputStream(value), PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream VaultSanitizedServiceTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream VaultResilientServiceProxyTest#PUT_INFO\n");
 	}
 	@Test void putPath() throws IOException
 	{
@@ -381,7 +381,7 @@ public class VaultSanitizedServiceTest
 		final Path path = files.newPath(value);
 		Files.write(path, value);
 		s.put(hash(value), path, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultSanitizedServiceTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultResilientServiceProxyTest#PUT_INFO\n");
 	}
 	@Test void probeGenuineServiceKey() throws Exception
 	{
@@ -429,7 +429,7 @@ public class VaultSanitizedServiceTest
 		@Override
 		public String toString()
 		{
-			return "VaultSanitizedServiceTest#PUT_INFO";
+			return "VaultResilientServiceProxyTest#PUT_INFO";
 		}
 	};
 

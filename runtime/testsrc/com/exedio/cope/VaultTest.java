@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
-import static com.exedio.cope.vault.VaultPropertiesTest.unsanitize;
+import static com.exedio.cope.vault.VaultPropertiesTest.deresiliate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -226,7 +226,7 @@ public class VaultTest
 
 	public static VaultService vaultService(final Model model)
 	{
-		final Iterator<VaultService> i = unsanitize(model.connect().vaults).values().iterator();
+		final Iterator<VaultService> i = deresiliate(model.connect().vaults).values().iterator();
 		if(!i.hasNext())
 			return null;
 		final VaultService result = i.next();

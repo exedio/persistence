@@ -49,7 +49,7 @@ final class VaultProbe implements Callable<String>
 	@Override
 	public String call()
 	{
-		try(VaultService s = properties.sanitize(service.newService(properties, key, () -> false)))
+		try(VaultService s = properties.resiliate(service.newService(properties, key, () -> false)))
 		{
 			return probe(s);
 		}

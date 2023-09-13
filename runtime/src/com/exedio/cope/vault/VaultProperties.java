@@ -155,19 +155,39 @@ public final class VaultProperties extends AbstractVaultProperties
 	public Map<String, VaultResilientService> newServices(final String... keys)
 	{
 		final LinkedHashMap<String, VaultResilientService> result = new LinkedHashMap<>();
-		for(final Map.Entry<String, VaultService> e : newServicesUnsanitized(keys).entrySet())
+		for(final Map.Entry<String, VaultService> e : newServicesNonResilient(keys).entrySet())
 		{
-			result.put(e.getKey(), sanitize(e.getValue()));
+			result.put(e.getKey(), resiliate(e.getValue()));
 		}
 		return Collections.unmodifiableMap(result);
 	}
 
+	/**
+	 * @deprecated Use {@link #newServicesNonResilient(String...)} instead.
+	 */
+	@Deprecated
 	public Map<String, VaultService> newServicesUnsanitized(final String... keys)
 	{
-		return newServicesUnsanitized(() -> false, keys);
+		return newServicesNonResilient(keys);
 	}
 
+	public Map<String, VaultService> newServicesNonResilient(final String... keys)
+	{
+		return newServicesNonResilient(() -> false, keys);
+	}
+
+	/**
+	 * @deprecated Use {@link #newServicesNonResilient(BooleanSupplier, String...)} instead.
+	 */
+	@Deprecated
 	public Map<String, VaultService> newServicesUnsanitized(
+			final BooleanSupplier markPut,
+			final String... keys)
+	{
+		return newServicesNonResilient(markPut, keys);
+	}
+
+	public Map<String, VaultService> newServicesNonResilient(
 			final BooleanSupplier markPut,
 			final String... keys)
 	{
@@ -211,14 +231,14 @@ public final class VaultProperties extends AbstractVaultProperties
 		for(final Map.Entry<String, Service> e : services.entrySet())
 		{
 			final String key = e.getKey();
-			result.put(key, sanitize(e.getValue().newService(this, key, markPut.apply(key))));
+			result.put(key, resiliate(e.getValue().newService(this, key, markPut.apply(key))));
 		}
 		return Collections.unmodifiableMap(result);
 	}
 
-	VaultResilientService sanitize(final VaultService service)
+	VaultResilientService resiliate(final VaultService service)
 	{
-		return new VaultSanitizedService(service, this);
+		return new VaultResilientServiceProxy(service, this);
 	}
 
 

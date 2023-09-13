@@ -23,7 +23,7 @@ import static com.exedio.cope.SchemaInfo.checkVaultTrail;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
-import static com.exedio.cope.vault.VaultPropertiesTest.unsanitize;
+import static com.exedio.cope.vault.VaultPropertiesTest.deresiliate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -203,7 +203,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		queryTrail("myService_Key", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
-		final VaultMockService vs = (VaultMockService)unsanitize(model.connect().vaults.get("myService-Key"));
+		final VaultMockService vs = (VaultMockService)deresiliate(model.connect().vaults.get("myService-Key"));
 		assertNotNull(vs);
 		vs.clear();
 		item.setField(toValue(decodeLower("abcdef")));
