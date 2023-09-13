@@ -70,7 +70,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		new MyItem("ab", null); // row 2
 		new MyItem("01x345678901234567890123456789ab", null);  // row 3
 		new MyItem("01aa45678901234567890123456789ab", null);  // row 4
-		new MyItem("d41d8cd98f00b204e9800998ecf8427e", toValue(new byte[]{})); // row 5, hash of empty, handled by VaultSanitizedService
+		new MyItem("d41d8cd98f00b204e9800998ecf8427e", toValue(new byte[]{})); // row 5, hash of empty, handled by VaultResilientServiceProxy
 		new MyItem("01bb45678901234567890123456789ff", toValue(new byte[]{})); // row 6
 		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,3})); // row 7
 		new MyItem("fa2345678901234567890123456789ab", toValue(new byte[]{1,2,4})); // row 8
@@ -105,8 +105,8 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"Skipping illegal argument at row 2: hash >ab< must have length 32, but has 2",
 				"Skipping illegal argument at row 3: hash >01x3456789012345xx32< contains illegal character >x< at position 2",
 				"Skipping null at row 4: value",
-				"Redundant put at row 5 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultSanitizedService
-				"Skipping illegal argument at row 6: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultSanitizedService
+				"Redundant put at row 5 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
+				"Skipping illegal argument at row 6: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultResilientServiceProxy
 				"Redundant put at row 8 for hash fa2345678901234567890123456789ab",
 				"Finished after 9 rows, skipped 6, redundant 2"),
 				readAllLines(out));

@@ -31,14 +31,14 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import javax.annotation.Nonnull;
 
-final class VaultSanitizedService implements VaultResilientService // TODO rename to VaultResilientServiceProxy
+final class VaultResilientServiceProxy implements VaultResilientService
 {
 	final VaultService service;
 	private final int hashLength;
 	private final String hashEmpty;
 	private volatile boolean closed = false;
 
-	VaultSanitizedService(
+	VaultResilientServiceProxy(
 			final VaultService service,
 			final VaultProperties properties)
 	{

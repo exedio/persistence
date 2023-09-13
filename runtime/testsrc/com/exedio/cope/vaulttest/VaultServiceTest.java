@@ -109,7 +109,7 @@ public abstract class VaultServiceTest
 			source.setProperty("service." + key, sp.getProperty(key));
 
 		properties = VaultProperties.factory(isServiceWritable()).create(Sources.view(source, "DESC"));
-		final VaultService service = properties.newServicesUnsanitized(() -> markPut, DEFAULT).get(DEFAULT);
+		final VaultService service = properties.newServicesNonResilient(() -> markPut, DEFAULT).get(DEFAULT);
 		this.service = maskService(service);
 		this.servicePut = maskServicePut(service);
 	}

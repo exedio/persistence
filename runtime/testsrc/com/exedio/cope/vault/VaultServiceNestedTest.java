@@ -58,7 +58,7 @@ public class VaultServiceNestedTest
 						single("service.read.read.example", "readReadEx")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
-		final MyService service = (MyService)props.newServicesUnsanitized(DEFAULT).get(DEFAULT);
+		final MyService service = (MyService)props.newServicesNonResilient(DEFAULT).get(DEFAULT);
 		this.service = service;
 		writ = (MyService)service.writ;
 		read = (MyService)service.read;
