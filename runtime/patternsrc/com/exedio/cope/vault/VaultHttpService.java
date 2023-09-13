@@ -104,19 +104,10 @@ public final class VaultHttpService extends VaultNonWritableService
 	@Override
 	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
-		getOk(hash, null, () -> BodySubscribers.ofByteArrayConsumer(
-				o -> o.ifPresent(x ->
-				{
-					try
-					{
-						sink.write(x);
-					}
-					catch(final IOException e)
-					{
-						throw wrap(hash, e);
-					}
-				})
-		));
+		try(var in = getOk(hash, null, BodySubscribers::ofInputStream).body())
+		{
+			in.transferTo(sink);
+		}
 	}
 
 	private <T> HttpResponse<T> getOk(
