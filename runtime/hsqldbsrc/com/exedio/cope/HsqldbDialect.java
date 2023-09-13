@@ -37,7 +37,9 @@ import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @ServiceProperties(HsqldbDialect.Props.class)
@@ -82,6 +84,29 @@ final class HsqldbDialect extends Dialect
 
 		this.approximate = props.approximate;
 	}
+
+	@Override
+	boolean supportsUniqueViolation()
+	{
+		return true;
+	}
+
+	@Override
+	String extractUniqueViolation(final SQLException exception)
+	{
+		if(!(exception instanceof SQLIntegrityConstraintViolationException))
+			return null;
+
+		final Matcher matcher =
+				extractUniqueViolationMessagePattern.matcher(exception.getMessage());
+
+		return matcher.matches()
+				? matcher.group(1)
+				: null;
+	}
+
+	private static final Pattern extractUniqueViolationMessagePattern = Pattern.compile(
+			"^integrity constraint violation: unique constraint or index violation ; \"(.*)\" table: \".*\"$");
 
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
