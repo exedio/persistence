@@ -90,9 +90,10 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		props.setProperty("target.service", TestService.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
-		final ByteArrayOutputStream errB = new ByteArrayOutputStream();
-		final PrintStream err = new PrintStream(errB, false, US_ASCII);
-		VaultJdbcToService.mainInternal(err, propsFile.toAbsolutePath().toString());
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
+		VaultJdbcToService.mainInternal(
+				new PrintStream(out, false, US_ASCII),
+				propsFile.toAbsolutePath().toString());
 
 		assertEquals(List.of(
 				"01cc45678901234567890123456789ab - 010203",
@@ -108,7 +109,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"Skipping illegal argument at row 6: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultSanitizedService
 				"Redundant put at row 8 for hash fa2345678901234567890123456789ab",
 				"Finished after 9 rows, skipped 6, redundant 2"),
-				readAllLines(errB));
+				readAllLines(out));
 	}
 
 	@WrapperType(indent=2, comments=false)
