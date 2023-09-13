@@ -24,7 +24,7 @@ import static java.util.Collections.emptyMap;
 
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultProperties;
-import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultResilientService;
 import gnu.trove.TLongHashSet;
 import java.sql.SQLException;
 import java.time.Instant;
@@ -60,7 +60,7 @@ final class Connect
 	final Executor executor;
 	final Database database;
 	private final Map<String, VaultMarkPut> vaultMarkPut;
-	final Map<String, VaultService> vaults;
+	final Map<String, VaultResilientService> vaults;
 	final CacheStamp cacheStamp;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -169,9 +169,9 @@ final class Connect
 
 		connectionPool.flush();
 
-		final ArrayList<VaultService> reverseVaults = new ArrayList<>(vaults.values());
+		final ArrayList<VaultResilientService> reverseVaults = new ArrayList<>(vaults.values());
 		Collections.reverse(reverseVaults);
-		for(final VaultService vault : reverseVaults)
+		for(final VaultResilientService vault : reverseVaults)
 			vault.close();
 
 		// let threads have some time to terminate,
@@ -227,7 +227,7 @@ final class Connect
 	{
 		dialect.purgeSchema(ctx, database, connectionPool);
 
-		for(final VaultService vault : vaults.values())
+		for(final VaultResilientService vault : vaults.values())
 		{
 			if(ctx.supportsMessage())
 				ctx.setMessage("vault " + vault);

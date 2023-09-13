@@ -140,21 +140,21 @@ public final class VaultProperties extends AbstractVaultProperties
 	 * @throws IllegalArgumentException if there is more than one service
 	 */
 	@Deprecated
-	public VaultService newService()
+	public VaultResilientService newService()
 	{
 		if(services.size()!=1)
 			throw new IllegalArgumentException("is not allowed for more than one service: " + services.keySet());
 
-		final Map<String, VaultService> result = newServices();
+		final Map<String, VaultResilientService> result = newServices();
 		if(result.size()!=1)
 			throw new RuntimeException();
 
 		return result.values().iterator().next();
 	}
 
-	public Map<String, VaultService> newServices(final String... keys)
+	public Map<String, VaultResilientService> newServices(final String... keys)
 	{
-		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
+		final LinkedHashMap<String, VaultResilientService> result = new LinkedHashMap<>();
 		for(final Map.Entry<String, VaultService> e : newServicesUnsanitized(keys).entrySet())
 		{
 			result.put(e.getKey(), sanitize(e.getValue()));
@@ -200,14 +200,14 @@ public final class VaultProperties extends AbstractVaultProperties
 		return Collections.unmodifiableMap(result);
 	}
 
-	public Map<String, VaultService> newServices()
+	public Map<String, VaultResilientService> newServices()
 	{
 		return newServices(key -> () -> false);
 	}
 
-	public Map<String, VaultService> newServices(final Function<String, BooleanSupplier> markPut)
+	public Map<String, VaultResilientService> newServices(final Function<String, BooleanSupplier> markPut)
 	{
-		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
+		final LinkedHashMap<String, VaultResilientService> result = new LinkedHashMap<>();
 		for(final Map.Entry<String, Service> e : services.entrySet())
 		{
 			final String key = e.getKey();
@@ -216,7 +216,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		return Collections.unmodifiableMap(result);
 	}
 
-	VaultService sanitize(final VaultService service)
+	VaultResilientService sanitize(final VaultService service)
 	{
 		return new VaultSanitizedService(service, this);
 	}

@@ -44,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.vault.VaultResilientService;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import io.micrometer.core.instrument.Gauge;
@@ -99,7 +100,7 @@ public class VaultMultiTest
 
 	@Test void testInfo()
 	{
-		final Map<String, VaultService> vaults = MODEL.connect().vaults;
+		final Map<String, VaultResilientService> vaults = MODEL.connect().vaults;
 		assertEquals(asList("default", "alpha", "beta"), new ArrayList<>(vaults.keySet()));
 		assertEquals("defaultEx", serviceDefault.serviceProperties.example);
 		assertEquals("alphaEx",   serviceAlpha  .serviceProperties.example);
