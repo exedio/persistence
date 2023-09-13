@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 {
@@ -63,9 +64,23 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString, e.getFeatureForDescription());
 			if(unq)
 			{
-				assertEquals(
-						"Duplicate entry 'commit' for key '" + unqPrefix + "Main_uniqueString_Unq'",
-						dropMariaConnectionId(e.getCause().getMessage()));
+				switch(dialect)
+				{
+					case hsqldb:
+						assertEquals(
+								"integrity constraint violation: unique constraint or index violation ; " +
+								"\"Main_uniqueString_Unq\" table: \"Main\"",
+								e.getCause().getMessage());
+						break;
+					case mysql:
+						assertEquals(
+								"Duplicate entry 'commit' for key '" + unqPrefix + "Main_uniqueString_Unq'",
+								dropMariaConnectionId(e.getCause().getMessage()));
+						break;
+					case postgresql:
+					default:
+						throw new AssertionFailedError(dialect.name(), e);
+				}
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else
@@ -99,9 +114,23 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString, e.getFeatureForDescription());
 			if(unq)
 			{
-				assertEquals(
-						"Duplicate entry 'rollback' for key '" + unqPrefix + "Main_uniqueString_Unq'",
-						dropMariaConnectionId(e.getCause().getMessage()));
+				switch(dialect)
+				{
+					case hsqldb:
+						assertEquals(
+								"integrity constraint violation: unique constraint or index violation ; " +
+								"\"Main_uniqueString_Unq\" table: \"Main\"",
+								e.getCause().getMessage());
+						break;
+					case mysql:
+						assertEquals(
+								"Duplicate entry 'rollback' for key '" + unqPrefix + "Main_uniqueString_Unq'",
+								dropMariaConnectionId(e.getCause().getMessage()));
+						break;
+					case postgresql:
+					default:
+						throw new AssertionFailedError(dialect.name(), e);
+				}
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else
