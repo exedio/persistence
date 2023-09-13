@@ -64,7 +64,7 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("source.username", "someUsername");
 		props.setProperty("source.password", "somePassword");
 		props.setProperty("source.query", "SELECT ");
-		props.setProperty("target.service", TestService.class.getName());
+		props.setProperty("target.service", UnusedPropertyService.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
 		assertFails(
@@ -78,6 +78,13 @@ public class VaultJdbcToServiceErrorTest
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
 				"target.isAppliedToAllFields].");
 	}
+	private static final class UnusedPropertyService extends AssertionErrorVaultService
+	{
+		UnusedPropertyService(@SuppressWarnings("unused") final VaultServiceParameters parameters)
+		{
+			throw new AssertionError();
+		}
+	}
 
 
 	static void writeProperties(final Properties props, final Path file) throws IOException
@@ -85,14 +92,6 @@ public class VaultJdbcToServiceErrorTest
 		try(FileWriter w = new FileWriter(file.toFile(), US_ASCII))
 		{
 			props.store(w, null);
-		}
-	}
-
-	private static final class TestService extends AssertionErrorVaultService
-	{
-		TestService(@SuppressWarnings("unused") final VaultServiceParameters parameters)
-		{
-			throw new AssertionError();
 		}
 	}
 
