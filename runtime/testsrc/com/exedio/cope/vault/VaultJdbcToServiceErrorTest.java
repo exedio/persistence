@@ -19,14 +19,20 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.vault.VaultFileToTrailTest.readAllLines;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.IllegalPropertiesException;
+import com.exedio.cope.util.ServiceProperties;
+import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
@@ -76,13 +82,98 @@ public class VaultJdbcToServiceErrorTest
 				"source.url, source.username, source.password, source.query, " +
 				"target.algorithm, target.services, target.service, " +
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
-				"target.isAppliedToAllFields].");
+				"target.isAppliedToAllFields, " +
+				"targetProbesSuppressed].");
 	}
 	private static final class UnusedPropertyService extends AssertionErrorVaultService
 	{
 		UnusedPropertyService(@SuppressWarnings("unused") final VaultServiceParameters parameters)
 		{
 			throw new AssertionError();
+		}
+	}
+
+
+	@Test void testProbeFailed() throws IOException
+	{
+		final Properties props = new Properties();
+		props.setProperty("source.url", "someUrl");
+		props.setProperty("source.username", "someUsername");
+		props.setProperty("source.password", "somePassword");
+		props.setProperty("source.query", "SELECT ");
+		props.setProperty("target.service", TestServiceProbeFailed.class.getName());
+		final Path propsFile = files.newFile().toPath();
+		writeProperties(props, propsFile);
+		final var out = new ByteArrayOutputStream();
+		assertFails(
+				() -> VaultJdbcToService.mainInternal(new PrintStream(out, true, US_ASCII), propsFile.toString()),
+				IllegalArgumentException.class,
+				"probeFails cause");
+		assertEquals(List.of(
+				"Probing Fails ..."),
+				readAllLines(out));
+	}
+	@ServiceProperties(TestServiceProbeFailed.Props.class)
+	private static final class TestServiceProbeFailed extends AssertionErrorVaultService
+	{
+		TestServiceProbeFailed(
+				@SuppressWarnings("unused") final VaultServiceParameters parameters,
+				@SuppressWarnings("unused") final Props props)
+		{
+		}
+
+		static final class Props extends com.exedio.cope.util.Properties
+		{
+			Props(final Source source)
+			{
+				super(source);
+			}
+			@Probe String probeFails()
+			{
+				throw new IllegalArgumentException("probeFails cause");
+			}
+		}
+	}
+
+
+	@Test void testProbeFailedChecked() throws IOException
+	{
+		final Properties props = new Properties();
+		props.setProperty("source.url", "someUrl");
+		props.setProperty("source.username", "someUsername");
+		props.setProperty("source.password", "somePassword");
+		props.setProperty("source.query", "SELECT ");
+		props.setProperty("target.service", TestServiceProbeFailedChecked.class.getName());
+		final Path propsFile = files.newFile().toPath();
+		writeProperties(props, propsFile);
+		final var out = new ByteArrayOutputStream();
+		assertFails(
+				() -> VaultJdbcToService.mainInternal(new PrintStream(out, true, US_ASCII), propsFile.toString()),
+				RuntimeException.class,
+				"java.io.IOException: probeFails cause");
+		assertEquals(List.of(
+				"Probing Fails ..."),
+				readAllLines(out));
+	}
+	@ServiceProperties(TestServiceProbeFailedChecked.Props.class)
+	private static final class TestServiceProbeFailedChecked extends AssertionErrorVaultService
+	{
+		TestServiceProbeFailedChecked(
+				@SuppressWarnings("unused") final VaultServiceParameters parameters,
+				@SuppressWarnings("unused") final Props props)
+		{
+		}
+
+		static final class Props extends com.exedio.cope.util.Properties
+		{
+			Props(final Source source)
+			{
+				super(source);
+			}
+			@Probe String probeFails() throws IOException
+			{
+				throw new IOException("probeFails cause");
+			}
 		}
 	}
 
