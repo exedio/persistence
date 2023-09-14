@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import java.util.Set;
 
 @FunctionalInterface
+@WrapImplementsInterim
 public interface ThrownGetter<F>
 {
 	Set<Class<? extends Throwable>> get(F feature);
