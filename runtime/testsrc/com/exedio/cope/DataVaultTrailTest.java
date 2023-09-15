@@ -418,6 +418,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	{
 		final VaultProperties vaultProperties = model.getConnectProperties().getVaultProperties();
 		assumeTrue(vaultProperties!=null);
+		assertEquals(true, vaultProperties.isAppliedToAllFields(), "isAppliedToAllFields required by test");
 		model.setVaultRequiredToMarkPut("myService-Key", false);
 		model.setVaultRequiredToMarkPut("default", false);
 		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_myService_Key"));
