@@ -101,6 +101,8 @@ public interface VaultService extends AutoCloseable
 
 	/**
 	 * Default implementation aborts the probe.
+	 * <p>
+	 * TODO rename to probeBucketTag.
 	 */
 	default Object probeGenuineServiceKey(@Nonnull final String bucket) throws Exception
 	{
