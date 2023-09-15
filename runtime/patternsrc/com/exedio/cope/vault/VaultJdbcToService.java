@@ -57,7 +57,7 @@ import java.util.concurrent.Callable;
  * For testing with small subsets you may want to append a {@code LIMIT 5}.
  * <p>
  * Before the import, all {@link com.exedio.cope.util.Properties.Probe probes} of the service are run.
- * You may suppress indidivual probes in {@code config.properties}:
+ * You may suppress individual probes in {@code config.properties}:
  * <pre>
  * targetProbesSuppressed=root.Exists root.Free
  * </pre>
