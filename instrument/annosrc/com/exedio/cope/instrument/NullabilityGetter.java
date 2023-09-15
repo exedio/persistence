@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 @FunctionalInterface
+@WrapImplementsInterim
 public interface NullabilityGetter<F>
 {
 	Nullability getNullability(F feature);
