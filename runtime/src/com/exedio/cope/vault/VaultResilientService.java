@@ -29,7 +29,7 @@ package com.exedio.cope.vault;
  *     if that parameter is not a lower case hex string of exactly the length mandated by
  *     {@link VaultProperties#getAlgorithmLength()}.</li>
  * <li>Method {@link #probeGenuineServiceKey(String)} guarantees to fail with an {@link IllegalArgumentException},
- *     if parameter {@code serviceKey} is empty or contains any forbidden character.</li>
+ *     if parameter {@code serviceKey} is illegal according to {@link com.exedio.cope.Vault#value()}.</li>
  * <li>All methods (except {@link #close()}) guarantee to fail with an {@link IllegalStateException},
  *     if {@code close()} has been called on the same instance before.</li>
  * </ul>
