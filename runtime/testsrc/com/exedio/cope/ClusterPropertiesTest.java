@@ -43,6 +43,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -89,7 +90,7 @@ public class ClusterPropertiesTest
 		assertIt("sendSourcePortAuto", true, fields);
 		assertIt("sendSourcePort", 14445, fields);
 		assertIt("sendInterface", "DEFAULT", fields);
-		assertIt("sendAddress", ADDRESS, fields);
+		assertIt("sendAddress", List.of(ADDRESS), fields);
 		assertIt("sendBufferDefault", true, fields);
 		assertIt("sendBuffer", 50000, fields);
 		assertIt("sendTrafficDefault", true, fields);
@@ -132,7 +133,7 @@ public class ClusterPropertiesTest
 		assertIt("sendSourcePortAuto", true, fields);
 		assertIt("sendSourcePort", 14445, fields);
 		assertIt("sendInterface", "DEFAULT", fields);
-		assertIt("sendAddress", null, ADDRESS, fields);
+		assertIt("sendAddress", List.of(), List.of(ADDRESS), fields);
 		assertIt("sendBufferDefault", true, fields);
 		assertIt("sendBuffer", 50000, fields);
 		assertIt("sendTrafficDefault", true, fields);
@@ -274,7 +275,7 @@ public class ClusterPropertiesTest
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
-				"must be specified as there is no default");
+				"must not be empty");
 	}
 
 	@Test void testFailListenThreads()
@@ -361,11 +362,8 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", " 224.0.0.55")
 		));
-		assertFails(
-				() -> ClusterProperties.factory().create(s),
-				IllegalPropertiesException.class,
-				"property sendAddress in DESC " +
-				"must be trimmed, but was ' 224.0.0.55'");
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals("[/224.0.0.55:14446]", List.of(p.send()).toString());
 	}
 
 	@Test void testSendAddressTrimEnd()
@@ -374,11 +372,8 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.55 ")
 		));
-		assertFails(
-				() -> ClusterProperties.factory().create(s),
-				IllegalPropertiesException.class,
-				"property sendAddress in DESC " +
-				"must be trimmed, but was '224.0.0.55 '");
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals("[/224.0.0.55:14446]", List.of(p.send()).toString());
 	}
 
 	@Test void testSendAddressSet() throws UnknownHostException

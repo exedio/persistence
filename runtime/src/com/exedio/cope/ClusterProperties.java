@@ -37,7 +37,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -181,12 +180,11 @@ final class ClusterProperties extends Properties
 
 	private List<Send> valSd(final String key, final String defaultValue)
 	{
-		final String value = value(key, defaultValue);
-		if(!value.trim().equals(value))
-			throw newException(key, "must be trimmed, but was '" + value + '\'');
+		//noinspection ZeroLengthArrayAllocation
+		final List<String> value = valuesSpaceSeparated(key, defaultValue!=null ? new String[]{defaultValue} : new String[]{});
 		final ArrayList<Send> result = new ArrayList<>();
-		for(final StringTokenizer tn = new StringTokenizer(value, " "); tn.hasMoreTokens(); )
-			result.add(valSdSingle(key, tn.nextToken()));
+		for(final String tn : value)
+			result.add(valSdSingle(key, tn));
 		if(result.isEmpty())
 			throw newException(key, "must not be empty");
 		return Collections.unmodifiableList(result);
