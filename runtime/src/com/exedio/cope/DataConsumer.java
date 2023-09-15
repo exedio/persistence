@@ -57,7 +57,6 @@ final class DataConsumer
 	private long length;
 	private boolean lengthSet = false;
 
-	// TODO rename to length
 	void acceptLength(final long value)
 	{
 		if(lengthSet)
