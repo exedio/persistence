@@ -91,19 +91,19 @@ public class DataVaultEnableTest
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.services", "default MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
-				single("vault.service.default",          VaultMockService.class),
-				single("vault.service.default.example",          "default-X"),
-				single("vault.service.MyBlank-vaultF-V", VaultMockService.class),
-				single("vault.service.MyBlank-vaultF-V.example", "MyBlank-vaultF-X"),
-				single("vault.service.MyBlank-vaultM-V", VaultMockService.class),
-				single("vault.service.MyBlank-vaultM-V.example", "MyBlank-vaultM-X"),
-				single("vault.service.AnVault-V",        VaultMockService.class),
-				single("vault.service.AnVault-V.example",        "AnVault-X"),
-				single("vault.service.AnVault-vaultF-V", VaultMockService.class),
-				single("vault.service.AnVault-vaultF-V.example", "AnVault-vaultF-X"),
-				single("vault.service.AnVault-vaultM-V", VaultMockService.class),
-				single("vault.service.AnVault-vaultM-V.example", "AnVault-vaultM-X"),
+				single("vault.buckets", "default MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("vault.default.service",          VaultMockService.class),
+				single("vault.default.service.example",          "default-X"),
+				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
+				single("vault.MyBlank-vaultF-V.service.example", "MyBlank-vaultF-X"),
+				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
+				single("vault.MyBlank-vaultM-V.service.example", "MyBlank-vaultM-X"),
+				single("vault.AnVault-V.service",        VaultMockService.class),
+				single("vault.AnVault-V.service.example",        "AnVault-X"),
+				single("vault.AnVault-vaultF-V.service", VaultMockService.class),
+				single("vault.AnVault-vaultF-V.service.example", "AnVault-vaultF-X"),
+				single("vault.AnVault-vaultM-V.service", VaultMockService.class),
+				single("vault.AnVault-vaultM-V.service.example", "AnVault-vaultM-X"),
 				single("vault.isAppliedToAllFields", true),
 				minimal()
 		)));
@@ -120,17 +120,17 @@ public class DataVaultEnableTest
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
-				single("vault.service.MyBlank-vaultF-V", VaultMockService.class),
-				single("vault.service.MyBlank-vaultF-V.example", "MyBlank-vaultF-X"),
-				single("vault.service.MyBlank-vaultM-V", VaultMockService.class),
-				single("vault.service.MyBlank-vaultM-V.example", "MyBlank-vaultM-X"),
-				single("vault.service.AnVault-V",        VaultMockService.class),
-				single("vault.service.AnVault-V.example",        "AnVault-X"),
-				single("vault.service.AnVault-vaultF-V", VaultMockService.class),
-				single("vault.service.AnVault-vaultF-V.example", "AnVault-vaultF-X"),
-				single("vault.service.AnVault-vaultM-V", VaultMockService.class),
-				single("vault.service.AnVault-vaultM-V.example", "AnVault-vaultM-X"),
+				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
+				single("vault.MyBlank-vaultF-V.service.example", "MyBlank-vaultF-X"),
+				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
+				single("vault.MyBlank-vaultM-V.service.example", "MyBlank-vaultM-X"),
+				single("vault.AnVault-V.service",        VaultMockService.class),
+				single("vault.AnVault-V.service.example",        "AnVault-X"),
+				single("vault.AnVault-vaultF-V.service", VaultMockService.class),
+				single("vault.AnVault-vaultF-V.service.example", "AnVault-vaultF-X"),
+				single("vault.AnVault-vaultM-V.service", VaultMockService.class),
+				single("vault.AnVault-vaultM-V.service.example", "AnVault-vaultM-X"),
 				minimal()
 		)));
 		assertIt(MyBlank.blankF);
@@ -146,9 +146,9 @@ public class DataVaultEnableTest
 	{
 		final ConnectProperties props = ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V"),
-				single("vault.service.MyBlank-vaultF-V", VaultMockService.class),
-				single("vault.service.MyBlank-vaultM-V", VaultMockService.class),
+				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V"),
+				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
+				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
 				single("vault.isAppliedToAllFields", true),
 				minimal()
 		));
@@ -162,9 +162,9 @@ public class DataVaultEnableTest
 	{
 		final ConnectProperties props = ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V"),
-				single("vault.service.MyBlank-vaultF-V", VaultMockService.class),
-				single("vault.service.MyBlank-vaultM-V", VaultMockService.class),
+				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V"),
+				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
+				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
 				minimal()
 		));
 		assertFails(
@@ -178,12 +178,12 @@ public class DataVaultEnableTest
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
 				single("vault.algorithm", "MD5"),
-				single("vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
-				single("vault.service.MyBlank-vaultF-V", VaultMockService.class),
-				single("vault.service.MyBlank-vaultM-V", VaultMockService.class),
-				single("vault.service.AnVault-V",        VaultMockService.class),
-				single("vault.service.AnVault-vaultF-V", VaultMockService.class),
-				single("vault.service.AnVault-vaultM-V", VaultMockService.class),
+				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
+				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
+				single("vault.AnVault-V.service",        VaultMockService.class),
+				single("vault.AnVault-vaultF-V.service", VaultMockService.class),
+				single("vault.AnVault-vaultM-V.service", VaultMockService.class),
 				minimal()
 		)));
 		final DataFieldVaultInfo info = MyBlank.vaultF.getVaultInfo();

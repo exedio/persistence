@@ -71,7 +71,7 @@ public final class VaultProperties extends AbstractVaultProperties
 	{
 		final ArrayList<String> serviceKeys = new ArrayList<>();
 		{
-			final String KEY = "services";
+			final String KEY = "buckets";
 			for(final StringTokenizer tn = new StringTokenizer(value(KEY, Vault.DEFAULT), " ");
 				 tn.hasMoreTokens(); )
 				serviceKeys.add(tn.nextToken());
@@ -99,7 +99,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		else
 		{
 			for(final String service : serviceKeys)
-				services.put(service, valueService("service." + service, writable));
+				services.put(service, valnp(service, s -> new BucketProperties(s, writable)).service);
 		}
 
 		return Collections.unmodifiableMap(services);
