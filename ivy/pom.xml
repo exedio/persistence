@@ -68,7 +68,7 @@
     <dependency>
       <groupId>com.exedio</groupId>
       <artifactId>copeutil</artifactId>
-      <version>1014</version>
+      <version>1041</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>

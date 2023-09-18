@@ -33,8 +33,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.concurrent.Callable;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
@@ -88,12 +88,10 @@ public final class VaultProperties extends Properties
 
 	private Map<String, BucketProperties> valueBuckets(final boolean writable)
 	{
-		final ArrayList<String> bucketList = new ArrayList<>();
+		final List<String> bucketList;
 		{
 			final String KEY = "buckets";
-			for(final StringTokenizer tn = new StringTokenizer(value(KEY, Vault.DEFAULT), " ");
-				 tn.hasMoreTokens(); )
-				bucketList.add(tn.nextToken());
+			bucketList = valuesSpaceSeparated(KEY, Vault.DEFAULT);
 			if(bucketList.isEmpty())
 				throw newException(KEY, "must not be empty");
 
