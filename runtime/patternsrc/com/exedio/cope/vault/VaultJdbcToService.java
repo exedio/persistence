@@ -97,41 +97,45 @@ public final class VaultJdbcToService
 			throws SQLException
 	{
 		final Props props = new Props(Sources.load(Path.of(config)));
+		out.println("Fetch size set to " + props.fetchSize);
 		props.ensureValidity();
 		props.probeService(out);
 		final VaultService service = props.target.newServices(DEFAULT).get(DEFAULT);
 
 		try(Connection connection = props.newConnection();
-			 Statement stmt = connection.createStatement();
-			 ResultSet resultSet = stmt.executeQuery(props.query))
+			 Statement stmt = connection.createStatement())
 		{
-			int row = 0;
-			int skipped = 0, redundant = 0;
-			while(resultSet.next())
+			stmt.setFetchSize(props.fetchSize);
+			try(ResultSet resultSet = stmt.executeQuery(props.query))
 			{
-				final String hash = resultSet.getString(1);
-				final byte[] value = resultSet.getBytes(2);
-				try
+				int row = 0;
+				int skipped = 0, redundant = 0;
+				while(resultSet.next())
 				{
-					if(!service.put(hash, value, PUT_INFO))
+					final String hash = resultSet.getString(1);
+					final byte[] value = resultSet.getBytes(2);
+					try
 					{
-						redundant++;
-						out.println("Redundant put at row " + row + " for hash " + hash);
+						if(!service.put(hash, value, PUT_INFO))
+						{
+							redundant++;
+							out.println("Redundant put at row " + row + " for hash " + hash);
+						}
 					}
+					catch(final NullPointerException e)
+					{
+						skipped++;
+						out.println("Skipping null at row " + row + ": " + e.getMessage());
+					}
+					catch(final IllegalArgumentException e)
+					{
+						skipped++;
+						out.println("Skipping illegal argument at row " + row + ": " + e.getMessage());
+					}
+					row++;
 				}
-				catch(final NullPointerException e)
-				{
-					skipped++;
-					out.println("Skipping null at row " + row + ": " + e.getMessage());
-				}
-				catch(final IllegalArgumentException e)
-				{
-					skipped++;
-					out.println("Skipping illegal argument at row " + row + ": " + e.getMessage());
-				}
-				row++;
+				out.println("Finished after " + row + " rows, skipped " + skipped + ", redundant " + redundant);
 			}
-			out.println("Finished after " + row + " rows, skipped " + skipped + ", redundant " + redundant);
 		}
 	}
 
@@ -151,6 +155,15 @@ public final class VaultJdbcToService
 		}
 
 		final String query = value("source.query", (String)null);
+
+		/**
+		 * Stream result sets row-by-row with minimum heap space requirement.
+		 * MySQL requires non-standard setting of {@link Integer#MIN_VALUE}, setting to 1 is not sufficient.
+		 * See <a href="https://dev.mysql.com/doc/connector-j/8.1/en/connector-j-reference-implementation-notes.html">Docs</a>
+		 */
+		final int fetchSize = value("source.fetchSize",
+				url.startsWith("jdbc:mysql:") ? Integer.MIN_VALUE : 1,
+				Integer.MIN_VALUE);
 
 		final VaultProperties target = valnp("target", VaultProperties.factory());
 

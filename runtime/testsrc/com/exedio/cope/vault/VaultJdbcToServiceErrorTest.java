@@ -80,13 +80,13 @@ public class VaultJdbcToServiceErrorTest
 				"property unusedProperty in " +
 				propsFile + " " +
 				"is not allowed, but only one of [" +
-				"source.url, source.username, source.password, source.query, " +
+				"source.url, source.username, source.password, source.query, source.fetchSize, " +
 				"target.algorithm, target.services, target.service, " +
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
 				"target.isAppliedToAllFields, " +
 				"targetProbesSuppressed].");
 		assertEquals(List.of(
-				),
+				"Fetch size set to 1"),
 				readAllLines(out));
 	}
 	private static final class UnusedPropertyService extends AssertionErrorVaultService
@@ -114,6 +114,7 @@ public class VaultJdbcToServiceErrorTest
 				IllegalArgumentException.class,
 				"probeFails cause");
 		assertEquals(List.of(
+				"Fetch size set to 1",
 				"Probing Fails ..."),
 				readAllLines(out));
 	}
@@ -156,6 +157,7 @@ public class VaultJdbcToServiceErrorTest
 				RuntimeException.class,
 				"java.io.IOException: probeFails cause");
 		assertEquals(List.of(
+				"Fetch size set to 1",
 				"Probing Fails ..."),
 				readAllLines(out));
 	}
