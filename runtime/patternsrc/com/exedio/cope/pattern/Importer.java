@@ -80,10 +80,19 @@ public final class Importer<K> extends Pattern
 			@Nonnull @Parameter("keyValue") final K keyValue,
 			@Nonnull @Parameter("setValues") final SetValue<?>... setValues)
 	{
-		final Type<P> type =
-				requireParentClass(parentClass, "parentClass");
 		requireNonNull(keyValue, "keyValue");
 		requireNonNull(setValues, "setValues");
+
+		return doImportInternal(parentClass, keyValue, setValues);
+	}
+
+	@Nonnull
+	private <P extends Item> P doImportInternal(
+			@Nonnull final Class<P> parentClass,
+			@Nonnull final K keyValue,
+			@Nonnull final SetValue<?>[] setValues)
+	{
+		final Type<P> type = requireParentClass(parentClass, "parentClass");
 
 		if(hintInitial)
 			return doImportInitial(parentClass, type, keyValue, setValues);
