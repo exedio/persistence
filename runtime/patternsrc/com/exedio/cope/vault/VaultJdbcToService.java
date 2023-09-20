@@ -167,7 +167,7 @@ public final class VaultJdbcToService
 
 		final VaultProperties target = valnp("target", VaultProperties.factory());
 
-		final Set<String> targetProbesSuppressed = Set.of(value("targetProbesSuppressed", "").split(" "));
+		final Set<String> targetProbesSuppressed = Set.copyOf(valuesSpaceSeparated("targetProbesSuppressed"));
 
 		void probeService(final PrintStream out)
 		{
