@@ -30,8 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import com.exedio.cope.UniqueConstraint;
 import org.junit.jupiter.api.Test;
 
 public class ImporterModelTest
@@ -63,13 +65,14 @@ public class ImporterModelTest
 		assertEquals(TYPE, byCode.getType());
 		assertEquals("byCode", byCode.getName());
 		assertSame(code, byCode.getKey());
+		assertSame(code.getImplicitUniqueConstraint(), byCode.getUniqueConstraint());
 		assertEquals(list(), byCode.getSourceFeatures());
 		assertEquals(list(), byCode.getSourceTypes());
 		assertSerializedSame(byCode, 385);
 
 		try
 		{
-			Importer.create(null);
+			Importer.create((FunctionField<?>) null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -78,21 +81,30 @@ public class ImporterModelTest
 		}
 		try
 		{
-			Importer.create(new StringField());
+			Importer.create((UniqueConstraint) null);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final NullPointerException e)
 		{
-			assertEquals("key must be final", e.getMessage());
+			assertEquals("constraint", e.getMessage());
 		}
 		try
 		{
-			Importer.create(new StringField().toFinal().optional());
+			Importer.create(new StringField().unique());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("key must be mandatory", e.getMessage());
+			assertEquals("key 0 must be final", e.getMessage());
+		}
+		try
+		{
+			Importer.create(new StringField().unique().toFinal().optional());
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("key 0 must be mandatory", e.getMessage());
 		}
 		try
 		{
