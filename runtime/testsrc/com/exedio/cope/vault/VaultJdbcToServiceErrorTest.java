@@ -73,8 +73,9 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("target.service", UnusedPropertyService.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
+		final var out = new ByteArrayOutputStream();
 		assertFails(
-				() -> VaultJdbcToService.mainInternal(null, propsFile.toString()),
+				() -> VaultJdbcToService.mainInternal(new PrintStream(out, true, US_ASCII), propsFile.toString()),
 				IllegalArgumentException.class,
 				"property unusedProperty in " +
 				propsFile + " " +
@@ -84,6 +85,9 @@ public class VaultJdbcToServiceErrorTest
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
 				"target.isAppliedToAllFields, " +
 				"targetProbesSuppressed].");
+		assertEquals(List.of(
+				),
+				readAllLines(out));
 	}
 	private static final class UnusedPropertyService extends AssertionErrorVaultService
 	{
