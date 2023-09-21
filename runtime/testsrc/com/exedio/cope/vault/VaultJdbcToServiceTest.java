@@ -103,6 +103,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"fa2345678901234567890123456789ab - 010204 - redundant"),
 				SERVICE_PUTS);
 		assertEquals(List.of(
+				"Fetch size set to " + ((mysql&&!mariaDriver)?"-2147483648":"1"),
 				"Probing 1Ok ...",
 				"  success: probe1Ok result",
 				"Probing 2OkVoid ...",
