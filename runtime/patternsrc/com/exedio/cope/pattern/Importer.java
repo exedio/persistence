@@ -26,11 +26,15 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.FeaturesGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.SetValueUtil;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -39,31 +43,56 @@ public final class Importer<K> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	private final FunctionField<K> key;
+	private final Class<K> keyClass;
+	private final UniqueConstraint constraint;
 	private boolean hintInitial = false;
 
-	private Importer(final FunctionField<K> key)
+	private Importer(final Class<K> keyClass, final UniqueConstraint constraint)
 	{
-		this.key = requireNonNull(key, "key");
-		if(!key.isFinal())
-			throw new IllegalArgumentException("key must be final");
-		if(!key.isMandatory())
-			throw new IllegalArgumentException("key must be mandatory");
-		if(key.getImplicitUniqueConstraint()==null)
-			throw new IllegalArgumentException("key must be unique");
+		this.keyClass = keyClass;
+		this.constraint = requireNonNull(constraint, "constraint");
+		int index = 0;
+		for(final FunctionField<?> key : constraint.getFields())
+		{
+			if(! key.isFinal())
+				throw new IllegalArgumentException("key "+index+" must be final");
+			if(! key.isMandatory())
+				throw new IllegalArgumentException("key "+index+" must be mandatory");
+			index++;
+		}
 	}
 
 	public static <K> Importer<K> create(final FunctionField<K> key)
 	{
-		return new Importer<>(key);
+		requireNonNull(key, "key");
+		if(key.getImplicitUniqueConstraint()==null)
+			throw new IllegalArgumentException("key must be unique");
+		return new Importer<>(key.getValueClass(), key.getImplicitUniqueConstraint());
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public static Importer<?> create(final UniqueConstraint constraint)
+	{
+		return (Importer<?>) new Importer(List.class, constraint);
+	}
+
+	@SuppressWarnings("unchecked")
 	public FunctionField<K> getKey()
 	{
-		return key;
+		final List<FunctionField<?>> fields = constraint.getFields();
+		if (fields.size()!=1)
+			throw new IllegalStateException("not supported for Importer on compound unique index "+constraint);
+		if (!keyClass.isAssignableFrom(fields.get(0).getValueClass()))
+			throw new RuntimeException(fields.get(0)+" does not match "+keyClass);
+		return (FunctionField<K>) fields.get(0);
 	}
 
-	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")
+	public UniqueConstraint getUniqueConstraint()
+	{
+		return constraint;
+	}
+
+	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item", hide=MoreThanOneKey.class)
 	@Nonnull
 	public <P extends Item> P doImport(
 			@Nonnull final Class<P> parentClass,
@@ -73,22 +102,32 @@ public final class Importer<K> extends Pattern
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
 
-	@Wrap(order=10, name="import{0}", doc="Import {0}.", docReturn="the imported item")
+	@Wrap(order=10, name="import{0}", doc="Import {0}.", docReturn="the imported item", hide=MoreThanOneKey.class)
 	@Nonnull
 	public <P extends Item> P doImport(
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("keyValue") final K keyValue,
 			@Nonnull @Parameter("setValues") final SetValue<?>... setValues)
 	{
-		final Type<P> type =
-				requireParentClass(parentClass, "parentClass");
 		requireNonNull(keyValue, "keyValue");
 		requireNonNull(setValues, "setValues");
 
-		if(hintInitial)
-			return doImportInitial(parentClass, type, keyValue, setValues);
+		return doImportInternal(parentClass, List.of(keyValue), setValues);
+	}
 
-		final P existent = key.searchUnique(parentClass, keyValue);
+	@Nonnull
+	private <P extends Item> P doImportInternal(
+			@Nonnull final Class<P> parentClass,
+			@Nonnull final List<?> keys,
+			@Nonnull final SetValue<?>[] setValues)
+	{
+		final Type<P> type = requireParentClass(parentClass, "parentClass");
+		if (constraint.getFields().size()!=keys.size())
+			throw new RuntimeException(String.valueOf(constraint.getFields().size())+'-'+keys.size());
+		if(hintInitial)
+			return doImportInitial(parentClass, type, keys, setValues);
+
+		final P existent = constraint.search(parentClass, keys.toArray());
 		if(existent!=null)
 		{
 			existent.set(setValues);
@@ -96,29 +135,54 @@ public final class Importer<K> extends Pattern
 		}
 		else
 		{
-			return type.newItem(prepend(map(key, keyValue), setValues));
+			return type.newItem(prependKeys(keys, setValues));
 		}
+	}
+
+	@Wrap(order=30, name="import{0}", doc="Import {0}.", docReturn="the imported item", varargsFeatures=ImportMulti.class, hide=OnlyOneKey.class)
+	@Nonnull
+	public <P extends Item> P doImportMultipleKeys(
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("setValues") final List<SetValue<?>> setValues,
+			@Nonnull final Object... values)
+	{
+		return doImportInternal(parentClass, Arrays.asList(values), SetValueUtil.toArray(setValues));
 	}
 
 	private <P extends Item> P doImportInitial(
 			final Class<P> parentClass,
 			final Type<P> type,
-			final K keyValue,
+			final List<?> keys,
 			final SetValue<?>... setValues)
 	{
-		final SetValue<?>[] setValuesNew = prepend(map(key, keyValue), setValues);
 		try
 		{
-			return type.newItem(setValuesNew);
+			return type.newItem(prependKeys(keys, setValues));
 		}
 		catch(final UniqueViolationException e)
 		{
-			assert key.getImplicitUniqueConstraint()==e.getFeature();
-			final P existent = key.searchUniqueStrict(parentClass, keyValue);
+			assert constraint==e.getFeature();
+			final P existent = constraint.searchStrict(parentClass, keys.toArray());
 			existent.set(setValues);
 			return existent;
 		}
 	}
+
+	private SetValue<?>[] prependKeys(final List<?> keys, final SetValue<?>[] setValues)
+	{
+		SetValue<?>[] setValuesNew = setValues;
+		for (int i = 0; i < keys.size(); i++)
+		{
+			setValuesNew = prepend(mapChecked(constraint.getFields().get(i), keys.get(i)), setValuesNew);
+		}
+		return setValuesNew;
+	}
+
+	private static <K> SetValue<?> mapChecked(final FunctionField<K> field, final Object value)
+	{
+		return map(field, field.getValueClass().cast(value));
+	}
+
 
 	/**
 	 * When setting to true,
@@ -137,5 +201,32 @@ public final class Importer<K> extends Pattern
 		result[0] = head;
 		System.arraycopy(tail, 0, result, 1, tail.length);
 		return result;
+	}
+
+	private static class ImportMulti implements FeaturesGetter<Importer<?>>
+	{
+		@Override
+		public List<?> get(final Importer<?> feature)
+		{
+			return feature.constraint.getFields();
+		}
+	}
+
+	private static class MoreThanOneKey implements BooleanGetter<Importer<?>>
+	{
+		@Override
+		public boolean get(final Importer<?> feature)
+		{
+			return feature.constraint.getFields().size()>1;
+		}
+	}
+
+	private static class OnlyOneKey implements BooleanGetter<Importer<?>>
+	{
+		@Override
+		public boolean get(final Importer<?> feature)
+		{
+			return feature.constraint.getFields().size()==1;
+		}
 	}
 }

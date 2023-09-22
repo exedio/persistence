@@ -22,6 +22,7 @@ import static com.exedio.cope.pattern.ImporterItem.TYPE;
 import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.pattern.ImporterItem.importByCode;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,6 +31,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.tojunit.ImporterRule;
 import com.exedio.cope.tojunit.MainRule;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -41,6 +43,21 @@ public class ImporterTest extends TestWithEnvironment
 	}
 
 	private final ImporterRule importerRule = new ImporterRule(ImporterItem.byCode);
+
+	@Test
+	void invalidValues()
+	{
+		assertFails(
+				()->ImporterItem.byCode.doImportMultipleKeys(ImporterItem.class, List.of(), "code", "toomany"),
+				RuntimeException.class,
+				"1-2"
+		);
+		assertFails(
+				()->ImporterItem.byCode.doImportMultipleKeys(ImporterItem.class, List.of()),
+				RuntimeException.class,
+				"1-0"
+		);
+	}
 
 	@Test void testNonInitial()
 	{
