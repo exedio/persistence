@@ -100,9 +100,9 @@ public final class VaultJdbcToService
 		out.println("Fetch size set to " + props.fetchSize);
 		props.ensureValidity();
 		props.probeService(out);
-		final VaultService service = props.target.newServices(DEFAULT).get(DEFAULT);
 
-		try(Connection connection = props.newConnection();
+		try(VaultService service = props.target.newServices(DEFAULT).get(DEFAULT);
+			 Connection connection = props.newConnection();
 			 Statement stmt = connection.createStatement())
 		{
 			stmt.setFetchSize(props.fetchSize);

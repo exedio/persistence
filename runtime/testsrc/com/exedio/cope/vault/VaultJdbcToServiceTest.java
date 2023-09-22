@@ -100,7 +100,8 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 
 		assertEquals(List.of(
 				"01cc45678901234567890123456789ab - 010203",
-				"fa2345678901234567890123456789ab - 010204 - redundant"),
+				"fa2345678901234567890123456789ab - 010204 - redundant",
+				"close"),
 				SERVICE_PUTS);
 		assertEquals(List.of(
 				"Fetch size set to " + ((mysql&&!mariaDriver)?"-2147483648":"1"),
@@ -179,6 +180,12 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 			final boolean result = !hash.startsWith("fa");
 			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
 			return result;
+		}
+
+		@Override
+		public void close()
+		{
+			SERVICE_PUTS.add("close");
 		}
 	}
 
