@@ -242,7 +242,7 @@ public class DataVaultInfoTest
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.service", VaultMockService.class),
+				single("vault.default.service", VaultMockService.class),
 				minimal()
 		)));
 		setupSchemaMinimal(model);

@@ -291,11 +291,11 @@ public class VaultReferenceTest
 		log.setLevelDebug();
 		MODEL.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.service", VaultReferenceService.class),
-				single("vault.service.main", VaultMockService.class),
-				single("vault.service.main.example", "mainExampleValue"),
-				single("vault.service.reference", VaultMockService.class),
-				single("vault.service.reference.example", "referenceExampleValue"),
+				single("vault.default.service", VaultReferenceService.class),
+				single("vault.default.service.main", VaultMockService.class),
+				single("vault.default.service.main.example", "mainExampleValue"),
+				single("vault.default.service.reference", VaultMockService.class),
+				single("vault.default.service.reference.example", "referenceExampleValue"),
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));

@@ -44,19 +44,11 @@ public @interface Vault
 {
 	/**
 	 * Specifying a value for the {@code @Vault} annotation allows
-	 * to store data into different vaults.
+	 * to store data into different vault buckets.
 	 * <p>
-	 * With just a single vault your {@link ConnectProperties connect properties}
-	 * may look like this:
-	 *
-	 * <pre>
-	 * vault=true
-	 * vault.service=com.exedio.cope.vault.VaultFileService
-	 * vault.service.root=/var/lib/cope-vault
-	 * </pre>
-	 *
-	 * If you replace a few {@code @Vault} annotations by {@code @Vault("other")},
-	 * you can store that data somewhere else:
+	 * With a few {@code @Vault} annotations in your code
+	 * and some more {@code @Vault("other")} annotations
+	 * your {@link ConnectProperties connect properties} may look like this:
 	 *
 	 * <pre>
 	 * vault=true

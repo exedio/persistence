@@ -44,8 +44,8 @@ public class VaultFileServiceNotWriteablePropsTest extends AbstractVaultFileServ
 		return new VaultFileService(
 				new VaultServiceParameters(VaultProperties.factory().create(Sources.cascade(
 						single("algorithm", ALGORITHM),
-						single("service", getServiceClass()),
-						single("service.root", "DUMMY"))),
+						single("default.service", getServiceClass()),
+						single("default.service.root", "DUMMY"))),
 						"testServiceKey",
 						false, // not writable
 						() -> { throw new AssertionFailedError(); }), // markPut

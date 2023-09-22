@@ -26,6 +26,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.Vault;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.MessageDigestFactory;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.vault.AbstractVaultProperties.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,7 +41,7 @@ import java.util.concurrent.Callable;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 
-public final class VaultProperties extends AbstractVaultProperties
+public final class VaultProperties extends Properties
 {
 	private final MessageDigestFactory algorithm = valueMessageDigest("algorithm", "SHA-512");
 
@@ -92,15 +94,8 @@ public final class VaultProperties extends AbstractVaultProperties
 		}
 
 		final LinkedHashMap<String, Service> services = new LinkedHashMap<>();
-		if(List.of(Vault.DEFAULT).equals(serviceKeys))
-		{
-			services.put(Vault.DEFAULT, valueService("service", writable));
-		}
-		else
-		{
-			for(final String service : serviceKeys)
-				services.put(service, valnp(service, s -> new BucketProperties(s, writable)).service);
-		}
+		for(final String service : serviceKeys)
+			services.put(service, valnp(service, s -> new BucketProperties(s, writable)).service);
 
 		return Collections.unmodifiableMap(services);
 	}

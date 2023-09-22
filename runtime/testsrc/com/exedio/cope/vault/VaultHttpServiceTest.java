@@ -100,8 +100,8 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 		return new VaultFileService(
 				new VaultServiceParameters(VaultProperties.factory().create(Sources.cascade(
 						single("algorithm", ALGORITHM),
-						single("service", VaultFileService.class),
-						single("service.root", DIR))),
+						single("default.service", VaultFileService.class),
+						single("default.service.root", DIR))),
 						"testServiceKey",
 						true, // writable
 						() -> false), // markPut
@@ -166,7 +166,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	{
 		@SuppressWarnings("OptionalGetWithoutIsPresent") // OK: will fail if not present
 		final Callable<?> probe = getProperties().getProbes().stream().
-				filter(s -> "service.root.Exists".equals(s.toString())).
+				filter(s -> "default.service.root.Exists".equals(s.toString())).
 				findFirst().
 				get();
 		assertEquals(new java.net.URI(URL+'/'), probe.call());

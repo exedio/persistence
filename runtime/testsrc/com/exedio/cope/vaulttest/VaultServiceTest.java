@@ -102,11 +102,11 @@ public abstract class VaultServiceTest
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", ALGORITHM);
-		source.setProperty("service", getServiceClass().getName());
+		source.setProperty("default.service", getServiceClass().getName());
 
 		final Properties sp = getServiceProperties();
 		for(final String key : sp.stringPropertyNames())
-			source.setProperty("service." + key, sp.getProperty(key));
+			source.setProperty("default.service." + key, sp.getProperty(key));
 
 		properties = VaultProperties.factory(isServiceWritable()).create(Sources.view(source, "DESC"));
 		final VaultService service = properties.newServicesNonResilient(() -> markPut, DEFAULT).get(DEFAULT);

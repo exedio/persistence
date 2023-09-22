@@ -110,7 +110,7 @@ public class VaultDirectoryTest
 			new VaultServiceParameters(
 					VaultProperties.factory().create(cascade(
 							single("algorithm", "MD5"),
-							single("service", VaultMockService.class))),
+							single("default.service", VaultMockService.class))),
 					"testServiceKey",
 					true, // writable
 					() -> { throw new AssertionFailedError(); }); // markPut

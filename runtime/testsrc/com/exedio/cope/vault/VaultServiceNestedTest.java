@@ -45,17 +45,17 @@ public class VaultServiceNestedTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", MyService.class),
-						single("service.writ", MyService.class),
-						single("service.writ.writ", VaultMockService.class),
-						single("service.writ.writ.example", "writWritEx"),
-						single("service.writ.read", VaultMockService.class),
-						single("service.writ.read.example", "writReadEx"),
-						single("service.read", MyService.class),
-						single("service.read.writ", VaultMockService.class),
-						single("service.read.writ.example", "readWritEx"),
-						single("service.read.read", VaultMockService.class),
-						single("service.read.read.example", "readReadEx")
+						single("default.service", MyService.class),
+						single("default.service.writ", MyService.class),
+						single("default.service.writ.writ", VaultMockService.class),
+						single("default.service.writ.writ.example", "writWritEx"),
+						single("default.service.writ.read", VaultMockService.class),
+						single("default.service.writ.read.example", "writReadEx"),
+						single("default.service.read", MyService.class),
+						single("default.service.read.writ", VaultMockService.class),
+						single("default.service.read.writ.example", "readWritEx"),
+						single("default.service.read.read", VaultMockService.class),
+						single("default.service.read.read.example", "readReadEx")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
 		final MyService service = (MyService)props.newServicesNonResilient(DEFAULT).get(DEFAULT);

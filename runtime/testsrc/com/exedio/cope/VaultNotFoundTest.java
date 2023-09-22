@@ -140,8 +140,8 @@ public class VaultNotFoundTest
 	{
 		MODEL.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.service", VaultMockService.class),
-				single("vault.service.example", "mainExampleValue"),
+				single("vault.default.service", VaultMockService.class),
+				single("vault.default.service.example", "mainExampleValue"),
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));

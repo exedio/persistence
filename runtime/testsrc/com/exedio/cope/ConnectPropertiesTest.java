@@ -67,10 +67,10 @@ public class ConnectPropertiesTest
 		notOnDefault.put("dialect", HsqldbDialect.class);
 		notOnDefault.put("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence);
 		notOnDefault.put("vault", true);
-		notOnDefault.put("vault.service", VaultReferenceService.class);
-		notOnDefault.put("vault.service.main", VaultFileService.class);
-		notOnDefault.put("vault.service.main.root", Paths.get("vaultFileRoot"));
-		notOnDefault.put("vault.service.reference", VaultMockService.class);
+		notOnDefault.put("vault.default.service", VaultReferenceService.class);
+		notOnDefault.put("vault.default.service.main", VaultFileService.class);
+		notOnDefault.put("vault.default.service.main.root", Paths.get("vaultFileRoot"));
+		notOnDefault.put("vault.default.service.reference", VaultMockService.class);
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
 		final ConnectProperties p = ConnectProperties.create(loadProperties());
@@ -513,7 +513,7 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = ConnectProperties.create(
 				cascade(
 						single("vault", true),
-						single("vault.service", VaultMockService.class),
+						single("vault.default.service", VaultMockService.class),
 						TestSources.minimal()
 				));
 		assertEquals("SHA-512", p.getVaultProperties().getAlgorithm());
@@ -526,7 +526,7 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = ConnectProperties.create(
 				cascade(
 						single("vault", true),
-						single("vault.service", VaultMockService.class),
+						single("vault.default.service", VaultMockService.class),
 						single("vault.algorithm", "MD5"),
 						TestSources.minimal()
 				));
@@ -748,9 +748,9 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.service", VaultMockService.class),
-				single("vault.service.example", "probeExampleValue"),
-				single("vault.service.probe.result", "probeMockResultOverride"),
+				single("vault.default.service", VaultMockService.class),
+				single("vault.default.service.example", "probeExampleValue"),
+				single("vault.default.service.probe.result", "probeMockResultOverride"),
 				TestSources.minimal()));
 		final String VAULT = "VaultMockService:probeExampleValue [0-9a-f]{16}xx128";
 
@@ -759,12 +759,12 @@ public class ConnectPropertiesTest
 				"Connect",
 				"vault.default",
 				"vault.default.genuineServiceKey",
-				"vault.service.Mock"),
+				"vault.default.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
 		assertRg("vault.default", VAULT, probes);
 		assertIt("vault.default.genuineServiceKey", "mock:default", String.class, probes);
-		assertIt("vault.service.Mock", "probeMockResultOverride", String.class, probes);
+		assertIt("vault.default.service.Mock", "probeMockResultOverride", String.class, probes);
 
 		assertMatches(HSQLDB_PROBE + " \\[" + VAULT + ", mock:default]", probe(p));
 		assertRg("probe", HSQLDB_PROBE + " \\[" + VAULT + ", mock:default]", getProbeTest(p));
