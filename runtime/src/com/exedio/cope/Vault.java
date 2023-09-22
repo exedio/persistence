@@ -61,6 +61,7 @@ public @interface Vault
 	 * <p>
 	 * Must not be empty, and must contain latin letters (A-Z,a-z), digits (0-9),
 	 * and dashes (-) only.
+	 * May be checked by {@link com.exedio.cope.vault.VaultProperties#checkBucket(String, java.util.function.Function)}.
 	 */
 	String value() default DEFAULT;
 	String DEFAULT = "default";

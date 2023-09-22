@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultProperties.checkBucket;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,9 +52,43 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class VaultPropertiesTest
 {
+	@Test void checkBucketNull()
+	{
+		assertFails(
+				() -> checkBucket(null, null),
+				NullPointerException.class,
+				"bucket");
+	}
+	@Test void checkBucketExceptionNull()
+	{
+		assertFails(
+				() -> checkBucket("", null),
+				NullPointerException.class,
+				"exception");
+	}
+	@Test void checkBucketEmpty()
+	{
+		assertFails(
+				() -> checkBucket("", ArithmeticException::new),
+				ArithmeticException.class,
+				"must not be empty");
+	}
+	@Test void checkBucketInvalidChar()
+	{
+		assertFails(
+				() -> checkBucket("abc.efg", ArithmeticException::new),
+				ArithmeticException.class,
+				"must contain just [---,0-9,A-Z,a-z], " +
+				"but was >abc.efg< containing a forbidden character at position 3");
+	}
+	@Test void checkBucketOk()
+	{
+		checkBucket("a", m -> { throw new AssertionFailedError(); });
+	}
 	@Test void probe() throws Exception
 	{
 		final Source source =
@@ -315,9 +350,9 @@ public class VaultPropertiesTest
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
 				"property buckets in DESC " +
-				"must contain a space-separated list of buckets " +
-				"containing just [---,0-9,A-Z,a-z], " +
-				"but bucket >be.ta< contained a forbidden character at position 2.");
+				"must contain a space-separated list of buckets, " +
+				"but bucket >be.ta< is illegal: " +
+				"must contain just [---,0-9,A-Z,a-z], but was >be.ta< containing a forbidden character at position 2");
 	}
 	@Test void bucketsDuplicate()
 	{
