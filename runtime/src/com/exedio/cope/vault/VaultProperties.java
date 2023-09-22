@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static java.util.Collections.singletonList;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataField;
@@ -93,7 +92,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		}
 
 		final LinkedHashMap<String, Service> services = new LinkedHashMap<>();
-		if(singletonList(Vault.DEFAULT).equals(serviceKeys))
+		if(List.of(Vault.DEFAULT).equals(serviceKeys))
 		{
 			services.put(Vault.DEFAULT, valueService("service", writable));
 		}
