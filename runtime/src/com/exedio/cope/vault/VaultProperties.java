@@ -334,10 +334,10 @@ public final class VaultProperties extends AbstractVaultProperties
 	final class GenuineServiceKeyProbe implements Callable<Object>
 	{
 		private final String key;
-		private final AbstractVaultProperties.Service service;
+		private final Service service;
 
 		GenuineServiceKeyProbe(
-				final Map.Entry<String, AbstractVaultProperties.Service> e)
+				final Map.Entry<String, Service> e)
 		{
 			this.key = e.getKey();
 			this.service = e.getValue();
