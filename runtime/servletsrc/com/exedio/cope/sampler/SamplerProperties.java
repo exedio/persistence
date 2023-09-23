@@ -61,8 +61,10 @@ public final class SamplerProperties extends Properties
 
 	/**
 	 * @deprecated
-	 * Sampler no longer supports recording buildTag.
+	 * Sampler no longer supports recording {@code buildTag}.
 	 * Use {@link #sample(Sampler)} instead.
+	 * Consider recording {@code buildTag} somewhere else,
+	 * for instance by prometheus.
 	 */
 	@Deprecated
 	public void sample(final Sampler sampler, @SuppressWarnings("unused") final String buildTag)
