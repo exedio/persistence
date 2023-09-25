@@ -67,9 +67,9 @@ public final class VaultProperties extends Properties
 
 
 
-	final Map<String, Service> services;
+	final Map<String, BucketProperties> services;
 
-	private Map<String, Service> valueServices(final boolean writable)
+	private Map<String, BucketProperties> valueServices(final boolean writable)
 	{
 		final ArrayList<String> serviceKeys = new ArrayList<>();
 		{
@@ -93,9 +93,9 @@ public final class VaultProperties extends Properties
 				throw newException(KEY, "must not contain duplicates");
 		}
 
-		final LinkedHashMap<String, Service> services = new LinkedHashMap<>();
+		final LinkedHashMap<String, BucketProperties> services = new LinkedHashMap<>();
 		for(final String service : serviceKeys)
-			services.put(service, valnp(service, s -> new BucketProperties(s, writable)).service);
+			services.put(service, valnp(service, s -> new BucketProperties(s, writable)));
 
 		return Collections.unmodifiableMap(services);
 	}
@@ -209,7 +209,7 @@ public final class VaultProperties extends Properties
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final String key : keys)
 		{
-			result.put(key, services.get(key).newService(this, key, markPut));
+			result.put(key, services.get(key).service.newService(this, key, markPut));
 		}
 		return Collections.unmodifiableMap(result);
 	}
@@ -222,10 +222,10 @@ public final class VaultProperties extends Properties
 	public Map<String, VaultResilientService> newServices(final Function<String, BooleanSupplier> markPut)
 	{
 		final LinkedHashMap<String, VaultResilientService> result = new LinkedHashMap<>();
-		for(final Map.Entry<String, Service> e : services.entrySet())
+		for(final Map.Entry<String, BucketProperties> e : services.entrySet())
 		{
 			final String key = e.getKey();
-			result.put(key, resiliate(e.getValue().newService(this, key, markPut.apply(key))));
+			result.put(key, resiliate(e.getValue().service.newService(this, key, markPut.apply(key))));
 		}
 		return Collections.unmodifiableMap(result);
 	}
@@ -318,7 +318,7 @@ public final class VaultProperties extends Properties
 	public List<? extends Callable<?>> probeMore()
 	{
 		final ArrayList<Callable<?>> result = new ArrayList<>();
-		for(final Map.Entry<String, Service> e : services.entrySet())
+		for(final Map.Entry<String, BucketProperties> e : services.entrySet())
 		{
 			result.add(new VaultProbe(this, e));
 			result.add(new GenuineServiceKeyProbe(e));
@@ -332,10 +332,10 @@ public final class VaultProperties extends Properties
 		private final Service service;
 
 		GenuineServiceKeyProbe(
-				final Map.Entry<String, Service> e)
+				final Map.Entry<String, BucketProperties> e)
 		{
 			this.key = e.getKey();
-			this.service = e.getValue();
+			this.service = e.getValue().service;
 		}
 
 		@Override
