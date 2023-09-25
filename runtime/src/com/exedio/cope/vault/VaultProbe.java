@@ -39,11 +39,11 @@ final class VaultProbe implements Callable<String>
 
 	VaultProbe(
 			final VaultProperties properties,
-			final Map.Entry<String, AbstractVaultProperties.Service> e)
+			final Map.Entry<String, BucketProperties> e)
 	{
 		this.properties = properties;
 		this.key = e.getKey();
-		this.service = e.getValue();
+		this.service = e.getValue().service;
 	}
 
 	@Override
