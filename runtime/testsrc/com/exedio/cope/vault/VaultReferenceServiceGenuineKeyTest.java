@@ -117,11 +117,11 @@ public class VaultReferenceServiceGenuineKeyTest
 	private static VaultReferenceService service(final String main, final String reference)
 	{
 		final Source source = cascade(
-				single("service", VaultReferenceService.class),
-				single("service.main", VaultMockService.class),
-				single("service.main.genuineServiceKey", main),
-				single("service.reference", VaultMockService.class),
-				single("service.reference.genuineServiceKey", reference)
+				single("default.service", VaultReferenceService.class),
+				single("default.service.main", VaultMockService.class),
+				single("default.service.main.genuineServiceKey", main),
+				single("default.service.reference", VaultMockService.class),
+				single("default.service.reference.genuineServiceKey", reference)
 		);
 		return (VaultReferenceService)VaultProperties.factory().create(source).newServicesNonResilient(DEFAULT).get(DEFAULT);
 	}

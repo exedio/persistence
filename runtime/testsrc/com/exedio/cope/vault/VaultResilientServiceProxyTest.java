@@ -64,7 +64,7 @@ public class VaultResilientServiceProxyTest
 		final Source source =
 				describe("DESC", cascade(
 						single("algorithm", "MD5"),
-						single("service", VaultMockService.class)
+						single("default.service", VaultMockService.class)
 				));
 		final VaultProperties props = factory.create(source);
 		emptyHash = props.getAlgorithmDigestForEmptyByteSequence();

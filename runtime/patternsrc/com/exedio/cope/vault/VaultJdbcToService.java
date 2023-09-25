@@ -47,8 +47,8 @@ import java.util.concurrent.Callable;
  * source.username=myuser
  * source.password=mypassword
  * source.query=SELECT hash,data FROM Vault
- * target.service=com.exedio.cope.vault.VaultFileService
- * target.service.root=myrootdir
+ * target.default.service=com.exedio.cope.vault.VaultFileService
+ * target.default.service.root=myrootdir
  * </pre>
  * The SQL query specified by {@code source.query} must return the hash in the first column of the result set
  * and the actual data in the second column.
@@ -171,7 +171,7 @@ public final class VaultJdbcToService
 
 		void probeService(final PrintStream out)
 		{
-			final String NAME_PREFIX = "service.";
+			final String NAME_PREFIX = "default.service.";
 
 			for(final Callable<?> probe : target.getProbes())
 			{

@@ -89,7 +89,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"FROM " + SI.tab(MyItem.TYPE) + " " +
 				"ORDER BY " + SI.pk(MyItem.TYPE));
 		props.setProperty("target.algorithm", "MD5");
-		props.setProperty("target.service", TestService.class.getName());
+		props.setProperty("target.default.service", TestService.class.getName());
 		props.setProperty("targetProbesSuppressed", "4Fails 4FailsOther");
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);

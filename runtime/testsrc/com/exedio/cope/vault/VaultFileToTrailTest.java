@@ -227,7 +227,7 @@ public class VaultFileToTrailTest
 	private static final VaultProperties PROPERTIES =
 			VaultProperties.factory().create(cascade(
 					single("algorithm", "MD5"),
-					single("service", VaultMockService.class)));
+					single("default.service", VaultMockService.class)));
 
 	static final VaultServiceParameters SERVICE_PARAMETERS =
 			new VaultServiceParameters(

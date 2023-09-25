@@ -40,11 +40,11 @@ public class VaultReferenceServiceTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultReferenceService.class),
-						single("service.main", VaultMockService.class),
-						single("service.main.example", "mainEx"),
-						single("service.reference", VaultMockService.class),
-						single("service.reference.example", "refrEx")
+						single("default.service", VaultReferenceService.class),
+						single("default.service.main", VaultMockService.class),
+						single("default.service.main.example", "mainEx"),
+						single("default.service.reference", VaultMockService.class),
+						single("default.service.reference.example", "refrEx")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
 		final VaultReferenceService service = (VaultReferenceService)props.newServicesNonResilient(DEFAULT).get(DEFAULT);

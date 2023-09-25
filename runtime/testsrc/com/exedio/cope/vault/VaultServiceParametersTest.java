@@ -34,7 +34,7 @@ public class VaultServiceParametersTest
 	@Test void testWithWritable()
 	{
 		final VaultProperties props = VaultProperties.factory().create(cascade(
-				single("service", VaultMockService.class)));
+				single("default.service", VaultMockService.class)));
 		final VaultServiceParameters w = new VaultServiceParameters(props, "serviceKeyW", true,  BSW);
 		final VaultServiceParameters r = new VaultServiceParameters(props, "serviceKeyR", false, BSR);
 		final VaultServiceParameters ww = w.withWritable(true);

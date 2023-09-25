@@ -36,8 +36,8 @@ public class VaultHttpServiceOfflineTest
 				single("root", "http://VaultHttpServicePropertiesTest.invalid")));
 		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
 				single("algorithm", "MD5"),
-				single("service", VaultHttpService.class),
-				single("service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
+				single("default.service", VaultHttpService.class),
+				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
 				"testServiceKey",
 				true,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut
@@ -54,8 +54,8 @@ public class VaultHttpServiceOfflineTest
 				single("root", "http://VaultHttpServicePropertiesTest.invalid")));
 		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
 				single("algorithm", "MD5"),
-				single("service", VaultHttpService.class),
-				single("service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
+				single("default.service", VaultHttpService.class),
+				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
 				"testServiceKey",
 				false,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut

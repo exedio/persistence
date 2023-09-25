@@ -34,7 +34,7 @@ public class VaultNonWritableServiceTest
 	@Test void mustNotBeWritable()
 	{
 		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
-				single("service", MyService.class))),
+				single("default.service", MyService.class))),
 				"testServiceKey",
 				true,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut
@@ -48,7 +48,7 @@ public class VaultNonWritableServiceTest
 	@Test void isNotWritable()
 	{
 		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
-				single("service", MyService.class))),
+				single("default.service", MyService.class))),
 				"testServiceKey",
 				false,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut

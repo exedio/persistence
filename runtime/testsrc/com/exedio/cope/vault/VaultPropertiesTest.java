@@ -58,8 +58,8 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultMockService.class),
-						single("service.example", "probeExampleValue")
+						single("default.service", VaultMockService.class),
+						single("default.service.example", "probeExampleValue")
 				));
 		final VaultProperties props = factory.create(source);
 		assertMatches("VaultMockService:probeExampleValue [0-9a-f]{16}xx128", (String)probe(props));
@@ -69,8 +69,8 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultMockService.class),
-						single("service.fail.get", true)
+						single("default.service", VaultMockService.class),
+						single("default.service.fail.get", true)
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
@@ -86,8 +86,8 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultMockService.class),
-						single("service.fail.put", true)
+						single("default.service", VaultMockService.class),
+						single("default.service.fail.put", true)
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
@@ -105,7 +105,7 @@ public class VaultPropertiesTest
 		assertEquals(asList(
 				"default",
 				"default.genuineServiceKey",
-				"service.Mock"),
+				"default.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		final Callable<?> probe = requireNonNull(probes.get("default"));
 		return probe.call();
@@ -121,8 +121,8 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultMockService.class),
-						single("service.genuineServiceKey", "default")
+						single("default.service", VaultMockService.class),
+						single("default.service.genuineServiceKey", "default")
 				));
 		final VaultProperties props = factory.create(source);
 		assertEquals("mock:default", probeGenuineServiceKey(props));
@@ -133,8 +133,8 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultMockService.class),
-						single("service.genuineServiceKey", "ABORT in test")
+						single("default.service", VaultMockService.class),
+						single("default.service.genuineServiceKey", "ABORT in test")
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
@@ -148,8 +148,8 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultMockService.class),
-						single("service.genuineServiceKey", "FAIL in test")
+						single("default.service", VaultMockService.class),
+						single("default.service.genuineServiceKey", "FAIL in test")
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
@@ -165,7 +165,7 @@ public class VaultPropertiesTest
 		assertEquals(asList(
 				"default",
 				"default.genuineServiceKey",
-				"service.Mock"),
+				"default.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		final Callable<?> probe = probes.get("default.genuineServiceKey");
 		return probe.call();
@@ -334,13 +334,17 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", "")
+						single("default.service", "")
 				));
 		final Exception e = assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property service in DESC must name a class, but was ''");
-		final Throwable cause = e.getCause();
+				"property default.service in DESC must name a class, but was ''");
+		final Throwable outerCause = e.getCause();
+		assertNotNull(outerCause);
+		assertTrue(outerCause instanceof IllegalPropertiesException, outerCause.getClass().getName());
+		assertEquals("property service in DESC (prefix default.) must name a class, but was ''", outerCause.getMessage());
+		final Throwable cause = outerCause.getCause();
 		assertNotNull(cause);
 		assertTrue(cause instanceof ClassNotFoundException, cause.getClass().getName());
 		assertEquals("", cause.getMessage());
@@ -351,7 +355,7 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", ServicePropertiesMissing.class)
+						single("default.service", ServicePropertiesMissing.class)
 				));
 
 		final VaultProperties props = factory.create(source);
@@ -362,9 +366,9 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultReferenceService.class),
-						single("service.main", ServicePropertiesMissing.class),
-						single("service.reference", ServicePropertiesMissing.class)
+						single("default.service", VaultReferenceService.class),
+						single("default.service.main", ServicePropertiesMissing.class),
+						single("default.service.reference", ServicePropertiesMissing.class)
 				));
 		final VaultProperties props = factory.create(source);
 		final VaultReferenceService service = (VaultReferenceService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
@@ -389,15 +393,23 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", ServicePropertiesNoConstructor.class)
+						single("default.service", ServicePropertiesNoConstructor.class)
 				));
 		final Exception e = assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property service in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"property default.service in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
 				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
 				"which must have a constructor with parameter " + Source.class.getName());
-		final Throwable cause2 = e.getCause();
+		final Throwable causeOuter = e.getCause();
+		assertNotNull(causeOuter);
+		assertTrue(causeOuter instanceof IllegalPropertiesException, causeOuter.getClass().getName());
+		assertEquals(
+				"property service in DESC (prefix default.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
+				"which must have a constructor with parameter " + Source.class.getName(),
+				causeOuter.getMessage());
+		final Throwable cause2 = causeOuter.getCause();
 		assertNotNull(cause2);
 		assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
 		assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
@@ -406,20 +418,28 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultReferenceService.class),
-						single("service.main", ServicePropertiesNoConstructor.class)
+						single("default.service", VaultReferenceService.class),
+						single("default.service.main", ServicePropertiesNoConstructor.class)
 				));
 		final Exception e = assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property service.main in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"property default.service.main in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
 				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
 				"which must have a constructor with parameter " + Source.class.getName());
-		final Throwable nested = e.getCause();
+		final Throwable nestOuter = e.getCause();
+		assertNotNull(nestOuter);
+		assertTrue(nestOuter instanceof IllegalPropertiesException, nestOuter.getClass().getName());
+		assertEquals(
+				"property service.main in DESC (prefix default.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
+				"which must have a constructor with parameter " + Source.class.getName(),
+				nestOuter.getMessage());
+		final Throwable nested = nestOuter.getCause();
 		assertNotNull(nested);
 		assertTrue(nested instanceof IllegalPropertiesException, nested.getClass().getName());
 		assertEquals(
-				"property main in DESC (prefix service.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"property main in DESC (prefix default.service.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
 				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
 				"which must have a constructor with parameter " + Source.class.getName(),
 				nested.getMessage());
@@ -443,13 +463,17 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", ServicePropertiesFails.class)
+						single("default.service", ServicePropertiesFails.class)
 				));
 		final Exception e = assertFails(
 				() -> factory.create(source),
 				IllegalArgumentException.class,
-				"property service in DESC invalid, see nested exception");
-		final Throwable cause = e.getCause();
+				"property default in DESC invalid, see nested exception");
+		final Throwable outerCause = e.getCause();
+		assertNotNull(outerCause);
+		assertTrue(outerCause instanceof IllegalArgumentException, outerCause.getClass().getName());
+		assertEquals("property service in DESC (prefix default.) invalid, see nested exception", outerCause.getMessage());
+		final Throwable cause = outerCause.getCause();
 		assertNotNull(cause);
 		assertTrue(cause instanceof IllegalStateException, cause.getClass().getName());
 		assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
@@ -459,17 +483,22 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultReferenceService.class),
-						single("service.main", ServicePropertiesFails.class)
+						single("default.service", VaultReferenceService.class),
+						single("default.service.main", ServicePropertiesFails.class)
 				));
 		final Exception e = assertFails(
 				() -> factory.create(source),
 				IllegalArgumentException.class,
-				"property service in DESC invalid, see nested exception");
-		final Throwable nested = e.getCause();
+				"property default in DESC invalid, see nested exception");
+		final Throwable nestedOuter = e.getCause();
+		assertTrue(nestedOuter instanceof IllegalArgumentException, nestedOuter.getClass().getName());
+		assertEquals(
+				"property service in DESC (prefix default.) invalid, see nested exception",
+				nestedOuter.getMessage());
+		final Throwable nested = nestedOuter.getCause();
 		assertTrue(nested instanceof IllegalArgumentException, nested.getClass().getName());
 		assertEquals(
-				"property main in DESC (prefix service.) invalid, see nested exception",
+				"property main in DESC (prefix default.service.) invalid, see nested exception",
 				nested.getMessage());
 		final Throwable cause = nested.getCause();
 		assertNotNull(cause);
@@ -495,7 +524,7 @@ public class VaultPropertiesTest
 	@Test void trailDefault()
 	{
 		final Source source = describe("DESC", cascade(
-				single("service", VaultMockService.class)
+				single("default.service", VaultMockService.class)
 		));
 		final VaultProperties props = factory.create(source);
 		assertEquals(20, props.getTrailStartLimit());
@@ -505,7 +534,7 @@ public class VaultPropertiesTest
 	@Test void trailCustom()
 	{
 		final Source source = describe("DESC", cascade(
-				single("service", VaultMockService.class),
+				single("default.service", VaultMockService.class),
 				single("trail.startLimit", 66),
 				single("trail.fieldLimit", 77),
 				single("trail.originLimit", 88)
@@ -518,7 +547,7 @@ public class VaultPropertiesTest
 	@Test void trailMinimum()
 	{
 		final Source source = describe("DESC", cascade(
-				single("service", VaultMockService.class),
+				single("default.service", VaultMockService.class),
 				single("trail.startLimit", 4),
 				single("trail.fieldLimit", 4),
 				single("trail.originLimit", 4)
@@ -531,7 +560,7 @@ public class VaultPropertiesTest
 	@Test void trailStartTooSmall()
 	{
 		final Source source = describe("DESC", cascade(
-				single("service", VaultMockService.class),
+				single("default.service", VaultMockService.class),
 				single("trail.startLimit", 3)
 		));
 		assertFails(
@@ -544,7 +573,7 @@ public class VaultPropertiesTest
 	@Test void trailFieldTooSmall()
 	{
 		final Source source = describe("DESC", cascade(
-				single("service", VaultMockService.class),
+				single("default.service", VaultMockService.class),
 				single("trail.fieldLimit", 3)
 		));
 		assertFails(
@@ -557,7 +586,7 @@ public class VaultPropertiesTest
 	@Test void trailOriginTooSmall()
 	{
 		final Source source = describe("DESC", cascade(
-				single("service", VaultMockService.class),
+				single("default.service", VaultMockService.class),
 				single("trail.originLimit", 3)
 		));
 		assertFails(

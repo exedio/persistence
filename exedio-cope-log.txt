@@ -7,6 +7,18 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* ConnectProperties: keys for a single vault bucket are dropped.
+	Check your deployed systems!
+	You must convert to the keys for multiple buckets. That means,
+	keys "vault.service" (and their sub-keys) get a "default" between
+	"vault" and "service".
+	Thus:
+		vault.service=com.exedio.cope.vault.VaultFileService
+		vault.service.root=/var/lib/cope-vault
+	becomes:
+		vault.default.service=com.exedio.cope.vault.VaultFileService
+		vault.default.service.root=/var/lib/cope-vault
+
 * ConnectProperties: keys for multiple vault buckets are renamed.
 	Check your deployed systems!
 	* Key "vault.services" is renamed to "vault.buckets".

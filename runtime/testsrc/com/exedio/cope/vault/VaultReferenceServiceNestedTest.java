@@ -42,14 +42,14 @@ public class VaultReferenceServiceNestedTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultReferenceService.class),
-						single("service.main", VaultReferenceService.class),
-						single("service.main.main", VaultMockService.class),
-						single("service.main.main.example", "mainEx"),
-						single("service.main.reference", VaultMockService.class),
-						single("service.main.reference.example", "ref1Ex"),
-						single("service.reference", VaultMockService.class),
-						single("service.reference.example", "ref2Ex")
+						single("default.service", VaultReferenceService.class),
+						single("default.service.main", VaultReferenceService.class),
+						single("default.service.main.main", VaultMockService.class),
+						single("default.service.main.main.example", "mainEx"),
+						single("default.service.main.reference", VaultMockService.class),
+						single("default.service.main.reference.example", "ref1Ex"),
+						single("default.service.reference", VaultMockService.class),
+						single("default.service.reference.example", "ref2Ex")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
 		final VaultReferenceService service = (VaultReferenceService)props.newServicesNonResilient(DEFAULT).get(DEFAULT);

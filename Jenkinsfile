@@ -409,7 +409,7 @@ try
 				'my57-vault',
 				'mysql',
 				'vault=true\n' +
-				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
@@ -450,7 +450,7 @@ try
 				'my57m-vault',
 				'mariadb',
 				'vault=true\n' +
-				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
@@ -633,7 +633,7 @@ try
 				'my80-vault',
 				'mysql',
 				'vault=true\n' +
-				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
@@ -674,7 +674,7 @@ try
 				'my80m-vault',
 				'mariadb',
 				'vault=true\n' +
-				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
@@ -761,7 +761,7 @@ try
 			envPostgresql(
 				'pg-vault',
 				'vault=true\n' +
-				'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
