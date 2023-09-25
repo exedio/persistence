@@ -407,9 +407,9 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final String service = s.get("vault.service");
 		assertNotNull(service);
 		return Sources.cascade(
-				TestSources.single("vault.services", "default myService-Key"),
-				TestSources.single("vault.service.default", service),
-				TestSources.single("vault.service.myService-Key", service),
+				TestSources.single("vault.buckets", "default myService-Key"),
+				TestSources.single("vault.default.service", service),
+				TestSources.single("vault.myService-Key.service", service),
 				s);
 	}
 

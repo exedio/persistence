@@ -82,8 +82,8 @@ public class UniqueHashedMediaVaultTest
 
 		MODEL.connect(ConnectProperties.create(Sources.cascade(
 				TestSources.single("vault", true),
-				TestSources.single("vault.services", "vaultsk"),
-				TestSources.single("vault.service.vaultsk", VaultMockService.class),
+				TestSources.single("vault.buckets", "vaultsk"),
+				TestSources.single("vault.vaultsk.service", VaultMockService.class),
 				TestSources.minimal()
 		)));
 		try

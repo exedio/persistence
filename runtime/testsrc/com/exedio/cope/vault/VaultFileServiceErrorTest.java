@@ -47,7 +47,7 @@ public class VaultFileServiceErrorTest
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
 				"algorithm",
-				"services",
+				"buckets",
 				"service",
 				"service.root",
 				"service.content",
@@ -85,7 +85,7 @@ public class VaultFileServiceErrorTest
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
 				"algorithm",
-				"services",
+				"buckets",
 				"service",
 				"service.root",
 				"service.content",

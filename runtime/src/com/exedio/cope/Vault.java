@@ -60,11 +60,11 @@ public @interface Vault
 	 *
 	 * <pre>
 	 * vault=true
-	 * vault.services=default other
-	 * vault.service.default=com.exedio.cope.vault.VaultFileService
-	 * vault.service.default.root=/var/lib/cope-vault
-	 * vault.service.other=com.exedio.cope.vault.VaultFileService
-	 * vault.service.other.root=/var/lib/other-cope-vault
+	 * vault.buckets=default other
+	 * vault.default.service=com.exedio.cope.vault.VaultFileService
+	 * vault.default.service.root=/var/lib/cope-vault
+	 * vault.other.service=com.exedio.cope.vault.VaultFileService
+	 * vault.other.service.root=/var/lib/other-cope-vault
 	 * </pre>
 	 * <p>
 	 * Must not be empty, and must contain latin letters (A-Z,a-z), digits (0-9),

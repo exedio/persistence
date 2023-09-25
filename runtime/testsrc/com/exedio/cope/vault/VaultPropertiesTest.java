@@ -190,13 +190,13 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("services", "alpha beta gamma"),
-						single("service.alpha", VaultMockService.class),
-						single("service.beta",  VaultMockService.class),
-						single("service.gamma", VaultMockService.class),
-						single("service.alpha.example", "alphaEx"),
-						single("service.beta.example" , "betaEx" ),
-						single("service.gamma.example", "gammaEx")
+						single("buckets", "alpha beta gamma"),
+						single("alpha.service", VaultMockService.class),
+						single("beta.service",  VaultMockService.class),
+						single("gamma.service", VaultMockService.class),
+						single("alpha.service.example", "alphaEx"),
+						single("beta.service.example" , "betaEx" ),
+						single("gamma.service.example", "gammaEx")
 				));
 		final VaultProperties p = factory.create(source);
 		assertEqualsUnmodifiable(
@@ -239,9 +239,9 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("services", "only"),
-						single("service.only", VaultMockService.class),
-						single("service.only.example", "onlyEx")
+						single("buckets", "only"),
+						single("only.service", VaultMockService.class),
+						single("only.service.example", "onlyEx")
 				));
 		final VaultProperties p = factory.create(source);
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
@@ -270,9 +270,9 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("services", "alpha beta"),
-						single("service.alpha", VaultMockService.class),
-						single("service.beta",  VaultMockService.class)
+						single("buckets", "alpha beta"),
+						single("alpha.service", VaultMockService.class),
+						single("beta.service",  VaultMockService.class)
 				));
 		final VaultProperties p = factory.create(source);
 		assertFails(
@@ -284,10 +284,10 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("services", "  alpha  beta  gamma  "),
-						single("service.alpha", VaultMockService.class),
-						single("service.beta",  VaultMockService.class),
-						single("service.gamma", VaultMockService.class)
+						single("buckets", "  alpha  beta  gamma  "),
+						single("alpha.service", VaultMockService.class),
+						single("beta.service",  VaultMockService.class),
+						single("gamma.service", VaultMockService.class)
 				));
 		final VaultProperties p = factory.create(source);
 		assertEqualsUnmodifiable(
@@ -298,23 +298,23 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("services", "")
+						single("buckets", "")
 				));
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property services in DESC must not be empty");
+				"property buckets in DESC must not be empty");
 	}
 	@Test void servicesCharSet()
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("services", "alpha be.ta gamma")
+						single("buckets", "alpha be.ta gamma")
 				));
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property services in DESC " +
+				"property buckets in DESC " +
 				"must contain a space separates list of services " +
 				"containing just [---,0-9,A-Z,a-z], " +
 				"but service >be.ta< contained a forbidden character at position 2.");
@@ -323,12 +323,12 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("services", "a dup dup b")
+						single("buckets", "a dup dup b")
 				));
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property services in DESC must not contain duplicates");
+				"property buckets in DESC must not contain duplicates");
 	}
 	@Test void servicePropertiesEmpty()
 	{

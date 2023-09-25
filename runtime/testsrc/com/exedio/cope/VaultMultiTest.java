@@ -78,18 +78,18 @@ public class VaultMultiTest
 	{
 		MODEL.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.services", "default alpha beta"),
-				single("vault.service.default", VaultMockService.class),
-				single("vault.service.default.example", "defaultEx"),
-				single("vault.service.default.probe.result", "probeResultDefault"),
-				single("vault.service.alpha", VaultMockService.class),
-				single("vault.service.alpha.example", "alphaEx"),
-				single("vault.service.alpha.probe.result", "probeResultAlpha"),
-				single("vault.service.alpha.genuineServiceKey", "alpha"),
-				single("vault.service.beta", VaultMockService.class),
-				single("vault.service.beta.example", "betaEx"),
-				single("vault.service.beta.probe.result", "probeResultBeta"),
-				single("vault.service.beta.genuineServiceKey", "beta"),
+				single("vault.buckets", "default alpha beta"),
+				single("vault.default.service", VaultMockService.class),
+				single("vault.default.service.example", "defaultEx"),
+				single("vault.default.service.probe.result", "probeResultDefault"),
+				single("vault.alpha.service", VaultMockService.class),
+				single("vault.alpha.service.example", "alphaEx"),
+				single("vault.alpha.service.probe.result", "probeResultAlpha"),
+				single("vault.alpha.service.genuineServiceKey", "alpha"),
+				single("vault.beta.service", VaultMockService.class),
+				single("vault.beta.service.example", "betaEx"),
+				single("vault.beta.service.probe.result", "probeResultBeta"),
+				single("vault.beta.service.genuineServiceKey", "beta"),
 				TestSources.minimal()
 		)));
 		final Map<String, VaultService> vaults = deresiliate(MODEL.connect().vaults);
@@ -140,9 +140,9 @@ public class VaultMultiTest
 				"vault.alpha.genuineServiceKey",
 				"vault.beta",
 				"vault.beta.genuineServiceKey",
-				"vault.service.default.Mock",
-				"vault.service.alpha.Mock",
-				"vault.service.beta.Mock"),
+				"vault.default.service.Mock",
+				"vault.alpha.service.Mock",
+				"vault.beta.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
 		assertRg("vault.default", "VaultMockService:defaultEx [0-9a-f]{16}xx128",  probes);
@@ -151,9 +151,9 @@ public class VaultMultiTest
 		assertIt("vault.alpha.genuineServiceKey",   "mock:alpha",    String.class, probes);
 		assertRg("vault.beta",    "VaultMockService:betaEx [0-9a-f]{16}xx128",     probes);
 		assertIt("vault.beta.genuineServiceKey",    "mock:beta",     String.class, probes);
-		assertIt("vault.service.default.Mock", "probeResultDefault", String.class, probes);
-		assertIt("vault.service.alpha.Mock",   "probeResultAlpha",   String.class, probes);
-		assertIt("vault.service.beta.Mock",    "probeResultBeta",    String.class, probes);
+		assertIt("vault.default.service.Mock", "probeResultDefault", String.class, probes);
+		assertIt("vault.alpha.service.Mock",   "probeResultAlpha",   String.class, probes);
+		assertIt("vault.beta.service.Mock",    "probeResultBeta",    String.class, probes);
 
 		assertMatches(HSQLDB_PROBE + " " + VAULT, probe(p));
 		assertRg("probe", HSQLDB_PROBE + " " + VAULT, getProbeTest(p));
