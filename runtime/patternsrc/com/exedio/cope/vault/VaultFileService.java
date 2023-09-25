@@ -326,11 +326,11 @@ public final class VaultFileService implements VaultService
 
 	@Override
 	// Method signature shall NOT narrow down specification from VaultService to
-	//   Path probeGenuineServiceKey(String serviceKey) throws IOException
+	//   Path probeGenuineServiceKey(String bucket) throws IOException
 	// so we are free to change signature in the future without breaking API compatibility.
-	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+	public Object probeGenuineServiceKey(final String bucket) throws Exception
 	{
-		final Path file = contentDir.resolve(VAULT_GENUINE_SERVICE_KEY).resolve(serviceKey);
+		final Path file = contentDir.resolve(VAULT_GENUINE_SERVICE_KEY).resolve(bucket);
 		final BasicFileAttributes attributes =
 				Files.readAttributes(file, BasicFileAttributes.class); // throw NoSuchFileException is file does not exist
 		final Path fileAbsolute = file.toAbsolutePath();

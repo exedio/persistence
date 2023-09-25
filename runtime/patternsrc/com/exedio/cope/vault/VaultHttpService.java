@@ -156,11 +156,11 @@ public final class VaultHttpService extends VaultNonWritableService
 
 	@Override
 	// Method signature shall NOT narrow down specification from VaultService to
-	//   URI probeGenuineServiceKey(String serviceKey) throws IOException
+	//   URI probeGenuineServiceKey(String bucket) throws IOException
 	// so we are free to change signature in the future without breaking API compatibility.
-	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+	public Object probeGenuineServiceKey(final String bucket) throws Exception
 	{
-		final URI uri = new URI(rootUri + '/' + VAULT_GENUINE_SERVICE_KEY + '/' + serviceKey);
+		final URI uri = new URI(rootUri + '/' + VAULT_GENUINE_SERVICE_KEY + '/' + bucket);
 		final HttpResponse<Void> response = client.send(
 				properties.newRequest(uri, REQUEST_METHOD_HEAD),
 				responseInfo -> BodySubscribers.discarding());

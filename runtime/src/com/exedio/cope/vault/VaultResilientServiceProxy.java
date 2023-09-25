@@ -174,18 +174,18 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	}
 
 	@Override
-	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+	public Object probeGenuineServiceKey(final String bucket) throws Exception
 	{
-		requireNonEmpty(serviceKey, "serviceKey");
-		final int forbiddenCharPosition = VAULT_CHAR_SET.indexOfNotContains(serviceKey);
+		requireNonEmpty(bucket, "serviceKey");
+		final int forbiddenCharPosition = VAULT_CHAR_SET.indexOfNotContains(bucket);
 		if(forbiddenCharPosition>=0)
 			throw new IllegalArgumentException(
 					"serviceKey must contain just " + VAULT_CHAR_SET + ", " +
-					"but was >" + serviceKey + "< containing a forbidden character " +
+					"but was >" + bucket + "< containing a forbidden character " +
 					"at position " + forbiddenCharPosition);
 		requireNonClosed();
 
-		return service.probeGenuineServiceKey(serviceKey);
+		return service.probeGenuineServiceKey(bucket);
 	}
 
 	private void requireNonClosed()
