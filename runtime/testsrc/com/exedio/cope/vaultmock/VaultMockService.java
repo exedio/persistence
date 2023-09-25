@@ -226,10 +226,10 @@ public final class VaultMockService implements VaultService
 	}
 
 	@Override
-	public String probeGenuineServiceKey(final String serviceKey) throws Exception
+	public String probeGenuineServiceKey(final String bucket) throws Exception
 	{
 		final String matcher = serviceProperties.getGenuineServiceKey;
-		final String result = matcher.equals(serviceKey) ? matcher : (matcher + "(" + serviceKey + ")");
+		final String result = matcher.equals(bucket) ? matcher : (matcher + "(" + bucket + ")");
 		if(matcher.contains("ABORT"))
 			throw VaultService.newProbeAborter(result);
 		if(matcher.contains("FAIL"))

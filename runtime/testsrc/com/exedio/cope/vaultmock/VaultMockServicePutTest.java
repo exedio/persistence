@@ -100,9 +100,9 @@ public class VaultMockServicePutTest extends VaultServiceTest
 			service.close();
 		}
 		@Override
-		public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+		public Object probeGenuineServiceKey(final String bucket) throws Exception
 		{
-			return service.probeGenuineServiceKey(serviceKey);
+			return service.probeGenuineServiceKey(bucket);
 		}
 	}
 

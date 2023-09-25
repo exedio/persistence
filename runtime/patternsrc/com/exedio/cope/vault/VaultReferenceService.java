@@ -196,10 +196,10 @@ public final class VaultReferenceService implements VaultService
 
 
 	@Override
-	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+	public Object probeGenuineServiceKey(final String bucket) throws Exception
 	{
-		final Object result = main.probeGenuineServiceKey(serviceKey);
-		REFERENCE(serviceKey);
+		final Object result = main.probeGenuineServiceKey(bucket);
+		REFERENCE(bucket);
 		return result;
 	}
 	/**

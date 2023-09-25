@@ -102,7 +102,7 @@ public interface VaultService extends AutoCloseable
 	/**
 	 * Default implementation aborts the probe.
 	 */
-	default Object probeGenuineServiceKey(@Nonnull final String serviceKey) throws Exception
+	default Object probeGenuineServiceKey(@Nonnull final String bucket) throws Exception
 	{
 		throw newProbeAborter("not supported by " + getClass().getName());
 	}
