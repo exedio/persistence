@@ -103,11 +103,11 @@ public class VaultPropertiesTest
 	{
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
-				"default",
+				"default.Contract",
 				"default.genuineServiceKey",
 				"default.service.Mock"),
 				new ArrayList<>(probes.keySet()));
-		final Callable<?> probe = requireNonNull(probes.get("default"));
+		final Callable<?> probe = requireNonNull(probes.get("default.Contract"));
 		return probe.call();
 	}
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
@@ -163,7 +163,7 @@ public class VaultPropertiesTest
 	{
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
-				"default",
+				"default.Contract",
 				"default.genuineServiceKey",
 				"default.service.Mock"),
 				new ArrayList<>(probes.keySet()));

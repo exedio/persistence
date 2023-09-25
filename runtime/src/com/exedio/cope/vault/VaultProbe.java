@@ -165,6 +165,6 @@ final class VaultProbe implements Callable<String>
 	@Override
 	public String toString()
 	{
-		return key;
+		return key + ".Contract";
 	}
 }
