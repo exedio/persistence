@@ -27,14 +27,12 @@ import com.exedio.cope.Vault;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.util.Properties;
-import com.exedio.cope.vault.AbstractVaultProperties.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.Callable;
@@ -95,7 +93,7 @@ public final class VaultProperties extends Properties
 
 		final LinkedHashMap<String, BucketProperties> services = new LinkedHashMap<>();
 		for(final String service : serviceKeys)
-			services.put(service, valnp(service, s -> new BucketProperties(s, writable)));
+			services.put(service, valnp(service, s -> new BucketProperties(s, this, service, writable)));
 
 		return Collections.unmodifiableMap(services);
 	}
@@ -290,72 +288,37 @@ public final class VaultProperties extends Properties
 	public String probe()
 	{
 		final ArrayList<String> result = new ArrayList<>();
-		for(final Callable<?> probe : probeMore())
+		for(final Map.Entry<String, BucketProperties> e : services.entrySet())
 		{
-			Object probeResult = null;
-			try
-			{
-				probeResult = probe.call();
-			}
-			catch(final ProbeAbortedException ignored)
-			{
-			}
-			catch(final RuntimeException e)
-			{
-				throw e;
-			}
-			catch(final Exception e)
-			{
-				throw new RuntimeException(probe.toString(), e);
-			}
-			if(probeResult!=null)
-				result.add(probeResult.toString());
+			final BucketProperties bp = e.getValue();
+			probe(result, bp::probeContract);
+			probe(result, bp::probeBucketTag);
 		}
 		return result.size()==1 ? result.get(0) : result.toString();
 	}
 
-	@Override
-	public List<? extends Callable<?>> probeMore()
+	private static void probe(
+			final ArrayList<String> result,
+			final Callable<?> probe)
 	{
-		final ArrayList<Callable<?>> result = new ArrayList<>();
-		for(final Map.Entry<String, BucketProperties> e : services.entrySet())
+		Object probeResult = null;
+		try
 		{
-			result.add(new VaultProbe(this, e));
-			result.add(new GenuineServiceKeyProbe(e));
+			probeResult = probe.call();
 		}
-		return result;
-	}
-
-	final class GenuineServiceKeyProbe implements Callable<Object>
-	{
-		private final String key;
-		private final Service service;
-
-		GenuineServiceKeyProbe(
-				final Map.Entry<String, BucketProperties> e)
+		catch(final ProbeAbortedException ignored)
 		{
-			this.key = e.getKey();
-			this.service = e.getValue().service;
 		}
-
-		@Override
-		public Object call() throws Exception
+		catch(final RuntimeException e)
 		{
-			try(VaultService s = service.newService(VaultProperties.this, key, () -> false))
-			{
-				return s.probeGenuineServiceKey(key);
-			}
-			catch(final GenuineServiceKeyProbeNotSupported e)
-			{
-				throw newProbeAbortedException(e.getMessage());
-			}
+			throw e;
 		}
-
-		@Override
-		public String toString()
+		catch(final Exception e)
 		{
-			return key + ".genuineServiceKey";
+			throw new RuntimeException(probe.toString(), e);
 		}
+		if(probeResult!=null)
+			result.add(probeResult.toString());
 	}
 
 	static final class GenuineServiceKeyProbeNotSupported extends Exception

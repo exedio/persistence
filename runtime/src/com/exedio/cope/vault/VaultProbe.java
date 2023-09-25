@@ -28,10 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.Callable;
 
-final class VaultProbe implements Callable<String>
+final class VaultProbe
 {
 	private final VaultProperties properties;
 	private final String key;
@@ -39,15 +37,15 @@ final class VaultProbe implements Callable<String>
 
 	VaultProbe(
 			final VaultProperties properties,
-			final Map.Entry<String, BucketProperties> e)
+			final String bucket,
+			final AbstractVaultProperties.Service service)
 	{
 		this.properties = properties;
-		this.key = e.getKey();
-		this.service = e.getValue().service;
+		this.key = bucket;
+		this.service = service;
 	}
 
-	@Override
-	public String call()
+	String call()
 	{
 		try(VaultService s = properties.resiliate(service.newService(properties, key, () -> false)))
 		{
@@ -160,11 +158,5 @@ final class VaultProbe implements Callable<String>
 				length<=50
 				? Hex.encodeLower(value)
 				: Hex.encodeLower(value, 0, 50) + "...(" + value.length + ')';
-	}
-
-	@Override
-	public String toString()
-	{
-		return key + ".Contract";
 	}
 }
