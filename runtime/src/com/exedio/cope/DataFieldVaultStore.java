@@ -42,7 +42,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final StringColumn column;
 	private final MessageDigestFactory algorithm;
 	private final String algorithmName;
-	private final String serviceKey;
+	private final String bucket;
 	private final VaultResilientService service;
 	private final VaultTrail trail;
 	private final Dialect dialect;
@@ -65,13 +65,13 @@ final class DataFieldVaultStore extends DataFieldStore
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
 		this.algorithmName = algorithm.getAlgorithm();
-		final String serviceKeyExplicit = field.getAnnotatedVaultValue();
-		this.serviceKey = serviceKeyExplicit!=null ? serviceKeyExplicit : Vault.DEFAULT;
-		this.service = requireNonNull(connect.vaults.get(serviceKey));
-		this.trail = requireNonNull(connect.database.vaultTrails.get(serviceKey));
+		final String bucketExplicit = field.getAnnotatedVaultValue();
+		this.bucket = bucketExplicit!=null ? bucketExplicit : Vault.DEFAULT;
+		this.service = requireNonNull(connect.vaults.get(bucket));
+		this.trail = requireNonNull(connect.database.vaultTrails.get(bucket));
 		this.dialect = connect.dialect;
 
-		final Metrics metrics = new Metrics(metricsTemplate, field, serviceKey);
+		final Metrics metrics = new Metrics(metricsTemplate, field, bucket);
 		getLength = metrics.counter("getLength");
 		getBytes  = metrics.counter("get", "sink", "bytes");
 		getStream = metrics.counter("get", "sink", "stream");
@@ -301,7 +301,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	@Override
 	String getVaultServiceKey()
 	{
-		return serviceKey;
+		return bucket;
 	}
 
 	@Override
@@ -314,7 +314,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	DataFieldVaultInfo getVaultInfo()
 	{
 		return new DataFieldVaultInfo(
-				field, serviceKey, service,
+				field, bucket, service,
 				getLength, getBytes, getStream,
 				putInitial, putRedundant);
 	}

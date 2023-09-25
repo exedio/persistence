@@ -27,18 +27,18 @@ import javax.annotation.Nonnull;
 public final class VaultServiceParameters
 {
 	private final VaultProperties vaultProperties;
-	private final String serviceKey;
+	private final String bucket;
 	private final boolean writable;
 	private final BooleanSupplier markPut;
 
 	VaultServiceParameters(
 			final VaultProperties vaultProperties,
-			final String serviceKey,
+			final String bucket,
 			final boolean writable,
 			final BooleanSupplier markPut)
 	{
 		this.vaultProperties = requireNonNull(vaultProperties, "vaultProperties");
-		this.serviceKey = requireNonNull(serviceKey, "serviceKey");
+		this.bucket = requireNonNull(bucket, "serviceKey");
 		this.writable = writable;
 		this.markPut = requireNonNull(markPut, "markPut");
 	}
@@ -58,7 +58,7 @@ public final class VaultServiceParameters
 	 */
 	public String getServiceKey()
 	{
-		return serviceKey;
+		return bucket;
 	}
 
 	/**
@@ -77,7 +77,7 @@ public final class VaultServiceParameters
 		// result.writable -> writable&&this.writable
 		return
 				(this.writable && !writable)
-				? new VaultServiceParameters(vaultProperties, serviceKey, false, markPut)
+				? new VaultServiceParameters(vaultProperties, bucket, false, markPut)
 				: this;
 	}
 

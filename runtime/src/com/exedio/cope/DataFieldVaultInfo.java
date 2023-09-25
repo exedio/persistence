@@ -26,7 +26,7 @@ import io.micrometer.core.instrument.Counter;
 public final class DataFieldVaultInfo
 {
 	private final DataField field;
-	private final String serviceKey;
+	private final String bucket;
 	private final String service;
 	private final double getLength;
 	private final double getBytes;
@@ -36,7 +36,7 @@ public final class DataFieldVaultInfo
 
 	DataFieldVaultInfo(
 			final DataField field,
-			final String serviceKey,
+			final String bucket,
 			final VaultService service,
 			final Counter getLength,
 			final Counter getBytes,
@@ -45,7 +45,7 @@ public final class DataFieldVaultInfo
 			final Counter putRedundant)
 	{
 		this.field = field;
-		this.serviceKey = serviceKey;
+		this.bucket = bucket;
 		this.service = service.toString();
 		this.getLength = getLength.count();
 		this.getBytes = getBytes.count();
@@ -61,7 +61,7 @@ public final class DataFieldVaultInfo
 
 	public String getServiceKey()
 	{
-		return serviceKey;
+		return bucket;
 	}
 
 	public String getService()

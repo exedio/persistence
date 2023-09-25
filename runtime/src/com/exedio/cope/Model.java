@@ -561,14 +561,14 @@ public final class Model implements Serializable
 		return connect().getSchemaSavepoint();
 	}
 
-	public boolean isVaultRequiredToMarkPut(final String serviceKey)
+	public boolean isVaultRequiredToMarkPut(final String bucket)
 	{
-		return connect().vaultMarkPut(serviceKey).value;
+		return connect().vaultMarkPut(bucket).value;
 	}
 
-	public void setVaultRequiredToMarkPut(final String serviceKey, final boolean value)
+	public void setVaultRequiredToMarkPut(final String bucket, final boolean value)
 	{
-		connect().vaultMarkPut(serviceKey).value = value;
+		connect().vaultMarkPut(bucket).value = value;
 	}
 
 	/**
