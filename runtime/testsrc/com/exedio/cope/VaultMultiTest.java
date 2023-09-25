@@ -136,12 +136,12 @@ public class VaultMultiTest
 				"Connect",
 				"vault.default.Contract",
 				"vault.default.genuineServiceKey",
+				"vault.default.service.Mock",
 				"vault.alpha.Contract",
 				"vault.alpha.genuineServiceKey",
+				"vault.alpha.service.Mock",
 				"vault.beta.Contract",
 				"vault.beta.genuineServiceKey",
-				"vault.default.service.Mock",
-				"vault.alpha.service.Mock",
 				"vault.beta.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
