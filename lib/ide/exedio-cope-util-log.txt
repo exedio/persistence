@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* @UsageEntryPoint added.
+* Holder added.
 * JDK 11 required.
 * com.exedio.cope.util.servlet.ServletSource added.
 	Replaces com.exedio.cope.servletutil.ServletSource provided by dependency
