@@ -38,7 +38,7 @@ final class BucketProperties extends AbstractVaultProperties
 
 	@Probe Object probeContract()
 	{
-		return new VaultProbe(parent, bucket, service).call();
+		return new ContractProbe(parent, bucket, service).call();
 	}
 
 	@Probe(name="genuineServiceKey") Object probeBucketTag() throws Exception
