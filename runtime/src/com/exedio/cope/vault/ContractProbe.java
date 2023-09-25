@@ -29,13 +29,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
-final class VaultProbe
+final class ContractProbe
 {
 	private final VaultProperties properties;
 	private final String key;
 	private final AbstractVaultProperties.Service service;
 
-	VaultProbe(
+	ContractProbe(
 			final VaultProperties properties,
 			final String bucket,
 			final AbstractVaultProperties.Service service)
