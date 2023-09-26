@@ -222,27 +222,27 @@ public class VaultMultiTest
 		assertFails(
 				() -> MODEL.isVaultRequiredToMarkPut(null),
 				NullPointerException.class,
-				"serviceKey");
+				"bucket");
 		assertFails(
 				() -> MODEL.isVaultRequiredToMarkPut(""),
 				IllegalArgumentException.class,
-				"serviceKey must not be empty");
+				"bucket must not be empty");
 		assertFails(
 				() -> MODEL.isVaultRequiredToMarkPut("zack"),
 				IllegalArgumentException.class,
-				"serviceKey zack does not exist, use one of [default, alpha, beta]");
+				"bucket zack does not exist, use one of [default, alpha, beta]");
 		assertFails(
 				() -> MODEL.setVaultRequiredToMarkPut(null, false),
 				NullPointerException.class,
-				"serviceKey");
+				"bucket");
 		assertFails(
 				() -> MODEL.setVaultRequiredToMarkPut("", false),
 				IllegalArgumentException.class,
-				"serviceKey must not be empty");
+				"bucket must not be empty");
 		assertFails(
 				() -> MODEL.setVaultRequiredToMarkPut("zack", false),
 				IllegalArgumentException.class,
-				"serviceKey zack does not exist, use one of [default, alpha, beta]");
+				"bucket zack does not exist, use one of [default, alpha, beta]");
 
 		final Gauge gaugeDefault = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "default").and(tag(MODEL)));
 		final Gauge gaugeAlpha   = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "alpha"  ).and(tag(MODEL)));
