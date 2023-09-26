@@ -31,7 +31,7 @@ final class VaultMarkPut implements BooleanSupplier
 	{
 		metrics.
 				name(VaultService.class).
-				tag("service", bucket).
+				tag("bucket", bucket).
 				gaugeConnect(
 						c -> c.vaultMarkPut(bucket).value ? 1.0 : 0.0,
 						"markPut",

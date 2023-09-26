@@ -244,9 +244,9 @@ public class VaultMultiTest
 				IllegalArgumentException.class,
 				"bucket zack does not exist, use one of [default, alpha, beta]");
 
-		final Gauge gaugeDefault = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "default").and(tag(MODEL)));
-		final Gauge gaugeAlpha   = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "alpha"  ).and(tag(MODEL)));
-		final Gauge gaugeBeta    = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "beta"   ).and(tag(MODEL)));
+		final Gauge gaugeDefault = (Gauge)meter(VaultService.class, "markPut", Tags.of("bucket", "default").and(tag(MODEL)));
+		final Gauge gaugeAlpha   = (Gauge)meter(VaultService.class, "markPut", Tags.of("bucket", "alpha"  ).and(tag(MODEL)));
+		final Gauge gaugeBeta    = (Gauge)meter(VaultService.class, "markPut", Tags.of("bucket", "beta"   ).and(tag(MODEL)));
 
 		assertEquals(false, MODEL.isVaultRequiredToMarkPut("default"));
 		assertEquals(false, MODEL.isVaultRequiredToMarkPut("alpha"));
