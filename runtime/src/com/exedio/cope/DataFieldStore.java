@@ -40,7 +40,7 @@ abstract class DataFieldStore
 	abstract String getHash(Transaction tx, Item item);
 	abstract void put(Entity entity, Value value, Item exceptionItem);
 
-	String getVaultServiceKey()
+	String getBucket()
 	{
 		return null;
 	}

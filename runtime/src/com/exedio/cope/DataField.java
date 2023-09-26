@@ -945,7 +945,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public String getVaultServiceKey()
 	{
-		return store().getVaultServiceKey();
+		return store().getBucket();
 	}
 
 	/**
