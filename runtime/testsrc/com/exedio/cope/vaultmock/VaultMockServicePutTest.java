@@ -176,7 +176,7 @@ public class VaultMockServicePutTest extends VaultServiceTest
 		final VaultMockService service = (VaultMockService)((VaultServiceMask)getService()).service;
 		assertSame(getProperties(), service.vaultProperties);
 		assertEquals("exampleValue", service.serviceProperties.example);
-		assertEquals("default", service.serviceKey);
+		assertEquals("default", service.bucket);
 		assertEquals(true, service.writable);
 	}
 

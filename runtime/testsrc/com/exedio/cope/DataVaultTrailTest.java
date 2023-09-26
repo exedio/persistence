@@ -292,12 +292,12 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	}
 
 
-	private void queryTrail(final String serviceKey, final SQLRunnable runnable) throws SQLException
+	private void queryTrail(final String bucket, final SQLRunnable runnable) throws SQLException
 	{
 		final String txName = model.currentTransaction().getName();
 		model.commit();
 		try(ResultSet rs = connection.executeQuery(
-				"SELECT * FROM " + quoteName(model, "VaultTrail_" + serviceKey) + " " +
+				"SELECT * FROM " + quoteName(model, "VaultTrail_" + bucket) + " " +
 				"ORDER BY " + quoteName(model, "hash")))
 		{
 			final ResultSetMetaData md = rs.getMetaData();
