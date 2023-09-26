@@ -403,7 +403,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		if(!"true".equals(s.get("vault")))
 			return s;
 
-		assertEquals(null, s.get("vault.services")); // thus defaults to "default"
+		assertEquals(null, s.get("vault.buckets")); // thus defaults to "default"
 		final String service = s.get("vault.default.service");
 		assertNotNull(service);
 		return Sources.cascade(
