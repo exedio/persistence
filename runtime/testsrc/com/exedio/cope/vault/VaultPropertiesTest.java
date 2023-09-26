@@ -315,9 +315,9 @@ public class VaultPropertiesTest
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
 				"property buckets in DESC " +
-				"must contain a space separates list of services " +
+				"must contain a space separates list of buckets " +
 				"containing just [---,0-9,A-Z,a-z], " +
-				"but service >be.ta< contained a forbidden character at position 2.");
+				"but bucket >be.ta< contained a forbidden character at position 2.");
 	}
 	@Test void servicesDuplicate()
 	{
