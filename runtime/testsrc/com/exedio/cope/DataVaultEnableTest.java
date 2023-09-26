@@ -189,7 +189,7 @@ public class DataVaultEnableTest
 		final DataFieldVaultInfo info = MyBlank.vaultF.getVaultInfo();
 		assertNotNull(info);
 		assertSame(MyBlank.vaultF, info.getField(), "field");
-		assertEquals("MyBlank-vaultF-V", info.getBucket(), "serviceKey");
+		assertEquals("MyBlank-vaultF-V", info.getBucket(), "bucket");
 		assertEquals("VaultMockService:exampleDefault", info.getService(), "service");
 		assertEquals("VARCHAR(32) not null", type(MyBlank.vaultF));
 	}

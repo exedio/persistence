@@ -52,7 +52,7 @@ public final class VaultMockService implements VaultService
 	private final StringBuilder history = new StringBuilder();
 	public final VaultProperties vaultProperties;
 	public final Props serviceProperties;
-	public final String serviceKey;
+	public final String bucket;
 	public final boolean writable;
 	public final BooleanSupplier requiresToMarkPut;
 	private boolean closed = false;
@@ -63,12 +63,12 @@ public final class VaultMockService implements VaultService
 	{
 		this.vaultProperties = parameters.getVaultProperties();
 		this.serviceProperties = properties;
-		this.serviceKey = parameters.getBucket();
+		this.bucket = parameters.getBucket();
 		this.writable = parameters.isWritable();
 		this.requiresToMarkPut = parameters.requiresToMarkPut();
 		assertNotNull(vaultProperties);
 		assertNotNull(serviceProperties);
-		assertNotNull(serviceKey);
+		assertNotNull(bucket);
 		assertNotNull(requiresToMarkPut);
 	}
 

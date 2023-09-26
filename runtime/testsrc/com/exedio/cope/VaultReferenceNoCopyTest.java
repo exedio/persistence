@@ -54,14 +54,14 @@ public class VaultReferenceNoCopyTest
 		assertNotNull(main);
 		assertEquals("SHA-512", main.vaultProperties.getAlgorithm());
 		assertEquals("mainExampleValue", main.serviceProperties.example);
-		assertEquals("default", main.serviceKey);
+		assertEquals("default", main.bucket);
 		assertEquals(true, main.writable);
 		assertEquals("VaultMockService:mainExampleValue", main.toString());
 
 		assertNotNull(refr);
 		assertEquals("SHA-512", refr.vaultProperties.getAlgorithm());
 		assertEquals("referenceExampleValue", refr.serviceProperties.example);
-		assertEquals("default", refr.serviceKey);
+		assertEquals("default", refr.bucket);
 		assertEquals(false, refr.writable);
 		assertEquals("VaultMockService:referenceExampleValue", refr.toString());
 
