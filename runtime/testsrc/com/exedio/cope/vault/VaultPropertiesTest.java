@@ -201,7 +201,7 @@ public class VaultPropertiesTest
 		final VaultProperties p = factory.create(source);
 		assertEqualsUnmodifiable(
 				new HashSet<>(asList("alpha", "beta", "gamma")),
-				p.services.keySet());
+				p.buckets.keySet());
 
 		assertServices(deresiliate(p.newServices("alpha", "beta", "gamma")), "alpha", "beta", "gamma");
 		assertServices(deresiliate(p.newServices("alpha", "gamma", "beta")), "alpha", "gamma", "beta");
@@ -292,7 +292,7 @@ public class VaultPropertiesTest
 		final VaultProperties p = factory.create(source);
 		assertEqualsUnmodifiable(
 				new HashSet<>(asList("alpha", "beta", "gamma")),
-				p.services.keySet());
+				p.buckets.keySet());
 	}
 	@Test void servicesEmpty()
 	{

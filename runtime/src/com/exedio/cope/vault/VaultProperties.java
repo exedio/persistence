@@ -65,37 +65,37 @@ public final class VaultProperties extends Properties
 
 
 
-	final Map<String, BucketProperties> services;
+	final Map<String, BucketProperties> buckets;
 
-	private Map<String, BucketProperties> valueServices(final boolean writable)
+	private Map<String, BucketProperties> valueBuckets(final boolean writable)
 	{
-		final ArrayList<String> serviceKeys = new ArrayList<>();
+		final ArrayList<String> bucketList = new ArrayList<>();
 		{
 			final String KEY = "buckets";
 			for(final StringTokenizer tn = new StringTokenizer(value(KEY, Vault.DEFAULT), " ");
 				 tn.hasMoreTokens(); )
-				serviceKeys.add(tn.nextToken());
-			if(serviceKeys.isEmpty())
+				bucketList.add(tn.nextToken());
+			if(bucketList.isEmpty())
 				throw newException(KEY, "must not be empty");
 
-			for(final String s : serviceKeys)
+			for(final String bucket : bucketList)
 			{
-				final int pos = VAULT_CHAR_SET.indexOfNotContains(s);
+				final int pos = VAULT_CHAR_SET.indexOfNotContains(bucket);
 				if(pos>=0)
 					throw newException(KEY,
 							"must contain a space separates list of services " +
 							"containing just " + VAULT_CHAR_SET + ", " +
-							"but service >" + s + "< contained a forbidden character at position " + pos + '.');
+							"but service >" + bucket + "< contained a forbidden character at position " + pos + '.');
 			}
-			if( new HashSet<>(serviceKeys).size() < serviceKeys.size() )
+			if( new HashSet<>(bucketList).size() < bucketList.size() )
 				throw newException(KEY, "must not contain duplicates");
 		}
 
-		final LinkedHashMap<String, BucketProperties> services = new LinkedHashMap<>();
-		for(final String service : serviceKeys)
-			services.put(service, valnp(service, s -> new BucketProperties(s, this, service, writable)));
+		final LinkedHashMap<String, BucketProperties> buckets = new LinkedHashMap<>();
+		for(final String bucket : bucketList)
+			buckets.put(bucket, valnp(bucket, s -> new BucketProperties(s, this, bucket, writable)));
 
-		return Collections.unmodifiableMap(services);
+		return Collections.unmodifiableMap(buckets);
 	}
 
 	/**
@@ -120,7 +120,7 @@ public final class VaultProperties extends Properties
 						fieldServices.add(fieldService);
 				}
 
-		fieldServices.removeAll(services.keySet());
+		fieldServices.removeAll(buckets.keySet());
 		if(!fieldServices.isEmpty())
 			throw new IllegalArgumentException(
 					"@Vault for " + fieldServices + " " +
@@ -134,8 +134,8 @@ public final class VaultProperties extends Properties
 	@Deprecated
 	public VaultResilientService newService()
 	{
-		if(services.size()!=1)
-			throw new IllegalArgumentException("is not allowed for more than one service: " + services.keySet());
+		if(buckets.size()!=1)
+			throw new IllegalArgumentException("is not allowed for more than one service: " + buckets.keySet());
 
 		final Map<String, VaultResilientService> result = newServices();
 		if(result.size()!=1)
@@ -196,9 +196,9 @@ public final class VaultProperties extends Properties
 				throw new IllegalArgumentException(
 						"keys[" + keyIndex + "] is a duplicate of index " + collision + ": >" + key + '<');
 
-			if(!services.containsKey(key))
+			if(!buckets.containsKey(key))
 				throw new IllegalArgumentException(
-						"keys[" + keyIndex + "] must be one of " + services.keySet() + ", " +
+						"keys[" + keyIndex + "] must be one of " + buckets.keySet() + ", " +
 						"but was >" + key + '<');
 
 			keyIndex++;
@@ -207,7 +207,7 @@ public final class VaultProperties extends Properties
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final String key : keys)
 		{
-			result.put(key, services.get(key).service.newService(this, key, markPut));
+			result.put(key, buckets.get(key).service.newService(this, key, markPut));
 		}
 		return Collections.unmodifiableMap(result);
 	}
@@ -220,7 +220,7 @@ public final class VaultProperties extends Properties
 	public Map<String, VaultResilientService> newServices(final Function<String, BooleanSupplier> markPut)
 	{
 		final LinkedHashMap<String, VaultResilientService> result = new LinkedHashMap<>();
-		for(final Map.Entry<String, BucketProperties> e : services.entrySet())
+		for(final Map.Entry<String, BucketProperties> e : buckets.entrySet())
 		{
 			final String key = e.getKey();
 			result.put(key, resiliate(e.getValue().service.newService(this, key, markPut.apply(key))));
@@ -288,7 +288,7 @@ public final class VaultProperties extends Properties
 	public String probe()
 	{
 		final ArrayList<String> result = new ArrayList<>();
-		for(final Map.Entry<String, BucketProperties> e : services.entrySet())
+		for(final Map.Entry<String, BucketProperties> e : buckets.entrySet())
 		{
 			final BucketProperties bp = e.getValue();
 			probe(result, bp::probeContract);
@@ -346,7 +346,7 @@ public final class VaultProperties extends Properties
 	private VaultProperties(final Source source, final boolean writable)
 	{
 		super(source);
-		services = valueServices(writable);
+		buckets = valueBuckets(writable);
 		trail = valueTrail();
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
