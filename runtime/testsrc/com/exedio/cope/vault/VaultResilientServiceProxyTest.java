@@ -393,7 +393,7 @@ public class VaultResilientServiceProxyTest
 		assertFails(
 				() -> s.probeGenuineServiceKey(null),
 				NullPointerException.class,
-				"serviceKey");
+				"bucket");
 		m.assertIt("");
 	}
 	@Test void probeGenuineServiceKeyEmpty()
@@ -401,7 +401,7 @@ public class VaultResilientServiceProxyTest
 		assertFails(
 				() -> s.probeGenuineServiceKey(""),
 				IllegalArgumentException.class,
-				"serviceKey must not be empty");
+				"bucket must not be empty");
 		m.assertIt("");
 	}
 	@Test void probeGenuineServiceKeyCharSet()
@@ -409,7 +409,7 @@ public class VaultResilientServiceProxyTest
 		assertFails(
 				() -> s.probeGenuineServiceKey("01234/6789"),
 				IllegalArgumentException.class,
-				"serviceKey must contain just [---,0-9,A-Z,a-z], " +
+				"bucket must contain just [---,0-9,A-Z,a-z], " +
 				"but was >01234/6789< containing a forbidden character at position 5");
 		m.assertIt("");
 	}
