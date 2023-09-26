@@ -63,7 +63,7 @@ public final class VaultMockService implements VaultService
 	{
 		this.vaultProperties = parameters.getVaultProperties();
 		this.serviceProperties = properties;
-		this.serviceKey = parameters.getServiceKey();
+		this.serviceKey = parameters.getBucket();
 		this.writable = parameters.isWritable();
 		this.requiresToMarkPut = parameters.requiresToMarkPut();
 		assertNotNull(vaultProperties);

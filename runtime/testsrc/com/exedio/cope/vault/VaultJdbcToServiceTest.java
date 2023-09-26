@@ -169,7 +169,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		{
 			assertNotNull(parameters);
 			assertEquals("MD5", parameters.getVaultProperties().getAlgorithm());
-			assertEquals("default", parameters.getServiceKey());
+			assertEquals("default", parameters.getBucket());
 			assertEquals(true, parameters.isWritable());
 			assertNotNull(properties);
 		}

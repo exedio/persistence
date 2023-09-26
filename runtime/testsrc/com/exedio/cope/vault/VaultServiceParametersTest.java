@@ -47,10 +47,10 @@ public class VaultServiceParametersTest
 		assertSame(props, rw.getVaultProperties());
 		assertSame(props, rr.getVaultProperties());
 
-		assertEquals("serviceKeyW", ww.getServiceKey());
-		assertEquals("serviceKeyW", wr.getServiceKey());
-		assertEquals("serviceKeyR", rw.getServiceKey());
-		assertEquals("serviceKeyR", rr.getServiceKey());
+		assertEquals("serviceKeyW", ww.getBucket());
+		assertEquals("serviceKeyW", wr.getBucket());
+		assertEquals("serviceKeyR", rw.getBucket());
+		assertEquals("serviceKeyR", rr.getBucket());
 
 		assertEquals(true,  ww.isWritable());
 		assertEquals(false, wr.isWritable());

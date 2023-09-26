@@ -50,13 +50,13 @@ public final class VaultServiceParameters
 	}
 
 	/**
-	 * Returns the service key this service is responsible for.
+	 * Returns the bucket this service is responsible for.
 	 * Intended for logging, metrics and similar purposes.
 	 * BEWARE:
 	 * Do NOT let your functionality depend on this key.
 	 * @see DataFieldVaultInfo#getServiceKey()
 	 */
-	public String getServiceKey()
+	public String getBucket()
 	{
 		return bucket;
 	}
@@ -101,5 +101,17 @@ public final class VaultServiceParameters
 	public BooleanSupplier requiresToMarkPut()
 	{
 		return markPut;
+	}
+
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getBucket()} instead.
+	 */
+	@Deprecated
+	public String getServiceKey()
+	{
+		return getBucket();
 	}
 }
