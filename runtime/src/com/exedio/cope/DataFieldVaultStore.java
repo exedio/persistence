@@ -85,11 +85,11 @@ final class DataFieldVaultStore extends DataFieldStore
 	{
 		final ModelMetrics back;
 
-		Metrics(final ModelMetrics metricsTemplate, final DataField field, final String service)
+		Metrics(final ModelMetrics metricsTemplate, final DataField field, final String bucket)
 		{
 			this.back = metricsTemplate.name(DataField.class).
 					tag(field).
-					tag("service", service);
+					tag("bucket", bucket);
 		}
 
 		Counter counter(
