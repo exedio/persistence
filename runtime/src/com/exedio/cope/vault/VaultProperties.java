@@ -106,24 +106,24 @@ public final class VaultProperties extends Properties
 
 	public void checkBuckets(final Model model)
 	{
-		final LinkedHashSet<String> fieldServices = new LinkedHashSet<>();
+		final LinkedHashSet<String> fieldBuckets = new LinkedHashSet<>();
 		for(final Type<?> type : model.getTypesSortedByHierarchy())
 			for(final com.exedio.cope.Field<?> field : type.getFields())
 				if(field instanceof DataField)
 				{
-					final String fieldServiceExplicit = ((DataField)field).getAnnotatedVaultValue();
-					final String fieldService =
-							fieldServiceExplicit==null && isAppliedToAllFields
+					final String bucketExplicit = ((DataField)field).getAnnotatedVaultValue();
+					final String bucket =
+							bucketExplicit==null && isAppliedToAllFields
 									? Vault.DEFAULT
-									: fieldServiceExplicit;
-					if(fieldService!=null)
-						fieldServices.add(fieldService);
+									: bucketExplicit;
+					if(bucket!=null)
+						fieldBuckets.add(bucket);
 				}
 
-		fieldServices.removeAll(buckets.keySet());
-		if(!fieldServices.isEmpty())
+		fieldBuckets.removeAll(buckets.keySet());
+		if(!fieldBuckets.isEmpty())
 			throw new IllegalArgumentException(
-					"@Vault for buckets " + fieldServices + " " +
+					"@Vault for buckets " + fieldBuckets + " " +
 					"not supported by ConnectProperties.");
 	}
 
