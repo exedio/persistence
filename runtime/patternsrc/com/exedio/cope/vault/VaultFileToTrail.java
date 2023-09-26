@@ -108,7 +108,7 @@ public final class VaultFileToTrail
 		if(spec!=null)
 			out.println("--   " + spec);
 		out.println("--   root=" + root.toAbsolutePath());
-		out.println("--   serviceKey=" + bucket);
+		out.println("--   bucket=" + bucket);
 		out.println("--   startLimit=" + startLimit);
 		out.println("SET TIME_ZONE='+00:00';");
 
