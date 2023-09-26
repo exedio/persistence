@@ -321,9 +321,9 @@ public final class VaultProperties extends Properties
 			result.add(probeResult.toString());
 	}
 
-	static final class GenuineServiceKeyProbeNotSupported extends Exception
+	static final class BucketTagNotSupported extends Exception
 	{
-		GenuineServiceKeyProbeNotSupported(final String message)
+		BucketTagNotSupported(final String message)
 		{
 			super(message);
 		}

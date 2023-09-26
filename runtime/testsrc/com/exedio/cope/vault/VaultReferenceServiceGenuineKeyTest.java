@@ -26,7 +26,7 @@ import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.vault.VaultProperties.GenuineServiceKeyProbeNotSupported;
+import com.exedio.cope.vault.VaultProperties.BucketTagNotSupported;
 import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +47,7 @@ public class VaultReferenceServiceGenuineKeyTest
 
 		assertStackTrace(true, assertFails(
 				() -> service.probeGenuineServiceKey("myKey"),
-				GenuineServiceKeyProbeNotSupported.class,
+				BucketTagNotSupported.class,
 				"ABORT refrGenuine(myKey)"));
 	}
 	@Test void succeedFail()
@@ -65,7 +65,7 @@ public class VaultReferenceServiceGenuineKeyTest
 
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("myKey"),
-				GenuineServiceKeyProbeNotSupported.class,
+				BucketTagNotSupported.class,
 				"ABORT mainGenuine(myKey)"));
 	}
 	@Test void abortAbort()
@@ -74,7 +74,7 @@ public class VaultReferenceServiceGenuineKeyTest
 
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("myKey"),
-				GenuineServiceKeyProbeNotSupported.class,
+				BucketTagNotSupported.class,
 				"ABORT mainGenuine(myKey)"));
 	}
 	@Test void abortFail()
@@ -83,7 +83,7 @@ public class VaultReferenceServiceGenuineKeyTest
 
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("myKey"),
-				GenuineServiceKeyProbeNotSupported.class,
+				BucketTagNotSupported.class,
 				"ABORT mainGenuine(myKey)"));
 	}
 	@Test void failSucceed()
