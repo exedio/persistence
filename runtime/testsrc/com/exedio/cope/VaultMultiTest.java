@@ -114,10 +114,10 @@ public class VaultMultiTest
 		assertEquals("beta",                       AnItem.beta1  .getVaultServiceKey());
 		assertEquals("beta",                       AnItem.beta2  .getVaultServiceKey());
 		assertEquals(null,                         AnItem.none   .getVaultInfo());
-		assertEquals(Vault.DEFAULT,                AnItem.defaulT.getVaultInfo().getServiceKey());
-		assertEquals("alpha",                      AnItem.alpha  .getVaultInfo().getServiceKey());
-		assertEquals("beta",                       AnItem.beta1  .getVaultInfo().getServiceKey());
-		assertEquals("beta",                       AnItem.beta2  .getVaultInfo().getServiceKey());
+		assertEquals(Vault.DEFAULT,                AnItem.defaulT.getVaultInfo().getBucket());
+		assertEquals("alpha",                      AnItem.alpha  .getVaultInfo().getBucket());
+		assertEquals("beta",                       AnItem.beta1  .getVaultInfo().getBucket());
+		assertEquals("beta",                       AnItem.beta2  .getVaultInfo().getBucket());
 		assertEquals("VaultMockService:defaultEx", AnItem.defaulT.getVaultInfo().getService());
 		assertEquals("VaultMockService:alphaEx",   AnItem.alpha  .getVaultInfo().getService());
 		assertEquals("VaultMockService:betaEx",    AnItem.beta1  .getVaultInfo().getService());
