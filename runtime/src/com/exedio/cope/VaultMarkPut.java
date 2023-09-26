@@ -27,13 +27,13 @@ final class VaultMarkPut implements BooleanSupplier
 
 	VaultMarkPut(
 			final ModelMetrics metrics,
-			final String serviceKey)
+			final String bucket)
 	{
 		metrics.
 				name(VaultService.class).
-				tag("service", serviceKey).
+				tag("service", bucket).
 				gaugeConnect(
-						c -> c.vaultMarkPut(serviceKey).value ? 1.0 : 0.0,
+						c -> c.vaultMarkPut(bucket).value ? 1.0 : 0.0,
 						"markPut",
 						"Model#isVaultRequiredToMarkPut");
 	}

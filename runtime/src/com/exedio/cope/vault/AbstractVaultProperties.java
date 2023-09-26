@@ -47,11 +47,11 @@ abstract class AbstractVaultProperties extends Properties
 
 		VaultService newService(
 				final VaultProperties vaultProperties,
-				final String serviceKey,
+				final String bucket,
 				final BooleanSupplier markPut)
 		{
 			return factory.newInstance(new VaultServiceParameters(
-					vaultProperties, serviceKey, writable, markPut));
+					vaultProperties, bucket, writable, markPut));
 		}
 
 		VaultService newService(final VaultServiceParameters parameters)

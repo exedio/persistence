@@ -60,7 +60,7 @@ final class VaultTrail
 	private final String originQuoted;
 
 	VaultTrail(
-			final String serviceKey,
+			final String bucket,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Trimmer trimmer,
@@ -76,7 +76,7 @@ final class VaultTrail
 		this.fieldLimit = props.getTrailFieldLimit();
 		this.originLimit = props.getTrailOriginLimit();
 
-		table   = trimmer.trimString("VaultTrail_" + serviceKey);
+		table   = trimmer.trimString("VaultTrail_" + bucket);
 		hash    = trimmer.trimString("hash");
 		hashPK  = trimmer.trimString(table + "_PK");
 		length  = trimmer.trimString("length");

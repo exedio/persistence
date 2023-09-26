@@ -82,8 +82,8 @@ final class Database
 			final LinkedHashMap<String, VaultTrail> vaultTrails = new LinkedHashMap<>();
 			for(final Map.Entry<String, VaultMarkPut> e : vaultMarkPut.entrySet())
 			{
-				final String serviceKey = e.getKey();
-				vaultTrails.put(serviceKey, new VaultTrail(serviceKey, connectionPool, executor, trimmer, e.getValue(), vp));
+				final String bucket = e.getKey();
+				vaultTrails.put(bucket, new VaultTrail(bucket, connectionPool, executor, trimmer, e.getValue(), vp));
 			}
 			this.vaultTrails = Collections.unmodifiableMap(vaultTrails);
 		}

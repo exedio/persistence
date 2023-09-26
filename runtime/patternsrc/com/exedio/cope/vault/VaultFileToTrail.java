@@ -92,7 +92,7 @@ public final class VaultFileToTrail
 			final PrintStream out,
 			final PrintStream err,
 			final Path root,
-			final String serviceKey,
+			final String bucket,
 			final int startLimit)
 			throws HumanReadableException, IOException
 	{
@@ -108,7 +108,7 @@ public final class VaultFileToTrail
 		if(spec!=null)
 			out.println("--   " + spec);
 		out.println("--   root=" + root.toAbsolutePath());
-		out.println("--   serviceKey=" + serviceKey);
+		out.println("--   serviceKey=" + bucket);
 		out.println("--   startLimit=" + startLimit);
 		out.println("SET TIME_ZONE='+00:00';");
 
@@ -184,7 +184,7 @@ public final class VaultFileToTrail
 						// BEWARE:
 						// Do not use INSERT IGNORE on MySQL, as it ignores more than just duplicate keys:
 						// https://dev.mysql.com/doc/refman/5.7/en/insert.html
-						"INSERT INTO `VaultTrail_" + serviceKey + "`" +
+						"INSERT INTO `VaultTrail_" + bucket + "`" +
 						"(`hash`,`length`,`start20`,`date`,`origin`) " +
 						"VALUES (" +
 						"'" + directoryHashes + filename + "'" + "," +

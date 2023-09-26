@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 @ServiceProperties(VaultReferenceService.Props.class)
 public final class VaultReferenceService implements VaultService
 {
-	private final String serviceKey;
+	private final String bucket;
 	private final VaultService main, reference;
 	private final boolean copyReferenceToMain;
 
@@ -42,7 +42,7 @@ public final class VaultReferenceService implements VaultService
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
-		serviceKey = parameters.getServiceKey();
+		bucket = parameters.getServiceKey();
 		main = properties.main.newService(parameters);
 		reference = properties.reference.newService(parameters);
 		copyReferenceToMain = properties.copyReferenceToMain;
@@ -170,7 +170,7 @@ public final class VaultReferenceService implements VaultService
 	private void logGetReference(final String hash)
 	{
 		if(logger.isDebugEnabled())
-			logger.debug("get from reference in {}: {}", serviceKey, anonymiseHash(hash));
+			logger.debug("get from reference in {}: {}", bucket, anonymiseHash(hash));
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultReferenceService.class);
@@ -206,9 +206,9 @@ public final class VaultReferenceService implements VaultService
 	 * This method has the sole purpose to appear in stack traces
 	 * showing that any exception was caused by the reference service.
 	 */
-	private void REFERENCE(final String serviceKey) throws Exception
+	private void REFERENCE(final String bucket) throws Exception
 	{
-		reference.probeGenuineServiceKey(serviceKey);
+		reference.probeGenuineServiceKey(bucket);
 	}
 
 

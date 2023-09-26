@@ -150,13 +150,13 @@ final class Connect
 				new TreeSet<>(Arrays.asList(array)));
 	}
 
-	VaultMarkPut vaultMarkPut(final String serviceKey)
+	VaultMarkPut vaultMarkPut(final String bucket)
 	{
 		final VaultMarkPut result =
-				vaultMarkPut.get(requireNonEmpty(serviceKey, "serviceKey"));
+				vaultMarkPut.get(requireNonEmpty(bucket, "serviceKey"));
 		if(result==null)
 			throw new IllegalArgumentException(
-					"serviceKey " + serviceKey + " does not exist, " +
+					"serviceKey " + bucket + " does not exist, " +
 					"use one of " + vaults.keySet());
 		return result;
 	}
