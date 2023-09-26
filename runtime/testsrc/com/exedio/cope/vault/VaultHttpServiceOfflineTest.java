@@ -38,7 +38,7 @@ public class VaultHttpServiceOfflineTest
 				single("algorithm", "MD5"),
 				single("default.service", VaultHttpService.class),
 				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
-				"testServiceKey",
+				"testBucket",
 				true,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut
 		//noinspection resource OK: does not allocate resources
@@ -56,7 +56,7 @@ public class VaultHttpServiceOfflineTest
 				single("algorithm", "MD5"),
 				single("default.service", VaultHttpService.class),
 				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
-				"testServiceKey",
+				"testBucket",
 				false,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut
 		final VaultPutInfo info = new AssertionFailedVaultPutInfo()

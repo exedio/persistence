@@ -232,7 +232,7 @@ public class VaultFileToTrailTest
 	static final VaultServiceParameters SERVICE_PARAMETERS =
 			new VaultServiceParameters(
 					PROPERTIES,
-					"testServiceKey",
+					"testBucket",
 					true, // writable
 					() -> { throw new AssertionFailedError(); }); // markPut
 

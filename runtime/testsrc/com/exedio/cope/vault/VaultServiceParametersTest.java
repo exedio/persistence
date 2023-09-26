@@ -35,8 +35,8 @@ public class VaultServiceParametersTest
 	{
 		final VaultProperties props = VaultProperties.factory().create(cascade(
 				single("default.service", VaultMockService.class)));
-		final VaultServiceParameters w = new VaultServiceParameters(props, "serviceKeyW", true,  BSW);
-		final VaultServiceParameters r = new VaultServiceParameters(props, "serviceKeyR", false, BSR);
+		final VaultServiceParameters w = new VaultServiceParameters(props, "testBucketW", true,  BSW);
+		final VaultServiceParameters r = new VaultServiceParameters(props, "testBucketR", false, BSR);
 		final VaultServiceParameters ww = w.withWritable(true);
 		final VaultServiceParameters wr = w.withWritable(false);
 		final VaultServiceParameters rw = r.withWritable(true);
@@ -47,10 +47,10 @@ public class VaultServiceParametersTest
 		assertSame(props, rw.getVaultProperties());
 		assertSame(props, rr.getVaultProperties());
 
-		assertEquals("serviceKeyW", ww.getBucket());
-		assertEquals("serviceKeyW", wr.getBucket());
-		assertEquals("serviceKeyR", rw.getBucket());
-		assertEquals("serviceKeyR", rr.getBucket());
+		assertEquals("testBucketW", ww.getBucket());
+		assertEquals("testBucketW", wr.getBucket());
+		assertEquals("testBucketR", rw.getBucket());
+		assertEquals("testBucketR", rr.getBucket());
 
 		assertEquals(true,  ww.isWritable());
 		assertEquals(false, wr.isWritable());
