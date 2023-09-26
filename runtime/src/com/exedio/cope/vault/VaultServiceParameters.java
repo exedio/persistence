@@ -54,7 +54,7 @@ public final class VaultServiceParameters
 	 * Intended for logging, metrics and similar purposes.
 	 * BEWARE:
 	 * Do NOT let your functionality depend on this key.
-	 * @see DataFieldVaultInfo#getServiceKey()
+	 * @see DataFieldVaultInfo#getBucket()
 	 */
 	public String getBucket()
 	{

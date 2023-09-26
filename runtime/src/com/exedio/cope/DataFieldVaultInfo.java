@@ -59,7 +59,7 @@ public final class DataFieldVaultInfo
 		return field;
 	}
 
-	public String getServiceKey()
+	public String getBucket()
 	{
 		return bucket;
 	}
@@ -102,5 +102,17 @@ public final class DataFieldVaultInfo
 	public long getPutCount()
 	{
 		return count(putInitial) + count(putRedundant);
+	}
+
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getBucket()} instead.
+	 */
+	@Deprecated
+	public String getServiceKey()
+	{
+		return getBucket();
 	}
 }
