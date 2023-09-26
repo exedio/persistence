@@ -50,7 +50,7 @@ public class VaultFileServiceNotWriteableTest extends AbstractVaultFileServiceTe
 						single("algorithm", ALGORITHM),
 						single("default.service", getServiceClass()),
 						single("default.service.root", "DUMMY"))),
-						"testServiceKey",
+						"testBucket",
 						false, // not writable
 						() -> { throw new AssertionFailedError(); }), // markPut
 				props);
