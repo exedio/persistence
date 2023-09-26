@@ -143,7 +143,7 @@ public final class Model implements Serializable
 		requireNonNull(properties, "properties");
 
 		if(properties.vault!=null)
-			properties.vault.checkServices(this);
+			properties.vault.checkBuckets(this);
 
 		final ModelMetrics metrics = new ModelMetrics(this, toString());
 		synchronized(connectLock)

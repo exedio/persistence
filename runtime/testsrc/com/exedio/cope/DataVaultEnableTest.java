@@ -142,7 +142,7 @@ public class DataVaultEnableTest
 		assertIt(AnVault.vaultF, "VaultMockService:AnVault-vaultF-X");
 		assertIt(AnVault.vaultM, "VaultMockService:AnVault-vaultM-X");
 	}
-	@Test void testMissingServiceAny()
+	@Test void testMissingBucketAppliedToAllFields()
 	{
 		final ConnectProperties props = ConnectProperties.create(cascade(
 				single("vault", true),
@@ -155,10 +155,10 @@ public class DataVaultEnableTest
 		assertFails(
 				() -> model.connect(props),
 				IllegalArgumentException.class,
-				"@Vault for [default, AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
+				"@Vault for buckets [default, AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
 				"not supported by ConnectProperties.");
 	}
-	@Test void testMissingService()
+	@Test void testMissingBucket()
 	{
 		final ConnectProperties props = ConnectProperties.create(cascade(
 				single("vault", true),
@@ -170,7 +170,7 @@ public class DataVaultEnableTest
 		assertFails(
 				() -> model.connect(props),
 				IllegalArgumentException.class,
-				"@Vault for [AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
+				"@Vault for buckets [AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
 				"not supported by ConnectProperties.");
 	}
 	@Test void testAlgorithm()

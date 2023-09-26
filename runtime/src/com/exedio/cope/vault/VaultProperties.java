@@ -104,7 +104,7 @@ public final class VaultProperties extends Properties
 	@SuppressWarnings("JavadocReference")
 	static final CharSet VAULT_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 
-	public void checkServices(final Model model)
+	public void checkBuckets(final Model model)
 	{
 		final LinkedHashSet<String> fieldServices = new LinkedHashSet<>();
 		for(final Type<?> type : model.getTypesSortedByHierarchy())
@@ -123,7 +123,7 @@ public final class VaultProperties extends Properties
 		fieldServices.removeAll(buckets.keySet());
 		if(!fieldServices.isEmpty())
 			throw new IllegalArgumentException(
-					"@Vault for " + fieldServices + " " +
+					"@Vault for buckets " + fieldServices + " " +
 					"not supported by ConnectProperties.");
 	}
 
@@ -349,5 +349,17 @@ public final class VaultProperties extends Properties
 		buckets = valueBuckets(writable);
 		trail = valueTrail();
 		isAppliedToAllFields = valueIsAppliedToAllFields();
+	}
+
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #checkBuckets(Model)} instead.
+	 */
+	@Deprecated
+	public void checkServices(final Model model)
+	{
+		checkBuckets(model);
 	}
 }
