@@ -88,8 +88,8 @@ public class UniqueHashedMediaVaultTest
 		)));
 		try
 		{
-			assertEquals(null,      blob .getVaultServiceKey());
-			assertEquals("vaultsk", vault.getVaultServiceKey());
+			assertEquals(null,      blob .getVaultBucket());
+			assertEquals("vaultsk", vault.getVaultBucket());
 		}
 		finally
 		{

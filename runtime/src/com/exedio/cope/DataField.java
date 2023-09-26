@@ -943,7 +943,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * @return null if vault is not enabled for this field
 	 */
-	public String getVaultServiceKey()
+	public String getVaultBucket()
 	{
 		return store().getBucket();
 	}
@@ -1003,6 +1003,15 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getVaultBucket()} instead.
+	 */
+	@Deprecated
+	public String getVaultServiceKey()
+	{
+		return getVaultBucket();
+	}
 
 	/**
 	 * @deprecated Use {@link #startsWithIfSupported(byte[])} instead.
