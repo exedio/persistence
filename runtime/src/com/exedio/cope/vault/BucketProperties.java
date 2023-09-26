@@ -47,7 +47,7 @@ final class BucketProperties extends AbstractVaultProperties
 		{
 			return s.probeGenuineServiceKey(bucket);
 		}
-		catch(final VaultProperties.GenuineServiceKeyProbeNotSupported e)
+		catch(final VaultProperties.BucketTagNotSupported e)
 		{
 			throw newProbeAbortedException(e.getMessage());
 		}
