@@ -63,12 +63,12 @@ public class VaultFileToTrailTest
 				"root directory must be specified as first parameter");
 	}
 
-	@Test void testServiceKeyMissing()
+	@Test void testBucketMissing()
 	{
 		assertFails(
 				() -> mainInternal(System.out, System.err, new String[]{"NOT_EXISTS"}),
 				HumanReadableException.class,
-				"service key must be specified as second parameter");
+				"bucket must be specified as second parameter");
 	}
 
 	@Test void testRootNotExists()

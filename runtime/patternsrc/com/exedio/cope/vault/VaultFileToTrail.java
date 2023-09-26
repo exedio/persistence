@@ -40,7 +40,7 @@ import java.util.Locale;
 /**
  * You may generate a dump file for importing into the database calling:
  * <pre>
- *    java -cp exedio-cope.jar:exedio-cope-util.jar com.exedio.cope.vault.VaultFileToTrail &lt;root-dir&gt; &lt;service-key&gt; &gt; vaultrail.sql
+ *    java -cp exedio-cope.jar:exedio-cope-util.jar com.exedio.cope.vault.VaultFileToTrail &lt;root-dir&gt; &lt;bucket&gt; &gt; vaultrail.sql
  * </pre>
  */
 public final class VaultFileToTrail
@@ -77,7 +77,7 @@ public final class VaultFileToTrail
 					"root directory must be specified as first parameter");
 		if(args.length<2)
 			throw new HumanReadableException(
-					"service key must be specified as second parameter");
+					"bucket must be specified as second parameter");
 
 		final TrailProperties defaultProvider =
 				new TrailProperties(Sources.EMPTY);
