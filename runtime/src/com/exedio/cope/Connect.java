@@ -153,10 +153,10 @@ final class Connect
 	VaultMarkPut vaultMarkPut(final String bucket)
 	{
 		final VaultMarkPut result =
-				vaultMarkPut.get(requireNonEmpty(bucket, "serviceKey"));
+				vaultMarkPut.get(requireNonEmpty(bucket, "bucket"));
 		if(result==null)
 			throw new IllegalArgumentException(
-					"serviceKey " + bucket + " does not exist, " +
+					"bucket " + bucket + " does not exist, " +
 					"use one of " + vaults.keySet());
 		return result;
 	}
