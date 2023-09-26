@@ -85,7 +85,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	}
 	private void test(final java.util.function.Function<String, DataField.Value> f) throws SQLException
 	{
-		final String trailTab  = quoteName(model, "VaultTrail_myService_Key");
+		final String trailTab  = quoteName(model, "VaultTrail_my_Bucket");
 		final String trailTabD = quoteName(model, "VaultTrail_default");
 		final String trailHash = quoteName(model, "hash");
 		assertEquals(
@@ -105,30 +105,30 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
-		queryTrail("myService_Key", rs -> {});
+		queryTrail("my_Bucket", rs -> {});
 		queryTrail("default", rs -> {});
 
 		final MyItem item = new MyItem(f.apply("abcdef"));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		item.setField(f.apply("abcdef"));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		item.setField(f.apply("abcdef"));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		item.setField(f.apply("abcde0"));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 		{
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
 			assertRow(abcde0Hash, 3, "abcde0", "MyItem.field", rs);
 		});
 
 		item.setField(f.apply("abcde01234"));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 		{
 			assertRow(abcde01234Hash, 5, "abcde01234", "MyItem.field", rs);
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
@@ -139,7 +139,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		item.setOther(f.apply("abcdef"));
 		queryTrail("default", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.other", rs));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 		{
 			assertRow(abcde01234Hash, 5, "abcde01234", "MyItem.field", rs);
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
@@ -152,13 +152,13 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testEmpty() throws SQLException
 	{
-		queryTrail("myService_Key", rs -> {});
+		queryTrail("my_Bucket", rs -> {});
 		queryTrail("default", rs -> {});
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		new MyItem(toValue(decodeLower("")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(emptyHash, 0, "", "MyItem.field", rs));
 		queryTrail("default", rs -> {});
 		assertEquals(0, MyItem.field.checkVaultTrail());
@@ -167,29 +167,29 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testRedundant() throws SQLException
 	{
-		queryTrail("myService_Key", rs -> {});
+		queryTrail("my_Bucket", rs -> {});
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
-		updateTrail("DELETE FROM " + quoteName(model, "VaultTrail_myService_Key"));
-		queryTrail("myService_Key", rs -> {});
+		updateTrail("DELETE FROM " + quoteName(model, "VaultTrail_my_Bucket"));
+		queryTrail("my_Bucket", rs -> {});
 		assertEquals(1, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
@@ -197,26 +197,26 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testCollision() throws SQLException
 	{
-		queryTrail("myService_Key", rs -> {});
+		queryTrail("my_Bucket", rs -> {});
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
-		final VaultMockService vs = (VaultMockService)deresiliate(model.connect().vaults.get("myService-Key"));
+		final VaultMockService vs = (VaultMockService)deresiliate(model.connect().vaults.get("my-Bucket"));
 		assertNotNull(vs);
 		vs.clear();
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 	}
 
 	@Test void testStartOverflow() throws SQLException
 	{
-		queryTrail("myService_Key", rs -> {});
+		queryTrail("my_Bucket", rs -> {});
 
 		new MyItem(toValue(decodeLower("0001020304050607080900010203040506070809ab")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 				assertRow(
 						"64551e4605d5b8973ddee826d90e0841b06dc933cf7874b81632cc0e67176d70a319ae6fe7b23bb400f0704be45abb3aa74eb29df34753c390bef492bff3baf5",
 						21,
@@ -225,10 +225,10 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testStartOverflowAlmost() throws SQLException
 	{
-		queryTrail("myService_Key", rs -> {});
+		queryTrail("my_Bucket", rs -> {});
 
 		new MyItem(toValue(decodeLower("0001020304050607080900010203040506070809")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 				assertRow(
 						"7d1e2e25f25b9861f2cd8682301aa19cae07c8aa304418040d05c8926bc6ea995c923c0c5628c668980b099385f4ba58dc94e623f72f2d70cb24baf83636ce8c",
 						20,
@@ -237,51 +237,51 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testMarkPutInitial() throws SQLException
 	{
-		assertEquals(false, model.isVaultRequiredToMarkPut("myService-Key"));
-		queryTrail("myService_Key", rs -> {});
+		assertEquals(false, model.isVaultRequiredToMarkPut("my-Bucket"));
+		queryTrail("my_Bucket", rs -> {});
 
-		model.setVaultRequiredToMarkPut("myService-Key", true);
-		assertEquals(true, model.isVaultRequiredToMarkPut("myService-Key"));
+		model.setVaultRequiredToMarkPut("my-Bucket", true);
+		assertEquals(true, model.isVaultRequiredToMarkPut("my-Bucket"));
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 	}
 
 	@Test void testMarkPutRedundant() throws SQLException
 	{
-		assertEquals(false, model.isVaultRequiredToMarkPut("myService-Key"));
-		queryTrail("myService_Key", rs -> {});
+		assertEquals(false, model.isVaultRequiredToMarkPut("my-Bucket"));
+		queryTrail("my_Bucket", rs -> {});
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
-		model.setVaultRequiredToMarkPut("myService-Key", true);
-		assertEquals(true, model.isVaultRequiredToMarkPut("myService-Key"));
+		model.setVaultRequiredToMarkPut("my-Bucket", true);
+		assertEquals(true, model.isVaultRequiredToMarkPut("my-Bucket"));
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 	}
 
 	@Test void testFieldLong() throws SQLException
 	{
-		queryTrail("myService_Key", rs -> {});
+		queryTrail("my_Bucket", rs -> {});
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		final String field = "MyItem.veryLong0123456789012345678901234567890123456789012345678901234567890 ...";
 		assertEquals(80, field.length());
 
 		item.setVeryLong(toValue(decodeLower("abcde0")));
-		queryTrail("myService_Key", rs ->
+		queryTrail("my_Bucket", rs ->
 		{
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
 			assertRow(abcde0Hash, 3, "abcde0", field, rs);
@@ -407,9 +407,9 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final String service = s.get("vault.default.service");
 		assertNotNull(service);
 		return Sources.cascade(
-				TestSources.single("vault.buckets", "default myService-Key"),
+				TestSources.single("vault.buckets", "default my-Bucket"),
 				TestSources.single("vault.default.service", service),
-				TestSources.single("vault.myService-Key.service", service),
+				TestSources.single("vault.my-Bucket.service", service),
 				s);
 	}
 
@@ -419,9 +419,9 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final VaultProperties vaultProperties = model.getConnectProperties().getVaultProperties();
 		assumeTrue(vaultProperties!=null);
 		assertEquals(true, vaultProperties.isAppliedToAllFields(), "isAppliedToAllFields required by test");
-		model.setVaultRequiredToMarkPut("myService-Key", false);
+		model.setVaultRequiredToMarkPut("my-Bucket", false);
 		model.setVaultRequiredToMarkPut("default", false);
-		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_myService_Key"));
+		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_my_Bucket"));
 		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_default"));
 		model.startTransaction(DataVaultTrailTest.class.getName());
 	}
@@ -431,7 +431,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class MyItem extends Item
 	{
-		@Vault("myService-Key")
+		@Vault("my-Bucket")
 		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
 		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=Visibility.DEFAULT)
 		static final DataField field = new DataField();
@@ -440,7 +440,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=Visibility.DEFAULT)
 		static final DataField other = new DataField().optional();
 
-		@Vault("myService-Key")
+		@Vault("my-Bucket")
 		@CopeName("veryLong01234567890123456789012345678901234567890123456789012345678901234567890123456789")
 		@CopeSchemaName("veryLongSchema")
 		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
