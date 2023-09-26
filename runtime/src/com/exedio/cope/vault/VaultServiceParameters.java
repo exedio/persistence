@@ -37,10 +37,10 @@ public final class VaultServiceParameters
 			final boolean writable,
 			final BooleanSupplier markPut)
 	{
-		this.vaultProperties = requireNonNull(vaultProperties, "vaultProperties");
+		this.vaultProperties = requireNonNull(vaultProperties);
 		this.bucket = requireNonNull(bucket);
 		this.writable = writable;
-		this.markPut = requireNonNull(markPut, "markPut");
+		this.markPut = requireNonNull(markPut);
 	}
 
 	@Nonnull
