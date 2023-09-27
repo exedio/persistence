@@ -117,7 +117,7 @@ public class VaultPropertiesTest
 	}
 
 
-	@Test void probeGenuineServiceKey() throws Exception
+	@Test void probeBucketTag() throws Exception
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -125,11 +125,11 @@ public class VaultPropertiesTest
 						single("default.service.bucketTagAction", "default")
 				));
 		final VaultProperties props = factory.create(source);
-		assertEquals("mock:default", probeGenuineServiceKey(props));
+		assertEquals("mock:default", probeBucketTag(props));
 		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", (String)probe(props));
 		assertMatches("\\[VaultMockService:exampleDefault [0-9a-f]{16}xx128, mock:default]", probeDeprecated(props));
 	}
-	@Test void probeGenuineServiceKeyAbort() throws Exception
+	@Test void probeBucketTagAbort() throws Exception
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -138,13 +138,13 @@ public class VaultPropertiesTest
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
-				() -> probeGenuineServiceKey(props),
+				() -> probeBucketTag(props),
 				ProbeAbortedException.class,
 				"ABORT in test(default)");
 		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", (String)probe(props));
 		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", probeDeprecated(props));
 	}
-	@Test void probeGenuineServiceKeyFail() throws Exception
+	@Test void probeBucketTagFail() throws Exception
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -153,13 +153,13 @@ public class VaultPropertiesTest
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
-				() -> probeGenuineServiceKey(props),
+				() -> probeBucketTag(props),
 				IllegalStateException.class,
 				"FAIL in test(default)");
 		assertMatches("VaultMockService:exampleDefault [0-9a-f]{16}xx128", (String)probe(props));
 		assertFails(() -> probeDeprecated(props), IllegalStateException.class, "FAIL in test(default)");
 	}
-	private static Object probeGenuineServiceKey(final VaultProperties p) throws Exception
+	private static Object probeBucketTag(final VaultProperties p) throws Exception
 	{
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -186,7 +186,7 @@ public class VaultPropertiesTest
 	}
 
 
-	@Test void services()
+	@Test void buckets()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -235,7 +235,7 @@ public class VaultPropertiesTest
 
 		assertServices(deresiliate(p.newServices()), "alpha", "beta", "gamma");
 	}
-	@Test void serviceDeprecated()
+	@Test void bucketDeprecated()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -266,7 +266,7 @@ public class VaultPropertiesTest
 		}
 	}
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void serviceDeprecatedNotAllowed()
+	@Test void bucketDeprecatedNotAllowed()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -280,7 +280,7 @@ public class VaultPropertiesTest
 				IllegalArgumentException.class,
 				"is not allowed for more than one service: [alpha, beta]");
 	}
-	@Test void servicesWithSpaces()
+	@Test void bucketsWithSpaces()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -294,7 +294,7 @@ public class VaultPropertiesTest
 				new HashSet<>(asList("alpha", "beta", "gamma")),
 				p.buckets.keySet());
 	}
-	@Test void servicesEmpty()
+	@Test void bucketsEmpty()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -305,7 +305,7 @@ public class VaultPropertiesTest
 				IllegalPropertiesException.class,
 				"property buckets in DESC must not be empty");
 	}
-	@Test void servicesCharSet()
+	@Test void bucketsCharSet()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -319,7 +319,7 @@ public class VaultPropertiesTest
 				"containing just [---,0-9,A-Z,a-z], " +
 				"but bucket >be.ta< contained a forbidden character at position 2.");
 	}
-	@Test void servicesDuplicate()
+	@Test void bucketsDuplicate()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -330,7 +330,7 @@ public class VaultPropertiesTest
 				IllegalPropertiesException.class,
 				"property buckets in DESC must not contain duplicates");
 	}
-	@Test void servicePropertiesEmpty()
+	@Test void serviceEmpty()
 	{
 		final Source source =
 				describe("DESC", cascade(

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class VaultServiceDefaultTest
 {
-	@Test void probeGenuineServiceKey()
+	@Test void probeBucketTag()
 	{
 		@SuppressWarnings("resource")
 		final VaultDefaultService s = new VaultDefaultService();
