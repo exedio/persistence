@@ -30,7 +30,7 @@ import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("resource")
-public class VaultReferenceServiceGenuineKeyTest
+public class VaultReferenceBucketTagTest
 {
 	@Test void succeedSucceed() throws Exception
 	{

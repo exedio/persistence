@@ -75,7 +75,7 @@ public class UniqueHashedMediaVaultTest
 		assertEquals(true,      vault.isAnnotatedVault());
 	}
 
-	@Test void testDataFieldServiceKey()
+	@Test void testDataFieldBucket()
 	{
 		final DataField blob  = BlobItem .f.getMedia().getBody();
 		final DataField vault = VaultItem.f.getMedia().getBody();

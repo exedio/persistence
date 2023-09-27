@@ -321,7 +321,7 @@ public class VaultResilientServiceProxyTest
 				"closed");
 		m.assertIt("");
 	}
-	@Test void probeGenuineServiceKeyClosed()
+	@Test void probeBucketTagClosed()
 	{
 		s.close();
 		m.assertIt("close\n");
@@ -383,12 +383,12 @@ public class VaultResilientServiceProxyTest
 		s.put(hash(value), path, PUT_INFO);
 		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultResilientServiceProxyTest#PUT_INFO\n");
 	}
-	@Test void probeGenuineServiceKey() throws Exception
+	@Test void probeBucketTag() throws Exception
 	{
 		assertEquals("mock:default(my-Bucket)", s.probeGenuineServiceKey("my-Bucket"));
 		m.assertIt("");
 	}
-	@Test void probeGenuineServiceKeyNull()
+	@Test void probeBucketTagNull()
 	{
 		assertFails(
 				() -> s.probeGenuineServiceKey(null),
@@ -396,7 +396,7 @@ public class VaultResilientServiceProxyTest
 				"bucket");
 		m.assertIt("");
 	}
-	@Test void probeGenuineServiceKeyEmpty()
+	@Test void probeBucketTagEmpty()
 	{
 		assertFails(
 				() -> s.probeGenuineServiceKey(""),
@@ -404,7 +404,7 @@ public class VaultResilientServiceProxyTest
 				"bucket must not be empty");
 		m.assertIt("");
 	}
-	@Test void probeGenuineServiceKeyCharSet()
+	@Test void probeBucketTagCharSet()
 	{
 		assertFails(
 				() -> s.probeGenuineServiceKey("01234/6789"),
