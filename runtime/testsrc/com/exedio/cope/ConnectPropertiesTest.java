@@ -758,12 +758,12 @@ public class ConnectPropertiesTest
 		assertEquals(asList(
 				"Connect",
 				"vault.default.Contract",
-				"vault.default.genuineServiceKey",
+				"vault.default.xBucketTag",
 				"vault.default.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
 		assertRg("vault.default.Contract", VAULT, probes);
-		assertIt("vault.default.genuineServiceKey", "mock:default", String.class, probes);
+		assertIt("vault.default.xBucketTag", "mock:default", String.class, probes);
 		assertIt("vault.default.service.Mock", "probeMockResultOverride", String.class, probes);
 
 		assertMatches(HSQLDB_PROBE + " \\[" + VAULT + ", mock:default]", probe(p));
