@@ -34,7 +34,7 @@ public class VaultServiceDefaultTest
 		final VaultDefaultService s = new VaultDefaultService();
 		assertFails(
 				() -> s.probeGenuineServiceKey(null),
-				VaultProperties.BucketTagNotSupported.class,
+				BucketTagNotSupported.class,
 				"not supported by com.exedio.cope.vault.VaultServiceDefaultTest$VaultDefaultService");
 	}
 
@@ -76,6 +76,6 @@ public class VaultServiceDefaultTest
 	{
 		final Exception aborter = VaultService.newProbeAborter("myMessage");
 		assertEquals("myMessage", aborter.getMessage());
-		assertEquals("com.exedio.cope.vault.VaultProperties$BucketTagNotSupported", aborter.getClass().getName());
+		assertEquals("com.exedio.cope.vault.BucketTagNotSupported", aborter.getClass().getName());
 	}
 }

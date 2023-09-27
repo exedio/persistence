@@ -18,38 +18,12 @@
 
 package com.exedio.cope.vault;
 
-final class BucketProperties extends AbstractVaultProperties
+final class BucketTagNotSupported extends Exception
 {
-	private final VaultProperties parent;
-	private final String bucket;
-	final Service service;
-
-	BucketProperties(
-			final Source source,
-			final VaultProperties parent,
-			final String bucket,
-			final boolean writable)
+	BucketTagNotSupported(final String message)
 	{
-		super(source);
-		this.parent = parent;
-		this.bucket = bucket;
-		service = valueService("service", writable);
+		super(message);
 	}
 
-	@Probe Object probeContract()
-	{
-		return new ContractProbe(parent, bucket, service).call();
-	}
-
-	@Probe(name="genuineServiceKey") Object probeBucketTag() throws Exception
-	{
-		try(VaultService s = service.newService(parent, bucket, () -> false))
-		{
-			return s.probeGenuineServiceKey(bucket);
-		}
-		catch(final BucketTagNotSupported e)
-		{
-			throw newProbeAbortedException(e.getMessage());
-		}
-	}
+	private static final long serialVersionUID = 1l;
 }
