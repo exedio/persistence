@@ -26,7 +26,6 @@ import static java.util.Arrays.stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.vault.VaultProperties.BucketTagNotSupported;
 import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.Test;
 

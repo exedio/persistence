@@ -109,7 +109,7 @@ public interface VaultService extends AutoCloseable
 
 	static Exception newProbeAborter(@Nonnull final String message)
 	{
-		return new VaultProperties.BucketTagNotSupported(message);
+		return new BucketTagNotSupported(message);
 	}
 
 	/**

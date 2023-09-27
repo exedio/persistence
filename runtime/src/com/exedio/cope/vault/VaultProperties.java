@@ -321,16 +321,6 @@ public final class VaultProperties extends Properties
 			result.add(probeResult.toString());
 	}
 
-	static final class BucketTagNotSupported extends Exception
-	{
-		BucketTagNotSupported(final String message)
-		{
-			super(message);
-		}
-
-		private static final long serialVersionUID = 1l;
-	}
-
 
 
 	public static Factory<VaultProperties> factory()
