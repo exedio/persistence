@@ -33,10 +33,10 @@ public class VaultTestServiceTest extends VaultServiceTest
 	}
 
 	@Override
-	@Test protected void probeGenuineServiceKey() throws Exception
+	@Test protected void probeBucketTag() throws Exception
 	{
 		// must test VaultServiceTest#probeGenuineServiceKey as well, so leave this method as it is
-		super.probeGenuineServiceKey();
+		super.probeBucketTag();
 	}
 
 	@Test void testToString()

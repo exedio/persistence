@@ -460,7 +460,7 @@ public abstract class VaultServiceTest
 	}
 
 
-	@Test protected void probeGenuineServiceKey() throws Exception
+	@Test protected void probeBucketTag() throws Exception
 	{
 		final Exception e = assertThrows(
 				Exception.class,

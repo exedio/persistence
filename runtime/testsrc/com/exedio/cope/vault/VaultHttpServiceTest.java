@@ -173,7 +173,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	}
 
 	@Override
-	@Test protected final void probeGenuineServiceKey() throws Exception
+	@Test protected final void probeBucketTag() throws Exception
 	{
 		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");

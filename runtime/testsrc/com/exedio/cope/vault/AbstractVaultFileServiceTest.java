@@ -238,7 +238,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 
 
 	@Override
-	@Test protected final void probeGenuineServiceKey() throws Exception
+	@Test protected final void probeBucketTag() throws Exception
 	{
 		final Path keyDir = getGenuineServiceKeyRoot().toPath().resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
