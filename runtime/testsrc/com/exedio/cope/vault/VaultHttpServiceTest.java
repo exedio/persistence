@@ -176,21 +176,21 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	@Test protected final void probeBucketTag() throws Exception
 	{
 		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultGenuineServiceKey");
-		final Path keyPath = keyDir.resolve("myKey");
+		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFails("response code 404");
-		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
+		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("my-Bucket"));
 
 		createDirectory(keyDir);
 		assertProbeBucketTagFails("response code 404");
-		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
+		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("my-Bucket"));
 
 		Files.write(keyPath, new byte[]{});
 		assertEquals(
 				new java.net.URI(URL + "/VaultGenuineServiceKey/myKey"),
-				getService().probeGenuineServiceKey("myKey"));
+				getService().probeGenuineServiceKey("my-Bucket"));
 		assertEquals(
 				keyPath.toAbsolutePath(),
-				getServicePut().probeGenuineServiceKey("myKey"));
+				getServicePut().probeGenuineServiceKey("my-Bucket"));
 		assertFails(
 				() -> getService().probeGenuineServiceKey("MyKey"), // wrong case
 				IllegalStateException.class,
@@ -199,25 +199,25 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
 		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultGenuineServiceKey");
-		final Path keyPath = keyDir.resolve("myKey");
+		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFails("response code 404");
-		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
+		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("my-Bucket"));
 
 		createDirectory(keyDir);
 		assertProbeBucketTagFails("response code 404");
-		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
+		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("my-Bucket"));
 
 		Files.write(keyPath, new byte[]{1});
 		assertProbeBucketTagFails("is not empty, but has size 1");
 		assertFails(
-				() -> getServicePut().probeGenuineServiceKey("myKey"),
+				() -> getServicePut().probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
 				"is not empty, but has size 1: " + keyPath.toAbsolutePath());
 	}
 	private void assertProbeBucketTagFails(final String reason)
 	{
 		assertFails(
-				() -> getService().probeGenuineServiceKey("myKey"),
+				() -> getService().probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
 				reason + ":" + URL + "/VaultGenuineServiceKey/myKey");
 	}

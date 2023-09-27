@@ -241,19 +241,19 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	@Test protected final void probeBucketTag() throws Exception
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
-		final Path keyPath = keyDir.resolve("myKey");
+		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
 		assertProbeBucketTagFails();
 
 		Files.write(keyPath, new byte[]{});
-		assertEquals(keyPath, getService().probeGenuineServiceKey("myKey"));
+		assertEquals(keyPath, getService().probeGenuineServiceKey("my-Bucket"));
 	}
 	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
-		final Path keyPath = keyDir.resolve("myKey");
+		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
@@ -268,7 +268,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	@Test final void probeBucketTagDirectory() throws Exception
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
-		final Path keyPath = keyDir.resolve("myKey");
+		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
@@ -284,15 +284,15 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	private void assertProbeBucketTagFails(final String reason)
 	{
 		assertFails(
-				() -> getService().probeGenuineServiceKey("myKey"),
+				() -> getService().probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
-				reason + ": " + getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
+				reason + ": " + getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "my-Bucket");
 	}
 	private void assertProbeBucketTagFails()
 	{
 		assertFails(
-				() -> getService().probeGenuineServiceKey("myKey"),
+				() -> getService().probeGenuineServiceKey("my-Bucket"),
 				NoSuchFileException.class,
-				getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
+				getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "my-Bucket");
 	}
 }

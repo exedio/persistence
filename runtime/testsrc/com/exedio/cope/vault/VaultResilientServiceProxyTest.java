@@ -326,7 +326,7 @@ public class VaultResilientServiceProxyTest
 		s.close();
 		m.assertIt("close\n");
 		assertFails(
-				() -> s.probeGenuineServiceKey("myKey"),
+				() -> s.probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
 				"closed");
 		m.assertIt("");
@@ -385,7 +385,7 @@ public class VaultResilientServiceProxyTest
 	}
 	@Test void probeGenuineServiceKey() throws Exception
 	{
-		assertEquals("mock:default(myKey)", s.probeGenuineServiceKey("myKey"));
+		assertEquals("mock:default(myKey)", s.probeGenuineServiceKey("my-Bucket"));
 		m.assertIt("");
 	}
 	@Test void probeGenuineServiceKeyNull()
