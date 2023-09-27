@@ -118,9 +118,9 @@ public class VaultReferenceServiceGenuineKeyTest
 		final Source source = cascade(
 				single("default.service", VaultReferenceService.class),
 				single("default.service.main", VaultMockService.class),
-				single("default.service.main.genuineServiceKey", main),
+				single("default.service.main.bucketTagAction", main),
 				single("default.service.reference", VaultMockService.class),
-				single("default.service.reference.genuineServiceKey", reference)
+				single("default.service.reference.bucketTagAction", reference)
 		);
 		return (VaultReferenceService)VaultProperties.factory().create(source).newServicesNonResilient(DEFAULT).get(DEFAULT);
 	}

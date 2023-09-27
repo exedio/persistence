@@ -251,7 +251,7 @@ public final class VaultMockService implements VaultService
 		final boolean failGet = value("fail.get", false);
 		final boolean failPut = value("fail.put", false);
 		final String probeResult = value("probe.result", "probeMockResult");
-		final String getGenuineServiceKey = value("genuineServiceKey", "default");
+		final String getGenuineServiceKey = value("bucketTagAction", "default");
 
 		Props(final Source source)
 		{

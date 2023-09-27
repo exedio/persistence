@@ -85,11 +85,11 @@ public class VaultMultiTest
 				single("vault.alpha.service", VaultMockService.class),
 				single("vault.alpha.service.example", "alphaEx"),
 				single("vault.alpha.service.probe.result", "probeResultAlpha"),
-				single("vault.alpha.service.genuineServiceKey", "alpha"),
+				single("vault.alpha.service.bucketTagAction", "alpha"),
 				single("vault.beta.service", VaultMockService.class),
 				single("vault.beta.service.example", "betaEx"),
 				single("vault.beta.service.probe.result", "probeResultBeta"),
-				single("vault.beta.service.genuineServiceKey", "beta"),
+				single("vault.beta.service.bucketTagAction", "beta"),
 				TestSources.minimal()
 		)));
 		final Map<String, VaultService> vaults = deresiliate(MODEL.connect().vaults);
