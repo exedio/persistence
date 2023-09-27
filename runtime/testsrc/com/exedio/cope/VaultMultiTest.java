@@ -135,22 +135,22 @@ public class VaultMultiTest
 		assertEquals(asList(
 				"Connect",
 				"vault.default.Contract",
-				"vault.default.genuineServiceKey",
+				"vault.default.xBucketTag",
 				"vault.default.service.Mock",
 				"vault.alpha.Contract",
-				"vault.alpha.genuineServiceKey",
+				"vault.alpha.xBucketTag",
 				"vault.alpha.service.Mock",
 				"vault.beta.Contract",
-				"vault.beta.genuineServiceKey",
+				"vault.beta.xBucketTag",
 				"vault.beta.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
 		assertRg("vault.default.Contract", "VaultMockService:defaultEx [0-9a-f]{16}xx128", probes);
-		assertIt("vault.default.genuineServiceKey", "mock:default",  String.class, probes);
+		assertIt("vault.default.xBucketTag", "mock:default",         String.class, probes);
 		assertRg("vault.alpha.Contract",   "VaultMockService:alphaEx [0-9a-f]{16}xx128",   probes);
-		assertIt("vault.alpha.genuineServiceKey",   "mock:alpha",    String.class, probes);
+		assertIt("vault.alpha.xBucketTag",   "mock:alpha",           String.class, probes);
 		assertRg("vault.beta.Contract",    "VaultMockService:betaEx [0-9a-f]{16}xx128",    probes);
-		assertIt("vault.beta.genuineServiceKey",    "mock:beta",     String.class, probes);
+		assertIt("vault.beta.xBucketTag",    "mock:beta",            String.class, probes);
 		assertIt("vault.default.service.Mock", "probeResultDefault", String.class, probes);
 		assertIt("vault.alpha.service.Mock",   "probeResultAlpha",   String.class, probes);
 		assertIt("vault.beta.service.Mock",    "probeResultBeta",    String.class, probes);
