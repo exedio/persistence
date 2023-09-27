@@ -240,59 +240,59 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	@Override
 	@Test protected final void probeBucketTag() throws Exception
 	{
-		final Path keyDir = getGenuineServiceKeyRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
-		assertProbeGenuineServiceKeyFails();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
-		assertProbeGenuineServiceKeyFails();
+		assertProbeBucketTagFails();
 
 		Files.write(keyPath, new byte[]{});
 		assertEquals(keyPath, getService().probeGenuineServiceKey("myKey"));
 	}
-	@Test protected final void probeGenuineServiceKeyNonEmpty() throws Exception
+	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
-		final Path keyDir = getGenuineServiceKeyRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
-		assertProbeGenuineServiceKeyFails();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
-		assertProbeGenuineServiceKeyFails();
+		assertProbeBucketTagFails();
 
 		Files.write(keyPath, new byte[]{1});
-		assertProbeGenuineServiceKeyFails("is not empty, but has size 1");
+		assertProbeBucketTagFails("is not empty, but has size 1");
 
 		Files.write(keyPath, new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13});
-		assertProbeGenuineServiceKeyFails("is not empty, but has size 13");
+		assertProbeBucketTagFails("is not empty, but has size 13");
 	}
-	@Test final void probeGenuineServiceKeyDirectory() throws Exception
+	@Test final void probeBucketTagDirectory() throws Exception
 	{
-		final Path keyDir = getGenuineServiceKeyRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
-		assertProbeGenuineServiceKeyFails();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
-		assertProbeGenuineServiceKeyFails();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyPath);
-		assertProbeGenuineServiceKeyFails("is not a regular file");
+		assertProbeBucketTagFails("is not a regular file");
 	}
-	protected File getGenuineServiceKeyRoot()
+	protected File getBucketTagRoot()
 	{
 		return getRoot();
 	}
-	private void assertProbeGenuineServiceKeyFails(final String reason)
+	private void assertProbeBucketTagFails(final String reason)
 	{
 		assertFails(
 				() -> getService().probeGenuineServiceKey("myKey"),
 				IllegalStateException.class,
-				reason + ": " + getGenuineServiceKeyRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
+				reason + ": " + getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
 	}
-	private void assertProbeGenuineServiceKeyFails()
+	private void assertProbeBucketTagFails()
 	{
 		assertFails(
 				() -> getService().probeGenuineServiceKey("myKey"),
 				NoSuchFileException.class,
-				getGenuineServiceKeyRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
+				getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
 	}
 }
