@@ -186,15 +186,15 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 
 		Files.write(keyPath, new byte[]{});
 		assertEquals(
-				new java.net.URI(URL + "/VaultGenuineServiceKey/myKey"),
+				new java.net.URI(URL + "/VaultGenuineServiceKey/my-Bucket"),
 				getService().probeGenuineServiceKey("my-Bucket"));
 		assertEquals(
 				keyPath.toAbsolutePath(),
 				getServicePut().probeGenuineServiceKey("my-Bucket"));
 		assertFails(
-				() -> getService().probeGenuineServiceKey("MyKey"), // wrong case
+				() -> getService().probeGenuineServiceKey("My-Bucket"), // wrong case
 				IllegalStateException.class,
-				"response code 404:" + URL + "/VaultGenuineServiceKey/MyKey");
+				"response code 404:" + URL + "/VaultGenuineServiceKey/My-Bucket");
 	}
 	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
@@ -219,7 +219,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 		assertFails(
 				() -> getService().probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
-				reason + ":" + URL + "/VaultGenuineServiceKey/myKey");
+				reason + ":" + URL + "/VaultGenuineServiceKey/my-Bucket");
 	}
 
 	@Test void notFoundAnonymousLength()

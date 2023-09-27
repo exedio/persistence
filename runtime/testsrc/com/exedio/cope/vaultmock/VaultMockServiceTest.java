@@ -54,6 +54,6 @@ public class VaultMockServiceTest extends VaultServiceTest
 	@Override
 	@Test protected void probeBucketTag() throws Exception
 	{
-		assertEquals("mock:default(myKey)", getService().probeGenuineServiceKey("my-Bucket"));
+		assertEquals("mock:default(my-Bucket)", getService().probeGenuineServiceKey("my-Bucket"));
 	}
 }

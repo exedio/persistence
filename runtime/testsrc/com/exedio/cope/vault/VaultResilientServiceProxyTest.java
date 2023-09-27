@@ -385,7 +385,7 @@ public class VaultResilientServiceProxyTest
 	}
 	@Test void probeGenuineServiceKey() throws Exception
 	{
-		assertEquals("mock:default(myKey)", s.probeGenuineServiceKey("my-Bucket"));
+		assertEquals("mock:default(my-Bucket)", s.probeGenuineServiceKey("my-Bucket"));
 		m.assertIt("");
 	}
 	@Test void probeGenuineServiceKeyNull()

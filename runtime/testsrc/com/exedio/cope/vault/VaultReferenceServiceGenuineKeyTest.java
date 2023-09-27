@@ -37,7 +37,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		final VaultReferenceService service = service("mainGenuine", "refrGenuine");
 
 		assertEquals(
-				"mock:mainGenuine(myKey)",
+				"mock:mainGenuine(my-Bucket)",
 				service.probeGenuineServiceKey("my-Bucket"));
 	}
 	@Test void succeedAbort()
@@ -47,7 +47,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(true, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				BucketTagNotSupported.class,
-				"ABORT refrGenuine(myKey)"));
+				"ABORT refrGenuine(my-Bucket)"));
 	}
 	@Test void succeedFail()
 	{
@@ -56,7 +56,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(true, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
-				"FAIL refrGenuine(myKey)"));
+				"FAIL refrGenuine(my-Bucket)"));
 	}
 	@Test void abortSucceed()
 	{
@@ -65,7 +65,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				BucketTagNotSupported.class,
-				"ABORT mainGenuine(myKey)"));
+				"ABORT mainGenuine(my-Bucket)"));
 	}
 	@Test void abortAbort()
 	{
@@ -74,7 +74,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				BucketTagNotSupported.class,
-				"ABORT mainGenuine(myKey)"));
+				"ABORT mainGenuine(my-Bucket)"));
 	}
 	@Test void abortFail()
 	{
@@ -83,7 +83,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				BucketTagNotSupported.class,
-				"ABORT mainGenuine(myKey)"));
+				"ABORT mainGenuine(my-Bucket)"));
 	}
 	@Test void failSucceed()
 	{
@@ -92,7 +92,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
-				"FAIL mainGenuine(myKey)"));
+				"FAIL mainGenuine(my-Bucket)"));
 	}
 	@Test void failAbort()
 	{
@@ -101,7 +101,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
-				"FAIL mainGenuine(myKey)"));
+				"FAIL mainGenuine(my-Bucket)"));
 	}
 	@Test void failFail()
 	{
@@ -110,7 +110,7 @@ public class VaultReferenceServiceGenuineKeyTest
 		assertStackTrace(false, assertFails(
 				() -> service.probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
-				"FAIL mainGenuine(myKey)"));
+				"FAIL mainGenuine(my-Bucket)"));
 	}
 
 	private static VaultReferenceService service(final String main, final String reference)
