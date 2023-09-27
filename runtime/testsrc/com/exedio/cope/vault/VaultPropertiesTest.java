@@ -122,7 +122,7 @@ public class VaultPropertiesTest
 		final Source source =
 				describe("DESC", cascade(
 						single("default.service", VaultMockService.class),
-						single("default.service.genuineServiceKey", "default")
+						single("default.service.bucketTagAction", "default")
 				));
 		final VaultProperties props = factory.create(source);
 		assertEquals("mock:default", probeGenuineServiceKey(props));
@@ -134,7 +134,7 @@ public class VaultPropertiesTest
 		final Source source =
 				describe("DESC", cascade(
 						single("default.service", VaultMockService.class),
-						single("default.service.genuineServiceKey", "ABORT in test")
+						single("default.service.bucketTagAction", "ABORT in test")
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
@@ -149,7 +149,7 @@ public class VaultPropertiesTest
 		final Source source =
 				describe("DESC", cascade(
 						single("default.service", VaultMockService.class),
-						single("default.service.genuineServiceKey", "FAIL in test")
+						single("default.service.bucketTagAction", "FAIL in test")
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
