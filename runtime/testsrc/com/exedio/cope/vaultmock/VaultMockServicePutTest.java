@@ -181,7 +181,7 @@ public class VaultMockServicePutTest extends VaultServiceTest
 	}
 
 	@Override
-	@Test protected void probeGenuineServiceKey() throws Exception
+	@Test protected void probeBucketTag() throws Exception
 	{
 		assertEquals("mock:default(myKey)", getService().probeGenuineServiceKey("myKey"));
 	}

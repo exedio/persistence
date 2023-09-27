@@ -173,15 +173,15 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	}
 
 	@Override
-	@Test protected final void probeGenuineServiceKey() throws Exception
+	@Test protected final void probeBucketTag() throws Exception
 	{
 		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
-		assertProbeGenuineServiceKeyFails("response code 404");
+		assertProbeBucketTagFails("response code 404");
 		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
 
 		createDirectory(keyDir);
-		assertProbeGenuineServiceKeyFails("response code 404");
+		assertProbeBucketTagFails("response code 404");
 		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
 
 		Files.write(keyPath, new byte[]{});
@@ -196,25 +196,25 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 				IllegalStateException.class,
 				"response code 404:" + URL + "/VaultGenuineServiceKey/MyKey");
 	}
-	@Test protected final void probeGenuineServiceKeyNonEmpty() throws Exception
+	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
 		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
-		assertProbeGenuineServiceKeyFails("response code 404");
+		assertProbeBucketTagFails("response code 404");
 		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
 
 		createDirectory(keyDir);
-		assertProbeGenuineServiceKeyFails("response code 404");
+		assertProbeBucketTagFails("response code 404");
 		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("myKey"));
 
 		Files.write(keyPath, new byte[]{1});
-		assertProbeGenuineServiceKeyFails("is not empty, but has size 1");
+		assertProbeBucketTagFails("is not empty, but has size 1");
 		assertFails(
 				() -> getServicePut().probeGenuineServiceKey("myKey"),
 				IllegalStateException.class,
 				"is not empty, but has size 1: " + keyPath.toAbsolutePath());
 	}
-	private void assertProbeGenuineServiceKeyFails(final String reason)
+	private void assertProbeBucketTagFails(final String reason)
 	{
 		assertFails(
 				() -> getService().probeGenuineServiceKey("myKey"),

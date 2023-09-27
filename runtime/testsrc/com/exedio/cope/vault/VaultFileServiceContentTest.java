@@ -45,9 +45,9 @@ public class VaultFileServiceContentTest extends AbstractVaultFileServiceTest
 		return result;
 	}
 	@Override
-	protected File getGenuineServiceKeyRoot()
+	protected File getBucketTagRoot()
 	{
-		return new File(super.getGenuineServiceKeyRoot(), "mycontentdir");
+		return new File(super.getBucketTagRoot(), "mycontentdir");
 	}
 
 	private static final EnumSet<PosixFilePermission> filePerms = EnumSet.of(OWNER_READ, OWNER_WRITE);
