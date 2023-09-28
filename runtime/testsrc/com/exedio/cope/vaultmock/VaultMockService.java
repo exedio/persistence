@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vaultmock;
 
+import static com.exedio.cope.vault.VaultPropertiesTest.getVaultProperties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -62,7 +63,7 @@ public final class VaultMockService implements VaultService
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
-		this.vaultProperties = parameters.getVaultProperties();
+		this.vaultProperties = getVaultProperties(parameters);
 		this.serviceProperties = properties;
 		this.bucket = parameters.getBucket();
 		this.writable = parameters.isWritable();

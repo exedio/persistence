@@ -360,7 +360,7 @@ public class VaultPropertiesTest
 
 		final VaultProperties props = factory.create(source);
 		final ServicePropertiesMissing service = (ServicePropertiesMissing)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
-		assertSame(props, service.parameters.getVaultProperties());
+		assertSame(props, getVaultProperties(service.parameters));
 	}
 	@Test void servicePropertiesMissingReference()
 	{
@@ -374,8 +374,8 @@ public class VaultPropertiesTest
 		final VaultReferenceService service = (VaultReferenceService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();
-		assertSame(props, main.parameters.getVaultProperties());
-		assertSame(props, ref .parameters.getVaultProperties());
+		assertSame(props, getVaultProperties(main.parameters));
+		assertSame(props, getVaultProperties(ref .parameters));
 		assertNotSame(main, ref);
 	}
 	static class ServicePropertiesMissing extends AssertionErrorVaultService
@@ -386,6 +386,11 @@ public class VaultPropertiesTest
 		{
 			this.parameters = parameters;
 		}
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	public static VaultProperties getVaultProperties(final VaultServiceParameters parameters)
+	{
+		return parameters.getVaultProperties();
 	}
 
 

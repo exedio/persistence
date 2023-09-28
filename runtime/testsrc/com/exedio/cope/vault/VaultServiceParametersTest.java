@@ -20,6 +20,7 @@ package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultPropertiesTest.getVaultProperties;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -40,7 +41,7 @@ public class VaultServiceParametersTest
 		final MessageDigestFactory mdf = props.getAlgorithmFactory();
 		final VaultServiceParameters w = new VaultServiceParameters(props, "testBucket", true,  () -> false);
 
-		assertSame(props, w.getVaultProperties());
+		assertSame(props, getVaultProperties(w));
 		assertSame(mdf, w.getMessageDigestFactory());
 		assertEquals("MD5", w.getMessageDigestAlgorithm());
 		assertEquals(32, w.getMessageDigestLengthHex());
@@ -60,10 +61,10 @@ public class VaultServiceParametersTest
 		final VaultServiceParameters rw = r.withWritable(true);
 		final VaultServiceParameters rr = r.withWritable(false);
 
-		assertSame(props, ww.getVaultProperties());
-		assertSame(props, wr.getVaultProperties());
-		assertSame(props, rw.getVaultProperties());
-		assertSame(props, rr.getVaultProperties());
+		assertSame(props, getVaultProperties(ww));
+		assertSame(props, getVaultProperties(wr));
+		assertSame(props, getVaultProperties(rw));
+		assertSame(props, getVaultProperties(rr));
 
 		assertSame(mdf, ww.getMessageDigestFactory());
 		assertSame(mdf, wr.getMessageDigestFactory());

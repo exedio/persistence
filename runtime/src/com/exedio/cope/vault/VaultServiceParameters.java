@@ -44,6 +44,14 @@ public final class VaultServiceParameters
 		this.markPut = requireNonNull(markPut);
 	}
 
+	/**
+	 * @deprecated Use
+	 * {@link #getMessageDigestFactory()},
+	 * {@link #getMessageDigestAlgorithm()},
+	 * {@link #getMessageDigestLengthHex()}
+	 * {@link #getMessageDigestForEmptyByteSequenceHex()} instead.
+	 */
+	@Deprecated
 	@Nonnull
 	public VaultProperties getVaultProperties()
 	{
