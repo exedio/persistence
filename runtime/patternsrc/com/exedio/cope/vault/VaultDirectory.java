@@ -131,11 +131,10 @@ abstract class VaultDirectory
 
 		void check(final VaultServiceParameters parameters)
 		{
-			final VaultProperties props = parameters.getVaultProperties();
-			final int algorithmLength = props.getAlgorithmLength();
+			final int algorithmLength = parameters.getMessageDigestLengthHex();
 			if(length>=algorithmLength)
 				throw new IllegalArgumentException(
-						"directory.length must be less the length of algorithm " + props.getAlgorithm() + ", " +
+						"directory.length must be less the length of algorithm " + parameters.getMessageDigestAlgorithm() + ", " +
 						"but was " + length + ">=" + algorithmLength);
 		}
 

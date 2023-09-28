@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.util.function.BooleanSupplier;
 import org.junit.jupiter.api.Test;
@@ -31,10 +32,27 @@ import org.opentest4j.AssertionFailedError;
 
 public class VaultServiceParametersTest
 {
+	@Test void testMessageDigest()
+	{
+		final VaultProperties props = VaultProperties.factory().create(cascade(
+				single("algorithm", "MD5"),
+				single("default.service", VaultMockService.class)));
+		final MessageDigestFactory mdf = props.getAlgorithmFactory();
+		final VaultServiceParameters w = new VaultServiceParameters(props, "testBucket", true,  () -> false);
+
+		assertSame(props, w.getVaultProperties());
+		assertSame(mdf, w.getMessageDigestFactory());
+		assertEquals("MD5", w.getMessageDigestAlgorithm());
+		assertEquals(32, w.getMessageDigestLengthHex());
+		assertEquals("d41d8cd98f00b204e9800998ecf8427e", w.getMessageDigestForEmptyByteSequenceHex());
+		assertEquals("testBucket", w.getBucket());
+	}
+
 	@Test void testWithWritable()
 	{
 		final VaultProperties props = VaultProperties.factory().create(cascade(
 				single("default.service", VaultMockService.class)));
+		final MessageDigestFactory mdf = props.getAlgorithmFactory();
 		final VaultServiceParameters w = new VaultServiceParameters(props, "testBucketW", true,  BSW);
 		final VaultServiceParameters r = new VaultServiceParameters(props, "testBucketR", false, BSR);
 		final VaultServiceParameters ww = w.withWritable(true);
@@ -46,6 +64,11 @@ public class VaultServiceParametersTest
 		assertSame(props, wr.getVaultProperties());
 		assertSame(props, rw.getVaultProperties());
 		assertSame(props, rr.getVaultProperties());
+
+		assertSame(mdf, ww.getMessageDigestFactory());
+		assertSame(mdf, wr.getMessageDigestFactory());
+		assertSame(mdf, rw.getMessageDigestFactory());
+		assertSame(mdf, rr.getMessageDigestFactory());
 
 		assertEquals("testBucketW", ww.getBucket());
 		assertEquals("testBucketW", wr.getBucket());
