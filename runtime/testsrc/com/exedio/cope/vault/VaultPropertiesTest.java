@@ -104,7 +104,7 @@ public class VaultPropertiesTest
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
 				"default.Contract",
-				"default.xBucketTag",
+				"default.BucketTag",
 				"default.service.Mock"),
 				new ArrayList<>(probes.keySet()));
 		final Callable<?> probe = requireNonNull(probes.get("default.Contract"));
@@ -164,10 +164,10 @@ public class VaultPropertiesTest
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
 				"default.Contract",
-				"default.xBucketTag",
+				"default.BucketTag",
 				"default.service.Mock"),
 				new ArrayList<>(probes.keySet()));
-		final Callable<?> probe = probes.get("default.xBucketTag");
+		final Callable<?> probe = probes.get("default.BucketTag");
 		return probe.call();
 	}
 

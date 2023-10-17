@@ -41,10 +41,7 @@ final class BucketProperties extends AbstractVaultProperties
 		return new ContractProbe(parent, bucket, service).call();
 	}
 
-	// The "x" in front of "xBucketTag" is just for maintaining order of probes,
-	// so "xBucketTag" is still after "Contract".
-	// TODO make something better
-	@Probe(name="xBucketTag")
+	@Probe(name="BucketTag", order=1)
 	Object probeBucketTag() throws Exception
 	{
 		try(VaultService s = service.newService(parent, bucket, () -> false))
