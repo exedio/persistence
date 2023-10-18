@@ -41,6 +41,9 @@ import java.util.function.Function;
 
 public final class VaultProperties extends Properties
 {
+	/**
+	 * TODO move to {@link BucketProperties}.
+	 */
 	private final MessageDigestFactory algorithm = valueMessageDigest("algorithm", "SHA-512");
 
 	public MessageDigestFactory getAlgorithmFactory()
@@ -235,6 +238,9 @@ public final class VaultProperties extends Properties
 
 
 
+	/**
+	 * TODO move to {@link BucketProperties}.
+	 */
 	private final TrailProperties trail;
 
 	private TrailProperties valueTrail()
