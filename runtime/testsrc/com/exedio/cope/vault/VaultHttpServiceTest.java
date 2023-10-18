@@ -189,7 +189,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 				new java.net.URI(URL + "/VaultGenuineServiceKey/my-Bucket"),
 				getService().probeGenuineServiceKey("my-Bucket"));
 		assertEquals(
-				keyPath.toAbsolutePath(),
+				"deprecated: " + keyPath.toAbsolutePath(),
 				getServicePut().probeGenuineServiceKey("my-Bucket"));
 		assertFails(
 				() -> getService().probeGenuineServiceKey("My-Bucket"), // wrong case

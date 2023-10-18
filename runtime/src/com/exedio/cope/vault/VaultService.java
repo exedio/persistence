@@ -116,5 +116,10 @@ public interface VaultService extends AutoCloseable
 	 * A string constant to be used in conjunction with {@link #probeGenuineServiceKey(String)}.
 	 * Could be used as file name, table name or url segment.
 	 */
+	String VAULT_BUCKET_TAG = "VaultBucketTag";
+
+	/**
+	 * Use {@link #VAULT_BUCKET_TAG} instead.
+	 */
 	String VAULT_GENUINE_SERVICE_KEY = "VaultGenuineServiceKey";
 }
