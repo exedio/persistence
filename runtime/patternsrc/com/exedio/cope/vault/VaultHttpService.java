@@ -160,7 +160,7 @@ public final class VaultHttpService extends VaultNonWritableService
 	// so we are free to change signature in the future without breaking API compatibility.
 	public Object probeGenuineServiceKey(final String bucket) throws Exception
 	{
-		final URI uri = new URI(rootUri + '/' + VAULT_GENUINE_SERVICE_KEY + '/' + bucket);
+		final URI uri = new URI(rootUri + '/' + VAULT_BUCKET_TAG + '/' + bucket);
 		final HttpResponse<Void> response = client.send(
 				properties.newRequest(uri, REQUEST_METHOD_HEAD),
 				responseInfo -> BodySubscribers.discarding());
