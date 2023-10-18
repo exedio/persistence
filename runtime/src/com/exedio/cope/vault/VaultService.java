@@ -119,7 +119,9 @@ public interface VaultService extends AutoCloseable
 	String VAULT_BUCKET_TAG = "VaultBucketTag";
 
 	/**
+	 * @deprecated
 	 * Use {@link #VAULT_BUCKET_TAG} instead.
 	 */
+	@Deprecated
 	String VAULT_GENUINE_SERVICE_KEY = "VaultGenuineServiceKey";
 }

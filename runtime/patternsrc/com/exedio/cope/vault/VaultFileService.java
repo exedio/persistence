@@ -330,6 +330,7 @@ public final class VaultFileService implements VaultService
 	// so we are free to change signature in the future without breaking API compatibility.
 	public Object probeGenuineServiceKey(final String bucket) throws Exception
 	{
+		@SuppressWarnings("deprecation") // OK: support deprecated directory
 		final Path oldDir = contentDir.resolve(VAULT_GENUINE_SERVICE_KEY);
 		final Path newDir = contentDir.resolve(VAULT_BUCKET_TAG);
 		return

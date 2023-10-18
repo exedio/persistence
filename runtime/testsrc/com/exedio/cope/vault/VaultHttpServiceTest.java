@@ -175,7 +175,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	@Override
 	@Test protected final void probeBucketTag() throws Exception
 	{
-		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultGenuineServiceKey");
+		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFails("response code 404");
 		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("my-Bucket"));
@@ -186,19 +186,19 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 
 		Files.write(keyPath, new byte[]{});
 		assertEquals(
-				new java.net.URI(URL + "/VaultGenuineServiceKey/my-Bucket"),
+				new java.net.URI(URL + "/VaultBucketTag/my-Bucket"),
 				getService().probeGenuineServiceKey("my-Bucket"));
 		assertEquals(
-				"deprecated: " + keyPath.toAbsolutePath(),
+				keyPath.toAbsolutePath(),
 				getServicePut().probeGenuineServiceKey("my-Bucket"));
 		assertFails(
 				() -> getService().probeGenuineServiceKey("My-Bucket"), // wrong case
 				IllegalStateException.class,
-				"response code 404:" + URL + "/VaultGenuineServiceKey/My-Bucket");
+				"response code 404:" + URL + "/VaultBucketTag/My-Bucket");
 	}
 	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
-		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultGenuineServiceKey");
+		final Path keyDir = DIR.resolve(CONTENT_DIR).resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFails("response code 404");
 		assertThrows(NoSuchFileException.class, () -> getServicePut().probeGenuineServiceKey("my-Bucket"));
@@ -219,7 +219,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 		assertFails(
 				() -> getService().probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
-				reason + ":" + URL + "/VaultGenuineServiceKey/my-Bucket");
+				reason + ":" + URL + "/VaultBucketTag/my-Bucket");
 	}
 
 	@Test void notFoundAnonymousLength()
