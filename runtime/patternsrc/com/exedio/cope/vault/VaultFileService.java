@@ -417,13 +417,13 @@ public final class VaultFileService implements VaultService
 			return temp;
 		}
 
-		@Probe(name="root.Exists", order=2)
+		@Probe(name="root.Exists", order=110)
 		private Path probeRootExists()
 		{
 			return probeDirectoryExists(root);
 		}
 
-		@Probe(name="root.Free", order=2)
+		@Probe(name="root.Free", order=120)
 		private String probeRootFree() throws IOException
 		{
 			final FileStore store = Files.getFileStore(root);
@@ -433,19 +433,19 @@ public final class VaultFileService implements VaultService
 					(total/(1024*1024*1024)) + "GiB";
 		}
 
-		@Probe(name="content.Exists")
+		@Probe(name="content.Exists", order=210)
 		private Path probeContentExists()
 		{
 			return probeDirectoryExists(content);
 		}
 
-		@Probe(name="PosixGroup", order=2)
+		@Probe(name="PosixGroup", order=310)
 		private GroupPrincipal probeGroup() throws ProbeAbortedException, IOException
 		{
 			return probeGroup(filePosixGroup);
 		}
 
-		@Probe(name="directory.PosixGroup", order=1)
+		@Probe(name="directory.PosixGroup", order=420)
 		private GroupPrincipal probeDirectoryGroup() throws ProbeAbortedException, IOException
 		{
 			return probeGroup(directoryForProbe().posixGroup);
@@ -461,7 +461,7 @@ public final class VaultFileService implements VaultService
 			return lookupGroup(root, group);
 		}
 
-		@Probe(name="temp.Exists", order=2)
+		@Probe(name="temp.Exists", order=510)
 		private Path probeTempExists() throws ProbeAbortedException
 		{
 			return probeDirectoryExists(tempDirForProbe());
@@ -489,7 +489,7 @@ public final class VaultFileService implements VaultService
 			return absolute;
 		}
 
-		@Probe(name="temp.Store", order=2)
+		@Probe(name="temp.Store", order=520)
 		private FileStore probeTempStore() throws ProbeAbortedException, IOException
 		{
 			final Path tempDir = tempDirForProbe();
@@ -503,7 +503,7 @@ public final class VaultFileService implements VaultService
 			return contStore;
 		}
 
-		@Probe(name="directory.Premised")
+		@Probe(name="directory.Premised", order=410)
 		private Object probeDirectoryPremised() throws ProbeAbortedException
 		{
 			int missingTotal = 0;

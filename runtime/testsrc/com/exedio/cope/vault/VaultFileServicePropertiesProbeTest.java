@@ -104,12 +104,12 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
-				"content.Exists",
-				"directory.Premised",
-				"directory.PosixGroup",
-				"PosixGroup",
 				"root.Exists",
 				"root.Free",
+				"content.Exists",
+				"PosixGroup",
+				"directory.Premised",
+				"directory.PosixGroup",
 				"temp.Exists",
 				"temp.Store"),
 				new ArrayList<>(probes.keySet()));
@@ -211,12 +211,12 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
-						"content.Exists",
-						"directory.Premised",
-						"directory.PosixGroup",
-						"PosixGroup",
 						"root.Exists",
 						"root.Free",
+						"content.Exists",
+						"PosixGroup",
+						"directory.Premised",
+						"directory.PosixGroup",
 						"temp.Exists",
 						"temp.Store"),
 				new ArrayList<>(probes.keySet()));
@@ -313,12 +313,12 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
-				"content.Exists",
-				"directory.Premised",
-				"directory.PosixGroup",
-				"PosixGroup",
 				"root.Exists",
 				"root.Free",
+				"content.Exists",
+				"PosixGroup",
+				"directory.Premised",
+				"directory.PosixGroup",
 				"temp.Exists",
 				"temp.Store"),
 				new ArrayList<>(probes.keySet()));
