@@ -46,21 +46,37 @@ public final class VaultProperties extends Properties
 	 */
 	private final MessageDigestFactory algorithm = valueMessageDigest("algorithm", "SHA-512");
 
+	/**
+	 * To be deprecated when {@code algorithm} can be set per bucket.
+	 * Use {@link VaultServiceParameters#getMessageDigestFactory()} instead.
+	 */
 	public MessageDigestFactory getAlgorithmFactory()
 	{
 		return algorithm;
 	}
 
+	/**
+	 * To be deprecated when {@code algorithm} can be set per bucket.
+	 * Use {@link VaultServiceParameters#getMessageDigestAlgorithm()} instead.
+	 */
 	public String getAlgorithm()
 	{
 		return algorithm.getAlgorithm();
 	}
 
+	/**
+	 * To be deprecated when {@code algorithm} can be set per bucket.
+	 * Use {@link VaultServiceParameters#getMessageDigestLengthHex()} instead.
+	 */
 	public int getAlgorithmLength()
 	{
 		return algorithm.getLengthHex();
 	}
 
+	/**
+	 * To be deprecated when {@code algorithm} can be set per bucket.
+	 * Use {@link VaultServiceParameters#getMessageDigestForEmptyByteSequenceHex()} instead.
+	 */
 	public String getAlgorithmDigestForEmptyByteSequence()
 	{
 		return algorithm.getDigestForEmptyByteSequenceHex();

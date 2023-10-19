@@ -52,7 +52,7 @@ public final class VaultTestService implements VaultService
 
 	public VaultTestService(final VaultServiceParameters parameters)
 	{
-		this.messageDigestFactory = parameters.getVaultProperties().getAlgorithmFactory();
+		this.messageDigestFactory = parameters.getMessageDigestFactory();
 		assertNotNull(messageDigestFactory);
 	}
 

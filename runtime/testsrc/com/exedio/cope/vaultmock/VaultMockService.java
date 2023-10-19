@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -70,6 +71,7 @@ public final class VaultMockService implements VaultService
 		assertNotNull(serviceProperties);
 		assertNotNull(bucket);
 		assertNotNull(requiresToMarkPut);
+		assertSame(vaultProperties.getAlgorithmFactory(), parameters.getMessageDigestFactory());
 	}
 
 	@Override

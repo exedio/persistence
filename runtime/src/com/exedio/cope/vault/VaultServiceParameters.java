@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataFieldVaultInfo;
+import com.exedio.cope.util.MessageDigestFactory;
 import java.util.function.BooleanSupplier;
 import javax.annotation.Nonnull;
 
@@ -60,6 +61,28 @@ public final class VaultServiceParameters
 	{
 		return bucket;
 	}
+
+
+	public MessageDigestFactory getMessageDigestFactory()
+	{
+		return vaultProperties.getAlgorithmFactory();
+	}
+
+	public String getMessageDigestAlgorithm()
+	{
+		return getMessageDigestFactory().getAlgorithm();
+	}
+
+	public int getMessageDigestLengthHex()
+	{
+		return getMessageDigestFactory().getLengthHex();
+	}
+
+	public String getMessageDigestForEmptyByteSequenceHex()
+	{
+		return getMessageDigestFactory().getDigestForEmptyByteSequenceHex();
+	}
+
 
 	/**
 	 * If this method returns false, put methods such as
