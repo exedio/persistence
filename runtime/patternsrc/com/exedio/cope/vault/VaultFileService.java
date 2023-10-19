@@ -417,13 +417,13 @@ public final class VaultFileService implements VaultService
 			return temp;
 		}
 
-		@Probe(name="root.Exists")
+		@Probe(name="root.Exists", order=2)
 		private Path probeRootExists()
 		{
 			return probeDirectoryExists(root);
 		}
 
-		@Probe(name="root.Free")
+		@Probe(name="root.Free", order=2)
 		private String probeRootFree() throws IOException
 		{
 			final FileStore store = Files.getFileStore(root);
@@ -439,13 +439,13 @@ public final class VaultFileService implements VaultService
 			return probeDirectoryExists(content);
 		}
 
-		@Probe(name="group")
+		@Probe(name="PosixGroup", order=2)
 		private GroupPrincipal probeGroup() throws ProbeAbortedException, IOException
 		{
 			return probeGroup(filePosixGroup);
 		}
 
-		@Probe(name="directory.group")
+		@Probe(name="directory.PosixGroup", order=1)
 		private GroupPrincipal probeDirectoryGroup() throws ProbeAbortedException, IOException
 		{
 			return probeGroup(directoryForProbe().posixGroup);
@@ -461,7 +461,7 @@ public final class VaultFileService implements VaultService
 			return lookupGroup(root, group);
 		}
 
-		@Probe(name="temp.Exists")
+		@Probe(name="temp.Exists", order=2)
 		private Path probeTempExists() throws ProbeAbortedException
 		{
 			return probeDirectoryExists(tempDirForProbe());
@@ -489,7 +489,7 @@ public final class VaultFileService implements VaultService
 			return absolute;
 		}
 
-		@Probe(name="temp.Store")
+		@Probe(name="temp.Store", order=2)
 		private FileStore probeTempStore() throws ProbeAbortedException, IOException
 		{
 			final Path tempDir = tempDirForProbe();

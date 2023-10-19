@@ -106,16 +106,16 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(asList(
 				"content.Exists",
 				"directory.Premised",
-				"directory.group",
-				"group",
+				"directory.PosixGroup",
+				"PosixGroup",
 				"root.Exists",
 				"root.Free",
 				"temp.Exists",
 				"temp.Store"),
 				new ArrayList<>(probes.keySet()));
 
-		final Callable<?> groupd     = probes.get("directory.group");
-		final Callable<?> groupf     = probes.get("group");
+		final Callable<?> groupd     = probes.get("directory.PosixGroup");
+		final Callable<?> groupf     = probes.get("PosixGroup");
 		final Callable<?> rootExists = probes.get("root.Exists");
 		final Callable<?> rootFree   = probes.get("root.Free");
 		final Callable<?> contExists = probes.get("content.Exists");
@@ -213,8 +213,8 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(asList(
 						"content.Exists",
 						"directory.Premised",
-						"directory.group",
-						"group",
+						"directory.PosixGroup",
+						"PosixGroup",
 						"root.Exists",
 						"root.Free",
 						"temp.Exists",
@@ -315,15 +315,15 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(asList(
 				"content.Exists",
 				"directory.Premised",
-				"directory.group",
-				"group",
+				"directory.PosixGroup",
+				"PosixGroup",
 				"root.Exists",
 				"root.Free",
 				"temp.Exists",
 				"temp.Store"),
 				new ArrayList<>(probes.keySet()));
-		final Callable<?> groupd     = probes.get("directory.group");
-		final Callable<?> groupf     = probes.get("group");
+		final Callable<?> groupd     = probes.get("directory.PosixGroup");
+		final Callable<?> groupf     = probes.get("PosixGroup");
 		final Callable<?> rootExists = probes.get("root.Exists");
 		final Callable<?> rootFree   = probes.get("root.Free");
 		final Callable<?> contExists = probes.get("content.Exists");
@@ -737,8 +737,8 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		final Map<String,Callable<?>> probes = probes(p);
-		final Callable<?> groupd = probes.get("directory.group");
-		final Callable<?> groupf = probes.get("group");
+		final Callable<?> groupd = probes.get("directory.PosixGroup");
+		final Callable<?> groupf = probes.get("PosixGroup");
 
 		assumeNotGithub();
 		assertEquals(testGroupDirectory, groupd.call().toString());
@@ -759,8 +759,8 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		final Map<String,Callable<?>> probes = probes(p);
-		final Callable<?> groupd = probes.get("directory.group");
-		final Callable<?> groupf = probes.get("group");
+		final Callable<?> groupd = probes.get("directory.PosixGroup");
+		final Callable<?> groupf = probes.get("PosixGroup");
 
 		final RuntimeException ed = assertFails(
 				groupd::call,
