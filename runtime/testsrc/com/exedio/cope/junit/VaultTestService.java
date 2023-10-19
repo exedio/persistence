@@ -26,8 +26,8 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
@@ -47,13 +47,13 @@ import java.util.HashMap;
  */
 public final class VaultTestService implements VaultService
 {
-	private final VaultProperties properties;
+	private final MessageDigestFactory messageDigestFactory;
 	private final HashMap<String, byte[]> store = new HashMap<>();
 
 	public VaultTestService(final VaultServiceParameters parameters)
 	{
-		this.properties = parameters.getVaultProperties();
-		assertNotNull(properties);
+		this.messageDigestFactory = parameters.getVaultProperties().getAlgorithmFactory();
+		assertNotNull(messageDigestFactory);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public final class VaultTestService implements VaultService
 				"empty byte sequence is not handled by service implementations");
 
 		assertEquals(hash, Hex.encodeLower(
-				properties.getAlgorithmFactory().
+				messageDigestFactory.
 						digest(value)));
 
 		return store.put(hash, value)==null;
@@ -147,7 +147,7 @@ public final class VaultTestService implements VaultService
 	private void assertHash(final String hash)
 	{
 		assertNotNull(hash);
-		assertEquals(properties.getAlgorithmLength(), hash.length(), hash);
+		assertEquals(messageDigestFactory.getLengthHex(), hash.length(), hash);
 		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash), hash);
 	}
 
