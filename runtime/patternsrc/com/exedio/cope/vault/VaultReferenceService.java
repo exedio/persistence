@@ -139,14 +139,7 @@ public final class VaultReferenceService implements VaultService
 
 			final Path temp = createTempFileFromReference(hash);
 			main.put(hash, temp, PUT_INFO);
-			try(InputStream in = Files.newInputStream(temp))
-			{
-				final byte[] b = new byte[50*1024];
-				for(int len = in.read(b); len>=0; len = in.read(b))
-				{
-					sink.write(b, 0, len);
-				}
-			}
+			Files.copy(temp, sink);
 			delete(temp);
 		}
 	}
