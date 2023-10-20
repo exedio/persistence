@@ -25,6 +25,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.MessageDigestFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -40,14 +41,14 @@ final class VaultResilientServiceProxy implements VaultResilientService
 
 	VaultResilientServiceProxy(
 			final VaultService service,
-			final VaultProperties properties)
+			final MessageDigestFactory messageDigestFactory)
 	{
 		if(service instanceof VaultResilientService)
 			throw new IllegalArgumentException();
 
 		this.service = requireNonNull(service, "service");
-		this.hashLength = properties.getAlgorithmLength();
-		this.hashEmpty = properties.getAlgorithmDigestForEmptyByteSequence();
+		this.hashLength = messageDigestFactory.getLengthHex();
+		this.hashEmpty = messageDigestFactory.getDigestForEmptyByteSequenceHex();
 	}
 
 	@Override
