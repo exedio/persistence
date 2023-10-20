@@ -315,7 +315,7 @@ public class VaultPropertiesTest
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
 				"property buckets in DESC " +
-				"must contain a space separates list of buckets " +
+				"must contain a space-separated list of buckets " +
 				"containing just [---,0-9,A-Z,a-z], " +
 				"but bucket >be.ta< contained a forbidden character at position 2.");
 	}
