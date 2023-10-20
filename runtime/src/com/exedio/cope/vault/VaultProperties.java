@@ -102,7 +102,7 @@ public final class VaultProperties extends Properties
 				final int pos = VAULT_CHAR_SET.indexOfNotContains(bucket);
 				if(pos>=0)
 					throw newException(KEY,
-							"must contain a space separates list of buckets " +
+							"must contain a space-separated list of buckets " +
 							"containing just " + VAULT_CHAR_SET + ", " +
 							"but bucket >" + bucket + "< contained a forbidden character at position " + pos + '.');
 			}
