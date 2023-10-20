@@ -47,7 +47,9 @@ public class CopySimpleTest extends TestWithEnvironment
 				"SELECT COUNT(*) FROM " + SI.tab(TYPE) + " " +
 				"JOIN " + SI.tab(CopySimpleTarget.TYPE) + " " +
 				"ON " + SI.colq(CopySimpleSource.targetItem) + "=" + SI.pkq(CopySimpleTarget.TYPE) + " " +
-				"WHERE " + SI.colq(CopySimpleSource.templateString) + "<>" + SI.colq(CopySimpleTarget.templateString),
+				"WHERE ("  + SI.colq(CopySimpleSource.templateString) +               "<>"    + SI.colq(CopySimpleTarget.templateString) + ") " +
+					"OR ((" + SI.colq(CopySimpleSource.templateString) + " IS "+ "NULL) AND (" + SI.colq(CopySimpleTarget.templateString) + " IS NOT NULL)) " +
+					"OR ((" + SI.colq(CopySimpleSource.templateString) + " IS NOT NULL) AND (" + SI.colq(CopySimpleTarget.templateString) + " IS NULL))",
 				SchemaInfo.check(templateStringCopyFromTarget));
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template1", "otherString1", value, new CopyValue());

@@ -43,7 +43,9 @@ public class CopySelfTest extends TestWithEnvironment
 				"SELECT COUNT(*) FROM " + SI.tab(TYPE) + " CopySelfSource0 " +
 				"JOIN " + SI.tab(TYPE) + " CopySelfSource1 " +
 				"ON CopySelfSource0." + SI.col(CopySelfSource.selfTarget) + "=CopySelfSource1." + SI.pk(TYPE) + " " +
-				"WHERE CopySelfSource0." + SI.col(CopySelfSource.selfTemplate) + "<>CopySelfSource1." + SI.col(CopySelfSource.selfTemplate),
+				"WHERE (CopySelfSource0."  + SI.col(CopySelfSource.selfTemplate) +                  "<>CopySelfSource1." + SI.col(CopySelfSource.selfTemplate) + ") " +
+					"OR ((CopySelfSource0." + SI.col(CopySelfSource.selfTemplate) + " IS "+ "NULL) AND (CopySelfSource1." + SI.col(CopySelfSource.selfTemplate) + " IS NOT NULL)) " +
+					"OR ((CopySelfSource0." + SI.col(CopySelfSource.selfTemplate) + " IS NOT NULL) AND (CopySelfSource1." + SI.col(CopySelfSource.selfTemplate) + " IS NULL))",
 				SchemaInfo.check(selfTemplateCopyFromTarget));
 
 		final CopyValue value = new CopyValue();

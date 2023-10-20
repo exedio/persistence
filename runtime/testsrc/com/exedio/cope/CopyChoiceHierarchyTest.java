@@ -43,7 +43,9 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 					"JOIN " + SI.tab(SuperPart.TYPE) + " " +
 					"ON " + SI.pkq(SuperPart.TYPE) + "=" + SI.pkq(Part.TYPE) + ") " +
 				"ON " + SI.colq(Container.choice) + "=" + SI.pkq(Part.TYPE) + " " +
-				"WHERE " + SI.pkq(Container.TYPE) + "<>" + SI.colq(SuperPart.parent),
+				"WHERE ("  + SI.pkq(Container.TYPE) +               "<>"    + SI.colq(SuperPart.parent) + ") " +
+					"OR ((" + SI.pkq(Container.TYPE) + " IS "+ "NULL) AND (" + SI.colq(SuperPart.parent) + " IS NOT NULL)) " +
+					"OR ((" + SI.pkq(Container.TYPE) + " IS NOT NULL) AND (" + SI.colq(SuperPart.parent) + " IS NULL))",
 				check(Container.choice.getChoice()));
 		final Container c1 = new Container();
 		final Part p1 = new Part(c1);
