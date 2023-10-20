@@ -249,7 +249,7 @@ public final class VaultProperties extends Properties
 
 	VaultResilientService resiliate(final VaultService service)
 	{
-		return new VaultResilientServiceProxy(service, this);
+		return new VaultResilientServiceProxy(service, algorithm);
 	}
 
 
