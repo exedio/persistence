@@ -180,9 +180,9 @@ public final class CopyConstraint extends Feature
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static Condition notEqual(final Copy f1, final Function f2)
+	private static Condition notEqual(final Function f1, final Function f2)
 	{
-		return f1.getFunction().notEqual(f2);
+		return f1.notEqual(f2);
 	}
 
 	/**
@@ -197,7 +197,9 @@ public final class CopyConstraint extends Feature
 	{
 		final Query<?> q = getType().newQuery();
 		final Join j = q.join(target.getValueType(), target::equalTarget);
-		q.setCondition(notEqual(copy, getTemplate().bind(j)));
+		final Function<?> copy = this.copy.getFunction();
+		final Function<?> template = getTemplate().bind(j);
+		q.setCondition(notEqual(copy, template));
 		return q;
 	}
 
