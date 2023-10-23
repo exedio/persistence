@@ -199,7 +199,12 @@ public final class CopyConstraint extends Feature
 		final Join j = q.join(target.getValueType(), target::equalTarget);
 		final Function<?> copy = this.copy.getFunction();
 		final Function<?> template = getTemplate().bind(j);
-		q.setCondition(notEqual(copy, template));
+		// TODO isNull/isNotNull could be omitted for mandatory fields of primary key
+		q.setCondition(Cope.or(
+				notEqual(copy, template),
+				copy.isNull   ().and(template.isNotNull()),
+				copy.isNotNull().and(template.isNull   ())
+		));
 		return q;
 	}
 

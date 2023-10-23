@@ -58,7 +58,7 @@ public class CopyCheckFailureTest extends TestWithEnvironment
 	@Test void testSourceNull() throws SQLException
 	{
 		setSource("NULL");
-		assertCheck(0); // TODO bug, should be 1
+		assertCheck(1);
 
 		setTarget("NULL");
 		assertCheck(0);
@@ -76,7 +76,7 @@ public class CopyCheckFailureTest extends TestWithEnvironment
 	@Test void testTargetNull() throws SQLException
 	{
 		setTarget("NULL");
-		assertCheck(0); // TODO bug, should be 1
+		assertCheck(1);
 
 		setSource("NULL");
 		assertCheck(0);
