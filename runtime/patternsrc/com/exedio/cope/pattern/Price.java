@@ -23,10 +23,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
+import javax.annotation.Nonnull;
 
 public final class Price implements Serializable, Comparable<Price>
 {
@@ -153,6 +155,71 @@ public final class Price implements Serializable, Comparable<Price>
 			(store/FACTOR_I) + '.' +
 			(minor<10?"0":"") +
 			minor;
+	}
+
+	/**
+	 * Formats a price without relying on a {@link NumberFormat},
+	 * which is not thread-safe.
+	 * The parameter may be obtained via
+	 * {@link DecimalFormat#getDecimalFormatSymbols()}.
+	 * <p>
+	 * TODO
+	 * This method does not allow localization equivalent to
+	 * {@link NumberFormat#setGroupingUsed(boolean)} and
+	 * {@link DecimalFormat#getGroupingSize()}.
+	 * It just assumes groupingUsed==true and groupingSize==3.
+	 */
+	@Nonnull
+	@SuppressWarnings("ExtractMethodRecommender")
+	public String format(final DecimalFormatSymbols symbols)
+	{
+		if(store>-100 && store<100)
+		{
+			if(store==0)
+				return "0" + symbols.getDecimalSeparator() + "00";
+
+			final StringBuilder result = new StringBuilder();
+			if(store<0)
+				result.append(symbols.getMinusSign());
+			result.
+					append('0').
+					append(symbols.getDecimalSeparator());
+			if(store>-10 && store<10)
+				result.append('0');
+			result.append(Math.abs(store));
+			return result.toString();
+		}
+
+		final String plain = String.valueOf(store);
+		final StringBuilder result = new StringBuilder();
+		final int l = plain.length();
+		final int stop = store<0 ? 1 : 0;
+		int pos = l-1;
+		result.append(plain.charAt(pos--));
+		result.append(plain.charAt(pos--));
+		result.append(symbols.getDecimalSeparator());
+		int inGroup = 0;
+		while(true)
+		{
+			result.append(plain.charAt(pos--));
+			if(pos<stop)
+				break;
+
+			if(inGroup>=2) // groupingSize minus 1
+			{
+				result.append(symbols.getGroupingSeparator());
+				inGroup = 0;
+			}
+			else
+			{
+				inGroup++;
+			}
+		}
+		if(store<0)
+			result.append(symbols.getMinusSign());
+
+		result.reverse();
+		return result.toString();
 	}
 
 	/**

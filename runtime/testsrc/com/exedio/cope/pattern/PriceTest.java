@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Price.MAX_VALUE;
+import static com.exedio.cope.pattern.Price.MIN_VALUE;
 import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.parse;
@@ -823,6 +825,59 @@ public class PriceTest
 		assertFails(() ->
 			parse("1.00", null),
 			NullPointerException.class, null);
+	}
+
+	@Test void testFormatSymbolsReal()
+	{
+		final DecimalFormat en = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		final DecimalFormat de = (DecimalFormat)NumberFormat.getInstance(Locale.GERMAN);
+		assertEquals( "1,234,567.89", storeOf( 123456789).format(en));
+		assertEquals("-1,234,567.89", storeOf(-123456789).format(en));
+		assertEquals( "1.234.567,89", storeOf( 123456789).format(de));
+		assertEquals("-1.234.567,89", storeOf(-123456789).format(de));
+	}
+
+	@Test void testFormatSymbolsSynthetic()
+	{
+		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
+		df.setParseBigDecimal(true);
+		assertEquals('.', df.getDecimalFormatSymbols().getDecimalSeparator());
+		assertEquals('.', df.getDecimalFormatSymbols().getMonetaryDecimalSeparator());
+		assertEquals('-', df.getDecimalFormatSymbols().getMinusSign());
+		assertEquals(',', df.getDecimalFormatSymbols().getGroupingSeparator());
+
+		final DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+		dfs.setDecimalSeparator('d');
+		dfs.setGroupingSeparator('g');
+		dfs.setMinusSign('m');
+		df.setDecimalFormatSymbols(dfs);
+		assertEquals('d', df.getDecimalFormatSymbols().getDecimalSeparator());
+		assertEquals('.', df.getDecimalFormatSymbols().getMonetaryDecimalSeparator());
+		assertEquals('m', df.getDecimalFormatSymbols().getMinusSign());
+		assertEquals('g', df.getDecimalFormatSymbols().getGroupingSeparator());
+
+		assertEquals( "1g234g567d89", storeOf( 123456789).format(dfs));
+		assertEquals("m1g234g567d89", storeOf(-123456789).format(dfs));
+		assertEquals(   "234g567d89", storeOf(  23456789).format(dfs));
+		assertEquals(  "m234g567d89", storeOf( -23456789).format(dfs));
+		assertEquals(    "34g567d89", storeOf(   3456789).format(dfs));
+		assertEquals(   "m34g567d89", storeOf(  -3456789).format(dfs));
+		assertEquals(     "4g567d89", storeOf(    456789).format(dfs));
+		assertEquals(    "m4g567d89", storeOf(   -456789).format(dfs));
+		assertEquals(       "567d89", storeOf(     56789).format(dfs));
+		assertEquals(      "m567d89", storeOf(    -56789).format(dfs));
+		assertEquals(        "67d89", storeOf(      6789).format(dfs));
+		assertEquals(       "m67d89", storeOf(     -6789).format(dfs));
+		assertEquals(         "7d89", storeOf(       789).format(dfs));
+		assertEquals(        "m7d89", storeOf(      -789).format(dfs));
+		assertEquals(         "0d89", storeOf(        89).format(dfs));
+		assertEquals(        "m0d89", storeOf(       -89).format(dfs));
+		assertEquals(         "0d09", storeOf(         9).format(dfs));
+		assertEquals(        "m0d09", storeOf(        -9).format(dfs));
+
+		assertEquals("0d00", ZERO.format(dfs));
+		assertEquals( "92g233g720g368g547g758d07", MAX_VALUE.format(dfs));
+		assertEquals("m92g233g720g368g547g758d07", MIN_VALUE.format(dfs));
 	}
 
 	@Test void testSerialization()
