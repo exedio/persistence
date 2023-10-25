@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.isGithub;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.stream;
 import static java.util.Collections.emptySet;
@@ -42,6 +43,9 @@ public class HashCodeTest
 				Dialect.HASH_SHA256,
 				Dialect.HASH_SHA384,
 				Dialect.HASH_SHA512));
+
+		if(isGithub())
+			codes.remove(Dialect.HASH_SHA);
 
 		stream(Security.getProviders()).
 				flatMap(provider -> provider.getServices().stream()).
