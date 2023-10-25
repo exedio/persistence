@@ -196,6 +196,11 @@ public final class RuntimeAssert
 
 	public static void assumeNotGithub()
 	{
-		assumeFalse("true".equals(System.getProperty("github")));
+		assumeFalse(isGithub());
+	}
+
+	public static boolean isGithub()
+	{
+		return "true".equals(System.getProperty("github"));
 	}
 }
