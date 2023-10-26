@@ -3,9 +3,7 @@
 	<import file="common.xml" />
 	<target name="copy" depends="resolve">
 
-		<delete dir="../lib">
-		</delete>
-		<copy overwrite="true" todir="../lib">
+		<syncContents from="artifacts/lib" to="../lib">
 			<firstmatchmapper>
 				<globmapper from="*-jar.jar" to="*.jar" />
 				<globmapper from="*-dist.tar.gz" to="*.tar.gz" />
@@ -13,9 +11,7 @@
 				<globmapper from="*-tgz.tgz" to="*.tgz" />
 				<globmapper from="*" to="*" />
 			</firstmatchmapper>
-			<fileset dir="artifacts/lib">
-			</fileset>
-		</copy>
+		</syncContents>
 
 	</target>
 </project>

@@ -7,12 +7,49 @@
 	<echo taskname="which ant" message="${ant.version}" />
 	<echo taskname="which java" message="${java.vm.name} ${java.version}" />
 
+	<macrodef name="syncContents">
+		<attribute name="from"/>
+		<attribute name="to"/>
+		<element name="ex-mapper" implicit="true" optional="true"/>
+		<sequential>
+			<move todir="@{from}" includeemptydirs="true">
+				<fileset dir="@{from}"/>
+				<ex-mapper/>
+			</move>
+			<fileset id="selectCopyFiles" dir="@{from}">
+				<different targetdir="@{to}"/>
+			</fileset>
+			<fileset id="selectDeleteFiles" dir="@{to}">
+				<present present="srconly" targetdir="@{from}"/>
+			</fileset>
+			<copy overwrite="true" todir="@{to}" includeemptydirs="true" preservelastmodified="false">
+				<fileset refid="selectCopyFiles"/>
+			</copy>
+			<delete includeEmptyDirs="false">
+				<fileset refid="selectDeleteFiles"/>
+			</delete>
+		</sequential>
+	</macrodef>
+
+	<taskdef
+			resource="org/apache/ivy/ant/antlib.xml"
+			onerror="failall"
+			uri="antlib:org.apache.ivy.ant">
+		<classpath>
+			<fileset dir="../lib/ivy" />
+		</classpath>
+	</taskdef>
+
 	<target name="prepare">
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
+
+		<!-- retrieve variable ivy.version -->
+		<ivy:settings id="ivy.bootstrapIvyVersion" />
+		<ivy:info settingsRef="ivy.bootstrapIvyVersion" />
+
 		<get dest="artifacts" retries="1" httpusecaches="false">
-			<url url="https://ivyartifacts.exedio.com/v2.5.1/ivy.jar" />
-			<url url="https://ivyartifacts.exedio.com/v2.5.1/ivysettings.xml" />
+			<url url="https://ivyartifacts.exedio.com/v${ivy.version}/ivysettings.xml" />
 		</get>
 		<copy
 				file="artifacts/ivysettings.xml"
@@ -22,10 +59,6 @@
 				<filter token="user.home" value="${ivy.user.home}" if:set="ivy.user.home" />
 			</filterset>
 		</copy>
-		<taskdef
-			resource="org/apache/ivy/ant/antlib.xml"
-			classpath="artifacts/ivy.jar"
-			uri="antlib:org.apache.ivy.ant" />
 		<ivy:settings file="artifacts/ivysettings-replaced.xml" />
 	</target>
 
@@ -65,4 +98,7 @@
 		</ivy:publish>
 	</target>
 
+	<target name="update" depends="prepare">
+		<ivy:checkdepsupdate/>
+	</target>
 </project>
