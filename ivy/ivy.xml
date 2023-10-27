@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ivy-module version="2.0"
-				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+<ivy-module
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		version="2.0"
+		xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 	<info
 			organisation="com.exedio"
 			module="cope"
@@ -23,6 +24,7 @@
 		<conf name="instrument" extends="runtime" />
 		<conf visibility="private" name="ant" />
 		<conf visibility="private" name="ant-contrib" />
+		<conf visibility="private" name="ivy" />
 		<conf visibility="private" name="test" extends="runtime,servlet" />
 		<conf visibility="private" name="jenkins" />
 		<conf visibility="private" name="tomcat" />
@@ -85,6 +87,7 @@
 		<dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="ant-contrib->default">
 			<exclude org="ant" module="ant" />
 		</dependency>
+		<dependency org="org.apache.ivy" name="ivy" rev="2.5.2" conf="ivy->default" />
 		<dependency org="org.apache.tomcat" name="tomcat" rev="9.0.31" conf="tomcat->default">
 			<artifact name="tomcat" type="tar.gz" />
 		</dependency>
