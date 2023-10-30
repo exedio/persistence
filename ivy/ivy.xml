@@ -58,7 +58,7 @@
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION->*">
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0" conf="servlet->default; ide->sources" />
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" conf="runtime->default; ide->sources" />
-		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25" conf="runtime->default; ide->sources" />
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.7.25" conf="runtime->default" /><!-- sources do not work reliably on ivy cache hits -->
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.25" conf="test->default" />
 		<dependency org="io.micrometer" name="micrometer-core" rev="1.8.5" conf="runtime->default; ide->sources">
 			<exclude org="org.hdrhistogram" module="HdrHistogram" />
