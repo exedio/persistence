@@ -91,7 +91,7 @@
 
 	<target name="publishlocally" depends="prepare">
 		<ivy:resolve />
-		<ivy:publish resolver="localrepo" pubrevision="999999999" forcedeliver="true" overwrite="true">
+		<ivy:publish resolver="localrepo" pubrevision="999999999" status="integration" forcedeliver="true" overwrite="true">
 			<artifacts pattern="../build/[artifact].[ext]" />
 			<artifacts pattern="../build/[artifact]-[type].[ext]" />
 			<artifacts pattern="../[artifact]-[type].[ext]" />
