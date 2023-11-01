@@ -67,7 +67,7 @@
 			<exclude org="io.prometheus" module="simpleclient_tracer_otel" />
 			<exclude org="io.prometheus" module="simpleclient_tracer_otel_agent" />
 		</dependency>
-		<dependency org="com.exedio" name="copeutil" rev="1014" conf="runtime->runtime; ide->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="copeutil" rev="1041" conf="runtime->runtime; ide->runtime,sources,changelog" />
 
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.7.1" />
