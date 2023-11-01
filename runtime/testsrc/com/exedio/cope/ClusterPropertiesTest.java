@@ -264,6 +264,19 @@ public class ClusterPropertiesTest
 		assertEquals(15999, listener.getReceiveBufferSize());
 	}
 
+	@Test void testSinglecastMissingSendAddress()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("multicast", false)
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendAddress in DESC " +
+				"must be specified as there is no default");
+	}
+
 	@Test void testFailListenThreads()
 	{
 		final Source s = describe("DESC", cascade(
