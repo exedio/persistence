@@ -6,7 +6,6 @@
     <libelement value="jar://$MODULE_DIR$/lib/servlet-api.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/trove4j.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/exedio-cope-util.jar!/" />
-    <libelement value="jar://$MODULE_DIR$/lib/mysql-connector-java.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/postgresql.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/hsqldb.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/log4j-bundle.jar!/" />

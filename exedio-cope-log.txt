@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* MySQL Connector 8.2.0 required.
+	- Fixes CVE-2023-22102.
+	- Renames jar file from mysql-connector-java.jar to mysql-connector-j.jar.
 * bugfix: CopyConstraint#check() did not report mismatches where one of the
 	fields was null. Affects COPE Console tab "Copy Constraints".
 * ConnectProperties: keys for a single vault bucket are dropped.
