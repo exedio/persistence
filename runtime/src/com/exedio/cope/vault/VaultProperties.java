@@ -96,14 +96,11 @@ public final class VaultProperties extends Properties
 				throw newException(KEY, "must not be empty");
 
 			for(final String bucket : bucketList)
-			{
-				final int pos = VAULT_CHAR_SET.indexOfNotContains(bucket);
-				if(pos>=0)
-					throw newException(KEY,
-							"must contain a space-separated list of buckets " +
-							"containing just " + VAULT_CHAR_SET + ", " +
-							"but bucket >" + bucket + "< contained a forbidden character at position " + pos + '.');
-			}
+				checkBucket(bucket, message ->
+						newException(KEY,
+							"must contain a space-separated list of buckets, " +
+							"but bucket >" + bucket + "< is illegal: " + message));
+
 			if( new HashSet<>(bucketList).size() < bucketList.size() )
 				throw newException(KEY, "must not contain duplicates");
 		}
@@ -116,10 +113,26 @@ public final class VaultProperties extends Properties
 	}
 
 	/**
-	 * TODO redundant to {@link DataField#VAULT_CHAR_SET}.
+	 * Check a bucket name as specified by {@link Vault#value()}
+	 * for correctness.
 	 */
-	@SuppressWarnings("JavadocReference")
-	static final CharSet VAULT_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
+	public static void checkBucket(
+			final String value,
+			final Function<String, RuntimeException> exception)
+	{
+		requireNonNull(value, "bucket");
+		requireNonNull(exception, "exception");
+		if(value.isEmpty())
+			throw exception.apply("must not be empty");
+
+		final int pos = VAULT_CHAR_SET.indexOfNotContains(value);
+		if(pos>=0)
+			throw exception.apply(
+					"must contain just " + VAULT_CHAR_SET + ", " +
+					"but was >" + value + "< containing a forbidden character at position " + pos);
+	}
+
+	private static final CharSet VAULT_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 
 	public void checkBuckets(final Model model)
 	{

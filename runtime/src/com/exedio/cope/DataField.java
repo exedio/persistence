@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
+import static com.exedio.cope.vault.VaultProperties.checkBucket;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
@@ -28,7 +29,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
@@ -112,24 +112,10 @@ public final class DataField extends Field<DataField.Value>
 
 	private static String checkVault(final String value, final Object origin)
 	{
-		if(value.isEmpty())
-			throw new IllegalArgumentException(
-					"@Vault at " + origin + " must not be empty");
-
-		final int pos = VAULT_CHAR_SET.indexOfNotContains(value);
-		if(pos>=0)
-			throw new IllegalArgumentException(
-					"@Vault at " + origin + " must contain just " + VAULT_CHAR_SET + ", " +
-					"but was >" + value + "< (position " + pos + ')');
-
+		checkBucket(value, message ->
+				new IllegalArgumentException("@Vault at " + origin + ' ' + message));
 		return value;
 	}
-
-	/**
-	 * TODO redundant to {@link VaultProperties#VAULT_CHAR_SET}.
-	 */
-	@SuppressWarnings("JavadocReference")
-	private static final CharSet VAULT_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 
 	// second initialization phase ---------------------------------------------------
 

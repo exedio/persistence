@@ -18,9 +18,8 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
-import static com.exedio.cope.vault.VaultProperties.VAULT_CHAR_SET;
+import static com.exedio.cope.vault.VaultProperties.checkBucket;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.CharSet;
@@ -177,13 +176,8 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	@Override
 	public Object probeGenuineServiceKey(final String bucket) throws Exception
 	{
-		requireNonEmpty(bucket, "bucket");
-		final int forbiddenCharPosition = VAULT_CHAR_SET.indexOfNotContains(bucket);
-		if(forbiddenCharPosition>=0)
-			throw new IllegalArgumentException(
-					"bucket must contain just " + VAULT_CHAR_SET + ", " +
-					"but was >" + bucket + "< containing a forbidden character " +
-					"at position " + forbiddenCharPosition);
+		checkBucket(bucket, message ->
+				new IllegalArgumentException("bucket " + message));
 		requireNonClosed();
 
 		return service.probeGenuineServiceKey(bucket);

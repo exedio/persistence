@@ -53,7 +53,7 @@ public class DataVaultCharacterSetTest
 				field::getAnnotatedVaultValue,
 				IllegalArgumentException.class,
 				"@Vault at " + origin + " must contain just [---,0-9,A-Z,a-z], " +
-				"but was >" + value + "< (position " + position + ")");
+				"but was >" + value + "< containing a forbidden character at position " + position);
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
