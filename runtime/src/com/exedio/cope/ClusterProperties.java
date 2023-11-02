@@ -34,7 +34,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -187,7 +186,7 @@ final class ClusterProperties extends Properties
 		final ArrayList<Send> result = new ArrayList<>();
 		for(final String tn : value)
 			result.add(valSdSingle(key, tn));
-		return Collections.unmodifiableList(result);
+		return List.copyOf(result);
 	}
 
 	private Send valSdSingle(final String key, final String value)
