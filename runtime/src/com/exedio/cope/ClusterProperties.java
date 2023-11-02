@@ -182,11 +182,11 @@ final class ClusterProperties extends Properties
 	{
 		//noinspection ZeroLengthArrayAllocation
 		final List<String> value = valuesSpaceSeparated(key, defaultValue!=null ? new String[]{defaultValue} : new String[]{});
+		if(value.isEmpty())
+			throw newException(key, "must not be empty");
 		final ArrayList<Send> result = new ArrayList<>();
 		for(final String tn : value)
 			result.add(valSdSingle(key, tn));
-		if(result.isEmpty())
-			throw newException(key, "must not be empty");
 		return Collections.unmodifiableList(result);
 	}
 
