@@ -160,9 +160,9 @@ public class MediaDefaultTest extends TestWithEnvironment
 			assertStreamClosed();
 			assertContent(bytes6, new Date(123456002), "file-major2/file-minor2", "");
 
-			try
+			try(InputStream in = stream(bytes4))
 			{
-				item.setFile(stream(bytes4), "illegalContentType");
+				item.setFile(in, "illegalContentType");
 				fail();
 			}
 			catch(final IllegalContentTypeException e)

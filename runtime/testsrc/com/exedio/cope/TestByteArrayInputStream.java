@@ -27,7 +27,7 @@ import java.io.InputStream;
 /**
  * An input stream suitable for testing stream related code.
  * Makes the {@code ByteArrayInputStream} close-sensitive,
- * i.e. all methods except {@code close} throw an {@code IOException},
+ * i.e. all methods throw an {@code IOException},
  * if the stream has already been closed.
  *
  * @author Ralf Wiebicke
@@ -91,6 +91,10 @@ public class TestByteArrayInputStream extends InputStream
 	@Override
 	public void close() throws IOException
 	{
+		// The contract of close() allows calling it more than once,
+		// but I want my code to call it exactly once.
+		assertOpen();
+
 		super.close();
 		closed = true;
 	}

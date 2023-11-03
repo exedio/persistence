@@ -108,9 +108,9 @@ public class MediaFixedTest extends TestWithEnvironment
 		assertStreamClosed();
 		assertContent(bytes6);
 
-		try
+		try(InputStream in = stream(bytes4))
 		{
-			item.setPhoto(stream(bytes4), "illegalContentType");
+			item.setPhoto(in, "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -123,9 +123,9 @@ public class MediaFixedTest extends TestWithEnvironment
 			assertContent(bytes6);
 		}
 
-		try
+		try(InputStream in = stream(bytes4))
 		{
-			item.setPhoto(stream(bytes4), "image/png");
+			item.setPhoto(in, "image/png");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
