@@ -50,7 +50,7 @@ public class SupportsTest extends TestWithEnvironment
 
 		final String databaseProductName;
 		boolean utf8mb4 = true;
-		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
+		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		boolean random = false;
 		boolean checkConstraint = true;
 		boolean uniqueViolation = false;

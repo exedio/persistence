@@ -402,7 +402,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	String[] getBlobHashAlgorithms()
 	{
-		return new String[]{HASH_MD5, HASH_SHA, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512};
+		return new String[]{HASH_MD5, HASH_SHA1, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512};
 	}
 
 	@Override
@@ -413,7 +413,7 @@ final class MysqlDialect extends Dialect
 		switch(algorithm)
 		{
 			case HASH_MD5:    bf.append("MD5(" ).append(column, join).append(')'); break;
-			case HASH_SHA:    bf.append("SHA1(").append(column, join).append(')'); break;
+			case HASH_SHA1:   bf.append("SHA1(").append(column, join).append(')'); break;
 			case HASH_SHA224: bf.append("SHA2(").append(column, join).append(",224)"); break;
 			case HASH_SHA256: bf.append("SHA2(").append(column, join).append(",256)"); break;
 			case HASH_SHA384: bf.append("SHA2(").append(column, join).append(",384)"); break;

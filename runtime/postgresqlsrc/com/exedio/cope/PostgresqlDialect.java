@@ -215,7 +215,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		return
 				pgcryptoSchemaQuoted!=null
-				? new String[]{HASH_MD5, HASH_SHA, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512}
+				? new String[]{HASH_MD5, HASH_SHA1, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512}
 				: new String[]{HASH_MD5};
 	}
 
@@ -227,7 +227,7 @@ final class PostgresqlDialect extends Dialect
 		switch(algorithm)
 		{
 			case HASH_MD5: bf.append("MD5(").append(column, join).append(')'); break;
-			case HASH_SHA:    appendDigest(bf, column, join, algorithm, "sha1"  ); break;
+			case HASH_SHA1:   appendDigest(bf, column, join, algorithm, "sha1"  ); break;
 			case HASH_SHA224: appendDigest(bf, column, join, algorithm, "sha224"); break;
 			case HASH_SHA256: appendDigest(bf, column, join, algorithm, "sha256"); break;
 			case HASH_SHA384: appendDigest(bf, column, join, algorithm, "sha384"); break;

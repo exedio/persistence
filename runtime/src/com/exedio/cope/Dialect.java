@@ -285,7 +285,7 @@ abstract class Dialect
 	abstract String getBlobType(long maximumLength);
 
 	protected static final String HASH_MD5 = "MD5";
-	protected static final String HASH_SHA    = "SHA";
+	protected static final String HASH_SHA1   = "SHA-1"; // https://docs.oracle.com/en/java/javase/11/docs/specs/security/standard-names.html#messagedigest-algorithms
 	protected static final String HASH_SHA224 = "SHA-224";
 	protected static final String HASH_SHA256 = "SHA-256";
 	protected static final String HASH_SHA384 = "SHA-384";

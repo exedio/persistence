@@ -54,7 +54,7 @@ public class HashConditionTest extends TestWithEnvironment
 				"d41d8cd98f00b204e9800998ecf8427e",
 				"a3cca2b2aa1e3b5b3b5aad99a8529074"),
 		// https://de.wikipedia.org/wiki/Secure_Hash_Algorithm#Beispiel-Hashes
-		sha("SHA",
+		sha("SHA-1",
 				"da39a3ee5e6b4b0d3255bfef95601890afd80709",
 				"68ac906495480a3404beee4874ed853a037a7a8f"),
 		// https://de.wikipedia.org/wiki/SHA-2#Beispiel-Hashes
@@ -89,7 +89,7 @@ public class HashConditionTest extends TestWithEnvironment
 			for(final Algorithm a : values())
 				if(a.code.equals(code))
 					return a;
-			throw new AssertionError();
+			throw new AssertionError(code);
 		}
 	}
 
