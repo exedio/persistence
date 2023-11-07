@@ -10,8 +10,6 @@ String idea = '2023.2'
 @Field
 String ideaSHA256 = 'b1a5c267ca86850764b0541bee0c27af7d2082e55516e95a0c8d30539571735c'
 @Field
-String databaseMysql56 = '5.6.33'
-@Field
 String databaseMysql57 = '5.7.37'
 @Field
 String databaseMysql80 = '8.0.35'
@@ -250,102 +248,6 @@ try
 			recordIssues(
 				*: recordIssuesDefaults,
 				tools: [ideaInspection(pattern: 'idea-inspection-output/**')],
-			)
-		}
-	}
-
-	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql56"] = {
-		nodeCheckoutAndDelete { scmResult ->
-			String buildTag = makeBuildTag(scmResult)
-
-			sh 'rm -f conf/environment/*.properties'
-
-			envMysql56(
-				'my56',
-				''
-			)
-			envMysql56(
-				'my56-legacy',
-				'dialect.longConstraintNames=false\n' +
-				'dialect.smallIntegerTypes=false\n' +
-				'dialect.utf8mb4=false\n' +
-				'disableSupport.nativeDate=true\n'
-			)
-			envMysql56(
-				'my56-nprep',
-				'disableSupport.preparedStatements=true\n'
-			)
-			envMysql56(
-				'my56-nprep-legacy',
-				'dialect.longConstraintNames=false\n' +
-				'dialect.smallIntegerTypes=false\n' +
-				'dialect.utf8mb4=false\n' +
-				'disableSupport.preparedStatements=true\n'
-			)
-			envMysql56(
-				'my56-nstmp',
-				'cache.stamps=false\n'
-			)
-			envMysql56(
-				'my56-nstmp-sq',
-				'cache.stamps=false\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql56(
-				'my56-sq',
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql56(
-				'my56-sqb',
-				'schema.primaryKeyGenerator=batchedSequence\n'
-			)
-			envMysql56(
-				'my56-unique',
-				'disableSupport.uniqueViolation=true\n'
-			)
-
-			def mainImage = mainImage(imageName("Mysql56"))
-			def dbImage = docker.build(
-				imageName('Mysql56', 'db'),
-				'--build-arg VERSION=' + databaseMysql56 + ' ' +
-				'--build-arg CONF=my56.cnf ' +
-				'conf/mysql')
-
-			withBridge("Mysql56-db") { dbBridge ->
-				dbImage.withRun(
-					dockerRunDefaults(dbBridge, 'test-db-host') +
-					"--cap-add CHOWN " +
-					"--cap-add SETGID " +
-					"--cap-add SETUID " +
-					"--tmpfs /var/lib/mysql:rw "
-				) { c ->
-					mainImage.inside(
-						dockerRunDefaults(dbBridge) +
-						"--hostname mydockerhostname "
-					) {
-						ant 'clean testWithEnv' +
-						    ' "-Dbuild.tag=' + buildTag + '"' +
-						    ' -Dskip.instrument=true' + // already verified in branch Main
-						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql56.sql' +
-						    ' -Ddisable-ansi-colors=true'
-					}
-					sh "docker logs " + c.id + " &> db-Mysql56.log"
-					archiveArtifacts 'db-Mysql56.log'
-				}
-			}
-			junit(
-				allowEmptyResults: false,
-				testResults: 'build/testresults/**/*.xml',
-				skipPublishingChecks: true
-			)
-			sh "mv build buildMysql56"
-			archiveArtifacts(
-				'buildMysql56/testprotocol.*,' +
-				'buildMysql56/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-				'buildMysql56/*.log,' +
-				'buildMysql56/testtmpdir'
 			)
 		}
 	}
@@ -1033,27 +935,6 @@ def multicastAddress()
 def branchConsidersDatabase(String name)
 {
 	return env.BRANCH_NAME.contains(name) || env.BRANCH_NAME.contains("AllDB") || env.BRANCH_NAME.contains("master")
-}
-
-def envMysql56(String name, String text)
-{
-	writeFile(
-			file: 'conf/environment/' + name + '.properties',
-			text:
-					'connection.url=jdbc:mysql://test-db-host/test_db_schema\n' +
-					'connection.username=test_db_user\n' +
-					'connection.password=test_db_password\n' +
-					'x-build.schemasavepoint=' +
-							'OK:' +
-							' SHOW MASTER STATUS' +
-							/ Gtid=\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}:\\d+-\\d+/ +
-							/ mysql-bin.\\d{6}:\\d+/ +
-							' doDB=binlogtest' +
-							'\n' +
-					'x-build.dialect=mysql\n' +
-					'x-build.driver=mysql\n' +
-					text
-		)
 }
 
 def envMysql57(String name, String driver, String text)
