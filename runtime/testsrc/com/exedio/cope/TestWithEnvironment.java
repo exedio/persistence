@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.vault.VaultPropertiesTest.deresiliate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapInterim;
@@ -42,7 +41,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -160,20 +158,6 @@ public abstract class TestWithEnvironment
 		catch(final SQLRuntimeException e)
 		{
 			assertEquals(message, dropMariaConnectionId(e.getCause().getMessage()));
-		}
-	}
-
-	protected final void notAllowed(final Query<?> query, final Predicate<String> message)
-	{
-		try
-		{
-			final List<?> result = query.search();
-			fail("search is expected to fail, but returned " + result);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			final String actual = dropMariaConnectionId(e.getCause().getMessage());
-			assertTrue(message.test(actual), actual);
 		}
 	}
 
@@ -340,11 +324,6 @@ public abstract class TestWithEnvironment
 	private boolean dbAtLeastMysql(final int major, final int minor)
 	{
 		return dbAtLeast("MySQL", major, minor);
-	}
-
-	protected final boolean atLeastMysql57()
-	{
-		return dbAtLeastMysql(5, 7);
 	}
 
 	protected final boolean atLeastMysql8()
