@@ -106,14 +106,10 @@ public class GroupByTest extends TestWithEnvironment
 			case mysql:
 			{
 				final String message =
-						atLeastMysql57()
-						?
 						"Expression #1 of SELECT list is not in GROUP BY clause and " +
 						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
 						"which is not functionally dependent on columns in GROUP BY clause; " +
-						"this is incompatible with sql_mode=only_full_group_by"
-						:
-						"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY";
+						"this is incompatible with sql_mode=only_full_group_by";
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
@@ -159,14 +155,10 @@ public class GroupByTest extends TestWithEnvironment
 				break;
 			case mysql:
 				notAllowed(query,
-						atLeastMysql57()
-						?
 						"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
 						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
 						"which is not functionally dependent on columns in GROUP BY clause; " +
-						"this is incompatible with sql_mode=only_full_group_by"
-						:
-						"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY");
+						"this is incompatible with sql_mode=only_full_group_by");
 				break;
 			case postgresql:
 				notAllowed(query,
@@ -199,13 +191,10 @@ public class GroupByTest extends TestWithEnvironment
 								"ORDER BY \"integer\"]"));
 				break;
 			case mysql:
-				if(atLeastMysql57())
-					notAllowed(query,
-							"Expression #1 of ORDER BY clause is not in SELECT list, " +
-							"references column '" + dbCat() + ".AnItem.integer' " +
-							"which is not in SELECT list; this is incompatible with DISTINCT");
-				else
-					assertContains("foo", "bar", "goo", "car", query.search());
+				notAllowed(query,
+						"Expression #1 of ORDER BY clause is not in SELECT list, " +
+						"references column '" + dbCat() + ".AnItem.integer' " +
+						"which is not in SELECT list; this is incompatible with DISTINCT");
 				break;
 			case postgresql:
 				notAllowed(query,
@@ -280,14 +269,10 @@ public class GroupByTest extends TestWithEnvironment
 			case mysql:
 			{
 				final String message =
-						atLeastMysql57()
-						?
 						"Expression #2 of SELECT list is not in GROUP BY clause and " +
 						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
 						"which is not functionally dependent on columns in GROUP BY clause; " +
-						"this is incompatible with sql_mode=only_full_group_by"
-						:
-						"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY";
+						"this is incompatible with sql_mode=only_full_group_by";
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);

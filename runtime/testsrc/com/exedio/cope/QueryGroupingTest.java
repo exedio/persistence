@@ -156,16 +156,11 @@ public class QueryGroupingTest extends TestWithEnvironment
 			}
 			case mysql:
 			{
-				final String message;
-				if(atLeastMysql57())
-					message =
-							"Expression #1 of SELECT list is not in GROUP BY clause and " +
-							"contains nonaggregated column '" + dbCat() + ".GroupItem.day' " +
-							"which is not functionally dependent on columns in GROUP BY clause; " +
-							"this is incompatible with sql_mode=only_full_group_by";
-				else
-					message =
-							"'" + dbCat() + "." + table + "." + column + "' isn't in GROUP BY";
+				final String message =
+						"Expression #1 of SELECT list is not in GROUP BY clause and " +
+						"contains nonaggregated column '" + dbCat() + ".GroupItem.day' " +
+						"which is not functionally dependent on columns in GROUP BY clause; " +
+						"this is incompatible with sql_mode=only_full_group_by";
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);

@@ -90,7 +90,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		sv.create();
 		connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
 		final String nnd = SchemaInfo.supportsNativeDate(model) ? "" : "0";
-		final String intType = mariaDriver&&atLeastMysql57() ? "INTEGER" : "INT";
+		final String intType = mariaDriver ? "INTEGER" : "INT";
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
 			{
