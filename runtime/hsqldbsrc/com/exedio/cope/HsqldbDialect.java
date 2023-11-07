@@ -60,7 +60,7 @@ final class HsqldbDialect extends Dialect
 	{
 		nothing,
 		@SuppressWarnings("unused")
-		mysql56
+		mysql57
 		{
 			@Override boolean supportsCheckConstraint() { return false; }
 			@Override boolean supportsSchemaSavepoint() { return true; }
