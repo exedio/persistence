@@ -251,9 +251,9 @@ public abstract class TestWithEnvironment
 	}
 
 
-	protected final boolean propertiesHsqldbMysql56()
+	protected final boolean propertiesHsqldbMysql57()
 	{
-		return propertiesHsqldb("mysql56");
+		return propertiesHsqldb("mysql57");
 	}
 
 	private boolean propertiesHsqldb(final String approximate)
