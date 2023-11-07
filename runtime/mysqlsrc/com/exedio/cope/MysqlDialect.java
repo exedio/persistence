@@ -90,13 +90,6 @@ final class MysqlDialect extends Dialect
 	private final String timeZoneStatement;
 	private final boolean connectionCompress;
 	private final boolean setStrictMode;
-	private final boolean utf8mb4;
-
-	/**
-	 * See <a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html">The utf8 Character Set</a>
-	 */
-	private final long maxBytesPerChar; // MUST be long to avoid overflow at multiply
-	private final String charset;
 
 	private final boolean smallIntegerTypes;
 	private final boolean shortConstraintNames;
@@ -123,10 +116,6 @@ final class MysqlDialect extends Dialect
 		this.timeZoneStatement = properties.timeZoneStatement();
 		this.connectionCompress = properties.connectionCompress;
 		this.setStrictMode = !mysql8;
-		this.utf8mb4 = properties.utf8mb4;
-		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
-		final String mb4 = utf8mb4 ? "mb4" : "";
-		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
 		this.smallIntegerTypes = properties.smallIntegerTypes;
 		this.shortConstraintNames = !properties.longConstraintNames;
 
@@ -134,10 +123,9 @@ final class MysqlDialect extends Dialect
 			throw new IllegalArgumentException(
 					"connection.compress is supported on MySQL 5.7 and later only: " +
 					env.getDatabaseVersionDescription());
-		if((!utf8mb4 || !smallIntegerTypes || shortConstraintNames) &&
+		if((!smallIntegerTypes || shortConstraintNames) &&
 			env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
-					"utf8mb4 (="+utf8mb4+"), " +
 					"smallIntegerTypes (="+smallIntegerTypes+") and " +
 					"longConstraintNames (="+(!shortConstraintNames)+") " +
 					"must be enabled on MySQL 5.7 and later: " +
@@ -245,8 +233,7 @@ final class MysqlDialect extends Dialect
 				st.execute(timeZoneStatement);
 
 			// for some reason, jdbc parameters cannot be set to utf8mb4
-			if(utf8mb4)
-				st.execute("SET NAMES utf8mb4 COLLATE utf8mb4_bin");
+			st.execute("SET NAMES utf8mb4 COLLATE utf8mb4_bin");
 		}
 	}
 
@@ -307,7 +294,7 @@ final class MysqlDialect extends Dialect
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		// TODO implement maxBytes==maxChars for strings with character set us-ascii
-		final long maxBytes = maxChars * maxBytesPerChar;
+		final long maxBytes = maxChars * 4L; // '4L' MUST be long to avoid overflow at multiply
 
 		// NOTE:
 		// for selecting text types we can calculate with 3 bytes per character even for utf8mb4
@@ -322,6 +309,7 @@ final class MysqlDialect extends Dialect
 		//      but the maximum row size of 64k may require using 'text' for strings less 64k
 		// TODO use char instead of varchar, if minChars==maxChars and
 		//      no spaces allowed (char drops trailing spaces)
+		final String charset = " CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 		if(maxChars<=85 || // equivalent to maxBytes<TWOPOW8 for 3 maxBytesPerChar
 			(maxBytes<(TWOPOW16-4) && mysqlExtendedVarchar!=null)) // minus 4 is for primary key column
 			return "varchar("+maxChars+")" + charset;
@@ -773,12 +761,6 @@ final class MysqlDialect extends Dialect
 		{
 			sqlStatement.executeUpdate(sql);
 		}
-	}
-
-	@Override
-	boolean supportsUTF8mb4()
-	{
-		return utf8mb4;
 	}
 
 	@Override

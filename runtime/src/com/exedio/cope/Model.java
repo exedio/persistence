@@ -354,10 +354,13 @@ public final class Model implements Serializable
 
 	/**
 	 * <a href="https://dev.mysql.com/doc/refman/5.6/en/charset-unicode-utf8mb4.html">The utf8mb4 Character Set</a>
+	 * Not supported any longer.
+	 * Always returns true.
 	 */
 	public boolean supportsUTF8mb4()
 	{
-		return connect().supportsUTF8mb4;
+		connect(); // fail if not connected
+		return true;
 	}
 
 	/**
