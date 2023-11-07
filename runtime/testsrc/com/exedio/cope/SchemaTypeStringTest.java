@@ -90,16 +90,9 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			// @MysqlExtendedVarchar
 			assertType("varchar(85)",       f85Ext);
 			assertType("varchar(86)",       f86Ext);
-			if(!propertiesUtf8mb4())
-			{
-				assertType("varchar(20845)", f20845Ext);
-			}
-			else
-			{
-				assertType("varchar(16382)", f16382Ext);
-				assertType("text",           f16383Ext);
-				assertType("text",           f20845Ext);
-			}
+			assertType("varchar(16382)", f16382Ext);
+			assertType("text",           f16383Ext);
+			assertType("text",           f20845Ext);
 			assertType("mediumtext",     f20846Ext);
 		}
 		else if(postgresql)
@@ -115,10 +108,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 	private void assertType(String type, final SchemaTypeStringField field)
 	{
 		if(mysql)
-		{
-			final String mb4 = propertiesUtf8mb4() ? "mb4" : "";
-			type += " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + NOT_NULL;
-		}
+			type += " CHARACTER SET utf8mb4 COLLATE utf8mb4_bin" + NOT_NULL;
 		else if(postgresql)
 			type += NOT_NULL;
 		else
@@ -152,9 +142,8 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			max3.put(field, field.add(makeMax3(field)));
 
 		final HashMap<SchemaTypeStringField, StringItem> max4 = new HashMap<>();
-		final boolean mb4 = model.supportsUTF8mb4();
 		for(final SchemaTypeStringField field : fields)
-			max4.put(field, field.add(makeMax4(field), mb4 || (field==f1))); // f1 works because surrogates do not fit into string of length 1
+			max4.put(field, field.add(makeMax4(field)));
 
 		for(final SchemaTypeStringField field : fields)
 		{
@@ -162,8 +151,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			assertEquals(makeMax1(field), field.get(max1.get(field)));
 			assertEquals(makeMax2(field), field.get(max2.get(field)));
 			assertEquals(makeMax3(field), field.get(max3.get(field)));
-			if(mb4 || (field==f1))
-				assertEquals(makeMax4(field), field.get(max4.get(field)));
+			assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 
 		restartTransaction();
@@ -173,8 +161,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			assertEquals(makeMax1(field), field.get(max1.get(field)));
 			assertEquals(makeMax2(field), field.get(max2.get(field)));
 			assertEquals(makeMax3(field), field.get(max3.get(field)));
-			if(mb4 || (field==f1))
-				assertEquals(makeMax4(field), field.get(max4.get(field)));
+			assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 	}
 
