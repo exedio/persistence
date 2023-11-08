@@ -35,7 +35,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -91,7 +90,6 @@ final class MysqlDialect extends Dialect
 	private final boolean connectionCompress;
 	private final boolean setStrictMode;
 
-	private final boolean shortConstraintNames;
 	private final boolean supportsAnyValue;
 	private final int purgeSequenceLimit;
 	private final boolean likeRequiresEscapeBackslash;
@@ -115,18 +113,10 @@ final class MysqlDialect extends Dialect
 		this.timeZoneStatement = properties.timeZoneStatement();
 		this.connectionCompress = properties.connectionCompress;
 		this.setStrictMode = !mysql8;
-		this.shortConstraintNames = !properties.longConstraintNames;
 
 		if(connectionCompress && !env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
 					"connection.compress is supported on MySQL 5.7 and later only: " +
-					env.getDatabaseVersionDescription());
-		if((shortConstraintNames) &&
-			env.isDatabaseVersionAtLeast(5, 7))
-			//noinspection ConstantValue
-			throw new IllegalArgumentException(
-					"longConstraintNames (="+(!shortConstraintNames)+") " +
-					"must be enabled on MySQL 5.7 and later: " +
 					env.getDatabaseVersionDescription());
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
@@ -233,15 +223,6 @@ final class MysqlDialect extends Dialect
 			// for some reason, jdbc parameters cannot be set to utf8mb4
 			st.execute("SET NAMES utf8mb4 COLLATE utf8mb4_bin");
 		}
-	}
-
-	@Override
-	void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
-	{
-		super.setNameTrimmers(trimmers);
-
-		if(shortConstraintNames)
-			trimmers.put(TrimClass.ForeignKeyUniqueConstraint, trimmers.get(TrimClass.Data));
 	}
 
 	private static final String CHARSET = "utf8";

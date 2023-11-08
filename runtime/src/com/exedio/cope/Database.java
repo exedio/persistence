@@ -71,7 +71,7 @@ final class Database
 		this.connectionPool = connectionPool;
 		this.executor = executor;
 
-		dialect.setNameTrimmers(nameTrimmers);
+		Dialect.setNameTrimmers(nameTrimmers);
 		if(nameTrimmers.size()!=TrimClass.values().length)
 			throw new RuntimeException(String.valueOf(nameTrimmers));
 

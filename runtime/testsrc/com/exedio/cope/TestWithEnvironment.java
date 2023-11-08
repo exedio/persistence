@@ -266,16 +266,9 @@ public abstract class TestWithEnvironment
 		return approximate.equals(((Enum<?>)field.get()).name());
 	}
 
-	protected final boolean propertiesLongConstraintNames()
+	protected static boolean propertiesLongConstraintNames()
 	{
-		return propertiesBoolean("dialect.longConstraintNames");
-	}
-
-	private boolean propertiesBoolean(final String key)
-	{
-		final Properties.Field<?> field = model.getConnectProperties().getField(key);
-		assertNotNull(field);
-		return (Boolean)field.get();
+		return true;
 	}
 
 	protected final String ifPrep(final String s)

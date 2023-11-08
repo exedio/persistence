@@ -94,7 +94,7 @@ abstract class Dialect
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
-	void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
+	static void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
 	{
 		// MySQL maximum length is 63:
 		// https://dev.mysql.com/doc/refman/5.6/en/identifiers.html
