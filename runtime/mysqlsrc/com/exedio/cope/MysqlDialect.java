@@ -91,7 +91,6 @@ final class MysqlDialect extends Dialect
 	private final boolean connectionCompress;
 	private final boolean setStrictMode;
 
-	private final boolean smallIntegerTypes;
 	private final boolean shortConstraintNames;
 	private final boolean supportsAnyValue;
 	private final int purgeSequenceLimit;
@@ -116,17 +115,16 @@ final class MysqlDialect extends Dialect
 		this.timeZoneStatement = properties.timeZoneStatement();
 		this.connectionCompress = properties.connectionCompress;
 		this.setStrictMode = !mysql8;
-		this.smallIntegerTypes = properties.smallIntegerTypes;
 		this.shortConstraintNames = !properties.longConstraintNames;
 
 		if(connectionCompress && !env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
 					"connection.compress is supported on MySQL 5.7 and later only: " +
 					env.getDatabaseVersionDescription());
-		if((!smallIntegerTypes || shortConstraintNames) &&
+		if((shortConstraintNames) &&
 			env.isDatabaseVersionAtLeast(5, 7))
+			//noinspection ConstantValue
 			throw new IllegalArgumentException(
-					"smallIntegerTypes (="+smallIntegerTypes+") and " +
 					"longConstraintNames (="+(!shortConstraintNames)+") " +
 					"must be enabled on MySQL 5.7 and later: " +
 					env.getDatabaseVersionDescription());
@@ -262,14 +260,11 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		// smallIntegerTypes does not save any space in experiments.
+		// small integer types do not save any space in experiments.
 		// https://dev.mysql.com/doc/refman/5.5/en/storage-requirements.html
-		if(smallIntegerTypes)
-		{
-			if(minimum>=Byte .MIN_VALUE && maximum<=Byte .MAX_VALUE) return "tinyint";
-			if(minimum>=Short.MIN_VALUE && maximum<=Short.MAX_VALUE) return "smallint";
-			if(minimum>=-8388608l       && maximum<=8388607l       ) return "mediumint";
-		}
+		if(minimum>=Byte .MIN_VALUE && maximum<=Byte .MAX_VALUE) return "tinyint";
+		if(minimum>=Short.MIN_VALUE && maximum<=Short.MAX_VALUE) return "smallint";
+		if(minimum>=-8388608l       && maximum<=8388607l       ) return "mediumint";
 		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "int" : "bigint";
 	}
 

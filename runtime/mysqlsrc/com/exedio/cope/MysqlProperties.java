@@ -43,7 +43,6 @@ final class MysqlProperties extends Properties
 	final boolean connectionCompress = value("connection.compress", false);
 
 	// schema
-	final boolean smallIntegerTypes = value("smallIntegerTypes", true);
 	final boolean longConstraintNames = value("longConstraintNames", true);
 	final MysqlRowFormat rowFormat = value("rowFormat", MysqlRowFormat.NONE);
 
