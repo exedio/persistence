@@ -180,8 +180,7 @@ public class SchemaTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:     string8 = "VARCHAR(8)"; break;
-			case mysql :     final String mb4 = propertiesUtf8mb4() ? "mb4" : "";
-			                 string8 = "varchar(8) CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin"; break;
+			case mysql :     string8 = "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin"; break;
 			case postgresql: string8 = "character varying(8)"; break;
 			default:
 				throw new AssertionError(dialect.name());

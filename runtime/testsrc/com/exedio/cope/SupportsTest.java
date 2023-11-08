@@ -49,7 +49,6 @@ public class SupportsTest extends TestWithEnvironment
 		final ConnectProperties props = model.getConnectProperties();
 
 		final String databaseProductName;
-		boolean utf8mb4 = true;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		boolean random = false;
 		boolean checkConstraint = true;
@@ -65,7 +64,6 @@ public class SupportsTest extends TestWithEnvironment
 				break;
 			case mysql:
 				databaseProductName = "MySQL";
-				utf8mb4 = propertiesUtf8mb4();
 				random = true;
 				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
@@ -81,7 +79,6 @@ public class SupportsTest extends TestWithEnvironment
 
 		assertEquals(databaseProductName, model.getEnvironmentInfo().getDatabaseProductName());
 
-		assertEquals(utf8mb4, model.supportsUTF8mb4());
 		assertEquals(dataHashAlgorithms, new ArrayList<>(model.getSupportedDataHashAlgorithms()));
 		assertEquals(random, model.supportsRandom());
 

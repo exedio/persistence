@@ -31,7 +31,6 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.CharSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,12 +46,10 @@ public class CharSetConditionTest extends TestWithEnvironment
 
 	@BeforeEach void beforeEach()
 	{
-		bmpOnly = mysql && !propertiesUtf8mb4();
 		new AnItem((String)null);
 		empty = new AnItem("");
 	}
 
-	private boolean bmpOnly;
 	private AnItem empty;
 
 
@@ -222,9 +219,9 @@ public class CharSetConditionTest extends TestWithEnvironment
 		final AnItem esh =
 				new AnItem("ABC\u0425XY Z");
 		final AnItem grinning =
-				bmpOnly ? null : new AnItem(BEYOND_BMP + "ABC" + grinningFace + "XY Z");
+				new AnItem(BEYOND_BMP + "ABC" + grinningFace + "XY Z");
 		final AnItem unamused =
-				bmpOnly ? null : new AnItem(BEYOND_BMP + "ABC" + unamusedFace + "XY Z");
+				new AnItem(BEYOND_BMP + "ABC" + unamusedFace + "XY Z");
 
 		assertIt(ASC_NO_CONTROLS,             plain,     spc);
 		assertIt(ASC_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc);
@@ -268,9 +265,6 @@ public class CharSetConditionTest extends TestWithEnvironment
 	{
 		final ArrayList<AnItem> expected = new ArrayList<>(asList(expectedWithoutEmpty));
 		expected.add(0, empty);
-
-		if(bmpOnly)
-			expected.removeIf(Objects::isNull);
 
 		final List<AnItem> all = AnItem.TYPE.search(AnItem.field.isNotNull(), AnItem.TYPE.getThis(), true);
 		{

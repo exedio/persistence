@@ -22,10 +22,8 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.dsmf.SQLRuntimeException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
@@ -80,23 +78,6 @@ public final class SchemaTypeStringField extends Pattern
 	StringItem add(final String element)
 	{
 		return sourceType().newItem(SetValue.map(sourceField, element));
-	}
-
-	StringItem add(final String element, final boolean mb4)
-	{
-		if(mb4)
-			return add(element);
-
-		try
-		{
-			add(element);
-			fail(getID());
-		}
-		catch(final SQLRuntimeException ignored)
-		{
-			// expected
-		}
-		return null;
 	}
 
 	String getSchemaType()
