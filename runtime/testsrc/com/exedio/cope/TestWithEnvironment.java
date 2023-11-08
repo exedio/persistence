@@ -266,9 +266,9 @@ public abstract class TestWithEnvironment
 		return approximate.equals(((Enum<?>)field.get()).name());
 	}
 
-	protected final boolean propertiesSmallIntegerTypes()
+	protected static boolean propertiesSmallIntegerTypes()
 	{
-		return propertiesBoolean("dialect.smallIntegerTypes");
+		return true;
 	}
 
 	protected final boolean propertiesLongConstraintNames()
