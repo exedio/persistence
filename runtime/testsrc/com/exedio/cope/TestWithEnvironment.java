@@ -266,11 +266,6 @@ public abstract class TestWithEnvironment
 		return approximate.equals(((Enum<?>)field.get()).name());
 	}
 
-	protected static boolean propertiesLongConstraintNames()
-	{
-		return true;
-	}
-
 	protected final String ifPrep(final String s)
 	{
 		return

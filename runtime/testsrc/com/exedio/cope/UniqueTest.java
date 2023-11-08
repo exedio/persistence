@@ -103,9 +103,7 @@ public class UniqueTest extends TestWithEnvironment
 
 		// test persistence
 		assertEquals(
-				mysql && !propertiesLongConstraintNames()
-				? "UniquSingItem_uniStri_Unq"
-				: "UniqueSingleItem_uniqueString_Unq",
+				"UniqueSingleItem_uniqueString_Unq",
 				getConstraintName(uniqueString.getImplicitUniqueConstraint()));
 
 		assertEquals(null, forUniqueString("uniqueString"));
