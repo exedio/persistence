@@ -65,16 +65,9 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 				type8 = "BIGINT";
 				break;
 			case mysql:
-				if(propertiesSmallIntegerTypes())
-				{
-					type1 = "tinyint";
-					type2 = "smallint";
-					type3 = "mediumint";
-				}
-				else
-				{
-					type1 = type2 = type3 = "int";
-				}
+				type1 = "tinyint";
+				type2 = "smallint";
+				type3 = "mediumint";
 				type4 = "int";
 				type8 = "bigint";
 				break;

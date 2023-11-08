@@ -71,7 +71,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					IntegerTypeBigIntItem.TYPE,
 					IntegerTypeBigIntItem.itemReference,
 					IntegerTypeBigIntItem.value,
-					"BIGINT", "bigint", "bigint", "bigint");
+					"BIGINT", "bigint", "bigint");
 		}
 		{
 			final IntegerTypeSubItem item = new IntegerTypeSubItem();
@@ -89,7 +89,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					IntegerTypeSubItem.TYPE,
 					IntegerTypeSubItem.itemReference2,
 					IntegerTypeSubItem.value2,
-					"BIGINT", "bigint", "bigint", "bigint");
+					"BIGINT", "bigint", "bigint");
 		}
 		{
 			final IntegerTypeIntItem item = new IntegerTypeIntItem();
@@ -105,7 +105,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					IntegerTypeIntItem.TYPE,
 					IntegerTypeIntItem.itemReference,
 					IntegerTypeIntItem.value,
-					"INTEGER", "int", "int", "integer");
+					"INTEGER", "int", "integer");
 		}
 		{
 			final IntegerTypeMediumIntItem item = new IntegerTypeMediumIntItem();
@@ -121,7 +121,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					IntegerTypeMediumIntItem.TYPE,
 					IntegerTypeMediumIntItem.itemReference,
 					IntegerTypeMediumIntItem.value,
-					"INTEGER", "mediumint", "int", "integer");
+					"INTEGER", "mediumint", "integer");
 		}
 		{
 			final IntegerTypeSmallIntItem item = new IntegerTypeSmallIntItem();
@@ -137,7 +137,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					IntegerTypeSmallIntItem.TYPE,
 					IntegerTypeSmallIntItem.itemReference,
 					IntegerTypeSmallIntItem.value,
-					"SMALLINT", "smallint", "int", "smallint");
+					"SMALLINT", "smallint", "smallint");
 		}
 		{
 			final IntegerTypeTinyIntItem item = new IntegerTypeTinyIntItem();
@@ -153,7 +153,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					IntegerTypeTinyIntItem.TYPE,
 					IntegerTypeTinyIntItem.itemReference,
 					IntegerTypeTinyIntItem.value,
-					"TINYINT", "tinyint", "int", "smallint");
+					"TINYINT", "tinyint", "smallint");
 		}
 	}
 
@@ -285,7 +285,6 @@ public class IntegerTypeTest extends TestWithEnvironment
 			final Type<?> type, final ItemField<?> itemField, final LongField longField,
 			final String expectedHsqldbDataType,
 			final String expectedMysqlDataType,
-			final String expectedMysqlDataTypeWithoutSmallIntegerTypes,
 			final String expectedPostgresqlDataType)
 	{
 		final String tableName = getTableName(type);
@@ -304,10 +303,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					expectedDataType = expectedHsqldbDataType;
 				break;
 				case mysql:
-					if(propertiesSmallIntegerTypes())
-						expectedDataType = expectedMysqlDataType;
-					else
-						expectedDataType = expectedMysqlDataTypeWithoutSmallIntegerTypes;
+					expectedDataType = expectedMysqlDataType;
 				break;
 				case postgresql:
 					expectedDataType = expectedPostgresqlDataType;
