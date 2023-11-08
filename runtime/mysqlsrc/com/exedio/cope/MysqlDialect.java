@@ -262,10 +262,11 @@ final class MysqlDialect extends Dialect
 	{
 		// small integer types do not save any space in experiments.
 		// https://dev.mysql.com/doc/refman/5.5/en/storage-requirements.html
-		if(minimum>=Byte .MIN_VALUE && maximum<=Byte .MAX_VALUE) return "tinyint";
-		if(minimum>=Short.MIN_VALUE && maximum<=Short.MAX_VALUE) return "smallint";
-		if(minimum>=-8388608l       && maximum<=8388607l       ) return "mediumint";
-		return (minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? "int" : "bigint";
+		if(minimum>=Byte   .MIN_VALUE && maximum<=Byte   .MAX_VALUE) return "tinyint";
+		if(minimum>=Short  .MIN_VALUE && maximum<=Short  .MAX_VALUE) return "smallint";
+		if(minimum>=-8388608l         && maximum<=8388607l         ) return "mediumint";
+		if(minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) return "int";
+		return "bigint";
 	}
 
 	@Override
