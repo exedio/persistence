@@ -42,9 +42,7 @@ public class UniqueDoubleTest extends TestWithEnvironment
 	@Test void test()
 	{
 		assertEquals(
-				mysql && !propertiesLongConstraintNames()
-				? "UniqueDoubleItem_cons_Unq"
-				: "UniqueDoubleItem_constraint_Unq",
+				"UniqueDoubleItem_constraint_Unq",
 				getConstraintName(constraint));
 
 		assertEquals(null, forConstraint("a", 1));

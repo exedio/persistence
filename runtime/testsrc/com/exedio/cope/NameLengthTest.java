@@ -66,7 +66,6 @@ public class NameLengthTest extends TestWithEnvironment
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(AnItem.TYPE));
-		final boolean c  = mysql && !propertiesLongConstraintNames();
 
 		assertIt(table, PrimaryKey, "AnItem_PK");
 		assertIt(table, ForeignKey, "AnItem_foreignShort_Fk");
@@ -74,10 +73,10 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(table, Check,      "AnItem_fieldShort_EN");
 		assertIt(table, Check,      "AnItem_checkShort");
 
-		assertIt(table, ForeignKey, c ? "AnItem_foreignLooooooo_Fk" : "AnItem_foreignLoooooooooooooooooooooooooooooooooooooooooo_Fk");
-		assertIt(table, Unique,     c ? "AnItem_fieldLoooooooo_Unq" : "AnItem_fieldLooooooooooooooooooooooooooooooooooooooooooo_Unq");
-		assertIt(table, Check,                                        "AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN");
-		assertIt(table, Check,                                        "AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo");
+		assertIt(table, ForeignKey, "AnItem_foreignLoooooooooooooooooooooooooooooooooooooooooo_Fk");
+		assertIt(table, Unique,     "AnItem_fieldLooooooooooooooooooooooooooooooooooooooooooo_Unq");
+		assertIt(table, Check,      "AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN");
+		assertIt(table, Check,      "AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo");
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
 		assertIt(longTable, PrimaryKey, "LooooooooooooooooooooItem_PK");

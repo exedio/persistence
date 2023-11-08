@@ -100,9 +100,7 @@ public class NameTest extends TestWithEnvironment
 		assertEquals("pointerLoooooooooooooName", getColumnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLoooooooooNameType", getTypeColumnName(NameLongItem_pointerLongName));
 		assertEquals(
-				mysql && !propertiesLongConstraintNames()
-				? "NameLongItem_poiLooNam_Fk"
-				: "NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
+				"NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
 				getForeignKeyConstraintName(NameLongItem_pointerLongName));
 
 		assertEquals("NameCollisionloooooooItem", getTableName(NameCollisionlongaItem.TYPE));
