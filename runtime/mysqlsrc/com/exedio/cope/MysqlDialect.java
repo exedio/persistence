@@ -108,16 +108,9 @@ final class MysqlDialect extends Dialect
 		env.requireDatabaseVersionAtLeast("MySQL", 5, 7);
 
 		final boolean mysql8 = env.isDatabaseVersionAtLeast(8, 0);
-
 		this.timeZoneStatement = properties.timeZoneStatement();
 		this.connectionCompress = properties.connectionCompress;
 		this.setStrictMode = !mysql8;
-
-		if(connectionCompress && !env.isDatabaseVersionAtLeast(5, 7))
-			throw new IllegalArgumentException(
-					"connection.compress is supported on MySQL 5.7 and later only: " +
-					env.getDatabaseVersionDescription());
-
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 		likeRequiresEscapeBackslash = mysql8;
 
