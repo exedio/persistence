@@ -90,7 +90,6 @@ final class MysqlDialect extends Dialect
 	private final boolean connectionCompress;
 	private final boolean setStrictMode;
 
-	private final boolean supportsAnyValue;
 	private final int purgeSequenceLimit;
 	private final boolean likeRequiresEscapeBackslash;
 	private final boolean regexpICU;
@@ -119,7 +118,6 @@ final class MysqlDialect extends Dialect
 					"connection.compress is supported on MySQL 5.7 and later only: " +
 					env.getDatabaseVersionDescription());
 
-		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 		likeRequiresEscapeBackslash = mysql8;
 
@@ -791,7 +789,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	boolean supportsAnyValue()
 	{
-		return supportsAnyValue;
+		return true;
 	}
 
 	@Override
