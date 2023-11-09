@@ -21,6 +21,5 @@ package com.exedio.cope;
 enum TrimClass
 {
 	Data,
-	ForeignKeyUniqueConstraint,
-	PrimaryKeyCheckConstraint // on MySQL a primary key constraint does not have a name
+	Constraint // on MySQL a primary key constraint does not have a name
 }

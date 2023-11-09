@@ -86,7 +86,7 @@ public final class CheckConstraint extends Feature implements Copyable
 		condition.append(statement);
 
 		dsmf.newCheck(
-				intern(table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, getDeclaredSchemaName())),
+				intern(table.makeGlobalID(TrimClass.Constraint, getDeclaredSchemaName())),
 				statement.getText());
 	}
 

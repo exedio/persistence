@@ -107,8 +107,7 @@ abstract class Dialect
 		trimmers.put(TrimClass.Data, dataTrimmer);
 
 		final Trimmer constraintTrimmer = new Trimmer(60);
-		trimmers.put(TrimClass.ForeignKeyUniqueConstraint, constraintTrimmer);
-		trimmers.put(TrimClass. PrimaryKeyCheckConstraint, constraintTrimmer);
+		trimmers.put(TrimClass.Constraint, constraintTrimmer);
 	}
 
 	static final String EXPLAIN_PLAN = "explain plan";

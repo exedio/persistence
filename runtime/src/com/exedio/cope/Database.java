@@ -78,7 +78,7 @@ final class Database
 		final VaultProperties vp = properties.getVaultProperties();
 		if(vp!=null)
 		{
-			final Trimmer trimmer = nameTrimmers.get(TrimClass.PrimaryKeyCheckConstraint); // is correct, 60 character from the beginning
+			final Trimmer trimmer = nameTrimmers.get(TrimClass.Constraint); // is correct, 60 characters from the beginning
 			final LinkedHashMap<String, VaultTrail> vaultTrails = new LinkedHashMap<>();
 			for(final Map.Entry<String, VaultMarkPut> e : vaultMarkPut.entrySet())
 			{
