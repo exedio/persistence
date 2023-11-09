@@ -77,12 +77,11 @@ final class HsqldbDialect extends Dialect
 	 */
 	HsqldbDialect(final CopeProbe probe, final Props props)
 	{
-		super(
-				new HsqldbSchemaDialect(probe, props));
+		super(new HsqldbSchemaDialect(probe, props));
+		probe.environmentInfo.
+				requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 5);
 
-		probe.environmentInfo.requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 5);
-
-		this.approximate = props.approximate;
+		approximate = props.approximate;
 	}
 
 	@Override

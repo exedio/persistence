@@ -89,7 +89,6 @@ final class MysqlDialect extends Dialect
 	private final String timeZoneStatement;
 	private final boolean connectionCompress;
 	private final boolean setStrictMode;
-
 	private final int purgeSequenceLimit;
 	private final boolean likeRequiresEscapeBackslash;
 	private final boolean regexpICU;
@@ -99,18 +98,15 @@ final class MysqlDialect extends Dialect
 			final CopeProbe probe,
 			final MysqlProperties properties)
 	{
-		super(
-				new MysqlSchemaDialect(
-						probe,
-						properties));
+		super(new MysqlSchemaDialect(probe, properties));
 
 		final EnvironmentInfo env = probe.environmentInfo;
 		env.requireDatabaseVersionAtLeast("MySQL", 5, 7);
 
 		final boolean mysql8 = env.isDatabaseVersionAtLeast(8, 0);
-		this.timeZoneStatement = properties.timeZoneStatement();
-		this.connectionCompress = properties.connectionCompress;
-		this.setStrictMode = !mysql8;
+		timeZoneStatement = properties.timeZoneStatement();
+		connectionCompress = properties.connectionCompress;
+		setStrictMode = !mysql8;
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 		likeRequiresEscapeBackslash = mysql8;
 
