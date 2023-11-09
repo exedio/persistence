@@ -26,7 +26,6 @@ import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
@@ -37,7 +36,6 @@ import org.slf4j.LoggerFactory;
 
 final class Database
 {
-	private final EnumMap<TrimClass, Trimmer> nameTrimmers = new EnumMap<>(TrimClass.class);
 	private ArrayList<Table> tablesModifiable = new ArrayList<>();
 	private List<Table> tables;
 	private ArrayList<SequenceX> sequencesModifiable = new ArrayList<>();
@@ -71,19 +69,14 @@ final class Database
 		this.connectionPool = connectionPool;
 		this.executor = executor;
 
-		Dialect.setNameTrimmers(nameTrimmers);
-		if(nameTrimmers.size()!=TrimClass.values().length)
-			throw new RuntimeException(String.valueOf(nameTrimmers));
-
 		final VaultProperties vp = properties.getVaultProperties();
 		if(vp!=null)
 		{
-			final Trimmer trimmer = nameTrimmers.get(TrimClass.Constraint); // is correct, 60 characters from the beginning
 			final LinkedHashMap<String, VaultTrail> vaultTrails = new LinkedHashMap<>();
 			for(final Map.Entry<String, VaultMarkPut> e : vaultMarkPut.entrySet())
 			{
 				final String bucket = e.getKey();
-				vaultTrails.put(bucket, new VaultTrail(bucket, connectionPool, executor, trimmer, e.getValue(), vp));
+				vaultTrails.put(bucket, new VaultTrail(bucket, connectionPool, executor, e.getValue(), vp));
 			}
 			this.vaultTrails = Collections.unmodifiableMap(vaultTrails);
 		}
@@ -493,7 +486,7 @@ final class Database
 
 	String makeName(final TrimClass trimClass, final String longName)
 	{
-		return nameTrimmers.get(trimClass).trimString(longName);
+		return trimClass.trimmer.trimString(longName);
 	}
 
 	Schema makeSchema()

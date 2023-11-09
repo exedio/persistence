@@ -18,8 +18,24 @@
 
 package com.exedio.cope;
 
+/**
+ * MySQL maximum length is 64:
+ * <a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-length.html">...</a>
+ * MySQL does support check constraints only since version 8.
+ * <p>
+ * PostgreSQL maximum length is 63:
+ * <a href="https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS">...</a>
+ */
 enum TrimClass
 {
-	Data,
-	Constraint // on MySQL a primary key constraint does not have a name
+	Data(25),
+	Constraint(60); // on MySQL a primary key constraint does not have a name
+
+	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: enum is singleton
+	final Trimmer trimmer;
+
+	TrimClass(final int maxLength)
+	{
+		trimmer = new Trimmer(maxLength);
+	}
 }
