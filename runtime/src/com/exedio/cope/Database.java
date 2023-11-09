@@ -484,11 +484,6 @@ final class Database
 		executor.updateStrict(connection, present ? state.item : null, bf);
 	}
 
-	String makeName(final TrimClass trimClass, final String longName)
-	{
-		return trimClass.trimmer.trimString(longName);
-	}
-
 	Schema makeSchema()
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
