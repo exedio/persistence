@@ -34,7 +34,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.Date;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -92,22 +91,6 @@ abstract class Dialect
 	void unprepareDumperConnection(final Appendable out) throws IOException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
-	}
-
-	static void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
-	{
-		// MySQL maximum length is 63:
-		// https://dev.mysql.com/doc/refman/5.6/en/identifiers.html
-		// MySQL does support check constraints only since version 8.
-
-		// PostgreSQL maximum length is 63:
-		// https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
-
-		final Trimmer dataTrimmer = new Trimmer(25);
-		trimmers.put(TrimClass.Data, dataTrimmer);
-
-		final Trimmer constraintTrimmer = new Trimmer(60);
-		trimmers.put(TrimClass.Constraint, constraintTrimmer);
 	}
 
 	static final String EXPLAIN_PLAN = "explain plan";

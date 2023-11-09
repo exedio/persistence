@@ -63,7 +63,6 @@ final class VaultTrail
 			final String bucket,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Trimmer trimmer,
 			final VaultMarkPut markPutSupplier,
 			final VaultProperties props)
 	{
@@ -76,6 +75,7 @@ final class VaultTrail
 		this.fieldLimit = props.getTrailFieldLimit();
 		this.originLimit = props.getTrailOriginLimit();
 
+		final Trimmer trimmer = TrimClass.Constraint.trimmer; // is correct, 60 characters from the beginning
 		table   = trimmer.trimString("VaultTrail_" + bucket);
 		hash    = trimmer.trimString("hash");
 		hashPK  = trimmer.trimString(table + "_PK");
