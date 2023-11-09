@@ -132,6 +132,12 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
+	public Condition not()
+	{
+		return new CompareFunctionCondition<>(operator.not(), left, right);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompareFunctionCondition<?>))
