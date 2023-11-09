@@ -66,6 +66,11 @@ final class CheckConstraintConditionItem extends Item
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint startsWith = new CheckConstraint(integer1.isNotNull());
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint upper = new CheckConstraint(string.toUpperCase().equal("up"));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint lower = new CheckConstraint(string.toLowerCase().equal("low"));
+
 
 	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})

@@ -56,6 +56,8 @@ final class MysqlSchemaDialect extends Dialect
 			final Replacements r = new Replacements();
 			r.add("\\bchar_length(\\(`\\w*`\\))",  "CHAR_LENGTH$1");
 			r.add("\\b" + "length(\\(`\\w*`\\))", "OCTET_LENGTH$1"); // https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_length
+			r.add("\\bupper(\\(`\\w*`\\))",  "UPPER$1");
+			r.add("\\blower(\\(`\\w*`\\))",  "LOWER$1");
 			r.add(" (=|<>|>=|<=|>|<) ", "$1");
 			r.add("-\\(" + "([0-9.E]*)\\)", "-$1");
 			r.add(" not in ", " NOT IN ");
