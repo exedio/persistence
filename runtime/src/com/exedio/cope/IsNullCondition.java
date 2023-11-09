@@ -108,6 +108,12 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
+	public Condition not()
+	{
+		return new IsNullCondition<>(function, !not);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof IsNullCondition<?>))
