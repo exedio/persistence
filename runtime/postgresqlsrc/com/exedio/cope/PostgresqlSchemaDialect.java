@@ -51,6 +51,8 @@ final class PostgresqlSchemaDialect extends Dialect
 		cc.add(" (=|<>|>=|<=|>|<) ", "$1");
 		cc.add("\"char_length\"(\\(\"\\w*\"\\))", "CHAR_LENGTH$1");
 		cc.add("\"octet_length\"(\\(\"\\w*\"\\))", "OCTET_LENGTH$1");
+		cc.add("\"upper\"(\\(\"\\w*\"\\))", "UPPER$1");
+		cc.add("\"lower\"(\\(\"\\w*\"\\))", "LOWER$1");
 		cc.add("\"floor\"(\\(\"date_part\"\\('SECOND', \"seconds\"\\)\\))", "FLOOR$1");
 	}
 
