@@ -59,8 +59,8 @@ public class CompositeConditionTest extends TestWithEnvironment
 		final Condition conditionOr  = conditionA.or (conditionB);
 		assertEquals("("+intx+">'1' and "+longx+">'1')", conditionAnd.toString());
 		assertEquals("("+intx+">'1' or " +longx+">'1')", conditionOr .toString());
-		assertEquals("!(("+intx+">'1' and "+longx+">'1'))", conditionAnd.not().toString());
-		assertEquals("!(("+intx+">'1' or " +longx+">'1'))", conditionOr .not().toString());
+		assertEquals("("+intx+"<='1' or " +longx+"<='1')", conditionAnd.not().toString());
+		assertEquals("("+intx+"<='1' and "+longx+"<='1')", conditionOr .not().toString());
 
 		assertCondition(              itemAB                , TYPE, conditionAnd);
 		assertCondition(itemA, itemB, itemAB, itemAX, itemXB, TYPE, conditionOr );
