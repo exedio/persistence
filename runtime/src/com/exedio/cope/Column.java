@@ -84,7 +84,7 @@ abstract class Column
 			final com.exedio.dsmf.Column dsmf,
 			final String suffix, final String condition)
 	{
-		dsmf.newCheck(makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, suffix), condition);
+		dsmf.newCheck(makeGlobalID(TrimClass.Constraint, suffix), condition);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ abstract class Column
 				dsmf.newColumn(id, databaseTypeClause);
 
 		if(kind.primaryKey())
-			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "PK"));
+			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.Constraint, "PK"));
 
 		makeSchema(dsmfColumn);
 	}
