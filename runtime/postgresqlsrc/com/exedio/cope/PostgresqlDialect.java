@@ -49,11 +49,9 @@ final class PostgresqlDialect extends Dialect
 			final CopeProbe probe,
 			final PostgresqlProperties properties)
 	{
-		super(
-				new PostgresqlSchemaDialect(
-						probe, properties));
-
-		probe.environmentInfo.requireDatabaseVersionAtLeast("PostgreSQL", 11, 12);
+		super(new PostgresqlSchemaDialect(probe, properties));
+		probe.environmentInfo.
+				requireDatabaseVersionAtLeast("PostgreSQL", 11, 12);
 
 		timeZoneStatement = properties.timeZoneStatement();
 		schemaStatement = properties.schemaStatement();
