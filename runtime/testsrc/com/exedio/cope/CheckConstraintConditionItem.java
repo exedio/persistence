@@ -39,7 +39,19 @@ final class CheckConstraintConditionItem extends Item
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compare         = new CheckConstraint(integer1.less(0));
 	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint lessOrEqual     = new CheckConstraint(integer1.lessOrEqual(0));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint greater         = new CheckConstraint(integer1.greater(0));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint greaterOrEqual  = new CheckConstraint(integer1.greaterOrEqual(0));
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compareFunction = new CheckConstraint(integer1.less(integer2));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint lessOrEqualFunction       = new CheckConstraint(integer1.lessOrEqual(integer2));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint greaterFunction           = new CheckConstraint(integer1.greater(integer2));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint greaterOrEqualFunction    = new CheckConstraint(integer1.greaterOrEqual(integer2));
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint not = new CheckConstraint(string.regexpLike("[a-z]").not());

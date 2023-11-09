@@ -227,6 +227,14 @@ public class CompareConditionTest extends TestWithEnvironment
 
 	@Test void testNot()
 	{
+		assertEquals("!("+intx+" is null)",     intx.isNull   ().not().toString());
+		assertEquals("!("+intx+" is not null)", intx.isNotNull().not().toString());
+		assertEquals("!("+intx+ "='3')", intx.   equal      (3) .not().toString());
+		assertEquals("!("+intx+"<>'3')", intx.notEqual      (3) .not().toString());
+		assertEquals("!("+intx+ "<'3')", intx.less          (3) .not().toString());
+		assertEquals("!("+intx+"<='3')", intx.lessOrEqual   (3) .not().toString());
+		assertEquals("!("+intx+ ">'3')", intx.greater       (3) .not().toString());
+		assertEquals("!("+intx+">='3')", intx.greaterOrEqual(3) .not().toString());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNull().not());
 		assertCondition(itemX,                             TYPE, intx.isNotNull().not());
 		assertCondition(item1, item2,        item4, item5, TYPE, intx.equal(3).not());

@@ -106,8 +106,8 @@ public class CompositeConditionUtilTest
 
 	@Test void testNot()
 	{
-		final DoubleField field = new DoubleField().optional();
-		final Condition c1 = field.equal(1d);
+		final StringField field = new StringField().optional();
+		final Condition c1 = field.regexpLike("myRegexp");
 		assertSame(TRUE, FALSE.not());
 		assertSame(FALSE, TRUE.not());
 		assertEquals("!(" + c1 + ")", c1.not().toString());
@@ -117,8 +117,8 @@ public class CompositeConditionUtilTest
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testNotConstructor()
 	{
-		final DoubleField field = new DoubleField().optional();
-		final Condition c1 = field.equal(1d);
+		final StringField field = new StringField().optional();
+		final Condition c1 = field.regexpLike("myRegexp");
 		assertFails(
 				() -> new NotCondition(null),
 				NullPointerException.class,

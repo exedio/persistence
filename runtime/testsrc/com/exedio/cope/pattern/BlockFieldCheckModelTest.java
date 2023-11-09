@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.alpha;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.beta;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.compare;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.composite;
+import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.gamma;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.greater;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.isnull;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.less;
@@ -59,10 +60,10 @@ public class BlockFieldCheckModelTest
 				AnItem.TYPE.getThis(),
 				AnItem.code,
 				eins,
-				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater),
+				eins.of(alpha), eins.of(beta), eins.of(gamma), eins.of(less), eins.of(greater),
 				eins.of(compare), eins.of(composite), eins.of(isnull), eins.of(not),
 				zwei,
-				zwei.of(alpha), zwei.of(beta), zwei.of(less), zwei.of(greater),
+				zwei.of(alpha), zwei.of(beta), zwei.of(gamma), zwei.of(less), zwei.of(greater),
 				zwei.of(compare), zwei.of(composite), zwei.of(isnull), zwei.of(not),
 			}), AnItem.TYPE.getDeclaredFeatures());
 
@@ -76,7 +77,7 @@ public class BlockFieldCheckModelTest
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(less).getPattern());
 		assertEqualsUnmodifiable(list(
-				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater),
+				eins.of(alpha), eins.of(beta), eins.of(gamma), eins.of(less), eins.of(greater),
 				eins.of(compare), eins.of(composite), eins.of(isnull), eins.of(not)),
 			eins.getSourceFeatures());
 
@@ -88,17 +89,17 @@ public class BlockFieldCheckModelTest
 		assertEquals(eins.of(alpha)+"<'200'", eins.of(compare).getCondition().toString());
 		assertEquals("("+eins.of(alpha)+"<'300' and "+eins.of(beta)+"<'500')" , eins.of(composite).getCondition().toString());
 		assertEquals(eins.of(alpha)+" is not null" , eins.of(isnull).getCondition().toString());
-		assertEquals("!("+eins.of(alpha)+">'600')" , eins.of(not).getCondition().toString());
+		assertEquals("!("+eins.of(gamma)+" regexp '(?s)\\AmyRegexp\\z')" , eins.of(not).getCondition().toString());
 
 		assertEquals(ABlock.TYPE, eins.getValueType());
 		assertEquals(ABlock.class, eins.getValueClass());
 
 		assertSame(less, eins.getTemplate(eins.of(less)));
 		assertEqualsUnmodifiable(list(
-				alpha, beta, less, greater, compare, composite, isnull, not),
+				alpha, beta, gamma, less, greater, compare, composite, isnull, not),
 			eins.getTemplates());
 		assertEqualsUnmodifiable(list(
-				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater),
+				eins.of(alpha), eins.of(beta), eins.of(gamma), eins.of(less), eins.of(greater),
 				eins.of(compare), eins.of(composite), eins.of(isnull), eins.of(not)),
 			eins.getComponents());
 
@@ -116,13 +117,14 @@ public class BlockFieldCheckModelTest
 	{
 		static final IntegerField alpha = new IntegerField();
 		static final IntegerField beta = new IntegerField();
+		static final StringField gamma = new StringField().optional();
 		static final CheckConstraint less    = new CheckConstraint(alpha.   lessOrEqual(beta));
 		static final CheckConstraint greater = new CheckConstraint(alpha.greaterOrEqual(beta));
 
 		static final CheckConstraint compare = new CheckConstraint(alpha.less(200));
 		static final CheckConstraint composite = new CheckConstraint(alpha.less(300).and(beta.less(500)));
 		static final CheckConstraint isnull = new CheckConstraint(alpha.isNotNull());
-		static final CheckConstraint not = new CheckConstraint(alpha.greater(600).not());
+		static final CheckConstraint not = new CheckConstraint(gamma.regexpLike("myRegexp").not());
 
 
 	/**
@@ -163,6 +165,29 @@ public class BlockFieldCheckModelTest
 	void setBeta(final int beta)
 	{
 		field().of(ABlock.beta).set(item(),beta);
+	}
+
+	/**
+	 * Returns the value of {@link #gamma}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	java.lang.String getGamma()
+	{
+		return field().of(ABlock.gamma).get(item());
+	}
+
+	/**
+	 * Sets a new value for {@link #gamma}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setGamma(@javax.annotation.Nullable final java.lang.String gamma)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		field().of(ABlock.gamma).set(item(),gamma);
 	}
 
 	@com.exedio.cope.instrument.Generated
