@@ -231,5 +231,20 @@ public final class CompareFunctionCondition<E> extends Condition
 		}
 
 		abstract boolean evaluateNotNull(Comparable<Comparable<?>> left, Comparable<Comparable<?>> right);
+
+		Operator not()
+		{
+			switch(this)
+			{
+				case    Equal     : return NotEqual;
+				case NotEqual     : return    Equal;
+				case Less         : return GreaterEqual;
+				case LessEqual    : return Greater;
+				case Greater      : return LessEqual;
+				case GreaterEqual : return Less;
+				default:
+					throw new RuntimeException(name());
+			}
+		}
 	}
 }
