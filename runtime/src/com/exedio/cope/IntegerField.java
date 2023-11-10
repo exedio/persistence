@@ -25,6 +25,7 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -217,6 +218,18 @@ public final class IntegerField extends NumberField<Integer>
 	public IntegerField copyFrom(final ItemField<?> target)
 	{
 		return copyFrom(new CopyFrom(target));
+	}
+
+	@Override
+	public IntegerField copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<Integer>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public IntegerField copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
 	}
 
 	private IntegerField copyFrom(final CopyFrom copyFrom)

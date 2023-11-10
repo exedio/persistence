@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
@@ -92,6 +93,18 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	public EnumField<E> copyFrom(final ItemField<?> target)
 	{
 		return copyFrom(new CopyFrom(target));
+	}
+
+	@Override
+	public EnumField<E> copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<E>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public EnumField<E> copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
 	}
 
 	private EnumField<E> copyFrom(final CopyFrom copyFrom)

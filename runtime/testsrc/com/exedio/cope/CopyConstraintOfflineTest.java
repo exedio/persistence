@@ -32,6 +32,14 @@ public class CopyConstraintOfflineTest
 				NullPointerException.class,
 				"target");
 	}
+	@Test void testTargetNullSupplier()
+	{
+		final StringField copy = new StringField();
+		assertFails(
+				() -> copy.copyFrom(null, null),
+				NullPointerException.class,
+				"target");
+	}
 	@Test void testCopyNull()
 	{
 		final ItemField<?> target = ItemField.create(CopySimpleSource.class);
@@ -39,5 +47,26 @@ public class CopyConstraintOfflineTest
 				() -> target.copyTo(null),
 				NullPointerException.class,
 				"copy");
+	}
+	@Test void testCopyNullSupplier()
+	{
+		final ItemField<?> target = ItemField.create(CopySimpleSource.class);
+		assertFails(
+				() -> target.copyTo(null, null),
+				NullPointerException.class,
+				"copy");
+	}
+	@Test void testTemplateNull()
+	{
+		final ItemField<?> target = ItemField.create(CopySimpleSource.class);
+		final StringField copy = new StringField();
+		assertFails(
+				() -> copy.copyFrom(target, null),
+				NullPointerException.class,
+				"template");
+		assertFails(
+				() -> target.copyTo(copy, null),
+				NullPointerException.class,
+				"template");
 	}
 }

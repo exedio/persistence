@@ -27,6 +27,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -138,6 +139,18 @@ public final class LongField extends NumberField<Long>
 	public LongField copyFrom(final ItemField<?> target)
 	{
 		return copyFrom(new CopyFrom(target));
+	}
+
+	@Override
+	public LongField copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<Long>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public LongField copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
 	}
 
 	private LongField copyFrom(final CopyFrom copyFrom)

@@ -39,6 +39,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 public final class DateField extends FunctionField<Date>
@@ -117,6 +118,18 @@ public final class DateField extends FunctionField<Date>
 	public DateField copyFrom(final ItemField<?> target)
 	{
 		return copyFrom(new CopyFrom(target));
+	}
+
+	@Override
+	public DateField copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<Date>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public DateField copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
 	}
 
 	private DateField copyFrom(final CopyFrom copyFrom)
