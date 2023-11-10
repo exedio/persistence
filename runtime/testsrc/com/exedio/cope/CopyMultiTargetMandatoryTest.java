@@ -198,7 +198,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		static final ItemField<Target> targetA = ItemField.create(Target.class);
 		static final ItemField<Target> targetB = ItemField.create(Target.class);
 
-		static final IntegerField copy = new IntegerField().copyFrom(targetA).copyFrom(targetB);
+		static final IntegerField copy = new IntegerField().copyFrom(targetA, () -> Target.copy).copyFrom(targetB, () -> Target.copy);
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})

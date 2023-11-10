@@ -88,7 +88,7 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 		private static final IntegerField value = new IntegerField().toFinal();
 
 		private static final LimitedListField<LimitedListCopyItem> list = LimitedListField.create(
-			ItemField.create(LimitedListCopyItem.class).optional().copyTo(value),
+			ItemField.create(LimitedListCopyItem.class).optional().copyToSelf(value),
 			4
 		);
 

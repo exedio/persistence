@@ -82,7 +82,7 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 
 		@WrapperInitial
 		@Wrapper(wrap="*", visibility=NONE)
-		private static final StringField value = new StringField().copyFrom(other).unique().toFinal().defaultTo("defaultValue");
+		private static final StringField value = new StringField().copyFromSelf(other).unique().toFinal().defaultTo("defaultValue");
 
 		@Wrapper(wrap="*", visibility=NONE)
 		@Wrapper(wrap="addTo", visibility=DEFAULT)

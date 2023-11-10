@@ -167,7 +167,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		@WrapperInitial
 		static final ItemField<Target> target = ItemField.create(Target.class).optional();
 		@WrapperInitial
-		static final StringField field = new StringField().optional().copyFrom(target).defaultTo("defaultValue");
+		static final StringField field = new StringField().optional().copyFrom(target, () -> Target.field).defaultTo("defaultValue");
 
 
 		static Source create()

@@ -24,7 +24,7 @@ final class CopySelfSource extends Item
 {
 	@WrapperInitial
 	static final ItemField<CopySelfSource> selfTarget = ItemField.create(CopySelfSource.class).optional();
-	static final ItemField<CopyValue> selfTemplate = ItemField.create(CopyValue.class).toFinal().optional().copyFrom(selfTarget);
+	static final ItemField<CopyValue> selfTemplate = ItemField.create(CopyValue.class).toFinal().optional().copyFromSelf(selfTarget);
 
 	@Override
 	public String toString()

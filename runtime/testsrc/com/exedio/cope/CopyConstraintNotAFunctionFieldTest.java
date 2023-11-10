@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.UsageEntryPoint;
+import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
 public class CopyConstraintNotAFunctionFieldTest
@@ -42,9 +43,13 @@ public class CopyConstraintNotAFunctionFieldTest
 	{
 		@WrapperIgnore
 		static final ItemField<Target> target = ItemField.create(Target.class).toFinal();
+
+		static final Supplier<?> templateRaw = () -> Target.field;
+		@SuppressWarnings("unchecked") // OK: test bad API usage
+		static final Supplier<FunctionField<String>> template = (Supplier<FunctionField<String>>)templateRaw;
 		@WrapperIgnore
 		@UsageEntryPoint // OK: test bad API usage
-		static final StringField field = new StringField().toFinal().copyFrom(target);
+		static final StringField field = new StringField().toFinal().copyFrom(target, template);
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
