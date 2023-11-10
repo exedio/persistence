@@ -69,6 +69,10 @@ public class StringConditionOfflineTest
 		assertEquals(l.like ( "lowerupper%"), f.startsWithIgnoreCase("lowerUPPER" ));
 		assertEquals(l.like ("%lowerupper" ), f.  endsWithIgnoreCase("lowerUPPER" ));
 		assertEquals(l.like ("%lowerupper%"), f.  containsIgnoreCase("lowerUPPER" ));
+
+		final StringField f2 = new StringField();
+		final CaseView l2 = f2.toLowerCase();
+		assertEquals(l.equal(l2), f.equalIgnoreCase(f2));
 	}
 
 	@Test void testConditionsConvenienceEmpty() // TODO should be isNotNull
@@ -91,7 +95,8 @@ public class StringConditionOfflineTest
 		assertFails(() -> f.startsWith(null), NullPointerException.class, null);
 		assertFails(() -> f.  endsWith(null), NullPointerException.class, null);
 		assertFails(() -> f.  contains(null), NullPointerException.class, null);
-		assertFails(() -> f.     equalIgnoreCase(null), NullPointerException.class, null);
+		assertFails(() -> f.     equalIgnoreCase((String)null), NullPointerException.class, null);
+		assertFails(() -> f.     equalIgnoreCase((Function<String>)null), NullPointerException.class, "sources[0]");
 		assertFails(() -> f.      likeIgnoreCase(null), NullPointerException.class, null);
 		assertFails(() -> f.startsWithIgnoreCase(null), NullPointerException.class, null);
 		assertFails(() -> f.  endsWithIgnoreCase(null), NullPointerException.class, null);

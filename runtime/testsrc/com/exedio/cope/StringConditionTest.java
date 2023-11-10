@@ -146,6 +146,19 @@ public class StringConditionTest extends TestWithEnvironment
 		assertEquals(asList(mixed, lower, upper), search(field. likeIgnoreCase("lower\u00dfUPPER")));
 	}
 
+	@Test void testIgnoreCaseFunction()
+	{
+		final MyItem same = new MyItem("lowerUPPER", "lowerUPPER");
+		final MyItem lower = new MyItem("lowerUPPER", "lowerupper");
+		final MyItem upper = new MyItem("lowerUPPER", "LOWERUPPER");
+		new MyItem("lowerUPPER", "LOWERXPPER");
+		new MyItem(null, "lowerUPPER");
+		new MyItem("lowerUPPER", null);
+		new MyItem(null, null);
+
+		assertEquals(List.of(same, lower, upper), search(field.equalIgnoreCase(MyItem.right)));
+	}
+
 	private static List<MyItem> search(final Condition condition)
 	{
 		final Query<MyItem> q = TYPE.newQuery(condition);
@@ -160,15 +173,26 @@ public class StringConditionTest extends TestWithEnvironment
 		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final StringField field = new StringField().optional().lengthMin(0);
 
+		@WrapperInitial
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
+		static final StringField right = new StringField().optional().lengthMin(0);
+
+		MyItem(final String field)
+		{
+			this(field, "RIGHT_DUMMY_VALUE");
+		}
+
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		MyItem(
-					@javax.annotation.Nullable final java.lang.String field)
+					@javax.annotation.Nullable final java.lang.String field,
+					@javax.annotation.Nullable final java.lang.String right)
 				throws
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 				com.exedio.cope.SetValue.map(MyItem.field,field),
+				com.exedio.cope.SetValue.map(MyItem.right,right),
 			});
 		}
 
