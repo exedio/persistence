@@ -39,7 +39,7 @@ final class SamplerMedia extends Item
 	@UsageEntryPoint private static final ItemField<SamplerModel  > model = field(SamplerModel  .class);
 	@UsageEntryPoint private static final ItemField<SamplerMediaId> media = field(SamplerMediaId.class);
 
-	private static final DateField date = new DateField().toFinal().copyFrom(model);
+	private static final DateField date = new DateField().toFinal().copyFrom(model, () -> SamplerModel.date);
 	@UsageEntryPoint private static final UniqueConstraint dateAndMedia = UniqueConstraint.create(date, media); // date must be first, so purging can use the index
 
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past

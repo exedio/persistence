@@ -39,7 +39,7 @@ final class SamplerItemCache extends Item
 	private static final ItemField<SamplerModel > model = ItemField.create(SamplerModel .class).toFinal();
 	private static final ItemField<SamplerTypeId> type  = ItemField.create(SamplerTypeId.class).toFinal();
 
-	private static final DateField date = new DateField().toFinal().copyFrom(model);
+	private static final DateField date = new DateField().toFinal().copyFrom(model, () -> SamplerModel.date);
 	@UsageEntryPoint private static final UniqueConstraint dateAndType = UniqueConstraint.create(date, type); // date must be first, so purging can use the index
 
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
