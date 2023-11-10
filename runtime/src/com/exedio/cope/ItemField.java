@@ -37,7 +37,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
-	private final FunctionField<?>[] copyTo;
+	private final CopyTo[] copyTo;
 	private final CopyConstraint[] implicitCopyConstraintsTo;
 	private final BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer;
 	private final CopyConstraint choice;
@@ -48,7 +48,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final Class<E> valueClass,
 			final boolean unique,
 			final CopyFrom[] copyFrom,
-			final FunctionField<?>[] copyTo,
+			final CopyTo[] copyTo,
 			final BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
@@ -81,12 +81,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		mountDefault();
 	}
 
-	private CopyConstraint[] newCopyConstraintsTo(final FunctionField<?>[] copyFrom)
+	private CopyConstraint[] newCopyConstraintsTo(final CopyTo[] copyFrom)
 	{
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = new CopyConstraint(this, copyFrom[i]);
+			result[i] = new CopyConstraint(this, copyFrom[i].copy);
 		return result;
 	}
 
@@ -159,20 +159,35 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> copyTo(final FunctionField<?> copy)
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copy), choiceBackPointer, valueTypeFuture, policy);
+		return copyTo(new CopyTo(copy));
 	}
 
-	private FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
+	private ItemField<E> copyTo(final CopyTo copyTo)
 	{
-		requireNonNull(copyTo, "copy");
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copyTo), choiceBackPointer, valueTypeFuture, policy);
+	}
+
+	private CopyTo[] addCopyTo(final CopyTo copyTo)
+	{
+		requireNonNull(copyTo);
 		if(this.copyTo==null)
-			return new FunctionField<?>[]{copyTo};
+			return new CopyTo[]{copyTo};
 
 		final int length = this.copyTo.length;
-		final FunctionField<?>[] result = new FunctionField<?>[length+1];
+		final CopyTo[] result = new CopyTo[length+1];
 		System.arraycopy(this.copyTo, 0, result, 0, length);
 		result[length] = copyTo;
 		return result;
+	}
+
+	private static final class CopyTo
+	{
+		final FunctionField<?> copy;
+
+		CopyTo(final FunctionField<?> copy)
+		{
+			this.copy = requireNonNull(copy, "copy");
+		}
 	}
 
 	@Override
