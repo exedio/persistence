@@ -22,6 +22,7 @@ import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -56,6 +57,10 @@ public class CompositeConditionTest extends TestWithEnvironment
 
 		final Condition conditionAnd = conditionA.and(conditionB);
 		final Condition conditionOr  = conditionA.or (conditionB);
+		assertEquals("("+intx+">'1' and "+longx+">'1')", conditionAnd.toString());
+		assertEquals("("+intx+">'1' or " +longx+">'1')", conditionOr .toString());
+		assertEquals("!(("+intx+">'1' and "+longx+">'1'))", conditionAnd.not().toString());
+		assertEquals("!(("+intx+">'1' or " +longx+">'1'))", conditionOr .not().toString());
 
 		assertCondition(              itemAB                , TYPE, conditionAnd);
 		assertCondition(itemA, itemB, itemAB, itemAX, itemXB, TYPE, conditionOr );
