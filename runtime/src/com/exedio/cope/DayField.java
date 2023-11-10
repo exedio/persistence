@@ -104,9 +104,9 @@ public final class DayField extends FunctionField<Day>
 		return copyFrom(new CopyFrom(target));
 	}
 
-	private DayField copyFrom(final CopyFrom target)
+	private DayField copyFrom(final CopyFrom copyFrom)
 	{
-		return new DayField(isfinal, optional, unique, addCopyFrom(target), defaultS);
+		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS);
 	}
 
 	@Override

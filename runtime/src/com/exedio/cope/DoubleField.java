@@ -105,9 +105,9 @@ public final class DoubleField extends NumberField<Double>
 		return copyFrom(new CopyFrom(target));
 	}
 
-	private DoubleField copyFrom(final CopyFrom target)
+	private DoubleField copyFrom(final CopyFrom copyFrom)
 	{
-		return new DoubleField(isfinal, optional, unique, addCopyFrom(target), defaultS, minimum, maximum);
+		return new DoubleField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimum, maximum);
 	}
 
 	@Override

@@ -140,9 +140,9 @@ public final class LongField extends NumberField<Long>
 		return copyFrom(new CopyFrom(target));
 	}
 
-	private LongField copyFrom(final CopyFrom target)
+	private LongField copyFrom(final CopyFrom copyFrom)
 	{
-		return new LongField(isfinal, optional, unique, addCopyFrom(target), defaultS, minimum, maximum);
+		return new LongField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimum, maximum);
 	}
 
 	@Override
