@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CompareFunctionCondition.Operator;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -27,7 +28,7 @@ public final class CompareCondition<E> extends Condition
 {
 	private static final long serialVersionUID = 1l;
 
-	private final CompareFunctionCondition.Operator operator;
+	private final Operator operator;
 	private final Function<E> left;
 	private final E right;
 
@@ -45,7 +46,7 @@ public final class CompareCondition<E> extends Condition
 	 */
 	@Deprecated
 	public CompareCondition(
-			final CompareFunctionCondition.Operator operator,
+			final Operator operator,
 			final Selectable<E> left,
 			final E right)
 	{
@@ -53,7 +54,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	CompareCondition(
-			final CompareFunctionCondition.Operator operator,
+			final Operator operator,
 			final Function<E> left,
 			final E right)
 	{
