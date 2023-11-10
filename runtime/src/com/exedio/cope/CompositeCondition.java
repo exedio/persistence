@@ -142,6 +142,18 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
+	public Condition not()
+	{
+		// De Morgan's laws https://en.wikipedia.org/wiki/De_Morgan%27s_laws
+		final Condition[] c = new Condition[conditions.length];
+		//noinspection Java8ArraySetAll OK: performance
+		for(int i = 0; i<c.length; i++)
+			c[i] = conditions[i].not();
+
+		return new CompositeCondition(operator.not(), c);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompositeCondition))
@@ -246,6 +258,11 @@ public final class CompositeCondition extends Condition
 			this.sql = sql;
 			this.absorber = absorber;
 			this.identity = identity;
+		}
+
+		Operator not()
+		{
+			return this==AND ? OR : AND;
 		}
 	}
 
