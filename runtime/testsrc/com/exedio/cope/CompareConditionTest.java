@@ -227,8 +227,8 @@ public class CompareConditionTest extends TestWithEnvironment
 
 	@Test void testNot()
 	{
-		assertEquals("!("+intx+" is null)",     intx.isNull   ().not().toString());
-		assertEquals("!("+intx+" is not null)", intx.isNotNull().not().toString());
+		assertEquals(intx+" is not null", intx.isNull   ().not().toString());
+		assertEquals(intx+" is null",     intx.isNotNull().not().toString());
 		assertEquals(intx+"<>'3'", intx.   equal      (3) .not().toString());
 		assertEquals(intx+ "='3'", intx.notEqual      (3) .not().toString());
 		assertEquals(intx+">='3'", intx.less          (3) .not().toString());

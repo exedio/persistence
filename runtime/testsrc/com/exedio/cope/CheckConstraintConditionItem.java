@@ -34,7 +34,11 @@ final class CheckConstraintConditionItem extends Item
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint isNull     = new CheckConstraint(integer1.isNull());
 	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint isNullNot  = new CheckConstraint(integer1.isNull().not());
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint isNotNull  = new CheckConstraint(integer1.isNotNull());
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint isNotNullNot = new CheckConstraint(integer1.isNotNull().not());
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compare         = new CheckConstraint(integer1.less(0));
