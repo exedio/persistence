@@ -56,7 +56,7 @@ public final class DayField extends FunctionField<Day>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?>[] copyFrom,
+			final CopyFrom[] copyFrom,
 			final DefaultSupplier<Day> defaultS)
 	{
 		super(isfinal, optional, Day.class, unique, copyFrom, defaultS);
@@ -100,6 +100,11 @@ public final class DayField extends FunctionField<Day>
 
 	@Override
 	public DayField copyFrom(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target));
+	}
+
+	private DayField copyFrom(final CopyFrom target)
 	{
 		return new DayField(isfinal, optional, unique, addCopyFrom(target), defaultS);
 	}

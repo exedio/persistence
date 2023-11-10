@@ -53,7 +53,7 @@ public final class StringField extends FunctionField<String>
 			final boolean isfinal,
 			final boolean optional,
 			final boolean unique,
-			final ItemField<?>[] copyFrom,
+			final CopyFrom[] copyFrom,
 			final DefaultSupplier<String> defaultS,
 			final int minimumLength,
 			final int maximumLength,
@@ -124,6 +124,11 @@ public final class StringField extends FunctionField<String>
 
 	@Override
 	public StringField copyFrom(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target));
+	}
+
+	private StringField copyFrom(final CopyFrom target)
 	{
 		return new StringField(isfinal, optional, unique, addCopyFrom(target), defaultS, minimumLength, maximumLength, charSet, regexp);
 	}

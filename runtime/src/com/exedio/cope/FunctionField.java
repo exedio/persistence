@@ -41,7 +41,7 @@ public abstract class FunctionField<E> extends Field<E>
 
 	final boolean unique;
 	private final UniqueConstraint implicitUniqueConstraint;
-	final ItemField<?>[] copyFrom;
+	final CopyFrom[] copyFrom;
 	private final CopyConstraint[] implicitCopyConstraintsFrom;
 	final DefaultSupplier<E> defaultS;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
@@ -53,7 +53,7 @@ public abstract class FunctionField<E> extends Field<E>
 			final boolean optional,
 			final Class<E> valueClass,
 			final boolean unique,
-			final ItemField<?>[] copyFrom,
+			final CopyFrom[] copyFrom,
 			final DefaultSupplier<E> defaultS)
 	{
 		super(isfinal, optional, valueClass);
@@ -66,12 +66,12 @@ public abstract class FunctionField<E> extends Field<E>
 		this.defaultS = defaultS!=null ? defaultS.forNewField() : null;
 	}
 
-	private CopyConstraint[] newCopyConstraintsFrom(final ItemField<?>[] copyFrom)
+	private CopyConstraint[] newCopyConstraintsFrom(final CopyFrom[] copyFrom)
 	{
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = new CopyConstraint(copyFrom[i], this);
+			result[i] = new CopyConstraint(copyFrom[i].target, this);
 		return result;
 	}
 
@@ -171,17 +171,27 @@ public abstract class FunctionField<E> extends Field<E>
 		return !hasDefault() && !isRedundantByCopyConstraint && super.isInitial();
 	}
 
-	protected final ItemField<?>[] addCopyFrom(final ItemField<?> copyFrom)
+	protected final CopyFrom[] addCopyFrom(final CopyFrom copyFrom)
 	{
-		requireNonNull(copyFrom, "target");
+		requireNonNull(copyFrom);
 		if(this.copyFrom==null)
-			return new ItemField<?>[]{copyFrom};
+			return new CopyFrom[]{copyFrom};
 
 		final int length = this.copyFrom.length;
-		final ItemField<?>[] result = new ItemField<?>[length+1];
+		final CopyFrom[] result = new CopyFrom[length+1];
 		System.arraycopy(this.copyFrom, 0, result, 0, length);
 		result[length] = copyFrom;
 		return result;
+	}
+
+	protected static final class CopyFrom
+	{
+		final ItemField<?> target;
+
+		CopyFrom(final ItemField<?> target)
+		{
+			this.target = requireNonNull(target, "target");
+		}
 	}
 
 	@Override
