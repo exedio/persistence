@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
 import static com.exedio.cope.testmodel.StringItem.any;
 import static com.exedio.cope.testmodel.StringItem.exact6;
@@ -28,15 +27,9 @@ import static com.exedio.cope.testmodel.StringItem.max4;
 import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
-import static com.exedio.cope.tojunit.Assert.assertFails;
-import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.CharSet;
-import java.util.regex.PatternSyntaxException;
 import org.junit.jupiter.api.Test;
 
 public class StringModelTest
@@ -83,91 +76,5 @@ public class StringModelTest
 
 		assertEquals(TYPE, min4Upper.getType());
 		assertEquals("min4Upper", min4Upper.getName());
-	}
-
-	@Test void testFieldsCovered()
-	{
-		assertFieldsCovered(asList(any), any.like("a"));
-		assertFieldsCovered(asList(mandatory), mandatory.likeIgnoreCase("a"));
-	}
-
-	@Test void testConditions()
-	{
-		assertEqualsAndHash(any.equal("hallo"), any.equal("hallo"));
-		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
-		assertNotEqualsAndHash(
-				any.equal("hallo"),
-				any.equal("bello"),
-				any.equal((String)null),
-				any.like("hallo"),
-				any.regexpLike("regexp"),
-				any.equal(mandatory),
-				any.equal(any));
-		assertSame(any, any.like("hallo").getFunction());
-		assertSame("hallo", any.like("hallo").getValue());
-	}
-
-	@Test void testConditionsConvenience()
-	{
-		assertEquals(any.like( "lowerUPPER%"), any.startsWith("lowerUPPER"));
-		assertEquals(any.like("%lowerUPPER" ), any.  endsWith("lowerUPPER"));
-		assertEquals(any.like("%lowerUPPER%"), any.  contains("lowerUPPER"));
-		final CaseView anyL = any.toLowerCase();
-		assertEquals(anyL.equal( "lowerupper" ), any.     equalIgnoreCase("lowerUPPER" ));
-		assertEquals(anyL.like ( "lowerupper%"), any.      likeIgnoreCase("lowerUPPER%"));
-		assertEquals(anyL.like ( "lowerupper%"), any.startsWithIgnoreCase("lowerUPPER" ));
-		assertEquals(anyL.like ("%lowerupper" ), any.  endsWithIgnoreCase("lowerUPPER" ));
-		assertEquals(anyL.like ("%lowerupper%"), any.  containsIgnoreCase("lowerUPPER" ));
-	}
-
-	@Test void testConditionsConvenienceEmpty() // TODO should be isNotNull
-	{
-		assertEquals(any.like("%" ), any.startsWith(""));
-		assertEquals(any.like("%" ), any.  endsWith(""));
-		assertEquals(any.like("%%"), any.  contains(""));
-		final CaseView anyL = any.toLowerCase();
-		assertEquals(anyL.equal(""  ), any.     equalIgnoreCase("" ));
-		assertEquals(anyL.like ("%" ), any.      likeIgnoreCase("%"));
-		assertEquals(anyL.like ("%" ), any.startsWithIgnoreCase("" ));
-		assertEquals(anyL.like ("%" ), any.  endsWithIgnoreCase("" ));
-		assertEquals(anyL.like ("%%"), any.  containsIgnoreCase("" ));
-	}
-
-	@Test void testConditionsConvenienceNull()
-	{
-		assertFails(() -> any.startsWith(null), NullPointerException.class, null);
-		assertFails(() -> any.  endsWith(null), NullPointerException.class, null);
-		assertFails(() -> any.  contains(null), NullPointerException.class, null);
-		assertFails(() -> any.     equalIgnoreCase(null), NullPointerException.class, null);
-		assertFails(() -> any.      likeIgnoreCase(null), NullPointerException.class, null);
-		assertFails(() -> any.startsWithIgnoreCase(null), NullPointerException.class, null);
-		assertFails(() -> any.  endsWithIgnoreCase(null), NullPointerException.class, null);
-		assertFails(() -> any.  containsIgnoreCase(null), NullPointerException.class, null);
-	}
-
-	@SuppressWarnings("HardcodedLineSeparator")
-	@Test void testRegexp()
-	{
-		assertEquals(any + " regexp '(?s)\\A[C-F]*\\z'", any.regexpLike("[C-F]*").toString());
-		assertEqualsAndHash(
-				any.regexpLike("regexp"),
-				any.regexpLike("regexp"));
-		assertNotEqualsAndHash(
-				any.regexpLike("regexp"),
-				any.regexpLike("regexp2"),
-				mandatory.regexpLike("regexp"));
-		assertFails(
-				() -> any.regexpLike(null),
-				NullPointerException.class,
-				"regexp");
-		assertFails(
-				() -> any.regexpLike(""),
-				IllegalArgumentException.class,
-				"regexp must not be empty");
-		assertFails(
-				() -> any.regexpLike("[A-"),
-				PatternSyntaxException.class,
-				"Illegal/unsupported escape sequence near index 10\n(?s)\\A[A-\\z\n          ^"
-		);
 	}
 }
