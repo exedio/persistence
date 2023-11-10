@@ -62,7 +62,7 @@ final class MysqlSchemaDialect extends Dialect
 			r.add("-\\(" + "([0-9.E]*)\\)", "-$1");
 			r.add(" not in ", " NOT IN ");
 			r.add(" in ", " IN ");
-			r.add("\\b_utf8mb4\\\\'(\\w*)\\\\'", "'$1'");
+			r.add("\\b_utf8mb4\\\\'([\\w-]*)\\\\'", "'$1'");
 			r.add("\\bTIMESTAMP\\\\'(\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3})\\\\'", "TIMESTAMP'$1'");
 			r.add("\\bDATE" + "\\\\'(\\d{4}-\\d{2}-\\d{2}" +                        ")\\\\'", "DATE" + "'$1'");
 			r.add(" is "+ "null\\b", " IS "+ "NULL");

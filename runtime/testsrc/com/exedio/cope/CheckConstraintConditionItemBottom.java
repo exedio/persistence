@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Check-19ConstraintConditionItemBottom") // try whole ID_CHAR_SET
 final class CheckConstraintConditionItemBottom extends CheckConstraintConditionItemSub
 {
 
