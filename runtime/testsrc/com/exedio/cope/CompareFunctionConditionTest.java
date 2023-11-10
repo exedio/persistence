@@ -211,6 +211,12 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 
 	@Test void testNot()
 	{
+		assertEquals("!("+intA+ "="+intB+")", intA.   equal      (intB) .not().toString());
+		assertEquals("!("+intA+"<>"+intB+")", intA.notEqual      (intB) .not().toString());
+		assertEquals("!("+intA+ "<"+intB+")", intA.less          (intB) .not().toString());
+		assertEquals("!("+intA+"<="+intB+")", intA.lessOrEqual   (intB) .not().toString());
+		assertEquals("!("+intA+ ">"+intB+")", intA.greater       (intB) .not().toString());
+		assertEquals("!("+intA+">="+intB+")", intA.greaterOrEqual(intB) .not().toString());
 		assertCondition(item1, item2,        item4, item5, TYPE, intA.equal(intB).not());
 		assertCondition(              item3,               TYPE, intA.notEqual(intB).not());
 		assertCondition(              item3, item4, item5, TYPE, intA.less(intB).not());
