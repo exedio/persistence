@@ -88,6 +88,11 @@ public interface StringFunction extends Function<String>
 		return CaseView.equalIgnoreCase(this, value);
 	}
 
+	default Condition equalIgnoreCase(final Function<String> right)
+	{
+		return CaseView.equalIgnoreCase(this, right);
+	}
+
 	default LikeCondition likeIgnoreCase(final String value)
 	{
 		return CaseView.likeIgnoreCase(this, value);
