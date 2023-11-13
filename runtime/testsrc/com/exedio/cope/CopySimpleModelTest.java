@@ -27,10 +27,10 @@ import static com.exedio.cope.CopySimpleSource.templateString;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -150,14 +150,9 @@ public class CopySimpleModelTest
 	@Test void testFailures()
 	{
 		final StringField copy = new StringField();
-		try
-		{
-			copy.copyFrom(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("copyFrom", e.getMessage());
-		}
+		assertFails(
+				() -> copy.copyFrom(null),
+				NullPointerException.class,
+				"copyFrom");
 	}
 }

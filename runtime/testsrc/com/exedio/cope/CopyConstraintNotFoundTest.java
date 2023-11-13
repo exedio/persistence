@@ -19,8 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
@@ -31,18 +30,11 @@ public class CopyConstraintNotFoundTest
 {
 	@Test void testIt()
 	{
-		try
-		{
-			new Model(Source.TYPE, Target.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
+		assertFails(
+				() -> new Model(Source.TYPE, Target.TYPE),
+				IllegalArgumentException.class,
 				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
-				"feature >field< at type Target not found",
-				e.getMessage());
-		}
+				"feature >field< at type Target not found");
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

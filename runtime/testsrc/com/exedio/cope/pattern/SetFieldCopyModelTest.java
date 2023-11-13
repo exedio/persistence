@@ -19,11 +19,11 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyMapper;
@@ -47,28 +47,19 @@ public class SetFieldCopyModelTest
 	@Test void testCopyOnlyForItemFields()
 	{
 		final SetField<Integer> set = SetField.create(new IntegerField());
-		try
-		{
-			set.copyWith(new IntegerField());
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals("copyWith requires the SetField's element to be an ItemField", e.getMessage());
-		}
+		assertFails(
+				() -> set.copyWith(new IntegerField()),
+				IllegalStateException.class,
+				"copyWith requires the SetField's element to be an ItemField");
 	}
 
 	@Test void testCopyOnlyForFinalFields()
 	{
-		try
-		{
-			new Model(BrokenNonFinalTemplate.TYPE);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("insufficient template for CopyConstraint BrokenNonFinalTemplate-set.stuffCopyFromparent: BrokenNonFinalTemplate.stuff is not final", e.getMessage());
-		}
+		assertFails(
+				() -> new Model(BrokenNonFinalTemplate.TYPE),
+				IllegalArgumentException.class,
+				"insufficient template for CopyConstraint BrokenNonFinalTemplate-set.stuffCopyFromparent: " +
+				"BrokenNonFinalTemplate.stuff is not final");
 	}
 
 	@Test void testCopyConstraints()
@@ -115,15 +106,10 @@ public class SetFieldCopyModelTest
 			asList(SetFieldItemWithCopyConstraints.a, SetFieldItemWithCopyConstraints.b),
 			SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithTemplateFields()
 		);
-		try
-		{
-			SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithTemplateFields().add(SetFieldItemWithCopyConstraints.parent);
-			fail();
-		}
-		catch (final UnsupportedOperationException ignored)
-		{
-			// fine
-		}
+		assertFails(
+				() -> SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithTemplateFields().add(SetFieldItemWithCopyConstraints.parent),
+				UnsupportedOperationException.class,
+				null);
 	}
 
 	@Test void testGetCopyWithCopy()
@@ -136,83 +122,55 @@ public class SetFieldCopyModelTest
 			asList(SetFieldItemWithCopyConstraints.sameAAndB.getParent(), SetFieldItemWithCopyConstraints.sameAAndB.getElement(), aCopy, bCopy),
 			SetFieldItemWithCopyConstraints.sameAAndB.getRelationType().getFields()
 		);
-		try
-		{
-			SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(aCopy);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("field from wrong type: expected SetFieldItemWithCopyConstraints but was SetFieldItemWithCopyConstraints-sameAAndB", e.getMessage());
-		}
+		assertFails(
+				() -> SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(aCopy),
+				IllegalArgumentException.class,
+				"field from wrong type: expected SetFieldItemWithCopyConstraints " +
+				"but was SetFieldItemWithCopyConstraints-sameAAndB");
 	}
 
 	@Test void testGetCopyFieldWrongField()
 	{
-		try
-		{
-			SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.parent);
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals("no copy for SetFieldItemWithCopyConstraints.parent", e.getMessage());
-		}
+		assertFails(
+				() -> SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.parent),
+				IllegalStateException.class,
+				"no copy for SetFieldItemWithCopyConstraints.parent");
 	}
 
 	@Test void testGetCopyFieldNoCopies()
 	{
-		try
-		{
-			SetFieldItemWithCopyConstraints.any.getCopyWithCopyField(SetFieldItemWithCopyConstraints.parent);
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals("no CopyConstraints declared", e.getMessage());
-		}
+		assertFails(
+				() -> SetFieldItemWithCopyConstraints.any.getCopyWithCopyField(SetFieldItemWithCopyConstraints.parent),
+				IllegalStateException.class,
+				"no CopyConstraints declared");
 	}
 
 	@Test void testGetCopyFieldNotMounted()
 	{
 		final SetField<String> setField = SetField.create(new StringField());
-		try
-		{
-			setField.getCopyWithCopyField(new StringField());
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
+		assertFails(
+				() -> setField.getCopyWithCopyField(new StringField()),
+				IllegalStateException.class,
+				"feature not mounted");
 	}
 
 	@Test void testNoTarget()
 	{
-		try
-		{
-			new Model(DoesntHaveField.TYPE, NoTargetItem.TYPE);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("insufficient template for CopyConstraint NoTargetItem-noTarget.fieldCopyFromelement: feature >field< at type DoesntHaveField not found", e.getMessage());
-		}
+		assertFails(
+				() -> new Model(DoesntHaveField.TYPE, NoTargetItem.TYPE),
+				IllegalArgumentException.class,
+				"insufficient template for CopyConstraint NoTargetItem-noTarget.fieldCopyFromelement: " +
+				"feature >field< at type DoesntHaveField not found");
 	}
 
 	@Test void testAddTwice()
 	{
 		final StringField stringField = new StringField();
 		final SetField<SetFieldItemWithCopyConstraints> setField = SetField.create(ItemField.create(SetFieldItemWithCopyConstraints.class)).copyWith(stringField);
-		try
-		{
-			setField.copyWith(stringField);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("added '"+stringField+"' twice", e.getMessage());
-		}
+		assertFails(
+				() -> setField.copyWith(stringField),
+				IllegalArgumentException.class,
+				"added '"+stringField+"' twice");
 		assertEquals(
 			asList(stringField),
 			setField.getCopyWithTemplateFields()
@@ -223,15 +181,10 @@ public class SetFieldCopyModelTest
 	{
 		final StringField stringField = new StringField();
 		final SetField<SetFieldItemWithCopyConstraints> setField = SetField.create(ItemField.create(SetFieldItemWithCopyConstraints.class)).copyWith(stringField);
-		try
-		{
-			setField.copy(new CopyMapper());
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals("cannot copy if copyWith is set", e.getMessage());
-		}
+		assertFails(
+				() -> setField.copy(new CopyMapper()),
+				IllegalStateException.class,
+				"cannot copy if copyWith is set");
 	}
 
 	@WrapperType(comments=false, indent=2, constructor=NONE, genericConstructor=NONE)
