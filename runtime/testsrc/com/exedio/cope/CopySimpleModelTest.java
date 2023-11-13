@@ -153,7 +153,7 @@ public class CopySimpleModelTest
 		assertFails(
 				() -> copy.copyFrom(null),
 				NullPointerException.class,
-				"copyFrom");
+				"target");
 	}
 	@Test void testCopyNull()
 	{
@@ -161,6 +161,6 @@ public class CopySimpleModelTest
 		assertFails(
 				() -> target.copyTo(null),
 				NullPointerException.class,
-				"copyTo");
+				"copy");
 	}
 }

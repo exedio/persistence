@@ -141,7 +141,7 @@ public class MultiItemFieldErrorTest
 		assertFails(
 				() -> field.copyTo(MultiItemFieldComponentA.class, null),
 				NullPointerException.class,
-				"copyTo");
+				"copy");
 	}
 
 	@Test void testNonItem()

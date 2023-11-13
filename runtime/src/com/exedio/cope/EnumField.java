@@ -89,9 +89,9 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	@Override
-	public EnumField<E> copyFrom(final ItemField<?> copyFrom)
+	public EnumField<E> copyFrom(final ItemField<?> target)
 	{
-		return new EnumField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), defaultS);
+		return new EnumField<>(isfinal, optional, valueClass, unique, addCopyFrom(target), defaultS);
 	}
 
 	@Override

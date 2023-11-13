@@ -173,7 +173,7 @@ public abstract class FunctionField<E> extends Field<E>
 
 	protected final ItemField<?>[] addCopyFrom(final ItemField<?> copyFrom)
 	{
-		requireNonNull(copyFrom, "copyFrom");
+		requireNonNull(copyFrom, "target");
 		if(this.copyFrom==null)
 			return new ItemField<?>[]{copyFrom};
 
@@ -232,7 +232,7 @@ public abstract class FunctionField<E> extends Field<E>
 	/**
 	 * @see ItemField#copyTo(FunctionField)
 	 */
-	public abstract FunctionField<E> copyFrom(ItemField<?> copyFrom);
+	public abstract FunctionField<E> copyFrom(ItemField<?> target);
 
 	/**
 	 * Returns a new FunctionField that differs from this FunctionField
