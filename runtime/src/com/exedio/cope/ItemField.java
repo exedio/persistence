@@ -144,22 +144,22 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
-	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
+	public ItemField<E> copyFrom(final ItemField<?> target)
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), copyTo, choiceBackPointer, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(target), copyTo, choiceBackPointer, valueTypeFuture, policy);
 	}
 
 	/**
 	 * @see FunctionField#copyFrom(ItemField)
 	 */
-	public ItemField<E> copyTo(final FunctionField<?> copyTo)
+	public ItemField<E> copyTo(final FunctionField<?> copy)
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copyTo), choiceBackPointer, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copy), choiceBackPointer, valueTypeFuture, policy);
 	}
 
 	private FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
 	{
-		requireNonNull(copyTo, "copyTo");
+		requireNonNull(copyTo, "copy");
 		if(this.copyTo==null)
 			return new FunctionField<?>[]{copyTo};
 

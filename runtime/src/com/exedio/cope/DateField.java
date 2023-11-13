@@ -114,9 +114,9 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	@Override
-	public DateField copyFrom(final ItemField<?> copyFrom)
+	public DateField copyFrom(final ItemField<?> target)
 	{
-		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, precision, roundingMode);
+		return new DateField(isfinal, optional, unique, addCopyFrom(target), defaultS, precision, roundingMode);
 	}
 
 	@Override

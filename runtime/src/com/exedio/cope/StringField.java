@@ -123,9 +123,9 @@ public final class StringField extends FunctionField<String>
 	}
 
 	@Override
-	public StringField copyFrom(final ItemField<?> copyFrom)
+	public StringField copyFrom(final ItemField<?> target)
 	{
-		return new StringField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, addCopyFrom(target), defaultS, minimumLength, maximumLength, charSet, regexp);
 	}
 
 	@Override
