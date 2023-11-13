@@ -920,8 +920,8 @@ final class MysqlDialect extends Dialect
 		}
 		catch(final SQLException e)
 		{
-			final String message = e.getMessage();
-			if(message.contains("REPLICATION CLIENT privilege"))
+			if(e.getMessage().contains( // "contains" needed for mariadb driver with (conn=nnn) preceding the actual message
+					"Access denied; you need (at least one of) the SUPER, REPLICATION CLIENT privilege(s) for this operation"))
 				throw new SchemaSavepointNotAvailableException(
 						"Access denied; you need the REPLICATION CLIENT privilege for this operation", e);
 			else
