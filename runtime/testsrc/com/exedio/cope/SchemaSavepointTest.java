@@ -52,8 +52,9 @@ public class SchemaSavepointTest extends TestWithEnvironment
 			assertFails(
 					() -> getSchemaSavepoint(model),
 					SQLSyntaxErrorException.class,
-					"Access denied; you need (at least one of) the SUPER, " +
-					"REPLICATION CLIENT privilege(s) for this operation",
+					"Access denied; you need (at least one of) the " +
+					"SUPER, REPLICATION CLIENT" +
+					" privilege(s) for this operation",
 					this::dropMariaConnectionId);
 			assertFails(
 					model::getSchemaSavepointNew,
