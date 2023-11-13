@@ -147,12 +147,20 @@ public class CopySimpleModelTest
 		assertSerializedSame(selfTemplateCopyFromTarget   , 405);
 	}
 
-	@Test void testFailures()
+	@Test void testTargetNull()
 	{
 		final StringField copy = new StringField();
 		assertFails(
 				() -> copy.copyFrom(null),
 				NullPointerException.class,
 				"copyFrom");
+	}
+	@Test void testCopyNull()
+	{
+		final ItemField<?> target = ItemField.create(CopySimpleSource.class);
+		assertFails(
+				() -> target.copyTo(null),
+				NullPointerException.class,
+				"copyTo");
 	}
 }
