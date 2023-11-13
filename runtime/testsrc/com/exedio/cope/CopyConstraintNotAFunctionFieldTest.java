@@ -19,8 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
@@ -31,18 +30,11 @@ public class CopyConstraintNotAFunctionFieldTest
 {
 	@Test void testIt()
 	{
-		try
-		{
-			new Model(Source.TYPE, Target.TYPE);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
+		assertFails(
+				() -> new Model(Source.TYPE, Target.TYPE),
+				ClassCastException.class,
 				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
-				"Target.field is not a FunctionField but com.exedio.cope.DataField",
-				e.getMessage());
-		}
+				"Target.field is not a FunctionField but com.exedio.cope.DataField");
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

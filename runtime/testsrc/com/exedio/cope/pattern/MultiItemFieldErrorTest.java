@@ -22,7 +22,6 @@ import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
@@ -34,29 +33,18 @@ public class MultiItemFieldErrorTest
 {
 	@Test void testCreateNoInterface()
 	{
-		try
-		{
-			MultiItemField.create(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("valueClass", e.getMessage());
-		}
+		assertFails(
+				() -> MultiItemField.create(null),
+				NullPointerException.class,
+				"valueClass");
 	}
 
 	@Test void testCreateNoComponentClass()
 	{
-		try
-		{
-			TypesBound.newType(TestCreateNoComponentClass.class, failingActivator());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			final String expected = "must use at least 2 componentClasses in TestCreateNoComponentClass.field";
-			assertEquals(expected, e.getMessage());
-		}
+		assertFails(
+				() -> TypesBound.newType(TestCreateNoComponentClass.class, failingActivator()),
+				IllegalArgumentException.class,
+				"must use at least 2 componentClasses in TestCreateNoComponentClass.field");
 	}
 
 	@WrapperType(indent=2, comments=false, type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE)
@@ -72,16 +60,10 @@ public class MultiItemFieldErrorTest
 
 	@Test void testCreateOnlyOneComponentClass()
 	{
-		try
-		{
-			TypesBound.newType(TestCreateOnlyOneComponent.class, failingActivator());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			final String expected = "must use at least 2 componentClasses in TestCreateOnlyOneComponent.field";
-			assertEquals(expected, e.getMessage());
-		}
+		assertFails(
+				() -> TypesBound.newType(TestCreateOnlyOneComponent.class, failingActivator()),
+				IllegalArgumentException.class,
+				"must use at least 2 componentClasses in TestCreateOnlyOneComponent.field");
 	}
 
 	@WrapperType(indent=2, comments=false, type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE)
@@ -99,50 +81,31 @@ public class MultiItemFieldErrorTest
 	@Test void testCreateNull()
 	{
 		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);
-		try
-		{
-			field.canBe(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			final String expected = "componentClass";
-			assertEquals(expected, e.getMessage());
-		}
+		assertFails(
+				() -> field.canBe(null),
+				NullPointerException.class,
+				"componentClass");
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"})
 	@Test void testCreateNotAssignable()
 	{
 		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);
-		try
-		{
-			field.canBe((Class)AnotherItem1.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			final String expected = "valueClass >"+MultiItemFieldValue.class
-					+"< must be assignable from componentClass >"+AnotherItem1.class+"<";
-			assertEquals(expected, e.getMessage());
-		}
+		assertFails(
+				() -> field.canBe((Class)AnotherItem1.class),
+				IllegalArgumentException.class,
+				"valueClass >" + MultiItemFieldValue.class + "< " +
+				"must be assignable from componentClass >" + AnotherItem1.class + "<");
 	}
 
 	@Test void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
 		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).canBe(MultiItemFieldComponentA.class);
-		try
-		{
-			field.canBe(MultiItemFieldComponentASub.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			final String expected = "componentClasses must not be super-classes of each other: "
-					+MultiItemFieldComponentA.class+" is assignable from "
-					+MultiItemFieldComponentASub.class;
-			assertEquals(expected, e.getMessage());
-		}
+		assertFails(
+				() -> field.canBe(MultiItemFieldComponentASub.class),
+				IllegalArgumentException.class,
+				"componentClasses must not be super-classes of each other: " + MultiItemFieldComponentA.class +
+				" is assignable from " + MultiItemFieldComponentASub.class);
 	}
 
 	@Test void testCreateCopyNullComponent()
@@ -150,15 +113,10 @@ public class MultiItemFieldErrorTest
 		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
 				canBe(MultiItemFieldComponentB.class);
-		try
-		{
-			field.copyTo(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("componentClass", e.getMessage());
-		}
+		assertFails(
+				() -> field.copyTo(null, null),
+				NullPointerException.class,
+				"componentClass");
 	}
 
 	@Test void testCreateCopyNoSuchComponent()
@@ -166,20 +124,13 @@ public class MultiItemFieldErrorTest
 		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
 				canBe(MultiItemFieldComponentB.class);
-		try
-		{
-			field.copyTo(MultiItemFieldComponentC.class, null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
+		assertFails(
+				() -> field.copyTo(MultiItemFieldComponentC.class, null),
+				IllegalArgumentException.class,
 				"illegal componentClass class com.exedio.cope.pattern.MultiItemFieldComponentC, " +
 				"must be one of [" +
 				"class com.exedio.cope.pattern.MultiItemFieldComponentA, " +
-				"class com.exedio.cope.pattern.MultiItemFieldComponentB].",
-				e.getMessage());
-		}
+				"class com.exedio.cope.pattern.MultiItemFieldComponentB].");
 	}
 
 	@Test void testCreateCopyNullCopy()
@@ -187,15 +138,10 @@ public class MultiItemFieldErrorTest
 		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
 				canBe(MultiItemFieldComponentB.class);
-		try
-		{
-			field.copyTo(MultiItemFieldComponentA.class, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("copyTo", e.getMessage());
-		}
+		assertFails(
+				() -> field.copyTo(MultiItemFieldComponentA.class, null),
+				NullPointerException.class,
+				"copyTo");
 	}
 
 	@Test void testNonItem()
@@ -203,15 +149,11 @@ public class MultiItemFieldErrorTest
 		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class).
 				canBe(MultiItemFieldComponentB.class);
-		try
-		{
-			field.canBe(NonItemMultiItemFieldValue.class);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("is not a subclass of " + Item.class.getName() + ": " + NonItemMultiItemFieldValue.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> field.canBe(NonItemMultiItemFieldValue.class),
+				IllegalArgumentException.class,
+				"is not a subclass of " + Item.class.getName() + ": " +
+				NonItemMultiItemFieldValue.class.getName());
 	}
 
 	@Test void testNullifyNotFinal()
