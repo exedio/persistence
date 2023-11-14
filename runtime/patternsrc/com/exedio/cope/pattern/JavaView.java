@@ -169,14 +169,14 @@ public final class JavaView extends Pattern
 
 	public static <I extends Item, E> JavaView createList(
 			final Class<E> elementType,
-			final Function<I,? extends List<E>> target)
+			final Function<I,? extends List<? extends E>> target)
 	{
 		return create(target, List.class, elementType);
 	}
 
 	public static <I extends Item, E> JavaView createSet(
 			final Class<E> elementType,
-			final Function<I,? extends Set<E>> target)
+			final Function<I,? extends Set<? extends E>> target)
 	{
 		return create(target, Set.class, elementType);
 	}
@@ -184,7 +184,7 @@ public final class JavaView extends Pattern
 	public static <I extends Item, K, V> JavaView createMap(
 			final Class<K> keyType,
 			final Class<V> valueType,
-			final Function<I,? extends Map<K,V>> target)
+			final Function<I,? extends Map<? extends K,? extends V>> target)
 	{
 		return create(target, Map.class, keyType, valueType);
 	}
