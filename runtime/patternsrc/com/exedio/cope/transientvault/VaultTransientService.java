@@ -16,17 +16,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.junit;
+package com.exedio.cope.transientvault;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
@@ -44,21 +38,12 @@ import java.util.HashMap;
  * which corresponds to the time of the cope
  * {@link com.exedio.cope.Model#connect(ConnectProperties) connect}.
  */
-public final class VaultTestService implements VaultService
+public final class VaultTransientService implements VaultService
 {
-	private final MessageDigestFactory messageDigestFactory;
 	private final HashMap<String, byte[]> store = new HashMap<>();
 
-	public VaultTestService(final VaultServiceParameters parameters)
+	VaultTransientService(@SuppressWarnings("unused") final VaultServiceParameters parameters)
 	{
-		this.messageDigestFactory = parameters.getMessageDigestFactory();
-		assertNotNull(messageDigestFactory);
-	}
-
-	@Override
-	public void purgeSchema(final JobContext ctx)
-	{
-		assertNotNull(ctx);
 	}
 
 
@@ -77,15 +62,11 @@ public final class VaultTestService implements VaultService
 	@Override
 	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
-		assertNotNull(sink);
-
 		sink.write(store(hash));
 	}
 
 	private byte[] store(final String hash) throws VaultNotFoundException
 	{
-		assertHash(hash);
-
 		final byte[] result = store.get(hash);
 		if(result==null)
 			throw new VaultNotFoundException(hash);
@@ -96,50 +77,25 @@ public final class VaultTestService implements VaultService
 	@Override
 	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
-		assertHash(hash);
-		assertNotNull(value);
-		assertNotNull(info);
-		assertFalse(
-				value.length==0,
-				"empty byte sequence is not handled by service implementations");
-
-		assertEquals(hash, Hex.encodeLower(
-				messageDigestFactory.
-						digest(value)));
-
+		requireNonNull(value);
 		return store.put(hash, value)==null;
 	}
 
 	@Override
 	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
-		assertHash(hash);
-		assertNotNull(value);
-		assertNotNull(info);
-
 		return put(hash, value.readAllBytes(), info);
 	}
 
 	@Override
 	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
-		assertHash(hash);
-		assertNotNull(value);
-		assertNotNull(info);
-
 		try(InputStream s = Files.newInputStream(value))
 		{
 			return put(hash, s, info);
 		}
 	}
 
-
-	private void assertHash(final String hash)
-	{
-		assertNotNull(hash);
-		assertEquals(messageDigestFactory.getLengthHex(), hash.length(), hash);
-		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash), hash);
-	}
 
 	@Override
 	public String toString()
