@@ -71,6 +71,7 @@ public final class VaultMockService implements VaultService
 		assertNotNull(serviceProperties);
 		assertNotNull(bucket);
 		assertNotNull(requiresToMarkPut);
+		assertNotNull(parameters.getMessageDigestFactory());
 		assertSame(vaultProperties.getAlgorithmFactory(), parameters.getMessageDigestFactory());
 	}
 
@@ -152,6 +153,9 @@ public final class VaultMockService implements VaultService
 		assertNotNull(info);
 		assertFalse(closed);
 
+		assertFalse(
+				value.length==0,
+				"empty byte sequence is not handled by service implementations");
 		assertEquals(hash, Hex.encodeLower(
 				vaultProperties.getAlgorithmFactory().
 						digest(value)));
