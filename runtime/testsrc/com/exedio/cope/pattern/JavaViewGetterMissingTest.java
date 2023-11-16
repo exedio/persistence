@@ -33,7 +33,7 @@ public class JavaViewGetterMissingTest
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
-		@SuppressWarnings("unused")
+		@SuppressWarnings({"unused", "deprecation"}) // OK: testing deprecated API
 		static final JavaView schauHer = new JavaView();
 
 		@com.exedio.cope.instrument.Generated

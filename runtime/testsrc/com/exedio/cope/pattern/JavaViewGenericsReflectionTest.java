@@ -76,6 +76,7 @@ public class JavaViewGenericsReflectionTest
 	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // OK: just tested for identity
 	private static final class MyItem extends Item
 	{
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final JavaView list = new JavaView();
 		static final ArrayList<Double> listResult = new ArrayList<>();
 		ArrayList<Double> getList()
@@ -83,6 +84,7 @@ public class JavaViewGenericsReflectionTest
 			return listResult;
 		}
 
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final JavaView set = new JavaView();
 		static final HashSet<Float> setResult = new HashSet<>();
 		HashSet<Float> getSet()
@@ -90,6 +92,7 @@ public class JavaViewGenericsReflectionTest
 			return setResult;
 		}
 
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final JavaView map = new JavaView();
 		static final HashMap<Integer,Long> mapResult = new HashMap<>();
 		HashMap<Integer,Long> getMap()

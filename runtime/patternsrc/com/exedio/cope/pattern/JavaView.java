@@ -51,11 +51,27 @@ public final class JavaView extends Pattern
 	}
 
 
+	/**
+	 * @deprecated
+	 * because dependence on Java Reflection API.
+	 * Use one of
+	 * {@link #createInt(Function)},
+	 * {@link #createLong(Function)},
+	 * {@link #createString(Function)},
+	 * {@link #createDate(Function)},
+	 * {@link #create(Class, Function)},
+	 * {@link #createList(Class, Function)},
+	 * {@link #createSet(Class, Function)}, or
+	 * {@link #createMap(Class, Class, Function)}
+	 * instead.
+	 */
+	@Deprecated
 	public JavaView()
 	{
 		this(new ReflectionVariant());
 	}
 
+	@Deprecated
 	private static final class ReflectionVariant extends Variant
 	{
 		private Mount mountIfMounted;

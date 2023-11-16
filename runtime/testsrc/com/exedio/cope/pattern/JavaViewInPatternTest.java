@@ -32,6 +32,7 @@ public class JavaViewInPatternTest
 {
 	private static class Muster extends Pattern
 	{
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		Muster()
 		{
 			addSourceFeature(new JavaView(), "schau");
