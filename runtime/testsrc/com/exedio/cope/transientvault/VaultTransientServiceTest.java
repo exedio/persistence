@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.junit;
+package com.exedio.cope.transientvault;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,12 +24,12 @@ import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaulttest.VaultServiceTest;
 import org.junit.jupiter.api.Test;
 
-public class VaultTestServiceTest extends VaultServiceTest
+public class VaultTransientServiceTest extends VaultServiceTest
 {
 	@Override
 	protected Class<? extends VaultService> getServiceClass()
 	{
-		return VaultTestService.class;
+		return VaultTransientService.class;
 	}
 
 	@Override
@@ -41,6 +41,6 @@ public class VaultTestServiceTest extends VaultServiceTest
 
 	@Test void testToString()
 	{
-		assertEquals("VaultTestService", getService().toString());
+		assertEquals("VaultTransientService", getService().toString());
 	}
 }
