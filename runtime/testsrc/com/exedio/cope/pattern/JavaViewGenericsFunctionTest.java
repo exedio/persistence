@@ -80,21 +80,21 @@ public class JavaViewGenericsFunctionTest
 	{
 		static final JavaView list = JavaView.createList(Double.class, MyItem::getList);
 		static final ArrayList<Double> listResult = new ArrayList<>();
-		ArrayList<Double> getList()
+		@SuppressWarnings("TypeParameterExtendsFinalClass") ArrayList<? extends Double> getList()
 		{
 			return listResult;
 		}
 
 		static final JavaView set = JavaView.createSet(Float.class, MyItem::getSet);
 		static final HashSet<Float> setResult = new HashSet<>();
-		HashSet<Float> getSet()
+		@SuppressWarnings("TypeParameterExtendsFinalClass") HashSet<? extends Float> getSet()
 		{
 			return setResult;
 		}
 
 		static final JavaView map = JavaView.createMap(Integer.class, Long.class, MyItem::getMap);
 		static final HashMap<Integer,Long> mapResult = new HashMap<>();
-		HashMap<Integer,Long> getMap()
+		@SuppressWarnings("TypeParameterExtendsFinalClass") HashMap<? extends Integer,? extends Long> getMap()
 		{
 			return mapResult;
 		}
