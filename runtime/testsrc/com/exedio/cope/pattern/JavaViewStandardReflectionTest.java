@@ -95,7 +95,9 @@ public class JavaViewStandardReflectionTest extends TestWithEnvironment
 	{
 		static final StringField numberString = new StringField().optional();
 
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final JavaView number = new JavaView();
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final JavaView numberPrimitive = new JavaView();
 
 		Double getNumber()

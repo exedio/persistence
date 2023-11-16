@@ -53,6 +53,7 @@ public class JavaViewThrowsReflectionDeclaredTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final JavaView view = new JavaView();
 
 		@SuppressWarnings("UnusedReturnValue") // Used by JavaView

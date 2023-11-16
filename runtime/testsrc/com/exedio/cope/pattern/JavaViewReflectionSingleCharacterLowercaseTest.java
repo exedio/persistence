@@ -46,6 +46,7 @@ public class JavaViewReflectionSingleCharacterLowercaseTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final JavaView n = new JavaView();
 
 		String getN()
