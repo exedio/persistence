@@ -35,7 +35,6 @@ import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -180,12 +179,7 @@ public final class VaultMockService implements VaultService
 		assertNotNull(info);
 		assertFalse(closed);
 
-		final byte[] b = new byte[55];
-		final ByteArrayOutputStream s = new ByteArrayOutputStream();
-		for(int len = value.read(b); len>=0; len = value.read(b))
-			s.write(b, 0, len);
-
-		return putInternal(hash, s.toByteArray(), info);
+		return putInternal(hash, value.readAllBytes(), info);
 	}
 
 	@Override
