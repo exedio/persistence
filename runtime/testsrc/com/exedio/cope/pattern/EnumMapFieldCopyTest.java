@@ -81,7 +81,10 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 
 		@Wrapper(wrap="getMap", visibility=NONE)
 		@Wrapper(wrap="setMap", visibility=NONE)
-		private static final EnumMapField<Color,EnumMapFieldCopyValue> map = EnumMapField.create(Color.class, ItemField.create(EnumMapFieldCopyValue.class).copyTo(field).optional() );
+		private static final EnumMapField<Color,EnumMapFieldCopyValue> map = EnumMapField.create(
+				Color.class,
+				ItemField.create(EnumMapFieldCopyValue.class).copyTo(field).optional()
+		);
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
