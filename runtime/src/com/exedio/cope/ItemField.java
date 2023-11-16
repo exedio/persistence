@@ -149,9 +149,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return copyFrom(new CopyFrom(target));
 	}
 
-	private ItemField<E> copyFrom(final CopyFrom target)
+	private ItemField<E> copyFrom(final CopyFrom copyFrom)
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(target), copyTo, choiceBackPointer, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), copyTo, choiceBackPointer, valueTypeFuture, policy);
 	}
 
 	/**

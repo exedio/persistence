@@ -219,9 +219,9 @@ public final class IntegerField extends NumberField<Integer>
 		return copyFrom(new CopyFrom(target));
 	}
 
-	private IntegerField copyFrom(final CopyFrom target)
+	private IntegerField copyFrom(final CopyFrom copyFrom)
 	{
-		return new IntegerField(isfinal, optional, unique, addCopyFrom(target), defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimum, maximum);
 	}
 
 	@Override

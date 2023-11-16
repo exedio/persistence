@@ -82,9 +82,9 @@ public final class BooleanField extends FunctionField<Boolean>
 		return copyFrom(new CopyFrom(target));
 	}
 
-	private BooleanField copyFrom(final CopyFrom target)
+	private BooleanField copyFrom(final CopyFrom copyFrom)
 	{
-		return new BooleanField(isfinal, optional, unique, addCopyFrom(target), defaultS);
+		return new BooleanField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS);
 	}
 
 	@Override
