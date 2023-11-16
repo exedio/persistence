@@ -47,7 +47,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final boolean optional,
 			final Class<E> valueClass,
 			final boolean unique,
-			final ItemField<?>[] copyFrom,
+			final CopyFrom[] copyFrom,
 			final FunctionField<?>[] copyTo,
 			final BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer,
 			final TypeFuture<E> valueTypeFuture,
@@ -145,6 +145,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	@Override
 	public ItemField<E> copyFrom(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target));
+	}
+
+	private ItemField<E> copyFrom(final CopyFrom target)
 	{
 		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(target), copyTo, choiceBackPointer, valueTypeFuture, policy);
 	}

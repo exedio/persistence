@@ -28,7 +28,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 			final boolean optional,
 			final Class<E> valueClass,
 			final boolean unique,
-			final ItemField<?>[] copyFrom,
+			final CopyFrom[] copyFrom,
 			final DefaultSupplier<E> defaultS)
 	{
 		super(isfinal, optional, valueClass, unique, copyFrom, defaultS);

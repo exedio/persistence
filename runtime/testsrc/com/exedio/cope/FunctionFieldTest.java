@@ -19,11 +19,14 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import com.exedio.cope.instrument.WrapperType;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class FunctionFieldTest
@@ -82,8 +85,8 @@ public class FunctionFieldTest
 		final FunctionField<E> fieldD = fieldC.noCopyFrom();
 
 		assertArrayEquals(null, fieldA.copyFrom);
-		assertArrayEquals(new ItemField<?>[]{firstItemField}, fieldB.copyFrom);
-		assertArrayEquals(new ItemField<?>[]{firstItemField, secondItemField}, fieldC.copyFrom);
+		assertEquals(List.of(firstItemField), stream(fieldB.copyFrom).map(c -> c.target).collect(toList()));
+		assertEquals(List.of(firstItemField, secondItemField), stream(fieldC.copyFrom).map(c -> c.target).collect(toList()));
 		assertArrayEquals(null, fieldD.copyFrom);
 		assertNotSame(fieldA, fieldD);
 		assertEquals(fieldA.getClass(), fieldB.getClass());
