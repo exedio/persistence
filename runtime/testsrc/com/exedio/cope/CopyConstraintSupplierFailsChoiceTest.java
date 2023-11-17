@@ -25,15 +25,14 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
-public class CopyConstraintChoiceSupplierNullTest
+public class CopyConstraintSupplierFailsChoiceTest
 {
 	@Test void testIt()
 	{
 		assertFails(
 				() -> new Model(Source.TYPE),
-				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.targetChoice: " +
-				"supplier returns null");
+				RuntimeException.class,
+				"in supplier");
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -41,7 +40,10 @@ public class CopyConstraintChoiceSupplierNullTest
 	{
 		@WrapperIgnore
 		@SuppressWarnings("unused") // OK: test bad API usage
-		static final ItemField<Source> target = ItemField.create(Source.class).optional().choice(() -> null);
+		static final ItemField<Source> target = ItemField.create(Source.class).optional().choice(() ->
+		{
+			throw new RuntimeException("in supplier");
+		});
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
