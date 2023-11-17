@@ -25,14 +25,16 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
-public class CopyConstraintChoiceSupplierFailsTest
+public class CopyConstraintSupplierParentTypeChoiceTest
 {
 	@Test void testIt()
 	{
 		assertFails(
-				() -> new Model(Source.TYPE),
-				RuntimeException.class,
-				"in supplier");
+				() -> new Model(Source.TYPE, Target.TYPE),
+				IllegalArgumentException.class,
+				"insufficient template for CopyConstraint Source.targetChoice: " +
+				Parent.back + " must belong to type " + Target.TYPE + ", " +
+				"but belongs to type " + Parent.TYPE);
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -40,10 +42,7 @@ public class CopyConstraintChoiceSupplierFailsTest
 	{
 		@WrapperIgnore
 		@SuppressWarnings("unused") // OK: test bad API usage
-		static final ItemField<Source> target = ItemField.create(Source.class).optional().choice(() ->
-		{
-			throw new RuntimeException("in supplier");
-		});
+		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice(() -> Parent.back);
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -53,5 +52,34 @@ public class CopyConstraintChoiceSupplierFailsTest
 
 		@com.exedio.cope.instrument.Generated
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class Target extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class,Target::new);
+
+		@com.exedio.cope.instrument.Generated
+		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class Parent extends Item
+	{
+		@WrapperIgnore
+		static final ItemField<Source> back = ItemField.create(Source.class).toFinal();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<Parent> TYPE = com.exedio.cope.TypesBound.newType(Parent.class,Parent::new);
+
+		@com.exedio.cope.instrument.Generated
+		private Parent(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
