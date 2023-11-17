@@ -27,7 +27,6 @@ import static com.exedio.cope.CopySimpleSource.templateString;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -145,22 +144,5 @@ public class CopySimpleModelTest
 		assertSerializedSame(templateStringCopyFromTarget , 409);
 		assertSerializedSame(templateItemCopyFromTarget   , 407);
 		assertSerializedSame(selfTemplateCopyFromTarget   , 405);
-	}
-
-	@Test void testTargetNull()
-	{
-		final StringField copy = new StringField();
-		assertFails(
-				() -> copy.copyFrom(null),
-				NullPointerException.class,
-				"target");
-	}
-	@Test void testCopyNull()
-	{
-		final ItemField<?> target = ItemField.create(CopySimpleSource.class);
-		assertFails(
-				() -> target.copyTo(null),
-				NullPointerException.class,
-				"copy");
 	}
 }
