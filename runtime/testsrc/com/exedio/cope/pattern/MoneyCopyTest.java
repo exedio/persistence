@@ -165,7 +165,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		@WrapperInitial
 		static final ItemField<Target> target = ItemField.create(Target.class).optional();
 
-		static final EnumField<Currency> currency = EnumField.create(Currency.class).copyFrom(target);
+		static final EnumField<Currency> currency = EnumField.create(Currency.class).copyFrom(target, () -> Target.currency);
 
 		@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // TODO instrumentor does not support static imports
 		static final MoneyField<Currency> fixed  = MoneyField.fixed(Currency.euro);

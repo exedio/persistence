@@ -30,7 +30,7 @@ final class CopyMultiCopySource extends Item
 	@WrapperInitial static final StringField copyB = new StringField().optional();
 
 	@WrapperInitial
-	static final ItemField<CopyMultiCopyTarget> target = ItemField.create(CopyMultiCopyTarget.class).optional().copyTo(copyA).copyTo(copyB);
+	static final ItemField<CopyMultiCopyTarget> target = ItemField.create(CopyMultiCopyTarget.class).optional().copyTo(copyA, () -> CopyMultiCopyTarget.copyA).copyTo(copyB, () -> CopyMultiCopyTarget.copyB);
 
 
 	static CopyMultiCopySource createAB(

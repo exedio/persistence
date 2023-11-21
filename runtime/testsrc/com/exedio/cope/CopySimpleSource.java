@@ -32,10 +32,10 @@ final class CopySimpleSource extends Item
 	static final ItemField<CopySimpleTarget> targetItem = ItemField.create(CopySimpleTarget.class).optional();
 
 	@WrapperInitial
-	static final StringField templateString = new StringField().optional().copyFrom(targetItem);
+	static final StringField templateString = new StringField().optional().copyFrom(targetItem, () -> CopySimpleTarget.templateString);
 
 	@WrapperInitial
-	static final ItemField<CopyValue> templateItem = ItemField.create(CopyValue.class).optional().copyFrom(targetItem);
+	static final ItemField<CopyValue> templateItem = ItemField.create(CopyValue.class).optional().copyFrom(targetItem, () -> CopySimpleTarget.templateItem);
 
 
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)

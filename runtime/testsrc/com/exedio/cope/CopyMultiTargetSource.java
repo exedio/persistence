@@ -26,7 +26,7 @@ final class CopyMultiTargetSource extends Item
 	@WrapperInitial static final ItemField<CopyMultiTargetB> targetB = ItemField.create(CopyMultiTargetB.class).optional();
 
 	@WrapperInitial
-	static final StringField copy = new StringField().optional().copyFrom(targetA).copyFrom(targetB);
+	static final StringField copy = new StringField().optional().copyFrom(targetA, () -> CopyMultiTargetA.copy).copyFrom(targetB, () -> CopyMultiTargetB.copy);
 
 
 	static CopyMultiTargetSource omitCopy(

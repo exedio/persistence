@@ -198,7 +198,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 * @see #copyTo(FunctionField, Supplier)
 	 * @see FunctionField#copyFromSelf(ItemField)
 	 */
-	@SuppressWarnings("unused") // TODO remove
 	public <C> ItemField<E> copyToSelf(final FunctionField<C> copyAndTemplate)
 	{
 		return copyTo(new CopyTo(copyAndTemplate, CopyConstraint.SELF_TEMPLATE));

@@ -83,7 +83,7 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 		@Wrapper(wrap="setMap", visibility=NONE)
 		private static final EnumMapField<Color,EnumMapFieldCopyValue> map = EnumMapField.create(
 				Color.class,
-				ItemField.create(EnumMapFieldCopyValue.class).copyTo(field).optional()
+				ItemField.create(EnumMapFieldCopyValue.class).copyTo(field, () -> EnumMapFieldCopyValue.field).optional()
 		);
 
 		@com.exedio.cope.instrument.Generated

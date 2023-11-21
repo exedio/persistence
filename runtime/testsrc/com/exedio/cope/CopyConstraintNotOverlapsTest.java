@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
 public class CopyConstraintNotOverlapsTest
@@ -42,8 +43,12 @@ public class CopyConstraintNotOverlapsTest
 	{
 		@WrapperIgnore
 		static final ItemField<Target> target = ItemField.create(Target.class);
+
+		static final Supplier<?> templateRaw = () -> Target.field;
+		@SuppressWarnings("unchecked") // OK: test bad API usage
+		static final Supplier<FunctionField<Boolean>> template = (Supplier<FunctionField<Boolean>>)templateRaw;
 		@WrapperIgnore
-		static final BooleanField field = new BooleanField().copyFrom(target);
+		static final BooleanField field = new BooleanField().copyFrom(target, template);
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

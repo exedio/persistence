@@ -44,7 +44,7 @@ public class CopyConstraintNotFinalTest
 		static final ItemField<Target> target = ItemField.create(Target.class).toFinal();
 		@WrapperIgnore
 		@UsageEntryPoint // OK: test bad API usage
-		static final StringField field = new StringField().toFinal().copyFrom(target);
+		static final StringField field = new StringField().toFinal().copyFrom(target, () -> Target.field);
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

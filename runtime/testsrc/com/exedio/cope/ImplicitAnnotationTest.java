@@ -173,13 +173,13 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 		@CopeSchemaName("targSchema")
 		@Arbitrary("targArbi")
 		@WrapperIgnore
-		static final ItemField<MyItem> targFeature = ItemField.create(MyItem.class).toFinal().copyTo(copyFeature);
+		static final ItemField<MyItem> targFeature = ItemField.create(MyItem.class).toFinal().copyToSelf(copyFeature);
 
 		@CopeName("temp")
 		@CopeSchemaName("tempSchema")
 		@Arbitrary("tempArbi")
 		@WrapperIgnore
-		static final StringField tempFeature = new StringField().toFinal().copyFrom(targFeature);
+		static final StringField tempFeature = new StringField().toFinal().copyFromSelf(targFeature);
 
 
 		@Computed
@@ -196,11 +196,11 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 
 		@Computed
 		@WrapperIgnore
-		static final ItemField<MyItem> targComputed = ItemField.create(MyItem.class).toFinal().copyTo(copyComputed);
+		static final ItemField<MyItem> targComputed = ItemField.create(MyItem.class).toFinal().copyToSelf(copyComputed);
 
 		@Computed
 		@WrapperIgnore
-		static final StringField tempComputed = new StringField().toFinal().copyFrom(targComputed);
+		static final StringField tempComputed = new StringField().toFinal().copyFromSelf(targComputed);
 
 
 		@com.exedio.cope.instrument.Generated
