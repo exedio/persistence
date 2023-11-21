@@ -248,7 +248,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Wrap(
 			order = 100,
 			name = "forHash",
-			doc = "Finds a {2} by it''s hash.",
+			doc = "Finds a {2} by its hash.",
 			docReturn = Wrap.FOR_RETURN)
 	@Nullable
 	public <P extends Item> P forHash(@Nonnull final Class<P> typeClass, @Nonnull @Parameter("{1}Hash") final String hash)
