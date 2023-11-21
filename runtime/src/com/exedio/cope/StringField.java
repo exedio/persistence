@@ -126,7 +126,7 @@ public final class StringField extends FunctionField<String>
 	@Override
 	public StringField copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override

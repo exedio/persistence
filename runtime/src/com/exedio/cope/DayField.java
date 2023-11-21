@@ -101,7 +101,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override

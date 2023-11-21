@@ -217,7 +217,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override

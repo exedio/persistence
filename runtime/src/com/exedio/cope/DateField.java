@@ -117,7 +117,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override
