@@ -43,9 +43,9 @@ final class RevstatBody extends Item
 	private static final ItemField<Revstat> revision = ItemField.create(Revstat.class).toFinal();
 
 	@SuppressWarnings("unused")
-	private static final IntegerField number = new IntegerField().toFinal().min(0).copyFrom(revision);
+	private static final IntegerField number = new IntegerField().toFinal().min(0).copyFrom(revision, () -> Revstat.number);
 	@SuppressWarnings("unused")
-	private static final DateField date = new DateField().toFinal().copyFrom(revision);
+	private static final DateField date = new DateField().toFinal().copyFrom(revision, () -> Revstat.date);
 
 	private static final IntegerField bodyNumber = new IntegerField().toFinal().min(0);
 	@SuppressWarnings("unused")

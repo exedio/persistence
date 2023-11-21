@@ -39,7 +39,7 @@ final class SamplerClusterNode extends Item
 	@UsageEntryPoint private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 	private static final IntegerField id = new IntegerField().toFinal();
 
-	private static final DateField date = new DateField().toFinal().copyFrom(model);
+	private static final DateField date = new DateField().toFinal().copyFrom(model, () -> SamplerModel.date);
 	@UsageEntryPoint private static final UniqueConstraint dateAndId = UniqueConstraint.create(date, id); // date must be first, so purging can use the index
 
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past

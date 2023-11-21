@@ -47,7 +47,7 @@ final class SamplerTransaction extends Item
 {
 	private static final ItemField<SamplerModel> model = ItemField.create(SamplerModel.class).toFinal();
 
-	private static final DateField date = new DateField().toFinal().copyFrom(model);
+	private static final DateField date = new DateField().toFinal().copyFrom(model, () -> SamplerModel.date);
 
 	static SetValue<?> mapIt(final SamplerModel m)
 	{

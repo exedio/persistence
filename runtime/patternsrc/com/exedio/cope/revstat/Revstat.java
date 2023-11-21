@@ -44,8 +44,8 @@ import java.util.List;
 @CopeName("CopeRevstat")
 final class Revstat extends Item
 {
-	private static final IntegerField number = new IntegerField().toFinal().unique().min(0);
-	private static final DateField date = new DateField().toFinal();
+	static final IntegerField number = new IntegerField().toFinal().unique().min(0);
+	static final DateField date = new DateField().toFinal();
 	private static final IntegerField size = new IntegerField().toFinal().min(0);
 	private static final IntegerField rows = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed = new LongField().toFinal().min(0);
