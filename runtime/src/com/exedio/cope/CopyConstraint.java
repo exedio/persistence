@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 public final class CopyConstraint extends Feature
@@ -32,10 +33,10 @@ public final class CopyConstraint extends Feature
 	private final ItemField<?> target;
 	private final Copy copy;
 
-	CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
+	CopyConstraint(final ItemField<?> target, final FunctionField<?> copy, final Supplier<? extends FunctionField<?>> template)
 	{
 		this.target = requireNonNull(target);
-		this.copy = new CopyField(requireNonNull(copy));
+		this.copy = new CopyField(requireNonNull(copy), requireNonNull(template));
 
 		if(target.isMandatory())
 			copy.setRedundantByCopyConstraint();
@@ -221,18 +222,36 @@ public final class CopyConstraint extends Feature
 		private static final long serialVersionUID = -1l;
 	}
 
+	static final Supplier<? extends FunctionField<?>> RESOLVE_TEMPLATE = () -> { throw new AssertionError("ZACK"); };
+	static final Supplier<? extends FunctionField<?>> SELF_TEMPLATE = () -> { throw new AssertionError("ZACK"); };
+
 	private static final class CopyField extends Copy
 	{
 		final FunctionField<?> field;
+		final Supplier<? extends FunctionField<?>> template;
 
-		CopyField(final FunctionField<?> field)
+		CopyField(final FunctionField<?> field, final Supplier<? extends FunctionField<?>> template)
 		{
 			this.field = field;
+			this.template = template;
 		}
 
 		@Override BiFunction<Type<?>, CopyConstraint, Feature> getTemplate()
 		{
-			return resolveTemplateByName(field.getName());
+			if(template==RESOLVE_TEMPLATE)
+				return resolveTemplateByName(field.getName());
+			if(template==SELF_TEMPLATE)
+				return (type, constraint) -> constraint.getCopyField();
+
+			return (type, constraint) ->
+			{
+				final Feature result = template.get();
+				if(result==field)
+					throw new IllegalArgumentException(
+							"copy and template are identical for CopyConstraint " + constraint + ", " +
+							"use copyFromSelf or copyToSelf instead"); // TODO error message should distinguish between copyFromSelf and copyToSelf
+				return result;
+			};
 		}
 		@Override boolean overlaps(final FunctionField<?> template)
 		{

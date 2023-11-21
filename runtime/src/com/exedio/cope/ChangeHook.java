@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
  * They are a poor  way for implementing constraints or defaults.
  * For constraints you are better off with
  * {@link CheckConstraint check constraints},
- * {@link FunctionField#copyFrom(ItemField) copy constraints}, or
+ * {@link FunctionField#copyFrom(ItemField, java.util.function.Supplier) copy constraints}, or
  * simple constraints such as
  * {@link IntegerField#min(int) ranges},
  * {@link StringField#lengthRange(int, int) length ranges}, or

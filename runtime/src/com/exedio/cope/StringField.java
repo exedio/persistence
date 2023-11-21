@@ -24,6 +24,7 @@ import static com.exedio.cope.util.Check.requireNonNegative;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.vault.VaultProperties;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 
@@ -126,6 +127,18 @@ public final class StringField extends FunctionField<String>
 	public StringField copyFrom(final ItemField<?> target)
 	{
 		return copyFrom(new CopyFrom(target));
+	}
+
+	@Override
+	public StringField copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<String>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public StringField copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
 	}
 
 	private StringField copyFrom(final CopyFrom copyFrom)

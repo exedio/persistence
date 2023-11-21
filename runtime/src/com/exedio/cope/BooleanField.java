@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -80,6 +81,18 @@ public final class BooleanField extends FunctionField<Boolean>
 	public BooleanField copyFrom(final ItemField<?> target)
 	{
 		return copyFrom(new CopyFrom(target));
+	}
+
+	@Override
+	public BooleanField copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<Boolean>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public BooleanField copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
 	}
 
 	private BooleanField copyFrom(final CopyFrom copyFrom)

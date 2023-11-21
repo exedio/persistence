@@ -104,6 +104,18 @@ public final class DayField extends FunctionField<Day>
 		return copyFrom(new CopyFrom(target));
 	}
 
+	@Override
+	public DayField copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<Day>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public DayField copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
+	}
+
 	private DayField copyFrom(final CopyFrom copyFrom)
 	{
 		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS);

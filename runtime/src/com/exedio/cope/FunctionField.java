@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -71,7 +72,7 @@ public abstract class FunctionField<E> extends Field<E>
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = new CopyConstraint(copyFrom[i].target, this);
+			result[i] = new CopyConstraint(copyFrom[i].target, this, copyFrom[i].template);
 		return result;
 	}
 
@@ -187,10 +188,17 @@ public abstract class FunctionField<E> extends Field<E>
 	protected static final class CopyFrom
 	{
 		final ItemField<?> target;
+		final Supplier<? extends FunctionField<?>> template;
 
 		CopyFrom(final ItemField<?> target)
 		{
+			this(target, CopyConstraint.RESOLVE_TEMPLATE); // TODO inline this constructor
+		}
+
+		CopyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<?>> template)
+		{
 			this.target = requireNonNull(target, "target");
+			this.template = requireNonNull(template, "template");
 		}
 	}
 
@@ -240,13 +248,36 @@ public abstract class FunctionField<E> extends Field<E>
 	public abstract FunctionField<E> nonUnique();
 
 	/**
+	 * To be deprecated, use {@link #copyFrom(ItemField, Supplier)} instead.
 	 * @see ItemField#copyTo(FunctionField)
 	 */
 	public abstract FunctionField<E> copyFrom(ItemField<?> target);
 
 	/**
+	 * @see #copyFromSelf(ItemField)
+	 * @see ItemField#copyTo(FunctionField,Supplier)
+	 */
+	public abstract FunctionField<E> copyFrom(ItemField<?> target, Supplier<? extends FunctionField<E>> template);
+
+	/**
+	 * Shortcut for {@link #copyFrom(ItemField, Supplier) copyFrom(target, template)}
+	 * when copy and template are identical.
+	 * That means
+	 * <pre>
+	 * static final StringField myField = new StringField().copyFrom(myTarget, () -&gt; MyItem.myField);
+	 * </pre>
+	 * can und must be rewritten as
+	 * <pre>
+	 * static final StringField myField = new StringField().copyFromSelf(myTarget);
+	 * </pre>
+	 * @see #copyFrom(ItemField, Supplier)
+	 * @see ItemField#copyToSelf(FunctionField)
+	 */
+	public abstract FunctionField<E> copyFromSelf(ItemField<?> target);
+
+	/**
 	 * Returns a new FunctionField that differs from this FunctionField
-	 * by having no {@link #copyFrom(ItemField) copyFrom} fields set.
+	 * by having no {@link #copyFrom(ItemField,Supplier) copyFrom} fields set.
 	 */
 	public abstract FunctionField<E> noCopyFrom();
 

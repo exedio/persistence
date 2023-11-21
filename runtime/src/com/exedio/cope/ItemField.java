@@ -86,7 +86,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = new CopyConstraint(this, copyFrom[i].copy);
+			result[i] = new CopyConstraint(this, copyFrom[i].copy, copyFrom[i].template);
 		return result;
 	}
 
@@ -149,17 +149,59 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return copyFrom(new CopyFrom(target));
 	}
 
+	@Override
+	public ItemField<E> copyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<E>> template)
+	{
+		return copyFrom(new CopyFrom(target, template));
+	}
+
+	@Override
+	public ItemField<E> copyFromSelf(final ItemField<?> target)
+	{
+		return copyFrom(new CopyFrom(target, CopyConstraint.SELF_TEMPLATE));
+	}
+
 	private ItemField<E> copyFrom(final CopyFrom copyFrom)
 	{
 		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), copyTo, choiceBackPointer, valueTypeFuture, policy);
 	}
 
 	/**
+	 * To be deprecated, use {@link #copyTo(FunctionField, Supplier)} instead.
 	 * @see FunctionField#copyFrom(ItemField)
 	 */
 	public ItemField<E> copyTo(final FunctionField<?> copy)
 	{
 		return copyTo(new CopyTo(copy));
+	}
+
+	/**
+	 * @see #copyToSelf(FunctionField)
+	 * @see FunctionField#copyFrom(ItemField,Supplier)
+	 */
+	public <C> ItemField<E> copyTo(final FunctionField<C> copy, final Supplier<FunctionField<C>> template)
+	{
+		return copyTo(new CopyTo(copy, template));
+	}
+
+	/**
+	 * Shortcut for {@link #copyTo(FunctionField, Supplier) copyTo(copy, template)}
+	 * when copy and template are identical.
+	 * That means
+	 * <pre>
+	 * static final ItemField&lt;MyItem&gt; myTarget = ItemField.create(MyItem.class).copyTo(myField, () -&gt; myField);
+	 * </pre>
+	 * can und must be rewritten as
+	 * <pre>
+	 * static final ItemField&lt;MyItem&gt; myTarget = ItemField.create(MyItem.class).copyToSelf(myField);
+	 * </pre>
+	 * @see #copyTo(FunctionField, Supplier)
+	 * @see FunctionField#copyFromSelf(ItemField)
+	 */
+	@SuppressWarnings("unused") // TODO remove
+	public <C> ItemField<E> copyToSelf(final FunctionField<C> copyAndTemplate)
+	{
+		return copyTo(new CopyTo(copyAndTemplate, CopyConstraint.SELF_TEMPLATE));
 	}
 
 	private ItemField<E> copyTo(final CopyTo copyTo)
@@ -183,10 +225,17 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	private static final class CopyTo
 	{
 		final FunctionField<?> copy;
+		final Supplier<? extends FunctionField<?>> template;
 
 		CopyTo(final FunctionField<?> copy)
 		{
+			this(copy, CopyConstraint.RESOLVE_TEMPLATE); // TODO inline this constructor
+		}
+
+		CopyTo(final FunctionField<?> copy, final Supplier<? extends FunctionField<?>> template)
+		{
 			this.copy = requireNonNull(copy, "copy");
+			this.template = requireNonNull(template, "template");
 		}
 	}
 
