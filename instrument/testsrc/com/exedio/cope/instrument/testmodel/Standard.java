@@ -1168,7 +1168,7 @@ public final class Standard extends Item
 	}
 
 	/**
-	 * Finds a standard by it's unique fields.
+	 * Finds a standard by its unique fields.
 	 * @param doubleUnique1 shall be equal to field {@link #doubleUnique1}.
 	 * @param doubleUnique2 shall be equal to field {@link #doubleUnique2}.
 	 * @return null if there is no matching item.

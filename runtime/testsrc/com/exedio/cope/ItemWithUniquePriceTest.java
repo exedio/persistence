@@ -150,7 +150,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a itemWithUniquePrice by it's unique fields.
+		 * Finds a itemWithUniquePrice by its unique fields.
 		 * @param price_int shall be equal to field 'int' of {@link #price}.
 		 * @param other shall be equal to field {@link #other}.
 		 * @return null if there is no matching item.

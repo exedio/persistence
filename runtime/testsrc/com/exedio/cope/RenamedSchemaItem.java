@@ -191,7 +191,7 @@ package com.exedio.cope;
 	}
 
 	/**
-	 * Finds a renamedSchemaItem by it's unique fields.
+	 * Finds a renamedSchemaItem by its unique fields.
 	 * @param uniqueDouble1 shall be equal to field {@link #uniqueDouble1}.
 	 * @param uniqueDouble2 shall be equal to field {@link #uniqueDouble2}.
 	 * @return null if there is no matching item.

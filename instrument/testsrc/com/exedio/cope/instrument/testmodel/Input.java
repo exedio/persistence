@@ -83,7 +83,7 @@ public class Input extends Item
 	}
 
 	/**
-	 * Finds a input by it's unique fields.
+	 * Finds a input by its unique fields.
 	 * @param string shall be equal to field {@link #string}.
 	 * @param integer shall be equal to field {@link #integer}.
 	 * @return null if there is no matching item.

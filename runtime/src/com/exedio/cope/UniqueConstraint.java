@@ -272,7 +272,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 */
 	@Wrap(order=10, name=Wrap.FOR_NAME, optionTagname="finder",
 			varargsFeatures=SearchVarargs.class,
-			doc="Finds a {2} by it''s unique fields.",
+			doc="Finds a {2} by its unique fields.",
 			docReturn=Wrap.FOR_RETURN)
 	@Nullable
 	public <P extends Item> P search(

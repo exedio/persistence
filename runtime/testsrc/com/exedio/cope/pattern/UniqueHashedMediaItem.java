@@ -131,7 +131,7 @@ public final class UniqueHashedMediaItem extends Item
 	}
 
 	/**
-	 * Finds a uniqueHashedMediaItem by it's hash.
+	 * Finds a uniqueHashedMediaItem by its hash.
 	 * @return null if there is no matching item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forHash")
