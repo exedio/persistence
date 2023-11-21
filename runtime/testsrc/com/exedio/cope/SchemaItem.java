@@ -772,7 +772,7 @@ final class SchemaItem extends Item
 	}
 
 	/**
-	 * Finds a schemaItem by it's unique fields.
+	 * Finds a schemaItem by its unique fields.
 	 * @param string shall be equal to field {@link #string}.
 	 * @param anEnum shall be equal to field {@link #anEnum}.
 	 * @return null if there is no matching item.

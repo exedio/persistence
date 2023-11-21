@@ -107,7 +107,7 @@ final class Indent extends Item
 			}
 
 			/**
-			 * Finds a indent by it's unique fields.
+			 * Finds a indent by its unique fields.
 			 * @param one shall be equal to field {@link #one}.
 			 * @param two shall be equal to field {@link #two}.
 			 * @return null if there is no matching item.

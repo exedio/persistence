@@ -108,7 +108,7 @@ final class UniqueDoubleItem extends Item
 	}
 
 	/**
-	 * Finds a uniqueDoubleItem by it's unique fields.
+	 * Finds a uniqueDoubleItem by its unique fields.
 	 * @param string shall be equal to field {@link #string}.
 	 * @param integer shall be equal to field {@link #integer}.
 	 * @return null if there is no matching item.

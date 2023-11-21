@@ -155,7 +155,7 @@ final class WrapPrimitiveItem extends Item
 	}
 
 	/**
-	 * Finds a wrapPrimitiveItem by it's unique fields.
+	 * Finds a wrapPrimitiveItem by its unique fields.
 	 * @param integer shall be equal to field {@link #integer}.
 	 * @param date shall be equal to field {@link #date}.
 	 * @param integerOptional shall be equal to field {@link #integerOptional}.
@@ -253,7 +253,7 @@ final class WrapPrimitiveItem extends Item
 	}
 
 	/**
-	 * Finds a wrapPrimitiveItem by it's unique fields.
+	 * Finds a wrapPrimitiveItem by its unique fields.
 	 * @param booleanField shall be equal to field {@link #booleanField}.
 	 * @param integer shall be equal to field {@link #integer}.
 	 * @param longField shall be equal to field {@link #longField}.

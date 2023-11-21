@@ -177,7 +177,7 @@ public final class NameSubItem extends NameLongItem
 	}
 
 	/**
-	 * Finds a nameSubItem by it's unique fields.
+	 * Finds a nameSubItem by its unique fields.
 	 * @param integer shall be equal to field {@link #integer}.
 	 * @param item shall be equal to field {@link #item}.
 	 * @return null if there is no matching item.
@@ -303,7 +303,7 @@ public final class NameSubItem extends NameLongItem
 	}
 
 	/**
-	 * Finds a nameSubItem by it's unique fields.
+	 * Finds a nameSubItem by its unique fields.
 	 * @param integerX shall be equal to field {@link #integerX}.
 	 * @param itemX shall be equal to field {@link #itemX}.
 	 * @return null if there is no matching item.
