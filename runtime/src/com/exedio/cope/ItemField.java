@@ -81,12 +81,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		mountDefault();
 	}
 
-	private CopyConstraint[] newCopyConstraintsTo(final CopyTo[] copyFrom)
+	private CopyConstraint[] newCopyConstraintsTo(final CopyTo[] copyTo)
 	{
-		assert copyFrom.length>0;
-		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
-		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = new CopyConstraint(this, copyFrom[i].copy, copyFrom[i].template);
+		assert copyTo.length>0;
+		final CopyConstraint[] result = new CopyConstraint[copyTo.length];
+		for(int i = 0; i<copyTo.length; i++)
+			result[i] = new CopyConstraint(this, copyTo[i].copy, copyTo[i].template);
 		return result;
 	}
 
