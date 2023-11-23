@@ -146,7 +146,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public ItemField<E> copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override

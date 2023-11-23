@@ -103,7 +103,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public DoubleField copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override

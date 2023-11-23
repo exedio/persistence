@@ -80,7 +80,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public BooleanField copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override

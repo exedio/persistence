@@ -190,11 +190,6 @@ public abstract class FunctionField<E> extends Field<E>
 		final ItemField<?> target;
 		final Supplier<? extends FunctionField<?>> template;
 
-		CopyFrom(final ItemField<?> target)
-		{
-			this(target, CopyConstraint.RESOLVE_TEMPLATE); // TODO inline this constructor
-		}
-
 		CopyFrom(final ItemField<?> target, final Supplier<? extends FunctionField<?>> template)
 		{
 			this.target = requireNonNull(target, "target");

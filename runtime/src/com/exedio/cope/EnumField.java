@@ -92,7 +92,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	public EnumField<E> copyFrom(final ItemField<?> target)
 	{
-		return copyFrom(new CopyFrom(target));
+		return copyFrom(new CopyFrom(target, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	@Override
