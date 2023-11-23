@@ -72,7 +72,7 @@ public abstract class FunctionField<E> extends Field<E>
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = new CopyConstraint(copyFrom[i].target, this, copyFrom[i].template, false);
+			result[i] = new CopyConstraint(copyFrom[i].target, this, copyFrom[i].template, copyFrom[i].origin(this), false);
 		return result;
 	}
 
@@ -194,6 +194,11 @@ public abstract class FunctionField<E> extends Field<E>
 		{
 			this.target = requireNonNull(target, "target");
 			this.template = requireNonNull(template, "template");
+		}
+
+		java.util.function.Function<String,String> origin(final FunctionField<?> copy)
+		{
+			return template -> copy + ".copyFrom(" + target.getName() + ',' + template + ')';
 		}
 	}
 

@@ -33,7 +33,7 @@ public class CopyConstraintSupplierParentTypeFromTest
 		assertFails(
 				() -> new Model(Source.TYPE, Target.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"insufficient template for CopyConstraint Source.field.copyFrom(target,Parent.field) (Source.fieldCopyFromtarget): " +
 				Parent.field + " must belong to type " + Target.TYPE + ", " +
 				"but belongs to type " + Parent.TYPE);
 	}

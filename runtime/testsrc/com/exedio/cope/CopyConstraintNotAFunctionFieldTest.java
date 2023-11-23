@@ -34,7 +34,7 @@ public class CopyConstraintNotAFunctionFieldTest
 		assertFails(
 				() -> new Model(Source.TYPE, Target.TYPE),
 				ClassCastException.class,
-				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"insufficient template for CopyConstraint Source.field.copyFrom(target,Target.field) (Source.fieldCopyFromtarget): " +
 				"Target.field is not a FunctionField but com.exedio.cope.DataField");
 	}
 

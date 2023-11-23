@@ -32,7 +32,7 @@ public class CopyConstraintSupplierParentTypeChoiceTest
 		assertFails(
 				() -> new Model(Source.TYPE, Target.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.targetChoice: " +
+				"insufficient template for CopyConstraint Source.target.choice(Parent.back) (Source.targetChoice): " +
 				Parent.back + " must belong to type " + Target.TYPE + ", " +
 				"but belongs to type " + Parent.TYPE);
 	}

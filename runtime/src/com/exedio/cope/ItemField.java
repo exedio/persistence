@@ -86,7 +86,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		assert copyTo.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyTo.length];
 		for(int i = 0; i<copyTo.length; i++)
-			result[i] = new CopyConstraint(this, copyTo[i].copy, copyTo[i].template, true);
+			result[i] = new CopyConstraint(this, copyTo[i].copy, copyTo[i].template, copyTo[i].origin(this), true);
 		return result;
 	}
 
@@ -230,6 +230,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		{
 			this.copy = requireNonNull(copy, "copy");
 			this.template = requireNonNull(template, "template");
+		}
+
+		java.util.function.Function<String,String> origin(final ItemField<?> target)
+		{
+			return template -> target + ".copyTo(" + copy.getName() + ',' + template + ')';
 		}
 	}
 

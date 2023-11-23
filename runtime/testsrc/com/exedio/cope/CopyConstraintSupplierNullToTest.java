@@ -33,7 +33,7 @@ public class CopyConstraintSupplierNullToTest
 		assertFails(
 				() -> new Model(Source.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"insufficient template for CopyConstraint Source.target.copyTo(field,null) (Source.fieldCopyFromtarget): " +
 				"supplier returns null");
 	}
 
