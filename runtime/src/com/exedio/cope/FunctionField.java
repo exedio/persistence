@@ -72,7 +72,7 @@ public abstract class FunctionField<E> extends Field<E>
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = new CopyConstraint(copyFrom[i].target, this, copyFrom[i].template);
+			result[i] = new CopyConstraint(copyFrom[i].target, this, copyFrom[i].template, false);
 		return result;
 	}
 

@@ -34,7 +34,7 @@ public class CopyConstraintSupplierSelfFromTest
 				() -> new Model(Source.TYPE),
 				IllegalArgumentException.class,
 				"copy and template are identical for CopyConstraint Source.fieldCopyFromtarget, " +
-				"use copyFromSelf or copyToSelf instead");
+				"use copyFromSelf instead");
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
