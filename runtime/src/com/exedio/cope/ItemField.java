@@ -172,7 +172,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> copyTo(final FunctionField<?> copy)
 	{
-		return copyTo(new CopyTo(copy));
+		return copyTo(new CopyTo(copy, CopyConstraint.RESOLVE_TEMPLATE));
 	}
 
 	/**
@@ -225,11 +225,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		final FunctionField<?> copy;
 		final Supplier<? extends FunctionField<?>> template;
-
-		CopyTo(final FunctionField<?> copy)
-		{
-			this(copy, CopyConstraint.RESOLVE_TEMPLATE); // TODO inline this constructor
-		}
 
 		CopyTo(final FunctionField<?> copy, final Supplier<? extends FunctionField<?>> template)
 		{
