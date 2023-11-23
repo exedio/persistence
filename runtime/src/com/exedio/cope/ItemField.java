@@ -86,7 +86,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		assert copyTo.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyTo.length];
 		for(int i = 0; i<copyTo.length; i++)
-			result[i] = new CopyConstraint(this, copyTo[i].copy, copyTo[i].template);
+			result[i] = new CopyConstraint(this, copyTo[i].copy, copyTo[i].template, true);
 		return result;
 	}
 

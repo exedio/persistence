@@ -33,10 +33,26 @@ public final class CopyConstraint extends Feature
 	private final ItemField<?> target;
 	private final Copy copy;
 
-	CopyConstraint(final ItemField<?> target, final FunctionField<?> copy, final Supplier<? extends FunctionField<?>> template)
+	/**
+	 * If this field is {@code false}, the CopyConstraint was created by
+	 * {@link FunctionField#copyFrom(ItemField, Supplier)}
+	 * or (the irrelevant case)
+	 * {@link ItemField#choice(Supplier)}.
+	 * If this field is {@code true}, the CopyConstraint was created by
+	 * {@link ItemField#copyTo(FunctionField, Supplier)}.
+	 * This field is just used for making an exception message more specific and helpful.
+	 */
+	private final boolean originTo;
+
+	CopyConstraint(
+			final ItemField<?> target,
+			final FunctionField<?> copy,
+			final Supplier<? extends FunctionField<?>> template,
+			final boolean originTo)
 	{
 		this.target = requireNonNull(target);
 		this.copy = new CopyField(requireNonNull(copy), requireNonNull(template));
+		this.originTo = originTo;
 
 		if(target.isMandatory())
 			copy.setRedundantByCopyConstraint();
@@ -52,6 +68,7 @@ public final class CopyConstraint extends Feature
 	{
 		this.target = target;
 		this.copy = new CopyChoice(backPointer);
+		this.originTo = false; // value does not matter in this case
 	}
 
 
@@ -249,7 +266,7 @@ public final class CopyConstraint extends Feature
 				if(result==field)
 					throw new IllegalArgumentException(
 							"copy and template are identical for CopyConstraint " + constraint + ", " +
-							"use copyFromSelf or copyToSelf instead"); // TODO error message should distinguish between copyFromSelf and copyToSelf
+							"use copy" + (constraint.originTo?"To":"From") + "Self instead");
 				return result;
 			};
 		}
