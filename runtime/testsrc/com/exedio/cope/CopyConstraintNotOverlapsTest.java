@@ -33,7 +33,7 @@ public class CopyConstraintNotOverlapsTest
 		assertFails(
 				() -> new Model(Source.TYPE, Target.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"insufficient template for CopyConstraint Source.field.copyFrom(target,Target.field) (Source.fieldCopyFromtarget): " +
 				Target.field + "'s " + Integer.class.getName() + " does not overlap copy " +
 				Source.field + "'s " + Boolean.class.getName());
 	}

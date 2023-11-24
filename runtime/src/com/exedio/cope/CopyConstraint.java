@@ -33,6 +33,7 @@ public final class CopyConstraint extends Feature
 	private final ItemField<?> target;
 	private final Copy copy;
 
+	private final java.util.function.Function<String,String> origin;
 	/**
 	 * If this field is {@code false}, the CopyConstraint was created by
 	 * {@link FunctionField#copyFrom(ItemField, Supplier)}
@@ -48,10 +49,12 @@ public final class CopyConstraint extends Feature
 			final ItemField<?> target,
 			final FunctionField<?> copy,
 			final Supplier<? extends FunctionField<?>> template,
+			final java.util.function.Function<String,String> origin,
 			final boolean originTo)
 	{
 		this.target = requireNonNull(target);
 		this.copy = new CopyField(requireNonNull(copy), requireNonNull(template));
+		this.origin = origin;
 		this.originTo = originTo;
 
 		if(target.isMandatory())
@@ -68,6 +71,7 @@ public final class CopyConstraint extends Feature
 	{
 		this.target = target;
 		this.copy = new CopyChoice(backPointer);
+		this.origin = t -> target + ".choice(" + t + ')';
 		this.originTo = false; // value does not matter in this case
 	}
 
@@ -139,25 +143,25 @@ public final class CopyConstraint extends Feature
 		final Feature feature = copy.getTemplate().apply(targetValueType, this);
 		if(feature==null)
 			throw new IllegalArgumentException(
-					"insufficient template for CopyConstraint " + this + ": " +
+					"insufficient template for CopyConstraint " + origin.apply("null") + " (" + this + "): " +
 					"supplier returns null");
 		if(!(feature instanceof FunctionField<?>))
 			throw new ClassCastException(
-					"insufficient template for CopyConstraint " + this + ": " +
+					"insufficient template for CopyConstraint " + origin.apply(feature.toString()) + " (" + this + "): " +
 					feature + " is not a FunctionField but " + feature.getClass().getName());
 		final FunctionField<?> result = (FunctionField<?>)feature;
 		if(!result.isfinal)
 			throw new IllegalArgumentException(
-					"insufficient template for CopyConstraint " + this + ": " +
+					"insufficient template for CopyConstraint " + origin.apply(feature.toString()) + " (" + this + "): " +
 					result + " is not final");
 		if(!result.getType().isAssignableFrom(targetValueType))
 			throw new IllegalArgumentException(
-					"insufficient template for CopyConstraint " + this + ": " +
+					"insufficient template for CopyConstraint " + origin.apply(feature.toString()) + " (" + this + "): " +
 					result + " must belong to type " + targetValueType + ", " +
 					"but belongs to type " + result.getType());
 		if(!copy.overlaps(result))
 			throw new IllegalArgumentException(
-					"insufficient template for CopyConstraint " + this + ": " +
+					"insufficient template for CopyConstraint " + origin.apply(feature.toString()) + " (" + this + "): " +
 					result + "'s " + result.getValueClass().getName() + " does not overlap copy " +
 					copy   + "'s " + copy  .getValueClass().getName());
 
@@ -171,7 +175,7 @@ public final class CopyConstraint extends Feature
 			final Feature feature = type.getFeature(name);
 			if(feature==null)
 				throw new IllegalArgumentException(
-						"insufficient template for CopyConstraint " + constraint + ": " +
+						"insufficient template for CopyConstraint " + constraint.origin.apply('"'+name+'"') + " (" + constraint + "): " +
 						"feature >" + name + "< at type " + type + " not found");
 			return feature;
 		};
@@ -265,7 +269,7 @@ public final class CopyConstraint extends Feature
 				final Feature result = template.get();
 				if(result==field)
 					throw new IllegalArgumentException(
-							"copy and template are identical for CopyConstraint " + constraint + ", " +
+							"copy and template are identical for CopyConstraint " + constraint.origin.apply(result.toString()) + " (" + constraint + "), " +
 							"use copy" + (constraint.originTo?"To":"From") + "Self instead");
 				return result;
 			};

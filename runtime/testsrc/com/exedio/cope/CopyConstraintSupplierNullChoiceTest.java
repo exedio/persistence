@@ -32,7 +32,7 @@ public class CopyConstraintSupplierNullChoiceTest
 		assertFails(
 				() -> new Model(Source.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.targetChoice: " +
+				"insufficient template for CopyConstraint Source.target.choice(null) (Source.targetChoice): " +
 				"supplier returns null");
 	}
 

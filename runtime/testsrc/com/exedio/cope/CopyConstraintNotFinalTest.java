@@ -33,7 +33,7 @@ public class CopyConstraintNotFinalTest
 		assertFails(
 				() -> new Model(Source.TYPE, Target.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"insufficient template for CopyConstraint Source.field.copyFrom(target,Target.field) (Source.fieldCopyFromtarget): " +
 				"Target.field is not final");
 	}
 

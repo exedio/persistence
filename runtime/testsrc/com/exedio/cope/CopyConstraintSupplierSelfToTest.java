@@ -33,7 +33,7 @@ public class CopyConstraintSupplierSelfToTest
 		assertFails(
 				() -> new Model(Source.TYPE),
 				IllegalArgumentException.class,
-				"copy and template are identical for CopyConstraint Source.fieldCopyFromtarget, " +
+				"copy and template are identical for CopyConstraint Source.target.copyTo(field,Source.field) (Source.fieldCopyFromtarget), " +
 				"use copyToSelf instead");
 	}
 

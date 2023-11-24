@@ -32,7 +32,7 @@ public class CopyConstraintNotOverlapsChoiceTest
 		assertFails(
 				() -> new Model(Source.TYPE, Target.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.targetChoice: " +
+				"insufficient template for CopyConstraint Source.target.choice(Target.field) (Source.targetChoice): " +
 				Target.field          + "'s " + Target.class.getName() + " does not overlap copy " +
 				Source.TYPE.getThis() + "'s " + Source.class.getName());
 	}

@@ -33,7 +33,7 @@ public class CopyConstraintNotFoundTest
 		assertFails(
 				() -> new Model(Source.TYPE, Target.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"insufficient template for CopyConstraint Source.field.copyFrom(target,\"field\") (Source.fieldCopyFromtarget): " +
 				"feature >field< at type Target not found");
 	}
 

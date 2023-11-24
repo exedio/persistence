@@ -58,7 +58,7 @@ public class SetFieldCopyModelTest
 		assertFails(
 				() -> new Model(BrokenNonFinalTemplate.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint BrokenNonFinalTemplate-set.stuffCopyFromparent: " +
+				"insufficient template for CopyConstraint BrokenNonFinalTemplate-set.stuff.copyFrom(parent,BrokenNonFinalTemplate.stuff) (BrokenNonFinalTemplate-set.stuffCopyFromparent): " +
 				"BrokenNonFinalTemplate.stuff is not final");
 	}
 
@@ -159,7 +159,7 @@ public class SetFieldCopyModelTest
 		assertFails(
 				() -> new Model(DoesntHaveField.TYPE, NoTargetItem.TYPE),
 				IllegalArgumentException.class,
-				"insufficient template for CopyConstraint NoTargetItem-noTarget.fieldCopyFromelement: " +
+				"insufficient template for CopyConstraint NoTargetItem-noTarget.field.copyFrom(element,\"field\") (NoTargetItem-noTarget.fieldCopyFromelement): " +
 				"feature >field< at type DoesntHaveField not found");
 	}
 
