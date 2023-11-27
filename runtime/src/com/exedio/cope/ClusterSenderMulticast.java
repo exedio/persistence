@@ -105,8 +105,22 @@ final class ClusterSenderMulticast extends ClusterSender
 
 	boolean getLoopback()
 	{
-		// Will throw NullPointerException if loopback is null.
+		// Will throw a NullPointerException if loopback is null.
 		// This is intended, then the micrometer gauge will expose NaN.
+		if(loopback==null)
+		{
+			// A NullPointerException would have been thrown by the return statement anyway,
+			// but we add an informative message for the logs here.
+			throw new NullPointerException(
+					// I think, this is a bug in the JDK network library fixed in JDK 17.
+					"meter com.exedio.cope.Cluster.sendLoopback " +
+					"is not available on JDK 11, but only on JDK 17");
+			// This exception appears in the logs just once. Before it the logs says:
+			// i.m.c.i.internal.DefaultGauge -
+			//       Failed to apply the value function for the gauge 'com.exedio.cope.Cluster.sendLoopback'.
+			//       Note that subsequent logs will be logged at debug level.
+		}
+
 		return loopback;
 	}
 
