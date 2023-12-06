@@ -37,6 +37,7 @@ public final class Delete
 			final String transactionName,
 			final JobContext ctx)
 	{
+		requireNonNull(query, "query");
 		requireGreaterZero(limit, "limit"); // prevents infinite loop
 		requireNonNull(ctx, "ctx");
 

@@ -36,7 +36,7 @@ public class DeleteErrorTest
 		assertFails(
 				() -> Delete.delete(null, 100, "tx", ctx),
 				NullPointerException.class,
-				null);
+				"query");
 	}
 
 	@Test void testLimitZero()
