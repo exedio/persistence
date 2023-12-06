@@ -41,6 +41,13 @@ public final class Delete
 		requireGreaterZero(limit, "limit"); // prevents infinite loop
 		requireNonNull(ctx, "ctx");
 
+		if(query.getPageOffset()!=0)
+			throw new IllegalArgumentException(
+					"query with page offset (" + query.getPageOffset() + ") not supported: " + query);
+		if(query.getPageLimitOrMinusOne()!=-1)
+			throw new IllegalArgumentException(
+					"query with page limit (" + query.getPageLimitOrMinusOne() + ") not supported: " + query);
+
 		query.setPage(0, limit);
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; ; transaction++)
