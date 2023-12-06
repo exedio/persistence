@@ -56,10 +56,10 @@ public class DeleteJobContext extends AssertionErrorJobContext
 
 		switch(inDelete.getLineNumber()) // Au weia !!!
 		{
-			case 48:
+			case 50:
 				assertFalse(model.hasCurrentTransaction());
 				break;
-			case 59:
+			case 65:
 				assertTrue(model.hasCurrentTransaction());
 				break;
 			default:
