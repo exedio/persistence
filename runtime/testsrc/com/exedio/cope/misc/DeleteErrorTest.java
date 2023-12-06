@@ -69,7 +69,7 @@ public class DeleteErrorTest
 		assertFails(
 				() -> Delete.delete(q, 0, null, null),
 				IllegalArgumentException.class,
-				"limit must be greater zero, but was 0");
+				"itemsPerTransaction must be greater zero, but was 0");
 	}
 
 	@Test void testContextNull()
