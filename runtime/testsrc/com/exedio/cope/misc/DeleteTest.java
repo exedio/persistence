@@ -19,9 +19,9 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
@@ -82,15 +82,10 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 
 		final Context ctx = new Context(1);
-		try
-		{
-			Delete.delete(q, 100, "tx", ctx);
-			fail();
-		}
-		catch(final JobStop js)
-		{
-			assertEquals("progress 1 excessed with 1", js.getMessage());
-		}
+		assertFails(
+				() -> Delete.delete(q, 100, "tx", ctx),
+				JobStop.class,
+				"progress 1 excessed with 1");
 		model.startTransaction("setUp");
 		assertEquals(false, i1.existsCopeItem());
 		assertEquals(true,  i2.existsCopeItem());
