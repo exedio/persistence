@@ -39,30 +39,6 @@ public class DeleteErrorTest
 				"query");
 	}
 
-	@Test void testQueryOffset()
-	{
-		final Query<CacheIsolationItem> q = TYPE.newQuery();
-		q.setPageUnlimited(55);
-		final AssertionErrorJobContext ctx = new AssertionErrorJobContext();
-		assertFails(
-				() -> Delete.delete(q, 100, "tx", ctx),
-				IllegalArgumentException.class,
-				"query with page offset (55) not supported: " +
-				"select this from CacheIsolationItem offset '55'");
-	}
-
-	@Test void testQueryLimit()
-	{
-		final Query<CacheIsolationItem> q = TYPE.newQuery();
-		q.setPage(0, 66);
-		final AssertionErrorJobContext ctx = new AssertionErrorJobContext();
-		assertFails(
-				() -> Delete.delete(q, 100, "tx", ctx),
-				IllegalArgumentException.class,
-				"query with page limit (66) not supported: " +
-				"select this from CacheIsolationItem limit '66'");
-	}
-
 	@Test void testLimitZero()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
