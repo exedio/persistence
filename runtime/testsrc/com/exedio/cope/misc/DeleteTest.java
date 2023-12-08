@@ -156,42 +156,42 @@ public class DeleteTest extends TestWithEnvironment
 
 	@Test void pageNone() { assertPage(TYPE.newQuery(), 3, 3); }
 	@Test void pageOff0() { assertPage(queryPage(0), 3, 3); }
-	@Test void pageOff1() { assertPage(queryPage(1), 3, 3); }
-	@Test void pageOff2() { assertPage(queryPage(2), 3, 3); }
-	@Test void pageOff3() { assertPage(queryPage(3), 3, 3); }
-	@Test void pageOff4() { assertPage(queryPage(4), 3, 3); }
-	@Test void pageOff5() { assertPage(queryPage(5), 3, 3); }
-	@Test void pageOff6() { assertPage(queryPage(6), 3, 3); }
-	@Test void pageOff7() { assertPage(queryPage(7), 3, 3); }
-	@Test void pageOff8() { assertPage(queryPage(8), 3, 3); }
+	@Test void pageOff1() { assertPage(queryPage(1), 3, 3, "it1"); }
+	@Test void pageOff2() { assertPage(queryPage(2), 3, 2, "it1", "it2"); }
+	@Test void pageOff3() { assertPage(queryPage(3), 3, 2, "it1", "it2", "it3"); }
+	@Test void pageOff4() { assertPage(queryPage(4), 3, 2, "it1", "it2", "it3", "it4"); }
+	@Test void pageOff5() { assertPage(queryPage(5), 3, 1, "it1", "it2", "it3", "it4", "it5"); }
+	@Test void pageOff6() { assertPage(queryPage(6), 3, 1, "it1", "it2", "it3", "it4", "it5", "it6"); }
+	@Test void pageOff7() { assertPage(queryPage(7), 3, 1, "it1", "it2", "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageOff8() { assertPage(queryPage(8), 3, 1, "it1", "it2", "it3", "it4", "it5", "it6", "it7"); }
 
-	@Test void pageLim0() { assertPage(queryPage(0, 0), 3, 3                                                 ); }
-	@Test void pageLim1() { assertPage(queryPage(0, 1), 3, 3                                                 ); }
-	@Test void pageLim2() { assertPage(queryPage(0, 2), 3, 3                                                 ); }
-	@Test void pageLim3() { assertPage(queryPage(0, 3), 3, 3                                                 ); }
-	@Test void pageLim4() { assertPage(queryPage(0, 4), 3, 3                                                 ); }
-	@Test void pageLim5() { assertPage(queryPage(0, 5), 3, 3                                                 ); }
-	@Test void pageLim6() { assertPage(queryPage(0, 6), 3, 3                                                 ); }
+	@Test void pageLim0() { assertPage(queryPage(0, 0), 3, 1, "it1", "it2", "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageLim1() { assertPage(queryPage(0, 1), 3, 1,        "it2", "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageLim2() { assertPage(queryPage(0, 2), 3, 1,               "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageLim3() { assertPage(queryPage(0, 3), 3, 1,                      "it4", "it5", "it6", "it7"); }
+	@Test void pageLim4() { assertPage(queryPage(0, 4), 3, 2,                             "it5", "it6", "it7"); }
+	@Test void pageLim5() { assertPage(queryPage(0, 5), 3, 2,                                    "it6", "it7"); }
+	@Test void pageLim6() { assertPage(queryPage(0, 6), 3, 2,                                           "it7"); }
 	@Test void pageLim7() { assertPage(queryPage(0, 7), 3, 3                                                 ); }
 	@Test void pageLim8() { assertPage(queryPage(0, 8), 3, 3                                                 ); }
 
-	@Test void pageOff1Lim0() { assertPage(queryPage(1, 0), 3, 3); }
-	@Test void pageOff1Lim1() { assertPage(queryPage(1, 1), 3, 3); }
-	@Test void pageOff1Lim2() { assertPage(queryPage(1, 2), 3, 3); }
-	@Test void pageOff1Lim3() { assertPage(queryPage(1, 3), 3, 3); }
-	@Test void pageOff1Lim4() { assertPage(queryPage(1, 4), 3, 3); }
-	@Test void pageOff1Lim5() { assertPage(queryPage(1, 5), 3, 3); }
-	@Test void pageOff1Lim6() { assertPage(queryPage(1, 6), 3, 3); }
-	@Test void pageOff1Lim7() { assertPage(queryPage(1, 7), 3, 3); }
+	@Test void pageOff1Lim0() { assertPage(queryPage(1, 0), 3, 1, "it1", "it2", "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageOff1Lim1() { assertPage(queryPage(1, 1), 3, 1, "it1",        "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageOff1Lim2() { assertPage(queryPage(1, 2), 3, 1, "it1",               "it4", "it5", "it6", "it7"); }
+	@Test void pageOff1Lim3() { assertPage(queryPage(1, 3), 3, 1, "it1",                      "it5", "it6", "it7"); }
+	@Test void pageOff1Lim4() { assertPage(queryPage(1, 4), 3, 2, "it1",                             "it6", "it7"); }
+	@Test void pageOff1Lim5() { assertPage(queryPage(1, 5), 3, 2, "it1",                                    "it7"); }
+	@Test void pageOff1Lim6() { assertPage(queryPage(1, 6), 3, 2, "it1"                                          ); }
+	@Test void pageOff1Lim7() { assertPage(queryPage(1, 7), 3, 3, "it1"                                          ); }
 
-	@Test void pageOff1Lim0s() { assertPage(queryPage(1, 0), 1, 8); }
-	@Test void pageOff1Lim1s() { assertPage(queryPage(1, 1), 1, 8); }
-	@Test void pageOff1Lim2s() { assertPage(queryPage(1, 2), 1, 8); }
-	@Test void pageOff1Lim3s() { assertPage(queryPage(1, 3), 1, 8); }
-	@Test void pageOff1Lim4s() { assertPage(queryPage(1, 4), 1, 8); }
-	@Test void pageOff1Lim5s() { assertPage(queryPage(1, 5), 1, 8); }
-	@Test void pageOff1Lim6s() { assertPage(queryPage(1, 6), 1, 8); }
-	@Test void pageOff1Lim7s() { assertPage(queryPage(1, 7), 1, 8); }
+	@Test void pageOff1Lim0s() { assertPage(queryPage(1, 0), 1, 1, "it1", "it2", "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageOff1Lim1s() { assertPage(queryPage(1, 1), 1, 1, "it1",        "it3", "it4", "it5", "it6", "it7"); }
+	@Test void pageOff1Lim2s() { assertPage(queryPage(1, 2), 1, 2, "it1",               "it4", "it5", "it6", "it7"); }
+	@Test void pageOff1Lim3s() { assertPage(queryPage(1, 3), 1, 3, "it1",                      "it5", "it6", "it7"); }
+	@Test void pageOff1Lim4s() { assertPage(queryPage(1, 4), 1, 4, "it1",                             "it6", "it7"); }
+	@Test void pageOff1Lim5s() { assertPage(queryPage(1, 5), 1, 5, "it1",                                    "it7"); }
+	@Test void pageOff1Lim6s() { assertPage(queryPage(1, 6), 1, 6, "it1"                                          ); }
+	@Test void pageOff1Lim7s() { assertPage(queryPage(1, 7), 1, 7, "it1"                                          ); }
 
 	private static Query<CacheIsolationItem> queryPage(final int offset)
 	{

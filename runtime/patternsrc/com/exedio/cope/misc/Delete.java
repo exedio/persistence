@@ -41,13 +41,19 @@ public final class Delete
 		requireGreaterZero(itemsPerTransaction, "itemsPerTransaction"); // prevents infinite loop
 		requireNonNull(ctx, "ctx");
 
-		query.setPage(0, itemsPerTransaction);
+		final int offset = query.getPageOffset();
+		int yetToBeDeletedIfLimited = query.getPageLimitOrMinusOne();
+		final boolean isLimited = yetToBeDeletedIfLimited!=-1;
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; ; transaction++)
 		{
 			deferOrStopIfRequested(ctx);
 			try
 			{
+				final int transactionLimit = isLimited
+						? Math.min(itemsPerTransaction, yetToBeDeletedIfLimited)
+						:          itemsPerTransaction;
+				query.setPage(offset, transactionLimit);
 				model.startTransaction(transactionName + '#' + transaction);
 
 				final List<? extends Item> items = query.search();
@@ -63,8 +69,15 @@ public final class Delete
 
 				model.commit();
 
-				if(itemsSize<itemsPerTransaction)
+				if(itemsSize<transactionLimit)
 					return;
+
+				if(isLimited)
+				{
+					yetToBeDeletedIfLimited -= itemsSize;
+					if(yetToBeDeletedIfLimited<=0)
+						return;
+				}
 			}
 			catch(final JobStop ignored)
 			{
