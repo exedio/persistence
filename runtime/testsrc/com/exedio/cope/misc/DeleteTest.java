@@ -27,9 +27,11 @@ import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class DeleteTest extends TestWithEnvironment
@@ -150,5 +152,79 @@ public class DeleteTest extends TestWithEnvironment
 		{
 			assertEquals(expected, getProgress());
 		}
+	}
+
+	@Test void pageNone() { assertPage(TYPE.newQuery(), 3, 3); }
+	@Test void pageOff0() { assertPage(queryPage(0), 3, 3); }
+	@Test void pageOff1() { assertPage(queryPage(1), 3, 3); }
+	@Test void pageOff2() { assertPage(queryPage(2), 3, 3); }
+	@Test void pageOff3() { assertPage(queryPage(3), 3, 3); }
+	@Test void pageOff4() { assertPage(queryPage(4), 3, 3); }
+	@Test void pageOff5() { assertPage(queryPage(5), 3, 3); }
+	@Test void pageOff6() { assertPage(queryPage(6), 3, 3); }
+	@Test void pageOff7() { assertPage(queryPage(7), 3, 3); }
+	@Test void pageOff8() { assertPage(queryPage(8), 3, 3); }
+
+	@Test void pageLim0() { assertPage(queryPage(0, 0), 3, 3                                                 ); }
+	@Test void pageLim1() { assertPage(queryPage(0, 1), 3, 3                                                 ); }
+	@Test void pageLim2() { assertPage(queryPage(0, 2), 3, 3                                                 ); }
+	@Test void pageLim3() { assertPage(queryPage(0, 3), 3, 3                                                 ); }
+	@Test void pageLim4() { assertPage(queryPage(0, 4), 3, 3                                                 ); }
+	@Test void pageLim5() { assertPage(queryPage(0, 5), 3, 3                                                 ); }
+	@Test void pageLim6() { assertPage(queryPage(0, 6), 3, 3                                                 ); }
+	@Test void pageLim7() { assertPage(queryPage(0, 7), 3, 3                                                 ); }
+	@Test void pageLim8() { assertPage(queryPage(0, 8), 3, 3                                                 ); }
+
+	@Test void pageOff1Lim0() { assertPage(queryPage(1, 0), 3, 3); }
+	@Test void pageOff1Lim1() { assertPage(queryPage(1, 1), 3, 3); }
+	@Test void pageOff1Lim2() { assertPage(queryPage(1, 2), 3, 3); }
+	@Test void pageOff1Lim3() { assertPage(queryPage(1, 3), 3, 3); }
+	@Test void pageOff1Lim4() { assertPage(queryPage(1, 4), 3, 3); }
+	@Test void pageOff1Lim5() { assertPage(queryPage(1, 5), 3, 3); }
+	@Test void pageOff1Lim6() { assertPage(queryPage(1, 6), 3, 3); }
+	@Test void pageOff1Lim7() { assertPage(queryPage(1, 7), 3, 3); }
+
+	@Test void pageOff1Lim0s() { assertPage(queryPage(1, 0), 1, 8); }
+	@Test void pageOff1Lim1s() { assertPage(queryPage(1, 1), 1, 8); }
+	@Test void pageOff1Lim2s() { assertPage(queryPage(1, 2), 1, 8); }
+	@Test void pageOff1Lim3s() { assertPage(queryPage(1, 3), 1, 8); }
+	@Test void pageOff1Lim4s() { assertPage(queryPage(1, 4), 1, 8); }
+	@Test void pageOff1Lim5s() { assertPage(queryPage(1, 5), 1, 8); }
+	@Test void pageOff1Lim6s() { assertPage(queryPage(1, 6), 1, 8); }
+	@Test void pageOff1Lim7s() { assertPage(queryPage(1, 7), 1, 8); }
+
+	private static Query<CacheIsolationItem> queryPage(final int offset)
+	{
+		final Query<CacheIsolationItem> result = TYPE.newQuery();
+		result.setPageUnlimited(offset);
+		return result;
+	}
+
+	private static Query<CacheIsolationItem> queryPage(final int offset, final int limit)
+	{
+		final Query<CacheIsolationItem> result = TYPE.newQuery();
+		result.setPage(offset, limit);
+		return result;
+	}
+
+	private void assertPage(
+			final Query<CacheIsolationItem> query,
+			final int itemsPerTransaction,
+			final int transactionCount,
+			final String... codes)
+	{
+		model.startTransaction(DeleteTest.class.getName() + "#setUp");
+		for(int i = 1; i<=7; i++)
+			new CacheIsolationItem("it"+i);
+		model.commit();
+
+		final long transactionIdBefore = model.getNextTransactionId();
+		Delete.delete(query, itemsPerTransaction, "tx", JobContexts.EMPTY);
+		assertEquals(transactionCount, model.getNextTransactionId()-transactionIdBefore, "transactionCount");
+		final Query<String> countQuery = new Query<>(CacheIsolationItem.name);
+		countQuery.setOrderBy(TYPE.getThis(), true);
+		model.startTransaction(DeleteTest.class.getName() + "#count");
+		assertEquals(List.of(codes), countQuery.search());
+		model.commit();
 	}
 }

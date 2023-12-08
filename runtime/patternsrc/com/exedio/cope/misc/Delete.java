@@ -41,13 +41,6 @@ public final class Delete
 		requireGreaterZero(itemsPerTransaction, "itemsPerTransaction"); // prevents infinite loop
 		requireNonNull(ctx, "ctx");
 
-		if(query.getPageOffset()!=0)
-			throw new IllegalArgumentException(
-					"query with page offset (" + query.getPageOffset() + ") not supported: " + query);
-		if(query.getPageLimitOrMinusOne()!=-1)
-			throw new IllegalArgumentException(
-					"query with page limit (" + query.getPageLimitOrMinusOne() + ") not supported: " + query);
-
 		query.setPage(0, itemsPerTransaction);
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; ; transaction++)
