@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import org.junit.jupiter.api.Test;
@@ -95,26 +96,32 @@ public class RangeFieldTest extends TestWithEnvironment
 	@Test void testCreateNull()
 	{
 		final Range<String> text = valueOf("a", "b");
-		assertFails(
+		final MandatoryViolationException e = assertFails(
 				() -> new RangeFieldItem(null, text),
-				NullPointerException.class,
-				null);
+				MandatoryViolationException.class,
+				"mandatory violation for RangeFieldItem.valid");
+		assertEquals(null, e.getItem());
+		assertEquals(valid, e.getFeature());
 	}
 
 	@Test void testSetNull()
 	{
 		final RangeFieldItem i = new RangeFieldItem(valueOf(1, 2), valueOf("a", "b"));
 
-		assertFails(
+		final MandatoryViolationException e1 = assertFails(
 				() -> i.setValid(null),
-				NullPointerException.class,
-				null);
+				MandatoryViolationException.class,
+				"mandatory violation on " + i + " for RangeFieldItem.valid");
+		assertEquals(i, e1.getItem());
+		assertEquals(valid, e1.getFeature());
 		assertEquals(valueOf(1, 2), i.getValid());
 
-		assertFails(
+		final MandatoryViolationException e2 = assertFails(
 				() -> i.set(SetValue.map(valid, null)),
-				NullPointerException.class,
-				null);
+				MandatoryViolationException.class,
+				"mandatory violation on " + i + " for RangeFieldItem.valid");
+		assertEquals(i, e2.getItem());
+		assertEquals(valid, e2.getFeature());
 		assertEquals(valueOf(1, 2), i.getValid());
 	}
 
