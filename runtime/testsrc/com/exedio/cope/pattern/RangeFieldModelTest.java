@@ -23,8 +23,8 @@ import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.text;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
@@ -109,28 +109,19 @@ public class RangeFieldModelTest
 
 	@Test void testBorderTemplateUnique()
 	{
-		try
-		{
-			RangeField.create(new IntegerField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unique borderTemplate is not supported", e.getMessage());
-		}
+		final IntegerField borderTemplate = new IntegerField().unique();
+		assertFails(
+				() -> RangeField.create(borderTemplate),
+				IllegalArgumentException.class,
+				"unique borderTemplate is not supported");
 	}
 
 	@Test void testContainsNull()
 	{
-		try
-		{
-			valid.contains(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("right", e.getMessage());
-		}
+		assertFails(
+				() -> valid.contains(null),
+				NullPointerException.class,
+				"right");
 	}
 
 	@Test void testInitialType()

@@ -27,8 +27,8 @@ import static com.exedio.cope.pattern.Range.valueOf;
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
@@ -50,15 +50,11 @@ public class RangeFieldTest extends TestWithEnvironment
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
 
-		try
-		{
-			item.setValidFrom(8);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertEquals(valid.getUnison(), e.getFeature());
-		}
+		assertFails(
+				() -> item.setValidFrom(8),
+				CheckViolationException.class,
+				"check violation on " + item + " for RangeFieldItem.valid-unison");
+
 		assertEquals(valueOf(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
 		assertEquals(i5, item.getValidTo());
@@ -97,16 +93,14 @@ public class RangeFieldTest extends TestWithEnvironment
 
 	@Test void testBorderConstraint()
 	{
-		try
-		{
-			new RangeFieldItem(-11, 5);
-			fail();
-		}
-		catch(final IntegerRangeViolationException e)
-		{
-			assertEquals(null, e.getItem());
-			assertEquals(valid.getFrom(), e.getFeature());
-			assertEquals(-11, e.getValue());
-		}
+		final IntegerRangeViolationException e = assertFails(
+				() -> new RangeFieldItem(-11, 5),
+				IntegerRangeViolationException.class,
+				"range violation, " +
+				"-11 is too small for RangeFieldItem.valid-from, " +
+				"must be at least -10");
+		assertEquals(null, e.getItem());
+		assertEquals(valid.getFrom(), e.getFeature());
+		assertEquals(-11, e.getValue());
 	}
 }
