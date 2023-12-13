@@ -35,6 +35,7 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import javax.annotation.Nonnull;
 import org.junit.jupiter.api.AfterEach;
@@ -50,7 +51,7 @@ public class VaultJdbcToServiceHsqldbTest
 		final Path propsFile = createProperties(
 				"VALUES " +
 						"('012345678901234567890123456789ab', '050401')," +
-						"('022345678901234567890123456789ab', '050402')");
+						"('022345678901234567890123456789ab', '050402')", Map.of());
 		final var out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, true, US_ASCII),
@@ -86,7 +87,7 @@ public class VaultJdbcToServiceHsqldbTest
 				"VALUES " +
 						"('032345678901234567890123456789ab', '050403')," +
 						"('042345678901234567890123456789ab', '050404')," +
-						"('052345678901234567890123456789ab', '050405')");
+						"('052345678901234567890123456789ab', '050405')", Map.of());
 		final var out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, true, US_ASCII),
@@ -127,6 +128,35 @@ public class VaultJdbcToServiceHsqldbTest
 				readAllLines(out));
 	}
 
+	@Test void testCompute() throws IOException, SQLException
+	{
+		final Path propsFile = createProperties(
+				"VALUES " +
+						"(NULL)," +
+						"('010203')," +
+						"('010204')",
+				Map.of("source.queryHash", "false"));
+		final var out = new ByteArrayOutputStream();
+		VaultJdbcToService.mainInternal(
+				new PrintStream(out, true, US_ASCII),
+				propsFile.toString());
+
+		assertEquals(List.of(
+				"5289df737df57326fcdd22597afb1fac - 010203",
+				"57db60e93fb52657521f8f99cbc7398f - 010204",
+				"close"),
+				SERVICE_PUTS);
+		assertEquals(List.of(
+				"Fetch size set to 1",
+				"Query 1/1 importing: VALUES " +
+						"(NULL)," +
+						"('010203')," +
+						"('010204')",
+				"Skipping null at row 0",
+				"Finished query 1/1 after 3 rows, skipped 1, redundant 0"),
+				readAllLines(out));
+	}
+
 
 	private static final class TestService extends AssertionErrorVaultService
 	{
@@ -164,7 +194,7 @@ public class VaultJdbcToServiceHsqldbTest
 
 
 	@Nonnull
-	private Path createProperties(final String query) throws IOException
+	private Path createProperties(final String query, final Map<String, String> additional) throws IOException
 	{
 		final Properties props = new Properties();
 		props.setProperty("source.url", "jdbc:hsqldb:mem:VaultJdbcToServiceHsqldbTest");
@@ -173,6 +203,8 @@ public class VaultJdbcToServiceHsqldbTest
 		props.setProperty("source.query", query);
 		props.setProperty("target.algorithm", "MD5");
 		props.setProperty("target.default.service", TestService.class.getName());
+		for(final Map.Entry<String,String> e : additional.entrySet())
+			props.setProperty(e.getKey(), e.getValue());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
 		return propsFile;
