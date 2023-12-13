@@ -20,8 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
@@ -57,15 +57,10 @@ public class RangeFieldNullTest extends TestWithEnvironment
 
 		for(final RangeFieldItem item : TYPE.search())
 		{
-			try
-			{
-				item.doesValidContain(null);
-				fail();
-			}
-			catch(final NullPointerException e)
-			{
-				assertEquals("value", e.getMessage());
-			}
+			assertFails(
+					() -> item.doesValidContain(null),
+					NullPointerException.class,
+					"value");
 		}
 	}
 
