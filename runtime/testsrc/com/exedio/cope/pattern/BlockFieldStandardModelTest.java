@@ -349,6 +349,8 @@ public class BlockFieldStandardModelTest
 		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setARange(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> aRange)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			field().of(ABlock.aRange).set(item(),aRange);
 		}
