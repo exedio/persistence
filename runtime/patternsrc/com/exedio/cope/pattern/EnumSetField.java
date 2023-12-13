@@ -166,10 +166,15 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		return isFinal;
 	}
 
+	/**
+	 * Does always return {@code true}.
+	 * An {@code EnumSetField} may store an empty set,
+	 * but never null.
+	 */
 	@Override
 	public boolean isMandatory()
 	{
-		return true; // can be empty but is never null
+		return true;
 	}
 
 	@Override
