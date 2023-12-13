@@ -27,12 +27,14 @@ import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Nullability;
 import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ReflectionTypes;
@@ -121,7 +123,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	}
 
 	@Wrap(order=50,
-			thrownGetter=InitialExceptionsSettableGetter.class,
+			thrownGetter=InitialExceptionsFrom.class,
 			hide=FinalSettableGetter.class)
 	public void setFrom(@Nonnull final Item item, @Parameter(nullability=NullableIfOptionalFrom.class) final E from)
 	{
@@ -131,7 +133,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	}
 
 	@Wrap(order=60,
-			thrownGetter=InitialExceptionsSettableGetter.class,
+			thrownGetter=InitialExceptionsFrom.class,
 			hide=FinalSettableGetter.class)
 	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptionalFrom.class) final E to)
 	{
@@ -146,6 +148,15 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		public Nullability getNullability(final RangeField<?> feature)
 		{
 			return Nullability.forMandatory(feature.getFrom().isMandatory());
+		}
+	}
+
+	private static final class InitialExceptionsFrom implements ThrownGetter<RangeField<?>>
+	{
+		@Override
+		public Set<Class<? extends Throwable>> get(final RangeField<?> feature)
+		{
+			return feature.getFrom().getInitialExceptions();
 		}
 	}
 
@@ -213,6 +224,8 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return from.getInitialExceptions();
+		final Set<Class<? extends Throwable>> result = from.getInitialExceptions();
+		result.add(MandatoryViolationException.class);
+		return result;
 	}
 }

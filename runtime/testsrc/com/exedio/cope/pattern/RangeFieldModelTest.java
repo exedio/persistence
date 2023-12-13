@@ -85,7 +85,7 @@ public class RangeFieldModelTest
 		assertEquals(true,  valid.isMandatory());
 		assertEquals(false, valid.getFrom().isFinal());
 		assertEquals(false, valid.getTo().isFinal());
-		assertContains(IntegerRangeViolationException.class, valid.getInitialExceptions());
+		assertContains(IntegerRangeViolationException.class, MandatoryViolationException.class, valid.getInitialExceptions());
 		assertSerializedSame(valid, 388);
 
 		assertEquals(true, text.isInitial());

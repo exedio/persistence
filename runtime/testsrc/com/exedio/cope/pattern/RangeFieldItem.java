@@ -42,7 +42,7 @@ public final class RangeFieldItem extends Item
 	 * @param valid the initial value for field {@link #valid}.
 	 * @param text the initial value for field {@link #text}.
 	 * @throws com.exedio.cope.IntegerRangeViolationException if valid violates its range constraint.
-	 * @throws com.exedio.cope.MandatoryViolationException if text is null.
+	 * @throws com.exedio.cope.MandatoryViolationException if valid, text is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if text violates its length constraint.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -79,7 +79,8 @@ public final class RangeFieldItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setValid(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> valid)
 			throws
-				com.exedio.cope.IntegerRangeViolationException
+				com.exedio.cope.IntegerRangeViolationException,
+				com.exedio.cope.MandatoryViolationException
 	{
 		RangeFieldItem.valid.set(this,valid);
 	}
