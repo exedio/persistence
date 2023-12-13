@@ -247,10 +247,15 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return isfinal;
 	}
 
+	/**
+	 * Does always return {@code true}.
+	 * An {@code EnumMapField} may store an empty map,
+	 * but never null.
+	 */
 	@Override
 	public boolean isMandatory()
 	{
-		return true; // can be empty but is never null
+		return true;
 	}
 
 	@Override

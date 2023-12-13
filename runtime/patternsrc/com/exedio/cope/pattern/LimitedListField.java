@@ -245,10 +245,15 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return isFinal;
 	}
 
+	/**
+	 * Does always return {@code true}.
+	 * A {@code LimitedListField} may store an empty list,
+	 * but never null.
+	 */
 	@Override
 	public boolean isMandatory()
 	{
-		return true; // can be empty but is never null
+		return true;
 	}
 
 	@Override
