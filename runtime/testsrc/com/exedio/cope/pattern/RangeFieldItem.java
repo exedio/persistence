@@ -48,7 +48,7 @@ public final class RangeFieldItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	RangeFieldItem(
-				@javax.annotation.Nullable final com.exedio.cope.pattern.Range<Integer> valid,
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<Integer> valid,
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<String> text)
 			throws
 				com.exedio.cope.IntegerRangeViolationException,

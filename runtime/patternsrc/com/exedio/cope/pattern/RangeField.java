@@ -30,13 +30,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
-import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
@@ -107,13 +108,13 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 				SetValue.map(to,   value.getTo  ()));
 	}
 
-	@Wrap(order=30, nullability=NullableIfOptional.class)
+	@Wrap(order=30, nullability=NullableIfOptionalFrom.class)
 	public E getFrom(@Nonnull final Item item)
 	{
 		return from.get(item);
 	}
 
-	@Wrap(order=40, nullability=NullableIfOptional.class)
+	@Wrap(order=40, nullability=NullableIfOptionalFrom.class)
 	public E getTo(@Nonnull final Item item)
 	{
 		return to.get(item);
@@ -122,7 +123,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Wrap(order=50,
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void setFrom(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E from)
+	public void setFrom(@Nonnull final Item item, @Parameter(nullability=NullableIfOptionalFrom.class) final E from)
 	{
 		FinalViolationException.check(this, item);
 
@@ -132,11 +133,20 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Wrap(order=60,
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E to)
+	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptionalFrom.class) final E to)
 	{
 		FinalViolationException.check(this, item);
 
 		this.to.set(item, to);
+	}
+
+	private static final class NullableIfOptionalFrom implements NullabilityGetter<RangeField<?>>
+	{
+		@Override
+		public Nullability getNullability(final RangeField<?> feature)
+		{
+			return Nullability.forMandatory(feature.getFrom().isMandatory());
+		}
 	}
 
 	@Wrap(order=70)
@@ -177,10 +187,15 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return isfinal;
 	}
 
+	/**
+	 * Does always return {@code true}.
+	 * A {@code RangeField} may store {@link Range#valueOf(Comparable, Comparable) Range.valueOf(null, null)},
+	 * but never null.
+	 */
 	@Override
 	public boolean isMandatory()
 	{
-		return from.isMandatory();
+		return true;
 	}
 
 	@Override
