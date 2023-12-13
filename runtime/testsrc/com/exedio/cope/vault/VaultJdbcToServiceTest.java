@@ -113,6 +113,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"  aborted: probe3Aborts cause",
 				"Probing 4Fails suppressed",
 				"Probing 4FailsOther suppressed",
+				"Query 1/1 importing: " + props.getProperty("source.query"),
 				"Skipping null at row 0: hash",
 				"Skipping illegal argument at row 1: hash >< must have length 32, but has 0",
 				"Skipping illegal argument at row 2: hash >ab< must have length 32, but has 2",
@@ -121,7 +122,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"Redundant put at row 5 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
 				"Skipping illegal argument at row 6: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultResilientServiceProxy
 				"Redundant put at row 8 for hash fa2345678901234567890123456789ab",
-				"Finished after 9 rows, skipped 6, redundant 2"),
+				"Finished query 1/1 after 9 rows, skipped 6, redundant 2"),
 				readAllLines(out));
 	}
 
