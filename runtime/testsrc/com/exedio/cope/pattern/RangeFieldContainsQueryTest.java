@@ -28,6 +28,7 @@ public class RangeFieldContainsQueryTest
 	@Test void testMandatory()
 	{
 		final RangeField<Integer> f = RangeField.create(new IntegerField());
+		assertEquals(true, f.isInitial());
 		assertEquals(true, f.getFrom().isMandatory());
 		assertEquals(true, f.getTo  ().isMandatory());
 		assertEquals("("+
@@ -40,6 +41,7 @@ public class RangeFieldContainsQueryTest
 	@Test void testOptional()
 	{
 		final RangeField<Integer> f = RangeField.create(new IntegerField().optional());
+		assertEquals(false, f.isInitial());
 		assertEquals(false, f.getFrom().isMandatory());
 		assertEquals(false, f.getTo  ().isMandatory());
 		assertEquals("(" +
