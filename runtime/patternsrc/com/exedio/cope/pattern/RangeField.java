@@ -75,6 +75,16 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return new RangeField<>(mapper.copy(from), mapper.copy(to));
 	}
 
+	public RangeField<E> optionalFrom()
+	{
+		return new RangeField<>(from.optional(), to.copy());
+	}
+
+	public RangeField<E> optionalTo()
+	{
+		return new RangeField<>(from.copy(), to.optional());
+	}
+
 	public FunctionField<E> getFrom()
 	{
 		return from;
@@ -228,7 +238,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Override
 	public boolean isInitial()
 	{
-		return from.isInitial();
+		return from.isInitial() || to.isInitial();
 	}
 
 	@Override
