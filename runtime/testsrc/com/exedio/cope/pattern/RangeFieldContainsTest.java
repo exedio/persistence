@@ -29,9 +29,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class RangeFieldNullTest extends TestWithEnvironment
+public class RangeFieldContainsTest extends TestWithEnvironment
 {
-	public RangeFieldNullTest()
+	public RangeFieldContainsTest()
 	{
 		super(RangeFieldModelTest.MODEL);
 	}
@@ -48,12 +48,12 @@ public class RangeFieldNullTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		assertContainsCondition( 9,     nb,     nn);
-		assertContainsCondition(10, ab, nb, an, nn);
-		assertContainsCondition(11, ab, nb, an, nn);
-		assertContainsCondition(19, ab, nb, an, nn);
-		assertContainsCondition(20, ab, nb, an, nn);
-		assertContainsCondition(21,         an, nn);
+		assertIt( 9,     nb,     nn);
+		assertIt(10, ab, nb, an, nn);
+		assertIt(11, ab, nb, an, nn);
+		assertIt(19, ab, nb, an, nn);
+		assertIt(20, ab, nb, an, nn);
+		assertIt(21,         an, nn);
 
 		for(final RangeFieldItem item : TYPE.search())
 		{
@@ -64,7 +64,7 @@ public class RangeFieldNullTest extends TestWithEnvironment
 		}
 	}
 
-	private static void assertContainsCondition(final int value, final RangeFieldItem... actual)
+	private static void assertIt(final int value, final RangeFieldItem... actual)
 	{
 		final List<RangeFieldItem> actualList = Arrays.asList(actual);
 		assertEquals(actualList, TYPE.search(valid.contains(value), TYPE.getThis(), true));
