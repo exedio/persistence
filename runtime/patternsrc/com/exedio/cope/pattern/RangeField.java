@@ -180,9 +180,16 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 
 	public Condition contains(final E value)
 	{
-		return from.isMandatory()
-			? from.lessOrEqual(value).and(to.greaterOrEqual(value))
-			: from.isNull().or(from.lessOrEqual(value)).and(to.isNull().or(to.greaterOrEqual(value)));
+		return
+				containsForNull(from, from.   lessOrEqual(value)).and(
+				containsForNull(to,   to  .greaterOrEqual(value)));
+	}
+
+	private static Condition containsForNull(
+			final FunctionField<?> border,
+			final Condition comparison)
+	{
+		return border.isMandatory() ? comparison : border.isNull().or(comparison);
 	}
 
 	@Override
