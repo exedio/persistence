@@ -36,9 +36,9 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class RangeFieldContainsTest extends TestWithEnvironment
+public class RangeFieldContainsMandatoryTest extends TestWithEnvironment
 {
-	public RangeFieldContainsTest()
+	public RangeFieldContainsMandatoryTest()
 	{
 		super(MODEL);
 	}
@@ -47,16 +47,13 @@ public class RangeFieldContainsTest extends TestWithEnvironment
 	void testIt()
 	{
 		final MyItem ab = new MyItem(valueOf(10,   20));
-		final MyItem nb = new MyItem(valueOf(null, 20));
-		final MyItem an = new MyItem(valueOf(10,   null));
-		final MyItem nn = new MyItem(valueOf(null, null));
 
-		assertIt( 9,     nb,     nn);
-		assertIt(10, ab, nb, an, nn);
-		assertIt(11, ab, nb, an, nn);
-		assertIt(19, ab, nb, an, nn);
-		assertIt(20, ab, nb, an, nn);
-		assertIt(21,         an, nn);
+		assertIt( 9    );
+		assertIt(10, ab);
+		assertIt(11, ab);
+		assertIt(19, ab);
+		assertIt(20, ab);
+		assertIt(21    );
 
 		for(final MyItem item : MyItem.TYPE.search())
 		{
@@ -86,7 +83,7 @@ public class RangeFieldContainsTest extends TestWithEnvironment
 		@Wrapper(wrap="get", visibility=PACKAGE)
 		@Wrapper(wrap="doesContain", visibility=PACKAGE)
 		@WrapperInitial
-		static final RangeField<Integer> field = RangeField.create(new IntegerField().optional());
+		static final RangeField<Integer> field = RangeField.create(new IntegerField());
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
