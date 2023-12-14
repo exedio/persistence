@@ -38,7 +38,7 @@ public class RangeFieldContainsQueryTest
 				")",
 				f.contains(66).toString());
 	}
-	@Test void testOptional()
+	@Test void testOptionalBorder()
 	{
 		final RangeField<Integer> f = RangeField.create(new IntegerField().optional());
 		assertEquals(false, f.isInitial());
@@ -46,6 +46,45 @@ public class RangeFieldContainsQueryTest
 		assertEquals(false, f.getTo  ().isMandatory());
 		assertEquals("(" +
 				"("+f.getFrom()+" is null or "+f.getFrom()+"<='66')" +
+				" and " +
+				"("+f.getTo  ()+" is null or "+f.getTo  ()+">='66')" +
+				")",
+				f.contains(66).toString());
+	}
+	@Test void testOptionalFromTo()
+	{
+		final RangeField<Integer> f = RangeField.create(new IntegerField()).optionalFrom().optionalTo();
+		assertEquals(false, f.isInitial());
+		assertEquals(false, f.getFrom().isMandatory());
+		assertEquals(false, f.getTo  ().isMandatory());
+		assertEquals("(" +
+				"("+f.getFrom()+" is null or "+f.getFrom()+"<='66')" +
+				" and " +
+				"("+f.getTo  ()+" is null or "+f.getTo  ()+">='66')" +
+				")",
+				f.contains(66).toString());
+	}
+	@Test void testOptionalFrom()
+	{
+		final RangeField<Integer> f = RangeField.create(new IntegerField()).optionalFrom();
+		assertEquals(true,  f.isInitial());
+		assertEquals(false, f.getFrom().isMandatory());
+		assertEquals(true,  f.getTo  ().isMandatory());
+		assertEquals("(" +
+				"("+f.getFrom()+" is null or "+f.getFrom()+"<='66')" +
+				" and " +
+				f.getTo  ()+">='66'" +
+				")",
+				f.contains(66).toString());
+	}
+	@Test void testOptionalTo()
+	{
+		final RangeField<Integer> f = RangeField.create(new IntegerField()).optionalTo();
+		assertEquals(true,  f.isInitial());
+		assertEquals(true,  f.getFrom().isMandatory());
+		assertEquals(false, f.getTo  ().isMandatory());
+		assertEquals("(" +
+				f.getFrom()+"<='66'" +
 				" and " +
 				"("+f.getTo  ()+" is null or "+f.getTo  ()+">='66')" +
 				")",
