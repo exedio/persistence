@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import org.junit.jupiter.api.Test;
 
@@ -89,6 +90,32 @@ public class RangeFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(valid.contains(8)));
 		assertContains(item, TYPE.search(valid.contains(9)));
 		assertContains(      TYPE.search(valid.contains(10)));
+	}
+
+	@Test void testCreateNull()
+	{
+		final Range<String> text = valueOf("a", "b");
+		assertFails(
+				() -> new RangeFieldItem(null, text),
+				NullPointerException.class,
+				null);
+	}
+
+	@Test void testSetNull()
+	{
+		final RangeFieldItem i = new RangeFieldItem(valueOf(1, 2), valueOf("a", "b"));
+
+		assertFails(
+				() -> i.setValid(null),
+				NullPointerException.class,
+				null);
+		assertEquals(valueOf(1, 2), i.getValid());
+
+		assertFails(
+				() -> i.set(SetValue.map(valid, null)),
+				NullPointerException.class,
+				null);
+		assertEquals(valueOf(1, 2), i.getValid());
 	}
 
 	@Test void testBorderConstraint()
