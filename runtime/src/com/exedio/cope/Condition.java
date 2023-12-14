@@ -65,6 +65,7 @@ public abstract class Condition implements Serializable
 
 	public Condition not()
 	{
+		// various optimizations in overriding methods are tested for validity by CompareConditionNotTest
 		return new NotCondition(this, 0.0);
 	}
 
