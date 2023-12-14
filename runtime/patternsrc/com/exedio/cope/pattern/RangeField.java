@@ -103,6 +103,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	public void set(@Nonnull final Item item, @Nonnull final Range<? extends E> value)
 	{
 		FinalViolationException.check(this, item);
+		MandatoryViolationException.requireNonNull(value, this, item);
 
 		//noinspection unchecked
 		item.set(
@@ -187,6 +188,8 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Override
 	public SetValue<?>[] execute(final Range<E> value, final Item exceptionItem)
 	{
+		MandatoryViolationException.requireNonNull(value, this, exceptionItem);
+
 		return new SetValue<?>[]{
 				SetValue.map(from, value.getFrom()),
 				SetValue.map(to,   value.getTo  ())};
