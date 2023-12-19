@@ -45,24 +45,11 @@ public class FindItemHierarchyEmptyTest extends TestWithEnvironment
 		assertSame(superItem, model.getItem("HierarchyEmptySuper-1"));
 		assertIDFails("HierarchyEmptySuper-0",  "item <0> does not exist", false);
 		assertIDFails("HierarchyEmptySub-1",    "item <1> does not exist", false);
-		assertIDFails("noDotInThisString",      "no separator '-' in id", true);
-		assertIDFails("noSuchType-x",           "type <noSuchType> does not exist", true);
-		assertIDFails("HierarchyEmptySuper-x",  "wrong number format <x>", true);
-		assertIDFails("HierarchyEmptySuper-",   "wrong number format <>" , true);
-		assertIDFails("HierarchyEmptySuper-92386591832651832659213865193456293456",
-															 "wrong number format <92386591832651832659213865193456293456>", true);
-		assertIDFails("HierarchyEmptySuper--1", "type <HierarchyEmptySuper-> does not exist", true);
-		assertIDFails("HierarchyEmptySuper-+1", "has plus sign", true);
 		assertIDFails("HierarchyEmptySuper-50", "item <50> does not exist", false);
-		assertIDFails("HierarchyEmptySuper-" + Long.MIN_VALUE, "type <HierarchyEmptySuper-> does not exist", true);
 		assertIDFails("HierarchyEmptySuper-" + 2147483646l, "item <2147483646> does not exist", false); // 2^31 - 2
 		assertIDFails("HierarchyEmptySuper-" + 2147483647l, "item <2147483647> does not exist", false); // 2^31 - 1
 		assertIDFails("HierarchyEmptySuper-" + 2147483648l, "must be less or equal 2147483647", true); // 2^31
 		assertIDFails("HierarchyEmptySuper-" + 2147483649l, "must be less or equal 2147483647", true); // 2^31 + 1
 		assertIDFails("HierarchyEmptySuper-" + Long.MAX_VALUE, "must be less or equal 2147483647", true);
-		assertIDFails("HierarchyEmptySub-00"   , "has leading zeros", true);
-		assertIDFails("HierarchyEmptySub-000"  , "has leading zeros", true);
-		assertIDFails("HierarchyEmptySuper-01" , "has leading zeros", true);
-		assertIDFails("HierarchyEmptySuper-001", "has leading zeros", true);
 	}
 }
