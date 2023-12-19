@@ -22,13 +22,14 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class CopeIdOfflineTest
 {
-	@Test void testIt()
+	@Test void testIt() throws NoSuchIDException
 	{
 		assertFails("MyItem", "no separator '-' in id");
 		assertFails("MyItemNotExists-x", "type <MyItemNotExists> does not exist");
@@ -43,16 +44,16 @@ public class CopeIdOfflineTest
 		assertFails("MyItem-x",  "wrong number format <x>");
 		assertFails("MyItem-",   "wrong number format <>");
 
-		assertOk("MyItem-0");
-		assertOk("MyItem-1");
-		assertOk("MyItem-"+(MAX_VALUE-1));
-		assertOk("MyItem-"+ MAX_VALUE);
+		assertOk("MyItem-0", MyItem.TYPE);
+		assertOk("MyItem-1", MyItem.TYPE);
+		assertOk("MyItem-"+(MAX_VALUE-1), MyItem.TYPE);
+		assertOk("MyItem-"+ MAX_VALUE,    MyItem.TYPE);
 		assertFails("MyItem-"+MAX_VALUE_PLUS_ONE, "wrong number format <"+MAX_VALUE_PLUS_ONE+">");
 
-		assertOk("My66Item-0");
-		assertOk("My66Item-1");
-		assertOk("My66Item-65");
-		assertOk("My66Item-66");
+		assertOk("My66Item-0",  My66Item.TYPE);
+		assertOk("My66Item-1",  My66Item.TYPE);
+		assertOk("My66Item-65", My66Item.TYPE);
+		assertOk("My66Item-66", My66Item.TYPE);
 		assertFails("My66Item-67", "must be less or equal 66");
 		assertFails("My66Item-68", "must be less or equal 66");
 		assertFails("My66Item-"+(MAX_VALUE-1), "must be less or equal 66");
@@ -73,15 +74,21 @@ public class CopeIdOfflineTest
 				NoSuchIDException.class,
 				"no such id <" + id + ">, " + detail);
 		assertEquals(true, e.notAnID());
+		final NoSuchIDException e2 = com.exedio.cope.tojunit.Assert.assertFails(
+				() -> MODEL.getTypeByItemID(id),
+				NoSuchIDException.class,
+				"no such id <" + id + ">, " + detail);
+		assertEquals(true, e2.notAnID());
 	}
 
-	private static void assertOk(final String id)
+	private static void assertOk(final String id, final Type<?> type) throws NoSuchIDException
 	{
 		com.exedio.cope.tojunit.Assert.assertFails(
 				() -> MODEL.getItem(id),
 				IllegalStateException.class,
 				"there is no cope transaction bound to this thread for model " + MODEL + ", " +
 				"see Model#startTransaction");
+		assertSame(type, MODEL.getTypeByItemID(id));
 	}
 
 	@CopeCreateLimit(MAX_VALUE)
@@ -132,6 +139,13 @@ public class CopeIdOfflineTest
 	{
 		com.exedio.cope.tojunit.Assert.assertFails(
 				() -> MODEL.getItem(null),
+				NullPointerException.class,
+				null);
+	}
+	@Test void testIdNullType()
+	{
+		com.exedio.cope.tojunit.Assert.assertFails(
+				() -> MODEL.getTypeByItemID(null),
 				NullPointerException.class,
 				null);
 	}

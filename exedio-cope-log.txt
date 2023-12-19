@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* Model#getTypeByItemID(String id) added.
 * RangeField supports optionalFrom() and optionalTo().
 * RangeField#isMandatory fixed - always returns true.
 	RangeField#getInitialExceptions fixed - always contains MandatoryViolationException.
