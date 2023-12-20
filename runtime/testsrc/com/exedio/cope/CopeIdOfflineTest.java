@@ -126,4 +126,13 @@ public class CopeIdOfflineTest
 	}
 
 	private static final Model MODEL = new Model(MyItem.TYPE, MyAbstractItem.TYPE, My66Item.TYPE);
+
+
+	@Test void testIdNull()
+	{
+		com.exedio.cope.tojunit.Assert.assertFails(
+				() -> MODEL.getItem(null),
+				NullPointerException.class,
+				null);
+	}
 }
