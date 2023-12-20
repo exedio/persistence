@@ -587,6 +587,19 @@ public final class Model implements Serializable
 		return types.getItem(id);
 	}
 
+	/**
+	 * Returns the type of the item with the given ID.
+	 * @see #getItem(String)
+	 * @throws NoSuchIDException if the given id is not an item id.
+	 * Thus, any {@code NoSuchIDException}s thrown by this method do always have
+	 * {@link NoSuchIDException#notAnID() notAnID}==true.
+	 */
+	public Type<?> getTypeByItemID(final String id)
+			throws NoSuchIDException
+	{
+		return types.getTypeByItemID(id);
+	}
+
 	public List<ThreadController> getThreadControllers()
 	{
 		return connect().getThreadControllers();

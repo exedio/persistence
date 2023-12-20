@@ -361,7 +361,7 @@ final class Types
 		return result;
 	}
 
-	Item getItem(final String id) throws NoSuchIDException
+	private ActivationParameters getItemActivationParameters(final String id) throws NoSuchIDException
 	{
 		final int pos = id.lastIndexOf(Item.ID_SEPARATOR);
 		if(pos<=0)
@@ -401,10 +401,24 @@ final class Types
 		if(pkLong>type.createLimit)
 			throw new NoSuchIDException(id, true, "must be less or equal " + type.createLimit);
 
+		return new ActivationParameters(type, pkLong);
+	}
+
+	Item getItem(final String id) throws NoSuchIDException
+	{
+		final ActivationParameters ap = getItemActivationParameters(id);
+		final Type<?> type = ap.type;
+		final long pkLong = ap.pk;
+
 		final Item result = type.getItemObject(pkLong);
 		if(!result.existsCopeItem())
 			throw new NoSuchIDException(id, false, "item <" + pkLong + "> does not exist");
 		return result;
+	}
+
+	Type<?> getTypeByItemID(final String id) throws NoSuchIDException
+	{
+		return getItemActivationParameters(id).type;
 	}
 
 	@SuppressWarnings("OverlyStrongTypeCast")
