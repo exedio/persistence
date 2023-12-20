@@ -386,33 +386,33 @@ final class Types
 			}
 		}
 
-		final long pkLong;
+		final long pk;
 		try
 		{
-			pkLong = Long.parseLong(pkString);
+			pk = Long.parseLong(pkString);
 		}
 		catch(final NumberFormatException e)
 		{
 			throw new NoSuchIDException(id, e, pkString);
 		}
 
-		if(pkLong<0)
+		if(pk<0)
 			throw new NoSuchIDException(id, true, "must be positive");
-		if(pkLong>type.createLimit)
+		if(pk>type.createLimit)
 			throw new NoSuchIDException(id, true, "must be less or equal " + type.createLimit);
 
-		return new ActivationParameters(type, pkLong);
+		return new ActivationParameters(type, pk);
 	}
 
 	Item getItem(final String id) throws NoSuchIDException
 	{
 		final ActivationParameters ap = getItemActivationParameters(id);
 		final Type<?> type = ap.type;
-		final long pkLong = ap.pk;
+		final long pk = ap.pk;
 
-		final Item result = type.getItemObject(pkLong);
+		final Item result = type.getItemObject(pk);
 		if(!result.existsCopeItem())
-			throw new NoSuchIDException(id, false, "item <" + pkLong + "> does not exist");
+			throw new NoSuchIDException(id, false, "item <" + pk + "> does not exist");
 		return result;
 	}
 
