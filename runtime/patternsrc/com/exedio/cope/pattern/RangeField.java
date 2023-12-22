@@ -127,7 +127,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return from.get(item);
 	}
 
-	@Wrap(order=40, nullability=NullableIfOptionalFrom.class)
+	@Wrap(order=40, nullability=NullableIfOptionalTo.class)
 	public E getTo(@Nonnull final Item item)
 	{
 		return to.get(item);
@@ -144,9 +144,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	}
 
 	@Wrap(order=60,
-			thrownGetter=InitialExceptionsFrom.class,
+			thrownGetter=InitialExceptionsTo.class,
 			hide=FinalSettableGetter.class)
-	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptionalFrom.class) final E to)
+	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptionalTo.class) final E to)
 	{
 		FinalViolationException.check(this, item);
 
@@ -162,12 +162,30 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		}
 	}
 
+	private static final class NullableIfOptionalTo implements NullabilityGetter<RangeField<?>>
+	{
+		@Override
+		public Nullability getNullability(final RangeField<?> feature)
+		{
+			return Nullability.forMandatory(feature.getTo().isMandatory());
+		}
+	}
+
 	private static final class InitialExceptionsFrom implements ThrownGetter<RangeField<?>>
 	{
 		@Override
 		public Set<Class<? extends Throwable>> get(final RangeField<?> feature)
 		{
 			return feature.getFrom().getInitialExceptions();
+		}
+	}
+
+	private static final class InitialExceptionsTo implements ThrownGetter<RangeField<?>>
+	{
+		@Override
+		public Set<Class<? extends Throwable>> get(final RangeField<?> feature)
+		{
+			return feature.getTo().getInitialExceptions();
 		}
 	}
 
