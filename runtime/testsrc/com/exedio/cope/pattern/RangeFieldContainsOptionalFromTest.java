@@ -121,7 +121,7 @@ public class RangeFieldContainsOptionalFromTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nullable
+		@javax.annotation.Nonnull
 		Integer getFieldTo()
 		{
 			return MyItem.field.getTo(this);
@@ -136,7 +136,9 @@ public class RangeFieldContainsOptionalFromTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		void setFieldTo(@javax.annotation.Nullable final Integer field)
+		void setFieldTo(@javax.annotation.Nonnull final Integer field)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			MyItem.field.setTo(this,field);
 		}
