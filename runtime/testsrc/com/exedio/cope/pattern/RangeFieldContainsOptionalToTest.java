@@ -18,9 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.instrument.Visibility.PACKAGE;
-import static com.exedio.cope.instrument.Wrapper.ALL_WRAPS;
 import static com.exedio.cope.pattern.Range.valueOf;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +26,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.Arrays;
@@ -80,9 +76,6 @@ public class RangeFieldContainsOptionalToTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
-		@Wrapper(wrap=ALL_WRAPS, visibility=NONE)
-		@Wrapper(wrap="get", visibility=PACKAGE)
-		@Wrapper(wrap="doesContain", visibility=PACKAGE)
 		@WrapperInitial
 		static final RangeField<Integer> field = RangeField.create(new IntegerField()).optionalTo();
 
@@ -107,6 +100,49 @@ public class RangeFieldContainsOptionalToTest extends TestWithEnvironment
 		com.exedio.cope.pattern.Range<Integer> getField()
 		{
 			return MyItem.field.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setField(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> field)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			MyItem.field.set(this,field);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		Integer getFieldFrom()
+		{
+			return MyItem.field.getFrom(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		Integer getFieldTo()
+		{
+			return MyItem.field.getTo(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setFieldFrom(@javax.annotation.Nonnull final Integer field)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			MyItem.field.setFrom(this,field);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setFieldTo(@javax.annotation.Nonnull final Integer field)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			MyItem.field.setTo(this,field);
 		}
 
 		@com.exedio.cope.instrument.Generated
