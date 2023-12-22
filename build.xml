@@ -429,7 +429,7 @@
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="build/classes/runtime/testsrc" />
 				<pathelement location=              "runtime/testresources" />
-				<pathelement location="build/classes/instrument/annosrc" />
+				<!-- do not include build/classes/instrument/annosrc, classes must not depend on annotations on runtime -->
 				<fileset dir="lib/testhsqldb" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.multicast"   value="${runtime.test.ClusterNetworkTest.multicast}" />
@@ -455,7 +455,7 @@
 						<pathelement location="build/classes/runtime/servletsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="build/classes/instrument/annosrc" />
+						<!-- do not include build/classes/instrument/annosrc, classes must not depend on annotations on runtime -->
 						<fileset dir="lib/test@{env.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
@@ -482,7 +482,7 @@
 						<pathelement location="build/classes/runtime/servletsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="build/classes/instrument/annosrc" />
+						<!-- do not include build/classes/instrument/annosrc, classes must not depend on annotations on runtime -->
 						<fileset dir="lib/test@{env.driver}" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
