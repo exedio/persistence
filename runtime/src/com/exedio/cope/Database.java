@@ -484,6 +484,7 @@ final class Database
 		executor.updateStrict(connection, present ? state.item : null, bf);
 	}
 
+	@SuppressWarnings("ExtractMethodRecommender")
 	Schema makeSchema()
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
