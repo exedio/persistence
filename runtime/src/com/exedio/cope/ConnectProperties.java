@@ -202,6 +202,11 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return disableUniqueViolation;
 	}
 
+	/**
+	 * Returns true if multiple sql statements are not joined using a semicolon.
+	 * This may slow down certain operations such as schema creation / destruction.
+	 * But it may help to investigate problems of one of the joined sql statements.
+	 */
 	public boolean isSupportDisabledForSemicolon()
 	{
 		return disableSemicolon;
