@@ -196,5 +196,11 @@ public class NodeTest
 		{
 			throw new RuntimeException();
 		}
+
+		@Override
+		public boolean isSemicolonEnabled()
+		{
+			throw new RuntimeException();
+		}
 	};
 }

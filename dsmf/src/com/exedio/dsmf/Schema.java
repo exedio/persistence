@@ -154,6 +154,7 @@ public final class Schema extends Node
 		final Graph graph = new Graph(this);
 		final Set<ForeignKeyConstraint> constraintsBroken = graph.getConstraintsBroken();
 
+		if(connectionProvider.isSemicolonEnabled())
 		{
 			final StringBuilder bf = new StringBuilder();
 			boolean first = true;
@@ -180,6 +181,13 @@ public final class Schema extends Node
 
 			executeSQL(bf.toString(), listener);
 		}
+		else
+		{
+			for(final Sequence s : sequenceList)
+				s.create(listener);
+			for(final Table t : graph.getTablesOrdered())
+				t.create(listener, constraintsBroken);
+		}
 
 		for(final ForeignKeyConstraint c : constraintsBroken)
 			c.create(listener);
@@ -201,6 +209,7 @@ public final class Schema extends Node
 		for(final ForeignKeyConstraint c : graph.getConstraintsBroken())
 			c.drop(listener);
 
+		if(connectionProvider.isSemicolonEnabled())
 		{
 			final StringBuilder bf = new StringBuilder();
 			boolean first = true;
@@ -226,6 +235,13 @@ public final class Schema extends Node
 			}
 
 			executeSQL(bf.toString(), listener);
+		}
+		else
+		{
+			for(final Table t : reverse(graph.getTablesOrdered()))
+				t.drop(listener);
+			for(final Sequence s : reverse(sequenceList))
+				s.drop(listener);
 		}
 	}
 
