@@ -174,6 +174,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	        final boolean disableCheckConstraint    = value("disableSupport.checkConstraint", false);
 	private final boolean disableNativeDate         = value("disableSupport.nativeDate", factory.disableNativeDate);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
+	private final boolean disableSemicolon          = value("disableSupport.semicolon", false);
 
 	/**
 	 * @deprecated
@@ -202,14 +203,13 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	}
 
 	/**
-	 * @deprecated
-	 * Not supported any longer.
-	 * Always returns false.
+	 * Returns true if multiple sql statements are not joined using a semicolon.
+	 * This may slow down certain operations such as schema creation / destruction.
+	 * But it may help to investigate problems of one of the joined sql statements.
 	 */
-	@Deprecated
 	public boolean isSupportDisabledForSemicolon()
 	{
-		return false;
+		return disableSemicolon;
 	}
 
 

@@ -93,6 +93,12 @@ public abstract class SchemaTest extends TestWithEnvironment
 			assert connection.getAutoCommit()==true;
 			connections.add(connection);
 		}
+
+		@Override
+		public boolean isSemicolonEnabled()
+		{
+			return false;
+		}
 	}
 
 	protected final Schema newSchema()

@@ -272,6 +272,7 @@ try
 			envMysql57(
 				'my57-legacy',
 				'mysql',
+				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql57(
@@ -323,6 +324,7 @@ try
 			envMysql57(
 				'my57m-legacy',
 				'mariadb',
+				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql57(
@@ -496,6 +498,7 @@ try
 			envMysql80(
 				'my80-legacy',
 				'mysql',
+				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql80(
@@ -547,6 +550,7 @@ try
 			envMysql80(
 				'my80m-legacy',
 				'mariadb',
+				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n'
 			)
 			envMysql80(
@@ -640,6 +644,7 @@ try
 			)
 			envPostgresql(
 				'pg-mysql',
+				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n'
 			)
 			envPostgresql(

@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.util.Sources;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.StatementListener;
 import com.exedio.dsmf.misc.DefaultStatementListener;
@@ -46,6 +47,21 @@ public class SemicolonTest
 
 		schema.drop(listener);
 		assertStatements(DROP_TO_2, DROP_SEQ_1 + ";" + DROP_SEQ_2 + ";" + DROP_TAB_2 + ";" + DROP_TAB_1);
+	}
+
+	@Test void testDisabled()
+	{
+		MODEL.connect(ConnectProperties.create(Sources.cascade(
+				TestSources.minimal(),
+				TestSources.single("disableSupport.semicolon", true)
+		)));
+		final Schema schema = MODEL.getSchema();
+
+		schema.create(listener);
+		assertStatements(CREATE_SEQ_1, CREATE_SEQ_2, CREATE_TAB_1, CREATE_TAB_2, CREATE_TO_2);
+
+		schema.drop(listener);
+		assertStatements(DROP_TO_2, DROP_TAB_2, DROP_TAB_1, DROP_SEQ_2, DROP_SEQ_1);
 	}
 
 
