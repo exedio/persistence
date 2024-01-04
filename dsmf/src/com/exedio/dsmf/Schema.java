@@ -214,16 +214,6 @@ public final class Schema extends Node
 			final StringBuilder bf = new StringBuilder();
 			boolean first = true;
 
-			for(final Sequence s : sequenceList)
-			{
-				if(first)
-					first = false;
-				else
-					bf.append(';');
-
-				s.drop(bf);
-			}
-
 			for(final Table t : reverse(graph.getTablesOrdered()))
 			{
 				if(first)
@@ -232,6 +222,16 @@ public final class Schema extends Node
 					bf.append(';');
 
 				t.drop(bf);
+			}
+
+			for(final Sequence s : reverse(sequenceList))
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(';');
+
+				s.drop(bf);
 			}
 
 			executeSQL(bf.toString(), listener);

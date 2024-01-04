@@ -46,7 +46,7 @@ public class SemicolonTest
 		assertStatements(CREATE_SEQ_1 + ";" + CREATE_SEQ_2 + ";" + CREATE_TAB_1 + ";" + CREATE_TAB_2, CREATE_TO_2);
 
 		schema.drop(listener);
-		assertStatements(DROP_TO_2, DROP_SEQ_1 + ";" + DROP_SEQ_2 + ";" + DROP_TAB_2 + ";" + DROP_TAB_1);
+		assertStatements(DROP_TO_2, DROP_TAB_2 + ";" + DROP_TAB_1 + ";" + DROP_SEQ_2 + ";" + DROP_SEQ_1);
 	}
 
 	@Test void testDisabled()
