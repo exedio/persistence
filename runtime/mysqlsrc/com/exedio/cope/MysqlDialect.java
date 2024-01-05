@@ -225,11 +225,14 @@ final class MysqlDialect extends Dialect
 			"NO_ENGINE_SUBSTITUTION";
 	private static final String TRUE = "true";
 
+	/**
+	 * See <a href="https://dev.mysql.com/doc/refman/8.0/en/integer-types.html">mysql integer types</a>
+	 */
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// small integer types do not save any space in experiments.
-		// https://dev.mysql.com/doc/refman/5.5/en/storage-requirements.html
+		// https://dev.mysql.com/doc/refman/8.0/en/storage-requirements.html#data-types-storage-reqs-numeric
 		if(minimum>=Byte   .MIN_VALUE && maximum<=Byte   .MAX_VALUE) return "tinyint";
 		if(minimum>=Short  .MIN_VALUE && maximum<=Short  .MAX_VALUE) return "smallint";
 		if(minimum>=-8388608l         && maximum<=8388607l         ) return "mediumint";
