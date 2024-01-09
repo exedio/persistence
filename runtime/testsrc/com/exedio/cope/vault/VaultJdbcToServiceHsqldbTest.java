@@ -1,0 +1,126 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.vault;
+
+import static com.exedio.cope.vault.VaultFileToTrailTest.readAllLines;
+import static com.exedio.cope.vault.VaultJdbcToServiceErrorTest.writeProperties;
+import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import com.exedio.cope.junit.AssertionErrorVaultService;
+import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.util.Hex;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Path;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+import javax.annotation.Nonnull;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.rules.TemporaryFolder;
+
+@MainRule.Tag
+public class VaultJdbcToServiceHsqldbTest
+{
+	@Test void testNormal() throws IOException, SQLException
+	{
+		final Path propsFile = createProperties(
+				"VALUES " +
+						"('012345678901234567890123456789ab', '050401')," +
+						"('022345678901234567890123456789ab', '050402')");
+		final var out = new ByteArrayOutputStream();
+		VaultJdbcToService.mainInternal(
+				new PrintStream(out, true, US_ASCII),
+				propsFile.toString());
+
+		assertEquals(List.of(
+				"012345678901234567890123456789ab - 050401",
+				"022345678901234567890123456789ab - 050402",
+				"close"),
+				SERVICE_PUTS);
+		assertEquals(List.of(
+				"Fetch size set to 1",
+				"Finished after 2 rows, skipped 0, redundant 0"),
+				readAllLines(out));
+	}
+
+
+	private static final class TestService extends AssertionErrorVaultService
+	{
+		TestService(final VaultServiceParameters parameters)
+		{
+			assertNotNull(parameters);
+			assertEquals("MD5", parameters.getMessageDigestAlgorithm());
+			assertEquals("default", parameters.getBucket());
+			assertEquals(true, parameters.isWritable());
+		}
+
+		@Override
+		public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+		{
+			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value));
+			assertEquals(null, info.getField());
+			assertEquals(null, info.getFieldString());
+			assertEquals(null, info.getItem());
+			assertEquals(null, info.getItemString());
+			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.getOrigin());
+			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.toString());
+			return true;
+		}
+
+		@Override
+		public void close()
+		{
+			SERVICE_PUTS.add("close");
+		}
+	}
+
+	private static final ArrayList<String> SERVICE_PUTS = new ArrayList<>();
+
+	@BeforeEach
+	@AfterEach
+	void clearServicePuts()
+	{
+		SERVICE_PUTS.clear();
+	}
+
+
+	@Nonnull
+	private Path createProperties(final String query) throws IOException
+	{
+		final Properties props = new Properties();
+		props.setProperty("source.url", "jdbc:hsqldb:mem:VaultJdbcToServiceHsqldbTest");
+		props.setProperty("source.username", "sa");
+		props.setProperty("source.password", "");
+		props.setProperty("source.query", query);
+		props.setProperty("target.algorithm", "MD5");
+		props.setProperty("target.default.service", TestService.class.getName());
+		final Path propsFile = files.newFile().toPath();
+		writeProperties(props, propsFile);
+		return propsFile;
+	}
+
+	private final TemporaryFolder files = new TemporaryFolder();
+}
