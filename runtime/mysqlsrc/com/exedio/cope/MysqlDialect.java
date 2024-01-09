@@ -145,7 +145,7 @@ final class MysqlDialect extends Dialect
 		//    Access denied; you need (at least one of) the SYSTEM_VARIABLES_ADMIN or
 		//    SESSION_VARIABLES_ADMIN privilege(s) for this operation
 		// https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-26.html#mysqld-8-0-26-server-admin
-		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'" + (setStrictMode?(","+STRICT_MODE+"=1"):""));
+		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'" + (setStrictMode?(","+STRICT_MODE_KEY+"=1"):""));
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
 		if(connectionCompress)
@@ -153,7 +153,7 @@ final class MysqlDialect extends Dialect
 		//info.setProperty("profileSQL", TRUE);
 	}
 
-	private static final String STRICT_MODE = "innodb_strict_mode";
+	private static final String STRICT_MODE_KEY = "innodb_strict_mode";
 
 	@Override
 	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
@@ -193,14 +193,14 @@ final class MysqlDialect extends Dialect
 			if(!setStrictMode)
 			{
 				try(ResultSet rs = st.executeQuery(
-						"SELECT @@SESSION." + STRICT_MODE))
+						"SELECT @@SESSION." + STRICT_MODE_KEY))
 				{
 					if(!rs.next())
-						throw new IllegalStateException("variable " + STRICT_MODE + " returns empty result set"); // should never happen
+						throw new IllegalStateException("variable " + STRICT_MODE_KEY + " returns empty result set"); // should never happen
 
 					final int value = rs.getInt(1);
 					if(value!=1)
-						throw new IllegalStateException("variable " + STRICT_MODE + " must be 1, but was >" + value + '<');
+						throw new IllegalStateException("variable " + STRICT_MODE_KEY + " must be 1, but was >" + value + '<');
 				}
 			}
 
