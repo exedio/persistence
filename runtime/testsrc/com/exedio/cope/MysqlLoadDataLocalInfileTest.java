@@ -70,11 +70,10 @@ public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 		// Checks whether server allows LOAD DATA LOCAL INFILE. Only then we can
 		// test, whether client side properties allowLocalInfile/allowLoadLocalInfile
 		// do actually prevent LOAD DATA LOCAL INFILE.
-		try(ResultSet rs = connection.executeQuery("SHOW VARIABLES LIKE 'local_infile'"))
+		try(ResultSet rs = connection.executeQuery("SELECT @@GLOBAL.local_infile"))
 		{
 			assertTrue(rs.next());
-			assertEquals("local_infile", rs.getString(1));
-			assertEquals("ON", rs.getString(2));
+			assertEquals("1", rs.getString(1));
 			assertFalse(rs.next());
 		}
 
