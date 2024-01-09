@@ -193,14 +193,14 @@ final class MysqlDialect extends Dialect
 			if(!setStrictMode)
 			{
 				try(ResultSet rs = st.executeQuery(
-						"SHOW VARIABLES WHERE `Variable_name`='" + STRICT_MODE + "'"))
+						"SELECT @@SESSION." + STRICT_MODE))
 				{
 					if(!rs.next())
-						throw new IllegalStateException("variable " + STRICT_MODE + " not found");
+						throw new IllegalStateException("variable " + STRICT_MODE + " returns empty result set"); // should never happen
 
-					final String value = rs.getString(2);
-					if(!"ON".equals(value))
-						throw new IllegalStateException("variable " + STRICT_MODE + " must be ON, but was >" + value + '<');
+					final int value = rs.getInt(1);
+					if(value!=1)
+						throw new IllegalStateException("variable " + STRICT_MODE + " must be 1, but was >" + value + '<');
 				}
 			}
 
