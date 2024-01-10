@@ -115,11 +115,9 @@ public final class VaultJdbcToService
 			final int queriesSize = props.queries.size();
 			for(final String query : props.queries)
 			{
-				out.println("Query " + queriesCount + '/' + queriesSize + " importing: " + query);
+				final Stats stats = new Stats(out, queriesCount++, query, queriesSize);
 				try(ResultSet resultSet = stmt.executeQuery(query))
 				{
-					int row = 0;
-					int skipped = 0, redundant = 0;
 					while(resultSet.next())
 					{
 						final String hash = resultSet.getString(1);
@@ -127,27 +125,74 @@ public final class VaultJdbcToService
 						try
 						{
 							if(!service.put(hash, value, PUT_INFO))
-							{
-								redundant++;
-								out.println("Redundant put at row " + row + " for hash " + hash);
-							}
+								stats.onRedundant(hash);
 						}
 						catch(final NullPointerException e)
 						{
-							skipped++;
-							out.println("Skipping null at row " + row + ": " + e.getMessage());
+							stats.onSkip(e);
 						}
 						catch(final IllegalArgumentException e)
 						{
-							skipped++;
-							out.println("Skipping illegal argument at row " + row + ": " + e.getMessage());
+							stats.onSkip(e);
 						}
-						row++;
+						stats.onRow();
 					}
-					out.println("Finished query " + queriesCount + '/' + queriesSize + " after " + row + " rows, skipped " + skipped + ", redundant " + redundant);
-					queriesCount++;
+					stats.printFinished();
 				}
 			}
+		}
+	}
+
+	private static final class Stats
+	{
+		private final PrintStream out;
+		private final int queriesCount;
+		private final int queriesSize;
+
+		private Stats(
+				final PrintStream out,
+				final int queriesCount,
+				final String query,
+				final int queriesSize)
+		{
+			this.out = out;
+			this.queriesCount = queriesCount;
+			this.queriesSize = queriesSize;
+			out.println("Query " + queriesCount + '/' + queriesSize + " importing: " + query);
+		}
+
+		private int row = 0;
+		private int skipped = 0;
+		private int redundant = 0;
+
+		void onRedundant(final String hash)
+		{
+			redundant++;
+			out.println("Redundant put at row " + row + " for hash " + hash);
+		}
+
+		void onSkip(final NullPointerException exception)
+		{
+			skipped++;
+			out.println("Skipping null at row " + row + ": " + exception.getMessage());
+		}
+
+		void onSkip(final IllegalArgumentException exception)
+		{
+			skipped++;
+			out.println("Skipping illegal argument at row " + row + ": " + exception.getMessage());
+		}
+
+		void onRow()
+		{
+			row++;
+		}
+
+		void printFinished()
+		{
+			out.println(
+					"Finished query " + queriesCount + '/' + queriesSize + " after " + row + " rows, " +
+					"skipped " + skipped + ", redundant " + redundant);
 		}
 	}
 
