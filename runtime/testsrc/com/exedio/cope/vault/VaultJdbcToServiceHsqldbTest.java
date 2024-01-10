@@ -122,7 +122,8 @@ public class VaultJdbcToServiceHsqldbTest
 						"('032345678901234567890123456789ab', '050403')," +
 						"('042345678901234567890123456789ab', '050404')," +
 						"('052345678901234567890123456789ab', '050405')",
-				"Finished query 2/2 after 3 rows, skipped 0, redundant 0"),
+				"Finished query 2/2 after 3 rows, skipped 0, redundant 0",
+				"Finished 2 queries after 10 rows, skipped 3, redundant 2"),
 				readAllLines(out));
 	}
 
