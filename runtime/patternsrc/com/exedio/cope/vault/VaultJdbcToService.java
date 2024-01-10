@@ -118,33 +118,33 @@ public final class VaultJdbcToService
 				out.println("Query " + queriesCount + '/' + queriesSize + " importing: " + query);
 				try(ResultSet resultSet = stmt.executeQuery(query))
 				{
-				int row = 0;
-				int skipped = 0, redundant = 0;
-				while(resultSet.next())
-				{
-					final String hash = resultSet.getString(1);
-					final byte[] value = resultSet.getBytes(2);
-					try
+					int row = 0;
+					int skipped = 0, redundant = 0;
+					while(resultSet.next())
 					{
-						if(!service.put(hash, value, PUT_INFO))
+						final String hash = resultSet.getString(1);
+						final byte[] value = resultSet.getBytes(2);
+						try
 						{
-							redundant++;
-							out.println("Redundant put at row " + row + " for hash " + hash);
+							if(!service.put(hash, value, PUT_INFO))
+							{
+								redundant++;
+								out.println("Redundant put at row " + row + " for hash " + hash);
+							}
 						}
+						catch(final NullPointerException e)
+						{
+							skipped++;
+							out.println("Skipping null at row " + row + ": " + e.getMessage());
+						}
+						catch(final IllegalArgumentException e)
+						{
+							skipped++;
+							out.println("Skipping illegal argument at row " + row + ": " + e.getMessage());
+						}
+						row++;
 					}
-					catch(final NullPointerException e)
-					{
-						skipped++;
-						out.println("Skipping null at row " + row + ": " + e.getMessage());
-					}
-					catch(final IllegalArgumentException e)
-					{
-						skipped++;
-						out.println("Skipping illegal argument at row " + row + ": " + e.getMessage());
-					}
-					row++;
-				}
-				out.println("Finished query " + queriesCount + '/' + queriesSize + " after " + row + " rows, skipped " + skipped + ", redundant " + redundant);
+					out.println("Finished query " + queriesCount + '/' + queriesSize + " after " + row + " rows, skipped " + skipped + ", redundant " + redundant);
 					queriesCount++;
 				}
 			}
