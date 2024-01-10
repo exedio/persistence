@@ -106,16 +106,18 @@ public final class VaultJdbcToService
 		props.ensureValidity();
 		props.probeService(out);
 
+		final int queriesSize = props.queries.size();
+		final ArrayList<Stats> statsSummary = new ArrayList<>(queriesSize);
 		try(VaultService service = props.target.newServices(DEFAULT).get(DEFAULT);
 			 Connection connection = props.newConnection();
 			 Statement stmt = connection.createStatement())
 		{
 			stmt.setFetchSize(props.fetchSize);
 			int queriesCount = 1;
-			final int queriesSize = props.queries.size();
 			for(final String query : props.queries)
 			{
 				final Stats stats = new Stats(out, queriesCount++, query, queriesSize);
+				statsSummary.add(stats);
 				try(ResultSet resultSet = stmt.executeQuery(query))
 				{
 					while(resultSet.next())
@@ -141,6 +143,7 @@ public final class VaultJdbcToService
 				}
 			}
 		}
+		Stats.printSummary(out, statsSummary);
 	}
 
 	private static final class Stats
@@ -192,6 +195,24 @@ public final class VaultJdbcToService
 		{
 			out.println(
 					"Finished query " + queriesCount + '/' + queriesSize + " after " + row + " rows, " +
+					"skipped " + skipped + ", redundant " + redundant);
+		}
+
+		static void printSummary(final PrintStream out, final List<Stats> allStats)
+		{
+			final int size = allStats.size();
+			if(size==1)
+				return;
+
+			int row = 0, skipped = 0, redundant = 0;
+			for(final Stats stats : allStats)
+			{
+				row += stats.row;
+				skipped += stats.skipped;
+				redundant += stats.redundant;
+			}
+			out.println(
+					"Finished " + size + " queries after " + row + " rows, " +
 					"skipped " + skipped + ", redundant " + redundant);
 		}
 	}
