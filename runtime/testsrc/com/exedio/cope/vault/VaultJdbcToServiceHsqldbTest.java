@@ -75,7 +75,12 @@ public class VaultJdbcToServiceHsqldbTest
 		final Path propsFile = createProperties(
 				"VALUES " +
 						"('012345678901234567890123456789ab', '050401')," +
-						"('022345678901234567890123456789ab', '050402')" +
+						"('022345678901234567890123456789ab', '050402')," +
+						"(NULL, 'fa0401')," +
+						"(NULL, 'fa0401')," +
+						"(NULL, 'fa0401')," +
+						"('fb0145678901234567890123456789ab', 'fb0401')," +
+						"('fb0245678901234567890123456789ab', 'fb0402')" +
 						lineSeparator() +
 				lineSeparator() + // test empty line
 				"VALUES " +
@@ -90,6 +95,8 @@ public class VaultJdbcToServiceHsqldbTest
 		assertEquals(List.of(
 				"012345678901234567890123456789ab - 050401",
 				"022345678901234567890123456789ab - 050402",
+				"fb0145678901234567890123456789ab - fb0401 - redundant",
+				"fb0245678901234567890123456789ab - fb0402 - redundant",
 				"032345678901234567890123456789ab - 050403",
 				"042345678901234567890123456789ab - 050404",
 				"052345678901234567890123456789ab - 050405",
@@ -99,8 +106,18 @@ public class VaultJdbcToServiceHsqldbTest
 				"Fetch size set to 1",
 				"Query 1/2 importing: VALUES " +
 						"('012345678901234567890123456789ab', '050401')," +
-						"('022345678901234567890123456789ab', '050402')",
-				"Finished query 1/2 after 2 rows, skipped 0, redundant 0",
+						"('022345678901234567890123456789ab', '050402')," +
+						"(NULL, 'fa0401')," + // row 2
+						"(NULL, 'fa0401')," + // row 3
+						"(NULL, 'fa0401')," + // row 4
+						"('fb0145678901234567890123456789ab', 'fb0401')," + // row 5
+						"('fb0245678901234567890123456789ab', 'fb0402')",   // row 6
+				"Skipping null at row 2: hash",
+				"Skipping null at row 3: hash",
+				"Skipping null at row 4: hash",
+				"Redundant put at row 5 for hash fb0145678901234567890123456789ab",
+				"Redundant put at row 6 for hash fb0245678901234567890123456789ab",
+				"Finished query 1/2 after 7 rows, skipped 3, redundant 2",
 				"Query 2/2 importing: VALUES " +
 						"('032345678901234567890123456789ab', '050403')," +
 						"('042345678901234567890123456789ab', '050404')," +
@@ -123,14 +140,15 @@ public class VaultJdbcToServiceHsqldbTest
 		@Override
 		public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 		{
-			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value));
+			final boolean result = !hash.startsWith("fb");
+			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
 			assertEquals(null, info.getField());
 			assertEquals(null, info.getFieldString());
 			assertEquals(null, info.getItem());
 			assertEquals(null, info.getItemString());
 			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.getOrigin());
 			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.toString());
-			return true;
+			return result;
 		}
 
 		@Override
