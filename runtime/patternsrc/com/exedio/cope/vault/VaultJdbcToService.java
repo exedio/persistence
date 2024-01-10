@@ -23,7 +23,10 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.io.StringReader;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -31,6 +34,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -106,8 +111,13 @@ public final class VaultJdbcToService
 			 Statement stmt = connection.createStatement())
 		{
 			stmt.setFetchSize(props.fetchSize);
-			try(ResultSet resultSet = stmt.executeQuery(props.query))
+			int queriesCount = 1;
+			final int queriesSize = props.queries.size();
+			for(final String query : props.queries)
 			{
+				out.println("Query " + queriesCount + '/' + queriesSize + " importing: " + query);
+				try(ResultSet resultSet = stmt.executeQuery(query))
+				{
 				int row = 0;
 				int skipped = 0, redundant = 0;
 				while(resultSet.next())
@@ -134,7 +144,9 @@ public final class VaultJdbcToService
 					}
 					row++;
 				}
-				out.println("Finished after " + row + " rows, skipped " + skipped + ", redundant " + redundant);
+				out.println("Finished query " + queriesCount + '/' + queriesSize + " after " + row + " rows, skipped " + skipped + ", redundant " + redundant);
+					queriesCount++;
+				}
 			}
 		}
 	}
@@ -154,7 +166,24 @@ public final class VaultJdbcToService
 			return driver.connect(url, info);
 		}
 
-		final String query = value("source.query", (String)null);
+		final List<String> queries = toList(value("source.query", (String)null));
+
+		// TODO read separate sql file with all queries
+		private static List<String> toList(final String s)
+		{
+			final ArrayList<String> result = new ArrayList<>();
+			try(BufferedReader r = new BufferedReader(new StringReader(s)))
+			{
+				for(String line = r.readLine(); line!=null; line = r.readLine())
+					if(!line.isEmpty())
+						result.add(line);
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			return List.copyOf(result);
+		}
 
 		/**
 		 * Stream result sets row-by-row with minimum heap space requirement.

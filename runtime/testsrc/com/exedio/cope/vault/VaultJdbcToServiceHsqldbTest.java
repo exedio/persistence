@@ -20,6 +20,7 @@ package com.exedio.cope.vault;
 
 import static com.exedio.cope.vault.VaultFileToTrailTest.readAllLines;
 import static com.exedio.cope.vault.VaultJdbcToServiceErrorTest.writeProperties;
+import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -62,7 +63,49 @@ public class VaultJdbcToServiceHsqldbTest
 				SERVICE_PUTS);
 		assertEquals(List.of(
 				"Fetch size set to 1",
-				"Finished after 2 rows, skipped 0, redundant 0"),
+				"Query 1/1 importing: VALUES " +
+						"('012345678901234567890123456789ab', '050401')," +
+						"('022345678901234567890123456789ab', '050402')",
+				"Finished query 1/1 after 2 rows, skipped 0, redundant 0"),
+				readAllLines(out));
+	}
+
+	@Test void testMultipleLines() throws IOException, SQLException
+	{
+		final Path propsFile = createProperties(
+				"VALUES " +
+						"('012345678901234567890123456789ab', '050401')," +
+						"('022345678901234567890123456789ab', '050402')" +
+						lineSeparator() +
+				lineSeparator() + // test empty line
+				"VALUES " +
+						"('032345678901234567890123456789ab', '050403')," +
+						"('042345678901234567890123456789ab', '050404')," +
+						"('052345678901234567890123456789ab', '050405')");
+		final var out = new ByteArrayOutputStream();
+		VaultJdbcToService.mainInternal(
+				new PrintStream(out, true, US_ASCII),
+				propsFile.toString());
+
+		assertEquals(List.of(
+				"012345678901234567890123456789ab - 050401",
+				"022345678901234567890123456789ab - 050402",
+				"032345678901234567890123456789ab - 050403",
+				"042345678901234567890123456789ab - 050404",
+				"052345678901234567890123456789ab - 050405",
+				"close"),
+				SERVICE_PUTS);
+		assertEquals(List.of(
+				"Fetch size set to 1",
+				"Query 1/2 importing: VALUES " +
+						"('012345678901234567890123456789ab', '050401')," +
+						"('022345678901234567890123456789ab', '050402')",
+				"Finished query 1/2 after 2 rows, skipped 0, redundant 0",
+				"Query 2/2 importing: VALUES " +
+						"('032345678901234567890123456789ab', '050403')," +
+						"('042345678901234567890123456789ab', '050404')," +
+						"('052345678901234567890123456789ab', '050405')",
+				"Finished query 2/2 after 3 rows, skipped 0, redundant 0"),
 				readAllLines(out));
 	}
 
