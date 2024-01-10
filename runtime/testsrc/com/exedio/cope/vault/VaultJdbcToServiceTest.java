@@ -179,6 +179,12 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		{
 			final boolean result = !hash.startsWith("fa");
 			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
+			assertEquals(null, info.getField());
+			assertEquals(null, info.getFieldString());
+			assertEquals(null, info.getItem());
+			assertEquals(null, info.getItemString());
+			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.getOrigin());
+			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.toString());
 			return result;
 		}
 
@@ -224,5 +230,5 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		SERVICE_PUTS.clear();
 	}
 
-	protected final TemporaryFolder files = new TemporaryFolder();
+	private final TemporaryFolder files = new TemporaryFolder();
 }
