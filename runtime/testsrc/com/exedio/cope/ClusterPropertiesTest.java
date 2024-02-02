@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import java.net.InetAddress;
@@ -78,7 +79,7 @@ public class ClusterPropertiesTest
 
 	@Test void testMulticast()
 	{
-		final ClusterProperties p = ClusterProperties.factory().create(describe("DESC", cascade(
+		final ClusterProperties p = FACTORY.create(describe("DESC", cascade(
 				single("secret", 1234)
 		)));
 		final String ADDRESS = "224.0.0.50";
@@ -120,7 +121,7 @@ public class ClusterPropertiesTest
 		// documentation.
 		final String ADDRESS = "192.0.2.88";
 
-		final ClusterProperties p = ClusterProperties.factory().create(describe("DESC", cascade(
+		final ClusterProperties p = FACTORY.create(describe("DESC", cascade(
 				single("secret", 1234),
 				single("multicast", false),
 				single("sendAddress", ADDRESS)
@@ -274,7 +275,7 @@ public class ClusterPropertiesTest
 				single("multicast", false)
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
 				"must not be empty");
@@ -288,7 +289,7 @@ public class ClusterPropertiesTest
 				single("listen.threads.max", 4)
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property listen.threads.initial in DESC " +
 				"must be less or equal max=4, " +
@@ -301,7 +302,7 @@ public class ClusterPropertiesTest
 				single("secret", 0)
 		);
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property secret in DESC " +
 				"must not be zero");
@@ -315,7 +316,7 @@ public class ClusterPropertiesTest
 				single("node", 0)
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property node in DESC " +
 				"must not be zero");
@@ -328,7 +329,7 @@ public class ClusterPropertiesTest
 				single("sendInterface", "")
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendInterface in DESC " +
 				"must not be empty");
@@ -339,7 +340,7 @@ public class ClusterPropertiesTest
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234)
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -352,7 +353,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", "")
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
 				"must not be empty");
@@ -364,7 +365,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", " 224.0.0.55")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals("[/224.0.0.55:14446]", List.of(p.send()).toString());
 	}
 
@@ -374,7 +375,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.55 ")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals("[/224.0.0.55:14446]", List.of(p.send()).toString());
 	}
 
@@ -384,7 +385,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.55")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -396,7 +397,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.55:14464")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14464, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -409,7 +410,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", "zack")
 		));
 		final IllegalPropertiesException e = assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
 				"must be a valid host name, " +
@@ -424,7 +425,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.55:")
 		));
 		final IllegalPropertiesException e = assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
 				"must have an integer between 1 and 65535 as port, " +
@@ -439,7 +440,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.55:zack")
 		));
 		final IllegalPropertiesException e = assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
 				"must have an integer between 1 and 65535 as port, " +
@@ -454,7 +455,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.50:0")
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
 				"must have an integer between 1 and 65535 as port, " +
@@ -468,7 +469,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.50:65536")
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC " +
 				"must have an integer between 1 and 65535 as port, " +
@@ -481,7 +482,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.50:1")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
 		assertEquals(1, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -493,7 +494,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.50:65535")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
 		assertEquals(65535, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -506,7 +507,7 @@ public class ClusterPropertiesTest
 				single("multicast", false),
 				single("sendAddress", "224.0.0.55 224.0.0.56:14464")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(InetAddress.getByName("224.0.0.56"), p.send()[1].address);
@@ -521,7 +522,7 @@ public class ClusterPropertiesTest
 				single("multicast", false),
 				single("sendAddress", "224.0.0.55   224.0.0.56:14464")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
+		final ClusterProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(InetAddress.getByName("224.0.0.56"), p.send()[1].address);
@@ -536,7 +537,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.55 224.0.0.56:14464")
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property sendAddress in DESC must must contain exactly one address for multicast, " +
 				"but was [/224.0.0.55:14446, /224.0.0.56:14464]");
@@ -549,7 +550,7 @@ public class ClusterPropertiesTest
 				single("listenAddress", "")
 		));
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property listenAddress in DESC " +
 				"must not be empty");
@@ -570,7 +571,7 @@ public class ClusterPropertiesTest
 		interfaces.append(")");
 
 		assertFails(
-				() -> ClusterProperties.factory().create(s),
+				() -> FACTORY.create(s),
 				IllegalPropertiesException.class,
 				"property listenInterface in DESC " +
 				"must be DEFAULT or one of the network interfaces: " + interfaces + ", " +
@@ -615,4 +616,6 @@ public class ClusterPropertiesTest
 	{
 		model.enableSerialization(ClusterPropertiesTest.class, "model");
 	}
+
+	private static final Properties.Factory<ClusterProperties> FACTORY = ClusterProperties.factory();
 }
