@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterNetworkPingTest.assertLastRoundTripSet;
 import static com.exedio.cope.ClusterNetworkPingTest.count;
 import static com.exedio.cope.ClusterNetworkPingTest.gauge;
+import static com.exedio.cope.RuntimeAssert.disconnectIfNeeded;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.sensitive;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
@@ -272,7 +273,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 	@AfterEach
 	void tearDown()
 	{
-		modelC.disconnect();
+		disconnectIfNeeded(modelC);
 		modelC.removeAllChangeListeners();
 	}
 }

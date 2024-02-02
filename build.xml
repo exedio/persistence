@@ -432,7 +432,9 @@
 				<!-- do not include build/classes/instrument/annosrc, classes must not depend on annotations on runtime -->
 				<fileset dir="lib/testhsqldb" />
 			</classpath>
+			<sysproperty key="com.exedio.cope.ClusterNetworkTest.skipMulticast" value="${runtime.test.ClusterNetworkTest.skipMulticast}" />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.multicast"   value="${runtime.test.ClusterNetworkTest.multicast}" />
+			<sysproperty key="com.exedio.cope.ClusterNetworkTest.listenInterface" value="${runtime.test.ClusterNetworkTest.listenInterface}" if:set="runtime.test.ClusterNetworkTest.listenInterface" />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.A"      value="${runtime.test.ClusterNetworkTest.port.A}"    />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.B"      value="${runtime.test.ClusterNetworkTest.port.B}"    />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.C"      value="${runtime.test.ClusterNetworkTest.port.C}"    />

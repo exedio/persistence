@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +52,7 @@ public class LoopbackTest
 	@Test void testDefault() throws IOException
 	{
 		socket = new MulticastSocket(14446);
-		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
+		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(false, socket.getLoopbackMode());
 		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
 	}
@@ -59,7 +61,7 @@ public class LoopbackTest
 	{
 		socket = new MulticastSocket(14446);
 		socket.setLoopbackMode(false);
-		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
+		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(false, socket.getLoopbackMode());
 		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
 	}
@@ -68,7 +70,7 @@ public class LoopbackTest
 	{
 		socket = new MulticastSocket(14446);
 		socket.setLoopbackMode(true);
-		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
+		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(true, socket.getLoopbackMode());
 		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
 	}
@@ -77,7 +79,7 @@ public class LoopbackTest
 	{
 		socket = new MulticastSocket(14446);
 		socket.setOption(IP_MULTICAST_LOOP, false);
-		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
+		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(false, socket.getLoopbackMode());
 		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
 	}
@@ -86,8 +88,14 @@ public class LoopbackTest
 	{
 		socket = new MulticastSocket(14446);
 		socket.setOption(IP_MULTICAST_LOOP, true);
-		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), null);
+		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(true, socket.getLoopbackMode());
 		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
+	}
+
+	private static NetworkInterface networkInterface() throws SocketException
+	{
+		final String name = ClusterNetworkTest.listenInterfaceIfSet();
+		return name!=null ? NetworkInterface.getByName(name) : null;
 	}
 }
