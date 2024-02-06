@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterNetworkTest.assumeMulticast;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -38,6 +39,7 @@ public final class ClusterSenderMulticastTest
 	{
 		final ClusterProperties properties =
 			ClusterProperties.factory().create(cascade(
+				ClusterNetworkTest.listenInterface(),
 				single("packetSize", 47),
 				single("secret", SECRET)
 			));
@@ -52,6 +54,7 @@ public final class ClusterSenderMulticastTest
 	@Test void testIt() throws IOException
 	{
 		final byte[] b = {10, 10, 10, 10, 10, 10, 10};
+		assumeMulticast();
 		sender.send(b.length, b);
 		sender.send(b.length, b);
 

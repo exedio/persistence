@@ -53,6 +53,12 @@ public final class RuntimeAssert
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
+	public static void disconnectIfNeeded(final Model model)
+	{
+		if(model.isConnected())
+			model.disconnect();
+	}
+
 	public static <E extends Item> E activate(
 			final Type<E> type,
 			final long pk)

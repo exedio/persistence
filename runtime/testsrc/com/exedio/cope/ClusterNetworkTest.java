@@ -18,14 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.disconnectIfNeeded;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
+import static java.lang.Boolean.parseBoolean;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.util.Sources;
 import java.util.EnumMap;
 import java.util.Properties;
 import java.util.StringJoiner;
@@ -35,10 +39,31 @@ public abstract class ClusterNetworkTest
 {
 	static final ConnectProperties getPropertiesMulticast()
 	{
+		assumeMulticast();
 		final Properties p = new Properties();
 		p.setProperty("cluster.sendAddress"  , MULTICAST_ADDRESS);
 		p.setProperty("cluster.listenAddress", MULTICAST_ADDRESS);
+		if(LISTEN_INTERFACE!=null)
+			p.setProperty("cluster.listenInterface", LISTEN_INTERFACE);
 		return getProperties(p, "Connect Properties Source (multicast)");
+	}
+
+	static final void assumeMulticast()
+	{
+		assumeTrue(MULTICAST_ADDRESS!=null, "skipMulticast");
+	}
+
+	static final com.exedio.cope.util.Properties.Source listenInterface()
+	{
+		return
+				LISTEN_INTERFACE!=null
+				? TestSources.single("cluster.listenInterface", LISTEN_INTERFACE)
+				: Sources.EMPTY;
+	}
+
+	static final String listenInterfaceIfSet()
+	{
+		return LISTEN_INTERFACE;
 	}
 
 	static final ConnectProperties getPropertiesSinglecast(
@@ -56,14 +81,16 @@ public abstract class ClusterNetworkTest
 	}
 
 	private static final String MULTICAST_ADDRESS;
+	private static final String LISTEN_INTERFACE;
 	private static final EnumMap<Port, String> PORTS = new EnumMap<>(Port.class);
 	static
 	{
-		MULTICAST_ADDRESS = System.getProperty(ClusterNetworkTest.class.getName() + ".multicast", "224.0.0.41");
+		MULTICAST_ADDRESS = parseBoolean(System.getProperty(ClusterNetworkTest.class.getName() + ".skipMulticast")) ? null : System.getProperty(ClusterNetworkTest.class.getName() + ".multicast", "224.0.0.41");
+		LISTEN_INTERFACE = System.getProperty(ClusterNetworkTest.class.getName() + ".listenInterface");
 		final String prefix = ClusterNetworkTest.class.getName() + ".port";
 		for(final Port p : Port.values())
 			PORTS.put(p, System.getProperty(prefix + "." + p.name(), String.valueOf(p.defaultValue)));
-		System.out.println(ClusterNetworkTest.class.getName() + ' ' + MULTICAST_ADDRESS + ' ' + PORTS);
+		System.out.println(ClusterNetworkTest.class.getName() + ' ' + MULTICAST_ADDRESS + ' ' + LISTEN_INTERFACE + ' ' + PORTS);
 	}
 
 	enum Port
@@ -96,8 +123,8 @@ public abstract class ClusterNetworkTest
 
 	@AfterEach final void tearDownClusterNetworkTest()
 	{
-		modelB.disconnect();
-		modelA.disconnect();
+		disconnectIfNeeded(modelB);
+		disconnectIfNeeded(modelA);
 		modelA.removeAllChangeListeners();
 		modelB.removeAllChangeListeners();
 	}

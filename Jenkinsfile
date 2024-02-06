@@ -72,7 +72,8 @@ try
 						    ' -Dbuild.status=' + (isRelease?'release':'integration') +
 						    ' -Dinstrument.verify=true' +
 						    ' -Ddisable-ansi-colors=true' +
-						    ' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
+						    ' -Druntime.test.ClusterNetworkTest.skipMulticast=true' +
+						    ' -Druntime.test.ClusterNetworkTest.listenInterface=eth0' +
 						    ' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
 						    ' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
 						    ' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
@@ -179,6 +180,36 @@ try
 		}
 	}
 
+	parallelBranches["Network"] = {
+		nodeCheckoutAndDelete {
+			def mainImage = docker.build(
+				imageName('Network'),
+				'--build-arg JDK=' + jdk + ' ' +
+				'conf/main')
+			mainImage.inside(
+				"--cap-drop all " +
+				"--security-opt no-new-privileges " +
+				"--dns-opt timeout:1 " + // seconds; default is 5
+				"--dns-opt attempts:1 " // default is 2
+			) {
+				ant 'clean runtime.test.withoutEnv' +
+				    ' -Dskip.instrument=true' + // already verified in branch Main
+				    ' -Dgithub=true' +
+				    ' -Ddisable-ansi-colors=true' +
+				    ' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
+				    ' -Druntime.test.ClusterNetworkTest.listenInterface=eth0' +
+				    ' -Druntime.test.ClusterNetworkTest.port.A=' + port(5) +
+				    ' -Druntime.test.ClusterNetworkTest.port.B=' + port(6) +
+				    ' -Druntime.test.ClusterNetworkTest.port.C=' + port(7)
+			}
+			junit(
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
+			)
+		}
+	}
+
 	parallelBranches["Github"] =
 	{
 		//noinspection GroovyAssignabilityCheck
@@ -193,7 +224,10 @@ try
 				mainImage.inside(dockerRunDefaults(bridge))
 				{
 					// corresponds to .github/workflows/ant.yml
-					ant '-Dgithub=true clean jenkins'
+					ant 'clean jenkins' +
+					    ' -Dgithub=true' +
+					    ' -Druntime.test.ClusterNetworkTest.skipMulticast=true' +
+					    ' -Druntime.test.ClusterNetworkTest.listenInterface=eth0'
 				}
 			}
 

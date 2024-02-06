@@ -56,6 +56,7 @@ public class ClusterPropertiesTest
 				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
 				single("cluster.secret", 1234),
+				ClusterNetworkTest.listenInterface(),
 				single("cluster.listen.threads.max", 5)
 		);
 
@@ -183,6 +184,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 44),
 				single("cluster.sendLoopback", false),
+				ClusterNetworkTest.listenInterface(),
 				single("cluster.listenLoopback", false),
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888),

@@ -46,7 +46,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	{
 		modelB.rollbackIfNotCommitted();
 		modelA.rollbackIfNotCommitted();
-		modelA.tearDownSchema();
+		if(modelA.isConnected())
+			modelA.tearDownSchema();
 	}
 
 	@Test void testMulticast() throws InterruptedException, NotAvailableException
