@@ -218,27 +218,51 @@ final class MysqlSchemaDialect extends Dialect
 
 		if(mysql80) // check constraints
 		{
+			// Querying TABLE_CONSTRAINTS and CHECK_CONSTRAINTS separately is much faster
+			// than a database join between both tables.
+			// For an example schema with 17351 check constraints the join did take 21 minutes.
+			// For the same schema the two separate queries do take just less than a second.
+			final HashMap<String, Table> tables = new HashMap<>();
 			querySQL(schema,
 					//language=SQL
 					"SELECT " +
-							"tc.TABLE_NAME," + // 1
-							"cc.CONSTRAINT_NAME," + // 2
-							"cc.CHECK_CLAUSE " + // 3
-					"FROM information_schema.CHECK_CONSTRAINTS cc " +
-					"INNER JOIN information_schema.TABLE_CONSTRAINTS tc " +
-							"ON cc.CONSTRAINT_NAME=tc.CONSTRAINT_NAME " +
-					"WHERE cc.CONSTRAINT_SCHEMA=" + catalog + " " +
-							"AND tc.CONSTRAINT_TYPE='CHECK' " +
-							"AND tc.CONSTRAINT_SCHEMA=" + catalog + " " +
-							"AND tc.TABLE_SCHEMA=" + catalog + " " +
-							"AND tc.ENFORCED='YES'",
+							"TABLE_NAME," + // 1
+							"CONSTRAINT_NAME " + // 2
+					"FROM information_schema.TABLE_CONSTRAINTS " +
+					"WHERE CONSTRAINT_TYPE='CHECK' " +
+							"AND CONSTRAINT_TYPE='CHECK' " +
+							"AND CONSTRAINT_SCHEMA=" + catalog + " " +
+							"AND TABLE_SCHEMA=" + catalog + " " +
+							"AND ENFORCED='YES'",
+					resultSet ->
+					{
+						while(resultSet.next())
+						{
+							final Table table = getTableStrict(schema, resultSet, 1);
+							final String constraintName = resultSet.getString(2);
+							final Table collision =
+									tables.putIfAbsent(constraintName, table);
+							if(collision!=null)
+								throw new RuntimeException(constraintName + '|' + table);
+						}
+					});
+			querySQL(schema,
+					//language=SQL
+					"SELECT " +
+							"CONSTRAINT_NAME," + // 1
+							"CHECK_CLAUSE " + // 2
+					"FROM information_schema.CHECK_CONSTRAINTS " +
+					"WHERE CONSTRAINT_SCHEMA=" + catalog,
 			resultSet ->
 			{
 				while(resultSet.next())
 				{
-					final Table table = getTableStrict(schema, resultSet, 1);
-					final String constraintName = resultSet.getString(2);
-					final String clause = strip(resultSet.getString(3), "(", ")");
+					final String constraintName = resultSet.getString(1);
+					final String clause = strip(resultSet.getString(2), "(", ")");
+					final Table table = tables.get(constraintName);
+					if(table==null) // happens for non-ENFORCED check constraints
+						continue;
+
 					//System.out.println("tableName:"+table+" constraintName:"+constraintName+" clause:>"+clause+"<");
 					notifyExistentCheck(table, constraintName, clause);
 				}
