@@ -145,7 +145,7 @@ public class UniqueHashedMediaErrorTest
 		{
 			assertEquals(
 					"UniqueHashedMedia NonCreateableFunctionFieldItem.value cannot create instances of type NonCreateableFunctionFieldItem, " +
-					"because NonCreateableFunctionFieldItem.field is mandatory and has no default.",
+					"because NonCreateableFunctionFieldItem.field is mandatory and has no default. May be suppressed by @SuppressCreateInstanceCheck.",
 					e.getMessage());
 		}
 	}
@@ -182,7 +182,7 @@ public class UniqueHashedMediaErrorTest
 		{
 			assertEquals(
 					"UniqueHashedMedia NonCreateableDataFieldItem.value cannot create instances of type NonCreateableDataFieldItem, " +
-					"because NonCreateableDataFieldItem.field is mandatory and has no default.",
+					"because NonCreateableDataFieldItem.field is mandatory and has no default. May be suppressed by @SuppressCreateInstanceCheck.",
 					e.getMessage());
 		}
 	}
@@ -229,6 +229,10 @@ public class UniqueHashedMediaErrorTest
 		@WrapperIgnore
 		@SuppressWarnings("unused")
 		static final DataField dataField = new DataField().optional();
+		@WrapperIgnore
+		@SuppressWarnings("unused")
+		@UniqueHashedMedia.SuppressCreateInstanceCheck
+		static final IntegerField suppressedField = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

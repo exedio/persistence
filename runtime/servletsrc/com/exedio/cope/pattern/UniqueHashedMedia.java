@@ -48,6 +48,10 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,12 +151,20 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		{
 			if(field.isMandatory() &&
 				(!(field instanceof FunctionField<?>) || !((FunctionField<?>)field).hasDefault()) &&
+				!field.isAnnotationPresent(SuppressCreateInstanceCheck.class) &&
 				!ownFields.contains(field))
 				throw new IllegalArgumentException(
 						UniqueHashedMedia.class.getSimpleName() + ' ' + getID() +
 						" cannot create instances of type " + getType() +
-						", because " + field + " is mandatory and has no default.");
+						", because " + field + " is mandatory and has no default. " +
+						"May be suppressed by @" + SuppressCreateInstanceCheck.class.getSimpleName() + '.');
 		}
+	}
+
+	@Target(ElementType.FIELD)
+	@Retention(RetentionPolicy.RUNTIME)
+	public @interface SuppressCreateInstanceCheck
+	{
 	}
 
 	private static void collectFields(final HashSet<Field<?>> result, final Pattern pattern, final int recursionBreaker)
