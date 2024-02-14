@@ -97,6 +97,42 @@ public class CompositeConditionCopeTest
 		assertSameOr (TRUE,  FALSE, TRUE, FALSE);
 	}
 
+	/**
+	 * @see CompositeConditionUtilTest#testFlatting()
+	 */
+	@Test void testFlatting()
+	{
+		final DoubleField field = new DoubleField().optional();
+		final Condition c1 = field.equal(1d);
+		final Condition c2 = field.equal(2d);
+		final Condition c3 = field.equal(3d);
+
+		assertEqualsAnd(newAnd(newAnd(c1, c2), c3), newAnd(c1, c2), c3);
+		assertEqualsOr (newOr (newOr (c1, c2), c3), newOr (c1, c2), c3);
+		assertEqualsAnd(newAnd(c1, newAnd(c2, c3)), c1, newAnd(c2, c3));
+		assertEqualsOr (newOr (c1, newOr (c2, c3)), c1, newOr (c2, c3));
+
+		assertEqualsAnd(newAnd(newAnd(c1, c2), c3), TRUE , newAnd(c1, c2), c3);
+		assertEqualsOr (newOr (newOr (c1, c2), c3), FALSE, newOr (c1, c2), c3);
+		assertEqualsAnd(newAnd(c1, newAnd(c2, c3)), TRUE , c1, newAnd(c2, c3));
+		assertEqualsOr (newOr (c1, newOr (c2, c3)), FALSE, c1, newOr (c2, c3));
+
+		assertEqualsAnd(newAnd(newAnd(c1, c2), c3), newAnd(c1, c2), TRUE , c3);
+		assertEqualsOr (newOr (newOr (c1, c2), c3), newOr (c1, c2), FALSE, c3);
+		assertEqualsAnd(newAnd(c1, newAnd(c2, c3)), c1, TRUE , newAnd(c2, c3));
+		assertEqualsOr (newOr (c1, newOr (c2, c3)), c1, FALSE, newOr (c2, c3));
+
+		assertEqualsAnd(newAnd(newAnd(c1, c2), c3), newAnd(c1, c2), c3, TRUE );
+		assertEqualsOr (newOr (newOr (c1, c2), c3), newOr (c1, c2), c3, FALSE);
+		assertEqualsAnd(newAnd(c1, newAnd(c2, c3)), c1, newAnd(c2, c3), TRUE );
+		assertEqualsOr (newOr (c1, newOr (c2, c3)), c1, newOr (c2, c3), FALSE);
+
+		assertEqualsAnd(newAnd(newOr (c1, c2), c3), newOr (c1, c2), c3);
+		assertEqualsOr (newOr (newAnd(c1, c2), c3), newAnd(c1, c2), c3);
+		assertEqualsAnd(newAnd(c1, newOr (c2, c3)), c1, newOr (c2, c3));
+		assertEqualsOr (newOr (c1, newAnd(c2, c3)), c1, newAnd(c2, c3));
+	}
+
 	private static void assertSameAnd(final Condition expected,	final Condition... actual)
 	{
 		assertSame(expected, and(actual));
