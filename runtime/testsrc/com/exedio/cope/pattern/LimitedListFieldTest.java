@@ -322,8 +322,8 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals("("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a')",
 			strings.containsAny(asList("a")).toString());
 		assertEquals(
-			"(("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a') " +
-			 "or ("+f+"0='b' or "+f+"1='b' or "+f+"2='b' or "+f+"3='b'))",
+			"("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a' " +
+			 "or "+f+"0='b' or "+f+"1='b' or "+f+"2='b' or "+f+"3='b')",
 			strings.containsAny(asList("a","b")).toString());
 	}
 
@@ -339,8 +339,8 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals("("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a')",
 			strings.containsAny(join, asList("a")).toString());
 		assertEquals(
-			"(("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a') " +
-				"or ("+f+"0='b' or "+f+"1='b' or "+f+"2='b' or "+f+"3='b'))",
+			"("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a' " +
+				"or "+f+"0='b' or "+f+"1='b' or "+f+"2='b' or "+f+"3='b')",
 			strings.containsAny(join, asList("a","b")).toString());
 	}
 
@@ -365,7 +365,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
-		assertEquals("(("+f+"0<>'a' or "+f+"0 is null) or ("+f+"1<>'b' or "+f+"1 is null) or "+f+"2 is not null or "+f+"3 is not null)",
+		assertEquals("("+f+"0<>'a' or "+f+"0 is null or "+f+"1<>'b' or "+f+"1 is null or "+f+"2 is not null or "+f+"3 is not null)",
 				strings.notEqual(j, asList("a", "b")).toString());
 
 		assertEquals("("+f+"0 is not null or "+f+"1 is not null or "+f+"2 is not null or "+f+"3 is not null)",

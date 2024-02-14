@@ -68,6 +68,11 @@ public final class CompositeCondition extends Condition
 			final Condition c = conditions[i];
 			if(c instanceof Literal)
 				throw new IllegalArgumentException("conditions" + '[' + i + ']' + " must not be a literal, but was " + c);
+			if(c instanceof CompositeCondition &&
+				((CompositeCondition)c).operator==operator)
+				throw new IllegalArgumentException(
+						"conditions[" + i + ']' + " must not be an " + operator + ", " +
+						"but was " + c);
 		}
 	}
 
@@ -346,7 +351,7 @@ public final class CompositeCondition extends Condition
 	{
 		requireNonNull(conditions, "conditions");
 
-		int filtered = 0;
+		int filtered = 0, flattened = 0;
 
 		for(int i = 0; i<conditions.length; i++)
 		{
@@ -361,21 +366,39 @@ public final class CompositeCondition extends Condition
 				else
 					filtered++;
 			}
+			else if(c instanceof CompositeCondition)
+			{
+				final CompositeCondition cc = (CompositeCondition)c;
+				if(cc.operator==operator)
+					flattened += cc.conditions.length - 1; // the "- 1" is the CompositeCondition dropped for its nested conditions
+			}
 		}
 
 		final Condition[] filteredConditions;
-		if(filtered==0)
+		if(filtered==0 && flattened==0)
 		{
 			filteredConditions = conditions;
 		}
 		else
 		{
-			filteredConditions = new Condition[conditions.length-filtered];
+			filteredConditions = new Condition[conditions.length-filtered+flattened];
 
 			int j = 0;
 			for(final Condition c : conditions)
 				if(operator.identity!=c)
+				{
+					if(c instanceof CompositeCondition)
+					{
+						final CompositeCondition cc = (CompositeCondition)c;
+						if(cc.operator==operator)
+						{
+							for(final Condition ccc : cc.conditions)
+								filteredConditions[j++] = ccc;
+							continue;
+						}
+					}
 					filteredConditions[j++] = c;
+				}
 
 			assert j==filteredConditions.length;
 		}
