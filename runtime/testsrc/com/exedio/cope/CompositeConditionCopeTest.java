@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.exedio.cope.CompositeCondition.Operator;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -56,9 +55,9 @@ public class CompositeConditionCopeTest
 
 		assertSameAnd(c1, c1, TRUE);
 		assertSameAnd(c1, TRUE, c1);
-		assertEqualsAnd(newCompositeCondition(AND, c1, c2), TRUE, c1, c2);
-		assertEqualsAnd(newCompositeCondition(AND, c1, c2), c1, TRUE, c2);
-		assertEqualsAnd(newCompositeCondition(AND, c1, c2), c1, c2, TRUE);
+		assertEqualsAnd(newAnd(c1, c2), TRUE, c1, c2);
+		assertEqualsAnd(newAnd(c1, c2), c1, TRUE, c2);
+		assertEqualsAnd(newAnd(c1, c2), c1, c2, TRUE);
 		assertSameAnd(c1, TRUE, TRUE, c1);
 		assertSameAnd(c1, TRUE, c1, TRUE);
 		assertSameAnd(c1, c1, TRUE, TRUE);
@@ -66,9 +65,9 @@ public class CompositeConditionCopeTest
 
 		assertSameOr(c1, c1, FALSE);
 		assertSameOr(c1, FALSE, c1);
-		assertEqualsOr(newCompositeCondition(OR, c1, c2), FALSE, c1, c2);
-		assertEqualsOr(newCompositeCondition(OR, c1, c2), c1, FALSE, c2);
-		assertEqualsOr(newCompositeCondition(OR, c1, c2), c1, c2, FALSE);
+		assertEqualsOr(newOr(c1, c2), FALSE, c1, c2);
+		assertEqualsOr(newOr(c1, c2), c1, FALSE, c2);
+		assertEqualsOr(newOr(c1, c2), c1, c2, FALSE);
 		assertSameOr(c1, FALSE, FALSE, c1);
 		assertSameOr(c1, FALSE, c1, FALSE);
 		assertSameOr(c1, c1, FALSE, FALSE);
@@ -138,11 +137,11 @@ public class CompositeConditionCopeTest
 		final Condition c2 = f2.equal(2d);
 		final Condition c3 = f3.equal(3d);
 
-		assertFieldsCovered(Arrays.asList(f1, f2), newCompositeCondition(OR,  c1, c2));
-		assertFieldsCovered(Arrays.asList(f2, f3), newCompositeCondition(AND, c2, c3));
-		assertFieldsCovered(Arrays.asList(f2, f3, f1), newCompositeCondition(AND, c2, c3, c1));
-		assertFieldsCovered(Arrays.asList(f2, f3, f1), newCompositeCondition(AND, c2, c3, c1).not());
-		assertFieldsCovered(Arrays.asList(f1, f1, f1), newCompositeCondition(AND, c1, c1, c1));
+		assertFieldsCovered(Arrays.asList(f1, f2), newOr( c1, c2));
+		assertFieldsCovered(Arrays.asList(f2, f3), newAnd(c2, c3));
+		assertFieldsCovered(Arrays.asList(f2, f3, f1), newAnd(c2, c3, c1));
+		assertFieldsCovered(Arrays.asList(f2, f3, f1), newAnd(c2, c3, c1).not());
+		assertFieldsCovered(Arrays.asList(f1, f1, f1), newAnd(c1, c1, c1));
 		assertFieldsCovered(Arrays.asList(), FALSE);
 		assertFieldsCovered(Arrays.asList(), TRUE);
 	}
@@ -170,11 +169,17 @@ public class CompositeConditionCopeTest
 
 
 	@SuppressWarnings("deprecation")
-	private static CompositeCondition newCompositeCondition(
-			final Operator operator,
+	private static CompositeCondition newAnd(
 			final Condition... conditions)
 	{
-		return new CompositeCondition(operator, conditions);
+		return new CompositeCondition(AND, conditions);
+	}
+
+	@SuppressWarnings("deprecation")
+	private static CompositeCondition newOr(
+			final Condition... conditions)
+	{
+		return new CompositeCondition(OR, conditions);
 	}
 
 
