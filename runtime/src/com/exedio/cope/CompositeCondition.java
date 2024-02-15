@@ -312,26 +312,26 @@ public final class CompositeCondition extends Condition
 	{
 		if(leftCondition instanceof CompositeCondition && ((CompositeCondition)leftCondition).operator==operator)
 		{
-			final CompositeCondition left = (CompositeCondition)leftCondition;
+			final Condition[] leftConditions = ((CompositeCondition)leftCondition).conditions;
 
 			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
 			{
-				final CompositeCondition right = (CompositeCondition)rightCondition;
+				final Condition[] rightConditions = ((CompositeCondition)rightCondition).conditions;
 
-				return new CompositeCondition(operator, Arrays.append(left.conditions, right.conditions));
+				return new CompositeCondition(operator, Arrays.append(leftConditions, rightConditions));
 			}
 			else
 			{
-				return new CompositeCondition(operator, Arrays.append(left.conditions, rightCondition));
+				return new CompositeCondition(operator, Arrays.append(leftConditions, rightCondition));
 			}
 		}
 		else
 		{
 			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
 			{
-				final CompositeCondition right = (CompositeCondition)rightCondition;
+				final Condition[] rightConditions = ((CompositeCondition)rightCondition).conditions;
 
-				return new CompositeCondition(operator, Arrays.prepend(leftCondition, right.conditions));
+				return new CompositeCondition(operator, Arrays.prepend(leftCondition, rightConditions));
 			}
 			else
 			{
