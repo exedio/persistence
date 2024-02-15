@@ -76,6 +76,77 @@ public class ArraysTest
 		assertFails(() -> copyOf((String [])null), NullPointerException.class, null);
 	}
 
+	@Test void testAppendElement()
+	{
+		assertArrayEquals(
+				new boolean[]{true,false,true}, Arrays.append(
+				new boolean[]{true,false},true));
+		assertArrayEquals(
+				new boolean[]{true,false}, Arrays.append(
+				new boolean[]{true},false));
+		assertArrayEquals(
+				new boolean[]{true}, Arrays.append(
+				new boolean[]{},true));
+		assertArrayEquals(
+				new String[]{"1","2","3"}, Arrays.append(
+				new String[]{"1","2"},"3"));
+		assertArrayEquals(
+				new String[]{"1","2"}, Arrays.append(
+				new String[]{"1"},"2"));
+		assertArrayEquals(
+				new String[]{"1"}, Arrays.append(
+				new String[]{},"1"));
+		assertArrayEquals(
+				new String[]{"1","2",null}, Arrays.append(
+				new String[]{"1","2"},(String)null));
+	}
+
+	@Test void testAppendElementNull()
+	{
+		assertFails(() -> Arrays.append(null, true), NullPointerException.class, null);
+		assertFails(() -> Arrays.append(null, "x" ), NullPointerException.class, null);
+	}
+
+	@Test void testPrependElement()
+	{
+		assertArrayEquals(
+				new String[]{"1","2","3"}, Arrays.prepend(
+				"1",new String[]{"2","3"}));
+		assertArrayEquals(
+				new String[]{"1","2"}, Arrays.prepend(
+				"1",new String[]{"2"}));
+		assertArrayEquals(
+				new String[]{"1"}, Arrays.prepend(
+				"1",new String[]{}));
+		assertArrayEquals(
+				new String[]{null,"1","2"}, Arrays.prepend(
+				null, new String[]{"1","2"}));
+	}
+
+	@Test void testPrependElementNull()
+	{
+		assertFails(() -> Arrays.prepend("x", null), NullPointerException.class, null);
+	}
+
+	@Test void testAppendArray()
+	{
+		assertArrayEquals(
+				new String[]{"1","2","3","4"}, Arrays.append(
+				new String[]{"1","2"},new String[]{"3","4"}));
+		assertArrayEquals(
+				new String[]{"1","2"}, Arrays.append(
+				new String[]{"1"},new String[]{"2"}));
+		assertArrayEquals(
+				new String[]{}, Arrays.append(
+				new String[]{},new String[]{}));
+	}
+
+	@Test void testAppendArrayNull()
+	{
+		assertFails(() -> Arrays.append(new String[]{"x"}, null), NullPointerException.class, null);
+		assertFails(() -> Arrays.append(null, new String[]{"x"}), NullPointerException.class, null);
+	}
+
 	@Test void testIt()
 	{
 		assertFails(

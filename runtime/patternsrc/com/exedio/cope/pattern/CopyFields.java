@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.misc.Arrays;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,15 +57,12 @@ final class CopyFields implements Serializable
 		if(fields==null)
 			return new CopyFields(new FunctionField<?>[]{add});
 
-		final int length = fields.length;
 		for (final FunctionField<?> field : fields)
 		{
 			if (add.equals(field))
 				throw new IllegalArgumentException("added '"+add+"' twice");
 		}
-		final FunctionField<?>[] result = new FunctionField<?>[length+1];
-		System.arraycopy(fields, 0, result, 0, length);
-		result[length] = add;
+		final FunctionField<?>[] result = Arrays.append(fields, add);
 		return new CopyFields(result);
 	}
 

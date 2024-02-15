@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import java.lang.reflect.Array;
+
 public final class Arrays
 {
 	public static boolean[] copyOf(final boolean[] original)
@@ -38,6 +40,41 @@ public final class Arrays
 	public static <T> T[] copyOf(final T[] original)
 	{
 		return java.util.Arrays.copyOf(original, original.length);
+	}
+
+	public static boolean[] append(final boolean[] a, final boolean b)
+	{
+		final int aLength = a.length;
+		final boolean[] result = java.util.Arrays.copyOf(a, aLength+1);
+		result[aLength] = b;
+		return result;
+	}
+
+	public static <T> T[] append(final T[] a, final T b)
+	{
+		final int aLength = a.length;
+		final T[] result = java.util.Arrays.copyOf(a, aLength+1);
+		result[aLength] = b;
+		return result;
+	}
+
+	public static <T> T[] append(final T[] a, final T[] b)
+	{
+		final int aLength = a.length;
+		final int bLength = b.length;
+		final T[] result = java.util.Arrays.copyOf(a, aLength+bLength);
+		System.arraycopy(b, 0, result, aLength, bLength);
+		return result;
+	}
+
+	public static <T> T[] prepend(final T a, final T[] b)
+	{
+		final int bLength = b.length;
+		@SuppressWarnings("unchecked")
+		final T[] result = (T[])Array.newInstance(b.getClass().getComponentType(), bLength+1);
+		result[0] = a;
+		System.arraycopy(b, 0, result, 1, bLength);
+		return result;
 	}
 
 	/**

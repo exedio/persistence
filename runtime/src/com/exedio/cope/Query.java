@@ -565,24 +565,12 @@ public final class Query<R> implements Serializable
 		if(this.orderBy==null)
 			this.orderBy = new Function<?>[]{ orderBy };
 		else
-		{
-			final int l = this.orderBy.length;
-			final Function<?>[] result = new Function<?>[l+1];
-			System.arraycopy(this.orderBy, 0, result, 0, l);
-			result[l] = orderBy;
-			this.orderBy = result;
-		}
+			this.orderBy = com.exedio.cope.misc.Arrays.append(this.orderBy, orderBy);
 
 		if(this.orderAscending==null)
 			this.orderAscending = new boolean[]{ ascending };
 		else
-		{
-			final int l = this.orderAscending.length;
-			final boolean[] result = new boolean[l+1];
-			System.arraycopy(this.orderAscending, 0, result, 0, l);
-			result[l] = ascending;
-			this.orderAscending = result;
-		}
+			this.orderAscending = com.exedio.cope.misc.Arrays.append(this.orderAscending, ascending);
 	}
 
 	public void resetOrderBy()

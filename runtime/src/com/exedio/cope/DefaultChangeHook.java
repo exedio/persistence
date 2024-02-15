@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.misc.Arrays;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -75,11 +76,8 @@ public final class DefaultChangeHook implements ChangeHook
 			else if(inherited==null)
 				result = new Method[]{declared};
 			else
-			{
-				result = new Method[inherited.length+1];
-				result[0] = declared;
-				System.arraycopy(inherited, 0, result, 1, inherited.length);
-			}
+				result = Arrays.prepend(declared, inherited);
+
 			if(beforeNewItemMethods.putIfAbsent(type, result)!=null)
 				throw new RuntimeException(type.id);
 			//noinspection AssertWithSideEffects OK: done is maintained just for assertions

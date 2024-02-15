@@ -24,6 +24,7 @@ import static com.exedio.cope.TypesBound.future;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.misc.Arrays;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
 import java.util.SortedSet;
@@ -214,11 +215,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(this.copyTo==null)
 			return new CopyTo[]{copyTo};
 
-		final int length = this.copyTo.length;
-		final CopyTo[] result = new CopyTo[length+1];
-		System.arraycopy(this.copyTo, 0, result, 0, length);
-		result[length] = copyTo;
-		return result;
+		return Arrays.append(this.copyTo, copyTo);
 	}
 
 	private static final class CopyTo

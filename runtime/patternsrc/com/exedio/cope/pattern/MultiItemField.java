@@ -552,10 +552,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		if(map.get(componentClass)!=null)
 		{
 			final FunctionField<?>[] copys = map.get(componentClass);
-			final int length = copys.length;
-			final FunctionField<?>[] result = new FunctionField<?>[length + 1];
-			System.arraycopy(copys, 0, result, 0, length);
-			result[length] = copy;
+			final FunctionField<?>[] result = Arrays.append(copys, copy);
 			map.put(componentClass, result);
 		}
 		else
