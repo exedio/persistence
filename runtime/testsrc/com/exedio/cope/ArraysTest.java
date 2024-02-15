@@ -22,7 +22,6 @@ import static com.exedio.cope.misc.Arrays.copyOf;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.misc.Arrays;
 import org.junit.jupiter.api.Test;
@@ -79,24 +78,15 @@ public class ArraysTest
 
 	@Test void testIt()
 	{
-		try
-		{
-			Arrays.toString(null, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("limit must be greater that zero, but was 0", e.getMessage());
-		}
-		try
-		{
-			Arrays.append(null, null, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("limit must be greater that zero, but was 0", e.getMessage());
-		}
+		assertFails(
+				() -> Arrays.toString(null, 0),
+				IllegalArgumentException.class,
+				"limit must be greater that zero, but was 0");
+		assertFails(
+				() -> Arrays.append(null, null, 0),
+				IllegalArgumentException.class,
+				"limit must be greater that zero, but was 0");
+
 		assertIt("null", null, 1);
 		assertIt("[]", new byte[]{}, 1);
 		assertIt("[20]",         new byte[]{20}, 1);
