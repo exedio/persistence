@@ -25,10 +25,10 @@ import static com.exedio.cope.Cope.equal;
 import static com.exedio.cope.Cope.notEqual;
 import static com.exedio.cope.Cope.or;
 import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CompositeCondition.Operator;
 import java.util.Arrays;
@@ -150,42 +150,22 @@ public class CompositeConditionCopeTest
 	private static void assertNullPointerException(final Condition[] conditions, final String expectedMessage)
 	{
 		final List<Condition> conditionsList = conditions!=null ? Arrays.asList(conditions) : null;
-		try
-		{
-			and(conditions);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
-		try
-		{
-			and(conditionsList);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
-		try
-		{
-			or(conditions);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
-		try
-		{
-			or(conditionsList);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(expectedMessage, e.getMessage());
-		}
+		assertFails(
+				() -> and(conditions),
+				NullPointerException.class,
+				expectedMessage);
+		assertFails(
+				() -> and(conditionsList),
+				NullPointerException.class,
+				expectedMessage);
+		assertFails(
+				() -> or(conditions),
+				NullPointerException.class,
+				expectedMessage);
+		assertFails(
+				() -> or(conditionsList),
+				NullPointerException.class,
+				expectedMessage);
 	}
 
 
