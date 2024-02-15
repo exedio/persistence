@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
@@ -178,11 +179,7 @@ public abstract class FunctionField<E> extends Field<E>
 		if(this.copyFrom==null)
 			return new CopyFrom[]{copyFrom};
 
-		final int length = this.copyFrom.length;
-		final CopyFrom[] result = new CopyFrom[length+1];
-		System.arraycopy(this.copyFrom, 0, result, 0, length);
-		result[length] = copyFrom;
-		return result;
+		return Arrays.append(this.copyFrom, copyFrom);
 	}
 
 	protected static final class CopyFrom

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.misc.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
@@ -309,16 +310,12 @@ public final class CompositeCondition extends Condition
 			{
 				final CompositeCondition right = (CompositeCondition)rightCondition;
 
-				final Condition[] c = new Condition[left.conditions.length + right.conditions.length];
-				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
-				System.arraycopy(right.conditions, 0, c, left.conditions.length, right.conditions.length);
+				final Condition[] c = Arrays.append(left.conditions, right.conditions);
 				return new CompositeCondition(operator, c);
 			}
 			else
 			{
-				final Condition[] c = new Condition[left.conditions.length + 1];
-				System.arraycopy(left.conditions, 0, c, 0, left.conditions.length);
-				c[left.conditions.length] = rightCondition;
+				final Condition[] c = Arrays.append(left.conditions, rightCondition);
 				return new CompositeCondition(operator, c);
 			}
 		}
@@ -328,9 +325,7 @@ public final class CompositeCondition extends Condition
 			{
 				final CompositeCondition right = (CompositeCondition)rightCondition;
 
-				final Condition[] c = new Condition[1 + right.conditions.length];
-				c[0] = leftCondition;
-				System.arraycopy(right.conditions, 0, c, 1, right.conditions.length);
+				final Condition[] c = Arrays.prepend(leftCondition, right.conditions);
 				return new CompositeCondition(operator, c);
 			}
 			else

@@ -78,10 +78,7 @@ public final class SetValueUtil
 	{
 		requireNonNull(value, "value");
 
-		final SetValue<?>[] result = new SetValue<?>[setValues.length + 1];
-		System.arraycopy(setValues, 0, result, 0, setValues.length);
-		result[result.length - 1] = value;
-		return result;
+		return Arrays.append(setValues, value);
 	}
 
 

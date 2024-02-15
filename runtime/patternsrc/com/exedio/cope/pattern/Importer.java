@@ -173,7 +173,7 @@ public final class Importer<K> extends Pattern
 		SetValue<?>[] setValuesNew = setValues;
 		for (int i = 0; i < keys.size(); i++)
 		{
-			setValuesNew = prepend(mapChecked(constraint.getFields().get(i), keys.get(i)), setValuesNew);
+			setValuesNew = com.exedio.cope.misc.Arrays.prepend(mapChecked(constraint.getFields().get(i), keys.get(i)), setValuesNew);
 		}
 		return setValuesNew;
 	}
@@ -193,14 +193,6 @@ public final class Importer<K> extends Pattern
 	public void setHintInitialExerimental(final boolean hintInitial)
 	{
 		this.hintInitial = hintInitial;
-	}
-
-	private static SetValue<?>[] prepend(final SetValue<?> head, final SetValue<?>[] tail)
-	{
-		final SetValue<?>[] result = new SetValue<?>[tail.length + 1];
-		result[0] = head;
-		System.arraycopy(tail, 0, result, 1, tail.length);
-		return result;
 	}
 
 	private static class ImportMulti implements FeaturesGetter<Importer<?>>
