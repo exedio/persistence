@@ -22,13 +22,14 @@ import static com.exedio.cope.Condition.ofFalse;
 import static com.exedio.cope.Condition.ofTrue;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
+import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.misc.Arrays;
 import gnu.trove.TIntHashSet;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -226,7 +227,7 @@ public final class Query<R> implements Serializable
 	private static Selectable<?>[] checkAndCopy(final Selectable<?>[] selects)
 	{
 		if(selects.length<2)
-			throw new IllegalArgumentException("must have at least 2 selects, but was " + Arrays.asList(selects));
+			throw new IllegalArgumentException("must have at least 2 selects, but was " + asList(selects));
 		for(int i = 0; i<selects.length; i++)
 			if(selects[i]==null)
 				throw new NullPointerException("selects" + '[' + i + ']');
@@ -565,12 +566,12 @@ public final class Query<R> implements Serializable
 		if(this.orderBy==null)
 			this.orderBy = new Function<?>[]{ orderBy };
 		else
-			this.orderBy = com.exedio.cope.misc.Arrays.append(this.orderBy, orderBy);
+			this.orderBy = Arrays.append(this.orderBy, orderBy);
 
 		if(this.orderAscending==null)
 			this.orderAscending = new boolean[]{ ascending };
 		else
-			this.orderAscending = com.exedio.cope.misc.Arrays.append(this.orderAscending, ascending);
+			this.orderAscending = Arrays.append(this.orderAscending, ascending);
 	}
 
 	public void resetOrderBy()
@@ -1427,7 +1428,7 @@ public final class Query<R> implements Serializable
 					}
 					if(resultRow!=null)
 						//noinspection Java9CollectionFactory OK: resultRow may contain null
-						result.add(Collections.unmodifiableList(Arrays.asList(resultRow)));
+						result.add(Collections.unmodifiableList(asList(resultRow)));
 				}
 
 				return null;

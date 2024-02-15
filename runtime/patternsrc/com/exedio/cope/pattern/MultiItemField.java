@@ -549,16 +549,11 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		}
 
 		final LinkedHashMap<Class<? extends Item>, FunctionField<?>[]> map = new LinkedHashMap<>(copyToMap);
-		if(map.get(componentClass)!=null)
-		{
-			final FunctionField<?>[] copys = map.get(componentClass);
-			final FunctionField<?>[] result = Arrays.append(copys, copy);
-			map.put(componentClass, result);
-		}
-		else
-		{
-			map.put(componentClass, new FunctionField<?>[]{copy});
-		}
+		map.put(componentClass,
+				map.get(componentClass)!=null
+				? Arrays.append(map.get(componentClass), copy)
+				: new FunctionField<?>[]{copy});
+
 		return new MultiItemField<>(isFinal, optional, unique, policy, map, valueClass, componentClasses);
 	}
 }

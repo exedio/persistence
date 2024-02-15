@@ -62,8 +62,7 @@ final class CopyFields implements Serializable
 			if (add.equals(field))
 				throw new IllegalArgumentException("added '"+add+"' twice");
 		}
-		final FunctionField<?>[] result = Arrays.append(fields, add);
-		return new CopyFields(result);
+		return new CopyFields(Arrays.append(fields, add));
 	}
 
 	static void onMountAll(final Features features, final ItemField<?> parent, final FunctionField<?>[] elements, final CopyFields[] copyFields)

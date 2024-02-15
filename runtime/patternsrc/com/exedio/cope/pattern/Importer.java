@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SetValue.map;
+import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.FunctionField;
@@ -33,8 +34,8 @@ import com.exedio.cope.instrument.FeaturesGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.SetValueUtil;
-import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -146,7 +147,7 @@ public final class Importer<K> extends Pattern
 			@Nonnull @Parameter("setValues") final List<SetValue<?>> setValues,
 			@Nonnull final Object... values)
 	{
-		return doImportInternal(parentClass, Arrays.asList(values), SetValueUtil.toArray(setValues));
+		return doImportInternal(parentClass, asList(values), SetValueUtil.toArray(setValues));
 	}
 
 	private <P extends Item> P doImportInitial(
@@ -173,7 +174,7 @@ public final class Importer<K> extends Pattern
 		SetValue<?>[] setValuesNew = setValues;
 		for (int i = 0; i < keys.size(); i++)
 		{
-			setValuesNew = com.exedio.cope.misc.Arrays.prepend(mapChecked(constraint.getFields().get(i), keys.get(i)), setValuesNew);
+			setValuesNew = Arrays.prepend(mapChecked(constraint.getFields().get(i), keys.get(i)), setValuesNew);
 		}
 		return setValuesNew;
 	}
