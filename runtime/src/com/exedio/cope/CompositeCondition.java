@@ -310,13 +310,11 @@ public final class CompositeCondition extends Condition
 			{
 				final CompositeCondition right = (CompositeCondition)rightCondition;
 
-				final Condition[] c = Arrays.append(left.conditions, right.conditions);
-				return new CompositeCondition(operator, c);
+				return new CompositeCondition(operator, Arrays.append(left.conditions, right.conditions));
 			}
 			else
 			{
-				final Condition[] c = Arrays.append(left.conditions, rightCondition);
-				return new CompositeCondition(operator, c);
+				return new CompositeCondition(operator, Arrays.append(left.conditions, rightCondition));
 			}
 		}
 		else
@@ -325,8 +323,7 @@ public final class CompositeCondition extends Condition
 			{
 				final CompositeCondition right = (CompositeCondition)rightCondition;
 
-				final Condition[] c = Arrays.prepend(leftCondition, right.conditions);
-				return new CompositeCondition(operator, c);
+				return new CompositeCondition(operator, Arrays.prepend(leftCondition, right.conditions));
 			}
 			else
 			{
