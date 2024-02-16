@@ -307,35 +307,35 @@ public final class CompositeCondition extends Condition
 
 	private static Condition compositeFlattening(
 			final Operator operator,
-			final Condition leftCondition,
-			final Condition rightCondition)
+			final Condition left,
+			final Condition right)
 	{
-		if(leftCondition instanceof CompositeCondition && ((CompositeCondition)leftCondition).operator==operator)
+		if(left instanceof CompositeCondition && ((CompositeCondition)left).operator==operator)
 		{
-			final Condition[] leftConditions = ((CompositeCondition)leftCondition).conditions;
+			final Condition[] leftConditions = ((CompositeCondition)left).conditions;
 
-			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
+			if(right instanceof CompositeCondition && ((CompositeCondition)right).operator==operator)
 			{
-				final Condition[] rightConditions = ((CompositeCondition)rightCondition).conditions;
+				final Condition[] rightConditions = ((CompositeCondition)right).conditions;
 
 				return new CompositeCondition(operator, Arrays.append(leftConditions, rightConditions));
 			}
 			else
 			{
-				return new CompositeCondition(operator, Arrays.append(leftConditions, rightCondition));
+				return new CompositeCondition(operator, Arrays.append(leftConditions, right));
 			}
 		}
 		else
 		{
-			if(rightCondition instanceof CompositeCondition && ((CompositeCondition)rightCondition).operator==operator)
+			if(right instanceof CompositeCondition && ((CompositeCondition)right).operator==operator)
 			{
-				final Condition[] rightConditions = ((CompositeCondition)rightCondition).conditions;
+				final Condition[] rightConditions = ((CompositeCondition)right).conditions;
 
-				return new CompositeCondition(operator, Arrays.prepend(leftCondition, rightConditions));
+				return new CompositeCondition(operator, Arrays.prepend(left, rightConditions));
 			}
 			else
 			{
-				return new CompositeCondition(operator, leftCondition, rightCondition);
+				return new CompositeCondition(operator, left, right);
 			}
 		}
 	}
