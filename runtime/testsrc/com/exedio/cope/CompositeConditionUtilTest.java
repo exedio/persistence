@@ -107,8 +107,18 @@ public class CompositeConditionUtilTest
 				() -> newCompositeCondition(OR, asList(c1, TRUE)),
 				IllegalArgumentException.class,
 				"conditions[1] must not be a literal, but was TRUE");
+	}
 
-		// test flattening of CompositeCondition
+	/**
+	 * @see CompositeConditionCopeTest#testFlatting()
+	 */
+	@Test void testFlatting()
+	{
+		final DoubleField field = new DoubleField().optional();
+		final Condition c1 = field.equal(1d);
+		final Condition c2 = field.equal(2d);
+		final Condition c3 = field.equal(3d);
+
 		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
 		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2.and(c3)));
 		assertEquals(newCompositeCondition(OR,  c1, c2, c3), c1.or(c2).or(c3));
