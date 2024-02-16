@@ -76,21 +76,21 @@ public class CompositeConditionUtilTest
 				NullPointerException.class,
 				"conditions[0]");
 		assertFails(
-				() -> newCompositeCondition(AND, TRUE),
+				() -> newCompositeCondition(AND, c1, TRUE),
 				IllegalArgumentException.class,
-				"conditions[0] must not be a literal, but was TRUE");
+				"conditions[1] must not be a literal, but was TRUE");
 		assertFails(
-				() -> newCompositeCondition(AND, asList(TRUE)),
+				() -> newCompositeCondition(AND, asList(c1, TRUE)),
 				IllegalArgumentException.class,
-				"conditions[0] must not be a literal, but was TRUE");
+				"conditions[1] must not be a literal, but was TRUE");
 		assertFails(
-				() -> newCompositeCondition(OR, TRUE),
+				() -> newCompositeCondition(OR, c1, TRUE),
 				IllegalArgumentException.class,
-				"conditions[0] must not be a literal, but was TRUE");
+				"conditions[1] must not be a literal, but was TRUE");
 		assertFails(
-				() -> newCompositeCondition(OR, asList(TRUE)),
+				() -> newCompositeCondition(OR, asList(c1, TRUE)),
 				IllegalArgumentException.class,
-				"conditions[0] must not be a literal, but was TRUE");
+				"conditions[1] must not be a literal, but was TRUE");
 
 		// test flattening of CompositeCondition
 		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
