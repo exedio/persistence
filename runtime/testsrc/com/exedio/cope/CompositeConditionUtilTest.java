@@ -64,6 +64,22 @@ public class CompositeConditionUtilTest
 				IllegalArgumentException.class,
 				"conditions must not be empty");
 		assertFails(
+				() -> newCompositeCondition(AND, c1),
+				IllegalArgumentException.class,
+				"conditions must contain more than one element");
+		assertFails(
+				() -> newCompositeCondition(AND, List.of(c1)),
+				IllegalArgumentException.class,
+				"conditions must contain more than one element");
+		assertFails(
+				() -> newCompositeCondition(OR, c1),
+				IllegalArgumentException.class,
+				"conditions must contain more than one element");
+		assertFails(
+				() -> newCompositeCondition(OR, List.of(c1)),
+				IllegalArgumentException.class,
+				"conditions must contain more than one element");
+		assertFails(
 				() -> newCompositeCondition(AND, asList((Condition)null)),
 				NullPointerException.class,
 				"conditions[0]");

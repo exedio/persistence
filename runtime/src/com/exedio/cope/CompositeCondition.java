@@ -59,6 +59,9 @@ public final class CompositeCondition extends Condition
 	{
 		this.operator = requireNonNull(operator, "operator");
 		this.conditions = requireNonEmptyAndCopy(conditions, "conditions");
+		if(conditions.length<2)
+			throw new IllegalArgumentException(
+					"conditions must contain more than one element");
 
 		for(int i = 0; i<conditions.length; i++)
 		{
