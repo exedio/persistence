@@ -35,7 +35,7 @@ final class SuppressWarningsItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if field violates its length constraint.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"constructor-first","constructor-second","deprecation"})
 	SuppressWarningsItem(
 				@javax.annotation.Nonnull final java.lang.String field)
@@ -51,13 +51,13 @@ final class SuppressWarningsItem extends Item
 	/**
 	 * Creates a new SuppressWarningsItem and sets the given fields initially.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(genericConstructor=...)
 	private SuppressWarningsItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.GeneratedClass // customize with @Wrapper(wrap="get")
 	@java.lang.SuppressWarnings("wrapper-single")
 	@javax.annotation.Nonnull
 	final java.lang.String getField()
@@ -68,7 +68,7 @@ final class SuppressWarningsItem extends Item
 	/**
 	 * Sets a new value for {@link #field}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.GeneratedClass // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings("wrapper-single")
 	final void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
@@ -78,13 +78,13 @@ final class SuppressWarningsItem extends Item
 		SuppressWarningsItem.field.set(this,field);
 	}
 
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	private static final long serialVersionUID = 1;
 
 	/**
 	 * The persistent type information for suppressWarningsItem.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
 	static final com.exedio.cope.Type<SuppressWarningsItem> TYPE = com.exedio.cope.TypesBound.newType(SuppressWarningsItem.class);
 
@@ -92,6 +92,6 @@ final class SuppressWarningsItem extends Item
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	private SuppressWarningsItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

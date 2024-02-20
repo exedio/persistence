@@ -19,9 +19,11 @@
 package com.exedio.cope.instrument;
 
 import static com.exedio.cope.util.Check.requireNonNegative;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.CharSet;
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -53,6 +55,29 @@ final class Params
 	String getMaxwarns()
 	{
 		return String.valueOf(maxwarns);
+	}
+
+	GeneratedAnnotationRetention generatedAnnotationRetention = GeneratedAnnotationRetention.SOURCE;
+
+	enum GeneratedAnnotationRetention
+	{
+		/**
+		 * Corresponds to {@link java.lang.annotation.RetentionPolicy#SOURCE}
+		 */
+		SOURCE(Generated.class),
+
+		/**
+		 * Corresponds to {@link java.lang.annotation.RetentionPolicy#CLASS}
+		 */
+		@SuppressWarnings("unused") // OK: accessed by ant via reflection
+		CLASS(GeneratedClass.class);
+
+		final Class<? extends Annotation> clazz;
+
+		GeneratedAnnotationRetention(final Class<? extends Annotation> clazz)
+		{
+			this.clazz = requireNonNull(clazz);
+		}
 	}
 
 	boolean nullabilityAnnotations = false;
