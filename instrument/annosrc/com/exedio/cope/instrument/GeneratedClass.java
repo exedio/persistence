@@ -22,7 +22,7 @@ import static java.lang.annotation.ElementType.CONSTRUCTOR;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static java.lang.annotation.RetentionPolicy.CLASS;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -31,16 +31,11 @@ import java.lang.annotation.Target;
  * This annotation is used to mark source code that has been generated
  * by the cope instrumentor.
  * <p>
- * This annotation has {@link java.lang.annotation.RetentionPolicy#SOURCE source} retention.
- * If you need {@link java.lang.annotation.RetentionPolicy#CLASS class} retention,
- * set
- * <pre>
- *    &lt;instrument generatedAnnotationRetention="CLASS" ...
- * </pre>
- * to use {@link GeneratedClass} instead.
+ * Differs from {@link Generated} by specifying
+ * {@link java.lang.annotation.RetentionPolicy#CLASS class} retention.
  */
-@Retention(SOURCE)
+@Retention(CLASS)
 @Target({TYPE, METHOD, CONSTRUCTOR, FIELD})
-public @interface Generated
+public @interface GeneratedClass
 {
 }

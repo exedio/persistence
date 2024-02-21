@@ -135,6 +135,13 @@ public final class AntTask extends Task
 		throwNoLongerSupported("javaxAnnotationGenerated", false);
 	}
 
+	public void setGeneratedAnnotationRetention(
+			@SuppressWarnings("ClassEscapesDefinedScope") // OK: method is called generically via reflection
+			final Params.GeneratedAnnotationRetention value)
+	{
+		params.generatedAnnotationRetention = value;
+	}
+
 	public void setNullabilityAnnotations(final boolean value)
 	{
 		params.nullabilityAnnotations = value;

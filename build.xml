@@ -771,6 +771,7 @@
 				useConstantForEmptySetValuesArray="false"
 				activator="false"
 				directSetValueMap="false"
+				generatedAnnotationRetention="CLASS"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<classpath>

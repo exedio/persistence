@@ -42,7 +42,7 @@ public final class UTF8Item extends Item
 	/**
 	 * Creates a new UTF8Item with all the fields initially needed.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"constructor-first","constructor-second"})
 	public UTF8Item()
 	{
@@ -53,13 +53,13 @@ public final class UTF8Item extends Item
 	/**
 	 * Creates a new UTF8Item and sets the given fields initially.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(genericConstructor=...)
 	private UTF8Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #string}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.GeneratedClass // customize with @Wrapper(wrap="get")
 	@java.lang.SuppressWarnings("wrapper-single")
 	@javax.annotation.Nonnull
 	public final java.lang.String getString()
@@ -70,7 +70,7 @@ public final class UTF8Item extends Item
 	/**
 	 * Sets a new value for {@link #string}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.GeneratedClass // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings("wrapper-single")
 	public final void setString(@javax.annotation.Nonnull final java.lang.String string)
 			throws
@@ -80,13 +80,13 @@ public final class UTF8Item extends Item
 		UTF8Item.string.set(this,string);
 	}
 
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	private static final long serialVersionUID = 1;
 
 	/**
 	 * The persistent type information for uTF8Item.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
 	public static final com.exedio.cope.Type<UTF8Item> TYPE = com.exedio.cope.TypesBound.newType(UTF8Item.class);
 
@@ -94,6 +94,6 @@ public final class UTF8Item extends Item
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	private UTF8Item(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

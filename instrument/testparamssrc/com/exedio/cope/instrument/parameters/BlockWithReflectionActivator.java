@@ -22,13 +22,13 @@ import com.exedio.cope.pattern.Block;
 
 final class BlockWithReflectionActivator extends Block
 {
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	private static final long serialVersionUID = 1;
 
 	/**
 	 * The type information for blockWithReflectionActivator.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
 	static final com.exedio.cope.pattern.BlockType<BlockWithReflectionActivator> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWithReflectionActivator.class);
 
@@ -36,6 +36,6 @@ final class BlockWithReflectionActivator extends Block
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	private BlockWithReflectionActivator(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }

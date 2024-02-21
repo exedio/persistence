@@ -26,7 +26,7 @@ abstract class AbstractItem extends Item
 	/**
 	 * Creates a new AbstractItem with all the fields initially needed.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"constructor-first","constructor-second"})
 	AbstractItem()
 	{
@@ -37,16 +37,16 @@ abstract class AbstractItem extends Item
 	/**
 	 * Creates a new AbstractItem and sets the given fields initially.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(genericConstructor=...)
 	protected AbstractItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	private static final long serialVersionUID = 2;
 
 	/**
 	 * The persistent type information for abstractItem.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
 	static final com.exedio.cope.Type<AbstractItem> TYPE = com.exedio.cope.TypesBound.newType(AbstractItem.class);
 
@@ -54,6 +54,6 @@ abstract class AbstractItem extends Item
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@com.exedio.cope.instrument.Generated
+	@com.exedio.cope.instrument.GeneratedClass
 	protected AbstractItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

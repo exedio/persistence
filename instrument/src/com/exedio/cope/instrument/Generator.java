@@ -66,6 +66,7 @@ final class Generator
 	private final JavaFile javaFile;
 	private final StringBuilder output;
 	private final String lineSeparator;
+	private final Class<? extends Annotation> generatedAnnotationClass;
 	private final boolean nullabilityAnnotations;
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
@@ -99,6 +100,7 @@ final class Generator
 		this.javaFile = javaFile;
 		this.output = output;
 		this.lineSeparator = System.lineSeparator();
+		this.generatedAnnotationClass = params.generatedAnnotationRetention.clazz;
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
@@ -181,7 +183,7 @@ final class Generator
 			final String extraCommentForAnnotations)
 	{
 		writeIndent();
-		writeAnnotation(Generated.class);
+		writeAnnotation(generatedAnnotationClass);
 		if(typeContext.comments && extraCommentForAnnotations!=null)
 		{
 			write(" // ");
