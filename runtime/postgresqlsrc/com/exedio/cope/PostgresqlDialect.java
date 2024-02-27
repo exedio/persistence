@@ -204,7 +204,7 @@ final class PostgresqlDialect extends Dialect
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(e);
+			throw new RuntimeException(field.toString(), e);
 		}
 	}
 
