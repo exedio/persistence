@@ -19,9 +19,10 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.util.Hex.decodeLower;
+import static com.exedio.cope.util.Hex.encodeLower;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.util.Hex;
 import org.junit.jupiter.api.Test;
 
 public class DataConsumerTest
@@ -30,62 +31,62 @@ public class DataConsumerTest
 	{
 		final DataConsumer c = new DataConsumer(4);
 		c.acceptLength(50);
-		assertEquals("", Hex.encodeLower(c.start()));
+		assertEquals("", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower("01020304"), 4);
-		assertEquals("01020304", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("01020304"), 4);
+		assertEquals("01020304", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower("abcd"), 2);
-		assertEquals("01020304", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("abcd"), 2);
+		assertEquals("01020304", encodeLower(c.start()));
 	}
 	@Test void testOneUpdateOver()
 	{
 		final DataConsumer c = new DataConsumer(4);
 		c.acceptLength(50);
-		assertEquals("", Hex.encodeLower(c.start()));
+		assertEquals("", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower("0102030405"), 5);
-		assertEquals("01020304", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("0102030405"), 5);
+		assertEquals("01020304", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower("abcd"), 2);
-		assertEquals("01020304", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("abcd"), 2);
+		assertEquals("01020304", encodeLower(c.start()));
 	}
 	@Test void testTwoUpdates()
 	{
 		final DataConsumer c = new DataConsumer(6);
 		c.acceptLength(50);
-		assertEquals("", Hex.encodeLower(c.start()));
+		assertEquals("", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower("01020304"), 4);
-		assertEquals("01020304", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("01020304"), 4);
+		assertEquals("01020304", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower("abcd"), 2);
-		assertEquals("01020304abcd", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("abcd"), 2);
+		assertEquals("01020304abcd", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower("ee"), 1);
-		assertEquals("01020304abcd", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("ee"), 1);
+		assertEquals("01020304abcd", encodeLower(c.start()));
 	}
 	@Test void testEmptyUpdate()
 	{
 		final DataConsumer c = new DataConsumer(4);
 		c.acceptLength(50);
-		assertEquals("", Hex.encodeLower(c.start()));
+		assertEquals("", encodeLower(c.start()));
 
-		c.acceptBytes(Hex.decodeLower(""), 0);
-		assertEquals("", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower(""), 0);
+		assertEquals("", encodeLower(c.start()));
 	}
 	@Test void testLengthMore()
 	{
 		final DataConsumer c = new DataConsumer(20);
 		c.acceptLength(50);
-		c.acceptBytes(Hex.decodeLower("01020304"), 3);
-		assertEquals("010203", Hex.encodeLower(c.start()));
+		c.acceptBytes(decodeLower("01020304"), 3);
+		assertEquals("010203", encodeLower(c.start()));
 	}
 	@Test void testLengthLess()
 	{
 		final DataConsumer c = new DataConsumer(20);
 		c.acceptLength(50);
-		final byte[] input = Hex.decodeLower("01020304");
+		final byte[] input = decodeLower("01020304");
 		assertFails(
 				() -> c.acceptBytes(input, 5),
 				ArrayIndexOutOfBoundsException.class,
@@ -95,9 +96,9 @@ public class DataConsumerTest
 	{
 		final DataConsumer c = new DataConsumer(0);
 		c.acceptLength(50);
-		assertEquals("", Hex.encodeLower(c.start()));
-		c.acceptBytes(Hex.decodeLower("010203"), 3);
-		assertEquals("", Hex.encodeLower(c.start()));
-		c.acceptBytes(Hex.decodeLower(""), 0);
+		assertEquals("", encodeLower(c.start()));
+		c.acceptBytes(decodeLower("010203"), 3);
+		assertEquals("", encodeLower(c.start()));
+		c.acceptBytes(decodeLower(""), 0);
 	}
 }
