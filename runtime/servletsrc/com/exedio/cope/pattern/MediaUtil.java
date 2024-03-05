@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.DataField;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -103,13 +102,11 @@ public final class MediaUtil
 		if(contentLength==0)
 			return;
 
-		final byte[] b = new byte[DataField.min(8*1024, contentLength)];
 		try(
 			FileInputStream in = new FileInputStream(body);
 			ServletOutputStream out = response.getOutputStream())
 		{
-			for(int len = in.read(b); len>=0; len = in.read(b))
-				out.write(b, 0, len);
+			in.transferTo(out);
 		}
 	}
 
