@@ -248,7 +248,6 @@ public class DataDigestTest
 	public void assertAsArray(final byte[] expected, final Value value)
 	{
 		final DataField field = new DataField();
-		field.setBufferSize(5000, 10000);
 		assertData(expected, value.asArray(field, null));
 	}
 }

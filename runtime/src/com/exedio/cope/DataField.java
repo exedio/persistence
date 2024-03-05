@@ -121,8 +121,6 @@ public final class DataField extends Field<DataField.Value>
 
 	private Model model;
 	private DataFieldStore store;
-	private int bufferSizeDefault = -1;
-	private int bufferSizeLimit = -1;
 
 	@Override
 	Column createColumn(
@@ -142,8 +140,6 @@ public final class DataField extends Field<DataField.Value>
 					)
 				? new DataFieldBlobStore (this, table, name, optional, maximumLength)
 				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, connect, metrics);
-		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault, maximumLength);
-		bufferSizeLimit   = min(properties.dataFieldBufferSizeLimit  , maximumLength);
 
 		return store.column();
 	}
@@ -168,17 +164,6 @@ public final class DataField extends Field<DataField.Value>
 	void put(final Entity entity, final Value value, final Item exceptionItem) // just for DataVault
 	{
 		store.put(entity, value, exceptionItem);
-	}
-
-	/**
-	 * for tests only
-	 */
-	void setBufferSize(final int defaulT, final int limit)
-	{
-		assert defaulT!=-1;
-		assert limit!=-1;
-		this.bufferSizeDefault = defaulT;
-		this.bufferSizeLimit   = limit;
 	}
 
 	/**
@@ -488,29 +473,7 @@ public final class DataField extends Field<DataField.Value>
 
 	void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
 	{
-		copy(in, out, bufferSizeDefault, exceptionItem);
-	}
-
-	void copy(final InputStream in, final OutputStream out, final long length, final Item exceptionItem) throws IOException
-	{
-		if(length==0)
-			return;
-
-		assert length>0;
-
-		final byte[] b = new byte[min(bufferSizeLimit, length)];
-		//System.out.println("-------------- "+length+" ----- "+b.length);
-
-		final long maximumLength = this.maximumLength;
-		long transferredLength = 0;
-		for(int len = in.read(b); len>=0; len = in.read(b))
-		{
-			transferredLength += len;
-			if(transferredLength>maximumLength)
-				throw new DataLengthViolationException(this, exceptionItem, transferredLength, false);
-
-			out.write(b, 0, len);
-		}
+		in.transferTo(new DataLengthViolationOutputStream(this, out, exceptionItem));
 	}
 
 	public abstract static class Value
