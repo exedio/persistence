@@ -606,13 +606,11 @@ public class MediaServletTest
 		}
 		else
 		{
-			final byte[] b = new byte[20000];
 			final File f = createTempFile(MediaServletTest.class.getName(), ".tmp");
 			System.out.println("----------- " + f.getAbsolutePath() + " ---------------");
 			try(OutputStream out = Files.newOutputStream(f.toPath()))
 			{
-				for(int len = in.read(b); len>=0; len = in.read(b))
-					out.write(b, 0, len);
+				in.transferTo(out);
 			}
 			in.close();
 			StrictFile.delete(f);
