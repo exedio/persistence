@@ -44,6 +44,11 @@ final class DataLengthViolationOutputStream extends LengthLimitingOutputStream
 		return new DataLengthViolationException(field, exceptionItem, transferred, false);
 	}
 
+	String fieldString()
+	{
+		return field.toString();
+	}
+
 	@Override
 	public void flush()
 	{

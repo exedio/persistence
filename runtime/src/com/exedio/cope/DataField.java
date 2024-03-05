@@ -471,9 +471,9 @@ public final class DataField extends Field<DataField.Value>
 			throw new DataLengthViolationException(this, item, lengthIfKnown, true);
 	}
 
-	void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
+	DataLengthViolationOutputStream wrap(final OutputStream back, final Item exceptionItem)
 	{
-		in.transferTo(new DataLengthViolationOutputStream(this, out, exceptionItem));
+		return new DataLengthViolationOutputStream(this, back, exceptionItem);
 	}
 
 	public abstract static class Value
@@ -643,7 +643,7 @@ public final class DataField extends Field<DataField.Value>
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			try(InputStream stream = openStream())
 			{
-				field.copy(stream, baos, exceptionItem);
+				stream.transferTo(field.wrap(baos, exceptionItem));
 			}
 			return baos.toByteArray();
 		}
