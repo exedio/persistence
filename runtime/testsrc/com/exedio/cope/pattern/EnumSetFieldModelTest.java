@@ -105,6 +105,6 @@ public class EnumSetFieldModelTest
 
 	@Test void testInitialType()
 	{
-		assertEquals("java.util.EnumSet<" + Language.class.getName() + ">", activeLanguage.getInitialType().toString());
+		assertEquals("java.util.Set<" + Language.class.getName() + ">", activeLanguage.getInitialType().toString());
 	}
 }

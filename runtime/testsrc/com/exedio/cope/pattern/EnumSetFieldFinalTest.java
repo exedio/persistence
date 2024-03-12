@@ -95,7 +95,7 @@ public class EnumSetFieldFinalTest
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem(
-				@javax.annotation.Nonnull final java.util.EnumSet<AnEnum> field)
+				@javax.annotation.Nonnull final java.util.Set<AnEnum> field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.SetValue.map(AnItem.field,field),

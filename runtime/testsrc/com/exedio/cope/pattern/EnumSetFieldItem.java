@@ -52,7 +52,7 @@ public final class EnumSetFieldItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	EnumSetFieldItem(
-				@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
+				@javax.annotation.Nonnull final java.util.Set<Language> activeLanguage)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.SetValue.map(EnumSetFieldItem.activeLanguage,activeLanguage),
