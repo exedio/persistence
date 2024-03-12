@@ -156,7 +156,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem(
-				@javax.annotation.Nonnull final java.util.EnumMap<AnEnum,String> text)
+				@javax.annotation.Nonnull final java.util.Map<AnEnum,String> text)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
