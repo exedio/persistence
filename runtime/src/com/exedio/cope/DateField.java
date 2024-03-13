@@ -103,6 +103,12 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	@Override
+	public DateField mandatory()
+	{
+		return new DateField(isfinal, false, unique, copyFrom, defaultS, precision, roundingMode);
+	}
+
+	@Override
 	public DateField unique()
 	{
 		return new DateField(isfinal, optional, true, copyFrom, defaultS, precision, roundingMode);

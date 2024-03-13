@@ -124,6 +124,12 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
+	public LongField mandatory()
+	{
+		return new LongField(isfinal, false, unique, copyFrom, defaultS, minimum, maximum);
+	}
+
+	@Override
 	public LongField unique()
 	{
 		return new LongField(isfinal, optional, true, copyFrom, defaultS, minimum, maximum);

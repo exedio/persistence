@@ -312,9 +312,21 @@ public class FieldModifierTest
 		constantAssertions.accept(finalOptional);
 
 		@SuppressWarnings("unchecked")
+		final F finalMandatory = (F)finalOptional.mandatory();
+		assertEquals(true, finalMandatory.isFinal());
+		assertEquals(true, finalMandatory.isMandatory());
+		constantAssertions.accept(finalMandatory);
+
+		@SuppressWarnings("unchecked")
 		final F optional = (F)initial.optional();
 		assertEquals(false, optional.isFinal());
 		assertEquals(false, optional.isMandatory());
 		constantAssertions.accept(optional);
+
+		@SuppressWarnings("unchecked")
+		final F mandatory = (F)optional.mandatory();
+		assertEquals(false, mandatory.isFinal());
+		assertEquals(true, mandatory.isMandatory());
+		constantAssertions.accept(mandatory);
 	}
 }

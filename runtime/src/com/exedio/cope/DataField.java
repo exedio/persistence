@@ -81,6 +81,12 @@ public final class DataField extends Field<DataField.Value>
 		return new DataField(isfinal, true, maximumLength);
 	}
 
+	@Override
+	public DataField mandatory()
+	{
+		return new DataField(isfinal, false, maximumLength);
+	}
+
 	public DataField lengthMax(final long maximumLength)
 	{
 		return new DataField(isfinal, optional, maximumLength);

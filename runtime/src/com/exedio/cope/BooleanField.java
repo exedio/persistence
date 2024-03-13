@@ -66,6 +66,12 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	@Override
+	public BooleanField mandatory()
+	{
+		return new BooleanField(isfinal, false, unique, copyFrom, defaultS);
+	}
+
+	@Override
 	public BooleanField unique()
 	{
 		return new BooleanField(isfinal, optional, true, copyFrom, defaultS);
