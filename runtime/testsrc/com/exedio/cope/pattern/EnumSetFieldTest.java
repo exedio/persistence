@@ -33,6 +33,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import java.util.EnumSet;
+import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -187,7 +188,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 	@Test void testSetSettableNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));
-		final SetValue<EnumSet<Language>> map = SetValue.map(activeLanguage, null);
+		final SetValue<Set<Language>> map = SetValue.map(activeLanguage, null);
 
 		try
 		{

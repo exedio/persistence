@@ -43,7 +43,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
+public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<Set<E>>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -148,7 +148,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	@Override
-	public SetValue<?>[] execute(final EnumSet<E> value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Set<E> value, final Item exceptionItem)
 	{
 		if(value==null)
 			throw MandatoryViolationException.create(this, exceptionItem);
@@ -180,7 +180,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
-		return ReflectionTypes.parameterized(EnumSet.class, elementClass);
+		return ReflectionTypes.parameterized(Set.class, elementClass);
 	}
 
 	@Override
