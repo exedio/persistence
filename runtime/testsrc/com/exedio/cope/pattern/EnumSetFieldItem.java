@@ -96,7 +96,7 @@ public final class EnumSetFieldItem extends Item
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setActiveLanguage(@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
+	void setActiveLanguage(@javax.annotation.Nonnull final java.util.Set<? extends Language> activeLanguage)
 	{
 		EnumSetFieldItem.activeLanguage.set(this,activeLanguage);
 	}
