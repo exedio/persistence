@@ -211,6 +211,11 @@ public final class LongField extends NumberField<Long>
 		return this;
 	}
 
+	public boolean isDefaultRandom()
+	{
+		return defaultS instanceof DefaultRandom;
+	}
+
 	public long getMinimum()
 	{
 		return minimum;
