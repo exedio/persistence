@@ -125,8 +125,8 @@ public class EnumMapFieldModelTest
 
 	@Test void testInitialType()
 	{
-		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.String>" , name      .getInitialType().toString());
-		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.Integer>", nameLength.getInitialType().toString());
+		assertEquals("java.util.Map<" + Language.class.getName() + ", java.lang.String>" , name      .getInitialType().toString());
+		assertEquals("java.util.Map<" + Language.class.getName() + ", java.lang.Integer>", nameLength.getInitialType().toString());
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage

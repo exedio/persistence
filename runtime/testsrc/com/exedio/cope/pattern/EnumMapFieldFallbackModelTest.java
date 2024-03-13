@@ -142,8 +142,8 @@ public class EnumMapFieldFallbackModelTest
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem(
-				@javax.annotation.Nonnull final java.util.EnumMap<AnEnum,String> noneMand,
-				@javax.annotation.Nonnull final java.util.EnumMap<AnEnum,String> fallMand)
+				@javax.annotation.Nonnull final java.util.Map<AnEnum,String> noneMand,
+				@javax.annotation.Nonnull final java.util.Map<AnEnum,String> fallMand)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

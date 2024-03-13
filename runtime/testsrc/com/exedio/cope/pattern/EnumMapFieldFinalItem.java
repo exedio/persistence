@@ -72,7 +72,7 @@ public final class EnumMapFieldFinalItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	EnumMapFieldFinalItem(
-				@javax.annotation.Nonnull final java.util.EnumMap<EnumMapFieldItem.Language,String> text)
+				@javax.annotation.Nonnull final java.util.Map<EnumMapFieldItem.Language,String> text)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

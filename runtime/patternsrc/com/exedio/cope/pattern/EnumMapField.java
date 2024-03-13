@@ -48,7 +48,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>, MapFieldInterface<K,V>, Copyable
+public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<Map<K,V>>, MapFieldInterface<K,V>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -229,7 +229,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	public SetValue<?>[] execute(final EnumMap<K, V> value, final Item exceptionItem)
+	public SetValue<?>[] execute(final Map<K, V> value, final Item exceptionItem)
 	{
 		if(value==null)
 			throw MandatoryViolationException.create(this, exceptionItem);
@@ -261,7 +261,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
-		return ReflectionTypes.parameterized(EnumMap.class, keyClass, valueTemplate.getValueClass());
+		return ReflectionTypes.parameterized(Map.class, keyClass, valueTemplate.getValueClass());
 	}
 
 	@Override
