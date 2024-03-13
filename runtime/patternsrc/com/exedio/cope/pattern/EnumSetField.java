@@ -135,7 +135,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	@Wrap(order=50, hide=FinalSettableGetter.class)
-	public void set(@Nonnull final Item item, @Nonnull final EnumSet<E> value)
+	public void set(@Nonnull final Item item, @Nonnull final Set<? extends E> value)
 	{
 		FinalViolationException.check(this, item);
 		MandatoryViolationException.requireNonNull(value, this, item);
