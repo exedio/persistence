@@ -56,7 +56,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * that differs from this Field
 	 * by being final.
 	 * If this Field is already final,
-	 * the the result is equal to this Field.
+	 * the result is equal to this Field.
 	 * @see #isFinal()
 	 */
 	public abstract Field<E> toFinal();
@@ -66,10 +66,22 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * that differs from this Field
 	 * by being optional.
 	 * If this Field is already optional,
-	 * the the result is equal to this Field.
+	 * the result is equal to this Field.
 	 * @see #isMandatory()
+	 * @see #mandatory()
 	 */
 	public abstract Field<E> optional();
+
+	/**
+	 * Returns a new Field,
+	 * that differs from this Field
+	 * by being mandatory.
+	 * If this Field is already mandatory,
+	 * the result is equal to this Field.
+	 * @see #isMandatory()
+	 * @see #optional()
+	 */
+	public abstract Field<E> mandatory();
 
 	/**
 	 * @see #toFinal()

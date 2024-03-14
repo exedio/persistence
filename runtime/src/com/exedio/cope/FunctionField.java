@@ -236,7 +236,7 @@ public abstract class FunctionField<E> extends Field<E>
 	 * that differs from this FunctionField
 	 * by being unique.
 	 * If this FunctionField is already unique,
-	 * the the result is equal to this FunctionField.
+	 * the result is equal to this FunctionField.
 	 * @see #getImplicitUniqueConstraint()
 	 */
 	@SuppressWarnings("unused") // OK: Methods are tested on implementation classes, but never used as a member of this interface.

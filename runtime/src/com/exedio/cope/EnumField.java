@@ -78,6 +78,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	@Override
+	public EnumField<E> mandatory()
+	{
+		return new EnumField<>(isfinal, false, valueClass, unique, copyFrom, defaultS);
+	}
+
+	@Override
 	public EnumField<E> unique()
 	{
 		return new EnumField<>(isfinal, optional, valueClass, true, copyFrom, defaultS);

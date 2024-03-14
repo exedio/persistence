@@ -112,6 +112,12 @@ public final class StringField extends FunctionField<String>
 	}
 
 	@Override
+	public StringField mandatory()
+	{
+		return new StringField(isfinal, false, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+	}
+
+	@Override
 	public StringField unique()
 	{
 		return new StringField(isfinal, optional, true, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);

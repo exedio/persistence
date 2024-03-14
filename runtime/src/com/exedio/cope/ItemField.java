@@ -133,6 +133,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
+	public ItemField<E> mandatory()
+	{
+		return new ItemField<>(isfinal, false, valueClass, unique, copyFrom, copyTo, choiceBackPointer, valueTypeFuture, policy);
+	}
+
+	@Override
 	public ItemField<E> unique()
 	{
 		return new ItemField<>(isfinal, optional, valueClass, true, copyFrom, copyTo, choiceBackPointer, valueTypeFuture, policy);

@@ -89,6 +89,12 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	@Override
+	public DoubleField mandatory()
+	{
+		return new DoubleField(isfinal, false, unique, copyFrom, defaultS, minimum, maximum);
+	}
+
+	@Override
 	public DoubleField unique()
 	{
 		return new DoubleField(isfinal, optional, true, copyFrom, defaultS, minimum, maximum);

@@ -203,6 +203,12 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
+	public IntegerField mandatory()
+	{
+		return new IntegerField(isfinal, false, unique, copyFrom, defaultS, minimum, maximum);
+	}
+
+	@Override
 	public IntegerField unique()
 	{
 		return new IntegerField(isfinal, optional, true, copyFrom, defaultS, minimum, maximum);
