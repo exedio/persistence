@@ -69,6 +69,12 @@ public final class DataField extends Field<DataField.Value>
 		this(false, false, DEFAULT_LENGTH);
 	}
 
+	// TODO @Override
+	public DataField copy()
+	{
+		return new DataField(isfinal, optional, maximumLength);
+	}
+
 	@Override
 	public DataField toFinal()
 	{

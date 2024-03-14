@@ -18,59 +18,72 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Media.applyConstraints;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
 import com.exedio.cope.util.CharSet;
 import java.util.ArrayList;
 import java.util.List;
 
 final class SubContentType extends ContentType<String>
 {
+	private final StringField field;
 	private final String major;
 	private final String prefix;
 	private final int prefixLength;
-	private final int minorMaxLength;
 
 	static final int DEFAULT_LENGTH = 30;
 
 	SubContentType(
 			final String major,
-			final boolean isfinal,
-			final boolean optional,
+			final DataField constraintSource,
 			final int minorMaxLength)
 	{
-		super(makeField(minorMaxLength, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
-		this.major = requireNonEmpty(major, "majorContentType");
-		this.prefix = major + '/';
-		this.prefixLength = this.prefix.length();
-		this.minorMaxLength = minorMaxLength;
+		this(
+				applyConstraints(makeField(minorMaxLength, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), constraintSource),
+				requireNonEmpty(major, "majorContentType"),
+				major + '/');
+	}
+
+	private SubContentType(
+			final StringField field,
+			final String major,
+			final String prefix)
+	{
+		super(field, "minor");
+		this.field = field;
+		this.major = major;
+		this.prefix = prefix;
+		this.prefixLength = prefix.length();
 	}
 
 	@Override
 	SubContentType copy()
 	{
-		return new SubContentType(major, field.isFinal(), !field.isMandatory(), minorMaxLength);
+		return new SubContentType(field.copy(), major, prefix);
 	}
 
 	@Override
 	SubContentType toFinal()
 	{
-		return new SubContentType(major, true, !field.isMandatory(), minorMaxLength);
+		return new SubContentType(field.toFinal(), major, prefix);
 	}
 
 	@Override
 	SubContentType optional()
 	{
-		return new SubContentType(major, field.isFinal(), true, minorMaxLength);
+		return new SubContentType(field.optional(), major, prefix);
 	}
 
 	@Override
 	SubContentType lengthMax(final int maximumLength)
 	{
-		return new SubContentType(major, field.isFinal(), !field.isMandatory(), maximumLength - prefixLength);
+		return new SubContentType(field.lengthMax(maximumLength - prefixLength), major, prefix);
 	}
 
 	@Override
@@ -82,7 +95,7 @@ final class SubContentType extends ContentType<String>
 	@Override
 	int getMaximumLength()
 	{
-		return prefixLength + minorMaxLength;
+		return prefixLength + field.getMaximumLength();
 	}
 
 	@Override

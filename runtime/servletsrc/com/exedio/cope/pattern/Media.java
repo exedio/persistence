@@ -77,19 +77,18 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public static final long DEFAULT_LENGTH = DataField.DEFAULT_LENGTH;
 
 	private Media(
-			final boolean isfinal,
-			final boolean optional,
-			final long bodyMaximumLength,
-			final ContentType<?> contentType)
+			final DataField body,
+			final ContentType<?> contentType,
+			final DateField lastModified)
 	{
-		this.isfinal = isfinal;
-		this.optional = optional;
+		this.isfinal = body.isFinal();
+		this.optional = !body.isMandatory();
 		//noinspection ThisEscapedInObjectConstruction
 		this.body = addSourceFeature(
-				applyConstraints(new DataField(), isfinal, optional).lengthMax(bodyMaximumLength),
+				body,
 				"body",
 				new MediaVaultAnnotationProxy(this));
-		this.isBodySmall = bodyMaximumLength<=DEFAULT_LENGTH;
+		this.isBodySmall = body.getMaximumLength()<=DEFAULT_LENGTH;
 		this.contentType = contentType;
 		final FunctionField<?> contentTypeField = contentType.field;
 		if(contentTypeField!=null)
@@ -98,7 +97,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 					contentType.name,
 					ComputedElement.get());
 		this.lastModified = addSourceFeature(
-				applyConstraints(new DateField(), isfinal, optional),
+				lastModified,
 				"lastModified",
 				ComputedElement.get());
 
@@ -125,25 +124,24 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	static <F extends Field> F applyConstraints(
 			F field,
-			final boolean isfinal,
-			final boolean optional)
+			final DataField constraintSource)
 	{
-		if(isfinal)
+		if(constraintSource.isFinal())
 			field = (F)field.toFinal();
-		if(optional)
+		if(!constraintSource.isMandatory())
 			field = (F)field.optional();
 		return field;
 	}
 
 	public Media()
 	{
-		this(false, false, DEFAULT_LENGTH, new DefaultContentType(false, false, 61));
+		this(new DataField(), new DefaultContentType(61), new DateField());
 	}
 
 	@Override
 	public Media copy(final CopyMapper mapper)
 	{
-		final Media result = new Media(isfinal, optional, body.getMaximumLength(), contentType.copy());
+		final Media result = new Media(body.copy(), contentType.copy(), lastModified.copy());
 		// TODO implement some generic mapping
 		if(contentType.field!=null)
 			mapper.put(contentType.field, result.contentType.field);
@@ -153,17 +151,17 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Media toFinal()
 	{
-		return new Media(true, optional, body.getMaximumLength(), contentType.toFinal());
+		return new Media(body.toFinal(), contentType.toFinal(), lastModified.toFinal());
 	}
 
 	public Media optional()
 	{
-		return new Media(isfinal, true, body.getMaximumLength(), contentType.optional());
+		return new Media(body.optional(), contentType.optional(), lastModified.optional());
 	}
 
 	public Media lengthMax(final long maximumLength)
 	{
-		return new Media(isfinal, optional, maximumLength, contentType.copy());
+		return new Media(body.lengthMax(maximumLength), contentType.copy(), lastModified.copy());
 	}
 
 	/**
@@ -171,7 +169,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentType(final String contentType)
 	{
-		return new Media(isfinal, optional, body.getMaximumLength(), new FixedContentType(contentType));
+		return new Media(body.copy(), new FixedContentType(contentType), lastModified.copy());
 	}
 
 	/**
@@ -282,7 +280,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	private Media contentTypesInternal(final String... types)
 	{
-		return new Media(isfinal, optional, body.getMaximumLength(), new EnumContentType(types, isfinal, optional));
+		return new Media(body.copy(), new EnumContentType(types, body), lastModified.copy());
 	}
 
 	/**
@@ -290,12 +288,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
-		return new Media(isfinal, optional, body.getMaximumLength(), new SubContentType(majorContentType, isfinal, optional, SubContentType.DEFAULT_LENGTH));
+		return new Media(body.copy(), new SubContentType(majorContentType, body, SubContentType.DEFAULT_LENGTH), lastModified.copy());
 	}
 
 	public Media contentTypeLengthMax(final int maximumLength)
 	{
-		return new Media(isfinal, optional, body.getMaximumLength(), contentType.lengthMax(maximumLength));
+		return new Media(body.copy(), contentType.lengthMax(maximumLength), lastModified.copy());
 	}
 
 	@Override
