@@ -30,18 +30,14 @@ public class DefaultToReuseTest
 		final LongField f = new LongField().defaultToRandom(new Random());
 		assertEquals(true, f.isMandatory());
 		assertEquals(true, f.hasDefault());
+		assertEquals(true, f.isDefaultRandom());
 		assertEquals(Long.MIN_VALUE, f.getMinimum());
 
-		{
-			final LongField f2 = f.optional();
-			assertEquals(false, f2.isMandatory());
-			assertEquals(true,  f2.hasDefault());
-			assertEquals(Long.MIN_VALUE, f2.getMinimum());
-		}
 		{
 			final LongField f2 = f.min(0);
 			assertEquals(true, f2.isMandatory());
 			assertEquals(true, f2.hasDefault());
+			assertEquals(true, f2.isDefaultRandom());
 			assertEquals(0, f2.getMinimum());
 		}
 	}
@@ -55,14 +51,6 @@ public class DefaultToReuseTest
 		assertEquals(55, f.getDefaultNextStartX());
 		assertEquals(Integer.MIN_VALUE, f.getMinimum());
 
-		{
-			final IntegerField f2 = f.optional();
-			assertEquals(false, f2.isMandatory());
-			assertEquals(true,  f2.hasDefault());
-			assertEquals(true,  f2.isDefaultNext());
-			assertEquals(55, f2.getDefaultNextStartX());
-			assertEquals(Integer.MIN_VALUE, f2.getMinimum());
-		}
 		{
 			final IntegerField f2 = f.min(0);
 			assertEquals(true, f2.isMandatory());

@@ -100,6 +100,7 @@ public class DefaultToModelTest
 		assertEquals(null, dayNone.getDefaultNowZone());
 
 		assertEquals(null, longRandom.getDefaultConstant());
+		assertEquals(true, longRandom.isDefaultRandom());
 
 		assertEquals(ONE, enumOne.getDefaultConstant());
 		assertEquals(TWO, enumTwo.getDefaultConstant());
