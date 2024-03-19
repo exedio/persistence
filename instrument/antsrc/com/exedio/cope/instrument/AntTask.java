@@ -154,7 +154,7 @@ public final class AntTask extends Task
 
 	public void setDirectSetValueMap(final boolean value)
 	{
-		params.directSetValueMap = value;
+		throwNoLongerSupported("directSetValueMap", true);
 	}
 
 	public void setPublicConstructorInAbstractClass(final boolean value)

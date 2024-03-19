@@ -69,7 +69,6 @@ final class Generator
 	private final Class<? extends Annotation> generatedAnnotationClass;
 	private final boolean nullabilityAnnotations;
 	private final String serialVersionUIDSuffix;
-	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
 	private final boolean useConstantForEmptySetValuesArray;
 	private final Class<? extends Annotation> serialAnnotation;
@@ -102,7 +101,6 @@ final class Generator
 		this.generatedAnnotationClass = params.generatedAnnotationRetention.clazz;
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
-		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.useConstantForEmptySetValuesArray = params.useConstantForEmptySetValuesArray;
 		this.serialAnnotation = params.serialAnnotation ? SerialAccess.get() : null;
@@ -318,8 +316,7 @@ final class Generator
 			for(final CopeFeature feature : initialFeatures)
 			{
 				writeIndent(2);
-				if(directSetValueMap)
-					write(SET_VALUE + ".map(");
+				write(SET_VALUE + ".map(");
 				final CopeType<?> parent = feature.parent;
 				if(parent == type)
 					write(type.getName());
@@ -327,10 +324,7 @@ final class Generator
 					write(parent.getCanonicalName());
 				write('.');
 				write(feature.getName());
-				if(directSetValueMap)
-					write(',');
-				else
-					write(".map(");
+				write(',');
 				write(feature.getName());
 				write("),");
 				write(lineSeparator);
