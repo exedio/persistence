@@ -55,9 +55,10 @@ public class ParamsTest
 
 	private static void checkRejected(final String generateDeprecatedLine, final String expectedExceptionMessage)
 	{
+		final Params params = new Params();
 		try
 		{
-			new Params().addGenerateDeprecated(generateDeprecatedLine);
+			params.addGenerateDeprecated(generateDeprecatedLine);
 			fail();
 		}
 		catch (final HumanReadableException e)
