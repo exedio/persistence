@@ -769,7 +769,6 @@
 				encoding="utf8"
 				serialVersionUIDSuffix="none"
 				useConstantForEmptySetValuesArray="false"
-				activator="false"
 				directSetValueMap="false"
 				generatedAnnotationRetention="CLASS"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">

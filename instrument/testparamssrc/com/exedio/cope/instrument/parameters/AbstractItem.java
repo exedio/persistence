@@ -48,7 +48,7 @@ abstract class AbstractItem extends Item
 	 */
 	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
-	static final com.exedio.cope.Type<AbstractItem> TYPE = com.exedio.cope.TypesBound.newType(AbstractItem.class);
+	static final com.exedio.cope.Type<AbstractItem> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(AbstractItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
