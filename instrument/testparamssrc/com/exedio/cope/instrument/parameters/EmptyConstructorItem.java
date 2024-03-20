@@ -57,7 +57,7 @@ class EmptyConstructorItem extends Item
 	 */
 	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
-	static final com.exedio.cope.Type<EmptyConstructorItem> TYPE = com.exedio.cope.TypesBound.newType(EmptyConstructorItem.class);
+	static final com.exedio.cope.Type<EmptyConstructorItem> TYPE = com.exedio.cope.TypesBound.newType(EmptyConstructorItem.class,EmptyConstructorItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

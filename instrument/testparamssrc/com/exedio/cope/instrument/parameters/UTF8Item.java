@@ -88,7 +88,7 @@ public final class UTF8Item extends Item
 	 */
 	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
-	public static final com.exedio.cope.Type<UTF8Item> TYPE = com.exedio.cope.TypesBound.newType(UTF8Item.class);
+	public static final com.exedio.cope.Type<UTF8Item> TYPE = com.exedio.cope.TypesBound.newType(UTF8Item.class,UTF8Item::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

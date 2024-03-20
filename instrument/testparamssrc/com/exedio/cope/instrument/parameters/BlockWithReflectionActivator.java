@@ -30,7 +30,7 @@ final class BlockWithReflectionActivator extends Block
 	 */
 	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
-	static final com.exedio.cope.pattern.BlockType<BlockWithReflectionActivator> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWithReflectionActivator.class);
+	static final com.exedio.cope.pattern.BlockType<BlockWithReflectionActivator> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWithReflectionActivator.class,BlockWithReflectionActivator::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

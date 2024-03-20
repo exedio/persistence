@@ -86,7 +86,7 @@ final class SuppressWarningsItem extends Item
 	 */
 	@com.exedio.cope.instrument.GeneratedClass // customize with @WrapperType(type=...)
 	@java.lang.SuppressWarnings("type-single")
-	static final com.exedio.cope.Type<SuppressWarningsItem> TYPE = com.exedio.cope.TypesBound.newType(SuppressWarningsItem.class);
+	static final com.exedio.cope.Type<SuppressWarningsItem> TYPE = com.exedio.cope.TypesBound.newType(SuppressWarningsItem.class,SuppressWarningsItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
