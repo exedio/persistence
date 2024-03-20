@@ -19,11 +19,13 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.CopeIgnore;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.CopeWarnings;
+import com.exedio.cope.instrument.WrapperIgnore;
 
 public final class CompositeValue extends Composite
 {
@@ -44,6 +46,8 @@ public final class CompositeValue extends Composite
 	static BooleanField notFinal = new BooleanField();
 	@SuppressWarnings("unused") // OK: test bad API usage
 	static final Object noFeature = new BooleanField();
+	@SuppressWarnings("unused") // OK: is to be ignored
+	@CopeIgnore @WrapperIgnore static final StringField ignored = new StringField().optional();
 
 	/**
 	 * Creates a new CompositeValue with all the fields initially needed.

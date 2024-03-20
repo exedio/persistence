@@ -143,6 +143,8 @@ public final class TypesBound
 					continue;
 				if(!Feature.class.isAssignableFrom(field.getType()))
 					continue;
+				if(field.isAnnotationPresent(CopeIgnore.class))
+					continue;
 
 				field.setAccessible(true);
 				final Feature feature = (Feature)field.get(null);

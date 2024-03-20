@@ -26,6 +26,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.CopeIgnore;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
@@ -35,6 +36,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.LocalizationKeys;
 import java.awt.Color;
@@ -224,6 +226,9 @@ public class BlockFieldStandardModelTest
 		static final ListField<String> aList = ListField.create(new StringField());
 		static final SetField<Integer> aSet = SetField.create(new IntegerField());
 		static final EnumMapField<AnEnum,Integer> anEnumMap = EnumMapField.create(AnEnum.class, new IntegerField().optional());
+
+		@SuppressWarnings("unused") // OK: is to be ignored
+		@CopeIgnore @WrapperIgnore static final StringField ignored = new StringField();
 
 
 		/**
