@@ -82,7 +82,6 @@ final class Params
 
 	boolean nullabilityAnnotations = false;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
-	boolean directSetValueMap = true;
 	boolean finalMethodInFinalClass = true;
 	boolean useConstantForEmptySetValuesArray = true;
 	boolean serialAnnotation = false;
