@@ -277,8 +277,9 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	}
 
 	/**
-	 * To be deprecated, use {@link #newType(Class, Function)} instead.
+	 * @deprecated Use {@link #newType(Class, Function)} instead.
 	 */
+	@Deprecated
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
 		return newType(javaClass, reflectionActivator(javaClass));

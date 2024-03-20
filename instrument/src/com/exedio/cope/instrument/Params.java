@@ -85,7 +85,6 @@ final class Params
 	boolean directSetValueMap = true;
 	boolean finalMethodInFinalClass = true;
 	boolean useConstantForEmptySetValuesArray = true;
-	boolean activator = true;
 	boolean serialAnnotation = false;
 	String introCommentOneTime = null;
 	boolean verbose = false;

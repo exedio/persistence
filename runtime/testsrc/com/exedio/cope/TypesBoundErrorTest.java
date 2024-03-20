@@ -69,6 +69,7 @@ public class TypesBoundErrorTest
 	}
 
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void noActivationConstructor()
 	{
 		final Exception e = assertFails(
@@ -203,6 +204,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void wrongActivationConstructor()
 	{
 		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);

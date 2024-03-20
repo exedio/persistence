@@ -1291,6 +1291,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
+	@Deprecated
 	static <C extends Item> Function<ActivationParameters,C> reflectionActivator(final Class<C> javaClass)
 	{
 		requireNonNull(javaClass, "javaClass");

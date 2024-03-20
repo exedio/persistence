@@ -63,6 +63,7 @@ public class TypeActivatorReflectionTest extends TestWithEnvironment
 	{
 		// Written manually to use reflection activator.
 		@WrapInterim
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final Type<MyAbstractItem> TYPE = TypesBound.newType(MyAbstractItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -84,6 +85,7 @@ public class TypeActivatorReflectionTest extends TestWithEnvironment
 
 		// Written manually to use reflection activator.
 		@WrapInterim
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final Type<MyItem> TYPE = TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -140,6 +142,7 @@ public class TypeActivatorReflectionTest extends TestWithEnvironment
 
 		// Written manually to use reflection activator.
 		@WrapInterim
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final BlockType<MyBlock> TYPE = BlockType.newType(MyBlock.class);
 
 		@com.exedio.cope.instrument.Generated
