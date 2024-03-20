@@ -19,10 +19,10 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.getFeatures;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.pattern.Media;
 import java.lang.reflect.Field;
@@ -59,30 +59,85 @@ public class TypesBoundFeaturesTest
 		}
 		assertFalse(iterator.hasNext());
 	}
-
-	static final class AClass
+	private static final class AClass
 	{
 		static final IntegerField feature1 = new IntegerField();
 		static final BooleanField feature2 = new BooleanField();
 		static final Media        feature3 = new Media();
 		private static final BooleanField feature4 = new BooleanField();
 
-		private AClass()
-		{
-			// prevent instantiation
-		}
+		@SuppressWarnings("unused") // OK: is to be ignored
+		static IntegerField nonFinal = new IntegerField();
+		@SuppressWarnings("unused") // OK: is to be ignored
+		final IntegerField nonStatic = new IntegerField();
+		@SuppressWarnings("unused") // OK: is to be ignored
+		final Object nonFeature = new IntegerField();
 	}
+
+
+	@Test void testNull()
+	{
+		assertFails(
+				() -> getFeatures(NullClass.class),
+				NullPointerException.class,
+				"com.exedio.cope.TypesBoundFeaturesTest$NullClass#nullFeature");
+	}
+	private static final class NullClass
+	{
+		@SuppressWarnings("unused") // OK: is to be ignored
+		static final IntegerField nullFeature = null;
+	}
+
+
+	@Test void testDuplicate()
+	{
+		assertFails(
+				() -> getFeatures(DuplicateClass.class),
+				IllegalArgumentException.class,
+				"com.exedio.cope.TypesBoundFeaturesTest$DuplicateClass#duplicate is same as #original");
+	}
+	private static final class DuplicateClass
+	{
+		@SuppressWarnings("unused") // OK: is to be ignored
+		static final IntegerField original = new IntegerField();
+		@SuppressWarnings("unused") // OK: is to be ignored
+		static final IntegerField duplicate = original;
+	}
+
+
+	/**
+	 * Tests, that order of features does not depend on order of java fields,
+	 * but on sequence on instantiation.
+	 */
+	@Test void testInstantiationOrder() throws NoSuchFieldException
+	{
+		final SortedMap<Feature, Field> m = getFeatures(OrderClass.class);
+		final Iterator<Map.Entry<Feature, Field>> iterator = m.entrySet().iterator();
+		{
+			final Map.Entry<Feature, Field> entry = iterator.next();
+			assertSame(OrderClass.feature1, entry.getKey());
+			assertEquals(OrderClass.class.getDeclaredField("feature1"), entry.getValue());
+		}
+		{
+			final Map.Entry<Feature, Field> entry = iterator.next();
+			assertSame(OrderClass.feature2, entry.getKey());
+			assertEquals(OrderClass.class.getDeclaredField("feature2"), entry.getValue());
+		}
+		assertFalse(iterator.hasNext());
+	}
+	private static final IntegerField feature1Instantiation = new IntegerField();
+	private static final class OrderClass
+	{
+		static final IntegerField feature2 = new IntegerField();
+		static final IntegerField feature1 = feature1Instantiation;
+	}
+
 
 	@Test void testErrors()
 	{
-		try
-		{
-			getFeatures(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(
+				() -> getFeatures(null),
+				NullPointerException.class,
+				null);
 	}
 }
