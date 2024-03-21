@@ -24,7 +24,10 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.misc.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class CompositeCondition extends Condition
 {
@@ -207,6 +210,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	@SafeVarargs
+	@SuppressWarnings( "varargs" )
 	public static <E> Condition in(final Function<E> function, final E... values)
 	{
 		switch(values.length)
@@ -216,13 +220,14 @@ public final class CompositeCondition extends Condition
 			case 1:
 				return function.equal(values[0]);
 			default:
-				final Condition[] result = new Condition[values.length];
-
-				int i = 0;
-				for(final E value : values)
-					result[i++] = function.equal(value);
-
-				return new CompositeCondition(Operator.OR, result);
+				if (Stream.of(values).anyMatch(Objects::isNull))
+				{
+					return getConditionForInWithNull(function, Stream.of(values).filter(Objects::nonNull).distinct().collect(Collectors.toList()));
+				}
+				else
+				{
+					return new InCondition<>(function, false, List.of(values));
+				}
 		}
 	}
 
@@ -235,13 +240,36 @@ public final class CompositeCondition extends Condition
 			case 1:
 				return function.equal(values.iterator().next());
 			default:
-				final Condition[] result = new Condition[values.size()];
+				boolean containsNull;
+				try
+				{
+					containsNull = values.contains(null);
+				}
+				catch(final NullPointerException e)
+				{
+					containsNull = false;
+				}
+				if (containsNull)
+				{
+					return getConditionForInWithNull(function, values.stream().filter(Objects::nonNull).distinct().collect(Collectors.toList()));
+				}
+				else
+				{
+					return new InCondition<>(function, false, List.copyOf(values));
+				}
+		}
+	}
 
-				int i = 0;
-				for(final E value : values)
-					result[i++] = function.equal(value);
-
-				return new CompositeCondition(Operator.OR, result);
+	private static <E> Condition getConditionForInWithNull(final Function<E> function, final List<E> nonNullValues)
+	{
+		switch(nonNullValues.size())
+		{
+			case 0:
+				return function.isNull();
+			case 1:
+				return composite(Operator.OR, function.isNull(), function.equal(nonNullValues.get(0)));
+			default:
+				return composite(Operator.OR, function.isNull(), new InCondition<>(function, false, nonNullValues));
 		}
 	}
 

@@ -68,6 +68,7 @@ final class PostgresqlSchemaDialect extends Dialect
 		s = adjustExistingCheckConstraintInCondition(s, checkClauseInText, "IN");
 		s = adjustExistingCheckConstraintInCondition(s, checkClauseIn, "IN");
 		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotInText, "NOT IN");
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotIn, "NOT IN");
 		return s;
 	}
 
@@ -84,6 +85,7 @@ final class PostgresqlSchemaDialect extends Dialect
 	private static final Pattern checkClauseInText    = Pattern.compile("(\"\\w*\")=ANY "  + p(p("ARRAY\\[(.*?)]") + "::\"text\"\\[\\]"));
 	private static final Pattern checkClauseIn        = Pattern.compile("(\"\\w*\")=ANY "  +   p("ARRAY\\[(.*?)]"));
 	private static final Pattern checkClauseNotInText = Pattern.compile("(\"\\w*\")<>ALL " + p(p("ARRAY\\[(.*?)]") + "::\"text\"\\[\\]"));
+	private static final Pattern checkClauseNotIn     = Pattern.compile("(\"\\w*\")<>ALL " +   p("ARRAY\\[(.*?)]"));
 	private static final Pattern checkClauseInnerComma = Pattern.compile(", ");
 
 	private final Replacements adjustExistingCheckConstraintCondition = new Replacements();

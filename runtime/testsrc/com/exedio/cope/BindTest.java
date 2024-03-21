@@ -69,8 +69,8 @@ public class BindTest
 		assertIt("(a1.x<'1' and a2.y<'2')", x.less(1).bind(a1).and(y.less(2)).bind(a2));
 		assertIt(   "x is null", x.isNull());
 		assertIt("a1.x is null", x.isNull().bind(a1));
-		assertIt(   "(x='2' or x='3')",    x.in(2, 3));
-		assertIt("(a1.x='2' or a1.x='3')", x.in(2, 3).bind(a1));
+		assertIt(   "x in ('2','3')", x.in(2, 3));
+		assertIt("a1.x in ('2','3')", x.in(2, 3).bind(a1));
 		assertIt("!(a1.s regexp '(?s)\\AmyRegexp\\z')", s.regexpLike("myRegexp").not().bind(a1));
 		assertIt("a1.s conformsTo [A-Z]", s.conformsTo(CharSet.ALPHA_UPPER).bind(a1));
 		assertIt("a1.s like 'a%b'", s.like("a%b").bind(a1));
