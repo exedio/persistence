@@ -28,7 +28,7 @@ public abstract class Condition implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
-	abstract void append(Statement statment);
+	abstract void append(Statement statement);
 
 	public final boolean get(@Nonnull final Item item)
 	{
@@ -110,7 +110,7 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		void append(final Statement statment)
+		void append(final Statement statement)
 		{
 			throw new RuntimeException();
 		}
