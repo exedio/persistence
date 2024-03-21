@@ -200,6 +200,22 @@ public class CompositeConditionUtilTest
 		assertEquals(newCompositeCondition(OR, c1, c2), field.in(asList(1.0, 2.0)));
 		assertEquals(newCompositeCondition(OR, c1, c2), in(field, 1.0, 2.0));
 		assertEquals(newCompositeCondition(OR, c1, c2), in(field, asList(1.0, 2.0)));
+
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1), field.in(null, 1.0));
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1), field.in(asList(null, 1.0)));
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1), in(field, null, 1.0));
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1), in(field, asList(null, 1.0)));
+
+		assertEquals(newCompositeCondition(OR, c1, field.isNull()), field.in(1.0, null));
+		assertEquals(newCompositeCondition(OR, c1, field.isNull()), field.in(asList(1.0, null)));
+		assertEquals(newCompositeCondition(OR, c1, field.isNull()), in(field, 1.0, null));
+		assertEquals(newCompositeCondition(OR, c1, field.isNull()), in(field, asList(1.0, null)));
+
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), field.in(null, 1.0, 2.0));
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), field.in(asList(null, 1.0, 2.0)));
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), in(field, null, 1.0, 2.0));
+		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), in(field, asList(null, 1.0, 2.0)));
+
 		assertEquals(c1, field.in(1.0));
 		assertEquals(c1, field.in(asList(1.0)));
 		assertEquals(c1, in(field, 1.0));
