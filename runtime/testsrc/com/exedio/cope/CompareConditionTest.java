@@ -261,14 +261,45 @@ public class CompareConditionTest extends TestWithEnvironment
 	@Test void testIn()
 	{
 		assertCondition(item1, item3, TYPE, string.in(asList("string1", "string3", "stringNone")));
+		assertCondition(item1, item3, itemX, TYPE, string.in(asList("string1", "string3", "stringNone", null)));
 		assertCondition(item1, item3, TYPE, intx.in(asList(1, 3, 25)));
+		assertCondition(item1, item3, itemX, TYPE, intx.in(asList(1, 3, 25, null)));
 		assertCondition(item1, item3, TYPE, longx.in(asList(11l, 13l, 255l)));
+		assertCondition(item1, item3, itemX, TYPE, longx.in(asList(11l, 13l, 255l, null)));
 		assertCondition(item1, item3, TYPE, doublex.in(asList(2.1, 2.3, 25.2)));
+		assertCondition(item1, item3, itemX, TYPE, doublex.in(asList(2.1, 2.3, 25.2, null)));
 		assertCondition(item1, item3, TYPE, date.in(asList(date(-2), aDate, date(+25))));
+		assertCondition(item1, item3, itemX, TYPE, date.in(asList(date(-2), aDate, date(+25), null)));
 		assertCondition(item1, item3, TYPE, day.in(asList(day(-2), aDay, day(+25))));
+		assertCondition(item1, item3, itemX, TYPE, day.in(asList(day(-2), aDay, day(+25), null)));
 		assertCondition(item1, item3, TYPE, enumx.in(asList(YEnum.V1, YEnum.V3, YEnum.VX)));
+		assertCondition(item1, item3, itemX, TYPE, enumx.in(asList(YEnum.V1, YEnum.V3, YEnum.VX, null)));
 		assertCondition(item1, item3, TYPE, item.in(asList(item1, item3)));
+		assertCondition(item1, item3, itemX, TYPE, item.in(asList(item1, item3, null)));
 		assertCondition(item1, item3, TYPE, THIS.in(asList(item1, item3)));
+		assertCondition(item1, item3, TYPE, THIS.in(asList(item1, item3, null)));
+	}
+
+	@Test void testInVarargs()
+	{
+		assertCondition(item1, item3, TYPE, string.in("string1", "string3", "stringNone"));
+		assertCondition(item1, item3, itemX, TYPE, string.in("string1", "string3", "stringNone", null));
+		assertCondition(item1, item3, TYPE, intx.in(1, 3, 25));
+		assertCondition(item1, item3, itemX, TYPE, intx.in(1, 3, 25, null));
+		assertCondition(item1, item3, TYPE, longx.in(11l, 13l, 255l));
+		assertCondition(item1, item3, itemX, TYPE, longx.in(11l, 13l, 255l, null));
+		assertCondition(item1, item3, TYPE, doublex.in(2.1, 2.3, 25.2));
+		assertCondition(item1, item3, itemX, TYPE, doublex.in(2.1, 2.3, 25.2, null));
+		assertCondition(item1, item3, TYPE, date.in(date(-2), aDate, date(+25)));
+		assertCondition(item1, item3, itemX, TYPE, date.in(date(-2), aDate, date(+25), null));
+		assertCondition(item1, item3, TYPE, day.in(day(-2), aDay, day(+25)));
+		assertCondition(item1, item3, itemX, TYPE, day.in(day(-2), aDay, day(+25), null));
+		assertCondition(item1, item3, TYPE, enumx.in(YEnum.V1, YEnum.V3, YEnum.VX));
+		assertCondition(item1, item3, itemX, TYPE, enumx.in(YEnum.V1, YEnum.V3, YEnum.VX, null));
+		assertCondition(item1, item3, TYPE, item.in(item1, item3));
+		assertCondition(item1, item3, itemX, TYPE, item.in(item1, item3, null));
+		assertCondition(item1, item3, TYPE, THIS.in(item1, item3));
+		assertCondition(item1, item3, TYPE, THIS.in(item1, item3, null));
 	}
 
 	@Test void testMin()
