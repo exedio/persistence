@@ -100,9 +100,9 @@ public class InstanceOfModelTest
 		final Condition pos = TYPE_A.getThis().   instanceOf(TYPE_C1);
 		final Condition neg = TYPE_A.getThis().notInstanceOf(TYPE_C1);
 		assertEquals("InstanceOfAItem.this "+ "instanceOf InstanceOfC1Item", pos      .toString());
-		assertEquals("!(InstanceOfAItem.this not instanceOf InstanceOfC1Item)", neg.not().toString());
+		assertEquals("InstanceOfAItem.this "+ "instanceOf InstanceOfC1Item", neg.not().toString());
 		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", neg      .toString());
-		assertEquals("!(InstanceOfAItem.this instanceOf InstanceOfC1Item)",  pos.not().toString());
+		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", pos.not().toString());
 	}
 
 	@Test void testEqualsHashCode()
