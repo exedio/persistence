@@ -201,20 +201,40 @@ public class CompositeConditionUtilTest
 		assertEquals(newCompositeCondition(OR, c1, c2), in(field, 1.0, 2.0));
 		assertEquals(newCompositeCondition(OR, c1, c2), in(field, asList(1.0, 2.0)));
 
+		assertEquals(newCompositeCondition(OR, c1, c2).not(), field.in(1.0, 2.0).not());
+		assertEquals(newCompositeCondition(OR, c1, c2).not(), field.in(asList(1.0, 2.0)).not());
+		assertEquals(newCompositeCondition(OR, c1, c2).not(), in(field, 1.0, 2.0).not());
+		assertEquals(newCompositeCondition(OR, c1, c2).not(), in(field, asList(1.0, 2.0)).not());
+
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1), field.in(null, 1.0));
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1), field.in(asList(null, 1.0)));
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1), in(field, null, 1.0));
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1), in(field, asList(null, 1.0)));
+
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not()), field.in(null, 1.0).not());
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not()), field.in(asList(null, 1.0)).not());
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not()), in(field, null, 1.0).not());
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not()), in(field, asList(null, 1.0)).not());
 
 		assertEquals(newCompositeCondition(OR, c1, field.isNull()), field.in(1.0, null));
 		assertEquals(newCompositeCondition(OR, c1, field.isNull()), field.in(asList(1.0, null)));
 		assertEquals(newCompositeCondition(OR, c1, field.isNull()), in(field, 1.0, null));
 		assertEquals(newCompositeCondition(OR, c1, field.isNull()), in(field, asList(1.0, null)));
 
+		assertEquals(newCompositeCondition(AND, c1.not(), field.isNotNull()), field.in(1.0, null).not());
+		assertEquals(newCompositeCondition(AND, c1.not(), field.isNotNull()), field.in(asList(1.0, null)).not());
+		assertEquals(newCompositeCondition(AND, c1.not(), field.isNotNull()), in(field, 1.0, null).not());
+		assertEquals(newCompositeCondition(AND, c1.not(), field.isNotNull()), in(field, asList(1.0, null)).not());
+
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), field.in(null, 1.0, 2.0));
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), field.in(asList(null, 1.0, 2.0)));
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), in(field, null, 1.0, 2.0));
 		assertEquals(newCompositeCondition(OR, field.isNull(), c1, c2), in(field, asList(null, 1.0, 2.0)));
+
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not(), c2.not()), field.in(null, 1.0, 2.0).not());
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not(), c2.not()), field.in(asList(null, 1.0, 2.0)).not());
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not(), c2.not()), in(field, null, 1.0, 2.0).not());
+		assertEquals(newCompositeCondition(AND, field.isNotNull(), c1.not(), c2.not()), in(field, asList(null, 1.0, 2.0)).not());
 
 		assertEquals(c1, field.in(1.0));
 		assertEquals(c1, field.in(asList(1.0)));
@@ -243,11 +263,23 @@ public class CompositeConditionUtilTest
 		final Condition c2 = field.in(asList("AAA", "BBB"));
 		assertEquals("("+field + "='AAA' or "+field+"='BBB')", c2.toString());
 
+		final Condition c1n = field.in("AAA", "BBB").not();
+		assertEquals("("+field + "<>'AAA' and "+field+"<>'BBB')", c1n.toString());
+
+		final Condition c2n = field.in(asList("AAA", "BBB")).not();
+		assertEquals("("+field + "<>'AAA' and "+field+"<>'BBB')", c2n.toString());
+
 		final Condition c3 = field.in("AAA", null);
 		assertEquals("("+field + "='AAA' or "+field+" is null)", c3.toString());
 
 		final Condition c4 = field.in(asList("AAA", null));
 		assertEquals("("+field + "='AAA' or "+field+" is null)", c4.toString());
+
+		final Condition c3n = field.in("AAA", null).not();
+		assertEquals("("+field + "<>'AAA' and "+field+" is not null)", c3n.toString());
+
+		final Condition c4n = field.in(asList("AAA", null)).not();
+		assertEquals("("+field + "<>'AAA' and "+field+" is not null)", c4n.toString());
 
 		final Condition c5 = field.in((String)null);
 		assertEquals(field + " is null", c5.toString());
@@ -255,17 +287,35 @@ public class CompositeConditionUtilTest
 		final Condition c6 = field.in(asList((String)null));
 		assertEquals(field + " is null", c6.toString());
 
+		final Condition c5n = field.in((String)null).not();
+		assertEquals(field + " is not null", c5n.toString());
+
+		final Condition c6n = field.in(asList((String)null)).not();
+		assertEquals(field + " is not null", c6n.toString());
+
 		final Condition c7 = field.in("AAA");
 		assertEquals(field + "='AAA'", c7.toString());
 
 		final Condition c8 = field.in(asList("AAA"));
 		assertEquals(field + "='AAA'", c8.toString());
 
+		final Condition c7n = field.in("AAA").not();
+		assertEquals(field + "<>'AAA'", c7n.toString());
+
+		final Condition c8n = field.in(asList("AAA")).not();
+		assertEquals(field + "<>'AAA'", c8n.toString());
+
 		final Condition c9 = field.in(null, null);
 		assertEquals("("+field + " is null or "+field + " is null)", c9.toString());
 
 		final Condition cA = field.in(asList(null, null));
 		assertEquals("("+field + " is null or "+field + " is null)", cA.toString());
+
+		final Condition c9n = field.in(null, null).not();
+		assertEquals("("+field + " is not null and "+field + " is not null)", c9n.toString());
+
+		final Condition cAn = field.in(asList(null, null)).not();
+		assertEquals("("+field + " is not null and "+field + " is not null)", cAn.toString());
 	}
 
 	@Test
