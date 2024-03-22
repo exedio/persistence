@@ -95,6 +95,16 @@ public class InstanceOfModelTest
 		assertFieldsCovered(asList(), TYPE_A.getThis().instanceOf(TYPE_B1));
 	}
 
+	@Test void testNot()
+	{
+		final Condition pos = TYPE_A.getThis().   instanceOf(TYPE_C1);
+		final Condition neg = TYPE_A.getThis().notInstanceOf(TYPE_C1);
+		assertEquals("InstanceOfAItem.this "+ "instanceOf InstanceOfC1Item", pos      .toString());
+		assertEquals("!(InstanceOfAItem.this not instanceOf InstanceOfC1Item)", neg.not().toString());
+		assertEquals("InstanceOfAItem.this not instanceOf InstanceOfC1Item", neg      .toString());
+		assertEquals("!(InstanceOfAItem.this instanceOf InstanceOfC1Item)",  pos.not().toString());
+	}
+
 	@Test void testEqualsHashCode()
 	{
 		assertNotEqualsAndHash(
