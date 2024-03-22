@@ -119,7 +119,6 @@ public class ConnectPropertiesTest
 				"cache.query.sizeLimit",
 				"cache.stamps",
 				"vault",
-				"comparableCheck",
 				"changeListeners.queueCapacity",
 				"changeListeners.threads.initial",
 				"changeListeners.threads.max",

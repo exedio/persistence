@@ -62,8 +62,7 @@ public final class CompareCondition<E> extends Condition
 		this.left = requireNonNull(left, "left");
 		this.right = requireNonNull(right, "right");
 
-		if(!isComparable(left.getValueClass(), right.getClass(), right) &&
-			isComparableCheckEnabled(left))
+		if(!isComparable(left.getValueClass(), right.getClass(), right))
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append(left).
@@ -107,31 +106,6 @@ public final class CompareCondition<E> extends Condition
 			valueClass = superclass;
 		}
 		while(true);
-	}
-
-	static boolean isComparableCheckEnabled(final Selectable<?> left)
-	{
-		final Type<?> type;
-		try
-		{
-			type = left.getType();
-		}
-		catch(final IllegalStateException e)
-		{
-			return true;
-		}
-		final Model model;
-		try
-		{
-			model = type.getModel();
-		}
-		catch(final IllegalStateException e)
-		{
-			return true;
-		}
-		return
-				!model.isConnected() ||
-				model.getConnectProperties().comparableCheck;
 	}
 
 	@Override
