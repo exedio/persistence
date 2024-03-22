@@ -348,9 +348,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	}
 
 
-	final boolean comparableCheck = value("comparableCheck", true); // TODO remove, is just a panic button
-
-
 	// changeListeners
 
 	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
