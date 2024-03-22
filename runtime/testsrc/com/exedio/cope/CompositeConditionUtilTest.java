@@ -234,6 +234,40 @@ public class CompositeConditionUtilTest
 		assertSame(FALSE, Condition.of(false));
 	}
 
+	@Test void testIn()
+	{
+		final StringField field = new StringField().optional();
+		final Condition c1 = field.in("AAA", "BBB");
+		assertEquals("("+field + "='AAA' or "+field+"='BBB')", c1.toString());
+
+		final Condition c2 = field.in(asList("AAA", "BBB"));
+		assertEquals("("+field + "='AAA' or "+field+"='BBB')", c2.toString());
+
+		final Condition c3 = field.in("AAA", null);
+		assertEquals("("+field + "='AAA' or "+field+" is null)", c3.toString());
+
+		final Condition c4 = field.in(asList("AAA", null));
+		assertEquals("("+field + "='AAA' or "+field+" is null)", c4.toString());
+
+		final Condition c5 = field.in((String)null);
+		assertEquals(field + " is null", c5.toString());
+
+		final Condition c6 = field.in(asList((String)null));
+		assertEquals(field + " is null", c6.toString());
+
+		final Condition c7 = field.in("AAA");
+		assertEquals(field + "='AAA'", c7.toString());
+
+		final Condition c8 = field.in(asList("AAA"));
+		assertEquals(field + "='AAA'", c8.toString());
+
+		final Condition c9 = field.in(null, null);
+		assertEquals("("+field + " is null or "+field + " is null)", c9.toString());
+
+		final Condition cA = field.in(asList(null, null));
+		assertEquals("("+field + " is null or "+field + " is null)", cA.toString());
+	}
+
 	@Test
 	@Deprecated // OK: testing deprecated API
 	void testDeprecatedLiteral()
