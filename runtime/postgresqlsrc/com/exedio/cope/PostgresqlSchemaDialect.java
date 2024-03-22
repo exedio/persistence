@@ -65,9 +65,9 @@ final class PostgresqlSchemaDialect extends Dialect
 	protected String adjustExistingCheckConstraintCondition(String s)
 	{
 		s = adjustExistingCheckConstraintCondition.apply(s);
-		s = adjustExistingCheckConstraintInCondition(s, checkClauseIn, "IN");
 		s = adjustExistingCheckConstraintInCondition(s, checkClauseInText, "IN");
-		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotIn, "NOT IN");
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseIn, "IN");
+		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotInText, "NOT IN");
 		return s;
 	}
 
@@ -81,9 +81,9 @@ final class PostgresqlSchemaDialect extends Dialect
 				checkClauseInnerComma.matcher(matchResult.group(2)).replaceAll(",") + ')');
 	}
 
-	private static final Pattern checkClauseIn = Pattern.compile("(\"\\w*\")=ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"));
-	private static final Pattern checkClauseInText = Pattern.compile("(\"\\w*\")=ANY "+p("ARRAY\\[(.*?)]"));
-	private static final Pattern checkClauseNotIn = Pattern.compile("(\"\\w*\")<>ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"));
+	private static final Pattern checkClauseInText    = Pattern.compile("(\"\\w*\")=ANY "  + p(p("ARRAY\\[(.*?)]") + "::\"text\"\\[\\]"));
+	private static final Pattern checkClauseIn        = Pattern.compile("(\"\\w*\")=ANY "  +   p("ARRAY\\[(.*?)]"));
+	private static final Pattern checkClauseNotInText = Pattern.compile("(\"\\w*\")<>ALL " + p(p("ARRAY\\[(.*?)]") + "::\"text\"\\[\\]"));
 	private static final Pattern checkClauseInnerComma = Pattern.compile(", ");
 
 	private final Replacements adjustExistingCheckConstraintCondition = new Replacements();
