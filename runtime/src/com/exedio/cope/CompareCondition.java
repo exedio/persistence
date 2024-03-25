@@ -76,7 +76,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@SuppressWarnings("RedundantIfStatement")
-	private static boolean isComparable(
+	static boolean isComparable(
 			final Class<?> left,
 			final Class<?> right,
 			final Object rightValue)
@@ -185,7 +185,7 @@ public final class CompareCondition<E> extends Condition
 		bf.append('\'');
 	}
 
-	private static void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
+	static void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
 	{
 		if(o instanceof Item)
 		{

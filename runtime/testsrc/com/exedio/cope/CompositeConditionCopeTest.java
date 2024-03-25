@@ -180,6 +180,7 @@ public class CompositeConditionCopeTest
 		assertFieldsCovered(Arrays.asList(f1, f1, f1), newAnd(c1, c1, c1));
 		assertFieldsCovered(Arrays.asList(), FALSE);
 		assertFieldsCovered(Arrays.asList(), TRUE);
+		assertFieldsCovered(Arrays.asList(f1), new InCondition<>(f1, false, List.of(1d, 2d)));
 	}
 
 	private static void assertNullPointerException(final Condition[] conditions, final String expectedMessage)

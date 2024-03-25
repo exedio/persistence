@@ -82,6 +82,11 @@ final class CheckConstraintConditionItem extends Item
 	static final CheckConstraint compositeOr  = new CheckConstraint(integer1.isNull().or (integer2.isNull()));
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint in    = new CheckConstraint(integer1.in(0, 1));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint inNot = new CheckConstraint(integer1.in(0, 1).not());
+
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint regexpLike = new CheckConstraint(string.regexpLike("[A-Z]"));
 	//static final CheckConstraint charSet = new CheckConstraint(new CharSetCondition(string, CharSet.ALPHA_LOWER)); TODO
 	//static final CheckConstraint like = new CheckConstraint(string.like("like it")); TODO

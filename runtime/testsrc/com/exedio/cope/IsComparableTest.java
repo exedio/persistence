@@ -129,6 +129,9 @@ public class IsComparableTest
 		assertEquals(
 				intA + "=" + intB,
 				intA.equal(intB).toString());
+		assertEquals(
+				intA + " in ('12345','23456')",
+				intA.in(12345, 23456).toString());
 	}
 	@Test void testIntLong()
 	{
@@ -141,6 +144,14 @@ public class IsComparableTest
 				() -> intALong.equal(longA),
 				IllegalArgumentException.class,
 				intA + " not comparable to " + longA);
+		assertFails(
+				() -> intALong.in(12345l, 23456l),
+				IllegalArgumentException.class,
+				intA + " not comparable to '12345' (java.lang.Long)");
+		assertFails(
+				() -> intALong.in(null, 12345l, 23456l),
+				IllegalArgumentException.class,
+				intA + " not comparable to '12345' (java.lang.Long)");
 	}
 
 	@Test void testLong()
