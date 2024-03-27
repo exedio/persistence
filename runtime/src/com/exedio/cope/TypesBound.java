@@ -132,7 +132,6 @@ public final class TypesBound
 
 	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
 	{
-		// needed for not relying on order of result of Method#getDeclaredFields
 		final TreeMap<Feature, Field> result = new TreeMap<>(INSTANTIATION_COMPARATOR);
 		try
 		{
@@ -167,6 +166,9 @@ public final class TypesBound
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 
+	/**
+	 * Needed for not relying on order of result of {@link Class#getDeclaredFields()}.
+	 */
 	private static final Comparator<Feature> INSTANTIATION_COMPARATOR =
 			(f1, f2) -> (f1==f2) ? 0 : Integer.compare(f1.instantiationOrder, f2.instantiationOrder);
 
