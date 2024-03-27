@@ -72,6 +72,8 @@ public class TypesBoundFeaturesTest
 		final IntegerField nonStatic = new IntegerField();
 		@SuppressWarnings("unused") // OK: is to be ignored
 		final Object nonFeature = new IntegerField();
+		@SuppressWarnings("unused") // OK: is to be ignored
+		@CopeIgnore static final IntegerField ignored = new IntegerField();
 	}
 
 
