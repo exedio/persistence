@@ -43,7 +43,7 @@ import java.lang.annotation.Target;
  * primary keys may 'loose' unused ranges of numbers due to caching.
  * <p>
  * The value is actually off by one. So @CopeCreateLimit(0) allows you to create one item.
- * And @CopeCreateLimit(Integer.MAX_VALUE) allows you to create 2^31 items, not just 2^31 - 1.
+ * And @CopeCreateLimit(Integer.MAX_VALUE) allows you to create 2<sup>31</sup> items, not just 2<sup>31</sup> - 1.
  * <p>
  * This annotation may affect your database schema, in particular the type of
  * <ul>
