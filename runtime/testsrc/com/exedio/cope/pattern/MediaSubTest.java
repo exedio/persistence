@@ -131,9 +131,9 @@ public class MediaSubTest extends TestWithEnvironment
 		assertStreamClosed();
 		assertContent(bytes6, "image/jpeg", ".jpg");
 
-		try
+		try(InputStream in = stream(bytes4))
 		{
-			item.setImage(stream(bytes4), "illegalContentType");
+			item.setImage(in, "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -146,9 +146,9 @@ public class MediaSubTest extends TestWithEnvironment
 			assertContent(bytes6, "image/jpeg", ".jpg");
 		}
 
-		try
+		try(InputStream in = stream(bytes4))
 		{
-			item.setImage(stream(bytes4), "text/html");
+			item.setImage(in, "text/html");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)

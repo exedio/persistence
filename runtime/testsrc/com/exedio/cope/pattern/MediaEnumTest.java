@@ -125,9 +125,9 @@ public class MediaEnumTest extends TestWithEnvironment
 		assertStreamClosed();
 		assertContent(bytes6, "image/png", 1, ".png");
 
-		try
+		try(InputStream in = stream(bytes4))
 		{
-			item.setSheet(stream(bytes4), "illegalContentType");
+			item.setSheet(in, "illegalContentType");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)
@@ -140,9 +140,9 @@ public class MediaEnumTest extends TestWithEnvironment
 			assertContent(bytes6, "image/png", 1, ".png");
 		}
 
-		try
+		try(InputStream in = stream(bytes4))
 		{
-			item.setSheet(stream(bytes4), "image/jpeg");
+			item.setSheet(in, "image/jpeg");
 			fail();
 		}
 		catch(final IllegalContentTypeException e)

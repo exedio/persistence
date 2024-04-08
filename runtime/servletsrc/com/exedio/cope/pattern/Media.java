@@ -555,15 +555,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
 
-		try
-		{
-			set(item, DataField.toValue(body), contentType);
-		}
-		finally
-		{
-			if(body!=null)
-				body.close();
-		}
+		set(item, DataField.toValue(body), contentType);
 	}
 
 	@Wrap(order=58,
