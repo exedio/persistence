@@ -743,7 +743,10 @@ public final class DataField extends Field<DataField.Value>
 				final String hash,
 				final VaultPutInfo info) throws IOException
 		{
-			return service.put(hash, openStream(), info);
+			try(InputStream value = openStream())
+			{
+				return service.put(hash, value, info);
+			}
 		}
 	}
 
