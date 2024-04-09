@@ -779,7 +779,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Condition contentTypeEqual(final String contentType)
 	{
-		return this.contentType.equal(contentType, this.lastModified);
+		return contentTypeIn(contentType);
+	}
+
+	public Condition contentTypeIn(final String... contentTypes)
+	{
+		return this.contentType.in(contentTypes, this.lastModified);
 	}
 
 	/**

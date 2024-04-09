@@ -24,6 +24,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.util.CharSet;
+import java.util.ArrayList;
 import java.util.List;
 
 final class SubContentType extends ContentType<String>
@@ -111,14 +112,16 @@ final class SubContentType extends ContentType<String>
 	}
 
 	@Override
-	Condition equal(final String contentType, final DateField nullSensor)
+	Condition in(final String[] contentTypes, final DateField nullSensor)
 	{
-		if(contentType==null)
-			return field.isNull();
-
-		return
-			contentType.startsWith(prefix)
-			? field.equal(contentType.substring(prefixLength))
-			: Condition.ofFalse();
+		final ArrayList<String> values = new ArrayList<>(contentTypes.length);
+		for(final String contentType : contentTypes)
+		{
+			if(contentType==null)
+				values.add(null);
+			else if(contentType.startsWith(prefix))
+				values.add(contentType.substring(prefixLength));
+		}
+		return field.in(values);
 	}
 }

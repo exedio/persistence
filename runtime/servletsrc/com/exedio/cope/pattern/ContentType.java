@@ -69,7 +69,7 @@ abstract class ContentType<B>
 	abstract List<String> getAllowed();
 	abstract String get(Item item, DateField nullSensor);
 	abstract B set(String contentType);
-	abstract Condition equal(String contentType, DateField nullSensor);
+	abstract Condition in(String[] contentTypes, DateField nullSensor);
 
 	final SetValue<B> map(final String contentType)
 	{
