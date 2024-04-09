@@ -32,6 +32,7 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 @ServiceProperties(PostgresqlProperties.class)
 final class PostgresqlDialect extends Dialect
@@ -283,10 +284,10 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
-		bf.append("SUBSTRING(").
-			append(column);
+		bf.append("SUBSTRING(");
+		column.accept(bf);
 		if(offset>0)
 			bf.append(" FROM ").
 				appendParameter(offset+1);

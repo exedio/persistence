@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 /**
@@ -326,7 +327,7 @@ abstract class Dialect
 			appendParameterAny(LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 
-	abstract void appendStartsWith(Statement bf, BlobColumn column, int offset, byte[] value);
+	abstract void appendStartsWith(Statement bf, Consumer<Statement> column, int offset, byte[] value);
 
 	String getAveragePrefix()
 	{

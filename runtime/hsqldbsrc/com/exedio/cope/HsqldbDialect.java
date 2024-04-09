@@ -39,6 +39,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -204,12 +205,12 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
 		bf.append( offset>0 ? "SUBSTR" : "LEFT" ).
-			append("(RAWTOHEX(").
-			append(column).
-			append("),");
+			append("(RAWTOHEX(");
+		column.accept(bf);
+		bf.append("),");
 		if(offset>0)
 			bf.appendParameter(2*offset+1).
 				append(',');

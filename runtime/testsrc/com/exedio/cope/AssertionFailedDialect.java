@@ -22,6 +22,7 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.vault.VaultPutInfo;
 import java.sql.Connection;
 import java.util.List;
+import java.util.function.Consumer;
 
 class AssertionFailedDialect extends Dialect
 {
@@ -85,7 +86,7 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
 		throw new AssertionError();
 	}
