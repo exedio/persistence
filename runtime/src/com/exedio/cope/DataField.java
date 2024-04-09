@@ -157,11 +157,6 @@ public final class DataField extends Field<DataField.Value>
 		store = null;
 	}
 
-	BlobColumn getBlobColumnIfSupported(final String capability)
-	{
-		return store.blobColumnIfSupported(capability);
-	}
-
 	void appendHashExpression(final Statement bf, final String algorithm)
 	{
 		store.appendHashExpression(bf, algorithm);

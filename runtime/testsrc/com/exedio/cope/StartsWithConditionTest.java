@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
-import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -60,13 +59,17 @@ public class StartsWithConditionTest extends TestWithEnvironment
 
 	@Test void testCondition()
 	{
-		if(!isSupported(data.startsWithIfSupported(bytes4)))
-			return;
-
+		final boolean vault = data.getVaultBucket()!=null;
 		final String trunk =
 				"SELECT " + SI.pk(TYPE) + "," + SI.type(TYPE) + " " +
-				"FROM " + SI.tab(TYPE) + " ";
-		final String dataColumn = SI.col(data);
+				"FROM " + SI.tab(TYPE) + " " + (
+				vault
+				? "JOIN " + q("VaultTrail_default") + " " + q("DataItem.data") + " " +
+				  "ON " + SI.col(data) + "=" + q("DataItem.data") + "." + q("hash") + " "
+				: "");
+		final String dataColumn = vault
+				? q("DataItem.data") + "." + q("start20")
+				: SI.col(data);
 		final String expression0;
 		final String expression3;
 		switch(dialect)
@@ -103,8 +106,7 @@ public class StartsWithConditionTest extends TestWithEnvironment
 
 	@Test void testNot()
 	{
-		if(!isSupported(data.startsWithIfSupported(bytes4).not()))
-			return;
+		restartTransactionForVaultTrail(data);
 
 		assertCondition(asList(item0,        item4o3, item6, item6o4, item6x4, item6x4o4), TYPE, data.startsWithIfSupported(   bytes4).not(), data.startsWithIfSupported(   bytes4));
 		assertCondition(asList(item0, item4,          item6, item6o4, item6x4, item6x4o4), TYPE, data.startsWithIfSupported(3, bytes4).not(), data.startsWithIfSupported(3, bytes4));
@@ -115,17 +117,6 @@ public class StartsWithConditionTest extends TestWithEnvironment
 	}
 
 
-	private static boolean isSupported(final Condition condition)
-	{
-		if(data.getVaultInfo()==null)
-			return true;
-
-		assertNotSupported(
-				TYPE.newQuery(condition),
-				"DataField DataItem.data does not support startsWith as it has vault enabled");
-		return false;
-	}
-
 	private static final byte[] bytes0  = {};
 	private static final byte[] bytes4  = {-86,122,-8,23};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
@@ -134,5 +125,10 @@ public class StartsWithConditionTest extends TestWithEnvironment
 	private static byte[] concat(final byte[] bytes1, final byte[] bytes2)
 	{
 		return Hex.decodeLower( Hex.encodeLower(bytes1) + Hex.encodeLower(bytes2) );
+	}
+
+	private String q(final String s)
+	{
+		return SchemaInfo.quoteName(model, s);
 	}
 }

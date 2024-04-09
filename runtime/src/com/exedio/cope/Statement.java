@@ -30,6 +30,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nonnull;
 
 final class Statement
 {
@@ -589,5 +590,44 @@ final class Statement
 			for(final Object p : parameters)
 				result.addChild(new QueryInfo(p.toString()));
 		return result;
+	}
+
+
+	// Vault Trail
+
+	private HashMap<DataField, String> vaultTrailToAlias = null;
+
+	void joinVaultTrailIfAbsent(
+			@Nonnull final DataField field,
+			@Nonnull final VaultTrail trail)
+	{
+		if(vaultTrailToAlias!=null &&
+			vaultTrailToAlias.containsKey(field))
+			return;
+
+		final String alias = dialect.dsmfDialect.quoteName(field.getID());
+		if(vaultTrailToAlias==null)
+			vaultTrailToAlias = new HashMap<>();
+		vaultTrailToAlias.put(field, alias);
+
+		append(" JOIN ");
+		append(trail.tableQuoted);
+		append(' ');
+		append(alias);
+		append(" ON ");
+		append(field.getColumn());
+		append('=');
+		append(alias);
+		append('.');
+		append(trail.hashQuoted);
+	}
+
+	String getJoinVaultTrailAlias(
+			@Nonnull final DataField field)
+	{
+		final String alias = vaultTrailToAlias.get(field);
+		if(alias==null)
+			throw new RuntimeException(field.getID());
+		return alias;
 	}
 }

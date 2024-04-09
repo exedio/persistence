@@ -1286,6 +1286,9 @@ public final class Query<R> implements Serializable
 		bf.append(" FROM ").
 			appendTypeDefinition(null, type, joins!=null);
 
+		if(condition!=null)
+			condition.appendAfterFrom(bf);
+
 		if(joins!=null)
 		{
 			for(final Join join : joins)

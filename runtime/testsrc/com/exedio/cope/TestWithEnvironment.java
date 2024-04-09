@@ -143,6 +143,23 @@ public abstract class TestWithEnvironment
 		model.startTransaction( oldName+"-restart" );
 	}
 
+	/**
+	 * NOTE:
+	 * Vault Trail rows are inserted by a separate connection in auto-commit mode.
+	 * Without restarting the transaction, the test code will not "see" the
+	 * Vault Trail rows.
+	 * I don't know, why MySQL does not require this, and why other tests doing
+	 * similar things do not require this.
+	 * TODO
+	 * This is actually a problem. A transaction cannot see Vault Trail rows created
+	 * during its execution. This may cause wrong result of queries using the Vault Trail.
+	 */
+	protected final void restartTransactionForVaultTrail(final DataField field)
+	{
+		if(field.getVaultBucket()!=null && !mysql)
+			restartTransaction();
+	}
+
 	protected final String synthetic(final String name, final String global)
 	{
 		return tester.synthetic(name, global);

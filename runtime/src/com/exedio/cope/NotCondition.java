@@ -54,6 +54,12 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
+	void appendAfterFrom(final Statement bf)
+	{
+		argument.appendAfterFrom(bf);
+	}
+
+	@Override
 	void append(final Statement bf)
 	{
 		bf.append("NOT (");

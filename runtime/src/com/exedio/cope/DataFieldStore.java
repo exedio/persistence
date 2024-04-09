@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.DataField.Value;
 import java.io.OutputStream;
 import java.util.IdentityHashMap;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 abstract class DataFieldStore
@@ -33,7 +34,6 @@ abstract class DataFieldStore
 	}
 
 	abstract Column column();
-	abstract BlobColumn blobColumnIfSupported(String capability);
 	void toBlobs(
 			final Supplier<byte[]> value,
 			final IdentityHashMap<BlobColumn, byte[]> result)
@@ -62,4 +62,7 @@ abstract class DataFieldStore
 	{
 		return null;
 	}
+
+	void appendStartsWithAfterFrom(final Statement bf, final int offset, final byte[] value) {}
+	abstract Consumer<Statement> getStartsWithColumn();
 }

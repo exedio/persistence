@@ -80,6 +80,13 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
+	void appendAfterFrom(final Statement statement)
+	{
+		for(final Condition condition : conditions)
+			condition.appendAfterFrom(statement);
+	}
+
+	@Override
 	void append(final Statement bf)
 	{
 		bf.append('(');

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.DataField.Value;
 import java.io.OutputStream;
 import java.util.IdentityHashMap;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 final class DataFieldBlobStore extends DataFieldStore
@@ -40,12 +41,6 @@ final class DataFieldBlobStore extends DataFieldStore
 
 	@Override
 	Column column()
-	{
-		return column;
-	}
-
-	@Override
-	BlobColumn blobColumnIfSupported(final String capability)
 	{
 		return column;
 	}
@@ -98,5 +93,11 @@ final class DataFieldBlobStore extends DataFieldStore
 	void put(final Entity entity, final Value value, final Item exceptionItem)
 	{
 		// deliberately empty
+	}
+
+	@Override
+	Consumer<Statement> getStartsWithColumn()
+	{
+		return bf -> bf.append(column);
 	}
 }
