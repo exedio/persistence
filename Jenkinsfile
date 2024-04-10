@@ -12,7 +12,7 @@ String ideaSHA256 = 'b1a5c267ca86850764b0541bee0c27af7d2082e55516e95a0c8d3053957
 @Field
 String databaseMysql57 = '5.7.37'
 @Field
-String databaseMysql80 = '8.0.35'
+String databaseMysql80 = '8.0.36'
 @Field
 String databasePostgresql = '13.11'
 
