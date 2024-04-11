@@ -80,8 +80,8 @@ public class StartsWithConditionTest extends TestWithEnvironment
 				expression3 = "HEX(SUBSTRING(" + dataColumn + ",4,4))='AA7AF817'";
 				break;
 			case postgresql:
-				expression0 = "ENCODE(SUBSTRING(" + dataColumn +        " FOR 4),'hex')='aa7af817'";
-				expression3 = "ENCODE(SUBSTRING(" + dataColumn + " FROM 4 FOR 4),'hex')='aa7af817'";
+				expression0 = "SUBSTRING(" + dataColumn +        " FOR 4)=E'\\\\xaa7af817'";
+				expression3 = "SUBSTRING(" + dataColumn + " FROM 4 FOR 4)=E'\\\\xaa7af817'";
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
