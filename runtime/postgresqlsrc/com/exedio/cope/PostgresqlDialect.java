@@ -285,15 +285,15 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
 	{
-		bf.append("ENCODE(SUBSTRING(").
+		bf.append("SUBSTRING(").
 			append(column);
 		if(offset>0)
 			bf.append(" FROM ").
 				appendParameter(offset+1);
 		bf.append(" FOR ").
 			appendParameter(value.length).
-			append("),'hex')=").
-			appendParameter(Hex.encodeLower(value));
+			append(")=").
+			appendParameterBlob(value);
 	}
 
 	@Override
