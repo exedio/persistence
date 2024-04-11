@@ -1,5 +1,5 @@
 ARG VERSION
-FROM postgres:${VERSION}-bullseye
+FROM postgres:${VERSION}-bookworm
 
 ENV POSTGRES_PASSWORD password-JUST-FOR-SETUP
 

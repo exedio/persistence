@@ -47,8 +47,8 @@ final class PostgresqlProperties extends Properties
 
 	String schemaStatement()
 	{
-		// https://www.postgresql.org/docs/9.6/sql-set.html
-		// https://www.postgresql.org/docs/9.6/runtime-config-client.html#GUC-SEARCH-PATH
+		// https://www.postgresql.org/docs/15/sql-set.html
+		// https://www.postgresql.org/docs/15/runtime-config-client.html#GUC-SEARCH-PATH
 		return "SET SCHEMA '" + schema + '\'';
 	}
 
