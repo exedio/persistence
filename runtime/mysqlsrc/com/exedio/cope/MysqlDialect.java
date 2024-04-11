@@ -448,11 +448,14 @@ final class MysqlDialect extends Dialect
 	@Override
 	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
 	{
-		bf.append("HEX(SUBSTRING(").
-			append(column).
-			append(',').
-			appendParameter(offset+1).
-			append(',').
+		bf.append("HEX(").
+			append( offset>0 ? "SUBSTRING" : "LEFT" ).
+			append('(').
+			append(column);
+		if(offset>0)
+			bf.append(',').
+				appendParameter(offset+1);
+		bf.append(',').
 			appendParameter(value.length).
 			append("))=").
 			appendParameter(Hex.encodeUpper(value));
