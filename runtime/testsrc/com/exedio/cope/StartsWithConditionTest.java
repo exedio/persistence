@@ -23,7 +23,9 @@ import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Hex;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,6 +62,36 @@ public class StartsWithConditionTest extends TestWithEnvironment
 	{
 		if(!isSupported(data.startsWithIfSupported(bytes4)))
 			return;
+
+		final String trunk =
+				"SELECT " + SI.pk(TYPE) + "," + SI.type(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " ";
+		final String dataColumn = SI.col(data);
+		final String expression0;
+		final String expression3;
+		switch(dialect)
+		{
+			case hsqldb:
+				expression0 = "LEFT(RAWTOHEX("   + dataColumn +   "),8)='aa7af817'";
+				expression3 = "SUBSTR(RAWTOHEX(" + dataColumn + "),7,8)='aa7af817'";
+				break;
+			case mysql:
+				expression0 = "HEX(LEFT("      + dataColumn +   ",4))='AA7AF817'";
+				expression3 = "HEX(SUBSTRING(" + dataColumn + ",4,4))='AA7AF817'";
+				break;
+			case postgresql:
+				expression0 = "ENCODE(SUBSTRING(" + dataColumn +        " FOR 4),'hex')='aa7af817'";
+				expression3 = "ENCODE(SUBSTRING(" + dataColumn + " FROM 4 FOR 4),'hex')='aa7af817'";
+				break;
+			default:
+				throw new RuntimeException(dialect.name());
+		}
+		assertEquals(
+				trunk + "WHERE " + expression0,
+				SchemaInfo.search(TYPE.newQuery(data.startsWithIfSupported(bytes4))));
+		assertEquals(
+				trunk + "WHERE " + expression3,
+				SchemaInfo.search(TYPE.newQuery(data.startsWithIfSupported(3, bytes4))));
 
 		assertCondition(item4, TYPE, data.startsWithIfSupported(bytes4));
 		assertCondition(item4o3, TYPE, data.startsWithIfSupported(3, bytes4));
