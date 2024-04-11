@@ -76,8 +76,8 @@ public class StartsWithConditionTest extends TestWithEnvironment
 				expression3 = "SUBSTR(RAWTOHEX(" + dataColumn + "),7,8)='aa7af817'";
 				break;
 			case mysql:
-				expression0 = "HEX(LEFT("      + dataColumn +   ",4))='AA7AF817'";
-				expression3 = "HEX(SUBSTRING(" + dataColumn + ",4,4))='AA7AF817'";
+				expression0 = "LEFT("      + dataColumn +   ",4)=x'aa7af817'";
+				expression3 = "SUBSTRING(" + dataColumn + ",4,4)=x'aa7af817'";
 				break;
 			case postgresql:
 				expression0 = "SUBSTRING(" + dataColumn +        " FOR 4)=E'\\\\xaa7af817'";
