@@ -10,7 +10,7 @@ String idea = '2023.2'
 @Field
 String ideaSHA256 = 'b1a5c267ca86850764b0541bee0c27af7d2082e55516e95a0c8d30539571735c'
 @Field
-String databaseMysql57 = '5.7.37'
+String databaseMysql57 = '5.7.40'
 @Field
 String databaseMysql80 = '8.0.36'
 @Field
@@ -406,7 +406,9 @@ try
 					"--cap-add CHOWN " +
 					"--cap-add SETGID " +
 					"--cap-add SETUID " +
-					"--tmpfs /var/lib/mysql:rw "
+					"--cap-add DAC_OVERRIDE " +
+					"--tmpfs /var/lib/mysql:rw " +
+					"--tmpfs /var/log/mysql:rw "
 				) { c ->
 					mainImage.inside(
 						dockerRunDefaults(dbBridge) +
@@ -479,7 +481,9 @@ try
 					"--cap-add CHOWN " +
 					"--cap-add SETGID " +
 					"--cap-add SETUID " +
-					"--tmpfs /var/lib/mysql:rw "
+					"--cap-add DAC_OVERRIDE " +
+					"--tmpfs /var/lib/mysql:rw " +
+					"--tmpfs /var/log/mysql:rw "
 				) { c ->
 					mainImage.inside(
 						dockerRunDefaults(dbBridge) +
