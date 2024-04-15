@@ -871,7 +871,7 @@ final class MysqlDialect extends Dialect
 			trail.appendSetMarkPut(bf);
 		else
 			bf.
-					// Below is a workaround for a hypothetical ON DUPLICATE KEY UPDATE DO NOTHING.
+					// Below is a workaround for a hypothetical ON DUPLICATE KEY DO NOTHING.
 					// According to stackoverflow it does not trigger an actual row update:
 					// https://stackoverflow.com/questions/4596390/insert-on-duplicate-key-do-nothing
 					append(trail.hashQuoted).
