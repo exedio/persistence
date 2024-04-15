@@ -14,7 +14,7 @@ String databaseMysql57 = '5.7.40'
 @Field
 String databaseMysql80 = '8.0.36'
 @Field
-String databasePostgresql = '13.11'
+String databasePostgresql = '15.6'
 
 String projectName = env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/")) // depends on name and location of multibranch pipeline in jenkins
 boolean isRelease = env.BRANCH_NAME=="master"
@@ -695,6 +695,8 @@ try
 			)
 			envPostgresql(
 				'pg-public',
+				'connection.username=test_db_user_public\n' +
+				'connection.password=test_db_password_public\n' +
 				'dialect.connection.schema=public\n' +
 				'schema.primaryKeyGenerator=sequence\n'
 			)
