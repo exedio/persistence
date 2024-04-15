@@ -194,7 +194,7 @@ public final class VaultFileToTrail
 						"'" + origin + "'" + ") " +
 						// https://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html
 						"ON DUPLICATE KEY " +
-						// Below is a workaround for a hypothetical ON DUPLICATE KEY UPDATE DO NOTHING.
+						// Below is a workaround for a hypothetical ON DUPLICATE KEY DO NOTHING.
 						// According to stackoverflow it does not trigger an actual row update:
 						// https://stackoverflow.com/questions/4596390/insert-on-duplicate-key-do-nothing
 						"UPDATE `hash`=`hash`;");
