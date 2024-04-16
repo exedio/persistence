@@ -38,6 +38,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.text.DecimalFormat;
@@ -87,7 +89,7 @@ public class MediaServletTest
 	@Test void testIt() throws Exception
 	{
 		final String app = "/cope-runtime-servlet/";
-		final URL init = new URL(schemeAndHost + app + "init");
+		final URL init = new URI(schemeAndHost + app + "init").toURL();
 		init.getContent();
 
 		final String prefix = app + "media/MediaServletItem/";
@@ -316,12 +318,12 @@ public class MediaServletTest
 		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR_LM + ".txt");
 	}
 
-	private void assertTxt(final String url, final Date lastModified) throws IOException
+	private void assertTxt(final String url, final Date lastModified) throws IOException, URISyntaxException
 	{
 		assertTxt(url, lastModified, -1, false);
 	}
 
-	private void assertTxt(final String url, final String contentType, final Date lastModified) throws IOException
+	private void assertTxt(final String url, final String contentType, final Date lastModified) throws IOException, URISyntaxException
 	{
 		assertTxt(url, contentType, lastModified, -1, false);
 	}
@@ -331,7 +333,7 @@ public class MediaServletTest
 			final Date lastModified,
 			final long ifModifiedSince,
 			final boolean expectNotModified)
-		throws IOException
+		throws IOException, URISyntaxException
 	{
 		assertTxt(url, "text/plain", lastModified, ifModifiedSince, expectNotModified);
 	}
@@ -342,10 +344,10 @@ public class MediaServletTest
 			final Date lastModified,
 			final long ifModifiedSince,
 			final boolean expectNotModified)
-		throws IOException
+		throws IOException, URISyntaxException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		if(ifModifiedSince>=0)
 			conn.setIfModifiedSince(ifModifiedSince);
@@ -396,10 +398,10 @@ public class MediaServletTest
 		return builder.toString();
 	}
 
-	private void assertMoved(final String url, final String target) throws IOException
+	private void assertMoved(final String url, final String target) throws IOException, URISyntaxException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(HTTP_MOVED_PERM, conn.getResponseCode(), "responseCode");
@@ -420,17 +422,17 @@ public class MediaServletTest
 		assertOnExceptionEmpty();
 	}
 
-	private void assertNotFound(final String url, final String reason) throws IOException
+	private void assertNotFound(final String url, final String reason) throws IOException, URISyntaxException
 	{
 		assertNotFound(url, reason, null);
 	}
 
 	private void assertNotFound(
 			final String url, final String reason,
-			final Date lastModified) throws IOException
+			final Date lastModified) throws IOException, URISyntaxException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		if(HTTP_NOT_FOUND!=conn.getResponseCode())
@@ -478,7 +480,7 @@ public class MediaServletTest
 			final String url,
 			final String contentType,
 			final Date lastModified)
-		throws IOException
+		throws IOException, URISyntaxException
 	{
 		assertBin(url, contentType, lastModified, "max-age=5");
 	}
@@ -487,7 +489,7 @@ public class MediaServletTest
 			final String url,
 			final String contentType,
 			final Date lastModified)
-		throws IOException
+		throws IOException, URISyntaxException
 	{
 		assertBin(url, contentType, lastModified, "private,max-age=5");
 	}
@@ -497,10 +499,10 @@ public class MediaServletTest
 			final String contentType,
 			final Date lastModified,
 			final String cacheControl)
-		throws IOException
+		throws IOException, URISyntaxException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(HTTP_OK, conn.getResponseCode(), "url=" + url);
@@ -521,10 +523,10 @@ public class MediaServletTest
 		assertOnExceptionEmpty();
 	}
 
-	private void assertInternalError(final String url) throws IOException
+	private void assertInternalError(final String url) throws IOException, URISyntaxException
 	{
 		final Date before = new Date();
-		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		if(HTTP_INTERNAL_ERROR!=conn.getResponseCode())
@@ -565,9 +567,9 @@ public class MediaServletTest
 		StrictFile.delete(onException);
 	}
 
-	private void assertNameURL(final String url) throws IOException
+	private void assertNameURL(final String url) throws IOException, URISyntaxException
 	{
-		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
+		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
