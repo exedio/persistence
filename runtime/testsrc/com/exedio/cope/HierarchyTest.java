@@ -25,7 +25,6 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.tojunit.Assert.map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -38,6 +37,7 @@ import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class HierarchyTest extends TestWithEnvironment
@@ -144,7 +144,7 @@ public class HierarchyTest extends TestWithEnvironment
 		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
-		assertEquals(map(), HiddenFeatures.get(model));
+		assertEquals(Map.of(), HiddenFeatures.get(model));
 
 		assertFails(
 				() -> checkUpdateCounter(null),
