@@ -40,12 +40,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -255,7 +257,7 @@ public final class Assert
 
 	public static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
 	{
-		final HashMap<Object, Object> result = new HashMap<>();
+		final LinkedHashMap<Object, Object> result = new LinkedHashMap<>();
 		result.put(key1, value1);
 		result.put(key2, value2);
 		return Collections.unmodifiableMap(result);
@@ -263,7 +265,7 @@ public final class Assert
 
 	public static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2, final Object key3, final Object value3)
 	{
-		final HashMap<Object, Object> result = new HashMap<>();
+		final LinkedHashMap<Object, Object> result = new LinkedHashMap<>();
 		result.put(key1, value1);
 		result.put(key2, value2);
 		result.put(key3, value3);
@@ -297,6 +299,7 @@ public final class Assert
 	{
 		assertUnmodifiable(actual);
 		assertEquals(expected, actual);
+		assertEquals(new ArrayList<>(expected.keySet()), new ArrayList<>(actual.keySet()));
 	}
 
 	public static void assertUnmodifiable(final Map<?,?> m)

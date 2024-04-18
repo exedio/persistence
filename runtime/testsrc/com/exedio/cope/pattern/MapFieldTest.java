@@ -165,7 +165,7 @@ public class MapFieldTest extends TestWithEnvironment
 		map.put(PL, "namePL");
 		map.remove(DE);
 		item.setNameMap(mapU);
-		assertEqualsUnmodifiable(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(EN, "nameEN", PL, "namePL"), item.getNameMap());
 
 		map.clear();
 		item.setNameMap(mapU);
