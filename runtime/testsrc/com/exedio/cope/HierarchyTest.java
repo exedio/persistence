@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class HierarchyTest extends TestWithEnvironment
 {
@@ -144,6 +145,7 @@ public class HierarchyTest extends TestWithEnvironment
 		assertFalse(HierarchyFirstSub.TYPE.isAbstract());
 		assertEquals(HierarchyFirstSub.TYPE, HierarchyFirstSub.firstSubString.getType());
 
+		HiddenFeatures.accept(model, (k,v) -> { throw new AssertionFailedError(k + "," + v); });
 		assertEquals(Map.of(), HiddenFeatures.get(model));
 
 		assertFails(
