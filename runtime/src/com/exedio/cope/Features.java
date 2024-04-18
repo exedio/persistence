@@ -22,7 +22,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,11 +36,6 @@ public final class Features
 	{
 		map = new LinkedHashMap<>();
 		annotationSources = new IdentityHashMap<>();
-	}
-
-	Map<String,Feature> getNamedFeatures()
-	{
-		return Collections.unmodifiableMap(map);
 	}
 
 	public void put(final String name, final Feature feature, final AnnotatedElement annotationSource)
