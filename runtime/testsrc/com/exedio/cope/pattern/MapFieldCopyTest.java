@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
@@ -197,7 +198,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 				e.getMessage()
 			);
 		}
-		assertEquals(emptyMap(), itemA.getBothSameSharedMap());
+		assertEqualsUnmodifiable(emptyMap(), itemA.getBothSameSharedMap());
 		try
 		{
 			itemA.setBothSameShared(itemA, itemB);
@@ -212,7 +213,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 				e.getMessage()
 			);
 		}
-		assertEquals(emptyMap(), itemA.getBothSameSharedMap());
+		assertEqualsUnmodifiable(emptyMap(), itemA.getBothSameSharedMap());
 		itemA.setBothSameShared(itemA, itemA);
 		try
 		{

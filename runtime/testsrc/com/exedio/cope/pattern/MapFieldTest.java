@@ -148,28 +148,28 @@ public class MapFieldTest extends TestWithEnvironment
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
-		assertEquals(map(), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameMap());
 
 		item.setNameMap(mapU);
-		assertEquals(map(), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameMap());
 
 		map.put(DE, "nameDE");
 		item.setNameMap(mapU);
-		assertEquals(map(DE, "nameDE"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
 
 		map.put(EN, "nameEN");
 		map.put(DE, "nameDE2");
 		item.setNameMap(mapU);
-		assertEquals(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
 
 		map.put(PL, "namePL");
 		map.remove(DE);
 		item.setNameMap(mapU);
-		assertEquals(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
 
 		map.clear();
 		item.setNameMap(mapU);
-		assertEquals(map(), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameMap());
 	}
 
 	@Test void testMapSetNull()
@@ -178,14 +178,14 @@ public class MapFieldTest extends TestWithEnvironment
 		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
-		assertEquals(map(PL, "namePL"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL"), item.getNameMap());
 
 		assertFails(
 				() -> item.setNameMap(null),
 				MandatoryViolationException.class,
 				"mandatory violation on MapFieldItem-0 for MapFieldItem.name",
 				name, item);
-		assertEquals(map(PL, "namePL"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL"), item.getNameMap());
 	}
 
 	@Test void testMapSetKeyNull()
@@ -194,7 +194,7 @@ public class MapFieldTest extends TestWithEnvironment
 		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
-		assertEquals(map(PL, "namePL"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL"), item.getNameMap());
 
 		map.put(null, "nameNull");
 		assertFails(
@@ -202,7 +202,7 @@ public class MapFieldTest extends TestWithEnvironment
 				MandatoryViolationException.class,
 				"mandatory violation for MapFieldItem-name.key",
 				name.getKey());
-		assertEquals(map(PL, "namePL"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL"), item.getNameMap());
 	}
 
 	@Test void testMapSetValueNull()
@@ -211,7 +211,7 @@ public class MapFieldTest extends TestWithEnvironment
 		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
-		assertEquals(map(PL, "namePL"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL"), item.getNameMap());
 
 		map.put(PL, null);
 		assertFails(
@@ -219,7 +219,7 @@ public class MapFieldTest extends TestWithEnvironment
 				MandatoryViolationException.class,
 				"mandatory violation for MapFieldItem-name.value",
 				name.getValue());
-		assertEquals(map(PL, "namePL"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL"), item.getNameMap());
 	}
 
 	@Test void testMapSetKeyOtherViolation()
@@ -236,7 +236,7 @@ public class MapFieldTest extends TestWithEnvironment
 				"must be at least 4 characters, but was 3",
 				MapFieldItem.string.getKey());
 		assertEquals("two", e.getValue());
-		assertEquals(emptyMap(), item.getStringMap());
+		assertEqualsUnmodifiable(emptyMap(), item.getStringMap());
 	}
 
 	@Test void testMapSetValueOtherViolation()
@@ -253,7 +253,7 @@ public class MapFieldTest extends TestWithEnvironment
 				"must be at least 4 characters, but was 3",
 				MapFieldItem.string.getValue());
 		assertEquals("two", e.getValue());
-		assertEquals(emptyMap(), item.getStringMap());
+		assertEqualsUnmodifiable(emptyMap(), item.getStringMap());
 	}
 
 	@Test void testGetAndCast()
