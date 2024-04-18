@@ -20,12 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.tojunit.Assert.map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.misc.HiddenFeatures;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class HiddenFeatureTest extends TestWithEnvironment
@@ -115,7 +115,7 @@ public class HiddenFeatureTest extends TestWithEnvironment
 		assertSame(null, model.getFeature("HiddenFeatureSuperItem.nonHiddenSub"));
 		assertSame(null, model.getFeature("HiddenFeatureSubItem.nonHiddenSuper"));
 
-		assertEquals(map(
+		assertEquals(Map.of(
 				HiddenFeatureSubItem.hiddenOther, HiddenFeatureSuperItem.hiddenOther,
 				HiddenFeatureSubItem.hiddenSame, HiddenFeatureSuperItem.hiddenSame),
 				HiddenFeatures.get(model));
