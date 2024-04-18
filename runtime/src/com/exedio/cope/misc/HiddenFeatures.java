@@ -24,12 +24,26 @@ import com.exedio.cope.This;
 import com.exedio.cope.Type;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
 
 public final class HiddenFeatures
 {
 	public static Map<Feature, Feature> get(final Model model)
 	{
 		final HashMap<Feature, Feature> result = new HashMap<>();
+		accept(model, (f,hidden) ->
+		{
+			final Feature previous = result.putIfAbsent(f, hidden);
+			assert previous==null;
+		});
+		return result;
+	}
+
+	public static void accept(
+			@Nonnull final Model model,
+			@Nonnull final BiConsumer<Feature, Feature> consumer)
+	{
 		for(final Type<?> t : model.getTypes())
 		{
 			final Type<?> st = t.getSupertype();
@@ -43,13 +57,9 @@ public final class HiddenFeatures
 
 				final Feature hidden = st.getFeature(f.getName());
 				if(hidden!=null)
-				{
-					final Feature previous = result.putIfAbsent(f, hidden);
-					assert previous==null;
-				}
+					consumer.accept(f, hidden);
 			}
 		}
-		return result;
 	}
 
 

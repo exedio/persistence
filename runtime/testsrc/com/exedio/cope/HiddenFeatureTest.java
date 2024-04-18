@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.misc.HiddenFeatures;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
@@ -115,6 +117,14 @@ public class HiddenFeatureTest extends TestWithEnvironment
 		assertSame(null, model.getFeature("HiddenFeatureSuperItem.nonHiddenSub"));
 		assertSame(null, model.getFeature("HiddenFeatureSubItem.nonHiddenSuper"));
 
+		{
+			final ArrayList<Feature> hidden = new ArrayList<>();
+			HiddenFeatures.accept(model, (k,v) -> { hidden.add(k); hidden.add(v); } );
+			assertEquals(List.of(
+					HiddenFeatureSubItem.hiddenSame, HiddenFeatureSuperItem.hiddenSame,
+					HiddenFeatureSubItem.hiddenOther, HiddenFeatureSuperItem.hiddenOther),
+					hidden);
+		}
 		assertEquals(Map.of(
 				HiddenFeatureSubItem.hiddenOther, HiddenFeatureSuperItem.hiddenOther,
 				HiddenFeatureSubItem.hiddenSame, HiddenFeatureSuperItem.hiddenSame),
