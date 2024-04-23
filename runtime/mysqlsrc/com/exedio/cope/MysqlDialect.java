@@ -37,6 +37,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
@@ -446,11 +447,11 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
 		bf.append( offset>0 ? "SUBSTRING" : "LEFT" ).
-			append('(').
-			append(column);
+			append('(');
+		column.accept(bf);
 		if(offset>0)
 			bf.append(',').
 				appendParameter(offset+1);
