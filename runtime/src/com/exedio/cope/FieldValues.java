@@ -135,13 +135,10 @@ public final class FieldValues
 			final Field<?> field = e.getKey();
 			if(!(field instanceof DataField))
 				continue;
-			final Column column = field.getColumn();
-			if(!(column instanceof BlobColumn)) // just for DataVault
-				continue;
 
 			final DataField.Value value = (DataField.Value)e.getValue();
 			final DataField df = (DataField)field;
-			result.put(df.getBlobColumnIfSupported("toBlobs"), value!=null ? value.asArray(df, backingItem) : null);
+			df.store().toBlobs(() -> value!=null ? value.asArray(df, backingItem) : null, result);
 		}
 		return result;
 	}

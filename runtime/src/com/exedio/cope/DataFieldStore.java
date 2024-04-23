@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.DataField.Value;
 import java.io.OutputStream;
+import java.util.IdentityHashMap;
+import java.util.function.Supplier;
 
 abstract class DataFieldStore
 {
@@ -32,6 +34,12 @@ abstract class DataFieldStore
 
 	abstract Column column();
 	abstract BlobColumn blobColumnIfSupported(String capability);
+	void toBlobs(
+			final Supplier<byte[]> value,
+			final IdentityHashMap<BlobColumn, byte[]> result)
+	{
+		// do nothing
+	}
 	abstract void appendHashExpression(Statement bf, String algorithm);
 	abstract boolean isNull(Transaction tx, Item item);
 	abstract long loadLength(Transaction tx, Item item);

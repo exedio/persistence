@@ -933,7 +933,7 @@ public final class DataField extends Field<DataField.Value>
 		return store().getVaultInfo();
 	}
 
-	private DataFieldStore store()
+	DataFieldStore store()
 	{
 		final DataFieldStore store = this.store;
 		if(store==null)

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.DataField.Value;
 import java.io.OutputStream;
+import java.util.IdentityHashMap;
+import java.util.function.Supplier;
 
 final class DataFieldBlobStore extends DataFieldStore
 {
@@ -46,6 +48,14 @@ final class DataFieldBlobStore extends DataFieldStore
 	BlobColumn blobColumnIfSupported(final String capability)
 	{
 		return column;
+	}
+
+	@Override
+	void toBlobs(
+			final Supplier<byte[]> value,
+			final IdentityHashMap<BlobColumn, byte[]> result)
+	{
+		result.put(column, value.get());
 	}
 
 	@Override
