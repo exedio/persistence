@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
-import static com.exedio.cope.DataModelTest.assertNotSupported;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,15 +56,14 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 		final MyItem n = new MyItem("000000", "000000", "000000");
 		final Query<MyItem> queryPos = MyItem.TYPE.newQuery(MyItem.alpha.startsWithIfSupported(decodeLower("33aa")));
 		final Query<MyItem> queryNeg = MyItem.TYPE.newQuery(MyItem.alpha.startsWithIfSupported(decodeLower("33aa")).not());
-
-		if(!isSupported(queryPos, MyItem.alpha))
-			return;
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
+				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE " + startsWith(MyItem.alpha, "33aa", "MyItem.alpha"),
 				SchemaInfo.search(queryPos));
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
+				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE NOT (" + startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ")",
 				SchemaInfo.search(queryNeg));
 		assertEquals(List.of(a), queryPos.search());
@@ -79,16 +78,15 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 		final Query<MyItem> query = MyItem.TYPE.newQuery(
 				MyItem.alpha.startsWithIfSupported(decodeLower("33aa")).or(
 				MyItem.alpha.startsWithIfSupported(decodeLower("33bb"))));
-
-		if(!isSupported(query, MyItem.alpha))
-			return;
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
+				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE (" +
 				startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") OR (" +
 				startsWith(MyItem.alpha, "33bb", "MyItem.alpha") + ")",
 				SchemaInfo.search(query));
 		query.setOrderByThis(true);
+		restartTransactionForVaultTrail(MyItem.alpha);
 		assertEquals(List.of(a, b), query.search());
 
 		// test incomplete trail
@@ -119,16 +117,16 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 		final Query<MyItem> query = MyItem.TYPE.newQuery(
 				MyItem.alpha.startsWithIfSupported(decodeLower("33aa")).or(
 				MyItem.beta .startsWithIfSupported(decodeLower("33bb"))));
-
-		if(!isSupported(query, MyItem.alpha))
-			return;
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
+				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.beta" ) + " ON " + SI.col(MyItem.beta ) + "=" + q("MyItem.beta" ) + "." + q("hash") + " ") +
 				"WHERE (" +
 				startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") OR (" +
 				startsWith(MyItem.beta , "33bb", "MyItem.beta" ) + ")",
 				SchemaInfo.search(query));
 		query.setOrderByThis(true);
+		restartTransactionForVaultTrail(MyItem.alpha);
 		assertEquals(List.of(a, b), query.search());
 	}
 
@@ -141,16 +139,16 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 		final Query<MyItem> query = MyItem.TYPE.newQuery(
 				MyItem.alpha.startsWithIfSupported(decodeLower("33aa")).or(
 				MyItem.jota .startsWithIfSupported(decodeLower("33bb"))));
-
-		if(!isSupported(query, MyItem.alpha))
-			return;
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
+				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + q("VaultTrail_jo_ta"  ) + " " + q("MyItem.jota" ) + " ON " + SI.col(MyItem.jota ) + "=" + q("MyItem.jota" ) + "." + q("hash") + " ") +
 				"WHERE (" +
 				startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") OR (" +
 				startsWith(MyItem.jota,  "33bb", "MyItem.jota" ) + ")",
 				SchemaInfo.search(query));
 		query.setOrderByThis(true);
+		restartTransactionForVaultTrail(MyItem.alpha);
 		assertEquals(List.of(a, b), query.search());
 	}
 
@@ -174,14 +172,13 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 				MyItem.alpha.startsWithIfSupported(5, decodeLower(          "556677889900112233445566778899")));
 		final Query<MyItem> queryOffsetExceeds = MyItem.TYPE.newQuery(
 				MyItem.alpha.startsWithIfSupported(5, decodeLower(          "556677889900112233445566778899aa")));
-
-		if(!isSupported(query, MyItem.alpha))
-			return;
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
+				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE " +
 				startsWith(MyItem.alpha, "0011223344556677889900112233445566778899", "MyItem.alpha"),
 				SchemaInfo.search(query));
+		if(vp==null)
 		{
 			assertEquals(
 					"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
@@ -189,24 +186,45 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 					startsWith(MyItem.alpha, "0011223344556677889900112233445566778899aa", "MyItem.alpha"),
 					SchemaInfo.search(queryExceeds));
 		}
+		else
+		{
+			assertFails(
+					() -> SchemaInfo.search(queryExceeds),
+					UnsupportedQueryException.class,
+					"DataField MyItem.alpha does not support startsWith as it has vault enabled, " +
+					"trail supports up to 20 bytes only but condition requires 21 bytes");
+			assertFails(
+					() -> SchemaInfo.search(queryOffsetExceeds),
+					UnsupportedQueryException.class,
+					"DataField MyItem.alpha does not support startsWith as it has vault enabled, " +
+					"trail supports up to 20 bytes only but condition requires 21 bytes (offset 5 plus value 16)");
+		}
 		assertEquals(List.of(a), query.search());
 		assertEquals(List.of(a), queryOffset.search());
+		if(vp==null)
 		{
 			assertEquals(List.of(a), queryExceeds.search());
 			assertEquals(List.of(a), queryOffsetExceeds.search());
 		}
+		else
+		{
+			assertFails(
+					queryExceeds::search,
+					UnsupportedQueryException.class,
+					"DataField MyItem.alpha does not support startsWith as it has vault enabled, " +
+					"trail supports up to 20 bytes only but condition requires 21 bytes");
+			assertFails(
+					queryOffsetExceeds::search,
+					UnsupportedQueryException.class,
+					"DataField MyItem.alpha does not support startsWith as it has vault enabled, " +
+					"trail supports up to 20 bytes only but condition requires 21 bytes (offset 5 plus value 16)");
+		}
 	}
 
 
-	private static boolean isSupported(final Query<?> query, final DataField field)
+	private static String ifVault(final String s)
 	{
-		if(MyItem.alpha.getVaultInfo()==null)
-			return true;
-
-		assertNotSupported(
-				query,
-				"DataField " + field + " does not support startsWith as it has vault enabled");
-		return false;
+		return MyItem.alpha.getVaultBucket()!=null ? s : "";
 	}
 
 	private String startsWith(final DataField field, final String val, final String alias)

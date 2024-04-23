@@ -35,7 +35,7 @@ final class VaultTrail
 	private final VaultMarkPut markPutSupplier;
 
 	private final VaultProperties props;
-	private final int startLimit;
+	final int startLimit;
 	private final int fieldLimit;
 	private final int originLimit;
 
@@ -53,7 +53,7 @@ final class VaultTrail
 	final String hashQuoted;
 	final String hashPKQuoted;
 	private final String lengthQuoted;
-	private final String startQuoted;
+	final String startQuoted;
 	private final String markPutQuoted;
 	private final String dateQuoted;
 	private final String fieldQuoted;

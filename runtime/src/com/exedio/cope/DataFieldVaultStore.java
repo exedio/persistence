@@ -126,13 +126,6 @@ final class DataFieldVaultStore extends DataFieldStore
 	}
 
 	@Override
-	BlobColumn blobColumnIfSupported(final String capability)
-	{
-		throw new UnsupportedQueryException(
-				"DataField " + field + " does not support " + capability + " as it has vault enabled");
-	}
-
-	@Override
 	void appendHashExpression(final Statement bf, final String algorithm)
 	{
 		if(!algorithm.equals(algorithmName))
@@ -317,5 +310,28 @@ final class DataFieldVaultStore extends DataFieldStore
 				field, bucket, service,
 				getLength, getBytes, getStream,
 				putInitial, putRedundant);
+	}
+
+	@Override
+	void appendStartsWithAfterFrom(final Statement bf, final int offset, final byte[] value)
+	{
+		final int required = offset + value.length;
+		if(required>trail.startLimit)
+			throw new UnsupportedQueryException(
+					"DataField " + field + " does not support startsWith as it has vault enabled, " +
+					"trail supports up to " + trail.startLimit + " bytes only but " +
+					"condition requires " + required + " bytes" +
+					(offset>0 ? " (offset " + offset + " plus value " + value.length + ')' : ""));
+
+		bf.joinVaultTrailIfAbsent(field, trail);
+	}
+
+	@Override
+	Consumer<Statement> getStartsWithColumn()
+	{
+		return bf -> bf.
+				append(bf.getJoinVaultTrailAlias(field)).
+				append('.').
+				append(trail.startQuoted);
 	}
 }

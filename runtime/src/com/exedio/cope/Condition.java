@@ -28,6 +28,7 @@ public abstract class Condition implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
+	void appendAfterFrom(final Statement statement) {}
 	abstract void append(Statement statement);
 
 	public final boolean get(@Nonnull final Item item)

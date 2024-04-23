@@ -79,9 +79,15 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
+	void appendAfterFrom(final Statement bf)
+	{
+		field.store().appendStartsWithAfterFrom(bf, offset, value);
+	}
+
+	@Override
 	void append(final Statement bf)
 	{
-		bf.dialect.appendStartsWith(bf, bfx -> bfx.append(field.getBlobColumnIfSupported("startsWith")), offset, value);
+		bf.dialect.appendStartsWith(bf, field.store().getStartsWithColumn(), offset, value);
 	}
 
 	@Override
@@ -124,6 +130,8 @@ public final class StartsWithCondition extends Condition
 		// Should be implemented as
 		//   return new StartsWithCondition(field.bind(join), offset, value);
 		// but so far there is no DataField#bind(Join).
+		//
+		// Requires even more special treatment when field is in vault !!!
 	}
 
 	@Override
