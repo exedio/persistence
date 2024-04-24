@@ -18,26 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.exedio.cope.Feature;
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 public class PatternBeforeMountTest
 {
-	@Test void getSourceFeaturesGather()
-	{
-		final PatternTestPattern pattern = new PatternTestPattern();
-		final Map<String,Feature> expected = new HashMap<>();
-		expected.put("ownString", pattern.ownString);
-		expected.put("ownInt", pattern.ownInt);
-		assertEqualsUnmodifiable(expected, pattern.getSourceFeaturesGather());
-	}
-
 	@Test void getSourceFeatures()
 	{
 		try
