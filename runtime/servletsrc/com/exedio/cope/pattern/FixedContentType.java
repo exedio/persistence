@@ -87,8 +87,13 @@ final class FixedContentType extends ContentType<Void>
 	}
 
 	@Override
-	Condition equal(final String contentType)
+	Condition equal(final String contentType, final DateField nullSensor)
 	{
-		return Condition.of(full.equals(contentType));
+		if(contentType==null)
+			return nullSensor.isNull();
+		else if(full.equals(contentType))
+			return nullSensor.isNotNull();
+		else
+			return Condition.ofFalse();
 	}
 }

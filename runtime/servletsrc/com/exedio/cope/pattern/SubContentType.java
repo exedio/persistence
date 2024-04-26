@@ -111,8 +111,11 @@ final class SubContentType extends ContentType<String>
 	}
 
 	@Override
-	Condition equal(final String contentType)
+	Condition equal(final String contentType, final DateField nullSensor)
 	{
+		if(contentType==null)
+			return field.isNull();
+
 		return
 			contentType.startsWith(prefix)
 			? field.equal(contentType.substring(prefixLength))
