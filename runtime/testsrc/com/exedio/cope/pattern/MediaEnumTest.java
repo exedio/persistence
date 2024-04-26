@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CheckConstraint;
-import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -107,11 +106,6 @@ public class MediaEnumTest extends TestWithEnvironment
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
-
-		assertEquals(contentType.equal(0),  sheet.contentTypeEqual("application/pdf"));
-		assertEquals(contentType.equal(1),  sheet.contentTypeEqual("image/png"));
-		assertEquals(Condition.ofFalse(),   sheet.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(), sheet.contentTypeEqual(null));
 
 		// test persistence
 

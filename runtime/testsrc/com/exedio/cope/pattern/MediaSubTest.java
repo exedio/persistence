@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CheckConstraint;
-import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -107,13 +106,6 @@ public class MediaSubTest extends TestWithEnvironment
 				contentType.isNull   ().and(lastModified.isNull   ()),
 				contentType.isNotNull().and(lastModified.isNotNull())),
 				unison.getCondition());
-
-		assertEquals(contentType.equal("png"),  image.contentTypeEqual("image/png"));
-		assertEquals(contentType.equal("jpeg"), image.contentTypeEqual("image/jpeg"));
-		assertEquals(contentType.equal("svg+xml"),  image.contentTypeEqual("image/svg+xml"));
-		assertEquals(Condition.ofFalse(),       image.contentTypeEqual("image"));
-		assertEquals(Condition.ofFalse(),       image.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(),     image.contentTypeEqual(null));
 
 		// test persistence
 

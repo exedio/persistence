@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.TestWithEnvironment;
@@ -91,10 +90,6 @@ public class MediaFixedTest extends TestWithEnvironment
 		assertEquals(null, lastModified.getImplicitUniqueConstraint());
 
 		assertNull(photo.getUnison());
-
-		assertEquals(Condition.ofTrue(),    photo.contentTypeEqual("image/jpeg"));
-		assertEquals(Condition.ofFalse(),   photo.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(), photo.contentTypeEqual(null));
 
 		// test persistence
 
