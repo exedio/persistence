@@ -38,6 +38,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -236,8 +237,10 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	public Map<K,V> getMap(final Item item)
 	{
 		final Mount mount = mount();
-		final HashMap<K,V> result = new HashMap<>();
-		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+		final LinkedHashMap<K,V> result = new LinkedHashMap<>();
+		final Query<PatternItem> query = mount.relationType.newQuery(Cope.equalAndCast(mount.parent, item));
+		query.setOrderBy(key, true);
+		for(final PatternItem relationItem : query.search())
 			result.put(key.get(relationItem), value.get(relationItem));
 		return Collections.unmodifiableMap(result);
 	}

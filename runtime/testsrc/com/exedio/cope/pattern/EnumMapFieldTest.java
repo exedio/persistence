@@ -208,7 +208,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		map.put(PL, "namePL");
 		map.remove(DE);
 		item.setNameMap(mapU);
-		assertEqualsUnmodifiable(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(EN, "nameEN", PL, "namePL"), item.getNameMap());
 		assertEquals(asList(itemX), search(name.isEmpty()));
 		assertEquals(asList(item), search(name.isNotEmpty()));
 
