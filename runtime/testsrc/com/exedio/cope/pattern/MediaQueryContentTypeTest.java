@@ -46,7 +46,7 @@ public class MediaQueryContentTypeTest extends TestWithEnvironment
 		assertEquals("MyItem.def-contentType='major/minor1'", def1.toString());
 		assertEquals("MyItem.def-contentType='major/minor2'", def2.toString());
 		assertEquals("MyItem.def-contentType='major/minor3'", def3.toString());
-		assertEquals("MyItem.def-lastModified is null", defN.toString()); // TODO would be nicer to query contentType instead of lastModified
+		assertEquals("MyItem.def-contentType is null", defN.toString());
 
 		final Condition enu1 = MyItem.enu.contentTypeEqual("major/minor1");
 		final Condition enu2 = MyItem.enu.contentTypeEqual("major/minor2");
@@ -57,7 +57,7 @@ public class MediaQueryContentTypeTest extends TestWithEnvironment
 		assertEquals("MyItem.enu-contentType='1'", enu2.toString());
 		assertEquals("MyItem.enu-contentType='2'", enu3.toString());
 		assertEquals("FALSE", enuF.toString());
-		assertEquals("MyItem.enu-lastModified is null", enuN.toString()); // TODO would be nicer to query contentType instead of lastModified
+		assertEquals("MyItem.enu-contentType is null", enuN.toString());
 
 		final Condition sub1 = MyItem.sub.contentTypeEqual("major/minor1");
 		final Condition sub2 = MyItem.sub.contentTypeEqual("major/minor2");
@@ -72,7 +72,7 @@ public class MediaQueryContentTypeTest extends TestWithEnvironment
 		assertEquals("FALSE", subF.toString());
 		assertEquals("FALSE", subFt.toString());
 		assertEquals("MyItem.sub-minor=''", subFs.toString()); // TODO could be FALSE, as minor has minimum length of 1
-		assertEquals("MyItem.sub-lastModified is null", subN.toString()); // TODO would be nicer to query minor instead of lastModified
+		assertEquals("MyItem.sub-minor is null", subN.toString());
 
 		final Condition fix1 = MyItem.fix.contentTypeEqual("major/minor");
 		final Condition fixF = MyItem.fix.contentTypeEqual("major9/minor9");
