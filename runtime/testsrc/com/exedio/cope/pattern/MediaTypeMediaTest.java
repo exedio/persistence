@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
+import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import org.junit.jupiter.api.Test;
@@ -75,8 +76,9 @@ public class MediaTypeMediaTest
 	{
 		final Media m = new Media().contentType("image/jpeg");
 		final DataField b = m.getBody();
+		final DateField l = m.getLastModified();
 		assertEquals(
-				"!("+b+" startsWith '"+JPEG+"')",
+				"("+l+" is not null and !("+b+" startsWith '"+JPEG+"'))",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
