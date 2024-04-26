@@ -261,6 +261,15 @@ public final class Assert
 		return Collections.unmodifiableMap(result);
 	}
 
+	public static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2, final Object key3, final Object value3)
+	{
+		final HashMap<Object, Object> result = new HashMap<>();
+		result.put(key1, value1);
+		result.put(key2, value2);
+		result.put(key3, value3);
+		return Collections.unmodifiableMap(result);
+	}
+
 	public static <T> void assertUnmodifiable(final Collection<T> c)
 	{
 		final String name = c.getClass().getName();

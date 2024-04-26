@@ -290,4 +290,27 @@ public class MapFieldTest extends TestWithEnvironment
 		name.setAndCast(item, DE, null);
 		assertEquals(null, item.getName(DE));
 	}
+
+	@Test void testOrder()
+	{
+		assertEqualsUnmodifiable(map(), item.getStringMap());
+
+		item.setString("2two", "twoV");
+		assertEqualsUnmodifiable(map(
+				"2two", "twoV"),
+				item.getStringMap());
+
+		item.setString("1one", "oneV");
+		assertEqualsUnmodifiable(map(
+				"1one", "oneV",
+				"2two", "twoV"),
+				item.getStringMap());
+
+		item.setString("3three", "threeV");
+		assertEqualsUnmodifiable(map(
+				"1one", "oneV",
+				"2two", "twoV",
+				"3three", "threeV"),
+				item.getStringMap());
+	}
 }
