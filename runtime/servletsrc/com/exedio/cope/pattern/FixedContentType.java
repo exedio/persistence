@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
-import java.util.Collections;
 import java.util.List;
 
 final class FixedContentType extends ContentType<Void>
@@ -72,7 +71,7 @@ final class FixedContentType extends ContentType<Void>
 	@Override
 	List<String> getAllowed()
 	{
-		return Collections.singletonList(full);
+		return List.of(full);
 	}
 
 	@Override
