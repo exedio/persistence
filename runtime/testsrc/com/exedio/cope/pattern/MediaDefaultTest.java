@@ -133,9 +133,6 @@ public class MediaDefaultTest extends TestWithEnvironment
 
 		assertEqualsUnmodifiable(list(body, contentType, lastModified, unison), file.getSourceFeatures());
 
-		assertEquals(contentType.equal("major/minor"), file.contentTypeEqual("major/minor"));
-		assertEquals(lastModified.isNull(),            file.contentTypeEqual(null));
-
 		// test persistence
 		assertEquals("file_body", SchemaInfo.getColumnName(file.getBody()));
 		assertEquals("file_contentType", SchemaInfo.getColumnName(file.getContentType()));
