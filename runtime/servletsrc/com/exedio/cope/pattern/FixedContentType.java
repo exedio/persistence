@@ -36,19 +36,19 @@ final class FixedContentType extends ContentType<Void>
 	@Override
 	FixedContentType copy()
 	{
-		return new FixedContentType(full);
+		return this; // class does not refer to a field, that needs to be copied
 	}
 
 	@Override
 	FixedContentType toFinal()
 	{
-		return copy();
+		return this; // class does not refer to a field, that needs to be copied
 	}
 
 	@Override
 	FixedContentType optional()
 	{
-		return copy();
+		return this; // class does not refer to a field, that needs to be copied
 	}
 
 	@Override
