@@ -77,7 +77,7 @@ public class MediaQueryContentTypeTest extends TestWithEnvironment
 		final Condition fix1 = MyItem.fix.contentTypeEqual("major/minor");
 		final Condition fixF = MyItem.fix.contentTypeEqual("major9/minor9");
 		final Condition fixN = MyItem.fix.contentTypeEqual(null);
-		assertEquals("TRUE", fix1.toString()); // TODO this is a bug, must be "is not null"
+		assertEquals("MyItem.fix-lastModified is not null", fix1.toString()); // must query lastModified as there is no field for contentType
 		assertEquals("FALSE", fixF.toString());
 		assertEquals("MyItem.fix-lastModified is null", fixN.toString()); // must query lastModified as there is no field for contentType
 
@@ -104,7 +104,7 @@ public class MediaQueryContentTypeTest extends TestWithEnvironment
 		assertEquals(List.of(     ), MyItem.TYPE.search(subFs));
 		assertEquals(List.of(itemN), MyItem.TYPE.search(subN));
 
-		assertEquals(List.of(item1, item2, itemN), MyItem.TYPE.search(fix1)); // TODO this is a bug, must not contain itemN
+		assertEquals(List.of(item1, item2), MyItem.TYPE.search(fix1));
 		assertEquals(List.of(     ), MyItem.TYPE.search(fixF));
 		assertEquals(List.of(itemN), MyItem.TYPE.search(fixN));
 	}
