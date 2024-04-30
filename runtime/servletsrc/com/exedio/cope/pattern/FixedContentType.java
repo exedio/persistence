@@ -27,11 +27,11 @@ import java.util.List;
 
 final class FixedContentType extends ContentType<Void>
 {
-	private final String full;
+	private final String contentType;
 
-	FixedContentType(final String full)
+	FixedContentType(final String contentType)
 	{
-		this.full = requireNonEmpty(full, "contentType");
+		this.contentType = requireNonEmpty(contentType, "contentType");
 	}
 
 	@Override
@@ -55,31 +55,31 @@ final class FixedContentType extends ContentType<Void>
 	@Override
 	boolean check(final String contentType)
 	{
-		return full.equals(contentType);
+		return this.contentType.equals(contentType);
 	}
 
 	@Override
 	int getMaximumLength()
 	{
-		return full.length();
+		return contentType.length();
 	}
 
 	@Override
 	String describe()
 	{
-		return full;
+		return contentType;
 	}
 
 	@Override
 	List<String> getAllowed()
 	{
-		return List.of(full);
+		return List.of(contentType);
 	}
 
 	@Override
 	String get(final Item item, final DateField nullSensor)
 	{
-		return (nullSensor.get(item)!=null) ? full : null;
+		return (nullSensor.get(item)!=null) ? contentType : null;
 	}
 
 	@Override
@@ -97,7 +97,7 @@ final class FixedContentType extends ContentType<Void>
 		{
 			if(contentType==null)
 				foundNull = true;
-			else if(full.equals(contentType))
+			else if(this.contentType.equals(contentType))
 				foundMatch = true;
 
 			// TODO loop could be terminated is both foundNull and foundMatch are true
