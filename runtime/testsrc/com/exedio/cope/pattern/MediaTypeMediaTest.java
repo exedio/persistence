@@ -114,34 +114,6 @@ public class MediaTypeMediaTest
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
-	@Test void testEnumFailNull()
-	{
-		final Media m = new Media();
-		try
-		{
-			m.contentTypes("image/jpeg", null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("null is not allowed in content type enumeration position 1", e.getMessage());
-		}
-	}
-
-	@Test void testEnumFailDuplicate()
-	{
-		final Media m = new Media();
-		try
-		{
-			m.contentTypes("image/jpeg", "image/jpeg");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("duplicates are not allowed for content type enumeration: image/jpeg", e.getMessage());
-		}
-	}
-
 	@Test void testSub()
 	{
 		final Media m = new Media().contentTypeSub("image");

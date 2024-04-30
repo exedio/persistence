@@ -24,8 +24,68 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-public class MediaManyContentTypeTest
+public class MediaContentTypeTest
 {
+	@Test void testEnumNullArray()
+	{
+		final Media m = new Media();
+		assertFails(
+				() -> m.contentTypes((String[])null),
+				NullPointerException.class,
+				null // TODO
+		);
+	}
+	@Test void testEnumNull()
+	{
+		final Media m = new Media();
+		assertFails(
+				() -> m.contentTypes("a/b", null),
+				IllegalArgumentException.class,
+				"null is not allowed in content type enumeration position 1"
+		);
+	}
+	@Test void testEnumEmpty()
+	{
+		final Media m = new Media();
+		assertEquals("a/b,",
+				m.contentTypes("a/b", "").getContentTypeDescription()); // TODO should fail
+	}
+	@Test void testEnumDuplicate()
+	{
+		final Media m = new Media();
+		assertFails(
+				() -> m.contentTypes("a/b", "a/b"),
+				IllegalArgumentException.class,
+				"duplicates are not allowed for content type enumeration: a/b");
+	}
+	@Test void testSubNull()
+	{
+		final Media m = new Media();
+		assertFails(
+				() -> m.contentTypeSub(null),
+				NullPointerException.class,
+				"fixedMimeMajor" // TODO
+		);
+	}
+	@Test void testSubEmpty()
+	{
+		final Media m = new Media();
+		assertEquals("/*",
+				m.contentTypeSub("").getContentTypeDescription()); // TODO should fail
+	}
+	@Test void testFixedNull()
+	{
+		final Media m = new Media();
+		assertEquals(null,
+				m.contentType(null).getContentTypeDescription()); // TODO should fail
+	}
+	@Test void testFixedEmpty()
+	{
+		final Media m = new Media();
+		assertEquals("",
+				m.contentType("").getContentTypeDescription()); // TODO should fail
+	}
+
 	@Deprecated
 	@Test void testContentType()
 	{
