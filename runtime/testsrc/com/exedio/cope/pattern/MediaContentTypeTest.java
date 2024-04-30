@@ -76,14 +76,18 @@ public class MediaContentTypeTest
 	@Test void testFixedNull()
 	{
 		final Media m = new Media();
-		assertEquals(null,
-				m.contentType(null).getContentTypeDescription()); // TODO should fail
+		assertFails(
+				() -> m.contentType(null),
+				NullPointerException.class,
+				"contentType");
 	}
 	@Test void testFixedEmpty()
 	{
 		final Media m = new Media();
-		assertEquals("",
-				m.contentType("").getContentTypeDescription()); // TODO should fail
+		assertFails(
+				() -> m.contentType(""),
+				IllegalArgumentException.class,
+				"contentType must not be empty");
 	}
 
 	@Deprecated
