@@ -428,10 +428,7 @@ public final class MediaType
 
 		Condition mismatchesInstanceIfSupported(final Media media)
 		{
-			final Condition[] nameConditions = new Condition[typeNames.length];
-			for(int i = 0; i<typeNames.length; i++)
-				nameConditions[i] = media.contentTypeEqual(typeNames[i]);
-			return Cope.or(nameConditions).and(startsWith.matchesIfSupported(media.getBody()).not());
+			return media.contentTypeIn(typeNames).and(startsWith.matchesIfSupported(media.getBody()).not());
 		}
 	}
 

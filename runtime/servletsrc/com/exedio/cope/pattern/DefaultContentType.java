@@ -98,8 +98,8 @@ final class DefaultContentType extends ContentType<String>
 	}
 
 	@Override
-	Condition equal(final String contentType, final DateField nullSensor)
+	Condition in(final String[] contentTypes, final DateField nullSensor)
 	{
-		return field.equal(contentType);
+		return field.in(contentTypes);
 	}
 }

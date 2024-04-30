@@ -87,13 +87,22 @@ final class FixedContentType extends ContentType<Void>
 	}
 
 	@Override
-	Condition equal(final String contentType, final DateField nullSensor)
+	Condition in(final String[] contentTypes, final DateField nullSensor)
 	{
-		if(contentType==null)
-			return nullSensor.isNull();
-		else if(full.equals(contentType))
-			return nullSensor.isNotNull();
-		else
-			return Condition.ofFalse();
+		boolean foundNull = false;
+		boolean foundMatch = false;
+		for(final String contentType : contentTypes)
+		{
+			if(contentType==null)
+				foundNull = true;
+			else if(full.equals(contentType))
+				foundMatch = true;
+
+			// TODO loop could be terminated is both foundNull and foundMatch are true
+		}
+
+		return foundMatch
+				? foundNull ? Condition.ofTrue()  : nullSensor.isNotNull()
+				: foundNull ? nullSensor.isNull() : Condition.ofFalse();
 	}
 }

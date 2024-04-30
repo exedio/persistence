@@ -52,22 +52,22 @@ public class MediaTypeMediaTest
 		final StringField c = (StringField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='image/jpeg' or "+c+"='image/pjpeg') and !("+b+" startsWith '"+JPEG+"')) or " +
-				"(("+c+"='image/png' or "+c+"='image/x-png') and !("+b+" startsWith '"+PNG+"')) or " +
+				"("+c+" in ('image/jpeg','image/pjpeg') and !("+b+" startsWith '"+JPEG+"')) or " +
+				"("+c+" in ('image/png','image/x-png') and !("+b+" startsWith '"+PNG+"')) or " +
 				"("+c+"='image/gif' and !("+b+" startsWith '"+GIF+"')) or " +
 				"("+c+"='image/webp' and !("+b+" startsWith '"+WEBP+"')) or " +
 				"("+c+"='image/avif' and !("+b+" startsWith offset 4 '"+AVIF+"')) or " +
 				"("+c+"='image/tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
-				"(("+c+"='image/vnd.microsoft.icon' or "+c+"='image/icon' or "+c+"='image/x-icon') and !("+b+" startsWith '"+ICO+"')) or " +
+				"("+c+" in ('image/vnd.microsoft.icon','image/icon','image/x-icon') and !("+b+" startsWith '"+ICO+"')) or " +
 				"("+c+"='video/mp4' and !("+b+" startsWith offset 4 '"+MP4+"')) or " +
 				"("+c+"='video/webm' and !("+b+" startsWith '"+WEBM+"')) or " +
 				"("+c+"='video/ogg' and !("+b+" startsWith '"+OGG+"')) or " +
-				"(("+c+"='application/zip' or "+c+"='application/java-archive' or "+c+"='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or "+c+"='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' or "+c+"='application/x-zip-compressed') and !("+b+" startsWith '"+ZIP+"')) or " +
-				"(("+c+"='application/font-woff' or "+c+"='font/woff' or "+c+"='font/x-woff') and !("+b+" startsWith '774f4646')) or " +
+				"("+c+" in ('application/zip','application/java-archive','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/x-zip-compressed') and !("+b+" startsWith '"+ZIP+"')) or " +
+				"("+c+" in ('application/font-woff','font/woff','font/x-woff') and !("+b+" startsWith '774f4646')) or " +
 				"("+c+"='font/woff2' and !("+b+" startsWith '774f4632')) or " +
-				"(("+c+"='application/x-font-ttf' or "+c+"='application/x-font-truetype' or "+c+"='font/ttf') and !("+b+" startsWith '0001000000')) or " +
-				"(("+c+"='application/pdf' or "+c+"='text/pdf') and !("+b+" startsWith '"+PDF+"')) or " +
-				"(("+c+"='model/stl' or "+c+"='model/x.stl-ascii') and !("+b+" startsWith '"+STL+"'))" +
+				"("+c+" in ('application/x-font-ttf','application/x-font-truetype','font/ttf') and !("+b+" startsWith '0001000000')) or " +
+				"("+c+" in ('application/pdf','text/pdf') and !("+b+" startsWith '"+PDF+"')) or " +
+				"("+c+" in ('model/stl','model/x.stl-ascii') and !("+b+" startsWith '"+STL+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
@@ -95,7 +95,7 @@ public class MediaTypeMediaTest
 		final IntegerField c = (IntegerField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='0' or "+c+"='1') and !("+b+" startsWith '"+JPEG+"')) or " +
+				"("+c+" in ('0','1') and !("+b+" startsWith '"+JPEG+"')) or " +
 				"("+c+"='2' and !("+b+" startsWith '"+PNG+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
@@ -149,13 +149,13 @@ public class MediaTypeMediaTest
 		final StringField c = (StringField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='jpeg' or "+c+"='pjpeg') and !("+b+" startsWith '"+JPEG+"')) or " +
-				"(("+c+"='png' or "+c+"='x-png') and !("+b+" startsWith '"+PNG+"')) or " +
+				"("+c+" in ('jpeg','pjpeg') and !("+b+" startsWith '"+JPEG+"')) or " +
+				"("+c+" in ('png','x-png') and !("+b+" startsWith '"+PNG+"')) or " +
 				"("+c+"='gif' and !("+b+" startsWith '"+GIF+"')) or " +
 				"("+c+"='webp' and !("+b+" startsWith '"+WEBP+"')) or " +
 				"("+c+"='avif' and !("+b+" startsWith offset 4 '"+AVIF+"')) or " +
 				"("+c+"='tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
-				"(("+c+"='vnd.microsoft.icon' or "+c+"='icon' or "+c+"='x-icon') and !("+b+" startsWith '"+ICO+"'))" +
+				"("+c+" in ('vnd.microsoft.icon','icon','x-icon') and !("+b+" startsWith '"+ICO+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
