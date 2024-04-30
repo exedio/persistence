@@ -98,7 +98,7 @@ final class DefaultContentType extends ContentType<String>
 	}
 
 	@Override
-	Condition equal(final String contentType)
+	Condition equal(final String contentType, final DateField nullSensor)
 	{
 		return field.equal(contentType);
 	}

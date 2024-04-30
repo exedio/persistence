@@ -126,8 +126,11 @@ final class EnumContentType extends ContentType<Integer>
 	}
 
 	@Override
-	Condition equal(final String contentType)
+	Condition equal(final String contentType, final DateField nullSensor)
 	{
+		if(contentType==null)
+			return field.isNull();
+
 		final Integer number = typeSet.get(contentType);
 		return
 			number!=null
