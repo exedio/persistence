@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
@@ -29,7 +31,7 @@ final class FixedContentType extends ContentType<Void>
 
 	FixedContentType(final String full)
 	{
-		this.full = full;
+		this.full = requireNonEmpty(full, "contentType");
 	}
 
 	@Override
