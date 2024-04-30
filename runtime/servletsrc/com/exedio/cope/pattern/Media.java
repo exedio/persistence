@@ -40,7 +40,6 @@ import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.Vault;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.SetValueUtil;
@@ -277,7 +276,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			case 1:
 				return contentType(types[0]);
 			default:
-				return contentTypesInternal(Arrays.copyOf(types));
+				return contentTypesInternal(types);
 		}
 	}
 

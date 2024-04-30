@@ -40,15 +40,16 @@ public class MediaContentTypeTest
 		final Media m = new Media();
 		assertFails(
 				() -> m.contentTypes("a/b", null),
-				IllegalArgumentException.class,
-				"null is not allowed in content type enumeration position 1"
-		);
+				NullPointerException.class,
+				"types[1]");
 	}
 	@Test void testEnumEmpty()
 	{
 		final Media m = new Media();
-		assertEquals("a/b,",
-				m.contentTypes("a/b", "").getContentTypeDescription()); // TODO should fail
+		assertFails(
+				() -> m.contentTypes("a/b", ""),
+				IllegalArgumentException.class,
+				"types[1] must not be empty");
 	}
 	@Test void testEnumDuplicate()
 	{
