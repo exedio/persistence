@@ -371,7 +371,7 @@ public abstract class FunctionField<E> extends Field<E>
 	 */
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
-		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.emptyList();
+		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : List.of();
 	}
 
 	@Override

@@ -23,7 +23,6 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.SetValue;
@@ -347,7 +346,7 @@ final class Generator
 		if(!visibility.exists())
 			return;
 
-		writeComment(singletonList(format(CONSTRUCTOR_GENERIC, type.getName())));
+		writeComment(List.of(format(CONSTRUCTOR_GENERIC, type.getName())));
 		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 
 		writeIndent();
@@ -773,7 +772,7 @@ final class Generator
 		if(!visibility.exists())
 			return;
 
-		writeComment(singletonList(
+		writeComment(List.of(
 				format("Use {0}.classWildcard.value instead of {0}.class to avoid rawtypes warnings.", type.getName())
 		));
 		writeGeneratedAnnotation(WILDCARD_CUSTOMIZE);
@@ -805,7 +804,7 @@ final class Generator
 		if(!visibility.exists())
 			return;
 
-		writeComment(singletonList(format(kind.typeDoc, lowerCamelCase(type.getName()))));
+		writeComment(List.of(format(kind.typeDoc, lowerCamelCase(type.getName()))));
 		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
 		writeSuppressWarnings(suppressWarningsType, option.typeSuppressWarnings());
 		writeIndent();

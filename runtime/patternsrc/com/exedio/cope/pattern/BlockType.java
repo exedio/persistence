@@ -122,7 +122,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	@Override
 	public List<? extends BlockType<? extends T>> getSubtypes()
 	{
-		return Collections.emptyList();
+		return List.of();
 	}
 
 	@Override

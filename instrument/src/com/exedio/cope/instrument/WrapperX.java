@@ -187,7 +187,7 @@ final class WrapperX
 		return
 			parameters!=null
 			? Collections.unmodifiableList(parameters)
-			: Collections.emptyList();
+			: List.of();
 	}
 
 
@@ -216,7 +216,7 @@ final class WrapperX
 		return
 			throwsClause!=null
 			? Collections.unmodifiableMap(throwsClause)
-			: Collections.emptyMap();
+			: Map.of();
 	}
 
 

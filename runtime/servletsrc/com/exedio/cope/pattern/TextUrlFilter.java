@@ -39,7 +39,6 @@ import com.exedio.cope.misc.Computed;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -370,7 +369,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
-		return Collections.singleton(supportedContentType);
+		return Set.of(supportedContentType);
 	}
 
 	public final List<String> getPasteContentTypesAllowed()

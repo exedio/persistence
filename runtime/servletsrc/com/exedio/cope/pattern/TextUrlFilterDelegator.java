@@ -26,7 +26,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -232,7 +231,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	@Override
 	public final Set<String> getSupportedSourceContentTypes()
 	{
-		return Collections.singleton(supportedContentType);
+		return Set.of(supportedContentType);
 	}
 
 	public final List<String> getPasteContentTypesAllowed()

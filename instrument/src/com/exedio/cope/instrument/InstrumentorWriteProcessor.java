@@ -1,7 +1,6 @@
 package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
@@ -58,7 +57,7 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 			}
 
 			final Set<Method> generateDeprecateds = findMethods(interimClassLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
-			final Set<Method> disabledWraps = findMethods(interimClassLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
+			final Set<Method> disabledWraps = findMethods(interimClassLoader, params.getDisabledWraps(), "<disableWrap>", List.of(Wrap.class));
 			boolean foundNotYetInstrumented = false;
 			for(final JavaFile javaFile : repository.getFiles())
 			{

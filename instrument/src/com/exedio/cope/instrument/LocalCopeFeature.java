@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.Collections;
 import java.util.List;
 
 final class LocalCopeFeature extends CopeFeature
@@ -145,6 +144,6 @@ final class LocalCopeFeature extends CopeFeature
 				feature,
 				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
 						? getWrappers(clazz.getSuperclass(), feature)
-						: Collections.emptyList());
+						: List.of());
 	}
 }
