@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static java.util.Objects.requireNonNull;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
@@ -43,7 +43,7 @@ final class SubContentType extends ContentType<String>
 			final int minorMaxLength)
 	{
 		super(makeField(minorMaxLength, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), isfinal, optional, "minor");
-		this.major = requireNonNull(major, "fixedMimeMajor");
+		this.major = requireNonEmpty(major, "majorContentType");
 		this.prefix = major + '/';
 		this.prefixLength = this.prefix.length();
 		this.minorMaxLength = minorMaxLength;

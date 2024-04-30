@@ -64,14 +64,15 @@ public class MediaContentTypeTest
 		assertFails(
 				() -> m.contentTypeSub(null),
 				NullPointerException.class,
-				"fixedMimeMajor" // TODO
-		);
+				"majorContentType");
 	}
 	@Test void testSubEmpty()
 	{
 		final Media m = new Media();
-		assertEquals("/*",
-				m.contentTypeSub("").getContentTypeDescription()); // TODO should fail
+		assertFails(
+				() -> m.contentTypeSub(""),
+				IllegalArgumentException.class,
+				"majorContentType must not be empty");
 	}
 	@Test void testFixedNull()
 	{
