@@ -25,6 +25,9 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import org.junit.jupiter.api.Test;
 
+/**
+ * @see MediaContentTypeTest#testDefaultLengthFinalFirst
+ */
 public class MediaContentTypeMaxLengthTest
 {
 	@Test void testDefault()
