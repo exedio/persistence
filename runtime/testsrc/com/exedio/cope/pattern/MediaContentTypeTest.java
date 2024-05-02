@@ -19,8 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.FunctionField;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -90,6 +92,110 @@ public class MediaContentTypeTest
 				() -> m.contentType(""),
 				IllegalArgumentException.class,
 				"contentType must not be empty");
+	}
+
+	@Test void testEnumFinalFirst()
+	{
+		final Media m1 = new Media().toFinal();
+		assertIt(true, false, "*/*", m1);
+		final Media m2 = m1.contentTypes("ct/0", "ct/1");
+		assertIt(true, false, "ct/0,ct/1", m2);
+	}
+	@Test void testEnumOptionalFirst()
+	{
+		final Media m1 = new Media().optional();
+		assertIt(false, true, "*/*", m1);
+		final Media m2 = m1.contentTypes("ct/0", "ct/1");
+		assertIt(false, true, "ct/0,ct/1", m2);
+	}
+	@Test void testEnumFinalAfter()
+	{
+		final Media m1 = new Media().contentTypes("ct/0", "ct/1");
+		assertIt(false, false, "ct/0,ct/1", m1);
+		final Media m2 = m1.toFinal();
+		assertIt(true, false, "ct/0,ct/1", m2);
+	}
+	@Test void testEnumOptionalAfter()
+	{
+		final Media m1 = new Media().contentTypes("ct/0", "ct/1");
+		assertIt(false, false, "ct/0,ct/1", m1);
+		final Media m2 = m1.optional();
+		assertIt(false, true, "ct/0,ct/1", m2);
+	}
+	@Test void testSubFinalFirst()
+	{
+		final Media m1 = new Media().toFinal();
+		assertIt(true, false, "*/*", m1);
+		final Media m2 = m1.contentTypeSub("ct");
+		assertIt(true, false, "ct/*", m2);
+	}
+	@Test void testSubOptionalFirst()
+	{
+		final Media m1 = new Media().optional();
+		assertIt(false, true, "*/*", m1);
+		final Media m2 = m1.contentTypeSub("ct");
+		assertIt(false, true, "ct/*", m2);
+	}
+	@Test void testSubFinalAfter()
+	{
+		final Media m1 = new Media().contentTypeSub("ct");
+		assertIt(false, false, "ct/*", m1);
+		final Media m2 = m1.toFinal();
+		assertIt(true, false, "ct/*", m2);
+	}
+	@Test void testSubOptionalAfter()
+	{
+		final Media m1 = new Media().contentTypeSub("ct");
+		assertIt(false, false, "ct/*", m1);
+		final Media m2 = m1.optional();
+		assertIt(false, true, "ct/*", m2);
+	}
+	@Test void testFixedFinalFirst()
+	{
+		final Media m1 = new Media().toFinal();
+		assertIt(true, false, "*/*", m1);
+		final Media m2 = m1.contentType("ct/x");
+		assertIt(true, false, "ct/x", m2);
+	}
+	@Test void testFixedOptionalFirst()
+	{
+		final Media m1 = new Media().optional();
+		assertIt(false, true, "*/*", m1);
+		final Media m2 = m1.contentType("ct/x");
+		assertIt(false, true, "ct/x", m2);
+	}
+	@Test void testFixedFinalAfter()
+	{
+		final Media m1 = new Media().contentType("ct/x");
+		assertIt(false, false, "ct/x", m1);
+		final Media m2 = m1.toFinal();
+		assertIt(true, false, "ct/x", m2);
+	}
+	@Test void testFixedOptionalAfter()
+	{
+		final Media m1 = new Media().contentType("ct/x");
+		assertIt(false, false, "ct/x", m1);
+		final Media m2 = m1.optional();
+		assertIt(false, true, "ct/x", m2);
+	}
+	private static void assertIt(
+			final boolean expectedFinal,
+			final boolean expectedOptional,
+			final String expectedContentTypeDescription,
+			final Media media)
+	{
+		assertAll(
+				() -> assertEquals(expectedFinal, media.isFinal(), "final"),
+				() -> assertEquals(expectedOptional, !media.isMandatory(), "optional"),
+				() -> assertEquals(expectedContentTypeDescription, media.getContentTypeDescription(), "contentTypes"));
+		final FunctionField<?> ct = media.getContentType();
+		assertAll(
+				() -> assertEquals(expectedFinal,     media.getBody        ().isFinal(),     "final"),
+				() -> assertEquals(expectedOptional, !media.getBody        ().isMandatory(), "optional"),
+				() -> { if(ct!=null) assertEquals(expectedFinal,     ct.isFinal(),     "final");    },
+				() -> { if(ct!=null) assertEquals(expectedOptional, !ct.isMandatory(), "optional"); },
+				() -> assertEquals(expectedFinal,     media.getLastModified().isFinal(),     "final"),
+				() -> assertEquals(expectedOptional, !media.getLastModified().isMandatory(), "optional"));
 	}
 
 	@Deprecated
