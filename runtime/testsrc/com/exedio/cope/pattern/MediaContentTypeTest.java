@@ -34,8 +34,7 @@ public class MediaContentTypeTest
 		assertFails(
 				() -> m.contentTypes((String[])null),
 				NullPointerException.class,
-				null // TODO
-		);
+				null); // TODO
 	}
 	@Test void testEnumNull()
 	{
@@ -252,7 +251,6 @@ public class MediaContentTypeTest
 		assertFails(
 				m::contentTypes,
 				IllegalArgumentException.class,
-				"must provide at least one content type"
-		);
+				"must provide at least one content type");
 	}
 }
