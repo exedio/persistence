@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
+
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -31,20 +33,17 @@ final class EnumContentType extends ContentType<Integer>
 	private final String[] types;
 	private final HashMap<String, Integer> typeSet;
 
-	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	EnumContentType(
 			final String[] types,
 			final boolean isfinal,
 			final boolean optional)
 	{
 		super(new IntegerField().range(0, types.length-1), isfinal, optional, "contentType");
-		this.types = types;
+		this.types = requireNonEmptyAndCopy(types, "types");
 		final HashMap<String, Integer> typeSet = new HashMap<>();
 		for(int i = 0; i<types.length; i++)
 		{
 			final String type = types[i];
-			if(type==null)
-				throw new IllegalArgumentException("null is not allowed in content type enumeration position " + i);
 			if(typeSet.putIfAbsent(type, i)!=null)
 				throw new IllegalArgumentException("duplicates are not allowed for content type enumeration: " + type);
 		}
