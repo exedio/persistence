@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.StringField;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -195,6 +196,85 @@ public class MediaContentTypeTest
 				() -> { if(ct!=null) assertEquals(expectedOptional, !ct.isMandatory(), "optional"); },
 				() -> assertEquals(expectedFinal,     media.getLastModified().isFinal(),     "final"),
 				() -> assertEquals(expectedOptional, !media.getLastModified().isMandatory(), "optional"));
+	}
+
+	/**
+	 * @see MediaContentTypeMaxLengthTest
+	 */
+	@Test void testDefaultLengthFinalFirst()
+	{
+		final Media m1 = new Media().toFinal();
+		assertIt(true, false, "*/*",  61,  61, m1);
+		final Media m2 = m1.contentTypeLengthMax(100);
+		assertIt(true, false, "*/*", 100, 100, m2);
+	}
+	@Test void testDefaultLengthOptionalFirst()
+	{
+		final Media m1 = new Media().optional();
+		assertIt(false, true, "*/*",  61,  61, m1);
+		final Media m2 = m1.contentTypeLengthMax(100);
+		assertIt(false, true, "*/*", 100, 100, m2);
+	}
+	@Test void testDefaultLengthFinalAfter()
+	{
+		final Media m1 = new Media().contentTypeLengthMax(100);
+		assertIt(false, false, "*/*", 100, 100, m1);
+		final Media m2 = m1.toFinal();
+		assertIt(true,  false, "*/*", 100, 100, m2);
+	}
+	@Test void testDefaultLengthOptionalAfter()
+	{
+		final Media m1 = new Media().contentTypeLengthMax(100);
+		assertIt(false, false, "*/*", 100, 100, m1);
+		final Media m2 = m1.optional();
+		assertIt(false, true,  "*/*", 100, 100, m2);
+	}
+	@Test void testSubLengthFinalFirst()
+	{
+		final Media m1 = new Media().toFinal().contentTypeSub("ct");
+		assertIt(true, false, "ct/*",  33, 30, m1);
+		final Media m2 = m1.contentTypeLengthMax(100);
+		assertIt(true, false, "ct/*", 100, 97, m2);
+	}
+	@Test void testSubLengthOptionalFirst()
+	{
+		final Media m1 = new Media().optional().contentTypeSub("ct");
+		assertIt(false, true, "ct/*",  33, 30, m1);
+		final Media m2 = m1.contentTypeLengthMax(100);
+		assertIt(false, true, "ct/*", 100, 97, m2);
+	}
+	@Test void testSubLengthFinalAfter()
+	{
+		final Media m1 = new Media().contentTypeSub("ct").contentTypeLengthMax(100);
+		assertIt(false, false, "ct/*", 100, 97, m1);
+		final Media m2 = m1.toFinal();
+		assertIt(true,  false, "ct/*", 100, 97, m2);
+	}
+	@Test void testSubLengthOptionalAfter()
+	{
+		final Media m1 = new Media().contentTypeSub("ct").contentTypeLengthMax(100);
+		assertIt(false, false, "ct/*", 100, 97, m1);
+		final Media m2 = m1.optional();
+		assertIt(false, true,  "ct/*", 100, 97, m2);
+	}
+	@Test void testDefaultLengthToSub()
+	{
+		final Media m1 = new Media().contentTypeLengthMax(100);
+		assertIt(false, false, "*/*", 100, 100, m1);
+		final Media m2 = m1.contentTypeSub("ct");
+		assertIt(false, false, "ct/*", 33,  30, m2); // TODO should be a expectedContentTypeMaximumLength==100 inherited from DefaultContentType
+	}
+	private static void assertIt(
+			final boolean expectedFinal,
+			final boolean expectedOptional,
+			final String expectedContentTypeDescription,
+			final int expectedContentTypeMaximumLength,
+			final int expectedContentTypeFieldMaximumLength,
+			final Media media)
+	{
+		assertIt(expectedFinal, expectedOptional, expectedContentTypeDescription, media);
+		assertEquals(expectedContentTypeMaximumLength, media.getContentTypeMaximumLength());
+		assertEquals(expectedContentTypeFieldMaximumLength, ((StringField)media.getContentType()).getMaximumLength());
 	}
 
 	@Deprecated
