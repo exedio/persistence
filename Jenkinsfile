@@ -418,7 +418,7 @@ try
 						    ' "-Dbuild.tag=' + buildTag + '"' +
 						    ' -Dskip.instrument=true' + // already verified in branch Main
 						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Mysql57.log"
@@ -494,7 +494,7 @@ try
 						    ' -Dskip.instrument=true' + // already verified in branch Main
 						    ' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +
 						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Mysql57CR.log"
@@ -647,7 +647,7 @@ try
 						    ' "-Dbuild.tag=' + buildTag + '"' +
 						    ' -Dskip.instrument=true' + // already verified in branch Main
 						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " &> db-Mysql80.log"
