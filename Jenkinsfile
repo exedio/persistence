@@ -14,6 +14,8 @@ String databaseMysql57 = '5.7.40'
 @Field
 String databaseMysql80 = '8.0.36'
 @Field
+String databaseMysql84 = '8.4.0'
+@Field
 String databasePostgresql = '15.6'
 
 String projectName = env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/")) // depends on name and location of multibranch pipeline in jenkins
@@ -290,6 +292,7 @@ try
 	{
 		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       'mysql-bin')
 		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'binlog')
+		branchMysql(parallelBranches, '84', databaseMysql84, 'my80.cnf', '/var/lib/mysql-files', 'binlog')
 	}
 
 	if(branchConsidersDatabase("Mysql"))
