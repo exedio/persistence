@@ -104,6 +104,11 @@ final class CheckConstraintConditionItem extends Item
 	static final CheckConstraint startsWith = new CheckConstraint(integer1.isNotNull());
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint stringLiteralAlphaNum = new CheckConstraint(string.equal("blahZack123"));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint stringLiteralSpecial = new CheckConstraint(string.equal("dot.slash/colon:remainder"));
+
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint upper = new CheckConstraint(string.toUpperCase().equal("up"));
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint lower = new CheckConstraint(string.toLowerCase().equal("low"));
