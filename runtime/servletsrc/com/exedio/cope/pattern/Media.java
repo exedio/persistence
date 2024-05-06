@@ -284,7 +284,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	/**
-	 * Creates a new media, that must contain the a content type with the given major part only.
+	 * Creates a new media, that may contain content types with the given major part only.
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
