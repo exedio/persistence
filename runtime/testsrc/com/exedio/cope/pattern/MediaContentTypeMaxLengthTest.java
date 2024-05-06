@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
@@ -44,15 +44,10 @@ public class MediaContentTypeMaxLengthTest
 		assertEquals(1, l1.getContentTypeMaximumLength());
 		assertEquals(1, ((StringField)l1.getContentType()).getMaximumLength());
 
-		try
-		{
-			m.contentTypeLengthMax(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("maximumLength must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(
+				() -> m.contentTypeLengthMax(0),
+				IllegalArgumentException.class,
+				"maximumLength must be greater zero, but was 0");
 	}
 	@Test void testSub()
 	{
@@ -68,45 +63,30 @@ public class MediaContentTypeMaxLengthTest
 		assertEquals(6, l6.getContentTypeMaximumLength());
 		assertEquals(1, ((StringField)l6.getContentType()).getMaximumLength());
 
-		try
-		{
-			m.contentTypeLengthMax(5);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			// TODO message maximumLength must be greater 5, but was 5
-			assertEquals("maximumLength must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(
+				() -> m.contentTypeLengthMax(5),
+				IllegalArgumentException.class,
+				// TODO message maximumLength must be greater 5, but was 5
+				"maximumLength must be greater zero, but was 0");
 	}
 	@Test void testFixed()
 	{
 		final Media m = new Media().contentType("1234/678");
 		assertEquals(8, m.getContentTypeMaximumLength());
 		assertEquals(null, m.getContentType());
-		try
-		{
-			m.contentTypeLengthMax(40);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not allowed for 1234/678", e.getMessage());
-		}
+		assertFails(
+				() -> m.contentTypeLengthMax(40),
+				IllegalArgumentException.class,
+				"not allowed for 1234/678");
 	}
 	@Test void testEnum()
 	{
 		final Media m = new Media().contentTypes("1234/678", "1234/6789", "1234/6");
 		assertEquals(9, m.getContentTypeMaximumLength());
 		assertEquals(2, ((IntegerField)m.getContentType()).getMaximum());
-		try
-		{
-			m.contentTypeLengthMax(40);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not allowed for 1234/678,1234/6789,1234/6", e.getMessage());
-		}
+		assertFails(
+				() -> m.contentTypeLengthMax(40),
+				IllegalArgumentException.class,
+				"not allowed for 1234/678,1234/6789,1234/6");
 	}
 }
