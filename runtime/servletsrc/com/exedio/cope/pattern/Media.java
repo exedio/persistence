@@ -288,7 +288,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
-		return new Media(body.copy(), new SubContentType(majorContentType, body, SubContentType.DEFAULT_LENGTH), lastModified.copy());
+		return new Media(body.copy(), new SubContentType(majorContentType, body), lastModified.copy());
 	}
 
 	public Media contentTypeLengthMax(final int maximumLength)

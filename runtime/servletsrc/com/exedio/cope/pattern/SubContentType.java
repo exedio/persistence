@@ -37,15 +37,12 @@ final class SubContentType extends ContentType<String>
 	private final String prefix;
 	private final int prefixLength;
 
-	static final int DEFAULT_LENGTH = 30;
-
 	SubContentType(
 			final String major,
-			final DataField constraintSource,
-			final int minorMaxLength)
+			final DataField constraintSource)
 	{
 		this(
-				applyConstraints(makeField(minorMaxLength, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), constraintSource),
+				applyConstraints(makeField(30, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), constraintSource),
 				requireNonEmpty(major, "majorContentType"),
 				major + '/');
 	}
