@@ -33,7 +33,6 @@ import java.util.List;
 final class SubContentType extends ContentType<String>
 {
 	private final StringField field;
-	private final String major;
 	private final String prefix;
 	private final int prefixLength;
 
@@ -43,18 +42,15 @@ final class SubContentType extends ContentType<String>
 	{
 		this(
 				applyConstraints(makeField(30, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), constraintSource),
-				requireNonEmpty(major, "majorContentType"),
-				major + '/');
+				requireNonEmpty(major, "majorContentType") + '/');
 	}
 
 	private SubContentType(
 			final StringField field,
-			final String major,
 			final String prefix)
 	{
 		super(field, "minor");
 		this.field = field;
-		this.major = major;
 		this.prefix = prefix;
 		this.prefixLength = prefix.length();
 	}
@@ -62,25 +58,25 @@ final class SubContentType extends ContentType<String>
 	@Override
 	SubContentType copy()
 	{
-		return new SubContentType(field.copy(), major, prefix);
+		return new SubContentType(field.copy(), prefix);
 	}
 
 	@Override
 	SubContentType toFinal()
 	{
-		return new SubContentType(field.toFinal(), major, prefix);
+		return new SubContentType(field.toFinal(), prefix);
 	}
 
 	@Override
 	SubContentType optional()
 	{
-		return new SubContentType(field.optional(), major, prefix);
+		return new SubContentType(field.optional(), prefix);
 	}
 
 	@Override
 	SubContentType lengthMax(final int maximumLength)
 	{
-		return new SubContentType(field.lengthMax(maximumLength - prefixLength), major, prefix);
+		return new SubContentType(field.lengthMax(maximumLength - prefixLength), prefix);
 	}
 
 	@Override
