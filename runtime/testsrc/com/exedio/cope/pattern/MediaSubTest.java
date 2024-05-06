@@ -66,7 +66,7 @@ public class MediaSubTest extends TestWithEnvironment
 		assertEquals(true, image.checkContentType("image/jpg"));
 		assertEquals(true, image.checkContentType("image/svg+xml"));
 		assertEquals(false, image.checkContentType("application/jpg"));
-		assertEquals(36, image.getContentTypeMaximumLength());
+		assertEquals(61, image.getContentTypeMaximumLength());
 		assertEquals("image/*", image.getContentTypeDescription());
 		assertEquals(null, image.getContentTypesAllowed());
 		assertEquals(Media.DEFAULT_LENGTH, image.getMaximumLength());
@@ -88,7 +88,7 @@ public class MediaSubTest extends TestWithEnvironment
 		assertEquals(false, contentType.isMandatory());
 		assertEquals(null, contentType.getImplicitUniqueConstraint());
 		assertEquals(1, contentType.getMinimumLength());
-		assertEquals(30, contentType.getMaximumLength());
+		assertEquals(55, contentType.getMaximumLength());
 
 		final DateField lastModified = image.getLastModified();
 		assertSame(TYPE, lastModified.getType());

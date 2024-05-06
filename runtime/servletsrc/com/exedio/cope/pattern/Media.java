@@ -133,6 +133,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return field;
 	}
 
+	/**
+	 * Creates a new media, that may contain any content type.
+	 * <p>
+	 * By default, the length of the content type may be at most 61 characters.
+	 * This may be changed via {@link #contentTypeLengthMax(int)}.
+	 */
 	public Media()
 	{
 		this(new DataField(), new DefaultContentType(), new DateField());
@@ -285,6 +291,10 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	/**
 	 * Creates a new media, that may contain content types with the given major part only.
+	 * <p>
+	 * By default, the length of the content type may be at most 61 characters
+	 * including {@code majorContentType} and the delimiting slash (/).
+	 * This may be changed via {@link #contentTypeLengthMax(int)}.
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{

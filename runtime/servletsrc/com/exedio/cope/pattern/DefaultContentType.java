@@ -31,7 +31,7 @@ final class DefaultContentType extends ContentType<String>
 
 	DefaultContentType()
 	{
-		this(makeField(61, new CharSet('+', '+', '-', '9', 'a', 'z')));
+		this(makeField(DEFAULT_LENGTH, new CharSet('+', '+', '-', '9', 'a', 'z')));
 	}
 
 	private DefaultContentType(

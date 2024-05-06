@@ -52,8 +52,8 @@ public class MediaContentTypeMaxLengthTest
 	@Test void testSub()
 	{
 		final Media m = new Media().contentTypeSub("1234");
-		assertEquals(35, m.getContentTypeMaximumLength());
-		assertEquals(30, ((StringField)m.getContentType()).getMaximumLength());
+		assertEquals(61, m.getContentTypeMaximumLength());
+		assertEquals(56, ((StringField)m.getContentType()).getMaximumLength());
 
 		final Media l40 = m.contentTypeLengthMax(40);
 		assertEquals(40, l40.getContentTypeMaximumLength());
@@ -67,6 +67,25 @@ public class MediaContentTypeMaxLengthTest
 				() -> m.contentTypeLengthMax(5),
 				IllegalArgumentException.class,
 				// TODO message maximumLength must be greater 5, but was 5
+				"maximumLength must be greater zero, but was 0");
+	}
+	@Test void testSubMax()
+	{
+		final String major = "01234567890123456789012345678901234567890123456789012345678";
+		assertEquals(59, major.length());
+		final Media m = new Media().contentTypeSub(major);
+		assertEquals(61, m.getContentTypeMaximumLength());
+		assertEquals(1, ((StringField)m.getContentType()).getMaximumLength());
+	}
+	@Test void testSubMaxExceeded()
+	{
+		final String major = "012345678901234567890123456789012345678901234567890123456789";
+		assertEquals(60, major.length());
+		final Media m = new Media();
+		assertFails(
+				() -> m.contentTypeSub(major),
+				IllegalArgumentException.class,
+				// TODO message majorContentType must be at most 59 characters, but was <major>
 				"maximumLength must be greater zero, but was 0");
 	}
 	@Test void testFixed()
