@@ -213,6 +213,30 @@ public class DataModelTest
 				"offset must not be negative, but was -1");
 	}
 
+	@Test void testCopy()
+	{
+		final DataField original = new DataField().lengthMax(1234);
+		assertEquals(false, original.isFinal());
+		assertEquals(true,  original.isMandatory());
+		assertEquals(1234,  original.getMaximumLength());
+		final DataField copy = original.copy();
+		assertEquals(false, copy.isFinal());
+		assertEquals(true,  copy.isMandatory());
+		assertEquals(1234,  copy.getMaximumLength());
+	}
+
+	@Test void testCopyMore()
+	{
+		final DataField original = new DataField().toFinal().optional().lengthMax(1234);
+		assertEquals(true,  original.isFinal());
+		assertEquals(false, original.isMandatory());
+		assertEquals(1234,  original.getMaximumLength());
+		final DataField copy = original.copy();
+		assertEquals(true,  copy.isFinal());
+		assertEquals(false, copy.isMandatory());
+		assertEquals(1234,  copy.getMaximumLength());
+	}
+
 	private static final byte[] bytes0  = {};
 	private static final byte[] bytes4  = {-86,122,-8,23};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};

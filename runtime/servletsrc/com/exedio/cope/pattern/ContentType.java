@@ -40,11 +40,9 @@ abstract class ContentType<B>
 
 	ContentType(
 			final FunctionField<B> field,
-			final boolean isfinal,
-			final boolean optional,
 			final String name)
 	{
-		this.field = Media.applyConstraints(field, isfinal, optional);
+		this.field = field;
 		this.name = name;
 
 		assert field!=null;

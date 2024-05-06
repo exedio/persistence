@@ -21,44 +21,49 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Condition;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
+import com.exedio.cope.StringField;
 import com.exedio.cope.util.CharSet;
 import java.util.List;
 
 final class DefaultContentType extends ContentType<String>
 {
-	private final int maxLength;
+	private final StringField field;
 
 	DefaultContentType(
-			final boolean isfinal,
-			final boolean optional,
 			final int maxLength)
 	{
-		super(makeField(maxLength, new CharSet('+', '+', '-', '9', 'a', 'z')), isfinal, optional, "contentType");
-		this.maxLength = maxLength;
+		this(makeField(maxLength, new CharSet('+', '+', '-', '9', 'a', 'z')));
+	}
+
+	private DefaultContentType(
+			final StringField field)
+	{
+		super(field, "contentType");
+		this.field = field;
 	}
 
 	@Override
 	DefaultContentType copy()
 	{
-		return new DefaultContentType(field.isFinal(), !field.isMandatory(), maxLength);
+		return new DefaultContentType(field.copy());
 	}
 
 	@Override
 	DefaultContentType toFinal()
 	{
-		return new DefaultContentType(true, !field.isMandatory(), maxLength);
+		return new DefaultContentType(field.toFinal());
 	}
 
 	@Override
 	DefaultContentType optional()
 	{
-		return new DefaultContentType(field.isFinal(), true, maxLength);
+		return new DefaultContentType(field.optional());
 	}
 
 	@Override
 	DefaultContentType lengthMax(final int maximumLength)
 	{
-		return new DefaultContentType(field.isFinal(), !field.isMandatory(), maximumLength);
+		return new DefaultContentType(field.lengthMax(maximumLength));
 	}
 
 	@Override
@@ -70,7 +75,7 @@ final class DefaultContentType extends ContentType<String>
 	@Override
 	int getMaximumLength()
 	{
-		return maxLength;
+		return field.getMaximumLength();
 	}
 
 	@Override

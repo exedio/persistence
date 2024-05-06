@@ -18,9 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Media.applyConstraints;
 import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -30,16 +32,26 @@ import java.util.List;
 
 final class EnumContentType extends ContentType<Integer>
 {
+	private final IntegerField field;
 	private final String[] types;
 	private final HashMap<String, Integer> typeSet;
 
 	EnumContentType(
 			final String[] types,
-			final boolean isfinal,
-			final boolean optional)
+			final DataField constraintSource)
 	{
-		super(new IntegerField().range(0, types.length-1), isfinal, optional, "contentType");
-		this.types = requireNonEmptyAndCopy(types, "types");
+		this(
+				applyConstraints(new IntegerField().range(0, types.length-1), constraintSource),
+				requireNonEmptyAndCopy(types, "types"));
+	}
+
+	private EnumContentType(
+			final IntegerField field,
+			final String[] types)
+	{
+		super(field, "contentType");
+		this.field = field;
+		this.types = types;
 		final HashMap<String, Integer> typeSet = new HashMap<>();
 		for(int i = 0; i<types.length; i++)
 		{
@@ -53,19 +65,19 @@ final class EnumContentType extends ContentType<Integer>
 	@Override
 	EnumContentType copy()
 	{
-		return new EnumContentType(types, field.isFinal(), !field.isMandatory());
+		return new EnumContentType(field.copy(), types);
 	}
 
 	@Override
 	EnumContentType toFinal()
 	{
-		return new EnumContentType(types, true, !field.isMandatory());
+		return new EnumContentType(field.toFinal(), types);
 	}
 
 	@Override
 	EnumContentType optional()
 	{
-		return new EnumContentType(types, field.isFinal(), true);
+		return new EnumContentType(field.optional(), types);
 	}
 
 	@Override
