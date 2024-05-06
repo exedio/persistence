@@ -135,7 +135,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Media()
 	{
-		this(new DataField(), new DefaultContentType(61), new DateField());
+		this(new DataField(), new DefaultContentType(), new DateField());
 	}
 
 	@Override

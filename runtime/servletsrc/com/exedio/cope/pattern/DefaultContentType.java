@@ -29,10 +29,9 @@ final class DefaultContentType extends ContentType<String>
 {
 	private final StringField field;
 
-	DefaultContentType(
-			final int maxLength)
+	DefaultContentType()
 	{
-		this(makeField(maxLength, new CharSet('+', '+', '-', '9', 'a', 'z')));
+		this(makeField(61, new CharSet('+', '+', '-', '9', 'a', 'z')));
 	}
 
 	private DefaultContentType(
