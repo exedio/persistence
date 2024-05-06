@@ -984,26 +984,15 @@ def branchConsidersDatabase(String name)
 
 def envMysql57(String name, String driver, String text)
 {
-	writeFile(
-			file: 'conf/environment/' + name + '.properties',
-			text:
-					'connection.url=jdbc:' + driver + '://test-db-host/test_db_schema\n' +
-					'connection.username=test_db_user\n' +
-					'connection.password=test_db_password\n' +
-					'x-build.schemasavepoint=' +
-							'OK:' +
-							' SHOW MASTER STATUS' +
-							/ Gtid=\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}:\\d+-\\d+/ +
-							/ mysql-bin.\\d{6}:\\d+/ +
-							' doDB=binlogtest' +
-							'\n' +
-					'x-build.dialect=mysql\n' +
-					'x-build.driver=' + driver + '\n' +
-					text
-		)
+	envMysql(name, driver, text, 'mysql-bin')
 }
 
 def envMysql80(String name, String driver, String text)
+{
+	envMysql(name, driver, text, 'binlog')
+}
+
+def envMysql(String name, String driver, String text, String binlogName)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
@@ -1015,7 +1004,7 @@ def envMysql80(String name, String driver, String text)
 							'OK:' +
 							' SHOW MASTER STATUS' +
 							/ Gtid=\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}:\\d+-\\d+/ +
-							/ binlog.\\d{6}:\\d+/ +
+							/ / + binlogName + /.\\d{6}:\\d+/ +
 							' doDB=binlogtest' +
 							'\n' +
 					'x-build.dialect=mysql\n' +
