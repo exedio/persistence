@@ -287,157 +287,9 @@ try
 	}
 
 	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql57"] = {
-		nodeCheckoutAndDelete { scmResult ->
-			String buildTag = makeBuildTag(scmResult)
-
-			sh 'rm -f conf/environment/*.properties'
-
-			envMysql57(
-				'my57',
-				'mysql',
-				''
-			)
-			envMysql57(
-				'my57-compress',
-				'mysql',
-				'dialect.rowFormat=COMPRESSED\n'
-			)
-			envMysql57(
-				'my57-legacy',
-				'mysql',
-				'disableSupport.semicolon=true\n' +
-				'disableSupport.nativeDate=true\n'
-			)
-			envMysql57(
-				'my57-nprep',
-				'mysql',
-				'disableSupport.preparedStatements=true\n'
-			)
-			envMysql57(
-				'my57-nstmp',
-				'mysql',
-				'cache.stamps=false\n'
-			)
-			envMysql57(
-				'my57-nstmp-sq',
-				'mysql',
-				'cache.stamps=false\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql57(
-				'my57-sq',
-				'mysql',
-				'dialect.connection.compress=true\n' +
-				'disableSupport.checkConstraint=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql57(
-				'my57-sqb',
-				'mysql',
-				'schema.primaryKeyGenerator=batchedSequence\n'
-			)
-			envMysql57(
-				'my57-unique',
-				'mysql',
-				'disableSupport.uniqueViolation=true\n'
-			)
-			envMysql57(
-				'my57-vault',
-				'mysql',
-				'vault=true\n' +
-				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-				'vault.isAppliedToAllFields=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql57(
-				'my57m',
-				'mariadb',
-				''
-			)
-			envMysql57(
-				'my57m-legacy',
-				'mariadb',
-				'disableSupport.semicolon=true\n' +
-				'disableSupport.nativeDate=true\n'
-			)
-			envMysql57(
-				'my57m-nprep',
-				'mariadb',
-				'disableSupport.preparedStatements=true\n'
-			)
-			envMysql57(
-				'my57m-nstmp',
-				'mariadb',
-				'cache.stamps=false\n'
-			)
-			envMysql57(
-				'my57m-nstmp-sq',
-				'mariadb',
-				'cache.stamps=false\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql57(
-				'my57m-sq',
-				'mariadb',
-				'dialect.connection.compress=true\n' +
-				'disableSupport.checkConstraint=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql57(
-				'my57m-vault',
-				'mariadb',
-				'vault=true\n' +
-				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-				'vault.isAppliedToAllFields=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-
-			def mainImage = mainImage(imageName("Mysql57"))
-			def dbImage = docker.build(
-				imageName('Mysql57', 'db'),
-				'--build-arg VERSION=' + databaseMysql57 + ' ' +
-				'--build-arg CONF=my57.cnf ' +
-				'conf/mysql')
-
-			withBridge("Mysql57-db") { dbBridge ->
-				dbImage.withRun(
-					dockerRunDefaults(dbBridge, 'test-db-host') +
-					"--cap-add CHOWN " +
-					"--cap-add SETGID " +
-					"--cap-add SETUID " +
-					"--cap-add DAC_OVERRIDE " +
-					"--tmpfs /var/lib/mysql:rw " +
-					"--tmpfs /var/log/mysql:rw "
-				) { c ->
-					mainImage.inside(
-						dockerRunDefaults(dbBridge) +
-						"--hostname mydockerhostname "
-					) {
-						ant 'clean testWithEnv' +
-						    ' "-Dbuild.tag=' + buildTag + '"' +
-						    ' -Dskip.instrument=true' + // already verified in branch Main
-						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
-						    ' -Ddisable-ansi-colors=true'
-					}
-					sh "docker logs " + c.id + " &> db-Mysql57.log"
-					archiveArtifacts 'db-Mysql57.log'
-				}
-			}
-			junit(
-				allowEmptyResults: false,
-				testResults: 'build/testresults/**/*.xml',
-				skipPublishingChecks: true
-			)
-			sh "mv build buildMysql57"
-			archiveArtifacts(
-				'buildMysql57/testprotocol.*,' +
-				'buildMysql57/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-				'buildMysql57/*.log,' +
-				'buildMysql57/testtmpdir'
-			)
-		}
+	{
+		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       'mysql-bin')
+		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'binlog')
 	}
 
 	if(branchConsidersDatabase("Mysql"))
@@ -447,24 +299,28 @@ try
 
 			sh 'rm -f conf/environment/*.properties'
 
-			envMysql57(
+			envMysql(
 				'my57-stampsA',
 				'mysql',
+				'mysql-bin',
 				'cache.stamps=true'
 			)
-			envMysql57(
+			envMysql(
 				'my57-stampsB',
 				'mysql',
+				'mysql-bin',
 				'cache.stamps=false'
 			)
-			envMysql57(
+			envMysql(
 				'my57m-stampsA',
 				'mariadb',
+				'mysql-bin',
 				'cache.stamps=true'
 			)
-			envMysql57(
+			envMysql(
 				'my57m-stampsB',
 				'mariadb',
+				'mysql-bin',
 				'cache.stamps=false'
 			)
 
@@ -512,159 +368,6 @@ try
 				'buildMysql57CR/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
 				'buildMysql57CR/*.log,' +
 				'buildMysql57CR/testtmpdir'
-			)
-		}
-	}
-
-	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql80"] = {
-		nodeCheckoutAndDelete { scmResult ->
-			String buildTag = makeBuildTag(scmResult)
-
-			sh 'rm -f conf/environment/*.properties'
-
-			envMysql80(
-				'my80',
-				'mysql',
-				''
-			)
-			envMysql80(
-				'my80-compress',
-				'mysql',
-				'dialect.rowFormat=COMPRESSED\n'
-			)
-			envMysql80(
-				'my80-legacy',
-				'mysql',
-				'disableSupport.semicolon=true\n' +
-				'disableSupport.nativeDate=true\n'
-			)
-			envMysql80(
-				'my80-nprep',
-				'mysql',
-				'disableSupport.preparedStatements=true\n'
-			)
-			envMysql80(
-				'my80-nstmp',
-				'mysql',
-				'cache.stamps=false\n'
-			)
-			envMysql80(
-				'my80-nstmp-sq',
-				'mysql',
-				'cache.stamps=false\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql80(
-				'my80-sq',
-				'mysql',
-				'dialect.connection.compress=true\n' +
-				'disableSupport.checkConstraint=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql80(
-				'my80-sqb',
-				'mysql',
-				'schema.primaryKeyGenerator=batchedSequence\n'
-			)
-			envMysql80(
-				'my80-unique',
-				'mysql',
-				'disableSupport.uniqueViolation=true\n'
-			)
-			envMysql80(
-				'my80-vault',
-				'mysql',
-				'vault=true\n' +
-				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-				'vault.isAppliedToAllFields=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql80(
-				'my80m',
-				'mariadb',
-				''
-			)
-			envMysql80(
-				'my80m-legacy',
-				'mariadb',
-				'disableSupport.semicolon=true\n' +
-				'disableSupport.nativeDate=true\n'
-			)
-			envMysql80(
-				'my80m-nprep',
-				'mariadb',
-				'disableSupport.preparedStatements=true\n'
-			)
-			envMysql80(
-				'my80m-nstmp',
-				'mariadb',
-				'cache.stamps=false\n'
-			)
-			envMysql80(
-				'my80m-nstmp-sq',
-				'mariadb',
-				'cache.stamps=false\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql80(
-				'my80m-sq',
-				'mariadb',
-				'dialect.connection.compress=true\n' +
-				'disableSupport.checkConstraint=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-			envMysql80(
-				'my80m-vault',
-				'mariadb',
-				'vault=true\n' +
-				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-				'vault.isAppliedToAllFields=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
-			)
-
-			def mainImage = mainImage(imageName("Mysql80"))
-			def dbImage = docker.build(
-				imageName('Mysql80', 'db'),
-				'--build-arg VERSION=' + databaseMysql80 + ' ' +
-				'--build-arg CONF=my80.cnf ' +
-				'conf/mysql')
-
-			withBridge("Mysql80-db") { dbBridge ->
-				dbImage.withRun(
-					dockerRunDefaults(dbBridge, 'test-db-host') +
-					"--cap-add CHOWN " +
-					"--cap-add SETGID " +
-					"--cap-add SETUID " +
-					"--tmpfs /var/lib/mysql:rw " +
-					"--tmpfs /var/lib/mysql-files:rw "
-				) { c ->
-					mainImage.inside(
-						dockerRunDefaults(dbBridge) +
-						"--hostname mydockerhostname "
-					) {
-						ant 'clean testWithEnv' +
-						    ' "-Dbuild.tag=' + buildTag + '"' +
-						    ' -Dskip.instrument=true' + // already verified in branch Main
-						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
-						    ' -Ddisable-ansi-colors=true'
-					}
-					sh "docker logs " + c.id + " &> db-Mysql80.log"
-					archiveArtifacts 'db-Mysql80.log'
-				}
-			}
-			junit(
-				allowEmptyResults: false,
-				testResults: 'build/testresults/**/*.xml',
-				skipPublishingChecks: true
-			)
-			sh "mv build buildMysql80"
-			archiveArtifacts(
-				'buildMysql80/testprotocol.*,' +
-				'buildMysql80/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-				'buildMysql80/*.log,' +
-				'buildMysql80/testtmpdir'
 			)
 		}
 	}
@@ -982,17 +685,186 @@ def branchConsidersDatabase(String name)
 	return env.BRANCH_NAME.contains(name) || env.BRANCH_NAME.contains("AllDB") || env.BRANCH_NAME.contains("master")
 }
 
-def envMysql57(String name, String driver, String text)
+void branchMysql(
+		Map<String, Closure<?>> parallelBranches,
+		String code,
+		String version,
+		String conf,
+		String tmpfsDir,
+		String binlogName)
 {
-	envMysql(name, driver, text, 'mysql-bin')
+	parallelBranches["Mysql" + code] = {
+		nodeCheckoutAndDelete { scmResult ->
+			String buildTag = makeBuildTag(scmResult)
+
+			sh 'rm -f conf/environment/*.properties'
+
+			envMysql(
+				'my' + code,
+				'mysql',
+				binlogName,
+				''
+			)
+			envMysql(
+				'my' + code + '-compress',
+				'mysql',
+				binlogName,
+				'dialect.rowFormat=COMPRESSED\n'
+			)
+			envMysql(
+				'my' + code + '-legacy',
+				'mysql',
+				binlogName,
+				'disableSupport.semicolon=true\n' +
+				'disableSupport.nativeDate=true\n'
+			)
+			envMysql(
+				'my' + code + '-nprep',
+				'mysql',
+				binlogName,
+				'disableSupport.preparedStatements=true\n'
+			)
+			envMysql(
+				'my' + code + '-nstmp',
+				'mysql',
+				binlogName,
+				'cache.stamps=false\n'
+			)
+			envMysql(
+				'my' + code + '-nstmp-sq',
+				'mysql',
+				binlogName,
+				'cache.stamps=false\n' +
+				'schema.primaryKeyGenerator=sequence\n'
+			)
+			envMysql(
+				'my' + code + '-sq',
+				'mysql',
+				binlogName,
+				'dialect.connection.compress=true\n' +
+				'disableSupport.checkConstraint=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
+			)
+			envMysql(
+				'my' + code + '-sqb',
+				'mysql',
+				binlogName,
+				'schema.primaryKeyGenerator=batchedSequence\n'
+			)
+			envMysql(
+				'my' + code + '-unique',
+				'mysql',
+				binlogName,
+				'disableSupport.uniqueViolation=true\n'
+			)
+			envMysql(
+				'my' + code + '-vault',
+				'mysql',
+				binlogName,
+				'vault=true\n' +
+				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.isAppliedToAllFields=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
+			)
+			envMysql(
+				'my' + code + 'm',
+				'mariadb',
+				binlogName,
+				''
+			)
+			envMysql(
+				'my' + code + 'm-legacy',
+				'mariadb',
+				binlogName,
+				'disableSupport.semicolon=true\n' +
+				'disableSupport.nativeDate=true\n'
+			)
+			envMysql(
+				'my' + code + 'm-nprep',
+				'mariadb',
+				binlogName,
+				'disableSupport.preparedStatements=true\n'
+			)
+			envMysql(
+				'my' + code + 'm-nstmp',
+				'mariadb',
+				binlogName,
+				'cache.stamps=false\n'
+			)
+			envMysql(
+				'my' + code + 'm-nstmp-sq',
+				'mariadb',
+				binlogName,
+				'cache.stamps=false\n' +
+				'schema.primaryKeyGenerator=sequence\n'
+			)
+			envMysql(
+				'my' + code + 'm-sq',
+				'mariadb',
+				binlogName,
+				'dialect.connection.compress=true\n' +
+				'disableSupport.checkConstraint=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
+			)
+			envMysql(
+				'my' + code + 'm-vault',
+				'mariadb',
+				binlogName,
+				'vault=true\n' +
+				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+				'vault.isAppliedToAllFields=true\n' +
+				'schema.primaryKeyGenerator=sequence\n'
+			)
+
+			def mainImage = mainImage(imageName("Mysql" + code))
+			def dbImage = docker.build(
+				imageName('Mysql' + code, 'db'),
+				'--build-arg VERSION=' + version + ' ' +
+				'--build-arg CONF=' + conf + ' ' +
+				'conf/mysql')
+
+			withBridge("Mysql" + code + "-db") { dbBridge ->
+				dbImage.withRun(
+					dockerRunDefaults(dbBridge, 'test-db-host') +
+					"--cap-add CHOWN " +
+					"--cap-add SETGID " +
+					"--cap-add SETUID " +
+					"--cap-add DAC_OVERRIDE " +
+					"--tmpfs /var/lib/mysql:rw " +
+					"--tmpfs " + tmpfsDir + ":rw "
+				) { c ->
+					mainImage.inside(
+						dockerRunDefaults(dbBridge) +
+						"--hostname mydockerhostname "
+					) {
+						ant 'clean testWithEnv' +
+						    ' "-Dbuild.tag=' + buildTag + '"' +
+						    ' -Dskip.instrument=true' + // already verified in branch Main
+						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
+						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
+						    ' -Ddisable-ansi-colors=true'
+					}
+					sh "docker logs " + c.id + " &> db-Mysql" + code + ".log"
+					archiveArtifacts 'db-Mysql' + code + '.log'
+				}
+			}
+			junit(
+				allowEmptyResults: false,
+				testResults: 'build/testresults/**/*.xml',
+				skipPublishingChecks: true
+			)
+			sh "mv build buildMysql" + code
+			archiveArtifacts(
+				'buildMysql' + code + '/testprotocol.*,' +
+				'buildMysql' + code + '/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'buildMysql' + code + '/*.log,' +
+				'buildMysql' + code + '/testtmpdir'
+			)
+		}
+	}
 }
 
-def envMysql80(String name, String driver, String text)
-{
-	envMysql(name, driver, text, 'binlog')
-}
-
-def envMysql(String name, String driver, String text, String binlogName)
+def envMysql(String name, String driver, String binlogName, String text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
