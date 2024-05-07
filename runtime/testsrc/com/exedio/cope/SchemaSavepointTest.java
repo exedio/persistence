@@ -66,7 +66,7 @@ public class SchemaSavepointTest extends TestWithEnvironment
 			model.disconnect();
 			final String USERNAME = "connection.username";
 			model.connect(ConnectProperties.create(cascade(
-					single(USERNAME, props.get(USERNAME) + "_rc"),
+					single(USERNAME, props.get(USERNAME) + "_replication_client"),
 					props)));
 			previousConnectProperties = cprops;
 		}
