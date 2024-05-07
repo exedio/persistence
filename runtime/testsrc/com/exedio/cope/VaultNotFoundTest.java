@@ -52,7 +52,7 @@ public class VaultNotFoundTest
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		service.clear();
 		service.assertIt("");
@@ -80,7 +80,7 @@ public class VaultNotFoundTest
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		service.clear();
 		service.assertIt("");
@@ -108,7 +108,7 @@ public class VaultNotFoundTest
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		service.clear();
 		service.assertIt("");

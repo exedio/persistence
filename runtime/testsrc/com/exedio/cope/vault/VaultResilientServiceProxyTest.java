@@ -367,13 +367,13 @@ public class VaultResilientServiceProxyTest
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), value, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes VaultResilientServicePutInfo\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes\n");
 	}
 	@Test void putStream() throws IOException
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), new ByteArrayInputStream(value), PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream VaultResilientServicePutInfo\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream\n");
 	}
 	@Test void putPath() throws IOException
 	{
@@ -381,7 +381,7 @@ public class VaultResilientServiceProxyTest
 		final Path path = files.newPath(value);
 		Files.write(path, value);
 		s.put(hash(value), path, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultResilientServicePutInfo\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile\n");
 	}
 	@Test void probeBucketTag() throws Exception
 	{

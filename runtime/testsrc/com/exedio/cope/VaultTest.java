@@ -69,7 +69,7 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		assertEquals(VALUE1.length(), i.getFieldLength());
 		service.assertIt(HASH1, VALUE1, "getLength\n");
@@ -80,7 +80,7 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		assertEquals(VALUE1, i.getFieldBytes());
 		service.assertIt(HASH1, VALUE1, "getBytes\n");
@@ -91,7 +91,7 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		assertEquals(VALUE1, i.getFieldStream());
 		service.assertIt(HASH1, VALUE1, "getStream\n");
@@ -102,19 +102,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		final VaultItem i3 = new VaultItem(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
 
 		i1.setField(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
 
 		i3.setField(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
 	}
 
 	@Test void getPutStream() throws IOException
@@ -122,19 +122,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byStream(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, "putBytes\n"); // TODO putStream
 
 		VaultItem.byStream(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, "putBytes\n"); // TODO putStream
 
 		final VaultItem i3 = VaultItem.byStream(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultResilientServicePutInfo\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
 
 		i1.setFieldByStream(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultResilientServicePutInfo\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
 
 		i3.setFieldByStream(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultResilientServicePutInfo\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
 	}
 
 	@Test void getPutPath() throws IOException
@@ -142,19 +142,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byPath(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putFile\n");
 
 		VaultItem.byPath(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putFile\n");
 
 		final VaultItem i3 = VaultItem.byPath(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
 
 		i1.setFieldByPath(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
 
 		i3.setFieldByPath(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
 	}
 
 	@Test void getPutFile() throws IOException
@@ -162,19 +162,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byFile(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putFile\n");
 
 		VaultItem.byFile(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putFile\n");
 
 		final VaultItem i3 = VaultItem.byFile(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
 
 		i1.setFieldByFile(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
 
 		i3.setFieldByFile(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
 	}
 
 	@Test void getPutZip() throws IOException, URISyntaxException
@@ -182,19 +182,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byZip(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putStream VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putStream\n");
 
 		VaultItem.byZip(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putStream VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, "putStream\n");
 
 		final VaultItem i3 = VaultItem.byZip(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
 
 		i1.setFieldByZip(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
 
 		i3.setFieldByZip(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream VaultResilientServicePutInfo\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
 	}
 
 
