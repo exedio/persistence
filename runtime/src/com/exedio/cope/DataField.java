@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataFieldVaultStore.FAILURE_INFO;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
@@ -31,7 +32,6 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultProperties;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -556,8 +556,7 @@ public final class DataField extends Field<DataField.Value>
 
 		abstract boolean put(
 				@Nonnull VaultService service,
-				@Nonnull String hash,
-				@Nonnull VaultPutInfo info) throws IOException;
+				@Nonnull String hash) throws IOException;
 	}
 
 	static final class ArrayValue extends Value
@@ -630,10 +629,9 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		boolean put(
 				final VaultService service,
-				final String hash,
-				final VaultPutInfo info)
+				final String hash)
 		{
-			return service.put(hash, array, info);
+			return service.put(hash, array, FAILURE_INFO);
 		}
 	}
 
@@ -741,12 +739,11 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		boolean put(
 				final VaultService service,
-				final String hash,
-				final VaultPutInfo info) throws IOException
+				final String hash) throws IOException
 		{
 			try(InputStream value = openStream())
 			{
-				return service.put(hash, value, info);
+				return service.put(hash, value, FAILURE_INFO);
 			}
 		}
 	}
@@ -838,10 +835,9 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		boolean put(
 				final VaultService service,
-				final String hash,
-				final VaultPutInfo info) throws IOException
+				final String hash) throws IOException
 		{
-			return service.put(hash, path, info);
+			return service.put(hash, path, FAILURE_INFO);
 		}
 
 		@Override
