@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
-import com.exedio.cope.vault.VaultPutInfo;
 import java.sql.Connection;
 import java.util.List;
 import java.util.function.Consumer;
@@ -129,7 +128,7 @@ class AssertionFailedDialect extends Dialect
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
-			final VaultPutInfo putInfo)
+			final DataField fieldValue)
 	{
 		throw new AssertionError();
 	}

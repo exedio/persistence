@@ -24,7 +24,6 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.vault.VaultPutInfo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
@@ -405,7 +404,7 @@ abstract class Dialect
 			String hashValue,
 			DataConsumer consumer,
 			boolean markPutEnabled,
-			VaultPutInfo putInfo);
+			DataField fieldValue);
 
 	/**
 	 * @param connectionPool used by subclasses

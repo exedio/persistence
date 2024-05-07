@@ -26,7 +26,6 @@ import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ServiceProperties;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.io.IOException;
 import java.sql.Connection;
@@ -863,9 +862,9 @@ final class MysqlDialect extends Dialect
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
-			final VaultPutInfo putInfo)
+			final DataField fieldValue)
 	{
-		trail.appendInsert(bf, hashValue, consumer, markPutEnabled, putInfo);
+		trail.appendInsert(bf, hashValue, consumer, markPutEnabled, fieldValue);
 
 		// https://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html
 		bf.append("ON DUPLICATE KEY UPDATE ");
