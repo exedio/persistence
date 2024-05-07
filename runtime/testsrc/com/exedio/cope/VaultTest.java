@@ -104,8 +104,8 @@ public class VaultTest
 		final VaultItem i1 = new VaultItem(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + i1 + "\n");
 
-		new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultItem.field VaultItem-1\n");
+		final VaultItem i2 = new VaultItem(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + i2 + "\n");
 
 		final VaultItem i3 = new VaultItem(VALUE2);
 		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultItem.field " + i3 + "\n");
@@ -124,8 +124,8 @@ public class VaultTest
 		final VaultItem i1 = VaultItem.byStream(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + i1 + "\n"); // TODO putStream
 
-		VaultItem.byStream(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes VaultItem.field VaultItem-1\n"); // TODO putStream
+		final VaultItem i2 = VaultItem.byStream(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + i2 + "\n"); // TODO putStream
 
 		final VaultItem i3 = VaultItem.byStream(VALUE2);
 		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultItem.field " + i3 + "\n"); // TODO putStream
@@ -144,8 +144,8 @@ public class VaultTest
 		final VaultItem i1 = VaultItem.byPath(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field " + i1 + "\n");
 
-		VaultItem.byPath(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field VaultItem-1\n");
+		final VaultItem i2 = VaultItem.byPath(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field " + i2 + "\n");
 
 		final VaultItem i3 = VaultItem.byPath(VALUE2);
 		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultItem.field " + i3 + "\n");
@@ -164,8 +164,8 @@ public class VaultTest
 		final VaultItem i1 = VaultItem.byFile(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field " + i1 + "\n");
 
-		VaultItem.byFile(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field VaultItem-1\n");
+		final VaultItem i2 = VaultItem.byFile(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field " + i2 + "\n");
 
 		final VaultItem i3 = VaultItem.byFile(VALUE2);
 		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultItem.field " + i3 + "\n");
@@ -184,8 +184,8 @@ public class VaultTest
 		final VaultItem i1 = VaultItem.byZip(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putStream VaultItem.field " + i1 + "\n");
 
-		VaultItem.byZip(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putStream VaultItem.field VaultItem-1\n");
+		final VaultItem i2 = VaultItem.byZip(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putStream VaultItem.field " + i2 + "\n");
 
 		final VaultItem i3 = VaultItem.byZip(VALUE2);
 		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream VaultItem.field " + i3 + "\n");
