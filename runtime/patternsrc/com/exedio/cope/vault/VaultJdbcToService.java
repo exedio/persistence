@@ -309,16 +309,6 @@ public final class VaultJdbcToService
 
 	private static final VaultPutInfo PUT_INFO = new VaultPutInfo()
 	{
-		@Override
-		public String getOrigin()
-		{
-			return VaultJdbcToService.class.toString();
-		}
-		@Override
-		public String toString()
-		{
-			return VaultJdbcToService.class.toString();
-		}
 	};
 
 	private VaultJdbcToService()

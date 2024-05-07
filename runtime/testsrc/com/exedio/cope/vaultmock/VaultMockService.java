@@ -19,6 +19,7 @@
 package com.exedio.cope.vaultmock;
 
 import static com.exedio.cope.vault.VaultPropertiesTest.getVaultProperties;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -150,7 +151,7 @@ public final class VaultMockService implements VaultService
 	{
 		assertHash(hash);
 		assertNotNull(value);
-		assertNotNull(info);
+		assertInfo(info);
 		assertFalse(closed);
 
 		assertFalse(
@@ -180,7 +181,7 @@ public final class VaultMockService implements VaultService
 	{
 		assertHash(hash);
 		assertNotNull(value);
-		assertNotNull(info);
+		assertInfo(info);
 		assertFalse(closed);
 
 		return putInternal(hash, value.readAllBytes(), info);
@@ -208,6 +209,23 @@ public final class VaultMockService implements VaultService
 		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash),      hash);
 		assertNotEquals(hash, vaultProperties.getAlgorithmDigestForEmptyByteSequence(), "empty byte sequence is not handled by service implementations");
 	}
+
+	private void assertInfo(final VaultPutInfo info)
+	{
+		assertNotNull(info);
+		if(serviceProperties.assertInfoResilient)
+		{
+			assertAll(
+					() -> assertEquals(null, info.getField(),       "field"),
+					() -> assertEquals(null, info.getFieldString(), "fieldString"),
+					() -> assertEquals(null, info.getItem(),        "item"),
+					() -> assertEquals(null, info.getItemString(),  "itemString"),
+					() -> assertEquals(null, info.getOrigin(),      "origin"),
+					() -> assertEquals(assertInfoString, info.toString(), "toString"));
+		}
+	}
+
+	public String assertInfoString = "VaultResilientServicePutInfo";
 
 	public void clear()
 	{
@@ -253,6 +271,7 @@ public final class VaultMockService implements VaultService
 		final boolean failPut = value("fail.put", false);
 		final String probeResult = value("probe.result", "probeMockResult");
 		final String bucketTagAction = value("bucketTagAction", "default");
+		private final boolean assertInfoResilient = value("assertInfoResilient", true);
 
 		Props(final Source source)
 		{

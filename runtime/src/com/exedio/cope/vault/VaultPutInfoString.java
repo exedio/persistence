@@ -30,6 +30,12 @@ final class VaultPutInfoString implements VaultPutInfo
 	}
 
 	@Override
+	public String getOrigin()
+	{
+		return null;
+	}
+
+	@Override
 	public String toString()
 	{
 		return text;

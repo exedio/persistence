@@ -168,6 +168,7 @@ public class VaultMockServicePutTest extends VaultServiceTest
 	{
 		final Properties result = new Properties();
 		result.setProperty("example", "exampleValue");
+		result.setProperty("assertInfoResilient", "false");
 		return result;
 	}
 
