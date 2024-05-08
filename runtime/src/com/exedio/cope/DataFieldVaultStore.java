@@ -286,7 +286,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 		(result ? putInitial : putRedundant).increment();
 		(result ? putInitialSize : putRedundantSize).increment(consumer.length());
-		trail.put(dialect, hash, consumer, info);
+		trail.put(dialect, hash, consumer, field);
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();

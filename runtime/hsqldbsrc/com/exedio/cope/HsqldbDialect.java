@@ -32,7 +32,6 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -420,7 +419,7 @@ final class HsqldbDialect extends Dialect
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
-			final VaultPutInfo putInfo)
+			final DataField fieldValue)
 	{
 		// http://hsqldb.org/doc/2.0/guide/dataaccess-chapt.html#dac_merge_statement
 		bf.append("MERGE INTO ").append(trail.tableQuoted).
@@ -435,7 +434,7 @@ final class HsqldbDialect extends Dialect
 		bf.
 				append(")VALUES ").
 				append("vals.\"x\"");
-		trail.appendInsertValuesAfterHash(bf, consumer, markPutEnabled, putInfo);
+		trail.appendInsertValuesAfterHash(bf, consumer, markPutEnabled, fieldValue);
 
 		if(markPutEnabled)
 		{

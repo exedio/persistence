@@ -38,6 +38,7 @@ final class VaultTrail
 	final int startLimit;
 	private final int fieldLimit;
 	private final int originLimit;
+	private final String originValue;
 
 	private final String table;
 	private final String hash;
@@ -74,6 +75,7 @@ final class VaultTrail
 		this.startLimit = props.getTrailStartLimit();
 		this.fieldLimit = props.getTrailFieldLimit();
 		this.originLimit = props.getTrailOriginLimit();
+		this.originValue = truncate(ORIGIN, originLimit);
 
 		final Trimmer trimmer = TrimClass.Constraint.trimmer; // is correct, 60 characters from the beginning
 		table   = trimmer.trimString("VaultTrail_" + bucket);
@@ -97,6 +99,8 @@ final class VaultTrail
 		fieldQuoted   = d.quoteName(field);
 		originQuoted  = d.quoteName(origin);
 	}
+
+	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
 
 	void makeSchema(
 			final Schema schema,
@@ -124,7 +128,7 @@ final class VaultTrail
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
-			final VaultPutInfo putInfo)
+			final DataField fieldValue)
 	{
 		// BEWARE:
 		// Do not use INSERT IGNORE on MySQL, as it ignores more than just duplicate keys:
@@ -135,7 +139,7 @@ final class VaultTrail
 		bf.
 				append(")VALUES(").
 				appendParameter(hashValue);
-		appendInsertValuesAfterHash(bf, consumer, markPutEnabled, putInfo);
+		appendInsertValuesAfterHash(bf, consumer, markPutEnabled, fieldValue);
 		bf.append(')');
 	}
 
@@ -161,7 +165,7 @@ final class VaultTrail
 			final Statement bf,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
-			final VaultPutInfo putInfo)
+			final DataField fieldValue)
 	{
 		bf.
 				append(',').
@@ -176,9 +180,9 @@ final class VaultTrail
 				append(',').
 				appendParameterDateNativelyEvenIfSupportDisabled(new Date()).
 				append(',').
-				appendParameter(truncate(putInfo.getFieldString(), fieldLimit)).
+				appendParameter(truncate(fieldValue.getID(), fieldLimit)).
 				append(',').
-				appendParameter(truncate(putInfo.getOrigin(), originLimit));
+				appendParameter(originValue);
 	}
 
 	void appendSetMarkPut(final Statement bf)
@@ -193,11 +197,11 @@ final class VaultTrail
 			final Dialect dialect,
 			final String hashValue,
 			final DataConsumer consumer,
-			final VaultPutInfo putInfo)
+			final DataField fieldValue)
 	{
 		final Statement bf = executor.newStatement();
 
-		dialect.append(this, bf, hashValue, consumer, markPutSupplier.value, putInfo);
+		dialect.append(this, bf, hashValue, consumer, markPutSupplier.value, fieldValue);
 
 		final Connection connection = connectionPool.get(true);
 		try
