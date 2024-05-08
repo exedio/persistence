@@ -367,13 +367,13 @@ public class VaultResilientServiceProxyTest
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), value, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes VaultResilientServiceProxyTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes VaultResilientServicePutInfo\n");
 	}
 	@Test void putStream() throws IOException
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), new ByteArrayInputStream(value), PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream VaultResilientServiceProxyTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream VaultResilientServicePutInfo\n");
 	}
 	@Test void putPath() throws IOException
 	{
@@ -381,7 +381,7 @@ public class VaultResilientServiceProxyTest
 		final Path path = files.newPath(value);
 		Files.write(path, value);
 		s.put(hash(value), path, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultResilientServiceProxyTest#PUT_INFO\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultResilientServicePutInfo\n");
 	}
 	@Test void probeBucketTag() throws Exception
 	{
@@ -424,14 +424,7 @@ public class VaultResilientServiceProxyTest
 				MessageDigestUtil.getInstance("MD5").digest(value));
 	}
 
-	private static final VaultPutInfo PUT_INFO = new AssertionFailedVaultPutInfo()
-	{
-		@Override
-		public String toString()
-		{
-			return "VaultResilientServiceProxyTest#PUT_INFO";
-		}
-	};
+	private static final VaultPutInfo PUT_INFO = new AssertionFailedVaultPutInfo();
 
 
 	@Test void testToString()

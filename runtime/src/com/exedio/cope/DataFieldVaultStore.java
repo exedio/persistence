@@ -222,13 +222,12 @@ final class DataFieldVaultStore extends DataFieldStore
 	@Override
 	void put(final Entity entity, final Value data, final Item exceptionItem)
 	{
-		put(hash -> entity.put(column, hash), data, exceptionItem, entity.getItem());
+		put(hash -> entity.put(column, hash), data, exceptionItem);
 	}
 
 	private void put(
 			final Consumer<String> entityPutter, Value data,
-			final Item exceptionItem,
-			final Item infoItem)
+			final Item exceptionItem)
 	{
 		if(data==null)
 		{
@@ -251,34 +250,10 @@ final class DataFieldVaultStore extends DataFieldStore
 		final String hash = Hex.encodeLower(messageDigest.digest());
 		entityPutter.accept(hash);
 
-		final VaultPutInfo info = new VaultPutInfo()
-		{
-			@Override
-			public DataField getField()
-			{
-				return field;
-			}
-			@Override
-			public Item getItem()
-			{
-				return infoItem;
-			}
-			@Override
-			public String getOrigin()
-			{
-				return ORIGIN; // do not compute again and again
-			}
-			@Override
-			public String toString()
-			{
-				return getFieldString() + ' ' + getItemString();
-			}
-		};
-
 		final boolean result;
 		try
 		{
-			result = data.put(service, hash, info);
+			result = data.put(service, hash, FAILURE_INFO);
 		}
 		catch(final IOException e)
 		{
@@ -289,7 +264,39 @@ final class DataFieldVaultStore extends DataFieldStore
 		trail.put(dialect, hash, consumer, field);
 	}
 
-	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
+	private static final VaultPutInfo FAILURE_INFO = new VaultPutInfo()
+	{
+		@Override
+		public DataField getField()
+		{
+			throw new RuntimeException();
+		}
+		@Override
+		public String getFieldString()
+		{
+			throw new RuntimeException();
+		}
+		@Override
+		public Item getItem()
+		{
+			throw new RuntimeException();
+		}
+		@Override
+		public String getItemString()
+		{
+			throw new RuntimeException();
+		}
+		@Override
+		public String getOrigin()
+		{
+			throw new RuntimeException();
+		}
+		@Override
+		public String toString()
+		{
+			throw new RuntimeException();
+		}
+	};
 
 	@Override
 	String getBucket()

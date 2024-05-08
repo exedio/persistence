@@ -77,7 +77,7 @@ public class VaultReferenceTest
 	@Test void mainGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -93,7 +93,7 @@ public class VaultReferenceTest
 	@Test void mainGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -109,7 +109,7 @@ public class VaultReferenceTest
 	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -125,7 +125,7 @@ public class VaultReferenceTest
 	@Test void referenceGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -134,6 +134,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
+		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		log.assertDebug("get from reference in default: " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getLength\nputFile com.exedio.cope.vault.VaultReferenceService\n");
@@ -145,7 +146,7 @@ public class VaultReferenceTest
 	@Test void referenceGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -154,6 +155,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
+		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference in default: " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getBytes\nputBytes com.exedio.cope.vault.VaultReferenceService\n");
@@ -165,7 +167,7 @@ public class VaultReferenceTest
 	@Test void referenceGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -174,6 +176,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
+		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference in default: " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getStream\nputFile com.exedio.cope.vault.VaultReferenceService\n");
@@ -185,7 +188,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -218,7 +221,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -251,7 +254,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
 		refr.assertIt("");
 
 		main.clear();

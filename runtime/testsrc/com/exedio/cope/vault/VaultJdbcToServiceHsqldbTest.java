@@ -147,8 +147,8 @@ public class VaultJdbcToServiceHsqldbTest
 			assertEquals(null, info.getFieldString());
 			assertEquals(null, info.getItem());
 			assertEquals(null, info.getItemString());
-			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.getOrigin());
-			assertEquals("class com.exedio.cope.vault.VaultJdbcToService", info.toString());
+			assertEquals(null, info.getOrigin());
+			assertEquals("VaultResilientServicePutInfo", info.toString());
 			return result;
 		}
 

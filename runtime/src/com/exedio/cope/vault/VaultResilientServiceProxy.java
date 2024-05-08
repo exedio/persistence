@@ -121,7 +121,7 @@ final class VaultResilientServiceProxy implements VaultResilientService
 					"hash >" + anonymiseHash(hash) + "< put with empty value, " +
 					"but empty hash is >" + hashEmpty + '<');
 
-		return service.put(hash, value, info);
+		return service.put(hash, value, PUT_INFO);
 	}
 
 	@Override
@@ -135,7 +135,7 @@ final class VaultResilientServiceProxy implements VaultResilientService
 		if(isEmptyHash(hash))
 			return false;
 
-		return service.put(hash, value, info);
+		return service.put(hash, value, PUT_INFO);
 	}
 
 	@Override
@@ -149,7 +149,7 @@ final class VaultResilientServiceProxy implements VaultResilientService
 		if(isEmptyHash(hash))
 			return false;
 
-		return service.put(hash, value, info);
+		return service.put(hash, value, PUT_INFO);
 	}
 
 	private void requireHash(@Nonnull final String hash)
@@ -172,6 +172,8 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	{
 		return hash.equals(hashEmpty);
 	}
+
+	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString("VaultResilientServicePutInfo");
 
 	@Override
 	public Object probeGenuineServiceKey(final String bucket) throws Exception
