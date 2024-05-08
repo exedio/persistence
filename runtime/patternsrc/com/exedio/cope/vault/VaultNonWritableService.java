@@ -36,24 +36,24 @@ public abstract class VaultNonWritableService implements VaultService
 	@Override
 	public final boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
-		throw newPutException(hash, info);
+		throw newPutException(hash);
 	}
 
 	@Override
 	public final boolean put(final String hash, final InputStream value, final VaultPutInfo info)
 	{
-		throw newPutException(hash, info);
+		throw newPutException(hash);
 	}
 
 	@Override
 	public final boolean put(final String hash, final Path value, final VaultPutInfo info)
 	{
-		throw newPutException(hash, info);
+		throw newPutException(hash);
 	}
 
-	private IllegalStateException newPutException(final String hash, final VaultPutInfo info)
+	private IllegalStateException newPutException(final String hash)
 	{
 		throw new IllegalStateException(
-				"not writable: " + anonymiseHash(hash) + ' ' + info + ' ' + getClass().getName());
+				"not writable: " + anonymiseHash(hash) + ' ' + getClass().getName());
 	}
 }
