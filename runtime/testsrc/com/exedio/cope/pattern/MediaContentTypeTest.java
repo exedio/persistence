@@ -232,14 +232,14 @@ public class MediaContentTypeTest
 	@Test void testSubLengthFinalFirst()
 	{
 		final Media m1 = new Media().toFinal().contentTypeSub("ct");
-		assertIt(true, false, "ct/*",  33, 30, m1);
+		assertIt(true, false, "ct/*",  61, 58, m1);
 		final Media m2 = m1.contentTypeLengthMax(100);
 		assertIt(true, false, "ct/*", 100, 97, m2);
 	}
 	@Test void testSubLengthOptionalFirst()
 	{
 		final Media m1 = new Media().optional().contentTypeSub("ct");
-		assertIt(false, true, "ct/*",  33, 30, m1);
+		assertIt(false, true, "ct/*",  61, 58, m1);
 		final Media m2 = m1.contentTypeLengthMax(100);
 		assertIt(false, true, "ct/*", 100, 97, m2);
 	}
@@ -262,7 +262,7 @@ public class MediaContentTypeTest
 		final Media m1 = new Media().contentTypeLengthMax(100);
 		assertIt(false, false, "*/*", 100, 100, m1);
 		final Media m2 = m1.contentTypeSub("ct");
-		assertIt(false, false, "ct/*", 33,  30, m2); // TODO should be a expectedContentTypeMaximumLength==100 inherited from DefaultContentType
+		assertIt(false, false, "ct/*", 61,  58, m2); // TODO should be a expectedContentTypeMaximumLength==100 inherited from DefaultContentType
 	}
 	private static void assertIt(
 			final boolean expectedFinal,

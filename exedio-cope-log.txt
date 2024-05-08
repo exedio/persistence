@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* Media#contentTypeSub (rarely used) stores contentType of total length 61
+	by default.
+	This breaks backwards API compatibility, changes semantics of this method.
+	Affects database schema.
 * DataField#startsWithIfSupported supports vault.
 	Allows COPE Console tab "Media Types" to check medias in vault.
 	Requires copeconsole rev>=7146 (recommended).

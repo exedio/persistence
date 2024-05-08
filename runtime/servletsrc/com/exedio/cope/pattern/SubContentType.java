@@ -41,8 +41,8 @@ final class SubContentType extends ContentType<String>
 			final DataField constraintSource)
 	{
 		this(
-				applyConstraints(makeField(30, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), constraintSource),
-				requireNonEmpty(major, "majorContentType") + '/');
+				applyConstraints(makeField(DEFAULT_LENGTH-requireNonEmpty(major, "majorContentType").length()-1, new CharSet('+', '+', '-', '.', '0', '9', 'a', 'z')), constraintSource),
+				major + '/');
 	}
 
 	private SubContentType(

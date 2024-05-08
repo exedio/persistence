@@ -29,6 +29,8 @@ import java.util.List;
 
 abstract class ContentType<B>
 {
+	static final int DEFAULT_LENGTH = 61;
+
 	final FunctionField<B> field;
 	final String name;
 
