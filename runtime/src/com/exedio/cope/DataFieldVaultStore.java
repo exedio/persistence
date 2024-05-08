@@ -253,7 +253,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		final boolean result;
 		try
 		{
-			result = data.put(service, hash, FAILURE_INFO);
+			result = data.put(service, hash);
 		}
 		catch(final IOException e)
 		{
@@ -264,7 +264,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		trail.put(dialect, hash, consumer, field);
 	}
 
-	private static final VaultPutInfo FAILURE_INFO = new VaultPutInfo()
+	static final VaultPutInfo FAILURE_INFO = new VaultPutInfo()
 	{
 		@Override
 		public DataField getField()
