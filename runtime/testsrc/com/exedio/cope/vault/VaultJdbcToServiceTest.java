@@ -176,16 +176,10 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		}
 
 		@Override
-		public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+		public boolean put(final String hash, final byte[] value)
 		{
 			final boolean result = !hash.startsWith("fa");
 			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
-			assertEquals(null, info.getField());
-			assertEquals(null, info.getFieldString());
-			assertEquals(null, info.getItem());
-			assertEquals(null, info.getItemString());
-			assertEquals(null, info.getOrigin());
-			assertEquals("VaultResilientServicePutInfo", info.toString());
 			return result;
 		}
 

@@ -68,13 +68,13 @@ public class VaultFileServicePremisedTest extends AbstractVaultFileServiceTest
 		final Path root = getRoot().toPath();
 
 		final RuntimeException e = assertFails(
-				() -> service.put("abcd", value, PUT_INFO),
+				() -> service.put("abcd", value),
 				RuntimeException.class,
 				root + ":abcd");
 		assertEquals(NoSuchFileException.class, e.getCause().getClass());
 
 		createDirectory(root.resolve("abc"));
-		assertEquals(true,  service.put("abcd", value, PUT_INFO));
-		assertEquals(false, service.put("abcd", value, PUT_INFO));
+		assertEquals(true,  service.put("abcd", value));
+		assertEquals(false, service.put("abcd", value));
 	}
 }

@@ -19,7 +19,6 @@
 package com.exedio.cope.vaultmock;
 
 import static com.exedio.cope.vault.VaultPropertiesTest.getVaultProperties;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -33,7 +32,6 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
@@ -131,18 +129,17 @@ public final class VaultMockService implements VaultService
 
 
 	@Override
-	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+	public boolean put(final String hash, final byte[] value)
 	{
 		historyAppend("putBytes");
 
-		return putInternal(hash, value, info);
+		return putInternal(hash, value);
 	}
 
-	private boolean putInternal(final String hash, final byte[] value, final VaultPutInfo info)
+	private boolean putInternal(final String hash, final byte[] value)
 	{
 		assertHash(hash);
 		assertNotNull(value);
-		assertInfo(info);
 		assertFalse(closed);
 
 		assertFalse(
@@ -161,25 +158,24 @@ public final class VaultMockService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final InputStream value) throws IOException
 	{
 		historyAppend("putStream");
 
-		return putInternal(hash, value, info);
+		return putInternal(hash, value);
 	}
 
-	private boolean putInternal(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
+	private boolean putInternal(final String hash, final InputStream value) throws IOException
 	{
 		assertHash(hash);
 		assertNotNull(value);
-		assertInfo(info);
 		assertFalse(closed);
 
-		return putInternal(hash, value.readAllBytes(), info);
+		return putInternal(hash, value.readAllBytes());
 	}
 
 	@Override
-	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value) throws IOException
 	{
 		historyAppend("putFile");
 
@@ -188,7 +184,7 @@ public final class VaultMockService implements VaultService
 
 		try(InputStream s = Files.newInputStream(value))
 		{
-			return putInternal(hash, s, info);
+			return putInternal(hash, s);
 		}
 	}
 
@@ -200,23 +196,6 @@ public final class VaultMockService implements VaultService
 		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash),      hash);
 		assertNotEquals(hash, vaultProperties.getAlgorithmDigestForEmptyByteSequence(), "empty byte sequence is not handled by service implementations");
 	}
-
-	private void assertInfo(final VaultPutInfo info)
-	{
-		assertNotNull(info);
-		if(serviceProperties.assertInfoResilient)
-		{
-			assertAll(
-					() -> assertEquals(null, info.getField(),       "field"),
-					() -> assertEquals(null, info.getFieldString(), "fieldString"),
-					() -> assertEquals(null, info.getItem(),        "item"),
-					() -> assertEquals(null, info.getItemString(),  "itemString"),
-					() -> assertEquals(null, info.getOrigin(),      "origin"),
-					() -> assertEquals(assertInfoString, info.toString(), "toString"));
-		}
-	}
-
-	public String assertInfoString = "VaultResilientServicePutInfo";
 
 	public void clear()
 	{
@@ -262,7 +241,6 @@ public final class VaultMockService implements VaultService
 		final boolean failPut = value("fail.put", false);
 		final String probeResult = value("probe.result", "probeMockResult");
 		final String bucketTagAction = value("bucketTagAction", "default");
-		private final boolean assertInfoResilient = value("assertInfoResilient", true);
 
 		Props(final Source source)
 		{

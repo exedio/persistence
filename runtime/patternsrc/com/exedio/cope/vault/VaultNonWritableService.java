@@ -34,19 +34,19 @@ public abstract class VaultNonWritableService implements VaultService
 	}
 
 	@Override
-	public final boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+	public final boolean put(final String hash, final byte[] value)
 	{
 		throw newPutException(hash);
 	}
 
 	@Override
-	public final boolean put(final String hash, final InputStream value, final VaultPutInfo info)
+	public final boolean put(final String hash, final InputStream value)
 	{
 		throw newPutException(hash);
 	}
 
 	@Override
-	public final boolean put(final String hash, final Path value, final VaultPutInfo info)
+	public final boolean put(final String hash, final Path value)
 	{
 		throw newPutException(hash);
 	}

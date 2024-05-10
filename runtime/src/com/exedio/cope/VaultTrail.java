@@ -102,6 +102,7 @@ final class VaultTrail
 		originQuoted  = d.quoteName(origin);
 	}
 
+	@SuppressWarnings("deprecation") // OK: Use the public method as long as it's there
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
 
 	void makeSchema(

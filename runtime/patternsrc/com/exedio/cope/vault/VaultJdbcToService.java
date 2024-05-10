@@ -126,7 +126,7 @@ public final class VaultJdbcToService
 						final byte[] value = resultSet.getBytes(2);
 						try
 						{
-							if(!service.put(hash, value, PUT_INFO))
+							if(!service.put(hash, value))
 								stats.onRedundant(hash);
 						}
 						catch(final NullPointerException e)
@@ -306,10 +306,6 @@ public final class VaultJdbcToService
 			super(source);
 		}
 	}
-
-	private static final VaultPutInfo PUT_INFO = new VaultPutInfo()
-	{
-	};
 
 	private VaultJdbcToService()
 	{

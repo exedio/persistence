@@ -52,19 +52,18 @@ public class VaultNonWritableServiceTest
 				"testBucket",
 				false,  // writable
 				() -> { throw new AssertionFailedError(); }); // markPut
-		final VaultPutInfo info = new AssertionFailedVaultPutInfo();
 		//noinspection resource OK: does not allocate resources
 		final MyService s = new MyService(params);
 		assertFails(
-				() -> s.put("abcdefghijklmnopq", (byte[])null, info),
+				() -> s.put("abcdefghijklmnopq", (byte[])null),
 				IllegalStateException.class,
 				"not writable: abcdefghijklmnopxx17 " + CLASS_NAME);
 		assertFails(
-				() -> s.put("abcdefghijklmnopq", (InputStream)null, info),
+				() -> s.put("abcdefghijklmnopq", (InputStream)null),
 				IllegalStateException.class,
 				"not writable: abcdefghijklmnopxx17 " + CLASS_NAME);
 		assertFails(
-				() -> s.put("abcdefghijklmnopq", (Path)null, info),
+				() -> s.put("abcdefghijklmnopq", (Path)null),
 				IllegalStateException.class,
 				"not writable: abcdefghijklmnopxx17 " + CLASS_NAME);
 	}

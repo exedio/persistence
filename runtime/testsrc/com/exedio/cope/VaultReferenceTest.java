@@ -133,7 +133,6 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
-		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		log.assertEmpty(); // DataField#getLength no longer calls VaultService#getLength
 		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
@@ -154,7 +153,6 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
-		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference in default: " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getBytes putBytes");
@@ -175,7 +173,6 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
-		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference in default: " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getStream putFile");

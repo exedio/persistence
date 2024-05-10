@@ -88,7 +88,7 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		final byte[] value = {1,2,3};
 		final VaultFileService service = (VaultFileService)getService();
 
-		assertTrue(service.put("abcd", value, PUT_INFO));
+		assertTrue(service.put("abcd", value));
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d);
@@ -97,7 +97,7 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertPosix(dirPerms, rootGroup(), abc);
 		assertPosix(filePerms, rootGroup(), d);
 
-		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertFalse(service.put("abcd", value));
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d);
@@ -106,7 +106,7 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertPosix(dirPerms, rootGroup(), abc);
 		assertPosix(filePerms, rootGroup(), d);
 
-		assertTrue(service.put("abcf", value, PUT_INFO));
+		assertTrue(service.put("abcf", value));
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d, f);
@@ -127,10 +127,10 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 
 		final byte[] value = {1,2,3};
 		final VaultFileService service = (VaultFileService)getService();
-		assertTrue(service.put("abcd", value, PUT_INFO));
+		assertTrue(service.put("abcd", value));
 		assertTrue(Files.isRegularFile(file));
 
-		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertFalse(service.put("abcd", value));
 
 		markPut = true;
 		clock.override(new AssertionFailedClock()
@@ -143,17 +143,17 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		});
 		final Instant instant1 = LocalDateTime.of(2022, JULY, 23, 6, 7, 32).toInstant(UTC);
 		markPutInstant = instant1;
-		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertFalse(service.put("abcd", value));
 		assertEquals(FileTime.from(instant1), getLastModifiedTime(file));
 
 		final Instant instant2 = LocalDateTime.of(2021, JUNE, 22, 5, 6, 21).toInstant(UTC);
 		markPutInstant = instant2;
 		markPut = false;
-		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertFalse(service.put("abcd", value));
 		assertEquals(FileTime.from(instant1), getLastModifiedTime(file));
 
 		markPut = true;
-		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertFalse(service.put("abcd", value));
 		assertEquals(FileTime.from(instant2), getLastModifiedTime(file));
 	}
 
@@ -234,7 +234,7 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 			movePreludeCalled = true;
 		});
 		assertFalse(movePreludeCalled);
-		service.put("abcd", value, PUT_INFO);
+		service.put("abcd", value);
 		assertTrue(movePreludeCalled);
 		assertContains(root, temp, abc);
 		assertContains(temp);

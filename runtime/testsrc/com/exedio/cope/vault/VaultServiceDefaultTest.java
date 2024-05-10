@@ -51,17 +51,17 @@ public class VaultServiceDefaultTest
 			throw new AssertionError();
 		}
 		@Override
-		public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+		public boolean put(final String hash, final byte[] value)
 		{
 			throw new AssertionError();
 		}
 		@Override
-		public boolean put(final String hash, final InputStream value, final VaultPutInfo info)
+		public boolean put(final String hash, final InputStream value)
 		{
 			throw new AssertionError();
 		}
 		@Override
-		public boolean put(final String hash, final Path value, final VaultPutInfo info)
+		public boolean put(final String hash, final Path value)
 		{
 			throw new AssertionError();
 		}

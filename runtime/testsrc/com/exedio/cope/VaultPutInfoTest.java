@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.vault.VaultPutInfo.getOriginDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -32,6 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class VaultPutInfoTest
 {
+	@SuppressWarnings("deprecation") // OK: tests deprecated API
 	@Test void testDefault() throws UnknownHostException
 	{
 		final VaultPutInfo info = new VaultPutInfo() {};
@@ -41,12 +41,13 @@ public class VaultPutInfoTest
 		assertEquals(null, info.getItem());
 		assertEquals(null, info.getItemString());
 		assertEquals(InetAddress.getLocalHost().getHostName(), info.getOrigin());
-		assertEquals(InetAddress.getLocalHost().getHostName(), getOriginDefault());
+		assertEquals(InetAddress.getLocalHost().getHostName(), com.exedio.cope.vault.VaultPutInfo.getOriginDefault());
 	}
 
 	@Test void testStandard()
 	{
 		final MyItem item = MyItem.TYPE.activate(55);
+		@SuppressWarnings("deprecation") // OK: tests deprecated API
 		final VaultPutInfo info = new VaultPutInfo()
 		{
 			@Override

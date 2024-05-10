@@ -22,7 +22,6 @@ import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import java.io.IOException;
 import java.io.InputStream;
@@ -68,21 +67,21 @@ public class AssertionErrorVaultService implements VaultService
 
 
 	@Override
-	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+	public boolean put(final String hash, final byte[] value)
 	{
-		throw new AssertionError(anonymiseHash(hash) + '/' + info);
+		throw new AssertionError(anonymiseHash(hash));
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final InputStream value) throws IOException
 	{
-		throw new AssertionError(anonymiseHash(hash) + '/' + info);
+		throw new AssertionError(anonymiseHash(hash));
 	}
 
 	@Override
-	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value) throws IOException
 	{
-		throw new AssertionError(anonymiseHash(hash) + '/' + info);
+		throw new AssertionError(anonymiseHash(hash));
 	}
 
 	@Override

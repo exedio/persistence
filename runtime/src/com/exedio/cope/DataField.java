@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DataFieldVaultStore.FAILURE_INFO;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
@@ -631,7 +630,7 @@ public final class DataField extends Field<DataField.Value>
 				final VaultService service,
 				final String hash)
 		{
-			return service.put(hash, array, FAILURE_INFO);
+			return service.put(hash, array);
 		}
 	}
 
@@ -743,7 +742,7 @@ public final class DataField extends Field<DataField.Value>
 		{
 			try(InputStream value = openStream())
 			{
-				return service.put(hash, value, FAILURE_INFO);
+				return service.put(hash, value);
 			}
 		}
 	}
@@ -837,7 +836,7 @@ public final class DataField extends Field<DataField.Value>
 				final VaultService service,
 				final String hash) throws IOException
 		{
-			return service.put(hash, path, FAILURE_INFO);
+			return service.put(hash, path);
 		}
 
 		@Override
