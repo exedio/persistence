@@ -73,25 +73,23 @@ public class VaultReferenceServiceTest
 				service.toString());
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testPurge()
 	{
 		main.assertIt("");
 		refr.assertIt("");
 
 		service.purgeSchema(new AssertionErrorJobContext());
-		main.assertIt("purgeSchema\n");
-		refr.assertIt("purgeSchema\n");
+		main.assertIt("purgeSchema");
+		refr.assertIt("purgeSchema");
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testClose()
 	{
 		main.assertIt("");
 		refr.assertIt("");
 
 		service.close();
-		main.assertIt("close\n");
-		refr.assertIt("close\n");
+		main.assertIt("close");
+		refr.assertIt("close");
 	}
 }

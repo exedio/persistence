@@ -46,7 +46,6 @@ import org.junit.jupiter.api.Test;
  * @see VaultReferenceNoCopyTest
  */
 @MainRule.Tag
-@SuppressWarnings("HardcodedLineSeparator")
 public class VaultReferenceTest
 {
 	@Test void connect()
@@ -77,14 +76,14 @@ public class VaultReferenceTest
 	@Test void mainGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1.length(), item.getFieldLength());
-		main.assertIt(HASH1, VALUE1, "getLength\n");
+		main.assertIt(HASH1, VALUE1, "getLength");
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
@@ -93,14 +92,14 @@ public class VaultReferenceTest
 	@Test void mainGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldBytes());
-		main.assertIt(HASH1, VALUE1, "getBytes\n");
+		main.assertIt(HASH1, VALUE1, "getBytes");
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
@@ -109,14 +108,14 @@ public class VaultReferenceTest
 	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldStream());
-		main.assertIt(HASH1, VALUE1, "getStream\n");
+		main.assertIt(HASH1, VALUE1, "getStream");
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
@@ -125,7 +124,7 @@ public class VaultReferenceTest
 	@Test void referenceGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		main.clear();
@@ -137,8 +136,8 @@ public class VaultReferenceTest
 		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		log.assertDebug("get from reference in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getLength\nputFile\n");
-		refr.assertIt(HASH1, VALUE1, "getStream\n");
+		main.assertIt(HASH1, VALUE1, "getLength putFile");
+		refr.assertIt(HASH1, VALUE1, "getStream");
 
 		log.assertEmpty();
 	}
@@ -146,7 +145,7 @@ public class VaultReferenceTest
 	@Test void referenceGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		main.clear();
@@ -158,8 +157,8 @@ public class VaultReferenceTest
 		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getBytes\nputBytes\n");
-		refr.assertIt(HASH1, VALUE1, "getBytes\n");
+		main.assertIt(HASH1, VALUE1, "getBytes putBytes");
+		refr.assertIt(HASH1, VALUE1, "getBytes");
 
 		log.assertEmpty();
 	}
@@ -167,7 +166,7 @@ public class VaultReferenceTest
 	@Test void referenceGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		main.clear();
@@ -179,8 +178,8 @@ public class VaultReferenceTest
 		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getStream\nputFile\n");
-		refr.assertIt(HASH1, VALUE1, "getStream\n");
+		main.assertIt(HASH1, VALUE1, "getStream putFile");
+		refr.assertIt(HASH1, VALUE1, "getStream");
 
 		log.assertEmpty();
 	}
@@ -188,7 +187,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		main.clear();
@@ -212,8 +211,8 @@ public class VaultReferenceTest
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
-		main.assertIt("getLength\n");
-		refr.assertIt("getStream\n");
+		main.assertIt("getLength");
+		refr.assertIt("getStream");
 
 		log.assertEmpty();
 	}
@@ -221,7 +220,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		main.clear();
@@ -245,8 +244,8 @@ public class VaultReferenceTest
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
-		main.assertIt("getBytes\n");
-		refr.assertIt("getBytes\n");
+		main.assertIt("getBytes");
+		refr.assertIt("getBytes");
 
 		log.assertEmpty();
 	}
@@ -254,7 +253,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
 		main.clear();
@@ -278,8 +277,8 @@ public class VaultReferenceTest
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
-		main.assertIt("getStream\n");
-		refr.assertIt("getStream\n");
+		main.assertIt("getStream");
+		refr.assertIt("getStream");
 
 		log.assertEmpty();
 	}

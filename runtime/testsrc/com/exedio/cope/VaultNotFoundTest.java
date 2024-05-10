@@ -37,7 +37,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("HardcodedLineSeparator")
 public class VaultNotFoundTest
 {
 	@Test void connect()
@@ -52,7 +51,7 @@ public class VaultNotFoundTest
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		service.clear();
 		service.assertIt("");
@@ -74,13 +73,13 @@ public class VaultNotFoundTest
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
-		service.assertIt("getLength\n");
+		service.assertIt("getLength");
 	}
 
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		service.clear();
 		service.assertIt("");
@@ -102,13 +101,13 @@ public class VaultNotFoundTest
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
-		service.assertIt("getBytes\n");
+		service.assertIt("getBytes");
 	}
 
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		service.clear();
 		service.assertIt("");
@@ -130,7 +129,7 @@ public class VaultNotFoundTest
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
-		service.assertIt("getStream\n");
+		service.assertIt("getStream");
 	}
 
 

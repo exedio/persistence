@@ -56,7 +56,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("HardcodedLineSeparator")
 public class VaultMultiTest
 {
 	static final String HASH1 = "01ee706ed305c3fd0a5b1bdadadaa99424f67a73291419ac69729cc54ee55b9dd47b6743dbe88be50034bda145345adc7e2a339871aed2727e87e204560dd500";
@@ -166,12 +165,12 @@ public class VaultMultiTest
 		final AnItem i = new AnItem(VALUE1, VALUE2, VALUE3, VALUE4, VALUE5);
 
 		serviceDefault.assertIt(HASH2, VALUE2,
-				"putBytes\n");
+				"putBytes");
 		serviceAlpha.assertIt(HASH3, VALUE3,
-				"putBytes\n");
+				"putBytes");
 		serviceBeta.assertIt(HASH4, VALUE4, HASH5, VALUE5,
-				"putBytes\n" +
-				"putBytes\n");
+				"putBytes " +
+				"putBytes");
 
 		assertEquals(VALUE1, encodeLower(i.getNoneArray()));
 		assertEquals(VALUE2, encodeLower(i.getDefaulTArray()));
@@ -180,12 +179,12 @@ public class VaultMultiTest
 		assertEquals(VALUE5, encodeLower(i.getBeta2Array()));
 
 		serviceDefault.assertIt(HASH2, VALUE2,
-				"getBytes\n");
+				"getBytes");
 		serviceAlpha.assertIt(HASH3, VALUE3,
-				"getBytes\n");
+				"getBytes");
 		serviceBeta.assertIt(HASH4, VALUE4, HASH5, VALUE5,
-				"getBytes\n" +
-				"getBytes\n");
+				"getBytes " +
+				"getBytes");
 	}
 
 	@Test void testSame()
@@ -195,12 +194,12 @@ public class VaultMultiTest
 		final AnItem i = new AnItem(VALUE1, VALUE1, VALUE1, VALUE1, VALUE1);
 
 		serviceDefault.assertIt(HASH1, VALUE1,
-				"putBytes\n");
+				"putBytes");
 		serviceAlpha.assertIt(HASH1, VALUE1,
-				"putBytes\n");
+				"putBytes");
 		serviceBeta.assertIt(HASH1, VALUE1,
-				"putBytes\n" +
-				"putBytes\n");
+				"putBytes " +
+				"putBytes");
 
 		assertEquals(VALUE1, encodeLower(i.getNoneArray()));
 		assertEquals(VALUE1, encodeLower(i.getDefaulTArray()));
@@ -209,12 +208,12 @@ public class VaultMultiTest
 		assertEquals(VALUE1, encodeLower(i.getBeta2Array()));
 
 		serviceDefault.assertIt(HASH1, VALUE1,
-				"getBytes\n");
+				"getBytes");
 		serviceAlpha.assertIt(HASH1, VALUE1,
-				"getBytes\n");
+				"getBytes");
 		serviceBeta.assertIt(HASH1, VALUE1,
-				"getBytes\n" +
-				"getBytes\n");
+				"getBytes " +
+				"getBytes");
 	}
 
 	@Test void testRequiredToMarkPut()

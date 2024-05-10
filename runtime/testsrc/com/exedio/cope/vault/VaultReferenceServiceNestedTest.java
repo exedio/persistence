@@ -85,7 +85,6 @@ public class VaultReferenceServiceNestedTest
 				serviceNested.toString());
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testPurge()
 	{
 		main.assertIt("");
@@ -93,12 +92,11 @@ public class VaultReferenceServiceNestedTest
 		ref2.assertIt("");
 
 		service.purgeSchema(new AssertionErrorJobContext());
-		main.assertIt("purgeSchema\n");
-		ref1.assertIt("purgeSchema\n");
-		ref2.assertIt("purgeSchema\n");
+		main.assertIt("purgeSchema");
+		ref1.assertIt("purgeSchema");
+		ref2.assertIt("purgeSchema");
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testClose()
 	{
 		main.assertIt("");
@@ -106,8 +104,8 @@ public class VaultReferenceServiceNestedTest
 		ref2.assertIt("");
 
 		service.close();
-		main.assertIt("close\n");
-		ref1.assertIt("close\n");
-		ref2.assertIt("close\n");
+		main.assertIt("close");
+		ref1.assertIt("close");
+		ref2.assertIt("close");
 	}
 }

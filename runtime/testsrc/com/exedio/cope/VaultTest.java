@@ -36,7 +36,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("HardcodedLineSeparator")
 public class VaultTest
 {
 	static final Model MODEL = new Model(VaultItem.TYPE);
@@ -61,7 +60,7 @@ public class VaultTest
 		service.assertIt("");
 
 		MODEL.disconnect();
-		service.assertIt("close\n");
+		service.assertIt("close");
 	}
 
 	@Test void testGetLength()
@@ -69,10 +68,10 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		assertEquals(VALUE1.length(), i.getFieldLength());
-		service.assertIt(HASH1, VALUE1, "getLength\n");
+		service.assertIt(HASH1, VALUE1, "getLength");
 	}
 
 	@Test void testGetBytes()
@@ -80,10 +79,10 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		assertEquals(VALUE1, i.getFieldBytes());
-		service.assertIt(HASH1, VALUE1, "getBytes\n");
+		service.assertIt(HASH1, VALUE1, "getBytes");
 	}
 
 	@Test void testGetStream() throws IOException
@@ -91,10 +90,10 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		assertEquals(VALUE1, i.getFieldStream());
-		service.assertIt(HASH1, VALUE1, "getStream\n");
+		service.assertIt(HASH1, VALUE1, "getStream");
 	}
 
 	@Test void getPutBytes()
@@ -102,19 +101,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		new VaultItem(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		final VaultItem i3 = new VaultItem(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes");
 
 		i1.setField(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes");
 
 		i3.setField(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes");
 	}
 
 	@Test void getPutStream() throws IOException
@@ -122,19 +121,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byStream(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, "putBytes"); // TODO putStream
 
 		VaultItem.byStream(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putBytes\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, "putBytes"); // TODO putStream
 
 		final VaultItem i3 = VaultItem.byStream(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes"); // TODO putStream
 
 		i1.setFieldByStream(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes"); // TODO putStream
 
 		i3.setFieldByStream(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes"); // TODO putStream
 	}
 
 	@Test void getPutPath() throws IOException
@@ -142,19 +141,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byPath(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile\n");
+		service.assertIt(HASH1, VALUE1, "putFile");
 
 		VaultItem.byPath(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile\n");
+		service.assertIt(HASH1, VALUE1, "putFile");
 
 		final VaultItem i3 = VaultItem.byPath(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile");
 
 		i1.setFieldByPath(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile");
 
 		i3.setFieldByPath(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile");
 	}
 
 	@Test void getPutFile() throws IOException
@@ -162,19 +161,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byFile(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile\n");
+		service.assertIt(HASH1, VALUE1, "putFile");
 
 		VaultItem.byFile(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putFile\n");
+		service.assertIt(HASH1, VALUE1, "putFile");
 
 		final VaultItem i3 = VaultItem.byFile(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile");
 
 		i1.setFieldByFile(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile");
 
 		i3.setFieldByFile(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile");
 	}
 
 	@Test void getPutZip() throws IOException, URISyntaxException
@@ -182,19 +181,19 @@ public class VaultTest
 		service.assertIt("");
 
 		final VaultItem i1 = VaultItem.byZip(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putStream\n");
+		service.assertIt(HASH1, VALUE1, "putStream");
 
 		VaultItem.byZip(VALUE1);
-		service.assertIt(HASH1, VALUE1, "putStream\n");
+		service.assertIt(HASH1, VALUE1, "putStream");
 
 		final VaultItem i3 = VaultItem.byZip(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream");
 
 		i1.setFieldByZip(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream");
 
 		i3.setFieldByZip(VALUE2);
-		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream");
 	}
 
 
