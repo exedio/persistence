@@ -52,7 +52,6 @@ import org.junit.jupiter.api.function.Executable;
 import org.opentest4j.AssertionFailedError;
 
 @MainRule.Tag
-@SuppressWarnings("HardcodedLineSeparator")
 public class VaultResilientServiceProxyTest
 {
 	String emptyHash;
@@ -236,7 +235,7 @@ public class VaultResilientServiceProxyTest
 	@Test void purgeSchemaClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		final JobContext ctx = new AssertionErrorJobContext();
 		assertFails(
 				() -> s.purgeSchema(ctx),
@@ -247,17 +246,17 @@ public class VaultResilientServiceProxyTest
 	@Test void closeClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		assertFails(
 				() -> s.close(),
 				AssertionFailedError.class,
 				"expected: <false> but was: <true>");
-		m.assertIt("close\n");
+		m.assertIt("close");
 	}
 	@Test void getLengthClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		assertFails(
 				() -> s.getLength("0123456789abcdef0123456789abcdef"),
 				IllegalStateException.class,
@@ -267,7 +266,7 @@ public class VaultResilientServiceProxyTest
 	@Test void getBytesClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		assertFails(
 				() -> s.get("0123456789abcdef0123456789abcdef"),
 				IllegalStateException.class,
@@ -277,7 +276,7 @@ public class VaultResilientServiceProxyTest
 	@Test void getStreamClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		final OutputStream sink = new AssertionErrorOutputStream();
 		assertFails(
 				() -> s.get("0123456789abcdef0123456789abcdef", sink),
@@ -288,7 +287,7 @@ public class VaultResilientServiceProxyTest
 	@Test void putBytesClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		final byte[] value = {1,2,3};
 		assertFails(
 				() -> s.put(hash(value), value, PUT_INFO),
@@ -299,7 +298,7 @@ public class VaultResilientServiceProxyTest
 	@Test void putStreamClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		final byte[] value = {1,2,3};
 		final InputStream stream = new ByteArrayInputStream(value);
 		assertFails(
@@ -311,7 +310,7 @@ public class VaultResilientServiceProxyTest
 	@Test void putPathClosed() throws IOException
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		final byte[] value = {1,2,3};
 		final Path path = files.newPath(value);
 		Files.write(path, value);
@@ -324,7 +323,7 @@ public class VaultResilientServiceProxyTest
 	@Test void probeBucketTagClosed()
 	{
 		s.close();
-		m.assertIt("close\n");
+		m.assertIt("close");
 		assertFails(
 				() -> s.probeGenuineServiceKey("my-Bucket"),
 				IllegalStateException.class,
@@ -336,7 +335,7 @@ public class VaultResilientServiceProxyTest
 	{
 		final JobContext ctx = new AssertionErrorJobContext();
 		s.purgeSchema(ctx);
-		m.assertIt("purgeSchema\n");
+		m.assertIt("purgeSchema");
 	}
 	@Test void getLength()
 	{
@@ -344,7 +343,7 @@ public class VaultResilientServiceProxyTest
 				() -> s.getLength("0123456789abcdef0123456789abcdef"),
 				VaultNotFoundException.class,
 				"hash not found in vault: 0123456789abcdefxx32");
-		m.assertIt("getLength\n");
+		m.assertIt("getLength");
 	}
 	@Test void getBytes()
 	{
@@ -352,7 +351,7 @@ public class VaultResilientServiceProxyTest
 				() -> s.get("0123456789abcdef0123456789abcdef"),
 				VaultNotFoundException.class,
 				"hash not found in vault: 0123456789abcdefxx32");
-		m.assertIt("getBytes\n");
+		m.assertIt("getBytes");
 	}
 	@Test void getStream()
 	{
@@ -361,19 +360,19 @@ public class VaultResilientServiceProxyTest
 				() -> s.get("0123456789abcdef0123456789abcdef", sink),
 				VaultNotFoundException.class,
 				"hash not found in vault: 0123456789abcdefxx32");
-		m.assertIt("getStream\n");
+		m.assertIt("getStream");
 	}
 	@Test void putBytes()
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), value, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putBytes");
 	}
 	@Test void putStream() throws IOException
 	{
 		final byte[] value = {1,2,3};
 		s.put(hash(value), new ByteArrayInputStream(value), PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putStream");
 	}
 	@Test void putPath() throws IOException
 	{
@@ -381,7 +380,7 @@ public class VaultResilientServiceProxyTest
 		final Path path = files.newPath(value);
 		Files.write(path, value);
 		s.put(hash(value), path, PUT_INFO);
-		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile\n");
+		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile");
 	}
 	@Test void probeBucketTag() throws Exception
 	{

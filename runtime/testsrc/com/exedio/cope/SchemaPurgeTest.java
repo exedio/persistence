@@ -102,7 +102,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 0\n") +
 			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
-		assertVault("purgeSchema\n");
+		assertVault("purgeSchema");
 		assertSeq(   0, 0, thisSeq);
 		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, typeSeq);
@@ -129,7 +129,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 1\n") +
 			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
-		assertVault("purgeSchema\n");
+		assertVault("purgeSchema");
 		assertSeq(   1, 1, thisSeq);
 		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, typeSeq);
@@ -149,7 +149,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 0\n") +
 			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
-		assertVault("purgeSchema\n");
+		assertVault("purgeSchema");
 		assertSeq(   1, 1, thisSeq);
 		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, typeSeq);
@@ -178,7 +178,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 2\n") +
 			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
-		assertVault("purgeSchema\n");
+		assertVault("purgeSchema");
 		assertSeq(batch?1:3, 1, thisSeq);
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, typeSeq);
@@ -198,7 +198,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 0\n") +
 			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
-		assertVault("purgeSchema\n");
+		assertVault("purgeSchema");
 		assertSeq(batch?1:3, 1, thisSeq);
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, typeSeq);

@@ -46,7 +46,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 
-@SuppressWarnings("HardcodedLineSeparator")
 @ServiceProperties(VaultMockService.Props.class)
 public final class VaultMockService implements VaultService
 {
@@ -79,7 +78,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public void purgeSchema(final JobContext ctx)
 	{
-		history.append("purgeSchema\n");
+		historyAppend("purgeSchema");
 		assertNotNull(ctx);
 		assertFalse(closed);
 	}
@@ -87,7 +86,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public void close()
 	{
-		history.append("close\n");
+		historyAppend("close");
 		assertFalse(closed);
 		closed = true;
 	}
@@ -101,7 +100,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public long getLength(final String hash) throws VaultNotFoundException
 	{
-		history.append("getLength\n");
+		historyAppend("getLength");
 
 		return store(hash).length;
 	}
@@ -109,7 +108,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
-		history.append("getBytes\n");
+		historyAppend("getBytes");
 
 		return store(hash);
 	}
@@ -117,7 +116,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
-		history.append("getStream\n");
+		historyAppend("getStream");
 
 		assertNotNull(sink);
 
@@ -142,7 +141,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
-		history.append("putBytes\n");
+		historyAppend("putBytes");
 
 		return putInternal(hash, value, info);
 	}
@@ -172,7 +171,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
-		history.append("putStream\n");
+		historyAppend("putStream");
 
 		return putInternal(hash, value, info);
 	}
@@ -190,7 +189,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
-		history.append("putFile\n");
+		historyAppend("putFile");
 
 		assertHash(hash);
 		assertNotNull(value);
@@ -315,5 +314,12 @@ public final class VaultMockService implements VaultService
 		assertEquals(store,   this.store,              "store");
 		assertEquals(history, this.history.toString(), "history");
 		this.history.setLength(0);
+	}
+
+	private void historyAppend(final String event)
+	{
+		if(history.length()>0)
+			history.append(' ');
+		history.append(event);
 	}
 }
