@@ -142,7 +142,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
-		history.append("putBytes " + info + "\n");
+		history.append("putBytes\n");
 
 		return putInternal(hash, value, info);
 	}
@@ -172,7 +172,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
-		history.append("putStream " + info + "\n");
+		history.append("putStream\n");
 
 		return putInternal(hash, value, info);
 	}
@@ -190,7 +190,7 @@ public final class VaultMockService implements VaultService
 	@Override
 	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
-		history.append("putFile " + info + "\n");
+		history.append("putFile\n");
 
 		assertHash(hash);
 		assertNotNull(value);

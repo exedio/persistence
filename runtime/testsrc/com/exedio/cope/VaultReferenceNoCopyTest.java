@@ -72,7 +72,7 @@ public class VaultReferenceNoCopyTest
 	@Test void mainGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -86,7 +86,7 @@ public class VaultReferenceNoCopyTest
 	@Test void mainGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -100,7 +100,7 @@ public class VaultReferenceNoCopyTest
 	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -114,7 +114,7 @@ public class VaultReferenceNoCopyTest
 	@Test void referenceGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -130,7 +130,7 @@ public class VaultReferenceNoCopyTest
 	@Test void referenceGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -146,7 +146,7 @@ public class VaultReferenceNoCopyTest
 	@Test void referenceGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -162,7 +162,7 @@ public class VaultReferenceNoCopyTest
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -193,7 +193,7 @@ public class VaultReferenceNoCopyTest
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -224,7 +224,7 @@ public class VaultReferenceNoCopyTest
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes VaultResilientServicePutInfo\n");
+		main.assertIt(HASH1, VALUE1, "putBytes\n");
 		refr.assertIt("");
 
 		main.clear();

@@ -166,12 +166,12 @@ public class VaultMultiTest
 		final AnItem i = new AnItem(VALUE1, VALUE2, VALUE3, VALUE4, VALUE5);
 
 		serviceDefault.assertIt(HASH2, VALUE2,
-				"putBytes VaultResilientServicePutInfo\n");
+				"putBytes\n");
 		serviceAlpha.assertIt(HASH3, VALUE3,
-				"putBytes VaultResilientServicePutInfo\n");
+				"putBytes\n");
 		serviceBeta.assertIt(HASH4, VALUE4, HASH5, VALUE5,
-				"putBytes VaultResilientServicePutInfo\n" +
-				"putBytes VaultResilientServicePutInfo\n");
+				"putBytes\n" +
+				"putBytes\n");
 
 		assertEquals(VALUE1, encodeLower(i.getNoneArray()));
 		assertEquals(VALUE2, encodeLower(i.getDefaulTArray()));
@@ -195,12 +195,12 @@ public class VaultMultiTest
 		final AnItem i = new AnItem(VALUE1, VALUE1, VALUE1, VALUE1, VALUE1);
 
 		serviceDefault.assertIt(HASH1, VALUE1,
-				"putBytes VaultResilientServicePutInfo\n");
+				"putBytes\n");
 		serviceAlpha.assertIt(HASH1, VALUE1,
-				"putBytes VaultResilientServicePutInfo\n");
+				"putBytes\n");
 		serviceBeta.assertIt(HASH1, VALUE1,
-				"putBytes VaultResilientServicePutInfo\n" +
-				"putBytes VaultResilientServicePutInfo\n");
+				"putBytes\n" +
+				"putBytes\n");
 
 		assertEquals(VALUE1, encodeLower(i.getNoneArray()));
 		assertEquals(VALUE1, encodeLower(i.getDefaulTArray()));
