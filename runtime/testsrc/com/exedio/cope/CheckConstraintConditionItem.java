@@ -113,6 +113,15 @@ final class CheckConstraintConditionItem extends Item
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint lower = new CheckConstraint(string.toLowerCase().equal("low"));
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint plus     = new CheckConstraint(integer1.plus    (integer2).greater(0));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint minus    = new CheckConstraint(integer1.minus   (integer2).greater(0));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint multiply = new CheckConstraint(integer1.multiply(integer2).greater(0));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint divide   = new CheckConstraint(integer1.divide  (integer2).greater(0));
+
 
 	@com.exedio.cope.instrument.Generated
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
