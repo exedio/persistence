@@ -58,7 +58,7 @@ final class MysqlSchemaDialect extends Dialect
 			r.add("\\b" + "length(\\(`\\w*`\\))", "OCTET_LENGTH$1"); // https://dev.mysql.com/doc/refman/8.0/en/string-functions.html#function_length
 			r.add("\\bupper(\\(`\\w*`\\))",  "UPPER$1");
 			r.add("\\blower(\\(`\\w*`\\))",  "LOWER$1");
-			r.add(" (=|<>|>=|<=|>|<) ", "$1");
+			r.add(" (=|<>|>=|<=|>|<|\\+|-|\\*) ", "$1"); // DivideView uses DIV but not '/' on MySQL
 			r.add("-\\(" + "([0-9.E]*)\\)", "-$1");
 			r.add(" not in ", " NOT IN ");
 			r.add(" in ", " IN ");
