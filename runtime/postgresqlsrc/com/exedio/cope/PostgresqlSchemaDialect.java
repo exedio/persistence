@@ -48,7 +48,7 @@ final class PostgresqlSchemaDialect extends Dialect
 		cc.add("('.*?')::character varying\\b", "$1");
 		cc.add("('.*?')::\"text\"", "$1");
 		cc.add(p("(\"\\w*\")")+"::\"text\"", "$1");
-		cc.add(" (=|<>|>=|<=|>|<) ", "$1");
+		cc.add(" (=|<>|>=|<=|>|<|\\+|-|\\*|/) ", "$1");
 		cc.add("\"char_length\"(\\(\"\\w*\"\\))", "CHAR_LENGTH$1");
 		cc.add("\"octet_length\"(\\(\"\\w*\"\\))", "OCTET_LENGTH$1");
 		cc.add("\"upper\"(\\(\"\\w*\"\\))", "UPPER$1");
