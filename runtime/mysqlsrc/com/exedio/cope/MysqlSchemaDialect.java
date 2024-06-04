@@ -515,7 +515,7 @@ final class MysqlSchemaDialect extends Dialect
 		// means that the AUTO_INCREMENT table option cannot be used reliably for cope.
 		if(start!=0)
 		{
-			bf.append(";INSERT INTO ").
+			bf.append(";INSERT "). // MySQL allows INSERT without INTO: https://dev.mysql.com/doc/refman/5.7/en/insert.html
 				append(sequenceName).
 				append(" VALUES(").
 				append(start).
