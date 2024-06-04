@@ -39,21 +39,21 @@ final class PostgresqlSchemaDialect extends Dialect
 		schemaName = properties.schema(probe.properties);
 
 		final String digits = "\\d*";
-		final Replacements cc = adjustExistingCheckConstraintCondition;
+		final Replacements r = adjustExistingCheckConstraintCondition;
 		// TODO do omit outside string literals only
-		cc.add(p("(" + digits + ")")+"::bigint\\b", "$1"); // for DateField precision without native date
-		cc.add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
-		cc.add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
-		cc.add(  p("("  + digits + "(?:\\." + digits + ")?)") +"::double precision\\b", "$1");
-		cc.add("('.*?')::character varying\\b", "$1");
-		cc.add("('.*?')::\"text\"", "$1");
-		cc.add(p("(\"\\w*\")")+"::\"text\"", "$1");
-		cc.add(" (=|<>|>=|<=|>|<|\\+|-|\\*|/) ", "$1");
-		cc.add("\"char_length\"(\\(\"\\w*\"\\))", "CHAR_LENGTH$1");
-		cc.add("\"octet_length\"(\\(\"\\w*\"\\))", "OCTET_LENGTH$1");
-		cc.add("\"upper\"(\\(\"\\w*\"\\))", "UPPER$1");
-		cc.add("\"lower\"(\\(\"\\w*\"\\))", "LOWER$1");
-		cc.add("\"floor\"(\\(\"date_part\"\\('SECOND', \"seconds\"\\)\\))", "FLOOR$1");
+		r.add(p("(" + digits + ")")+"::bigint\\b", "$1"); // for DateField precision without native date
+		r.add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
+		r.add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
+		r.add(  p("("  + digits + "(?:\\." + digits + ")?)") +"::double precision\\b", "$1");
+		r.add("('.*?')::character varying\\b", "$1");
+		r.add("('.*?')::\"text\"", "$1");
+		r.add(p("(\"\\w*\")")+"::\"text\"", "$1");
+		r.add(" (=|<>|>=|<=|>|<|\\+|-|\\*|/) ", "$1");
+		r.add("\"char_length\"(\\(\"\\w*\"\\))", "CHAR_LENGTH$1");
+		r.add("\"octet_length\"(\\(\"\\w*\"\\))", "OCTET_LENGTH$1");
+		r.add("\"upper\"(\\(\"\\w*\"\\))", "UPPER$1");
+		r.add("\"lower\"(\\(\"\\w*\"\\))", "LOWER$1");
+		r.add("\"floor\"(\\(\"date_part\"\\('SECOND', \"seconds\"\\)\\))", "FLOOR$1");
 	}
 
 	private static String p(final String s)
