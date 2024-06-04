@@ -619,7 +619,7 @@ final class MysqlDialect extends Dialect
 		final Statement bf = executor.newStatement();
 		bf.append("INSERT "). // MySQL allows INSERT without INTO: https://dev.mysql.com/doc/refman/5.7/en/insert.html
 			append(quotedName).
-			append("()VALUES()");
+			append(" VALUES()");
 
 		return executor.insertAndGetGeneratedKeys(connection, bf, resultSet ->
 			{
