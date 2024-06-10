@@ -203,6 +203,42 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
+	public int getSessionTimeout()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public void setSessionTimeout(final int sessionTimeout)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public String getRequestCharacterEncoding()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public void setRequestCharacterEncoding(final String encoding)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public String getResponseCharacterEncoding()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public void setResponseCharacterEncoding(final String encoding)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
 	public ClassLoader getClassLoader()
 	{
 		throw new AssertionError();
@@ -318,6 +354,12 @@ public class AssertionFailedServletContext implements ServletContext
 
 	@Override
 	public ServletRegistration.Dynamic addServlet(final String servletName, final Class<? extends Servlet> servletClass)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public ServletRegistration.Dynamic addJspFile(final String servletName, final String jspFile)
 	{
 		throw new AssertionError();
 	}
