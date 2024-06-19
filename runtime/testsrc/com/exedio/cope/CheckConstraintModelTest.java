@@ -34,6 +34,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 public class CheckConstraintModelTest
@@ -93,6 +94,8 @@ public class CheckConstraintModelTest
 
 		assertEquals(alpha.less(beta), alphaToBeta.getCondition());
 		assertEquals(eins.greaterOrEqual(zwei), einsToZwei.getCondition());
+		assertEqualsUnmodifiable(Set.of(alpha, beta), alphaToBeta.getFieldsCoveredByCondition());
+		assertEqualsUnmodifiable(Set.of(eins, zwei), einsToZwei.getFieldsCoveredByCondition());
 
 		assertFails(
 				() -> new CheckConstraint(null),
