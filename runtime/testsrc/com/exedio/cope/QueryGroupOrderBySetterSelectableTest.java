@@ -335,7 +335,7 @@ public class QueryGroupOrderBySetterSelectableTest
 			throw new AssertionFailedError();
 		}
 		@Override
-		public void forEachFieldCovered(final Consumer<Field<?>> consumer)
+		public void forEachFieldCovered(final Consumer<Field<?>> action)
 		{
 			throw new AssertionFailedError();
 		}

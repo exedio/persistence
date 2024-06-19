@@ -109,7 +109,7 @@ public final class Random implements NumberFunction<Double>
 	}
 
 	@Override
-	public void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
 	}
 

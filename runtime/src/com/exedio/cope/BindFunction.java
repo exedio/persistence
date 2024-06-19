@@ -75,9 +75,9 @@ class BindFunction<E> implements Function<E>
 	}
 
 	@Override
-	public final void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public final void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
-		function.forEachFieldCovered(consumer);
+		function.forEachFieldCovered(action);
 	}
 
 	/**

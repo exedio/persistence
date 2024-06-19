@@ -72,7 +72,7 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Override
-	public void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
 	}
 

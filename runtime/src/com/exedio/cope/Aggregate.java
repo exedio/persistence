@@ -82,9 +82,9 @@ public abstract class Aggregate<E,S> implements Function<E>
 	}
 
 	@Override
-	public final void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public final void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
-		source.forEachFieldCovered(consumer);
+		source.forEachFieldCovered(action);
 	}
 
 	/**
