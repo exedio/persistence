@@ -74,10 +74,10 @@ final class HashCondition extends Condition
 	}
 
 	@Override
-	public void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
-		hash.acceptFieldsCovered(consumer);
-		data.acceptFieldsCovered(consumer);
+		hash.acceptFieldsCovered(action);
+		data.acceptFieldsCovered(action);
 	}
 
 	@Override

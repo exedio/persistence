@@ -90,9 +90,9 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	public void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
-		function.acceptFieldsCovered(consumer);
+		function.acceptFieldsCovered(action);
 	}
 
 	@Override
