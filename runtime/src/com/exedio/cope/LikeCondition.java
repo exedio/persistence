@@ -98,7 +98,7 @@ public final class LikeCondition extends Condition
 	@Override
 	public void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
-		function.acceptFieldsCovered(action);
+		function.forEachFieldCovered(action);
 	}
 
 	@Override

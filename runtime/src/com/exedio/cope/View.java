@@ -84,10 +84,10 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	public final void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public final void forEachFieldCovered(final Consumer<Field<?>> consumer)
 	{
 		for(final Function<?> source : sources)
-			source.acceptFieldsCovered(consumer);
+			source.forEachFieldCovered(consumer);
 	}
 
 	@Override

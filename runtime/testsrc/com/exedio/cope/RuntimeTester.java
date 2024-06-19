@@ -366,7 +366,7 @@ final class RuntimeTester
 			final Selectable<?> actual)
 	{
 		final ArrayList<Field<?>> consumer = new ArrayList<>();
-		actual.acceptFieldsCovered(consumer::add);
+		actual.forEachFieldCovered(consumer::add);
 		assertEquals(expected, consumer);
 	}
 

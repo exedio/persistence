@@ -41,7 +41,21 @@ public interface Selectable<E> extends Serializable
 	@Deprecated // OK: for internal use within COPE only
 	void check(@SuppressWarnings("ClassEscapesDefinedScope") TC tc, Join join);
 
-	void acceptFieldsCovered(Consumer<Field<?>> consumer);
+	/**
+	 * @see Iterable#forEach(Consumer)
+	 * @see Condition#forEachFieldCovered(Consumer)
+	 */
+	void forEachFieldCovered(Consumer<Field<?>> consumer);
+
+	/**
+	 * @deprecated Use and override {@link #forEachFieldCovered(Consumer)} instead.
+	 * DO NOT OVERRIDE THIS FUNCTION.
+	 */
+	@Deprecated
+	default void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		forEachFieldCovered(consumer);
+	}
 
 	/**
 	 * @deprecated For internal use within COPE only.
