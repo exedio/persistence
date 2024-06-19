@@ -86,9 +86,9 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void forEachFieldCovered(final Consumer<Field<?>> consumer)
 	{
-		argument.acceptFieldsCovered(consumer);
+		argument.forEachFieldCovered(consumer);
 	}
 
 	@Override
