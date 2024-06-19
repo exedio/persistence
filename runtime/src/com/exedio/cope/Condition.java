@@ -58,7 +58,19 @@ public abstract class Condition implements Serializable
 
 	abstract void check(TC tc);
 
-	public abstract void acceptFieldsCovered(Consumer<Field<?>> consumer);
+	/**
+	 * @see Iterable#forEach(Consumer)
+	 */
+	public abstract void forEachFieldCovered(Consumer<Field<?>> consumer);
+
+	/**
+	 * @deprecated Use {@link #forEachFieldCovered(Consumer)} instead.
+	 */
+	@Deprecated
+	public final void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		forEachFieldCovered(consumer);
+	}
 
 	abstract Condition copy(CopyMapper mapper);
 
@@ -135,7 +147,7 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+		public void forEachFieldCovered(final Consumer<Field<?>> consumer)
 		{
 		}
 

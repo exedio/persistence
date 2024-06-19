@@ -110,7 +110,7 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void forEachFieldCovered(final Consumer<Field<?>> consumer)
 	{
 		field.acceptFieldsCovered(consumer);
 	}
