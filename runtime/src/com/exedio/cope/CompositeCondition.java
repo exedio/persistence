@@ -132,10 +132,10 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	public void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
 		for(final Condition condition : conditions)
-			condition.forEachFieldCovered(consumer);
+			condition.forEachFieldCovered(action);
 	}
 
 	@Override

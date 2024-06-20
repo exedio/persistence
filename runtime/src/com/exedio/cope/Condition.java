@@ -61,7 +61,7 @@ public abstract class Condition implements Serializable
 	/**
 	 * @see Iterable#forEach(Consumer)
 	 */
-	public abstract void forEachFieldCovered(Consumer<Field<?>> consumer);
+	public abstract void forEachFieldCovered(Consumer<Field<?>> action);
 
 	/**
 	 * @deprecated Use {@link #forEachFieldCovered(Consumer)} instead.
@@ -147,7 +147,7 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		public void forEachFieldCovered(final Consumer<Field<?>> consumer)
+		public void forEachFieldCovered(final Consumer<Field<?>> action)
 		{
 		}
 
