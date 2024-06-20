@@ -60,6 +60,7 @@ public abstract class Condition implements Serializable
 
 	/**
 	 * @see Iterable#forEach(Consumer)
+	 * @see Selectable#forEachFieldCovered(Consumer)
 	 */
 	public abstract void forEachFieldCovered(Consumer<Field<?>> action);
 

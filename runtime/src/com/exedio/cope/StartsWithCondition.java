@@ -112,7 +112,7 @@ public final class StartsWithCondition extends Condition
 	@Override
 	public void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
-		field.acceptFieldsCovered(action);
+		field.forEachFieldCovered(action);
 	}
 
 	@Override
