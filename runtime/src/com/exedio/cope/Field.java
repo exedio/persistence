@@ -198,9 +198,9 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		// empty default implementation
 	}
 
-	public final void forEachFieldCovered(final Consumer<Field<?>> consumer)
+	public final void forEachFieldCovered(final Consumer<Field<?>> action)
 	{
-		consumer.accept(this);
+		action.accept(this);
 	}
 
 	// second initialization phase ---------------------------------------------------

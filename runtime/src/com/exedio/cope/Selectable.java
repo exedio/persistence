@@ -45,7 +45,7 @@ public interface Selectable<E> extends Serializable
 	 * @see Iterable#forEach(Consumer)
 	 * @see Condition#forEachFieldCovered(Consumer)
 	 */
-	void forEachFieldCovered(Consumer<Field<?>> consumer);
+	void forEachFieldCovered(Consumer<Field<?>> action);
 
 	/**
 	 * @deprecated Use and override {@link #forEachFieldCovered(Consumer)} instead.
