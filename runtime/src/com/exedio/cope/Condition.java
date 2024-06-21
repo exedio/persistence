@@ -66,6 +66,7 @@ public abstract class Condition implements Serializable
 
 	/**
 	 * @deprecated Use {@link #forEachFieldCovered(Consumer)} instead.
+	 * Or may be you want to use {@link CheckConstraint#getFieldsCoveredByCondition()}.
 	 */
 	@Deprecated
 	public final void acceptFieldsCovered(final Consumer<Field<?>> consumer)

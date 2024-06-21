@@ -21,14 +21,17 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public final class CheckConstraint extends Feature implements Copyable
 {
 	private static final long serialVersionUID = 1l;
 
 	private final Condition condition;
+	private final Set<Field<?>> fieldsCoveredByCondition;
 
 	public CheckConstraint(final Condition condition)
 	{
@@ -45,6 +48,11 @@ public final class CheckConstraint extends Feature implements Copyable
 			throw new IllegalArgumentException(
 					"check constraint condition contains unsupported function: " + e.function);
 		}
+		{
+			final ArrayList<Field<?>> l = new ArrayList<>();
+			condition.forEachFieldCovered(l::add);
+			this.fieldsCoveredByCondition = Set.copyOf(l);
+		}
 	}
 
 	@Override
@@ -56,6 +64,14 @@ public final class CheckConstraint extends Feature implements Copyable
 	public Condition getCondition()
 	{
 		return condition;
+	}
+
+	/**
+	 * The order of the set is undefined.
+	 */
+	public Set<Field<?>> getFieldsCoveredByCondition()
+	{
+		return fieldsCoveredByCondition;
 	}
 
 	void check(final FieldValues item)
