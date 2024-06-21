@@ -84,7 +84,7 @@ final class Params
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean finalMethodInFinalClass = true;
 	boolean useConstantForEmptySetValuesArray = true;
-	boolean serialAnnotation = false;
+	boolean serialAnnotation = true;
 	String introCommentOneTime = null;
 	boolean verbose = false;
 	File buildDirectory = null;
