@@ -553,6 +553,7 @@ public class StringTest extends TestWithEnvironment
 			{
 				assertEquals(list(), type.search(sa.equal("x")));
 				assertEquals(list(item), type.search(sa.equal("")));
+				assertEquals((mysql||hsqldb) ? list(item) : list(), type.search(sa.equal(" "))); // TODO should always return empty set !!!
 			}
 		}
 
