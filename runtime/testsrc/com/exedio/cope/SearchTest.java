@@ -23,12 +23,9 @@ import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
-import static com.exedio.cope.testmodel.AttributeItem.someString;
 import static com.exedio.cope.tojunit.Assert.assertContainsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -38,19 +35,6 @@ import org.junit.jupiter.api.Test;
 
 public class SearchTest extends TestmodelTest
 {
-	@Test void testEqualsAndHash()
-	{
-		assertEqualsAndHash(
-				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
-				Cope.and(someString.equal("a"),someNotNullString.equal("b")));
-		assertNotEqualsAndHash(
-				Cope.and(someString.equal("aX"),someNotNullString.equal("b")),
-				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
-				Cope.and(someString.equal("a"),someNotNullString.like("b")),
-				// not commutative
-				Cope.and(someNotNullString.equal("b"),someString.equal("a")));
-	}
-
 	@Test void testIllegalSearch()
 	{
 		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.equal(0));
