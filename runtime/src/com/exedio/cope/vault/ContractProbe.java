@@ -66,6 +66,7 @@ final class ContractProbe
 			hostname = "UNKNOWN";
 		}
 
+		// Must be consistent to VaultFileToTrail#CONTRACT_PROBE_PREFIX
 		final byte[] value = (
 				"Test file for " + VaultProperties.class.getName() + "#probe " +
 				"from " + hostname + " " +
