@@ -42,6 +42,7 @@ import static com.exedio.cope.SchemaTypeStringItem.f86Ext;
 import static com.exedio.cope.SchemaTypeStringItem.fMax;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
@@ -164,6 +165,140 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			assertEquals(makeMax4(field), field.get(max4.get(field)));
 		}
 	}
+
+
+	/**
+	 * Tests, whether trailing / leading spaces are significant in comparisons.
+	 * <p>
+	 * On HsqlDB trailing spaces are significant, if sql.pad_space is set to false:
+	 * <a href="https://hsqldb.org/doc/guide/dbproperties-chapt.html#N169B5">String Comparison with Padding</a>
+	 * <p>
+	 * On MySQL trailing spaces are significant, if the collation is NO PAD:
+	 * <a href="https://dev.mysql.com/doc/refman/8.0/en/charset-binary-collations.html#charset-binary-collations-trailing-space-comparisons">Trailing Space Handling in Comparisons</a>
+	 */
+	@Test void testTrailingPad()
+	{
+		final var emptyMap        = spaceItems(""     );
+		final var spaceMap        = spaceItems(" "    );
+		final var space2Map       = spaceItems("  "   );
+		final var spaceBeforeMap  = spaceItems( " x"  );
+		final var space2BeforeMap = spaceItems("  x"  );
+		final var spaceAfterMap   = spaceItems(  "x " );
+		final var space2AfterMap  = spaceItems(  "x  ");
+		final var spaceAroundMap  = spaceItems( " x " );
+		final var space2AroundMap = spaceItems("  x  ");
+		final var spaceNoneMap    = spaceItems(  "x"  );
+		final var spaceWithinMap  = spaceItems( "x x" );
+		final var space2WithinMap = spaceItems("x  x" );
+		final var upperMap        = spaceItems(  "X"  );
+		restartTransaction();
+
+		final boolean pad = hsqldb || mysql; // TODO should not happen
+		for(final SchemaTypeStringField f : searchFields())
+		{
+			final StringItem empty        = emptyMap.get(f);
+			final StringItem space        = spaceMap.get(f);
+			final StringItem space2       = space2Map.get(f);
+			final StringItem spaceBefore  = spaceBeforeMap.get(f);
+			final StringItem space2Before = space2BeforeMap.get(f);
+			final StringItem spaceAfter   = spaceAfterMap.get(f);
+			final StringItem space2After  = space2AfterMap.get(f);
+			final StringItem spaceAround  = spaceAroundMap.get(f);
+			final StringItem space2Around = space2AroundMap.get(f);
+			final StringItem spaceNone    = spaceNoneMap.get(f);
+			final StringItem spaceWithin  = spaceWithinMap.get(f);
+			final StringItem space2Within = space2WithinMap.get(f);
+			final StringItem upper        = upperMap.get(f);
+
+			assertEquals("",      empty       .get()); //  0
+			assertEquals(" ",     space       .get()); //  1
+			assertEquals("  ",    space2      .get()); //  2
+			assertEquals( " x",   spaceBefore .get()); //  3
+			assertEquals("  x",   space2Before.get()); //  4
+			assertEquals(  "x ",  spaceAfter  .get()); //  5
+			assertEquals(  "x  ", space2After .get()); //  6
+			assertEquals( " x ",  spaceAround .get()); //  7
+			assertEquals("  x  ", space2Around.get()); //  8
+			assertEquals(  "x",   spaceNone   .get()); //  9
+			assertEquals( "x x",  spaceWithin .get()); // 10
+			assertEquals("x  x",  space2Within.get()); // 11
+			assertEquals(  "X",   upper       .get()); // 12
+
+			assertEquals(pad
+					? List.of(empty, space, space2)
+					: List.of(empty               ),
+					f.searchEqual(""));
+			assertEquals(pad
+					? List.of(empty, space, space2)
+					: List.of(       space        ),
+					f.searchEqual(" "));
+			assertEquals(pad
+					? List.of(empty, space, space2)
+					: List.of(              space2),
+					f.searchEqual("  "));
+			assertEquals(pad
+					? List.of(spaceBefore, spaceAround)
+					: List.of(spaceBefore             ),
+					f.searchEqual(" x"));
+			assertEquals(pad
+					? List.of(space2Before, space2Around)
+					: List.of(space2Before              ),
+					f.searchEqual("  x"));
+			assertEquals(pad
+					? List.of(spaceAfter, space2After, spaceNone)
+					: List.of(spaceAfter                        ),
+					f.searchEqual("x "));
+			assertEquals(pad
+					? List.of(spaceAfter, space2After, spaceNone)
+					: List.of(            space2After           ),
+					f.searchEqual("x  "));
+			assertEquals(pad
+					? List.of(spaceBefore, spaceAround)
+					: List.of(             spaceAround),
+					f.searchEqual(" x "));
+			assertEquals(pad
+					? List.of(space2Before, space2Around)
+					: List.of(              space2Around),
+					f.searchEqual("  x  "));
+			assertEquals(pad
+					? List.of(spaceAfter, space2After, spaceNone)
+					: List.of(                         spaceNone),
+					f.searchEqual("x"));
+
+			assertEquals(pad
+					? List.of(                      spaceBefore, space2Before, spaceAfter, space2After, spaceAround, space2Around, spaceNone, spaceWithin, space2Within, upper)
+					: List.of(       space, space2, spaceBefore, space2Before, spaceAfter, space2After, spaceAround, space2Around, spaceNone, spaceWithin, space2Within, upper),
+					f.searchNotEqual(""));
+			assertEquals(pad
+					? List.of(empty, space, space2,              space2Before, spaceAfter, space2After,              space2Around, spaceNone, spaceWithin, space2Within, upper)
+					: List.of(empty, space, space2, spaceBefore, space2Before, spaceAfter, space2After,              space2Around, spaceNone, spaceWithin, space2Within, upper),
+					f.searchNotEqual(" x "));
+
+			assertEquals(List.of(spaceWithin),  f.searchEqual("x x"));
+			assertEquals(List.of(space2Within), f.searchEqual("x  x"));
+			assertEquals(List.of(),             f.searchEqual("x   x"));
+			assertEquals(List.of(),             f.searchEqual("xx"));
+
+			assertEquals(List.of(upper), f.searchEqual("X"));
+		}
+	}
+
+	private static HashMap<SchemaTypeStringField, StringItem> spaceItems(final String value)
+	{
+		final HashMap<SchemaTypeStringField, StringItem> result = new HashMap<>();
+		for(final SchemaTypeStringField field : searchFields())
+			result.put(field, field.add(value));
+		return result;
+	}
+
+	private static List<SchemaTypeStringField> searchFields()
+	{
+		return SchemaTypeStringField.get(TYPE).
+				stream().
+				filter(f -> f!=f1 && f!=f2). // too short for containing the values and has no additional relevance for test
+				collect(toList());
+	}
+
 
 	@Test void testSchema()
 	{

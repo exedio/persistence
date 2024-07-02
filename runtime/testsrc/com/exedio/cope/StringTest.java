@@ -544,20 +544,6 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(VALUE_UPPER, saup.get(item));
 		assertEquals(Integer.valueOf(VALUE.length()), saln.get(item));
 
-		{
-			sa.set(item, "");
-			assertEquals("", sa.get(item));
-			restartTransaction();
-			assertEquals("", sa.get(item));
-			assertEquals(list(item), type.search(sa.equal("")));
-			{
-				assertEquals(list(), type.search(sa.equal("x")));
-				assertEquals(list(item), type.search(sa.equal("")));
-				assertEquals((mysql||hsqldb) ? list(item) : list(), type.search(sa.equal(" "))); // TODO should always return empty set !!!
-			}
-		}
-
-		assertStringSet(item, sa, " trim "); // ensure that leading/trailing white space is not removed
 		assertStringSet(item, sa,
 			"Auml \u00c4; "
 			+ "Ouml \u00d6; "
