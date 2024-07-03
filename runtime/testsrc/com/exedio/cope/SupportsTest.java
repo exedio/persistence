@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -108,7 +109,10 @@ public class SupportsTest extends TestWithEnvironment
 						assertEquals(enabled ? "ON" : "OFF", rs.getString(2));
 						assertFalse(rs.next());
 					}
-					try(ResultSet rs = s.executeQuery("SELECT @@sql_mode"))
+					try(ResultSet rs = s.executeQuery("SELECT " +
+							"@@sql_mode, " +
+							"@@character_set_connection, " +
+							"@@collation_connection"))
 					{
 						assertTrue(rs.next());
 						assertEquals(
@@ -120,6 +124,9 @@ public class SupportsTest extends TestWithEnvironment
 								"NO_ZERO_DATE," +
 								"NO_ENGINE_SUBSTITUTION",
 								rs.getString(1));
+						assertAll(
+								() -> assertEquals("utf8mb4",     rs.getString(2), "character_set_connection"),
+								() -> assertEquals("utf8mb4_bin", rs.getString(3), "collation_connection"));
 						assertFalse(rs.next());
 					}
 				}
