@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* Trailing spaces become significant on hsqldb.
+	Before, searching for field.equal("x ") did find "x ", but also "x  " and "x".
+	The same when searching for field.equal("x   ") or field.equal("x").
+	Now, field.equal("x ") finds just "x " and nothing else.
 * Instrumentor enables serialAnnotation by default. Affects instrumented code.
 	Use this parameter:
 		<instrument serialAnnotation="false" ...
