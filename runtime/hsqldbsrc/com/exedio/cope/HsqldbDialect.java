@@ -44,7 +44,7 @@ import java.util.regex.Pattern;
 
 @ServiceProperties(HsqldbDialect.Props.class)
 @DialectProbeInfo({
-		// http://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
+		// https://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
 		"hsqldb.tx", "mvcc"})
 final class HsqldbDialect extends Dialect
 {
