@@ -160,6 +160,16 @@ abstract class Dialect
 		return false;
 	}
 
+	void appendStringParameterPrefix(final StringBuilder bf)
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	void appendStringParameterPostfix(final StringBuilder bf)
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
 	abstract void addBlobInStatementText(StringBuilder statementText, byte[] parameter);
 
 	<E extends Number> void  appendIntegerDivision(

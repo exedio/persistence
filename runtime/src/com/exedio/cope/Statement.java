@@ -254,6 +254,10 @@ final class Statement
 		@SuppressWarnings({"unchecked","rawtypes"})
 		final Marshaller<E> marshaller = (Marshaller)marshallers.getByValue(value);
 
+		final boolean isString = value instanceof String;
+		if(isString)
+			dialect.appendStringParameterPrefix(text);
+
 		if(parameters==null)
 			text.append(marshaller.marshalLiteral(value));
 		else
@@ -261,6 +265,8 @@ final class Statement
 			this.text.append(QUESTION_MARK);
 			this.parameters.add(marshaller.marshalPrepared(value));
 		}
+		if(isString)
+			dialect.appendStringParameterPostfix(text);
 
 		return this;
 	}

@@ -90,7 +90,6 @@ final class MysqlDialect extends Dialect
 	private final boolean connectionCompress;
 	private final boolean setStrictMode;
 	private final int purgeSequenceLimit;
-	private final boolean likeRequiresEscapeBackslash;
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
 	private final boolean noMasterWord;
@@ -109,7 +108,6 @@ final class MysqlDialect extends Dialect
 		connectionCompress = properties.connectionCompress;
 		setStrictMode = !mysql8;
 		purgeSequenceLimit = properties.purgeSequenceLimit;
-		likeRequiresEscapeBackslash = mysql8;
 
 		// Starting with MySQL 8.0.4 regular expression support uses a library called
 		// "International Components for Unicode (ICU)"
@@ -465,7 +463,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	boolean likeRequiresEscapeBackslash()
 	{
-		return likeRequiresEscapeBackslash;
+		return true;
 	}
 
 	@Override
@@ -787,6 +785,18 @@ final class MysqlDialect extends Dialect
 	boolean supportsAnyValue()
 	{
 		return true;
+	}
+
+	@Override
+	void appendStringParameterPrefix(final StringBuilder bf)
+	{
+		bf.append("cast("); // equivalent to "CAST(... AS BINARY)", but normalized by MySQL 8 check constraint
+	}
+
+	@Override
+	void appendStringParameterPostfix(final StringBuilder bf)
+	{
+		bf.append(" as char charset binary)"); // equivalent to "CAST(... AS BINARY)", but normalized by MySQL 8 check constraint
 	}
 
 	@Override
