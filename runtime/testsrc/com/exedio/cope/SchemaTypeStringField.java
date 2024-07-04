@@ -42,7 +42,7 @@ public final class SchemaTypeStringField extends Pattern
 
 	public SchemaTypeStringField(final int maximumLength)
 	{
-		this.sourceField = new StringField().toFinal().lengthMax(maximumLength);
+		this.sourceField = new StringField().toFinal().lengthRange(0, maximumLength);
 	}
 
 	@Override
@@ -58,6 +58,16 @@ public final class SchemaTypeStringField extends Pattern
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class StringItem extends Item
 	{
+		String get()
+		{
+			return getPattern().get(this);
+		}
+
+		private SchemaTypeStringField getPattern()
+		{
+			return (SchemaTypeStringField)getCopeType().getPattern();
+		}
+
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
@@ -78,6 +88,23 @@ public final class SchemaTypeStringField extends Pattern
 	StringItem add(final String element)
 	{
 		return sourceType().newItem(SetValue.map(sourceField, element));
+	}
+
+	List<StringItem> searchEqual(final String value)
+	{
+		return search(sourceField.equal(value));
+	}
+
+	List<StringItem> searchNotEqual(final String value)
+	{
+		return search(sourceField.notEqual(value));
+	}
+
+	private List<StringItem> search(final Condition condition)
+	{
+		final Query<StringItem> q = sourceTypeIfMounted.newQuery(condition);
+		q.setOrderBy(sourceTypeIfMounted.getThis(), true);
+		return q.search();
 	}
 
 	String getSchemaType()
