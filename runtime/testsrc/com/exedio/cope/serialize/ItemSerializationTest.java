@@ -20,7 +20,6 @@ package com.exedio.cope.serialize;
 // Must not be in package com.exedio.cope,
 // otherwise bugs could be hidden, where empty constructor
 // needed for deserialization is not public.
-// See http://www.jguru.com/faq/view.jsp?EID=251942
 
 import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
 import static com.exedio.cope.serialize.ItemSerializationItem.list;
