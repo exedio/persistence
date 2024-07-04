@@ -40,7 +40,7 @@ import java.util.Locale;
 /**
  * You may generate a dump file for importing into the database calling:
  * <pre>
- *    java -cp exedio-cope.jar:exedio-cope-util.jar com.exedio.cope.vault.VaultFileToTrail &lt;root-dir&gt; &lt;bucket&gt; &gt; vaultrail.sql
+ *    java -cp exedio-cope.jar:exedio-cope-util.jar com.exedio.cope.vault.VaultFileToTrail &lt;root-dir&gt; &lt;bucket&gt; &gt; vault-trail.sql
  * </pre>
  */
 public final class VaultFileToTrail
