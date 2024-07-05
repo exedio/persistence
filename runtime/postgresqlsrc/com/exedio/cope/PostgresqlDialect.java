@@ -115,7 +115,9 @@ final class PostgresqlDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		return (maxChars>10485760) ? "\"text\"" : "character varying("+maxChars+')';
+		return
+				((maxChars>10485760) ? "\"text\"" : "character varying("+maxChars+')') +
+				" COLLATE \"ucs_basic\""; // https://www.postgresql.org/docs/15/collation.html
 	}
 
 	/**
@@ -273,6 +275,12 @@ final class PostgresqlDialect extends Dialect
 		bf.append("TRIM(TO_CHAR(").
 			append(source, join).
 			append(", '9999999999999'))");
+	}
+
+	@Override
+	void appendCaseViewPostfix(final Statement bf)
+	{
+		bf.append(" COLLATE \"default\"");
 	}
 
 	@Override

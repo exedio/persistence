@@ -38,10 +38,8 @@ final class DistinctOrderByStringTest extends TestWithEnvironment
 	{
 		final Query<MyItem> query = createQuery();
 		query.addOrderBy(text);
-		// postgresql on debian (but not MacOS) orders case-insensitive:
-		// https://dba.stackexchange.com/questions/106964/why-is-my-postgresql-order-by-case-insensitive
 		assertEquals(
-				postgresql ? List.of(a, b) : List.of(b, a),
+				List.of(b, a),
 				query.search()
 		);
 	}

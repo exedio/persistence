@@ -111,7 +111,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		if(mysql)
 			type += " CHARACTER SET utf8mb4 COLLATE utf8mb4_bin" + NOT_NULL;
 		else if(postgresql)
-			type += NOT_NULL;
+			type += " COLLATE \"ucs_basic\"" + NOT_NULL;
 		else
 			throw new RuntimeException();
 
