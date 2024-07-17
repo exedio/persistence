@@ -122,6 +122,14 @@ public class InitServlet extends HttpServlet
 				assertID("MediaServletItem-15", nameErrorLastModified);
 				nameErrorLastModified.setNameServerLastModified(15);
 
+				final MediaServletItem noLocatorDataText = new MediaServletItem();
+				assertID("MediaServletItem-16", noLocatorDataText);
+				noLocatorDataText.setContentNoLocator(textValue, "text/plain", 16);
+
+				final MediaServletItem noLocatorDataJpg = new MediaServletItem();
+				assertID("MediaServletItem-17", noLocatorDataJpg);
+				noLocatorDataJpg.setContentNoLocator(thisClass.getResourceAsStream("small.jpg"), "image/jpeg", 17);
+
 				tx.commit();
 			}
 			catch(final IOException | ParseException e)

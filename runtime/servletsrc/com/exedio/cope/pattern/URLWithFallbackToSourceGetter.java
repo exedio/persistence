@@ -25,6 +25,8 @@ final class URLWithFallbackToSourceGetter implements BooleanGetter<MediaFilter>
 	@Override
 	public boolean get(final MediaFilter feature)
 	{
-		return feature.canFilterAllSourceContentTypes();
+		return feature.canFilterAllSourceContentTypes()
+				 || !feature.isWithLocator()
+				 || !feature.getSource().isWithLocator();
 	}
 }

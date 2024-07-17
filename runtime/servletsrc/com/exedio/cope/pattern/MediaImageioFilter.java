@@ -53,9 +53,15 @@ public abstract class MediaImageioFilter extends MediaFilter
 
 	private static final String outputContentType = "image/jpeg";
 
+	@SuppressWarnings("unused")
 	protected MediaImageioFilter(final Media source)
 	{
-		super(source);
+		this(source, true);
+	}
+
+	protected MediaImageioFilter(final Media source, final boolean withLocator)
+	{
+		super(source, withLocator);
 		this.source = source;
 
 		final IIORegistry registry = IIORegistry.getDefaultInstance();
@@ -123,6 +129,8 @@ public abstract class MediaImageioFilter extends MediaFilter
 			final Item item)
 	throws IOException, NotFound
 	{
+		if (!isWithLocator())
+			throw new RuntimeException("not withLocator - unexpected call: " + this + ' ' + item.getCopeID());
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			throw notFoundIsNull();

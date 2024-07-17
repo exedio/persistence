@@ -99,6 +99,12 @@ public final class MediaPathTest extends TestWithEnvironment
 		servlet.destroy();
 	}
 
+	@Test void testWithoutUrl() throws ServletException, IOException
+	{
+		item.setWithoutUrlContentType("blah/foo");
+		assertNotFound("/MediaPathItem/withoutUrl/" + id, "no such path");
+	}
+
 	@Test void testNotFound() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");

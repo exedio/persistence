@@ -36,7 +36,12 @@ public final class MediaThumbnail extends MediaImageioFilter implements Copyable
 
 	public MediaThumbnail(final Media source, final int boundX, final int boundY)
 	{
-		super(source);
+		this(source, boundX, boundY, true);
+	}
+
+	private MediaThumbnail(final Media source, final int boundX, final int boundY, final boolean withLocator)
+	{
+		super(source, withLocator);
 		this.boundX = boundX;
 		this.boundY = boundY;
 
@@ -50,6 +55,14 @@ public final class MediaThumbnail extends MediaImageioFilter implements Copyable
 	public MediaThumbnail copy(final CopyMapper mapper)
 	{
 		return new MediaThumbnail(mapper.get(getSource()), boundX, boundY);
+	}
+
+	/**
+	 * @param withLocator should the thumbnail be accessible via MediaServlet
+	 */
+	public MediaThumbnail withLocator(final boolean withLocator)
+	{
+		return new MediaThumbnail(getSource(), boundX, boundY, withLocator);
 	}
 
 	public int getBoundX()

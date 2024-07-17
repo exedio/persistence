@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecFin;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
+import static com.exedio.cope.pattern.MediaUrlItem.noLocator;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -75,6 +76,9 @@ public class MediaUrlModelTest
 				fileSecFin,
 				fileSecFin.getBody(),
 				fileSecFin.getLastModified(),
+				noLocator,
+				noLocator.getBody(),
+				noLocator.getLastModified()
 			}), TYPE.getFeatures());
 
 		assertFalse(foto.isUrlGuessingPrevented());
@@ -85,6 +89,7 @@ public class MediaUrlModelTest
 		assertTrue(fileSecure.isUrlGuessingPrevented());
 		assertTrue(fotoSecFin.isUrlGuessingPrevented());
 		assertTrue(fileSecFin.isUrlGuessingPrevented());
+		assertFalse(noLocator.isUrlGuessingPrevented());
 
 		assertFalse(foto.isUrlFingerPrinted());
 		assertFalse(file.isUrlFingerPrinted());
@@ -94,5 +99,16 @@ public class MediaUrlModelTest
 		assertTrue(fileFinger.isUrlFingerPrinted());
 		assertTrue(fotoSecFin.isUrlFingerPrinted());
 		assertTrue(fileSecFin.isUrlFingerPrinted());
+		assertFalse(noLocator.isUrlFingerPrinted());
+
+		assertTrue(foto.isWithLocator());
+		assertTrue(file.isWithLocator());
+		assertTrue(fotoFinger.isWithLocator());
+		assertTrue(fileFinger.isWithLocator());
+		assertTrue(fotoSecure.isWithLocator());
+		assertTrue(fileSecure.isWithLocator());
+		assertTrue(fotoSecFin.isWithLocator());
+		assertTrue(fileSecFin.isWithLocator());
+		assertFalse(noLocator.isWithLocator());
 	}
 }
