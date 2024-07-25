@@ -19,16 +19,20 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.GROUP_WRITE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
+import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.junit.HolderExtension;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -39,8 +43,10 @@ import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.EnumSet;
 import java.util.Properties;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVaultFileServiceTest
 {
@@ -168,4 +174,106 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 		assertTrue(valueFile.isFile());
 		assertPosix(filePerms, rootGroup(), valueFile);
 	}
+
+	@ExtendWith(CreateDirectoryIfNotExistsPrelude.class)
+	@Test void raceConditionPutDirectoryEmpty(final CreateDirectoryIfNotExistsPrelude prelude) throws IOException
+	{
+		final File root = getRoot();
+		final File temp = new File(root, ".tempVaultFileService");
+		assertTrue(temp.isDirectory());
+
+		final File abc = new File(root, "abc");
+		final File d = new File(abc, "d");
+		assertContains(root, temp);
+		assertContains(temp);
+		assertFalse(abc.exists());
+		assertFalse(d.exists());
+
+		final byte[] value = {1,2,3};
+		final var extraDirPermissions = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE);
+		final VaultFileService service = (VaultFileService)getService();
+
+		prelude.override(dir ->
+		{
+			try
+			{
+				Files.createDirectory(dir, asFileAttribute(extraDirPermissions));
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			assertFalse(createDirectoryIfNotExistsPreludeCalled);
+			createDirectoryIfNotExistsPreludeCalled = true;
+		});
+		assertFalse(createDirectoryIfNotExistsPreludeCalled);
+		service.put("abcd", value);
+		assertTrue(createDirectoryIfNotExistsPreludeCalled);
+		log.assertEmpty();
+		assertContains(root, temp, abc);
+		assertContains(temp);
+		assertContains(abc, d);
+		assertTrue(d.isFile());
+		assertArrayEquals(value, readAllBytes(d.toPath()));
+		assertPosix(dirPerms, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
+	}
+
+	@ExtendWith(CreateDirectoryIfNotExistsPrelude.class)
+	@Test void raceConditionPutDirectoryNonEmpty(final CreateDirectoryIfNotExistsPrelude prelude) throws IOException
+	{
+		final File root = getRoot();
+		final File temp = new File(root, ".tempVaultFileService");
+		assertTrue(temp.isDirectory());
+
+		final File abc = new File(root, "abc");
+		final File d = new File(abc, "d");
+		assertContains(root, temp);
+		assertContains(temp);
+		assertFalse(abc.exists());
+		assertFalse(d.exists());
+
+		final byte[] value = {1,2,3};
+		final var extraDirPermissions = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE);
+		final VaultFileService service = (VaultFileService)getService();
+
+		prelude.override(dir ->
+		{
+			try
+			{
+				Files.createDirectory(dir, asFileAttribute(extraDirPermissions));
+				Files.createFile(dir.resolve("dirMustNotBeEmpty"));
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			assertFalse(createDirectoryIfNotExistsPreludeCalled);
+			createDirectoryIfNotExistsPreludeCalled = true;
+		});
+		assertFalse(createDirectoryIfNotExistsPreludeCalled);
+		service.put("abcd", value);
+		assertTrue(createDirectoryIfNotExistsPreludeCalled);
+		log.assertError("concurrent directory creation (should happen rarely)");
+		log.assertEmpty();
+		assertContains(root, temp, abc);
+		final File[] tempFiles = temp.listFiles();
+		assertEquals(1, tempFiles.length);
+		assertTrue(tempFiles[0].getName().startsWith("abcd-"), tempFiles[0].getName());
+		assertContains(abc, d, new File(abc, "dirMustNotBeEmpty"));
+		assertTrue(d.isFile());
+		assertArrayEquals(value, readAllBytes(d.toPath()));
+		assertPosix(extraDirPermissions, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
+	}
+
+	public static final class CreateDirectoryIfNotExistsPrelude extends HolderExtension<Consumer<Path>>
+	{
+		public CreateDirectoryIfNotExistsPrelude()
+		{
+			super(VaultFileService.createDirectoryIfNotExistsPrelude);
+		}
+	}
+
+	private boolean createDirectoryIfNotExistsPreludeCalled = false;
 }

@@ -37,8 +37,8 @@ import com.exedio.cope.util.ServiceProperties;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.FileStore;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -56,6 +56,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ServiceProperties(VaultFileService.Props.class)
 public final class VaultFileService implements VaultService
@@ -214,7 +216,7 @@ public final class VaultFileService implements VaultService
 
 		final String dir = directory.directoryToBeCreated(hash);
 		if(dir!=null)
-			createDirectoryIfNotExists(contentDir.resolve(dir));
+			createDirectoryIfNotExists(contentDir.resolve(dir), hash);
 
 		movePrelude.get().accept(file);
 		// BEWARE:
@@ -229,23 +231,27 @@ public final class VaultFileService implements VaultService
 
 	static final Holder<Clock> markRedundantPutClock = new Holder<>(Clock.systemUTC());
 
-	private void createDirectoryIfNotExists(final Path dir) throws IOException
+	private void createDirectoryIfNotExists(final Path dir, final String hash) throws IOException
 	{
+		if(Files.exists(dir))
+			return;
+
+		// create new directory in tempDir first, so it does not appear in contentDir before it is really complete
+		final Path temp = Files.createTempDirectory(tempDir, anonymiseHash(hash) + '-', directoryAttributes);
+		setPermissions(temp, directoryPermissionsAfterwards, directoryGroup);
+		createDirectoryIfNotExistsPrelude.get().accept(dir);
 		try
 		{
-			Files.createDirectory(dir, directoryAttributes);
+			Files.move(temp, dir, ATOMIC_MOVE); // succeeds if dir is empty, see VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryEmpty
 		}
-		catch(final FileAlreadyExistsException ignored)
+		catch(final FileSystemException e)
 		{
-			return; // ok
+			// happens only if dir is no longer empty, see VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryNonEmpty
+			logger.error("concurrent directory creation (should happen rarely)", e); // may be just warn
 		}
-		// NOTE:
-		// It is crucial for data consistency, that directoryPermissionsAfterwards
-		// and directoryGroup are applied, even if the directory does exist already.
-		// Otherwise, an interruption immediately after directory creation may
-		// leave a directory without correct properties indefinitely.
-		setPermissions(dir, directoryPermissionsAfterwards, directoryGroup);
 	}
+
+	static final Holder<java.util.function.Consumer<Path>> createDirectoryIfNotExistsPrelude = new Holder<>(dest -> {});
 
 	private static void setPermissions(
 			final Path file,
@@ -606,4 +612,7 @@ public final class VaultFileService implements VaultService
 	{
 		return attributes!=null ? Stream.of(attributes) : null;
 	}
+
+
+	private static final Logger logger = LoggerFactory.getLogger(VaultFileService.class);
 }
