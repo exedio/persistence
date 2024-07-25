@@ -56,6 +56,14 @@ public class StringConditionTest extends TestWithEnvironment
 		assertEquals(asList(some, other, empty), search(field.startsWithIgnoreCase("")));
 		assertEquals(asList(some, other, empty), search(field.  endsWithIgnoreCase("")));
 		assertEquals(asList(some, other, empty), search(field.  containsIgnoreCase("")));
+
+		// space padding
+		final boolean pad = hsqldb && model.getConnectProperties().isSupportDisabledForPreparedStatements();
+		assertEquals(asList(some ), search(field.like( "startEnd")));
+		assertEquals(pad?asList(some):asList(), search(field.like("startEnd ")));
+		assertEquals(asList(     ), search(field.like(" startEnd")));
+		assertEquals(pad?asList(empty):asList(), search(field.like(" ")));
+		assertEquals(asList(empty), search(field.like("")));
 	}
 
 	@Test void testLikeWildcard()
