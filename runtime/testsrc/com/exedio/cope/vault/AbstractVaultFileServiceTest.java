@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.vaulttest.VaultServiceTest;
 import java.io.ByteArrayInputStream;
@@ -44,6 +45,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
@@ -61,6 +63,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	private boolean posixAvailable;
 
 	protected final TemporaryFolder files = new TemporaryFolder();
+	private final LogRule log = new LogRule(VaultFileService.class);
 
 	@Override
 	protected Properties getServiceProperties() throws IOException
@@ -82,6 +85,11 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		final Path tempDir = ((VaultFileService)getService()).tempDir;
 		if(tempDir!=null)
 			Files.createDirectory(tempDir);
+	}
+
+	@AfterEach final void assertEmptyLog()
+	{
+		log.assertEmpty();
 	}
 
 	@Test final void testToString()
