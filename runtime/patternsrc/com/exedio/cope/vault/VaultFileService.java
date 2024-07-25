@@ -246,11 +246,11 @@ public final class VaultFileService implements VaultService
 
 	static final Holder<Clock> markRedundantPutClock = new Holder<>(Clock.systemUTC());
 
-	private void createDirectoryIfNotExists(final Path file) throws IOException
+	private void createDirectoryIfNotExists(final Path dir) throws IOException
 	{
 		try
 		{
-			Files.createDirectory(file, directoryAttributes);
+			Files.createDirectory(dir, directoryAttributes);
 		}
 		catch(final FileAlreadyExistsException ignored)
 		{
@@ -261,7 +261,7 @@ public final class VaultFileService implements VaultService
 		// and directoryGroup are applied, even if the directory does exist already.
 		// Otherwise, an interruption immediately after directory creation may
 		// leave a directory without correct properties indefinitely.
-		setPermissions(file, directoryPermissionsAfterwards, directoryGroup);
+		setPermissions(dir, directoryPermissionsAfterwards, directoryGroup);
 	}
 
 	private static void setPermissions(
