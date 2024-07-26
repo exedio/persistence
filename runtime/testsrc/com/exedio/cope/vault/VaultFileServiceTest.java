@@ -247,8 +247,12 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 			{
 				throw new RuntimeException(e);
 			}
+			assertFalse(moveIfDestDoesNotExistPreludeCalled);
+			moveIfDestDoesNotExistPreludeCalled = true;
 		});
+		assertFalse(moveIfDestDoesNotExistPreludeCalled);
 		service.put("abcd", value, PUT_INFO);
+		assertTrue(moveIfDestDoesNotExistPreludeCalled);
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d);
@@ -265,4 +269,6 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 			super(VaultFileService.moveIfDestDoesNotExistPrelude);
 		}
 	}
+
+	private boolean moveIfDestDoesNotExistPreludeCalled = false;
 }
