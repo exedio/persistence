@@ -283,18 +283,30 @@ public final class VaultFileService implements VaultService
 
 	private boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
 	{
+		moveIfDestDoesNotExistPrelude.get().accept(dest);
 		try
 		{
 			Files.move(file, dest, ATOMIC_MOVE);
 		}
 		catch(final FileAlreadyExistsException e)
 		{
+			// BEWARE:
+			// If dest does exist already (which happens in case of a race condition),
+			// Files#move does NOT throw a FileAlreadyExistsException nor any other exception.
+			// It does throw a FileAlreadyExistsException, if the ATOMIC_MOVE is removed.
+			// But we need the ATOMIC_MOVE for data consistency.
+			// Tested in VaultFileServiceTest#raceConditionPutFile.
+
+			// That means, this catch is useless.
+			// TODO remove this catch block
 			logger.error("concurrent upload (should happen rarely)", e); // may be just warn
 			markRedundantPut(file);
 			return false;
 		}
 		return true;
 	}
+
+	static final Holder<java.util.function.Consumer<Path>> moveIfDestDoesNotExistPrelude = new Holder<>(dest -> {});
 
 	@FunctionalInterface
 	private interface Consumer
