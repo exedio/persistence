@@ -220,8 +220,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertNull(cause.getCause());
 	}
 
-	@ExtendWith(MoveIfDestDoesNotExistPrelude.class)
-	@Test void raceConditionPutFile(final MoveIfDestDoesNotExistPrelude prelude) throws IOException
+	@ExtendWith(MovePrelude.class)
+	@Test void raceConditionPutFile(final MovePrelude prelude) throws IOException
 	{
 		final File root = getRoot();
 		final File temp = new File(root, ".tempVaultFileService");
@@ -247,12 +247,12 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 			{
 				throw new RuntimeException(e);
 			}
-			assertFalse(moveIfDestDoesNotExistPreludeCalled);
-			moveIfDestDoesNotExistPreludeCalled = true;
+			assertFalse(movePreludeCalled);
+			movePreludeCalled = true;
 		});
-		assertFalse(moveIfDestDoesNotExistPreludeCalled);
+		assertFalse(movePreludeCalled);
 		service.put("abcd", value, PUT_INFO);
-		assertTrue(moveIfDestDoesNotExistPreludeCalled);
+		assertTrue(movePreludeCalled);
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d);
@@ -262,13 +262,13 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertPosix(filePerms, rootGroup(), d);
 	}
 
-	public static final class MoveIfDestDoesNotExistPrelude extends HolderExtension<Consumer<Path>>
+	public static final class MovePrelude extends HolderExtension<Consumer<Path>>
 	{
-		public MoveIfDestDoesNotExistPrelude()
+		public MovePrelude()
 		{
-			super(VaultFileService.moveIfDestDoesNotExistPrelude);
+			super(VaultFileService.movePrelude);
 		}
 	}
 
-	private boolean moveIfDestDoesNotExistPreludeCalled = false;
+	private boolean movePreludeCalled = false;
 }
