@@ -219,7 +219,8 @@ public final class VaultFileService implements VaultService
 		final Path file = file(hash);
 		if(Files.exists(file))
 		{
-			markRedundantPut(file);
+			if(requiresToMarkPut.getAsBoolean())
+				Files.setLastModifiedTime(file, fromMillis(markRedundantPutClock.get().millis()));
 			return false;
 		}
 
@@ -242,12 +243,6 @@ public final class VaultFileService implements VaultService
 		// Tested in VaultFileServiceTest#raceConditionPutFile.
 		Files.move(temp, file, ATOMIC_MOVE);
 		return true;
-	}
-
-	private void markRedundantPut(final Path file) throws IOException
-	{
-		if(requiresToMarkPut.getAsBoolean())
-			Files.setLastModifiedTime(file, fromMillis(markRedundantPutClock.get().millis()));
 	}
 
 	static final Holder<Clock> markRedundantPutClock = new Holder<>(Clock.systemUTC());
