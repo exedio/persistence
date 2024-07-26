@@ -233,7 +233,15 @@ public final class VaultFileService implements VaultService
 		if(dir!=null)
 			createDirectoryIfNotExists(contentDir.resolve(dir));
 
-		return moveIfDestDoesNotExist(temp, file);
+		moveIfDestDoesNotExistPrelude.get().accept(file);
+		// BEWARE:
+		// If file does exist already (which happens in case of a race condition),
+		// Files#move does NOT throw any exception.
+		// It does throw a FileAlreadyExistsException, if the ATOMIC_MOVE is removed.
+		// But we need the ATOMIC_MOVE for data consistency.
+		// Tested in VaultFileServiceTest#raceConditionPutFile.
+		Files.move(temp, file, ATOMIC_MOVE);
+		return true;
 	}
 
 	private void markRedundantPut(final Path file) throws IOException
@@ -277,19 +285,6 @@ public final class VaultFileService implements VaultService
 			if(!group.isEmpty())
 				posixView.setGroup(lookupGroup(file, group));
 		}
-	}
-
-	private static boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
-	{
-		moveIfDestDoesNotExistPrelude.get().accept(dest);
-		// BEWARE:
-		// If dest does exist already (which happens in case of a race condition),
-		// Files#move does NOT throw any exception.
-		// It does throw a FileAlreadyExistsException, if the ATOMIC_MOVE is removed.
-		// But we need the ATOMIC_MOVE for data consistency.
-		// Tested in VaultFileServiceTest#raceConditionPutFile.
-		Files.move(file, dest, ATOMIC_MOVE);
-		return true;
 	}
 
 	static final Holder<java.util.function.Consumer<Path>> moveIfDestDoesNotExistPrelude = new Holder<>(dest -> {});
