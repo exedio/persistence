@@ -233,7 +233,7 @@ public final class VaultFileService implements VaultService
 		if(dir!=null)
 			createDirectoryIfNotExists(contentDir.resolve(dir));
 
-		moveIfDestDoesNotExistPrelude.get().accept(file);
+		movePrelude.get().accept(file);
 		// BEWARE:
 		// If file does exist already (which happens in case of a race condition),
 		// Files#move does NOT throw any exception.
@@ -287,7 +287,7 @@ public final class VaultFileService implements VaultService
 		}
 	}
 
-	static final Holder<java.util.function.Consumer<Path>> moveIfDestDoesNotExistPrelude = new Holder<>(dest -> {});
+	static final Holder<java.util.function.Consumer<Path>> movePrelude = new Holder<>(dest -> {});
 
 	@FunctionalInterface
 	private interface Consumer
