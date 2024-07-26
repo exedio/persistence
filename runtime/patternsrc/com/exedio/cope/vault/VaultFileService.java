@@ -56,8 +56,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Stream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @ServiceProperties(VaultFileService.Props.class)
 public final class VaultFileService implements VaultService
@@ -281,28 +279,16 @@ public final class VaultFileService implements VaultService
 		}
 	}
 
-	private boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
+	private static boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
 	{
 		moveIfDestDoesNotExistPrelude.get().accept(dest);
-		try
-		{
-			Files.move(file, dest, ATOMIC_MOVE);
-		}
-		catch(final FileAlreadyExistsException e)
-		{
-			// BEWARE:
-			// If dest does exist already (which happens in case of a race condition),
-			// Files#move does NOT throw a FileAlreadyExistsException nor any other exception.
-			// It does throw a FileAlreadyExistsException, if the ATOMIC_MOVE is removed.
-			// But we need the ATOMIC_MOVE for data consistency.
-			// Tested in VaultFileServiceTest#raceConditionPutFile.
-
-			// That means, this catch is useless.
-			// TODO remove this catch block
-			logger.error("concurrent upload (should happen rarely)", e); // may be just warn
-			markRedundantPut(file);
-			return false;
-		}
+		// BEWARE:
+		// If dest does exist already (which happens in case of a race condition),
+		// Files#move does NOT throw any exception.
+		// It does throw a FileAlreadyExistsException, if the ATOMIC_MOVE is removed.
+		// But we need the ATOMIC_MOVE for data consistency.
+		// Tested in VaultFileServiceTest#raceConditionPutFile.
+		Files.move(file, dest, ATOMIC_MOVE);
 		return true;
 	}
 
@@ -648,7 +634,4 @@ public final class VaultFileService implements VaultService
 	{
 		return attributes!=null ? Stream.of(attributes) : null;
 	}
-
-
-	private static final Logger logger = LoggerFactory.getLogger(VaultFileService.class);
 }
