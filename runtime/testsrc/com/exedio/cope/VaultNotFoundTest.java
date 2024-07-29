@@ -56,24 +56,8 @@ public class VaultNotFoundTest
 		service.clear();
 		service.assertIt("");
 
-		try
-		{
-			item.getFieldLength();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"vault data missing on " + item + " for VaultItem.field, " +
-					"service: VaultMockService:mainExampleValue, " +
-					"hash(SHA-512): " + HASH1A,
-					e.getMessage());
-			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHashComplete());
-			assertEquals(HASH1A, cause.getHashAnonymous());
-			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
-		}
-		service.assertIt("getLength");
+		assertEquals(6, item.getFieldLength()); // DataField#getLength no longer calls VaultService#getLength
+		service.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 	}
 
 	@Test void notFoundGetBytes()

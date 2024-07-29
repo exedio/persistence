@@ -151,14 +151,7 @@ final class DataFieldVaultStore extends DataFieldStore
 			return -1;
 
 		getLength.increment();
-		try
-		{
-			return service.getLength(hash);
-		}
-		catch(final VaultNotFoundException e)
-		{
-			throw wrap(e, item);
-		}
+		return trail.getLength(hash);
 	}
 
 	@Override
