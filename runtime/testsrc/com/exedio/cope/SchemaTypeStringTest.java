@@ -193,7 +193,6 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		final var upperMap        = spaceItems(  "X"  );
 		restartTransaction();
 
-		final boolean pad = false; // TODO inline and drop this variable
 		for(final SchemaTypeStringField f : searchFields())
 		{
 			final StringItem empty        = emptyMap.get(f);
@@ -224,64 +223,22 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			assertEquals("x  x",  space2Within.get()); // 11
 			assertEquals(  "X",   upper       .get()); // 12
 
-			assertEquals(pad
-					? List.of(empty, space, space2)
-					: List.of(empty               ),
-					f.searchEqual(""));
-			assertEquals(pad
-					? List.of(empty, space, space2)
-					: List.of(       space        ),
-					f.searchEqual(" "));
-			assertEquals(pad
-					? List.of(empty, space, space2)
-					: List.of(              space2),
-					f.searchEqual("  "));
-			assertEquals(pad
-					? List.of(spaceBefore, spaceAround)
-					: List.of(spaceBefore             ),
-					f.searchEqual(" x"));
-			assertEquals(pad
-					? List.of(space2Before, space2Around)
-					: List.of(space2Before              ),
-					f.searchEqual("  x"));
-			assertEquals(pad
-					? List.of(spaceAfter, space2After, spaceNone)
-					: List.of(spaceAfter                        ),
-					f.searchEqual("x "));
-			assertEquals(pad
-					? List.of(spaceAfter, space2After, spaceNone)
-					: List.of(            space2After           ),
-					f.searchEqual("x  "));
-			assertEquals(pad
-					? List.of(spaceBefore, spaceAround)
-					: List.of(             spaceAround),
-					f.searchEqual(" x "));
-			assertEquals(pad
-					? List.of(space2Before, space2Around)
-					: List.of(              space2Around),
-					f.searchEqual("  x  "));
-			assertEquals(pad
-					? List.of(spaceAfter, space2After, spaceNone)
-					: List.of(                         spaceNone),
-					f.searchEqual("x"));
+			assertEquals(List.of(empty),        f.searchEqual(""));
+			assertEquals(List.of(space),        f.searchEqual(" "));
+			assertEquals(List.of(space2),       f.searchEqual("  "));
+			assertEquals(List.of(spaceBefore),  f.searchEqual( " x"));
+			assertEquals(List.of(space2Before), f.searchEqual("  x"));
+			assertEquals(List.of(spaceAfter),   f.searchEqual(  "x "));
+			assertEquals(List.of(space2After),  f.searchEqual(  "x  "));
+			assertEquals(List.of(spaceAround),  f.searchEqual( " x "));
+			assertEquals(List.of(space2Around), f.searchEqual("  x  "));
+			assertEquals(List.of(spaceNone),    f.searchEqual(  "x"));
 
-			assertEquals(pad
-					? List.of(spaceAfter, space2After, spaceNone)
-					: List.of(            space2After           ),
-					f.searchIn("x  ", "y"));
-			assertEquals(pad
-					? List.of(spaceAfter, space2After, spaceNone)
-					: List.of(                         spaceNone),
-					f.searchIn("x", "y"));
+			assertEquals(List.of(space2After), f.searchIn("x  ", "y"));
+			assertEquals(List.of(spaceNone),   f.searchIn("x",   "y"));
 
-			assertEquals(pad
-					? List.of(                      spaceBefore, space2Before, spaceAfter, space2After, spaceAround, space2Around, spaceNone, spaceWithin, space2Within, upper)
-					: List.of(       space, space2, spaceBefore, space2Before, spaceAfter, space2After, spaceAround, space2Around, spaceNone, spaceWithin, space2Within, upper),
-					f.searchNotEqual(""));
-			assertEquals(pad
-					? List.of(empty, space, space2,              space2Before, spaceAfter, space2After,              space2Around, spaceNone, spaceWithin, space2Within, upper)
-					: List.of(empty, space, space2, spaceBefore, space2Before, spaceAfter, space2After,              space2Around, spaceNone, spaceWithin, space2Within, upper),
-					f.searchNotEqual(" x "));
+			assertEquals(List.of(       space, space2, spaceBefore, space2Before, spaceAfter, space2After, spaceAround, space2Around, spaceNone, spaceWithin, space2Within, upper), f.searchNotEqual(""));
+			assertEquals(List.of(empty, space, space2, spaceBefore, space2Before, spaceAfter, space2After,              space2Around, spaceNone, spaceWithin, space2Within, upper), f.searchNotEqual(" x "));
 
 			assertEquals(List.of(spaceWithin),  f.searchEqual("x x"));
 			assertEquals(List.of(space2Within), f.searchEqual("x  x"));
