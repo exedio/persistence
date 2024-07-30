@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Dialect.strip;
 
+import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Dialect;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -119,7 +120,8 @@ final class PostgresqlSchemaDialect extends Dialect
 						"is_nullable, " + // 3
 						"data_type, " + // 4
 						"character_maximum_length, " + // 5
-						"datetime_precision " + // 6
+						"datetime_precision, " + // 6
+						"collation_name " + // 7
 				"FROM information_schema.columns " +
 				"WHERE table_catalog=" + catalog + " AND table_schema=" + schemaL + " " +
 				"ORDER BY ordinal_position", // make it deterministic for multiple unused columns in one table
@@ -151,7 +153,13 @@ final class PostgresqlSchemaDialect extends Dialect
 					type.append(NOT_NULL);
 
 				final Table table = getTableStrict(schema, resultSet, 1);
-				notifyExistentColumn(table, columnName, type.toString());
+				final Column column = notifyExistentColumn(table, columnName, type.toString());
+
+				{
+					final String collation = resultSet.getString(7);
+					if(collation!=null)
+						notifyAdditionalError(column, "unexpected collation >" + collation + '<');
+				}
 			}
 		});
 
