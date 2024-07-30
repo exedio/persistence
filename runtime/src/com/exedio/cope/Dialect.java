@@ -317,6 +317,11 @@ abstract class Dialect
 
 	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
 
+	void appendCaseViewPostfix(final Statement bf)
+	{
+		// default implementation does nothing, may be overwritten by subclasses
+	}
+
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
 
 	static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)

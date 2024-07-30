@@ -61,7 +61,9 @@ public class CaseView extends StringView
 	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
 	{
 		bf.append(upper? "UPPER(" : "LOWER(").
-			append(source, join).
+			append(source, join);
+		bf.dialect.appendCaseViewPostfix(bf);
+		bf.
 			append(')');
 	}
 

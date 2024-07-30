@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Dialect.strip;
 
-import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Dialect;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -52,8 +51,8 @@ final class PostgresqlSchemaDialect extends Dialect
 		r.add(" (=|<>|>=|<=|>|<|\\+|-|\\*|/) ", "$1");
 		r.add("\"char_length\"(\\(\"\\w*\"\\))", "CHAR_LENGTH$1");
 		r.add("\"octet_length\"(\\(\"\\w*\"\\))", "OCTET_LENGTH$1");
-		r.add("\"upper\"(\\(\"\\w*\"\\))", "UPPER$1");
-		r.add("\"lower\"(\\(\"\\w*\"\\))", "LOWER$1");
+		r.add("\"upper\"\\((\\(\"\\w*\" COLLATE \"\\w*\"\\))\\)", "UPPER$1");
+		r.add("\"lower\"\\((\\(\"\\w*\" COLLATE \"\\w*\"\\))\\)", "LOWER$1");
 		r.add("\"floor\"(\\(\"date_part\"\\('SECOND', \"seconds\"\\)\\))", "FLOOR$1");
 	}
 
@@ -148,18 +147,17 @@ final class PostgresqlSchemaDialect extends Dialect
 						type.append(dataType);
 						break;
 				}
+				{
+					final String collation = resultSet.getString(7);
+					if(collation!=null)
+						type.append(" COLLATE \"").append(collation).append('"');
+				}
 
 				if(!getBooleanStrict(resultSet, 3, "YES", "NO"))
 					type.append(NOT_NULL);
 
 				final Table table = getTableStrict(schema, resultSet, 1);
-				final Column column = notifyExistentColumn(table, columnName, type.toString());
-
-				{
-					final String collation = resultSet.getString(7);
-					if(collation!=null)
-						notifyAdditionalError(column, "unexpected collation >" + collation + '<');
-				}
+				notifyExistentColumn(table, columnName, type.toString());
 			}
 		});
 
