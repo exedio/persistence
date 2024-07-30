@@ -193,7 +193,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		final var upperMap        = spaceItems(  "X"  );
 		restartTransaction();
 
-		final boolean pad = hsqldb || mysql; // TODO should not happen
+		final boolean pad = mysql; // TODO should not happen
 		for(final SchemaTypeStringField f : searchFields())
 		{
 			final StringItem empty        = emptyMap.get(f);

@@ -44,6 +44,8 @@ import java.util.regex.Pattern;
 
 @ServiceProperties(HsqldbDialect.Props.class)
 @DialectProbeInfo({
+		// https://hsqldb.org/doc/guide/dbproperties-chapt.html#N169B5
+		"sql.pad_space", "false", // needed since HsqlDB 2.0
 		// https://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
 		"hsqldb.tx", "mvcc"})
 final class HsqldbDialect extends Dialect
