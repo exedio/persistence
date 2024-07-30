@@ -100,6 +100,11 @@ public final class SchemaTypeStringField extends Pattern
 		return search(sourceField.notEqual(value));
 	}
 
+	List<StringItem> searchIn(final String... value)
+	{
+		return search(sourceField.in(value));
+	}
+
 	private List<StringItem> search(final Condition condition)
 	{
 		final Query<StringItem> q = sourceTypeIfMounted.newQuery(condition);

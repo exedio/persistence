@@ -266,6 +266,15 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 					f.searchEqual("x"));
 
 			assertEquals(pad
+					? List.of(spaceAfter, space2After, spaceNone)
+					: List.of(            space2After           ),
+					f.searchIn("x  ", "y"));
+			assertEquals(pad
+					? List.of(spaceAfter, space2After, spaceNone)
+					: List.of(                         spaceNone),
+					f.searchIn("x", "y"));
+
+			assertEquals(pad
 					? List.of(                      spaceBefore, space2Before, spaceAfter, space2After, spaceAround, space2Around, spaceNone, spaceWithin, space2Within, upper)
 					: List.of(       space, space2, spaceBefore, space2Before, spaceAfter, space2After, spaceAround, space2Around, spaceNone, spaceWithin, space2Within, upper),
 					f.searchNotEqual(""));
