@@ -38,7 +38,6 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodySubscribers;
 import java.time.Duration;
-import java.util.OptionalLong;
 import java.util.function.Supplier;
 
 @ServiceProperties(VaultHttpService.Props.class)
@@ -59,15 +58,6 @@ public final class VaultHttpService extends VaultNonWritableService
 		this.properties = properties;
 		this.client = properties.newClient();
 	}
-
-
-	private static OptionalLong getContentLength(
-			final HttpResponse<?> response)
-	{
-		return response.headers().firstValueAsLong(CONTENT_LENGTH);
-	}
-
-	private static final String CONTENT_LENGTH = "Content-Length";
 
 
 	private static final String REQUEST_METHOD_HEAD = "HEAD";
@@ -152,7 +142,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		if(responseCode!=HTTP_OK)
 			throw new IllegalStateException(
 					"response code " + responseCode + ':' + uri);
-		getContentLength(response).ifPresent( // Content-Length header may be absent for empty files
+		response.headers().firstValueAsLong("Content-Length").ifPresent( // Content-Length header may be absent for empty files
 				size ->
 				{
 					if(size!=0) // file must not have any content, because it is likely exposed to public
