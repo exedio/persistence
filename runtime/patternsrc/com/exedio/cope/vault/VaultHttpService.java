@@ -61,22 +61,6 @@ public final class VaultHttpService extends VaultNonWritableService
 	}
 
 
-	@Override
-	public long getLength(final String hash) throws VaultNotFoundException
-	{
-		try
-		{
-			return getContentLength(getOk(hash, REQUEST_METHOD_HEAD, BodySubscribers::discarding)).
-					orElseThrow(() ->
-							new RuntimeException(
-									CONTENT_LENGTH + " header missing at " + rootUri + ':' + anonymiseHash(hash)));
-		}
-		catch(final IOException e)
-		{
-			throw wrap(hash, e);
-		}
-	}
-
 	private static OptionalLong getContentLength(
 			final HttpResponse<?> response)
 	{

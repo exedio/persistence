@@ -222,17 +222,6 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 				reason + ":" + URL + "/VaultBucketTag/my-Bucket");
 	}
 
-	@Test void notFoundAnonymousLength()
-	{
-		final VaultHttpService service = (VaultHttpService)getService();
-		final VaultNotFoundException notFound = assertFails(
-				() -> service.getLength("abcdefghijklmnopq"),
-				VaultNotFoundException.class,
-				"hash not found in vault: abcdefghijklmnopxx17");
-		assertEquals("abcdefghijklmnopq", notFound.getHashComplete());
-		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
-		assertNull(notFound.getCause());
-	}
 	@Test void notFoundAnonymousBytes()
 	{
 		final VaultHttpService service = (VaultHttpService)getService();
