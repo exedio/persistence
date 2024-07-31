@@ -59,12 +59,6 @@ public class VaultMockServicePutTest extends VaultServiceTest
 			this.service = service;
 		}
 		@Override
-		@SuppressWarnings("unused") // OK: method will be dropped soon
-		public long getLength(@Nonnull final String hash) throws VaultNotFoundException
-		{
-			return service.getLength(hash);
-		}
-		@Override
 		public byte[] get(@Nonnull final String hash) throws VaultNotFoundException
 		{
 			return service.get(hash);
@@ -112,12 +106,6 @@ public class VaultMockServicePutTest extends VaultServiceTest
 	{
 		return new VaultService()
 		{
-			@Override
-			@SuppressWarnings("unused") // OK: method will be dropped soon
-			public long getLength(@Nonnull final String hash)
-			{
-				throw new AssertionFailedError(anonymiseHash(hash));
-			}
 			@Override
 			public byte[] get(@Nonnull final String hash)
 			{
