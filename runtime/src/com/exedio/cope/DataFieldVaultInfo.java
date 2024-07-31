@@ -28,7 +28,6 @@ public final class DataFieldVaultInfo
 	private final DataField field;
 	private final String bucket;
 	private final String service;
-	private final double getLength;
 	private final double getBytes;
 	private final double getStream;
 	private final double putInitial;
@@ -38,7 +37,6 @@ public final class DataFieldVaultInfo
 			final DataField field,
 			final String bucket,
 			final VaultService service,
-			final Counter getLength,
 			final Counter getBytes,
 			final Counter getStream,
 			final Counter putInitial,
@@ -47,7 +45,6 @@ public final class DataFieldVaultInfo
 		this.field = field;
 		this.bucket = bucket;
 		this.service = service.toString();
-		this.getLength = getLength.count();
 		this.getBytes = getBytes.count();
 		this.getStream = getStream.count();
 		this.putInitial = putInitial.count();
@@ -69,9 +66,12 @@ public final class DataFieldVaultInfo
 		return service;
 	}
 
+	/**
+	 * To be deprecated, returns 0, as VaultService#getLength has been dropped
+	 */
 	public long getGetLengthCount()
 	{
-		return count(getLength);
+		return 0;
 	}
 
 	public long getGetBytesCount()
@@ -86,7 +86,7 @@ public final class DataFieldVaultInfo
 
 	public long getGetCount()
 	{
-		return count(getLength) + count(getBytes) + count(getStream);
+		return count(getBytes) + count(getStream);
 	}
 
 	public long getPutInitialCount()

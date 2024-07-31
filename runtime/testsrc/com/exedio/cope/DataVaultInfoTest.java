@@ -156,6 +156,7 @@ public class DataVaultInfoTest
 		assertSame(MyItem.field, actual.getField());
 		assertEquals(Vault.DEFAULT, actual.getBucket());
 		assertEquals("VaultMockService:exampleDefault", actual.getService());
+		assertEquals(0, actual.getGetLengthCount());
 		assertEquals(getLength,    actual.getGetLengthCount()   -onSetup.getGetLengthCount(),    "getLength");
 		assertEquals(getBytes,     actual.getGetBytesCount()    -onSetup.getGetBytesCount(),     "getBytes");
 		assertEquals(getStream,    actual.getGetStreamCount()   -onSetup.getGetStreamCount(),    "getStream");
@@ -164,7 +165,6 @@ public class DataVaultInfoTest
 		assertEquals(getLength+getBytes+getStream, actual.getGetCount()-onSetup.getGetCount(), "get");
 		assertEquals(putInitial+putRedundant,      actual.getPutCount()-onSetup.getPutCount(), "put");
 
-		assertCount("getLength", Tags.empty(), actual.getGetLengthCount());
 		assertCount("get", Tags.of("sink", "bytes"),  actual.getGetBytesCount());
 		assertCount("get", Tags.of("sink", "stream"), actual.getGetStreamCount());
 		assertCount("put", Tags.of("result", "initial"),   actual.getPutInitialCount());
@@ -190,7 +190,6 @@ public class DataVaultInfoTest
 				Model.NotConnectedException.class,
 				MyItem.field::getVaultInfo);
 
-		assertCount("getLength", Tags.empty(), onSetup.getGetLengthCount());
 		assertCount("get", Tags.of("sink", "bytes"),  onSetup.getGetBytesCount());
 		assertCount("get", Tags.of("sink", "stream"), onSetup.getGetStreamCount());
 		assertCount("put", Tags.of("result", "initial"),   onSetup.getPutInitialCount());
