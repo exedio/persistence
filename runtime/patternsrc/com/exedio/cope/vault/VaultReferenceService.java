@@ -74,37 +74,6 @@ public final class VaultReferenceService implements VaultService
 
 
 	@Override
-	public long getLength(final String hash) throws VaultNotFoundException
-	{
-		try
-		{
-			return main.getLength(hash);
-		}
-		catch(final VaultNotFoundException ignored)
-		{
-			if(!copyReferenceToMain)
-			{
-				final long result = reference.getLength(hash);
-				logGetReference(hash);
-				return result;
-			}
-
-			try
-			{
-				final Path temp = createTempFileFromReference(hash);
-				final long result = Files.size(temp);
-				main.put(hash, temp, PUT_INFO);
-				delete(temp);
-				return result;
-			}
-			catch(final IOException er)
-			{
-				throw new RuntimeException(er);
-			}
-		}
-	}
-
-	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		try
