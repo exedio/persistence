@@ -87,20 +87,6 @@ final class ContractProbe
 						info + ": VaultNotFoundException should have matching hash " +
 						anonymiseHash(hash) + " vs. " + e.getHashAnonymous());
 		}
-		try
-		{
-			final long gotLength = service.getLength(hash);
-			throw new RuntimeException(
-					info + ": getLength should have thrown VaultNotFoundException, " +
-					"but got " + gotLength);
-		}
-		catch(final VaultNotFoundException e)
-		{
-			if(!hash.equals(e.getHashComplete()))
-				throw new RuntimeException(
-						info + ": VaultNotFoundException should have matching hash " +
-						anonymiseHash(hash) + " vs. " + e.getHashAnonymous());
-		}
 
 		probeGetAndPut(service, hash, value, true,  info);
 		probeGetAndPut(service, hash, value, false, info);
@@ -132,21 +118,6 @@ final class ContractProbe
 					info + ": get should have returned matching value " +
 					encodeValue(value) + " vs. " +
 					encodeValue(gotValue));
-
-		final long gotLength;
-		try
-		{
-			gotLength = service.getLength(hash);
-		}
-		catch(final VaultNotFoundException e)
-		{
-			throw new RuntimeException(info + ": getLength should have returned length", e);
-		}
-		if(value.length!=gotLength)
-			throw new RuntimeException(
-					info + ": getLength should have returned matching length " +
-					value.length + " vs. " +
-					gotLength);
 	}
 
 	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString(VaultProperties.class.getName() + "#probe");
