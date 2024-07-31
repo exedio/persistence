@@ -167,23 +167,6 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		}
 	}
 
-	@Test void notFoundAnonymousLength()
-	{
-		final VaultFileService service = (VaultFileService)getService();
-		final VaultNotFoundException notFound = assertFails(
-				() -> service.getLength("abcdefghijklmnopq"),
-				VaultNotFoundException.class,
-				"hash not found in vault: abcdefghijklmnopxx17");
-		assertEquals("abcdefghijklmnopq", notFound.getHashComplete());
-		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
-
-		final Throwable cause = notFound.getCause();
-		assertEquals(
-				NoSuchFileException.class.getName() + ": " + getRoot() + File.separator + "abc" + File.separator + "defghijklmnopxx17",
-				cause.getMessage());
-		assertEquals(VaultNotFoundException.class.getName() + "$Anonymous", cause.getClass().getName());
-		assertNull(cause.getCause());
-	}
 	@Test void notFoundAnonymousBytes()
 	{
 		final VaultFileService service = (VaultFileService)getService();
