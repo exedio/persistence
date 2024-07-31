@@ -22,7 +22,6 @@ import com.exedio.cope.DataFieldVaultInfo;
 
 public final class DataFieldVaultSummary
 {
-	private final long getLength;
 	private final long getBytes;
 	private final long getStream;
 	private final long putInitial;
@@ -30,7 +29,6 @@ public final class DataFieldVaultSummary
 
 	public DataFieldVaultSummary(final DataFieldVaultInfo[] infos)
 	{
-		long getLength = 0;
 		long getBytes = 0;
 		long getStream = 0;
 		long putInitial = 0;
@@ -38,23 +36,24 @@ public final class DataFieldVaultSummary
 
 		for(final DataFieldVaultInfo info : infos)
 		{
-			getLength    += info.getGetLengthCount();
 			getBytes     += info.getGetBytesCount();
 			getStream    += info.getGetStreamCount();
 			putInitial   += info.getPutInitialCount();
 			putRedundant += info.getPutRedundantCount();
 		}
 
-		this.getLength    = getLength;
 		this.getBytes     = getBytes;
 		this.getStream    = getStream;
 		this.putInitial   = putInitial;
 		this.putRedundant = putRedundant;
 	}
 
+	/**
+	 * To be deprecated, returns 0, as VaultService#getLength has been dropped
+	 */
 	public long getGetLengthCount()
 	{
-		return getLength;
+		return 0;
 	}
 
 	public long getGetBytesCount()
@@ -69,7 +68,7 @@ public final class DataFieldVaultSummary
 
 	public long getGetCount()
 	{
-		return getLength + getBytes + getStream;
+		return getBytes + getStream;
 	}
 
 	public long getPutInitialCount()
