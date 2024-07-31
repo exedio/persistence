@@ -54,45 +54,45 @@ public class DataVaultInfoTest
 {
 	@Test void testGetLength()
 	{
-		assertIt(0, 0, 0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
-		assertIt(0, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 1, 3, 0, 0);
 
 		assertEquals(3, item.getFieldLength());
-		assertIt(0, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 1, 3, 0, 0);
 
 		assertEquals(3, item.getFieldLength());
-		assertIt(0, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 1, 3, 0, 0);
 	}
 	@Test void testGetBytes()
 	{
-		assertIt(0, 0, 0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
-		assertIt(0, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 1, 3, 0, 0);
 
 		assertEquals("abcdef", Hex.encodeLower(item.getFieldArray()));
-		assertIt(0, 1, 0, 1, 3, 0, 0);
+		assertIt(1, 0, 1, 3, 0, 0);
 
 		assertEquals("abcdef", Hex.encodeLower(item.getFieldArray()));
-		assertIt(0, 2, 0, 1, 3, 0, 0);
+		assertIt(2, 0, 1, 3, 0, 0);
 	}
 	@Test void testGetStream() throws IOException
 	{
-		assertIt(0, 0, 0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
-		assertIt(0, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 1, 3, 0, 0);
 
 		final NonCloseableOrFlushableOutputStream s = new NonCloseableOrFlushableOutputStream();
 		item.getField(s);
-		assertIt(0, 0, 1, 1, 3, 0, 0);
+		assertIt(0, 1, 1, 3, 0, 0);
 		assertEquals("abcdef", Hex.encodeLower(s.toByteArray()));
 
 		s.reset();
 		item.getField(s);
-		assertIt(0, 0, 2, 1, 3, 0, 0);
+		assertIt(0, 2, 1, 3, 0, 0);
 		assertEquals("abcdef", Hex.encodeLower(s.toByteArray()));
 	}
 	@Test void testPutBytes()
@@ -120,27 +120,26 @@ public class DataVaultInfoTest
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
 	private void testPut(final java.util.function.Function<String, DataField.Value> f)
 	{
-		assertIt(0, 0, 0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(f.apply("abcdef"));
-		assertIt(0, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 1, 3, 0, 0);
 
 		item.setField(f.apply("abcdef"));
-		assertIt(0, 0, 0, 1, 3, 1, 3);
+		assertIt(0, 0, 1, 3, 1, 3);
 
 		item.setField(f.apply("abcdef"));
-		assertIt(0, 0, 0, 1, 3, 2, 6);
+		assertIt(0, 0, 1, 3, 2, 6);
 
 		item.setField(f.apply("abcde0"));
-		assertIt(0, 0, 0, 2, 6, 2, 6);
+		assertIt(0, 0, 2, 6, 2, 6);
 
 		item.setField(f.apply("abcde01234"));
-		assertIt(0, 0, 0, 3, 11, 2, 6);
+		assertIt(0, 0, 3, 11, 2, 6);
 	}
 
 
 	private void assertIt(
-			final int getLength,
 			final int getBytes,
 			final int getStream,
 			final int putInitial,
@@ -149,7 +148,6 @@ public class DataVaultInfoTest
 			final int putRedundantSize)
 	{
 		assertEquals(Vault.DEFAULT, MyItem.field.getVaultBucket());
-		assertEquals(0, getLength);
 
 		final DataFieldVaultInfo actual = MyItem.field.getVaultInfo();
 		assertNotNull(actual);
@@ -160,8 +158,8 @@ public class DataVaultInfoTest
 		assertEquals(getStream,    actual.getGetStreamCount()   -onSetup.getGetStreamCount(),    "getStream");
 		assertEquals(putInitial,   actual.getPutInitialCount()  -onSetup.getPutInitialCount(),   "putInitial");
 		assertEquals(putRedundant, actual.getPutRedundantCount()-onSetup.getPutRedundantCount(), "putRedundant");
-		assertEquals(getLength+getBytes+getStream, actual.getGetCount()-onSetup.getGetCount(), "get");
-		assertEquals(putInitial+putRedundant,      actual.getPutCount()-onSetup.getPutCount(), "put");
+		assertEquals(getBytes+getStream,      actual.getGetCount()-onSetup.getGetCount(), "get");
+		assertEquals(putInitial+putRedundant, actual.getPutCount()-onSetup.getPutCount(), "put");
 
 		assertCount("get", Tags.of("sink", "bytes"),  actual.getGetBytesCount());
 		assertCount("get", Tags.of("sink", "stream"), actual.getGetStreamCount());
