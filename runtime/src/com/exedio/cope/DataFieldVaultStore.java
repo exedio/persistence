@@ -46,7 +46,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final VaultResilientService service;
 	private final VaultTrail trail;
 	private final Dialect dialect;
-	private final Counter getLength, getBytes, getStream, putInitial, putRedundant, putInitialSize, putRedundantSize;
+	private final Counter getBytes, getStream, putInitial, putRedundant, putInitialSize, putRedundantSize;
 
 	DataFieldVaultStore(
 			final DataField field,
@@ -72,7 +72,6 @@ final class DataFieldVaultStore extends DataFieldStore
 		this.dialect = connect.dialect;
 
 		final Metrics metrics = new Metrics(metricsTemplate, field, bucket);
-		getLength = metrics.counter("getLength");
 		getBytes  = metrics.counter("get", "sink", "bytes");
 		getStream = metrics.counter("get", "sink", "stream");
 		putInitial   = metrics.counter("put", "result", "initial");
@@ -90,12 +89,6 @@ final class DataFieldVaultStore extends DataFieldStore
 			this.back = metricsTemplate.name(DataField.class).
 					tag(field).
 					tag("bucket", bucket);
-		}
-
-		Counter counter(
-				final String methodName)
-		{
-			return counter(methodName, Tags.empty());
 		}
 
 		Counter counter(
@@ -307,7 +300,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	{
 		return new DataFieldVaultInfo(
 				field, bucket, service,
-				getLength, getBytes, getStream,
+				getBytes, getStream,
 				putInitial, putRedundant);
 	}
 

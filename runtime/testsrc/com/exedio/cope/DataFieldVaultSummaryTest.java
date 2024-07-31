@@ -30,14 +30,14 @@ public class DataFieldVaultSummaryTest
 {
 	@Test void testIt()
 	{
-		final DataFieldVaultInfo i1 = newInfo(11, 21, 31, 51, 61);
-		final DataFieldVaultInfo i2 = newInfo(13, 23, 33, 53, 63);
+		final DataFieldVaultInfo i1 = newInfo(21, 31, 51, 61);
+		final DataFieldVaultInfo i2 = newInfo(23, 33, 53, 63);
 
 		final DataFieldVaultSummary ms = new DataFieldVaultSummary(new DataFieldVaultInfo[]{i1, i2});
-		assertEquals( 24, ms.getGetLengthCount());
+		assertEquals(  0, ms.getGetLengthCount());
 		assertEquals( 44, ms.getGetBytesCount());
 		assertEquals( 64, ms.getGetStreamCount());
-		assertEquals(132, ms.getGetCount());
+		assertEquals(108, ms.getGetCount());
 		assertEquals(104, ms.getPutInitialCount());
 		assertEquals(124, ms.getPutRedundantCount());
 		assertEquals(228, ms.getPutCount());
@@ -58,7 +58,7 @@ public class DataFieldVaultSummaryTest
 
 	@Test void testNullElement()
 	{
-		final DataFieldVaultInfo i1 = newInfo(11, 21, 31, 41, 51);
+		final DataFieldVaultInfo i1 = newInfo(21, 31, 41, 51);
 		try
 		{
 			new DataFieldVaultSummary(new DataFieldVaultInfo[]{i1, null});
@@ -83,7 +83,6 @@ public class DataFieldVaultSummaryTest
 	}
 
 	private static DataFieldVaultInfo newInfo(
-			final long getLength,
 			final long getBytes,
 			final long getStream,
 			final long putInitial,
@@ -93,7 +92,6 @@ public class DataFieldVaultSummaryTest
 				null,
 				null,
 				new Service(),
-				new ConstantCounter(getLength),
 				new ConstantCounter(getBytes),
 				new ConstantCounter(getStream),
 				new ConstantCounter(putInitial),
