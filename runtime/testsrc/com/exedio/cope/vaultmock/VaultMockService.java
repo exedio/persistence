@@ -98,15 +98,6 @@ public final class VaultMockService implements VaultService
 
 
 	@Override
-	@SuppressWarnings("unused") // OK: method will be dropped soon
-	public long getLength(final String hash) throws VaultNotFoundException
-	{
-		historyAppend("getLength");
-
-		return store(hash).length;
-	}
-
-	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		historyAppend("getBytes");

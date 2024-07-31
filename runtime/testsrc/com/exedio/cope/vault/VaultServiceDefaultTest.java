@@ -41,12 +41,6 @@ public class VaultServiceDefaultTest
 	private static final class VaultDefaultService implements VaultService
 	{
 		@Override
-		@SuppressWarnings("unused") // OK: method will be dropped soon
-		public long getLength(final String hash)
-		{
-			throw new AssertionError();
-		}
-		@Override
 		public byte[] get(final String hash)
 		{
 			throw new AssertionError();

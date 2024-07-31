@@ -55,13 +55,6 @@ public class AssertionErrorVaultService implements VaultService
 	}
 
 	@Override
-	@SuppressWarnings("unused") // OK: method will be dropped soon
-	public long getLength(final String hash) throws VaultNotFoundException
-	{
-		throw new AssertionError(anonymiseHash(hash));
-	}
-
-	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		throw new AssertionError(anonymiseHash(hash));
