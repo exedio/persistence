@@ -168,15 +168,6 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 			return o;
 	}
 
-	@Test final void directoryTraversalGetLength()
-	{
-		assertDirectoryTraversal(
-				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().getLength(h));
-		assertDirectoryTraversal(
-				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().getLength(h));
-		assertDirectoryTraversal(
-				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().getLength(h));
-	}
 	@Test final void directoryTraversalGetBytes()
 	{
 		assertDirectoryTraversal(

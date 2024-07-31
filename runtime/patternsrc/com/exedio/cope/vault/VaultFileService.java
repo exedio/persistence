@@ -118,24 +118,6 @@ public final class VaultFileService implements VaultService
 
 
 	@Override
-	public long getLength(final String hash) throws VaultNotFoundException
-	{
-		final Path file = file(hash);
-		try
-		{
-			return Files.size(file);
-		}
-		catch(final NoSuchFileException e)
-		{
-			throw new VaultNotFoundException(hash, e);
-		}
-		catch(final IOException e)
-		{
-			throw wrap(hash, e);
-		}
-	}
-
-	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		final Path file = file(hash);
