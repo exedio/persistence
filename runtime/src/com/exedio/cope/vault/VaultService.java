@@ -61,6 +61,7 @@ public interface VaultService extends AutoCloseable
 	 * {@link com.exedio.cope.DataField#getLength(com.exedio.cope.Item)} no longer relies on this method,
 	 * but queries Vault Trail instead.
 	 */
+	@SuppressWarnings("unused") // OK: method will be dropped soon
 	default long getLength(@Nonnull final String hash) throws VaultNotFoundException
 	{
 		throw new NoSuchMethodError(

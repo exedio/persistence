@@ -83,6 +83,7 @@ public class VaultNonWritableServiceTest
 		{
 			throw new AssertionFailedError();
 		}
+		@SuppressWarnings("unused") // OK: method will be dropped soon
 		@Override public long getLength(final String hash)
 		{
 			throw new AssertionFailedError();

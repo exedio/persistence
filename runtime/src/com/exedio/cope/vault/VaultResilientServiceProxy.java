@@ -67,18 +67,6 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	}
 
 	@Override
-	public long getLength(final String hash) throws VaultNotFoundException
-	{
-		requireHash(hash);
-		requireNonClosed();
-
-		if(isEmptyHash(hash))
-			return 0;
-
-		return service.getLength(hash);
-	}
-
-	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		requireHash(hash);
