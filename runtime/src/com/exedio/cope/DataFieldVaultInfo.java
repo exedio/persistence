@@ -67,8 +67,9 @@ public final class DataFieldVaultInfo
 	}
 
 	/**
-	 * To be deprecated, returns 0, as VaultService#getLength has been dropped
+	 * @deprecated returns 0, as VaultService#getLength has been dropped
 	 */
+	@Deprecated
 	public long getGetLengthCount()
 	{
 		return 0;

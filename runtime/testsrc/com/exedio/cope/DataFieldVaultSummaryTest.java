@@ -34,7 +34,6 @@ public class DataFieldVaultSummaryTest
 		final DataFieldVaultInfo i2 = newInfo(23, 33, 53, 63);
 
 		final DataFieldVaultSummary ms = new DataFieldVaultSummary(new DataFieldVaultInfo[]{i1, i2});
-		assertEquals(  0, ms.getGetLengthCount());
 		assertEquals( 44, ms.getGetBytesCount());
 		assertEquals( 64, ms.getGetStreamCount());
 		assertEquals(108, ms.getGetCount());
@@ -73,7 +72,6 @@ public class DataFieldVaultSummaryTest
 	@Test void testEmpty()
 	{
 		final DataFieldVaultSummary ms = new DataFieldVaultSummary(new DataFieldVaultInfo[]{});
-		assertEquals(0, ms.getGetLengthCount());
 		assertEquals(0, ms.getGetBytesCount());
 		assertEquals(0, ms.getGetStreamCount());
 		assertEquals(0, ms.getGetCount());
