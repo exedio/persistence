@@ -48,12 +48,6 @@ public final class VaultTransientService implements VaultService
 
 
 	@Override
-	public long getLength(final String hash) throws VaultNotFoundException
-	{
-		return store(hash).length;
-	}
-
-	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		return store(hash);
