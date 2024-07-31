@@ -60,10 +60,10 @@ public class DataVaultInfoTest
 		assertIt(0, 0, 0, 1, 3, 0, 0);
 
 		assertEquals(3, item.getFieldLength());
-		assertIt(1, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 0, 1, 3, 0, 0);
 
 		assertEquals(3, item.getFieldLength());
-		assertIt(2, 0, 0, 1, 3, 0, 0);
+		assertIt(0, 0, 0, 1, 3, 0, 0);
 	}
 	@Test void testGetBytes()
 	{
@@ -149,6 +149,7 @@ public class DataVaultInfoTest
 			final int putRedundantSize)
 	{
 		assertEquals(Vault.DEFAULT, MyItem.field.getVaultBucket());
+		assertEquals(0, getLength);
 
 		final DataFieldVaultInfo actual = MyItem.field.getVaultInfo();
 		assertNotNull(actual);

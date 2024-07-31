@@ -150,7 +150,6 @@ final class DataFieldVaultStore extends DataFieldStore
 		if(hash==null)
 			return -1;
 
-		getLength.increment();
 		return trail.getLength(hash);
 	}
 
