@@ -83,7 +83,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1.length(), item.getFieldLength());
-		main.assertIt(HASH1, VALUE1, "getLength");
+		main.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
@@ -135,9 +135,9 @@ public class VaultReferenceTest
 		log.assertEmpty();
 		main.assertInfoString = "com.exedio.cope.vault.VaultReferenceService";
 		assertEquals(VALUE1.length(), item.getFieldLength());
-		log.assertDebug("get from reference in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getLength putFile");
-		refr.assertIt(HASH1, VALUE1, "getStream");
+		log.assertEmpty(); // DataField#getLength no longer calls VaultService#getLength
+		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
+		refr.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 
 		log.assertEmpty();
 	}
@@ -194,25 +194,9 @@ public class VaultReferenceTest
 		main.assertIt("");
 		refr.assertIt("");
 
-		try
-		{
-			item.getFieldLength();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"vault data missing on " + item + " for VaultItem.field, " +
-					"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
-					"hash(SHA-512): " + HASH1A,
-					e.getMessage());
-			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHashComplete());
-			assertEquals(HASH1A, cause.getHashAnonymous());
-			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
-		}
-		main.assertIt("getLength");
-		refr.assertIt("getStream");
+		assertEquals(6, item.getFieldLength()); // DataField#getLength no longer calls VaultService#getLength
+		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
+		refr.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 
 		log.assertEmpty();
 	}

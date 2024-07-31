@@ -78,7 +78,7 @@ public class VaultReferenceNoCopyTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1.length(), item.getFieldLength());
-		main.assertIt(HASH1, VALUE1, "getLength");
+		main.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, "");
 	}
 
@@ -122,8 +122,8 @@ public class VaultReferenceNoCopyTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1.length(), item.getFieldLength());
-		main.assertIt(               "getLength");
-		refr.assertIt(HASH1, VALUE1, "getLength");
+		main.assertIt(               ""); // DataField#getLength no longer calls VaultService#getLength
+		refr.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 	}
 
 	@Test void referenceGetBytes()
@@ -168,25 +168,9 @@ public class VaultReferenceNoCopyTest
 		main.assertIt("");
 		refr.assertIt("");
 
-		try
-		{
-			item.getFieldLength();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"vault data missing on " + item + " for VaultItem.field, " +
-					"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
-					"hash(SHA-512): " + HASH1A,
-					e.getMessage());
-			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHashComplete());
-			assertEquals(HASH1A, cause.getHashAnonymous());
-			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
-		}
-		main.assertIt("getLength");
-		refr.assertIt("getLength");
+		assertEquals(6, item.getFieldLength()); // DataField#getLength no longer calls VaultService#getLength
+		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
+		refr.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 	}
 
 	@Test void notFoundGetBytes()

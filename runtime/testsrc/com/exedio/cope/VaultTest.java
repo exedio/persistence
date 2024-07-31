@@ -71,7 +71,7 @@ public class VaultTest
 		service.assertIt(HASH1, VALUE1, "putBytes");
 
 		assertEquals(VALUE1.length(), i.getFieldLength());
-		service.assertIt(HASH1, VALUE1, "getLength");
+		service.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 	}
 
 	@Test void testGetBytes()

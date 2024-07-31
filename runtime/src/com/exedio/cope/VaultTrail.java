@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataFieldVaultStore.mysqlExtendedVarchar;
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.vault.VaultProperties;
@@ -27,6 +28,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.Connection;
 import java.util.Date;
+import javax.annotation.Nonnull;
 
 final class VaultTrail
 {
@@ -230,6 +232,33 @@ final class VaultTrail
 
 	private static final String POSTFIX = " ...";
 
+
+	long getLength(@Nonnull final String hash)
+	{
+		final Statement bf = executor.newStatement();
+		bf.append("SELECT ").append(lengthQuoted).
+			append(" FROM ").append(tableQuoted).
+			append(" WHERE ").append(hashQuoted).
+			append('=').appendParameter(hash);
+
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			return executor.query(connection, bf, null, false, resultSet ->
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("empty for hash " + anonymiseHash(hash) + " in table " + table);
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
+					throw new RuntimeException("null for hash " + anonymiseHash(hash) + " in table " + table);
+				return result;
+			});
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
+	}
 
 	Statement check(final DataField field, final Statement.Mode mode)
 	{
