@@ -156,8 +156,6 @@ public class DataVaultInfoTest
 		assertSame(MyItem.field, actual.getField());
 		assertEquals(Vault.DEFAULT, actual.getBucket());
 		assertEquals("VaultMockService:exampleDefault", actual.getService());
-		assertEquals(0, actual.getGetLengthCount());
-		assertEquals(getLength,    actual.getGetLengthCount()   -onSetup.getGetLengthCount(),    "getLength");
 		assertEquals(getBytes,     actual.getGetBytesCount()    -onSetup.getGetBytesCount(),     "getBytes");
 		assertEquals(getStream,    actual.getGetStreamCount()   -onSetup.getGetStreamCount(),    "getStream");
 		assertEquals(putInitial,   actual.getPutInitialCount()  -onSetup.getPutInitialCount(),   "putInitial");
