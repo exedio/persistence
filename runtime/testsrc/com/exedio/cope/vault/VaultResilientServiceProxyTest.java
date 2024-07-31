@@ -118,7 +118,6 @@ public class VaultResilientServiceProxyTest
 	private List<Executable> hashMethods(final String hash)
 	{
 		return asList(
-				() -> s.getLength(hash),
 				() -> s.get(hash),
 				() -> s.get(hash, null),
 				() -> s.put(hash, (byte[])     null, null),
@@ -126,11 +125,6 @@ public class VaultResilientServiceProxyTest
 				() -> s.put(hash, (Path)       null, null));
 	}
 
-	@Test void getLengthEmpty() throws VaultNotFoundException
-	{
-		assertEquals(0, s.getLength(emptyHash));
-		m.assertIt("");
-	}
 	@Test void getBytesEmpty() throws VaultNotFoundException
 	{
 		assertArrayEquals(new byte[]{}, s.get(emptyHash));
@@ -253,16 +247,6 @@ public class VaultResilientServiceProxyTest
 				"expected: <false> but was: <true>");
 		m.assertIt("close");
 	}
-	@Test void getLengthClosed()
-	{
-		s.close();
-		m.assertIt("close");
-		assertFails(
-				() -> s.getLength("0123456789abcdef0123456789abcdef"),
-				IllegalStateException.class,
-				"closed");
-		m.assertIt("");
-	}
 	@Test void getBytesClosed()
 	{
 		s.close();
@@ -336,14 +320,6 @@ public class VaultResilientServiceProxyTest
 		final JobContext ctx = new AssertionErrorJobContext();
 		s.purgeSchema(ctx);
 		m.assertIt("purgeSchema");
-	}
-	@Test void getLength()
-	{
-		assertFails(
-				() -> s.getLength("0123456789abcdef0123456789abcdef"),
-				VaultNotFoundException.class,
-				"hash not found in vault: 0123456789abcdefxx32");
-		m.assertIt("getLength");
 	}
 	@Test void getBytes()
 	{
