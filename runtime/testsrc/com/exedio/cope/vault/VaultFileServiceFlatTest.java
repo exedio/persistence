@@ -71,19 +71,19 @@ public class VaultFileServiceFlatTest extends AbstractVaultFileServiceTest
 		final byte[] value = {1,2,3};
 		final VaultFileService service = (VaultFileService)getService();
 
-		assertTrue(service.put("abcd", value, PUT_INFO));
+		assertTrue(service.put("abcd", value));
 		assertContains(root, temp, d);
 		assertContains(temp);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
 
-		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertFalse(service.put("abcd", value));
 		assertContains(root, temp, d);
 		assertContains(temp);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
 
-		assertTrue(service.put("abcf", value, PUT_INFO));
+		assertTrue(service.put("abcf", value));
 		assertContains(root, temp, d, f);
 		assertContains(temp);
 		assertTrue(d.isFile());

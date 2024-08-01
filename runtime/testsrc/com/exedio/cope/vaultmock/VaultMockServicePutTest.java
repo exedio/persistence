@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaulttest.VaultServiceTest;
 import java.io.IOException;
@@ -69,23 +68,21 @@ public class VaultMockServicePutTest extends VaultServiceTest
 			service.get(hash, sink);
 		}
 		@Override
-		public boolean put(@Nonnull final String hash, @Nonnull final byte[] value, @Nonnull final VaultPutInfo info)
+		public boolean put(@Nonnull final String hash, @Nonnull final byte[] value)
 		{
 			throw new AssertionFailedError(anonymiseHash(hash));
 		}
 		@Override
 		public boolean put(
 				@Nonnull final String hash,
-				@Nonnull final InputStream value,
-				@Nonnull final VaultPutInfo info)
+				@Nonnull final InputStream value)
 		{
 			throw new AssertionFailedError(anonymiseHash(hash));
 		}
 		@Override
 		public boolean put(
 				@Nonnull final String hash,
-				@Nonnull final Path value,
-				@Nonnull final VaultPutInfo info)
+				@Nonnull final Path value)
 		{
 			throw new AssertionFailedError(anonymiseHash(hash));
 		}
@@ -117,28 +114,26 @@ public class VaultMockServicePutTest extends VaultServiceTest
 				throw new AssertionFailedError(anonymiseHash(hash));
 			}
 			@Override
-			public boolean put(@Nonnull final String hash, @Nonnull final byte[] value, @Nonnull final VaultPutInfo info)
+			public boolean put(@Nonnull final String hash, @Nonnull final byte[] value)
 			{
 				assertFalse(closed);
-				return service.put(hash, value, info);
+				return service.put(hash, value);
 			}
 			@Override
 			public boolean put(
 					@Nonnull final String hash,
-					@Nonnull final InputStream value,
-					@Nonnull final VaultPutInfo info) throws IOException
+					@Nonnull final InputStream value) throws IOException
 			{
 				assertFalse(closed);
-				return service.put(hash, value, info);
+				return service.put(hash, value);
 			}
 			@Override
 			public boolean put(
 					@Nonnull final String hash,
-					@Nonnull final Path value,
-					@Nonnull final VaultPutInfo info) throws IOException
+					@Nonnull final Path value) throws IOException
 			{
 				assertFalse(closed);
-				return service.put(hash, value, info);
+				return service.put(hash, value);
 			}
 
 			private boolean closed = false;
@@ -158,7 +153,6 @@ public class VaultMockServicePutTest extends VaultServiceTest
 	{
 		final Properties result = new Properties();
 		result.setProperty("example", "exampleValue");
-		result.setProperty("assertInfoResilient", "false");
 		return result;
 	}
 

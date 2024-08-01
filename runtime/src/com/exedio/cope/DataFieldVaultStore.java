@@ -26,7 +26,6 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultResilientService;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
@@ -248,40 +247,6 @@ final class DataFieldVaultStore extends DataFieldStore
 		(result ? putInitialSize : putRedundantSize).increment(consumer.length());
 		trail.put(dialect, hash, consumer, field);
 	}
-
-	static final VaultPutInfo FAILURE_INFO = new VaultPutInfo()
-	{
-		@Override
-		public DataField getField()
-		{
-			throw new RuntimeException();
-		}
-		@Override
-		public String getFieldString()
-		{
-			throw new RuntimeException();
-		}
-		@Override
-		public Item getItem()
-		{
-			throw new RuntimeException();
-		}
-		@Override
-		public String getItemString()
-		{
-			throw new RuntimeException();
-		}
-		@Override
-		public String getOrigin()
-		{
-			throw new RuntimeException();
-		}
-		@Override
-		public String toString()
-		{
-			throw new RuntimeException();
-		}
-	};
 
 	@Override
 	String getBucket()

@@ -191,31 +191,31 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		final byte[] value = {};
 		assertDirectoryTraversal(
-				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value));
 		assertDirectoryTraversal(
-				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value));
 		assertDirectoryTraversal(
-				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value));
 	}
 	@Test final void directoryTraversalPutStream()
 	{
 		final InputStream value = new ByteArrayInputStream(new byte[]{});
 		assertDirectoryTraversal(
-				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value));
 		assertDirectoryTraversal(
-				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value));
 		assertDirectoryTraversal(
-				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value));
 	}
 	@Test final void directoryTraversalPutPath()
 	{
 		final Path value = Paths.get("AbstractVaultFileServiceTest");
 		assertDirectoryTraversal(
-				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value));
 		assertDirectoryTraversal(
-				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value));
 		assertDirectoryTraversal(
-				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value));
 	}
 	private static void assertDirectoryTraversal(
 			final String hash,

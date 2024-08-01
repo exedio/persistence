@@ -239,9 +239,7 @@ public class VaultFileToTrailTest
 	static String put(final byte[] value, final VaultFileService s)
 	{
 		final String hash = Hex.encodeLower(PROPERTIES.getAlgorithmFactory().digest(value));
-		s.put(hash, value, PUT_INFO);
+		s.put(hash, value);
 		return hash;
 	}
-
-	private static final VaultPutInfo PUT_INFO = new AssertionFailedVaultPutInfo();
 }

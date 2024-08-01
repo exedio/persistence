@@ -90,11 +90,11 @@ public class VaultFileServiceNotWriteableTest extends AbstractVaultFileServiceTe
 		final VaultFileService service = (VaultFileService)getService();
 		final String hash = hash("abcdef01234567");
 		assertTempNull(
-				() -> service.put(hash, new byte[]{1,2,3}, PUT_INFO));
+				() -> service.put(hash, new byte[]{1,2,3}));
 		assertTempNull(
-				() -> service.put(hash, new ByteArrayInputStream(new byte[]{1,2,3}), PUT_INFO));
+				() -> service.put(hash, new ByteArrayInputStream(new byte[]{1,2,3})));
 		assertTempNull(
-				() -> service.put(hash, Paths.get("putFails"), PUT_INFO));
+				() -> service.put(hash, Paths.get("putFails")));
 	}
 
 	private static void assertTempNull(final Executable executable)

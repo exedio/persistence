@@ -25,12 +25,14 @@ import java.net.UnknownHostException;
 import javax.annotation.Nullable;
 
 /**
- * Supplies additional information to put methods such as
- * {@link VaultService#put(String, byte[], VaultPutInfo)}.
+ * Did supply additional information to put methods such as
+ * {@link VaultService#put(String, byte[])}.
  * Implementations of {@link VaultService} may choose to
  * store this information for statistical purposes,
  * but no functionality should depend on it.
+ * @deprecated No longer used
  */
+@Deprecated
 public interface VaultPutInfo
 {
 	/**

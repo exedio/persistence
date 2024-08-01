@@ -94,7 +94,7 @@ public final class VaultServiceParameters
 
 	/**
 	 * If this method returns false, put methods such as
-	 * {@link VaultService#put(String, byte[], VaultPutInfo)}
+	 * {@link VaultService#put(String, byte[])}
 	 * will not be called.
 	 * This happens typically for {@link VaultReferenceService reference vaults}.
 	 */

@@ -22,7 +22,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
@@ -69,24 +68,24 @@ public final class VaultTransientService implements VaultService
 
 
 	@Override
-	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+	public boolean put(final String hash, final byte[] value)
 	{
 		requireNonNull(value);
 		return store.put(hash, value)==null;
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final InputStream value) throws IOException
 	{
-		return put(hash, value.readAllBytes(), info);
+		return put(hash, value.readAllBytes());
 	}
 
 	@Override
-	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value) throws IOException
 	{
 		try(InputStream s = Files.newInputStream(value))
 		{
-			return put(hash, s, info);
+			return put(hash, s);
 		}
 	}
 

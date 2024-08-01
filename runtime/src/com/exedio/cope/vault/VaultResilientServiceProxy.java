@@ -94,11 +94,10 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	}
 
 	@Override
-	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+	public boolean put(final String hash, final byte[] value)
 	{
 		requireHash(hash);
 		requireNonNull(value, "value");
-		requireNonNull(info, "info");
 		requireNonClosed();
 
 		if(isEmptyHash(hash))
@@ -109,35 +108,33 @@ final class VaultResilientServiceProxy implements VaultResilientService
 					"hash >" + anonymiseHash(hash) + "< put with empty value, " +
 					"but empty hash is >" + hashEmpty + '<');
 
-		return service.put(hash, value, PUT_INFO);
+		return service.put(hash, value);
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final InputStream value) throws IOException
 	{
 		requireHash(hash);
 		requireNonNull(value, "value");
-		requireNonNull(info, "info");
 		requireNonClosed();
 
 		if(isEmptyHash(hash))
 			return false;
 
-		return service.put(hash, value, PUT_INFO);
+		return service.put(hash, value);
 	}
 
 	@Override
-	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value) throws IOException
 	{
 		requireHash(hash);
 		requireNonNull(value, "value");
-		requireNonNull(info, "info");
 		requireNonClosed();
 
 		if(isEmptyHash(hash))
 			return false;
 
-		return service.put(hash, value, PUT_INFO);
+		return service.put(hash, value);
 	}
 
 	private void requireHash(@Nonnull final String hash)
@@ -160,8 +157,6 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	{
 		return hash.equals(hashEmpty);
 	}
-
-	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString("VaultResilientServicePutInfo");
 
 	@Override
 	public Object probeGenuineServiceKey(final String bucket) throws Exception

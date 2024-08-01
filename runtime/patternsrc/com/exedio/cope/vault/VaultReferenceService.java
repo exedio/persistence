@@ -85,7 +85,7 @@ public final class VaultReferenceService implements VaultService
 			final byte[] result = reference.get(hash);
 			logGetReference(hash);
 			if(copyReferenceToMain)
-				main.put(hash, result, PUT_INFO);
+				main.put(hash, result);
 			return result;
 		}
 	}
@@ -107,7 +107,7 @@ public final class VaultReferenceService implements VaultService
 			}
 
 			final Path temp = createTempFileFromReference(hash);
-			main.put(hash, temp, PUT_INFO);
+			main.put(hash, temp);
 			Files.copy(temp, sink);
 			delete(temp);
 		}
@@ -127,8 +127,6 @@ public final class VaultReferenceService implements VaultService
 		return result;
 	}
 
-	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString(VaultReferenceService.class.getName());
-
 	private void logGetReference(final String hash)
 	{
 		if(logger.isDebugEnabled())
@@ -139,21 +137,21 @@ public final class VaultReferenceService implements VaultService
 
 
 	@Override
-	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
+	public boolean put(final String hash, final byte[] value)
 	{
-		return main.put(hash, value, info);
+		return main.put(hash, value);
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final InputStream value) throws IOException
 	{
-		return main.put(hash, value, info);
+		return main.put(hash, value);
 	}
 
 	@Override
-	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value) throws IOException
 	{
-		return main.put(hash, value, info);
+		return main.put(hash, value);
 	}
 
 

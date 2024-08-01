@@ -25,24 +25,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.DataField;
-import com.exedio.cope.Item;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Constructor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
@@ -187,7 +180,7 @@ public abstract class VaultServiceTest
 	@Test final void putBytes() throws VaultNotFoundException
 	{
 		final String hash = hash("abcdef01234567");
-		assertTrue(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO));
+		assertTrue(servicePut.put(hash, unhex("abcdef01234567")));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 	}
@@ -196,17 +189,17 @@ public abstract class VaultServiceTest
 	{
 		markPut = true;
 		final String hash = hash("abcdef01234567");
-		assertTrue(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO));
+		assertTrue(servicePut.put(hash, unhex("abcdef01234567")));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 
-		assertFalse(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO));
+		assertFalse(servicePut.put(hash, unhex("abcdef01234567")));
 	}
 
 	@Test final void putBytesInfo() throws VaultNotFoundException
 	{
 		final String hash = hash("abcdef01234567");
-		assertTrue(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO_REGULAR));
+		assertTrue(servicePut.put(hash, unhex("abcdef01234567")));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 	}
@@ -215,7 +208,7 @@ public abstract class VaultServiceTest
 	{
 		final String hash = hash("abcdef01234567");
 		final ByteArrayInputStream value = new ByteArrayInputStream(unhex("abcdef01234567"));
-		assertTrue(servicePut.put(hash, value, PUT_INFO));
+		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 	}
@@ -225,19 +218,19 @@ public abstract class VaultServiceTest
 		markPut = true;
 		final String hash = hash("abcdef01234567");
 		final ByteArrayInputStream value = new ByteArrayInputStream(unhex("abcdef01234567"));
-		assertTrue(servicePut.put(hash, value, PUT_INFO));
+		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 
 		final ByteArrayInputStream value2 = new ByteArrayInputStream(unhex("abcdef01234567"));
-		assertFalse(servicePut.put(hash, value2, PUT_INFO));
+		assertFalse(servicePut.put(hash, value2));
 	}
 
 	@Test final void putStreamInfo() throws VaultNotFoundException, IOException
 	{
 		final String hash = hash("abcdef01234567");
 		final ByteArrayInputStream value = new ByteArrayInputStream(unhex("abcdef01234567"));
-		assertTrue(servicePut.put(hash, value, PUT_INFO_REGULAR));
+		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 	}
@@ -250,7 +243,7 @@ public abstract class VaultServiceTest
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(servicePut.put(hash, value, PUT_INFO));
+		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 	}
@@ -264,11 +257,11 @@ public abstract class VaultServiceTest
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(servicePut.put(hash, value, PUT_INFO));
+		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 
-		assertFalse(servicePut.put(hash, value, PUT_INFO));
+		assertFalse(servicePut.put(hash, value));
 	}
 
 	@Test final void putPathInfo() throws VaultNotFoundException, IOException
@@ -279,7 +272,7 @@ public abstract class VaultServiceTest
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(servicePut.put(hash, value, PUT_INFO_REGULAR));
+		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 	}
@@ -289,16 +282,16 @@ public abstract class VaultServiceTest
 		final String hash = hash("abcdef01234567");
 		final String hash2 = hash("0102abcdef01234567");
 
-		assertTrue(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO));
+		assertTrue(servicePut.put(hash, unhex("abcdef01234567")));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertNotFound(() -> service.get(hash2), hash2);
 
-		assertFalse(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO));
+		assertFalse(servicePut.put(hash, unhex("abcdef01234567")));
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertNotFound(() -> service.get(hash2), hash2);
 
-		assertTrue(servicePut.put(hash2, unhex("0102abcdef01234567"), PUT_INFO));
+		assertTrue(servicePut.put(hash2, unhex("0102abcdef01234567")));
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals("0102abcdef01234567", hex(service.get(hash2)));
 	}
@@ -318,7 +311,7 @@ public abstract class VaultServiceTest
 		assertNotNull(value);
 
 		final String hash = hash(value);
-		assertTrue(servicePut.put(hash, unhex(value), PUT_INFO));
+		assertTrue(servicePut.put(hash, unhex(value)));
 		return hash;
 	}
 
@@ -327,65 +320,6 @@ public abstract class VaultServiceTest
 		final VaultNotFoundException e =
 				assertThrows(VaultNotFoundException.class, executable);
 		assertEquals(hash, e.getHashComplete());
-	}
-
-	protected static final VaultPutInfo PUT_INFO = new VaultPutInfo()
-	{
-		@Override
-		public String getOrigin()
-		{
-			return null;
-		}
-		@Override
-		public String toString()
-		{
-			return "VaultServiceTest#PUT_INFO";
-		}
-	};
-
-	protected static final VaultPutInfo PUT_INFO_REGULAR = new VaultPutInfo()
-	{
-		@Override
-		public DataField getField()
-		{
-			return InfoItem.infoField;
-		}
-		@Override
-		public Item getItem()
-		{
-			try
-			{
-				final Constructor<ActivationParameters> constructor =
-						ActivationParameters.class.getDeclaredConstructor(Type.class, long.class);
-				constructor.setAccessible(true);
-				return new InfoItem(constructor.newInstance(InfoItem.TYPE, 556677));
-			}
-			catch(final ReflectiveOperationException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		@Override
-		public String getOrigin()
-		{
-			return "VaultServiceTest#PUT_INFO_REGULAR#origin";
-		}
-		@Override
-		public String toString()
-		{
-			return "VaultServiceTest#PUT_INFO_REGULAR";
-		}
-	};
-
-	// BEWARE: do not use instrumentor for this item and do not use instrumentor
-	// annotations in this java file, because it is copied to other projects
-	// which may not have an instrumentor available.
-	private static final class InfoItem extends Item
-	{
-		static final DataField infoField = new DataField();
-		private static final long serialVersionUID = 1l;
-		private static final Type<InfoItem> TYPE = TypesBound.newType(InfoItem.class, InfoItem::new);
-		private InfoItem(final ActivationParameters ap){super(ap);}
 	}
 
 	public static final class AssertionErrorOutputStream extends ByteArrayOutputStream
