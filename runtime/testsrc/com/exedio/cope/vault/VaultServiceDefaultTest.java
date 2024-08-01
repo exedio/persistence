@@ -33,7 +33,7 @@ public class VaultServiceDefaultTest
 		@SuppressWarnings("resource")
 		final VaultDefaultService s = new VaultDefaultService();
 		assertFails(
-				() -> s.probeGenuineServiceKey(null),
+				() -> s.probeBucketTag(null),
 				BucketTagNotSupported.class,
 				"not supported by com.exedio.cope.vault.VaultServiceDefaultTest$VaultDefaultService");
 	}

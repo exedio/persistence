@@ -92,9 +92,9 @@ public class VaultMockServicePutTest extends VaultServiceTest
 			service.close();
 		}
 		@Override
-		public Object probeGenuineServiceKey(final String bucket) throws Exception
+		public Object probeBucketTag(final String bucket) throws Exception
 		{
-			return service.probeGenuineServiceKey(bucket);
+			return service.probeBucketTag(bucket);
 		}
 	}
 
@@ -168,6 +168,6 @@ public class VaultMockServicePutTest extends VaultServiceTest
 	@Override
 	@Test protected void probeBucketTag() throws Exception
 	{
-		assertEquals("mock:default(my-Bucket)", getService().probeGenuineServiceKey("my-Bucket"));
+		assertEquals("mock:default(my-Bucket)", getService().probeBucketTag("my-Bucket"));
 	}
 }

@@ -159,13 +159,13 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	}
 
 	@Override
-	public Object probeGenuineServiceKey(final String bucket) throws Exception
+	public Object probeBucketTag(final String bucket) throws Exception
 	{
 		checkBucket(bucket, message ->
 				new IllegalArgumentException("bucket " + message));
 		requireNonClosed();
 
-		return service.probeGenuineServiceKey(bucket);
+		return service.probeBucketTag(bucket);
 	}
 
 	private void requireNonClosed()

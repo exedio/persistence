@@ -130,9 +130,9 @@ public final class VaultHttpService extends VaultNonWritableService
 
 	@Override
 	// Method signature shall NOT narrow down specification from VaultService to
-	//   URI probeGenuineServiceKey(String bucket) throws IOException
+	//   URI probeBucketTag(String bucket) throws IOException
 	// so we are free to change signature in the future without breaking API compatibility.
-	public Object probeGenuineServiceKey(final String bucket) throws Exception
+	public Object probeBucketTag(final String bucket) throws Exception
 	{
 		final URI uri = new URI(rootUri + '/' + VAULT_BUCKET_TAG + '/' + bucket);
 		final HttpResponse<Void> response = client.send(

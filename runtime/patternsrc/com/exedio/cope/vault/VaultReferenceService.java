@@ -156,9 +156,9 @@ public final class VaultReferenceService implements VaultService
 
 
 	@Override
-	public Object probeGenuineServiceKey(final String bucket) throws Exception
+	public Object probeBucketTag(final String bucket) throws Exception
 	{
-		final Object result = main.probeGenuineServiceKey(bucket);
+		final Object result = main.probeBucketTag(bucket);
 		REFERENCE(bucket);
 		return result;
 	}
@@ -168,7 +168,7 @@ public final class VaultReferenceService implements VaultService
 	 */
 	private void REFERENCE(final String bucket) throws Exception
 	{
-		reference.probeGenuineServiceKey(bucket);
+		reference.probeBucketTag(bucket);
 	}
 
 

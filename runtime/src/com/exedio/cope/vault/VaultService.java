@@ -100,10 +100,8 @@ public interface VaultService extends AutoCloseable
 
 	/**
 	 * Default implementation aborts the probe.
-	 * <p>
-	 * TODO rename to probeBucketTag.
 	 */
-	default Object probeGenuineServiceKey(@Nonnull final String bucket) throws Exception
+	default Object probeBucketTag(@Nonnull final String bucket) throws Exception
 	{
 		throw newProbeAborter("not supported by " + getClass().getName());
 	}
@@ -114,7 +112,7 @@ public interface VaultService extends AutoCloseable
 	}
 
 	/**
-	 * A string constant to be used in conjunction with {@link #probeGenuineServiceKey(String)}.
+	 * A string constant to be used in conjunction with {@link #probeBucketTag(String)}.
 	 * Could be used as file name, table name or url segment.
 	 */
 	String VAULT_BUCKET_TAG = "VaultBucketTag";

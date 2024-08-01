@@ -281,7 +281,7 @@ public class VaultResilientServiceProxyTest
 		s.close();
 		m.assertIt("close");
 		assertFails(
-				() -> s.probeGenuineServiceKey("my-Bucket"),
+				() -> s.probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
 				"closed");
 		m.assertIt("");
@@ -332,13 +332,13 @@ public class VaultResilientServiceProxyTest
 	}
 	@Test void probeBucketTag() throws Exception
 	{
-		assertEquals("mock:default(my-Bucket)", s.probeGenuineServiceKey("my-Bucket"));
+		assertEquals("mock:default(my-Bucket)", s.probeBucketTag("my-Bucket"));
 		m.assertIt("");
 	}
 	@Test void probeBucketTagNull()
 	{
 		assertFails(
-				() -> s.probeGenuineServiceKey(null),
+				() -> s.probeBucketTag(null),
 				NullPointerException.class,
 				"bucket");
 		m.assertIt("");
@@ -346,7 +346,7 @@ public class VaultResilientServiceProxyTest
 	@Test void probeBucketTagEmpty()
 	{
 		assertFails(
-				() -> s.probeGenuineServiceKey(""),
+				() -> s.probeBucketTag(""),
 				IllegalArgumentException.class,
 				"bucket must not be empty");
 		m.assertIt("");
@@ -354,7 +354,7 @@ public class VaultResilientServiceProxyTest
 	@Test void probeBucketTagCharSet()
 	{
 		assertFails(
-				() -> s.probeGenuineServiceKey("01234/6789"),
+				() -> s.probeBucketTag("01234/6789"),
 				IllegalArgumentException.class,
 				"bucket must contain just [---,0-9,A-Z,a-z], " +
 				"but was >01234/6789< containing a forbidden character at position 5");

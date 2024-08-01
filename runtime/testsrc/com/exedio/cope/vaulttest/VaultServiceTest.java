@@ -373,7 +373,7 @@ public abstract class VaultServiceTest
 	{
 		final Exception e = assertThrows(
 				Exception.class,
-				() -> servicePut.probeGenuineServiceKey("my-Bucket"));
+				() -> servicePut.probeBucketTag("my-Bucket"));
 		assertEquals("com.exedio.cope.vault.BucketTagNotSupported", e.getClass().getName());
 		assertEquals("not supported by " + servicePut.getClass().getName(), e.getMessage());
 	}

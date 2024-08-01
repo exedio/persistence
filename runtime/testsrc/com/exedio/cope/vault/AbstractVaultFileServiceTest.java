@@ -247,7 +247,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertProbeBucketTagFails();
 
 		Files.write(keyPath, new byte[]{});
-		assertEquals("deprecated: " + keyPath, getService().probeGenuineServiceKey("my-Bucket"));
+		assertEquals("deprecated: " + keyPath, getService().probeBucketTag("my-Bucket"));
 	}
 	@Test protected final void probeBucketTagNew() throws Exception
 	{
@@ -259,7 +259,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertProbeBucketTagFailsNew();
 
 		Files.write(keyPath, new byte[]{});
-		assertEquals(keyPath, getService().probeGenuineServiceKey("my-Bucket"));
+		assertEquals(keyPath, getService().probeBucketTag("my-Bucket"));
 	}
 	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
@@ -322,28 +322,28 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	private void assertProbeBucketTagFails(final String reason)
 	{
 		assertFails(
-				() -> getService().probeGenuineServiceKey("my-Bucket"),
+				() -> getService().probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
 				reason + ": " + getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "my-Bucket");
 	}
 	private void assertProbeBucketTagFailsNew(final String reason)
 	{
 		assertFails(
-				() -> getService().probeGenuineServiceKey("my-Bucket"),
+				() -> getService().probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
 				reason + ": " + getBucketTagRoot() + File.separator + "VaultBucketTag" + File.separator + "my-Bucket");
 	}
 	private void assertProbeBucketTagFails()
 	{
 		assertFails(
-				() -> getService().probeGenuineServiceKey("my-Bucket"),
+				() -> getService().probeBucketTag("my-Bucket"),
 				NoSuchFileException.class,
 				getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "my-Bucket");
 	}
 	private void assertProbeBucketTagFailsNew()
 	{
 		assertFails(
-				() -> getService().probeGenuineServiceKey("my-Bucket"),
+				() -> getService().probeBucketTag("my-Bucket"),
 				NoSuchFileException.class,
 				getBucketTagRoot() + File.separator + "VaultBucketTag" + File.separator + "my-Bucket");
 	}

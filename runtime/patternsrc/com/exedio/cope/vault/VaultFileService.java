@@ -291,9 +291,9 @@ public final class VaultFileService implements VaultService
 
 	@Override
 	// Method signature shall NOT narrow down specification from VaultService to
-	//   Path probeGenuineServiceKey(String bucket) throws IOException
+	//   Path probeBucketTag(String bucket) throws IOException
 	// so we are free to change signature in the future without breaking API compatibility.
-	public Object probeGenuineServiceKey(final String bucket) throws Exception
+	public Object probeBucketTag(final String bucket) throws Exception
 	{
 		@SuppressWarnings("deprecation") // OK: support deprecated directory
 		final Path oldDir = contentDir.resolve(VAULT_GENUINE_SERVICE_KEY);
