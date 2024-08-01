@@ -30,7 +30,7 @@ package com.exedio.cope.vault;
  *     {@link VaultProperties#getAlgorithmLength()}.</li>
  * <li>All methods with a parameter {@code VaultPutInfo info} ignore that value completely,
  *     except for the null check mentioned above.</li>
- * <li>Method {@link #probeGenuineServiceKey(String)} guarantees to fail with an {@link IllegalArgumentException},
+ * <li>Method {@link #probeBucketTag(String)} guarantees to fail with an {@link IllegalArgumentException},
  *     if parameter {@code bucket} is illegal according to {@link com.exedio.cope.vault.VaultProperties#checkBucket(String,  java.util.function.Function)}.</li>
  * <li>All methods (except {@link #close()}) guarantee to fail with an {@link IllegalStateException},
  *     if {@code close()} has been called on the same instance before.</li>

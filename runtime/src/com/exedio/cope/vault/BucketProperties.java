@@ -46,7 +46,7 @@ final class BucketProperties extends AbstractVaultProperties
 	{
 		try(VaultService s = service.newService(parent, bucket, () -> false))
 		{
-			return s.probeGenuineServiceKey(bucket);
+			return s.probeBucketTag(bucket);
 		}
 		catch(final BucketTagNotSupported e)
 		{

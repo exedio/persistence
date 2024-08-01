@@ -215,7 +215,7 @@ public final class VaultMockService implements VaultService
 	}
 
 	@Override
-	public String probeGenuineServiceKey(final String bucket) throws Exception
+	public String probeBucketTag(final String bucket) throws Exception
 	{
 		final String matcher = serviceProperties.bucketTagAction;
 		final String result = matcher.equals(bucket) ? matcher : (matcher + "(" + bucket + ")");
