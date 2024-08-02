@@ -1,10 +1,10 @@
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import org.junit.jupiter.api.Test;
 
 public class InConditionTest
