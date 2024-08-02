@@ -18,6 +18,7 @@
 
 package com.exedio.cope.tojunit;
 
+import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,9 +33,11 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Transaction;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -458,6 +461,22 @@ public final class Assert
 		for(final QueryInfo info : infos)
 			info.print(System.out);
 		return result;
+	}
+
+	public static List<String> readAllLines(final ByteArrayOutputStream out) throws IOException
+	{
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(out.toByteArray()), US_ASCII)))
+		{
+			final List<String> result = new ArrayList<>();
+			while(true)
+			{
+				final String line = reader.readLine();
+				if(line==null)
+					break;
+				result.add(line);
+			}
+			return result;
+		}
 	}
 
 
