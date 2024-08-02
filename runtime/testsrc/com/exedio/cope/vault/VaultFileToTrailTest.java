@@ -19,6 +19,7 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.Assert.readAllLines;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.vault.VaultFileToTrail.mainInternal;
@@ -31,18 +32,14 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultFileToTrail.HumanReadableException;
 import com.exedio.cope.vaultmock.VaultMockService;
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.FileTime;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -207,22 +204,6 @@ public class VaultFileToTrailTest
 	}
 
 	private static final int HEADER_END = 5;
-
-	static List<String> readAllLines(final ByteArrayOutputStream out) throws IOException
-	{
-		try(BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(out.toByteArray()), US_ASCII)))
-		{
-			final List<String> result = new ArrayList<>();
-			while(true)
-			{
-				final String line = reader.readLine();
-				if(line==null)
-					break;
-				result.add(line);
-			}
-			return result;
-		}
-	}
 
 	private static final VaultProperties PROPERTIES =
 			VaultProperties.factory().create(cascade(

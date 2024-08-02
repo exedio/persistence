@@ -18,7 +18,7 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.vault.VaultFileToTrailTest.readAllLines;
+import static com.exedio.cope.tojunit.Assert.readAllLines;
 import static com.exedio.cope.vault.VaultJdbcToServiceErrorTest.writeProperties;
 import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.US_ASCII;

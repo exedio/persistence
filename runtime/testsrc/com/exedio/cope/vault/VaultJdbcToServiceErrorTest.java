@@ -19,7 +19,7 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static com.exedio.cope.vault.VaultFileToTrailTest.readAllLines;
+import static com.exedio.cope.tojunit.Assert.readAllLines;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
