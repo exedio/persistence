@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
@@ -34,6 +34,9 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.misc.Holder;
 import com.exedio.cope.util.ServiceProperties;
+import com.exedio.cope.vault.VaultNotFoundException;
+import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static java.lang.Integer.parseInt;
 import static java.nio.charset.StandardCharsets.US_ASCII;
@@ -25,6 +25,7 @@ import static java.time.ZoneOffset.UTC;
 import com.exedio.cope.transientvault.VaultTransientService;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.vault.VaultProperties;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serial;
@@ -42,7 +43,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * You may generate a csv file for importing into the database calling:
  * <pre>
- *    java -cp exedio-cope.jar:exedio-cope-util.jar com.exedio.cope.vault.VaultFileToTrail &lt;root-dir&gt; &gt; vault-trail.csv
+ *    java -cp exedio-cope.jar:exedio-cope-util.jar com.exedio.filevault.VaultFileToTrail &lt;root-dir&gt; &gt; vault-trail.csv
  * </pre>
  * You may import the csv on MySQL into a table like this:
  * <pre>
@@ -192,7 +193,7 @@ public final class VaultFileToTrail
 	}
 
 	/**
-	 * Must be consistent to {@link ContractProbe}.
+	 * Must be consistent to {@code ContractProbe}.
 	 */
 	private static final String CONTRACT_PROBE_PREFIX = "Test file for " + VaultProperties.class.getName() + "#probe ";
 

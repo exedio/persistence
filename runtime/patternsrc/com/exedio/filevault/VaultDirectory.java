@@ -16,10 +16,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 
+import com.exedio.cope.vault.VaultServiceParameters;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
