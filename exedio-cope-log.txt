@@ -12,8 +12,8 @@ The items are sorted inversely, i.e. the latest items are on top.
 	- put methods drop 3rd parameter VaultPutInfo info
 	- probeGenuineServiceKey renamed to probeBucketTag
 	This breaks backwards API compatibility, may cause compiler errors.
-	You MUST update copevault and/or servletvault (if present in your project)
-	to revisions not yet available.
+	You MUST update (if present in your project) copevault to rev>=143
+	and servletvault to rev>=74.
 * Vault Trails MUST be complete.
 	From now on, DataField#getLength relies on the corresponding Vault Trail.
 	Check in COPE Console tab "Data Vault Trail".
