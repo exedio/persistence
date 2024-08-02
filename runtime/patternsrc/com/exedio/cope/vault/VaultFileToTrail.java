@@ -79,12 +79,15 @@ public final class VaultFileToTrail
 			throw new HumanReadableException(
 					"bucket must be specified as second parameter");
 
-		final TrailProperties defaultProvider =
-				new TrailProperties(Sources.EMPTY);
 		main(out, err,
 				Paths.get(args[0]),
 				args[1],
-				args.length>2 ? parseInt(args[2]) : defaultProvider.startLimit);
+				args.length>2 ? parseInt(args[2]) : startLimitDefault());
+	}
+
+	private static int startLimitDefault()
+	{
+		return new TrailProperties(Sources.EMPTY).startLimit;
 	}
 
 	@SuppressWarnings("ConfusingMainMethod")
