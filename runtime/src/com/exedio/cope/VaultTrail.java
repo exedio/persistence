@@ -84,7 +84,7 @@ final class VaultTrail
 		hash    = trimmer.trimString("hash");
 		hashPK  = trimmer.trimString(table + "_PK");
 		length  = trimmer.trimString("length");
-		start   = trimmer.trimString("start" + startLimit); // TODO use for StartsWithCondition
+		start   = trimmer.trimString("start" + startLimit);
 		markPut = trimmer.trimString("markPut");
 		date    = trimmer.trimString("date");
 		field   = trimmer.trimString("field");
