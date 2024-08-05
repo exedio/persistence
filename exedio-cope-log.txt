@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* exedio-cope-instrument-annotations.jar is now available via a new Ivy configuration
+  "instrument-annotations".
+  You can now do the following:
+  - add "instrument-annotations" to "compile-annotations" ivy configuration
+  - remove any hard reference to
+    "lib/instrument/exedio-cope-instrument-annotations.jar" from your build process
 * VaultService interface modified.
 	- getLength(String hash) dropped
 	- put methods drop 3rd parameter VaultPutInfo info

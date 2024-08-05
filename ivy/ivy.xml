@@ -21,7 +21,8 @@
 		<conf name="servlet" extends="runtime" />
 		<conf name="idea" />
 		<conf name="completion" description="For fetching exedio-cope-instrument-completion.jar" />
-		<conf name="instrument" extends="runtime" />
+		<conf name="instrument-annotations" />
+		<conf name="instrument" extends="runtime,instrument-annotations" />
 		<conf visibility="private" name="ant" />
 		<conf visibility="private" name="ant-contrib" />
 		<conf visibility="private" name="ivy" />
@@ -51,7 +52,7 @@
 		<artifact name="exedio-cope-postgresql" conf="postgresql" />
 		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
 		<artifact name="exedio-cope" conf="changelog" type="log" ext="txt" />
-		<artifact name="exedio-cope-instrument-annotations" conf="instrument" />
+		<artifact name="exedio-cope-instrument-annotations" conf="instrument-annotations" />
 		<artifact name="exedio-cope-instrument" conf="instrument" />
 		<artifact name="exedio-cope-instrument-completion" conf="completion" />
 	</publications>
