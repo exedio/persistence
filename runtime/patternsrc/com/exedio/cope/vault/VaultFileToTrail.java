@@ -32,6 +32,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -201,11 +202,13 @@ public final class VaultFileToTrail
 						throw new IllegalStateException(result + "/" + start.length + '/' + file.toAbsolutePath());
 				}
 
+				final Instant lastModified = Files.getLastModifiedTime(file).toInstant();
 				out.println(
 						"\"" + directoryHashes + filename + "\",\"" +
 						length + "\",\"" +
 						Hex.encodeLower(start) + "\",\"" +
-						dateFormatter.format(LocalDateTime.ofInstant(Files.getLastModifiedTime(file).toInstant(), UTC)) + "\"");
+						lastModified.getEpochSecond() + "\",\"" +
+						dateFormatter.format(LocalDateTime.ofInstant(lastModified, UTC)) + "\"");
 				return FileVisitResult.CONTINUE;
 			}
 		});
