@@ -63,7 +63,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	private boolean posixAvailable;
 
 	protected final TemporaryFolder files = new TemporaryFolder();
-	private final LogRule log = new LogRule(VaultFileService.class);
+	protected final LogRule log = new LogRule(VaultFileService.class);
 
 	@Override
 	protected Properties getServiceProperties() throws IOException
