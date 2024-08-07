@@ -148,9 +148,6 @@ public class VaultMockService implements VaultService
 
 		assertEquals(true, writable, "writable");
 
-		if(serviceProperties.failPut)
-			throw new IllegalStateException("deliberately fail in VaultMockService#put");
-
 		return store.put(hash, Hex.encodeLower(value))==null;
 	}
 
@@ -234,7 +231,6 @@ public class VaultMockService implements VaultService
 	public static final class Props extends Properties
 	{
 		public final String example = value("example", "exampleDefault");
-		final boolean failPut = value("fail.put", false);
 		final String probeResult = value("probe.result", "probeMockResult");
 		final String bucketTagAction = value("bucketTagAction", "default");
 
