@@ -128,18 +128,25 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultMockService.class),
-						single("default.service.fail.put", true)
+						single("default.service", FailPutService.class)
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
 				() -> probe(props),
 				IllegalStateException.class,
-				"deliberately fail in VaultMockService#put");
+				"deliberately fail in FailPutService#put");
 		assertFails(
 				() -> probeDeprecated(props),
 				IllegalStateException.class,
-				"deliberately fail in VaultMockService#put");
+				"deliberately fail in FailPutService#put");
+	}
+	private static final class FailPutService extends VaultMockService
+	{
+		private FailPutService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public boolean put(final String hash, final byte[] value)
+		{
+			throw new IllegalStateException("deliberately fail in FailPutService#put");
+		}
 	}
 	private static Object probe(final VaultProperties p) throws Exception
 	{
