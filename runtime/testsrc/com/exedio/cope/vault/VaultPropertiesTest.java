@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.junit.AssertionErrorVaultService;
@@ -146,6 +147,119 @@ public class VaultPropertiesTest
 		@Override public boolean put(final String hash, final byte[] value)
 		{
 			throw new IllegalStateException("deliberately fail in FailPutService#put");
+		}
+	}
+	@Test void probeFailGetNotFound()
+	{
+		final VaultProperties props =
+				factory.create(single("default.service", FailGetNotFoundService.class));
+		assertFails(
+				() -> probe(props),
+				RuntimeException.class,
+				"FailGetNotFoundService:exampleDefault: " +
+				"get should have thrown VaultNotFoundException, but got 010203");
+		assertFails(
+				() -> probeDeprecated(props),
+				RuntimeException.class,
+				"FailGetNotFoundService:exampleDefault: " +
+				"get should have thrown VaultNotFoundException, but got 010203");
+	}
+	private static final class FailGetNotFoundService extends VaultMockService
+	{
+		private FailGetNotFoundService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public byte[] get(final String hash)
+		{
+			return new byte[]{1,2,3};
+		}
+	}
+	@Test void probeFailGetNotFoundNonMatch()
+	{
+		final VaultProperties props =
+				factory.create(single("default.service", FailGetNotFoundNonMatchService.class));
+		final RuntimeException e = assertThrows(
+				RuntimeException.class,
+				() -> probe(props));
+		assertMatches(
+				"FailGetNotFoundNonMatchService:exampleDefault: " +
+				"VaultNotFoundException should have matching hash " +
+				"[0-9a-f]{16}xx128 vs\\. 334455",
+				e.getMessage());
+	}
+	private static final class FailGetNotFoundNonMatchService extends VaultMockService
+	{
+		private FailGetNotFoundNonMatchService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public byte[] get(final String hash) throws VaultNotFoundException
+		{
+			throw new VaultNotFoundException("334455");
+		}
+	}
+	@Test void probeFailPutResult()
+	{
+		final VaultProperties props =
+				factory.create(single("default.service", FailPutNotFoundService.class));
+		assertFails(
+				() -> probe(props),
+				RuntimeException.class,
+				"FailPutNotFoundService:exampleDefault: " +
+				"put should have returned true");
+		assertFails(
+				() -> probeDeprecated(props),
+				RuntimeException.class,
+				"FailPutNotFoundService:exampleDefault: " +
+				"put should have returned true");
+	}
+	private static final class FailPutNotFoundService extends VaultMockService
+	{
+		private FailPutNotFoundService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public boolean put(final String hash, final byte[] valuue)
+		{
+			return false;
+		}
+	}
+	@Test void probeFailGetMissing()
+	{
+		final VaultProperties props =
+				factory.create(single("default.service", FailGetMissingService.class));
+		assertFails(
+				() -> probe(props),
+				RuntimeException.class,
+				"FailGetMissingService:exampleDefault: " +
+				"get should have returned value");
+		assertFails(
+				() -> probeDeprecated(props),
+				RuntimeException.class,
+				"FailGetMissingService:exampleDefault: " +
+				"get should have returned value");
+	}
+	private static final class FailGetMissingService extends VaultMockService
+	{
+		private FailGetMissingService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public byte[] get(final String hash) throws VaultNotFoundException
+		{
+			super.get(hash);
+			throw new VaultNotFoundException("778899");
+		}
+	}
+	@Test void probeFailGetMismatch()
+	{
+		final VaultProperties props =
+				factory.create(single("default.service", FailGetMismatchService.class));
+		final RuntimeException e = assertThrows(
+				RuntimeException.class,
+				() -> probe(props));
+		assertMatches(
+				"FailGetMismatchService:exampleDefault: " +
+				"get should have returned matching value " +
+				"[0-9a-f]*\\.\\.\\.\\([0-9]*\\) vs\\. 040506",
+				e.getMessage());
+	}
+	private static final class FailGetMismatchService extends VaultMockService
+	{
+		private FailGetMismatchService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public byte[] get(final String hash) throws VaultNotFoundException
+		{
+			super.get(hash);
+			return new byte[]{4,5,6};
 		}
 	}
 	private static Object probe(final VaultProperties p) throws Exception
