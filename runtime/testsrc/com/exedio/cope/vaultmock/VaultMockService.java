@@ -45,7 +45,7 @@ import java.util.Map;
 import java.util.function.BooleanSupplier;
 
 @ServiceProperties(VaultMockService.Props.class)
-public final class VaultMockService implements VaultService
+public class VaultMockService implements VaultService
 {
 	private final LinkedHashMap<String, String> store = new LinkedHashMap<>();
 	private final StringBuilder history = new StringBuilder();
@@ -56,7 +56,7 @@ public final class VaultMockService implements VaultService
 	public final BooleanSupplier requiresToMarkPut;
 	private boolean closed = false;
 
-	private VaultMockService(
+	protected VaultMockService(
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
@@ -117,9 +117,6 @@ public final class VaultMockService implements VaultService
 	{
 		assertHash(hash);
 		assertFalse(closed);
-
-		if(serviceProperties.failGet)
-			throw new IllegalStateException("deliberately fail in VaultMockService#get");
 
 		final String hex = store.get(hash);
 		if(hex==null)
@@ -237,7 +234,6 @@ public final class VaultMockService implements VaultService
 	public static final class Props extends Properties
 	{
 		public final String example = value("example", "exampleDefault");
-		final boolean failGet = value("fail.get", false);
 		final boolean failPut = value("fail.put", false);
 		final String probeResult = value("probe.result", "probeMockResult");
 		final String bucketTagAction = value("bucketTagAction", "default");
