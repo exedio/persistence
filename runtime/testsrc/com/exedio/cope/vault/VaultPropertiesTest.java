@@ -104,18 +104,25 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultMockService.class),
-						single("default.service.fail.get", true)
+						single("default.service", FailGetService.class)
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
 				() -> probe(props),
 				IllegalStateException.class,
-				"deliberately fail in VaultMockService#get");
+				"deliberately fail in FailGetService#get");
 		assertFails(
 				() -> probeDeprecated(props),
 				IllegalStateException.class,
-				"deliberately fail in VaultMockService#get");
+				"deliberately fail in FailGetService#get");
+	}
+	private static final class FailGetService extends VaultMockService
+	{
+		private FailGetService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public byte[] get(final String hash)
+		{
+			throw new IllegalStateException("deliberately fail in FailGetService#get");
+		}
 	}
 	@Test void probeFailPut()
 	{
