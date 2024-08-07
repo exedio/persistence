@@ -19,6 +19,7 @@
 package com.exedio.cope.vault;
 
 import static java.lang.Integer.parseInt;
+import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.time.ZoneOffset.UTC;
 
 import com.exedio.cope.util.CharSet;
@@ -36,7 +37,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * You may generate a csv file for importing into the database calling:
@@ -138,6 +141,9 @@ public final class VaultFileToTrail
 
 		final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
 
+		final byte[] probePrefix = truncate(CONTRACT_PROBE_PREFIX, startLimit).getBytes(US_ASCII);
+		final AtomicLong probes = new AtomicLong(0);
+
 		Files.walkFileTree(root, new SimpleFileVisitor<>()
 		{
 			private final ArrayList<String> previousHashes = new ArrayList<>();
@@ -202,6 +208,15 @@ public final class VaultFileToTrail
 						throw new IllegalStateException(result + "/" + start.length + '/' + file.toAbsolutePath());
 				}
 
+				{
+					final int l = Math.min(probePrefix.length, start.length);
+					if(Arrays.equals(probePrefix, 0, l, start, 0, l))
+					{
+						probes.incrementAndGet();
+						return FileVisitResult.CONTINUE;
+					}
+				}
+
 				final Instant lastModified = Files.getLastModifiedTime(file).toInstant();
 				out.println(
 						"\"" + directoryHashes + filename + "\",\"" +
@@ -212,6 +227,7 @@ public final class VaultFileToTrail
 				return FileVisitResult.CONTINUE;
 			}
 		});
+		err.println("Skipped contract probes: " + probes);
 	}
 
 	static final class HumanReadableException extends Exception
@@ -221,6 +237,16 @@ public final class VaultFileToTrail
 			super(message);
 		}
 		private static final long serialVersionUID = 1l;
+	}
+
+	/**
+	 * Must be consistent to {@link ContractProbe}.
+	 */
+	private static final String CONTRACT_PROBE_PREFIX = "Test file for " + VaultProperties.class.getName() + "#probe ";
+
+	private static String truncate(final String s, final int limit)
+	{
+		return s.length()>limit ? s.substring(0, limit) : s;
 	}
 
 	private VaultFileToTrail()
