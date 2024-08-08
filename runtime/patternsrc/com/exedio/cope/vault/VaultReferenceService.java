@@ -84,11 +84,11 @@ public final class VaultReferenceService implements VaultService
 		{
 			try
 			{
-			final byte[] result = reference.get(hash);
-			logGetReference(hash);
-			if(copyReferenceToMain)
-				main.put(hash, result);
-			return result;
+				final byte[] result = reference.get(hash);
+				logGetReference(hash);
+				if(copyReferenceToMain)
+					main.put(hash, result);
+				return result;
 			}
 			catch(final Exception e)
 			{
@@ -109,17 +109,17 @@ public final class VaultReferenceService implements VaultService
 		{
 			try
 			{
-			if(!copyReferenceToMain)
-			{
-				reference.get(hash, sink);
-				logGetReference(hash);
-				return;
-			}
+				if(!copyReferenceToMain)
+				{
+					reference.get(hash, sink);
+					logGetReference(hash);
+					return;
+				}
 
-			final Path temp = createTempFileFromReference(hash);
-			main.put(hash, temp);
-			Files.copy(temp, sink);
-			delete(temp);
+				final Path temp = createTempFileFromReference(hash);
+				main.put(hash, temp);
+				Files.copy(temp, sink);
+				delete(temp);
 			}
 			catch(final Exception e)
 			{
