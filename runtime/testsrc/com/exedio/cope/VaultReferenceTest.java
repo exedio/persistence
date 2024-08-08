@@ -38,6 +38,7 @@ import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.IOException;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -218,6 +219,7 @@ public class VaultReferenceTest
 		assertEquals(HASH1, cause.getHashComplete());
 		assertEquals(HASH1A, cause.getHashAnonymous());
 		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
+		assertEquals(List.of(), List.of(cause.getSuppressed()));
 
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
@@ -245,6 +247,7 @@ public class VaultReferenceTest
 		assertEquals(HASH1, cause.getHashComplete());
 		assertEquals(HASH1A, cause.getHashAnonymous());
 		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
+		assertEquals(List.of(), List.of(cause.getSuppressed()));
 
 		main.assertIt("getStream");
 		refr.assertIt("getStream");
