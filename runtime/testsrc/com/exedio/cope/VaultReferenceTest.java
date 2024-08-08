@@ -22,6 +22,7 @@ import static com.exedio.cope.VaultTest.HASH1;
 import static com.exedio.cope.VaultTest.HASH1A;
 import static com.exedio.cope.VaultTest.MODEL;
 import static com.exedio.cope.VaultTest.VALUE1;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -29,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
@@ -208,30 +208,24 @@ public class VaultReferenceTest
 		main.assertIt("");
 		refr.assertIt("");
 
-		try
-		{
-			item.getFieldBytes();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"vault data missing on " + item + " for VaultItem.field, " +
-					"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
-					"hash(SHA-512): " + HASH1A,
-					e.getMessage());
-			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHashComplete());
-			assertEquals(HASH1A, cause.getHashAnonymous());
-			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
-		}
+		final IllegalStateException e = assertFails(
+				item::getFieldBytes,
+				IllegalStateException.class,
+				"vault data missing on " + item + " for VaultItem.field, " +
+				"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
+				"hash(SHA-512): " + HASH1A);
+		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
+		assertEquals(HASH1, cause.getHashComplete());
+		assertEquals(HASH1A, cause.getHashAnonymous());
+		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
+
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
 
 		log.assertEmpty();
 	}
 
-	@Test void notFoundGetStream() throws IOException
+	@Test void notFoundGetStream()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -241,23 +235,17 @@ public class VaultReferenceTest
 		main.assertIt("");
 		refr.assertIt("");
 
-		try
-		{
-			item.getFieldStream();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"vault data missing on " + item + " for VaultItem.field, " +
-					"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
-					"hash(SHA-512): " + HASH1A,
-					e.getMessage());
-			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHashComplete());
-			assertEquals(HASH1A, cause.getHashAnonymous());
-			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
-		}
+		final IllegalStateException e = assertFails(
+				item::getFieldStream,
+				IllegalStateException.class,
+				"vault data missing on " + item + " for VaultItem.field, " +
+				"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
+				"hash(SHA-512): " + HASH1A);
+		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
+		assertEquals(HASH1, cause.getHashComplete());
+		assertEquals(HASH1A, cause.getHashAnonymous());
+		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
+
 		main.assertIt("getStream");
 		refr.assertIt("getStream");
 
