@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
+import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -103,7 +104,6 @@ public class StringConditionOfflineTest
 		assertFails(() -> f.  containsIgnoreCase(null), NullPointerException.class, null);
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testRegexp()
 	{
 		final StringField f = new StringField();
@@ -127,7 +127,7 @@ public class StringConditionOfflineTest
 		assertFails(
 				() -> f.regexpLike("[A-"),
 				PatternSyntaxException.class,
-				"Illegal/unsupported escape sequence near index 10\n(?s)\\A[A-\\z\n          ^"
+				"Illegal/unsupported escape sequence near index 10" + lineSeparator() + "(?s)\\A[A-\\z" + lineSeparator() + "          ^"
 		);
 	}
 }
