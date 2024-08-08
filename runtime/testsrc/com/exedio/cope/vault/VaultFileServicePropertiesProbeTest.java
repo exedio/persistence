@@ -107,8 +107,11 @@ public class VaultFileServicePropertiesProbeTest
 				"root.Exists",
 				"root.Free",
 				"content.Exists",
+				"AtomicMove",
 				"PosixGroup",
 				"directory.Premised",
+				"directory.AtomicMove",
+				"directory.AtomicMoveEmpty",
 				"directory.PosixGroup",
 				"temp.Exists",
 				"temp.Store"),
@@ -121,6 +124,9 @@ public class VaultFileServicePropertiesProbeTest
 		final Callable<?> contExists = probes.get("content.Exists");
 		final Callable<?> tempExists = probes.get("temp.Exists");
 		final Callable<?> tempStore  = probes.get("temp.Store");
+		final Callable<?> moveFile   = probes.get("AtomicMove");
+		final Callable<?> moveDir    = probes.get("directory.AtomicMove");
+		final Callable<?> moveDirE   = probes.get("directory.AtomicMoveEmpty");
 
 		assertFails(
 				groupd::call,
@@ -176,6 +182,9 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(root.toPath(), contExists.call());
 		assertEquals(temp.toPath(), tempExists.call());
 		assertEquals(store, tempStore.call());
+		assertNull(moveFile.call());
+		assertNull(moveDir .call());
+		assertNull(moveDirE.call());
 	}
 
 	@Test void probeContent() throws Exception
@@ -214,8 +223,11 @@ public class VaultFileServicePropertiesProbeTest
 						"root.Exists",
 						"root.Free",
 						"content.Exists",
+						"AtomicMove",
 						"PosixGroup",
 						"directory.Premised",
+						"directory.AtomicMove",
+						"directory.AtomicMoveEmpty",
 						"directory.PosixGroup",
 						"temp.Exists",
 						"temp.Store"),
@@ -316,8 +328,11 @@ public class VaultFileServicePropertiesProbeTest
 				"root.Exists",
 				"root.Free",
 				"content.Exists",
+				"AtomicMove",
 				"PosixGroup",
 				"directory.Premised",
+				"directory.AtomicMove",
+				"directory.AtomicMoveEmpty",
 				"directory.PosixGroup",
 				"temp.Exists",
 				"temp.Store"),
@@ -329,6 +344,9 @@ public class VaultFileServicePropertiesProbeTest
 		final Callable<?> contExists = probes.get("content.Exists");
 		final Callable<?> tempExists = probes.get("temp.Exists");
 		final Callable<?> tempStore  = probes.get("temp.Store");
+		final Callable<?> moveFile   = probes.get("AtomicMove");
+		final Callable<?> moveDir    = probes.get("directory.AtomicMove");
+		final Callable<?> moveDirE   = probes.get("directory.AtomicMoveEmpty");
 
 		assertFails(
 				groupd::call,
@@ -356,6 +374,18 @@ public class VaultFileServicePropertiesProbeTest
 				"not writable");
 		assertFails(
 				tempStore::call,
+				ProbeAbortedException.class,
+				"not writable");
+		assertFails(
+				moveFile::call,
+				ProbeAbortedException.class,
+				"not writable");
+		assertFails(
+				moveDir::call,
+				ProbeAbortedException.class,
+				"not writable");
+		assertFails(
+				moveDirE::call,
 				ProbeAbortedException.class,
 				"not writable");
 
@@ -722,6 +752,36 @@ public class VaultFileServicePropertiesProbeTest
 	private static final List<String> HEX_DIGITS = List.of(
 			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
+
+	@Test void probePremisedAtomic() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("directory.premised", true)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(true, p.directory.premised);
+		final Map<String,Callable<?>> probes = probes(p);
+		final Callable<?> moveFile   = probes.get("AtomicMove");
+		final Callable<?> moveDir    = probes.get("directory.AtomicMove");
+		final Callable<?> moveDirE   = probes.get("directory.AtomicMoveEmpty");
+
+		assertFails(
+				moveDir::call,
+				ProbeAbortedException.class,
+				"directories are premised");
+		assertFails(
+				moveDirE::call,
+				ProbeAbortedException.class,
+				"directories are premised");
+
+		createDirectory(root.toPath());
+		createDirectory(p.tempDir());
+		assertNull(moveFile.call());
+	}
 
 	@Test void probeGroups() throws Exception
 	{

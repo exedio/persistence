@@ -56,6 +56,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Stream;
+import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -224,7 +225,7 @@ public final class VaultFileService implements VaultService
 		// Files#move does NOT throw any exception.
 		// It does throw a FileAlreadyExistsException, if the ATOMIC_MOVE is removed.
 		// But we need the ATOMIC_MOVE for data consistency.
-		// Tested in VaultFileServiceTest#raceConditionPutFile.
+		// Tested in properties probe AtomicMove and VaultFileServiceTest#raceConditionPutFile.
 		Files.move(temp, file, ATOMIC_MOVE);
 		return true;
 	}
@@ -242,11 +243,11 @@ public final class VaultFileService implements VaultService
 		createDirectoryIfNotExistsPrelude.get().accept(dir);
 		try
 		{
-			Files.move(temp, dir, ATOMIC_MOVE); // succeeds if dir is empty, see VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryEmpty
+			Files.move(temp, dir, ATOMIC_MOVE); // succeeds if dir is empty, see properties probe directory.AtomicMoveEmpty and VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryEmpty
 		}
 		catch(final FileSystemException e)
 		{
-			// happens only if dir is no longer empty, see VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryNonEmpty
+			// happens only if dir is no longer empty, see properties probe directory.AtomicMove and VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryNonEmpty
 			logger.error("concurrent directory creation (should happen rarely)", e); // may be just warn
 		}
 	}
@@ -520,6 +521,84 @@ public final class VaultFileService implements VaultService
 				throw newProbeAbortedException("directories disabled");
 
 			return directory;
+		}
+
+		@Probe(name="AtomicMove", order=305)
+		private void probeMoveFile() throws IOException, ProbeAbortedException
+		{
+			final Path tempDir = tempDirForProbe();
+
+			final var attrs = asFileAttributes(EnumSet.of(OWNER_READ, OWNER_WRITE));
+			final Path source = Files.createTempFile(tempDir, "probeMoveSource", ".tmp", attrs);
+			final Path target = Files.createTempFile(tempDir, "probeMoveTarget", ".tmp", attrs);
+
+			Files.move(source, target, ATOMIC_MOVE); // VaultFileServiceTest#raceConditionPutFile
+			if(Files.exists(source))
+				throw new IllegalArgumentException(
+						"Files.move(source, target, ATOMIC_MOVE) left source: " +
+						source.toAbsolutePath());
+
+			Files.delete(target);
+		}
+
+		@Probe(name="directory.AtomicMove", order=415)
+		private void probeMoveDirectory() throws IOException, ProbeAbortedException
+		{
+			final var f = probeMoveDirectoryFixture();
+			final Path targetFile = Files.createFile(f.target.resolve("fileInSource"));
+
+			try
+			{
+				Files.move(f.source, f.target, ATOMIC_MOVE);
+			}
+			catch(final FileSystemException e)
+			{
+				// VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryNonEmpty
+				Files.delete(targetFile);
+				Files.delete(f.target);
+				Files.delete(f.source);
+				return;
+			}
+			throw new IllegalArgumentException(
+					"Files.move(source, target, ATOMIC_MOVE) should have failed");
+		}
+
+		@Probe(name="directory.AtomicMoveEmpty", order=416)
+		private void probeMoveDirectoryEmpty() throws IOException, ProbeAbortedException
+		{
+			final var f = probeMoveDirectoryFixture();
+
+			Files.move(f.source, f.target, ATOMIC_MOVE); // VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryEmpty
+			if(Files.exists(f.source))
+				throw new IllegalArgumentException(
+						"Files.move(source, target, ATOMIC_MOVE) left source: " +
+						f.source.toAbsolutePath());
+
+			Files.delete(f.target);
+		}
+
+		@Nonnull private MoveDirectoryFixture probeMoveDirectoryFixture() throws IOException, ProbeAbortedException
+		{
+			final Path tempDir = tempDirForProbe();
+			if(directoryForProbe().premised)
+				throw newProbeAbortedException("directories are premised");
+
+			final var attrs = asFileAttributes(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE));
+			return new MoveDirectoryFixture(
+					Files.createTempDirectory(tempDir, "probeMoveSource", attrs),
+					Files.createTempDirectory(tempDir, "probeMoveTarget", attrs));
+		}
+
+		private static final class MoveDirectoryFixture
+		{
+			final Path source;
+			final Path target;
+
+			MoveDirectoryFixture(@Nonnull final Path source, @Nonnull final Path target)
+			{
+				this.source = source;
+				this.target = target;
+			}
 		}
 	}
 
