@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -93,7 +94,9 @@ public class VaultReferenceServiceCopyFailTest
 
 		main.assertIt("getBytes");
 		assertNull(e.getCause());
-		assertEquals(List.of(), List.of(e.getSuppressed()));
+		assertEquals(
+				"[com.exedio.cope.vault.VaultNotFoundException: hash not found in vault: " + anonymiseHash(hash) + "]",
+				List.of(e.getSuppressed()).toString());
 	}
 
 	@Test void testStream()
@@ -107,6 +110,8 @@ public class VaultReferenceServiceCopyFailTest
 		main.assertIt("getStream");
 		assertArrayEquals(new byte[0], sink.toByteArray());
 		assertNull(e.getCause());
-		assertEquals(List.of(), List.of(e.getSuppressed()));
+		assertEquals(
+				"[com.exedio.cope.vault.VaultNotFoundException: hash not found in vault: " + anonymiseHash(hash) + "]",
+				List.of(e.getSuppressed()).toString());
 	}
 }

@@ -80,13 +80,21 @@ public final class VaultReferenceService implements VaultService
 		{
 			return main.get(hash);
 		}
-		catch(final VaultNotFoundException ignored)
+		catch(final VaultNotFoundException suppressed)
 		{
+			try
+			{
 			final byte[] result = reference.get(hash);
 			logGetReference(hash);
 			if(copyReferenceToMain)
 				main.put(hash, result);
 			return result;
+			}
+			catch(final Exception e)
+			{
+				e.addSuppressed(suppressed);
+				throw e;
+			}
 		}
 	}
 
@@ -97,8 +105,10 @@ public final class VaultReferenceService implements VaultService
 		{
 			main.get(hash, sink);
 		}
-		catch(final VaultNotFoundException ignored)
+		catch(final VaultNotFoundException suppressed)
 		{
+			try
+			{
 			if(!copyReferenceToMain)
 			{
 				reference.get(hash, sink);
@@ -110,6 +120,12 @@ public final class VaultReferenceService implements VaultService
 			main.put(hash, temp);
 			Files.copy(temp, sink);
 			delete(temp);
+			}
+			catch(final Exception e)
+			{
+				e.addSuppressed(suppressed);
+				throw e;
+			}
 		}
 	}
 
