@@ -184,7 +184,14 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(store, tempStore.call());
 		assertNull(moveFile.call());
 		assertNull(moveDir .call());
-		assertNull(moveDirE.call());
+		if (isWindows())
+			assertFails(
+					moveDirE::call,
+					ProbeAbortedException.class,
+					"Windows not supported for file vaults - don't use on production systems!"
+			);
+		else
+			assertNull(moveDirE.call());
 	}
 
 	@Test void probeContent() throws Exception
@@ -837,5 +844,10 @@ public class VaultFileServicePropertiesProbeTest
 	private static void assumePosix(final File file)
 	{
 		assumeTrue(Files.getFileAttributeView(file.toPath(), PosixFileAttributeView.class)!=null);
+	}
+
+	private static boolean isWindows()
+	{
+		return System.getProperty("os.name").toLowerCase().contains("windows");
 	}
 }

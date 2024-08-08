@@ -568,6 +568,12 @@ public final class VaultFileService implements VaultService
 		{
 			final var f = probeMoveDirectoryFixture();
 
+			if (isWindows())
+			{
+				Files.delete(f.target);
+				throw newProbeAbortedException("Windows not supported for file vaults - don't use on production systems!");
+			}
+
 			Files.move(f.source, f.target, ATOMIC_MOVE); // VaultFileServicePosixPermissionAfterwardsTest#raceConditionPutDirectoryEmpty
 			if(Files.exists(f.source))
 				throw new IllegalArgumentException(
