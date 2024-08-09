@@ -47,6 +47,9 @@ public class VaultFileServiceErrorTest
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
 				"algorithm",
+				"trail.startLimit",
+				"trail.fieldLimit",
+				"trail.originLimit",
 				"buckets",
 				"default.service",
 				"default.service.root",
@@ -62,9 +65,6 @@ public class VaultFileServiceErrorTest
 				"default.service.directory.posixPermissionsAfterwards",
 				"default.service.directory.posixGroup",
 				"default.service.temp",
-				"trail.startLimit",
-				"trail.fieldLimit",
-				"trail.originLimit",
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
 
@@ -85,6 +85,9 @@ public class VaultFileServiceErrorTest
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
 				"algorithm",
+				"trail.startLimit",
+				"trail.fieldLimit",
+				"trail.originLimit",
 				"buckets",
 				"default.service",
 				"default.service.root",
@@ -92,9 +95,6 @@ public class VaultFileServiceErrorTest
 				"default.service.writable",
 				"default.service.directory",
 				"default.service.directory.length",
-				"trail.startLimit",
-				"trail.fieldLimit",
-				"trail.originLimit",
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
 
