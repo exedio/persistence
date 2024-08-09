@@ -63,7 +63,7 @@ final class VaultTrail
 	private final String originQuoted;
 
 	VaultTrail(
-			final String bucket,
+			final String bucket, // TODO change type to Bucket
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final VaultMarkPut markPutSupplier,
@@ -74,9 +74,9 @@ final class VaultTrail
 		this.markPutSupplier = markPutSupplier;
 
 		this.props = props;
-		this.startLimit = props.getTrailStartLimit();
-		this.fieldLimit = props.getTrailFieldLimit();
-		this.originLimit = props.getTrailOriginLimit();
+		this.startLimit  = props.bucket(bucket).getTrailStartLimit();
+		this.fieldLimit  = props.bucket(bucket).getTrailFieldLimit();
+		this.originLimit = props.bucket(bucket).getTrailOriginLimit();
 		this.originValue = truncate(ORIGIN, originLimit);
 
 		final Trimmer trimmer = TrimClass.Constraint.trimmer; // is correct, 60 characters from the beginning
