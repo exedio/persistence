@@ -7,10 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
-* ConnectProperties: keys for Vault Trails are set for each bucket individually.
+* ConnectProperties: keys for Vault Trails can be set for each bucket individually as well.
 	This affects vault.trail.[startLimit|fieldLimit|originLimit].
-	Check your deployed systems! Probably these key are at their defaults,
-	then you don't have to do anything.
 	Methods VaultProperties#getTrail[Start|Field|Origin]Limit() where dropped,
 	may cause compiler errors.
 * VaultFileService adds new properties probes:

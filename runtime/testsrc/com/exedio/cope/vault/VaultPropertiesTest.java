@@ -724,6 +724,35 @@ public class VaultPropertiesTest
 		assertEquals(77, props.getTrailFieldLimit());
 		assertEquals(88, props.getTrailOriginLimit());
 	}
+	@Test void trailCustomDefault()
+	{
+		final Source source = describe("DESC", cascade(
+				single("default.service", VaultMockService.class),
+				single("trail.startLimit", 66),
+				single("trail.fieldLimit", 77),
+				single("trail.originLimit", 88)
+		));
+		final Bucket props = factory.create(source).bucket("default");
+		assertEquals(66, props.getTrailStartLimit());
+		assertEquals(77, props.getTrailFieldLimit());
+		assertEquals(88, props.getTrailOriginLimit());
+	}
+	@Test void trailCustomOverride()
+	{
+		final Source source = describe("DESC", cascade(
+				single("default.service", VaultMockService.class),
+				single("default.trail.startLimit", 166),
+				single("default.trail.fieldLimit", 177),
+				single("default.trail.originLimit", 188),
+				single("trail.startLimit", 66),
+				single("trail.fieldLimit", 77),
+				single("trail.originLimit", 88)
+		));
+		final Bucket props = factory.create(source).bucket("default");
+		assertEquals(166, props.getTrailStartLimit());
+		assertEquals(177, props.getTrailFieldLimit());
+		assertEquals(188, props.getTrailOriginLimit());
+	}
 	@Test void trailMinimum()
 	{
 		final Source source = describe("DESC", cascade(

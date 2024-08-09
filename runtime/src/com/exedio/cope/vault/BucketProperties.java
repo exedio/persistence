@@ -27,11 +27,6 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 
 	private final TrailProperties trail;
 
-	private TrailProperties valueTrail()
-	{
-		return valnp("trail", TrailProperties::new);
-	}
-
 	@Override
 	public int getTrailStartLimit()
 	{
@@ -61,7 +56,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 		this.parent = parent;
 		this.bucket = bucket;
 		service = valueService("service", writable);
-		trail = valueTrail();
+		trail = valueTrail(parent.trail);
 	}
 
 	@Probe Object probeContract()

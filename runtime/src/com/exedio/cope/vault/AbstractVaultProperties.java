@@ -65,6 +65,11 @@ abstract class AbstractVaultProperties extends Properties
 		}
 	}
 
+	final TrailProperties valueTrail(final TrailProperties defaults)
+	{
+		return valnp("trail", s -> new TrailProperties(s, defaults));
+	}
+
 	AbstractVaultProperties(final Source source)
 	{
 		super(source);

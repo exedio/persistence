@@ -47,6 +47,9 @@ public class VaultFileServiceErrorTest
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
 				"algorithm",
+				"trail.startLimit",
+				"trail.fieldLimit",
+				"trail.originLimit",
 				"buckets",
 				"default.service",
 				"default.service.root",
@@ -85,6 +88,9 @@ public class VaultFileServiceErrorTest
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
 				"algorithm",
+				"trail.startLimit",
+				"trail.fieldLimit",
+				"trail.originLimit",
 				"buckets",
 				"default.service",
 				"default.service.root",

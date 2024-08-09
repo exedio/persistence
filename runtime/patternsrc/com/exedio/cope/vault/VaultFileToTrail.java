@@ -114,7 +114,7 @@ public final class VaultFileToTrail
 
 	private static int startLimitDefault()
 	{
-		return new TrailProperties(Sources.EMPTY).startLimit;
+		return new TrailProperties(Sources.EMPTY, null).startLimit;
 	}
 
 	@SuppressWarnings("ConfusingMainMethod")
