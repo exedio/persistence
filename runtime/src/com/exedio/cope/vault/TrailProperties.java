@@ -22,12 +22,15 @@ import com.exedio.cope.util.Properties;
 
 public final class TrailProperties extends Properties
 {
-	final int startLimit  = value("startLimit",  20, 4);
-	final int fieldLimit  = value("fieldLimit",  80, 4); // 4 is minimum for VaultTrail#truncate
-	final int originLimit = value("originLimit", 80, 4); // 4 is minimum for VaultTrail#truncate
+	final int startLimit;
+	final int fieldLimit;
+	final int originLimit;
 
 	TrailProperties(final Source source)
 	{
 		super(source);
+		startLimit  = value("startLimit",  20, 4);
+		fieldLimit  = value("fieldLimit",  80, 4); // 4 is minimum for VaultTrail#truncate
+		originLimit = value("originLimit", 80, 4); // 4 is minimum for VaultTrail#truncate
 	}
 }
