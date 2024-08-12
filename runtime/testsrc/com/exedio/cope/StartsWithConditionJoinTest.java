@@ -157,7 +157,7 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 	{
 		final VaultProperties vp = model.getConnectProperties().vault;
 		if(vp!=null)
-			assertEquals(20, vp.getTrailStartLimit());
+			assertEquals(20, vp.bucket(Vault.DEFAULT).getTrailStartLimit());
 
 		final MyItem a = new MyItem(
 				"0011223344556677889900112233445566778899aa", "000000", "000000");

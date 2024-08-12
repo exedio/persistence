@@ -366,6 +366,18 @@ public class VaultPropertiesTest
 				new HashSet<>(asList("alpha", "beta", "gamma")),
 				p.buckets.keySet());
 
+		assertNotNull(p.bucket("alpha"));
+		assertNotNull(p.bucket("beta"));
+		assertNotNull(p.bucket("gamma"));
+		assertFails(
+				() -> p.bucket(null),
+				NullPointerException.class,
+				"key");
+		assertFails(
+				() -> p.bucket("delta"),
+				IllegalArgumentException.class,
+				"key must be one of [alpha, beta, gamma], but was >delta<");
+
 		assertServices(deresiliate(p.newServices("alpha", "beta", "gamma")), "alpha", "beta", "gamma");
 		assertServices(deresiliate(p.newServices("alpha", "gamma", "beta")), "alpha", "gamma", "beta");
 		assertServices(deresiliate(p.newServices("alpha", "gamma")), "alpha", "gamma");
@@ -694,7 +706,7 @@ public class VaultPropertiesTest
 		final Source source = describe("DESC", cascade(
 				single("default.service", VaultMockService.class)
 		));
-		final VaultProperties props = factory.create(source);
+		final Bucket props = factory.create(source).bucket("default");
 		assertEquals(20, props.getTrailStartLimit());
 		assertEquals(80, props.getTrailFieldLimit());
 		assertEquals(80, props.getTrailOriginLimit());
@@ -703,11 +715,11 @@ public class VaultPropertiesTest
 	{
 		final Source source = describe("DESC", cascade(
 				single("default.service", VaultMockService.class),
-				single("trail.startLimit", 66),
-				single("trail.fieldLimit", 77),
-				single("trail.originLimit", 88)
+				single("default.trail.startLimit", 66),
+				single("default.trail.fieldLimit", 77),
+				single("default.trail.originLimit", 88)
 		));
-		final VaultProperties props = factory.create(source);
+		final Bucket props = factory.create(source).bucket("default");
 		assertEquals(66, props.getTrailStartLimit());
 		assertEquals(77, props.getTrailFieldLimit());
 		assertEquals(88, props.getTrailOriginLimit());
@@ -716,11 +728,11 @@ public class VaultPropertiesTest
 	{
 		final Source source = describe("DESC", cascade(
 				single("default.service", VaultMockService.class),
-				single("trail.startLimit", 4),
-				single("trail.fieldLimit", 4),
-				single("trail.originLimit", 4)
+				single("default.trail.startLimit", 4),
+				single("default.trail.fieldLimit", 4),
+				single("default.trail.originLimit", 4)
 		));
-		final VaultProperties props = factory.create(source);
+		final Bucket props = factory.create(source).bucket("default");
 		assertEquals(4, props.getTrailStartLimit());
 		assertEquals(4, props.getTrailFieldLimit());
 		assertEquals(4, props.getTrailOriginLimit());
@@ -729,12 +741,12 @@ public class VaultPropertiesTest
 	{
 		final Source source = describe("DESC", cascade(
 				single("default.service", VaultMockService.class),
-				single("trail.startLimit", 3)
+				single("default.trail.startLimit", 3)
 		));
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property trail.startLimit in DESC " +
+				"property default.trail.startLimit in DESC " +
 				"must be an integer greater or equal 4, " +
 				"but was 3");
 	}
@@ -742,12 +754,12 @@ public class VaultPropertiesTest
 	{
 		final Source source = describe("DESC", cascade(
 				single("default.service", VaultMockService.class),
-				single("trail.fieldLimit", 3)
+				single("default.trail.fieldLimit", 3)
 		));
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property trail.fieldLimit in DESC " +
+				"property default.trail.fieldLimit in DESC " +
 				"must be an integer greater or equal 4, " +
 				"but was 3");
 	}
@@ -755,12 +767,12 @@ public class VaultPropertiesTest
 	{
 		final Source source = describe("DESC", cascade(
 				single("default.service", VaultMockService.class),
-				single("trail.originLimit", 3)
+				single("default.trail.originLimit", 3)
 		));
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property trail.originLimit in DESC " +
+				"property default.trail.originLimit in DESC " +
 				"must be an integer greater or equal 4, " +
 				"but was 3");
 	}

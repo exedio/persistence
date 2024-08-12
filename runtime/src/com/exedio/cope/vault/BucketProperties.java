@@ -18,11 +18,38 @@
 
 package com.exedio.cope.vault;
 
-final class BucketProperties extends AbstractVaultProperties
+final class BucketProperties extends AbstractVaultProperties implements Bucket
 {
 	private final VaultProperties parent;
 	private final String bucket;
 	final Service service;
+
+
+	private final TrailProperties trail;
+
+	private TrailProperties valueTrail()
+	{
+		return valnp("trail", TrailProperties::new);
+	}
+
+	@Override
+	public int getTrailStartLimit()
+	{
+		return trail.startLimit;
+	}
+
+	@Override
+	public int getTrailFieldLimit()
+	{
+		return trail.fieldLimit;
+	}
+
+	@Override
+	public int getTrailOriginLimit()
+	{
+		return trail.originLimit;
+	}
+
 
 	BucketProperties(
 			final Source source,
@@ -34,6 +61,7 @@ final class BucketProperties extends AbstractVaultProperties
 		this.parent = parent;
 		this.bucket = bucket;
 		service = valueService("service", writable);
+		trail = valueTrail();
 	}
 
 	@Probe Object probeContract()

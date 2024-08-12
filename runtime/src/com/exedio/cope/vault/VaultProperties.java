@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
+import javax.annotation.Nonnull;
 
 public final class VaultProperties extends Properties
 {
@@ -110,6 +111,17 @@ public final class VaultProperties extends Properties
 			buckets.put(bucket, valnp(bucket, s -> new BucketProperties(s, this, bucket, writable)));
 
 		return Collections.unmodifiableMap(buckets);
+	}
+
+	@Nonnull
+	public Bucket bucket(@Nonnull final String key)
+	{
+		final Bucket result = buckets.get(requireNonNull(key, "key"));
+		if(result==null)
+			throw new IllegalArgumentException(
+					"key must be one of " + buckets.keySet() + ", " +
+					"but was >" + key + '<');
+		return result;
 	}
 
 	/**
@@ -266,16 +278,6 @@ public final class VaultProperties extends Properties
 
 
 	/**
-	 * TODO move to {@link BucketProperties}.
-	 */
-	private final TrailProperties trail;
-
-	private TrailProperties valueTrail()
-	{
-		return valnp("trail", TrailProperties::new);
-	}
-
-	/**
 	 * @deprecated
 	 * This method always returns true.
 	 * Disabling vault trail is no longer supported.
@@ -284,21 +286,6 @@ public final class VaultProperties extends Properties
 	public boolean isTrailEnabled()
 	{
 		return true;
-	}
-
-	public int getTrailStartLimit()
-	{
-		return trail.startLimit;
-	}
-
-	public int getTrailFieldLimit()
-	{
-		return trail.fieldLimit;
-	}
-
-	public int getTrailOriginLimit()
-	{
-		return trail.originLimit;
 	}
 
 
@@ -369,7 +356,6 @@ public final class VaultProperties extends Properties
 	private VaultProperties(final Source source, final boolean writable)
 	{
 		super(source);
-		trail = valueTrail();
 		buckets = valueBuckets(writable);
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
