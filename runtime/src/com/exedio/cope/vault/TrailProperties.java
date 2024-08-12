@@ -26,11 +26,11 @@ public final class TrailProperties extends Properties
 	final int fieldLimit;
 	final int originLimit;
 
-	TrailProperties(final Source source)
+	TrailProperties(final Source source, final TrailProperties defaults)
 	{
 		super(source);
-		startLimit  = value("startLimit",  20, 4);
-		fieldLimit  = value("fieldLimit",  80, 4); // 4 is minimum for VaultTrail#truncate
-		originLimit = value("originLimit", 80, 4); // 4 is minimum for VaultTrail#truncate
+		startLimit  = value("startLimit",  defaults==null ? 20 : defaults.startLimit,  4);
+		fieldLimit  = value("fieldLimit",  defaults==null ? 80 : defaults.fieldLimit,  4); // 4 is minimum for VaultTrail#truncate
+		originLimit = value("originLimit", defaults==null ? 80 : defaults.originLimit, 4); // 4 is minimum for VaultTrail#truncate
 	}
 }

@@ -82,6 +82,7 @@ public class VaultJdbcToServiceErrorTest
 				"is not allowed, but only one of [" +
 				"source.url, source.username, source.password, source.query, source.fetchSize, " +
 				"target.algorithm, " +
+				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
 				"target.buckets, target.default.service, " +
 				"target.default.trail.startLimit, target.default.trail.fieldLimit, target.default.trail.originLimit, " +
 				"target.isAppliedToAllFields, " +

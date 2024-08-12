@@ -26,7 +26,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.Vault;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.MessageDigestFactory;
-import com.exedio.cope.util.Properties;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +39,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import javax.annotation.Nonnull;
 
-public final class VaultProperties extends Properties
+public final class VaultProperties extends AbstractVaultProperties
 {
 	/**
 	 * TODO move to {@link BucketProperties}.
@@ -277,6 +276,8 @@ public final class VaultProperties extends Properties
 
 
 
+	final TrailProperties trail;
+
 	/**
 	 * @deprecated
 	 * This method always returns true.
@@ -356,6 +357,7 @@ public final class VaultProperties extends Properties
 	private VaultProperties(final Source source, final boolean writable)
 	{
 		super(source);
+		trail = valueTrail(null);
 		buckets = valueBuckets(writable);
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
