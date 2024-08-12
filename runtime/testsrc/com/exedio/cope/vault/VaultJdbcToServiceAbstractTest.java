@@ -67,7 +67,7 @@ public class VaultJdbcToServiceAbstractTest extends TestWithEnvironment
 		props.setProperty("source.url", connect.getConnectionUrl());
 		props.setProperty("source.username", connect.getConnectionUsername());
 		props.setProperty("source.password", password);
-		props.setProperty("target.algorithm", "MD5");
+		props.setProperty("target.default.algorithm", "MD5");
 		props.setProperty("target.default.service", TestService.class.getName());
 		for(final Map.Entry<String,String> e : additional.entrySet())
 			props.setProperty(e.getKey(), e.getValue());

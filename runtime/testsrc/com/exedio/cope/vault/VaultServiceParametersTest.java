@@ -36,7 +36,7 @@ public class VaultServiceParametersTest
 	@Test void testMessageDigest()
 	{
 		final VaultProperties props = VaultProperties.factory().create(cascade(
-				single("algorithm", "MD5"),
+				single("default.algorithm", "MD5"),
 				single("default.service", VaultMockService.class)));
 		final MessageDigestFactory mdf = props.bucket("default").getAlgorithmFactory();
 		final VaultServiceParameters w = serviceParameters(props, "testBucket", true);

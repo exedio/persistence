@@ -524,7 +524,7 @@ public class ConnectPropertiesTest
 				cascade(
 						single("vault", true),
 						single("vault.default.service", VaultMockService.class),
-						single("vault.algorithm", "MD5"),
+						single("vault.default.algorithm", "MD5"),
 						TestSources.minimal()
 				));
 		assertEquals("MD5", p.getVaultProperties().bucket("default").getAlgorithm());

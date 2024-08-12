@@ -81,9 +81,8 @@ public class VaultJdbcToServiceErrorTest
 				propsFile + " " +
 				"is not allowed, but only one of [" +
 				"source.url, source.username, source.password, source.query, source.queryHash, source.fetchSize, " +
-				"target.algorithm, " +
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
-				"target.buckets, target.default.service, " +
+				"target.buckets, target.default.algorithm, target.default.service, " +
 				"target.default.trail.startLimit, target.default.trail.fieldLimit, target.default.trail.originLimit, " +
 				"target.isAppliedToAllFields, " +
 				"targetProbesSuppressed].");

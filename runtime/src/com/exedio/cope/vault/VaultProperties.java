@@ -25,7 +25,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.Vault;
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.MessageDigestFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,57 +40,6 @@ import javax.annotation.Nonnull;
 
 public final class VaultProperties extends AbstractVaultProperties
 {
-	/**
-	 * TODO move to {@link BucketProperties}.
-	 */
-	final MessageDigestFactory algorithmToBeUsedJustByBucketProperties = valueMessageDigest("algorithm", "SHA-512");
-
-	/**
-	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestFactory()} or
-	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithmFactory()} instead.
-	 */
-	@Deprecated
-	public MessageDigestFactory getAlgorithmFactory()
-	{
-		return algorithmToBeUsedJustByBucketProperties;
-	}
-
-	/**
-	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestAlgorithm()} or
-	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithm()} instead.
-	 */
-	@Deprecated
-	public String getAlgorithm()
-	{
-		return algorithmToBeUsedJustByBucketProperties.getAlgorithm();
-	}
-
-	/**
-	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestLengthHex()} or
-	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithmLength()} instead.
-	 */
-	@Deprecated
-	public int getAlgorithmLength()
-	{
-		return algorithmToBeUsedJustByBucketProperties.getLengthHex();
-	}
-
-	/**
-	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestForEmptyByteSequenceHex()} or
-	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithmDigestForEmptyByteSequence()} instead.
-	 */
-	@Deprecated
-	public String getAlgorithmDigestForEmptyByteSequence()
-	{
-		return algorithmToBeUsedJustByBucketProperties.getDigestForEmptyByteSequenceHex();
-	}
-
-
-
 	final Map<String, BucketProperties> buckets;
 
 	private Map<String, BucketProperties> valueBuckets(final boolean writable)

@@ -339,13 +339,14 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("algorithm", "NIXUS")
+						single("default.algorithm", "NIXUS")
 				));
 		final Exception e = assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property algorithm in DESC must specify a digest, but was 'NIXUS'");
-		assertTrue(e.getCause() instanceof IllegalAlgorithmException);
+				"property default.algorithm in DESC must specify a digest, but was 'NIXUS'");
+		assertTrue(e.getCause() instanceof IllegalPropertiesException);
+		assertTrue(e.getCause().getCause() instanceof IllegalAlgorithmException);
 	}
 
 

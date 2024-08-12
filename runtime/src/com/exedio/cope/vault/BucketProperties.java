@@ -26,7 +26,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	private final String key;
 
 
-	private final MessageDigestFactory algorithm;
+	private final MessageDigestFactory algorithm = valueMessageDigest("algorithm", "SHA-512");
 
 	@Override
 	public MessageDigestFactory getAlgorithmFactory()
@@ -95,7 +95,6 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	{
 		super(source);
 		this.key = key;
-		this.algorithm = parent.algorithmToBeUsedJustByBucketProperties;
 		service = valueService("service", writable);
 		trail = valueTrail(parent.trail);
 	}

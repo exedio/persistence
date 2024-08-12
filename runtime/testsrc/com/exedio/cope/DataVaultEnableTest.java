@@ -177,7 +177,7 @@ public class DataVaultEnableTest
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.algorithm", "MD5"),
+				single("vault.MyBlank-vaultF-V.algorithm", "MD5"),
 				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
 				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
 				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
