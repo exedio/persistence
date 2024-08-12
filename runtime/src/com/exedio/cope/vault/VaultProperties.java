@@ -369,8 +369,8 @@ public final class VaultProperties extends Properties
 	private VaultProperties(final Source source, final boolean writable)
 	{
 		super(source);
-		buckets = valueBuckets(writable);
 		trail = valueTrail();
+		buckets = valueBuckets(writable);
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
 
