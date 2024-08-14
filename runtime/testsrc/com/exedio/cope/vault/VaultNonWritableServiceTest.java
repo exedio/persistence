@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultTester.serviceParameters;
 
 import com.exedio.cope.util.JobContext;
 import java.io.InputStream;
@@ -33,7 +34,7 @@ public class VaultNonWritableServiceTest
 {
 	@Test void mustNotBeWritable()
 	{
-		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
+		final VaultServiceParameters params = serviceParameters(VaultProperties.factory().create(cascade(
 				single("default.service", MyService.class))),
 				"testBucket",
 				true,  // writable
@@ -47,7 +48,7 @@ public class VaultNonWritableServiceTest
 
 	@Test void isNotWritable()
 	{
-		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
+		final VaultServiceParameters params = serviceParameters(VaultProperties.factory().create(cascade(
 				single("default.service", MyService.class))),
 				"testBucket",
 				false,  // writable

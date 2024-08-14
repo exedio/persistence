@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.vault.VaultTester.serviceParameters;
 import static java.lang.System.getProperty;
 import static java.nio.file.Files.createDirectory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -98,7 +99,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 				single("posixPermissions", "rw-rw-rw-")));
 		assertEquals(true, props.writable);
 		return new VaultFileService(
-				new VaultServiceParameters(VaultProperties.factory().create(Sources.cascade(
+				serviceParameters(VaultProperties.factory().create(Sources.cascade(
 						single("algorithm", ALGORITHM),
 						single("default.service", VaultFileService.class),
 						single("default.service.root", DIR))),
