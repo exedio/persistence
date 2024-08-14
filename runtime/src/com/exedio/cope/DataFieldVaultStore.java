@@ -24,6 +24,7 @@ import com.exedio.cope.DataField.Value;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
+import com.exedio.cope.vault.Bucket;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultResilientService;
@@ -52,11 +53,16 @@ final class DataFieldVaultStore extends DataFieldStore
 			final Table table,
 			final String name,
 			final boolean optional,
-			final VaultProperties properties,
+			final VaultProperties vaultProperties,
 			final Connect connect,
 			final ModelMetrics metricsTemplate)
 	{
 		super(field);
+		{
+			final String bucketExplicit = field.getAnnotatedVaultValue();
+			this.bucket = bucketExplicit!=null ? bucketExplicit : Vault.DEFAULT;
+		}
+		final Bucket properties = vaultProperties.bucket(bucket);
 		final int length = properties.getAlgorithmLength();
 		this.column = new StringColumn(
 				table, name, optional, length, length,
@@ -64,8 +70,6 @@ final class DataFieldVaultStore extends DataFieldStore
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
 		this.algorithmName = algorithm.getAlgorithm();
-		final String bucketExplicit = field.getAnnotatedVaultValue();
-		this.bucket = bucketExplicit!=null ? bucketExplicit : Vault.DEFAULT;
 		this.service = requireNonNull(connect.vaults.get(bucket));
 		this.trail = requireNonNull(connect.database.vaultTrails.get(bucket));
 		this.dialect = connect.dialect;
