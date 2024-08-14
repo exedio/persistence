@@ -182,7 +182,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 			);
 		else
 			assertEquals(
-					model.getConnectProperties().getVaultProperties().getAlgorithm(),
+					model.getConnectProperties().getVaultProperties().bucket("default").getAlgorithm(),
 					value.getMessageDigestAlgorithm());
 
 		final UniqueHashedMediaItem item1 = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));

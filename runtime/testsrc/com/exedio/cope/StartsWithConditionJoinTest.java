@@ -94,7 +94,7 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 		if(vp!=null)
 		{
 			model.commit();
-			final String hashA = encodeLower(vp.getAlgorithmFactory().digest(decodeLower("33aa00")));
+			final String hashA = encodeLower(vp.bucket("default").getAlgorithmFactory().digest(decodeLower("33aa00")));
 			try(Connection con = SchemaInfo.newConnection(model);
 				 Statement stmt = con.createStatement())
 			{

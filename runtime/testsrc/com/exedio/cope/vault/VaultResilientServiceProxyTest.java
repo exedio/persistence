@@ -65,7 +65,7 @@ public class VaultResilientServiceProxyTest
 						single("default.service", VaultMockService.class)
 				));
 		final VaultProperties props = factory.create(source);
-		emptyHash = props.getAlgorithmDigestForEmptyByteSequence();
+		emptyHash = props.bucket("default").getAlgorithmDigestForEmptyByteSequence();
 		s = (VaultResilientServiceProxy)props.newServices(DEFAULT).get(DEFAULT);
 		m = (VaultMockService)VaultPropertiesTest.deresiliate(s);
 	}
