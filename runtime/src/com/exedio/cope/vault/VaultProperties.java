@@ -66,9 +66,10 @@ public final class VaultProperties extends AbstractVaultProperties
 	}
 
 	/**
-	 * To be deprecated when {@code algorithm} can be set per bucket.
+	 * @deprecated {@code algorithm} is set per bucket.
 	 * Use {@link VaultServiceParameters#getMessageDigestLengthHex()} instead.
 	 */
+	@Deprecated
 	public int getAlgorithmLength()
 	{
 		return algorithm.getLengthHex();

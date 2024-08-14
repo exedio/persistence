@@ -22,7 +22,7 @@ import static com.exedio.cope.DataFieldVaultStore.mysqlExtendedVarchar;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
-import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.Bucket;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -36,7 +36,7 @@ final class VaultTrail
 	private final Executor executor;
 	private final VaultMarkPut markPutSupplier;
 
-	private final VaultProperties props;
+	private final Bucket props;
 	final int startLimit;
 	private final int fieldLimit;
 	private final int originLimit;
@@ -67,16 +67,16 @@ final class VaultTrail
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final VaultMarkPut markPutSupplier,
-			final VaultProperties props)
+			final Bucket props)
 	{
 		this.connectionPool = connectionPool;
 		this.executor = executor;
 		this.markPutSupplier = markPutSupplier;
 
 		this.props = props;
-		this.startLimit  = props.bucket(bucket).getTrailStartLimit();
-		this.fieldLimit  = props.bucket(bucket).getTrailFieldLimit();
-		this.originLimit = props.bucket(bucket).getTrailOriginLimit();
+		this.startLimit  = props.getTrailStartLimit();
+		this.fieldLimit  = props.getTrailFieldLimit();
+		this.originLimit = props.getTrailOriginLimit();
 		this.originValue = truncate(ORIGIN, originLimit);
 
 		final Trimmer trimmer = TrimClass.Constraint.trimmer; // is correct, 60 characters from the beginning
