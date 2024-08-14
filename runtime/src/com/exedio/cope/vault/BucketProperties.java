@@ -103,7 +103,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 
 	@Probe Object probeContract()
 	{
-		return new ContractProbe(this, bucket, service).call();
+		return new ContractProbe(this).call();
 	}
 
 	@Probe(name="BucketTag", order=1)

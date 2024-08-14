@@ -32,22 +32,16 @@ import java.util.Locale;
 final class ContractProbe
 {
 	private final BucketProperties properties;
-	private final String key;
-	private final AbstractVaultProperties.Service service;
 
 	ContractProbe(
-			final BucketProperties properties,
-			final String bucket,
-			final AbstractVaultProperties.Service service)
+			final BucketProperties properties)
 	{
 		this.properties = properties;
-		this.key = bucket;
-		this.service = service;
 	}
 
 	String call()
 	{
-		try(VaultService s = properties.resiliate(service.newService(properties, key, () -> false)))
+		try(VaultService s = properties.resiliate(properties.newService(() -> false)))
 		{
 			return probe(s);
 		}
