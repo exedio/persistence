@@ -43,20 +43,20 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 
 	@Test void copyMustNotIncludeCopyConstraintsOfTemplates()
 	{
-		final Type<?> listRelationType = ItemWithComplexTemplate.list.getEntryType();
-		final CopyConstraint ccListParent = (CopyConstraint)listRelationType.getFeature("valueCopyFromparent");
-		final CopyConstraint ccListElement = (CopyConstraint)listRelationType.getFeature("valueCopyFromelement");
-		assertEquals(asList(ccListParent, ccListElement), listRelationType.getDeclaredCopyConstraints());
+		final Type<?> listEntryType = ItemWithComplexTemplate.list.getEntryType();
+		final CopyConstraint ccListParent  = (CopyConstraint)listEntryType.getFeature("valueCopyFromparent");
+		final CopyConstraint ccListElement = (CopyConstraint)listEntryType.getFeature("valueCopyFromelement");
+		assertEquals(asList(ccListParent, ccListElement), listEntryType.getDeclaredCopyConstraints());
 
-		final Type<?> setRelationType = ItemWithComplexTemplate.set.getEntryType();
-		final CopyConstraint ccSetParent = (CopyConstraint)setRelationType.getFeature("valueCopyFromparent");
-		final CopyConstraint ccSetElement = (CopyConstraint)setRelationType.getFeature("valueCopyFromelement");
-		assertEquals(asList(ccSetParent, ccSetElement), setRelationType.getDeclaredCopyConstraints());
+		final Type<?> setEntryType = ItemWithComplexTemplate.set.getEntryType();
+		final CopyConstraint ccSetParent  = (CopyConstraint)setEntryType.getFeature("valueCopyFromparent");
+		final CopyConstraint ccSetElement = (CopyConstraint)setEntryType.getFeature("valueCopyFromelement");
+		assertEquals(asList(ccSetParent, ccSetElement), setEntryType.getDeclaredCopyConstraints());
 
 		final CopyConstraint ccValueOther = (CopyConstraint)ItemWithComplexTemplate.TYPE.getFeature("valueCopyFromother");
 		assertEquals(singletonList(ccValueOther), ItemWithComplexTemplate.TYPE.getDeclaredCopyConstraints());
-		assertEquals(null, listRelationType.getFeature(ccValueOther.getName()));
-		assertEquals(null, setRelationType.getFeature(ccValueOther.getName()));
+		assertEquals(null, listEntryType.getFeature(ccValueOther.getName()));
+		assertEquals(null, setEntryType.getFeature(ccValueOther.getName()));
 	}
 
 	@Test void copyMustNotBeUniqueMeta()

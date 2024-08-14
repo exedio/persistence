@@ -64,12 +64,12 @@ public class SetFieldCopyModelTest
 
 	@Test void testCopyConstraints()
 	{
-		final Type<? extends Item> relationType = SetFieldItemWithCopyConstraints.sameAAndB.getEntryType();
-		final CopyConstraint copyAParent = (CopyConstraint)relationType.getFeature("aCopyFromparent");
-		final CopyConstraint copyAElement = (CopyConstraint)relationType.getFeature("aCopyFromelement");
-		final CopyConstraint copyBParent = (CopyConstraint)relationType.getFeature("bCopyFromparent");
-		final CopyConstraint copyBElement = (CopyConstraint)relationType.getFeature("bCopyFromelement");
-		assertEquals(asList(copyAParent, copyAElement, copyBParent, copyBElement), relationType.getDeclaredCopyConstraints());
+		final Type<? extends Item> entryType = SetFieldItemWithCopyConstraints.sameAAndB.getEntryType();
+		final CopyConstraint copyAParent  = (CopyConstraint)entryType.getFeature("aCopyFromparent");
+		final CopyConstraint copyAElement = (CopyConstraint)entryType.getFeature("aCopyFromelement");
+		final CopyConstraint copyBParent  = (CopyConstraint)entryType.getFeature("bCopyFromparent");
+		final CopyConstraint copyBElement = (CopyConstraint)entryType.getFeature("bCopyFromelement");
+		assertEquals(asList(copyAParent, copyAElement, copyBParent, copyBElement), entryType.getDeclaredCopyConstraints());
 
 		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getParent(), copyAParent.getTarget());
 		assertEquals(SetFieldItemWithCopyConstraints.a, copyAParent.getTemplate());
