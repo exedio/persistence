@@ -52,7 +52,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		container.addToArticles(new SpecificArticle());
 
 		final Query<Container> query = Container.TYPE.newQuery();
-		query.joinOuterLeft(articles.getRelationType(), articles.getParent().equalTarget());
+		query.joinOuterLeft(articles.getEntryType(), articles.getParent().equalTarget());
 		query.join(SpecificArticle.TYPE, articleJoin -> ((ItemField<?>)articles.getElement()).equalTarget(articleJoin));
 		assertEquals(
 				"select this from Container " +
@@ -68,7 +68,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		container.addToArticles(new SpecificArticle());
 
 		final Query<Container> query = Container.TYPE.newQuery();
-		query.joinOuterLeft(specificArticles.getRelationType(), specificArticles.getParent()
+		query.joinOuterLeft(specificArticles.getEntryType(), specificArticles.getParent()
 				.equalTarget());
 		query.join(ReallySpecificArticle.TYPE, articleJoin -> ((ItemField<?>)specificArticles.getElement()).equalTarget(articleJoin));
 		assertEquals(
@@ -85,7 +85,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		container.addToArticles(new SpecificArticle());
 
 		final Query<Container> query = Container.TYPE.newQuery();
-		query.joinOuterLeft(specificArticles.getRelationType(), specificArticles.getParent().equalTarget());
+		query.joinOuterLeft(specificArticles.getEntryType(), specificArticles.getParent().equalTarget());
 		final Join articleJoin = query.join(Article.TYPE);
 		try
 		{
@@ -104,7 +104,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		container.addToArticles(new SpecificArticle());
 
 		final Query<Container> query = Container.TYPE.newQuery();
-		final Join test = query.joinOuterLeft(articles.getRelationType(), articles.getParent()
+		final Join test = query.joinOuterLeft(articles.getEntryType(), articles.getParent()
 				.equalTarget());
 		query.join(SpecificArticle.TYPE);
 		try

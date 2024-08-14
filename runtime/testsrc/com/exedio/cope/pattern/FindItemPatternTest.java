@@ -49,7 +49,7 @@ public class FindItemPatternTest extends TestWithEnvironment
 
 	@Test void test() throws NoSuchIDException
 	{
-		final List<? extends Item> items = strings.getRelationType().search(
+		final List<? extends Item> items = strings.getEntryType().search(
 				stringsParent().equal(item),
 				strings.getOrder(),
 				true);

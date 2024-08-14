@@ -185,9 +185,9 @@ public class BlockFieldStandardModelTest
 				"aList.SourceType",
 				"com.exedio.cope.pattern.PatternItem",
 				"PatternItem"),
-				eins.of(aList).getRelationType().getLocalizationKeys());
+				eins.of(aList).getEntryType().getLocalizationKeys());
 		assertFails(
-				aList::getRelationType,
+				aList::getEntryType,
 				IllegalStateException.class,
 				"feature not mounted");
 		assertEquals(List.of(

@@ -161,7 +161,16 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		return element;
 	}
 
+	/**
+	 * @deprecated Use {@link #getEntryType()} instead
+	 */
+	@Deprecated
 	public Type<?> getRelationType()
+	{
+		return getEntryType();
+	}
+
+	public Type<?> getEntryType()
 	{
 		return mount().relationType;
 	}
