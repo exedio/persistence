@@ -514,7 +514,7 @@ public class ConnectPropertiesTest
 						single("vault.default.service", VaultMockService.class),
 						TestSources.minimal()
 				));
-		assertEquals("SHA-512", p.getVaultProperties().getAlgorithm());
+		assertEquals("SHA-512", p.getVaultProperties().bucket("default").getAlgorithm());
 		assertEquals("SHA-512", p.getVaultAlgorithm());
 		assertSame(p.getVaultProperties(), p.getVaultPropertiesStrict());
 	}
@@ -528,7 +528,7 @@ public class ConnectPropertiesTest
 						single("vault.algorithm", "MD5"),
 						TestSources.minimal()
 				));
-		assertEquals("MD5", p.getVaultProperties().getAlgorithm());
+		assertEquals("MD5", p.getVaultProperties().bucket("default").getAlgorithm());
 		assertEquals("MD5", p.getVaultAlgorithm());
 		assertSame(p.getVaultProperties(), p.getVaultPropertiesStrict());
 	}

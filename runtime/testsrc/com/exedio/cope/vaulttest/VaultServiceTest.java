@@ -140,9 +140,9 @@ public abstract class VaultServiceTest
 
 	@Test final void vaultPropertiesAlgorithm()
 	{
-		assertEquals(ALGORITHM, properties.getAlgorithm());
-		assertEquals(hash("ab").length(), properties.getAlgorithmLength());
-		assertEquals(hash(""), properties.getAlgorithmDigestForEmptyByteSequence());
+		assertEquals(ALGORITHM, properties.bucket("default").getAlgorithm());
+		assertEquals(hash("ab").length(), properties.bucket("default").getAlgorithmLength());
+		assertEquals(hash(""), properties.bucket("default").getAlgorithmDigestForEmptyByteSequence());
 	}
 
 	@Test final void testPurgeSchema()

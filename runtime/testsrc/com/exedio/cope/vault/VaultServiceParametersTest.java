@@ -39,7 +39,7 @@ public class VaultServiceParametersTest
 		final VaultProperties props = VaultProperties.factory().create(cascade(
 				single("algorithm", "MD5"),
 				single("default.service", VaultMockService.class)));
-		final MessageDigestFactory mdf = props.getAlgorithmFactory();
+		final MessageDigestFactory mdf = props.bucket("default").getAlgorithmFactory();
 		final VaultServiceParameters w = serviceParameters(props, "testBucket", true);
 
 		assertSame(props.bucket("default"), getVaultProperties(w));
@@ -54,7 +54,7 @@ public class VaultServiceParametersTest
 	{
 		final VaultProperties props = VaultProperties.factory().create(cascade(
 				single("default.service", VaultMockService.class)));
-		final MessageDigestFactory mdf = props.getAlgorithmFactory();
+		final MessageDigestFactory mdf = props.bucket("default").getAlgorithmFactory();
 		final VaultServiceParameters w = serviceParameters(props, "testBucketW", true,  BSW);
 		final VaultServiceParameters r = serviceParameters(props, "testBucketR", false, BSR);
 		final VaultServiceParameters ww = w.withWritable(true);

@@ -63,7 +63,7 @@ public class VaultReferenceServiceCopyFailTest
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
 		final byte[] value = {1,2,3,4,5};
-		hash = Hex.encodeLower(props.getAlgorithmFactory().digest(value));
+		hash = Hex.encodeLower(props.bucket("default").getAlgorithmFactory().digest(value));
 		service.getReferenceService().put(hash, value);
 		main.assertIt("");
 	}

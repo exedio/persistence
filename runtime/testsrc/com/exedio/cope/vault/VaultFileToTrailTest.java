@@ -252,7 +252,7 @@ public class VaultFileToTrailTest
 
 	private static String put(final byte[] value, final VaultFileService s)
 	{
-		final String hash = Hex.encodeLower(PROPERTIES.getAlgorithmFactory().digest(value));
+		final String hash = Hex.encodeLower(PROPERTIES.bucket("default").getAlgorithmFactory().digest(value));
 		s.put(hash, value);
 		return hash;
 	}

@@ -101,7 +101,7 @@ public class HashConditionTest extends TestWithEnvironment
 		supported =
 				MyItem.data.getVaultInfo()==null
 				? model.getSupportedDataHashAlgorithms()
-				: new TreeSet<>(asList(model.getConnectProperties().vault.getAlgorithm()));
+				: new TreeSet<>(asList(model.getConnectProperties().vault.bucket("default").getAlgorithm()));
 		item = new MyItem();
 	}
 
@@ -194,7 +194,7 @@ public class HashConditionTest extends TestWithEnvironment
 		return
 				MyItem.data.getVaultInfo()==null
 				? "hash >" + algorithm + "< not supported"
-				: "DataField MyItem.data supports hashMatches with algorithm >" + MODEL.getConnectProperties().vault.getAlgorithm() + "< only, " +
+				: "DataField MyItem.data supports hashMatches with algorithm >" + MODEL.getConnectProperties().vault.bucket("default").getAlgorithm() + "< only, " +
 				  "but not >" + algorithm + "< as it has vault enabled";
 	}
 
