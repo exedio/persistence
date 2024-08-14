@@ -515,7 +515,6 @@ public class ConnectPropertiesTest
 						TestSources.minimal()
 				));
 		assertEquals("SHA-512", p.getVaultProperties().bucket("default").getAlgorithm());
-		assertEquals("SHA-512", p.getVaultAlgorithm());
 		assertSame(p.getVaultProperties(), p.getVaultPropertiesStrict());
 	}
 
@@ -529,7 +528,6 @@ public class ConnectPropertiesTest
 						TestSources.minimal()
 				));
 		assertEquals("MD5", p.getVaultProperties().bucket("default").getAlgorithm());
-		assertEquals("MD5", p.getVaultAlgorithm());
 		assertSame(p.getVaultProperties(), p.getVaultPropertiesStrict());
 	}
 
@@ -541,7 +539,6 @@ public class ConnectPropertiesTest
 						TestSources.minimal()
 				)));
 		assertEquals(null, p.getVaultProperties());
-		assertEquals(null, p.getVaultAlgorithm());
 		assertFails(
 				p::getVaultPropertiesStrict,
 				IllegalArgumentException.class,
