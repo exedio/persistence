@@ -40,8 +40,8 @@ public class ItemFieldValueTypeTest
 	{
 		assertEquals(asList(
 				MyItem.TYPE,
-				MyItem.set.getRelationType(),
-				MyItem.blok.of(MyBlok.set).getRelationType()),
+				MyItem.set.getEntryType(),
+				MyItem.blok.of(MyBlok.set).getEntryType()),
 				MODEL.getTypes());
 	}
 

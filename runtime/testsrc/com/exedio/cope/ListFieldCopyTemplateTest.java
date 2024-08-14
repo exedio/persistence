@@ -48,7 +48,7 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 		final CopyConstraint ccListElement = (CopyConstraint)listRelationType.getFeature("valueCopyFromelement");
 		assertEquals(asList(ccListParent, ccListElement), listRelationType.getDeclaredCopyConstraints());
 
-		final Type<?> setRelationType = ItemWithComplexTemplate.set.getRelationType();
+		final Type<?> setRelationType = ItemWithComplexTemplate.set.getEntryType();
 		final CopyConstraint ccSetParent = (CopyConstraint)setRelationType.getFeature("valueCopyFromparent");
 		final CopyConstraint ccSetElement = (CopyConstraint)setRelationType.getFeature("valueCopyFromelement");
 		assertEquals(asList(ccSetParent, ccSetElement), setRelationType.getDeclaredCopyConstraints());

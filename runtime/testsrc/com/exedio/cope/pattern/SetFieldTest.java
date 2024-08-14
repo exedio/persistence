@@ -328,7 +328,7 @@ public class SetFieldTest extends TestWithEnvironment
 	@Test void testEmpty()
 	{
 		final Query<SetFieldItem> q = TYPE.newQuery(strings.getElement().isNull());
-		q.joinOuterLeft(strings.getRelationType(), strings.getParent().equalTarget());
+		q.joinOuterLeft(strings.getEntryType(), strings.getParent().equalTarget());
 
 		assertContains(item, otherItem, q.search());
 		assertEquals(2, q.total());

@@ -203,7 +203,16 @@ public final class SetField<E> extends Pattern implements Copyable
 		return mount().uniqueElement;
 	}
 
+	/**
+	 * @deprecated Use {@link #getEntryType()} instead
+	 */
+	@Deprecated
 	public Type<?> getRelationType()
+	{
+		return getEntryType();
+	}
+
+	public Type<?> getEntryType()
 	{
 		return mount().relationType;
 	}
