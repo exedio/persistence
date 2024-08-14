@@ -27,7 +27,7 @@ package com.exedio.cope.vault;
  *     if any {@code @Nonnull} parameter is null.</li>
  * <li>All methods with a parameter {@code String hash} guarantee to fail with an {@link IllegalArgumentException},
  *     if that parameter is not a lower case hex string of exactly the length mandated by
- *     {@link VaultProperties#getAlgorithmLength()}.</li>
+ *     {@link Bucket#getAlgorithmLength()}.</li>
  * <li>All methods with a parameter {@code VaultPutInfo info} ignore that value completely,
  *     except for the null check mentioned above.</li>
  * <li>Method {@link #probeBucketTag(String)} guarantees to fail with an {@link IllegalArgumentException},
