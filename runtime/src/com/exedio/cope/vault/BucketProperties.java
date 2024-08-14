@@ -19,6 +19,7 @@
 package com.exedio.cope.vault;
 
 import com.exedio.cope.util.MessageDigestFactory;
+import java.util.function.BooleanSupplier;
 
 final class BucketProperties extends AbstractVaultProperties implements Bucket
 {
@@ -57,7 +58,13 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	}
 
 
-	final Service service;
+	private final Service service;
+
+	VaultService newService(final BooleanSupplier markPut)
+	{
+		return service.newService(this, bucket, markPut);
+
+	}
 
 
 	private final TrailProperties trail;
