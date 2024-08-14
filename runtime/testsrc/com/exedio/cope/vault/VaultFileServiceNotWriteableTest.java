@@ -33,7 +33,6 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-import org.opentest4j.AssertionFailedError;
 
 /**
  * @see VaultFileServiceNotWriteablePropsTest
@@ -52,8 +51,7 @@ public class VaultFileServiceNotWriteableTest extends AbstractVaultFileServiceTe
 						single("default.service", getServiceClass()),
 						single("default.service.root", "DUMMY"))),
 						"testBucket",
-						false, // not writable
-						() -> { throw new AssertionFailedError(); }), // markPut
+						false), // not writable
 				props);
 	}
 

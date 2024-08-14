@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.vault.VaultDirectory.Properties;
 import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 public class VaultDirectoryTest
 {
@@ -113,6 +112,5 @@ public class VaultDirectoryTest
 							single("algorithm", "MD5"),
 							single("default.service", VaultMockService.class))),
 					"testBucket",
-					true, // writable
-					() -> { throw new AssertionFailedError(); }); // markPut
+					true); // writable
 }

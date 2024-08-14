@@ -40,7 +40,7 @@ public class VaultServiceParametersTest
 				single("algorithm", "MD5"),
 				single("default.service", VaultMockService.class)));
 		final MessageDigestFactory mdf = props.getAlgorithmFactory();
-		final VaultServiceParameters w = serviceParameters(props, "testBucket", true,  () -> false);
+		final VaultServiceParameters w = serviceParameters(props, "testBucket", true);
 
 		assertSame(props, getVaultProperties(w));
 		assertSame(mdf, w.getMessageDigestFactory());
