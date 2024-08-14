@@ -81,7 +81,7 @@ public class MapFieldTest extends TestWithEnvironment
 			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
 			final Join join = name.join(q, DE);
 			assertEquals(Join.Kind.OUTER_LEFT, join.getKind());
-			assertEquals(name.getRelationType(), join.getType());
+			assertEquals(name.getEntryType(), join.getType());
 			assertEquals(
 					"(MapFieldItem-name.parent=MapFieldItem.this and MapFieldItem-name.key='DE')",
 					join.getCondition().toString());

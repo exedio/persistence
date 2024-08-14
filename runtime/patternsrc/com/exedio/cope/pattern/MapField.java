@@ -170,7 +170,16 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		return value;
 	}
 
+	/**
+	 * @deprecated Use {@link #getEntryType()} instead
+	 */
+	@Deprecated
 	public Type<?> getRelationType()
+	{
+		return getEntryType();
+	}
+
+	public Type<?> getEntryType()
 	{
 		return mount().relationType;
 	}
@@ -288,7 +297,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	public Join join(final Query<?> q, final K key)
 	{
 		return q.joinOuterLeft(
-				getRelationType(),
+				getEntryType(),
 				mount().parent.equalTarget().
 					and(this.key.equal(key)));
 	}

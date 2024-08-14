@@ -39,27 +39,27 @@ public class MapFieldCopyTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(MapFieldCopyItem.TYPE);
 
-	private static final CopyConstraint copyKeyParent = (CopyConstraint)MapFieldCopyItem.keyShared.getRelationType().getFeature("fieldCopyFromparent");
-	private static final CopyConstraint copyKeyKey = (CopyConstraint)MapFieldCopyItem.keyShared.getRelationType().getFeature("fieldCopyFromkey");
+	private static final CopyConstraint copyKeyParent = (CopyConstraint)MapFieldCopyItem.keyShared.getEntryType().getFeature("fieldCopyFromparent");
+	private static final CopyConstraint copyKeyKey = (CopyConstraint)MapFieldCopyItem.keyShared.getEntryType().getFeature("fieldCopyFromkey");
 
-	private static final CopyConstraint copyValueParent = (CopyConstraint)MapFieldCopyItem.valueShared.getRelationType().getFeature("fieldCopyFromparent");
-	private static final CopyConstraint copyValueValue = (CopyConstraint)MapFieldCopyItem.valueShared.getRelationType().getFeature("fieldCopyFromvalue");
+	private static final CopyConstraint copyValueParent = (CopyConstraint)MapFieldCopyItem.valueShared.getEntryType().getFeature("fieldCopyFromparent");
+	private static final CopyConstraint copyValueValue = (CopyConstraint)MapFieldCopyItem.valueShared.getEntryType().getFeature("fieldCopyFromvalue");
 
-	private static final CopyConstraint copyBothDifferentParent = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getRelationType().getFeature("fieldCopyFromparent");
-	private static final CopyConstraint copyBothDifferentKey = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getRelationType().getFeature("fieldCopyFromkey");
-	private static final CopyConstraint copyBothDifferentParentOther = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getRelationType().getFeature("otherFieldCopyFromparent");
-	private static final CopyConstraint copyBothDifferentValue = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getRelationType().getFeature("otherFieldCopyFromvalue");
+	private static final CopyConstraint copyBothDifferentParent = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getEntryType().getFeature("fieldCopyFromparent");
+	private static final CopyConstraint copyBothDifferentKey = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getEntryType().getFeature("fieldCopyFromkey");
+	private static final CopyConstraint copyBothDifferentParentOther = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getEntryType().getFeature("otherFieldCopyFromparent");
+	private static final CopyConstraint copyBothDifferentValue = (CopyConstraint)MapFieldCopyItem.bothDifferentShared.getEntryType().getFeature("otherFieldCopyFromvalue");
 
-	private static final CopyConstraint copyBothSameParent = (CopyConstraint)MapFieldCopyItem.bothSameShared.getRelationType().getFeature("fieldCopyFromparent");
-	private static final CopyConstraint copyBothSameKey = (CopyConstraint)MapFieldCopyItem.bothSameShared.getRelationType().getFeature("fieldCopyFromkey");
-	private static final CopyConstraint copyBothSameValue = (CopyConstraint)MapFieldCopyItem.bothSameShared.getRelationType().getFeature("fieldCopyFromvalue");
+	private static final CopyConstraint copyBothSameParent = (CopyConstraint)MapFieldCopyItem.bothSameShared.getEntryType().getFeature("fieldCopyFromparent");
+	private static final CopyConstraint copyBothSameKey = (CopyConstraint)MapFieldCopyItem.bothSameShared.getEntryType().getFeature("fieldCopyFromkey");
+	private static final CopyConstraint copyBothSameValue = (CopyConstraint)MapFieldCopyItem.bothSameShared.getEntryType().getFeature("fieldCopyFromvalue");
 
-	private static final CopyConstraint copyBothDoubleFieldParent = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getRelationType().getFeature("fieldCopyFromparent");
-	private static final CopyConstraint copyBothDoubleFieldKey = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getRelationType().getFeature("fieldCopyFromkey");
-	private static final CopyConstraint copyBothDoubleFieldValue = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getRelationType().getFeature("fieldCopyFromvalue");
-	private static final CopyConstraint copyBothDoubleOtherParent = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getRelationType().getFeature("otherFieldCopyFromparent");
-	private static final CopyConstraint copyBothDoubleOtherKey = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getRelationType().getFeature("otherFieldCopyFromkey");
-	private static final CopyConstraint copyBothDoubleOtherValue = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getRelationType().getFeature("otherFieldCopyFromvalue");
+	private static final CopyConstraint copyBothDoubleFieldParent = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getEntryType().getFeature("fieldCopyFromparent");
+	private static final CopyConstraint copyBothDoubleFieldKey = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getEntryType().getFeature("fieldCopyFromkey");
+	private static final CopyConstraint copyBothDoubleFieldValue = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getEntryType().getFeature("fieldCopyFromvalue");
+	private static final CopyConstraint copyBothDoubleOtherParent = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getEntryType().getFeature("otherFieldCopyFromparent");
+	private static final CopyConstraint copyBothDoubleOtherKey = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getEntryType().getFeature("otherFieldCopyFromkey");
+	private static final CopyConstraint copyBothDoubleOtherValue = (CopyConstraint)MapFieldCopyItem.bothDoubleShared.getEntryType().getFeature("otherFieldCopyFromvalue");
 
 	public MapFieldCopyTest()
 	{
@@ -69,16 +69,16 @@ public class MapFieldCopyTest extends TestWithEnvironment
 	@Test void testModel()
 	{
 		assertEquals(emptyList(), MapFieldCopyItem.TYPE.getDeclaredCopyConstraints());
-		assertEquals(asList(copyKeyParent, copyKeyKey), MapFieldCopyItem.keyShared.getRelationType().getDeclaredCopyConstraints());
-		assertEquals(asList(copyValueParent, copyValueValue), MapFieldCopyItem.valueShared.getRelationType().getDeclaredCopyConstraints());
-		assertEquals(asList(copyBothDifferentParent, copyBothDifferentKey, copyBothDifferentParentOther, copyBothDifferentValue), MapFieldCopyItem.bothDifferentShared.getRelationType().getDeclaredCopyConstraints());
-		assertEquals(asList(copyBothSameParent, copyBothSameKey, copyBothSameValue), MapFieldCopyItem.bothSameShared.getRelationType().getDeclaredCopyConstraints());
+		assertEquals(asList(copyKeyParent, copyKeyKey), MapFieldCopyItem.keyShared.getEntryType().getDeclaredCopyConstraints());
+		assertEquals(asList(copyValueParent, copyValueValue), MapFieldCopyItem.valueShared.getEntryType().getDeclaredCopyConstraints());
+		assertEquals(asList(copyBothDifferentParent, copyBothDifferentKey, copyBothDifferentParentOther, copyBothDifferentValue), MapFieldCopyItem.bothDifferentShared.getEntryType().getDeclaredCopyConstraints());
+		assertEquals(asList(copyBothSameParent, copyBothSameKey, copyBothSameValue), MapFieldCopyItem.bothSameShared.getEntryType().getDeclaredCopyConstraints());
 		assertEquals(
 			asList(
 				copyBothDoubleFieldParent, copyBothDoubleFieldKey, copyBothDoubleFieldValue,
 				copyBothDoubleOtherParent, copyBothDoubleOtherKey, copyBothDoubleOtherValue
 			),
-			MapFieldCopyItem.bothDoubleShared.getRelationType().getDeclaredCopyConstraints()
+			MapFieldCopyItem.bothDoubleShared.getEntryType().getDeclaredCopyConstraints()
 		);
 	}
 
