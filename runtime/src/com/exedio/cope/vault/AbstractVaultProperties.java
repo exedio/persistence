@@ -46,7 +46,7 @@ abstract class AbstractVaultProperties extends Properties
 		}
 
 		VaultService newService(
-				final VaultProperties vaultProperties,
+				final BucketProperties vaultProperties, // TODO rename to properties
 				final String bucket,
 				final BooleanSupplier markPut)
 		{

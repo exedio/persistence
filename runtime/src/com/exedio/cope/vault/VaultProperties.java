@@ -115,7 +115,13 @@ public final class VaultProperties extends AbstractVaultProperties
 	@Nonnull
 	public Bucket bucket(@Nonnull final String key)
 	{
-		final Bucket result = buckets.get(requireNonNull(key, "key"));
+		return bucketProperties(key);
+	}
+
+	@Nonnull
+	BucketProperties bucketProperties(@Nonnull final String key)
+	{
+		final BucketProperties result = buckets.get(requireNonNull(key, "key"));
 		if(result==null)
 			throw new IllegalArgumentException(
 					"key must be one of " + buckets.keySet() + ", " +
@@ -190,7 +196,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		final LinkedHashMap<String, VaultResilientService> result = new LinkedHashMap<>();
 		for(final Map.Entry<String, VaultService> e : newServicesNonResilient(keys).entrySet())
 		{
-			result.put(e.getKey(), resiliate(e.getValue()));
+			result.put(e.getKey(), bucketProperties(e.getKey()).resiliate(e.getValue())); // TODO reuse e.getKey()
 		}
 		return Collections.unmodifiableMap(result);
 	}
@@ -248,7 +254,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final String key : keys)
 		{
-			result.put(key, buckets.get(key).service.newService(this, key, markPut));
+			result.put(key, buckets.get(key).service.newService(buckets.get(key), key, markPut)); // TODO reuse buckets.get(key)
 		}
 		return Collections.unmodifiableMap(result);
 	}
@@ -264,14 +270,9 @@ public final class VaultProperties extends AbstractVaultProperties
 		for(final Map.Entry<String, BucketProperties> e : buckets.entrySet())
 		{
 			final String key = e.getKey();
-			result.put(key, resiliate(e.getValue().service.newService(this, key, markPut.apply(key))));
+			result.put(key, e.getValue().resiliate(e.getValue().service.newService(e.getValue(), key, markPut.apply(key)))); // TODO reuse e.getValue()
 		}
 		return Collections.unmodifiableMap(result);
-	}
-
-	VaultResilientService resiliate(final VaultService service)
-	{
-		return new VaultResilientServiceProxy(service, algorithm);
 	}
 
 

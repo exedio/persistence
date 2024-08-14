@@ -18,8 +18,15 @@
 
 package com.exedio.cope.vault;
 
+import com.exedio.cope.util.MessageDigestFactory;
+
 public interface Bucket
 {
+	MessageDigestFactory getAlgorithmFactory();
+	String getAlgorithm();
+	int getAlgorithmLength();
+	String getAlgorithmDigestForEmptyByteSequence();
+
 	int getTrailStartLimit();
 	int getTrailFieldLimit();
 	int getTrailOriginLimit();

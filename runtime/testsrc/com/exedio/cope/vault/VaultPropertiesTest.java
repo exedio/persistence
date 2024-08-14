@@ -535,7 +535,7 @@ public class VaultPropertiesTest
 
 		final VaultProperties props = factory.create(source);
 		final ServicePropertiesMissing service = (ServicePropertiesMissing)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
-		assertSame(props, getVaultProperties(service.parameters));
+		assertSame(props.bucket("default"), getVaultProperties(service.parameters));
 	}
 	@Test void servicePropertiesMissingReference()
 	{
@@ -549,8 +549,8 @@ public class VaultPropertiesTest
 		final VaultReferenceService service = (VaultReferenceService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();
-		assertSame(props, getVaultProperties(main.parameters));
-		assertSame(props, getVaultProperties(ref .parameters));
+		assertSame(props.bucket("default"), getVaultProperties(main.parameters));
+		assertSame(props.bucket("default"), getVaultProperties(ref .parameters));
 		assertNotSame(main, ref);
 	}
 	static class ServicePropertiesMissing extends AssertionErrorVaultService
@@ -562,10 +562,10 @@ public class VaultPropertiesTest
 			this.parameters = parameters;
 		}
 	}
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	public static VaultProperties getVaultProperties(final VaultServiceParameters parameters)
+	// TODO inline
+	public static Bucket getVaultProperties(final VaultServiceParameters parameters)
 	{
-		return parameters.getVaultProperties();
+		return parameters.getBucketProperties();
 	}
 
 

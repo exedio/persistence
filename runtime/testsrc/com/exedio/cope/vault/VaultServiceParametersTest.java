@@ -42,7 +42,7 @@ public class VaultServiceParametersTest
 		final MessageDigestFactory mdf = props.getAlgorithmFactory();
 		final VaultServiceParameters w = serviceParameters(props, "testBucket", true);
 
-		assertSame(props, getVaultProperties(w));
+		assertSame(props.bucket("default"), getVaultProperties(w));
 		assertSame(mdf, w.getMessageDigestFactory());
 		assertEquals("MD5", w.getMessageDigestAlgorithm());
 		assertEquals(32, w.getMessageDigestLengthHex());
@@ -62,10 +62,10 @@ public class VaultServiceParametersTest
 		final VaultServiceParameters rw = r.withWritable(true);
 		final VaultServiceParameters rr = r.withWritable(false);
 
-		assertSame(props, getVaultProperties(ww));
-		assertSame(props, getVaultProperties(wr));
-		assertSame(props, getVaultProperties(rw));
-		assertSame(props, getVaultProperties(rr));
+		assertSame(props.bucket("default"), getVaultProperties(ww));
+		assertSame(props.bucket("default"), getVaultProperties(wr));
+		assertSame(props.bucket("default"), getVaultProperties(rw));
+		assertSame(props.bucket("default"), getVaultProperties(rr));
 
 		assertSame(mdf, ww.getMessageDigestFactory());
 		assertSame(mdf, wr.getMessageDigestFactory());

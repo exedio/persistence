@@ -30,8 +30,8 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
+import com.exedio.cope.vault.Bucket;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
@@ -49,7 +49,7 @@ public class VaultMockService implements VaultService
 {
 	private final LinkedHashMap<String, String> store = new LinkedHashMap<>();
 	private final StringBuilder history = new StringBuilder();
-	public final VaultProperties vaultProperties;
+	public final Bucket vaultProperties; // TODO rename to bucketProperties
 	public final Props serviceProperties;
 	public final String bucket;
 	public final boolean writable;
