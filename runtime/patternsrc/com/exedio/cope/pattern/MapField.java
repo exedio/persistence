@@ -193,11 +193,11 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	{
 		requireNonNull(key, "key");
 
-		final Item relationItem =
+		final Item entry =
 			mount().uniqueConstraint.search(item, key);
 
-		if(relationItem!=null)
-			return value.get(relationItem);
+		if(entry!=null)
+			return value.get(entry);
 		else
 			return null;
 	}
@@ -213,10 +213,10 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 		final Mount mount = mount();
 
-		final Item relationItem =
+		final Item entry =
 			mount.uniqueConstraint.search(item, key);
 
-		if(relationItem==null)
+		if(entry==null)
 		{
 			if(value!=null)
 				mount.entryType.newItem(
@@ -228,9 +228,9 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		else
 		{
 			if(value!=null)
-				this.value.set(relationItem, value);
+				this.value.set(entry, value);
 			else
-				relationItem.deleteCopeItem();
+				entry.deleteCopeItem();
 		}
 	}
 
@@ -243,8 +243,8 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		final LinkedHashMap<K,V> result = new LinkedHashMap<>();
 		final Query<PatternItem> query = mount.entryType.newQuery(Cope.equalAndCast(mount.parent, item));
 		query.setOrderBy(key, true);
-		for(final PatternItem relationItem : query.search())
-			result.put(key.get(relationItem), value.get(relationItem));
+		for(final PatternItem entry : query.search())
+			result.put(key.get(entry), value.get(entry));
 		return Collections.unmodifiableMap(result);
 	}
 
@@ -263,13 +263,13 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		final Mount mount = mount();
 		final HashMap<K,V> done = new HashMap<>();
 
-		for(final PatternItem relationItem : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final PatternItem entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 		{
-			final K key = this.key.get(relationItem);
+			final K key = this.key.get(entry);
 			if(map.containsKey(key))
-				value.set(relationItem, map.get(key));
+				value.set(entry, map.get(key));
 			else
-				relationItem.deleteCopeItem();
+				entry.deleteCopeItem();
 
 			done.put(key, null); // value not needed here
 		}
