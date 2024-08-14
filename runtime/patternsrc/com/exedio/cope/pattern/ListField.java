@@ -109,20 +109,20 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
 		copyWith.onMount(features, parent, element);
-		final Type<PatternItem> relationType = newSourceType(PatternItem.class, PatternItem::new, features);
-		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
+		final Type<PatternItem> entryType = newSourceType(PatternItem.class, PatternItem::new, features);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueConstraint,
-			Type<PatternItem> relationType)
+			Type<PatternItem> entryType)
 	{
 		Mount
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
-			assert relationType!=null;
+			assert entryType!=null;
 		}
 	}
 
@@ -172,7 +172,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	public Type<?> getEntryType()
 	{
-		return mount().relationType;
+		return mount().entryType;
 	}
 
 	/**
@@ -255,7 +255,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 				Cope.equalAndCast(mount.parent, item));
 		final Integer max = q.searchSingleton();
 		final int newOrder = max!=null ? (max+1) : 0;
-		mount.relationType.newItem(
+		mount.entryType.newItem(
 				Cope.mapAndCast(mount.parent, item),
 				map(this.order, newOrder),
 				map(this.element, value));
@@ -273,7 +273,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	{
 		final Mount mount = mount();
 		final List<PatternItem> rows =
-				mount.relationType.search(Cope.and(
+				mount.entryType.search(Cope.and(
 						Cope.equalAndCast(mount.parent, item),
 						this.element.equal(element)));
 
@@ -299,7 +299,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 		final Mount mount = mount();
 		final Iterator<PatternItem> actual =
-			mount.relationType.search(
+			mount.entryType.search(
 					Cope.equalAndCast(mount.parent, item),
 					this.order,
 					true).
@@ -312,7 +312,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			{
 				while(expected.hasNext())
 				{
-					mount.relationType.newItem(
+					mount.entryType.newItem(
 							Cope.mapAndCast(mount.parent, item),
 							map(this.element, expected.next()),
 							map(this.order, order++)

@@ -138,21 +138,21 @@ public final class SetField<E> extends Pattern implements Copyable
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueElement);
 		copyWith.onMount(features, parent, element);
-		final Type<PatternItem> relationType = newSourceType(PatternItem.class, PatternItem::new, features);
-		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, relationType);
+		final Type<PatternItem> entryType = newSourceType(PatternItem.class, PatternItem::new, features);
+		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueOrder,
 			UniqueConstraint uniqueElement,
-			Type<PatternItem> relationType)
+			Type<PatternItem> entryType)
 	{
 		Mount
 		{
 			assert parent!=null;
 			assert uniqueElement != null;
-			assert relationType!=null;
+			assert entryType!=null;
 		}
 	}
 
@@ -214,7 +214,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 	public Type<?> getEntryType()
 	{
-		return mount().relationType;
+		return mount().entryType;
 	}
 
 	/**
@@ -297,7 +297,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			final int newOrder = max!=null ? (max+1) : 0;
 			try
 			{
-				mount.relationType.newItem(
+				mount.entryType.newItem(
 						Cope.mapAndCast(mount.parent, item),
 						map(this.order, newOrder),
 						map(this.element, element)
@@ -313,7 +313,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 		try
 		{
-			mount.relationType.newItem(
+			mount.entryType.newItem(
 					Cope.mapAndCast(mount.parent, item),
 					map(this.element, element)
 			);
@@ -365,7 +365,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			element.check(e);
 		final ArrayList<PatternItem> toDeleteList = new ArrayList<>();
 
-		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final PatternItem tupel : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 		{
 			final E element = this.element.get(tupel);
 
@@ -383,7 +383,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			{
 				while(toCreate.hasNext())
 				{
-					mount.relationType.newItem(
+					mount.entryType.newItem(
 							Cope.mapAndCast(mount.parent, item),
 							map(this.element, toCreate.next())
 					);
@@ -409,7 +409,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 		// TODO reuse tupels that can be reused
 
-		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final PatternItem tupel : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 			tupel.deleteCopeItem();
 
 		int order = 0;
@@ -417,7 +417,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		for(final E e : toCreateSet)
 			element.check(e);
 		for(final E element : toCreateSet)
-			mount.relationType.newItem(
+			mount.entryType.newItem(
 					Cope.mapAndCast(mount.parent, item),
 					map(this.order, order++),
 					map(this.element, element));
