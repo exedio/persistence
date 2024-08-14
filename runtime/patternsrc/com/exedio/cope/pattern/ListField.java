@@ -109,14 +109,14 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
 		copyWith.onMount(features, parent, element);
-		final Type<PatternItem> entryType = newSourceType(PatternItem.class, PatternItem::new, features);
+		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueConstraint,
-			Type<PatternItem> entryType)
+			Type<Entry> entryType)
 	{
 		Mount
 		{
@@ -272,7 +272,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			@Parameter(nullability=NullableIfElementOptional.class) final E element)
 	{
 		final Mount mount = mount();
-		final List<PatternItem> entries =
+		final List<Entry> entries =
 				mount.entryType.search(Cope.and(
 						Cope.equalAndCast(mount.parent, item),
 						this.element.equal(element)));
@@ -280,7 +280,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		if(entries.isEmpty())
 			return false;
 
-		for(final PatternItem entry : entries)
+		for(final Entry entry : entries)
 			entry.deleteCopeItem();
 
 		return true;
@@ -298,7 +298,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			element.check(e);
 
 		final Mount mount = mount();
-		final Iterator<PatternItem> actual =
+		final Iterator<Entry> actual =
 			mount.entryType.search(
 					Cope.equalAndCast(mount.parent, item),
 					this.order,
@@ -328,7 +328,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			}
 			else
 			{
-				final PatternItem entry = actual.next();
+				final Entry entry = actual.next();
 				final int currentOrder = this.order.get(entry);
 				assert order<=currentOrder : String.valueOf(order) + '/' + currentOrder;
 				order = currentOrder;

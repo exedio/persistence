@@ -78,7 +78,7 @@ public class SetOrderedFieldModelTest
 		assertEquals("strings", strings.getName());
 
 		assertEquals("SetOrderedFieldItem-strings", stringsType.getID());
-		assertEquals(PatternItem.class, stringsType.getJavaClass());
+		assertEquals(Entry.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.isBound());
 		assertSame(strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());

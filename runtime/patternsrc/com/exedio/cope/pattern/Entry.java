@@ -24,12 +24,12 @@ import com.exedio.cope.misc.Computed;
 import java.io.Serial;
 
 @Computed
-final class PatternItem extends Item
+final class Entry extends Item
 {
 	@Serial
 	private static final long serialVersionUID = 1l;
 
-	PatternItem(final ActivationParameters ap)
+	Entry(final ActivationParameters ap)
 	{
 		super(ap);
 	}

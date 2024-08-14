@@ -107,14 +107,14 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("value", value);
 		CopyFields.onMountAll(features, parent, new FunctionField<?>[]{key, value}, new CopyFields[]{keyCopyWiths, valueCopyWiths});
-		final Type<PatternItem> entryType = newSourceType(PatternItem.class, PatternItem::new, features);
+		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueConstraint,
-			Type<PatternItem> entryType)
+			Type<Entry> entryType)
 	{
 		Mount
 		{
@@ -241,9 +241,9 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	{
 		final Mount mount = mount();
 		final LinkedHashMap<K,V> result = new LinkedHashMap<>();
-		final Query<PatternItem> query = mount.entryType.newQuery(Cope.equalAndCast(mount.parent, item));
+		final Query<Entry> query = mount.entryType.newQuery(Cope.equalAndCast(mount.parent, item));
 		query.setOrderBy(key, true);
-		for(final PatternItem entry : query.search())
+		for(final Entry entry : query.search())
 			result.put(key.get(entry), value.get(entry));
 		return Collections.unmodifiableMap(result);
 	}
@@ -263,7 +263,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		final Mount mount = mount();
 		final HashMap<K,V> done = new HashMap<>();
 
-		for(final PatternItem entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final Entry entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 		{
 			final K key = this.key.get(entry);
 			if(map.containsKey(key))
