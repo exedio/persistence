@@ -20,6 +20,7 @@ package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.vault.VaultTester.serviceParameters;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -46,7 +47,7 @@ public class VaultFileServiceNotWriteableTest extends AbstractVaultFileServiceTe
 				single("root", getRoot())));
 		assertEquals(true, props.writable);
 		return new VaultFileService(
-				new VaultServiceParameters(VaultProperties.factory().create(Sources.cascade(
+				serviceParameters(VaultProperties.factory().create(Sources.cascade(
 						single("algorithm", ALGORITHM),
 						single("default.service", getServiceClass()),
 						single("default.service.root", "DUMMY"))),

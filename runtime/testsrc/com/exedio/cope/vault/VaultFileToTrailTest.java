@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.readAllLines;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.vault.VaultFileToTrail.mainInternal;
+import static com.exedio.cope.vault.VaultTester.serviceParameters;
 import static java.io.File.separator;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.time.ZoneOffset.UTC;
@@ -245,7 +246,7 @@ public class VaultFileToTrailTest
 					single("default.service", VaultMockService.class)));
 
 	private static final VaultServiceParameters SERVICE_PARAMETERS =
-			new VaultServiceParameters(
+			serviceParameters(
 					PROPERTIES,
 					"testBucket",
 					true, // writable

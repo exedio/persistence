@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultTester.serviceParameters;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.vault.VaultDirectory.Properties;
@@ -107,7 +108,7 @@ public class VaultDirectoryTest
 	}
 
 	private static final VaultServiceParameters SERVICE_PARAMETERS =
-			new VaultServiceParameters(
+			serviceParameters(
 					VaultProperties.factory().create(cascade(
 							single("algorithm", "MD5"),
 							single("default.service", VaultMockService.class))),

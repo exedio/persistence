@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.vault.VaultPropertiesTest.getVaultProperties;
+import static com.exedio.cope.vault.VaultTester.serviceParameters;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -39,7 +40,7 @@ public class VaultServiceParametersTest
 				single("algorithm", "MD5"),
 				single("default.service", VaultMockService.class)));
 		final MessageDigestFactory mdf = props.getAlgorithmFactory();
-		final VaultServiceParameters w = new VaultServiceParameters(props, "testBucket", true,  () -> false);
+		final VaultServiceParameters w = serviceParameters(props, "testBucket", true,  () -> false);
 
 		assertSame(props, getVaultProperties(w));
 		assertSame(mdf, w.getMessageDigestFactory());
@@ -54,8 +55,8 @@ public class VaultServiceParametersTest
 		final VaultProperties props = VaultProperties.factory().create(cascade(
 				single("default.service", VaultMockService.class)));
 		final MessageDigestFactory mdf = props.getAlgorithmFactory();
-		final VaultServiceParameters w = new VaultServiceParameters(props, "testBucketW", true,  BSW);
-		final VaultServiceParameters r = new VaultServiceParameters(props, "testBucketR", false, BSR);
+		final VaultServiceParameters w = serviceParameters(props, "testBucketW", true,  BSW);
+		final VaultServiceParameters r = serviceParameters(props, "testBucketR", false, BSR);
 		final VaultServiceParameters ww = w.withWritable(true);
 		final VaultServiceParameters wr = w.withWritable(false);
 		final VaultServiceParameters rw = r.withWritable(true);

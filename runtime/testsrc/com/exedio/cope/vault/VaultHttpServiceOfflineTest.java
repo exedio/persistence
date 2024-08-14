@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultTester.serviceParameters;
 
 import com.exedio.cope.vault.VaultHttpService.Props;
 import java.io.InputStream;
@@ -34,7 +35,7 @@ public class VaultHttpServiceOfflineTest
 	{
 		final Props props = new Props(cascade(
 				single("root", "http://VaultHttpServicePropertiesTest.invalid")));
-		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
+		final VaultServiceParameters params = serviceParameters(VaultProperties.factory().create(cascade(
 				single("algorithm", "MD5"),
 				single("default.service", VaultHttpService.class),
 				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
@@ -52,7 +53,7 @@ public class VaultHttpServiceOfflineTest
 	{
 		final Props props = new Props(cascade(
 				single("root", "http://VaultHttpServicePropertiesTest.invalid")));
-		final VaultServiceParameters params = new VaultServiceParameters(VaultProperties.factory().create(cascade(
+		final VaultServiceParameters params = serviceParameters(VaultProperties.factory().create(cascade(
 				single("algorithm", "MD5"),
 				single("default.service", VaultHttpService.class),
 				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
