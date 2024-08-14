@@ -37,8 +37,7 @@ public class VaultNonWritableServiceTest
 		final VaultServiceParameters params = serviceParameters(VaultProperties.factory().create(cascade(
 				single("default.service", MyService.class))),
 				"testBucket",
-				true,  // writable
-				() -> { throw new AssertionFailedError(); }); // markPut
+				true); // writable
 		//noinspection resource OK: does not allocate resources
 		assertFails(
 				() -> new MyService(params),
@@ -51,8 +50,7 @@ public class VaultNonWritableServiceTest
 		final VaultServiceParameters params = serviceParameters(VaultProperties.factory().create(cascade(
 				single("default.service", MyService.class))),
 				"testBucket",
-				false,  // writable
-				() -> { throw new AssertionFailedError(); }); // markPut
+				false); // writable
 		//noinspection resource OK: does not allocate resources
 		final MyService s = new MyService(params);
 		assertFails(

@@ -27,7 +27,6 @@ import com.exedio.cope.vault.VaultHttpService.Props;
 import java.io.InputStream;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 public class VaultHttpServiceOfflineTest
 {
@@ -40,8 +39,7 @@ public class VaultHttpServiceOfflineTest
 				single("default.service", VaultHttpService.class),
 				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
 				"testBucket",
-				true,  // writable
-				() -> { throw new AssertionFailedError(); }); // markPut
+				true); // writable
 		//noinspection resource OK: does not allocate resources
 		assertFails(
 				() -> new VaultHttpService(params, props),
@@ -58,8 +56,7 @@ public class VaultHttpServiceOfflineTest
 				single("default.service", VaultHttpService.class),
 				single("default.service.root", "http://VaultHttpServicePropertiesTest.invalid"))),
 				"testBucket",
-				false,  // writable
-				() -> { throw new AssertionFailedError(); }); // markPut
+				false); // writable
 		try(VaultHttpService s = new VaultHttpService(params, props))
 		{
 			assertFails(

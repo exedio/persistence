@@ -19,9 +19,27 @@
 package com.exedio.cope.vault;
 
 import java.util.function.BooleanSupplier;
+import org.opentest4j.AssertionFailedError;
 
 final class VaultTester
 {
+	static VaultServiceParameters serviceParameters(
+			final VaultProperties vaultProperties,
+			final String bucket,
+			final boolean writable)
+	{
+		return serviceParameters(
+				vaultProperties,
+				bucket,
+				writable,
+				MARK_PUT_FAILS);
+	}
+
+	private static final BooleanSupplier MARK_PUT_FAILS = () ->
+	{
+		throw new AssertionFailedError();
+	};
+
 	static VaultServiceParameters serviceParameters(
 			final VaultProperties vaultProperties,
 			final String bucket,
@@ -34,6 +52,7 @@ final class VaultTester
 				writable,
 				markPut);
 	}
+
 
 	private VaultTester()
 	{

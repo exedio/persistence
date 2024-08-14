@@ -48,7 +48,6 @@ import java.util.Properties;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
-import org.opentest4j.AssertionFailedError;
 
 @MainRule.Tag
 public class VaultFileToTrailTest
@@ -249,8 +248,7 @@ public class VaultFileToTrailTest
 			serviceParameters(
 					PROPERTIES,
 					"testBucket",
-					true, // writable
-					() -> { throw new AssertionFailedError(); }); // markPut
+					true); // writable
 
 	private static String put(final byte[] value, final VaultFileService s)
 	{
