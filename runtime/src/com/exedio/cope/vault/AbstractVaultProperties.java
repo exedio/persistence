@@ -46,12 +46,12 @@ abstract class AbstractVaultProperties extends Properties
 		}
 
 		VaultService newService(
-				final BucketProperties vaultProperties, // TODO rename to properties
+				final BucketProperties properties,
 				final String bucket,
 				final BooleanSupplier markPut)
 		{
 			return factory.newInstance(new VaultServiceParameters(
-					vaultProperties, bucket, writable, markPut));
+					properties, bucket, writable, markPut));
 		}
 
 		VaultService newService(final VaultServiceParameters parameters)

@@ -27,18 +27,18 @@ import javax.annotation.Nonnull;
 
 public final class VaultServiceParameters
 {
-	private final BucketProperties vaultProperties; // TODO rename to properties
+	private final BucketProperties properties;
 	private final String bucket;
 	private final boolean writable;
 	private final BooleanSupplier markPut;
 
 	VaultServiceParameters(
-			final BucketProperties vaultProperties, // TODO rename to properties
+			final BucketProperties properties,
 			final String bucket,
 			final boolean writable,
 			final BooleanSupplier markPut)
 	{
-		this.vaultProperties = requireNonNull(vaultProperties);
+		this.properties = requireNonNull(properties);
 		this.bucket = requireNonNull(bucket);
 		this.writable = writable;
 		this.markPut = requireNonNull(markPut);
@@ -47,7 +47,7 @@ public final class VaultServiceParameters
 	@Nonnull
 	public Bucket getBucketProperties()
 	{
-		return vaultProperties;
+		return properties;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public final class VaultServiceParameters
 
 	public MessageDigestFactory getMessageDigestFactory()
 	{
-		return vaultProperties.getAlgorithmFactory();
+		return properties.getAlgorithmFactory();
 	}
 
 	public String getMessageDigestAlgorithm()
@@ -100,7 +100,7 @@ public final class VaultServiceParameters
 		// result.writable -> writable&&this.writable
 		return
 				(this.writable && !writable)
-				? new VaultServiceParameters(vaultProperties, bucket, false, markPut)
+				? new VaultServiceParameters(properties, bucket, false, markPut)
 				: this;
 	}
 
