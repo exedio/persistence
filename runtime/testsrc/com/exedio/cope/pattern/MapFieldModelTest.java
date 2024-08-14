@@ -75,6 +75,11 @@ public class MapFieldModelTest
 		assertSame(name.getEntryType(), name.getUniqueConstraint().getType());
 		assertEquals(list(nameParent(), name.getKey()), name.getUniqueConstraint().getFields());
 
+		assertSame(nameParent(), name.getEntries().getContainer());
+		assertEquals("[" + name.getKey() + " asc]", name.getEntries().getOrders().toString());
+		assertEquals("entries", name.getEntries().getName());
+		assertSame(name.getEntryType(), name.getEntries().getType());
+
 		assertEquals(String.class, name.getValue().getValueClass());
 		assertEquals("value", name.getValue().getName());
 		assertSame(name.getEntryType(), name.getValue().getType());
@@ -90,6 +95,7 @@ public class MapFieldModelTest
 				list(
 						name.getEntryType().getThis(),
 						nameParent(), name.getKey(), name.getUniqueConstraint(),
+						name.getEntries(),
 						name.getValue()),
 				name.getEntryType().getFeatures());
 		assertEquals(MODEL, name.getEntryType().getModel());

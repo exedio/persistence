@@ -104,25 +104,29 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 		final UniqueConstraint uniqueConstraint = UniqueConstraint.create(parent, order);
+		final PartOf<?> entries                 =           PartOf.create(parent, order);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("order", order);
 		features.put("uniqueConstraint", uniqueConstraint);
+		features.put("entries", entries);
 		features.put("element", element, new MysqlExtendedVarcharAnnotationProxy(this));
 		copyWith.onMount(features, parent, element);
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
-		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, entries, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueConstraint,
+			PartOf<?> entries,
 			Type<Entry> entryType)
 	{
 		Mount
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
+			assert entries!=null;
 			assert entryType!=null;
 		}
 	}
@@ -154,6 +158,11 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	public UniqueConstraint getUniqueConstraint()
 	{
 		return mount().uniqueConstraint;
+	}
+
+	public PartOf<?> getEntries()
+	{
+		return mount().entries;
 	}
 
 	@Override
