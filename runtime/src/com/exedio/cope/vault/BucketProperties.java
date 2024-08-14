@@ -18,10 +18,45 @@
 
 package com.exedio.cope.vault;
 
+import com.exedio.cope.util.MessageDigestFactory;
+
 final class BucketProperties extends AbstractVaultProperties implements Bucket
 {
-	private final VaultProperties parent;
 	private final String bucket;
+
+
+	private final MessageDigestFactory algorithm;
+
+	@Override
+	public MessageDigestFactory getAlgorithmFactory()
+	{
+		return algorithm;
+	}
+
+	@Override
+	public String getAlgorithm()
+	{
+		return algorithm.getAlgorithm();
+	}
+
+	@Override
+	public int getAlgorithmLength()
+	{
+		return algorithm.getLengthHex();
+	}
+
+	@Override
+	public String getAlgorithmDigestForEmptyByteSequence()
+	{
+		return algorithm.getDigestForEmptyByteSequenceHex();
+	}
+
+	VaultResilientService resiliate(final VaultService service)
+	{
+		return new VaultResilientServiceProxy(service, algorithm);
+	}
+
+
 	final Service service;
 
 
@@ -53,21 +88,21 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 			final boolean writable)
 	{
 		super(source);
-		this.parent = parent;
 		this.bucket = bucket;
+		this.algorithm = parent.getAlgorithmFactory();
 		service = valueService("service", writable);
 		trail = valueTrail(parent.trail);
 	}
 
 	@Probe Object probeContract()
 	{
-		return new ContractProbe(parent, bucket, service).call();
+		return new ContractProbe(this, bucket, service).call();
 	}
 
 	@Probe(name="BucketTag", order=1)
 	Object probeBucketTag() throws Exception
 	{
-		try(VaultService s = service.newService(parent, bucket, () -> false))
+		try(VaultService s = service.newService(this, bucket, () -> false))
 		{
 			return s.probeBucketTag(bucket);
 		}

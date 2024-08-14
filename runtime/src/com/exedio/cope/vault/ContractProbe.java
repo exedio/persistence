@@ -31,12 +31,12 @@ import java.util.Locale;
 
 final class ContractProbe
 {
-	private final VaultProperties properties;
+	private final BucketProperties properties;
 	private final String key;
 	private final AbstractVaultProperties.Service service;
 
 	ContractProbe(
-			final VaultProperties properties,
+			final BucketProperties properties,
 			final String bucket,
 			final AbstractVaultProperties.Service service)
 	{

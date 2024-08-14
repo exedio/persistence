@@ -47,7 +47,7 @@ final class VaultTester
 			final BooleanSupplier markPut)
 	{
 		return new VaultServiceParameters(
-				vaultProperties,
+				vaultProperties.bucketProperties("default"),
 				bucket,
 				writable,
 				markPut);
