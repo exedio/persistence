@@ -342,11 +342,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return vault;
 	}
 
-	public String getVaultAlgorithm()
-	{
-		return vault!=null ? vault.getAlgorithm() : null;
-	}
-
 
 	// changeListeners
 

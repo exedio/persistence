@@ -22,7 +22,7 @@ import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.Bucket;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
@@ -253,7 +253,7 @@ public final class StringField extends FunctionField<String>
 	 * The result causes an {@link UnsupportedQueryException} when used,
 	 * <ul>
 	 * <li>if {@code data} is stored in a {@link Vault vault} and
-	 *     {@code algorithm} does not match {@link VaultProperties#getAlgorithm()}
+	 *     {@code algorithm} does not match {@link Bucket#getAlgorithm()}
 	 *     or
 	 * <li>if {@code data} is <em>not</em> stored in a vault and
 	 *     {@code algorithm} is not contained in {@link Model#getSupportedDataHashAlgorithms()}
@@ -272,7 +272,7 @@ public final class StringField extends FunctionField<String>
 	 * The result causes an {@link UnsupportedQueryException} when used,
 	 * <ul>
 	 * <li>if {@code data} is stored in a {@link Vault vault} and
-	 *     {@code algorithm} does not match {@link VaultProperties#getAlgorithm()}
+	 *     {@code algorithm} does not match {@link Bucket#getAlgorithm()}
 	 *     or
 	 * <li>if {@code data} is <em>not</em> stored in a vault and
 	 *     {@code algorithm} is not contained in {@link Model#getSupportedDataHashAlgorithms()}
