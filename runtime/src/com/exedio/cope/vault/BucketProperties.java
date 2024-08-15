@@ -63,7 +63,6 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	VaultService newService(final BooleanSupplier markPut)
 	{
 		return service.newService(this, bucket, markPut);
-
 	}
 
 
