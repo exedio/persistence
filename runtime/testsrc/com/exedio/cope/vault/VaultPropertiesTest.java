@@ -535,7 +535,7 @@ public class VaultPropertiesTest
 
 		final VaultProperties props = factory.create(source);
 		final ServicePropertiesMissing service = (ServicePropertiesMissing)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
-		assertSame(props.bucket("default"), getVaultProperties(service.parameters));
+		assertSame(props.bucket("default"), service.parameters.getBucketProperties());
 	}
 	@Test void servicePropertiesMissingReference()
 	{
@@ -549,8 +549,8 @@ public class VaultPropertiesTest
 		final VaultReferenceService service = (VaultReferenceService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();
-		assertSame(props.bucket("default"), getVaultProperties(main.parameters));
-		assertSame(props.bucket("default"), getVaultProperties(ref .parameters));
+		assertSame(props.bucket("default"), main.parameters.getBucketProperties());
+		assertSame(props.bucket("default"), ref .parameters.getBucketProperties());
 		assertNotSame(main, ref);
 	}
 	static class ServicePropertiesMissing extends AssertionErrorVaultService
@@ -561,11 +561,6 @@ public class VaultPropertiesTest
 		{
 			this.parameters = parameters;
 		}
-	}
-	// TODO inline
-	public static Bucket getVaultProperties(final VaultServiceParameters parameters)
-	{
-		return parameters.getBucketProperties();
 	}
 
 
