@@ -23,7 +23,7 @@ import java.util.function.BooleanSupplier;
 
 final class BucketProperties extends AbstractVaultProperties implements Bucket
 {
-	private final String bucket;
+	private final String key;
 
 
 	private final MessageDigestFactory algorithm;
@@ -62,7 +62,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 
 	VaultService newService(final BooleanSupplier markPut)
 	{
-		return service.newService(this, bucket, markPut);
+		return service.newService(this, key, markPut);
 	}
 
 
@@ -90,11 +90,11 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	BucketProperties(
 			final Source source,
 			final VaultProperties parent,
-			final String bucket,
+			final String key,
 			final boolean writable)
 	{
 		super(source);
-		this.bucket = bucket;
+		this.key = key;
 		this.algorithm = parent.algorithmToBeUsedJustByBucketProperties;
 		service = valueService("service", writable);
 		trail = valueTrail(parent.trail);
@@ -108,9 +108,9 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	@Probe(name="BucketTag", order=1)
 	Object probeBucketTag() throws Exception
 	{
-		try(VaultService s = service.newService(this, bucket, () -> false))
+		try(VaultService s = service.newService(this, key, () -> false))
 		{
-			return s.probeBucketTag(bucket);
+			return s.probeBucketTag(key);
 		}
 		catch(final BucketTagNotSupported e)
 		{
