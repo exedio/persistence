@@ -54,20 +54,20 @@ public class VaultReferenceTest
 		assertEquals("VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue)", service.toString());
 
 		assertNotNull(main);
-		assertEquals("SHA-512", main.vaultProperties.getAlgorithm());
+		assertEquals("SHA-512", main.bucketProperties.getAlgorithm());
 		assertEquals("mainExampleValue", main.serviceProperties.example);
 		assertEquals("default", main.bucket);
 		assertEquals(true, main.writable);
 		assertEquals("VaultMockService:mainExampleValue", main.toString());
 
 		assertNotNull(refr);
-		assertEquals("SHA-512", refr.vaultProperties.getAlgorithm());
+		assertEquals("SHA-512", refr.bucketProperties.getAlgorithm());
 		assertEquals("referenceExampleValue", refr.serviceProperties.example);
 		assertEquals("default", refr.bucket);
 		assertEquals(false, refr.writable);
 		assertEquals("VaultMockService:referenceExampleValue", refr.toString());
 
-		assertSame(main.vaultProperties, refr.vaultProperties);
+		assertSame(main.bucketProperties, refr.bucketProperties);
 		assertNotSame(main.serviceProperties, refr.serviceProperties);
 
 		log.assertEmpty();

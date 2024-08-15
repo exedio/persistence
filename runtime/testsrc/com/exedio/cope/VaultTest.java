@@ -48,7 +48,7 @@ public class VaultTest
 	@Test void connect()
 	{
 		assertNotNull(service);
-		assertEquals("SHA-512", service.vaultProperties.getAlgorithm());
+		assertEquals("SHA-512", service.bucketProperties.getAlgorithm());
 		assertEquals("mainExampleValue", service.serviceProperties.example);
 		assertEquals("default", service.bucket);
 		assertEquals(true, service.writable);

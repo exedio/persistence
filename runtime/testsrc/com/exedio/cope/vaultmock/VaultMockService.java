@@ -48,7 +48,7 @@ public class VaultMockService implements VaultService
 {
 	private final LinkedHashMap<String, String> store = new LinkedHashMap<>();
 	private final StringBuilder history = new StringBuilder();
-	public final Bucket vaultProperties; // TODO rename to bucketProperties
+	public final Bucket bucketProperties;
 	public final Props serviceProperties;
 	public final String bucket;
 	public final boolean writable;
@@ -59,17 +59,17 @@ public class VaultMockService implements VaultService
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
-		this.vaultProperties = parameters.getBucketProperties();
+		this.bucketProperties = parameters.getBucketProperties();
 		this.serviceProperties = properties;
 		this.bucket = parameters.getBucket();
 		this.writable = parameters.isWritable();
 		this.requiresToMarkPut = parameters.requiresToMarkPut();
-		assertNotNull(vaultProperties);
+		assertNotNull(bucketProperties);
 		assertNotNull(serviceProperties);
 		assertNotNull(bucket);
 		assertNotNull(requiresToMarkPut);
 		assertNotNull(parameters.getMessageDigestFactory());
-		assertSame(vaultProperties.getAlgorithmFactory(), parameters.getMessageDigestFactory());
+		assertSame(bucketProperties.getAlgorithmFactory(), parameters.getMessageDigestFactory());
 	}
 
 	@Override
@@ -142,7 +142,7 @@ public class VaultMockService implements VaultService
 				value.length==0,
 				"empty byte sequence is not handled by service implementations");
 		assertEquals(hash, Hex.encodeLower(
-				vaultProperties.getAlgorithmFactory().
+				bucketProperties.getAlgorithmFactory().
 						digest(value)));
 
 		assertEquals(true, writable, "writable");
@@ -185,9 +185,9 @@ public class VaultMockService implements VaultService
 	private void assertHash(final String hash)
 	{
 		assertNotNull(hash);
-		assertEquals(vaultProperties.getAlgorithmLength(), hash.length(), hash);
+		assertEquals(bucketProperties.getAlgorithmLength(), hash.length(), hash);
 		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash),      hash);
-		assertNotEquals(hash, vaultProperties.getAlgorithmDigestForEmptyByteSequence(), "empty byte sequence is not handled by service implementations");
+		assertNotEquals(hash, bucketProperties.getAlgorithmDigestForEmptyByteSequence(), "empty byte sequence is not handled by service implementations");
 	}
 
 	public void clear()
@@ -201,7 +201,7 @@ public class VaultMockService implements VaultService
 		assertNotNull(value);
 
 		assertEquals(hash, Hex.encodeLower(
-				vaultProperties.getAlgorithmFactory().
+				bucketProperties.getAlgorithmFactory().
 						digest(Hex.decodeLower(value))));
 
 		store.put(hash, value);
