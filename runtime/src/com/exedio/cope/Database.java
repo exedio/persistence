@@ -76,7 +76,7 @@ final class Database
 			for(final Map.Entry<String, VaultMarkPut> e : vaultMarkPut.entrySet())
 			{
 				final String bucket = e.getKey();
-				vaultTrails.put(bucket, new VaultTrail(bucket, connectionPool, executor, e.getValue(), vp.bucket(bucket)));
+				vaultTrails.put(bucket, new VaultTrail(bucket, vp.bucket(bucket), connectionPool, executor, e.getValue()));
 			}
 			this.vaultTrails = Collections.unmodifiableMap(vaultTrails);
 		}
