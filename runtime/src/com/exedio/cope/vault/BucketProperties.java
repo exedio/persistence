@@ -95,7 +95,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	{
 		super(source);
 		this.bucket = bucket;
-		this.algorithm = parent.getAlgorithmFactory();
+		this.algorithm = parent.algorithmToBeUsedJustByBucketProperties;
 		service = valueService("service", writable);
 		trail = valueTrail(parent.trail);
 	}
