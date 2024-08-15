@@ -58,8 +58,7 @@ final class Connect
 	final Marshallers marshallers;
 	final Executor executor;
 	final Database database;
-	private final Map<String, VaultMarkPut> vaultMarkPut;
-	final Map<String, VaultResilientService> vaults;
+	final Map<String, VaultConnect> vaults;
 	final CacheStamp cacheStamp;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -104,8 +103,11 @@ final class Connect
 					throw new RuntimeException(key);
 				return result;
 			};
-			this.vaults = props!=null ? props.newServices(markPut) : emptyMap();
-			this.vaultMarkPut = Collections.unmodifiableMap(vaultMarkPut);
+			final Map<String, VaultResilientService> services = props!=null ? props.newServices(markPut) : emptyMap();
+			final HashMap<String, VaultConnect> vaults = new HashMap<>();
+			for(final Map.Entry<String, VaultResilientService> e : services.entrySet())
+				vaults.put(e.getKey(), new VaultConnect(e.getValue(), vaultMarkPut.get(e.getKey())));
+			this.vaults = Collections.unmodifiableMap(vaults);
 		}
 		this.database = new Database(
 				dialect.dsmfDialect,
@@ -114,7 +116,7 @@ final class Connect
 				connectionPool,
 				executor,
 				transactions,
-				vaultMarkPut,
+				vaults,
 				revisions);
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);
@@ -150,13 +152,13 @@ final class Connect
 
 	VaultMarkPut vaultMarkPut(final String bucket)
 	{
-		final VaultMarkPut result =
-				vaultMarkPut.get(requireNonEmpty(bucket, "bucket"));
+		final VaultConnect result =
+				vaults.get(requireNonEmpty(bucket, "bucket"));
 		if(result==null)
 			throw new IllegalArgumentException(
 					"bucket " + bucket + " does not exist, " +
 					"use one of " + vaults.keySet());
-		return result;
+		return result.markPut;
 	}
 
 	void close()
@@ -167,10 +169,10 @@ final class Connect
 
 		connectionPool.flush();
 
-		final ArrayList<VaultResilientService> reverseVaults = new ArrayList<>(vaults.values());
+		final ArrayList<VaultConnect> reverseVaults = new ArrayList<>(vaults.values());
 		Collections.reverse(reverseVaults);
-		for(final VaultResilientService vault : reverseVaults)
-			vault.close();
+		for(final VaultConnect vault : reverseVaults)
+			vault.service.close();
 
 		// let threads have some time to terminate,
 		// doing other thing in the mean time
@@ -225,12 +227,12 @@ final class Connect
 	{
 		dialect.purgeSchema(ctx, database, connectionPool);
 
-		for(final VaultResilientService vault : vaults.values())
+		for(final VaultConnect vault : vaults.values())
 		{
 			if(ctx.supportsMessage())
-				ctx.setMessage("vault " + vault);
+				ctx.setMessage("vault " + vault.service);
 			deferOrStopIfRequested(ctx);
-			vault.purgeSchema(ctx);
+			vault.service.purgeSchema(ctx);
 		}
 	}
 

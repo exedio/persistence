@@ -28,7 +28,6 @@ import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Properties;
-import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
@@ -95,8 +94,8 @@ public abstract class TestWithEnvironment
 		postgresql = tester.postgresql;
 		cache = tester.cache;
 		mariaDriver = envInfo().getDriverName().startsWith("MariaDB");
-		for(final VaultService vault : deresiliate(model.connect().vaults).values())
-			((VaultMockService)vault).clear();
+		for(final VaultConnect vault : model.connect().vaults.values())
+			((VaultMockService)deresiliate(vault.service)).clear();
 	}
 
 	protected final void startTransaction()
