@@ -36,7 +36,7 @@ final class VaultTrail
 	private final Executor executor;
 	private final VaultMarkPut markPutSupplier;
 
-	private final Bucket props;
+	private final Bucket bucket;
 	final int startLimit;
 	private final int fieldLimit;
 	private final int originLimit;
@@ -63,24 +63,24 @@ final class VaultTrail
 	private final String originQuoted;
 
 	VaultTrail(
-			final String bucket, // TODO change type to Bucket
+			final String bucketKey,
+			final Bucket bucket,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final VaultMarkPut markPutSupplier,
-			final Bucket props)
+			final VaultMarkPut markPutSupplier)
 	{
 		this.connectionPool = connectionPool;
 		this.executor = executor;
 		this.markPutSupplier = markPutSupplier;
 
-		this.props = props;
-		this.startLimit  = props.getTrailStartLimit();
-		this.fieldLimit  = props.getTrailFieldLimit();
-		this.originLimit = props.getTrailOriginLimit();
+		this.bucket = bucket;
+		this.startLimit  = bucket.getTrailStartLimit();
+		this.fieldLimit  = bucket.getTrailFieldLimit();
+		this.originLimit = bucket.getTrailOriginLimit();
 		this.originValue = truncate(ORIGIN, originLimit);
 
 		final Trimmer trimmer = TrimClass.Constraint.trimmer; // is correct, 60 characters from the beginning
-		table   = trimmer.trimString("VaultTrail_" + bucket);
+		table   = trimmer.trimString("VaultTrail_" + bucketKey);
 		hash    = trimmer.trimString("hash");
 		hashPK  = trimmer.trimString(table + "_PK");
 		length  = trimmer.trimString("length");
@@ -111,7 +111,7 @@ final class VaultTrail
 	{
 		final Table tab = schema.newTable(table);
 		tab.newColumn(hash, dialect.getStringType(
-				props.getAlgorithmLength(), mysqlExtendedVarchar) + NOT_NULL).
+				bucket.getAlgorithmLength(), mysqlExtendedVarchar) + NOT_NULL).
 				newPrimaryKey(hashPK);
 		tab.newColumn(length,  dialect.getIntegerType(0, Long.MAX_VALUE) + NOT_NULL);
 		tab.newColumn(start,   dialect.getBlobType(startLimit) + NOT_NULL);
