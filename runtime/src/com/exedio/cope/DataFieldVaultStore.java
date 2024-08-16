@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static java.util.Objects.requireNonNull;
-
 import com.exedio.cope.DataField.Value;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -71,7 +69,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		this.algorithm = properties.getAlgorithmFactory();
 		this.algorithmName = algorithm.getAlgorithm();
 		this.service = connect.vault(bucket).service;
-		this.trail = requireNonNull(connect.database.vaultTrails.get(bucket));
+		this.trail = connect.vault(bucket).trail;
 		this.dialect = connect.dialect;
 
 		final Metrics metrics = new Metrics(metricsTemplate, field, bucket);
