@@ -203,7 +203,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
-		final VaultMockService vs = (VaultMockService)deresiliate(model.connect().vaults.get("my-Bucket").service);
+		final VaultMockService vs = (VaultMockService)deresiliate(model.connect().vault("my-Bucket").service);
 		assertNotNull(vs);
 		vs.clear();
 		item.setField(toValue(decodeLower("abcdef")));

@@ -225,12 +225,12 @@ public class VaultTest
 
 	public static VaultService vaultService(final Model model)
 	{
-		final Iterator<VaultConnect> i = model.connect().vaults.values().iterator();
+		final Iterator<String> i = model.connect().vaultBuckets().iterator();
 		if(!i.hasNext())
 			return null;
-		final VaultConnect result = i.next();
+		final String result = i.next();
 		assertNotNull(result);
 		assertFalse(i.hasNext());
-		return deresiliate(result.service);
+		return deresiliate(model.connect().vault(result).service);
 	}
 }

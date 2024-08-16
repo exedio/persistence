@@ -70,7 +70,7 @@ final class DataFieldVaultStore extends DataFieldStore
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
 		this.algorithmName = algorithm.getAlgorithm();
-		this.service = requireNonNull(connect.vaults.get(bucket)).service;
+		this.service = requireNonNull(connect.vault(bucket)).service;
 		this.trail = requireNonNull(connect.database.vaultTrails.get(bucket));
 		this.dialect = connect.dialect;
 

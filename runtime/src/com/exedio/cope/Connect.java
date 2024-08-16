@@ -34,6 +34,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.BooleanSupplier;
@@ -58,7 +59,7 @@ final class Connect
 	final Marshallers marshallers;
 	final Executor executor;
 	final Database database;
-	final Map<String, VaultConnect> vaults;
+	private final Map<String, VaultConnect> vaults;
 	final CacheStamp cacheStamp;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -150,7 +151,7 @@ final class Connect
 				new TreeSet<>(Arrays.asList(array)));
 	}
 
-	VaultMarkPut vaultMarkPut(final String bucket)
+	VaultConnect vault(final String bucket)
 	{
 		final VaultConnect result =
 				vaults.get(requireNonEmpty(bucket, "bucket"));
@@ -158,7 +159,7 @@ final class Connect
 			throw new IllegalArgumentException(
 					"bucket " + bucket + " does not exist, " +
 					"use one of " + vaults.keySet());
-		return result.markPut;
+		return result;
 	}
 
 	void close()
@@ -272,5 +273,13 @@ final class Connect
 	String getSchemaSavepoint() throws SchemaSavepointNotAvailableException, SQLException
 	{
 		return dialect.getSchemaSavepoint(connectionPool);
+	}
+
+	/**
+	 * For junit tests only
+	 */
+	Set<String> vaultBuckets()
+	{
+		return vaults.keySet();
 	}
 }
