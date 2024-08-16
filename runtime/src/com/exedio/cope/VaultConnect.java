@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultResilientService;
 
 final class VaultConnect
@@ -33,5 +35,13 @@ final class VaultConnect
 	{
 		this.service = requireNonNull(service);
 		this.markPut = requireNonNull(markPut);
+	}
+
+	void purgeSchema(final JobContext ctx)
+	{
+		if(ctx.supportsMessage())
+			ctx.setMessage("vault " + service);
+		deferOrStopIfRequested(ctx);
+		service.purgeSchema(ctx);
 	}
 }

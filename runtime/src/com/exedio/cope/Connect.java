@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.util.Check.requireNonEmpty;
-import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Collections.emptyMap;
 
 import com.exedio.cope.util.JobContext;
@@ -229,12 +228,7 @@ final class Connect
 		dialect.purgeSchema(ctx, database, connectionPool);
 
 		for(final VaultConnect vault : vaults.values())
-		{
-			if(ctx.supportsMessage())
-				ctx.setMessage("vault " + vault.service);
-			deferOrStopIfRequested(ctx);
-			vault.service.purgeSchema(ctx);
-		}
+			vault.purgeSchema(ctx);
 	}
 
 	Revisions getRevisions()
