@@ -68,8 +68,9 @@ final class DataFieldVaultStore extends DataFieldStore
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
 		this.algorithmName = algorithm.getAlgorithm();
-		this.service = connect.vault(bucket).service;
-		this.trail = connect.vault(bucket).trail;
+		final VaultConnect vc = connect.vault(bucket);
+		this.service = vc.service;
+		this.trail = vc.trail;
 		this.dialect = connect.dialect;
 
 		final Metrics metrics = new Metrics(metricsTemplate, field, bucket);
