@@ -22,19 +22,26 @@ import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultResilientService;
 
 final class VaultConnect
 {
 	final VaultResilientService service;
 	final VaultMarkPut markPut;
+	final VaultTrail trail;
 
 	VaultConnect(
+			final String key,
+			final VaultProperties properties,
+			final ConnectionPool connectionPool,
+			final Executor executor,
 			final VaultResilientService service,
 			final VaultMarkPut markPut)
 	{
 		this.service = requireNonNull(service);
 		this.markPut = requireNonNull(markPut);
+		this.trail = new VaultTrail(key, properties.bucket(key), connectionPool, executor, markPut);
 	}
 
 	void purgeSchema(final JobContext ctx)
