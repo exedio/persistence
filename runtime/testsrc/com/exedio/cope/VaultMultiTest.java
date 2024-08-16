@@ -44,7 +44,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
-import com.exedio.cope.vault.VaultResilientService;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import io.micrometer.core.instrument.Gauge;
@@ -91,15 +90,15 @@ public class VaultMultiTest
 				single("vault.beta.service.bucketTagAction", "beta"),
 				TestSources.minimal()
 		)));
-		final Map<String, VaultService> vaults = deresiliate(MODEL.connect().vaults);
-		serviceDefault = (VaultMockService)vaults.get("default");
-		serviceAlpha   = (VaultMockService)vaults.get("alpha");
-		serviceBeta    = (VaultMockService)vaults.get("beta");
+		final Map<String, VaultConnect> vaults = MODEL.connect().vaults;
+		serviceDefault = (VaultMockService)deresiliate(vaults.get("default").service);
+		serviceAlpha   = (VaultMockService)deresiliate(vaults.get("alpha"  ).service);
+		serviceBeta    = (VaultMockService)deresiliate(vaults.get("beta"   ).service);
 	}
 
 	@Test void testInfo()
 	{
-		final Map<String, VaultResilientService> vaults = MODEL.connect().vaults;
+		final Map<String, VaultConnect> vaults = MODEL.connect().vaults;
 		assertEquals(asList("default", "alpha", "beta"), new ArrayList<>(vaults.keySet()));
 		assertEquals("defaultEx", serviceDefault.serviceProperties.example);
 		assertEquals("alphaEx",   serviceAlpha  .serviceProperties.example);

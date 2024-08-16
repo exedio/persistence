@@ -57,7 +57,7 @@ final class Database
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Transactions transactions,
-			final Map<String, VaultMarkPut> vaultMarkPut,
+			final Map<String, VaultConnect> vaults,
 			final RevisionsConnect revisions)
 	{
 		this.properties = probe.properties;
@@ -73,10 +73,10 @@ final class Database
 		if(vp!=null)
 		{
 			final LinkedHashMap<String, VaultTrail> vaultTrails = new LinkedHashMap<>();
-			for(final Map.Entry<String, VaultMarkPut> e : vaultMarkPut.entrySet())
+			for(final Map.Entry<String, VaultConnect> e : vaults.entrySet())
 			{
 				final String bucket = e.getKey();
-				vaultTrails.put(bucket, new VaultTrail(bucket, vp.bucket(bucket), connectionPool, executor, e.getValue()));
+				vaultTrails.put(bucket, new VaultTrail(bucket, vp.bucket(bucket), connectionPool, executor, e.getValue().markPut));
 			}
 			this.vaultTrails = Collections.unmodifiableMap(vaultTrails);
 		}
