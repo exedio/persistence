@@ -568,12 +568,12 @@ public final class Model implements Serializable
 
 	public boolean isVaultRequiredToMarkPut(final String bucket)
 	{
-		return connect().vaultMarkPut(bucket).value;
+		return connect().vault(bucket).markPut.value;
 	}
 
 	public void setVaultRequiredToMarkPut(final String bucket, final boolean value)
 	{
-		connect().vaultMarkPut(bucket).value = value;
+		connect().vault(bucket).markPut.value = value;
 	}
 
 	/**
