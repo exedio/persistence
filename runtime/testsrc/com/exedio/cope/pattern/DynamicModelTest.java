@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.BOOLEAN;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.DOUBLE;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.ENUM;
@@ -28,33 +26,20 @@ import static com.exedio.cope.pattern.DynamicModel.ValueType.STRING;
 import static com.exedio.cope.pattern.DynamicModelItem.TYPE;
 import static com.exedio.cope.pattern.DynamicModelItem.features;
 import static com.exedio.cope.pattern.DynamicModelItem.small;
+import static com.exedio.cope.pattern.DynamicModelModelTest.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.exedio.cope.Feature;
-import com.exedio.cope.Field;
-import com.exedio.cope.Model;
-import com.exedio.cope.Pattern;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
-import com.exedio.cope.pattern.DynamicModel.ValueType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DynamicModelTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(TYPE, DynamicModelLocalizationItem.TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(DynamicModelTest.class, "MODEL");
-	}
-
 	public DynamicModelTest()
 	{
 		super(MODEL);
@@ -71,71 +56,8 @@ public class DynamicModelTest extends TestWithEnvironment
 		en = new DynamicModelLocalizationItem("en");
 	}
 
-	private static void assertIt(final Pattern pattern, final Field<?> field, final String postfix)
-	{
-		assertEquals(pattern.getType(), field.getType());
-		assertEquals(pattern.getName() + '-' + postfix, field.getName());
-		assertEquals(pattern, field.getPattern());
-	}
-
 	@Test void testIt()
 	{
-		// test model
-		assertEquals(String .class, STRING .getValueClass());
-		assertEquals(Boolean.class, BOOLEAN.getValueClass());
-		assertEquals(Integer.class, INTEGER.getValueClass());
-		assertEquals(Double .class, DOUBLE .getValueClass());
-		assertEquals(Enum   .class, ENUM   .getValueClass());
-
-		assertEquals(TYPE, features.getType());
-		assertEquals("features", features.getName());
-
-		assertSame(features.getTypeType(), features.getTypeField().getValueType());
-		assertEquals("features-type", features.getTypeField().getName());
-
-		assertEquals(asList(new Type<?>[]{
-				TYPE,
-				features.getTypeType(), features.getTypeLocalizationType(),
-				features.getFieldType(), features.getFieldLocalizationType(),
-				features.getEnumType(), features.getEnumLocalizationType(),
-				small.getTypeType(), small.getTypeLocalizationType(),
-				small.getFieldType(), small.getFieldLocalizationType(),
-				// no getEnumType()
-				DynamicModelLocalizationItem.TYPE,
-			}), model.getTypes());
-		assertEquals(asList(new Feature[]{
-				TYPE.getThis(),
-				DynamicModelItem.name,
-				features,
-				features.getField(STRING , 0, null),
-				features.getField(BOOLEAN, 0, null),
-				features.getField(INTEGER, 0, null),
-				features.getField(DOUBLE , 0, null),
-				features.getField(ENUM   , 0, null),
-				features.getField(ENUM   , 1, null),
-				features.getTypeField(),
-				small,
-				small.getField(STRING, 0, null),
-				small.getTypeField(),
-			}), TYPE.getFeatures());
-		assertIt(features, features.getField(STRING,  0, null), "string0");
-		assertIt(features, features.getField(BOOLEAN, 0, null), "bool0");
-		assertIt(features, features.getField(INTEGER, 0, null), "int0");
-		assertIt(features, features.getField(DOUBLE,  0, null), "double0");
-		assertIt(features, features.getField(ENUM,    0, null), "enum0");
-		assertIt(features, features.getField(ENUM,    1, null), "enum1");
-		assertIt(small, small.getField(STRING, 0, null), "string0");
-		assertSerializedSame(features, 390);
-		assertSerializedSame(small   , 387);
-
-		assertEquals(asList(STRING, BOOLEAN, INTEGER, DOUBLE, ENUM), asList(ValueType.values()));
-		assertEquals(10, getColumnValue(STRING ));
-		assertEquals(20, getColumnValue(BOOLEAN));
-		assertEquals(30, getColumnValue(INTEGER));
-		assertEquals(40, getColumnValue(DOUBLE ));
-		assertEquals(50, getColumnValue(ENUM   ));
-
-		// test persistence
 		assertContains(features.getTypes());
 
 		final DynamicModel.Type<DynamicModelLocalizationItem> cellPhone = features.createType("cellPhone");
