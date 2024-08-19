@@ -22,7 +22,6 @@ import static com.exedio.cope.Intern.intern;
 
 import com.exedio.dsmf.Schema;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.SortedSet;
 
@@ -214,8 +213,8 @@ final class Table
 			if(!column.synthetic)
 				columns.add(column);
 
-		this.columns = Collections.unmodifiableList(columns);
-		allColumns = Collections.unmodifiableList(allColumnsModifiable);
+		this.columns = List.copyOf(columns);
+		allColumns = List.copyOf(allColumnsModifiable);
 		allColumnsModifiable = null;
 	}
 

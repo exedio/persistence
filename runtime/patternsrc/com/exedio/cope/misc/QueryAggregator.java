@@ -24,7 +24,6 @@ import static java.util.Collections.unmodifiableList;
 import com.exedio.cope.Query;
 import com.exedio.cope.Query.Result;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -135,7 +134,7 @@ public final class QueryAggregator<R>
 				}
 			}
 			if(first==null)
-				return result(Collections.emptyList(), total);
+				return result(List.of(), total);
 
 			data = new ArrayList<>(search(first, pageOffset-totalBeforeFirst));
 		}

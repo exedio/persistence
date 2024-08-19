@@ -45,7 +45,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -652,7 +651,7 @@ public abstract class MediaPath extends Pattern
 	@SuppressWarnings("MethodMayBeStatic") // OK: maintains backwards compatibility
 	public final List<MediaRequestLog> getNotComputableLogs()
 	{
-		return Collections.emptyList();
+		return List.of();
 	}
 
 

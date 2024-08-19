@@ -193,7 +193,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	@Override
 	public List<? extends CompositeType<? extends T>> getSubtypes()
 	{
-		return Collections.emptyList();
+		return List.of();
 	}
 
 	@Override

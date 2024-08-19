@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -249,7 +248,7 @@ public final class AntTask extends Task
 		{
 			if (ignore==null)
 			{
-				params.ignoreFiles = Collections.emptyList();
+				params.ignoreFiles = List.of();
 			}
 			else
 			{

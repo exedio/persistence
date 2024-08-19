@@ -43,7 +43,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -222,7 +221,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		//noinspection ThisEscapedInObjectConstruction
 		featuresParameter.mount(this);
 		featuresWhileConstruction.trimToSize();
-		this.featuresDeclared = Collections.unmodifiableList(featuresWhileConstruction);
+		this.featuresDeclared = List.copyOf(featuresWhileConstruction);
 		// make sure, method registerMounted fails from now on
 		this.featuresWhileConstruction = null;
 		assert thisFunction==this.featuresDeclared.get(0) : this.featuresDeclared;
@@ -253,7 +252,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				features.addAll(superFeatures.subList(1, superFeatures.size()));
 				features.addAll(this.featuresDeclared.subList(1, this.featuresDeclared.size()));
 				features.trimToSize();
-				this.features = Collections.unmodifiableList(features);
+				this.features = List.copyOf(features);
 			}
 			this.featuresByName    = inherit(supertype.featuresByName,    this.featuresByNameDeclared);
 		}
@@ -480,7 +479,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					final ArrayList<ItemField<?>> result = new ArrayList<>(inherited);
 					result.addAll(declared);
 					result.trimToSize();
-					this.references = Collections.unmodifiableList(castReferences(result));
+					this.references = List.copyOf(castReferences(result));
 				}
 			}
 			else

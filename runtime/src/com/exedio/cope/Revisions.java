@@ -89,7 +89,7 @@ public final class Revisions
 	List<Revision> getListToRun(final int departureNumber)
 	{
 		if(departureNumber==number)
-			return Collections.emptyList();
+			return List.of();
 		if(departureNumber>number)
 			throw new IllegalArgumentException(
 					"cannot revise backwards, expected " + number +

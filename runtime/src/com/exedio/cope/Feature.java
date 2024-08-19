@@ -34,7 +34,6 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
@@ -390,7 +389,7 @@ public abstract class Feature implements Serializable
 
 	public Collection<String> getSuspicions()
 	{
-		return Collections.emptyList();
+		return List.of();
 	}
 
 	/**

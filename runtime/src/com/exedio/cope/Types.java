@@ -23,7 +23,6 @@ import gnu.trove.TLongIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -136,9 +135,9 @@ final class Types
 		}
 
 
-		this.typeList = Collections.unmodifiableList(typesL);
+		this.typeList = List.copyOf(typesL);
 		this.concreteTypeCount = concreteTypeCount;
-		this.concreteTypes = Collections.unmodifiableList(concreteTypes);
+		this.concreteTypes = List.copyOf(concreteTypes);
 		this.typesSorted = typesSorted.toArray(EMPTY_TYPE_ARRAY);
 		this.typeListSorted = List.of(this.typesSorted);
 

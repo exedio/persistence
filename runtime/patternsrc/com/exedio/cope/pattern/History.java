@@ -374,6 +374,6 @@ public final class History extends Pattern
 		return
 			result!=null
 			? Collections.unmodifiableList(result)
-			: Collections.emptyList();
+			: List.of();
 	}
 }

@@ -38,7 +38,7 @@ public final class ListUtil
 		switch(size)
 		{
 		case 0:
-			return Collections.emptyList();
+			return List.of();
 		case 1:
 			return Collections.singletonList(list.get(0));
 		default:

@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 final class FeatureSubSet<F extends Feature>
@@ -66,7 +65,7 @@ final class FeatureSubSet<F extends Feature>
 			final ArrayList<F> result = new ArrayList<>(inherited);
 			result.addAll(declared);
 			result.trimToSize();
-			return Collections.unmodifiableList(result);
+			return List.copyOf(result);
 		}
 	}
 }

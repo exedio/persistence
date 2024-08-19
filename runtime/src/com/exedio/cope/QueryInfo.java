@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public final class QueryInfo
 {
@@ -42,7 +43,7 @@ public final class QueryInfo
 	{
 		return
 			childsLazilyInitialized==null
-			? Collections.emptyList()
+			? List.of()
 			: Collections.unmodifiableList(childsLazilyInitialized);
 	}
 

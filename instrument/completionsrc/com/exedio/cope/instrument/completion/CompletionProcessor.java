@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.completion;
 import com.exedio.cope.instrument.Wrap;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,7 +114,7 @@ public class CompletionProcessor extends AbstractProcessor
 		{
 			return getCompletionsForWrap(element);
 		}
-		return Collections.emptyList();
+		return List.of();
 	}
 
 	private static Iterable<? extends Completion> getCompletionsForWrap(final Element element)
@@ -124,17 +123,17 @@ public class CompletionProcessor extends AbstractProcessor
 		if (!(asType instanceof DeclaredType))
 		{
 			log.log(Level.WARNING, "expected DeclaredType but found {0}", asType.getClass());
-			return Collections.emptyList();
+			return List.of();
 		}
 		final DeclaredType declaredType=(DeclaredType)asType;
 		if (!(declaredType.asElement() instanceof TypeElement))
 		{
 			log.log(Level.WARNING, "expected TypeElement but found {0}", declaredType.getClass());
-			return Collections.emptyList();
+			return List.of();
 		}
 		final Map<String,List<String>> completionData=new HashMap<>();
 		declaredType.accept(new CompletionCollector(completionData), null);
-		completionData.put("*", Collections.singletonList("fallback configuration"));
+		completionData.put("*", List.of("fallback configuration"));
 		return toCompletions(completionData);
 	}
 
