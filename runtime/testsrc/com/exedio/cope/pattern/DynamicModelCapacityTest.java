@@ -30,7 +30,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
-public class DynamicModelModelTest
+public class DynamicModelCapacityTest
 {
 	@Test void testIt()
 	{
