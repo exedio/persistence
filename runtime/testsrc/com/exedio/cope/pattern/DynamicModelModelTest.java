@@ -37,8 +37,10 @@ import com.exedio.cope.Field;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class DynamicModelModelTest
@@ -103,9 +105,79 @@ public class DynamicModelModelTest
 		assertIt(features, features.getField(ENUM,    0, null), "enum0");
 		assertIt(features, features.getField(ENUM,    1, null), "enum1");
 		assertIt(small, small.getField(STRING, 0, null), "string0");
+	}
+
+	@Test void testTypeType()
+	{
+		assertEquals(asList(new Feature[]{
+				features.getTypeType().getThis(),
+				features.typeCode,
+				features.typeCode.getImplicitUniqueConstraint(),
+				features.typeLocalization,
+			}), features.getTypeType().getFeatures());
+	}
+
+	@Test void testFieldType()
+	{
+		final Type<DynamicModel.Field<DynamicModelLocalizationItem>> type = features.getFieldType();
+		final UniqueConstraint parentAndPosition          = (UniqueConstraint)type.getFeature("uniqueConstraint");
+		final UniqueConstraint parentValueTypeAndPosition = (UniqueConstraint)type.getFeature("uniqueConstraintPerValueType");
+		final UniqueConstraint parentAndCode              = (UniqueConstraint)type.getFeature("uniqueConstraintCode");
+		assertEquals(asList(new Feature[]{
+				type.getThis(),
+				features.mount().fieldParent,
+				features.fieldPosition,
+				parentAndPosition,
+				features.fieldValueType,
+				features.fieldPositionPerValueType,
+				parentValueTypeAndPosition,
+				features.fieldCode,
+				parentAndCode,
+				features.fieldLocalization,
+			}), type.getFeatures());
+		assertSame(features.getTypeType(), features.mount().fieldParent.getValueType());
+		assertEquals(
+				List.of(features.mount().fieldParent, features.fieldPosition),
+				parentAndPosition.getFields());
+		assertEquals(
+				List.of(features.mount().fieldParent, features.fieldValueType, features.fieldPositionPerValueType),
+				parentValueTypeAndPosition.getFields());
+		assertEquals(
+				List.of(features.mount().fieldParent, features.fieldCode),
+				parentAndCode.getFields());
+	}
+
+	@Test void testEnumType()
+	{
+		final Type<Enum<DynamicModelLocalizationItem>> type = features.getEnumType();
+		final UniqueConstraint parentAndPosition = (UniqueConstraint)type.getFeature("uniquePosition");
+		final UniqueConstraint parentAndCode     = (UniqueConstraint)type.getFeature("uniqueCode");
+		assertEquals(asList(new Feature[]{
+				type.getThis(),
+				features.mount().enumParent,
+				features.enumPosition,
+				parentAndPosition,
+				features.enumCode,
+				parentAndCode,
+				features.enumLocalization,
+			}), type.getFeatures());
+		assertSame(features.getFieldType(), features.mount().enumParent.getValueType());
+		assertEquals(
+				List.of(features.mount().enumParent, features.enumPosition),
+				parentAndPosition.getFields());
+		assertEquals(
+				List.of(features.mount().enumParent, features.enumCode),
+				parentAndCode.getFields());
+	}
+
+	@Test void testSerialization()
+	{
 		assertSerializedSame(features, 395);
 		assertSerializedSame(small   , 392);
+	}
 
+	@Test void testSchema()
+	{
 		assertEquals(asList(STRING, BOOLEAN, INTEGER, DOUBLE, ENUM), asList(ValueType.values()));
 		assertEquals(10, getColumnValue(STRING ));
 		assertEquals(20, getColumnValue(BOOLEAN));
