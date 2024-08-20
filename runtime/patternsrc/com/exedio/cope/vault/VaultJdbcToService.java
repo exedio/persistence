@@ -18,9 +18,9 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.Vault.DEFAULT;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.Vault;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.io.BufferedReader;
@@ -108,7 +108,7 @@ public final class VaultJdbcToService
 
 		final int queriesSize = props.queries.size();
 		final ArrayList<Stats> statsSummary = new ArrayList<>(queriesSize);
-		try(VaultService service = props.target.newServices(DEFAULT).get(DEFAULT);
+		try(VaultService service = props.target.newServices(BUCKET).get(BUCKET);
 			 Connection connection = props.newConnection();
 			 Statement stmt = connection.createStatement())
 		{
@@ -266,7 +266,7 @@ public final class VaultJdbcToService
 
 		void probeService(final PrintStream out)
 		{
-			final String NAME_PREFIX = "default.service.";
+			final String NAME_PREFIX = BUCKET + ".service.";
 
 			for(final Callable<?> probe : target.getProbes())
 			{
@@ -306,6 +306,8 @@ public final class VaultJdbcToService
 			super(source);
 		}
 	}
+
+	private static final String BUCKET = Vault.DEFAULT;
 
 	private VaultJdbcToService()
 	{
