@@ -22,21 +22,16 @@ import static java.lang.Integer.parseInt;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.time.ZoneOffset.UTC;
 
-import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Sources;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicLong;
@@ -144,62 +139,11 @@ public final class VaultFileToTrail
 		final byte[] probePrefix = truncate(CONTRACT_PROBE_PREFIX, startLimit).getBytes(US_ASCII);
 		final AtomicLong probes = new AtomicLong(0);
 
-		Files.walkFileTree(root, new SimpleFileVisitor<>()
+		Files.walkFileTree(root, new VaultFileServiceVisitor(err)
 		{
-			private final ArrayList<String> previousHashes = new ArrayList<>();
-			private String directoryHashes = null;
 			@Override
-			public FileVisitResult preVisitDirectory(final Path dir, final BasicFileAttributes attrs)
+			void onFile(final String hash, final Path file, final long length) throws IOException
 			{
-				final String filename = dir.getFileName().toString();
-				if(directoryHashes==null)
-				{
-					directoryHashes = "";
-					return FileVisitResult.CONTINUE;
-				}
-				if(CharSet.HEX_LOWER.indexOfNotContains(filename)>=0)
-				{
-					err.println("Skipping non-hex directory " + dir.toAbsolutePath());
-					return FileVisitResult.SKIP_SUBTREE;
-				}
-				final String newHash = directoryHashes + filename;
-				previousHashes.add(directoryHashes);
-				directoryHashes = newHash;
-				return FileVisitResult.CONTINUE;
-			}
-
-			@Override
-			public FileVisitResult postVisitDirectory(final Path dir, final IOException exc) throws IOException
-			{
-				super.postVisitDirectory(dir, exc); // fails if exc!=null
-				directoryHashes = previousHashes.isEmpty() ? null : previousHashes.remove(previousHashes.size()-1);
-				return FileVisitResult.CONTINUE;
-			}
-
-			@Override
-			public FileVisitResult visitFile(final Path file, final BasicFileAttributes attrs)
-					throws IOException
-			{
-				if(!Files.isRegularFile(file)) // TODO junit test
-				{
-					err.println("Skipping non-regular file " + file.toAbsolutePath());
-					return FileVisitResult.CONTINUE;
-				}
-
-				final String filename = file.getFileName().toString();
-				if(CharSet.HEX_LOWER.indexOfNotContains(filename)>=0)
-				{
-					err.println("Skipping non-hex file " + file.toAbsolutePath());
-					return FileVisitResult.CONTINUE;
-				}
-
-				final long length = Files.size(file);
-				if(length==0)
-				{
-					err.println("Skipping empty file " + file.toAbsolutePath());
-					return FileVisitResult.CONTINUE;
-				}
-
 				final byte[] start = new byte[(int)Math.min(length, startLimit)];
 				try(var in = Files.newInputStream(file))
 				{
@@ -213,18 +157,17 @@ public final class VaultFileToTrail
 					if(Arrays.equals(probePrefix, 0, l, start, 0, l))
 					{
 						probes.incrementAndGet();
-						return FileVisitResult.CONTINUE;
+						return;
 					}
 				}
 
 				final Instant lastModified = Files.getLastModifiedTime(file).toInstant();
 				out.println(
-						"\"" + directoryHashes + filename + "\",\"" +
+						"\"" + hash + "\",\"" +
 						length + "\",\"" +
 						Hex.encodeLower(start) + "\",\"" +
 						lastModified.getEpochSecond() + "\",\"" +
 						dateFormatter.format(LocalDateTime.ofInstant(lastModified, UTC)) + "\"");
-				return FileVisitResult.CONTINUE;
 			}
 		});
 		err.println("Skipped contract probes: " + probes);
