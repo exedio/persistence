@@ -19,17 +19,25 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.vault.VaultJdbcToServiceErrorTest.writeProperties;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapInterim;
+import com.exedio.cope.junit.AssertionErrorVaultService;
+import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import javax.annotation.Nonnull;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.rules.TemporaryFolder;
 
@@ -60,6 +68,7 @@ public class VaultJdbcToServiceAbstractTest extends TestWithEnvironment
 		props.setProperty("source.username", connect.getConnectionUsername());
 		props.setProperty("source.password", password);
 		props.setProperty("target.algorithm", "MD5");
+		props.setProperty("target.default.service", TestService.class.getName());
 		for(final Map.Entry<String,String> e : additional.entrySet())
 			props.setProperty(e.getKey(), e.getValue());
 		final Path propsFile = files.newFile().toPath();
@@ -68,4 +77,48 @@ public class VaultJdbcToServiceAbstractTest extends TestWithEnvironment
 	}
 
 	private final TemporaryFolder files = new TemporaryFolder();
+
+
+
+	private static final class TestService extends AssertionErrorVaultService
+	{
+		private final HashSet<String> content = new HashSet<>();
+
+		TestService(final VaultServiceParameters parameters)
+		{
+			assertNotNull(parameters);
+			assertEquals("MD5", parameters.getMessageDigestAlgorithm());
+			assertEquals("default", parameters.getBucket());
+			assertEquals(true, parameters.isWritable());
+		}
+
+		@Override
+		public boolean put(final String hash, final byte[] value)
+		{
+			final boolean result = content.add(hash);
+			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
+			return result;
+		}
+
+		@Override
+		public void close()
+		{
+			SERVICE_PUTS.add("close");
+		}
+	}
+
+	private static final ArrayList<String> SERVICE_PUTS = new ArrayList<>();
+
+	static List<String> servicePuts()
+	{
+		final var result = List.copyOf(SERVICE_PUTS);
+		SERVICE_PUTS.clear();
+		return result;
+	}
+
+	@BeforeEach @AfterEach
+	void clearServicePuts()
+	{
+		SERVICE_PUTS.clear();
+	}
 }
