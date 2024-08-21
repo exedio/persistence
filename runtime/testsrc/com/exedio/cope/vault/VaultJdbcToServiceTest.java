@@ -35,7 +35,6 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.ServiceProperties;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -47,7 +46,6 @@ import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 /**
  * @see VaultJdbcToServiceComputeTest
@@ -78,8 +76,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 				"ORDER BY " + SI.pk(MyItem.TYPE);
 		final Path propsFile = createProperties(Map.of(
 				"source.query", query,
-				"target.default.service", TestService.class.getName(),
-				"targetProbesSuppressed", "4Fails 4FailsOther"));
+				"target.default.service", TestService.class.getName()));
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, false, US_ASCII),
@@ -92,14 +89,6 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 				SERVICE_PUTS);
 		assertEquals(List.of(
 				"Fetch size set to " + ((mysql&&!mariaDriver)?"-2147483648":"1"),
-				"Probing 1Ok ...",
-				"  success: probe1Ok result",
-				"Probing 2OkVoid ...",
-				"  success",
-				"Probing 3Aborts ...",
-				"  aborted: probe3Aborts cause",
-				"Probing 4Fails suppressed",
-				"Probing 4FailsOther suppressed",
 				"Query 1/1 importing: " + query,
 				"Skipping null at row 0: hash",
 				"Skipping illegal argument at row 1: hash >< must have length 32, but has 0",
@@ -150,16 +139,14 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 
 	private static final Model MODEL = new Model(MyItem.TYPE);
 
-	@ServiceProperties(TestProperties.class)
 	private static final class TestService extends AssertionErrorVaultService
 	{
-		TestService(final VaultServiceParameters parameters, final TestProperties properties)
+		TestService(final VaultServiceParameters parameters)
 		{
 			assertNotNull(parameters);
 			assertEquals("MD5", parameters.getMessageDigestAlgorithm());
 			assertEquals("default", parameters.getBucket());
 			assertEquals(true, parameters.isWritable());
-			assertNotNull(properties);
 		}
 
 		@Override
@@ -174,34 +161,6 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 		public void close()
 		{
 			SERVICE_PUTS.add("close");
-		}
-	}
-
-	private static final class TestProperties extends com.exedio.cope.util.Properties
-	{
-		TestProperties(final Source source)
-		{
-			super(source);
-		}
-		@Probe String probe1Ok()
-		{
-			return "probe1Ok result";
-		}
-		@Probe void probe2OkVoid()
-		{
-			// do nothing
-		}
-		@Probe String probe3Aborts() throws ProbeAbortedException
-		{
-			throw newProbeAbortedException("probe3Aborts cause");
-		}
-		@Probe String probe4Fails()
-		{
-			throw new AssertionFailedError("probe4Fails cause");
-		}
-		@Probe String probe4FailsOther()
-		{
-			throw new AssertionFailedError("probe4FailsOther cause");
 		}
 	}
 

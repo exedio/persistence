@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.ServiceProperties;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -42,6 +43,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
+import org.opentest4j.AssertionFailedError;
 
 @MainRule.Tag
 public class VaultJdbcToServiceHsqldbTest
@@ -157,8 +159,80 @@ public class VaultJdbcToServiceHsqldbTest
 				readAllLines(out));
 	}
 
+	@Test void testProps() throws IOException, SQLException
+	{
+		final Path propsFile = createProperties(
+				"VALUES " +
+				"('012345678901234567890123456789ab', '050401')," +
+				"('022345678901234567890123456789ab', '050402')",
+				TestServiceProps.class,
+				Map.of(
+						"targetProbesSuppressed", "4Fails 4FailsOther"));
+		final var out = new ByteArrayOutputStream();
+		VaultJdbcToService.mainInternal(
+				new PrintStream(out, true, US_ASCII),
+				propsFile.toString());
 
-	private static final class TestService extends AssertionErrorVaultService
+		assertEquals(List.of(
+				"012345678901234567890123456789ab - 050401",
+				"022345678901234567890123456789ab - 050402",
+				"close"),
+				SERVICE_PUTS);
+		assertEquals(List.of(
+				"Fetch size set to 1",
+				"Probing 1Ok ...",
+				"  success: probe1Ok result",
+				"Probing 2OkVoid ...",
+				"  success",
+				"Probing 3Aborts ...",
+				"  aborted: probe3Aborts cause",
+				"Probing 4Fails suppressed",
+				"Probing 4FailsOther suppressed",
+				"Query 1/1 importing: VALUES " +
+				"('012345678901234567890123456789ab', '050401')," +
+				"('022345678901234567890123456789ab', '050402')",
+				"Finished query 1/1 after 2 rows, skipped 0, redundant 0"),
+				readAllLines(out));
+	}
+	@ServiceProperties(TestProperties.class)
+	private static final class TestServiceProps extends TestService
+	{
+		TestServiceProps(final VaultServiceParameters parameters, final TestProperties properties)
+		{
+			super(parameters);
+			assertNotNull(properties);
+		}
+	}
+	private static final class TestProperties extends com.exedio.cope.util.Properties
+	{
+		TestProperties(final Source source)
+		{
+			super(source);
+		}
+		@Probe String probe1Ok()
+		{
+			return "probe1Ok result";
+		}
+		@Probe void probe2OkVoid()
+		{
+			// do nothing
+		}
+		@Probe String probe3Aborts() throws ProbeAbortedException
+		{
+			throw newProbeAbortedException("probe3Aborts cause");
+		}
+		@Probe String probe4Fails()
+		{
+			throw new AssertionFailedError("probe4Fails cause");
+		}
+		@Probe String probe4FailsOther()
+		{
+			throw new AssertionFailedError("probe4FailsOther cause");
+		}
+	}
+
+
+	private static class TestService extends AssertionErrorVaultService
 	{
 		TestService(final VaultServiceParameters parameters)
 		{
@@ -196,13 +270,22 @@ public class VaultJdbcToServiceHsqldbTest
 	@Nonnull
 	private Path createProperties(final String query, final Map<String, String> additional) throws IOException
 	{
+		return createProperties(query, TestService.class, additional);
+	}
+
+	@Nonnull
+	private Path createProperties(
+			final String query,
+			final Class<? extends AssertionErrorVaultService> service,
+			final Map<String, String> additional) throws IOException
+	{
 		final Properties props = new Properties();
 		props.setProperty("source.url", "jdbc:hsqldb:mem:VaultJdbcToServiceHsqldbTest");
 		props.setProperty("source.username", "sa");
 		props.setProperty("source.password", "");
 		props.setProperty("source.query", query);
 		props.setProperty("target.algorithm", "MD5");
-		props.setProperty("target.default.service", TestService.class.getName());
+		props.setProperty("target.default.service", service.getName());
 		for(final Map.Entry<String,String> e : additional.entrySet())
 			props.setProperty(e.getKey(), e.getValue());
 		final Path propsFile = files.newFile().toPath();
