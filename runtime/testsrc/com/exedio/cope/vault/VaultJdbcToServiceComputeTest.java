@@ -22,17 +22,13 @@ import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Wrapper.ALL_WRAPS;
 import static com.exedio.cope.tojunit.Assert.readAllLines;
-import static com.exedio.cope.vault.VaultJdbcToServiceErrorTest.writeProperties;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AssertionErrorVaultService;
@@ -46,16 +42,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
 
 /**
  * @see VaultJdbcToServiceTest
  */
-public class VaultJdbcToServiceComputeTest extends TestWithEnvironment
+public class VaultJdbcToServiceComputeTest extends VaultJdbcToServiceAbstractTest
 {
 	VaultJdbcToServiceComputeTest()
 	{
@@ -64,10 +59,6 @@ public class VaultJdbcToServiceComputeTest extends TestWithEnvironment
 
 	@Test void test() throws IOException, SQLException
 	{
-		final ConnectProperties connect = MODEL.getConnectProperties();
-		assumeTrue(MyItem.value.getVaultInfo()==null, "vault");
-		assumeTrue(!postgresql || "public".equals(connect.getField("dialect.connection.schema").get()));
-
 		new MyItem(toValue((byte[])null)); // row 0
 		new MyItem(toValue(new byte[]{})); // row 1, hash of empty, handled by VaultResilientServiceProxy
 		new MyItem(toValue(new byte[]{1,2,3})); // row 2
@@ -75,21 +66,14 @@ public class VaultJdbcToServiceComputeTest extends TestWithEnvironment
 		new MyItem(toValue(new byte[]{1,2,4})); // row 4
 		MODEL.commit();
 
-		@SuppressWarnings("deprecation") // OK: just a test
-		final String password = connect.getConnectionPassword();
-		final Properties props = new Properties();
-		props.setProperty("source.url", connect.getConnectionUrl());
-		props.setProperty("source.username", connect.getConnectionUsername());
-		props.setProperty("source.password", password);
-		props.setProperty("source.query",
+		final String query =
 				"SELECT " + SI.col(MyItem.value) + " " +
 				"FROM " + SI.tab(MyItem.TYPE) + " " +
-				"ORDER BY " + SI.pk(MyItem.TYPE));
-		props.setProperty("source.queryHash", "false");
-		props.setProperty("target.algorithm", "MD5");
-		props.setProperty("target.default.service", TestService.class.getName());
-		final Path propsFile = files.newFile().toPath();
-		writeProperties(props, propsFile);
+				"ORDER BY " + SI.pk(MyItem.TYPE);
+		final Path propsFile = createProperties(Map.of(
+				"source.query", query,
+				"source.queryHash", "false",
+				"target.default.service", TestService.class.getName()));
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, false, US_ASCII),
@@ -103,7 +87,7 @@ public class VaultJdbcToServiceComputeTest extends TestWithEnvironment
 				SERVICE_PUTS);
 		assertEquals(List.of(
 				"Fetch size set to " + ((mysql&&!mariaDriver)?"-2147483648":"1"),
-				"Query 1/1 importing: " + props.getProperty("source.query"),
+				"Query 1/1 importing: " + query,
 				"Skipping null at row 0",
 				"Redundant put at row 1 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
 				"Redundant put at row 4 for hash 57db60e93fb52657521f8f99cbc7398f",
@@ -175,6 +159,4 @@ public class VaultJdbcToServiceComputeTest extends TestWithEnvironment
 	{
 		SERVICE_PUTS.clear();
 	}
-
-	private final TemporaryFolder files = new TemporaryFolder();
 }

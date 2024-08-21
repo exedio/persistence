@@ -22,18 +22,14 @@ import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Wrapper.ALL_WRAPS;
 import static com.exedio.cope.tojunit.Assert.readAllLines;
-import static com.exedio.cope.vault.VaultJdbcToServiceErrorTest.writeProperties;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
-import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AssertionErrorVaultService;
@@ -47,17 +43,16 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.TemporaryFolder;
 import org.opentest4j.AssertionFailedError;
 
 /**
  * @see VaultJdbcToServiceComputeTest
  */
-public class VaultJdbcToServiceTest extends TestWithEnvironment
+public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 {
 	VaultJdbcToServiceTest()
 	{
@@ -66,10 +61,6 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 
 	@Test void test() throws IOException, SQLException
 	{
-		final ConnectProperties connect = MODEL.getConnectProperties();
-		assumeTrue(MyItem.value.getVaultInfo()==null, "vault");
-		assumeTrue(!postgresql || "public".equals(connect.getField("dialect.connection.schema").get()));
-
 		new MyItem(null, null); // row 0
 		new MyItem("", null);   // row 1
 		new MyItem("ab", null); // row 2
@@ -81,21 +72,14 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		new MyItem("fa2345678901234567890123456789ab", toValue(new byte[]{1,2,4})); // row 8
 		MODEL.commit();
 
-		@SuppressWarnings("deprecation") // OK: just a test
-		final String password = connect.getConnectionPassword();
-		final Properties props = new Properties();
-		props.setProperty("source.url", connect.getConnectionUrl());
-		props.setProperty("source.username", connect.getConnectionUsername());
-		props.setProperty("source.password", password);
-		props.setProperty("source.query",
+		final String query =
 				"SELECT " + SI.col(MyItem.hash) + "," + SI.col(MyItem.value) + " " +
 				"FROM " + SI.tab(MyItem.TYPE) + " " +
-				"ORDER BY " + SI.pk(MyItem.TYPE));
-		props.setProperty("target.algorithm", "MD5");
-		props.setProperty("target.default.service", TestService.class.getName());
-		props.setProperty("targetProbesSuppressed", "4Fails 4FailsOther");
-		final Path propsFile = files.newFile().toPath();
-		writeProperties(props, propsFile);
+				"ORDER BY " + SI.pk(MyItem.TYPE);
+		final Path propsFile = createProperties(Map.of(
+				"source.query", query,
+				"target.default.service", TestService.class.getName(),
+				"targetProbesSuppressed", "4Fails 4FailsOther"));
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, false, US_ASCII),
@@ -116,7 +100,7 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				"  aborted: probe3Aborts cause",
 				"Probing 4Fails suppressed",
 				"Probing 4FailsOther suppressed",
-				"Query 1/1 importing: " + props.getProperty("source.query"),
+				"Query 1/1 importing: " + query,
 				"Skipping null at row 0: hash",
 				"Skipping illegal argument at row 1: hash >< must have length 32, but has 0",
 				"Skipping illegal argument at row 2: hash >ab< must have length 32, but has 2",
@@ -227,6 +211,4 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 	{
 		SERVICE_PUTS.clear();
 	}
-
-	private final TemporaryFolder files = new TemporaryFolder();
 }
