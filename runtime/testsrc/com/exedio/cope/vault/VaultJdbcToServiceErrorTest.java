@@ -80,7 +80,7 @@ public class VaultJdbcToServiceErrorTest
 				"property unusedProperty in " +
 				propsFile + " " +
 				"is not allowed, but only one of [" +
-				"source.url, source.username, source.password, source.query, source.fetchSize, " +
+				"source.url, source.username, source.password, source.query, source.queryHash, source.fetchSize, " +
 				"target.algorithm, " +
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
 				"target.buckets, target.default.service, " +

@@ -21,6 +21,8 @@ package com.exedio.cope.vault;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Vault;
+import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.io.BufferedReader;
@@ -108,6 +110,7 @@ public final class VaultJdbcToService
 
 		final int queriesSize = props.queries.size();
 		final ArrayList<Stats> statsSummary = new ArrayList<>(queriesSize);
+		final MessageDigestFactory queryHash = props.queryHash();
 		try(VaultService service = props.target.newServices(BUCKET).get(BUCKET);
 			 Connection connection = props.newConnection();
 			 Statement stmt = connection.createStatement())
@@ -122,8 +125,24 @@ public final class VaultJdbcToService
 				{
 					while(resultSet.next())
 					{
-						final String hash = resultSet.getString(1);
-						final byte[] value = resultSet.getBytes(2);
+						final String hash;
+						final byte[] value;
+						if(queryHash==null)
+						{
+							hash = resultSet.getString(1);
+							value = resultSet.getBytes(2);
+						}
+						else
+						{
+							value = resultSet.getBytes(1);
+							if(value==null)
+							{
+								stats.onSkipNullRow();
+								stats.onRow();
+								continue;
+							}
+							hash = Hex.encodeLower(queryHash.digest(value));
+						}
 						try
 						{
 							if(!service.put(hash, value))
@@ -178,6 +197,12 @@ public final class VaultJdbcToService
 		{
 			skipped++;
 			out.println("Skipping null at row " + row + ": " + exception.getMessage());
+		}
+
+		void onSkipNullRow()
+		{
+			skipped++;
+			out.println("Skipping null at row " + row);
 		}
 
 		void onSkip(final IllegalArgumentException exception)
@@ -249,6 +274,15 @@ public final class VaultJdbcToService
 				throw new RuntimeException(e);
 			}
 			return List.copyOf(result);
+		}
+
+		final boolean queryHash = value("source.queryHash", true);
+
+		MessageDigestFactory queryHash()
+		{
+			return queryHash
+					? null
+					: target.bucket(BUCKET).getAlgorithmFactory();
 		}
 
 		/**

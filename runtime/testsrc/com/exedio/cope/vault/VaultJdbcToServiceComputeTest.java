@@ -32,34 +32,32 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.ServiceProperties;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
-import org.opentest4j.AssertionFailedError;
 
 /**
- * @see VaultJdbcToServiceComputeTest
+ * @see VaultJdbcToServiceTest
  */
-public class VaultJdbcToServiceTest extends TestWithEnvironment
+public class VaultJdbcToServiceComputeTest extends TestWithEnvironment
 {
-	VaultJdbcToServiceTest()
+	VaultJdbcToServiceComputeTest()
 	{
 		super(MODEL);
 	}
@@ -70,15 +68,11 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		assumeTrue(MyItem.value.getVaultInfo()==null, "vault");
 		assumeTrue(!postgresql || "public".equals(connect.getField("dialect.connection.schema").get()));
 
-		new MyItem(null, null); // row 0
-		new MyItem("", null);   // row 1
-		new MyItem("ab", null); // row 2
-		new MyItem("01x345678901234567890123456789ab", null);  // row 3
-		new MyItem("01aa45678901234567890123456789ab", null);  // row 4
-		new MyItem("d41d8cd98f00b204e9800998ecf8427e", toValue(new byte[]{})); // row 5, hash of empty, handled by VaultResilientServiceProxy
-		new MyItem("01bb45678901234567890123456789ff", toValue(new byte[]{})); // row 6
-		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,3})); // row 7
-		new MyItem("fa2345678901234567890123456789ab", toValue(new byte[]{1,2,4})); // row 8
+		new MyItem(toValue((byte[])null)); // row 0
+		new MyItem(toValue(new byte[]{})); // row 1, hash of empty, handled by VaultResilientServiceProxy
+		new MyItem(toValue(new byte[]{1,2,3})); // row 2
+		new MyItem(toValue(new byte[]{1,2,4})); // row 3
+		new MyItem(toValue(new byte[]{1,2,4})); // row 4
 		MODEL.commit();
 
 		@SuppressWarnings("deprecation") // OK: just a test
@@ -88,12 +82,12 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		props.setProperty("source.username", connect.getConnectionUsername());
 		props.setProperty("source.password", password);
 		props.setProperty("source.query",
-				"SELECT " + SI.col(MyItem.hash) + "," + SI.col(MyItem.value) + " " +
+				"SELECT " + SI.col(MyItem.value) + " " +
 				"FROM " + SI.tab(MyItem.TYPE) + " " +
 				"ORDER BY " + SI.pk(MyItem.TYPE));
+		props.setProperty("source.queryHash", "false");
 		props.setProperty("target.algorithm", "MD5");
 		props.setProperty("target.default.service", TestService.class.getName());
-		props.setProperty("targetProbesSuppressed", "4Fails 4FailsOther");
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -102,30 +96,18 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 				propsFile.toAbsolutePath().toString());
 
 		assertEquals(List.of(
-				"01cc45678901234567890123456789ab - 010203",
-				"fa2345678901234567890123456789ab - 010204 - redundant",
+				"5289df737df57326fcdd22597afb1fac - 010203",
+				"57db60e93fb52657521f8f99cbc7398f - 010204",
+				"57db60e93fb52657521f8f99cbc7398f - 010204 - redundant",
 				"close"),
 				SERVICE_PUTS);
 		assertEquals(List.of(
 				"Fetch size set to " + ((mysql&&!mariaDriver)?"-2147483648":"1"),
-				"Probing 1Ok ...",
-				"  success: probe1Ok result",
-				"Probing 2OkVoid ...",
-				"  success",
-				"Probing 3Aborts ...",
-				"  aborted: probe3Aborts cause",
-				"Probing 4Fails suppressed",
-				"Probing 4FailsOther suppressed",
 				"Query 1/1 importing: " + props.getProperty("source.query"),
-				"Skipping null at row 0: hash",
-				"Skipping illegal argument at row 1: hash >< must have length 32, but has 0",
-				"Skipping illegal argument at row 2: hash >ab< must have length 32, but has 2",
-				"Skipping illegal argument at row 3: hash >01x3456789012345xx32< contains illegal character >x< at position 2",
-				"Skipping null at row 4: value",
-				"Redundant put at row 5 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
-				"Skipping illegal argument at row 6: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultResilientServiceProxy
-				"Redundant put at row 8 for hash fa2345678901234567890123456789ab",
-				"Finished query 1/1 after 9 rows, skipped 6, redundant 2"),
+				"Skipping null at row 0",
+				"Redundant put at row 1 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
+				"Redundant put at row 4 for hash 57db60e93fb52657521f8f99cbc7398f",
+				"Finished query 1/1 after 5 rows, skipped 1, redundant 2"),
 				readAllLines(out));
 	}
 
@@ -133,20 +115,14 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 	private static final class MyItem extends Item
 	{
 		@Wrapper(wrap=ALL_WRAPS, visibility=NONE)
-		static final StringField hash = new StringField().toFinal().optional().lengthMin(0);
-		@Wrapper(wrap=ALL_WRAPS, visibility=NONE)
 		static final DataField value = new DataField().toFinal().optional();
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private MyItem(
-					@javax.annotation.Nullable final java.lang.String hash,
 					@javax.annotation.Nullable final com.exedio.cope.DataField.Value value)
-				throws
-					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				com.exedio.cope.SetValue.map(MyItem.hash,hash),
 				com.exedio.cope.SetValue.map(MyItem.value,value),
 			});
 		}
@@ -166,22 +142,22 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 
 	private static final Model MODEL = new Model(MyItem.TYPE);
 
-	@ServiceProperties(TestProperties.class)
 	private static final class TestService extends AssertionErrorVaultService
 	{
-		TestService(final VaultServiceParameters parameters, final TestProperties properties)
+		private final HashSet<String> content = new HashSet<>();
+
+		TestService(final VaultServiceParameters parameters)
 		{
 			assertNotNull(parameters);
 			assertEquals("MD5", parameters.getMessageDigestAlgorithm());
 			assertEquals("default", parameters.getBucket());
 			assertEquals(true, parameters.isWritable());
-			assertNotNull(properties);
 		}
 
 		@Override
 		public boolean put(final String hash, final byte[] value)
 		{
-			final boolean result = !hash.startsWith("fa");
+			final boolean result = content.add(hash);
 			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
 			return result;
 		}
@@ -190,34 +166,6 @@ public class VaultJdbcToServiceTest extends TestWithEnvironment
 		public void close()
 		{
 			SERVICE_PUTS.add("close");
-		}
-	}
-
-	private static final class TestProperties extends com.exedio.cope.util.Properties
-	{
-		TestProperties(final Source source)
-		{
-			super(source);
-		}
-		@Probe String probe1Ok()
-		{
-			return "probe1Ok result";
-		}
-		@Probe void probe2OkVoid()
-		{
-			// do nothing
-		}
-		@Probe String probe3Aborts() throws ProbeAbortedException
-		{
-			throw newProbeAbortedException("probe3Aborts cause");
-		}
-		@Probe String probe4Fails()
-		{
-			throw new AssertionFailedError("probe4Fails cause");
-		}
-		@Probe String probe4FailsOther()
-		{
-			throw new AssertionFailedError("probe4FailsOther cause");
 		}
 	}
 
