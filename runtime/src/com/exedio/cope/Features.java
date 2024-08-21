@@ -41,7 +41,6 @@ public final class Features
 	public void put(final String name, final Feature feature, final AnnotatedElement annotationSource)
 	{
 		requireNonNull(name, "name");
-		if(!"BEANSHELL_HACK_ATTRIBUTE".equals(name)) // TODO
 		{
 			final int i = Feature.NAME_CHAR_SET.indexOfNotContains(name);
 			if(i>=0)
