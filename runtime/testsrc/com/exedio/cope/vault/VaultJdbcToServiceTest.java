@@ -53,15 +53,15 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 
 	@Test void test() throws IOException, SQLException
 	{
-		new MyItem(null, null); // row 0
-		new MyItem("", null);   // row 1
-		new MyItem("ab", null); // row 2
-		new MyItem("01x345678901234567890123456789ab", null);  // row 3
-		new MyItem("01aa45678901234567890123456789ab", null);  // row 4
-		new MyItem("d41d8cd98f00b204e9800998ecf8427e", toValue(new byte[]{})); // row 5, hash of empty, handled by VaultResilientServiceProxy
-		new MyItem("01bb45678901234567890123456789ff", toValue(new byte[]{})); // row 6
-		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,3})); // row 7
-		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,4})); // row 8
+		new MyItem("01aa45678901234567890123456789ab", toValue((byte[])null)); // row 0
+		new MyItem("d41d8cd98f00b204e9800998ecf8427e", toValue(new byte[]{})); // row 1, hash of empty, handled by VaultResilientServiceProxy
+		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,3})); // row 2
+		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,4})); // row 3
+		new MyItem(null, null); // row 4
+		new MyItem("", null);   // row 5
+		new MyItem("ab", null); // row 6
+		new MyItem("01x345678901234567890123456789ab", null); // row 7
+		new MyItem("01bb45678901234567890123456789ff", toValue(new byte[]{})); // row 8
 		MODEL.commit();
 
 		final String query =
@@ -83,14 +83,14 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 		assertEquals(List.of(
 				"Fetch size set to " + ((mysql&&!mariaDriver)?"-2147483648":"1"),
 				"Query 1/1 importing: " + query,
-				"Skipping null at row 0: hash",
-				"Skipping illegal argument at row 1: hash >< must have length 32, but has 0",
-				"Skipping illegal argument at row 2: hash >ab< must have length 32, but has 2",
-				"Skipping illegal argument at row 3: hash >01x3456789012345xx32< contains illegal character >x< at position 2",
-				"Skipping null at row 4: value",
-				"Redundant put at row 5 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
-				"Skipping illegal argument at row 6: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultResilientServiceProxy
-				"Redundant put at row 8 for hash 01cc45678901234567890123456789ab",
+				"Skipping null at row 0: value",
+				"Redundant put at row 1 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
+				"Redundant put at row 3 for hash 01cc45678901234567890123456789ab",
+				"Skipping null at row 4: hash",
+				"Skipping illegal argument at row 5: hash >< must have length 32, but has 0",
+				"Skipping illegal argument at row 6: hash >ab< must have length 32, but has 2",
+				"Skipping illegal argument at row 7: hash >01x3456789012345xx32< contains illegal character >x< at position 2",
+				"Skipping illegal argument at row 8: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultResilientServiceProxy
 				"Finished query 1/1 after 9 rows, skipped 6, redundant 2"),
 				readAllLines(out));
 	}
