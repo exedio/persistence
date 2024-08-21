@@ -41,6 +41,7 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
@@ -67,7 +68,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 		new MyItem("d41d8cd98f00b204e9800998ecf8427e", toValue(new byte[]{})); // row 5, hash of empty, handled by VaultResilientServiceProxy
 		new MyItem("01bb45678901234567890123456789ff", toValue(new byte[]{})); // row 6
 		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,3})); // row 7
-		new MyItem("fa2345678901234567890123456789ab", toValue(new byte[]{1,2,4})); // row 8
+		new MyItem("01cc45678901234567890123456789ab", toValue(new byte[]{1,2,4})); // row 8
 		MODEL.commit();
 
 		final String query =
@@ -84,7 +85,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 
 		assertEquals(List.of(
 				"01cc45678901234567890123456789ab - 010203",
-				"fa2345678901234567890123456789ab - 010204 - redundant",
+				"01cc45678901234567890123456789ab - 010204 - redundant",
 				"close"),
 				SERVICE_PUTS);
 		assertEquals(List.of(
@@ -97,7 +98,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 				"Skipping null at row 4: value",
 				"Redundant put at row 5 for hash d41d8cd98f00b204e9800998ecf8427e", // empty hash handled by VaultResilientServiceProxy
 				"Skipping illegal argument at row 6: hash >01bb456789012345xx32< put with empty value, but empty hash is >d41d8cd98f00b204e9800998ecf8427e<", // empty value handled by VaultResilientServiceProxy
-				"Redundant put at row 8 for hash fa2345678901234567890123456789ab",
+				"Redundant put at row 8 for hash 01cc45678901234567890123456789ab",
 				"Finished query 1/1 after 9 rows, skipped 6, redundant 2"),
 				readAllLines(out));
 	}
@@ -141,6 +142,8 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 
 	private static final class TestService extends AssertionErrorVaultService
 	{
+		private final HashSet<String> content = new HashSet<>();
+
 		TestService(final VaultServiceParameters parameters)
 		{
 			assertNotNull(parameters);
@@ -152,7 +155,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 		@Override
 		public boolean put(final String hash, final byte[] value)
 		{
-			final boolean result = !hash.startsWith("fa");
+			final boolean result = content.add(hash);
 			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
 			return result;
 		}
