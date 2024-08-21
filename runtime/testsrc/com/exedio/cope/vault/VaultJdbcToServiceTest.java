@@ -24,7 +24,6 @@ import static com.exedio.cope.instrument.Wrapper.ALL_WRAPS;
 import static com.exedio.cope.tojunit.Assert.readAllLines;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
@@ -32,20 +31,14 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.tojunit.SI;
-import com.exedio.cope.util.Hex;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -76,8 +69,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 				"FROM " + SI.tab(MyItem.TYPE) + " " +
 				"ORDER BY " + SI.pk(MyItem.TYPE);
 		final Path propsFile = createProperties(Map.of(
-				"source.query", query,
-				"target.default.service", TestService.class.getName()));
+				"source.query", query));
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, false, US_ASCII),
@@ -87,7 +79,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 				"01cc45678901234567890123456789ab - 010203",
 				"01cc45678901234567890123456789ab - 010204 - redundant",
 				"close"),
-				SERVICE_PUTS);
+				servicePuts());
 		assertEquals(List.of(
 				"Fetch size set to " + ((mysql&&!mariaDriver)?"-2147483648":"1"),
 				"Query 1/1 importing: " + query,
@@ -139,38 +131,4 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 	}
 
 	private static final Model MODEL = new Model(MyItem.TYPE);
-
-	private static final class TestService extends AssertionErrorVaultService
-	{
-		private final HashSet<String> content = new HashSet<>();
-
-		TestService(final VaultServiceParameters parameters)
-		{
-			assertNotNull(parameters);
-			assertEquals("MD5", parameters.getMessageDigestAlgorithm());
-			assertEquals("default", parameters.getBucket());
-			assertEquals(true, parameters.isWritable());
-		}
-
-		@Override
-		public boolean put(final String hash, final byte[] value)
-		{
-			final boolean result = content.add(hash);
-			SERVICE_PUTS.add(hash + " - " + Hex.encodeLower(value) + (result ? "" : " - redundant"));
-			return result;
-		}
-
-		@Override
-		public void close()
-		{
-			SERVICE_PUTS.add("close");
-		}
-	}
-
-	private static final ArrayList<String> SERVICE_PUTS = new ArrayList<>();
-
-	@BeforeEach @AfterEach void clearServicePuts()
-	{
-		SERVICE_PUTS.clear();
-	}
 }
