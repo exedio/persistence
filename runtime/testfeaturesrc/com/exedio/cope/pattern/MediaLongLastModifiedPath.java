@@ -25,8 +25,8 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrap;
 import java.io.Serial;
 import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * This feature allows testing {@link MediaPath#getLastModified(Item)} with values,

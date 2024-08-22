@@ -20,8 +20,8 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ServletUtil;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 public class PropertiesInitializer implements ServletContextListener
 {
