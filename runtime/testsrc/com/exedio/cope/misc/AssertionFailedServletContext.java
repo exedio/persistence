@@ -138,36 +138,8 @@ public class AssertionFailedServletContext implements ServletContext
 		throw new AssertionError();
 	}
 
-	@Deprecated
-	@Override
-	public Servlet getServlet(final String arg0)
-	{
-		throw new AssertionError();
-	}
-
-	@Deprecated
-	@Override
-	public Enumeration<String> getServletNames()
-	{
-		throw new AssertionError();
-	}
-
-	@Deprecated
-	@Override
-	public Enumeration<Servlet> getServlets()
-	{
-		throw new AssertionError();
-	}
-
 	@Override
 	public void log(final String arg0)
-	{
-		throw new AssertionError();
-	}
-
-	@Deprecated
-	@Override
-	public void log(final Exception arg0, final String arg1)
 	{
 		throw new AssertionError();
 	}

@@ -153,20 +153,6 @@ class AssertionFailedHttpServletResponse implements HttpServletResponse
 		throw new AssertionError();
 	}
 
-	@Deprecated
-	@Override
-	public String encodeUrl(final String url)
-	{
-		throw new AssertionError();
-	}
-
-	@Deprecated
-	@Override
-	public String encodeRedirectUrl(final String url)
-	{
-		throw new AssertionError();
-	}
-
 	@SuppressWarnings("unused")
 	@Override
 	public void sendError(final int sc, final String msg) throws IOException
@@ -226,13 +212,6 @@ class AssertionFailedHttpServletResponse implements HttpServletResponse
 
 	@Override
 	public void setStatus(final int sc)
-	{
-		throw new AssertionError();
-	}
-
-	@Deprecated
-	@Override
-	public void setStatus(final int sc, final String sm)
 	{
 		throw new AssertionError();
 	}

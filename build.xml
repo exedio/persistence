@@ -154,7 +154,7 @@
 	</target>
 
 	<target name="catalina">
-		<property name="catalina.root" value="apache-tomcat-9.0.31" />
+		<property name="catalina.root" value="apache-tomcat-10.1.34" />
 		<untar src="lib/tomcat/tomcat.tar.gz"
 				 compression="gzip"
 				 dest="${basedir}">
@@ -517,7 +517,7 @@
 				</copy>
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset dir="lib/test@{env.driver}">
-						<exclude name="javax.servlet-api.jar" />
+						<exclude name="jakarta.servlet-api.jar" />
 					</fileset>
 					<fileset dir="lib/copeconsole" />
 				</copy>
@@ -552,7 +552,7 @@
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="lib/servlet/javax.servlet-api.jar" /><!-- required to instrument Media features-->
+				<pathelement location="lib/servlet/jakarta.servlet-api.jar" /><!-- required to instrument Media features-->
 			</classpath>
 			<resources refid="instrument.resources" />
 			<suppressWarnings>

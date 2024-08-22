@@ -17,9 +17,9 @@
 				corrupted when using GET-after-POST forms -->
 		<Connector
 				port="@PORT_HTTP@" maxHttpHeaderSize="8192"
-				maxThreads="150" minSpareThreads="25" maxSpareThreads="75"
+				maxThreads="150" minSpareThreads="25"
 				enableLookups="false" redirectPort="8443" acceptCount="100"
-				useBodyEncodingForURI="true"
+				URIEncoding="UTF-8"
 				connectionTimeout="20000" disableUploadTimeout="true" />
 		<Engine name="Catalina" defaultHost="localhost">
 			<!-- This Realm uses the UserDatabase configured in the global JNDI
@@ -29,7 +29,7 @@
 					resourceName="UserDatabase" />
 			<Host name="localhost" appBase="webapps"
 					unpackWARs="true" autoDeploy="true"
-					xmlValidation="false" xmlNamespaceAware="false" />
+					/>
 		</Engine>
 	</Service>
 </Server>

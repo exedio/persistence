@@ -7,6 +7,28 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* servlet-api 6.0.0 required.
+	jakartaee-migration no longer needed.
+* ivy conf "sources" added, publishes exedio-cope-console-src.zip.
+* Page footer links to Resource Status (copsResourceStatus.html).
+	You may want to drop links within the Admin Area of your project.
+* JDK 17 required.
+* servlet-api 4.0.1 required.
+* tab "Media Types" checks medias in vault again.
+	Requires cope rev>=11520 , otherwise tests do fail with:
+		UnsupportedQueryException:
+			DataField MyItem.myMedia does not support startsWith as it has vault enabled
+* tab "Connect Tokens" no longer supports the button "probe".
+	This functionality was taken over by the "Probes" of the PropertiesServlet.
+* JDK 11 required.
+* Class-Path removed from jar manifest:
+	- exedio-cope-console.jar drops "Class-Path: exedio-cope.jar exedio-cops.jar"
+* copeservletutil dependency dropped.
+	Was redundant all the time. You may want to drop
+		<exclude org="com.exedio" module="copeservletutil" />
+	from your copeconsole dependency, if present.
+* ConsoleServlet#isStable(TypeField/FeatureField) added
+* servlet-api 3.1 / tomcat 8.5.14 required
 * Drop unused columns from Schema view ignores nonrequired tables
 * HTTP header security:
 	Content-Security-Policy, Referrer-Policy, X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
