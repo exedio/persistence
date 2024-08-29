@@ -39,6 +39,11 @@ public class MediaWithLocatorTest extends TestWithEnvironment
 				UnsupportedOperationException.class,
 				"not supported for " + MyItem.noLocator + " because isWithLocator()==false"
 		);
+		assertFails(
+				() -> MyItem.noLocator.getURL(withoutData),
+				UnsupportedOperationException.class,
+				"not supported for " + MyItem.noLocator + " because isWithLocator()==false"
+		);
 		assertEquals(null, MyItem.thumbOfNoLocator.getLocator(withoutData));
 		assertFails(
 				() -> MyItem.noLocatorThumb.getLocator(withoutData),
