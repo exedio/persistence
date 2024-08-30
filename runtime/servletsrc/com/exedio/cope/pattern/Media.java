@@ -79,8 +79,10 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	private Media(
 			final DataField body,
 			final ContentType<?> contentType,
-			final DateField lastModified)
+			final DateField lastModified,
+			final boolean withLocator)
 	{
+		super(withLocator);
 		this.isfinal = body.isFinal();
 		this.optional = !body.isMandatory();
 		//noinspection ThisEscapedInObjectConstruction
@@ -141,13 +143,13 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media()
 	{
-		this(new DataField(), new DefaultContentType(), new DateField());
+		this(new DataField(), new DefaultContentType(), new DateField(), true);
 	}
 
 	@Override
 	public Media copy(final CopyMapper mapper)
 	{
-		final Media result = new Media(body.copy(), contentType.copy(), lastModified.copy());
+		final Media result = new Media(body.copy(), contentType.copy(), lastModified.copy(), isWithLocator());
 		// TODO implement some generic mapping
 		if(contentType.field!=null)
 			mapper.put(contentType.field, result.contentType.field);
@@ -157,17 +159,17 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Media toFinal()
 	{
-		return new Media(body.toFinal(), contentType.toFinal(), lastModified.toFinal());
+		return new Media(body.toFinal(), contentType.toFinal(), lastModified.toFinal(), isWithLocator());
 	}
 
 	public Media optional()
 	{
-		return new Media(body.optional(), contentType.optional(), lastModified.optional());
+		return new Media(body.optional(), contentType.optional(), lastModified.optional(), isWithLocator());
 	}
 
 	public Media lengthMax(final long maximumLength)
 	{
-		return new Media(body.lengthMax(maximumLength), contentType.copy(), lastModified.copy());
+		return new Media(body.lengthMax(maximumLength), contentType.copy(), lastModified.copy(), isWithLocator());
 	}
 
 	/**
@@ -175,7 +177,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentType(final String contentType)
 	{
-		return new Media(body.copy(), new FixedContentType(contentType), lastModified.copy());
+		return new Media(body.copy(), new FixedContentType(contentType), lastModified.copy(), isWithLocator());
 	}
 
 	/**
@@ -286,7 +288,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	private Media contentTypesInternal(final String... types)
 	{
-		return new Media(body.copy(), new EnumContentType(types, body), lastModified.copy());
+		return new Media(body.copy(), new EnumContentType(types, body), lastModified.copy(), isWithLocator());
 	}
 
 	/**
@@ -298,12 +300,20 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
-		return new Media(body.copy(), new SubContentType(majorContentType, body), lastModified.copy());
+		return new Media(body.copy(), new SubContentType(majorContentType, body), lastModified.copy(), isWithLocator());
 	}
 
 	public Media contentTypeLengthMax(final int maximumLength)
 	{
-		return new Media(body.copy(), contentType.lengthMax(maximumLength), lastModified.copy());
+		return new Media(body.copy(), contentType.lengthMax(maximumLength), lastModified.copy(), isWithLocator());
+	}
+
+	/**
+	 * @param withLocator should the media be accessible via MediaServlet
+	 */
+	public Media withLocator(final boolean withLocator)
+	{
+		return new Media(body.copy(), contentType.copy(), lastModified.copy(), withLocator);
 	}
 
 	@Override
@@ -747,6 +757,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			final Item item)
 		throws IOException, NotFound
 	{
+		if (!isWithLocator())
+			throw new RuntimeException("not isWithLocator() - unexpected call: " + this + ' ' + item.getCopeID());
 		final String contentType = getContentType(item);
 		if(contentType==null)
 			throw notFoundIsNull();

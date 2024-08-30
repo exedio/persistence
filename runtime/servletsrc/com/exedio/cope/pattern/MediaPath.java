@@ -56,6 +56,8 @@ public abstract class MediaPath extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
+	private final boolean withLocator;
+
 	private Mount mountIfMounted;
 
 	private static final class Mount
@@ -114,6 +116,17 @@ public abstract class MediaPath extends Pattern
 				annotationClass==PreventUrlGuessing.class ||
 				annotationClass==UrlFingerPrinting.class  ))
 			throw new IllegalArgumentException(String.valueOf(annotationClass));
+	}
+
+	@SuppressWarnings("ConstructorNotProtectedInAbstractClass") // replaces public default constructor
+	public MediaPath()
+	{
+		this(true);
+	}
+
+	protected MediaPath(final boolean withLocator)
+	{
+		this.withLocator = withLocator;
 	}
 
 	@Override
@@ -332,10 +345,14 @@ public abstract class MediaPath extends Pattern
 	 * Returns a locator the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
+	 * @throws UnsupportedOperationException if this MediaPath is not accessible via MediaServlet (see {@link #isWithLocator()})
 	 */
-	@Wrap(order=20, doc=Wrap.MEDIA_LOCATOR, nullability=NullableIfMediaPathOptional.class)
+	@Wrap(order=20, doc=Wrap.MEDIA_LOCATOR, hide=HideWithoutLocator.class, nullability=NullableIfMediaPathOptional.class)
 	public final Locator getLocator(@Nonnull final Item item)
 	{
+		if (!isWithLocator())
+			throw new UnsupportedOperationException("not supported for "+this+" because isWithLocator()==false");
+
 		final String contentType = getContentType(item);
 
 		if(contentType==null)
@@ -346,6 +363,14 @@ public abstract class MediaPath extends Pattern
 				mountPath().urlFingerPrinting ? getLastModified(item) : null,
 				contentType,
 				makeUrlToken(item));
+	}
+
+	/**
+	 * @return true if this MediaPath is accessible via MediaServlet
+	 */
+	public final boolean isWithLocator()
+	{
+		return withLocator;
 	}
 
 	/**
@@ -362,7 +387,7 @@ public abstract class MediaPath extends Pattern
 	 * Returns null, if there is no such content.
 	 * @see Locator#getURLByConnect()
 	 */
-	@Wrap(order=10, doc=Wrap.MEDIA_URL, nullability=NullableIfMediaPathOptional.class)
+	@Wrap(order=10, doc=Wrap.MEDIA_URL, hide=HideWithoutLocator.class, nullability=NullableIfMediaPathOptional.class)
 	public final String getURL(@Nonnull final Item item)
 	{
 		final Locator locator = getLocator(item);
@@ -661,6 +686,9 @@ public abstract class MediaPath extends Pattern
 			final String pathInfo, final int fromIndexWithSpecial)
 		throws IOException, NotFound
 	{
+		if (!isWithLocator())
+			throw new RuntimeException("not isWithLocator() - unexpected call: " + this + ' ' + pathInfo);
+
 		// NOTE
 		// This code prevents a Denial of Service attack against the caching mechanism.
 		// Query strings can be used to effectively disable the cache by using many urls

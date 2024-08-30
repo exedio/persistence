@@ -81,6 +81,9 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	static final MediaPathFeature fingerGuess = new MediaPathFeature();
 
 
+	static final MediaPathFeature withoutUrl = new MediaPathFeature().withLocator(false);
+
+
 	@Override
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
@@ -507,6 +510,38 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	void setFingerGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result fingerGuess)
 	{
 		MediaPathItem.fingerGuess.setResult(this,fingerGuess);
+	}
+
+	/**
+	 * Returns the content type of the media {@link #withoutUrl}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	java.lang.String getWithoutUrlContentType()
+	{
+		return MediaPathItem.withoutUrl.getContentType(this);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setWithoutUrlContentType(final java.lang.String withoutUrl)
+	{
+		MediaPathItem.withoutUrl.setContentType(this,withoutUrl);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setWithoutUrlLastModified(final java.util.Date withoutUrl)
+	{
+		MediaPathItem.withoutUrl.setLastModified(this,withoutUrl);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setResult")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setWithoutUrlResult(final com.exedio.cope.pattern.MediaPathFeature.Result withoutUrl)
+	{
+		MediaPathItem.withoutUrl.setResult(this,withoutUrl);
 	}
 
 	@com.exedio.cope.instrument.Generated

@@ -102,6 +102,8 @@ public class MediaServlet extends HttpServlet
 				if(feature instanceof MediaPath)
 				{
 					final MediaPath path = (MediaPath)feature;
+					if (!path.isWithLocator())
+						continue;
 					final String typeID = path.getType().getID();
 					final String pathName = path.getName();
 					pathes.put(typeID + '/' + pathName, path);

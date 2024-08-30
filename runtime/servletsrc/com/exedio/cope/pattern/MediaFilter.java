@@ -40,6 +40,12 @@ public abstract class MediaFilter extends MediaPath
 
 	protected MediaFilter(final Media source)
 	{
+		this(source, true);
+	}
+
+	protected MediaFilter(final Media source, final boolean withLocator)
+	{
+		super(withLocator);
 		this.source = requireNonNull(source, "source");
 	}
 

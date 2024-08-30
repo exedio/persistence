@@ -48,11 +48,12 @@ public final class MediaPathFeature extends MediaPath
 
 	public MediaPathFeature()
 	{
-		this(false);
+		this(false, true);
 	}
 
-	private MediaPathFeature(final boolean mandatory)
+	private MediaPathFeature(final boolean mandatory, final boolean withLocator)
 	{
+		super(withLocator);
 		this.mandatory = mandatory;
 		addSourceFeature(result, "result");
 		addSourceFeature(contentType, "contentType");
@@ -61,7 +62,12 @@ public final class MediaPathFeature extends MediaPath
 
 	public MediaPathFeature mandatory()
 	{
-		return new MediaPathFeature(true);
+		return new MediaPathFeature(true, isWithLocator());
+	}
+
+	public MediaPathFeature withLocator(final boolean withLocator)
+	{
+		return new MediaPathFeature(mandatory, withLocator);
 	}
 
 	@Wrap(order=10)

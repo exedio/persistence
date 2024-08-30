@@ -63,6 +63,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	@PreventUrlGuessing @UrlFingerPrinting
 	static final Media fileSecFin = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
+	static final Media noLocator = new Media().optional().contentType("foo/bar").withLocator(false);
 
 	@Override
 	public String getMediaUrlCatchphrase(final MediaPath path)
@@ -1371,6 +1372,152 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 				java.io.IOException
 	{
 		MediaUrlItem.fileSecFin.set(this,body,contentType);
+	}
+
+	/**
+	 * Returns whether media {@link #noLocator} is null.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	boolean isNoLocatorNull()
+	{
+		return MediaUrlItem.noLocator.isNull(this);
+	}
+
+	/**
+	 * Returns the last modification date of media {@link #noLocator}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	java.util.Date getNoLocatorLastModified()
+	{
+		return MediaUrlItem.noLocator.getLastModified(this);
+	}
+
+	/**
+	 * Returns the body length of the media {@link #noLocator}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	long getNoLocatorLength()
+	{
+		return MediaUrlItem.noLocator.getLength(this);
+	}
+
+	/**
+	 * Returns the body of the media {@link #noLocator}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	byte[] getNoLocatorBody()
+	{
+		return MediaUrlItem.noLocator.getBody(this);
+	}
+
+	/**
+	 * Writes the body of media {@link #noLocator} into the given stream.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void getNoLocatorBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.noLocator.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #noLocator} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void getNoLocatorBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.noLocator.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #noLocator} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void getNoLocatorBody(@javax.annotation.Nonnull final java.io.File body)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.noLocator.getBody(this,body);
+	}
+
+	/**
+	 * Sets the content of media {@link #noLocator}.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setNoLocator(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value noLocator)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.noLocator.set(this,noLocator);
+	}
+
+	/**
+	 * Sets the content of media {@link #noLocator}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setNoLocator(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	{
+		MediaUrlItem.noLocator.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #noLocator}.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setNoLocator(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.noLocator.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #noLocator}.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setNoLocator(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.noLocator.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #noLocator}.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setNoLocator(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.noLocator.set(this,body,contentType);
 	}
 
 	@com.exedio.cope.instrument.Generated

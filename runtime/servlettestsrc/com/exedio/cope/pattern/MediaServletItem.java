@@ -88,6 +88,25 @@ final class MediaServletItem extends Item
 				df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
 	}
 
+	@Wrapper(wrap="set", parameters={byte[].class,String.class}, internal=true)
+	@Wrapper(wrap="set", parameters={InputStream.class,String.class}, internal=true)
+	@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
+	static final Media contentNoLocator = new Media().optional().withLocator(false);
+
+	void setContentNoLocator(final InputStream body, final String contentType, final int hour) throws ParseException, IOException
+	{
+		setContentNoLocatorInternal(body, contentType);
+		contentNoLocator.getLastModified().set(this,
+				df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
+	}
+
+	void setContentNoLocator(final byte[] body, final String contentType, final int hour) throws ParseException
+	{
+		setContentNoLocatorInternal(body, contentType);
+		contentNoLocator.getLastModified().set(this,
+				df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
+	}
+
 	void setNameServerLastModified(final int hour) throws ParseException
 	{
 		setNameServerLastModified(
@@ -106,9 +125,22 @@ final class MediaServletItem extends Item
 	static final MediaThumbnail thumbnail = new MediaThumbnail(content, 150, 150);
 
 	@Wrapper(wrap="getURL", visibility=NONE)
+	static final MediaThumbnail thumbnailOfNoLocator = new MediaThumbnail(contentNoLocator, 150, 150);
+
+	static final MediaThumbnail noLocatorThumbnail = new MediaThumbnail(content, 150, 150).withLocator(false);
+
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final TextUrlFilter html = new TextUrlFilter(
 			content,
 			"text/html", StandardCharsets.UTF_8,
+			"(", ")",
+			new StringField(),
+			new Media());
+
+	@Wrapper(wrap="getURL", visibility=NONE)
+	static final TextUrlFilter htmlOfNoLocator = new TextUrlFilter(
+			contentNoLocator,
+			"text/plain", StandardCharsets.UTF_8,
 			"(", ")",
 			new StringField(),
 			new Media());
@@ -346,6 +378,29 @@ final class MediaServletItem extends Item
 	}
 
 	/**
+	 * Sets the content of media {@link #contentNoLocator}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	private void setContentNoLocatorInternal(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	{
+		MediaServletItem.contentNoLocator.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #contentNoLocator}.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	private void setContentNoLocatorInternal(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaServletItem.contentNoLocator.set(this,body,contentType);
+	}
+
+	/**
 	 * Returns a Locator the content of {@link #thumbnail} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
@@ -389,6 +444,43 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		return MediaServletItem.thumbnail.get(this);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #thumbnailOfNoLocator} is available under.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	com.exedio.cope.pattern.MediaPath.Locator getThumbnailOfNoLocatorLocator()
+	{
+		return MediaServletItem.thumbnailOfNoLocator.getLocator(this);
+	}
+
+	/**
+	 * Returns the body of {@link #thumbnailOfNoLocator}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	byte[] getThumbnailOfNoLocator()
+			throws
+				java.io.IOException
+	{
+		return MediaServletItem.thumbnailOfNoLocator.get(this);
+	}
+
+	/**
+	 * Returns the body of {@link #noLocatorThumbnail}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	byte[] getNoLocatorThumbnail()
+			throws
+				java.io.IOException
+	{
+		return MediaServletItem.noLocatorThumbnail.get(this);
 	}
 
 	/**
@@ -487,6 +579,82 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.html.putPastesFromZip(this,file);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #htmlOfNoLocator} is available under.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	com.exedio.cope.pattern.MediaPath.Locator getHtmlOfNoLocatorLocator()
+	{
+		return MediaServletItem.htmlOfNoLocator.getLocator(this);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRaw")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setHtmlOfNoLocatorRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
+			throws
+				java.io.IOException
+	{
+		MediaServletItem.htmlOfNoLocator.setRaw(this,raw);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addPaste")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	com.exedio.cope.pattern.TextUrlFilter.Paste addHtmlOfNoLocatorPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
+	{
+		return MediaServletItem.htmlOfNoLocator.addPaste(this,key,value);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="modifyPaste")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void modifyHtmlOfNoLocatorPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
+			throws
+				java.io.IOException
+	{
+		MediaServletItem.htmlOfNoLocator.modifyPaste(this,key,value);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="putPaste")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	com.exedio.cope.pattern.TextUrlFilter.Paste putHtmlOfNoLocatorPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
+			throws
+				java.io.IOException
+	{
+		return MediaServletItem.htmlOfNoLocator.putPaste(this,key,value);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	java.lang.String getHtmlOfNoLocatorContent(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
+			throws
+				com.exedio.cope.pattern.MediaPath.NotFound
+	{
+		return MediaServletItem.htmlOfNoLocator.getContent(this,request);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	java.util.Set<java.lang.String> checkHtmlOfNoLocator()
+			throws
+				com.exedio.cope.pattern.MediaPath.NotFound
+	{
+		return MediaServletItem.htmlOfNoLocator.check(this);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="putPastesFromZip")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void putHtmlOfNoLocatorPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
+			throws
+				java.io.IOException
+	{
+		MediaServletItem.htmlOfNoLocator.putPastesFromZip(this,file);
 	}
 
 	/**

@@ -71,6 +71,8 @@ public class MediaServletTest
 	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
 	private static final String ITEM_NAME_ERR_LM = "MediaServletItem-15";
+	private static final String ITEM_CONTENTNOLOCATORTEXT = "MediaServletItem-16";
+	private static final String ITEM_CONTENTNOLOCATORJPG = "MediaServletItem-17";
 
 	private static final String CACHE_CONTROL = "Cache-Control";
 	private static final String EXPIRES = "Expires";
@@ -177,6 +179,10 @@ public class MediaServletTest
 		assertNotFound(prefix + "content/" + ITEM_EMP          , IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_EMP + ".zick", IS_NULL);
 		assertNotFound(prefix + "content/" + ITEM_TXT + ".txt?x=y", NOT_AN_ITEM);
+		assertNotFound(prefix + "contentNoLocator/" + ITEM_TXT, NO_SUCH_PATH);
+		assertNotFound(prefix + "contentNoLocator/" + ITEM_TXT + ".txt", NO_SUCH_PATH);
+		assertNotFound(prefix + "contentNoLocator/" + ITEM_CONTENTNOLOCATORTEXT, NO_SUCH_PATH);
+		assertNotFound(prefix + "contentNoLocator/" + ITEM_CONTENTNOLOCATORTEXT + ".txt", NO_SUCH_PATH);
 
 		assertTxt     (app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-0.txt", "text/plain", hour9(10));
 		assertNotFound(app + "media/MediaPatternItem/pattern-sourceFeature/MediaPatternItem-1.txt", NO_SUCH_ITEM);
@@ -211,6 +217,11 @@ public class MediaServletTest
 		assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
 		assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
+		assertNotFound(prefix + "thumbnailOfNoLocator/" + ITEM_CONTENTNOLOCATORTEXT + ".jpg", IS_NULL);
+		assertTxt(prefix + "htmlOfNoLocator/" + ITEM_CONTENTNOLOCATORTEXT + ".txt", "text/plain", hour8(16));
+		assertBin(prefix + "thumbnailOfNoLocator/" + ITEM_CONTENTNOLOCATORJPG + ".jpg", "image/jpeg", hour8(17));
+		assertNotFound(prefix + "htmlOfNoLocator/" + ITEM_CONTENTNOLOCATORJPG + ".jpg", IS_NULL);
+		assertNotFound(prefix + "noLocatorThumbnail/" + ITEM_TXT, NO_SUCH_PATH);
 
 		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL); // once was not computable
 		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL); // once was not computable
