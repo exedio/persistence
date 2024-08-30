@@ -104,7 +104,7 @@ final class HookStampHook implements ChangeHook
 			model.addPreCommitHookIfAbsent(new Hook(store, author)).add(item, isNew);
 		}
 
-		private boolean isHistoryOnly(final SetValue<?>[] setValues)
+		private static boolean isHistoryOnly(final SetValue<?>[] setValues)
 		{
 			return
 				setValues.length==1 &&

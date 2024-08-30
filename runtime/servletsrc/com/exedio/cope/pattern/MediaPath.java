@@ -200,7 +200,7 @@ public abstract class MediaPath extends Pattern
 			this.secret = secret;
 		}
 
-		private long fixFingerprintLastModified(final Date fingerprintLastModified)
+		private static long fixFingerprintLastModified(final Date fingerprintLastModified)
 		{
 			if(fingerprintLastModified==null)
 				return Long.MIN_VALUE;

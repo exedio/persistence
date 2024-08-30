@@ -408,7 +408,7 @@ final class InterimProcessor extends JavacProcessor
 			return result;
 		}
 
-		private CharSequence getTypeParameterString(final List<? extends TypeParameterTree> tp)
+		private static CharSequence getTypeParameterString(final List<? extends TypeParameterTree> tp)
 		{
 			final StringBuilder typeParameterString = new StringBuilder();
 			if (!tp.isEmpty())
@@ -512,7 +512,7 @@ final class InterimProcessor extends JavacProcessor
 			return (TypeElement) processingEnv.getTypeUtils().asElement(superMirror);
 		}
 
-		private String getMethodDeclaration(final ExecutableElement method, final boolean override)
+		private static String getMethodDeclaration(final ExecutableElement method, final boolean override)
 		{
 			final StringBuilder methodDeclaration = new StringBuilder();
 			if (override)
@@ -536,7 +536,7 @@ final class InterimProcessor extends JavacProcessor
 			return methodDeclaration.toString();
 		}
 
-		private String getTypeToken(final ClassTree ct)
+		private static String getTypeToken(final ClassTree ct)
 		{
 			final String name = ct.getKind().name();
 			if (ALLOWED_CLASS_TREE_KINDS.contains(name))
