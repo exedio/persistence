@@ -847,6 +847,13 @@ final class InterimProcessor extends JavacProcessor
 			return interimAnnotations;
 		}
 
+		private static boolean addAnnotationToInterimCode(final TypeElement annotationType)
+		{
+			return annotationType.getAnnotation(WrapAnnotateInterim.class)!=null
+					 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nonnull")
+					 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nullable");
+		}
+
 		private CharSequence toStringWithoutMostAnnotations(final ModifiersTree modifiers)
 		{
 			final StringBuilder result = new StringBuilder();
@@ -891,13 +898,6 @@ final class InterimProcessor extends JavacProcessor
 				return null;
 			}
 		}
-	}
-
-	private static boolean addAnnotationToInterimCode(final TypeElement annotationType)
-	{
-		return annotationType.getAnnotation(WrapAnnotateInterim.class)!=null
-				 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nonnull")
-				 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nullable");
 	}
 
 	private static class Code
