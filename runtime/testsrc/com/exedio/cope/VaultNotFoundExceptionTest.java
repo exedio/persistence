@@ -287,7 +287,7 @@ public class VaultNotFoundExceptionTest
 	{
 		final Cause causeOrigin1 = newCause("1=abcdefghijklmnopq");
 		final Cause causeOrigin2 = newCause("2=abcdefghijklmnopq", causeOrigin1);
-		causeOrigin1.setCause(causeOrigin2);
+		causeOrigin1.setCauseInTest(causeOrigin2);
 		assertSame(causeOrigin2, causeOrigin1.getCause());
 		assertSame(causeOrigin1, causeOrigin2.getCause());
 		final VaultNotFoundException notFound =
@@ -317,7 +317,7 @@ public class VaultNotFoundExceptionTest
 	{
 		final Cause causeOrigin1 = newCause("1=abcdefghijklmnopq");
 		final Cause causeOrigin2 = newCause("2=abcdefghijklmnopz", causeOrigin1);
-		causeOrigin1.setCause(causeOrigin2);
+		causeOrigin1.setCauseInTest(causeOrigin2);
 		assertSame(causeOrigin2, causeOrigin1.getCause());
 		assertSame(causeOrigin1, causeOrigin2.getCause());
 		final VaultNotFoundException notFound =
@@ -347,7 +347,7 @@ public class VaultNotFoundExceptionTest
 	{
 		final Cause causeOrigin1 = newCause("1=abcdefghijklmnopz");
 		final Cause causeOrigin2 = newCause("2=abcdefghijklmnopq", causeOrigin1);
-		causeOrigin1.setCause(causeOrigin2);
+		causeOrigin1.setCauseInTest(causeOrigin2);
 		assertSame(causeOrigin2, causeOrigin1.getCause());
 		assertSame(causeOrigin1, causeOrigin2.getCause());
 		final VaultNotFoundException notFound =
@@ -376,7 +376,7 @@ public class VaultNotFoundExceptionTest
 	@Test void anonymousCauseLoopSelf()
 	{
 		final Cause causeOrigin = newCause("1=abcdefghijklmnopq");
-		causeOrigin.setCause(causeOrigin);
+		causeOrigin.setCauseInTest(causeOrigin);
 		assertSame(causeOrigin, causeOrigin.getCause());
 		final VaultNotFoundException notFound =
 				new VaultNotFoundException("abcdefghijklmnopq", causeOrigin);
@@ -428,7 +428,7 @@ public class VaultNotFoundExceptionTest
 			this.causeSet = false;
 		}
 
-		void setCause(final Throwable cause)
+		void setCauseInTest(final Throwable cause)
 		{
 			assertFalse(this.causeSet, "causeSet");
 			this.cause = cause;
