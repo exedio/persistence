@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -191,7 +190,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		else
 		{
 			assertEquals(0, statistics.getLimit());
-			assertEquals(0, ci.length, Stream.of(ci).map(ItemCacheInfo::getType).collect(Collectors.toList()).toString());
+			assertEquals(0, ci.length, Stream.of(ci).map(ItemCacheInfo::getType).toList().toString());
 		}
 	}
 }
