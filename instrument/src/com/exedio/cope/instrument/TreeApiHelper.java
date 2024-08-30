@@ -39,6 +39,8 @@ final class TreeApiHelper
 		{
 			case ABSTRACT: return java.lang.reflect.Modifier.ABSTRACT;
 			case DEFAULT: throw new RuntimeException("unexpected DEFAULT modifier");
+			case SEALED: throw new RuntimeException("unexpected SEALED modifier");
+			case NON_SEALED: throw new RuntimeException("unexpected NON_SEALED modifier");
 			case FINAL: return java.lang.reflect.Modifier.FINAL;
 			case NATIVE: return java.lang.reflect.Modifier.NATIVE;
 			case PRIVATE: return java.lang.reflect.Modifier.PRIVATE;
