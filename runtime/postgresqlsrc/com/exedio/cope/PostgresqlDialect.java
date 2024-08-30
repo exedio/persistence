@@ -419,7 +419,7 @@ final class PostgresqlDialect extends Dialect
 		for(final SequenceX sequence : sequences)
 			sequence.delete(bf, this);
 
-		if(bf.length()>0)
+		if(!bf.isEmpty())
 			execute(connectionPool, bf.toString());
 	}
 

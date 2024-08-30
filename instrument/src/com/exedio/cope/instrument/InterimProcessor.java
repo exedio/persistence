@@ -320,7 +320,7 @@ final class InterimProcessor extends JavacProcessor
 				throw new RuntimeException(WrapImplementsInterim.class.getSimpleName()+" can only be used at interfaces, not at "+element);
 			final Kind kind = Kind.valueOf(element.getAnnotation(WrapType.class));
 			if (ct.getKind()==Tree.Kind.ANNOTATION_TYPE) return null;
-			if (ct.getSimpleName().length()==0) return null;
+			if (ct.getSimpleName().isEmpty()) return null;
 			currentClassStack.addFirst(element);
 			final StringBuilder declaration = new StringBuilder();
 			declaration.append(toStringWithoutMostAnnotations(ct.getModifiers())).append(getTypeToken(ct)).append(" ").append(ct.getSimpleName());

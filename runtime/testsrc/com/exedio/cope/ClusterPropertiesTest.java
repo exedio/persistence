@@ -566,7 +566,7 @@ public class ClusterPropertiesTest
 		final StringBuilder interfaces = new StringBuilder();
 		for(final Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces(); e.hasMoreElements(); )
 			interfaces.
-					append(interfaces.length()>0?", ":"(").
+					append(!interfaces.isEmpty()?", ":"(").
 					append(e.nextElement().getName());
 		interfaces.append(")");
 

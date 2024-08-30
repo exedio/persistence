@@ -137,7 +137,7 @@ final class HookAuditHook implements ChangeHook
 						if(field.getType().isAssignableFrom(type) &&
 							field.isAnnotationPresent(HookAuditWatched.class))
 						{
-							if(bf.length()>0)
+							if(!bf.isEmpty())
 								bf.append(',');
 
 							bf.append(name(field)).
@@ -154,7 +154,7 @@ final class HookAuditHook implements ChangeHook
 						if(exists && Objects.equals(newValue, e2.getValue()))
 							continue;
 
-						if(bf.length()>0)
+						if(!bf.isEmpty())
 							bf.append(',');
 
 						bf.append(name(field)).
@@ -163,7 +163,7 @@ final class HookAuditHook implements ChangeHook
 					}
 				}
 
-				if(bf.length()>0)
+				if(!bf.isEmpty())
 					new HookAudit(
 							author.get() + ':' +
 							item.getCopeID() + ':' +
