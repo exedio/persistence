@@ -103,7 +103,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		final StackTraceElement[] trace = thread.getStackTrace();
 		//for(final StackTraceElement e : trace) System.out.println(e.getClassName() + '-' + e.getMethodName());
 		assertTraceContains(MyItem.class.getName(), "create", trace);
-		assertTraceContains("java.net.SocketInputStream", "read", trace);
+		assertTraceContains("java.net.Socket$SocketInputStream", "read", trace);
 		assertEquals(null, runner.assertIt(true, false));
 
 		commit();

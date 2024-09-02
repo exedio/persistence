@@ -1,4 +1,4 @@
-FROM debian:buster-20220418
+FROM debian:bullseye-20220418
 
 # corresponds to .github/workflows/ant.yml
 ARG JDK

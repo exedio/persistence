@@ -117,7 +117,7 @@ public final class MediaResponse
 	{
 		if(cacheControlNoTransform)
 		{
-			if(bf.length()!=0)
+			if(!bf.isEmpty())
 				bf.append(',');
 
 			bf.append("no-transform");

@@ -81,7 +81,7 @@ public class VaultHttpServicePropertiesTest
 		assertFails(
 				rootExists::call,
 				ConnectException.class, // other exception happens outside of jenkins when network is available
-				"Connection refused");
+				null);
 	}
 	@Test void nonDefault() throws URISyntaxException
 	{

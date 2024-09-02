@@ -104,7 +104,7 @@ final class HookStampHook implements ChangeHook
 			model.addPreCommitHookIfAbsent(new Hook(store, author)).add(item, isNew);
 		}
 
-		private boolean isHistoryOnly(final SetValue<?>[] setValues)
+		private static boolean isHistoryOnly(final SetValue<?>[] setValues)
 		{
 			return
 				setValues.length==1 &&
@@ -188,7 +188,7 @@ final class HookStampHook implements ChangeHook
 					for(final Field<?> field : watched)
 						if(field.getType().isAssignableFrom(type))
 						{
-							if(bf.length()>0)
+							if(!bf.isEmpty())
 								bf.append(',');
 
 							bf.append(name(field)).
@@ -205,7 +205,7 @@ final class HookStampHook implements ChangeHook
 						if(Objects.equals(newValue, e2.getValue()))
 							continue;
 
-						if(bf.length()>0)
+						if(!bf.isEmpty())
 							bf.append(',');
 
 						bf.append(name(field)).
@@ -214,7 +214,7 @@ final class HookStampHook implements ChangeHook
 					}
 				}
 
-				if(bf.length()>0)
+				if(!bf.isEmpty())
 					store.set(item, store.get(item) + '{' + (values==null?"NEW:":"") + author.get() + ':' + bf + '}');
 			}
 		}

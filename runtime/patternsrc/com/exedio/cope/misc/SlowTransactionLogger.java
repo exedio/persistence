@@ -118,7 +118,7 @@ public final class SlowTransactionLogger
 					append(':').
 					append(e.getLineNumber()).append(')');
 		}
-		return bf.length()!=0 ? bf.toString() : null;
+		return !bf.isEmpty() ? bf.toString() : null;
 	}
 
 	private static final String FORMAT = "exceeds threshold id={} age={}ms name=\"{}\" inv={} pre={} predup={} post={} postdup={} "; // https://www.cloudbees.com/blog/logfmt-a-log-format-thats-easy-to-read-and-write

@@ -279,7 +279,7 @@ public class VaultMockService implements VaultService
 
 	private void historyAppend(final String event)
 	{
-		if(history.length()>0)
+		if(!history.isEmpty())
 			history.append(' ');
 		history.append(event);
 	}

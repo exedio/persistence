@@ -577,7 +577,7 @@ final class MysqlDialect extends Dialect
 							final Object value = resultSet.getObject(i);
 							if(value!=null)
 							{
-								if(qi.length()>0)
+								if(!qi.isEmpty())
 									qi.append(", ");
 
 								qi.append(metaData.getColumnName(i)).
@@ -684,7 +684,7 @@ final class MysqlDialect extends Dialect
 		for(final SequenceX sequence : sequences)
 			sequence.delete(bf, this);
 
-		if(bf.length()>0)
+		if(!bf.isEmpty())
 			execute(connectionPool, bf.toString());
 	}
 

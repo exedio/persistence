@@ -166,7 +166,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		{
 			try
 			{
-				((MulticastSocket)socket).leaveGroup(address, networkInterface);
+				socket.leaveGroup(address, networkInterface);
 			}
 			catch(final IOException e)
 			{

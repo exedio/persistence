@@ -54,7 +54,7 @@ final class Trimmer
 				char c = longString.charAt(i);
 				if(c=='-')
 					c = '_';
-				if((c=='_' || Character.isUpperCase(c) || Character.isDigit(c)) && buf.length()>0)
+				if((c=='_' || Character.isUpperCase(c) || Character.isDigit(c)) && !buf.isEmpty())
 				{
 					words.add(buf.toString());
 					int potential = 1;
@@ -67,7 +67,7 @@ final class Trimmer
 				else
 					longStringLength--;
 			}
-			if(buf.length()>0)
+			if(!buf.isEmpty())
 			{
 				words.add(buf.toString());
 				int potential = 1;

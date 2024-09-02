@@ -320,7 +320,7 @@ final class InterimProcessor extends JavacProcessor
 				throw new RuntimeException(WrapImplementsInterim.class.getSimpleName()+" can only be used at interfaces, not at "+element);
 			final Kind kind = Kind.valueOf(element.getAnnotation(WrapType.class));
 			if (ct.getKind()==Tree.Kind.ANNOTATION_TYPE) return null;
-			if (ct.getSimpleName().length()==0) return null;
+			if (ct.getSimpleName().isEmpty()) return null;
 			currentClassStack.addFirst(element);
 			final StringBuilder declaration = new StringBuilder();
 			declaration.append(toStringWithoutMostAnnotations(ct.getModifiers())).append(getTypeToken(ct)).append(" ").append(ct.getSimpleName());
@@ -408,7 +408,7 @@ final class InterimProcessor extends JavacProcessor
 			return result;
 		}
 
-		private CharSequence getTypeParameterString(final List<? extends TypeParameterTree> tp)
+		private static CharSequence getTypeParameterString(final List<? extends TypeParameterTree> tp)
 		{
 			final StringBuilder typeParameterString = new StringBuilder();
 			if (!tp.isEmpty())
@@ -512,7 +512,7 @@ final class InterimProcessor extends JavacProcessor
 			return (TypeElement) processingEnv.getTypeUtils().asElement(superMirror);
 		}
 
-		private String getMethodDeclaration(final ExecutableElement method, final boolean override)
+		private static String getMethodDeclaration(final ExecutableElement method, final boolean override)
 		{
 			final StringBuilder methodDeclaration = new StringBuilder();
 			if (override)
@@ -536,7 +536,7 @@ final class InterimProcessor extends JavacProcessor
 			return methodDeclaration.toString();
 		}
 
-		private String getTypeToken(final ClassTree ct)
+		private static String getTypeToken(final ClassTree ct)
 		{
 			final String name = ct.getKind().name();
 			if (ALLOWED_CLASS_TREE_KINDS.contains(name))
@@ -847,6 +847,13 @@ final class InterimProcessor extends JavacProcessor
 			return interimAnnotations;
 		}
 
+		private static boolean addAnnotationToInterimCode(final TypeElement annotationType)
+		{
+			return annotationType.getAnnotation(WrapAnnotateInterim.class)!=null
+					 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nonnull")
+					 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nullable");
+		}
+
 		private CharSequence toStringWithoutMostAnnotations(final ModifiersTree modifiers)
 		{
 			final StringBuilder result = new StringBuilder();
@@ -891,13 +898,6 @@ final class InterimProcessor extends JavacProcessor
 				return null;
 			}
 		}
-	}
-
-	private static boolean addAnnotationToInterimCode(final TypeElement annotationType)
-	{
-		return annotationType.getAnnotation(WrapAnnotateInterim.class)!=null
-				 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nonnull")
-				 || annotationType.getQualifiedName().contentEquals("javax.annotation.Nullable");
 	}
 
 	private static class Code

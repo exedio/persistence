@@ -200,7 +200,7 @@ public abstract class MediaPath extends Pattern
 			this.secret = secret;
 		}
 
-		private long fixFingerprintLastModified(final Date fingerprintLastModified)
+		private static long fixFingerprintLastModified(final Date fingerprintLastModified)
 		{
 			if(fingerprintLastModified==null)
 				return Long.MIN_VALUE;
@@ -939,7 +939,7 @@ public abstract class MediaPath extends Pattern
 
 		if(maxAge!=null)
 		{
-			if(bf.length()!=0)
+			if(!bf.isEmpty())
 				bf.append(',');
 
 			bf.append("max-age=").
@@ -950,13 +950,13 @@ public abstract class MediaPath extends Pattern
 
 		if(immutable)
 		{
-			if(bf.length()!=0)
+			if(!bf.isEmpty())
 				bf.append(',');
 
 			bf.append("immutable");
 		}
 
-		if(bf.length()!=0)
+		if(!bf.isEmpty())
 			response.setHeader("Cache-Control", bf.toString());
 	}
 
