@@ -781,9 +781,8 @@ final class InterimProcessor extends JavacProcessor
 				return true;
 			final TreePath path = docTrees.getPath(getCompilationUnit(), vt.getType());
 			final Element typeElement = docTrees.getElement(path);
-			if (!(typeElement instanceof TypeElement)) // null for primitive types; maybe something else for generics
+			if (!(typeElement instanceof final TypeElement type)) // null for primitive types; maybe something else for generics
 				return false;
-			final TypeElement type = (TypeElement)typeElement;
 			final VariableElement variable = (VariableElement)docTrees.getElement(getCurrentPath());
 			return currentClassIsFeatureContainer()
 				&& variable.getModifiers().containsAll(asList(Modifier.STATIC, Modifier.FINAL))

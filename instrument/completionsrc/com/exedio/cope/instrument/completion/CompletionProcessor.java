@@ -120,12 +120,11 @@ public class CompletionProcessor extends AbstractProcessor
 	private static Iterable<? extends Completion> getCompletionsForWrap(final Element element)
 	{
 		final TypeMirror asType=element.asType();
-		if (!(asType instanceof DeclaredType))
+		if (!(asType instanceof final DeclaredType declaredType))
 		{
 			log.log(Level.WARNING, "expected DeclaredType but found {0}", asType.getClass());
 			return List.of();
 		}
-		final DeclaredType declaredType=(DeclaredType)asType;
 		if (!(declaredType.asElement() instanceof TypeElement))
 		{
 			log.log(Level.WARNING, "expected TypeElement but found {0}", declaredType.getClass());

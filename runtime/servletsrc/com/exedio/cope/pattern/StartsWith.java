@@ -70,10 +70,9 @@ final class StartsWith
 	{
 		if(this==other)
 			return true;
-		if(!(other instanceof StartsWith))
+		if(!(other instanceof final StartsWith o))
 			return false;
 
-		final StartsWith o = (StartsWith)other;
 		return offset==o.offset && Arrays.equals(value, o.value);
 	}
 

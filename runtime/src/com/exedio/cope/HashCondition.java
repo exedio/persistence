@@ -100,10 +100,8 @@ final class HashCondition extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof HashCondition))
+		if(!(other instanceof final HashCondition o))
 			return false;
-
-		final HashCondition o = (HashCondition)other;
 
 		return
 				hash.equals(o.hash) &&

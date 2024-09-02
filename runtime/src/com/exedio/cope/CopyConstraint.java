@@ -145,11 +145,10 @@ public final class CopyConstraint extends Feature
 			throw new IllegalArgumentException(
 					"insufficient template for CopyConstraint " + origin.apply("null") + " (" + this + "): " +
 					"supplier returns null");
-		if(!(feature instanceof FunctionField<?>))
+		if(!(feature instanceof final FunctionField<?> result))
 			throw new ClassCastException(
 					"insufficient template for CopyConstraint " + origin.apply(feature.toString()) + " (" + this + "): " +
 					feature + " is not a FunctionField but " + feature.getClass().getName());
-		final FunctionField<?> result = (FunctionField<?>)feature;
 		if(!result.isfinal)
 			throw new IllegalArgumentException(
 					"insufficient template for CopyConstraint " + origin.apply(feature.toString()) + " (" + this + "): " +
@@ -319,9 +318,8 @@ public final class CopyConstraint extends Feature
 		}
 		@Override boolean overlaps(final FunctionField<?> template)
 		{
-			if(!(template instanceof ItemField))
+			if(!(template instanceof final ItemField<?> t))
 				return false;
-			final ItemField<?> t = (ItemField<?>)template;
 			return getType().overlaps(t.getValueType());
 		}
 		@Override Class<?> getValueClass()

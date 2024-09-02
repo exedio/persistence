@@ -118,10 +118,8 @@ public final class LikeCondition extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof LikeCondition))
+		if(!(other instanceof final LikeCondition o))
 			return false;
-
-		final LikeCondition o = (LikeCondition)other;
 
 		return function.equals(o.function) && value.equals(o.value);
 	}

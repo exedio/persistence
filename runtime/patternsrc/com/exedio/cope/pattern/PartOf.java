@@ -229,10 +229,9 @@ public final class PartOf<C extends Item> extends Pattern
 			if(this==other)
 				return true;
 
-			if(!(other instanceof OrderBy))
+			if(!(other instanceof final OrderBy o))
 				return false;
 
-			final OrderBy o = (OrderBy) other;
 			return field.equals(o.field) && ascending==o.ascending;
 		}
 

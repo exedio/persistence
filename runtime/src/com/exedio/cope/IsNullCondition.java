@@ -116,10 +116,8 @@ public final class IsNullCondition<E> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof IsNullCondition<?>))
+		if(!(other instanceof final IsNullCondition<?> o))
 			return false;
-
-		final IsNullCondition<?> o = (IsNullCondition<?>)other;
 
 		return function.equals(o.function) && not==o.not;
 	}

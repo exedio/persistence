@@ -189,10 +189,9 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			return true;
 		if(other==null)
 			throw new NullPointerException();
-		if(!(other instanceof MessageDigestAlgorithm))
+		if(!(other instanceof final MessageDigestAlgorithm o))
 			return false;
 
-		final MessageDigestAlgorithm o = (MessageDigestAlgorithm)other;
 		return
 			digest.equals(o.digest) &&
 			digestLength==o.digestLength &&

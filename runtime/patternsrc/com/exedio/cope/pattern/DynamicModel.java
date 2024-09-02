@@ -411,10 +411,9 @@ public final class DynamicModel<L> extends Pattern
 	{
 		assertType(item, field);
 
-		if(value instanceof Enum<?> &&
+		if(value instanceof final Enum<?> enumValue &&
 		   field.getValueType()==ValueType.ENUM)
 		{
-			final Enum<?> enumValue = (Enum<?>)value;
 			final Field<?> enumValueParent = enumValue.getParent();
 			if(!enumValueParent.equals(field))
 				throw new IllegalArgumentException("dynamic model mismatch: enum value " + enumValue + " has type " + enumValueParent + ", but must be " + field);

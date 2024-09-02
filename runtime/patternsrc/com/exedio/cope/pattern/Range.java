@@ -85,10 +85,9 @@ public final class Range<E extends Comparable<E>> implements Serializable
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Range<?>))
+		if(!(other instanceof final Range<?> o))
 			return false;
 
-		final Range<?> o = (Range<?>)other;
 		return Objects.equals(from, o.from) && Objects.equals(to, o.to);
 	}
 

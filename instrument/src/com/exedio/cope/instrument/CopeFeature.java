@@ -109,9 +109,8 @@ abstract class CopeFeature
 		final Type initialTypeX = instance.getInitialType();
 		final Type initialType;
 		final boolean primitive;
-		if(initialTypeX instanceof Class<?>)
+		if(initialTypeX instanceof final Class<?> initialClass)
 		{
-			final Class<?> initialClass = (Class<?>)initialTypeX;
 			final Class<?> initialClassPrimitive = PrimitiveUtil.toPrimitive(initialClass);
 			if(initialClassPrimitive!=null && instance.isMandatory())
 			{

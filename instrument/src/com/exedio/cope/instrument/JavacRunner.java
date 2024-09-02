@@ -103,15 +103,13 @@ final class JavacRunner
 		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
 	}
 
-	@SuppressWarnings("ExtractMethodRecommender")
 	private static String toClasspath(final ClassLoader cl)
 	{
-		if(cl instanceof URLClassLoader)
+		if(cl instanceof final URLClassLoader urlClassLoader)
 		{
 			// this works for Gradle with JDK 1.8 and 11, and unit tests with JDK <= 1.8
 			// (unit tests would also work with System.getProperty("java.class.path") - so this if-branch is
 			// required only for Gradle)
-			final URLClassLoader urlClassLoader = (URLClassLoader) cl;
 			final StringBuilder result = new StringBuilder();
 			for(int i = 0; i < urlClassLoader.getURLs().length; i++)
 			{

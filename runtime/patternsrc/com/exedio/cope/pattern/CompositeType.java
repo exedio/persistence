@@ -73,9 +73,8 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 				final java.lang.reflect.Field field = entry.getValue();
 				final String fieldID = id + '#' + field.getName();
 				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
-				if(feature instanceof FunctionField<?>)
+				if(feature instanceof final FunctionField<?> template)
 				{
-					final FunctionField<?> template = (FunctionField<?>)feature;
 					if(template.isFinal())
 						throw new IllegalArgumentException("final fields not supported: " + fieldID);
 					if(template.hasDefault() && template.getDefaultConstant()==null)

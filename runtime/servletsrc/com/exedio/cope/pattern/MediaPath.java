@@ -319,10 +319,9 @@ public abstract class MediaPath extends Pattern
 		@Override
 		public boolean equals(final Object other)
 		{
-			if(!(other instanceof Locator))
+			if(!(other instanceof final Locator o))
 				return false;
 
-			final Locator o = (Locator)other;
 			return
 				MediaPath.this.equals(o.getFeature()) &&
 				item.equals(o.item);

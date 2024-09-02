@@ -99,10 +99,8 @@ class BindFunction<E> implements Function<E>
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof BindFunction<?>))
+		if(!(other instanceof final BindFunction<?> o))
 			return false;
-
-		final BindFunction<?> o = (BindFunction<?>)other;
 
 		return function.equals(o.function) && join.index==o.join.index; // using Join#equals(Object) causes infinite recursion
 	}

@@ -102,10 +102,8 @@ public final class RegexpLikeCondition extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof RegexpLikeCondition))
+		if(!(other instanceof final RegexpLikeCondition o))
 			return false;
-
-		final RegexpLikeCondition o = (RegexpLikeCondition)other;
 
 		return function.equals(o.function) && regexp.equals(o.regexp);
 	}

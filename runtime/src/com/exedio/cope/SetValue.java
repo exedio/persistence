@@ -52,10 +52,8 @@ public final class SetValue<E>
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof SetValue<?>))
+		if(!(other instanceof final SetValue<?> o))
 			return false;
-
-		final SetValue<?> o = (SetValue<?>)other;
 
 		return settable.equals(o.settable) && Objects.equals(value, o.value);
 	}

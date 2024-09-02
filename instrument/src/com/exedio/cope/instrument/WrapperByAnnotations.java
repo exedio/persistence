@@ -161,9 +161,8 @@ final class WrapperByAnnotations
 		if(parameterType0==Class.class)
 		{
 			final Type t = genericParameterTypes[0];
-			if(t instanceof ParameterizedType)
+			if(t instanceof final ParameterizedType pt)
 			{
-				final ParameterizedType pt = (ParameterizedType)t;
 				if (pt.getRawType()!=Class.class)
 					throw new RuntimeException(String.valueOf(pt.getRawType())); // because parameterTypes[0]==Class.class
 				if (pt.getOwnerType()!=null)

@@ -126,10 +126,9 @@ public final class Money<C extends Currency>
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Money<?>))
+		if(!(other instanceof final Money<?> o))
 			return false;
 
-		final Money<?> o = (Money<?>)other;
 		return
 				amount  .equals(o.amount  ) &&
 				currency.equals(o.currency);

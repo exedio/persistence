@@ -133,11 +133,10 @@ public final class FieldValues
 		for(final Map.Entry<Field<?>, Object> e : dirt.entrySet())
 		{
 			final Field<?> field = e.getKey();
-			if(!(field instanceof DataField))
+			if(!(field instanceof final DataField df))
 				continue;
 
 			final DataField.Value value = (DataField.Value)e.getValue();
-			final DataField df = (DataField)field;
 			df.store().toBlobs(() -> value!=null ? value.asArray(df, backingItem) : null, result);
 		}
 		return result;
