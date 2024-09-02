@@ -303,17 +303,10 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		throw new InvalidObjectException("required " + Serialized.class);
 	}
 
-	private static final class Serialized implements Serializable
+	private record Serialized(Class<? extends Composite> javaClass) implements Serializable
 	{
 		@Serial
 		private static final long serialVersionUID = 1l;
-
-		private final Class<? extends Composite> javaClass;
-
-		Serialized(final Class<? extends Composite> javaClass)
-		{
-			this.javaClass = javaClass;
-		}
 
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>

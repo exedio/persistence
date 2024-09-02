@@ -192,25 +192,15 @@ public abstract class Composite implements Serializable, TemplatedValue
 		throw new InvalidObjectException("required " + Serialized.class);
 	}
 
-	private static final class Serialized implements Serializable
+	private record Serialized(
+			CompositeType<?> type,
+			FunctionField<?>[] fields,
+			@SuppressWarnings("NonSerializableFieldInSerializableClass")
+			Object[] values)
+			implements Serializable
 	{
 		@Serial
 		private static final long serialVersionUID = 2l;
-
-		private final CompositeType<?> type;
-		private final FunctionField<?>[] fields;
-		@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
-		private final Object[] values;
-
-		Serialized(
-				final CompositeType<?> type,
-				final FunctionField<?>[] fields,
-				final Object[] values)
-		{
-			this.type = type;
-			this.fields = fields;
-			this.values = values;
-		}
 
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>

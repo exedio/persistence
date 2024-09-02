@@ -142,27 +142,17 @@ public final class SetField<E> extends Pattern implements Copyable
 		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, relationType);
 	}
 
-	private static final class Mount
+	private record Mount(
+			ItemField<?> parent,
+			UniqueConstraint uniqueOrder,
+			UniqueConstraint uniqueElement,
+			Type<PatternItem> relationType)
 	{
-		final ItemField<?> parent;
-		final UniqueConstraint uniqueOrder;
-		final UniqueConstraint uniqueElement;
-		final Type<PatternItem> relationType;
-
-		Mount(
-				final ItemField<?> parent,
-				final UniqueConstraint uniqueOrder,
-				final UniqueConstraint uniqueElement,
-				final Type<PatternItem> relationType)
+		Mount
 		{
 			assert parent!=null;
 			assert uniqueElement != null;
 			assert relationType!=null;
-
-			this.parent = parent;
-			this.uniqueOrder = uniqueOrder;
-			this.uniqueElement = uniqueElement;
-			this.relationType = relationType;
 		}
 	}
 

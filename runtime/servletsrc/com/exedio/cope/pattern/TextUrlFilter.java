@@ -190,20 +190,14 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		this.mountIfMounted = new Mount(pasteParent, pasteType);
 	}
 
-	private static final class Mount
+	private record Mount(
+			ItemField<?> pasteParent,
+			Type<Paste> pasteType)
 	{
-		final ItemField<?> pasteParent;
-		final Type<Paste> pasteType;
-
-		Mount(
-				final ItemField<?> pasteParent,
-				final Type<Paste> pasteType)
+		Mount
 		{
 			assert pasteParent!=null;
 			assert pasteType!=null;
-
-			this.pasteParent = pasteParent;
-			this.pasteType = pasteType;
 		}
 	}
 

@@ -37,17 +37,10 @@ final class Replacements
 		return input;
 	}
 
-	private static final class Rule
+	private record Rule(
+			Pattern pattern,
+			String replacement)
 	{
-		private final Pattern pattern;
-		private final String replacement;
-
-		Rule(final Pattern pattern, final String replacement)
-		{
-			this.pattern = pattern;
-			this.replacement = replacement;
-		}
-
 		String apply(final String input)
 		{
 			return pattern.matcher(input).replaceAll(replacement);

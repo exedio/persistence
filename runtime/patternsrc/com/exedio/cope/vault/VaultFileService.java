@@ -595,16 +595,10 @@ public final class VaultFileService implements VaultService
 					Files.createTempDirectory(tempDir, "probeMoveTarget", attrs));
 		}
 
-		private static final class MoveDirectoryFixture
+		private record MoveDirectoryFixture(
+				@Nonnull Path source,
+				@Nonnull Path target)
 		{
-			final Path source;
-			final Path target;
-
-			MoveDirectoryFixture(@Nonnull final Path source, @Nonnull final Path target)
-			{
-				this.source = source;
-				this.target = target;
-			}
 		}
 	}
 

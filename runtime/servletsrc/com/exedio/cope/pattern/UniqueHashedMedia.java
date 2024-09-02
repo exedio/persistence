@@ -432,18 +432,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	/**
 	 * Container for media value + hash
 	 */
-	private static final class ValueWithHash
+	private record ValueWithHash(Value media, String hash)
 	{
-		final Value media;
-		final String hash;
-
-		ValueWithHash(
-				final Value media,
-				final String hash)
-		{
-			this.media = media;
-			this.hash = hash;
-		}
 	}
 
 	/**

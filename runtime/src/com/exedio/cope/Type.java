@@ -1506,19 +1506,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		throw new InvalidObjectException("required " + Serialized.class);
 	}
 
-	private static final class Serialized implements Serializable
+	private record Serialized(Model model, String id) implements Serializable
 	{
 		@Serial
 		private static final long serialVersionUID = 1l;
-
-		private final Model model;
-		private final String id;
-
-		Serialized(final Model model, final String id)
-		{
-			this.model = model;
-			this.id = id;
-		}
 
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>

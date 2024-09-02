@@ -154,17 +154,15 @@ public final class SlowTransactionLogger
 			thresholdError = value("threshold.error", max(factory.thresholdErrorDefault, thresholdWarn), thresholdWarn);
 		}
 
-		private static final class F implements Factory<Properties>
+		private record F(
+				Duration thresholdWarnDefault,
+				Duration thresholdErrorDefault)
+				implements Factory<Properties>
 		{
-			final Duration thresholdWarnDefault;
-			final Duration thresholdErrorDefault;
-
-			F(
-					final Duration thresholdWarnDefault,
-					final Duration thresholdErrorDefault)
+			private F
 			{
-				this.thresholdWarnDefault = requireNonNegative(thresholdWarnDefault,  "thresholdWarnDefault");
-				this.thresholdErrorDefault = requireAtLeast(thresholdErrorDefault, "thresholdErrorDefault", thresholdWarnDefault);
+				requireNonNegative(thresholdWarnDefault, "thresholdWarnDefault");
+				requireAtLeast(thresholdErrorDefault, "thresholdErrorDefault", thresholdWarnDefault);
 			}
 
 			@Override

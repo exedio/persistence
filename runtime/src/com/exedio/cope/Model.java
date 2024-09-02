@@ -1086,19 +1086,10 @@ public final class Model implements Serializable
 			: super.toString();
 	}
 
-	private static final class Serialized implements Serializable
+	private record Serialized(Class<?> type, String name) implements Serializable
 	{
 		@Serial
 		private static final long serialVersionUID = 1l;
-
-		private final Class<?> type;
-		private final String name;
-
-		Serialized(final Class<?> type, final String name)
-		{
-			this.type = type;
-			this.name = name;
-		}
 
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>

@@ -111,24 +111,16 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
 
-	private static final class Mount
+	private record Mount(
+			ItemField<?> parent,
+			UniqueConstraint uniqueConstraint,
+			Type<PatternItem> relationType)
 	{
-		final ItemField<?> parent;
-		final UniqueConstraint uniqueConstraint;
-		final Type<PatternItem> relationType;
-
-		Mount(
-				final ItemField<?> parent,
-				final UniqueConstraint uniqueConstraint,
-				final Type<PatternItem> relationType)
+		Mount
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
 			assert relationType!=null;
-
-			this.parent = parent;
-			this.uniqueConstraint = uniqueConstraint;
-			this.relationType = relationType;
 		}
 	}
 

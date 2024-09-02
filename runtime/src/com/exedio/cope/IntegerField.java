@@ -126,15 +126,8 @@ public final class IntegerField extends NumberField<Integer>
 			return name + "-Seq";
 		}
 
-		private static final class AnnotationProxy implements AnnotatedElement
+		private record AnnotationProxy(AnnotatedElement source) implements AnnotatedElement
 		{
-			private final AnnotatedElement source;
-
-			AnnotationProxy(final AnnotatedElement source)
-			{
-				this.source = source;
-			}
-
 			@Override
 			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 			{

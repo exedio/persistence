@@ -226,15 +226,14 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return Arrays.append(this.copyTo, copyTo);
 	}
 
-	private static final class CopyTo
+	private record CopyTo(
+			FunctionField<?> copy,
+			Supplier<? extends FunctionField<?>> template)
 	{
-		final FunctionField<?> copy;
-		final Supplier<? extends FunctionField<?>> template;
-
-		CopyTo(final FunctionField<?> copy, final Supplier<? extends FunctionField<?>> template)
+		CopyTo
 		{
-			this.copy = requireNonNull(copy, "copy");
-			this.template = requireNonNull(template, "template");
+			requireNonNull(copy, "copy");
+			requireNonNull(template, "template");
 		}
 
 		java.util.function.Function<String,String> origin(final ItemField<?> target)

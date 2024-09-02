@@ -93,16 +93,10 @@ final class SimpleSelectType<E> implements SelectType<E>
 		throw new InvalidObjectException("required " + Serialized.class);
 	}
 
-	private static final class Serialized implements Serializable
+	private record Serialized(Class<?> javaClass) implements Serializable
 	{
 		@Serial
 		private static final long serialVersionUID = 1l;
-		private final Class<?> javaClass;
-
-		private Serialized(final Class<?> javaClass)
-		{
-			this.javaClass = javaClass;
-		}
 
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>

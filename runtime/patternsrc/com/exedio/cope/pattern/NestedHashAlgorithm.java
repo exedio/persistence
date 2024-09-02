@@ -42,17 +42,11 @@ public final class NestedHashAlgorithm
 		return new Algorithm(legacy, target);
 	}
 
-	private static final class Algorithm implements HashAlgorithm
+	private record Algorithm(
+			HashAlgorithm legacy,
+			HashAlgorithm target)
+			implements HashAlgorithm
 	{
-		final HashAlgorithm legacy;
-		final HashAlgorithm target;
-
-		Algorithm(final HashAlgorithm legacy, final HashAlgorithm target)
-		{
-			this.legacy = legacy;
-			this.target = target;
-		}
-
 		@Override
 		public String getID()
 		{
