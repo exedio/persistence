@@ -377,9 +377,9 @@ final class Types
 		{
 			switch(pkString.charAt(0))
 			{
-				case '+':
+				case '+' ->
 					throw new NoSuchIDException(id, true, "has plus sign");
-				case '0':
+				case '0' ->
 					throw new NoSuchIDException(id, true, "has leading zeros");
 			}
 		}

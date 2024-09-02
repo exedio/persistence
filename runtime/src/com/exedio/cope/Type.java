@@ -439,15 +439,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 			switch(typesOfInstances.size())
 			{
-				case 0:
+				case 0 ->
 					throw new RuntimeException("type " + parameters.type.id + " is abstract and has no non-abstract (even indirect) subtypes");
-				case 1:
+				case 1 -> {
 					this.typesOfInstancesMap = null;
 					this.onlyPossibleTypeOfInstances = typesOfInstances.iterator().next();
 					this.marshaller = new SimpleItemMarshaller<>(onlyPossibleTypeOfInstances);
 					this.typesOfInstancesColumnValues = null;
-					break;
-				default:
+				}
+				default -> {
 					final HashMap<String, Type<?>> typesOfInstancesMap = new HashMap<>();
 					final TreeSet<String> typesOfInstancesColumnValues = new TreeSet<>();
 					for(final Type<?> t : typesOfInstances)
@@ -461,7 +461,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					this.typesOfInstancesColumnValues = unmodifiableSortedSet(typesOfInstancesColumnValues);
 					this.marshaller = new PolymorphicItemMarshaller<>(this.typesOfInstancesMap);
 					this.onlyPossibleTypeOfInstances = null;
-					break;
+				}
 			}
 
 			this.declaredReferences = castDeclaredReferences(parameters.getReferences());

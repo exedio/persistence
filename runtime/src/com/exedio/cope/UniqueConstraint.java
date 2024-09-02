@@ -140,15 +140,15 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 */
 	public static UniqueConstraint create(final FunctionField<?>... fields)
 	{
-		switch (fields.length)
+		return switch (fields.length)
 		{
-			case 0:
+			case 0 ->
 				throw new IllegalArgumentException("must provide at least two fields");
-			case 1:
+			case 1 ->
 				throw new IllegalArgumentException("use FunctionField#unique() to create an unique constraint on a single field");
-			default:
-				return new UniqueConstraint(com.exedio.cope.misc.Arrays.copyOf(fields));
-		}
+			default ->
+				new UniqueConstraint(com.exedio.cope.misc.Arrays.copyOf(fields));
+		};
 	}
 
 	@Override

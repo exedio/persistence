@@ -88,20 +88,20 @@ final class HsqldbSchemaDialect extends Dialect
 
 	private static String getColumnTypeWithoutNullable(final int dataType, final ResultSet resultSet) throws SQLException
 	{
-		switch(dataType)
+		return switch(dataType)
 		{
-			case Types.TINYINT:   return TINYINT;
-			case Types.SMALLINT:  return SMALLINT;
-			case Types.INTEGER:   return INTEGER;
-			case Types.BIGINT:    return BIGINT;
-			case Types.DOUBLE:    return DOUBLE;
-			case Types.TIMESTAMP: return TIMESTAMP_3; // TODO fetch precision and time zone from resultSet
-			case Types.DATE:      return DATE;
-			case Types.BLOB:      return BLOB;
-			case Types.VARCHAR:   return VARCHAR(resultSet.getInt("COLUMN_SIZE"));
-			default:
-				return null;
-		}
+			case Types.TINYINT   -> TINYINT;
+			case Types.SMALLINT  -> SMALLINT;
+			case Types.INTEGER   -> INTEGER;
+			case Types.BIGINT    -> BIGINT;
+			case Types.DOUBLE    -> DOUBLE;
+			case Types.TIMESTAMP -> TIMESTAMP_3; // TODO fetch precision and time zone from resultSet
+			case Types.DATE      -> DATE;
+			case Types.BLOB      -> BLOB;
+			case Types.VARCHAR   -> VARCHAR(resultSet.getInt("COLUMN_SIZE"));
+			default ->
+				null;
+		};
 	}
 
 	static final String TINYINT = "TINYINT";

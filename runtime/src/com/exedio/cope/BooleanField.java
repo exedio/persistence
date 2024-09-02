@@ -152,15 +152,15 @@ public final class BooleanField extends FunctionField<Boolean>
 			return null;
 		else
 		{
-			switch((Integer)cell)
+			return switch((Integer)cell)
 			{
-				case 0:
-					return Boolean.FALSE;
-				case 1:
-					return Boolean.TRUE;
-				default:
+				case 0 ->
+					Boolean.FALSE;
+				case 1 ->
+					Boolean.TRUE;
+				default ->
 					throw new RuntimeException("cacheToSurface:"+cell);
-			}
+			};
 		}
 	}
 

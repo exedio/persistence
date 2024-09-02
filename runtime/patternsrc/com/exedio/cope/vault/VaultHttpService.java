@@ -111,15 +111,15 @@ public final class VaultHttpService extends VaultNonWritableService
 		}
 
 		final int responseCode = response.statusCode();
-		switch(responseCode)
+		return switch(responseCode)
 		{
-			case HTTP_OK:
-				return response;
-			case HTTP_NOT_FOUND:
+			case HTTP_OK ->
+				response;
+			case HTTP_NOT_FOUND ->
 				throw new VaultNotFoundException(hash);
-			default:
+			default ->
 				throw new RuntimeException(rootUri + ':' + responseCode + ':' + anonymiseHash(hash));
-		}
+		};
 	}
 
 	private RuntimeException wrap(final String hash, final Exception exception)
@@ -231,19 +231,19 @@ public final class VaultHttpService extends VaultNonWritableService
 					newRequest(uri, REQUEST_METHOD_HEAD),
 					info -> BodySubscribers.discarding());
 			final int responseCode = response.statusCode();
-			switch(responseCode)
+			return switch(responseCode)
 			{
-				case HTTP_OK:
+				case HTTP_OK,
 				// The error codes below are ok if directory listing is forbidden and
 				// there is no index.html as well. At least we check whether host is reachable.
-				case HTTP_FORBIDDEN:
-				case HTTP_NOT_FOUND:
-					return uri;
-				default:
+						HTTP_FORBIDDEN,
+						HTTP_NOT_FOUND ->
+					uri;
+				default ->
 					throw new IllegalArgumentException(
 							"does respond with code other than " + HTTP_OK + ", " + HTTP_FORBIDDEN + " or " + HTTP_NOT_FOUND + ": " +
 							responseCode + " >" + uri + '<');
-			}
+			};
 		}
 	}
 }

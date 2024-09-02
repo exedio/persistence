@@ -152,16 +152,16 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 
 			switch(policy)
 			{
-				case FORBID:
-					// is  by default
-					break;
-				case CASCADE:
+				case FORBID ->
+					{ } // is  by default
+
+				case CASCADE ->
 					component = component.cascade();
-					break;
-				case NULLIFY:
+
+				case NULLIFY ->
 					component = component.nullify();
-					break;
-				default:
+
+				default ->
 					throw new RuntimeException();
 			}
 			assert policy==component.getDeletePolicy();

@@ -96,20 +96,20 @@ class ClassVisitor extends GeneratedAwareScanner
 	private String getFullyQualifiedName(final Tree typeTree)
 	{
 		//noinspection EnumSwitchStatementWhichMissesCases
-		switch (typeTree.getKind())
+		return switch (typeTree.getKind())
 		{
-			case PRIMITIVE_TYPE:
-				return typeTree.toString();
-			case ARRAY_TYPE:
-				return getFullyQualifiedName(((ArrayTypeTree)typeTree).getType())+"[]";
-			case IDENTIFIER:
-			case PARAMETERIZED_TYPE:
-			case MEMBER_SELECT:
+			case PRIMITIVE_TYPE ->
+				typeTree.toString();
+			case ARRAY_TYPE ->
+				getFullyQualifiedName(((ArrayTypeTree)typeTree).getType())+"[]";
+			case IDENTIFIER,
+					PARAMETERIZED_TYPE,
+					MEMBER_SELECT ->
 				//noinspection RedundantCast: make sure this is a TypeElement
-				return ((TypeElement)context.getElementForTree(typeTree)).toString();
-			default:
+				((TypeElement)context.getElementForTree(typeTree)).toString();
+			default ->
 				throw new RuntimeException("unhandled kind "+typeTree.getKind()+" for '"+typeTree+"'");
-		}
+		};
 	}
 
 	@Override
@@ -126,16 +126,16 @@ class ClassVisitor extends GeneratedAwareScanner
 		//noinspection EnumSwitchStatementWhichMissesCases
 		switch(kindOfNode)
 		{
-			case IDENTIFIER:
-			case PARAMETERIZED_TYPE:
-			case MEMBER_SELECT:
-				// expected, handled
-				break;
-			case PRIMITIVE_TYPE:
-			case ARRAY_TYPE:
+			case IDENTIFIER,
+					PARAMETERIZED_TYPE,
+					MEMBER_SELECT ->
+				{ } // expected, handled
+
+			case PRIMITIVE_TYPE,
+					ARRAY_TYPE -> {
 				// expected, not handled
-				return null;
-			default:
+				return null; }
+			default ->
 				// unexpected
 				throw new RuntimeException("unexpected kind of node "+kindOfNode+" for "+node);
 		}
@@ -165,33 +165,34 @@ class ClassVisitor extends GeneratedAwareScanner
 		return null;
 	}
 
+	@SuppressWarnings("TailRecursion")
 	private void registerTypeShortcuts(final JavaField javaField, final Tree typeTree)
 	{
 		//noinspection EnumSwitchStatementWhichMissesCases
 		switch (typeTree.getKind())
 		{
-			case PRIMITIVE_TYPE:
-			case UNBOUNDED_WILDCARD:
-				break;
-			case IDENTIFIER:
-			case MEMBER_SELECT:
+			case PRIMITIVE_TYPE,
+					UNBOUNDED_WILDCARD ->
+				{ }
+			case IDENTIFIER,
+					MEMBER_SELECT -> {
 				final TypeElement identifierElement = (TypeElement)context.getElementForTree(typeTree);
 				javaField.addTypeShortcut(identifierElement.getQualifiedName().toString(), typeTree.toString());
-				break;
-			case PARAMETERIZED_TYPE:
+			}
+			case PARAMETERIZED_TYPE -> {
 				registerTypeShortcuts(javaField, ((ParameterizedTypeTree)typeTree).getType());
 				for (final Tree typeArgument : ((ParameterizedTypeTree)typeTree).getTypeArguments())
 				{
 					registerTypeShortcuts(javaField, typeArgument);
 				}
-				break;
-			case ARRAY_TYPE:
+			}
+			case ARRAY_TYPE ->
 				registerTypeShortcuts(javaField, ((ArrayTypeTree)typeTree).getType());
-				break;
-			case EXTENDS_WILDCARD:
+
+			case EXTENDS_WILDCARD ->
 				registerTypeShortcuts(javaField, ((WildcardTree)typeTree).getBound());
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(typeTree+" - "+typeTree.getKind());
 		}
 

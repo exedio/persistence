@@ -80,6 +80,7 @@ abstract class ClusterListener
 		fromMyself   = metrics.counter("fromMyself",   "How often a received packet did come from this node itself.", Tags.empty());
 	}
 
+	@SuppressWarnings("RedundantLabeledSwitchRuleCodeBlock") // TODO
 	final void handle(final DatagramPacket packet)
 	{
 		final ClusterIterator iter = new ClusterIterator(packet);
@@ -108,17 +109,15 @@ abstract class ClusterListener
 
 		switch(kind)
 		{
-			case KIND_PING:
+			case KIND_PING ->
 			{
 				handlePingPong(packet, iter, remoteNode, true);
-				break;
 			}
-			case KIND_PONG:
+			case KIND_PONG ->
 			{
 				handlePingPong(packet, iter, remoteNode, false);
-				break;
 			}
-			case KIND_INVALIDATE:
+			case KIND_INVALIDATE ->
 			{
 				final int sequence = iter.next();
 
@@ -151,9 +150,8 @@ abstract class ClusterListener
 
 				invalidate(invalidations, new TransactionInfoRemote(remoteNode));
 
-				break;
 			}
-			default:
+			default ->
 				throw new RuntimeException("illegal kind: " + kind);
 		}
 	}

@@ -238,17 +238,17 @@ public final class CompareFunctionCondition<E> extends Condition
 
 		Operator not()
 		{
-			switch(this)
+			return switch(this)
 			{
-				case    Equal     : return NotEqual;
-				case NotEqual     : return    Equal;
-				case Less         : return GreaterEqual;
-				case LessEqual    : return Greater;
-				case Greater      : return LessEqual;
-				case GreaterEqual : return Less;
-				default:
-					throw new RuntimeException(name());
-			}
+				case    Equal     -> NotEqual;
+				case NotEqual     ->    Equal;
+				case Less         -> GreaterEqual;
+				case LessEqual    -> Greater;
+				case Greater      -> LessEqual;
+				case GreaterEqual -> Less;
+
+
+			};
 		}
 	}
 }

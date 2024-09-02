@@ -62,15 +62,15 @@ final class Marshallers
 				if(row.wasNull())
 					return null;
 
-				switch(cell)
+				return switch(cell)
 				{
-					case 0:
-						return Boolean.FALSE;
-					case 1:
-						return Boolean.TRUE;
-					default:
+					case 0 ->
+						Boolean.FALSE;
+					case 1 ->
+						Boolean.TRUE;
+					default ->
 						throw new RuntimeException(String.valueOf(cell));
-				}
+				};
 			}
 			@Override
 			String marshalLiteral(final Boolean value)
