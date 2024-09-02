@@ -100,7 +100,7 @@ public class DivideDoubleTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.Function.getValueClass()\" because \"dividend\" is null", e.getMessage());
 		}
 		try
 		{

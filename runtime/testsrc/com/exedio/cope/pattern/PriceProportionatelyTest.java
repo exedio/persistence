@@ -123,10 +123,10 @@ public class PriceProportionatelyTest
 			"weights must not be empty");
 		assertFails(() ->
 			splitProportionately(null, values(0.01)),
-			NullPointerException.class, null);
+			NullPointerException.class, "Cannot invoke \"com.exedio.cope.pattern.Price.store()\" because \"total\" is null");
 		assertFails(() ->
 			splitProportionately(valueOf(9), null),
-			NullPointerException.class, null);
+			NullPointerException.class, "Cannot read the array length because \"weights\" is null");
 		assertFails(() ->
 			splitProportionately(valueOf(9), values(0.01, 0.01, -0.01)),
 			IllegalArgumentException.class,

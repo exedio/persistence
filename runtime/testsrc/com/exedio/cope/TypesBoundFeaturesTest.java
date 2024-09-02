@@ -140,6 +140,6 @@ public class TypesBoundFeaturesTest
 		assertFails(
 				() -> getFeatures(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"java.lang.Class.getDeclaredFields()\" because \"clazz\" is null");
 	}
 }

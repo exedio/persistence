@@ -197,9 +197,9 @@ public class MoneyTest
 		}));
 		assertFails(
 				() -> a.computeBig(x -> null),
-				NullPointerException.class, null);
+				NullPointerException.class, "Cannot invoke \"java.math.BigDecimal.compareTo(java.math.BigDecimal)\" because \"value\" is null");
 		assertFails(
 				() -> a.computeBig(b, (x,y) -> null),
-				NullPointerException.class, null);
+				NullPointerException.class, "Cannot invoke \"java.math.BigDecimal.compareTo(java.math.BigDecimal)\" because \"value\" is null");
 	}
 }

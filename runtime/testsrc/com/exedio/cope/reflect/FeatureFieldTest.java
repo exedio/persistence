@@ -159,7 +159,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertFails(
 				() -> forUnique(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"com.exedio.cope.Feature.getID()\" because \"value\" is null");
 	}
 
 	@Test void testRestrictionViolatedExecute()

@@ -35,7 +35,7 @@ public class MediaContentTypeTest
 		assertFails(
 				() -> m.contentTypes((String[])null),
 				NullPointerException.class,
-				null); // TODO
+				"Cannot read the array length because \"types\" is null"); // TODO
 	}
 	@Test void testEnumNull()
 	{

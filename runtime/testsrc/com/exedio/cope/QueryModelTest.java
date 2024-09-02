@@ -48,7 +48,7 @@ public class QueryModelTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read the array length because \"selects\" is null", e.getMessage());
 		}
 		try
 		{

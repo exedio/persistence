@@ -70,10 +70,10 @@ public class ArraysTest
 
 	@Test void testCopyOfNull()
 	{
-		assertFails(() -> copyOf((boolean[])null), NullPointerException.class, null);
-		assertFails(() -> copyOf((byte   [])null), NullPointerException.class, null);
-		assertFails(() -> copyOf((int    [])null), NullPointerException.class, null);
-		assertFails(() -> copyOf((String [])null), NullPointerException.class, null);
+		assertFails(() -> copyOf((boolean[])null), NullPointerException.class, "Cannot read the array length because \"original\" is null");
+		assertFails(() -> copyOf((byte   [])null), NullPointerException.class, "Cannot read the array length because \"original\" is null");
+		assertFails(() -> copyOf((int    [])null), NullPointerException.class, "Cannot read the array length because \"original\" is null");
+		assertFails(() -> copyOf((String [])null), NullPointerException.class, "Cannot read the array length because \"original\" is null");
 	}
 
 	@Test void testAppendElement()
@@ -103,8 +103,8 @@ public class ArraysTest
 
 	@Test void testAppendElementNull()
 	{
-		assertFails(() -> Arrays.append(null, true), NullPointerException.class, null);
-		assertFails(() -> Arrays.append(null, "x" ), NullPointerException.class, null);
+		assertFails(() -> Arrays.append(null, true), NullPointerException.class, "Cannot read the array length because \"a\" is null");
+		assertFails(() -> Arrays.append(null, "x" ), NullPointerException.class, "Cannot read the array length because \"a\" is null");
 	}
 
 	@Test void testPrependElement()
@@ -125,7 +125,7 @@ public class ArraysTest
 
 	@Test void testPrependElementNull()
 	{
-		assertFails(() -> Arrays.prepend("x", null), NullPointerException.class, null);
+		assertFails(() -> Arrays.prepend("x", null), NullPointerException.class, "Cannot read the array length because \"b\" is null");
 	}
 
 	@Test void testAppendArray()
@@ -143,8 +143,8 @@ public class ArraysTest
 
 	@Test void testAppendArrayNull()
 	{
-		assertFails(() -> Arrays.append(new String[]{"x"}, null), NullPointerException.class, null);
-		assertFails(() -> Arrays.append(null, new String[]{"x"}), NullPointerException.class, null);
+		assertFails(() -> Arrays.append(new String[]{"x"}, null), NullPointerException.class, "Cannot read the array length because \"b\" is null");
+		assertFails(() -> Arrays.append(null, new String[]{"x"}), NullPointerException.class, "Cannot read the array length because \"a\" is null");
 	}
 
 	@Test void testIt()

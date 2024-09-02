@@ -36,7 +36,7 @@ public class SimpleDialectUrlMapperTest
 		assertSame(null,         m.map(""));
 		assertFails(
 				() -> m.map(null),
-				NullPointerException.class, null);
+				NullPointerException.class, "Cannot invoke \"String.startsWith(String)\" because \"url\" is null");
 		assertEquals("jdbc:proto:* -> " + dialectClass.getName(), m.toString());
 	}
 
@@ -49,7 +49,7 @@ public class SimpleDialectUrlMapperTest
 		assertSame(null,         m.map(""));
 		assertFails(
 				() -> m.map(null),
-				NullPointerException.class, null);
+				NullPointerException.class, "Cannot invoke \"String.startsWith(String)\" because \"url\" is null");
 		assertEquals("jdbc:[proto1|proto2]:* -> " + dialectClass.getName(), m.toString());
 	}
 

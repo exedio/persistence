@@ -291,7 +291,7 @@ public class ConnectTokenTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.util.function.Consumer.accept(Object)\" because \"target\" is null", e.getMessage());
 		}
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());

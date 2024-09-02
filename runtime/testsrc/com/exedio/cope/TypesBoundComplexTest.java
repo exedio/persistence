@@ -108,7 +108,7 @@ public class TypesBoundComplexTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read field \"supertypes\" because \"type\" is null", e.getMessage());
 		}
 		assertTrue(type.isAssignableFrom(type));
 
@@ -147,7 +147,7 @@ public class TypesBoundComplexTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read field \"supertypes\" because \"type\" is null", e.getMessage());
 		}
 		assertTrue(typO.isAssignableFrom(typO));
 		assertTrue(type.isAssignableFrom(typO));

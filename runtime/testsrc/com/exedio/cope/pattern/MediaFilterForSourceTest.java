@@ -59,7 +59,7 @@ public class MediaFilterForSourceTest
 	{
 		assertFails(
 				() -> forSource(null),
-				NullPointerException.class, null);
+				NullPointerException.class, "Cannot invoke \"com.exedio.cope.pattern.Media.getType()\" because \"source\" is null");
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

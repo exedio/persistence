@@ -311,7 +311,7 @@ public class CompositeMountTest
 				"java.lang.reflect.InvocationTargetException");
 		final Throwable npe = re.getCause().getCause();
 		assertEquals(NullPointerException.class, npe.getClass());
-		assertEquals(null, npe.getMessage());
+		assertEquals("Cannot read the array length because \"<local5>\" is null", npe.getMessage());
 	}
 
 

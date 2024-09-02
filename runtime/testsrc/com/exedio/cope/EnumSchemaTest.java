@@ -69,7 +69,7 @@ public class EnumSchemaTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.lang.Enum.getDeclaringClass()\" because \"value\" is null", e.getMessage());
 		}
 	}
 	@SuppressWarnings("unused")

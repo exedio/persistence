@@ -145,7 +145,7 @@ public class LocalizationKeysTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.lang.reflect.AnnotatedElement.getAnnotation(java.lang.Class)\" because \"annotatedElement\" is null", e.getMessage());
 		}
 	}
 	@Test void testNullEnum()
@@ -157,7 +157,7 @@ public class LocalizationKeysTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.lang.Enum.getDeclaringClass()\" because \"e\" is null", e.getMessage());
 		}
 	}
 }

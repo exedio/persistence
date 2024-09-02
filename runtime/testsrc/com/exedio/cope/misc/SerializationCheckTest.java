@@ -52,7 +52,7 @@ public class SerializationCheckTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.Model.getTypesSortedByHierarchy()\" because \"model\" is null", e.getMessage());
 		}
 	}
 

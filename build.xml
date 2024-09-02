@@ -79,7 +79,6 @@
 					failonerror="true"
 					classname="org.junit.platform.console.ConsoleLauncher">
 				<jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,address=${debug.address}" if:set="debug.address"/>
-				<jvmarg value="-XX:-ShowCodeDetailsInExceptionMessages" />
 				<arg line="--details ${test-details}" />
 				<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
 				<implicit-element />

@@ -150,7 +150,7 @@ public class ModelNameTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.lang.Class.getName()\" because \"clazz\" is null", e.getMessage());
 		}
 	}
 }
