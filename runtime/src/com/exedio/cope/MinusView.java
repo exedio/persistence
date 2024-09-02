@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public final class MinusView<E extends Number> extends NumberView<E>
 {
 	public static <E extends Number> MinusView<E> minus(final Function<E> minuend, final Function<E> subtrahend)
@@ -26,6 +28,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 	}
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<E> minuend;

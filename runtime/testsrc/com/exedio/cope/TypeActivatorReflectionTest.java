@@ -26,6 +26,7 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.BlockType;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -110,6 +111,7 @@ public class TypeActivatorReflectionTest extends TestWithEnvironment
 
 	private static final class MyPattern extends Pattern
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		final StringField sourceTypeField = new StringField();

@@ -21,11 +21,13 @@ package com.exedio.cope;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 final class HashCondition extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final StringField hash;

@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public abstract class StringView extends View<String>
 	implements StringFunction
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	protected StringView(final Function<?>[] sources, final String name)

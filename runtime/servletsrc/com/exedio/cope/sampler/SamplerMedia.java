@@ -30,6 +30,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import java.io.Serial;
 
 @Purgeable
 @CopeExternal
@@ -66,6 +67,7 @@ final class SamplerMedia extends Item
 	private static final IntegerField delivered      = field(0);
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerMedia> TYPE = TypesBound.newType(SamplerMedia.class, SamplerMedia::new);
 	@SuppressWarnings("unused") private SamplerMedia(final ActivationParameters ap){ super(ap); }

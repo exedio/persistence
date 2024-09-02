@@ -1,7 +1,10 @@
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public final class Distinct<E> extends Aggregate<E,E>
 {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

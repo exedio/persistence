@@ -34,6 +34,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldTest extends TestWithEnvironment
@@ -337,6 +338,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 
 	private static class NotStoreableMultiItemFieldValuex implements MultiItemFieldValuex
 	{
+		@Serial
 		private static final long serialVersionUID = 1L;
 	}
 

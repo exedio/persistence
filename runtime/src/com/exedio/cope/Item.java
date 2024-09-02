@@ -25,6 +25,7 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.instrument.WrapType;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 
@@ -498,16 +499,19 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	// serialization -------------
 
+	@Serial
 	private static final long serialVersionUID = 2l;
 
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
+	@Serial
 	protected final Object writeReplace()
 	{
 		return type.isBound() ? this : new Serialized(type, pk);
 	}
 
+	@Serial
 	private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException
 	{
 		in.defaultReadObject();
@@ -516,6 +520,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	private static final class Serialized implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 2l;
 
 		private final Type<?> type;
@@ -530,6 +535,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve()
 		{
 			return type.activate(pk);

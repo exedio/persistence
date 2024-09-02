@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,6 +35,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class BlockField<E extends Block> extends Pattern implements Copyable, TemplatedField<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> valueClass;

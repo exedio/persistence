@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.WrapImplementsInterim;
 import com.exedio.cope.pattern.Money.Currency;
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -65,6 +66,7 @@ public final class Money<C extends Currency>
 	}
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 	private final Price amount;
 	private final C currency;

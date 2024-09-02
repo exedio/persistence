@@ -40,6 +40,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
@@ -59,6 +60,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class Serializer<E> extends Pattern implements Settable<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> valueClass;

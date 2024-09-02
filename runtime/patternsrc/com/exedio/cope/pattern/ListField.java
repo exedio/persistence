@@ -38,6 +38,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -46,6 +47,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class ListField<E> extends AbstractListField<E> implements Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final IntegerField order;

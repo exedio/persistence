@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrap;
 import java.io.IOException;
+import java.io.Serial;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.servlet.ServletOutputStream;
@@ -34,6 +35,7 @@ import org.opentest4j.AssertionFailedError;
 
 public final class MediaPathFeature extends MediaPath
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public enum Result

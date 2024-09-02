@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import java.io.Serial;
+
 public final class SettableVarargsInteger extends SettableVarargs<Integer>
 {
 	private final boolean mandatory;
@@ -34,5 +36,6 @@ public final class SettableVarargsInteger extends SettableVarargs<Integer>
 		return mandatory;
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

@@ -36,6 +36,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -46,6 +47,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,V>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<K> key;

@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 final class BindStringFunction extends BindFunction<String>
 	implements StringFunction
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	BindStringFunction(final StringField function, final Join join)

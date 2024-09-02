@@ -35,6 +35,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 public class CompositeErrorTest
@@ -277,6 +278,7 @@ public class CompositeErrorTest
 	@WrapperIgnore // instrumentor fails on null field
 	private static final class NullField extends Composite
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 		private NullField(final SetValue<?>[] setValues) { super(setValues); }
 		@SuppressWarnings("unused") // OK: test bad API usage

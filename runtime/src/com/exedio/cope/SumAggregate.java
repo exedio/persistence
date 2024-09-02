@@ -18,8 +18,11 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public final class SumAggregate<E extends Number> extends Aggregate<E,E> implements NumberFunction<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

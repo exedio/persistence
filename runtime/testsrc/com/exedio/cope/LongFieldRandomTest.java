@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.Serial;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 
@@ -32,6 +33,7 @@ public class LongFieldRandomTest
 {
 	static class RandomX extends Random
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		@Override public synchronized void setSeed(final long seed)

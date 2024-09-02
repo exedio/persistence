@@ -38,6 +38,7 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -50,6 +51,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>, TemplatedField<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final boolean isfinal;

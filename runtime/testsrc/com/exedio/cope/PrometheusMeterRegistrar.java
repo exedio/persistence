@@ -32,6 +32,7 @@ import io.micrometer.core.instrument.Tags;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
@@ -107,6 +108,7 @@ public final class PrometheusMeterRegistrar
 			super(message);
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

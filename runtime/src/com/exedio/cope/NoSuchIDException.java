@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 /**
  * Signals, that an attempt to find an item by its ID has been failed,
  * because there is no item with such an ID.
@@ -29,6 +31,7 @@ package com.exedio.cope;
  */
 public final class NoSuchIDException extends Exception
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final String id;

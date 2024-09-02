@@ -21,10 +21,12 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.CharSet;
+import java.io.Serial;
 import java.util.function.Consumer;
 
 public final class CharSetCondition extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

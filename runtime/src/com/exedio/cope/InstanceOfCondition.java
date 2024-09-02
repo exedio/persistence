@@ -21,12 +21,14 @@ package com.exedio.cope;
 import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.TreeSet;
 import java.util.function.Consumer;
 
 public final class InstanceOfCondition<E extends Item> extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final ItemFunction<E> function;

@@ -22,11 +22,13 @@ import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Hex;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
 public final class StartsWithCondition extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

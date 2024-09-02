@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -34,6 +35,7 @@ import java.util.Date;
 @ConstructorComment("if {0} violates its range constraint.")
 public final class DateRangeViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final DateField feature;

@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
 import java.util.Locale;
 
 public class CaseView extends StringView
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<String> source;

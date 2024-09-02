@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.StringField.truncateValue;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 
 /**
  * Signals, that an attempt to write a {@link StringField string field} has been failed,
@@ -34,6 +35,7 @@ import com.exedio.cope.instrument.ConstructorComment;
 @ConstructorComment("if {0} violates its length constraint.")
 public final class StringLengthViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final StringField feature;

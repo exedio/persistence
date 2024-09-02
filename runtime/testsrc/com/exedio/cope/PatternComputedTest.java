@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 public class PatternComputedTest
@@ -99,6 +100,7 @@ public class PatternComputedTest
 
 	private static final class MyPattern extends Pattern
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		final StringField virgnSource = new StringField();

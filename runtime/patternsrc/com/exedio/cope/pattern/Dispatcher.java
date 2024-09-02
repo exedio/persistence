@@ -59,6 +59,7 @@ import com.exedio.cope.util.JobContext;
 import io.micrometer.core.instrument.Timer;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.Serial;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -75,6 +76,7 @@ import org.slf4j.LoggerFactory;
 @WrapFeature
 public final class Dispatcher extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static final Charset ENCODING = StandardCharsets.UTF_8;
@@ -95,6 +97,7 @@ public final class Dispatcher extends Pattern
 				map(Unpend.date, date));
 		}
 		private Unpend(final SetValue<?>... setValues) { super(setValues); }
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -946,6 +949,7 @@ public final class Dispatcher extends Pattern
 					: null;
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private RunType type()

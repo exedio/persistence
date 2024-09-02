@@ -31,6 +31,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
+import java.io.Serial;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,6 +40,7 @@ import java.util.Locale;
 
 public final class MediaPattern extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Media sourceFeature;

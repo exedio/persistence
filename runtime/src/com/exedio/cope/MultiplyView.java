@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public final class MultiplyView<E extends Number> extends NumberView<E>
 {
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
@@ -33,6 +35,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	}
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<E>[] multipliers;

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
+
 public final class CoalesceView<E> extends View<E>
 {
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
@@ -45,6 +47,7 @@ public final class CoalesceView<E> extends View<E>
 	}
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<E>[] parameters;

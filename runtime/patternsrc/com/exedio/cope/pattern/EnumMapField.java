@@ -40,6 +40,7 @@ import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -50,6 +51,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<Map<K,V>>, MapFieldInterface<K,V>, Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final boolean isfinal;

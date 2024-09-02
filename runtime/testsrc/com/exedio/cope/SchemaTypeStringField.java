@@ -24,6 +24,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.util.List;
  */
 public final class SchemaTypeStringField extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final StringField sourceField;

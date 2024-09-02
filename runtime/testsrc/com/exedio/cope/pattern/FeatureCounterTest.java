@@ -38,6 +38,7 @@ import com.exedio.cope.tojunit.MainRule;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Metrics;
+import java.io.Serial;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -285,6 +286,7 @@ public class FeatureCounterTest
 	}
 	static class NonFinalPattern extends Pattern
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

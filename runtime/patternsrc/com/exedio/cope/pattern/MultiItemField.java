@@ -43,6 +43,7 @@ import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -56,6 +57,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class MultiItemField<E> extends Pattern implements Settable<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1L;
 	@SuppressWarnings("rawtypes")
 	public static final Class[] EMPTY_CLASS_ARRAY = {};
@@ -426,6 +428,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 					", must be one of " + feature.getComponentClasses();
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

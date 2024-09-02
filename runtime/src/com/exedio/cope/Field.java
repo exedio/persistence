@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
+import java.io.Serial;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -38,6 +39,7 @@ import java.util.function.Consumer;
 @WrapFeature
 public abstract class Field<E> extends Feature implements Settable<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final boolean isfinal;

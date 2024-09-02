@@ -22,10 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.misc.Arrays;
+import java.io.Serial;
 import java.security.SecureRandom;
 
 public final class MockSecureRandom extends SecureRandom
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private byte[] nextBytesExpected = null;

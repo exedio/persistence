@@ -28,6 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
@@ -124,6 +125,7 @@ public class MediaFilterForSourceTest
 		{
 			throw new AssertionFailedError();
 		}
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

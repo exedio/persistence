@@ -18,8 +18,11 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.Serial;
+
 final class HumanReadableException extends Exception
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	HumanReadableException(final String msg)

@@ -21,9 +21,11 @@ package com.exedio.cope.sampler;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
+import java.io.Serial;
 
 final class SamplerClusterListener extends Composite
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past

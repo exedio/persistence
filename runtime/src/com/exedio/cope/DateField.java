@@ -27,6 +27,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Clock;
+import java.io.Serial;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -44,6 +45,7 @@ import javax.annotation.Nonnull;
 
 public final class DateField extends FunctionField<Date>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public static Date getDefaultMinimum()

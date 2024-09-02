@@ -30,6 +30,7 @@ import com.exedio.cope.misc.ServletUtil;
 import com.exedio.cope.pattern.MediaPath.Locator;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import java.io.IOException;
+import java.io.Serial;
 import java.time.Duration;
 import java.util.HashMap;
 import javax.servlet.ServletException;
@@ -68,6 +69,7 @@ public class MediaServlet extends HttpServlet
 {
 	private static final Logger logger = LoggerFactory.getLogger(MediaServlet.class);
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private ConnectToken connectToken = null;

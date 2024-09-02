@@ -23,9 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
+import java.io.Serial;
 
 class RecursivePattern extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final Media media = new Media().optional();

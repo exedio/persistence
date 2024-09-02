@@ -40,6 +40,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,6 +48,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class DynamicModel<L> extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<L> localeTemplate;
@@ -453,6 +455,7 @@ public final class DynamicModel<L> extends Pattern
 
 	public static final class Type<L> extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Type(final ActivationParameters ap)
@@ -564,6 +567,7 @@ public final class DynamicModel<L> extends Pattern
 
 	public static final class Field<L> extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Field(final ActivationParameters ap)
@@ -690,6 +694,7 @@ public final class DynamicModel<L> extends Pattern
 
 	public static final class Enum<L> extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Enum(final ActivationParameters ap)

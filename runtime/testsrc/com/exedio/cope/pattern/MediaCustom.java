@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import java.io.Serial;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 final class MediaCustom extends MediaPath
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final StringField source;

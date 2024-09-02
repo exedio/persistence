@@ -47,6 +47,7 @@ import com.exedio.cope.pattern.Media.Value;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
 import java.io.IOException;
+import java.io.Serial;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -71,6 +72,7 @@ import org.jetbrains.annotations.Contract;
 @WrapFeature
 public final class UniqueHashedMedia extends Pattern implements Settable<Value>, Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Media media;

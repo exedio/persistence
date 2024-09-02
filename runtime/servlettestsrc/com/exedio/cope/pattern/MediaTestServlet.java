@@ -24,10 +24,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.io.Serial;
 import javax.servlet.http.HttpServletRequest;
 
 public final class MediaTestServlet extends MediaServlet
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	@Override

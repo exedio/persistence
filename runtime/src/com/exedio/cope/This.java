@@ -20,12 +20,14 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
 
+import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
 import java.util.function.Consumer;
 
 public final class This<E extends Item> extends Feature
 	implements ItemFunction<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static final String NAME = "this";

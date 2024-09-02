@@ -20,11 +20,13 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class CopyViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	@Nonnull  private final CopyConstraint feature;

@@ -27,6 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldErrorTest
@@ -189,6 +190,7 @@ public class MultiItemFieldErrorTest
 
 	static final class NonItemMultiItemFieldValue implements MultiItemFieldValue
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 }

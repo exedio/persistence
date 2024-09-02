@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import javax.annotation.Nonnull;
 
 /**
@@ -41,6 +42,7 @@ public final class FinalViolationException extends ConstraintViolationException
 			throw create(feature, item);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Feature feature;

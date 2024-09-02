@@ -34,6 +34,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PartOf;
+import java.io.Serial;
 import java.util.List;
 
 @Computed
@@ -86,6 +87,7 @@ final class RevstatBody extends Item
 		return sql.get(this);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static final Type<RevstatBody> TYPE = TypesBound.newType(RevstatBody.class, RevstatBody::new);

@@ -36,6 +36,7 @@ import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
+import java.io.Serial;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.Test;
 
@@ -133,6 +134,7 @@ public class SerializationCheckTest
 			super.onMount();
 			newSourceType(PatternItem.class, PatternItem::new, new Features());
 		}
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

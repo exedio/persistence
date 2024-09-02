@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.MediaType.JPEG;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MediaFilterThatConvertsText extends MediaFilter
 {
+	@Serial
 	private static final long serialVersionUID=1L;
 
 	private static final String TEXT_PLAIN = "text/plain";

@@ -36,6 +36,7 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -45,6 +46,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<Set<E>>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> elementClass;

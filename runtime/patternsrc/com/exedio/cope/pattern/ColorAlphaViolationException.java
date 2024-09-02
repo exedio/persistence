@@ -23,6 +23,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.ConstructorComment;
 import java.awt.Color;
+import java.io.Serial;
 
 /**
  * Signals, that an attempt to write an {@link ColorField} has been failed,
@@ -36,6 +37,7 @@ import java.awt.Color;
 @ConstructorComment("if {0} violates its alpha constraint.")
 public final class ColorAlphaViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final ColorField feature;

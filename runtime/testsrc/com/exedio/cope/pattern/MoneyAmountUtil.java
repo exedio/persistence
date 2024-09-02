@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -49,10 +50,12 @@ final class MoneyAmountUtil
 			assertSame(CY, this);
 			return "[C]";
 		}
+		@Serial
 		private static final long serialVersionUID = 1l;
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve()
 		{
 			return CY;

@@ -34,6 +34,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class PartOf<C extends Item> extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final ItemField<C> container;
@@ -202,6 +204,7 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public static final class OrderBy implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		private final FunctionField<?> field;

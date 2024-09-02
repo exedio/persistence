@@ -4,12 +4,14 @@ import static com.exedio.cope.CompareCondition.isComparable;
 import static com.exedio.cope.CompareCondition.toStringForValue;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 public final class InCondition<E> extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 5405405990794416218L;
 	private final Function<E> function;
 	private final boolean not;

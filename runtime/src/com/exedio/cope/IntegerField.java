@@ -22,6 +22,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.io.Serial;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
@@ -37,6 +38,7 @@ import javax.annotation.Nullable;
  */
 public final class IntegerField extends NumberField<Integer>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final int minimum;

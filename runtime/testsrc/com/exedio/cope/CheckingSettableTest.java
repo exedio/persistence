@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -249,6 +250,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 			return source.getInitialExceptions();
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

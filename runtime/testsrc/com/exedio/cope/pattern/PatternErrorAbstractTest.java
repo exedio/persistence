@@ -27,6 +27,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.UsageEntryPoint;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 public class PatternErrorAbstractTest
@@ -124,6 +125,7 @@ public class PatternErrorAbstractTest
 			newSourceType(javaClass, isAbstract, null, features, "postfix");
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 }

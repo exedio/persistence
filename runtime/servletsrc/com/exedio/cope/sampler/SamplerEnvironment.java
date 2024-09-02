@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import java.io.Serial;
 
 final class SamplerEnvironment extends Item
 {
@@ -69,6 +70,7 @@ final class SamplerEnvironment extends Item
 
 
 	private SamplerEnvironment(final ActivationParameters ap){ super(ap); }
+	@Serial
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerEnvironment> TYPE = TypesBound.newType(SamplerEnvironment.class, SamplerEnvironment::new);
 }

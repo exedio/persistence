@@ -22,10 +22,12 @@ import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 
 @ConstructorComment("if {0} is forbidden.")
 public final class ForbiddenFeatureException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final FeatureField<?> feature;

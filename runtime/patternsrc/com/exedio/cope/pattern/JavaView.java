@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
+import java.io.Serial;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -33,6 +34,7 @@ import java.util.function.Function;
 
 public final class JavaView extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Variant variant;

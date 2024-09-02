@@ -34,6 +34,7 @@ import com.exedio.cope.instrument.WrapType;
 import com.exedio.cope.util.Day;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
@@ -156,6 +157,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 
 	// serialization -------------
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
@@ -164,6 +166,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 	 * <p>
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
+	@Serial
 	protected final Object writeReplace()
 	{
 		return new Serialized(type, type.templateList.toArray(new FunctionField<?>[values.length]), values);
@@ -173,6 +176,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -182,6 +186,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	protected final Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -189,6 +194,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 
 	private static final class Serialized implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 2l;
 
 		private final CompositeType<?> type;
@@ -209,6 +215,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve()
 		{
 			final SetValue<?>[] setValues = new SetValue<?>[values.length];

@@ -23,6 +23,7 @@ import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.vault.Bucket;
+import java.io.Serial;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
@@ -40,6 +41,7 @@ public final class StringField extends FunctionField<String>
 	public static final int DEFAULT_MINIMUM_LENGTH = 1;
 	public static final int DEFAULT_MAXIMUM_LENGTH = 80; // length still fits into byte with utf8 encoding (3*80=240<255)
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 

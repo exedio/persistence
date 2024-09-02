@@ -32,6 +32,7 @@ import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.pattern.CompositeType;
+import java.io.Serial;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -302,6 +303,7 @@ public class LocalizationKeysPatternTest
 			return new MyPatt();
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

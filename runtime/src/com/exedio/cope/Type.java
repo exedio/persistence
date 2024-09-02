@@ -36,6 +36,7 @@ import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -1469,11 +1470,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	// serialization -------------
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
+	@Serial
 	private Object writeReplace() throws ObjectStreamException
 	{
 		final Mount<?> mount = mountIfMounted;
@@ -1487,6 +1490,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -1496,6 +1500,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -1503,6 +1508,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private static final class Serialized implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final Model model;
@@ -1517,6 +1523,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve() throws InvalidObjectException
 		{
 			final Type<?> result = model.getType(id);

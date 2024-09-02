@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 /**
  * Is thrown, when a persistent modification violates a constraint.
  *
@@ -26,6 +28,7 @@ package com.exedio.cope;
 @SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: abstract exception classes have no choice
 public abstract class ConstraintViolationException extends RuntimeException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Item item;

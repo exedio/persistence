@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import java.io.Serial;
 import java.sql.SQLException;
 
 /**
@@ -27,6 +28,7 @@ import java.sql.SQLException;
  */
 public final class SQLRuntimeException extends RuntimeException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public SQLRuntimeException(final SQLException cause, final String statement)

@@ -36,12 +36,14 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.SetValueUtil;
+import java.io.Serial;
 import java.util.List;
 import javax.annotation.Nonnull;
 
 @WrapFeature
 public final class Importer<K> extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Class<K> keyClass;

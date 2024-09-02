@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public final class DivideView<E extends Number> extends NumberView<E>
 {
 	public static <E extends Number> DivideView<E> divide(final Function<E> dividend, final Function<E> divisor)
@@ -26,6 +28,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 	}
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<E> dividend;

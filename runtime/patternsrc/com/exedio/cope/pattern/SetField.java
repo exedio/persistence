@@ -41,6 +41,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,6 +54,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class SetField<E> extends Pattern implements Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final boolean ordered;

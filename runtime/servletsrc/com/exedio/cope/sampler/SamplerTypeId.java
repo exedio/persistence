@@ -23,12 +23,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import java.io.Serial;
 
 final class SamplerTypeId extends Item
 {
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final StringField id = new StringField().toFinal().unique();
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerTypeId> TYPE = TypesBound.newType(SamplerTypeId.class, SamplerTypeId::new);
 	@SuppressWarnings("unused") private SamplerTypeId(final ActivationParameters ap){ super(ap); }

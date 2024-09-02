@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
 import com.exedio.cope.util.Day;
+import java.io.Serial;
 
 /**
  * Signals, that an attempt to write an {@link DayField} has been failed,
@@ -33,6 +34,7 @@ import com.exedio.cope.util.Day;
 @ConstructorComment("if {0} violates its range constraint.")
 public final class DayRangeViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final DayField feature;

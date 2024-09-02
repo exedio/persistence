@@ -21,10 +21,12 @@ package com.exedio.cope;
 import static com.exedio.cope.CompareCondition.topItemClass;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.function.Consumer;
 
 public final class CompareFunctionCondition<E> extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Operator operator;

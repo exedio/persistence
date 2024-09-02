@@ -46,6 +46,7 @@ import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serial;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -1215,6 +1216,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			if(failOnException)
 				throw new RuntimeException(exception);
 		}
+		@Serial
 		private static final long serialVersionUID = 1L;
 	}
 }

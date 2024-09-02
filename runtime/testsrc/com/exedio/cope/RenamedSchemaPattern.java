@@ -23,12 +23,14 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.CopeSchemaNameElement;
+import java.io.Serial;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.HashMap;
 
 class RenamedSchemaPattern extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final IntegerField veilSF;

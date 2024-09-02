@@ -23,6 +23,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
+import java.io.Serial;
 
 @WrapperIgnore // needed in contrast to LibComposite because TYPE is evaluated by instrumentor
 @SuppressWarnings("unused")
@@ -30,6 +31,7 @@ public class LibBlock extends Block
 {
 	protected static final StringField superField = new StringField();
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public static final BlockType<LibBlock> TYPE = BlockType.newType(LibBlock.class, LibBlock::new);

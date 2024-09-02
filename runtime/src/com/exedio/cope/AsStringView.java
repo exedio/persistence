@@ -18,8 +18,11 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public final class AsStringView extends StringView
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final NumberFunction<?> source;

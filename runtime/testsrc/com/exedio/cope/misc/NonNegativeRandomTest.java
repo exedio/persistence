@@ -23,6 +23,7 @@ import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.Serial;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +44,7 @@ public class NonNegativeRandomTest
 
 	static final class MyRandom extends Random
 	{
+		@Serial
 		private static final long serialVersionUID = - 1143497430954927734L;
 		final long result;
 

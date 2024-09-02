@@ -23,6 +23,7 @@ import static com.exedio.cope.Intern.intern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class UniqueConstraint extends Feature implements Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<?>[] fields;

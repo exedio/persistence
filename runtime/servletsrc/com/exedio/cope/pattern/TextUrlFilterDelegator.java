@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import java.io.IOException;
+import java.io.Serial;
 import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilterCheckable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Media raw;

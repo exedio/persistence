@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.io.Serial;
 import java.util.Set;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
@@ -28,6 +29,7 @@ import javax.annotation.Nullable;
 
 public final class DoubleField extends NumberField<Double>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private static final double MIN = -Double.MAX_VALUE;

@@ -23,6 +23,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import gnu.trove.TLongObjectHashMap;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -34,6 +35,7 @@ public class LRUMapTest
 	@SuppressWarnings("ClassExtendsConcreteCollection") // OK: used for code injection in test
 	private static final class DateMap<K, V> extends HashMap<K, V>
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		@SuppressWarnings({"unused", "FieldCanBeLocal"})

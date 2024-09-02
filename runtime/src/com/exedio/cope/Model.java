@@ -32,6 +32,7 @@ import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Modifier;
 import java.sql.SQLException;
@@ -186,6 +187,7 @@ public final class Model implements Serializable
 
 	public static final class NotConnectedException extends IllegalStateException
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final Model model;
@@ -1013,6 +1015,7 @@ public final class Model implements Serializable
 
 	// serialization -------------
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private Serialized serialized = null;
@@ -1041,6 +1044,7 @@ public final class Model implements Serializable
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
+	@Serial
 	private Object writeReplace() throws ObjectStreamException
 	{
 		if(serialized==null)
@@ -1053,6 +1057,7 @@ public final class Model implements Serializable
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -1062,6 +1067,7 @@ public final class Model implements Serializable
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -1082,6 +1088,7 @@ public final class Model implements Serializable
 
 	private static final class Serialized implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final Class<?> type;
@@ -1096,6 +1103,7 @@ public final class Model implements Serializable
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve()
 		{
 			return resolveModel();

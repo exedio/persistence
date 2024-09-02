@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
+import java.io.Serial;
 import java.util.Collection;
 import org.junit.jupiter.api.Test;
 
@@ -66,6 +67,7 @@ public class SuspicionsLogTest
 			return asList(suspicions);
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

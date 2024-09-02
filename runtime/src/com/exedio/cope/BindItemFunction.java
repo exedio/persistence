@@ -20,9 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
 
+import java.io.Serial;
+
 final class BindItemFunction<E extends Item> extends BindFunction<E>
 	implements ItemFunction<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final ItemFunction<E> function;

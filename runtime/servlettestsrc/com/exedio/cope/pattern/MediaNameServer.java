@@ -25,6 +25,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 final class MediaNameServer extends MediaPath
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final StringField source;

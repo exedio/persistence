@@ -29,10 +29,12 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.Type;
+import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
 
 class PatternTestPattern extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final StringField ownString = new StringField();

@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 
 /**
  * Signals, that an attempt to write an {@link IntegerField} has been failed,
@@ -32,6 +33,7 @@ import com.exedio.cope.instrument.ConstructorComment;
 @ConstructorComment("if {0} violates its range constraint.")
 public final class LongRangeViolationException extends RangeViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final LongField feature;

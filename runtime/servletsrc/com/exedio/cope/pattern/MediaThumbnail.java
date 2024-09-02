@@ -24,9 +24,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.DirectColorModel;
+import java.io.Serial;
 
 public final class MediaThumbnail extends MediaImageioFilter implements Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final int boundX;

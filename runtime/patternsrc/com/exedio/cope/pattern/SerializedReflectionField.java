@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Feature;
 import java.io.InvalidObjectException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
@@ -46,6 +47,7 @@ final class SerializedReflectionField implements Serializable
 		return new SerializedReflectionField(clazz, fieldName);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Class<?> clazz;
@@ -60,6 +62,7 @@ final class SerializedReflectionField implements Serializable
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 	 */
+	@Serial
 	private Object readResolve() throws InvalidObjectException
 	{
 		try

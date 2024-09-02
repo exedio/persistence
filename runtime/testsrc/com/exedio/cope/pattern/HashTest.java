@@ -46,6 +46,7 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
+import java.io.Serial;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
@@ -539,6 +540,7 @@ public class HashTest extends TestWithEnvironment
 	@Test void testValidatorNewRandomPassword()
 	{
 		assertEquals("012", newRandomPassword(with3PinValidator, new SecureRandom() {
+			@Serial
 			private static final long serialVersionUID = 1l;
 			int seq=0;  // negative tested too!
 

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
+
 
 /**
  * Signals, that an attempt to delete an item has been failed,
@@ -34,6 +36,7 @@ import static java.util.Objects.requireNonNull;
  */
 public final class IntegrityViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final ItemField<?> feature;

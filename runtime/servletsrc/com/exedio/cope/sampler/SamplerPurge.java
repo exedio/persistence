@@ -39,6 +39,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Timer;
+import java.io.Serial;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -138,6 +139,7 @@ final class SamplerPurge extends Item
 		return elapsed.getMandatory(this);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerPurge> TYPE = TypesBound.newType(SamplerPurge.class, SamplerPurge::new);
 	private SamplerPurge(final ActivationParameters ap){ super(ap); }

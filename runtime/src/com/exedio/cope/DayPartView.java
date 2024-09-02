@@ -19,10 +19,12 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
+import java.io.Serial;
 import java.time.temporal.WeekFields;
 
 public final class DayPartView extends NumberView<Integer>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<Day> source;

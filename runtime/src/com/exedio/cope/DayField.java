@@ -25,6 +25,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
+import java.io.Serial;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,6 +36,7 @@ import javax.annotation.Nonnull;
 
 public final class DayField extends FunctionField<Day>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public static Day getDefaultMinimum()

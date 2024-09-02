@@ -42,6 +42,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
+import java.io.Serial;
 import java.time.Duration;
 import java.util.Date;
 import javax.annotation.Nonnull;
@@ -50,6 +51,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class PasswordLimiter extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final HashInterface password;
@@ -219,6 +221,7 @@ public final class PasswordLimiter extends Pattern
 
 	public static final class ExceededException extends Exception
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final PasswordLimiter limiter;
@@ -292,6 +295,7 @@ public final class PasswordLimiter extends Pattern
 	@Computed
 	public static final class Refusal extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Refusal(final ActivationParameters ap)

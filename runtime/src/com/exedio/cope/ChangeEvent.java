@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
@@ -113,6 +114,7 @@ public final class ChangeEvent
 
 	public static final class NotAvailableException extends Exception
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		NotAvailableException(final String message)

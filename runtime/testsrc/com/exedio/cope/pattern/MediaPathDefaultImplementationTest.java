@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
@@ -105,6 +106,7 @@ public class MediaPathDefaultImplementationTest
 			throw new RuntimeException();
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

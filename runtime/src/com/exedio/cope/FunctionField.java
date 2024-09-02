@@ -26,6 +26,7 @@ import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
+import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ import javax.annotation.Nullable;
 public abstract class FunctionField<E> extends Field<E>
 	implements Function<E>, Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final boolean unique;

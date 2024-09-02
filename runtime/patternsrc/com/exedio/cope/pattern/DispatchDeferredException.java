@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import java.io.Serial;
+
 /**
  * Allows to defer dispatching an item even if it is pending.
  * Just throw this exception from parameter {@code target} of
@@ -38,5 +40,6 @@ public final class DispatchDeferredException extends Exception
 	{
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

@@ -39,6 +39,7 @@ import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -52,6 +53,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> valueClass;
@@ -257,6 +259,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			return bf.toString();
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

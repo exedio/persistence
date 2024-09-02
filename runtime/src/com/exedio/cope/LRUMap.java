@@ -20,12 +20,14 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
 final class LRUMap<K, V> extends LinkedHashMap<K, V>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final int maxSize;

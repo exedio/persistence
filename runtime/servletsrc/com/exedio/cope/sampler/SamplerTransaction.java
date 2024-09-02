@@ -36,6 +36,7 @@ import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -117,6 +118,7 @@ final class SamplerTransaction extends Item
 		return thread.get(this);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static final Type<SamplerTransaction> TYPE = TypesBound.newType(SamplerTransaction.class, SamplerTransaction::new);
