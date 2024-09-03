@@ -57,10 +57,10 @@ final class PartOfReverse
 			{
 				for(final Feature feature : field.getType().getFeatures())
 				{
-					if(feature instanceof final PartOf<?> partOf)
+					if(feature instanceof final PartOf<?> partOf &&
+						partOf.getContainer()==field)
 					{
-						if(partOf.getContainer()==field)
-							resultModifiable.add(partOf);
+						resultModifiable.add(partOf);
 					}
 				}
 			}

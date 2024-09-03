@@ -399,10 +399,10 @@ public final class CompositeCondition extends Condition
 				else
 					filtered++;
 			}
-			else if(c instanceof final CompositeCondition cc)
+			else if(c instanceof final CompositeCondition cc &&
+					cc.operator==operator)
 			{
-				if(cc.operator==operator)
-					flattened += cc.conditions.length - 1; // the "- 1" is the CompositeCondition dropped for its nested conditions
+				flattened += cc.conditions.length - 1; // the "- 1" is the CompositeCondition dropped for its nested conditions
 			}
 		}
 
@@ -419,14 +419,12 @@ public final class CompositeCondition extends Condition
 			for(final Condition c : conditions)
 				if(operator.identity!=c)
 				{
-					if(c instanceof final CompositeCondition cc)
+					if(c instanceof final CompositeCondition cc &&
+						cc.operator==operator)
 					{
-						if(cc.operator==operator)
-						{
-							for(final Condition ccc : cc.conditions)
-								filteredConditions[j++] = ccc;
-							continue;
-						}
+						for(final Condition ccc : cc.conditions)
+							filteredConditions[j++] = ccc;
+						continue;
 					}
 					filteredConditions[j++] = c;
 				}
