@@ -18,7 +18,10 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import java.io.Serial;
+
 public class SettableFixedSub extends SettableFixed
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

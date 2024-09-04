@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
@@ -32,6 +33,7 @@ import javax.annotation.Nonnull;
  */
 public final class RegexpLikeCondition extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final StringFunction function;

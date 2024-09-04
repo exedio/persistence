@@ -35,6 +35,7 @@ import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.UsageEntryPoint;
+import java.io.Serial;
 import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -267,6 +268,7 @@ public class BlockErrorTest
 	@WrapperIgnore // instrumentor fails on null field
 	private static final class NullField extends Block
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 		private NullField(final BlockActivationParameters ap) { super(ap); }
 		@SuppressWarnings("unused") // OK: test bad API usage
@@ -301,6 +303,7 @@ public class BlockErrorTest
 
 	private static final class NotCopyable extends Pattern
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

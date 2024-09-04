@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.util.Check;
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -101,6 +102,7 @@ public final class Price implements Serializable, Comparable<Price>
 		return store!=null ? storeOf(store.intValue()) : null;
 	}
 
+	@Serial
 	private static final long serialVersionUID = 2l;
 	private final long store;
 
@@ -253,6 +255,7 @@ public final class Price implements Serializable, Comparable<Price>
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 	 */
+	@Serial
 	private Object readResolve()
 	{
 		final Price fromCache = fromCache(store);

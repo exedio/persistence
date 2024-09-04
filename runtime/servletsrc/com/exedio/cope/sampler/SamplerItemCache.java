@@ -30,6 +30,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
+import java.io.Serial;
 
 @Purgeable
 @CopeExternal
@@ -63,6 +64,7 @@ final class SamplerItemCache extends Item
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField stampsPurged         = field(0);
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerItemCache> TYPE = TypesBound.newType(SamplerItemCache.class, SamplerItemCache::new);
 	@SuppressWarnings("unused") private SamplerItemCache(final ActivationParameters ap){ super(ap); }

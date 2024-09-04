@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
+
 public final class UnsupportedGetException extends Exception
 {
 	final Function<?> function;
@@ -35,5 +37,6 @@ public final class UnsupportedGetException extends Exception
 		return function.toString();
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

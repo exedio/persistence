@@ -28,6 +28,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import java.io.Serial;
 import java.security.SecureRandom;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -36,6 +37,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class DrivebyHashMigration extends Pattern implements HashInterface
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Hash legacyHash;

@@ -20,11 +20,13 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 public final class NotCondition extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Condition argument;

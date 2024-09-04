@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 import javax.annotation.Nonnull;
 
 /**
@@ -44,6 +45,7 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 			throw create(feature, item);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Feature feature;

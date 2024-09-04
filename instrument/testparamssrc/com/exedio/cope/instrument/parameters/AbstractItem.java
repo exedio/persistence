@@ -20,7 +20,7 @@ package com.exedio.cope.instrument.parameters;
 
 import com.exedio.cope.Item;
 
-@SuppressWarnings({"ConstantForZeroLengthArrayAllocation", "AbstractClassNeverImplemented"})
+@SuppressWarnings({"ConstantForZeroLengthArrayAllocation", "AbstractClassNeverImplemented", "MissingSerialAnnotation"})
 abstract class AbstractItem extends Item
 {
 	/**

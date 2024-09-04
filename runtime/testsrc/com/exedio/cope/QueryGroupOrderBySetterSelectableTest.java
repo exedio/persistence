@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 
+import java.io.Serial;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -345,6 +346,7 @@ public class QueryGroupOrderBySetterSelectableTest
 		{
 			throw new AssertionFailedError();
 		}
+		@Serial
 		private static final long serialVersionUID = -1l;
 	};
 

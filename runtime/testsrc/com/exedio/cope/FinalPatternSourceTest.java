@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -118,6 +119,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 			return source.getInitialExceptions();
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

@@ -27,9 +27,11 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Composite;
+import java.io.Serial;
 
 final class SamplerThread extends Composite
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private static final LongField id  = new LongField().min(0);

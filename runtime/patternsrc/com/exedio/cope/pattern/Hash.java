@@ -44,6 +44,7 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import io.micrometer.core.instrument.Timer;
+import java.io.Serial;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Set;
@@ -59,6 +60,7 @@ public final class Hash extends Pattern implements HashInterface
 
 	private static final int DEFAULT_PLAINTEXT_LIMIT = 150;
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final StringField storage;
@@ -498,6 +500,7 @@ public final class Hash extends Pattern implements HashInterface
 	 * A plain text is either too short, too long or doesn't match the format requirement */
 	public static final class InvalidPlainTextException extends ConstraintViolationException
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 		@SuppressWarnings("TransientFieldNotInitialized") // OK: is ok to be null after deserialization
 		private final transient String plainText; // transient for not leaking plainText to serialized streams

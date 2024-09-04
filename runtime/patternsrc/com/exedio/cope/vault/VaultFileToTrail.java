@@ -26,6 +26,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Sources;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.Serial;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -179,6 +180,7 @@ public final class VaultFileToTrail
 		{
 			super(message);
 		}
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

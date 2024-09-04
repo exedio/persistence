@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public final class MediaFilterFallbackFeature extends MediaFilter
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public MediaFilterFallbackFeature(final Media source)

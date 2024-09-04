@@ -18,6 +18,8 @@
 
 package com.exedio.cope.vault;
 
+import java.io.Serial;
+
 final class BucketTagNotSupported extends Exception
 {
 	BucketTagNotSupported(final String message)
@@ -25,5 +27,6 @@ final class BucketTagNotSupported extends Exception
 		super(message);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

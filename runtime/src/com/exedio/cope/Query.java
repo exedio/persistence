@@ -27,6 +27,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Arrays;
 import gnu.trove.TIntHashSet;
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import java.util.List;
 
 public final class Query<R> implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static final int UNLIMITED = -66;
@@ -685,6 +687,7 @@ public final class Query<R> implements Serializable
 	 */
 	public static final class SearchSizeLimitExceededException extends IllegalStateException
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		SearchSizeLimitExceededException(final String message)

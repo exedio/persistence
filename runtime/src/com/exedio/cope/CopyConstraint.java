@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.BiFunction;
@@ -28,6 +29,7 @@ import javax.annotation.Nonnull;
 
 public final class CopyConstraint extends Feature
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final ItemField<?> target;
@@ -239,6 +241,7 @@ public final class CopyConstraint extends Feature
 		@Nonnull abstract FunctionField<?> getField();
 		abstract Object getActualValueAndCheck(FieldValues fieldValues, Item targetItem, Object expectedValue);
 		@Override public abstract String toString();
+		@Serial
 		private static final long serialVersionUID = -1l;
 	}
 
@@ -300,6 +303,7 @@ public final class CopyConstraint extends Feature
 		{
 			return field.toString();
 		}
+		@Serial
 		private static final long serialVersionUID = -1l;
 	}
 
@@ -349,6 +353,7 @@ public final class CopyConstraint extends Feature
 		{
 			return getType().getThis().toString();
 		}
+		@Serial
 		private static final long serialVersionUID = -1l;
 	}
 }

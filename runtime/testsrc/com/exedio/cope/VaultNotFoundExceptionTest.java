@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.vault.VaultNotFoundException;
 import java.io.IOException;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
@@ -454,6 +455,7 @@ public class VaultNotFoundExceptionTest
 		@Override public String toString() { throw new AssertionFailedError(); }
 		@Override public void setStackTrace(final StackTraceElement[] stackTrace) { throw new AssertionFailedError(); }
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

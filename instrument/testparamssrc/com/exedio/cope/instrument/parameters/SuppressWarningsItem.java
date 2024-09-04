@@ -21,7 +21,7 @@ package com.exedio.cope.instrument.parameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-@SuppressWarnings({"FinalMethodInFinalClass", "UnnecessarilyQualifiedStaticUsage"})
+@SuppressWarnings({"FinalMethodInFinalClass", "UnnecessarilyQualifiedStaticUsage", "MissingSerialAnnotation"})
 final class SuppressWarningsItem extends Item
 {
 	static final StringField field = new StringField();

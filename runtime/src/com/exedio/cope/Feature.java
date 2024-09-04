@@ -29,6 +29,7 @@ import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectStreamException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -483,11 +484,13 @@ public abstract class Feature implements Serializable
 
 	// serialization -------------
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
+	@Serial
 	protected final Object writeReplace() throws ObjectStreamException
 	{
 		final Mount mount = mountIfMounted;
@@ -506,6 +509,7 @@ public abstract class Feature implements Serializable
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private void readObject(final ObjectInputStream ois) throws IOException, ClassNotFoundException
 	{
 		if(isSerializableNonMounted())
@@ -518,6 +522,7 @@ public abstract class Feature implements Serializable
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	protected final Object readResolve() throws InvalidObjectException
 	{
 		if(isSerializableNonMounted())
@@ -533,6 +538,7 @@ public abstract class Feature implements Serializable
 
 	private static final class Serialized implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final Type<?> type;
@@ -547,6 +553,7 @@ public abstract class Feature implements Serializable
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve() throws InvalidObjectException
 		{
 			final Feature result = type.getDeclaredFeature(name);

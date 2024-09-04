@@ -24,6 +24,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
@@ -85,5 +86,6 @@ public class SimpleSettable extends Feature implements Settable<String>
 		return String.class;
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

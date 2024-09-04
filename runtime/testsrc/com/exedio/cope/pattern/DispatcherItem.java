@@ -29,6 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapInterim;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -101,6 +102,7 @@ public final class DispatcherItem extends Item
 			super(message);
 		}
 
+		@Serial
 		private static final long serialVersionUID = -1L;
 	}
 

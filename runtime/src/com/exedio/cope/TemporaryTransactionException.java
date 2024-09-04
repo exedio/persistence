@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 /**
  * Signals, that a persistent operation has failed for a possibly temporary reason.
  * Such reasons include concurrent modification of a data unit by multiple transactions.
@@ -27,6 +29,7 @@ package com.exedio.cope;
  */
 public final class TemporaryTransactionException extends RuntimeException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final int rows;

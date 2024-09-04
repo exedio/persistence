@@ -25,11 +25,13 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
+import java.io.Serial;
 import javax.annotation.Nonnull;
 
 @WrapFeature
 public final class Singleton extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private static final int THE_ONE = 42;

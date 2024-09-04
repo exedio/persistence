@@ -18,11 +18,13 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.function.Supplier;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	final EnumFieldType<E> valueType;

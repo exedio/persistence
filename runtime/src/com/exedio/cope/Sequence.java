@@ -22,10 +22,12 @@ import static java.lang.Math.toIntExact;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 
 @WrapFeature
 public final class Sequence extends Feature
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final int start;

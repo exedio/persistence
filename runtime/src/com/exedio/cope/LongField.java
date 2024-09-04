@@ -25,6 +25,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.io.Serial;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -33,6 +34,7 @@ import javax.annotation.Nullable;
 
 public final class LongField extends NumberField<Long>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final long minimum;

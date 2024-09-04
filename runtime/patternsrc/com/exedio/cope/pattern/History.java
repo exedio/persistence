@@ -40,6 +40,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -49,6 +50,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class History extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private EventType eventTypeIfMounted = null;
@@ -199,6 +201,7 @@ public final class History extends Pattern
 	@Computed
 	public static final class Event extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Event(final ActivationParameters ap)
@@ -311,6 +314,7 @@ public final class History extends Pattern
 	@Computed
 	public static final class Feature extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Feature(final ActivationParameters ap)

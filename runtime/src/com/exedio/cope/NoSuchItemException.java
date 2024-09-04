@@ -20,8 +20,11 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
+
 public class NoSuchItemException extends RuntimeException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Item item;

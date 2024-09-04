@@ -32,6 +32,7 @@ import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.LocalizationKeys;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -199,11 +200,13 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 
 	// serialization -------------
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
+	@Serial
 	private Object writeReplace()
 	{
 		return new Serialized(javaClass);
@@ -213,6 +216,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -222,6 +226,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -229,6 +234,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 
 	private static final class Serialized implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final Class<? extends Block> javaClass;
@@ -241,6 +247,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve() throws InvalidObjectException
 		{
 			final BlockType<?> result = types.get(javaClass);

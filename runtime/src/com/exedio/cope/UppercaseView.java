@@ -18,8 +18,11 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public final class UppercaseView extends CaseView
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

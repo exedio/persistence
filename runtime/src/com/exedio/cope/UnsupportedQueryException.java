@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 /**
  * Signals, that an attempt to use a {@link Query} failed,
  * because some part of the query is not supported by the current database.
@@ -30,6 +32,7 @@ package com.exedio.cope;
  */
 public final class UnsupportedQueryException extends IllegalArgumentException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	UnsupportedQueryException(final String message)

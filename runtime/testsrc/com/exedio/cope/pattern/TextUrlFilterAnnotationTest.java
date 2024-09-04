@@ -31,6 +31,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
+import java.io.Serial;
 import java.lang.annotation.Annotation;
 import org.junit.jupiter.api.Test;
 
@@ -216,6 +217,7 @@ public class TextUrlFilterAnnotationTest
 
 	private static final class ATextUrlFilter extends TextUrlFilter
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		ATextUrlFilter(final Media raw, final Media pasteValue)

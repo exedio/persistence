@@ -20,10 +20,12 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.function.Consumer;
 
 public final class IsNullCondition<E> extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 2l;
 
 	private final Selectable<E> function;

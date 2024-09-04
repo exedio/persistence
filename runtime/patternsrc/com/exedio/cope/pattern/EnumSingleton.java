@@ -29,12 +29,14 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.CopeSchemaNameElement;
+import java.io.Serial;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
 public final class EnumSingleton<E extends Enum<E>> extends Pattern implements Settable<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final EnumField<E> once;

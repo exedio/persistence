@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -49,6 +50,7 @@ public final class Range<E extends Comparable<E>> implements Serializable
 	private static final Range all = new Range(null, null);
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final E from;

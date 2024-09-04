@@ -30,6 +30,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.CompositeField;
+import java.io.Serial;
 
 @Purgeable
 @CopeExternal
@@ -57,6 +58,7 @@ final class SamplerClusterNode extends Item
 
 	@SuppressWarnings("unused")
 	private SamplerClusterNode(final ActivationParameters ap){ super(ap); }
+	@Serial
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerClusterNode> TYPE = TypesBound.newType(SamplerClusterNode.class, SamplerClusterNode::new);
 }

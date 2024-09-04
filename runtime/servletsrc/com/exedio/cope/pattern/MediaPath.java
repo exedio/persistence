@@ -42,6 +42,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import io.micrometer.core.instrument.Timer;
 import java.io.IOException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.time.Duration;
@@ -54,6 +55,7 @@ import javax.servlet.http.HttpServletResponse;
 @WrapFeature
 public abstract class MediaPath extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final boolean withLocator;
@@ -179,6 +181,7 @@ public abstract class MediaPath extends Pattern
 	 */
 	public final class Locator implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final Item item;
@@ -540,6 +543,7 @@ public abstract class MediaPath extends Pattern
 			MediaUtil.send("text/html", "us-ascii", body, response);
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

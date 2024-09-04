@@ -25,6 +25,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -34,6 +35,7 @@ import javax.annotation.Nonnull;
 
 public abstract class MediaFilter extends MediaPath
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Media source;

@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	implements NumberFunction<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private BindNumberFunction(final NumberFunction<E> function, final Join join)

@@ -57,6 +57,7 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ProxyJobContext;
 import io.micrometer.core.instrument.Timer;
+import java.io.Serial;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -75,6 +76,7 @@ public final class Schedule extends Pattern
 {
 	private static final Logger logger = LoggerFactory.getLogger(Schedule.class);
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public enum Interval
@@ -586,6 +588,7 @@ public final class Schedule extends Pattern
 	@Computed
 	public static final class Run extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Run(final ActivationParameters ap)

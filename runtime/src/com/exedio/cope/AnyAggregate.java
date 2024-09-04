@@ -18,8 +18,11 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 final class AnyAggregate<E> extends Aggregate<E,E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	AnyAggregate(final Function<E> source)

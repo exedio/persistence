@@ -21,11 +21,13 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
+import java.io.Serial;
 
 @WrapperIgnore
 @SuppressWarnings("unused") // OK: just for testing instrumentor
 final class IgnoredType extends Item
 {
 	static final StringField string = new StringField();
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

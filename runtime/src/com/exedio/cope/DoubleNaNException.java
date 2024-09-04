@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 
 /**
  * Signals, that an attempt to write an {@link DoubleField} has been failed,
@@ -32,6 +33,7 @@ import com.exedio.cope.instrument.ConstructorComment;
 @ConstructorComment("if {0} is NaN.")
 public final class DoubleNaNException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final DoubleField feature;

@@ -40,6 +40,7 @@ import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.JobContext;
+import java.io.Serial;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.Set;
@@ -53,6 +54,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 {
 	private static final Logger logger = LoggerFactory.getLogger(NestedHashMigration.class);
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Hash legacyHash;

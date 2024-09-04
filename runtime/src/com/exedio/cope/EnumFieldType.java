@@ -22,6 +22,7 @@ import com.exedio.cope.misc.EnumAnnotatedElement;
 import gnu.trove.TIntObjectHashMap;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -183,11 +184,13 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	// serialization -------------
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 	 */
+	@Serial
 	private Object writeReplace()
 	{
 		return new Serialized<>(valueClass);
@@ -197,6 +200,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -206,6 +210,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
+	@Serial
 	private Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -213,6 +218,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	private static final class Serialized<E extends Enum<E>> implements Serializable
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 		private final Class<E> valueClass;
 
@@ -224,6 +230,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve()
 		{
 			return get(valueClass);

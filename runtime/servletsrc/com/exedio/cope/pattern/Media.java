@@ -50,6 +50,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serial;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ import org.jetbrains.annotations.Contract;
 
 public final class Media extends MediaPath implements Settable<Media.Value>, Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final boolean isfinal;

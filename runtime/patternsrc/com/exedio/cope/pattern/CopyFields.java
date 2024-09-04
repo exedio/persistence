@@ -24,6 +24,7 @@ import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.misc.Arrays;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ import java.util.Map;
 
 final class CopyFields implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	static final CopyFields EMPTY = new CopyFields(null);

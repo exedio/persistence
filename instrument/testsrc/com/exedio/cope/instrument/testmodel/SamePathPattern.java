@@ -24,6 +24,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.instrument.WrapInterim;
+import java.io.Serial;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -66,5 +67,6 @@ public final class SamePathPattern<T extends Item> extends Pattern
 		return "NOTHING";
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,6 +29,7 @@ import java.util.Set;
 
 public final class CheckConstraint extends Feature implements Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Condition condition;

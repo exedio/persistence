@@ -24,12 +24,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.TextUrlFilter;
+import java.io.Serial;
 import java.nio.charset.Charset;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 public final class TextUrlFilterOverride extends TextUrlFilter
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public TextUrlFilterOverride(

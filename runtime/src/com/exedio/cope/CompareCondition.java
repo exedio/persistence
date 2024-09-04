@@ -21,11 +21,13 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import java.io.Serial;
 import java.util.Date;
 import java.util.function.Consumer;
 
 public final class CompareCondition<E> extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Operator operator;

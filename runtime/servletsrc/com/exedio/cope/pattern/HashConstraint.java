@@ -26,11 +26,13 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.Vault;
+import java.io.Serial;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 public final class HashConstraint extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final StringField hash;

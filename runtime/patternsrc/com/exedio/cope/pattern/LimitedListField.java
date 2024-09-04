@@ -38,6 +38,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.ReflectionTypes;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -49,6 +50,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final int minimumSize;

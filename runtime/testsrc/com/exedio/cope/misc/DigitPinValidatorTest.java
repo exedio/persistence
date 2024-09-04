@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.pattern.Hash;
+import java.io.Serial;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +118,7 @@ public class DigitPinValidatorTest
 	private static void assertIt(final int pinLen, final List<String> expected)
 	{
 		final SecureRandom random = new SecureRandom() {
+			@Serial
 			private static final long serialVersionUID = 1l;
 			int seq=0;
 

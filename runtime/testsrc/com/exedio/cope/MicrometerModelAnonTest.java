@@ -29,6 +29,7 @@ import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
+import java.io.Serial;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -148,6 +149,7 @@ public class MicrometerModelAnonTest
 
 	private static final class AbsentError extends AssertionFailedError
 	{
+		@Serial
 		private static final long serialVersionUID = 3435620421628273951L;
 	}
 

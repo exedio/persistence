@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.instrument.WrapType;
+import java.io.Serial;
 import java.io.Serializable;
 
 @WrapType(
@@ -36,6 +37,7 @@ import java.io.Serializable;
 )
 public abstract class Block implements Serializable, TemplatedValue
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final BlockField<?> field;

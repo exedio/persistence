@@ -22,6 +22,7 @@ import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 import java.util.function.Consumer;
@@ -39,6 +40,7 @@ import javax.annotation.Nonnull;
 public abstract class View<E> extends Feature
 	implements Function<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<?>[] sources;

@@ -20,9 +20,11 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Item;
+import java.io.Serial;
 
 public final class IllegalContentTypeException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Media feature;

@@ -39,6 +39,7 @@ import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +50,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class TypeField<E extends Item> extends Pattern implements Settable<Type<? extends E>>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> valueClass;
@@ -212,6 +214,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 			return bf.toString();
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

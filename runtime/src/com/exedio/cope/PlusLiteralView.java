@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
+
 public final class PlusLiteralView<E extends Number> extends NumberView<E>
 {
 	public static <E extends Number> PlusLiteralView<E> plus(final Function<E> addend1, final E addend2)
@@ -28,6 +30,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	}
 
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<E> left;

@@ -32,6 +32,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.MediaPath.Locator;
 import com.exedio.cope.tojunit.TestSources;
+import java.io.Serial;
 import java.time.Duration;
 import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
@@ -146,6 +147,7 @@ public class MediaServletDefaultTest
 		{
 			return true;
 		}
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 

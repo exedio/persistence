@@ -40,12 +40,14 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import java.io.Serial;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>, Copyable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final FunctionField<E> from;

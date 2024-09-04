@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 /**
  * Signals, that an attempt to write a {@link DataField data field} has been failed,
  * because value to be written violated the length constraint on that field.
@@ -29,6 +31,7 @@ package com.exedio.cope;
  */
 public final class DataLengthViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final DataField feature;

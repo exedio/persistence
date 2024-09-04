@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
@@ -51,5 +52,6 @@ public class SettableFixed extends AssertionFailedSettable<AtomicBoolean>
 		return AtomicBoolean.class;
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

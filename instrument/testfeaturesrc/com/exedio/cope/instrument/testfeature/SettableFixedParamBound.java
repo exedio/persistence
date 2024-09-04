@@ -20,6 +20,7 @@ package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ReflectionTypes;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
@@ -53,5 +54,6 @@ public class SettableFixedParamBound extends AssertionFailedSettable<AtomicRefer
 		return ReflectionTypes.parameterized(AtomicReference.class, ReflectionTypes.sub(AtomicLong.class));
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 /**
  * Signals, that an attempt to write an field has been failed,
  * and the value to be set violated a check constraint.
@@ -31,6 +33,7 @@ package com.exedio.cope;
  */
 public final class CheckViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final CheckConstraint feature;

@@ -24,6 +24,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
@@ -31,6 +32,7 @@ import java.util.Set;
 @com.exedio.cope.instrument.WrapFeature
 public final class FeatureWithComponent extends Pattern implements Settable<Boolean>
 {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private final StringField firstComponent = new StringField();

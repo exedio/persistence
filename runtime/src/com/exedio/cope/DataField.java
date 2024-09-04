@@ -38,6 +38,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serial;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,6 +52,7 @@ import org.jetbrains.annotations.Contract;
 
 public final class DataField extends Field<DataField.Value>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final long maximumLength;

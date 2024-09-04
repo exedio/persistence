@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
 import java.util.function.Consumer;
 
 /**
@@ -29,6 +30,7 @@ import java.util.function.Consumer;
  */
 public final class Count implements NumberFunction<Integer>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Function<?> source;

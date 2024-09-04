@@ -23,6 +23,7 @@ import com.exedio.cope.instrument.CopeWarnings;
 import com.exedio.cope.instrument.Generated;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
+import java.io.Serial;
 
 /**
  * This class tests that the {@link WrapperIgnore} annotation works.
@@ -31,6 +32,7 @@ import com.exedio.cope.instrument.testfeature.SimpleSettable;
 @SuppressWarnings("unused") // OK: just for testing instrumentor
 class DontInstrumentByAnnotation extends Item
 {
+	@Serial
 	private static final long serialVersionUID=1L;
 
 	static final SimpleSettable makeInstrumentorFail = null;

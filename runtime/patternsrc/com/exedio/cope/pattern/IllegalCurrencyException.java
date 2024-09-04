@@ -22,10 +22,12 @@ import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.instrument.ConstructorComment;
 import com.exedio.cope.pattern.Money.Currency;
+import java.io.Serial;
 
 @ConstructorComment("if {0} violates its currency constraint.")
 public final class IllegalCurrencyException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static void check(

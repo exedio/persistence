@@ -11,11 +11,13 @@ import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.instrument.WrapInterim;
+import java.io.Serial;
 import java.util.Set;
 
 @WrapFeature
 class PatternInSrc extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unused")

@@ -25,6 +25,7 @@ import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Arrays;
+import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
 import java.util.SortedSet;
@@ -34,6 +35,7 @@ import java.util.function.Supplier;
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final TypeFuture<E> valueTypeFuture;

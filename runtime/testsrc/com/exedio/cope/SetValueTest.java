@@ -25,6 +25,7 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.Serial;
 import java.lang.reflect.Type;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -107,6 +108,7 @@ public class SetValueTest
 
 	private static final class MockSettable extends Feature implements Settable<String>
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private final String toString;

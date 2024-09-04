@@ -42,6 +42,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
+import java.io.Serial;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Date;
@@ -53,6 +54,7 @@ import javax.annotation.Nullable;
 @WrapFeature
 public final class PasswordRecovery extends Pattern
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private static final long NOT_A_SECRET = 0l;
@@ -336,6 +338,7 @@ public final class PasswordRecovery extends Pattern
 	@Computed
 	public static final class Token extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Token(final ActivationParameters ap)

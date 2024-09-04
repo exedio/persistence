@@ -22,6 +22,7 @@ import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 
 /**
  * Signals, that an attempt to write a {@link AbstractListField list field} has been failed,
@@ -35,6 +36,7 @@ import com.exedio.cope.instrument.ConstructorComment;
 @ConstructorComment("if {0} violates its length constraint.")
 public final class ListSizeViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final AbstractListField<?> feature;

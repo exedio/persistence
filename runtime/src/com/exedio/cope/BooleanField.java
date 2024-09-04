@@ -21,12 +21,14 @@ package com.exedio.cope;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import java.io.Serial;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static final int[] ALLOWED_VALUES = {0, 1};

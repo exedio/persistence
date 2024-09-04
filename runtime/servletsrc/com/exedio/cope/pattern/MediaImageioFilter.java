@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,6 +46,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class MediaImageioFilter extends MediaFilter
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Media source;

@@ -38,6 +38,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -51,6 +52,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final Media raw;
@@ -380,6 +382,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	@Computed
 	public static final class Paste extends Item
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		private Paste(final ActivationParameters ap)

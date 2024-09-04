@@ -24,6 +24,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.misc.ConnectToken;
 import java.io.IOException;
+import java.io.Serial;
 import java.text.ParseException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class InitServlet extends HttpServlet
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public static final Model model = new Model(MediaServletItem.TYPE, MediaPatternItem.TYPE);

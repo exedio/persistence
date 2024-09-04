@@ -20,12 +20,14 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 public abstract class Condition implements Serializable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	void appendAfterFrom(final Statement statement) {}
@@ -109,6 +111,7 @@ public abstract class Condition implements Serializable
 
 	static final class Literal extends Condition
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		final boolean value;
@@ -195,6 +198,7 @@ public abstract class Condition implements Serializable
 		 * otherwise {@link #equals(Object)} would be wrong.
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
+		@Serial
 		private Object readResolve()
 		{
 			return Condition.of(value);

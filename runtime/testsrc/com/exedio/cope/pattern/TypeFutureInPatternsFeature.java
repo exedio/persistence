@@ -30,6 +30,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import org.opentest4j.AssertionFailedError;
 
 final class TypeFutureInPatternsFeature extends Pattern
@@ -131,5 +132,6 @@ final class TypeFutureInPatternsFeature extends Pattern
 		private TypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 }

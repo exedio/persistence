@@ -20,6 +20,7 @@ package com.exedio.cope.vault;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serial;
 import java.util.IdentityHashMap;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -39,6 +40,7 @@ import javax.annotation.Nonnull;
  */
 public final class VaultNotFoundException extends Exception
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final String hash;
@@ -184,6 +186,7 @@ public final class VaultNotFoundException extends Exception
 					: originName;
 		}
 
+		@Serial
 		private static final long serialVersionUID = 1l;
 	}
 }

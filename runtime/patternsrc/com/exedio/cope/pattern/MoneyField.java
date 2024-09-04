@@ -37,6 +37,7 @@ import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -44,6 +45,7 @@ import javax.annotation.Nonnull;
 @WrapFeature
 public final class MoneyField<C extends Money.Currency> extends Pattern implements CheckingSettable<Money<C>> // TODO currency
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	public static <C extends Money.Currency> MoneyField<C> fixed(final C currency)

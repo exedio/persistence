@@ -26,6 +26,7 @@ import static java.lang.Integer.MAX_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 public class CopeCreateLimitPatternTest
@@ -91,6 +92,7 @@ public class CopeCreateLimitPatternTest
 
 	private static final class MyPattern extends Pattern
 	{
+		@Serial
 		private static final long serialVersionUID = 1l;
 
 		Type<?> absentType = null;

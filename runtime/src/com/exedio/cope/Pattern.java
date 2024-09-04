@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.CopeSchemaNameElement;
+import java.io.Serial;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Modifier;
@@ -37,6 +38,7 @@ import java.util.function.Function;
  */
 public abstract class Pattern extends Feature
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private Features sourceFeaturesGather = new Features();

@@ -21,10 +21,12 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.misc.Computed;
+import java.io.Serial;
 
 @Computed
 final class PatternItem extends Item
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	PatternItem(final ActivationParameters ap)

@@ -33,6 +33,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
+import java.io.Serial;
 import java.util.Arrays;
 import java.util.List;
 
@@ -223,6 +224,7 @@ final class SamplerModel extends Item
 	static final Integer DUMMY = 42;
 
 	@SuppressWarnings("unused") private SamplerModel(final ActivationParameters ap){ super(ap); }
+	@Serial
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerModel> TYPE = TypesBound.newType(SamplerModel.class, SamplerModel::new);
 }

@@ -22,6 +22,7 @@ import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Arrays;
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +32,7 @@ import java.util.stream.Stream;
 
 public final class CompositeCondition extends Condition
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 	private static final Condition[] EMPTY_CONDITION_ARRAY = new Condition[0];
 

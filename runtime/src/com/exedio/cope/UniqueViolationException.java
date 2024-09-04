@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import java.io.Serial;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -36,6 +37,7 @@ import java.util.List;
 @ConstructorComment("if {0} is not unique.")
 public final class UniqueViolationException extends ConstraintViolationException
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private final UniqueConstraint feature;

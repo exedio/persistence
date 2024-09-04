@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
 import java.sql.SQLException;
 
 public final class SchemaSavepointNotAvailableException extends Exception
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	SchemaSavepointNotAvailableException(final String message)

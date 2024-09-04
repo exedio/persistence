@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public abstract class NumberView<E extends Number> extends View<E>
 	implements NumberFunction<E>
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	protected NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)

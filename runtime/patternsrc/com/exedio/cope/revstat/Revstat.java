@@ -37,6 +37,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
+import java.io.Serial;
 import java.util.Date;
 import java.util.List;
 
@@ -136,6 +137,7 @@ final class Revstat extends Item
 		return RevstatBody.getBodyParts(this);
 	}
 
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	static final Type<Revstat> TYPE = TypesBound.newType(Revstat.class, Revstat::new);
