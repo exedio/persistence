@@ -47,6 +47,7 @@ public class CopyConstraintSupplierSelfFromTest
 		static final StringField field = new StringField().toFinal().copyFrom(target, () -> Source.field);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

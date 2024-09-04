@@ -135,6 +135,7 @@ public class BindTest
 		static final ItemField<AnItem> i = ItemField.create(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -105,6 +105,7 @@ public class UniqueHashedMediaVaultTest
 		@WrapperIgnore static final UniqueHashedMedia f = new UniqueHashedMedia(new Media());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -121,6 +122,7 @@ public class UniqueHashedMediaVaultTest
 		@WrapperIgnore static final UniqueHashedMedia f = new UniqueHashedMedia(new Media());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

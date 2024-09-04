@@ -182,6 +182,7 @@ public class UniqueHashedMediaAnnotationTest
 		@WrapperIgnore static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -200,6 +201,7 @@ public class UniqueHashedMediaAnnotationTest
 		@WrapperIgnore static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -218,6 +220,7 @@ public class UniqueHashedMediaAnnotationTest
 		@WrapperIgnore static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -236,6 +239,7 @@ public class UniqueHashedMediaAnnotationTest
 		@WrapperIgnore static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

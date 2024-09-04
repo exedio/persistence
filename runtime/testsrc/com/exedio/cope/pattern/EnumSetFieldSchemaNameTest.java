@@ -69,6 +69,7 @@ public class EnumSetFieldSchemaNameTest
 		@WrapperIgnore static final EnumSetField<AnEnum> beta  = EnumSetField.create(AnEnum.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

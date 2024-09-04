@@ -134,6 +134,7 @@ public class JoinIsNullTest extends TestWithEnvironment
 		private Source(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -164,6 +165,7 @@ public class JoinIsNullTest extends TestWithEnvironment
 		private Target(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

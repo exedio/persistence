@@ -108,6 +108,7 @@ public class TypesBoundAnnotationTest
 		@WrapperIgnore static final SetField<String> setField = SetField.create(new StringField());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

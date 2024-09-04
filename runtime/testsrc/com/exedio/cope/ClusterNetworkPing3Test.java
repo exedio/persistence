@@ -254,6 +254,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 	private static final class TypeC extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

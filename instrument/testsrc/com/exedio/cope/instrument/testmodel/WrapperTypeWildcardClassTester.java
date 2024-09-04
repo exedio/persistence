@@ -38,6 +38,7 @@ public final class WrapperTypeWildcardClassTester
 	public static final class DefaultPublic<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -66,6 +67,7 @@ public final class WrapperTypeWildcardClassTester
 	protected static final class DefaultProtected<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -93,6 +95,7 @@ public final class WrapperTypeWildcardClassTester
 	static final class DefaultPackage<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -120,6 +123,7 @@ public final class WrapperTypeWildcardClassTester
 	private static final class DefaultPrivate<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -148,6 +152,7 @@ public final class WrapperTypeWildcardClassTester
 	static final class SetPublic<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -175,6 +180,7 @@ public final class WrapperTypeWildcardClassTester
 	static final class SetProtected<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -202,6 +208,7 @@ public final class WrapperTypeWildcardClassTester
 	public static final class SetPackage<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -229,6 +236,7 @@ public final class WrapperTypeWildcardClassTester
 	static final class SetPrivate<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -262,6 +270,7 @@ public final class WrapperTypeWildcardClassTester
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**

@@ -72,6 +72,7 @@ public class BlockComputedTest
 		@WrapperIgnore static final StringField compuTemp = new StringField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -89,6 +90,7 @@ public class BlockComputedTest
 		@WrapperIgnore static final BlockField<MyBlock> compuComp = BlockField.create(MyBlock.TYPE);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

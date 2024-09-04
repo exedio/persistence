@@ -55,6 +55,7 @@ public class MultiItemFieldErrorTest
 		private static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -75,6 +76,7 @@ public class MultiItemFieldErrorTest
 				canBe(MultiItemFieldComponentA.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -181,6 +183,7 @@ public class MultiItemFieldErrorTest
 	private static final class AnotherItem1 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 

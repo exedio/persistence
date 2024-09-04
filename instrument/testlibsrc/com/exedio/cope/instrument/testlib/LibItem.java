@@ -124,6 +124,7 @@ public abstract class LibItem<T> extends LibSuperItem
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 2L;
 
 	/**

@@ -108,6 +108,7 @@ public class ModelByStringTest
 	private static final class ModelOk extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -121,6 +122,7 @@ public class ModelByStringTest
 	private static final class ModelOk2 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -134,6 +136,7 @@ public class ModelByStringTest
 	private static final class ModelContext extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

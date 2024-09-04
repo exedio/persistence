@@ -77,6 +77,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -101,6 +102,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -114,6 +116,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	private static final class TargetA extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -127,6 +130,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	private static final class TargetB extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

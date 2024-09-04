@@ -40,6 +40,7 @@ public class CreateLimitAnnotationTest
 	private static class DefaultItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -62,6 +63,7 @@ public class CreateLimitAnnotationTest
 	private static class OkItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -84,6 +86,7 @@ public class CreateLimitAnnotationTest
 	private static class MinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -116,6 +119,7 @@ public class CreateLimitAnnotationTest
 	private static class LessMinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -137,6 +141,7 @@ public class CreateLimitAnnotationTest
 	private static class SubOkItem extends OkItem
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -170,6 +175,7 @@ public class CreateLimitAnnotationTest
 	private static class SubItem extends OkItem
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

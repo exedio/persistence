@@ -103,6 +103,7 @@ public class SemicolonTest
 		static final Sequence seq1 = new Sequence(55, 66);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -124,6 +125,7 @@ public class SemicolonTest
 		static final Sequence seq2 = new Sequence(77, 88);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -115,6 +115,7 @@ public class MediaPathDefaultImplementationTest
 		static final APath path = new APath();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

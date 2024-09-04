@@ -79,6 +79,7 @@ public class TypeMountTest
 	private static class Item1 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -95,6 +96,7 @@ public class TypeMountTest
 		static final ItemField<Item1> f = ItemField.create(Item1.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -127,6 +127,7 @@ public class UniqueHashedMediaErrorTest
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 2l;
 
 		@com.exedio.cope.instrument.Generated
@@ -160,6 +161,7 @@ public class UniqueHashedMediaErrorTest
 		static final IntegerField field = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -197,6 +199,7 @@ public class UniqueHashedMediaErrorTest
 		static final DataField field = new DataField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -235,6 +238,7 @@ public class UniqueHashedMediaErrorTest
 		static final IntegerField suppressedField = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

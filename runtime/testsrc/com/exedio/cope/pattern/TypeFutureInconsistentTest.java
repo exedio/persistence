@@ -137,6 +137,7 @@ public class TypeFutureInconsistentTest
 	private static final class ValueClassItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -150,6 +151,7 @@ public class TypeFutureInconsistentTest
 	private static final class TypeItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -166,6 +168,7 @@ public class TypeFutureInconsistentTest
 		static final ItemField<ValueClassItem> field = inconsistentField("FeatureItem");
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -185,6 +188,7 @@ public class TypeFutureInconsistentTest
 		private FeatureComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -195,6 +199,7 @@ public class TypeFutureInconsistentTest
 		static final ItemField<ValueClassItem> field = inconsistentField("FeatureBlock");
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

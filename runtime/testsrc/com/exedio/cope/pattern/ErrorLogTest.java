@@ -197,6 +197,7 @@ public class ErrorLogTest
 		@WrapperIgnore static final Media overflow = new Media();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

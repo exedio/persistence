@@ -46,6 +46,7 @@ abstract class DeleteSchemaItemSuper extends Item
 	protected DeleteSchemaItemSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 2l;
 
 	/**

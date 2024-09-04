@@ -167,6 +167,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 		static final ItemField<MyItem> field = ItemField.create(MyItem.class).optional(); // optional needed for SET NULL
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

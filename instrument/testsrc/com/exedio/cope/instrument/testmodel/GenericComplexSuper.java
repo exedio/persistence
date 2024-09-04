@@ -101,6 +101,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -289,6 +289,7 @@ public class LocalizationKeysPatternTest
 		private static final class SourceItem extends Item
 		{
 			@com.exedio.cope.instrument.Generated
+			@java.io.Serial
 			private static final long serialVersionUID = 1l;
 
 			@com.exedio.cope.instrument.Generated
@@ -317,6 +318,7 @@ public class LocalizationKeysPatternTest
 		private MyComp(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -336,6 +338,7 @@ public class LocalizationKeysPatternTest
 		static final MyPatt blokPatternPure = new MyPatt();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -365,6 +368,7 @@ public class LocalizationKeysPatternTest
 		static final BlockField<MyBlok> itemBlokPure = BlockField.create(MyBlok.TYPE);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

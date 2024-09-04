@@ -187,6 +187,7 @@ public class ModelSerializationTest
 
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -205,6 +206,7 @@ public class ModelSerializationTest
 		static final ListField<String> pattern = ListField.create(new StringField());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

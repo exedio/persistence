@@ -56,6 +56,7 @@ public final class FinalSubItem extends FinalSuperItem
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -93,6 +93,7 @@ public class CascadeChangeHookTest
 		static final StringField field = new StringField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -215,6 +215,7 @@ public class BlockFieldUniqueMultiModelTest
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
@@ -313,6 +314,7 @@ public class BlockFieldUniqueMultiModelTest
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

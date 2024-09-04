@@ -47,6 +47,7 @@ public class CopyConstraintNotFoundTest
 		static final StringField field = new StringField().toFinal().copyFrom(target);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -60,6 +61,7 @@ public class CopyConstraintNotFoundTest
 	private static class Target extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

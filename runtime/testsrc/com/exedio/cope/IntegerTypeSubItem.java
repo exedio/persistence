@@ -86,6 +86,7 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

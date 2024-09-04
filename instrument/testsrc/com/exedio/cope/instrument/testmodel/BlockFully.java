@@ -49,6 +49,7 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

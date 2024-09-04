@@ -48,6 +48,7 @@ public class CopyConstraintSupplierParentTypeFromTest
 		static final StringField field = new StringField().toFinal().copyFrom(target, () -> Parent.field);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -61,6 +62,7 @@ public class CopyConstraintSupplierParentTypeFromTest
 	private static final class Target extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -77,6 +79,7 @@ public class CopyConstraintSupplierParentTypeFromTest
 		static final StringField field = new StringField().toFinal();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

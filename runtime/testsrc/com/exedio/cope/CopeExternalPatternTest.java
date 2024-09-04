@@ -72,6 +72,7 @@ public class CopeExternalPatternTest
 
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -101,6 +102,7 @@ public class CopeExternalPatternTest
 		private static final class AbsentType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
+			@java.io.Serial
 			private static final long serialVersionUID = 1l;
 
 			@com.exedio.cope.instrument.Generated
@@ -112,6 +114,7 @@ public class CopeExternalPatternTest
 		private static final class PresentType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
+			@java.io.Serial
 			private static final long serialVersionUID = 1l;
 
 			@com.exedio.cope.instrument.Generated

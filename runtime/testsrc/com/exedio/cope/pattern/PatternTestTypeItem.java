@@ -29,6 +29,7 @@ import com.exedio.cope.instrument.WrapperType;
 final class PatternTestTypeItem extends PatternTestTypeAbstractItem
 {
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	@com.exedio.cope.instrument.Generated

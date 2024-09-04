@@ -86,6 +86,7 @@ public class ClusterDisabledTest
 	private static final class AnItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

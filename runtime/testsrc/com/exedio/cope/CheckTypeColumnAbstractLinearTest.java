@@ -138,6 +138,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		protected Type0A(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 2l;
 
 		@com.exedio.cope.instrument.Generated
@@ -181,6 +182,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -205,6 +207,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		protected Type02A(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 2l;
 
 		@com.exedio.cope.instrument.Generated
@@ -248,6 +251,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -344,6 +348,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

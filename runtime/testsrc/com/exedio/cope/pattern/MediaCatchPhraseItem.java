@@ -95,6 +95,7 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

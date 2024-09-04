@@ -42,6 +42,7 @@ abstract class InternalItemWithAbstractMethod extends Item
 	protected InternalItemWithAbstractMethod(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 2l;
 
 	/**

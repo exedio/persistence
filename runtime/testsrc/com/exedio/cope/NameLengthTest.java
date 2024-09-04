@@ -340,6 +340,7 @@ public class NameLengthTest extends TestWithEnvironment
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
@@ -378,6 +379,7 @@ public class NameLengthTest extends TestWithEnvironment
 	private LongItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

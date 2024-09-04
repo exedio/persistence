@@ -36,6 +36,7 @@ public final class WrapperTypeTypeTester
 	public static final class DefaultPublic extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -58,6 +59,7 @@ public final class WrapperTypeTypeTester
 	protected static final class DefaultProtected extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -79,6 +81,7 @@ public final class WrapperTypeTypeTester
 	static final class DefaultPackage extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -100,6 +103,7 @@ public final class WrapperTypeTypeTester
 	private static final class DefaultPrivate extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -122,6 +126,7 @@ public final class WrapperTypeTypeTester
 	static final class SetPublic extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -144,6 +149,7 @@ public final class WrapperTypeTypeTester
 	static final class SetProtected extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -165,6 +171,7 @@ public final class WrapperTypeTypeTester
 	public static final class SetPackage extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -186,6 +193,7 @@ public final class WrapperTypeTypeTester
 	static final class SetPrivate extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**

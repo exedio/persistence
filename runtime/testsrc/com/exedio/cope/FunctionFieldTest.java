@@ -137,6 +137,7 @@ public class FunctionFieldTest
 	private static class SomeItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 

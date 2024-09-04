@@ -36,6 +36,7 @@ public final class WrapperTypeActivationConstructorTester
 	public static class DefaultNonFinal extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -51,6 +52,7 @@ public final class WrapperTypeActivationConstructorTester
 	public static final class DefaultFinal extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -68,6 +70,7 @@ public final class WrapperTypeActivationConstructorTester
 	static final class SetPublic extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -84,6 +87,7 @@ public final class WrapperTypeActivationConstructorTester
 	static final class SetProtected extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -99,6 +103,7 @@ public final class WrapperTypeActivationConstructorTester
 	public static final class SetPackage extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
@@ -114,6 +119,7 @@ public final class WrapperTypeActivationConstructorTester
 	static final class SetPrivate extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		/**
