@@ -79,10 +79,9 @@ public final class Join implements Serializable
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Join))
+		if(!(other instanceof final Join o))
 			return false;
 
-		final Join o = (Join)other;
 		//noinspection NonFinalFieldReferenceInEquals
 		return
 			index==o.index &&

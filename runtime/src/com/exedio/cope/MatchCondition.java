@@ -118,10 +118,8 @@ public final class MatchCondition extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof MatchCondition))
+		if(!(other instanceof final MatchCondition o))
 			return false;
-
-		final MatchCondition o = (MatchCondition)other;
 
 		return function.equals(o.function) && value.equals(o.value);
 	}

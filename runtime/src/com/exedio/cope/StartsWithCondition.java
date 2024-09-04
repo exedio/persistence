@@ -137,10 +137,8 @@ public final class StartsWithCondition extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof StartsWithCondition))
+		if(!(other instanceof final StartsWithCondition o))
 			return false;
-
-		final StartsWithCondition o = (StartsWithCondition)other;
 
 		return field.equals(o.field) && offset==o.offset && Arrays.equals(value, o.value);
 	}

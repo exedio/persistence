@@ -138,10 +138,8 @@ public final class CompareFunctionCondition<E> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CompareFunctionCondition<?>))
+		if(!(other instanceof final CompareFunctionCondition<?> o))
 			return false;
-
-		final CompareFunctionCondition<?> o = (CompareFunctionCondition<?>)other;
 
 		return operator==o.operator && left.equals(o.left) && right.equals(o.right);
 	}

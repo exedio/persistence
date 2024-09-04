@@ -175,10 +175,8 @@ public final class CompositeCondition extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CompositeCondition))
+		if(!(other instanceof final CompositeCondition o))
 			return false;
-
-		final CompositeCondition o = (CompositeCondition)other;
 
 		if(operator!=o.operator || conditions.length!=o.conditions.length)
 			return false;
@@ -401,9 +399,8 @@ public final class CompositeCondition extends Condition
 				else
 					filtered++;
 			}
-			else if(c instanceof CompositeCondition)
+			else if(c instanceof final CompositeCondition cc)
 			{
-				final CompositeCondition cc = (CompositeCondition)c;
 				if(cc.operator==operator)
 					flattened += cc.conditions.length - 1; // the "- 1" is the CompositeCondition dropped for its nested conditions
 			}
@@ -422,9 +419,8 @@ public final class CompositeCondition extends Condition
 			for(final Condition c : conditions)
 				if(operator.identity!=c)
 				{
-					if(c instanceof CompositeCondition)
+					if(c instanceof final CompositeCondition cc)
 					{
-						final CompositeCondition cc = (CompositeCondition)c;
 						if(cc.operator==operator)
 						{
 							for(final Condition ccc : cc.conditions)

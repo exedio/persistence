@@ -54,9 +54,8 @@ public abstract class View<E> extends Feature
 		this.name = name;
 		this.valueClass = valueClass;
 
-		if(sources[0] instanceof Feature)
+		if(sources[0] instanceof final Feature f)
 		{
-			final Feature f = (Feature)sources[0];
 			this.sourceType = f.isMountedToType() ? f.getType() : null;
 		}
 		else
@@ -150,10 +149,8 @@ public abstract class View<E> extends Feature
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof View<?>))
+		if(!(other instanceof final View<?> o))
 			return false;
-
-		final View<?> o = (View<?>)other;
 
 		if(!name.equals(o.name) || sources.length!=o.sources.length)
 			return false;

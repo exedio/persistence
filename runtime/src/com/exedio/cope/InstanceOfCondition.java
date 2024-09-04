@@ -206,10 +206,8 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof InstanceOfCondition<?>))
+		if(!(other instanceof final InstanceOfCondition<?> o))
 			return false;
-
-		final InstanceOfCondition<?> o = (InstanceOfCondition<?>)other;
 
 		return function.equals(o.function) && not==o.not && Arrays.equals(types, o.types);
 	}

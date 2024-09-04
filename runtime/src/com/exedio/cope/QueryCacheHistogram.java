@@ -54,10 +54,8 @@ public final class QueryCacheHistogram
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof QueryCacheHistogram))
+		if(!(other instanceof final QueryCacheHistogram o))
 			return false;
-
-		final QueryCacheHistogram o = (QueryCacheHistogram)other;
 
 		return query.equals(o.query) && resultSize==o.resultSize && hits==o.hits;
 	}

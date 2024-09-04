@@ -98,9 +98,8 @@ final class Types
 			final MountParameters c = parametersMap.get(type);
 			c.recurse(parametersMap, c, 10);
 			for(final Field<?> f : type.getDeclaredFields())
-				if(f instanceof ItemField<?>)
+				if(f instanceof final ItemField<?> ff)
 				{
-					final ItemField<?> ff = (ItemField<?>)f;
 					ff.resolveValueType(parametersMap.keySet());
 					final Type<?> valueType = ff.getValueType();
 					parametersMap.get(valueType).addReference(ff);

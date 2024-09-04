@@ -102,10 +102,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		if(this==o)
 			return true;
-		if(!(o instanceof Item))
+		if(!(o instanceof final Item i))
 			return false;
 
-		final Item i = (Item)o;
 		//noinspection NonFinalFieldReferenceInEquals
 		return type==i.type && pk==i.pk;
 	}

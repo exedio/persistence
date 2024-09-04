@@ -1030,9 +1030,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		DefaultSupplier.Context ctx = null;
 		for(final Field<?> field : fields.all)
 		{
-			if(field instanceof FunctionField<?> && !fieldValues.isDirty(field))
+			if(field instanceof final FunctionField<?> ff && !fieldValues.isDirty(field))
 			{
-				final FunctionField<?> ff = (FunctionField<?>)field;
 				final DefaultSupplier<?> defaultS = ff.defaultS;
 				if(defaultS!=null)
 				{

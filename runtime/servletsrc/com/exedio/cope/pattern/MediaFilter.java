@@ -131,9 +131,8 @@ public abstract class MediaFilter extends MediaPath
 		final ArrayList<MediaFilter> result = new ArrayList<>();
 		for(final Type<?> type : source.getType().getSubtypesTransitively())
 			for(final Feature feature : type.getDeclaredFeatures())
-				if(feature instanceof MediaFilter)
+				if(feature instanceof final MediaFilter filter)
 				{
-					final MediaFilter filter = (MediaFilter)feature;
 					if(filter.source==source)
 						result.add(filter);
 				}

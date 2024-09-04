@@ -94,9 +94,8 @@ abstract class CopeType<F extends CopeFeature>
 		for (final CopeFeature container: getFeatures())
 		{
 			final Object containerInstance = container.getInstance();
-			if (containerInstance instanceof Pattern)
+			if (containerInstance instanceof final Pattern patternInstance)
 			{
-				final Pattern patternInstance = (Pattern) containerInstance;
 				for (final Feature namedSource: patternInstance.getSourceFeatures())
 				{
 					if (namedSource==instance)

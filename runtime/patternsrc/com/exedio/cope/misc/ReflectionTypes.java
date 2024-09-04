@@ -88,10 +88,9 @@ public final class ReflectionTypes
 			if(this==other)
 				return true;
 
-			if(!(other instanceof ParameterizedType))
+			if(!(other instanceof final ParameterizedType o))
 				return false;
 
-			final ParameterizedType o = (ParameterizedType)other;
 			return
 					null==o.getOwnerType() &&
 					rawType.equals(o.getRawType()) &&

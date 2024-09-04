@@ -99,9 +99,8 @@ public class MediaServlet extends HttpServlet
 		{
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
-				if(feature instanceof MediaPath)
+				if(feature instanceof final MediaPath path)
 				{
-					final MediaPath path = (MediaPath)feature;
 					if (!path.isWithLocator())
 						continue;
 					final String typeID = path.getType().getID();

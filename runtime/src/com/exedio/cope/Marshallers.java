@@ -242,7 +242,7 @@ final class Marshallers
 		}
 		else if(value instanceof Enum)
 		{
-			@SuppressWarnings("rawtypes")
+			@SuppressWarnings({"rawtypes", "PatternVariableCanBeUsed"})
 			final Enum enumValue = (Enum)value;
 			@SuppressWarnings({"unchecked", "rawtypes"})
 			final	Marshaller marshaller = get(enumValue);

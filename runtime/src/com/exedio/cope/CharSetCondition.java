@@ -115,10 +115,8 @@ public final class CharSetCondition extends Condition
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof CharSetCondition))
+		if(!(other instanceof final CharSetCondition o))
 			return false;
-
-		final CharSetCondition o = (CharSetCondition)other;
 
 		return function.equals(o.function) && value.equals(o.value);
 	}

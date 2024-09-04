@@ -75,10 +75,9 @@ public final class Random implements NumberFunction<Double>
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof Random))
+		if(!(other instanceof final Random o))
 			return false;
 
-		final Random o = (Random)other;
 		return type.equals(o.type) && seed==o.seed;
 	}
 

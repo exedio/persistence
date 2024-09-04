@@ -132,9 +132,8 @@ final class Statement
 		{
 			final Table table = entry.getKey();
 			final Object value = entry.getValue();
-			if(value instanceof ArrayList<?>)
+			if(value instanceof final ArrayList<?> list)
 			{
-				final ArrayList<?> list = (ArrayList<?>)value;
 				int aliasNumber = 0;
 				for(final Object o : list)
 				{

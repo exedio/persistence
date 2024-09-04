@@ -405,9 +405,8 @@ public final class Assert
 		@Override
 		protected Object replaceObject(final Object obj)
 		{
-			if(obj instanceof String)
+			if(obj instanceof final String string)
 			{
-				final String string = (String)obj;
 				if(strings==null)
 					strings = new HashMap<>();
 

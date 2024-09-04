@@ -116,10 +116,8 @@ public abstract class Aggregate<E,S> implements Function<E>
 	@Override
 	public final boolean equals(final Object other)
 	{
-		if(!(other instanceof Aggregate<?,?>))
+		if(!(other instanceof final Aggregate<?,?> a))
 			return false;
-
-		final Aggregate<?,?> a = (Aggregate<?,?>)other;
 
 		return name.equals(a.name) && source.equals(a.source);
 	}

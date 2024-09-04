@@ -970,10 +970,8 @@ public final class Query<R> implements Serializable
 		@Override
 		public boolean equals(final Object other)
 		{
-			if(!(other instanceof Result<?>))
+			if(!(other instanceof final Result<?> o))
 				return false;
-
-			final Result<?> o = (Result<?>)other;
 
 			return total==o.total && offset==o.offset && limit==o.limit && data.equals(o.data);
 		}

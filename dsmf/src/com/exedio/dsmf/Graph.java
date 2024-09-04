@@ -51,9 +51,8 @@ final class Graph
 			{
 				final ArrayList<Edge> edges = new ArrayList<>();
 				for(final Constraint constraint : table.getConstraints())
-					if(constraint instanceof ForeignKeyConstraint)
+					if(constraint instanceof final ForeignKeyConstraint fk)
 					{
-						final ForeignKeyConstraint fk = (ForeignKeyConstraint)constraint;
 						if(!table.name.equals(fk.getTargetTable())) // self references are ignored completely
 							edges.add(new Edge(fk));
 					}

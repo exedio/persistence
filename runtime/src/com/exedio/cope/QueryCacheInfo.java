@@ -104,10 +104,8 @@ public final class QueryCacheInfo
 	@Override
 	public boolean equals(final Object other)
 	{
-		if(!(other instanceof QueryCacheInfo))
+		if(!(other instanceof final QueryCacheInfo o))
 			return false;
-
-		final QueryCacheInfo o = (QueryCacheInfo)other;
 
 		//noinspection FloatingPointEquality
 		return
