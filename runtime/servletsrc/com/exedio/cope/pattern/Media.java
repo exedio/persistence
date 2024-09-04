@@ -741,10 +741,10 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public static Media get(final DataField field)
 	{
 		final Pattern pattern = field.getPattern();
-		if(pattern instanceof final Media media)
+		if(pattern instanceof final Media media &&
+			media.getBody()==field)
 		{
-			if(media.getBody()==field)
-				return media;
+			return media;
 		}
 		throw new NullPointerException(field.toString());
 	}
