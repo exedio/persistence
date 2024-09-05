@@ -558,7 +558,7 @@ public class MediaServletTest
 			assertEquals("</head>", is.readLine());
 			assertEquals("<body>", is.readLine());
 			assertEquals("<h1>Internal Server Error</h1>", is.readLine());
-			assertEquals("An internal error occured on the server.", is.readLine());
+			assertEquals("An internal error occurred on the server.", is.readLine());
 			assertEquals("</body>", is.readLine());
 			assertEquals("</html>", is.readLine());
 			assertEquals(null, is.readLine());

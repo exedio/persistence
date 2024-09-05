@@ -45,7 +45,7 @@ public abstract class ConstraintViolationException extends RuntimeException
 
 	/**
 	 * Returns the item that was attempted to be modified.
-	 * Returns null, if the constraint violation occured on the creation of an item.
+	 * Returns null, if the constraint violation occurred on the creation of an item.
 	 */
 	public final Item getItem()
 	{
