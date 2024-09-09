@@ -751,7 +751,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				"</head>\n" +
 				"<body>\n" +
 				"<h1>Internal Server Error</h1>\n" +
-				"An internal error occured on the server.\n" +
+				"An internal error occurred on the server.\n" +
 				"</body>\n" +
 				"</html>\n");
 	}
