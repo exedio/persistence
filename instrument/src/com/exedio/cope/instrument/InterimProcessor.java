@@ -48,6 +48,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -71,12 +72,12 @@ import javax.tools.ToolProvider;
 
 final class InterimProcessor extends JavacProcessor
 {
-	private static final Set<String> ALLOWED_CLASS_TREE_KINDS = new HashSet<>(asList(
-			Tree.Kind.CLASS.name(),
-			Tree.Kind.INTERFACE.name(),
-			Tree.Kind.ENUM.name(),
-			Tree.Kind.RECORD.name()
-	));
+	private static final Set<Tree.Kind> ALLOWED_CLASS_TREE_KINDS = EnumSet.of(
+			Tree.Kind.CLASS,
+			Tree.Kind.INTERFACE,
+			Tree.Kind.ENUM,
+			Tree.Kind.RECORD
+	);
 
 	private final Path targetDirectory;
 	private final Params params;
@@ -538,11 +539,11 @@ final class InterimProcessor extends JavacProcessor
 
 		private static String getTypeToken(final ClassTree ct)
 		{
-			final String name = ct.getKind().name();
-			if (ALLOWED_CLASS_TREE_KINDS.contains(name))
-				return name.toLowerCase(Locale.ROOT);
+			final Tree.Kind kind = ct.getKind();
+			if (ALLOWED_CLASS_TREE_KINDS.contains(kind))
+				return kind.name().toLowerCase(Locale.ROOT);
 			else
-				throw new RuntimeException(ct.getKind().name());
+				throw new RuntimeException(kind.name());
 		}
 
 		private boolean currentClassIsFeatureContainer()
