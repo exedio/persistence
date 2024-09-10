@@ -157,20 +157,21 @@ public class DumperTest extends TestWithEnvironment
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
 	@Test void testPrepare() throws IOException
 	{
 		final StringBuilder out = new StringBuilder();
 		dumper.prepare(out, model);
 		if(mysql)
 			assertEquals(
-					"SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;\n" +
-					"SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;\n" +
-					"SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;\n" +
-					"SET NAMES utf8;\n" +
-					"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,NO_BACKSLASH_ESCAPES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';\n" +
-					"SET @OLD_TIME_ZONE=@@TIME_ZONE;\n"+
-					"SET TIME_ZONE='+00:00';\n",
+					"""
+					SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;
+					SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;
+					SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;
+					SET NAMES utf8;
+					SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,NO_BACKSLASH_ESCAPES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
+					SET @OLD_TIME_ZONE=@@TIME_ZONE;
+					SET TIME_ZONE='+00:00';
+					""",
 				out.toString());
 		else
 			assertEquals("", out.toString());
@@ -179,11 +180,13 @@ public class DumperTest extends TestWithEnvironment
 		dumper.unprepare(out, model);
 		if(mysql)
 			assertEquals(
-					"SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;\n" +
-					"SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;\n" +
-					"SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;\n" +
-					"SET SQL_MODE=@OLD_SQL_MODE;\n" +
-					"SET TIME_ZONE=@OLD_TIME_ZONE;\n",
+					"""
+					SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;
+					SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;
+					SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;
+					SET SQL_MODE=@OLD_SQL_MODE;
+					SET TIME_ZONE=@OLD_TIME_ZONE;
+					""",
 				out.toString());
 		else
 			assertEquals("", out.toString());

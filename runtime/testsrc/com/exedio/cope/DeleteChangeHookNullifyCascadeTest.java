@@ -66,13 +66,17 @@ public class DeleteChangeHookNullifyCascadeTest extends TestWithEnvironment
 
 		container.setDefaultPart(part);
 		assertHistory(
-				"beforeSet Container-0 [Container.defaultPart=Part-0]\n");
+				"""
+				beforeSet Container-0 [Container.defaultPart=Part-0]
+				""");
 
 		container.deleteCopeItem();
 		assertHistory(
-				"beforeDelete Container-0\n" +
-				"beforeDelete Part-0\n" +
-				"beforeSet Container-0 [Container.defaultPart=null]\n");
+				"""
+				beforeDelete Container-0
+				beforeDelete Part-0
+				beforeSet Container-0 [Container.defaultPart=null]
+				""");
 	}
 
 

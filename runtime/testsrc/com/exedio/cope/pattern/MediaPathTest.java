@@ -737,23 +737,24 @@ public final class MediaPathTest extends TestWithEnvironment
 				"</html>\n");
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in html
 	private void assertError(
 			final String pathInfo)
 		throws ServletException, IOException
 	{
 		service(new Request(pathInfo)).assertError(
 				SC_INTERNAL_SERVER_ERROR, "us-ascii", "text/html",
-				"<html>\n" +
-				"<head>\n" +
-				"<title>Internal Server Error</title>\n" +
-				"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-				"</head>\n" +
-				"<body>\n" +
-				"<h1>Internal Server Error</h1>\n" +
-				"An internal error occurred on the server.\n" +
-				"</body>\n" +
-				"</html>\n");
+				"""
+				<html>
+				<head>
+				<title>Internal Server Error</title>
+				<meta http-equiv="content-type" content="text/html;charset=us-ascii">
+				</head>
+				<body>
+				<h1>Internal Server Error</h1>
+				An internal error occurred on the server.
+				</body>
+				</html>
+				""");
 	}
 
 	private void assertRedirect(
