@@ -214,18 +214,19 @@ public class MediaServlet extends HttpServlet
 				response.reset();
 
 				response.setStatus(SC_INTERNAL_SERVER_ERROR);
-				//noinspection HardcodedLineSeparator OK unix newline in html
 				MediaUtil.send("text/html", "us-ascii",
-					"<html>\n" +
-						"<head>\n" +
-							"<title>Internal Server Error</title>\n" +
-							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-						"</head>\n" +
-						"<body>\n" +
-							"<h1>Internal Server Error</h1>\n" +
-							"An internal error occurred on the server.\n" +
-						"</body>\n" +
-					"</html>\n", response);
+						"""
+						<html>
+						<head>
+						<title>Internal Server Error</title>
+						<meta http-equiv="content-type" content="text/html;charset=us-ascii">
+						</head>
+						<body>
+						<h1>Internal Server Error</h1>
+						An internal error occurred on the server.
+						</body>
+						</html>
+						""", response);
 			}
 		}
 	}

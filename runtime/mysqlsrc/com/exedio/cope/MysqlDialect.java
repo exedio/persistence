@@ -173,17 +173,16 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
 	void unprepareDumperConnection(final Appendable out) throws IOException
 	{
 		out.append(
-				"SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;\n" +
-				"SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;\n" +
-				"SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;\n" +
-
-				"SET SQL_MODE=@OLD_SQL_MODE;\n" +
-
-				"SET TIME_ZONE=@OLD_TIME_ZONE;\n");
+				"""
+				SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;
+				SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;
+				SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;
+				SET SQL_MODE=@OLD_SQL_MODE;
+				SET TIME_ZONE=@OLD_TIME_ZONE;
+				""");
 	}
 
 	@Override
