@@ -127,10 +127,10 @@ public final class MediaPathFeature extends MediaPath
 		{
 			switch(failure)
 			{
-				case notFoundIsNull:        throw notFoundIsNull();
-				case IOException:           throw new IOException("test IOException");
-				case RuntimeException:      throw new RuntimeException("test RuntimeException");
-				default:
+				case notFoundIsNull   -> throw notFoundIsNull();
+				case IOException      -> throw new IOException("test IOException");
+				case RuntimeException -> throw new RuntimeException("test RuntimeException");
+				default ->
 					throw new AssertionError();
 			}
 		}

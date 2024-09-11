@@ -96,15 +96,15 @@ public class NameLengthTest extends TestWithEnvironment
 		final PrimaryKeyGenerator primaryKeyGenerator = model.getConnectProperties().primaryKeyGenerator;
 		switch(primaryKeyGenerator)
 		{
-			case memory:
-				break;
-			case sequence:
+			case memory -> {
+			}
+			case sequence ->
 				assertEquals(name, getPrimaryKeySequenceName(type));
-				break;
-			case batchedSequence:
+
+			case batchedSequence ->
 				assertEquals(batchedName, getPrimaryKeySequenceName(type));
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(String.valueOf(primaryKeyGenerator));
 		}
 	}
