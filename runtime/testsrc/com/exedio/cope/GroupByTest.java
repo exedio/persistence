@@ -94,16 +94,15 @@ public class GroupByTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 			{
 				final String message =
 						"expression not in aggregate or GROUP BY columns: " +
 						"PUBLIC.\"" + table + "\".\"" + column + "\"" + ifPrep(" in statement ");
 				notAllowed(query, message + ifPrep("[SELECT \"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\"]"));
 				notAllowedTotal(query, message + ifPrep("[SELECT COUNT(*) FROM ( SELECT \"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\" )]"));
-				break;
 			}
-			case mysql:
+			case mysql ->
 			{
 				final String message =
 						"Expression #1 of SELECT list is not in GROUP BY clause and " +
@@ -113,9 +112,8 @@ public class GroupByTest extends TestWithEnvironment
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
-				break;
 			}
-			case postgresql:
+			case postgresql ->
 			{
 				final String message =
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
@@ -124,9 +122,8 @@ public class GroupByTest extends TestWithEnvironment
 				notAllowed(query, message + postgresqlPosition(8));
 				restartTransaction();
 				notAllowedTotal(query, message + postgresqlPosition(31));
-				break;
 			}
-			default:
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
@@ -145,28 +142,28 @@ public class GroupByTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				notAllowed(query,
 						"invalid ORDER BY expression" +
 						ifPrep(
 								" in statement [" +
 								"SELECT \"string\" FROM " + SI.tab(TYPE) + " " +
 								"GROUP BY \"string\" ORDER BY \"integer\"]"));
-				break;
-			case mysql:
+
+			case mysql ->
 				notAllowed(query,
 						"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
 						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
 						"which is not functionally dependent on columns in GROUP BY clause; " +
 						"this is incompatible with sql_mode=only_full_group_by");
-				break;
-			case postgresql:
+
+			case postgresql ->
 				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function" +
 						postgresqlPosition(58));
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
@@ -182,26 +179,26 @@ public class GroupByTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				notAllowed(query,
 						"invalid ORDER BY expression" +
 						ifPrep(
 								" in statement [" +
 								"SELECT DISTINCT \"string\" FROM " + SI.tab(TYPE) + " " +
 								"ORDER BY \"integer\"]"));
-				break;
-			case mysql:
+
+			case mysql ->
 				notAllowed(query,
 						"Expression #1 of ORDER BY clause is not in SELECT list, " +
 						"references column '" + dbCat() + ".AnItem.integer' " +
 						"which is not in SELECT list; this is incompatible with DISTINCT");
-				break;
-			case postgresql:
+
+			case postgresql ->
 				notAllowed(query,
 						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
 						postgresqlPosition(49));
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
@@ -257,16 +254,15 @@ public class GroupByTest extends TestWithEnvironment
 		final String column = getColumnName(integer);
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 			{
 				final String message =
 						"expression not in aggregate or GROUP BY columns: " +
 						"PUBLIC.\"" + table + "\".\"" + column + "\"" + ifPrep(" in statement ");
 				notAllowed(query, message + ifPrep("[SELECT DISTINCT \"string\",\"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\"]"));
 				notAllowedTotal(query, message + ifPrep("[SELECT COUNT(*) FROM ( SELECT DISTINCT \"string\",\"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\" )]"));
-				break;
 			}
-			case mysql:
+			case mysql ->
 			{
 				final String message =
 						"Expression #2 of SELECT list is not in GROUP BY clause and " +
@@ -276,9 +272,8 @@ public class GroupByTest extends TestWithEnvironment
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
-				break;
 			}
-			case postgresql:
+			case postgresql ->
 			{
 				final String message =
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
@@ -287,9 +282,8 @@ public class GroupByTest extends TestWithEnvironment
 				notAllowed(query, message + postgresqlPosition(26));
 				restartTransaction();
 				notAllowedTotal(query, message + postgresqlPosition(49));
-				break;
 			}
-			default:
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}

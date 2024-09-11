@@ -126,26 +126,26 @@ public class InstanceOfTest extends TestWithEnvironment
 				"SELECT coalesce(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + "," + param + ") FROM " + SI.tab(TYPE_A));
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				assertEquals(
 						"incompatible data types in combination" + ifPrep(" in statement [" +
 						"SELECT coalesce(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ",?) FROM " + SI.tab(TYPE_A) + "]"),
 						e.getCause().getMessage());
-				break;
-			case mysql:
+
+			case mysql ->
 				assertEquals(
 						mariaDriver
 						? "Wrong index position. Is 2 but must be in 1-1 range"
 						: "Column Index out of range, 2 > 1. ",
 						e.getCause().getMessage());
-				break;
-			case postgresql:
+
+			case postgresql ->
 				assertEquals(
 						"ERROR: COALESCE types integer and character varying cannot be matched" +
 						postgresqlPosition(24),
 						e.getCause().getMessage());
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
@@ -162,26 +162,26 @@ public class InstanceOfTest extends TestWithEnvironment
 				"SELECT coalesce(" + SI.col(ref) + "," + SI.type(ref) + "," + param + ") FROM " + SI.tab(TYPE_REF));
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				assertEquals(
 						"incompatible data types in combination" + ifPrep(" in statement [" +
 						"SELECT coalesce(" + SI.col(ref) + "," + SI.type(ref) + ",?) FROM " + SI.tab(TYPE_REF) + "]"),
 						e.getCause().getMessage());
-				break;
-			case mysql:
+
+			case mysql ->
 				assertEquals(
 						mariaDriver
 						? "Wrong index position. Is 2 but must be in 1-1 range"
 						: "Column Index out of range, 2 > 1. ",
 						e.getCause().getMessage());
-				break;
-			case postgresql:
+
+			case postgresql ->
 				assertEquals(
 						"ERROR: COALESCE types integer and character varying cannot be matched" +
 						postgresqlPosition(23),
 						e.getCause().getMessage());
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
@@ -197,21 +197,21 @@ public class InstanceOfTest extends TestWithEnvironment
 				"SELECT MAX(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A));
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				assertEquals(
 						"unexpected token : , required: )" + ifPrep(" in statement [" +
 						"SELECT MAX(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "]"),
 						e.getCause().getMessage());
-				break;
-			case mysql:
+
+			case mysql ->
 				assertEquals(
 						"You have an error in your SQL syntax; check the manual that corresponds " +
 						"to your MySQL server version for the right syntax to use near " +
 						"'" + (atLeastMysql8()?",":"") +
 						SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "' at line 1",
 						dropMariaConnectionId(e.getCause().getMessage()));
-				break;
-			case postgresql:
+
+			case postgresql ->
 				//noinspection HardcodedLineSeparator
 				assertEquals(
 						"ERROR: function max(integer, character varying) does not exist\n" +
@@ -219,8 +219,8 @@ public class InstanceOfTest extends TestWithEnvironment
 							"You might need to add explicit type casts." +
 						postgresqlPosition(8),
 						e.getCause().getMessage());
-				break;
-			default:
+
+			default->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
@@ -236,21 +236,21 @@ public class InstanceOfTest extends TestWithEnvironment
 				"SELECT MAX(" + SI.col(ref) + "," + SI.type(ref) + ") FROM " + SI.tab(TYPE_REF));
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				assertEquals(
 						"unexpected token : , required: )" + ifPrep(" in statement [" +
 						"SELECT MAX(" + SI.col(ref) + "," + SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "]"),
 						e.getCause().getMessage());
-				break;
-			case mysql:
+
+			case mysql ->
 				assertEquals(
 						"You have an error in your SQL syntax; check the manual that corresponds " +
 						"to your MySQL server version for the right syntax to use near " +
 						"'" + (atLeastMysql8()?",":"") +
 						SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "' at line 1",
 						dropMariaConnectionId(e.getCause().getMessage()));
-				break;
-			case postgresql:
+
+			case postgresql ->
 				//noinspection HardcodedLineSeparator
 				assertEquals(
 						"ERROR: function max(integer, character varying) does not exist\n" +
@@ -258,8 +258,8 @@ public class InstanceOfTest extends TestWithEnvironment
 							"You might need to add explicit type casts." +
 						postgresqlPosition(8),
 						e.getCause().getMessage());
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}

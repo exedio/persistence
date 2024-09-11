@@ -67,7 +67,7 @@ public class MatchTest extends TestWithEnvironment
 		//noinspection EnumSwitchStatementWhichMissesCases,SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(dialect)
 		{
-			case mysql:
+			case mysql -> {
 				try(Connection c = SchemaInfo.newConnection(MODEL);
 					 Statement s = c.createStatement())
 				{
@@ -76,7 +76,7 @@ public class MatchTest extends TestWithEnvironment
 							"ON " + SI.tab(AnItem.TYPE) + " " +
 							"(" + SI.col(AnItem.text) + ")");
 				}
-				break;
+			}
 		}
 
 		MODEL.startTransaction(MatchTest.class.getName());

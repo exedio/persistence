@@ -96,19 +96,19 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 
 			assertEquals(expected, rs.getLong(1));
 
-			final Object expectedObject;
+			final Object expectedObject =
 			switch(dialect)
 			{
-				case hsqldb:
-				case postgresql:
-					expectedObject = Long.valueOf(expected);
-					break;
-				case mysql:
-					expectedObject = BigDecimal.valueOf(expected);
-					break;
-				default:
-					throw new RuntimeException(String.valueOf(dialect));
-			}
+				case hsqldb,
+						postgresql ->
+					Long.valueOf(expected);
+
+				case mysql ->
+					BigDecimal.valueOf(expected);
+
+
+
+			};
 			assertEquals(expectedObject, rs.getObject(1));
 		}
 
@@ -130,19 +130,19 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 				final String expectedArithmeticException;
 				switch(dialect)
 				{
-					case hsqldb:
+					case hsqldb ->
 						expectedArithmeticException = "incompatible data type in conversion: from SQL type BIGINT to java.lang.Integer, value: " + expected;
-						break;
-					case mysql:
+
+					case mysql -> {
 						if(mariaDriver)
 							expectedArithmeticException = "integer overflow";
 						else
 							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Integer";
-						break;
-					case postgresql:
+					}
+					case postgresql ->
 						expectedArithmeticException = "Bad value for type int : " + expected;
-						break;
-					default:
+
+					default ->
 						throw new RuntimeException(String.valueOf(dialect), e);
 				}
 

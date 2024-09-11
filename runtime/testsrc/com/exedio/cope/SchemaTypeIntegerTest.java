@@ -58,25 +58,25 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 		final String type8;
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb -> {
 				type1 = "TINYINT";
 				type2 = "SMALLINT";
 				type3 = type4 = "INTEGER";
 				type8 = "BIGINT";
-				break;
-			case mysql:
+			}
+			case mysql -> {
 				type1 = "tinyint";
 				type2 = "smallint";
 				type3 = "mediumint";
 				type4 = "int";
 				type8 = "bigint";
-				break;
-			case postgresql:
+			}
+			case postgresql -> {
 				type1 = type2 = "smallint";
 				type3 = type4 = "integer";
 				type8 = "bigint";
-				break;
-			default:
+			}
+			default ->
 				throw new AssertionError(dialect.name());
 		}
 

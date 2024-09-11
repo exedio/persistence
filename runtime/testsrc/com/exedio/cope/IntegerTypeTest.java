@@ -296,21 +296,21 @@ public class IntegerTypeTest extends TestWithEnvironment
 				getColumnName(itemField),
 				getColumnName(longField)})
 		{
-			final String expectedDataType;
+			final String expectedDataType =
 			switch(dialect)
 			{
-				case hsqldb:
-					expectedDataType = expectedHsqldbDataType;
-				break;
-				case mysql:
-					expectedDataType = expectedMysqlDataType;
-				break;
-				case postgresql:
-					expectedDataType = expectedPostgresqlDataType;
-				break;
-				default:
-					throw new RuntimeException(String.valueOf(dialect));
-			}
+				case hsqldb ->
+					expectedHsqldbDataType;
+
+				case mysql ->
+					expectedMysqlDataType;
+
+				case postgresql ->
+					expectedPostgresqlDataType;
+
+
+
+			};
 
 			assertEquals(
 					expectedDataType + (columnName.equals(getPrimaryKeyColumnName(type))?NOT_NULL:""),

@@ -110,7 +110,7 @@ public class TimeZoneTest extends TestWithEnvironment
 		//noinspection EnumSwitchStatementWhichMissesCases
 		switch(dialect)
 		{
-			case mysql:
+			case mysql -> {
 				try(Connection c = SchemaInfo.newConnection(model);
 					Statement s = c.createStatement();
 					ResultSet rs = s.executeQuery("SELECT @@GLOBAL.time_zone, @@SESSION.time_zone"))
@@ -121,8 +121,8 @@ public class TimeZoneTest extends TestWithEnvironment
 							() -> assertEquals(mysql,  rs.getString(2), "session"));
 					assertFalse(rs.next());
 				}
-				break;
-			case postgresql:
+			}
+			case postgresql -> {
 				try(Connection c = SchemaInfo.newConnection(model);
 					Statement s = c.createStatement();
 					ResultSet rs = s.executeQuery("show TimeZone"))
@@ -134,8 +134,8 @@ public class TimeZoneTest extends TestWithEnvironment
 						assertEquals(postgresql, rs.getString(1));
 					assertFalse(rs.next());
 				}
-				break;
-			default:
+			}
+			default ->
 				assumeTrue(false);
 		}
 	}
@@ -148,15 +148,15 @@ public class TimeZoneTest extends TestWithEnvironment
 			final String postgresql)
 	{
 		model.disconnect();
-		final String value;
-		//noinspection EnumSwitchStatementWhichMissesCases
+		final String value =
+
 		switch(dialect)
 		{
-			case mysql:      value = mysql;      break;
-			case postgresql: value = postgresql; break;
-			default:
+			case mysql      -> mysql;
+			case postgresql -> postgresql;
+			case hsqldb ->
 				throw new AssertionFailedError();
-		}
+		};
 		model.connect(ConnectProperties.create(Sources.cascade(
 				TestSources.single("dialect.connection.timeZone", value),
 				initialConnectProperties)));

@@ -77,12 +77,11 @@ final class RuntimeTester
 
 		switch(database)
 		{
-			case "com.exedio.cope.HsqldbDialect":     dialect = Dialect.hsqldb;     break;
-			case "com.exedio.cope.MysqlDialect":      dialect = Dialect.mysql;      break;
-			case "com.exedio.cope.PostgresqlDialect": dialect = Dialect.postgresql; break;
-			default:
+			case "com.exedio.cope.HsqldbDialect"     -> dialect = Dialect.hsqldb;
+			case "com.exedio.cope.MysqlDialect"      -> dialect = Dialect.mysql;
+			case "com.exedio.cope.PostgresqlDialect" -> dialect = Dialect.postgresql;
+			default ->
 				fail(database);
-				break;
 		}
 
 		hsqldb     = dialect==Dialect.hsqldb;

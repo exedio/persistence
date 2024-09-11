@@ -231,14 +231,14 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 	{
 		final String bucket = field.getVaultBucket();
 		final String col = bucket==null ? SI.col(field) : (q(alias) + "." + q("start20"));
-		switch(dialect)
+		return switch(dialect)
 		{
-			case hsqldb:     return "LEFT(RAWTOHEX(" + col + "),"    + val.length()   + ")='" + val + "'";
-			case mysql:      return "LEFT("          + col + ","     + val.length()/2 + ")=x'" + val + "'";
-			case postgresql: return "SUBSTRING("     + col + " FOR " + val.length()/2 + ")=E'\\\\x" + val + "'";
-			default:
-				throw new RuntimeException(dialect.name());
-		}
+			case hsqldb     -> "LEFT(RAWTOHEX(" + col + "),"    + val.length()   + ")='" + val + "'";
+			case mysql      -> "LEFT("          + col + ","     + val.length()/2 + ")=x'" + val + "'";
+			case postgresql -> "SUBSTRING("     + col + " FOR " + val.length()/2 + ")=E'\\\\x" + val + "'";
+
+
+		};
 	}
 
 	@Override

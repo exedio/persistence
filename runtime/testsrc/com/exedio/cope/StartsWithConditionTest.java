@@ -74,19 +74,19 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		final String expression3;
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb -> {
 				expression0 = "LEFT(RAWTOHEX("   + dataColumn +   "),8)='aa7af817'";
 				expression3 = "SUBSTR(RAWTOHEX(" + dataColumn + "),7,8)='aa7af817'";
-				break;
-			case mysql:
+			}
+			case mysql -> {
 				expression0 = "LEFT("      + dataColumn +   ",4)=x'aa7af817'";
 				expression3 = "SUBSTRING(" + dataColumn + ",4,4)=x'aa7af817'";
-				break;
-			case postgresql:
+			}
+			case postgresql -> {
 				expression0 = "SUBSTRING(" + dataColumn +        " FOR 4)=E'\\\\xaa7af817'";
 				expression3 = "SUBSTRING(" + dataColumn + " FROM 4 FOR 4)=E'\\\\xaa7af817'";
-				break;
-			default:
+			}
+			default ->
 				throw new RuntimeException(dialect.name());
 		}
 		assertEquals(

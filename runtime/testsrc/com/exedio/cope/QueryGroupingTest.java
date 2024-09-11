@@ -145,16 +145,15 @@ public class QueryGroupingTest extends TestWithEnvironment
 		final String column = getColumnName(day);
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 			{
 				final String message =
 						"expression not in aggregate or GROUP BY columns: " +
 						"PUBLIC.\"" + table + "\".\"" + column + "\"" + ifPrep(" in statement ");
 				notAllowed(query, message + ifPrep("[SELECT \"day\",\"number\" FROM " + SI.tab(TYPE) + " GROUP BY \"number\"]"));
 				notAllowedTotal(query, message + ifPrep("[SELECT COUNT(*) FROM ( SELECT \"day\",\"number\" FROM " + SI.tab(TYPE) + " GROUP BY \"number\" )]"));
-				break;
 			}
-			case mysql:
+			case mysql ->
 			{
 				final String message =
 						"Expression #1 of SELECT list is not in GROUP BY clause and " +
@@ -164,9 +163,8 @@ public class QueryGroupingTest extends TestWithEnvironment
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
-				break;
 			}
-			case postgresql:
+			case postgresql ->
 			{
 				final String message =
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
@@ -175,9 +173,8 @@ public class QueryGroupingTest extends TestWithEnvironment
 				notAllowed(query, message + postgresqlPosition(8));
 				restartTransaction();
 				notAllowedTotal(query, message + postgresqlPosition(31));
-				break;
 			}
-			default:
+			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
 	}
