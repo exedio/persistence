@@ -134,18 +134,17 @@ final class PostgresqlSchemaDialect extends Dialect
 				final StringBuilder type = new StringBuilder();
 				switch(dataType)
 				{
-					case "character varying":
+					case "character varying" ->
 						type.append(dataType).append('(').append(resultSet.getInt(5)).append(')');
-						break;
-					case "timestamp without time zone":
+
+					case "timestamp without time zone" ->
 						type.append("timestamp (").append(resultSet.getInt(6)).append(") without time zone");
-						break;
-					case "timestamp with time zone": // is never created by cope
+
+					case "timestamp with time zone" -> // is never created by cope
 						type.append("timestamp (").append(resultSet.getInt(6)).append(") with time zone");
-						break;
-					default:
+
+					default ->
 						type.append(dataType);
-						break;
 				}
 				{
 					final String collation = resultSet.getString(7);

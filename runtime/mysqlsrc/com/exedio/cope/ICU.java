@@ -57,11 +57,10 @@ final class ICU
 	{
 		switch(c)
 		{
-			case '[': case ']': case '\\': case '-': case '&':
+			case '[', ']', '\\', '-', '&' ->
 				bf.append('\\').append(c);
-			break;
 
-			default:
+			default -> {
 				if(c<' ' || c>126)
 				{
 					if(c>0xff) bf.append("\\u").append(String.format("%1$04x", (int)c));
@@ -69,6 +68,7 @@ final class ICU
 				}
 				else
 					bf.append(c);
+			}
 		}
 	}
 

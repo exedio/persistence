@@ -367,13 +367,13 @@ final class MysqlDialect extends Dialect
 	{
 		switch(algorithm)
 		{
-			case HASH_MD5:    bf.append("MD5(" ).append(column, join).append(')'); break;
-			case HASH_SHA1:   bf.append("SHA1(").append(column, join).append(')'); break;
-			case HASH_SHA224: bf.append("SHA2(").append(column, join).append(",224)"); break;
-			case HASH_SHA256: bf.append("SHA2(").append(column, join).append(",256)"); break;
-			case HASH_SHA384: bf.append("SHA2(").append(column, join).append(",384)"); break;
-			case HASH_SHA512: bf.append("SHA2(").append(column, join).append(",512)"); break;
-			default:
+			case HASH_MD5    -> bf.append("MD5(" ).append(column, join).append(')');
+			case HASH_SHA1   -> bf.append("SHA1(").append(column, join).append(')');
+			case HASH_SHA224 -> bf.append("SHA2(").append(column, join).append(",224)");
+			case HASH_SHA256 -> bf.append("SHA2(").append(column, join).append(",256)");
+			case HASH_SHA384 -> bf.append("SHA2(").append(column, join).append(",384)");
+			case HASH_SHA512 -> bf.append("SHA2(").append(column, join).append(",512)");
+			default ->
 				super.appendBlobHash(bf, column, join, algorithm);
 		}
 	}
