@@ -96,11 +96,11 @@ final class HookAuditHook implements ChangeHook
 			final LinkedHashMap<StringField,String> values;
 			switch(action)
 			{
-				case neW:
+				case neW ->
 					values = null;
-					break;
-				case set:
-				case delete:
+
+				case set,
+						delete -> {
 					values = new LinkedHashMap<>();
 					final Type<?> type = item.getCopeType();
 					for(final Field<?> field : type.getFields())
@@ -110,8 +110,8 @@ final class HookAuditHook implements ChangeHook
 							final StringField sf = (StringField)field;
 							values.put(sf, sf.get(item));
 						}
-					break;
-				default:
+				}
+				default ->
 					throw new RuntimeException(action.name());
 			}
 

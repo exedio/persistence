@@ -720,14 +720,14 @@ public class ScheduleTest extends TestWithEnvironment
 	private static Date date(final String s)
 	{
 		final boolean withTimeZone = s.startsWith("TZ");
-		final String full;
+		final String full =
 		switch(s.length())
 		{
-			case 23: case 31: full = s; break;
-			case 16: case 24: full = s + ":00.000"; break;
-			default:
+			case 23, 31 -> s;
+			case 16, 24 -> s + ":00.000";
+			default ->
 				throw new RuntimeException(s);
-		}
+		};
 		assertEquals(withTimeZone?31:23, full.length());
 		try
 		{

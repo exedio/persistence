@@ -229,21 +229,21 @@ public class SchemaTest extends TestWithEnvironment
 		final Sequence batchedSequence = schema.getSequence("Main_this_Seq6");
 		switch ( model.getConnectProperties().primaryKeyGenerator )
 		{
-			case memory:
+			case memory -> {
 				assertEquals(null, sequence);
 				assertEquals(null, batchedSequence);
-				break;
-			case sequence:
+			}
+			case sequence -> {
 				assertEquals(null, sequence.getError());
 				assertEquals(OK, sequence.getParticularColor());
 				assertEquals(null, batchedSequence);
-				break;
-			case batchedSequence:
+			}
+			case batchedSequence -> {
 				assertEquals(null, batchedSequence.getError());
 				assertEquals(OK, batchedSequence.getParticularColor());
 				assertEquals(null, sequence);
-				break;
-			default:
+			}
+			default ->
 				fail();
 		}
 
