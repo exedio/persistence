@@ -100,17 +100,16 @@ public class QueryInfoTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case mysql:
+			case mysql ->
 			{
 				final QueryInfo plan = rootChilds.next();
 				assertEquals("explain plan", plan.getText());
-				break;
 			}
-			case hsqldb:
-			case postgresql:
+			case hsqldb,
+					postgresql ->
 				assertFalse(rootChilds.hasNext());
-				break;
-			default:
+
+			default ->
 				fail(dialect.toString());
 		}
 

@@ -47,10 +47,10 @@ public class TransactionUniqueTest extends TestWithEnvironment
 	{
 		switch(dialect)
 		{
-			case hsqldb:     testFails();  break;
-			case mysql:      testBlocks(); break;
-			case postgresql: testBlocks(); break;
-			default:
+			case hsqldb     -> testFails();
+			case mysql      -> testBlocks();
+			case postgresql -> testBlocks();
+			default ->
 				fail(String.valueOf(dialect));
 		}
 	}
@@ -113,7 +113,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		assertNotNull(failure);
 		switch(dialect)
 		{
-			case mysql:
+			case mysql -> {
 				if(MODEL.getConnectProperties().isSupportDisabledForUniqueViolation())
 				{
 					assertInsert(failure);
@@ -126,16 +126,16 @@ public class TransactionUniqueTest extends TestWithEnvironment
 					assertEquals("unique violation for MyItem.fieldImplicitUnique", failure.getMessage());
 					assertEquals(UniqueViolationException.class, failure.getClass());
 				}
-				break;
-			case postgresql:
+			}
+			case postgresql -> {
 				assertInsert(failure);
 				assertEquals(
 						"ERROR: duplicate key value violates unique constraint \"MyItem_field_Unq\"\n" +
 						"  Detail: Key (\"field\")=(collision) already exists.",
 						failure.getCause().getMessage());
-				break;
-			case hsqldb: // runs testFails
-			default:
+			}
+			case hsqldb -> fail(String.valueOf(dialect)); // runs testFails
+			default ->
 				fail(String.valueOf(dialect));
 		}
 		assertEquals(asList(), new ArrayList<>(MODEL.getOpenTransactions()));

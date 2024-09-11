@@ -283,7 +283,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				notAllowed(query,
 						"invalid ORDER BY expression" +
 						ifPrep(
@@ -292,19 +292,19 @@ public class DistinctOrderByTest extends TestWithEnvironment
 								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
 								"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
 								"ORDER BY PlusIntegerItem1.\"numA\"]"));
-				break;
-			case mysql:
+
+			case mysql ->
 				notAllowed(query,
 						"Expression #1 of ORDER BY clause is not in SELECT list, " +
 						"references column '" + dbCat() + ".PlusIntegerItem1.numA' which is not in SELECT list; " +
 						"this is incompatible with DISTINCT");
-				break;
-			case postgresql:
+
+			case postgresql ->
 				notAllowed(query,
 						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
 						postgresqlPosition(181));
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(dialect.name());
 		}
 	}
@@ -349,7 +349,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				notAllowed(query,
 						"user lacks privilege or object not found: ANY_VALUE" +
 						ifPrep(
@@ -358,15 +358,15 @@ public class DistinctOrderByTest extends TestWithEnvironment
 								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
 								"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
 								"ORDER BY ANY_VALUE(PlusIntegerItem0.\"numA\")]"));
-				break;
-			case mysql:
+
+			case mysql ->
 				assertContains(item2, item3, item1, query.search());
-				break;
-			case postgresql:
+
+			case postgresql ->
 				notAllowedStartsWith(query,
 						"ERROR: function any_value(integer) does not exist\n");
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(dialect.name());
 		}
 	}
@@ -444,7 +444,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				notAllowed(query,
 						"invalid ORDER BY expression" +
 						ifPrep(
@@ -453,19 +453,19 @@ public class DistinctOrderByTest extends TestWithEnvironment
 								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
 								"CROSS JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 " +
 								"ORDER BY (PlusIntegerItem0." + SI.col(numA) + "+PlusIntegerItem1." + SI.col(numB) + ")]"));
-				break;
-			case mysql:
+
+			case mysql ->
 				notAllowed(query,
 						"Expression #1 of ORDER BY clause is not in SELECT list, " +
 						"references column '" + dbCat() + ".PlusIntegerItem0.numA' which is not in SELECT list; " +
 						"this is incompatible with DISTINCT");
-				break;
-			case postgresql:
+
+			case postgresql ->
 				notAllowed(query,
 						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
 						postgresqlPosition(137));
-				break;
-			default:
+
+			default ->
 				throw new RuntimeException(dialect.name());
 		}
 	}

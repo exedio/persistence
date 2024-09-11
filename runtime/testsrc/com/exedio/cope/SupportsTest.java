@@ -57,24 +57,24 @@ public class SupportsTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb -> {
 				databaseProductName = "HSQL Database Engine";
 				dataHashAlgorithms.clear(); // TODO support more
 				checkConstraint = !propertiesHsqldbMysql57();
 				uniqueViolation = true;
-				break;
-			case mysql:
+			}
+			case mysql -> {
 				databaseProductName = "MySQL";
 				random = true;
 				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
-				break;
-			case postgresql:
+			}
+			case postgresql -> {
 				databaseProductName = "PostgreSQL";
 				if(model.getConnectProperties().getField("dialect.pgcryptoSchema").get().equals("<disabled>"))
 					dataHashAlgorithms.retainAll(asList("MD5"));
-				break;
-			default:
+			}
+			default ->
 				throw new AssertionFailedError(dialect.name());
 		}
 
@@ -93,9 +93,9 @@ public class SupportsTest extends TestWithEnvironment
 	{
 		switch(dialect)
 		{
-			case hsqldb:
+			case hsqldb ->
 				throw new TestAbortedException("hsqldb");
-			case mysql:
+			case mysql ->
 			{
 				final boolean enabled = (Boolean)model.getConnectProperties().getField("dialect.connection.compress").get();
 
@@ -131,8 +131,8 @@ public class SupportsTest extends TestWithEnvironment
 					}
 				}
 			}
-			break;
-			case postgresql:
+
+			case postgresql ->
 			{
 				final ConnectProperties props = model.getConnectProperties();
 				final String property = (String)props.getField("dialect.connection.schema").get();
@@ -146,8 +146,8 @@ public class SupportsTest extends TestWithEnvironment
 					assertFalse(rs.next());
 				}
 			}
-			break;
-			default:
+
+			default ->
 				fail(dialect.name());
 		}
 	}

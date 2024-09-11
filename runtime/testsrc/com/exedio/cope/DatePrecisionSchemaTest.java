@@ -100,29 +100,29 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	// native date
 	private String extract(final DateField field, final Precision precision)
 	{
-		switch(dialect)
+		return switch(dialect)
 		{
-			case hsqldb    : // fall through
-			case mysql     : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
+			case hsqldb,
+					mysql     -> "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
 
-			case postgresql: return "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
+			case postgresql -> "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
 
-			default:
-				throw new RuntimeException(String.valueOf(dialect));
-		}
+
+
+		};
 	}
 
 	// integer date
 	private String precision(final DateField field, final int divisor)
 	{
-		switch(dialect)
+		return switch(dialect)
 		{
-			case hsqldb    : return "MOD(" + SI.col(field) + "," + divisor + ")=0";
-			case mysql     : return "(" + SI.col(field) + " MOD " + divisor + ")=0";
-			case postgresql: return "(" + SI.col(field) +  " % "  + divisor + ")=0";
-			default:
-				throw new RuntimeException(String.valueOf(dialect));
-		}
+			case hsqldb     -> "MOD(" + SI.col(field) + ","  + divisor + ")=0";
+			case mysql      -> "(" + SI.col(field) + " MOD " + divisor + ")=0";
+			case postgresql -> "(" + SI.col(field) +  " % "  + divisor + ")=0";
+
+
+		};
 	}
 
 	private static ArrayList<CheckConstraint> getDateCheckConstraints(final Table table)

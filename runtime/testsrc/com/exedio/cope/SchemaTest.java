@@ -67,7 +67,6 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 public class SchemaTest extends TestWithEnvironment
 {
@@ -89,18 +88,18 @@ public class SchemaTest extends TestWithEnvironment
 		//noinspection EnumSwitchStatementWhichMissesCases,SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(dialect)
 		{
-			case postgresql:
+			case postgresql -> {
 				dateMinimum = "'1600-01-01 00:00:00" +"'::timestamp without time zone";
 				dateMaximum = "'9999-12-31 23:59:59.999'::timestamp without time zone";
 				dayMinimum = "'1600-01-01'::\"date\"";
 				dayMaximum = "'9999-12-31'::\"date\"";
-				break;
-			default:
+			}
+			default -> {
 				dateMinimum = "TIMESTAMP'1600-01-01 00:00:00.000'";
 				dateMaximum = "TIMESTAMP'9999-12-31 23:59:59.999'";
 				dayMinimum = "DATE'1600-01-01'";
 				dayMaximum = "DATE'9999-12-31'";
-				break;
+			}
 		}
 		final boolean dataVault = data.getVaultInfo()!=null;
 		final Schema schema = model.getVerifiedSchema();
@@ -176,15 +175,15 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(null, min4Max8Column.getError());
 		assertEquals(OK, min4Max8Column.getParticularColor());
 
-		final String string8;
+		final String string8 =
 		switch(dialect)
 		{
-			case hsqldb:     string8 = "VARCHAR(8)"; break;
-			case mysql :     string8 = "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin"; break;
-			case postgresql: string8 = "character varying(8) COLLATE \"ucs_basic\""; break;
-			default:
-				throw new AssertionError(dialect.name());
-		}
+			case hsqldb     -> "VARCHAR(8)";
+			case mysql      -> "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
+			case postgresql -> "character varying(8) COLLATE \"ucs_basic\"";
+
+
+		};
 		assertEquals(string8, min4Max8Column.getType());
 
 		final boolean icu = mysql && atLeastMysql8();
@@ -192,17 +191,17 @@ public class SchemaTest extends TestWithEnvironment
 		final String regexpEnd   = icu ? "\\z": "$";
 		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"   +regexpEnd+"'" : "";
 		final String hexSQL   = mysql ? q(data)        +" REGEXP '"+regexpBegin+"[0-9a-f]*"+regexpEnd+"'" : "";
-		final String regexpSQL;
+		final String regexpSQL =
 		switch(dialect)
 		{
-			case hsqldb:     regexpSQL = "REGEXP_MATCHES("+q(stringUpper6)+",'(?s)\\A[A-B]*\\z')"; break;
-			case mysql:      regexpSQL = icu
+			case hsqldb -> "REGEXP_MATCHES("+q(stringUpper6)+",'(?s)\\A[A-B]*\\z')";
+			case mysql -> icu
 					? q(stringUpper6)+" REGEXP CAST('(?s)\\A[A-B]*\\z' AS CHAR)"
-					: q(stringUpper6)+" REGEXP CAST('^[A-B]*$' AS CHAR)"; break;
-			case postgresql: regexpSQL = q(stringUpper6)+" ~ '^[A-B]*$'"; break;
-			default:
-				throw new AssertionFailedError();
-		}
+					: q(stringUpper6)+" REGEXP CAST('^[A-B]*$' AS CHAR)";
+			case postgresql -> q(stringUpper6)+" ~ '^[A-B]*$'";
+
+
+		};
 
 		assertCheckConstraint(table, "Main_stringMin4_MN", "CHAR_LENGTH("+q(stringMin4)+")>=4");
 		assertCheckConstraint(table, "Main_stringMin4_MX", "CHAR_LENGTH("+q(stringMin4)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);

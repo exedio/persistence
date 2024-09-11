@@ -296,7 +296,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 	{
 		switch(dialect)
 		{
-			case mysql:
+			case mysql -> {
 				if(charSet.isSubsetOfAscii() || atLeastMysql8())
 					assertEquals(
 							expected,
@@ -304,11 +304,10 @@ public class CharSetConditionTest extends TestWithEnvironment
 							"search");
 				else
 					assertNotSupported(condition, " with non-ASCII CharSet: " + charSet);
-				break;
-			case hsqldb:
-			case postgresql:
+			}
+			case hsqldb,
+					postgresql ->
 				assertNotSupported(condition, "");
-				break;
 		}
 	}
 
