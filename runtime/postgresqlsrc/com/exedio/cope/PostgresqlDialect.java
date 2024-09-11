@@ -225,13 +225,13 @@ final class PostgresqlDialect extends Dialect
 	{
 		switch(algorithm)
 		{
-			case HASH_MD5: bf.append("MD5(").append(column, join).append(')'); break;
-			case HASH_SHA1:   appendDigest(bf, column, join, algorithm, "sha1"  ); break;
-			case HASH_SHA224: appendDigest(bf, column, join, algorithm, "sha224"); break;
-			case HASH_SHA256: appendDigest(bf, column, join, algorithm, "sha256"); break;
-			case HASH_SHA384: appendDigest(bf, column, join, algorithm, "sha384"); break;
-			case HASH_SHA512: appendDigest(bf, column, join, algorithm, "sha512"); break;
-			default:
+			case HASH_MD5 -> bf.append("MD5(").append(column, join).append(')');
+			case HASH_SHA1   -> appendDigest(bf, column, join, algorithm, "sha1"  );
+			case HASH_SHA224 -> appendDigest(bf, column, join, algorithm, "sha224");
+			case HASH_SHA256 -> appendDigest(bf, column, join, algorithm, "sha256");
+			case HASH_SHA384 -> appendDigest(bf, column, join, algorithm, "sha384");
+			case HASH_SHA512 -> appendDigest(bf, column, join, algorithm, "sha512");
+			default ->
 				super.appendBlobHash(bf, column, join, algorithm);
 		}
 	}
