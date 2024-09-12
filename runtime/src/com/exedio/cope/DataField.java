@@ -47,7 +47,6 @@ import java.security.MessageDigest;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.jetbrains.annotations.Contract;
 
 public final class DataField extends Field<DataField.Value>
@@ -220,7 +219,6 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns null, if there is no data for this field.
 	 */
 	@Wrap(order=30, doc="Returns the value of the persistent field {0}.", nullability=NullableIfOptional.class) // TODO better text
-	@Nullable // if this DataField is optional
 	public byte[] getArray(@Nonnull final Item item)
 	{
 		return store.load(model.currentTransaction(), item);
