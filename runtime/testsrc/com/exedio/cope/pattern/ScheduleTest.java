@@ -749,13 +749,12 @@ public class ScheduleTest extends TestWithEnvironment
 		return new Log(item, date(from), date(until), "ScheduleItem.report " + item.getCopeID() + " run " + count);
 	}
 
-	static class Log
+	record Log(
+			ScheduleItem item,
+			Date from,
+			Date until,
+			String transactionName)
 	{
-		final ScheduleItem item;
-		final Date from;
-		final Date until;
-		final String transactionName;
-
 		Log(final ScheduleItem item, final Date from, final Date until, final String transactionName)
 		{
 			this.item = item;

@@ -433,12 +433,11 @@ public class DispatcherWithoutRemainingTest extends TestWithEnvironment
 		return new ExpectedRun(date, Result.finalFailure, false);
 	}
 
-	private static final class ExpectedRun
+	private record ExpectedRun(
+			Date date,
+			Result result,
+			boolean success)
 	{
-		final Date date;
-		final Result result;
-		final boolean success;
-
 		ExpectedRun(final Date date, final Result result, final boolean success)
 		{
 			this.date = new Date(date.getTime()); // Date is not immutable

@@ -487,13 +487,12 @@ public class DispatcherTest extends TestWithEnvironment
 		return new ExpectedRun(date, 0, Result.immediateFinalFailure, false);
 	}
 
-	private static final class ExpectedRun
+	private record ExpectedRun(
+			Date date,
+			int remaining,
+			Result result,
+			boolean success)
 	{
-		final Date date;
-		final int remaining;
-		final Result result;
-		final boolean success;
-
 		ExpectedRun(
 				final Date date,
 				final int remaining,

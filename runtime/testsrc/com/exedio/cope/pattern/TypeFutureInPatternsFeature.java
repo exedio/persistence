@@ -76,18 +76,10 @@ final class TypeFutureInPatternsFeature extends Pattern
 		this.mountIfMounted = new Mount(self, runType);
 	}
 
-	private static final class Mount
+	private record Mount(
+			ItemField<TypeItem> self,
+			Type<TypeItem> runType)
 	{
-		final ItemField<TypeItem> self;
-		final Type<TypeItem> runType;
-
-		Mount(
-				final ItemField<TypeItem> self,
-				final Type<TypeItem> runType)
-		{
-			this.self = self;
-			this.runType = runType;
-		}
 	}
 
 	Mount mount()

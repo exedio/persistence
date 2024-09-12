@@ -234,18 +234,12 @@ public class CommitHookPostTest
 		return new EqualHook(bf, value, identity);
 	}
 
-	private static final class EqualHook implements Runnable
+	private record EqualHook(
+			StringBuilder bf,
+			String value,
+			String identity)
+			implements Runnable
 	{
-		final StringBuilder bf;
-		final String value;
-		final String identity;
-
-		EqualHook(final StringBuilder bf, final String value, final String identity)
-		{
-			this.bf = bf;
-			this.value = value;
-			this.identity = identity;
-		}
 		@Override
 		public void run()
 		{
