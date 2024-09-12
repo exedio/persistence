@@ -49,14 +49,8 @@ public class VaultMockServicePutTest extends VaultServiceTest
 		return new VaultServiceMask(service);
 	}
 
-	private static class VaultServiceMask implements VaultService
+	private record VaultServiceMask(VaultService service) implements VaultService
 	{
-		private final VaultService service;
-
-		VaultServiceMask(final VaultService service)
-		{
-			this.service = service;
-		}
 		@Override
 		public byte[] get(@Nonnull final String hash) throws VaultNotFoundException
 		{

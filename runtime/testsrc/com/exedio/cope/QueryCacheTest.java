@@ -138,17 +138,8 @@ public class QueryCacheTest extends TestWithEnvironment
 		return new SC(query, mode);
 	}
 
-	private static final class SC
+	private record SC(Query<?> query, Query.Mode mode)
 	{
-		final Query<?> query;
-		final Query.Mode mode;
-
-		SC(final Query<?> query, final Query.Mode mode)
-		{
-			this.query = query;
-			this.mode = mode;
-		}
-
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
 		@Override
 		public boolean equals(final Object other)

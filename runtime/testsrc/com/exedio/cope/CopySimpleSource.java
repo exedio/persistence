@@ -76,15 +76,12 @@ final class CopySimpleSource extends Item
 
 	private static final ArrayList<BeforeLog> beforeCopeItemLog = new ArrayList<>();
 
-	private static final class BeforeLog
+	private record BeforeLog(
+			Item item,
+			SetValue<?>[] setValues)
 	{
-		private final Item item;
-		private final SetValue<?>[] setValues;
-
-		private BeforeLog(final Item item, final SetValue<?>[] setValues)
+		private BeforeLog
 		{
-			this.item = item;
-			this.setValues = setValues;
 			assertNotNull(setValues);
 		}
 

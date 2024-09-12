@@ -332,22 +332,11 @@ public class DispatcherSessionTest extends TestWithEnvironment
 		return new ExpectedRun(2, Result.transientFailure, false);
 	}
 
-	private static final class ExpectedRun
+	private record ExpectedRun(
+			int remaining,
+			Result result,
+			boolean success)
 	{
-		final int remaining;
-		final Result result;
-		final boolean success;
-
-		ExpectedRun(
-				final int remaining,
-				final Result result,
-				final boolean success)
-		{
-			this.remaining = remaining;
-			this.result = result;
-			this.success = success;
-		}
-
 		void assertIt(final Run actual)
 		{
 			assertAll(

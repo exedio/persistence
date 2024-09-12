@@ -61,15 +61,8 @@ class RenamedSchemaPattern extends Pattern
 				new IntegerField(), "bareSF", new AnnotationSource("bareSF"));
 	}
 
-	private static final class AnnotationSource implements AnnotatedElement
+	private record AnnotationSource(String name) implements AnnotatedElement
 	{
-		final String name;
-
-		AnnotationSource(final String name)
-		{
-			this.name = name;
-		}
-
 		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
@@ -181,17 +174,11 @@ class RenamedSchemaPattern extends Pattern
 			return new AnnotationSource(Arrays.copyOf(annotations), annotationMap);
 		}
 
-		private static final class AnnotationSource implements AnnotatedElement
+		private record AnnotationSource(
+				Annotation[] annotations,
+				HashMap<Class<?>, Annotation> annotationMap)
+				implements AnnotatedElement
 		{
-			private final Annotation[] annotations;
-			private final HashMap<Class<?>, Annotation> annotationMap;
-
-			AnnotationSource(final Annotation[] annotations, final HashMap<Class<?>, Annotation> annotationMap)
-			{
-				this.annotations = annotations;
-				this.annotationMap = annotationMap;
-			}
-
 			@Override
 			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 			{
