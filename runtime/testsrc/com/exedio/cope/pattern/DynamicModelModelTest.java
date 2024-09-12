@@ -125,7 +125,7 @@ public class DynamicModelModelTest
 		final UniqueConstraint parentAndCode              = (UniqueConstraint)type.getFeature("uniqueConstraintCode");
 		assertEquals(asList(new Feature[]{
 				type.getThis(),
-				features.mount().fieldParent,
+				features.mount().fieldParent(),
 				features.fieldPosition,
 				parentAndPosition,
 				features.fieldValueType,
@@ -135,15 +135,15 @@ public class DynamicModelModelTest
 				parentAndCode,
 				features.fieldLocalization,
 			}), type.getFeatures());
-		assertSame(features.getTypeType(), features.mount().fieldParent.getValueType());
+		assertSame(features.getTypeType(), features.mount().fieldParent().getValueType());
 		assertEquals(
-				List.of(features.mount().fieldParent, features.fieldPosition),
+				List.of(features.mount().fieldParent(), features.fieldPosition),
 				parentAndPosition.getFields());
 		assertEquals(
-				List.of(features.mount().fieldParent, features.fieldValueType, features.fieldPositionPerValueType),
+				List.of(features.mount().fieldParent(), features.fieldValueType, features.fieldPositionPerValueType),
 				parentValueTypeAndPosition.getFields());
 		assertEquals(
-				List.of(features.mount().fieldParent, features.fieldCode),
+				List.of(features.mount().fieldParent(), features.fieldCode),
 				parentAndCode.getFields());
 	}
 
@@ -154,19 +154,19 @@ public class DynamicModelModelTest
 		final UniqueConstraint parentAndCode     = (UniqueConstraint)type.getFeature("uniqueCode");
 		assertEquals(asList(new Feature[]{
 				type.getThis(),
-				features.mount().enumParent,
+				features.mount().enumParent(),
 				features.enumPosition,
 				parentAndPosition,
 				features.enumCode,
 				parentAndCode,
 				features.enumLocalization,
 			}), type.getFeatures());
-		assertSame(features.getFieldType(), features.mount().enumParent.getValueType());
+		assertSame(features.getFieldType(), features.mount().enumParent().getValueType());
 		assertEquals(
-				List.of(features.mount().enumParent, features.enumPosition),
+				List.of(features.mount().enumParent(), features.enumPosition),
 				parentAndPosition.getFields());
 		assertEquals(
-				List.of(features.mount().enumParent, features.enumCode),
+				List.of(features.mount().enumParent(), features.enumCode),
 				parentAndCode.getFields());
 	}
 
