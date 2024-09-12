@@ -24,21 +24,10 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
-final class CopeProbe
+record CopeProbe(
+		ConnectProperties properties,
+		EnvironmentInfo environmentInfo) // probed on the initial connection
 {
-	final ConnectProperties properties;
-
-	// probed on the initial connection
-	final EnvironmentInfo environmentInfo;
-
-	CopeProbe(
-			final ConnectProperties properties,
-			final EnvironmentInfo environmentInfo)
-	{
-		this.properties = properties;
-		this.environmentInfo = environmentInfo;
-	}
-
 	Map<String, String> getRevisionEnvironment()
 	{
 		final HashMap<String, String> env = new HashMap<>();
