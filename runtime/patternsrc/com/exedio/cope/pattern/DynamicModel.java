@@ -218,29 +218,14 @@ public final class DynamicModel<L> extends Pattern
 		this.mountIfMounted = new Mount<>(typeType, fieldParent, fieldType, enumParent, enumType, type);
 	}
 
-	static final class Mount<L>
+	record Mount<L>(
+			com.exedio.cope.Type<Type<L>> typeType,
+			ItemField<Type<L>> fieldParent,
+			com.exedio.cope.Type<Field<L>> fieldType,
+			ItemField<Field<L>> enumParent,
+			com.exedio.cope.Type<Enum<L>> enumType,
+			ItemField<Type<L>> type)
 	{
-		final com.exedio.cope.Type<Type<L>> typeType;
-		final ItemField<Type<L>> fieldParent;
-		final com.exedio.cope.Type<Field<L>> fieldType;
-		final ItemField<Field<L>> enumParent;
-		final com.exedio.cope.Type<Enum<L>> enumType;
-		final ItemField<Type<L>> type;
-
-		Mount(final com.exedio.cope.Type<Type<L>> typeType,
-				final ItemField<Type<L>> fieldParent,
-				final com.exedio.cope.Type<Field<L>> fieldType,
-				final ItemField<Field<L>> enumParent,
-				final com.exedio.cope.Type<Enum<L>> enumType,
-				final ItemField<Type<L>> type)
-		{
-			this.typeType =typeType;
-			this.fieldParent = fieldParent;
-			this.fieldType = fieldType;
-			this.enumParent = enumParent;
-			this.enumType = enumType;
-			this.type = type;
-		}
 	}
 
 	Mount<L> mount()
