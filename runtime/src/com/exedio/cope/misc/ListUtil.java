@@ -37,15 +37,16 @@ public final class ListUtil
 		final int size = list.size();
 		switch(size)
 		{
-		case 0:
+		case 0 -> {
 			return List.of();
-		case 1:
+		} case 1 -> {
 			return Collections.singletonList(list.get(0));
-		default:
+		} default -> {
 			final List<Object> result = Arrays.asList(list.toArray(new Object[size]));
 			@SuppressWarnings("unchecked")
 			final List<F> resultChecked = (List<F>)result;
 			return Collections.unmodifiableList(resultChecked);
+		}
 		}
 	}
 

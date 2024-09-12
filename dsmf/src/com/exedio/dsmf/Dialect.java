@@ -352,13 +352,13 @@ public abstract class Dialect
 
 		public String map(final Sequence.Type type)
 		{
-			switch(type)
+			return switch(type)
 			{
-				case bit31: return bit31;
-				case bit63: return bit63;
-				default:
-					throw new RuntimeException(String.valueOf(type));
-			}
+				case bit31 -> bit31;
+				case bit63 -> bit63;
+
+
+			};
 		}
 
 		public Sequence.Type unmap(final String string, final String message)

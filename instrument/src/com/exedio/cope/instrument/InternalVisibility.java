@@ -36,18 +36,18 @@ enum InternalVisibility
 
 	static InternalVisibility forModifier(final int modifier)
 	{
-		switch(modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
+		return switch(modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
 		{
-			case Modifier.PUBLIC:
-				return PUBLIC;
-			case Modifier.PROTECTED:
-				return PROTECTED;
-			case 0:
-				return PACKAGE;
-			case Modifier.PRIVATE:
-				return PRIVATE;
-			default:
+			case Modifier.PUBLIC ->
+				PUBLIC;
+			case Modifier.PROTECTED ->
+				PROTECTED;
+			case 0 ->
+				PACKAGE;
+			case Modifier.PRIVATE ->
+				PRIVATE;
+			default ->
 				throw new RuntimeException(Integer.toString(modifier));
-		}
+		};
 	}
 }

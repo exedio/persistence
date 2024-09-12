@@ -277,15 +277,15 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentTypes(final String... types)
 	{
-		switch (types.length)
+		return switch (types.length)
 		{
-			case 0:
+			case 0 ->
 				throw new IllegalArgumentException("must provide at least one content type");
-			case 1:
-				return contentType(types[0]);
-			default:
-				return contentTypesInternal(types);
-		}
+			case 1 ->
+				contentType(types[0]);
+			default ->
+				contentTypesInternal(types);
+		};
 	}
 
 	private Media contentTypesInternal(final String... types)

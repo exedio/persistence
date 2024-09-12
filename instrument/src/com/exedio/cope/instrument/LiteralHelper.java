@@ -98,29 +98,28 @@ final class LiteralHelper
 			// ASCII control characters
 			switch (ch)
 			{
-				case '\b':
+				case '\b' -> {
 					result.append('\\');
 					result.append('b');
-					break;
-				case '\n':
+				}
+				case '\n' -> {
 					result.append('\\');
 					result.append('n');
-					break;
-				case '\t':
+				}
+				case '\t' -> {
 					result.append('\\');
 					result.append('t');
-					break;
-				case '\f':
+				}
+				case '\f' -> {
 					result.append('\\');
 					result.append('f');
-					break;
-				case '\r':
+				}
+				case '\r' -> {
 					result.append('\\');
 					result.append('r');
-					break;
-				default:
+				}
+				default ->
 					result.append("\\u").append(hexFourCharacters(ch));
-					break;
 			}
 		}
 		else

@@ -1037,18 +1037,18 @@ public final class Query<R> implements Serializable
 		// this is the most efficient implementation for
 		// array-backed lists returned by #search()
 		final List<R> resultList = search();
-		switch(resultList.size())
+		return switch(resultList.size())
 		{
-			case 0:
-				return null;
-			case 1:
-				return resultList.get(0);
-			default:
+			case 0 ->
+				null;
+			case 1 ->
+				resultList.get(0);
+			default ->
 				throw new IllegalArgumentException(
 						"expected result of size one or less, " +
 						"but was " + resultList +
 						" for query: " + this);
-		}
+		};
 	}
 
 	/**
@@ -1066,20 +1066,20 @@ public final class Query<R> implements Serializable
 		// this is the most efficient implementation for
 		// array-backed lists returned by #search()
 		final List<R> resultList = search();
-		switch(resultList.size())
+		return switch(resultList.size())
 		{
-			case 0:
+			case 0 ->
 				throw new IllegalArgumentException(
 						"expected result of size one, " +
 						"but was empty for query: " + this);
-			case 1:
-				return resultList.get(0);
-			default:
+			case 1 ->
+				resultList.get(0);
+			default ->
 				throw new IllegalArgumentException(
 						"expected result of size one, " +
 						"but was " + resultList +
 						" for query: " + this);
-		}
+		};
 	}
 
 	@Override

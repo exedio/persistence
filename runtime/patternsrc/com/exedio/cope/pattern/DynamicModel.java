@@ -139,16 +139,16 @@ public final class DynamicModel<L> extends Pattern
 
 	private FunctionField<?>[] array(final ValueType valueType)
 	{
-		switch(valueType)
+		return switch(valueType)
 		{
-			case STRING:  return strings;
-			case BOOLEAN: return booleans;
-			case INTEGER: return integers;
-			case DOUBLE:  return doubles;
-			case ENUM:    return enums;
-			default:
-				throw new RuntimeException(valueType.toString());
-		}
+			case STRING  -> strings;
+			case BOOLEAN -> booleans;
+			case INTEGER -> integers;
+			case DOUBLE  -> doubles;
+			case ENUM    -> enums;
+
+
+		};
 	}
 
 	void assertCapacity(final ValueType valueType, final int positionPerValuetype)

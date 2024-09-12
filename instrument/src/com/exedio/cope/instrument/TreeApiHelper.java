@@ -33,26 +33,27 @@ final class TreeApiHelper
 		return result;
 	}
 
+	@SuppressWarnings("UnnecessaryDefault") // OK: prepare for future additions
 	private static int toModifiersInt(final Modifier flag)
 	{
-		switch (flag)
+		return switch (flag)
 		{
-			case ABSTRACT: return java.lang.reflect.Modifier.ABSTRACT;
-			case DEFAULT: throw new RuntimeException("unexpected DEFAULT modifier");
-			case SEALED: throw new RuntimeException("unexpected SEALED modifier");
-			case NON_SEALED: throw new RuntimeException("unexpected NON_SEALED modifier");
-			case FINAL: return java.lang.reflect.Modifier.FINAL;
-			case NATIVE: return java.lang.reflect.Modifier.NATIVE;
-			case PRIVATE: return java.lang.reflect.Modifier.PRIVATE;
-			case PROTECTED: return java.lang.reflect.Modifier.PROTECTED;
-			case PUBLIC: return java.lang.reflect.Modifier.PUBLIC;
-			case STATIC: return java.lang.reflect.Modifier.STATIC;
-			case STRICTFP: return java.lang.reflect.Modifier.STRICT;
-			case SYNCHRONIZED: return java.lang.reflect.Modifier.SYNCHRONIZED;
-			case TRANSIENT: return java.lang.reflect.Modifier.TRANSIENT;
-			case VOLATILE: return java.lang.reflect.Modifier.VOLATILE;
-			default: throw new RuntimeException(flag.toString());
-		}
+			case ABSTRACT -> java.lang.reflect.Modifier.ABSTRACT;
+			case DEFAULT -> throw new RuntimeException("unexpected DEFAULT modifier");
+			case SEALED -> throw new RuntimeException("unexpected SEALED modifier");
+			case NON_SEALED -> throw new RuntimeException("unexpected NON_SEALED modifier");
+			case FINAL -> java.lang.reflect.Modifier.FINAL;
+			case NATIVE -> java.lang.reflect.Modifier.NATIVE;
+			case PRIVATE -> java.lang.reflect.Modifier.PRIVATE;
+			case PROTECTED -> java.lang.reflect.Modifier.PROTECTED;
+			case PUBLIC -> java.lang.reflect.Modifier.PUBLIC;
+			case STATIC -> java.lang.reflect.Modifier.STATIC;
+			case STRICTFP -> java.lang.reflect.Modifier.STRICT;
+			case SYNCHRONIZED -> java.lang.reflect.Modifier.SYNCHRONIZED;
+			case TRANSIENT -> java.lang.reflect.Modifier.TRANSIENT;
+			case VOLATILE -> java.lang.reflect.Modifier.VOLATILE;
+			default -> throw new RuntimeException(flag.toString());
+		};
 	}
 
 

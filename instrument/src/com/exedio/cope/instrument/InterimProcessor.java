@@ -657,10 +657,10 @@ final class InterimProcessor extends JavacProcessor
 			//noinspection EnumSwitchStatementWhichMissesCases
 			switch(kind)
 			{
-				case METHOD:
-				case CONSTRUCTOR:
-					break;
-				default:
+				case METHOD,
+						CONSTRUCTOR ->
+				{ }
+				default ->
 					//noinspection OptionalGetWithoutIsPresent OK: should fail if not present
 					processingEnv.getMessager().printMessage(
 							Diagnostic.Kind.ERROR,
@@ -675,7 +675,6 @@ final class InterimProcessor extends JavacProcessor
 											WrapInterim.class.getName())).
 									findFirst().
 									get());
-					break;
 			}
 		}
 
@@ -702,37 +701,38 @@ final class InterimProcessor extends JavacProcessor
 			return null;
 		}
 
+		@SuppressWarnings("TailRecursion")
 		private void addRequiredTypes(final Tree typeTree)
 		{
 			//noinspection EnumSwitchStatementWhichMissesCases
 			switch (typeTree.getKind())
 			{
-				case IDENTIFIER:
-				case MEMBER_SELECT:
+				case IDENTIFIER,
+						MEMBER_SELECT -> {
 					final Element typeElement = getRequiredElement(typeTree);
 					if (typeElement instanceof TypeElement) // TypeParameterElement for generics
 						requiredTypes.add((TypeElement) typeElement);
-					break;
-				case PARAMETERIZED_TYPE:
+				}
+				case PARAMETERIZED_TYPE -> {
 					final ParameterizedTypeTree ptt = (ParameterizedTypeTree)typeTree;
 					addRequiredTypes(ptt.getType());
 					for (final Tree typeArgument : ptt.getTypeArguments())
 					{
 						addRequiredTypes(typeArgument);
 					}
-					break;
-				case ARRAY_TYPE:
+				}
+				case ARRAY_TYPE ->
 					addRequiredTypes(((ArrayTypeTree)typeTree).getType());
-					break;
-				case EXTENDS_WILDCARD:
+
+				case EXTENDS_WILDCARD ->
 					addRequiredTypes(((WildcardTree)typeTree).getBound());
-					break;
-				case ERRONEOUS:
-				case PRIMITIVE_TYPE:
-				case UNBOUNDED_WILDCARD:
-					// nothing to do
-					break;
-				default:
+
+				case ERRONEOUS,
+						PRIMITIVE_TYPE,
+						UNBOUNDED_WILDCARD ->
+					{ } // nothing to do
+
+				default ->
 					throw new RuntimeException(typeTree.getKind().name()+": "+typeTree+" / "+typeTree.getClass());
 			}
 		}

@@ -118,7 +118,7 @@ final class JavaField
 		//noinspection EnumSwitchStatementWhichMissesCases
 		switch (typeMirror.getKind())
 		{
-			case DECLARED:
+			case DECLARED -> {
 				final StringBuilder sb = new StringBuilder();
 				sb.append( applyTypeShortcuts(((DeclaredType)typeMirror).asElement().toString()) );
 				final List<? extends TypeMirror> args = ((DeclaredType)typeMirror).getTypeArguments();
@@ -134,7 +134,7 @@ final class JavaField
 					sb.append( ">" );
 				}
 				return sb.toString();
-			case WILDCARD:
+			} case WILDCARD -> {
 				final StringBuilder wsb = new StringBuilder();
 				wsb.append("?");
 				final TypeMirror extendsBound = ((WildcardType)typeMirror).getExtendsBound();
@@ -150,8 +150,9 @@ final class JavaField
 					wsb.append(applyTypeShortcuts(superBound));
 				}
 				return wsb.toString();
-			default:
+			} default -> {
 				return applyTypeShortcuts(typeMirror.toString());
+			}
 		}
 	}
 

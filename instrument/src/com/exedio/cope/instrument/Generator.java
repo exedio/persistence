@@ -484,16 +484,16 @@ final class Generator
 			{
 				switch(wrapper.getMethodNullability())
 				{
-					case NONNULL:
+					case NONNULL ->
 						writeEmptyAnnotationOnSeparateLine(Nonnull.class);
-						break;
-					case NULLABLE:
+
+					case NULLABLE ->
 						writeEmptyAnnotationOnSeparateLine(wrapResultInOptional ? Nonnull.class : Nullable.class);
-						break;
-					case DEFAULT:
-						// nothing to do
-						break;
-					default:
+
+					case DEFAULT ->
+						{ } // nothing to do
+
+					default ->
 						throw new RuntimeException("invalid case");
 				}
 			}

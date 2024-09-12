@@ -347,14 +347,13 @@ public abstract class Item implements Serializable, Comparable<Item>
 		{
 			switch(field.getDeletePolicy())
 			{
-				case FORBID:
+				case FORBID ->
 				{
 					final int referrers = field.getType().newQuery(Cope.equalAndCast(field, this)).total();
 					if(referrers!=0)
 						throw new IntegrityViolationException(field, this, referrers);
-					break;
 				}
-				case CASCADE:
+				case CASCADE ->
 				{
 					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
 					{
@@ -362,11 +361,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 						if(!toDelete.contains(item))
 							item.checkDeleteCopeItem(toDelete);
 					}
-					break;
 				}
-				case NULLIFY:
-					// avoid warnings
-					break;
+				case NULLIFY ->
+				{
+				}
 			}
 		}
 	}
@@ -402,16 +400,15 @@ public abstract class Item implements Serializable, Comparable<Item>
 		{
 			switch(field.getDeletePolicy())
 			{
-				case NULLIFY:
+				case NULLIFY ->
 				{
 					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
 					{
 						//System.out.println("------------nullify:"+item.toString());
 						item.set(field, null);
 					}
-					break;
 				}
-				case CASCADE:
+				case CASCADE ->
 				{
 					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
 					{
@@ -419,11 +416,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 						if(!toDelete.contains(item))
 							item.deleteCopeItem(toDelete);
 					}
-					break;
 				}
-				case FORBID:
-					// avoid warnings
-					break;
+				case FORBID ->
+				{
+				}
 			}
 		}
 		final Entity entity = getEntity();

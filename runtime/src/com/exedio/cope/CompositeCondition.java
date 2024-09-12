@@ -222,11 +222,11 @@ public final class CompositeCondition extends Condition
 	{
 		switch(values.length)
 		{
-			case 0:
+			case 0 -> {
 				return ofFalse();
-			case 1:
+			} case 1 -> {
 				return function.equal(values[0]);
-			default:
+			} default -> {
 				if (Stream.of(values).anyMatch(Objects::isNull))
 				{
 					return getConditionForInWithNull(function, Stream.of(values).filter(Objects::nonNull).distinct().collect(Collectors.toList()));
@@ -235,6 +235,7 @@ public final class CompositeCondition extends Condition
 				{
 					return new InCondition<>(function, false, List.of(values));
 				}
+			}
 		}
 	}
 
@@ -242,11 +243,11 @@ public final class CompositeCondition extends Condition
 	{
 		switch(values.size())
 		{
-			case 0:
+			case 0 -> {
 				return ofFalse();
-			case 1:
+			} case 1 -> {
 				return function.equal(values.iterator().next());
-			default:
+			} default -> {
 				boolean containsNull;
 				try
 				{
@@ -264,20 +265,21 @@ public final class CompositeCondition extends Condition
 				{
 					return new InCondition<>(function, false, List.copyOf(values));
 				}
+			}
 		}
 	}
 
 	private static <E> Condition getConditionForInWithNull(final Function<E> function, final List<E> nonNullValues)
 	{
-		switch(nonNullValues.size())
+		return switch(nonNullValues.size())
 		{
-			case 0:
-				return function.isNull();
-			case 1:
-				return composite(Operator.OR, function.isNull(), function.equal(nonNullValues.get(0)));
-			default:
-				return composite(Operator.OR, function.isNull(), new InCondition<>(function, false, nonNullValues));
-		}
+			case 0 ->
+				function.isNull();
+			case 1 ->
+				composite(Operator.OR, function.isNull(), function.equal(nonNullValues.get(0)));
+			default ->
+				composite(Operator.OR, function.isNull(), new InCondition<>(function, false, nonNullValues));
+		};
 	}
 
 	public enum Operator
@@ -434,14 +436,14 @@ public final class CompositeCondition extends Condition
 			assert j==filteredConditions.length;
 		}
 
-		switch(filteredConditions.length)
+		return switch(filteredConditions.length)
 		{
-			case 0:
-				return operator.identity;
-			case 1:
-				return filteredConditions[0];
-			default:
-				return new CompositeCondition(operator, filteredConditions);
-		}
+			case 0 ->
+				operator.identity;
+			case 1 ->
+				filteredConditions[0];
+			default ->
+				new CompositeCondition(operator, filteredConditions);
+		};
 	}
 }

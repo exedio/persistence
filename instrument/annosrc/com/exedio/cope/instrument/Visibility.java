@@ -53,16 +53,16 @@ public enum Visibility
 
 	int getModifier(final int defaultModifier)
 	{
-		switch(this)
+		return switch(this)
 		{
-			case NONE:      throw new RuntimeException();
-			case DEFAULT:   return defaultModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
-			case PRIVATE:   return Modifier.PRIVATE;
-			case PACKAGE:   return 0;
-			case PROTECTED: return Modifier.PROTECTED;
-			case PUBLIC:    return Modifier.PUBLIC;
-			default:
-				throw new RuntimeException(String.valueOf(this));
-		}
+			case NONE      -> throw new RuntimeException();
+			case DEFAULT   -> defaultModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+			case PRIVATE   -> Modifier.PRIVATE;
+			case PACKAGE   -> 0;
+			case PROTECTED -> Modifier.PROTECTED;
+			case PUBLIC    -> Modifier.PUBLIC;
+
+
+		};
 	}
 }

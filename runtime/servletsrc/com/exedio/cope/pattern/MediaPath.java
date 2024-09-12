@@ -721,14 +721,13 @@ public abstract class MediaPath extends Pattern
 
 			switch(kind)
 			{
-				case SPECIAL_FINGERPRINT:
-					break; // do nothing, redirects are implemented below
+				case SPECIAL_FINGERPRINT ->
+					{ } // do nothing, redirects are implemented below
 
-				case SPECIAL_TOKEN:
+				case SPECIAL_TOKEN ->
 					actualToken = pathInfo.substring(kindIndex+1, slash);
-					break;
 
-				default:
+				default ->
 					throw notFoundInvalidSpecial();
 			}
 		}
