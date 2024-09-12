@@ -538,24 +538,16 @@ public final class Schedule extends Pattern
 			this.mountIfMounted = new Mount(parent, runs, runType);
 		}
 
-		private static final class Mount
+		private record Mount(
+				ItemField<?> parent,
+				PartOf<?> parentPartOf,
+				Type<Run> type)
 		{
-			final ItemField<?> parent;
-			final PartOf<?> parentPartOf;
-			final Type<Run> type;
-
-			Mount(
-					final ItemField<?> parent,
-					final PartOf<?> parentPartOf,
-					final Type<Run> type)
+			Mount
 			{
 				assert parent!=null;
 				assert parentPartOf!=null;
 				assert type!=null;
-
-				this.parent = parent;
-				this.parentPartOf = parentPartOf;
-				this.type = type;
 			}
 		}
 

@@ -44,17 +44,11 @@ final class CustomAnnotatedElement
 		return new AnnotationSource(Arrays.copyOf(annotations), annotationMap);
 	}
 
-	private static final class AnnotationSource implements AnnotatedElement
+	private record AnnotationSource(
+			Annotation[] annotations,
+			HashMap<Class<?>, Annotation> annotationMap)
+			implements AnnotatedElement
 	{
-		private final Annotation[] annotations;
-		private final HashMap<Class<?>, Annotation> annotationMap;
-
-		AnnotationSource(final Annotation[] annotations, final HashMap<Class<?>, Annotation> annotationMap)
-		{
-			this.annotations = annotations;
-			this.annotationMap = annotationMap;
-		}
-
 		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{

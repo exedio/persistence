@@ -109,24 +109,16 @@ public final class PasswordLimiter extends Pattern
 		FeatureMeter.onMount(this, denyCounter, denyVerboselyCounter);
 	}
 
-	private static final class Mount
+	private record Mount(
+			ItemField<?> parent,
+			PartOf<?> refusals,
+			Type<Refusal> refusalType)
 	{
-		final ItemField<?> parent;
-		final PartOf<?> refusals;
-		final Type<Refusal> refusalType;
-
-		Mount(
-				final ItemField<?> parent,
-				final PartOf<?> refusals,
-				final Type<Refusal> refusalType)
+		Mount
 		{
 			assert parent!=null;
 			assert refusals!=null;
 			assert refusalType!=null;
-
-			this.parent = parent;
-			this.refusals = refusals;
-			this.refusalType = refusalType;
 		}
 	}
 

@@ -396,15 +396,7 @@ final class ItemCache
 		}
 	}
 
-	private static final class Stamp
+	private record Stamp(long stamp, Set<Item> items)
 	{
-		final long stamp;
-		final Set<Item> items;
-
-		private Stamp(final long stamp, final Set<Item> items)
-		{
-			this.stamp = stamp;
-			this.items = items;
-		}
 	}
 }

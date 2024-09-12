@@ -232,17 +232,10 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 		throw new InvalidObjectException("required " + Serialized.class);
 	}
 
-	private static final class Serialized implements Serializable
+	private record Serialized(Class<? extends Block> javaClass) implements Serializable
 	{
 		@Serial
 		private static final long serialVersionUID = 1l;
-
-		private final Class<? extends Block> javaClass;
-
-		Serialized(final Class<? extends Block> javaClass)
-		{
-			this.javaClass = javaClass;
-		}
 
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>

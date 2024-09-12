@@ -198,28 +198,13 @@ public final class EnvironmentInfo
 		database.requireVersionAtLeast(name, major, minor);
 	}
 
-	private static final class Product
+	private record Product(
+			String product,
+			String name,
+			String version,
+			int majorVersion,
+			int minorVersion)
 	{
-		final String product;
-		final String name;
-		final String version;
-		final int majorVersion;
-		final int minorVersion;
-
-		Product(
-				final String product,
-				final String name,
-				final String version,
-				final int majorVersion,
-				final int minorVersion)
-		{
-			this.product = product;
-			this.name = name;
-			this.version = version;
-			this.majorVersion = majorVersion;
-			this.minorVersion = minorVersion;
-		}
-
 		String getVersionDescription()
 		{
 			final String v = "(.*\\D|^)" + majorVersion + "\\." + minorVersion + "(\\D.*|$)";

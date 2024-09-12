@@ -452,15 +452,7 @@ final class QueryCache
 		}
 	}
 
-	private static final class Stamp
+	private record Stamp(long stamp, TIntArrayList types)
 	{
-		final long stamp;
-		final TIntArrayList types;
-
-		private Stamp(final long stamp, final TIntArrayList types)
-		{
-			this.stamp = stamp;
-			this.types = types;
-		}
 	}
 }

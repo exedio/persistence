@@ -70,15 +70,8 @@ public final class ChangeHooks
 		return new CascadeFactory(hooks);
 	}
 
-	private static final class CascadeFactory implements Factory
+	private record CascadeFactory(Factory[] hooks) implements Factory
 	{
-		private final Factory[] hooks;
-
-		CascadeFactory(final Factory[] hooks)
-		{
-			this.hooks = hooks;
-		}
-
 		@Override
 		public ChangeHook create(final Model model)
 		{

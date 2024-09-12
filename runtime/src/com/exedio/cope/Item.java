@@ -514,19 +514,10 @@ public abstract class Item implements Serializable, Comparable<Item>
 		type = TypesBound.forClass(getClass());
 	}
 
-	private static final class Serialized implements Serializable
+	private record Serialized(Type<?> type, long pk) implements Serializable
 	{
 		@Serial
 		private static final long serialVersionUID = 2l;
-
-		private final Type<?> type;
-		private final long pk;
-
-		Serialized(final Type<?> type, final long pk)
-		{
-			this.type = type;
-			this.pk = pk;
-		}
 
 		/**
 		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>

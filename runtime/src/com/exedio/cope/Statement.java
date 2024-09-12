@@ -479,16 +479,8 @@ final class Statement
 		}
 	}
 
-	private static class JoinType
+	private record JoinType(Join join, Type<?> type)
 	{
-		final Join join;
-		final Type<?> type;
-
-		JoinType(final Join join, final Type<?> type)
-		{
-			this.join = join;
-			this.type = type;
-		}
 	}
 
 	private void appendTableDefinition(final Join join, final Table table)

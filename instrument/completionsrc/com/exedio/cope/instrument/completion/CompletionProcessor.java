@@ -136,14 +136,11 @@ public class CompletionProcessor extends AbstractProcessor
 		return toCompletions(completionData);
 	}
 
-	private static final class CompletionCollector implements TypeVisitor<Void, Void>
+	private record CompletionCollector(Map<String, List<String>> completionData) implements TypeVisitor<Void, Void>
 	{
-		private final Map<String, List<String>> completionData;
-
 		@SuppressWarnings("unused")
-		private CompletionCollector(final Map<String, List<String>> completionData)
+		private CompletionCollector
 		{
-			this.completionData=completionData;
 		}
 
 		@Override

@@ -125,18 +125,11 @@ final class CharReplacements
 		return positionInInput+addedChars-droppedChars;
 	}
 
-	private static class Replacement
+	private record Replacement(int startInclusive, int endExclusive, String replacementString)
 	{
-		final int startInclusive;
-		final int endExclusive;
-		final String replacementString;
-
-		Replacement(final int startInclusive, final int endExclusive, final String replacementString)
+		private Replacement
 		{
 			if (startInclusive<0 || startInclusive>endExclusive) throw new RuntimeException(startInclusive + "-" + endExclusive);
-			this.startInclusive=startInclusive;
-			this.endExclusive=endExclusive;
-			this.replacementString=replacementString;
 		}
 
 		@Override
