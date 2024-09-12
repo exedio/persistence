@@ -702,7 +702,7 @@ public final class Model implements Serializable
 
 	public EnvironmentInfo getEnvironmentInfo()
 	{
-		return connect().database.probe.environmentInfo;
+		return connect().database.probe.environmentInfo();
 	}
 
 	// ----------------------- cluster

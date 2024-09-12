@@ -58,7 +58,7 @@ final class Database
 			final Collection<VaultConnect> vaults,
 			final RevisionsConnect revisions)
 	{
-		this.properties = probe.properties;
+		this.properties = probe.properties();
 		this.dsmfDialect = dsmfDialect;
 		this.probe = probe;
 		this.dialect = dialect;
