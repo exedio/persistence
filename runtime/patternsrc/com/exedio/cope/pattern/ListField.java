@@ -328,11 +328,11 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			}
 			else
 			{
-				final PatternItem tupel = actual.next();
-				final int currentOrder = this.order.get(tupel);
+				final PatternItem entry = actual.next();
+				final int currentOrder = this.order.get(entry);
 				assert order<=currentOrder : String.valueOf(order) + '/' + currentOrder;
 				order = currentOrder;
-				this.element.set(tupel, expected.next());
+				this.element.set(entry, expected.next());
 			}
 		}
 	}

@@ -365,14 +365,14 @@ public final class SetField<E> extends Pattern implements Copyable
 			element.check(e);
 		final ArrayList<PatternItem> toDeleteList = new ArrayList<>();
 
-		for(final PatternItem tupel : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final PatternItem entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 		{
-			final E element = this.element.get(tupel);
+			final E element = this.element.get(entry);
 
 			if(toCreateSet.contains(element))
 				toCreateSet.remove(element);
 			else
-				toDeleteList.add(tupel);
+				toDeleteList.add(entry);
 		}
 
 		final Iterator<? extends E> toCreate = toCreateSet.iterator();
@@ -407,10 +407,10 @@ public final class SetField<E> extends Pattern implements Copyable
 	{
 		final Mount mount = mount();
 
-		// TODO reuse tupels that can be reused
+		// TODO reuse entries that can be reused
 
-		for(final PatternItem tupel : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
-			tupel.deleteCopeItem();
+		for(final PatternItem entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+			entry.deleteCopeItem();
 
 		int order = 0;
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
