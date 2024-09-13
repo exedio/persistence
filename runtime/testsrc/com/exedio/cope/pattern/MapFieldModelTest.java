@@ -61,56 +61,56 @@ public class MapFieldModelTest
 		assertEquals(TYPE, nameParent().getValueType());
 		assertEquals("parent", nameParent().getName());
 		assertEquals(DeletePolicy.CASCADE, nameParent().getDeletePolicy());
-		assertSame(name.getRelationType(), nameParent().getType());
+		assertSame(name.getEntryType(), nameParent().getType());
 		assertEquals(null, nameParent().getPattern());
 		assertSame(nameParent(), name.getParent());
 
 		assertEquals(Language.class, name.getKey().getValueClass());
 		assertEquals("key", name.getKey().getName());
-		assertSame(name.getRelationType(), name.getKey().getType());
+		assertSame(name.getEntryType(), name.getKey().getType());
 		assertEquals(null, name.getKey().getPattern());
 
 		assertEqualsUnmodifiable(list(nameParent(), name.getKey()), name.getUniqueConstraint().getFields());
 		assertEquals("uniqueConstraint", name.getUniqueConstraint().getName());
-		assertSame(name.getRelationType(), name.getUniqueConstraint().getType());
+		assertSame(name.getEntryType(), name.getUniqueConstraint().getType());
 		assertEquals(list(nameParent(), name.getKey()), name.getUniqueConstraint().getFields());
 
 		assertEquals(String.class, name.getValue().getValueClass());
 		assertEquals("value", name.getValue().getName());
-		assertSame(name.getRelationType(), name.getValue().getType());
+		assertSame(name.getEntryType(), name.getValue().getType());
 		assertEquals(null, name.getValue().getPattern());
 
-		assertEquals("MapFieldItem-name", name.getRelationType().getID());
-		assertEquals(PatternItem.class, name.getRelationType().getJavaClass());
-		assertEquals(false, name.getRelationType().isBound());
-		assertSame(name, name.getRelationType().getPattern());
-		assertEquals(null, name.getRelationType().getSupertype());
-		assertEquals(list(), name.getRelationType().getSubtypes());
+		assertEquals("MapFieldItem-name", name.getEntryType().getID());
+		assertEquals(PatternItem.class, name.getEntryType().getJavaClass());
+		assertEquals(false, name.getEntryType().isBound());
+		assertSame(name, name.getEntryType().getPattern());
+		assertEquals(null, name.getEntryType().getSupertype());
+		assertEquals(list(), name.getEntryType().getSubtypes());
 		assertEqualsUnmodifiable(
 				list(
-						name.getRelationType().getThis(),
+						name.getEntryType().getThis(),
 						nameParent(), name.getKey(), name.getUniqueConstraint(),
 						name.getValue()),
-				name.getRelationType().getFeatures());
-		assertEquals(MODEL, name.getRelationType().getModel());
+				name.getEntryType().getFeatures());
+		assertEquals(MODEL, name.getEntryType().getModel());
 
 		assertEqualsUnmodifiable(list(TYPE.getThis(), name, nameLength, string, integer), TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(TYPE, name.getRelationType(), nameLength.getRelationType(), string.getRelationType(), integer.getRelationType()), MODEL.getTypes());
-		assertEqualsUnmodifiable(list(TYPE, name.getRelationType(), nameLength.getRelationType(), string.getRelationType(), integer.getRelationType()), MODEL.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(list(TYPE, name.getEntryType(), nameLength.getEntryType(), string.getEntryType(), integer.getEntryType()), MODEL.getTypes());
+		assertEqualsUnmodifiable(list(TYPE, name.getEntryType(), nameLength.getEntryType(), string.getEntryType(), integer.getEntryType()), MODEL.getTypesSortedByHierarchy());
 
-		assertEquals("MapFieldItem-name", name.getRelationType().getID());
+		assertEquals("MapFieldItem-name", name.getEntryType().getID());
 		assertEquals("MapFieldItem-name.parent", name.getParent(MapFieldItem.class).getID());
 		assertEquals("MapFieldItem-name.key", name.getKey().getID());
 		assertEquals("MapFieldItem-name.value", name.getValue().getID());
-		assertSame(name.getRelationType(), MODEL.getType("MapFieldItem-name"));
+		assertSame(name.getEntryType(), MODEL.getType("MapFieldItem-name"));
 		assertSame(name.getParent(MapFieldItem.class), MODEL.getFeature("MapFieldItem-name.parent"));
 		assertSame(name.getKey(), MODEL.getFeature("MapFieldItem-name.key"));
 		assertSame(name.getValue(), MODEL.getFeature("MapFieldItem-name.value"));
 
-		assertTrue(name      .getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(nameLength.getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(string    .getRelationType().isAnnotationPresent(Computed.class));
-		assertTrue(integer   .getRelationType().isAnnotationPresent(Computed.class));
+		assertTrue(name      .getEntryType().isAnnotationPresent(Computed.class));
+		assertTrue(nameLength.getEntryType().isAnnotationPresent(Computed.class));
+		assertTrue(string    .getEntryType().isAnnotationPresent(Computed.class));
+		assertTrue(integer   .getEntryType().isAnnotationPresent(Computed.class));
 
 		assertEquals(Language.class, name.getKeyClass());
 		assertEquals(String.class, name.getValueClass());

@@ -290,17 +290,17 @@ public final class DynamicModel<L> extends Pattern
 
 	public com.exedio.cope.Type<?> getTypeLocalizationType()
 	{
-		return typeLocalization.getRelationType();
+		return typeLocalization.getEntryType();
 	}
 
 	public com.exedio.cope.Type<?> getFieldLocalizationType()
 	{
-		return fieldLocalization.getRelationType();
+		return fieldLocalization.getEntryType();
 	}
 
 	public com.exedio.cope.Type<?> getEnumLocalizationType()
 	{
-		return enumLocalization.getRelationType();
+		return enumLocalization.getEntryType();
 	}
 
 	public ItemField<Type<L>> getTypeField()
