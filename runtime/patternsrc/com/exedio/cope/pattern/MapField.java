@@ -107,20 +107,20 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("value", value);
 		CopyFields.onMountAll(features, parent, new FunctionField<?>[]{key, value}, new CopyFields[]{keyCopyWiths, valueCopyWiths});
-		final Type<PatternItem> relationType = newSourceType(PatternItem.class, PatternItem::new, features);
-		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
+		final Type<PatternItem> entryType = newSourceType(PatternItem.class, PatternItem::new, features);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueConstraint,
-			Type<PatternItem> relationType)
+			Type<PatternItem> entryType)
 	{
 		Mount
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
-			assert relationType!=null;
+			assert entryType!=null;
 		}
 	}
 
@@ -181,7 +181,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	public Type<?> getEntryType()
 	{
-		return mount().relationType;
+		return mount().entryType;
 	}
 
 	@Override
@@ -219,7 +219,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		if(relationItem==null)
 		{
 			if(value!=null)
-				mount.relationType.newItem(
+				mount.entryType.newItem(
 						Cope.mapAndCast(mount.parent, item),
 						map(this.key, key),
 						map(this.value, value)
@@ -241,7 +241,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	{
 		final Mount mount = mount();
 		final LinkedHashMap<K,V> result = new LinkedHashMap<>();
-		final Query<PatternItem> query = mount.relationType.newQuery(Cope.equalAndCast(mount.parent, item));
+		final Query<PatternItem> query = mount.entryType.newQuery(Cope.equalAndCast(mount.parent, item));
 		query.setOrderBy(key, true);
 		for(final PatternItem relationItem : query.search())
 			result.put(key.get(relationItem), value.get(relationItem));
@@ -263,7 +263,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		final Mount mount = mount();
 		final HashMap<K,V> done = new HashMap<>();
 
-		for(final PatternItem relationItem : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final PatternItem relationItem : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 		{
 			final K key = this.key.get(relationItem);
 			if(map.containsKey(key))
@@ -277,7 +277,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		{
 			final K key = entry.getKey();
 			if(!done.containsKey(key))
-				mount.relationType.newItem(
+				mount.entryType.newItem(
 						Cope.mapAndCast(mount.parent, item),
 						map(this.key, key),
 						map(this.value, entry.getValue()));
