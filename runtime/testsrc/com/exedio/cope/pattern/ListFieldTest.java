@@ -161,7 +161,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals("itemsSameValue", itemsSameValue.getName());
 
 		assertEquals("ListFieldItem-strings", stringsType.getID());
-		assertEquals(PatternItem.class, stringsType.getJavaClass());
+		assertEquals(Entry.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.isBound());
 		assertSame(strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
@@ -175,7 +175,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(Integer.MAX_VALUE, stringsOrder.getMaximum());
 
 		assertEquals("ListFieldItem-dates", datesType.getID());
-		assertEquals(PatternItem.class, datesType.getJavaClass());
+		assertEquals(Entry.class, datesType.getJavaClass());
 		assertEquals(false, datesType.isBound());
 		assertSame(dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
@@ -186,7 +186,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(model, datesType.getModel());
 
 		assertEquals("ListFieldItem-items", itemsType.getID());
-		assertEquals(PatternItem.class, itemsType.getJavaClass());
+		assertEquals(Entry.class, itemsType.getJavaClass());
 		assertEquals(false, itemsType.isBound());
 		assertSame(items, itemsType.getPattern());
 		assertEquals(null, itemsType.getSupertype());
@@ -197,7 +197,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(model, itemsType.getModel());
 
 		assertEquals("ListFieldItem-itemsSameValue", itemsSameValueType.getID());
-		assertEquals(PatternItem.class, itemsSameValueType.getJavaClass());
+		assertEquals(Entry.class, itemsSameValueType.getJavaClass());
 		assertEquals(false, itemsSameValueType.isBound());
 		assertSame(itemsSameValue, itemsSameValueType.getPattern());
 		assertEquals(null, itemsSameValueType.getSupertype());

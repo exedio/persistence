@@ -81,7 +81,7 @@ public class MapFieldModelTest
 		assertEquals(null, name.getValue().getPattern());
 
 		assertEquals("MapFieldItem-name", name.getEntryType().getID());
-		assertEquals(PatternItem.class, name.getEntryType().getJavaClass());
+		assertEquals(Entry.class, name.getEntryType().getJavaClass());
 		assertEquals(false, name.getEntryType().isBound());
 		assertSame(name, name.getEntryType().getPattern());
 		assertEquals(null, name.getEntryType().getSupertype());

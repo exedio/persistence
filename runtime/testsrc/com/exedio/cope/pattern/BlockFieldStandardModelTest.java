@@ -183,8 +183,8 @@ public class BlockFieldStandardModelTest
 				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList.SourceType",
 				"BlockFieldStandardModelTest.ABlock.aList.SourceType",
 				"aList.SourceType",
-				"com.exedio.cope.pattern.PatternItem",
-				"PatternItem"),
+				"com.exedio.cope.pattern.Entry",
+				"Entry"),
 				eins.of(aList).getEntryType().getLocalizationKeys());
 		assertFails(
 				aList::getEntryType,
@@ -196,8 +196,8 @@ public class BlockFieldStandardModelTest
 				"com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList.SourceType.order",
 				"BlockFieldStandardModelTest.ABlock.aList.SourceType.order",
 				"aList.SourceType.order",
-				"com.exedio.cope.pattern.PatternItem.order",
-				"PatternItem.order",
+				"com.exedio.cope.pattern.Entry.order",
+				"Entry.order",
 				"order"),
 				eins.of(aList).getOrder().getLocalizationKeys());
 		final IntegerField aListOrder = aList.getOrder();

@@ -138,7 +138,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueElement);
 		copyWith.onMount(features, parent, element);
-		final Type<PatternItem> entryType = newSourceType(PatternItem.class, PatternItem::new, features);
+		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, entryType);
 	}
 
@@ -146,7 +146,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			ItemField<?> parent,
 			UniqueConstraint uniqueOrder,
 			UniqueConstraint uniqueElement,
-			Type<PatternItem> entryType)
+			Type<Entry> entryType)
 	{
 		Mount
 		{
@@ -363,9 +363,9 @@ public final class SetField<E> extends Pattern implements Copyable
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
 		for(final E e : toCreateSet)
 			element.check(e);
-		final ArrayList<PatternItem> toDeleteList = new ArrayList<>();
+		final ArrayList<Entry> toDeleteList = new ArrayList<>();
 
-		for(final PatternItem entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final Entry entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 		{
 			final E element = this.element.get(entry);
 
@@ -376,7 +376,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		}
 
 		final Iterator<? extends E> toCreate = toCreateSet.iterator();
-		final Iterator<PatternItem> toDelete = toDeleteList.iterator();
+		final Iterator<Entry> toDelete = toDeleteList.iterator();
 		while(true)
 		{
 			if(!toDelete.hasNext())
@@ -409,7 +409,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 		// TODO reuse entries that can be reused
 
-		for(final PatternItem entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final Entry entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
 			entry.deleteCopeItem();
 
 		int order = 0;

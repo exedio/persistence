@@ -95,7 +95,7 @@ public class SetFieldModelTest
 		assertEquals("dates", dates.getName());
 
 		assertEquals("SetFieldItem-strings", stringsType.getID());
-		assertEquals(PatternItem.class, stringsType.getJavaClass());
+		assertEquals(Entry.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.isBound());
 		assertSame(strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
@@ -106,7 +106,7 @@ public class SetFieldModelTest
 		assertEquals(MODEL, stringsType.getModel());
 
 		assertEquals("SetFieldItem-dates", datesType.getID());
-		assertEquals(PatternItem.class, datesType.getJavaClass());
+		assertEquals(Entry.class, datesType.getJavaClass());
 		assertEquals(false, datesType.isBound());
 		assertSame(dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
@@ -264,15 +264,15 @@ public class SetFieldModelTest
 				"com.exedio.cope.pattern.SetFieldItem.strings.SourceType",
 				"SetFieldItem.strings.SourceType",
 				"strings.SourceType",
-				"com.exedio.cope.pattern.PatternItem",
-				"PatternItem"),
+				"com.exedio.cope.pattern.Entry",
+				"Entry"),
 				stringsType.getLocalizationKeys());
 		assertEquals(List.of(
 				"com.exedio.cope.pattern.SetFieldItem.strings.SourceType.element",
 				"SetFieldItem.strings.SourceType.element",
 				"strings.SourceType.element",
-				"com.exedio.cope.pattern.PatternItem.element",
-				"PatternItem.element",
+				"com.exedio.cope.pattern.Entry.element",
+				"Entry.element",
 				"element"),
 				stringsElement.getLocalizationKeys());
 	}
