@@ -43,7 +43,7 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 
 	@Test void copyMustNotIncludeCopyConstraintsOfTemplates()
 	{
-		final Type<?> listRelationType = ItemWithComplexTemplate.list.getRelationType();
+		final Type<?> listRelationType = ItemWithComplexTemplate.list.getEntryType();
 		final CopyConstraint ccListParent = (CopyConstraint)listRelationType.getFeature("valueCopyFromparent");
 		final CopyConstraint ccListElement = (CopyConstraint)listRelationType.getFeature("valueCopyFromelement");
 		assertEquals(asList(ccListParent, ccListElement), listRelationType.getDeclaredCopyConstraints());

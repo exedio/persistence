@@ -149,7 +149,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 
 	private static List<? extends Item> getItems(final ListField<?> f, final Item parent)
 	{
-		final Query<? extends Item> q = new Query<>(f.getRelationType().getThis(), Cope.equalAndCast(f.getParent(), parent));
+		final Query<? extends Item> q = new Query<>(f.getEntryType().getThis(), Cope.equalAndCast(f.getParent(), parent));
 		q.setOrderBy(f.getOrder(), true);
 		return q.search();
 	}

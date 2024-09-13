@@ -65,8 +65,8 @@ import org.junit.jupiter.api.Test;
 
 public class ListFieldTest extends TestWithEnvironment
 {
-	private static final CopyConstraint copyParent = (CopyConstraint)itemsSameValue.getRelationType().getFeature("valueCopyFromparent");
-	private static final CopyConstraint copyElement = (CopyConstraint)itemsSameValue.getRelationType().getFeature("valueCopyFromelement");
+	private static final CopyConstraint copyParent = (CopyConstraint)itemsSameValue.getEntryType().getFeature("valueCopyFromparent");
+	private static final CopyConstraint copyElement = (CopyConstraint)itemsSameValue.getEntryType().getFeature("valueCopyFromelement");
 
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);
@@ -85,10 +85,10 @@ public class ListFieldTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		final Type<?> stringsType = strings.getRelationType();
-		final Type<?> datesType = dates.getRelationType();
-		final Type<?> itemsType = items.getRelationType();
-		final Type<?> itemsSameValueType = itemsSameValue.getRelationType();
+		final Type<?> stringsType = strings.getEntryType();
+		final Type<?> datesType = dates.getEntryType();
+		final Type<?> itemsType = items.getEntryType();
+		final Type<?> itemsSameValueType = itemsSameValue.getEntryType();
 		final IntegerField stringsOrder = strings.getOrder();
 		final FunctionField<String> stringsElement = strings.getElement();
 
@@ -622,7 +622,7 @@ public class ListFieldTest extends TestWithEnvironment
 
 	@Test void testCheckSetFieldCopyConstraint()
 	{
-		final Type<? extends Item> itemsSameValueType = itemsSameValue.getRelationType();
+		final Type<? extends Item> itemsSameValueType = itemsSameValue.getEntryType();
 		assertEquals(asList(copyParent, copyElement), itemsSameValueType.getDeclaredCopyConstraints());
 		assertEquals(0, copyParent.check());
 		assertEquals(0, copyElement.check());

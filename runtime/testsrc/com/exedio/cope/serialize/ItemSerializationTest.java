@@ -84,13 +84,13 @@ public class ItemSerializationTest extends TestWithEnvironment
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =
-			list.getRelationType().searchSingleton(listParent().equal(item));
+			list.getEntryType().searchSingleton(listParent().equal(item));
 		final String id = unboundItem.getCopeID();
-		assertEquals(list.getRelationType(), unboundItem.getCopeType());
+		assertEquals(list.getEntryType(), unboundItem.getCopeType());
 
 		final Item readItem = reserialize(unboundItem, 394);
 		assertEquals(id, readItem.getCopeID());
-		assertSame(list.getRelationType(), readItem.getCopeType());
+		assertSame(list.getEntryType(), readItem.getCopeType());
 		assertEquals("zack", list.getElement().get(readItem));
 		assertEquals(unboundItem, readItem);
 		assertEquals(unboundItem.hashCode(), readItem.hashCode());

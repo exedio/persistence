@@ -54,7 +54,7 @@ public class ListFieldTest2 extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		final Type<?> type = strings.getRelationType();
+		final Type<?> type = strings.getEntryType();
 		final IntegerField order = strings.getOrder();
 		final FunctionField<String> element = strings.getElement();
 
