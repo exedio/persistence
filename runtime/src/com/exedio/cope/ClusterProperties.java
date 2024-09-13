@@ -288,19 +288,15 @@ final class ClusterProperties extends Properties
 				result.setTrafficClass(sendTraffic);
 			if(!sendLoopback)
 			{
-				// The semantics of IP_MULTICAST_LOOP changes between jdk versions:
-				// * on jdk 11 the default value of IP_MULTICAST_LOOP is false, which means loopback is enabled. To disable
-				//   it, you have to set it to true. That contradicts the documentation.
-				// * on jdk 17 the default value of IP_MULTICAST_LOOP is true, which means loopback is enabled. To disable
+				// The default value of IP_MULTICAST_LOOP is true, which means loopback is enabled. To disable
 				//   it, you have to set it to false. That conforms to the documentation.
-				// To be portable between jdk versions we will just negate the default value.
 				//
 				// Apart from that, get/setOption with IP_MULTICAST_LOOP requires the socket to be a MulticastSocket
 				// on JDK 11, but not on JDK 17.
-				final boolean value = !result.getOption(IP_MULTICAST_LOOP);
+				final boolean value = false;
 				result.setOption(IP_MULTICAST_LOOP, value);
 				if(result.getOption(IP_MULTICAST_LOOP)!=value)
-					logger.error("disabling send IP_MULTICAST_LOOP ({}) was ignored by MulticastSocket", value);
+					logger.error("disabling send IP_MULTICAST_LOOP was ignored by MulticastSocket");
 			}
 			return result;
 		}
