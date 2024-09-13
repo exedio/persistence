@@ -272,16 +272,16 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			@Parameter(nullability=NullableIfElementOptional.class) final E element)
 	{
 		final Mount mount = mount();
-		final List<PatternItem> rows =
+		final List<PatternItem> entries =
 				mount.entryType.search(Cope.and(
 						Cope.equalAndCast(mount.parent, item),
 						this.element.equal(element)));
 
-		if(rows.isEmpty())
+		if(entries.isEmpty())
 			return false;
 
-		for(final PatternItem row : rows)
-			row.deleteCopeItem();
+		for(final PatternItem entry : entries)
+			entry.deleteCopeItem();
 
 		return true;
 	}
