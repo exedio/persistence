@@ -51,9 +51,9 @@ public class SetFieldModelTest
 		MODEL.enableSerialization(SetFieldModelTest.class, "MODEL");
 	}
 
-	static final Type<?> stringsType = strings.getRelationType();
+	static final Type<?> stringsType = strings.getEntryType();
 	static final FunctionField<String> stringsElement = strings.getElement();
-	static final Type<?> datesType = dates.getRelationType();
+	static final Type<?> datesType = dates.getEntryType();
 
 	@Test void testModel()
 	{

@@ -88,7 +88,7 @@ public class TypesBoundAnnotationTest
 		assertTestAnnotationNull(AnItem.boolField);
 		assertTestAnnotation2(AnItem.boolField);
 		assertTestAnnotation("setFieldAnnVal",  AnItem.setField);
-		assertTestAnnotationNull(AnItem.setField.getRelationType());
+		assertTestAnnotationNull(AnItem.setField.getEntryType());
 		assertTestAnnotationNull(AnItem.setField.getElement());
 	}
 

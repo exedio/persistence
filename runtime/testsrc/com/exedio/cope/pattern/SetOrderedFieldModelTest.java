@@ -43,7 +43,7 @@ public class SetOrderedFieldModelTest
 		MODEL.enableSerialization(SetOrderedFieldModelTest.class, "MODEL");
 	}
 
-	static final Type<?> stringsType = strings.getRelationType();
+	static final Type<?> stringsType = strings.getEntryType();
 	static final IntegerField stringsOrder = strings.getOrder();
 	static final FunctionField<String> stringsElement = strings.getElement();
 

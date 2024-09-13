@@ -48,10 +48,10 @@ public class SetFieldCopyTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(Catalog.TYPE, ParentInCatalog.TYPE, ElementInCatalog.TYPE, ParentWithNumber.TYPE, ElementWithNumber.TYPE);
 
-	private static final CopyConstraint constraintCatalogParent = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("copeNameCatalogCopyFromparent");
-	private static final CopyConstraint constraintCatalogElement = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("copeNameCatalogCopyFromelement");
-	private static final CopyConstraint constraintNumberParent = (CopyConstraint)ParentWithNumber.elements.getRelationType().getFeature("numberCopyFromparent");
-	private static final CopyConstraint constraintNumberElement = (CopyConstraint)ParentWithNumber.elements.getRelationType().getFeature("numberCopyFromelement");
+	private static final CopyConstraint constraintCatalogParent = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getEntryType().getFeature("copeNameCatalogCopyFromparent");
+	private static final CopyConstraint constraintCatalogElement = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getEntryType().getFeature("copeNameCatalogCopyFromelement");
+	private static final CopyConstraint constraintNumberParent = (CopyConstraint)ParentWithNumber.elements.getEntryType().getFeature("numberCopyFromparent");
+	private static final CopyConstraint constraintNumberElement = (CopyConstraint)ParentWithNumber.elements.getEntryType().getFeature("numberCopyFromelement");
 
 	public SetFieldCopyTest()
 	{
@@ -77,7 +77,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		final ParentInCatalog p = new ParentInCatalog(c);
 		final ElementInCatalog e = new ElementInCatalog(c);
 		assertEquals(true, p.addToElementsSameCatalog(e));
-		final Item relationItem = ParentInCatalog.elementsSameCatalog.getRelationType().searchSingletonStrict(
+		final Item relationItem = ParentInCatalog.elementsSameCatalog.getEntryType().searchSingletonStrict(
 			ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog).equal(c)
 		);
 		assertEquals(c, ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog).get(relationItem));

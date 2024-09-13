@@ -64,7 +64,7 @@ public class SetFieldCopyModelTest
 
 	@Test void testCopyConstraints()
 	{
-		final Type<? extends Item> relationType = SetFieldItemWithCopyConstraints.sameAAndB.getRelationType();
+		final Type<? extends Item> relationType = SetFieldItemWithCopyConstraints.sameAAndB.getEntryType();
 		final CopyConstraint copyAParent = (CopyConstraint)relationType.getFeature("aCopyFromparent");
 		final CopyConstraint copyAElement = (CopyConstraint)relationType.getFeature("aCopyFromelement");
 		final CopyConstraint copyBParent = (CopyConstraint)relationType.getFeature("bCopyFromparent");
@@ -117,10 +117,10 @@ public class SetFieldCopyModelTest
 		final FunctionField<String> aCopy = SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.a);
 		final FunctionField<String> bCopy = SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.b);
 		assertEquals("a", aCopy.getName());
-		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getRelationType(), aCopy.getType());
+		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getEntryType(), aCopy.getType());
 		assertEquals(
 			asList(SetFieldItemWithCopyConstraints.sameAAndB.getParent(), SetFieldItemWithCopyConstraints.sameAAndB.getElement(), aCopy, bCopy),
-			SetFieldItemWithCopyConstraints.sameAAndB.getRelationType().getFields()
+			SetFieldItemWithCopyConstraints.sameAAndB.getEntryType().getFields()
 		);
 		assertFails(
 				() -> SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(aCopy),
