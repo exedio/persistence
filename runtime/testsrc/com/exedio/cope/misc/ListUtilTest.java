@@ -44,7 +44,7 @@ public class ListUtilTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.util.ArrayList.size()\" because \"list\" is null", e.getMessage());
 		}
 	}
 

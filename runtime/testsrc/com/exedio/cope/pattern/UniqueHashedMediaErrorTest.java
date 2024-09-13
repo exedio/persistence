@@ -43,7 +43,7 @@ public class UniqueHashedMediaErrorTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.pattern.Media.isMandatory()\" because \"mediaTemplate\" is null", e.getMessage());
 		}
 	}
 

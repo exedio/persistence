@@ -93,15 +93,15 @@ public class StringConditionOfflineTest
 	@Test void testConditionsConvenienceNull()
 	{
 		final StringField f = new StringField();
-		assertFails(() -> f.startsWith(null), NullPointerException.class, null);
-		assertFails(() -> f.  endsWith(null), NullPointerException.class, null);
-		assertFails(() -> f.  contains(null), NullPointerException.class, null);
-		assertFails(() -> f.     equalIgnoreCase((String)null), NullPointerException.class, null);
+		assertFails(() -> f.startsWith(null), NullPointerException.class, "Cannot invoke \"String.replaceAll(String, String)\" because \"value\" is null");
+		assertFails(() -> f.  endsWith(null), NullPointerException.class, "Cannot invoke \"String.replaceAll(String, String)\" because \"value\" is null");
+		assertFails(() -> f.  contains(null), NullPointerException.class, "Cannot invoke \"String.replaceAll(String, String)\" because \"value\" is null");
+		assertFails(() -> f.     equalIgnoreCase((String)null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
 		assertFails(() -> f.     equalIgnoreCase((Function<String>)null), NullPointerException.class, "sources[0]");
-		assertFails(() -> f.      likeIgnoreCase(null), NullPointerException.class, null);
-		assertFails(() -> f.startsWithIgnoreCase(null), NullPointerException.class, null);
-		assertFails(() -> f.  endsWithIgnoreCase(null), NullPointerException.class, null);
-		assertFails(() -> f.  containsIgnoreCase(null), NullPointerException.class, null);
+		assertFails(() -> f.      likeIgnoreCase(null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
+		assertFails(() -> f.startsWithIgnoreCase(null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
+		assertFails(() -> f.  endsWithIgnoreCase(null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
+		assertFails(() -> f.  containsIgnoreCase(null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
 	}
 
 	@Test void testRegexp()

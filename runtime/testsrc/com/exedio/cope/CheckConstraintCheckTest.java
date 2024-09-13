@@ -84,7 +84,7 @@ public class CheckConstraintCheckTest
 		assertFails(
 				() -> cc.check((Map<FunctionField<?>, Object>)null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"java.util.Map.size()\" because \"m\" is null");
 	}
 
 	private static final StringField c = new StringField();

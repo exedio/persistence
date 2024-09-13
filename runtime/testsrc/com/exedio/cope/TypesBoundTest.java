@@ -116,7 +116,7 @@ public class TypesBoundTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read field \"supertypes\" because \"type\" is null", e.getMessage());
 		}
 		assertTrue(type.isAssignableFrom(type));
 

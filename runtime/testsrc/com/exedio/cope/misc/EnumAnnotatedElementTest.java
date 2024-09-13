@@ -51,7 +51,7 @@ public class EnumAnnotatedElementTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.lang.Enum.getDeclaringClass()\" because \"e\" is null", e.getMessage());
 		}
 	}
 }

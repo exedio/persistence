@@ -361,7 +361,7 @@ public class RevisionInfoTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read the array length because \"info\" is null", e.getMessage());
 		}
 	}
 

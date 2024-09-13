@@ -57,7 +57,7 @@ public class ConditionsTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.Condition.and(com.exedio.cope.Condition)\" because \"left\" is null", e.getMessage());
 		}
 		try
 		{
@@ -87,7 +87,7 @@ public class ConditionsTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.Condition.not()\" because \"premises\" is null", e.getMessage());
 		}
 		try
 		{
@@ -123,7 +123,7 @@ public class ConditionsTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.util.List.size()\" because \"functions\" is null", e.getMessage());
 		}
 	}
 

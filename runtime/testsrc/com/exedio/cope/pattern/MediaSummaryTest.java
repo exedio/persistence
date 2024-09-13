@@ -53,7 +53,7 @@ public class MediaSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read the array length because \"<local12>\" is null", e.getMessage());
 		}
 	}
 
@@ -67,7 +67,7 @@ public class MediaSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.pattern.MediaInfo.getRedirectFrom()\" because \"info\" is null", e.getMessage());
 		}
 	}
 

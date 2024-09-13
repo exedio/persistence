@@ -57,7 +57,7 @@ public class ColorFieldRgbTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"java.awt.Color.getRGB()\" because \"color\" is null", e.getMessage());
 		}
 	}
 

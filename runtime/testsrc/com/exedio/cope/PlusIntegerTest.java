@@ -110,7 +110,7 @@ public class PlusIntegerTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.Function.getValueClass()\" because \"left\" is null", e.getMessage());
 		}
 		try
 		{
@@ -127,7 +127,7 @@ public class PlusIntegerTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.Function.getValueClass()\" because \"left\" is null", e.getMessage());
 		}
 		try
 		{

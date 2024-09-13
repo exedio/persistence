@@ -163,10 +163,10 @@ public class MediaQueryContentTypeTest extends TestWithEnvironment
 
 		// contentTypeIn special cases
 
-		assertFails(() -> MyItem.def.contentTypeIn((String[])null), NullPointerException.class, null);
-		assertFails(() -> MyItem.enu.contentTypeIn((String[])null), NullPointerException.class, null);
-		assertFails(() -> MyItem.sub.contentTypeIn((String[])null), NullPointerException.class, null);
-		assertFails(() -> MyItem.fix.contentTypeIn((String[])null), NullPointerException.class, null);
+		assertFails(() -> MyItem.def.contentTypeIn((String[])null), NullPointerException.class, "Cannot read the array length because \"values\" is null");
+		assertFails(() -> MyItem.enu.contentTypeIn((String[])null), NullPointerException.class, "Cannot read the array length because \"contentTypes\" is null");
+		assertFails(() -> MyItem.sub.contentTypeIn((String[])null), NullPointerException.class, "Cannot read the array length because \"contentTypes\" is null");
+		assertFails(() -> MyItem.fix.contentTypeIn((String[])null), NullPointerException.class, "Cannot read the array length because \"<local5>\" is null");
 
 		assertEquals(defN.toString(), MyItem.def.contentTypeIn((String)null).toString());
 		assertEquals(enuN.toString(), MyItem.enu.contentTypeIn((String)null).toString());

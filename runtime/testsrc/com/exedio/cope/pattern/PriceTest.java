@@ -343,7 +343,7 @@ public class PriceTest
 		assertValueOfIllegal(bd(MIN_STORE, 2).subtract(bd(1, 2)), "too small: -92233720368547758.08");
 		assertFails(() ->
 			valueOf(null),
-			NullPointerException.class, null);
+			NullPointerException.class, "Cannot invoke \"java.math.BigDecimal.compareTo(java.math.BigDecimal)\" because \"value\" is null");
 	}
 
 	private static BigDecimal bd(final long unscaledVal, final int scale)
@@ -817,14 +817,14 @@ public class PriceTest
 		df.setParseBigDecimal(true);
 		assertFails(() ->
 			parse(null, df),
-			NullPointerException.class, null);
+			NullPointerException.class, "Cannot invoke \"String.regionMatches(int, String, int, int)\" because \"text\" is null");
 	}
 
 	@Test void testParseNullFormat()
 	{
 		assertFails(() ->
 			parse("1.00", null),
-			NullPointerException.class, null);
+			NullPointerException.class, "Cannot invoke \"java.text.DecimalFormat.isParseBigDecimal()\" because \"format\" is null");
 	}
 
 	@Test void testFormatSymbolsReal()

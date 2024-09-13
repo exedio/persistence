@@ -100,7 +100,7 @@ public class MinusDoubleTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.Function.getValueClass()\" because \"minuend\" is null", e.getMessage());
 		}
 		try
 		{

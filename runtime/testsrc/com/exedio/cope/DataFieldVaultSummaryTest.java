@@ -51,7 +51,7 @@ public class DataFieldVaultSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read the array length because \"<local10>\" is null", e.getMessage());
 		}
 	}
 
@@ -65,7 +65,7 @@ public class DataFieldVaultSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.DataFieldVaultInfo.getGetBytesCount()\" because \"info\" is null", e.getMessage());
 		}
 	}
 

@@ -235,7 +235,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"String.getBytes(java.nio.charset.Charset)\" because \"plainText\" is null", e.getMessage());
 		}
 		try
 		{
@@ -244,7 +244,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"String.getBytes(java.nio.charset.Charset)\" because \"plainText\" is null", e.getMessage());
 		}
 		try
 		{

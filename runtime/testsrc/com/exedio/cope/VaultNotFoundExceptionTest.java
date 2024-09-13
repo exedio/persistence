@@ -87,7 +87,7 @@ public class VaultNotFoundExceptionTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"String.equals(Object)\" because \"hash\" is null", e.getMessage());
 		}
 	}
 

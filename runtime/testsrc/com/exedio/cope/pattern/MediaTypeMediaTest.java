@@ -177,7 +177,7 @@ public class MediaTypeMediaTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.pattern.Media.checkContentType(String)\" because \"media\" is null", e.getMessage());
 		}
 	}
 }

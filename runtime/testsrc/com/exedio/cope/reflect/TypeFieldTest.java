@@ -156,7 +156,7 @@ public class TypeFieldTest extends TestWithEnvironment
 		assertFails(
 				() -> forUnique(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"com.exedio.cope.Type.getID()\" because \"value\" is null");
 	}
 
 	@Test void testRestrictionViolatedExecute()

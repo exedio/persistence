@@ -159,7 +159,7 @@ public class PriceFieldModelTest
 		assertFails(
 				() -> f.min(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"com.exedio.cope.pattern.Price.store()\" because \"minimum\" is null");
 	}
 
 	@Test void testMax()
@@ -173,7 +173,7 @@ public class PriceFieldModelTest
 		assertFails(
 				() -> f.max(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"com.exedio.cope.pattern.Price.store()\" because \"maximum\" is null");
 	}
 
 	@Test void testRange()
@@ -187,11 +187,11 @@ public class PriceFieldModelTest
 		assertFails(
 				() -> f.range(null, Price.ZERO),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"com.exedio.cope.pattern.Price.store()\" because \"minimum\" is null");
 		assertFails(
 				() -> f.range(Price.ZERO, null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"com.exedio.cope.pattern.Price.store()\" because \"maximum\" is null");
 		final PriceField redundant = f.rangeEvenIfRedundant(Price.ZERO, Price.ZERO);
 		assertEquals(Price.ZERO, redundant.getMinimum());
 		assertEquals(Price.ZERO, redundant.getMinimum());
@@ -215,6 +215,6 @@ public class PriceFieldModelTest
 		assertFails(
 				() -> f.defaultTo(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"com.exedio.cope.pattern.Price.store()\" because \"defaultConstant\" is null");
 	}
 }

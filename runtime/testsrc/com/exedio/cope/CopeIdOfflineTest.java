@@ -143,13 +143,13 @@ public class CopeIdOfflineTest
 		com.exedio.cope.tojunit.Assert.assertFails(
 				() -> MODEL.getItem(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"String.lastIndexOf(int)\" because \"id\" is null");
 	}
 	@Test void testIdNullType()
 	{
 		com.exedio.cope.tojunit.Assert.assertFails(
 				() -> MODEL.getTypeByItemID(null),
 				NullPointerException.class,
-				null);
+				"Cannot invoke \"String.lastIndexOf(int)\" because \"id\" is null");
 	}
 }

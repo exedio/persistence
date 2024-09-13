@@ -69,7 +69,7 @@ public class ItemCacheSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read the array length because \"<local20>\" is null", e.getMessage());
 		}
 	}
 
@@ -83,7 +83,7 @@ public class ItemCacheSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.ItemCacheInfo.getLevel()\" because \"info\" is null", e.getMessage());
 		}
 	}
 

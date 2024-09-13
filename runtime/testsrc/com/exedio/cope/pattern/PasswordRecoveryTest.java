@@ -419,7 +419,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot invoke \"com.exedio.cope.pattern.PasswordRecovery$Config.getExpiry()\" because \"config\" is null", e.getMessage());
 		}
 	}
 

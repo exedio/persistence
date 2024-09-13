@@ -89,7 +89,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("Cannot read field \"pk\" because \"item\" is null", e.getMessage());
 		}
 
 		// with sub types
@@ -102,7 +102,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", getForeignKeyConstraintName(InstanceOfRefItem.ref));
 
-		assertFails (                  () -> getSuperForeignKeyConstraintName(null), NullPointerException.class, null);
+		assertFails (                  () -> getSuperForeignKeyConstraintName(null), NullPointerException.class, "Cannot read field \"table\" because \"type\" is null");
 		assertFails (                  () -> getSuperForeignKeyConstraintName(InstanceOfAItem.TYPE), IllegalArgumentException.class, "no super type for InstanceOfAItem");
 		assertEquals("InstanceOfB1Item_Sup", getSuperForeignKeyConstraintName(InstanceOfB1Item.TYPE));
 		assertEquals("InstanceOfB2Item_Sup", getSuperForeignKeyConstraintName(InstanceOfB2Item.TYPE));
