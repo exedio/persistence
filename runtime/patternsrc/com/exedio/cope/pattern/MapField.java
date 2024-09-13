@@ -296,9 +296,10 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	public Join join(final Query<?> q, final K key)
 	{
+		final Mount mount = mount();
 		return q.joinOuterLeft(
-				getEntryType(),
-				mount().parent.equalTarget().
+				mount.entryType,
+				mount.parent.equalTarget().
 					and(this.key.equal(key)));
 	}
 }
