@@ -49,21 +49,21 @@ public class FindItemPatternTest extends TestWithEnvironment
 
 	@Test void test() throws NoSuchIDException
 	{
-		final List<? extends Item> items = strings.getEntryType().search(
+		final List<? extends Item> entries = strings.getEntryType().search(
 				stringsParent().equal(item),
 				strings.getOrder(),
 				true);
-		final Item item0 = items.get(0);
-		final Item item1 = items.get(1);
-		final Item item2 = items.get(2);
+		final Item entry0 = entries.get(0);
+		final Item entry1 = entries.get(1);
+		final Item entry2 = entries.get(2);
 
-		assertEquals("ListFieldItem-strings-0", item0.getCopeID());
-		assertEquals("ListFieldItem-strings-1", item1.getCopeID());
-		assertEquals("ListFieldItem-strings-2", item2.getCopeID());
+		assertEquals("ListFieldItem-strings-0", entry0.getCopeID());
+		assertEquals("ListFieldItem-strings-1", entry1.getCopeID());
+		assertEquals("ListFieldItem-strings-2", entry2.getCopeID());
 
-		assertSame(item0, model.getItem("ListFieldItem-strings-0")); // important to test with zero as well
-		assertSame(item1, model.getItem("ListFieldItem-strings-1"));
-		assertSame(item2, model.getItem("ListFieldItem-strings-2"));
+		assertSame(entry0, model.getItem("ListFieldItem-strings-0")); // important to test with zero as well
+		assertSame(entry1, model.getItem("ListFieldItem-strings-1"));
+		assertSame(entry2, model.getItem("ListFieldItem-strings-2"));
 
 		assertIDFails("ListFieldItem-strings-10", "item <10> does not exist", false);
 		assertIDFails("ListFieldItem-strings10",  "wrong number format <strings10>", true);
