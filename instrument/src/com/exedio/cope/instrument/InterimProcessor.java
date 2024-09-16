@@ -75,7 +75,7 @@ final class InterimProcessor extends JavacProcessor
 			Tree.Kind.CLASS.name(),
 			Tree.Kind.INTERFACE.name(),
 			Tree.Kind.ENUM.name(),
-			"RECORD" // added by Java 14 (replace with constant once we require Java 14)
+			Tree.Kind.RECORD.name()
 	));
 
 	private final Path targetDirectory;
