@@ -4,6 +4,10 @@ import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.SimpleType
 
 @Field
+String debianRelease = 'bullseye'
+@Field
+String debianSnapshot = '20220418'
+@Field
 String jdk = 'openjdk-17'
 @Field
 String idea = '2023.2'
@@ -50,6 +54,7 @@ try
 			def mainImage = mainImage(imageName("Main"))
 			def dbImage = docker.build(
 				imageName('Main', 'apache'),
+				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
 				'conf/apache')
 			shSilent "mkdir VaultHttpServiceDocumentRoot"
 			shSilent "mkdir VaultHttpServiceDocumentRoot/myContent"
@@ -216,6 +221,8 @@ try
 		{
 			def mainImage = docker.build(
 				imageName('Github'),
+				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
+				'--build-arg DEBIAN_SNAPSHOT=' + debianSnapshot + ' ' +
 				'--build-arg JDK=' + jdk + ' ' +
 				'conf/github')
 
@@ -267,6 +274,8 @@ try
 		nodeCheckoutAndDelete {
 			def ideaImage = docker.build(
 				imageName('Idea'),
+				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
+				'--build-arg DEBIAN_SNAPSHOT=' + debianSnapshot + ' ' +
 				'--build-arg JDK=' + jdk + ' ' +
 				'--build-arg IDEA=' + idea + ' ' +
 				'--build-arg IDEA_SHA256=' + ideaSHA256 + ' ' +
@@ -578,6 +587,8 @@ def mainImage(String imageName)
 {
 	return docker.build(
 		imageName,
+		'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
+		'--build-arg DEBIAN_SNAPSHOT=' + debianSnapshot + ' ' +
 		'--build-arg JDK=' + jdk + ' ' +
 		'--build-arg JENKINS_OWNER=' + env.JENKINS_OWNER + ' ' +
 		'conf/main')
