@@ -184,10 +184,7 @@ try
 
 	parallelBranches["Network"] = {
 		nodeCheckoutAndDelete {
-			def mainImage = docker.build(
-				imageName('Network'),
-				'--build-arg JDK=' + jdk + ' ' +
-				'conf/main')
+			def mainImage = mainImage(imageName("Network"))
 			mainImage.inside(
 				"--cap-drop all " +
 				"--security-opt no-new-privileges " +
