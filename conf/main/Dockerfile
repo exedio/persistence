@@ -9,8 +9,7 @@ apt-get install --no-install-recommends --assume-yes \
 rm -rf /var/lib/apt/lists/*
 EOF
 
-# TODO drop default once there is no JenkinsfileXxx anymore
-ARG JENKINS_OWNER=1001:1001
+ARG JENKINS_OWNER
 RUN <<EOF
 set -e
 mkdir /var/jenkins-build-survivor
