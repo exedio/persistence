@@ -24,7 +24,6 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
-import static java.lang.Double.NaN;
 import static java.lang.Thread.MIN_PRIORITY;
 import static java.lang.Thread.NORM_PRIORITY;
 import static java.util.Collections.emptySet;
@@ -252,7 +251,7 @@ public class ClusterPropertiesTest
 		assertEquals(14999, gauge("sendBufferSize", model));
 		assertEquals(66,    gauge("trafficClass", model));
 		assertEquals(1,     gauge("sendLoopback", model));
-		assertEquals(NaN,   gauge("listenLoopback", model));
+		assertEquals(0,     gauge("listenLoopback", model));
 		assertEquals(15999, gauge("receiveBufferSize", model));
 		assertEquals(9,     gauge("listenThreads", model));
 		assertEquals(MIN_PRIORITY, gauge("listenThreadPriority", model));

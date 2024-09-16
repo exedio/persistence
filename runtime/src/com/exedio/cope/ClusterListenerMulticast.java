@@ -60,10 +60,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.socket = properties.newListenSocket();
 		try
 		{
-			this.loopback =
-					socket instanceof MulticastSocket
-					? !socket.getOption(IP_MULTICAST_LOOP) // BEWARE of the negation introduced by IP_MULTICAST_LOOP
-					: null;
+			this.loopback = !socket.getOption(IP_MULTICAST_LOOP); // BEWARE of the negation introduced by IP_MULTICAST_LOOP
 			this.receiveBufferSize = socket.getReceiveBufferSize();
 		}
 		catch(final IOException e)
