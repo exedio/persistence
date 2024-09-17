@@ -1,3 +1,8 @@
+# Any ARG before the first FROM can be used in all FROM instruction of the Dockerfile.
+# https://docs.docker.com/reference/dockerfile/#understand-how-arg-and-from-interact
+ARG DEBIAN_RELEASE
+ARG DEBIAN_SNAPSHOT
+
 FROM alpine:3.16.2 AS idea-fetcher
 RUN apk --no-cache add curl
 ARG IDEA
@@ -11,7 +16,7 @@ curl \
 EOF
 
 
-FROM debian:bullseye-20220418
+FROM debian:${DEBIAN_RELEASE}-${DEBIAN_SNAPSHOT}
 
 ARG JDK
 RUN <<EOF

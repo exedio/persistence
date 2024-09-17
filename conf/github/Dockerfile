@@ -1,4 +1,6 @@
-FROM debian:bullseye-20220418
+ARG DEBIAN_RELEASE
+ARG DEBIAN_SNAPSHOT
+FROM debian:${DEBIAN_RELEASE}-${DEBIAN_SNAPSHOT}
 
 # corresponds to .github/workflows/ant.yml
 ARG JDK
