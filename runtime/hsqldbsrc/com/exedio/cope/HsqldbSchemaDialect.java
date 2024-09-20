@@ -26,6 +26,7 @@ import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 final class HsqldbSchemaDialect extends Dialect
@@ -52,6 +53,7 @@ final class HsqldbSchemaDialect extends Dialect
 	{
 		s = adjustExistingCheckConstraintInCondition(s, checkClauseNotIn, "NOT IN"); // checkClauseNotIn must come first, is more specific
 		s = adjustExistingCheckConstraintInCondition(s, checkClauseIn, "IN");
+		s = adjustExistingCheckConstraintCompositeCondition(s);
 		return adjustExistingCheckConstraintCondition.apply(s);
 	}
 
@@ -69,6 +71,26 @@ final class HsqldbSchemaDialect extends Dialect
 	private static final Pattern checkClauseIn = Pattern.compile("\\((\"\\w*\")\\) IN \\(\\((.*)\\)\\)");
 	private static final Pattern checkClauseNotIn = Pattern.compile("NOT \\(\\((\"\\w*\")\\) IN \\(\\((.*)\\)\\)\\)");
 	private static final Pattern checkClauseInnerComma = Pattern.compile("\\),\\(");
+
+
+	private static String adjustExistingCheckConstraintCompositeCondition(String s)
+	{
+		// "((a) AND (b)) AND (c)" adjusted to
+		// "(a) AND (b) AND (c)"
+		for(int i = 0; i<100; i++)
+		{
+			final Matcher m = checkClauseNestedComposite.matcher(s);
+			if(m.matches())
+				s = m.replaceAll("$1 $2 $3 $2 $4");
+			else
+				return s;
+		}
+		throw new RuntimeException(
+				"adjustExistingCheckConstraintCompositeCondition terminated because of probably infinite loop: >" + s + '<');
+	}
+
+	private static final Pattern checkClauseNestedComposite = Pattern.compile("\\((\\(.*\\)) (AND|OR) (\\(.*\\))\\) \\2 (\\(.*\\))");
+
 
 	private final Replacements adjustExistingCheckConstraintCondition = new Replacements();
 
