@@ -48,7 +48,8 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	/**
 	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestFactory()} instead.
+	 * Use {@link VaultServiceParameters#getMessageDigestFactory()} or
+	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithmFactory()} instead.
 	 */
 	@Deprecated
 	public MessageDigestFactory getAlgorithmFactory()
@@ -58,7 +59,8 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	/**
 	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestAlgorithm()} instead.
+	 * Use {@link VaultServiceParameters#getMessageDigestAlgorithm()} or
+	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithm()} instead.
 	 */
 	@Deprecated
 	public String getAlgorithm()
@@ -68,7 +70,8 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	/**
 	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestLengthHex()} instead.
+	 * Use {@link VaultServiceParameters#getMessageDigestLengthHex()} or
+	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithmLength()} instead.
 	 */
 	@Deprecated
 	public int getAlgorithmLength()
@@ -78,7 +81,8 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	/**
 	 * @deprecated {@code algorithm} is set per bucket.
-	 * Use {@link VaultServiceParameters#getMessageDigestForEmptyByteSequenceHex()} instead.
+	 * Use {@link VaultServiceParameters#getMessageDigestForEmptyByteSequenceHex()} or
+	 * {@link VaultProperties#bucket(String)} and {@link Bucket#getAlgorithmDigestForEmptyByteSequence()} instead.
 	 */
 	@Deprecated
 	public String getAlgorithmDigestForEmptyByteSequence()
