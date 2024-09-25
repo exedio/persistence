@@ -79,7 +79,19 @@ final class CheckConstraintConditionItem extends Item
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compositeAnd = new CheckConstraint(integer1.isNull().and(integer2.isNull()));
 	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint compositeAnd3= new CheckConstraint(integer1.isNull().and(integer2.isNull()).and(string.isNull()));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint compositeAnd4= new CheckConstraint(integer1.isNull().and(integer2.isNull()).and(string.isNull()).and(item.isNull()));
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compositeOr  = new CheckConstraint(integer1.isNull().or (integer2.isNull()));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint compositeOr3 = new CheckConstraint(integer1.isNull().or (integer2.isNull()).or (string.isNull()));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint compositeOr4 = new CheckConstraint(integer1.isNull().or (integer2.isNull()).or (string.isNull()).or (item.isNull()));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint compositeMix1= new CheckConstraint(integer1.isNull().and(integer2.isNull()).or (string.isNull()));
+	@SuppressWarnings("unused") // OK: CheckConstraint
+	static final CheckConstraint compositeMix2= new CheckConstraint(integer1.isNull().or (integer2.isNull()).and(string.isNull()));
 
 	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint in    = new CheckConstraint(integer1.in(0, 1));
