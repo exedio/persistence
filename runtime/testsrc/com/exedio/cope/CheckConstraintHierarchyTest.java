@@ -72,6 +72,22 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 	}
 
 	/**
+	 * Similar to {@link #testUp()}, but must not fail,
+	 * because {@link CheckConstraintHierarchyItemBottom#up} must not affect instances of the superclass
+	 * {@link CheckConstraintHierarchyItemTop}.
+	 */
+	@Test void testUpTop()
+	{
+		final CheckConstraintHierarchyItemTop item = new CheckConstraintHierarchyItemTop();
+		assertIt(item);
+
+		item.setUp1(201);
+		assertEquals(201, item.getUp1());
+		assertEquals(201, item.getUp2());
+		assertEquals(0, up.check());
+	}
+
+	/**
 	 * @see CheckConstraintHierarchyViolationTest#testBottom()
 	 */
 	@Test void testBottom()
@@ -104,14 +120,19 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 
 	private static void assertIt(final CheckConstraintHierarchyItemBottom item)
 	{
+		assertEquals(300, item.getBottom1());
+		assertEquals(301, item.getBottom2());
+		assertEquals(401, item.getCross2());
+		assertIt((CheckConstraintHierarchyItemTop)item);
+	}
+
+	private static void assertIt(final CheckConstraintHierarchyItemTop item)
+	{
 		assertEquals(100, item.getTop1());
 		assertEquals(101, item.getTop2());
 		assertEquals(200, item.getUp1());
 		assertEquals(201, item.getUp2());
-		assertEquals(300, item.getBottom1());
-		assertEquals(301, item.getBottom2());
 		assertEquals(400, item.getCross1());
-		assertEquals(401, item.getCross2());
 		assertEquals(0, top   .check());
 		assertEquals(0, up    .check());
 		assertEquals(0, bottom.check());
