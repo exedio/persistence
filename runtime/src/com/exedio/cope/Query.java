@@ -33,7 +33,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 public final class Query<R> implements Serializable
@@ -836,11 +835,6 @@ public final class Query<R> implements Serializable
 				Cope.check(ob, tc, null);
 
 		return tc;
-	}
-
-	HashSet<Table> getTables()
-	{
-		return check().getTables();
 	}
 
 	/**

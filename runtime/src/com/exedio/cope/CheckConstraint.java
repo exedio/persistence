@@ -23,9 +23,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public final class CheckConstraint extends Feature implements Copyable
 {
@@ -124,11 +124,14 @@ public final class CheckConstraint extends Feature implements Copyable
 	 */
 	public boolean isSupportedBySchemaIfSupportedByDialect()
 	{
-		final Type<?> type = getType();
-		final HashSet<Table> tables = type.newQuery(condition).getTables();
-
-		assert tables.contains(type.table);
-		return tables.size()==1;
+		final Table table = getType().getTable();
+		final AtomicBoolean result = new AtomicBoolean(true);
+		condition.forEachFieldCovered(field ->
+		{
+			if(field.getColumn().table!=table)
+				result.set(false);
+		});
+		return result.get();
 	}
 
 	/**
