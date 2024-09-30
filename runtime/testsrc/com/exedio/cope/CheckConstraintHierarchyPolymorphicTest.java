@@ -21,9 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.CheckConstraintTest.assertFailsCheck;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
@@ -34,6 +35,7 @@ import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 {
@@ -88,7 +90,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 	{
 		model.commit();
 
-		assertEquals(false, Middle.constraint.isSupportedBySchemaIfSupportedByDialect());
+		assertEquals(true, Middle.constraint.isSupportedBySchemaIfSupportedByDialect());
 
 		final Schema schema = model.getVerifiedSchema();
 
@@ -98,7 +100,12 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 		assertEquals(Node.Color.OK, topTable.getParticularColor());
 
 		final Constraint constraint = topTable.getConstraint(Middle.CONSTRAINT_NAME);
-		assertNull(constraint);
+		assertNotNull(constraint);
+		assertEquals(
+				"("+SI.type(Top.TYPE)+" NOT IN ('Middle','Bottom')) OR ("+SI.col(Top.field)+" IS NOT NULL)",
+				constraint.getRequiredCondition());
+		assertEquals(supportsCheckConstraint(model)?null:"unsupported", constraint.getError());
+		assertEquals(Node.Color.OK, constraint.getParticularColor());
 	}
 
 
@@ -127,9 +134,18 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 		commit();
 
 		final String sql = sql(item);
-		assertEquals(1, connection.executeUpdate(sql));
+		if(supportsCheckConstraint(model))
+		{
+			assertFailsSql(
+					() -> connection.execute(sql),
+					checkViolation());
+		}
+		else
+		{
+			assertEquals(1, connection.executeUpdate(sql));
+		}
 		startTransaction();
-		assertEquals(1, Middle.constraint.check());
+		assertEquals(supportsCheckConstraint(model)?0:1, Middle.constraint.check());
 	}
 
 	/**
@@ -142,9 +158,18 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 		commit();
 
 		final String sql = sql(item);
-		assertEquals(1, connection.executeUpdate(sql));
+		if(supportsCheckConstraint(model))
+		{
+			assertFailsSql(
+					() -> connection.execute(sql),
+					checkViolation());
+		}
+		else
+		{
+			assertEquals(1, connection.executeUpdate(sql));
+		}
 		startTransaction();
-		assertEquals(1, Middle.constraint.check());
+		assertEquals(supportsCheckConstraint(model)?0:1, Middle.constraint.check());
 	}
 
 	private static String sql(final Top item)
@@ -153,6 +178,25 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 				"UPDATE " + SI.tab(Top.TYPE) + " " +
 				"SET " + SI.col(Top.field) + "=NULL " +
 				"WHERE " + SI.pk(Top.TYPE) + "=" + getPrimaryKeyColumnValueL(item);
+	}
+
+	private void assertFailsSql(
+			final Executable executable,
+			final String message)
+	{
+		assertEquals(message, dropMariaConnectionId(assertThrows(SQLException.class, executable).getMessage()));
+	}
+
+	private String checkViolation()
+	{
+		final String table = getTableName(Top.TYPE);
+		final String constraint = Middle.CONSTRAINT_NAME;
+		return switch(dialect)
+		{
+			case hsqldb -> "integrity constraint violation: check constraint ; " + constraint + " table: " + table;
+			case mysql -> "Check constraint '" + constraint +  "' is violated.";
+			case postgresql -> "ERROR: new row for relation \"" + table + "\" violates check constraint \"" + constraint + "\"";
+		};
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);

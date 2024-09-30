@@ -21,11 +21,13 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.dsmf.Schema;
 import java.io.Serial;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 public final class CheckConstraint extends Feature implements Copyable
 {
@@ -95,15 +97,64 @@ public final class CheckConstraint extends Feature implements Copyable
 		check(new FieldValues(values));
 	}
 
-	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmf)
+	void makeSchema(final Table table, final Schema schema)
 	{
-		if(!isSupportedBySchemaIfSupportedByDialect())
+		final Table tableAffected = getOnlyTableAffected();
+		if(tableAffected==null)
 			return;
 
+		final List<? extends Type<?>> typesOfConstraintIfDivergent;
+		{
+			final Type<?> type = getType();
+			typesOfConstraintIfDivergent =
+					tableAffected!=type.getTable() ? type.getTypesOfInstances() : null;
+		}
 		final Statement statement = new Statement(table.database.dialect, table.database.executor.marshallers);
-		condition.append(statement);
+		if(typesOfConstraintIfDivergent!=null)
+		{
+			// below is an implication: "p implies q" is equal to "not p or q"
 
-		dsmf.newCheck(
+			statement.
+					append('(').
+					append(tableAffected.typeColumn);
+
+			switch(typesOfConstraintIfDivergent.size())
+			{
+				case 0 -> throw new RuntimeException();
+				case 1 ->
+						statement.
+								append("<>").
+								appendParameter(typesOfConstraintIfDivergent.get(0).schemaId);
+				default ->
+				{
+					statement.append(" NOT IN (");
+					boolean first = true;
+					for(final Type<?> type : typesOfConstraintIfDivergent)
+					{
+						if(first)
+							first = false;
+						else
+							statement.append(',');
+
+						statement.appendParameter(type.schemaId);
+					}
+					statement.append(')');
+				}
+			}
+			statement.append(") OR (");
+		}
+		condition.append(statement);
+		if(typesOfConstraintIfDivergent!=null)
+			statement.
+					append(')');
+
+		schema.getTable(tableAffected.id).newCheck(
+				// NOTE: Divergent name prefix
+				// Below, table is used instead of tableAffected to create the global id if the constraint.
+				// This may seem weird - the table prefix of the global id not matching the table of the constraint.
+				// However, quite often there are equally named check constraints in subclasses
+				// affecting just one field of the super class.
+				// So we avoid name collisions in these cases.
 				intern(table.makeGlobalID(TrimClass.Constraint, getDeclaredSchemaName())),
 				statement.getText());
 	}
@@ -124,14 +175,31 @@ public final class CheckConstraint extends Feature implements Copyable
 	 */
 	public boolean isSupportedBySchemaIfSupportedByDialect()
 	{
-		final Table table = getType().getTable();
-		final AtomicBoolean result = new AtomicBoolean(true);
-		condition.forEachFieldCovered(field ->
+		return getOnlyTableAffected()!=null;
+	}
+
+	private Table getOnlyTableAffected()
+	{
+		final OnlyTableConsumer otc = new OnlyTableConsumer();
+		condition.forEachFieldCovered(otc);
+		return otc.multi ? null : otc.result;
+	}
+
+	private static class OnlyTableConsumer implements Consumer<Field<?>>
+	{
+		Table result = null;
+		boolean multi = false;
+
+		@Override
+		public void accept(final Field<?> field)
 		{
-			if(field.getColumn().table!=table)
-				result.set(false);
-		});
-		return result.get();
+			final Table fieldTable = field.getColumn().table;
+
+			if(result==null)
+				result = fieldTable;
+			else if(result!=fieldTable)
+				multi = true;
+		}
 	}
 
 	/**

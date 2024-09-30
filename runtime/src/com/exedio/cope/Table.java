@@ -234,7 +234,7 @@ final class Table
 			uc.makeSchema(result);
 
 		for(final CheckConstraint cc : getCheckConstraints())
-			cc.makeSchema(this, result);
+			cc.makeSchema(this, schema);
 	}
 
 	@Override
