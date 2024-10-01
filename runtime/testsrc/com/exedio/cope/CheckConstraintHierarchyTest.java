@@ -22,9 +22,8 @@ import static com.exedio.cope.CheckConstraintHierarchyItemBottom.bottom;
 import static com.exedio.cope.CheckConstraintHierarchyItemBottom.cross;
 import static com.exedio.cope.CheckConstraintHierarchyItemBottom.up;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top;
+import static com.exedio.cope.CheckConstraintTest.assertFailsCheck;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -61,16 +60,10 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
-		try
-		{
-			item.setTop1(101);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(top, e.getFeature());
-		}
+		assertFailsCheck(
+				() -> item.setTop1(101),
+				item,
+				top);
 		assertIt(item);
 	}
 
@@ -79,16 +72,10 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
-		try
-		{
-			item.setUp1(201);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(up, e.getFeature());
-		}
+		assertFailsCheck(
+				() -> item.setUp1(201),
+				item,
+				up);
 		assertIt(item);
 	}
 
@@ -97,16 +84,10 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
-		try
-		{
-			item.setBottom1(301);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(bottom, e.getFeature());
-		}
+		assertFailsCheck(
+				() -> item.setBottom1(301),
+				item,
+				bottom);
 		assertIt(item);
 	}
 
@@ -116,16 +97,10 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
 
-		try
-		{
-			item.setCross1(401);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(cross, e.getFeature());
-		}
+		assertFailsCheck(
+				() -> item.setCross1(401),
+				item,
+				cross);
 		assertIt(item);
 	}
 
