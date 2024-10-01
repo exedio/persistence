@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.GroupByTest.postgresqlPosition;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
@@ -28,15 +27,11 @@ import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.SI;
-import com.exedio.dsmf.SQLRuntimeException;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 public class DistinctOrderByTest extends TestWithEnvironment
 {
 	public DistinctOrderByTest()
@@ -301,8 +296,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 			case postgresql ->
 				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
-						postgresqlPosition(181));
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
 
 			default ->
 				throw new RuntimeException(dialect.name());
@@ -363,8 +357,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				assertContains(item2, item3, item1, query.search());
 
 			case postgresql ->
-				notAllowedStartsWith(query,
-						"ERROR: function any_value(integer) does not exist\n");
+				notAllowed(query,
+						"ERROR: function any_value(integer) does not exist");
 
 			default ->
 				throw new RuntimeException(dialect.name());
@@ -462,8 +456,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 			case postgresql ->
 				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
-						postgresqlPosition(137));
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
 
 			default ->
 				throw new RuntimeException(dialect.name());
@@ -498,18 +491,5 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		if(!hsqldb)
 			bf.append(" AS cope_exists");
 		return bf.toString();
-	}
-
-	static void notAllowedStartsWith(final Query<?> query, final String message)
-	{
-		try
-		{
-			final List<?> result = query.search();
-			fail("search is expected to fail, but returned " + result);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			assertTrue(e.getCause().getMessage().startsWith(message), e.getCause().getMessage());
-		}
 	}
 }

@@ -119,9 +119,9 @@ public class GroupByTest extends TestWithEnvironment
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function";
 				restartTransaction();
-				notAllowed(query, message + postgresqlPosition(8));
+				notAllowed(query, message);
 				restartTransaction();
-				notAllowedTotal(query, message + postgresqlPosition(31));
+				notAllowedTotal(query, message);
 			}
 			default ->
 				throw new RuntimeException(String.valueOf(dialect));
@@ -160,8 +160,7 @@ public class GroupByTest extends TestWithEnvironment
 			case postgresql ->
 				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
-						"in the GROUP BY clause or be used in an aggregate function" +
-						postgresqlPosition(58));
+						"in the GROUP BY clause or be used in an aggregate function");
 
 			default ->
 				throw new RuntimeException(String.valueOf(dialect));
@@ -195,8 +194,7 @@ public class GroupByTest extends TestWithEnvironment
 
 			case postgresql ->
 				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
-						postgresqlPosition(49));
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
 
 			default ->
 				throw new RuntimeException(String.valueOf(dialect));
@@ -279,9 +277,9 @@ public class GroupByTest extends TestWithEnvironment
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function";
 				restartTransaction();
-				notAllowed(query, message + postgresqlPosition(26));
+				notAllowed(query, message);
 				restartTransaction();
-				notAllowedTotal(query, message + postgresqlPosition(49));
+				notAllowedTotal(query, message);
 			}
 			default ->
 				throw new RuntimeException(String.valueOf(dialect));
@@ -293,12 +291,6 @@ public class GroupByTest extends TestWithEnvironment
 		assertEquals(expectedSize, items.search().size());
 		assertEquals(expectedTotal, items.total());
 		assertEquals(expectedTotal>0, items.exists());
-	}
-
-	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
-	static final String postgresqlPosition(final int value)
-	{
-		return "\n" + "  Position: " + value;
 	}
 
 	@WrapperType(indent=2, comments=false)

@@ -31,6 +31,7 @@ import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.function.Consumer;
 
 @ServiceProperties(PostgresqlProperties.class)
@@ -60,6 +61,13 @@ final class PostgresqlDialect extends Dialect
 	private String quoteSchema(final String schema)
 	{
 		return "<disabled>".equals(schema) ? null : dsmfDialect.quoteName(schema);
+	}
+
+	@Override
+	void completeConnectionInfo(final Properties info)
+	{
+		// https://jdbc.postgresql.org/documentation/use/#connection-parameters
+		info.setProperty("logServerErrorDetail", "false"); // suppress possibly sensitive data in exception messages, may be enabled temporarily for debugging
 	}
 
 	@Override

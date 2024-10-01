@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.GroupByTest.postgresqlPosition;
 import static com.exedio.cope.InstanceOfAItem.code;
 import static com.exedio.cope.InstanceOfC1Item.textc1;
 import static com.exedio.cope.InstanceOfRefItem.ref;
@@ -141,8 +140,7 @@ public class InstanceOfTest extends TestWithEnvironment
 
 			case postgresql ->
 				assertEquals(
-						"ERROR: COALESCE types integer and character varying cannot be matched" +
-						postgresqlPosition(24),
+						"ERROR: COALESCE types integer and character varying cannot be matched",
 						e.getCause().getMessage());
 
 			default ->
@@ -177,8 +175,7 @@ public class InstanceOfTest extends TestWithEnvironment
 
 			case postgresql ->
 				assertEquals(
-						"ERROR: COALESCE types integer and character varying cannot be matched" +
-						postgresqlPosition(23),
+						"ERROR: COALESCE types integer and character varying cannot be matched",
 						e.getCause().getMessage());
 
 			default ->
@@ -212,12 +209,8 @@ public class InstanceOfTest extends TestWithEnvironment
 						dropMariaConnectionId(e.getCause().getMessage()));
 
 			case postgresql ->
-				//noinspection HardcodedLineSeparator
 				assertEquals(
-						"ERROR: function max(integer, character varying) does not exist\n" +
-						"  Hint: No function matches the given name and argument types. " +
-							"You might need to add explicit type casts." +
-						postgresqlPosition(8),
+						"ERROR: function max(integer, character varying) does not exist",
 						e.getCause().getMessage());
 
 			default->
@@ -251,12 +244,8 @@ public class InstanceOfTest extends TestWithEnvironment
 						dropMariaConnectionId(e.getCause().getMessage()));
 
 			case postgresql ->
-				//noinspection HardcodedLineSeparator
 				assertEquals(
-						"ERROR: function max(integer, character varying) does not exist\n" +
-						"  Hint: No function matches the given name and argument types. " +
-							"You might need to add explicit type casts." +
-						postgresqlPosition(8),
+						"ERROR: function max(integer, character varying) does not exist",
 						e.getCause().getMessage());
 
 			default ->

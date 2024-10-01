@@ -87,7 +87,6 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		item.assertIt();
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 	private void testBlocks() throws InterruptedException
 	{
 		final MyItem item = MyItem.create();
@@ -130,8 +129,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 			case postgresql -> {
 				assertInsert(failure);
 				assertEquals(
-						"ERROR: duplicate key value violates unique constraint \"MyItem_field_Unq\"\n" +
-						"  Detail: Key (\"field\")=(collision) already exists.",
+						"ERROR: duplicate key value violates unique constraint \"MyItem_field_Unq\"",
 						failure.getCause().getMessage());
 			}
 			case hsqldb -> fail(String.valueOf(dialect)); // runs testFails

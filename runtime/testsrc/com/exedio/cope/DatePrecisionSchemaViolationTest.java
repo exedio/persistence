@@ -26,7 +26,6 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
@@ -82,7 +81,6 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		}
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 	private void newItemBad(
 			final Date hours,
 			final Date minutes,
@@ -128,10 +126,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 									dropMariaConnectionId(message));
 
 						case postgresql ->
-							assertTrue(
-									message.startsWith(
+							assertEquals(
 									"ERROR: new row for relation \"" + tableName + "\" " +
-									"violates check constraint \"" + constraintName + "\"\n"),
+									"violates check constraint \"" + constraintName + "\"",
 									message);
 
 						default ->
