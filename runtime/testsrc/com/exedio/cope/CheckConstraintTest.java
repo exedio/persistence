@@ -21,12 +21,13 @@ package com.exedio.cope;
 import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alphaToBeta;
 import static com.exedio.cope.CheckConstraintSuperItem.einsToZwei;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class CheckConstraintTest extends TestWithEnvironment
 {
@@ -46,30 +47,16 @@ public class CheckConstraintTest extends TestWithEnvironment
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setAlpha(5);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(alphaToBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> item.setAlpha(5),
+				item,
+				alphaToBeta);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setBeta(4);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(alphaToBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() ->item.setBeta(4),
+				item,
+				alphaToBeta);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		item.setGamma(7);
@@ -87,30 +74,16 @@ public class CheckConstraintTest extends TestWithEnvironment
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setEins(100);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(einsToZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> item.setEins(100),
+				item,
+				einsToZwei);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setZwei(103);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(einsToZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> item.setZwei(103),
+				item,
+				einsToZwei);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		item.setDrei(104);
@@ -128,30 +101,16 @@ public class CheckConstraintTest extends TestWithEnvironment
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setAlphaBeta(5, 4);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(alphaToBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> item.setAlphaBeta(5, 4),
+				item,
+				alphaToBeta);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setBetaGamma(4, 6);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(alphaToBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> item.setBetaGamma(4, 6),
+				item,
+				alphaToBeta);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		item.setAlphaBeta(6, 7);
@@ -169,30 +128,16 @@ public class CheckConstraintTest extends TestWithEnvironment
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setEinsZwei(101, 102);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(einsToZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> item.setEinsZwei(101, 102),
+				item,
+				einsToZwei);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
-		try
-		{
-			item.setZweiDrei(103, 104);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(item, e.getItem());
-			assertSame(einsToZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> item.setZweiDrei(103, 104),
+				item,
+				einsToZwei);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
 		item.setEinsZwei(106, 105);
@@ -207,33 +152,19 @@ public class CheckConstraintTest extends TestWithEnvironment
 
 	@Test void testCreate()
 	{
-		try
-		{
-			new CheckConstraintItem(102, 101, 103, 5, 4, 6, 7);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(null, e.getItem());
-			assertSame(alphaToBeta, e.getFeature());
-			assertEquals("check violation for " + alphaToBeta.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> new CheckConstraintItem(102, 101, 103, 5, 4, 6, 7),
+				null,
+				alphaToBeta);
 		assertEquals(list(), TYPE.search());
 	}
 
 	@Test void testCreateSuper()
 	{
-		try
-		{
-			new CheckConstraintItem(101, 102, 103, 4, 5, 6, 7);
-			fail();
-		}
-		catch(final CheckViolationException e)
-		{
-			assertSame(null, e.getItem());
-			assertSame(einsToZwei, e.getFeature());
-			assertEquals("check violation for " + einsToZwei.getID(), e.getMessage());
-		}
+		assertFailsCheck(
+				() -> new CheckConstraintItem(101, 102, 103, 4, 5, 6, 7),
+				null,
+				einsToZwei);
 		assertEquals(list(), TYPE.search());
 	}
 
@@ -256,5 +187,21 @@ public class CheckConstraintTest extends TestWithEnvironment
 		assertEquals(delta, item.getDelta());
 		assertEquals(0, einsToZwei .check());
 		assertEquals(0, alphaToBeta.check());
+	}
+
+	static void assertFailsCheck(
+			final Executable executable,
+			final Item item,
+			final CheckConstraint constraint)
+	{
+		final CheckViolationException e = assertFails(
+				executable,
+				CheckViolationException.class,
+				item!=null
+				? ("check violation on " + item.getCopeID() + " for " + constraint.getID())
+				: ("check violation"                        + " for " + constraint.getID())
+		);
+		assertSame(item, e.getItem());
+		assertSame(constraint, e.getFeature());
 	}
 }
