@@ -41,20 +41,9 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test void testIsSupportedBySchema()
-	{
-		assertEquals(true,  top   .isSupportedBySchemaIfSupportedByDialect());
-		// TODO
-		// The following should be true, since check constraint "up" can be translated
-		// into a database check constraint, since it just refers to columns of one table.
-		// This is not yet implemented.
-		// An implementation additionally needs to restrict the type (column "class")
-		// in the table of the super type.
-		assertEquals(false, up    .isSupportedBySchemaIfSupportedByDialect());
-		assertEquals(true,  bottom.isSupportedBySchemaIfSupportedByDialect());
-		assertEquals(false, cross .isSupportedBySchemaIfSupportedByDialect());
-	}
-
+	/**
+	 * @see CheckConstraintHierarchyViolationTest#testTop()
+	 */
 	@Test void testTop()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
@@ -67,6 +56,9 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		assertIt(item);
 	}
 
+	/**
+	 * @see CheckConstraintHierarchyViolationTest#testUp()
+	 */
 	@Test void testUp()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
@@ -79,6 +71,9 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		assertIt(item);
 	}
 
+	/**
+	 * @see CheckConstraintHierarchyViolationTest#testBottom()
+	 */
 	@Test void testBottom()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
@@ -91,7 +86,9 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		assertIt(item);
 	}
 
-
+	/**
+	 * @see CheckConstraintHierarchyViolationTest#testCross()
+	 */
 	@Test void testCross()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
@@ -103,6 +100,7 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 				cross);
 		assertIt(item);
 	}
+
 
 	private static void assertIt(final CheckConstraintHierarchyItemBottom item)
 	{
