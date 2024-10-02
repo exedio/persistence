@@ -60,8 +60,8 @@ public class SchemaViewTest extends TestWithEnvironment
 						"(SELECT " + SI.col(MyItem.field) +
 						" FROM "   + SI.tab(MyItem.TYPE)  + ")");
 
-			case hsqldb,
-					postgresql -> {
+			case hsqldb, postgresql ->
+			{
 				// TODO nothing so far
 			}
 			default ->
@@ -80,8 +80,8 @@ public class SchemaViewTest extends TestWithEnvironment
 				connection.executeUpdate(
 						"DROP VIEW IF EXISTS " + NAME);
 
-			case hsqldb,
-					postgresql -> {
+			case hsqldb, postgresql ->
+			{
 				// nothing so far
 			}
 			default ->

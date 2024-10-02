@@ -301,15 +301,10 @@ public class IntegerTypeTest extends TestWithEnvironment
 			{
 				case hsqldb ->
 					expectedHsqldbDataType;
-
 				case mysql ->
 					expectedMysqlDataType;
-
 				case postgresql ->
 					expectedPostgresqlDataType;
-
-
-
 			};
 
 			assertEquals(

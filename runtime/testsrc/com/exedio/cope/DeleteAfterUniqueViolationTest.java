@@ -71,14 +71,11 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 								"integrity constraint violation: unique constraint or index violation ; " +
 								"\"Main_uniqueString_Unq\" table: \"Main\"",
 								e.getCause().getMessage());
-
 					case mysql ->
 						assertEquals(
 								"Duplicate entry 'commit' for key '" + unqPrefix + "Main_uniqueString_Unq'",
 								dropMariaConnectionId(e.getCause().getMessage()));
-
 					case postgresql ->
-
 						throw new AssertionFailedError(dialect.name(), e);
 				}
 				assertTrue(e.getCause() instanceof SQLException);
@@ -121,14 +118,11 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 								"integrity constraint violation: unique constraint or index violation ; " +
 								"\"Main_uniqueString_Unq\" table: \"Main\"",
 								e.getCause().getMessage());
-
 					case mysql ->
 						assertEquals(
 								"Duplicate entry 'rollback' for key '" + unqPrefix + "Main_uniqueString_Unq'",
 								dropMariaConnectionId(e.getCause().getMessage()));
-
 					case postgresql ->
-
 						throw new AssertionFailedError(dialect.name(), e);
 				}
 				assertTrue(e.getCause() instanceof SQLException);

@@ -130,19 +130,16 @@ public class InstanceOfTest extends TestWithEnvironment
 						"incompatible data types in combination" + ifPrep(" in statement [" +
 						"SELECT coalesce(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ",?) FROM " + SI.tab(TYPE_A) + "]"),
 						e.getCause().getMessage());
-
 			case mysql ->
 				assertEquals(
 						mariaDriver
 						? "Wrong index position. Is 2 but must be in 1-1 range"
 						: "Column Index out of range, 2 > 1. ",
 						e.getCause().getMessage());
-
 			case postgresql ->
 				assertEquals(
 						"ERROR: COALESCE types integer and character varying cannot be matched",
 						e.getCause().getMessage());
-
 			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
@@ -165,19 +162,16 @@ public class InstanceOfTest extends TestWithEnvironment
 						"incompatible data types in combination" + ifPrep(" in statement [" +
 						"SELECT coalesce(" + SI.col(ref) + "," + SI.type(ref) + ",?) FROM " + SI.tab(TYPE_REF) + "]"),
 						e.getCause().getMessage());
-
 			case mysql ->
 				assertEquals(
 						mariaDriver
 						? "Wrong index position. Is 2 but must be in 1-1 range"
 						: "Column Index out of range, 2 > 1. ",
 						e.getCause().getMessage());
-
 			case postgresql ->
 				assertEquals(
 						"ERROR: COALESCE types integer and character varying cannot be matched",
 						e.getCause().getMessage());
-
 			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
@@ -199,7 +193,6 @@ public class InstanceOfTest extends TestWithEnvironment
 						"unexpected token : , required: )" + ifPrep(" in statement [" +
 						"SELECT MAX(" + SI.pk(TYPE_A) + "," + SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "]"),
 						e.getCause().getMessage());
-
 			case mysql ->
 				assertEquals(
 						"You have an error in your SQL syntax; check the manual that corresponds " +
@@ -207,12 +200,10 @@ public class InstanceOfTest extends TestWithEnvironment
 						"'" + (atLeastMysql8()?",":"") +
 						SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "' at line 1",
 						dropMariaConnectionId(e.getCause().getMessage()));
-
 			case postgresql ->
 				assertEquals(
 						"ERROR: function max(integer, character varying) does not exist",
 						e.getCause().getMessage());
-
 			default->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
@@ -234,7 +225,6 @@ public class InstanceOfTest extends TestWithEnvironment
 						"unexpected token : , required: )" + ifPrep(" in statement [" +
 						"SELECT MAX(" + SI.col(ref) + "," + SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "]"),
 						e.getCause().getMessage());
-
 			case mysql ->
 				assertEquals(
 						"You have an error in your SQL syntax; check the manual that corresponds " +
@@ -242,12 +232,10 @@ public class InstanceOfTest extends TestWithEnvironment
 						"'" + (atLeastMysql8()?",":"") +
 						SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "' at line 1",
 						dropMariaConnectionId(e.getCause().getMessage()));
-
 			case postgresql ->
 				assertEquals(
 						"ERROR: function max(integer, character varying) does not exist",
 						e.getCause().getMessage());
-
 			default ->
 				throw new RuntimeException(String.valueOf(dialect));
 		}
