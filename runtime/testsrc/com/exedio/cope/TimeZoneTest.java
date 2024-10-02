@@ -110,7 +110,8 @@ public class TimeZoneTest extends TestWithEnvironment
 		//noinspection EnumSwitchStatementWhichMissesCases
 		switch(dialect)
 		{
-			case mysql -> {
+			case mysql ->
+			{
 				try(Connection c = SchemaInfo.newConnection(model);
 					Statement s = c.createStatement();
 					ResultSet rs = s.executeQuery("SELECT @@GLOBAL.time_zone, @@SESSION.time_zone"))
@@ -122,7 +123,8 @@ public class TimeZoneTest extends TestWithEnvironment
 					assertFalse(rs.next());
 				}
 			}
-			case postgresql -> {
+			case postgresql ->
+			{
 				try(Connection c = SchemaInfo.newConnection(model);
 					Statement s = c.createStatement();
 					ResultSet rs = s.executeQuery("show TimeZone"))

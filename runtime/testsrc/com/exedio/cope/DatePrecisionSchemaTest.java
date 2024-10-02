@@ -102,13 +102,8 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	{
 		return switch(dialect)
 		{
-			case hsqldb,
-					mysql     -> "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
-
-			case postgresql -> "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
-
-
-
+			case hsqldb, mysql -> "EXTRACT("     + precision.sql() + " FROM " + SI.col(field) + ")";
+			case postgresql -> "\"date_part\"('" + precision.sql() + "', "    + SI.col(field) + ")";
 		};
 	}
 
@@ -120,8 +115,6 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case hsqldb     -> "MOD(" + SI.col(field) + ","  + divisor + ")=0";
 			case mysql      -> "(" + SI.col(field) + " MOD " + divisor + ")=0";
 			case postgresql -> "(" + SI.col(field) +  " % "  + divisor + ")=0";
-
-
 		};
 	}
 

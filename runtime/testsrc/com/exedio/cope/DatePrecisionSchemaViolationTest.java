@@ -119,18 +119,15 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 									"check constraint ; " + constraintName + " " +
 									"table: " + tableName,
 									message);
-
 						case mysql ->
 							assertEquals(
 									"Check constraint '" + constraintName + "' is violated.",
 									dropMariaConnectionId(message));
-
 						case postgresql ->
 							assertEquals(
 									"ERROR: new row for relation \"" + tableName + "\" " +
 									"violates check constraint \"" + constraintName + "\"",
 									message);
-
 						default ->
 							throw new RuntimeException(dialect + "/" + message);
 					}

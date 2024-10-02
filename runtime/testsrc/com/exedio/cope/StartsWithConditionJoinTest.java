@@ -236,8 +236,6 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 			case hsqldb     -> "LEFT(RAWTOHEX(" + col + "),"    + val.length()   + ")='" + val + "'";
 			case mysql      -> "LEFT("          + col + ","     + val.length()/2 + ")=x'" + val + "'";
 			case postgresql -> "SUBSTRING("     + col + " FOR " + val.length()/2 + ")=E'\\\\x" + val + "'";
-
-
 		};
 	}
 

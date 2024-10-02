@@ -105,10 +105,8 @@ public class QueryInfoTest extends TestWithEnvironment
 				final QueryInfo plan = rootChilds.next();
 				assertEquals("explain plan", plan.getText());
 			}
-			case hsqldb,
-					postgresql ->
+			case hsqldb, postgresql ->
 				assertFalse(rootChilds.hasNext());
-
 			default ->
 				fail(dialect.toString());
 		}

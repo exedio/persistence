@@ -88,13 +88,15 @@ public class SchemaTest extends TestWithEnvironment
 		//noinspection EnumSwitchStatementWhichMissesCases,SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(dialect)
 		{
-			case postgresql -> {
+			case postgresql ->
+			{
 				dateMinimum = "'1600-01-01 00:00:00" +"'::timestamp without time zone";
 				dateMaximum = "'9999-12-31 23:59:59.999'::timestamp without time zone";
 				dayMinimum = "'1600-01-01'::\"date\"";
 				dayMaximum = "'9999-12-31'::\"date\"";
 			}
-			default -> {
+			default ->
+			{
 				dateMinimum = "TIMESTAMP'1600-01-01 00:00:00.000'";
 				dateMaximum = "TIMESTAMP'9999-12-31 23:59:59.999'";
 				dayMinimum = "DATE'1600-01-01'";
@@ -181,8 +183,6 @@ public class SchemaTest extends TestWithEnvironment
 			case hsqldb     -> "VARCHAR(8)";
 			case mysql      -> "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 			case postgresql -> "character varying(8) COLLATE \"ucs_basic\"";
-
-
 		};
 		assertEquals(string8, min4Max8Column.getType());
 
@@ -199,8 +199,6 @@ public class SchemaTest extends TestWithEnvironment
 					? q(stringUpper6)+" REGEXP CAST('(?s)\\A[A-B]*\\z' AS CHAR)"
 					: q(stringUpper6)+" REGEXP CAST('^[A-B]*$' AS CHAR)";
 			case postgresql -> q(stringUpper6)+" ~ '^[A-B]*$'";
-
-
 		};
 
 		assertCheckConstraint(table, "Main_stringMin4_MN", "CHAR_LENGTH("+q(stringMin4)+")>=4");

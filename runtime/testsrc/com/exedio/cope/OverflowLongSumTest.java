@@ -139,8 +139,8 @@ public class OverflowLongSumTest extends TestWithEnvironment
 				{
 					case hsqldb ->
 						expectedArithmeticException = "incompatible data type in conversion: from SQL type DECIMAL to java.lang.Long, value: " + expected;
-
-					case mysql -> {
+					case mysql ->
+					{
 						if(mariaDriver)
 							expectedArithmeticException = "value '" + expected + "' cannot be decoded as Long";
 						else
@@ -148,7 +148,6 @@ public class OverflowLongSumTest extends TestWithEnvironment
 					}
 					case postgresql ->
 						expectedArithmeticException = "Bad value for type long : " + expected;
-
 					default ->
 						throw new RuntimeException(String.valueOf(dialect), e);
 				}
