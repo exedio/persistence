@@ -96,15 +96,13 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 
 			assertEquals(expected, rs.getLong(1));
 
-			final Object expectedObject =
-			switch(dialect)
-			{
-				case hsqldb, postgresql ->
-					Long.valueOf(expected);
-				case mysql ->
-					BigDecimal.valueOf(expected);
-			};
-			assertEquals(expectedObject, rs.getObject(1));
+			assertEquals(
+					switch(dialect)
+					{
+						case hsqldb, postgresql -> Long.valueOf(expected);
+						case mysql -> BigDecimal.valueOf(expected);
+					},
+					rs.getObject(1));
 		}
 
 		MODEL.startTransaction(OverflowIntegerSumTest.class.getName());

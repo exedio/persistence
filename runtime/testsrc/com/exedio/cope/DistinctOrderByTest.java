@@ -276,28 +276,24 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
 
-		switch(dialect)
-		{
-			case hsqldb ->
-				notAllowed(query,
-						"invalid ORDER BY expression" +
-						ifPrep(
-								" in statement [" +
-								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
-								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
-								"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
-								"ORDER BY PlusIntegerItem1.\"numA\"]"));
-			case mysql ->
-				notAllowed(query,
-						"Expression #1 of ORDER BY clause is not in SELECT list, " +
-						"references column '" + dbCat() + ".PlusIntegerItem1.numA' which is not in SELECT list; " +
-						"this is incompatible with DISTINCT");
-			case postgresql ->
-				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
-			default ->
-				throw new RuntimeException(dialect.name());
-		}
+		notAllowed(query,
+				switch(dialect)
+				{
+					case hsqldb ->
+							"invalid ORDER BY expression" +
+							ifPrep(
+									" in statement [" +
+									"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+									"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+									"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
+									"ORDER BY PlusIntegerItem1.\"numA\"]");
+					case mysql ->
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + dbCat() + ".PlusIntegerItem1.numA' which is not in SELECT list; " +
+							"this is incompatible with DISTINCT";
+					case postgresql ->
+							"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list";
+				});
 	}
 
 	@Test void testDistinctOrderByAnyAggregate()
@@ -430,28 +426,24 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
 
-		switch(dialect)
-		{
-			case hsqldb ->
-				notAllowed(query,
-						"invalid ORDER BY expression" +
-						ifPrep(
-								" in statement [" +
-								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
-								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
-								"CROSS JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 " +
-								"ORDER BY (PlusIntegerItem0." + SI.col(numA) + "+PlusIntegerItem1." + SI.col(numB) + ")]"));
-			case mysql ->
-				notAllowed(query,
-						"Expression #1 of ORDER BY clause is not in SELECT list, " +
-						"references column '" + dbCat() + ".PlusIntegerItem0.numA' which is not in SELECT list; " +
-						"this is incompatible with DISTINCT");
-			case postgresql ->
-				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
-			default ->
-				throw new RuntimeException(dialect.name());
-		}
+		notAllowed(query,
+				switch(dialect)
+				{
+					case hsqldb ->
+							"invalid ORDER BY expression" +
+							ifPrep(
+									" in statement [" +
+									"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+									"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+									"CROSS JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 " +
+									"ORDER BY (PlusIntegerItem0." + SI.col(numA) + "+PlusIntegerItem1." + SI.col(numB) + ")]");
+					case mysql ->
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + dbCat() + ".PlusIntegerItem0.numA' which is not in SELECT list; " +
+							"this is incompatible with DISTINCT";
+					case postgresql ->
+							"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list";
+				});
 	}
 
 

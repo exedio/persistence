@@ -134,25 +134,19 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			}
 			catch(final SQLRuntimeException e)
 			{
-				final String expectedArithmeticException;
-				switch(dialect)
-				{
-					case hsqldb ->
-						expectedArithmeticException = "incompatible data type in conversion: from SQL type DECIMAL to java.lang.Long, value: " + expected;
-					case mysql ->
-					{
-						if(mariaDriver)
-							expectedArithmeticException = "value '" + expected + "' cannot be decoded as Long";
-						else
-							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Long";
-					}
-					case postgresql ->
-						expectedArithmeticException = "Bad value for type long : " + expected;
-					default ->
-						throw new RuntimeException(String.valueOf(dialect), e);
-				}
-
-				assertEquals(expectedArithmeticException, e.getCause().getMessage());
+				assertEquals(
+						switch(dialect)
+						{
+							case hsqldb ->
+									"incompatible data type in conversion: from SQL type DECIMAL to java.lang.Long, value: " + expected;
+							case mysql ->
+									mariaDriver
+									? "value '" + expected + "' cannot be decoded as Long"
+									: "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Long";
+							case postgresql ->
+									"Bad value for type long : " + expected;
+						},
+						e.getCause().getMessage());
 			}
 		}
 	}

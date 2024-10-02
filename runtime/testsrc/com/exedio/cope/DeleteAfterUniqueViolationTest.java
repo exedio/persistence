@@ -64,20 +64,18 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString, e.getFeatureForDescription());
 			if(unq)
 			{
-				switch(dialect)
-				{
-					case hsqldb ->
-						assertEquals(
-								"integrity constraint violation: unique constraint or index violation ; " +
-								"\"Main_uniqueString_Unq\" table: \"Main\"",
-								e.getCause().getMessage());
-					case mysql ->
-						assertEquals(
-								"Duplicate entry 'commit' for key '" + unqPrefix + "Main_uniqueString_Unq'",
-								dropMariaConnectionId(e.getCause().getMessage()));
-					case postgresql ->
-						throw new AssertionFailedError(dialect.name(), e);
-				}
+				assertEquals(
+						switch(dialect)
+						{
+							case hsqldb ->
+									"integrity constraint violation: unique constraint or index violation ; " +
+									"\"Main_uniqueString_Unq\" table: \"Main\"";
+							case mysql ->
+									"Duplicate entry 'commit' for key '" + unqPrefix + "Main_uniqueString_Unq'";
+							case postgresql ->
+									throw new AssertionFailedError(dialect.name(), e);
+						},
+						dropMariaConnectionId(e.getCause().getMessage()));
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else
@@ -111,20 +109,18 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString, e.getFeatureForDescription());
 			if(unq)
 			{
-				switch(dialect)
-				{
-					case hsqldb ->
-						assertEquals(
-								"integrity constraint violation: unique constraint or index violation ; " +
-								"\"Main_uniqueString_Unq\" table: \"Main\"",
-								e.getCause().getMessage());
-					case mysql ->
-						assertEquals(
-								"Duplicate entry 'rollback' for key '" + unqPrefix + "Main_uniqueString_Unq'",
-								dropMariaConnectionId(e.getCause().getMessage()));
-					case postgresql ->
-						throw new AssertionFailedError(dialect.name(), e);
-				}
+				assertEquals(
+						switch(dialect)
+						{
+							case hsqldb ->
+									"integrity constraint violation: unique constraint or index violation ; " +
+									"\"Main_uniqueString_Unq\" table: \"Main\"";
+							case mysql ->
+									"Duplicate entry 'rollback' for key '" + unqPrefix + "Main_uniqueString_Unq'";
+							case postgresql ->
+									throw new AssertionFailedError(dialect.name(), e);
+						},
+						dropMariaConnectionId(e.getCause().getMessage()));
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else

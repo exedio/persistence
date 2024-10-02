@@ -54,14 +54,12 @@ public class DumperTest extends TestWithEnvironment
 	{
 		DumperItem.beforeNewCopeItemCount = 0;
 		dumper = new Dumper();
-		switch(dialect)
+		dataL = switch(dialect)
 		{
-			case hsqldb     -> dataL =      "X'aabbcc'";
-			case mysql      -> dataL =      "x'aabbcc'";
-			case postgresql -> dataL = "E'\\\\xaabbcc'";
-			default ->
-				fail(dialect.toString());
-		}
+			case hsqldb     ->      "X'aabbcc'";
+			case mysql      ->      "x'aabbcc'";
+			case postgresql -> "E'\\\\xaabbcc'";
+		};
 	}
 
 	@Test void testOk() throws IOException
