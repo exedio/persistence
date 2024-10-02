@@ -153,10 +153,15 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 
 	private static String mysqlFormat(final long v)
 	{
+		return mysqlDecimalFormat().format(v);
+	}
+
+	static DecimalFormat mysqlDecimalFormat()
+	{
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator('.');
 		nfs.setGroupingSeparator(',');
-		return new DecimalFormat("", nfs).format(v);
+		return new DecimalFormat("", nfs);
 	}
 
 

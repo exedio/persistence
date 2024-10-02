@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.OverflowIntegerSumTest.mysqlDecimalFormat;
 import static com.exedio.cope.OverflowLongSumTest.AnItem.TYPE;
 import static com.exedio.cope.OverflowLongSumTest.AnItem.field;
 import static com.exedio.cope.SchemaInfo.newConnection;
@@ -34,8 +35,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import org.junit.jupiter.api.Test;
 
 public class OverflowLongSumTest extends TestWithEnvironment
@@ -161,10 +160,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 
 	private static String mysqlFormat(final BigDecimal v)
 	{
-		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
-		nfs.setDecimalSeparator('.');
-		nfs.setGroupingSeparator(',');
-		return new DecimalFormat("", nfs).format(v);
+		return mysqlDecimalFormat().format(v);
 	}
 
 
