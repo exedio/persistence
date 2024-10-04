@@ -54,13 +54,13 @@ public class SchemaViewTest extends TestWithEnvironment
 
 		switch(dialect)
 		{
-			case mysql ->
+			case mysql, postgresql ->
 				connection.executeUpdate(
 						"CREATE VIEW " + NAME + " AS " +
 						"(SELECT " + SI.col(MyItem.field) +
 						" FROM "   + SI.tab(MyItem.TYPE)  + ")");
 
-			case hsqldb, postgresql ->
+			case hsqldb ->
 			{
 				// TODO nothing so far
 			}
@@ -76,11 +76,11 @@ public class SchemaViewTest extends TestWithEnvironment
 	{
 		switch(dialect)
 		{
-			case mysql ->
+			case mysql, postgresql ->
 				connection.executeUpdate(
 						"DROP VIEW IF EXISTS " + NAME);
 
-			case hsqldb, postgresql ->
+			case hsqldb ->
 			{
 				// nothing so far
 			}

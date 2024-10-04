@@ -114,16 +114,23 @@ final class PostgresqlSchemaDialect extends Dialect
 		querySQL(schema,
 				//language=SQL
 				"SELECT " +
-						"table_name, " + // 1
-						"column_name, " + // 2
-						"is_nullable, " + // 3
-						"data_type, " + // 4
-						"character_maximum_length, " + // 5
-						"datetime_precision, " + // 6
-						"collation_name " + // 7
-				"FROM information_schema.columns " +
-				"WHERE table_catalog=" + catalog + " AND table_schema=" + schemaL + " " +
-				"ORDER BY ordinal_position", // make it deterministic for multiple unused columns in one table
+						"c.table_name, " + // 1
+						"c.column_name, " + // 2
+						"c.is_nullable, " + // 3
+						"c.data_type, " + // 4
+						"c.character_maximum_length, " + // 5
+						"c.datetime_precision, " + // 6
+						"c.collation_name " + // 7
+				"FROM information_schema.columns c " +
+				"WHERE c.table_catalog=" + catalog + " AND c.table_schema=" + schemaL + " " +
+				"AND c.table_name IN " +
+				"(" +
+						"SELECT t.table_name " +
+						"FROM information_schema.tables t " +
+						"WHERE t.table_catalog=" + catalog + " AND t.table_schema=" + schemaL + " " +
+						"AND t.table_type='BASE TABLE' " + // excludes views (CREATE VIEW) from result
+				")" +
+				"ORDER BY c.ordinal_position", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
 			while(resultSet.next())
