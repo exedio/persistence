@@ -140,28 +140,24 @@ public class GroupByTest extends TestWithEnvironment
 		assertEquals(4, query.total());
 		assertTrue(query.exists());
 
-		switch(dialect)
-		{
-			case hsqldb ->
-				notAllowed(query,
-						"invalid ORDER BY expression" +
-						ifPrep(
-								" in statement [" +
-								"SELECT \"string\" FROM " + SI.tab(TYPE) + " " +
-								"GROUP BY \"string\" ORDER BY \"integer\"]"));
-			case mysql ->
-				notAllowed(query,
-						"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
-						"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
-						"which is not functionally dependent on columns in GROUP BY clause; " +
-						"this is incompatible with sql_mode=only_full_group_by");
-			case postgresql ->
-				notAllowed(query,
-						"ERROR: column \"" + table + "." + column + "\" must appear " +
-						"in the GROUP BY clause or be used in an aggregate function");
-			default ->
-				throw new RuntimeException(String.valueOf(dialect));
-		}
+		notAllowed(query,
+				switch(dialect)
+				{
+					case hsqldb ->
+							"invalid ORDER BY expression" +
+							ifPrep(
+									" in statement [" +
+									"SELECT \"string\" FROM " + SI.tab(TYPE) + " " +
+									"GROUP BY \"string\" ORDER BY \"integer\"]");
+					case mysql ->
+							"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
+							"contains nonaggregated column '" + dbCat() + ".AnItem.integer' " +
+							"which is not functionally dependent on columns in GROUP BY clause; " +
+							"this is incompatible with sql_mode=only_full_group_by";
+					case postgresql ->
+							"ERROR: column \"" + table + "." + column + "\" must appear " +
+							"in the GROUP BY clause or be used in an aggregate function";
+				});
 	}
 
 	@Test void testDistinctInvalidOrderBy()
@@ -173,26 +169,22 @@ public class GroupByTest extends TestWithEnvironment
 		assertEquals(4, query.total());
 		assertTrue(query.exists());
 
-		switch(dialect)
-		{
-			case hsqldb ->
-				notAllowed(query,
-						"invalid ORDER BY expression" +
-						ifPrep(
-								" in statement [" +
-								"SELECT DISTINCT \"string\" FROM " + SI.tab(TYPE) + " " +
-								"ORDER BY \"integer\"]"));
-			case mysql ->
-				notAllowed(query,
-						"Expression #1 of ORDER BY clause is not in SELECT list, " +
-						"references column '" + dbCat() + ".AnItem.integer' " +
-						"which is not in SELECT list; this is incompatible with DISTINCT");
-			case postgresql ->
-				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
-			default ->
-				throw new RuntimeException(String.valueOf(dialect));
-		}
+		notAllowed(query,
+				switch(dialect)
+				{
+					case hsqldb ->
+							"invalid ORDER BY expression" +
+							ifPrep(
+									" in statement [" +
+									"SELECT DISTINCT \"string\" FROM " + SI.tab(TYPE) + " " +
+									"ORDER BY \"integer\"]");
+					case mysql ->
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + dbCat() + ".AnItem.integer' " +
+							"which is not in SELECT list; this is incompatible with DISTINCT";
+					case postgresql ->
+							"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list";
+				});
 	}
 
 	/**

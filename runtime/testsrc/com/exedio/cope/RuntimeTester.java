@@ -75,14 +75,14 @@ final class RuntimeTester
 	{
 		final String database = model.getConnectProperties().getDialect();
 
-		switch(database)
+		dialect = switch(database)
 		{
-			case "com.exedio.cope.HsqldbDialect"     -> dialect = Dialect.hsqldb;
-			case "com.exedio.cope.MysqlDialect"      -> dialect = Dialect.mysql;
-			case "com.exedio.cope.PostgresqlDialect" -> dialect = Dialect.postgresql;
+			case "com.exedio.cope.HsqldbDialect"     -> Dialect.hsqldb;
+			case "com.exedio.cope.MysqlDialect"      -> Dialect.mysql;
+			case "com.exedio.cope.PostgresqlDialect" -> Dialect.postgresql;
 			default ->
 				fail(database);
-		}
+		};
 
 		hsqldb     = dialect==Dialect.hsqldb;
 		mysql      = dialect==Dialect.mysql;

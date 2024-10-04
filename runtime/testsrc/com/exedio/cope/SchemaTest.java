@@ -177,14 +177,14 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(null, min4Max8Column.getError());
 		assertEquals(OK, min4Max8Column.getParticularColor());
 
-		final String string8 =
-		switch(dialect)
-		{
-			case hsqldb     -> "VARCHAR(8)";
-			case mysql      -> "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
-			case postgresql -> "character varying(8) COLLATE \"ucs_basic\"";
-		};
-		assertEquals(string8, min4Max8Column.getType());
+		assertEquals(
+				switch(dialect)
+				{
+					case hsqldb     -> "VARCHAR(8)";
+					case mysql      -> "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
+					case postgresql -> "character varying(8) COLLATE \"ucs_basic\"";
+				},
+				min4Max8Column.getType());
 
 		final boolean icu = mysql && atLeastMysql8();
 		final String regexpBegin = icu ? "\\A": "^";
@@ -192,14 +192,14 @@ public class SchemaTest extends TestWithEnvironment
 		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"   +regexpEnd+"'" : "";
 		final String hexSQL   = mysql ? q(data)        +" REGEXP '"+regexpBegin+"[0-9a-f]*"+regexpEnd+"'" : "";
 		final String regexpSQL =
-		switch(dialect)
-		{
-			case hsqldb -> "REGEXP_MATCHES("+q(stringUpper6)+",'(?s)\\A[A-B]*\\z')";
-			case mysql -> icu
-					? q(stringUpper6)+" REGEXP CAST('(?s)\\A[A-B]*\\z' AS CHAR)"
-					: q(stringUpper6)+" REGEXP CAST('^[A-B]*$' AS CHAR)";
-			case postgresql -> q(stringUpper6)+" ~ '^[A-B]*$'";
-		};
+				switch(dialect)
+				{
+					case hsqldb -> "REGEXP_MATCHES("+q(stringUpper6)+",'(?s)\\A[A-B]*\\z')";
+					case mysql -> icu
+							? q(stringUpper6)+" REGEXP CAST('(?s)\\A[A-B]*\\z' AS CHAR)"
+							: q(stringUpper6)+" REGEXP CAST('^[A-B]*$' AS CHAR)";
+					case postgresql -> q(stringUpper6)+" ~ '^[A-B]*$'";
+				};
 
 		assertCheckConstraint(table, "Main_stringMin4_MN", "CHAR_LENGTH("+q(stringMin4)+")>=4");
 		assertCheckConstraint(table, "Main_stringMin4_MX", "CHAR_LENGTH("+q(stringMin4)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
