@@ -58,12 +58,12 @@ public final class InCondition<E> extends Condition
 		}
 		bf.append(" IN (");
 		bf.appendParameterAny(allowedValues.get(0));
-		for (int i= 1; i<allowedValues.size(); i++)
+		for (int i = 1; i<allowedValues.size(); i++)
 		{
-			bf.append(",");
+			bf.append(',');
 			bf.appendParameterAny(allowedValues.get(i));
 		}
-		bf.append(")");
+		bf.append(')');
 	}
 
 	@Override
@@ -152,14 +152,14 @@ public final class InCondition<E> extends Condition
 		toStringForValue(bf, allowedValues.get(0), key);
 		bf.append('\'');
 
-		for (int i= 1; i<allowedValues.size(); i++)
+		for (int i = 1; i<allowedValues.size(); i++)
 		{
-			bf.append(",");
+			bf.append(',');
 			bf.append('\'');
 			toStringForValue(bf, allowedValues.get(i), key);
 			bf.append('\'');
 		}
 
-		bf.append(")");
+		bf.append(')');
 	}
 }
