@@ -111,18 +111,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 				catch(final SQLRuntimeException e)
 				{
 					assertEquals(
-							switch(dialect)
-							{
-								case hsqldb ->
-										"integrity constraint violation: " +
-										"check constraint ; " + constraintName + " " +
-										"table: " + tableName;
-								case mysql ->
-										"Check constraint '" + constraintName + "' is violated.";
-								case postgresql ->
-										"ERROR: new row for relation \"" + tableName + "\" " +
-										"violates check constraint \"" + constraintName + "\"";
-							},
+							checkViolationMessage(tableName, constraintName),
 							dropMariaConnectionId(e.getCause().getMessage()));
 				}
 			}

@@ -330,6 +330,16 @@ public abstract class TestWithEnvironment
 		return envInfo().getCatalog();
 	}
 
+	protected final String checkViolationMessage(final String table, final String constraint)
+	{
+		return switch(dialect)
+		{
+			case hsqldb -> "integrity constraint violation: check constraint ; " + constraint + " table: " + table;
+			case mysql -> "Check constraint '" + constraint +  "' is violated.";
+			case postgresql -> "ERROR: new row for relation \"" + table + "\" violates check constraint \"" + constraint + "\"";
+		};
+	}
+
 	static
 	{
 		PrometheusMeterRegistrar.load();
