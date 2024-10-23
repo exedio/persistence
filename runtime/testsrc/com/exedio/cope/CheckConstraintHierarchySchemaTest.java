@@ -24,6 +24,7 @@ import static com.exedio.cope.CheckConstraintHierarchyItemBottom.bottom2;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top2;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -120,9 +121,11 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 		while(true);
 	}
 
-	private static void assertIt(final String name, final String requiredCondition, final CheckConstraint constraint)
+	private void assertIt(final String name, final String requiredCondition, final CheckConstraint constraint)
 	{
 		assertEquals(name, constraint.getName());
 		assertEquals(requiredCondition, constraint.getRequiredCondition());
+		assertEquals(supportsCheckConstraint(model)?null:"unsupported", constraint.getError());
+		assertEquals(Node.Color.OK, constraint.getParticularColor());
 	}
 }
