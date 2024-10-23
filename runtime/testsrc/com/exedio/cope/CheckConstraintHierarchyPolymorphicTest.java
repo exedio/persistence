@@ -189,14 +189,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 
 	private String checkViolation()
 	{
-		final String table = getTableName(Top.TYPE);
-		final String constraint = Middle.CONSTRAINT_NAME;
-		return switch(dialect)
-		{
-			case hsqldb -> "integrity constraint violation: check constraint ; " + constraint + " table: " + table;
-			case mysql -> "Check constraint '" + constraint +  "' is violated.";
-			case postgresql -> "ERROR: new row for relation \"" + table + "\" violates check constraint \"" + constraint + "\"";
-		};
+		return checkViolationMessage(getTableName(Top.TYPE), Middle.CONSTRAINT_NAME);
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);

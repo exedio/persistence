@@ -58,7 +58,7 @@ public class CheckConstraintHierarchyViolationTest extends TestWithEnvironment
 		{
 			assertFailsSql(
 					() -> connection.execute(sql),
-					checkViolation("ItemTop", "ItemTop_top"));
+					checkViolationMessage("ItemTop", "ItemTop_top"));
 		}
 		else
 		{
@@ -83,7 +83,7 @@ public class CheckConstraintHierarchyViolationTest extends TestWithEnvironment
 		{
 			assertFailsSql(
 					() -> connection.execute(sql),
-					checkViolation("ItemTop", "ItemBottom_up")); // NOTE: Divergent name prefix, see notes in CheckConstraint#makeSchema
+					checkViolationMessage("ItemTop", "ItemBottom_up")); // NOTE: Divergent name prefix, see notes in CheckConstraint#makeSchema
 		}
 		else
 		{
@@ -108,7 +108,7 @@ public class CheckConstraintHierarchyViolationTest extends TestWithEnvironment
 		{
 			assertFailsSql(
 					() -> connection.execute(sql),
-					checkViolation("ItemBottom", "ItemBottom_bottom"));
+					checkViolationMessage("ItemBottom", "ItemBottom_bottom"));
 		}
 		else
 		{
@@ -141,16 +141,6 @@ public class CheckConstraintHierarchyViolationTest extends TestWithEnvironment
 				"UPDATE " + SI.tab(field.getType()) + " " +
 				"SET " + SI.col(field) + "=" + value + " " +
 				"WHERE " + SI.pk(field.getType()) + "=" + getPrimaryKeyColumnValueL(item);
-	}
-
-	private String checkViolation(final String table, final String constraint)
-	{
-		return switch(dialect)
-		{
-			case hsqldb -> "integrity constraint violation: check constraint ; " + constraint + " table: " + table;
-			case mysql -> "Check constraint '" + constraint +  "' is violated.";
-			case postgresql -> "ERROR: new row for relation \"" + table + "\" violates check constraint \"" + constraint + "\"";
-		};
 	}
 
 	private void assertFailsSql(
