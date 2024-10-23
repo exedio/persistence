@@ -23,6 +23,8 @@ import static com.exedio.cope.CheckConstraintHierarchyItemBottom.bottom1;
 import static com.exedio.cope.CheckConstraintHierarchyItemBottom.bottom2;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top2;
+import static com.exedio.cope.CheckConstraintHierarchyItemTop.up1;
+import static com.exedio.cope.CheckConstraintHierarchyItemTop.up2;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -93,6 +95,9 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 			assertEquals("ItemTop_cross1_MN", next(i).getName());
 			assertEquals("ItemTop_cross1_MX", next(i).getName());
 			assertIt("ItemTop_top", SI.col(top1)+"<"+SI.col(top2), next(i));
+			assertIt("ItemBottom_up", // NOTE: Divergent name prefix, see notes in CheckConstraint#makeSchema
+					"("+SI.type(CheckConstraintHierarchyItemTop.TYPE)+"<>'ItemBottom') OR ("+SI.col(up1)+"<"+SI.col(up2)+")",
+					next(i));
 			assertFalse(hasNext(i));
 		}
 	}

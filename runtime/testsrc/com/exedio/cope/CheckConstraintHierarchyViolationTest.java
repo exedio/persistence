@@ -38,13 +38,7 @@ public class CheckConstraintHierarchyViolationTest extends TestWithEnvironment
 	@Test void testIsSupportedBySchema()
 	{
 		assertEquals(true,  CheckConstraintHierarchyItemTop   .top   .isSupportedBySchemaIfSupportedByDialect());
-		// TODO
-		// The following should be true, since check constraint "up" can be translated
-		// into a database check constraint, since it just refers to columns of one table.
-		// This is not yet implemented.
-		// An implementation additionally needs to restrict the type (column "class")
-		// in the table of the super type.
-		assertEquals(false, CheckConstraintHierarchyItemBottom.up    .isSupportedBySchemaIfSupportedByDialect());
+		assertEquals(true,  CheckConstraintHierarchyItemBottom.up    .isSupportedBySchemaIfSupportedByDialect());
 		assertEquals(true,  CheckConstraintHierarchyItemBottom.bottom.isSupportedBySchemaIfSupportedByDialect());
 		assertEquals(false, CheckConstraintHierarchyItemBottom.cross .isSupportedBySchemaIfSupportedByDialect());
 	}
@@ -85,9 +79,18 @@ public class CheckConstraintHierarchyViolationTest extends TestWithEnvironment
 		commit();
 
 		final String sql = sql(up1, 201, item);
-		assertEquals(1, connection.executeUpdate(sql));
+		if(supportsCheckConstraint(model))
+		{
+			assertFailsSql(
+					() -> connection.execute(sql),
+					checkViolation("ItemTop", "ItemBottom_up")); // NOTE: Divergent name prefix, see notes in CheckConstraint#makeSchema
+		}
+		else
+		{
+			assertEquals(1, connection.executeUpdate(sql));
+		}
 		startTransaction();
-		assertEquals(1, constraint.check());
+		assertEquals(supportsCheckConstraint(model)?0:1, constraint.check());
 	}
 
 	/**
