@@ -123,11 +123,13 @@ public class DynamicModelModelTest
 		final UniqueConstraint parentAndPosition          = (UniqueConstraint)type.getFeature("uniqueConstraint");
 		final UniqueConstraint parentValueTypeAndPosition = (UniqueConstraint)type.getFeature("uniqueConstraintPerValueType");
 		final UniqueConstraint parentAndCode              = (UniqueConstraint)type.getFeature("uniqueConstraintCode");
+		final PartOf<?> partOf = (PartOf<?>)type.getFeature("fields");
 		assertEquals(asList(new Feature[]{
 				type.getThis(),
 				features.mount().fieldParent(),
 				features.fieldPosition,
 				parentAndPosition,
+				partOf,
 				features.fieldValueType,
 				features.fieldPositionPerValueType,
 				parentValueTypeAndPosition,
@@ -145,6 +147,9 @@ public class DynamicModelModelTest
 		assertEquals(
 				List.of(features.mount().fieldParent(), features.fieldCode),
 				parentAndCode.getFields());
+
+		assertEquals(features.mount().fieldParent(), partOf.getContainer());
+		assertEquals("[" + features.fieldPosition + " asc]", partOf.getOrders().toString());
 	}
 
 	@Test void testEnumType()
@@ -152,11 +157,13 @@ public class DynamicModelModelTest
 		final Type<Enum<DynamicModelLocalizationItem>> type = features.getEnumType();
 		final UniqueConstraint parentAndPosition = (UniqueConstraint)type.getFeature("uniquePosition");
 		final UniqueConstraint parentAndCode     = (UniqueConstraint)type.getFeature("uniqueCode");
+		final PartOf<?> partOf = (PartOf<?>)type.getFeature("enums");
 		assertEquals(asList(new Feature[]{
 				type.getThis(),
 				features.mount().enumParent(),
 				features.enumPosition,
 				parentAndPosition,
+				partOf,
 				features.enumCode,
 				parentAndCode,
 				features.enumLocalization,
@@ -168,6 +175,9 @@ public class DynamicModelModelTest
 		assertEquals(
 				List.of(features.mount().enumParent(), features.enumCode),
 				parentAndCode.getFields());
+
+		assertEquals(features.mount().enumParent(), partOf.getContainer());
+		assertEquals("[" + features.enumPosition + " asc]", partOf.getOrders().toString());
 	}
 
 	@Test void testSerialization()

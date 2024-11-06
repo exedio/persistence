@@ -184,6 +184,7 @@ public final class DynamicModel<L> extends Pattern
 		features.put("parent", fieldParent);
 		features.put("position", fieldPosition);
 		features.put("uniqueConstraint", UniqueConstraint.create(fieldParent, fieldPosition));
+		features.put("fields",                     PartOf.create(fieldParent, fieldPosition));
 		features.put("valueType", fieldValueType);
 		features.put("positionPerValueType", fieldPositionPerValueType);
 		features.put("uniqueConstraintPerValueType", UniqueConstraint.create(fieldParent, fieldValueType, fieldPositionPerValueType));
@@ -201,6 +202,7 @@ public final class DynamicModel<L> extends Pattern
 			features.put("parent", enumParent);
 			features.put("position", enumPosition);
 			features.put("uniquePosition", UniqueConstraint.create(enumParent, enumPosition));
+			features.put("enums",                    PartOf.create(enumParent, enumPosition));
 			features.put("code", enumCode);
 			features.put("uniqueCode", UniqueConstraint.create(enumParent, enumCode));
 			features.put("name", enumLocalization);
