@@ -35,7 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.junit.HolderExtension;
-import com.exedio.cope.tojunit.AssertionFailedClock;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -44,13 +43,14 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.PosixFilePermission;
-import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.EnumSet;
 import java.util.function.Consumer;
+import java.util.function.LongSupplier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.opentest4j.AssertionFailedError;
 
 public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 {
@@ -120,7 +120,7 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 	@ExtendWith(MarkPutClock.class)
 	@Test void putRedundantAndMarkFile(final MarkPutClock clock) throws IOException
 	{
-		clock.override(new AssertionFailedClock());
+		clock.override(() -> { throw new AssertionFailedError(); });
 
 		final Path file = getRoot().toPath().resolve("abc").resolve("d");
 		assertFalse(Files.exists(file));
@@ -133,14 +133,7 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertFalse(service.put("abcd", value));
 
 		markPut = true;
-		clock.override(new AssertionFailedClock()
-		{
-			@Override
-			public long millis()
-			{
-				return markPutInstant.toEpochMilli();
-			}
-		});
+		clock.override(() -> markPutInstant.toEpochMilli());
 		final Instant instant1 = LocalDateTime.of(2022, JULY, 23, 6, 7, 32).toInstant(UTC);
 		markPutInstant = instant1;
 		assertFalse(service.put("abcd", value));
@@ -159,11 +152,11 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 
 	private Instant markPutInstant = null;
 
-	public static final class MarkPutClock extends HolderExtension<Clock>
+	public static final class MarkPutClock extends HolderExtension<LongSupplier>
 	{
 		public MarkPutClock()
 		{
-			super(VaultFileService.markRedundantPutClock);
+			super(VaultFileService.markRedundantPutMillis);
 		}
 	}
 

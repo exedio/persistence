@@ -50,11 +50,11 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.time.Clock;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
+import java.util.function.LongSupplier;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
@@ -205,7 +205,7 @@ public final class VaultFileService implements VaultService
 		if(Files.exists(file))
 		{
 			if(requiresToMarkPut.getAsBoolean())
-				Files.setLastModifiedTime(file, fromMillis(markRedundantPutClock.get().millis()));
+				Files.setLastModifiedTime(file, fromMillis(markRedundantPutMillis.get().getAsLong()));
 			return false;
 		}
 
@@ -230,7 +230,7 @@ public final class VaultFileService implements VaultService
 		return true;
 	}
 
-	static final Holder<Clock> markRedundantPutClock = new Holder<>(Clock.systemUTC());
+	static final Holder<LongSupplier> markRedundantPutMillis = new Holder<>(System::currentTimeMillis);
 
 	private void createDirectoryIfNotExists(final Path dir, final String hash) throws IOException
 	{
