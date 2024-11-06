@@ -100,4 +100,10 @@ final class CreatedState extends State
 	{
 		return true;
 	}
+
+	@Override
+	boolean needsUpdate(final ConnectProperties properties, final Column column)
+	{
+		throw new RuntimeException("unexpected call");
+	}
 }

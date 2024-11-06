@@ -373,6 +373,11 @@ final class Database
 			{
 				if(column instanceof BlobColumn && !blobs.containsKey(column))
 					continue;
+				if(! (column instanceof BlobColumn))
+				{
+					if (!state.needsUpdate(properties, column))
+						continue;
+				}
 
 				if(first)
 					first = false;

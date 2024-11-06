@@ -119,4 +119,10 @@ final class DeletedState extends State
 	{
 		return false;
 	}
+
+	@Override
+	boolean needsUpdate(final ConnectProperties properties, final Column column)
+	{
+		throw new RuntimeException("unexpected call");
+	}
 }

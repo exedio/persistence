@@ -334,6 +334,8 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return querySearchSizeLimit;
 	}
 
+	final boolean storeOnlyModifiedColumns = value("storeOnlyModifiedColumns", true);
+
 
 	// cache
 

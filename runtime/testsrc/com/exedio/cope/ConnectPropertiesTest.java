@@ -115,6 +115,7 @@ public class ConnectPropertiesTest
 				"connectionPool.idleInitial",
 				"connectionPool.idleLimit",
 				"query.searchSizeLimit",
+				"storeOnlyModifiedColumns",
 				"cache.item.limit",
 				"cache.query.limit",
 				"cache.query.sizeLimit",

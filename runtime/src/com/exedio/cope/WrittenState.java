@@ -102,4 +102,10 @@ final class WrittenState extends State
 	{
 		return true;
 	}
+
+	@Override
+	boolean needsUpdate(final ConnectProperties properties, final Column column)
+	{
+		return !properties.storeOnlyModifiedColumns;
+	}
 }

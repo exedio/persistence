@@ -24,11 +24,22 @@ final class ModifiedState extends State
 {
 	private Row row;
 
+	private final IdentityList<Column> modifiedColumns;
+
 	ModifiedState( final Transaction transaction, final State original )
 	{
 		super(original.item, original.updateCount);
 		row = original.stealValues();
 		transaction.addInvalidation(item);
+		modifiedColumns = transaction.connect.properties.storeOnlyModifiedColumns ? new IdentityList<>() : null;
+	}
+
+	@Override
+	boolean needsUpdate(final ConnectProperties properties, final Column column)
+	{
+		if (modifiedColumns==null)
+			return true;
+		return modifiedColumns.contains(column);
 	}
 
 	@Override
@@ -43,10 +54,21 @@ final class ModifiedState extends State
 		return (String)row.get(column);
 	}
 
+	private void markModified(final Column column)
+	{
+		if (modifiedColumns!=null)
+		{
+			modifiedColumns.add(column);
+		}
+	}
+
 	@Override
 	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
 		field.set(row, value);
+		markModified(field.getColumn());
+		if (field instanceof final ItemField<?> itemField)
+			markModified(itemField.getTypeColumn());
 		return this;
 	}
 
@@ -54,6 +76,7 @@ final class ModifiedState extends State
 	State put(final Transaction transaction, final StringColumn column, final String value) // just for DataVault
 	{
 		row.put(column, value);
+		markModified(column);
 		return this;
 	}
 

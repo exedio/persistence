@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ItemModificationTest extends TestWithEnvironment
@@ -33,9 +34,17 @@ class ItemModificationTest extends TestWithEnvironment
 
 	private final ConnectionRule connection = new ConnectionRule(model);
 
+	private boolean storeOnlyModified;
+
 	protected ItemModificationTest()
 	{
 		super(MODEL);
+	}
+
+	@BeforeEach
+	void initStoreOnlyModified()
+	{
+		storeOnlyModified = MODEL.getConnectProperties().storeOnlyModifiedColumns;
 	}
 
 	@Override
@@ -106,10 +115,15 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.field, null, "A",
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true),
+								new Update(MyItem.TYPE, true, MyItem.field)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -129,10 +143,15 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.field, "A", null,
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true),
+								new Update(MyItem.TYPE, true, MyItem.field)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -152,10 +171,15 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				ModifiableParent.modifiableAtParent, 1, 2,
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -175,10 +199,15 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.reference, null, new MyItem(),
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true),
+								new Update(MyItem.TYPE, true, MyItem.reference)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -198,10 +227,15 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.reference, new MyItem(), null,
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true),
+								new Update(MyItem.TYPE, true, MyItem.reference)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -222,10 +256,14 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.blobData, null, DataField.toValue(new byte[]{1}),
 				0,
-				List.of(
-						new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(MyItem.TYPE, false, MyItem.blobData)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -235,10 +273,14 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.blobData, null, null,
 				0,
-				List.of(
-						new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(MyItem.TYPE, false, MyItem.blobData)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -248,10 +290,14 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.blobData, DataField.toValue(new byte[]{1}), null,
 				0,
-				List.of(
-						new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(MyItem.TYPE, false, MyItem.blobData)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -261,10 +307,14 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.blobData, DataField.toValue(new byte[]{1}), DataField.toValue(new byte[]{1}),
 				0,
-				List.of(
-						new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(MyItem.TYPE, false, MyItem.blobData)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, false, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, false, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -281,10 +331,15 @@ class ItemModificationTest extends TestWithEnvironment
 						SetValue.map(MyItem.blobData, DataField.toValue(new byte[]{2}))
 				},
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.blobData)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -301,10 +356,15 @@ class ItemModificationTest extends TestWithEnvironment
 						SetValue.map(MyItem.field, "B")
 				},
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -314,10 +374,15 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.vaultData, null, DataField.toValue(new byte[]{1}),
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true),
+								new Update(MyItem.TYPE, true, MyItem.vaultData)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -337,10 +402,15 @@ class ItemModificationTest extends TestWithEnvironment
 		check(
 				MyItem.vaultData, DataField.toValue(new byte[]{1}), null,
 				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				storeOnlyModified ?
+						List.of(
+								new Update(ModifiableParent.TYPE, true),
+								new Update(MyItem.TYPE, true, MyItem.vaultData)
+						) :
+						List.of(
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
+								new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
+						)
 		);
 	}
 
@@ -443,6 +513,7 @@ class ItemModificationTest extends TestWithEnvironment
 	private static class ModifiableParent extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
+		@SuppressWarnings("unused")
 		static final IntegerField modifiableAtParent = new IntegerField().optional();
 
 		@com.exedio.cope.instrument.Generated
