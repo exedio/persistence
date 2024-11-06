@@ -87,7 +87,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 		TYPE.search(text.equal("string2"));
 		l.verifyExpectations();
 		dbl3.assertSql("SELECT");
-		item.setText("string2");
+		item.setText("string2b");
 		dbl3.assertSql("UPDATE");
 		dbl2.assertSqlEmpty();
 		dbl1.assertSqlEmpty();
