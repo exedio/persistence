@@ -26,9 +26,9 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
-import java.time.Clock;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.function.LongSupplier;
 import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public final class SlowTransactionLogger
 		if(openTransactions.isEmpty())
 			return;
 
-		final long date = now.get().millis();
+		final long date = now.get().getAsLong();
 		final long thresholdWarn  = subtractExact(date, properties.thresholdWarn .toMillis());
 		final long thresholdError = subtractExact(date, properties.thresholdError.toMillis());
 		for(final Transaction tx : openTransactions)
@@ -96,7 +96,7 @@ public final class SlowTransactionLogger
 		}
 	}
 
-	static final Holder<Clock> now = new Holder<>(Clock.systemUTC());
+	static final Holder<LongSupplier> now = new Holder<>(System::currentTimeMillis);
 
 	// almost equal to code in SamplerThread
 	static String toString(final StackTraceElement[] trace)
