@@ -556,7 +556,7 @@ public class VaultFileServicePropertiesProbeTest
 				"directories disabled");
 	}
 
-	@Test void probePremisedNotPremised() throws Exception
+	@Test void probePremisedNotPremised()
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
@@ -567,9 +567,10 @@ public class VaultFileServicePropertiesProbeTest
 		final Props p = new Props(source);
 		assertEquals(false, p.directory.premised);
 		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
-		assertEquals(
-				"missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)",
-				dirs.call());
+		assertFails(
+				dirs::call,
+				ProbeAbortedException.class,
+				"missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)");
 	}
 
 	@Test void probePremisedOne() throws Exception

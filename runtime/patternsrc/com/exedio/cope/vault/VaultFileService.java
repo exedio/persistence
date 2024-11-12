@@ -476,7 +476,7 @@ public final class VaultFileService implements VaultService
 		}
 
 		@Probe(name="directory.Premised", order=410)
-		private Object probeDirectoryPremised() throws ProbeAbortedException
+		private int probeDirectoryPremised() throws ProbeAbortedException
 		{
 			int missingTotal = 0;
 			final int MISSING_LIMIT = 15;
@@ -512,7 +512,7 @@ public final class VaultFileService implements VaultService
 			if(directory.premised)
 				throw new IllegalStateException(missing.toString());
 			else
-				return missing.toString();
+				throw newProbeAbortedException(missing.toString());
 		}
 
 		private DirProps directoryForProbe() throws ProbeAbortedException
