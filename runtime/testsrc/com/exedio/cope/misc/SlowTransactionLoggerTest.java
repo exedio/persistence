@@ -29,14 +29,13 @@ import com.exedio.cope.Transaction;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.HolderExtension;
 import com.exedio.cope.misc.SlowTransactionLogger.Properties;
-import com.exedio.cope.tojunit.AssertionFailedClock;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.Sources;
-import java.time.Clock;
 import java.time.Duration;
 import java.util.LinkedList;
+import java.util.function.LongSupplier;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -114,7 +113,7 @@ public class SlowTransactionLoggerTest
 
 	private static final Properties EMPTY_PROPS = Properties.factory().create(Sources.EMPTY);
 
-	public static final class NowClock extends HolderExtension<Clock>
+	public static final class NowClock extends HolderExtension<LongSupplier>
 	{
 		long lastResult = -1;
 
@@ -125,14 +124,12 @@ public class SlowTransactionLoggerTest
 
 		void override(final Duration offset)
 		{
-			override(new AssertionFailedClock()
-			{
-				@Override public long millis()
+			override(() ->
 				{
 					lastResult = System.currentTimeMillis() + offset.toMillis();
 					return lastResult;
 				}
-			});
+			);
 		}
 	}
 
