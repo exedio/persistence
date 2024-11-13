@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.IdentityHashMap;
+import java.util.Objects;
 
 final class WrittenState extends State
 {
@@ -52,13 +53,19 @@ final class WrittenState extends State
 	@Override
 	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
-		return new ModifiedState(transaction, this).put(transaction, field, value);
+		if (Objects.equals(value, get(field)))
+			return this;
+		else
+			return new ModifiedState(transaction, this).put(transaction, field, value);
 	}
 
 	@Override
 	State put(final Transaction transaction, final StringColumn column, final String value) // just for DataVault
 	{
-		return new ModifiedState(transaction, this).put(transaction, column, value);
+		if (Objects.equals(value, get(column)))
+			return this;
+		else
+			return new ModifiedState(transaction, this).put(transaction, column, value);
 	}
 
 	@Override
@@ -66,8 +73,6 @@ final class WrittenState extends State
 	{
 		if(blobs!=null && !blobs.isEmpty())
 			transaction.connect.database.store(transaction.getConnection(), this, true, false, blobs);
-		else
-			throw new RuntimeException(item.getCopeID());
 
 		return this;
 	}
