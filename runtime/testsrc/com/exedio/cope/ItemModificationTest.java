@@ -78,7 +78,7 @@ class ItemModificationTest extends TestWithEnvironment
 		final MyItem item = new MyItem(initial);
 		commit();
 		assertEquals(0, queryUpdateCount(item, MyItem.TYPE));
-		assertEquals(0, queryUpdateCount(item, UnmodifiableParent.TYPE));
+		assertEquals(null, UnmodifiableParent.TYPE.getTable().updateCounter);
 		assertEquals(0, queryUpdateCount(item, ModifiableParent.TYPE));
 
 		startTransaction();
@@ -91,7 +91,6 @@ class ItemModificationTest extends TestWithEnvironment
 		assertEquals(expectedUpdateCounterValue, getEntityUpdateCount(item));
 		commit();
 		assertEquals(expectedUpdateCounterValue, queryUpdateCount(item, MyItem.TYPE));
-		assertEquals(expectedUpdateCounterValue, queryUpdateCount(item, UnmodifiableParent.TYPE));
 		assertEquals(expectedUpdateCounterValue, queryUpdateCount(item, ModifiableParent.TYPE));
 	}
 
@@ -109,7 +108,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -123,7 +121,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -137,7 +134,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -151,7 +147,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -165,7 +160,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -179,7 +173,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -193,7 +186,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -207,7 +199,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -221,7 +212,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -236,7 +226,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -309,7 +298,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.blobData, MyItem.vaultData)
 				)
 		);
@@ -330,7 +318,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -344,7 +331,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -358,7 +344,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -372,7 +357,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);
@@ -386,7 +370,6 @@ class ItemModificationTest extends TestWithEnvironment
 				1,
 				List.of(
 						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(UnmodifiableParent.TYPE, true),
 						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
 				)
 		);

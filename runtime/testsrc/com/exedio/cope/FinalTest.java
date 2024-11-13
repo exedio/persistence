@@ -52,7 +52,11 @@ public final class FinalTest extends TestWithEnvironment
 
 	@Test void testUpdateCounter()
 	{
-		assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
+		assertFails(
+				() -> getUpdateCounterColumnName(FinalSuperItem.TYPE),
+				IllegalArgumentException.class,
+				"no update counter for FinalSuperItem");
+
 		assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));
 
 		assertFails(

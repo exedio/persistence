@@ -582,13 +582,14 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private boolean hasUpdateableTable(final VaultProperties vaultProperties)
 	{
-		for(final Field<?> f : fields.all)
-			if(!f.isFinal() &&
-				!(f instanceof final DataField df && df.willBeStoredAsBlob(vaultProperties)))
-				return true;
-		for(final Type<?> t : getSubtypes())
-			if(t.hasUpdateableTable(vaultProperties))
-				return true;
+		for(final Field<?> f : fields.declared)
+		{
+			if(f.isFinal())
+				continue;
+			if(f instanceof final DataField df && df.willBeStoredAsBlob(vaultProperties))
+				continue;
+			return true;
+		}
 		return false;
 	}
 
@@ -1424,7 +1425,17 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public boolean needsCheckUpdateCounter()
 	{
-		return supertype!=null && getTable().updateCounter!=null;
+		return getTable().updateCounter!=null && getSupertypeWithUpdateCounter()!=null;
+	}
+
+	private Type<? super T> getSupertypeWithUpdateCounter()
+	{
+		for(Type<? super T> candidate = supertype; candidate!=null; candidate = candidate.supertype)
+		{
+			if (candidate.getTable().updateCounter!=null)
+				return candidate;
+		}
+		return null;
 	}
 
 	/**
@@ -1449,7 +1460,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		final Executor executor = getModel().connect().executor;
 		final Table table = getTable();
-		final Table superTable = supertype.getTable();
+		final Table superTable = requireNonNull(getSupertypeWithUpdateCounter()).getTable();
 
 		final Statement bf = executor.newStatement(true, mode);
 		//language=SQL
