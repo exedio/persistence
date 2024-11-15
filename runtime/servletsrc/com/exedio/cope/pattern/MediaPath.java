@@ -225,6 +225,7 @@ public abstract class MediaPath extends Pattern
 			for(int i = 0; i<l; i++)
 			{
 				final char c = result.charAt(i);
+				// corresponds to javadoc of MediaUrlCatchphraseProvider#getMediaUrlCatchphrase
 				if(! (('0'<=c&&c<='9')||('A'<=c&&c<='Z')||('a'<=c&&c<='z')||(c=='-')||(c=='_')) )
 					throw new IllegalArgumentException(
 							"illegal catchphrase" +

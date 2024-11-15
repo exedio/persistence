@@ -22,6 +22,18 @@ package com.exedio.cope.pattern;
 public interface MediaUrlCatchphraseProvider
 {
 	/**
+	 * The result must contain the following ascii characters only:
+	 * <ul>
+	 * <li>letters ({@code A}-{@code Z}, {@code a}-{@code z}),
+	 * <li>digits ({@code 0}-{@code 9}),
+	 * <li>the dash ({@code -}) and
+	 * <li>the underscore ({@code _}).
+	 * </ul>
+	 * Otherwise,
+	 * {@link MediaPath#getLocator(com.exedio.cope.Item)} and
+	 * {@link MediaPath#getURL(com.exedio.cope.Item)}
+	 * will throw an {@link IllegalArgumentException}.
+	 * <p>
 	 * Returning null or an empty string is equivalent to not implementing interface
 	 * {@code MediaUrlCatchphraseProvider}
 	 * at all.
