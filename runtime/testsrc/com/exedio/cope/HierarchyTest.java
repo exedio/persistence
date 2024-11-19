@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
-import static com.exedio.cope.SchemaInfo.checkUpdateCounter;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -32,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.misc.HiddenFeatures;
-import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -148,19 +146,7 @@ public class HierarchyTest extends TestWithEnvironment
 		HiddenFeatures.accept(model, (k,v) -> { throw new AssertionFailedError(k + "," + v); });
 		assertEquals(Map.of(), HiddenFeatures.get(model));
 
-		assertFails(
-				() -> checkUpdateCounter(null),
-				NullPointerException.class,
-				"type");
-		assertFails(
-				() -> checkUpdateCounter(HierarchySuper.TYPE),
-				RuntimeException.class,
-				"no check for update counter needed for HierarchySuper");
-		assertEquals(
-				"SELECT COUNT(*) FROM " + SI.tab(HierarchyFirstSub.TYPE) + "," + SI.tab(HierarchySuper.TYPE) + " " +
-				"WHERE " + SI.pkq(HierarchyFirstSub.TYPE) + "=" + SI.pkq(HierarchySuper.TYPE) + " " +
-				"AND " + SI.updateq(HierarchyFirstSub.TYPE) + "<>" + SI.updateq(HierarchySuper.TYPE),
-				checkUpdateCounter(HierarchyFirstSub.TYPE));
+		checkUpdateCountersAbandoned();
 
 		// test persistence
 		assertCheckUpdateCounters();
@@ -321,6 +307,23 @@ public class HierarchyTest extends TestWithEnvironment
 			assertEquals("cannot create item of abstract type HierarchySuper", e.getMessage());
 		}
 		assertCheckUpdateCounters();
+	}
+
+	@SuppressWarnings("deprecation")
+	private void checkUpdateCountersAbandoned()
+	{
+		assertFails(
+				() -> SchemaInfo.checkUpdateCounter(null),
+				NullPointerException.class,
+				"type"
+		);
+		for (final Type<?> type: model.getTypes())
+		{
+			assertFails(
+					() -> SchemaInfo.checkUpdateCounter(type),
+					RuntimeException.class,
+					"update counter consistency between tables has been abandoned");
+		}
 	}
 
 	@Test void testPolymorphicQueryInvalidation() throws UniqueViolationException

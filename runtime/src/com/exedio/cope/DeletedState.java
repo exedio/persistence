@@ -87,7 +87,7 @@ final class DeletedState extends State
 				bf.append(" AND ").
 					append(updateCounter.quotedID).
 					append('=').
-					appendParameter(updateCount);
+					appendParameter(updateCount.getValue(currentType));
 			}
 
 			//System.out.println("deleting "+bf.toString());

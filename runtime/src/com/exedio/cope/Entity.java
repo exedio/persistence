@@ -99,9 +99,9 @@ final class Entity
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	int getUpdateCount()
+	int getUpdateCount(final Type<?> type)
 	{
-		return state.updateCount;
+		return state.updateCount.getValue(type);
 	}
 
 	@Override

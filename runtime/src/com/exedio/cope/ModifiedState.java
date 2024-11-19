@@ -90,9 +90,10 @@ final class ModifiedState extends State
 	State write(final Transaction transaction, final IdentityHashMap<BlobColumn, byte[]> blobs)
 	{
 		boolean discard = true;
+		final UpdateCount updateCount;
 		try
 		{
-			transaction.connect.database.store(transaction.getConnection(), this, true, true, blobs);
+			updateCount = transaction.connect.database.store(transaction.getConnection(), this, true, true, blobs);
 			discard = false;
 		}
 		finally
@@ -100,7 +101,7 @@ final class ModifiedState extends State
 			if(discard)
 				discard( transaction );
 		}
-		return new WrittenState(this);
+		return new WrittenState(this, updateCount);
 	}
 
 	@Override

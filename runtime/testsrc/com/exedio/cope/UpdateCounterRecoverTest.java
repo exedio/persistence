@@ -333,7 +333,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 
 	/**
 	 * Needed additionally to {@link #testOverflow()} to test
-	 * counter incrementation in {@link WrittenState#WrittenState(State)}.
+	 * counter incrementation in {@link WrittenState#WrittenState(State,UpdateCount)}.
 	 */
 	@Test void testOverflowWrittenState() throws SQLException
 	{

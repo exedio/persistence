@@ -282,7 +282,7 @@ final class Database
 
 				final Row row = new Row(type);
 				int columnIndex = 1;
-				int updateCount = Integer.MIN_VALUE;
+				final UpdateCount.Builder updateCountBuilder = UpdateCount.forStoredValue(type);
 				for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 				{
 					final Table table = superType.getTable();
@@ -291,23 +291,12 @@ final class Database
 					if(updateCounter!=null)
 					{
 						final int value = resultSet.getInt(columnIndex++);
-						if(updateCount==Integer.MIN_VALUE)
-						{
-							if(value<0)
-								throw new IllegalStateException(
-										"update counter must be positive: " +
-										table.quotedID + '.' + updateCounter.quotedID + '=' + value +
-										" where " + table.primaryKey.quotedID + '=' + item.pk);
-							updateCount = value;
-						}
-						else
-						{
-							if(updateCount!=value)
-								throw new RuntimeException(
-										"inconsistent update counter for row " + item.pk + " in table " + table.id +
-										" compared to " + type.getTable().id + ": " +
-										value + '/' + updateCount);
-						}
+						if(value<0)
+							throw new IllegalStateException(
+									"update counter must be positive: " +
+									table.quotedID + '.' + updateCounter.quotedID + '=' + value +
+									" where " + table.primaryKey.quotedID + '=' + item.pk);
+						updateCountBuilder.set(superType, value);
 					}
 
 					for(final Column column : table.getColumns())
@@ -317,24 +306,27 @@ final class Database
 					}
 				}
 
-				return new WrittenState(item, row, updateCount!=Integer.MIN_VALUE ? updateCount : 0);
+				return new WrittenState(item, row, updateCountBuilder.build());
 			}
 		);
 	}
 
-	void store(
+	UpdateCount store(
 			final Connection connection,
 			final State state,
 			final boolean present,
 			final boolean incrementUpdateCounter,
 			final IdentityHashMap<BlobColumn, byte[]> blobs)
 	{
-		store(connection, state, present, incrementUpdateCounter, blobs, state.type);
+		final UpdateCount.Modifier nextUpdateCount = state.updateCountNext();
+		store(connection, state, nextUpdateCount, present, incrementUpdateCounter, blobs, state.type);
+		return nextUpdateCount.nextUpdateCount();
 	}
 
 	private void store(
 			final Connection connection,
 			final State state,
+			final UpdateCount.Modifier nextUpdateCount,
 			final boolean present,
 			final boolean incrementUpdateCounter,
 			final IdentityHashMap<BlobColumn, byte[]> blobs,
@@ -344,7 +336,7 @@ final class Database
 
 		final Type<?> supertype = type.supertype;
 		if(supertype!=null)
-			store(connection, state, present, incrementUpdateCounter, blobs, supertype);
+			store(connection, state, nextUpdateCount, present, incrementUpdateCounter, blobs, supertype);
 
 		final Table table = type.getTable();
 
@@ -360,14 +352,6 @@ final class Database
 				append(" SET ");
 
 			boolean first = true;
-
-			if(updateCounter!=null)
-			{
-				bf.append(updateCounter.quotedID).
-					append('=').
-					appendParameter(updateCounter, state.updateCountNext());
-				first = false;
-			}
 
 			for(final Column column : columns)
 			{
@@ -394,6 +378,13 @@ final class Database
 			}
 			if(first) // no updated columns in table
 				return;
+			if(updateCounter!=null)
+			{
+				bf.append(',').
+					append(updateCounter.quotedID).
+					append('=').
+					appendParameter(updateCounter, nextUpdateCount.nextValue(type));
+			}
 
 			bf.append(" WHERE ").
 				append(table.primaryKey.quotedID).
@@ -406,7 +397,7 @@ final class Database
 				bf.append(" AND ").
 					append(updateCounter.quotedID).
 					append('=').
-					appendParameter(state.updateCount);
+					appendParameter(state.updateCount.getValue(type));
 			}
 		}
 		else
@@ -448,7 +439,9 @@ final class Database
 
 			if(updateCounter!=null)
 			{
-				assert state.updateCount==Integer.MAX_VALUE : state.updateCount; // comes from CreatedState
+				assert state.updateCount.isInitial() : state.updateCount; // comes from CreatedState
+				final int nextValue = nextUpdateCount.nextValue(type);
+				assert nextValue==0 : nextValue;
 				bf.append(",0");
 			}
 

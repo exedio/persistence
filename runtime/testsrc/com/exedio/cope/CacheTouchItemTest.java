@@ -140,8 +140,8 @@ public class CacheTouchItemTest extends TestWithEnvironment
 	private void assertUpdateCount(final int transaction, final int global)
 	{
 		assertAll(
-				() -> assertEquals(transaction, item.getUpdateCountIfActive(), "transaction"),
-				() -> assertEquals(global,      item.getUpdateCountGlobal(),   "global")
+				() -> assertEquals(transaction, item.getUpdateCountIfActive(TYPE), "transaction"),
+				() -> assertEquals(global,      item.getUpdateCountGlobal(TYPE),   "global")
 		);
 	}
 

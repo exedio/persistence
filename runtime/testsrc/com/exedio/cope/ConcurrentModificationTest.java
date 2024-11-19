@@ -64,14 +64,27 @@ class ConcurrentModificationTest extends TestWithEnvironment
 	{
 		final Child item = createChildModifiedInOtherTx();
 		assertEquals(0, item.getChildField());
-		assertCollision(() -> item.setParentField(2));
+		if (model.getConnectProperties().storeOnlyModifiedColumns)
+		{
+			item.setParentField(2);
 
-		model.rollback();
-		model.startTransaction("tx");
-		assertEquals(1, item.getChildField());
-		assertEquals(0, item.getParentField());
+			restartTransaction();
+			assertEquals(1, item.getChildField());
+			assertEquals(2, item.getParentField());
 
-		assertEquals(0, Child.oneMustBeZero.check());
+			assertEquals(1, Child.oneMustBeZero.check());
+		}
+		else
+		{
+			assertCollision(() -> item.setParentField(2));
+
+			model.rollback();
+			model.startTransaction("tx");
+			assertEquals(1, item.getChildField());
+			assertEquals(0, item.getParentField());
+
+			assertEquals(0, Child.oneMustBeZero.check());
+		}
 	}
 
 	@Test
