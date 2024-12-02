@@ -19,9 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.HashItem.TYPE;
-import static com.exedio.cope.pattern.HashItem.explicitExternal;
-import static com.exedio.cope.pattern.HashItem.explicitExternalWrap;
-import static com.exedio.cope.pattern.HashItem.implicitExternal;
 import static com.exedio.cope.pattern.HashItem.internal;
 import static com.exedio.cope.pattern.HashItem.limited15;
 import static com.exedio.cope.pattern.HashItem.with3PinValidator;
@@ -34,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -42,7 +38,6 @@ import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
@@ -72,10 +67,6 @@ public class HashTest extends TestWithEnvironment
 	{
 		assertEquals(Arrays.asList(
 				TYPE.getThis(),
-				explicitExternalWrap,
-				explicitExternal,
-				implicitExternal,
-				implicitExternal.getStorage(),
 				internal,
 				internal.getStorage(),
 				limited15,
@@ -85,64 +76,6 @@ public class HashTest extends TestWithEnvironment
 				with3PinValidator,
 				with3PinValidator.getStorage()
 			), TYPE.getFeatures());
-
-		assertEquals(TYPE, explicitExternal.getType());
-		assertEquals("explicitExternal", explicitExternal.getName());
-		assertEquals("wrap", explicitExternal.getAlgorithmID());
-		assertSame(explicitExternalWrap, explicitExternal.getStorage());
-		assertEquals(explicitExternal, explicitExternalWrap.getPattern());
-		assertEqualsUnmodifiable(list(explicitExternalWrap), explicitExternal.getSourceFeatures());
-		assertEquals(false, explicitExternalWrap.isInitial());
-		assertEquals(false, explicitExternalWrap.isFinal());
-		assertContains(StringLengthViolationException.class, explicitExternalWrap.getInitialExceptions());
-		assertFalse(explicitExternal.getStorage().isAnnotationPresent(Computed.class));
-
-		assertNull(item.getExplicitExternalWrap());
-		assertTrue(item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("bing"));
-		assertContains(item, TYPE.search(explicitExternal.isNull()));
-		assertContains(TYPE.search(explicitExternal.isNotNull()));
-
-		item.setExplicitExternalWrap("03affe01");
-		assertEquals("03affe01", item.getExplicitExternalWrap());
-		assertTrue(!item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("03affe01"));
-		assertContains(TYPE.search(explicitExternal.isNull()));
-		assertContains(item, TYPE.search(explicitExternal.isNotNull()));
-
-		item.setExplicitExternal("03affe02");
-		assertEquals("[03affe02]", item.getExplicitExternalWrap());
-		assertTrue(!item.checkExplicitExternal(null));
-		assertTrue(!item.checkExplicitExternal("03affe01"));
-		assertTrue(item.checkExplicitExternal("03affe02"));
-		assertContains(TYPE.search(explicitExternal.isNull()));
-		assertContains(item, TYPE.search(explicitExternal.isNotNull()));
-	}
-
-	@Test void testImplicitExternal()
-	{
-		assertEquals(TYPE, implicitExternal.getType());
-		assertEquals("implicitExternal", implicitExternal.getName());
-		assertEquals("wrap", implicitExternal.getAlgorithmID());
-		assertEquals(TYPE, implicitExternal.getStorage().getType());
-		assertEquals("implicitExternal-wrap", implicitExternal.getStorage().getName());
-		assertEquals(implicitExternal, implicitExternal.getStorage().getPattern());
-		assertEqualsUnmodifiable(list(implicitExternal.getStorage()), implicitExternal.getSourceFeatures());
-		assertEquals(false, implicitExternal.isInitial());
-		assertEquals(false, implicitExternal.isFinal());
-		assertContains(implicitExternal.getInitialExceptions());
-		assertTrue(implicitExternal.getStorage().isAnnotationPresent(Computed.class));
-
-		assertEquals(null, implicitExternal.getStorage().get(item));
-		assertTrue(item.checkImplicitExternal(null));
-		assertFalse(item.checkImplicitExternal(""));
-		assertFalse(item.checkImplicitExternal("zack"));
-
-		item.setImplicitExternal("03affe05");
-		assertEquals("[03affe05]", implicitExternal.getStorage().get(item));
-		assertFalse(item.checkImplicitExternal(null));
-		assertFalse(item.checkImplicitExternal("0"));
-		assertTrue(item.checkImplicitExternal("03affe05"));
 	}
 
 	@Test void testInternal()
@@ -318,20 +251,20 @@ public class HashTest extends TestWithEnvironment
 	@Test void testConditions()
 	{
 		final HashItem item2 = new HashItem();
-		item2.setImplicitExternal("123");
+		item2.setInternal("123");
 		final HashItemHolder h1 = new HashItemHolder(item);
 		final HashItemHolder h2 = new HashItemHolder(item2);
 
-		assertEquals(list(item), TYPE.search(implicitExternal.isNull()));
-		assertEquals(list(item2), TYPE.search(implicitExternal.isNotNull()));
+		assertEquals(list(item), TYPE.search(internal.isNull()));
+		assertEquals(list(item2), TYPE.search(internal.isNotNull()));
 
 		{
 			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
 			final Join join1 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
-			query.narrow( implicitExternal.getStorage().bind(join1).isNull() );
+			query.narrow( internal.getStorage().bind(join1).isNull() );
 
 			final Join join2 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
-			query.narrow( implicitExternal.isNull(join2) );
+			query.narrow( internal.isNull(join2) );
 
 			assertEquals( list(h1), query.search() );
 		}
@@ -339,10 +272,10 @@ public class HashTest extends TestWithEnvironment
 		{
 			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
 			final Join join1 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
-			query.narrow( implicitExternal.getStorage().bind(join1).isNotNull() );
+			query.narrow( internal.getStorage().bind(join1).isNotNull() );
 
 			final Join join2 = query.join(TYPE, HashItemHolder.hashItem::equalTarget);
-			query.narrow( implicitExternal.isNotNull(join2) );
+			query.narrow( internal.isNotNull(join2) );
 
 			assertEquals( list(h2), query.search() );
 		}
