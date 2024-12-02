@@ -18,11 +18,13 @@
 
 package com.exedio.cope.vault;
 
+import com.exedio.cope.VaultAncestry;
 import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 /**
@@ -68,6 +70,16 @@ public interface VaultService extends AutoCloseable
 	 * In particular, it must not have written any byte to {@code sink}.
 	 */
 	void get(@Nonnull String hash, @Nonnull OutputStream sink) throws VaultNotFoundException, IOException;
+
+	/**
+	 * Should be implemented by services only, which forward requests to more than one nested service.
+	 * All other services should stay with the default implementation.
+	 * This service must add its own path element before recursing to a nested service.
+	 * @see VaultAncestry#path()
+	 */
+	default void addToAncestryPath(
+			@Nonnull final String hash,
+			@Nonnull final Consumer<String> sink) { }
 
 	/**
 	 * Is not called, if service instance was created with

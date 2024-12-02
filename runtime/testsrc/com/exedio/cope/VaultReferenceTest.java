@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataTest.assertAncestry;
+import static com.exedio.cope.VaultItem.field;
 import static com.exedio.cope.VaultTest.HASH1;
 import static com.exedio.cope.VaultTest.HASH1A;
 import static com.exedio.cope.VaultTest.MODEL;
@@ -95,7 +97,15 @@ public class VaultReferenceTest
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
 
+		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
+		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
+		refr.assertIt("");
+
 		refr.put(HASH1, VALUE1);
+		refr.assertIt(HASH1, VALUE1, "");
+
+		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
+		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldBytes());
@@ -148,15 +158,28 @@ public class VaultReferenceTest
 		refr.assertIt("");
 
 		main.clear();
+
+		assertAncestry(field, item, HASH1, "reference", "myReferenceAncestry");
+		main.assertIt("contains");
+		refr.assertIt("addToAncestryPath");
+
 		refr.put(HASH1, VALUE1);
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
+
+		assertAncestry(field, item, HASH1, "reference", "myReferenceAncestry");
+		main.assertIt("contains");
+		refr.assertIt(HASH1, VALUE1, "addToAncestryPath");
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference in default: " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getBytes putBytes");
 		refr.assertIt(HASH1, VALUE1, "getBytes");
+
+		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
+		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
+		refr.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
 	}
@@ -281,6 +304,8 @@ public class VaultReferenceTest
 		this.service = (VaultReferenceService)VaultTest.vaultService(MODEL);
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceService();
+		main.ancestryPath = "myMainAncestry";
+		refr.ancestryPath = "myReferenceAncestry";
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}

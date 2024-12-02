@@ -226,10 +226,20 @@ public final class DataField extends Field<DataField.Value>
 
 	/**
 	 * @throws IllegalArgumentException if vault is not enabled for this field
+	 * @see #getVaultAncestry(Item)
 	 */
 	public String getVaultHash(@Nonnull final Item item)
 	{
 		return store.getHash(model.currentTransaction(), item);
+	}
+
+	/**
+	 * @throws IllegalArgumentException if vault is not enabled for this field
+	 * @see #getVaultHash(Item)
+	 */
+	public VaultAncestry getVaultAncestry(@Nonnull final Item item)
+	{
+		return store.getVaultAncestry(model.currentTransaction(), item);
 	}
 
 	/**

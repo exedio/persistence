@@ -46,6 +46,7 @@ abstract class DataFieldStore
 	abstract byte[] load(Transaction tx, Item item);
 	abstract void load(Transaction tx, Item item, OutputStream sink);
 	abstract String getHash(Transaction tx, Item item);
+	abstract VaultAncestry getVaultAncestry(Transaction tx, Item item);
 	abstract void put(Entity entity, Value value, Item exceptionItem);
 
 	String getBucket()

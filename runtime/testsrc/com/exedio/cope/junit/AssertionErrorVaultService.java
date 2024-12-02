@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 
 /**
  * An implementation of {@link VaultService} where
@@ -61,6 +63,14 @@ public class AssertionErrorVaultService implements VaultService
 
 	@Override
 	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
+	{
+		throw new AssertionError(anonymiseHash(hash));
+	}
+
+	@Override
+	public void addToAncestryPath(
+			@Nonnull final String hash,
+			@Nonnull final Consumer<String> sink)
 	{
 		throw new AssertionError(anonymiseHash(hash));
 	}
