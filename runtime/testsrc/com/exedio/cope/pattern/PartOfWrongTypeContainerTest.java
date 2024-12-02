@@ -18,14 +18,21 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
+import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.pattern.PartOf.orderBy;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -36,13 +43,17 @@ public class PartOfWrongTypeContainerTest
 	@Test
 	void test()
 	{
+		assertSame(Container.container, Part.partOf.getContainer());
+		assertEquals(List.of(orderBy(Part.order)), Part.partOf.getOrders());
 		assertFails(
-				() -> PartOf.create(Container.container, Part.order),
-				RuntimeException.class,
-				"must be called before mounting the feature");
+				() -> newType(Part.class, failingActivator()),
+				IllegalArgumentException.class,
+				"container Container.container of PartOf Part.partOf " +
+				"must be declared on the same type or super type");
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class Container extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -53,6 +64,7 @@ public class PartOfWrongTypeContainerTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class,Container::new);
 
 		@com.exedio.cope.instrument.Generated
@@ -64,6 +76,9 @@ public class PartOfWrongTypeContainerTest
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final IntegerField order = new IntegerField();
+
+		@WrapperIgnore
+		static final PartOf<?> partOf = PartOf.create(Container.container, order);
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial

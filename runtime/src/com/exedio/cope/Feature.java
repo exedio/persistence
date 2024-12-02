@@ -450,12 +450,6 @@ public abstract class Feature implements Serializable
 		innerLocalizationKeysPostfixUntilMount = innerLocalizationKeysPostfix;
 	}
 
-	public final boolean isSourceAlready()
-	{
-		assertNotMounted();
-		return patternUntilMount!=null;
-	}
-
 	/**
 	 * Returns the pattern, this feature is a source feature of.
 	 * NOTE:

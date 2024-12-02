@@ -19,27 +19,46 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.pattern.PartOf.orderBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
  * @see PartOfSuperOrderTest
  */
-public class PartOfSuperContainerTest
+public class PartOfSuperContainerTest extends TestWithEnvironment
 {
 	@Test
 	void test()
 	{
-		assertFails(
-				() -> PartOf.create(Super.container, Sub.order),
-				RuntimeException.class,
-				"must be called before mounting the feature");
+		assertSame(Super.container, Sub.parts.getContainer());
+		assertEquals(List.of(orderBy(Sub.order)), Sub.parts.getOrders());
+		assertEquals(List.of(Sub.parts), PartOf.getDeclaredPartOfs(Container.TYPE));
+		assertEquals(List.of(Sub.parts), PartOf.getPartOfs        (Container.TYPE));
+		assertEquals(List.of(), PartOf.getDeclaredPartOfs(Super.TYPE));
+		assertEquals(List.of(), PartOf.getPartOfs        (Super.TYPE));
+		assertEquals(List.of(), PartOf.getDeclaredPartOfs(Sub.TYPE));
+		assertEquals(List.of(), PartOf.getPartOfs        (Sub.TYPE));
+
+		final Container c = new Container();
+		final Sub s7 = new Sub(c, 7);
+		final Sub s3 = new Sub(c, 3);
+		final Sub s9 = new Sub(c, 9);
+		assertEquals(
+				List.of(s3, s7, s9),
+				Sub.parts.getParts(c)
+		);
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
@@ -67,6 +86,9 @@ public class PartOfSuperContainerTest
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final IntegerField order = new IntegerField();
+
+		@WrapperIgnore
+		static final PartOf<?> parts = PartOf.create(container, order);
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
@@ -118,5 +140,12 @@ public class PartOfSuperContainerTest
 
 		@com.exedio.cope.instrument.Generated
 		protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	private static final Model MODEL = new Model(Super.TYPE, Sub.TYPE, Container.TYPE);
+
+	PartOfSuperContainerTest()
+	{
+		super(MODEL);
 	}
 }
