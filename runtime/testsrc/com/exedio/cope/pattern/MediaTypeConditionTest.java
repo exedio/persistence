@@ -56,8 +56,8 @@ public class MediaTypeConditionTest extends TestWithEnvironment
 
 		videoItem.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot_mp42.mp4"), "video/mp4");
 
-		assertEquals(isVault(List.of(), List.of(videoItem)), MediaItem.TYPE.search(mismatchCondition)); // TODO bug, should be videoItem
-		assertEquals(isVault(List.of(), List.of(imageItem, emptyItem)), MediaItem.TYPE.search(invertedCondition)); // TODO bug, should be imageItem, emptyItem
+		assertEquals(List.of(), MediaItem.TYPE.search(mismatchCondition));
+		assertEquals(isVault(List.of(), List.of(videoItem, imageItem, emptyItem)), MediaItem.TYPE.search(invertedCondition)); // TODO bug, should be videoItem, imageItem, emptyItem
 
 		videoItem.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot.ogg"), "video/mp4");
 

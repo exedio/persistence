@@ -25,6 +25,7 @@ import com.exedio.cope.Cope;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -209,8 +210,16 @@ public final class MediaType
 			new MediaType(
 					// https://en.wikipedia.org/wiki/MP4_file_format
 					".mp4",
-					// https://en.wikipedia.org/wiki/List_of_file_signatures
-					new StartsWith(4, new byte[]{'f', 't', 'y', 'p', 'i', 's', 'o', 'm'}),
+					// https://www.file-recovery.com/mp4-signature-format.htm
+					// https://mp4ra.org/registered-types/brands
+					new StartsWith(4, new byte[]{'f', 't', 'y', 'p'},
+							"av01".getBytes(StandardCharsets.US_ASCII),
+							"avc1".getBytes(StandardCharsets.US_ASCII),
+							"isom".getBytes(StandardCharsets.US_ASCII),
+							"iso2".getBytes(StandardCharsets.US_ASCII),
+							"mp41".getBytes(StandardCharsets.US_ASCII),
+							"mp42".getBytes(StandardCharsets.US_ASCII),
+							"mp71".getBytes(StandardCharsets.US_ASCII)),
 					"video/mp4"),
 			new MediaType(
 					// https://en.wikipedia.org/wiki/WebM
