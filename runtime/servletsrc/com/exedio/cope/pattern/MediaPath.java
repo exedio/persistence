@@ -694,9 +694,9 @@ public abstract class MediaPath extends Pattern
 			throw new RuntimeException("not isWithLocator() - unexpected call: " + this + ' ' + pathInfo);
 
 		// NOTE
-		// This code prevents a Denial of Service attack against the caching mechanism.
+		// This code prevents a Denial of Service attack via cache busting.
 		// Query strings can be used to effectively disable the cache by using many urls
-		// for one media value. Therefore they are forbidden completely.
+		// for one media value. Therefore, they are forbidden completely.
 		if(request.getQueryString()!=null)
 			throw notFoundNotAnItem();
 
