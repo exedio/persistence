@@ -150,7 +150,7 @@ public final class MediaType
 	public static final String XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 	public static final String STL = "model/stl";
 
-	private static final StartsWith ZIP_MAGIC = new StartsWith(new byte[]{(byte)'P', (byte)'K', 0x03, 0x04});
+	private static final StartsWith ZIP_MAGIC = new StartsWith(new byte[]{'P', 'K', 0x03, 0x04});
 
 	private static final MediaType[] types = {
 
@@ -179,27 +179,27 @@ public final class MediaType
 			new MediaType(
 					".png",
 					// RFC 2083 section 3.1. PNG file signature
-					new StartsWith(new byte[]{(byte)137, 80, 78, 71, 13, 10, 26, 10}),
+					new StartsWith(new byte[]{(byte)0x89, 'P', 'N', 'G', 0x0D, 0x0A, 26, 0x0A}),
 					PNG, "image/x-png"),
 			new MediaType(
 					".gif",
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
-					new StartsWith((byte)'G', (byte)'I', (byte)'F', (byte)'8'), // TODO test for "GIF89a" or "GIF87a"
+					new StartsWith(new byte[]{'G', 'I', 'F', '8'}), // TODO test for "GIF89a" or "GIF87a"
 					GIF),
 			new MediaType(
 					".webp",
 					// https://en.wikipedia.org/wiki/WebP
-					new StartsWith((byte)'R', (byte)'I', (byte)'F', (byte)'F'),
+					new StartsWith(new byte[]{'R', 'I', 'F', 'F'}),
 					WEBP),
 			new MediaType(
 					".avif",
 					// https://en.wikipedia.org/wiki/AVIF
-					new StartsWith(4, (byte)'f', (byte)'t', (byte)'y', (byte)'p', (byte)'a', (byte)'v', (byte)'i', (byte)'f'),
+					new StartsWith(4, new byte[]{'f', 't', 'y', 'p', 'a', 'v', 'i', 'f'}),
 					AVIF),
 			new MediaType(
 					new String[]{".tif",".tiff"},
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
-					new StartsWith(new byte[]{(byte)'I', (byte)'I', 42, 0}), // TODO allow MM (big endian) as well
+					new StartsWith(new byte[]{'I', 'I', 42, 0}), // TODO allow MM (big endian) as well
 					TIFF),
 			new MediaType(
 					".ico",
@@ -210,7 +210,7 @@ public final class MediaType
 					// https://en.wikipedia.org/wiki/MP4_file_format
 					".mp4",
 					// https://en.wikipedia.org/wiki/List_of_file_signatures
-					new StartsWith(4, new byte[]{0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6F, 0x6D}),
+					new StartsWith(4, new byte[]{'f', 't', 'y', 'p', 'i', 's', 'o', 'm'}),
 					"video/mp4"),
 			new MediaType(
 					// https://en.wikipedia.org/wiki/WebM
@@ -221,7 +221,7 @@ public final class MediaType
 			new MediaType(
 					// https://en.wikipedia.org/wiki/Ogg
 					".ogg",
-					new StartsWith((byte)'O', (byte)'g', (byte)'g', (byte)'S'),
+					new StartsWith(new byte[]{'O', 'g', 'g', 'S'}),
 					"video/ogg"),
 			new MediaType(
 					".zip",
@@ -247,7 +247,7 @@ public final class MediaType
 			new MediaType(
 					".woff",
 					// https://www.w3.org/TR/WOFF/
-					new StartsWith((byte)'w', (byte)'O', (byte)'F', (byte)'F'),
+					new StartsWith(new byte[]{'w', 'O', 'F', 'F'}),
 					WOFF,
 					"font/woff", // https://tools.ietf.org/html/rfc8081#section-4.4.5
 					"font/x-woff"),
@@ -255,7 +255,7 @@ public final class MediaType
 					// still a draft
 					".woff2",
 					// https://www.w3.org/TR/2016/CR-WOFF2-20160315/
-					new StartsWith((byte)'w', (byte)'O', (byte)'F', (byte)'2'),
+					new StartsWith(new byte[]{'w', 'O', 'F', '2'}),
 					WOFF2),
 			new MediaType(
 					".ttf",
@@ -267,7 +267,7 @@ public final class MediaType
 			new MediaType(
 					".pdf",
 					// https://en.wikipedia.org/wiki/PDF
-					new StartsWith((byte)'%', (byte)'P', (byte)'D', (byte)'F'),
+					new StartsWith(new byte[]{'%', 'P', 'D', 'F'}),
 					// https://tools.ietf.org/html/rfc3778
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
@@ -282,7 +282,7 @@ public final class MediaType
 			new MediaType(
 					".stl",
 					// https://en.wikipedia.org/wiki/STL_(file_format)
-					new StartsWith((byte)'s', (byte)'o', (byte)'l', (byte)'i', (byte)'d'),
+					new StartsWith(new byte[]{'s', 'o', 'l', 'i', 'd'}),
 					STL,
 					"model/x.stl-ascii"
 			)
