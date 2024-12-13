@@ -475,7 +475,8 @@ try
 				dockerRunDefaults('bridge') +
 				"--mount type=volume,src=" + cache + ",target=/var/jenkins-build-survivor") {
 				ant "-buildfile ivy" +
-				    " -Divy.user.home=/var/jenkins-build-survivor"
+				    " -Divy.user.home=/var/jenkins-build-survivor",
+				    "-Divy.xml.allow-doctype-processing=true -Divy.xml.external-resources=PROHIBIT"
 			}
 			archiveArtifacts 'ivy/artifacts/report/**'
 
@@ -664,9 +665,9 @@ String shStdout(String script)
 	return ((String) sh(script: script, returnStdout: true)).trim()
 }
 
-void ant(String script)
+void ant(String script, String jvmargs = '')
 {
-	shSilent 'java -jar lib/ant/ant-launcher.jar -noinput ' + script
+	shSilent 'java ' + jvmargs + ' -jar lib/ant/ant-launcher.jar -noinput ' + script
 }
 
 void assertGitUnchanged()
