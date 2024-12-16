@@ -28,10 +28,11 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
+import com.exedio.cope.testmodel.WrapHash;
 
 public final class PasswordLimiterItem extends Item
 {
-	static final Hash password = new Hash(MessageDigestHash.algorithm(8));
+	static final Hash password = new Hash(WrapHash.ALGORITHM);
 
 	@Wrapper(wrap="check", visibility=PRIVATE)
 	@Wrapper(wrap="checkVerbosely", visibility=PRIVATE)
@@ -153,10 +154,10 @@ public final class PasswordLimiterItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #password}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i8")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
-	java.lang.String getPasswordSHA512s8i8()
+	java.lang.String getPasswordwrap()
 	{
 		return PasswordLimiterItem.password.getHash(this);
 	}
@@ -164,9 +165,9 @@ public final class PasswordLimiterItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i8")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setPasswordSHA512s8i8(@javax.annotation.Nonnull final java.lang.String password)
+	void setPasswordwrap(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

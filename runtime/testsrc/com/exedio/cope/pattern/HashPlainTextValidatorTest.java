@@ -30,7 +30,7 @@ public class HashPlainTextValidatorTest
 {
 	@Test void testIt()
 	{
-		final Hash vanillaHash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));
+		final Hash vanillaHash = new Hash(new ConstructorHashAlgorithm("---"));
 		assertSame(null, vanillaHash.getPlainTextValidator());
 		try
 		{

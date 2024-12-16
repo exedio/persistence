@@ -70,11 +70,23 @@ public final class Hash extends Pattern implements HashInterface
 	private final HashAlgorithm algorithm;
 	private final PlainTextValidator validator;
 
+	/**
+	 * @deprecated
+	 * Use {@link #Hash(HashAlgorithm)} instead
+	 * together with {@link MessageDigestHashAlgorithm#create(Charset, String, int, SecureRandom, int)}.
+	 */
+	@Deprecated
 	public Hash(final Algorithm algorithm, final Charset charset)
 	{
 		this(newStorage(wrap(algorithm, charset)), DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, charset), DEFAULT_VALIDATOR);
 	}
 
+	/**
+	 * @deprecated
+	 * Use {@link #Hash(HashAlgorithm)} instead
+	 * together with {@link MessageDigestHashAlgorithm#create(String, int, SecureRandom, int)}.
+	 */
+	@Deprecated
 	public Hash(final Algorithm algorithm)
 	{
 		this(newStorage(wrap(algorithm, UTF_8)), DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, UTF_8), DEFAULT_VALIDATOR);

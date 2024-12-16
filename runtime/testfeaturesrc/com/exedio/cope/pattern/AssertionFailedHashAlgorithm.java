@@ -18,28 +18,37 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import com.exedio.cope.StringField;
 
-import org.junit.jupiter.api.Test;
-
-public class HashPlainTextLimitTest
+class AssertionFailedHashAlgorithm implements HashAlgorithm
 {
-	@Test void testIt()
+	@Override
+	public String getID()
 	{
-		final Hash vanillaHash = new Hash(new ConstructorHashAlgorithm("---"));
-		assertEquals(150, vanillaHash.getPlainTextLimit());
-		try
-		{
-			vanillaHash.limit(9);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("plainTextLimit must be at least 10, but was 9", e.getMessage());
-		}
+		throw new AssertionError();
+	}
 
-		final Hash hash = vanillaHash.limit(10);
-		assertEquals(10, hash.getPlainTextLimit());
+	@Override
+	public String getDescription()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public StringField constrainStorage(final StringField storage)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public String hash(final String plainText)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public boolean check(final String plainText, final String hash)
+	{
+		throw new AssertionError();
 	}
 }
