@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
 import static com.exedio.cope.pattern.FeatureTimer.timer;
+import static com.exedio.cope.util.Check.requireAtLeast;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
@@ -118,8 +119,7 @@ public final class Hash extends Pattern implements HashInterface
 			final PlainTextValidator validator)
 	{
 		requireNonNull(storage, "storage");
-		if(plainTextLimit<10)
-			throw new IllegalArgumentException("plainTextLimit must be at least 10, but was " + plainTextLimit);
+		requireAtLeast(plainTextLimit, "plainTextLimit", 10);
 		requireNonNull(algorithm, "algorithm");
 		requireNonNull(validator, "validator");
 
