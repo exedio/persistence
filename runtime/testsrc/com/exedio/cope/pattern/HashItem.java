@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.DigitPinValidator;
 import com.exedio.cope.testmodel.WrapHash;
@@ -29,13 +28,6 @@ import com.exedio.cope.testmodel.WrapHash;
 @WrapperType(genericConstructor=PACKAGE)
 public final class HashItem extends Item
 {
-	static final StringField explicitExternalWrap = new StringField().optional();
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	static final Hash explicitExternal = new Hash(explicitExternalWrap, WrapHash.ALGORITHM);
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	static final Hash implicitExternal = new Hash(new StringField().optional(), WrapHash.ALGORITHM);
-
 	static final Hash internal = new Hash(WrapHash.ALGORITHM).optional();
 
 	static final Hash limited15 = new Hash(WrapHash.ALGORITHM).optional().limit(15);
@@ -67,133 +59,6 @@ public final class HashItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	HashItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #explicitExternalWrap}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.String getExplicitExternalWrap()
-	{
-		return HashItem.explicitExternalWrap.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #explicitExternalWrap}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setExplicitExternalWrap(@javax.annotation.Nullable final java.lang.String explicitExternalWrap)
-			throws
-				com.exedio.cope.StringLengthViolationException
-	{
-		HashItem.explicitExternalWrap.set(this,explicitExternalWrap);
-	}
-
-	/**
-	 * Returns whether the given value corresponds to the hash in {@link #explicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	boolean checkExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
-	{
-		return HashItem.explicitExternal.check(this,explicitExternal);
-	}
-
-	/**
-	 * Wastes (almost) as much cpu cycles, as a call to {@code checkExplicitExternal} would have needed.
-	 * Needed to prevent Timing Attacks.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static void blindExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
-	{
-		HashItem.explicitExternal.blind(explicitExternal);
-	}
-
-	/**
-	 * Sets a new value for {@link #explicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
-	{
-		HashItem.explicitExternal.set(this,explicitExternal);
-	}
-
-	/**
-	 * Returns the encoded hash value for hash {@link #explicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.String getExplicitExternalwrap()
-	{
-		return HashItem.explicitExternal.getHash(this);
-	}
-
-	/**
-	 * Sets the encoded hash value for hash {@link #explicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setExplicitExternalwrap(@javax.annotation.Nullable final java.lang.String explicitExternal)
-	{
-		HashItem.explicitExternal.setHash(this,explicitExternal);
-	}
-
-	/**
-	 * Returns whether the given value corresponds to the hash in {@link #implicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	boolean checkImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
-	{
-		return HashItem.implicitExternal.check(this,implicitExternal);
-	}
-
-	/**
-	 * Wastes (almost) as much cpu cycles, as a call to {@code checkImplicitExternal} would have needed.
-	 * Needed to prevent Timing Attacks.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static void blindImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
-	{
-		HashItem.implicitExternal.blind(implicitExternal);
-	}
-
-	/**
-	 * Sets a new value for {@link #implicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
-	{
-		HashItem.implicitExternal.set(this,implicitExternal);
-	}
-
-	/**
-	 * Returns the encoded hash value for hash {@link #implicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.String getImplicitExternalwrap()
-	{
-		return HashItem.implicitExternal.getHash(this);
-	}
-
-	/**
-	 * Sets the encoded hash value for hash {@link #implicitExternal}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setImplicitExternalwrap(@javax.annotation.Nullable final java.lang.String implicitExternal)
-	{
-		HashItem.implicitExternal.setHash(this,implicitExternal);
-	}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #internal}.
