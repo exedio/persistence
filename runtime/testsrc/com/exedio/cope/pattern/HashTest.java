@@ -284,9 +284,10 @@ public class HashTest extends TestWithEnvironment
 	@Test void testValidatorValidate()
 	{
 		// try null as validator
+		final Hash withoutValidator = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));
 		try
 		{
-			new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validate(null);
+			withoutValidator.validate(null);
 			fail();
 		}
 		catch (final NullPointerException e)
@@ -295,7 +296,7 @@ public class HashTest extends TestWithEnvironment
 		}
 
 		// use default validator
-		final Hash hash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1)).validate(
+		final Hash hash = withoutValidator.validate(
 			new Hash.DefaultPlainTextValidator());
 		assertNull(hash.hash(null));
 		assertNotNull(hash.hash(""));
