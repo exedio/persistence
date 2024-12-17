@@ -44,15 +44,8 @@
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
 
-		<!-- retrieve variable ivy.version -->
-		<ivy:settings id="ivy.bootstrapIvyVersion" />
-		<ivy:info settingsRef="ivy.bootstrapIvyVersion" />
-
-		<get dest="artifacts" retries="1" httpusecaches="false">
-			<url url="https://ivyartifacts.exedio.com/v${ivy.version}/ivysettings.xml" />
-		</get>
 		<copy
-				file="artifacts/ivysettings.xml"
+				file="ivysettings.xml"
 				tofile="artifacts/ivysettings-replaced.xml"
 				overwrite="true">
 			<filterset begintoken="${" endtoken="}">
@@ -99,6 +92,6 @@
 	</target>
 
 	<target name="update" depends="prepare">
-		<ivy:checkdepsupdate/>
+		<ivy:checkdepsupdate />
 	</target>
 </project>

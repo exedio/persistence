@@ -1,0 +1,45 @@
+<ivysettings>
+	<settings defaultResolver="default"/>
+	<property name="cache.home" value="${user.home}/.ivy-${ivy.version}-java-${java.specification.version}" /><!-- different ivy/java versions shall not share the same cache -->
+	<property
+			name="exedio.root"
+			value="https://ivyartifacts.exedio.com" />
+	<property
+			name="localrepo.root"
+			value="${user.home}/.ivyrepository" />
+	<caches
+			resolutionCacheDir="${cache.home}/cache-resolution/"
+			lockStrategy="artifact-lock-nio"><!-- is accessed concurrently on jenkins -->
+		<!-- each resolver should have its own cache, otherwise missing resolvers may be hidden by existing cache entries -->
+		<cache name="public"    basedir="${cache.home}/cache-public/" />
+		<cache name="exedio"    basedir="${cache.home}/cache-exedio-inv9/" /><!-- increment number after "inv" to invalidate cache after withdrawal of artifacts -->
+		<cache name="dontcache" basedir="${localrepo.root}/_cache" lockStrategy="no-lock" useOrigin="true" />
+	</caches>
+	<resolvers>
+		<ibiblio name="public" cache="public" timeoutConstraint="mytimeout" m2compatible="true" root="https://repo1.maven.org/maven2/" /><!-- attribute root just enforces https -->
+		<url name="exedio" cache="exedio" timeoutConstraint="mytimeout">
+			<ivy      pattern="${exedio.root}/[organization]/[module]/[revision]/ivy.xml"/>
+			<artifact pattern="${exedio.root}/[organization]/[module]/[revision]/[artifact]-[type].[ext]"/>
+		</url>
+		<filesystem name="localrepo" checkmodified="true" checksums="" cache="dontcache">
+			<ivy      pattern="${localrepo.root}/[organization]/[module]/[revision]/ivy.xml" />
+			<artifact pattern="${localrepo.root}/[organization]/[module]/[revision]/[artifact]-[type].[ext]" />
+			<artifact pattern="${localrepo.root}/[organization]/[module]/[revision]/[artifact].[ext]" />
+		</filesystem>
+		<chain name="default" returnFirst="true" checkmodified="true">
+			<resolver ref="localrepo"/>
+			<resolver ref="exedio"/>
+			<resolver ref="public"/>
+		</chain>
+		<chain name="exedio-chain" returnFirst="true" checkmodified="true">
+			<resolver ref="localrepo"/>
+			<resolver ref="exedio"/>
+		</chain>
+	</resolvers>
+	<modules>
+		<module organisation="com.exedio" resolver="exedio-chain" /><!-- exedio libraries shall not be taken from resolvers other than exedio -->
+	</modules>
+	<timeout-constraints>
+		<timeout-constraint name="mytimeout" connectionTimeout="1000" readTimeout="5000" />
+	</timeout-constraints>
+</ivysettings>
