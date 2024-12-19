@@ -41,6 +41,7 @@ public class MediaTypeMediaTest
 	private static final String MP4 = "6674797069736f6d";
 	private static final String WEBM = "1a45dfa3";
 	private static final String OGG = "4f676753";
+	private static final String QUICKTIME = "6674797071742020";
 	private static final String ZIP = "504b0304";
 	private static final String PDF = "25504446";
 	private static final String STL = "736f6c6964";
@@ -62,6 +63,7 @@ public class MediaTypeMediaTest
 				"("+c+"='video/mp4' and !("+b+" startsWith offset 4 '"+MP4+"')) or " +
 				"("+c+"='video/webm' and !("+b+" startsWith '"+WEBM+"')) or " +
 				"("+c+"='video/ogg' and !("+b+" startsWith '"+OGG+"')) or " +
+				"("+c+"='video/quicktime' and !("+b+" startsWith offset 4 '"+QUICKTIME+"')) or " +
 				"("+c+" in ('application/zip','application/java-archive','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/x-zip-compressed') and !("+b+" startsWith '"+ZIP+"')) or " +
 				"("+c+" in ('application/font-woff','font/woff','font/x-woff') and !("+b+" startsWith '774f4646')) or " +
 				"("+c+"='font/woff2' and !("+b+" startsWith '774f4632')) or " +

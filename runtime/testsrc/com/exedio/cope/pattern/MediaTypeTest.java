@@ -165,6 +165,7 @@ public class MediaTypeTest
 		assertEquals(Set.of(forName("video/mp4" )), forMagics(files.newPath(MediaTypeTest.class, "teapot.mp4")));
 		assertEquals(Set.of(forName("video/webm")), forMagics(files.newPath(MediaTypeTest.class, "teapot.webm")));
 		assertEquals(Set.of(forName("video/ogg" )), forMagics(files.newPath(MediaTypeTest.class, "teapot.ogg")));
+		assertEquals(Set.of(forName("video/quicktime" )), forMagics(files.newPath(MediaTypeTest.class, "teapot.mov")));
 		assertEquals(Set.of(
 				forName(MediaType.ZIP),
 				forName(MediaType.JAR),
