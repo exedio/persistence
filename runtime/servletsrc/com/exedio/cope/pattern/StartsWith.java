@@ -22,24 +22,36 @@ import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.util.Hex;
 import java.util.Arrays;
+import java.util.List;
 
 final class StartsWith
 {
+	private static final byte[][] EMPTY_ARRAY = new byte[0][0];
+
 	private final int offset;
 	private final byte[] value;
+	private final List<StartsWith> subtypes;
 
 	StartsWith(final byte... value)
 	{
-		this(0, value);
+		this(0, value, EMPTY_ARRAY);
 	}
 
 	StartsWith(final int offset, final byte... value)
 	{
+		this(offset, value, EMPTY_ARRAY);
+	}
+
+	StartsWith(final int offset, final byte[] value, final byte[]... subtypes)
+	{
 		this.offset = requireNonNegative(offset, "offset");
 		this.value = requireNonNull(value);
+
+		this.subtypes = Arrays.stream(subtypes).map(subtype -> new StartsWith(offset + value.length, subtype)).toList();
 
 		if(value.length<3 || offset+value.length > MAX_LENGTH)
 			throw new IllegalArgumentException(toString());
@@ -57,12 +69,28 @@ final class StartsWith
 			if(value[i]!=magic[offset+i])
 				return false;
 
+		if(! subtypes.isEmpty())
+		{
+			for(final StartsWith subtypes : subtypes)
+			{
+				if(subtypes.matches(magic))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		return true;
 	}
 
 	Condition matchesIfSupported(final DataField field)
 	{
-		return field.startsWithIfSupported(offset, value);
+		final Condition subtypeCondition = subtypes.stream()
+				.map(subtype -> field.startsWithIfSupported(subtype.offset, subtype.value))
+				.reduce(Cope::or)
+				.orElse(Condition.ofTrue());
+		return Cope.and(field.startsWithIfSupported(offset, value), subtypeCondition);
 	}
 
 	@Override
