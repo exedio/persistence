@@ -224,6 +224,12 @@ public final class MediaType
 					new StartsWith(new byte[]{'O', 'g', 'g', 'S'}),
 					"video/ogg"),
 			new MediaType(
+					// https://en.wikipedia.org/wiki/QuickTime_File_Format
+					".mov",
+					// https://developer.apple.com/documentation/quicktime-file-format/file_type_compatibility_atom/major_brand
+					new StartsWith(4, new byte[]{'f', 't', 'y', 'p', 'q', 't', ' ', ' '}),
+					"video/quicktime"),
+			new MediaType(
 					".zip",
 					// https://en.wikipedia.org/wiki/ZIP_(file_format)
 					ZIP_MAGIC,
