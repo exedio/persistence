@@ -144,15 +144,20 @@ public final class DataField extends Field<DataField.Value>
 	{
 		this.model = getType().getModel();
 		final VaultProperties vaultProperties = connect.properties.vault;
-		store = vaultProperties==null ||
-					!(
-						vaultProperties.isAppliedToAllFields() ||
-						isAnnotatedVault()
-					)
+		store = willBeStoredAsBlob(vaultProperties)
 				? new DataFieldBlobStore (this, table, name, optional, maximumLength)
-				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, connect, metrics);
+				: new DataFieldVaultStore(this, table, name, optional, requireNonNull(vaultProperties), connect, metrics);
 
 		return store.column();
+	}
+
+	private boolean willBeStoredAsBlob(final VaultProperties vaultProperties)
+	{
+		return vaultProperties==null ||
+				!(
+						vaultProperties.isAppliedToAllFields() ||
+						isAnnotatedVault()
+				);
 	}
 
 	@Override
