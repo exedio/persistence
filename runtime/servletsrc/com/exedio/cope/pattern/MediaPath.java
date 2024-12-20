@@ -81,9 +81,6 @@ public abstract class MediaPath extends Pattern
 		}
 	}
 
-	/**
-	 * Must be consistent to {@link #getMyAnnotation(Pattern,Class)}.
-	 */
 	static boolean isMyAnnotationPresent(
 			final Pattern feature,
 			final Class<? extends Annotation> annotationClass)
@@ -93,22 +90,6 @@ public abstract class MediaPath extends Pattern
 		return
 				feature.          isAnnotationPresent(annotationClass) ||
 				feature.getType().isAnnotationPresent(annotationClass);
-	}
-
-	/**
-	 * Must be consistent to {@link #isMyAnnotationPresent(Pattern,Class)}.
-	 */
-	static <T extends Annotation> T getMyAnnotation(
-			final Pattern feature,
-			final Class<T> annotationClass)
-	{
-		assertMine(annotationClass);
-
-		final T byFeature = feature.getAnnotation(annotationClass);
-		if(byFeature!=null)
-			return byFeature;
-
-		return feature.getType().getAnnotation(annotationClass);
 	}
 
 	private static void assertMine(
@@ -998,10 +979,10 @@ public abstract class MediaPath extends Pattern
 	 * <p>
 	 * The implementor MUST {@link #commit() commit} the transaction,
 	 * if the method completes normally (without exception).
-	 * Otherwise the implementor may or may not commit the transaction.
+	 * Otherwise, the implementor may or may not commit the transaction.
 	 */
 	public abstract void doGetAndCommit(
-			HttpServletRequest request,
+			@SuppressWarnings("unused") HttpServletRequest request,
 			HttpServletResponse response,
 			Item item)
 		throws IOException, NotFound;

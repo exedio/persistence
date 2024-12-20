@@ -102,34 +102,26 @@ public class InitServlet extends HttpServlet
 				assertID("MediaServletItem-12", transparency);
 				transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png", 12);
 
-				final MediaServletItem html = new MediaServletItem();
-				assertID("MediaServletItem-13", html);
-				html.setContent(thisClass.getResourceAsStream("filter.html"), "text/html", 13);
-				html.addHtmlPaste("small", Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
-				html.addHtmlPaste("tree",  Media.toValue(thisClass.getResourceAsStream("tree.jpg"),  "image/jpeg"));
-				html.modifyHtmlPaste( "tree", Media.toValue( thisClass.getResourceAsStream( "small.jpg" ), "image/jpeg" ) );
-				html.modifyHtmlPaste( "tree", Media.toValue( thisClass.getResourceAsStream( "tree.jpg" ), "image/jpeg" ) );
-
 				final MediaPatternItem pattern = new MediaPatternItem();
 				pattern.setSourceFeature(textValue, "text/plain", 10);
 				pattern.addSourceItem(textValue, "text/plain", 20);
 				pattern.addSourceItem(textValue, "text/plain", 21);
 
 				final MediaServletItem catchPhrase = new MediaServletItem();
-				assertID("MediaServletItem-14", catchPhrase);
+				assertID("MediaServletItem-13", catchPhrase);
 				catchPhrase.setCatchphrase("zick");
 				catchPhrase.setContent(textValue, "text/plain", 14);
 
 				final MediaServletItem nameErrorLastModified = new MediaServletItem("media item 4 error");
-				assertID("MediaServletItem-15", nameErrorLastModified);
+				assertID("MediaServletItem-14", nameErrorLastModified);
 				nameErrorLastModified.setNameServerLastModified(15);
 
 				final MediaServletItem noLocatorDataText = new MediaServletItem();
-				assertID("MediaServletItem-16", noLocatorDataText);
+				assertID("MediaServletItem-15", noLocatorDataText);
 				noLocatorDataText.setContentNoLocator(textValue, "text/plain", 16);
 
 				final MediaServletItem noLocatorDataJpg = new MediaServletItem();
-				assertID("MediaServletItem-17", noLocatorDataJpg);
+				assertID("MediaServletItem-16", noLocatorDataJpg);
 				noLocatorDataJpg.setContentNoLocator(thisClass.getResourceAsStream("small.jpg"), "image/jpeg", 17);
 
 				tx.commit();

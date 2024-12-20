@@ -64,15 +64,14 @@ public class MediaServletTest
 	private static final String ITEM_JPG = "MediaServletItem-3";
 	private static final String ITEM_UNK = "MediaServletItem-4";
 	private static final String ITEM_GIF = "MediaServletItem-8";
-	private static final String ITEM_NX  = "MediaServletItem-20";
-	private static final String ITEM_TEXT_FILTER = "MediaServletItem-13";
-	private static final String ITEM_TEXT_CATCH = "MediaServletItem-14";
+	private static final String ITEM_NX  = "MediaServletItem-19";
+	private static final String ITEM_TEXT_CATCH = "MediaServletItem-13";
 	private static final String ITEM_NAME_OK  = "MediaServletItem-5";
 	private static final String ITEM_NAME_NUL = "MediaServletItem-6";
 	private static final String ITEM_NAME_ERR = "MediaServletItem-7";
-	private static final String ITEM_NAME_ERR_LM = "MediaServletItem-15";
-	private static final String ITEM_CONTENTNOLOCATORTEXT = "MediaServletItem-16";
-	private static final String ITEM_CONTENTNOLOCATORJPG = "MediaServletItem-17";
+	private static final String ITEM_NAME_ERR_LM = "MediaServletItem-14";
+	private static final String ITEM_CONTENTNOLOCATORTEXT = "MediaServletItem-15";
+	private static final String ITEM_CONTENTNOLOCATORJPG = "MediaServletItem-16";
 
 	private static final String CACHE_CONTROL = "Cache-Control";
 	private static final String EXPIRES = "Expires";
@@ -218,17 +217,8 @@ public class MediaServletTest
 		assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 		assertNotFound(prefix + "thumbnailOfNoLocator/" + ITEM_CONTENTNOLOCATORTEXT + ".jpg", IS_NULL);
-		assertTxt(prefix + "htmlOfNoLocator/" + ITEM_CONTENTNOLOCATORTEXT + ".txt", "text/plain", hour8(16));
 		assertBin(prefix + "thumbnailOfNoLocator/" + ITEM_CONTENTNOLOCATORJPG + ".jpg", "image/jpeg", hour8(17));
-		assertNotFound(prefix + "htmlOfNoLocator/" + ITEM_CONTENTNOLOCATORJPG + ".jpg", IS_NULL);
 		assertNotFound(prefix + "noLocatorThumbnail/" + ITEM_TXT, NO_SUCH_PATH);
-
-		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL); // once was not computable
-		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL); // once was not computable
-		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
-		assertBin  (prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html", hour8(13));
-		assertBin  (prefix + "html/"    + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8", hour8(13));
-		assertMoved(prefix + "html/"    + ITEM_TEXT_FILTER + ".htm" , prefix + "html/" + ITEM_TEXT_FILTER + ".html");
 
 		assertNotFound(prefix + "content/schnickschnack", NOT_AN_ITEM);
 		assertNotFound(prefix + "content/" + ITEM_NX + ".jpg", NO_SUCH_ITEM);
