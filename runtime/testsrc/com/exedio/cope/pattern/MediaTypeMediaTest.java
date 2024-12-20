@@ -38,7 +38,7 @@ public class MediaTypeMediaTest
 	private static final String AVIF = "6674797061766966";
 	private static final String TIFF = "49492a00";
 	private static final String ICO = "00000100";
-	private static final String MP4 = "6674797069736f6d";
+	private static final String MP4 = "66747970";
 	private static final String WEBM = "1a45dfa3";
 	private static final String OGG = "4f676753";
 	private static final String QUICKTIME = "6674797071742020";
@@ -51,6 +51,16 @@ public class MediaTypeMediaTest
 		final Media m = new Media();
 		final DataField b = m.getBody();
 		final StringField c = (StringField)m.getContentType();
+		final String mp4StartsWithCondition =
+				"(!(" + b + " startsWith offset 4 '" + MP4 + "') or (" +
+					"!(" + b + " startsWith offset 8 '61763031') and " + //av01
+					"!(" + b + " startsWith offset 8 '61766331') and " + //avc1
+					"!(" + b + " startsWith offset 8 '69736f6d') and " + //isom
+					"!(" + b + " startsWith offset 8 '69736f32') and " + //iso2
+					"!(" + b + " startsWith offset 8 '6d703431') and " + //mp41
+					"!(" + b + " startsWith offset 8 '6d703432') and " + //mp42
+					"!(" + b + " startsWith offset 8 '6d703731')" +      //mp71
+				"))";
 		assertEquals(
 				"(" +
 				"("+c+" in ('image/jpeg','image/pjpeg') and !("+b+" startsWith '"+JPEG+"')) or " +
@@ -60,7 +70,7 @@ public class MediaTypeMediaTest
 				"("+c+"='image/avif' and !("+b+" startsWith offset 4 '"+AVIF+"')) or " +
 				"("+c+"='image/tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
 				"("+c+" in ('image/vnd.microsoft.icon','image/icon','image/x-icon') and !("+b+" startsWith '"+ICO+"')) or " +
-				"("+c+"='video/mp4' and !("+b+" startsWith offset 4 '"+MP4+"')) or " +
+				"("+c+"='video/mp4' and "+mp4StartsWithCondition+") or " +
 				"("+c+"='video/webm' and !("+b+" startsWith '"+WEBM+"')) or " +
 				"("+c+"='video/ogg' and !("+b+" startsWith '"+OGG+"')) or " +
 				"("+c+"='video/quicktime' and !("+b+" startsWith offset 4 '"+QUICKTIME+"')) or " +
