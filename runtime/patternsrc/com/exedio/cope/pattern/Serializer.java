@@ -72,15 +72,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		this.source = addSourceFeature(source, "data", ComputedElement.get());
 	}
 
-	/**
-	 * @deprecated external sources are discouraged and will be removed in the future
-	 */
-	@Deprecated
-	public static <E> Serializer<E> create(final Class<E> valueClass, final DataField source)
-	{
-		return new Serializer<>(valueClass, source);
-	}
-
 	public static <E> Serializer<E> create(final Class<E> valueClass)
 	{
 		return new Serializer<>(valueClass, new DataField());
