@@ -31,23 +31,9 @@ import java.util.Date;
 @WrapperType(genericConstructor=PACKAGE)
 public final class LimitedListFieldItem extends Item
 {
-	// explicit external source
+	static final LimitedListField<Integer> nums = LimitedListField.create(new IntegerField().optional(), 3);
 
-	static final IntegerField num1 = new IntegerField().optional();
-
-	static final IntegerField num2 = new IntegerField().optional();
-
-	static final IntegerField num3 = new IntegerField().optional();
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	static final LimitedListField<Integer> nums = LimitedListField.create(num1, num2, num3);
-
-	// implicit external source
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	static final LimitedListField<Date> dates = LimitedListField.create(new DateField().optional(), new DateField().optional());
-
-	// internal source
+	static final LimitedListField<Date> dates = LimitedListField.create(new DateField(), 2);
 
 	static final LimitedListField<String> strings = LimitedListField.create(new StringField().optional().lengthRange(1, 11), 4);
 
@@ -55,9 +41,29 @@ public final class LimitedListFieldItem extends Item
 	{
 		super(
 			SetValue.map(nums.getLengthIfExists(), 3),
-			SetValue.map(num1, initialNum1),
-			SetValue.map(num2, initialNum2),
-			SetValue.map(num3, initialNum3));
+			SetValue.map(nums.getListSources().get(0), initialNum1),
+			SetValue.map(nums.getListSources().get(1), initialNum2),
+			SetValue.map(nums.getListSources().get(2), initialNum3));
+	}
+
+	Integer getNum1()
+	{
+		return getNum(0);
+	}
+
+	Integer getNum2()
+	{
+		return getNum(1);
+	}
+
+	Integer getNum3()
+	{
+		return getNum(2);
+	}
+
+	private Integer getNum(final int i)
+	{
+		return nums.getListSources().get(i).get(this);
 	}
 
 	Date getDate0()
@@ -120,69 +126,6 @@ public final class LimitedListFieldItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	LimitedListFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #num1}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.Integer getNum1()
-	{
-		return LimitedListFieldItem.num1.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #num1}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
-	{
-		LimitedListFieldItem.num1.set(this,num1);
-	}
-
-	/**
-	 * Returns the value of {@link #num2}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.Integer getNum2()
-	{
-		return LimitedListFieldItem.num2.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #num2}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
-	{
-		LimitedListFieldItem.num2.set(this,num2);
-	}
-
-	/**
-	 * Returns the value of {@link #num3}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.Integer getNum3()
-	{
-		return LimitedListFieldItem.num3.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #num3}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setNum3(@javax.annotation.Nullable final java.lang.Integer num3)
-	{
-		LimitedListFieldItem.num3.set(this,num3);
-	}
 
 	/**
 	 * Returns the value of {@link #nums}.
