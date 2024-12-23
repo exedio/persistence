@@ -55,7 +55,7 @@ final class PartOfReverse
 
 			for(final ItemField<?> field : declared ? type.getDeclaredReferences() : type.getReferences())
 			{
-				for(final Feature feature : field.getType().getFeatures())
+				for(final Feature feature : field.getType().getDeclaredFeatures())
 				{
 					if(feature instanceof final PartOf<?> partOf &&
 						partOf.getContainer()==field)
