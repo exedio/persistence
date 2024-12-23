@@ -21,7 +21,10 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.pattern.PartOf.orderBy;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -29,6 +32,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.UsageEntryPoint;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,6 +43,8 @@ public class PartOfWrongTypeOrderTest
 	@Test
 	void test()
 	{
+		assertSame(Part.container, Part.partOf.getContainer());
+		assertEquals(List.of(orderBy(Container.order)), Part.partOf.getOrders());
 		assertFails(
 				() -> newType(Part.class, failingActivator()),
 				IllegalArgumentException.class,
