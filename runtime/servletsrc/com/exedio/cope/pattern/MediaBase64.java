@@ -36,7 +36,7 @@ final class MediaBase64
 
 		while(src>0)
 		{
-			// least significant digits first, just because its easier to implement
+			// least significant digits first, just because it's easier to implement
 			bf.append(alphabet[(int)(src & 63)]);
 			src >>= 6;
 		}
