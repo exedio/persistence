@@ -32,6 +32,7 @@ import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.Bucket;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceContains;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,9 +43,11 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 
 @ServiceProperties(VaultMockService.Props.class)
-public class VaultMockService implements VaultService
+public class VaultMockService implements VaultServiceContains
 {
 	private final LinkedHashMap<String, String> store = new LinkedHashMap<>();
 	private final StringBuilder history = new StringBuilder();
@@ -53,6 +56,7 @@ public class VaultMockService implements VaultService
 	public final String bucket;
 	public final boolean writable;
 	public final BooleanSupplier requiresToMarkPut;
+	public String ancestryPath = null;
 	private boolean closed = false;
 
 	protected VaultMockService(
@@ -95,6 +99,17 @@ public class VaultMockService implements VaultService
 
 
 	@Override
+	public boolean contains(final String hash)
+	{
+		historyAppend("contains");
+
+		assertHash(hash);
+		assertFalse(closed);
+
+		return store.containsKey(hash);
+	}
+
+	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		historyAppend("getBytes");
@@ -121,6 +136,18 @@ public class VaultMockService implements VaultService
 		if(hex==null)
 			throw new VaultNotFoundException(hash);
 		return Hex.decodeLower(hex);
+	}
+
+
+	@Override
+	public void addToAncestryPath(
+			@Nonnull final String hash,
+			@Nonnull final Consumer<String> sink)
+	{
+		historyAppend("addToAncestryPath");
+
+		if(ancestryPath!=null)
+			sink.accept(ancestryPath);
 	}
 
 

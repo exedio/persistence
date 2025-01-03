@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -150,6 +152,24 @@ public final class VaultReferenceService implements VaultService
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultReferenceService.class);
+
+
+	@Override
+	public void addToAncestryPath(
+			@Nonnull final String hash,
+			@Nonnull final Consumer<String> sink)
+	{
+		if(!(main instanceof VaultServiceContains))
+			throw new IllegalArgumentException(
+					"main service " + main.getClass().getName() + " does not support VaultServiceContains");
+
+		final boolean isMain = ((VaultServiceContains)main).contains(hash);
+		sink.accept(isMain ? ANCESTRY_PATH_MAIN : ANCESTRY_PATH_REFERENCE);
+		(isMain?main:reference).addToAncestryPath(hash, sink);
+	}
+
+	public static final String ANCESTRY_PATH_MAIN = "main";
+	public static final String ANCESTRY_PATH_REFERENCE = "reference";
 
 
 	@Override

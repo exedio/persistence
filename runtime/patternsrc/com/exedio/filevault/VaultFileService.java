@@ -35,7 +35,7 @@ import static java.util.Arrays.asList;
 import com.exedio.cope.misc.Holder;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceContains;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +64,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @ServiceProperties(VaultFileService.Props.class)
-public final class VaultFileService implements VaultService
+public final class VaultFileService implements VaultServiceContains
 {
 	private final Path rootDir;
 	private final Path contentDir;
@@ -122,6 +122,12 @@ public final class VaultFileService implements VaultService
 	// * preserve anything, that is not a regular file
 	// * do not purge subdirectories
 
+
+	@Override
+	public boolean contains(@Nonnull final String hash)
+	{
+		return Files.exists(file(hash));
+	}
 
 	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException

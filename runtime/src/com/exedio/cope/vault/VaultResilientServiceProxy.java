@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 final class VaultResilientServiceProxy implements VaultResilientService
@@ -91,6 +92,21 @@ final class VaultResilientServiceProxy implements VaultResilientService
 			return;
 
 		service.get(hash, sink);
+	}
+
+	@Override
+	public void addToAncestryPath(
+			@Nonnull final String hash,
+			@Nonnull final Consumer<String> sink)
+	{
+		requireHash(hash);
+		requireNonNull(sink, "sink");
+		requireNonClosed();
+
+		if(isEmptyHash(hash))
+			return;
+
+		service.addToAncestryPath(hash, sink);
 	}
 
 	@Override

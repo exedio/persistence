@@ -194,6 +194,18 @@ final class DataFieldVaultStore extends DataFieldStore
 		return tx.getEntity(item, true).get(column);
 	}
 
+	@Override
+	VaultAncestry getVaultAncestry(final Transaction tx, final Item item)
+	{
+		final String hash = getHash(tx, item);
+		if(hash==null)
+			return null;
+
+		final VaultAncestry result = new VaultAncestry(hash);
+		service.addToAncestryPath(hash, result::addToPath);
+		return result;
+	}
+
 	private IllegalStateException wrap(
 			@Nonnull final VaultNotFoundException e,
 			final Item item)

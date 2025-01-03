@@ -23,6 +23,7 @@ import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.SchemaInfo.checkVaultTrail;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,6 +47,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.junit.jupiter.api.AfterEach;
@@ -135,14 +137,25 @@ public class DataTest extends TestWithEnvironment
 			}
 
 			if(vault)
+			{
+				final String hash =
+						Hex.encodeLower(MessageDigest.getInstance("SHA-512").digest(expectedData));
 				assertEquals(
-						Hex.encodeLower(MessageDigest.getInstance("SHA-512").digest(expectedData)),
+						hash,
 						data.getVaultHash(item));
+				assertAncestry(data, item, hash);
+			}
 			else
+			{
 				assertFails(
 						() -> data.getVaultHash(item),
 						IllegalArgumentException.class,
 						"vault disabled for DataItem.data");
+				assertFails(
+						() -> data.getVaultAncestry(item),
+						IllegalArgumentException.class,
+						"vault disabled for DataItem.data");
+			}
 		}
 		else
 		{
@@ -179,12 +192,21 @@ public class DataTest extends TestWithEnvironment
 			}
 
 			if(vault)
+			{
 				assertEquals(null, data.getVaultHash(item));
+				assertEquals(null, data.getVaultAncestry(item));
+			}
 			else
+			{
 				assertFails(
 						() -> data.getVaultHash(item),
 						IllegalArgumentException.class,
 						"vault disabled for DataItem.data");
+				assertFails(
+						() -> data.getVaultAncestry(item),
+						IllegalArgumentException.class,
+						"vault disabled for DataItem.data");
+			}
 		}
 	}
 
@@ -490,5 +512,16 @@ public class DataTest extends TestWithEnvironment
 	static ZipFile openZip() throws IOException, URISyntaxException
 	{
 		return new ZipFile(DataTest.class.getResource("DataTest.zip").toURI().getPath());
+	}
+
+	public static void assertAncestry(
+			final DataField field,
+			final Item item,
+			final String hash,
+			final String... path)
+	{
+		final VaultAncestry actual = field.getVaultAncestry(item);
+		assertEquals(hash, actual.hash());
+		assertEqualsUnmodifiable(List.of(path), actual.path());
 	}
 }

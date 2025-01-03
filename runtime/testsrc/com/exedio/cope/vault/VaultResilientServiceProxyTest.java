@@ -44,7 +44,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -68,6 +70,7 @@ public class VaultResilientServiceProxyTest
 		emptyHash = props.bucket("default").getAlgorithmDigestForEmptyByteSequence();
 		s = (VaultResilientServiceProxy)props.newServices(DEFAULT).get(DEFAULT);
 		m = (VaultMockService)VaultPropertiesTest.deresiliate(s);
+		m.ancestryPath = "myAncestryPath";
 	}
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
@@ -119,6 +122,7 @@ public class VaultResilientServiceProxyTest
 		return asList(
 				() -> s.get(hash),
 				() -> s.get(hash, null),
+				() -> s.addToAncestryPath(hash, null),
 				() -> s.put(hash, (byte[])     null),
 				() -> s.put(hash, (InputStream)null),
 				() -> s.put(hash, (Path)       null));
@@ -133,6 +137,12 @@ public class VaultResilientServiceProxyTest
 	{
 		final OutputStream sink = new AssertionErrorOutputStream();
 		s.get(emptyHash, sink);
+		m.assertIt("");
+	}
+	@Test void addToAncestryPathEmpty()
+	{
+		final Consumer<String> sink = s -> { throw new AssertionError(s); };
+		s.addToAncestryPath(emptyHash, sink);
 		m.assertIt("");
 	}
 	@Test void putBytesEmpty()
@@ -169,6 +179,14 @@ public class VaultResilientServiceProxyTest
 	{
 		assertFails(
 				() -> s.get("0123456789abcdef0123456789abcdef", null),
+				NullPointerException.class,
+				"sink");
+		m.assertIt("");
+	}
+	@Test void addToAncestryPathSinkNull()
+	{
+		assertFails(
+				() -> s.addToAncestryPath("0123456789abcdef0123456789abcdef", null),
 				NullPointerException.class,
 				"sink");
 		m.assertIt("");
@@ -236,6 +254,17 @@ public class VaultResilientServiceProxyTest
 		final OutputStream sink = new AssertionErrorOutputStream();
 		assertFails(
 				() -> s.get("0123456789abcdef0123456789abcdef", sink),
+				IllegalStateException.class,
+				"closed");
+		m.assertIt("");
+	}
+	@Test void addToAncestryPathClosed()
+	{
+		s.close();
+		m.assertIt("close");
+		final Consumer<String> sink = s -> { throw new AssertionError(s); };
+		assertFails(
+				() -> s.addToAncestryPath("0123456789abcdef0123456789abcdef", sink),
 				IllegalStateException.class,
 				"closed");
 		m.assertIt("");
@@ -309,6 +338,13 @@ public class VaultResilientServiceProxyTest
 				VaultNotFoundException.class,
 				"hash not found in vault: 0123456789abcdefxx32");
 		m.assertIt("getStream");
+	}
+	@Test void addToAncestryPath()
+	{
+		final ArrayList<String> sink = new ArrayList<>();
+		s.addToAncestryPath("0123456789abcdef0123456789abcdef", sink::add);
+		m.assertIt("addToAncestryPath");
+		assertEquals(List.of("myAncestryPath"), sink);
 	}
 	@Test void putBytes()
 	{

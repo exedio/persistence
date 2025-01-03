@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContexts;
@@ -32,6 +33,7 @@ import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceContains;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -150,6 +152,12 @@ public abstract class VaultServiceTest
 		service.purgeSchema(JobContexts.EMPTY);
 	}
 
+	@Test final void notFoundContains()
+	{
+		final String hash = hash("ab");
+		assertContains(false, hash);
+	}
+
 	@Test final void notFoundGetBytes()
 	{
 		final String hash = hash("ab");
@@ -161,6 +169,12 @@ public abstract class VaultServiceTest
 		final String hash = hash("ab");
 		final AssertionErrorOutputStream sink = new AssertionErrorOutputStream();
 		assertNotFound(() -> service.get(hash, sink), hash);
+	}
+
+	@Test final void foundContains()
+	{
+		final String hash = putHash("abcdef01234567");
+		assertContains(true, hash);
 	}
 
 	@Test final void foundGetBytes() throws VaultNotFoundException
@@ -336,6 +350,14 @@ public abstract class VaultServiceTest
 	private static byte[] unhex(final String hex)
 	{
 		return Hex.decodeLower(hex);
+	}
+
+	private void assertContains(
+			final boolean expected,
+			final String hash)
+	{
+		assumeTrue(service instanceof VaultServiceContains);
+		assertEquals(expected, ((VaultServiceContains)service).contains(hash));
 	}
 
 
