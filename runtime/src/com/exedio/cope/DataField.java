@@ -195,7 +195,7 @@ public final class DataField extends Field<DataField.Value>
 
 	/**
 	 * Returns the length of the data of this persistent data field.
-	 * Returns -1, if there is no data for this field.
+	 * Returns -1, if there is no data for this field (then {@link #isNull(Item)} returns {@code false}).
 	 */
 	@Wrap(order=20,doc="Returns the length of the data of the data field {0}.")
 	public long getLength(@Nonnull final Item item)
@@ -205,7 +205,7 @@ public final class DataField extends Field<DataField.Value>
 
 	/**
 	 * Returns the data of this persistent data field.
-	 * Returns null, if there is no data for this field.
+	 * Returns null, if there is no data for this field (then {@link #isNull(Item)} returns {@code false}).
 	 */
 	@Override
 	public Value get(final Item item) // return type must not be ArrayValue, as it is not public
@@ -216,7 +216,7 @@ public final class DataField extends Field<DataField.Value>
 
 	/**
 	 * Returns the data of this persistent data field.
-	 * Returns null, if there is no data for this field.
+	 * Returns null, if there is no data for this field (then {@link #isNull(Item)} returns {@code false}).
 	 */
 	@Wrap(order=30, doc="Returns the value of the persistent field {0}.", nullability=NullableIfOptional.class) // TODO better text
 	public byte[] getArray(@Nonnull final Item item)
@@ -225,6 +225,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
+	 * Returns null, if there is no data for this field (then {@link #isNull(Item)} returns {@code false}).
 	 * @throws IllegalArgumentException if vault is not enabled for this field
 	 * @see #getVaultAncestry(Item)
 	 */
@@ -234,6 +235,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
+	 * Returns null, if there is no data for this field (then {@link #isNull(Item)} returns {@code false}).
 	 * @throws IllegalArgumentException if vault is not enabled for this field
 	 * @see #getVaultHash(Item)
 	 */
@@ -245,7 +247,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Reads data for this persistent data field
 	 * and writes it into the given stream.
-	 * Does nothing, if there is no data for this field.
+	 * Does nothing, if there is no data for this field (then {@link #isNull(Item)} returns {@code false}).
 	 * @throws NullPointerException
 	 *         if {@code sink} is null.
 	 * @throws IOException if writing {@code sink} throws an IOException.
@@ -283,7 +285,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Reads data for this persistent data field
 	 * and writes it into the given file.
-	 * Does nothing, if there is no data for this field.
+	 * Does nothing, if there is no data for this field (then {@link #isNull(Item)} returns {@code false}).
 	 * @throws NullPointerException
 	 *         if {@code sink} is null.
 	 * @throws IOException if writing {@code sink} throws an IOException.
