@@ -52,10 +52,13 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 
 	@Test void testSingleField()
 	{
+		final String NULLS_FIRST = postgresql ? " NULLS FIRST" : "";
 		final MyItem a = new MyItem("33aa00", "000000", "000000");
+		final MyItem b = new MyItem("33bb00", "000000", "000000");
 		final MyItem n = new MyItem("000000", "000000", "000000");
 		final Query<MyItem> queryPos = MyItem.TYPE.newQuery(MyItem.alpha.startsWithIfSupported(decodeLower("33aa")));
 		final Query<MyItem> queryNeg = MyItem.TYPE.newQuery(MyItem.alpha.startsWithIfSupported(decodeLower("33aa")).not());
+		queryNeg.setOrderByThis(true);
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
 				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
@@ -64,10 +67,10 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
 				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
-				"WHERE NOT (" + startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ")",
+				"WHERE NOT (" + startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") ORDER BY " + SI.pk(MyItem.TYPE) + NULLS_FIRST,
 				SchemaInfo.search(queryNeg));
 		assertEquals(List.of(a), queryPos.search());
-		assertEquals(List.of(n), queryNeg.search());
+		assertEquals(List.of(b, n), queryNeg.search());
 	}
 
 	@Test void testSameField() throws SQLException
