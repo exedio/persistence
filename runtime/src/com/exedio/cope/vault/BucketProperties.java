@@ -18,6 +18,8 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
+
 import com.exedio.cope.util.MessageDigestFactory;
 import java.util.function.BooleanSupplier;
 
@@ -94,7 +96,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 			final boolean writable)
 	{
 		super(source);
-		this.key = key;
+		this.key = requireNonEmpty(key, "key");
 		service = valueService("service", writable);
 		trail = valueTrail(parent.trail);
 	}
