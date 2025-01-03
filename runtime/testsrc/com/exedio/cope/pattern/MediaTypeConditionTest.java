@@ -30,52 +30,52 @@ public class MediaTypeConditionTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	private MediaItem videoItem, imageItem, emptyItem;
+	private MediaItem video, image, empty;
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
 
 	@BeforeEach
 	void setUp() throws IOException
 	{
-		videoItem = new MediaItem();
-		videoItem.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot.mp4"), "video/mp4");
+		video = new MediaItem();
+		video.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot.mp4"), "video/mp4");
 
-		imageItem = new MediaItem();
-		imageItem.setPng(files.newPath(MediaTypeConditionTest.class, "thumbnail-test.png"), "image/png");
+		image = new MediaItem();
+		image.setPng(files.newPath(MediaTypeConditionTest.class, "thumbnail-test.png"), "image/png");
 
-		emptyItem = new MediaItem();
+		empty = new MediaItem();
 	}
 
 	@Test
 	void testVideo() throws IOException
 	{
-		final Condition mismatchCondition = MediaItem.mp4.bodyMismatchesContentTypeIfSupported();
-		final Condition invertedCondition = mismatchCondition.not();
+		final Condition mismatch = MediaItem.mp4.bodyMismatchesContentTypeIfSupported();
+		final Condition inverted = mismatch.not();
 
-		assertEquals(List.of(), search(mismatchCondition));
-		assertEquals(isVault(List.of(videoItem), List.of(videoItem, imageItem, emptyItem)), search(invertedCondition)); // TODO bug, should be videoItem, imageItem, emptyItem
+		assertEquals(List.of(), search(mismatch));
+		assertEquals(isVault(List.of(video), List.of(video, image, empty)), search(inverted)); // TODO bug, should be video, image, empty
 
-		videoItem.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot_mp42.mp4"), "video/mp4");
+		video.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot_mp42.mp4"), "video/mp4");
 
-		assertEquals(List.of(), search(mismatchCondition));
-		assertEquals(isVault(List.of(), List.of(videoItem, imageItem, emptyItem)), search(invertedCondition)); // TODO bug, should be videoItem, imageItem, emptyItem
+		assertEquals(List.of(), search(mismatch));
+		assertEquals(isVault(List.of(), List.of(video, image, empty)), search(inverted)); // TODO bug, should be video, image, empty
 
-		videoItem.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot.ogg"), "video/mp4");
+		video.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot.ogg"), "video/mp4");
 
-		assertEquals(isVault(List.of(), List.of(videoItem)), search(mismatchCondition)); // TODO bug, should be videoItem
-		assertEquals(isVault(List.of(), List.of(imageItem, emptyItem)), search(invertedCondition)); // TODO bug, should be imageItem, emptyItem
+		assertEquals(isVault(List.of(), List.of(video)), search(mismatch)); // TODO bug, should be video
+		assertEquals(isVault(List.of(), List.of(image, empty)), search(inverted)); // TODO bug, should be image, empty
 	}
 
 	@Test
 	void testImage() throws IOException
 	{
-		final Condition mismatchCondition = MediaItem.png.bodyMismatchesContentTypeIfSupported();
-		final Condition invertedCondition = mismatchCondition.not();
-		assertEquals(List.of(), search(mismatchCondition));
-		assertEquals(isVault(mysql?List.of(imageItem):List.of(), List.of(videoItem, imageItem, emptyItem)), search(invertedCondition)); // TODO bug, should be videoItem, imageItem, emptyItem
+		final Condition mismatch = MediaItem.png.bodyMismatchesContentTypeIfSupported();
+		final Condition inverted = mismatch.not();
+		assertEquals(List.of(), search(mismatch));
+		assertEquals(isVault(mysql?List.of(image):List.of(), List.of(video, image, empty)), search(inverted)); // TODO bug, should be video, image, empty
 
-		imageItem.setPng(files.newPath(MediaTypeConditionTest.class, "thumbnail-test.jpg"), "image/png");
-		assertEquals(isVault(List.of(), List.of(imageItem)), search(mismatchCondition)); // TODO bug, should be imageItem
-		assertEquals(isVault(List.of(), List.of(videoItem, emptyItem)), search(invertedCondition)); // TODO bug, should be videoItem, emptyItem
+		image.setPng(files.newPath(MediaTypeConditionTest.class, "thumbnail-test.jpg"), "image/png");
+		assertEquals(isVault(List.of(), List.of(image)), search(mismatch)); // TODO bug, should be image
+		assertEquals(isVault(List.of(), List.of(video, empty)), search(inverted)); // TODO bug, should be video, empty
 	}
 
 	// TODO should not depend on vault
