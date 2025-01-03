@@ -111,7 +111,7 @@ public class VaultDirectoryTest
 	private static final VaultServiceParameters SERVICE_PARAMETERS =
 			serviceParameters(
 					VaultProperties.factory().create(cascade(
-							single("algorithm", "MD5"),
+							single("default.algorithm", "MD5"),
 							single("default.service", VaultMockService.class))),
 					"testBucket",
 					true); // writable

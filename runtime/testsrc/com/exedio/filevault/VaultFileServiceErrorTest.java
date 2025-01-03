@@ -47,11 +47,11 @@ public class VaultFileServiceErrorTest
 
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
-				"algorithm",
 				"trail.startLimit",
 				"trail.fieldLimit",
 				"trail.originLimit",
 				"buckets",
+				"default.algorithm",
 				"default.service",
 				"default.service.root",
 				"default.service.content",
@@ -88,11 +88,11 @@ public class VaultFileServiceErrorTest
 
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		assertEquals(asList(
-				"algorithm",
 				"trail.startLimit",
 				"trail.fieldLimit",
 				"trail.originLimit",
 				"buckets",
+				"default.algorithm",
 				"default.service",
 				"default.service.root",
 				"default.service.content",
@@ -226,7 +226,7 @@ public class VaultFileServiceErrorTest
 	@Test void directoryLengthTooLong()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
+		source.setProperty("default.algorithm", "MD5");
 		source.setProperty("default.service", VaultFileService.class.getName());
 		source.setProperty("default.service.root", "rootDir");
 		source.setProperty("default.service.directory.length", "32");
