@@ -22,6 +22,7 @@ import static java.lang.Integer.parseInt;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.time.ZoneOffset.UTC;
 
+import com.exedio.cope.transientvault.VaultTransientService;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Sources;
 import java.io.IOException;
@@ -35,6 +36,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -110,7 +112,12 @@ public final class VaultFileToTrail
 
 	private static int startLimitDefault()
 	{
-		return new TrailProperties(Sources.EMPTY, null).startLimit;
+		final Properties rr = new Properties();
+		rr.setProperty("default.service", VaultTransientService.class.getName());
+		return VaultProperties.factory().
+				create(Sources.view(rr, VaultTransientService.class.getName())).
+				bucket("default").
+				getTrailStartLimit();
 	}
 
 	@SuppressWarnings("ConfusingMainMethod")
