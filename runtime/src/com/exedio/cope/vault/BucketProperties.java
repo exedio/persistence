@@ -94,6 +94,15 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	}
 
 
+	static Factory<BucketProperties> factory(final String key)
+	{
+		return source -> new BucketProperties(
+				source,
+				null, // parent VaultProperties
+				key,
+				true); // writable
+	}
+
 	BucketProperties(
 			final Source source,
 			final VaultProperties parent,
@@ -103,7 +112,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 		super(source);
 		this.key = requireNonEmpty(key, "key");
 		service = valueService("service", writable);
-		trail = valueTrail(parent.trail);
+		trail = valueTrail(parent!=null ? parent.trail : null);
 	}
 
 	@Probe Object probeContract()

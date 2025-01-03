@@ -70,7 +70,7 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("source.username", "someUsername");
 		props.setProperty("source.password", "somePassword");
 		props.setProperty("source.query", "SELECT ");
-		props.setProperty("target.default.service", UnusedPropertyService.class.getName());
+		props.setProperty("target.service", UnusedPropertyService.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
 		final var out = new ByteArrayOutputStream();
@@ -81,10 +81,8 @@ public class VaultJdbcToServiceErrorTest
 				propsFile + " " +
 				"is not allowed, but only one of [" +
 				"source.url, source.username, source.password, source.query, source.queryHash, source.fetchSize, " +
+				"target.algorithm, target.service, " +
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
-				"target.buckets, target.default.algorithm, target.default.service, " +
-				"target.default.trail.startLimit, target.default.trail.fieldLimit, target.default.trail.originLimit, " +
-				"target.isAppliedToAllFields, " +
 				"targetProbesSuppressed].");
 		assertEquals(List.of(
 				"Fetch size set to 1"),
@@ -106,7 +104,7 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("source.username", "someUsername");
 		props.setProperty("source.password", "somePassword");
 		props.setProperty("source.query", "SELECT ");
-		props.setProperty("target.default.service", TestServiceProbeFailed.class.getName());
+		props.setProperty("target.service", TestServiceProbeFailed.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
 		final var out = new ByteArrayOutputStream();
@@ -149,7 +147,7 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("source.username", "someUsername");
 		props.setProperty("source.password", "somePassword");
 		props.setProperty("source.query", "SELECT ");
-		props.setProperty("target.default.service", TestServiceProbeFailedChecked.class.getName());
+		props.setProperty("target.service", TestServiceProbeFailedChecked.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
 		final var out = new ByteArrayOutputStream();

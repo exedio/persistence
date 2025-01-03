@@ -238,7 +238,7 @@ public class VaultJdbcToServiceHsqldbTest
 		{
 			assertNotNull(parameters);
 			assertEquals("MD5", parameters.getMessageDigestAlgorithm());
-			assertEquals("default", parameters.getBucket());
+			assertEquals("target", parameters.getBucket());
 			assertEquals(true, parameters.isWritable());
 		}
 
@@ -284,8 +284,8 @@ public class VaultJdbcToServiceHsqldbTest
 		props.setProperty("source.username", "sa");
 		props.setProperty("source.password", "");
 		props.setProperty("source.query", query);
-		props.setProperty("target.default.algorithm", "MD5");
-		props.setProperty("target.default.service", service.getName());
+		props.setProperty("target.algorithm", "MD5");
+		props.setProperty("target.service", service.getName());
 		for(final Map.Entry<String,String> e : additional.entrySet())
 			props.setProperty(e.getKey(), e.getValue());
 		final Path propsFile = files.newFile().toPath();
