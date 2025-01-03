@@ -53,8 +53,6 @@ public final class PartOf<C extends Item> extends Pattern
 	private PartOf(final ItemField<C> container, final OrderBy[] orders)
 	{
 		this.container = requireNonNull(container, "container");
-		if(!container.isSourceAlready())
-			addSourceFeature(container, "Container");
 		this.orders = orders;
 	}
 
@@ -79,6 +77,7 @@ public final class PartOf<C extends Item> extends Pattern
 	protected void onMount()
 	{
 		super.onMount();
+		check(container, "container");
 		if(orders!=null)
 			for(final OrderBy order : orders)
 				check(order.field, "order");

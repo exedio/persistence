@@ -74,12 +74,12 @@ public class PartOfModelTest
 
 		assertSame(PartOfItem.container, PartOfItem.unordered.getContainer());
 		assertEqualsUnmodifiable(asList(), PartOfItem.unordered.getOrders());
-		assertSame(PartOfItem.unordered, PartOfItem.container.getPattern());
-		assertEqualsUnmodifiable(list(PartOfItem.container), PartOfItem.unordered.getSourceFeatures());
+		assertSame(null, PartOfItem.container.getPattern());
+		assertEqualsUnmodifiable(list(), PartOfItem.unordered.getSourceFeatures());
 
 		assertSame(PartOfItem.container, PartOfItem.ordered.getContainer());
 		assertEqualsUnmodifiable(asList(orderBy(PartOfItem.order)), PartOfItem.ordered.getOrders());
-		assertSame(PartOfItem.unordered, PartOfItem.container.getPattern());
+		assertSame(null, PartOfItem.container.getPattern());
 		assertSame(null, PartOfItem.order.getPattern());
 		assertEqualsUnmodifiable(list(), PartOfItem.ordered.getSourceFeatures());
 	}

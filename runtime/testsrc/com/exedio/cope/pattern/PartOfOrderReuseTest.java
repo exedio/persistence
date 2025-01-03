@@ -51,14 +51,14 @@ public class PartOfOrderReuseTest
 		assertEqualsUnmodifiable(asList(orderBy(order)), parts1.getOrders());
 		assertEqualsUnmodifiable(asList(orderBy(order)), parts2.getOrders());
 
-		assertSame(parts1, container1.getPattern());
-		assertSame(parts2, container2.getPattern());
+		assertSame(null, container1.getPattern());
+		assertSame(null, container2.getPattern());
 		assertSame(null, order.getPattern());
 		assertSame(null, parts1.getPattern());
 		assertSame(null, parts2.getPattern());
 
-		assertEqualsUnmodifiable(list(container1), parts1.getSourceFeatures());
-		assertEqualsUnmodifiable(list(container2), parts2.getSourceFeatures());
+		assertEqualsUnmodifiable(list(), parts1.getSourceFeatures());
+		assertEqualsUnmodifiable(list(), parts2.getSourceFeatures());
 	}
 
 
