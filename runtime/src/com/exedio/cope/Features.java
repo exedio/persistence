@@ -93,8 +93,7 @@ public final class Features
 		{
 			final Feature source = entry.getValue();
 			final String postfix = entry.getKey();
-			if(!source.isMountedToType())
-				source.mount(type, name + '-' + postfix, annotationSources.get(source));
+			source.mount(type, name + '-' + postfix, annotationSources.get(source));
 			final Type<?> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))

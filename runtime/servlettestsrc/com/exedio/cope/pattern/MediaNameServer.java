@@ -46,9 +46,6 @@ final class MediaNameServer extends MediaPath
 	{
 		this.source = source;
 		this.lastModified = lastModified;
-		if(source!=null)
-			addSourceFeature(source, "Source");
-		addSourceFeature(lastModified, "LastModified");
 	}
 
 	@Override
