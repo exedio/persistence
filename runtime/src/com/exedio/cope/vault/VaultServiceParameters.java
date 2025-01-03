@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataFieldVaultInfo;
@@ -39,7 +40,7 @@ public final class VaultServiceParameters
 			final BooleanSupplier markPut)
 	{
 		this.properties = requireNonNull(properties);
-		this.bucket = requireNonNull(bucket);
+		this.bucket = requireNonEmpty(bucket, "bucket");
 		this.writable = writable;
 		this.markPut = requireNonNull(markPut);
 	}
