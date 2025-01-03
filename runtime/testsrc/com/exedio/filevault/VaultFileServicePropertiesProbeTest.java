@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
 import static com.exedio.cope.RuntimeAssert.probes;
@@ -24,8 +24,8 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
-import static com.exedio.cope.vault.VaultFileServicePosixGroupTest.testGroupDirectory;
-import static com.exedio.cope.vault.VaultFileServicePosixGroupTest.testGroupFile;
+import static com.exedio.filevault.VaultFileServicePosixGroupTest.testGroupDirectory;
+import static com.exedio.filevault.VaultFileServicePosixGroupTest.testGroupFile;
 import static java.nio.file.Files.createDirectory;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
@@ -42,7 +42,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.ProbeAbortedException;
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.vault.VaultFileService.Props;
+import com.exedio.filevault.VaultFileService.Props;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileStore;

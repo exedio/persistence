@@ -53,9 +53,9 @@ public @interface Vault
 	 * <pre>
 	 * vault=true
 	 * vault.buckets=default other
-	 * vault.default.service=com.exedio.cope.vault.VaultFileService
+	 * vault.default.service=com.exedio.filevault.VaultFileService
 	 * vault.default.service.root=/var/lib/cope-vault
-	 * vault.other.service=com.exedio.cope.vault.VaultFileService
+	 * vault.other.service=com.exedio.filevault.VaultFileService
 	 * vault.other.service.root=/var/lib/other-cope-vault
 	 * </pre>
 	 * <p>

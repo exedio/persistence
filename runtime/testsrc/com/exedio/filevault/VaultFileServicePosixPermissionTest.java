@@ -16,9 +16,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
-import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
+import static java.nio.file.attribute.PosixFilePermission.GROUP_READ;
+import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
+import static java.nio.file.attribute.PosixFilePermission.OTHERS_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
@@ -36,53 +38,32 @@ import java.nio.file.Path;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.EnumSet;
 import java.util.Properties;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * If you want to run this test on a linux work station you have to prepare your system
- * before:
- * <pre>
- * sudo addgroup copevaultfilesv1
- * sudo addgroup copevaultfilesv2
- * sudo usermod --append --groups copevaultfilesv1,copevaultfilesv2 &lt;user name&gt;
- * </pre>
- * and do a logout/login for changes to take effect.
- */
-public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
+public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServiceTest
 {
-	private static final EnumSet<PosixFilePermission> filePerms = EnumSet.of(OWNER_READ, OWNER_WRITE);
-	private static final EnumSet<PosixFilePermission> dirPerms  = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE);
-
-	static final String testGroupFile      = "copevaultfilesv1";
-	static final String testGroupDirectory = "copevaultfilesv2";
+	private static final EnumSet<PosixFilePermission> filePerms = EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ);
+	private static final EnumSet<PosixFilePermission> dirPerms  = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE);
 
 	@Override
 	protected Properties getServiceProperties() throws IOException
 	{
 		final Properties result = super.getServiceProperties();
-		result.setProperty(          "posixGroup", testGroupFile);
-		result.setProperty("directory.posixGroup", testGroupDirectory);
+		result.setProperty(          "posixPermissions", "rw-r-----");
+		result.setProperty("directory.posixPermissions", "rwx---r-x");
 		return result;
-	}
-
-	@BeforeEach
-	void assumePosixBeforeEach()
-	{
-		assumePosix();
-		assumeNotGithub();
 	}
 
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE]", service.fileAttributes());
+		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, GROUP_READ]", service.fileAttributes());
 		assertEquals(null, service.filePermissionsAfterwards);
-		assertEquals(testGroupFile, service.fileGroup);
+		assertEquals("", service.fileGroup);
 		assertEquals("l=3", service.directory.toString());
-		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE]", service.directoryAttributes());
+		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE]", service.directoryAttributes());
 		assertEquals(null, service.directoryPermissionsAfterwards);
-		assertEquals(testGroupDirectory, service.directoryGroup);
+		assertEquals("", service.directoryGroup);
 		assertNotNull(service.tempDir);
 	}
 
@@ -110,8 +91,8 @@ public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosix(dirPerms, testGroupDirectory, abc);
-		assertPosix(filePerms, testGroupFile, d);
+		assertPosix(dirPerms, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
 
 		assertFalse(service.put("abcd", value));
 		assertContains(root, temp, abc);
@@ -119,8 +100,8 @@ public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosix(dirPerms, testGroupDirectory, abc);
-		assertPosix(filePerms, testGroupFile, d);
+		assertPosix(dirPerms, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
 
 		assertTrue(service.put("abcf", value));
 		assertContains(root, temp, abc);
@@ -128,9 +109,9 @@ public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosix(dirPerms, testGroupDirectory, abc);
-		assertPosix(filePerms, testGroupFile, d);
-		assertPosix(filePerms, testGroupFile, f);
+		assertPosix(dirPerms, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
+		assertPosix(filePerms, rootGroup(), f);
 	}
 
 	@Test void putByStream() throws IOException
@@ -144,12 +125,12 @@ public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 		assertTrue(service.put("abcdef", value));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, testGroupFile, valueFile);
+		assertPosix(filePerms, rootGroup(), valueFile);
 
 		assertFalse(service.put("abcdef", value));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, testGroupFile, valueFile);
+		assertPosix(filePerms, rootGroup(), valueFile);
 	}
 
 	@Test void putByPath() throws IOException
@@ -164,11 +145,11 @@ public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 		assertTrue(service.put("abcdef", value));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, testGroupFile, valueFile);
+		assertPosix(filePerms, rootGroup(), valueFile);
 
 		assertFalse(service.put("abcdef", value));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, testGroupFile, valueFile);
+		assertPosix(filePerms, rootGroup(), valueFile);
 	}
 }

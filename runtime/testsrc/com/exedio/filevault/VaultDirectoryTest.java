@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
@@ -24,8 +24,10 @@ import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.vault.VaultTester.serviceParameters;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.vault.VaultDirectory.Properties;
+import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultServiceParameters;
 import com.exedio.cope.vaultmock.VaultMockService;
+import com.exedio.filevault.VaultDirectory.Properties;
 import org.junit.jupiter.api.Test;
 
 public class VaultDirectoryTest

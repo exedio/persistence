@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
@@ -26,6 +26,9 @@ import static java.time.Duration.ofSeconds;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
+import com.exedio.cope.vault.VaultNonWritableService;
+import com.exedio.cope.vault.VaultNotFoundException;
+import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;

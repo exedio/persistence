@@ -16,16 +16,26 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
+
+import static com.exedio.cope.tojunit.TestSources.single;
 
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.util.Sources;
+import java.util.Properties;
 
-public class VaultHttpServiceDirectoryTest extends VaultHttpServiceTest
+public class VaultHttpServiceFlatTest extends VaultHttpServiceTest
 {
+	@Override
+	protected Properties getServiceProperties()
+	{
+		final Properties result = super.getServiceProperties();
+		result.setProperty("directory", "false");
+		return result;
+	}
+
 	@Override
 	Source sourcesPut()
 	{
-		return Sources.EMPTY;
+		return single("directory", false);
 	}
 }

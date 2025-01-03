@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.nio.file.Files.getLastModifiedTime;
@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.junit.HolderExtension;
+import com.exedio.cope.vault.VaultNotFoundException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;

@@ -54,7 +54,7 @@ import java.util.concurrent.Callable;
  * source.username=myuser
  * source.password=mypassword
  * source.query=SELECT hash,data FROM Vault
- * target.default.service=com.exedio.cope.vault.VaultFileService
+ * target.default.service=com.exedio.filevault.VaultFileService
  * target.default.service.root=myrootdir
  * </pre>
  * The SQL query specified by {@code source.query} must return the hash in the first column of the result set

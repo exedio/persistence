@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -29,6 +29,7 @@ import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.vault.VaultProperties;
 import java.nio.file.Paths;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
@@ -107,7 +108,7 @@ public class VaultFileServiceErrorTest
 		final RuntimeException e2 = assertFails(
 				properties::newServices,
 				RuntimeException.class,
-				"com.exedio.cope.vault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.cope.vault.VaultFileService$Props)");
+				"com.exedio.filevault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.filevault.VaultFileService$Props)");
 		final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();
 		assertEquals(
 				"non-writable properties cannot be used in writable service",
@@ -234,7 +235,7 @@ public class VaultFileServiceErrorTest
 		final RuntimeException e2 = assertFails(
 				properties::newServices,
 				RuntimeException.class,
-				"com.exedio.cope.vault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.cope.vault.VaultFileService$Props)");
+				"com.exedio.filevault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.filevault.VaultFileService$Props)");
 		final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();
 		assertEquals(
 				"directory.length must be less the length of algorithm MD5, but was 32>=32",

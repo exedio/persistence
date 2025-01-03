@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vault;
+package com.exedio.filevault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaulttest.VaultServiceTest;
 import java.io.ByteArrayInputStream;
 import java.io.File;
