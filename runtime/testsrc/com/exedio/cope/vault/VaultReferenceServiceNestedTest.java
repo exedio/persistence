@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -42,17 +41,17 @@ public class VaultReferenceServiceNestedTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultReferenceService.class),
-						single("default.service.main", VaultReferenceService.class),
-						single("default.service.main.main", VaultMockService.class),
-						single("default.service.main.main.example", "mainEx"),
-						single("default.service.main.reference", VaultMockService.class),
-						single("default.service.main.reference.example", "ref1Ex"),
-						single("default.service.reference", VaultMockService.class),
-						single("default.service.reference.example", "ref2Ex")
+						single("service", VaultReferenceService.class),
+						single("service.main", VaultReferenceService.class),
+						single("service.main.main", VaultMockService.class),
+						single("service.main.main.example", "mainEx"),
+						single("service.main.reference", VaultMockService.class),
+						single("service.main.reference.example", "ref1Ex"),
+						single("service.reference", VaultMockService.class),
+						single("service.reference.example", "ref2Ex")
 				));
-		final VaultProperties props = VaultProperties.factory().create(source);
-		final VaultReferenceService service = (VaultReferenceService)props.newServicesNonResilient(DEFAULT).get(DEFAULT);
+		final BucketProperties props = BucketProperties.factory("myKey").create(source);
+		final VaultReferenceService service = (VaultReferenceService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		serviceNested = (VaultReferenceService)service.getMainService();
 		ref2 = (VaultMockService)service.getReferenceService();

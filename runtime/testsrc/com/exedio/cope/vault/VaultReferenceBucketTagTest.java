@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -116,13 +115,13 @@ public class VaultReferenceBucketTagTest
 	private static VaultReferenceService service(final String main, final String reference)
 	{
 		final Source source = cascade(
-				single("default.service", VaultReferenceService.class),
-				single("default.service.main", VaultMockService.class),
-				single("default.service.main.bucketTagAction", main),
-				single("default.service.reference", VaultMockService.class),
-				single("default.service.reference.bucketTagAction", reference)
+				single("service", VaultReferenceService.class),
+				single("service.main", VaultMockService.class),
+				single("service.main.bucketTagAction", main),
+				single("service.reference", VaultMockService.class),
+				single("service.reference.bucketTagAction", reference)
 		);
-		return (VaultReferenceService)VaultProperties.factory().create(source).newServicesNonResilient(DEFAULT).get(DEFAULT);
+		return (VaultReferenceService)BucketProperties.factory("myKey").create(source).newServiceNonResilient(() -> false);
 	}
 	private static void assertStackTrace(final boolean expected, final Exception actual)
 	{
