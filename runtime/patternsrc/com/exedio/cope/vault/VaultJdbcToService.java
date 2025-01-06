@@ -110,7 +110,7 @@ public final class VaultJdbcToService
 		final int queriesSize = props.queries.size();
 		final ArrayList<Stats> statsSummary = new ArrayList<>(queriesSize);
 		final MessageDigestFactory queryHash = props.queryHash();
-		try(VaultService service = props.target.newResilientService();
+		try(VaultService service = props.target.newService();
 			 Connection connection = props.newConnection();
 			 Statement stmt = connection.createStatement())
 		{
