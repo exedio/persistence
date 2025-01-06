@@ -18,7 +18,6 @@
 
 package com.exedio.filevault;
 
-import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -28,6 +27,7 @@ import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.vault.BucketProperties;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.filevault.VaultFileService.Props;
 import java.nio.file.Paths;
@@ -40,39 +40,34 @@ public class VaultFileServiceErrorTest
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.directory.length", "31");
-		source.setProperty("default.service.temp", "t");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.directory.length", "31");
+		source.setProperty("service.temp", "t");
 
-		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
+		final BucketProperties properties = BucketProperties.create("myBucketKey", true, Sources.view(source, "DESC"));
 		assertEquals(asList(
+				"algorithm",
+				"service",
+				"service.root",
+				"service.content",
+				"service.writable",
+				"service.posixPermissions",
+				"service.posixPermissionsAfterwards",
+				"service.posixGroup",
+				"service.directory",
+				"service.directory.length",
+				"service.directory.premised",
+				"service.directory.posixPermissions",
+				"service.directory.posixPermissionsAfterwards",
+				"service.directory.posixGroup",
+				"service.temp",
 				"trail.startLimit",
 				"trail.fieldLimit",
-				"trail.originLimit",
-				"buckets",
-				"default.algorithm",
-				"default.service",
-				"default.service.root",
-				"default.service.content",
-				"default.service.writable",
-				"default.service.posixPermissions",
-				"default.service.posixPermissionsAfterwards",
-				"default.service.posixGroup",
-				"default.service.directory",
-				"default.service.directory.length",
-				"default.service.directory.premised",
-				"default.service.directory.posixPermissions",
-				"default.service.directory.posixPermissionsAfterwards",
-				"default.service.directory.posixGroup",
-				"default.service.temp",
-				"default.trail.startLimit",
-				"default.trail.fieldLimit",
-				"default.trail.originLimit",
-				"isAppliedToAllFields"),
+				"trail.originLimit"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
-
-		final VaultFileService service = (VaultFileService)properties.newServicesNonResilient(DEFAULT).get(DEFAULT);
+		//noinspection resource
+		final VaultFileService service = (VaultFileService)properties.newServiceNonResilient(() -> false);
 
 		assertEquals("l=31", service.directory.toString());
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);
@@ -82,31 +77,26 @@ public class VaultFileServiceErrorTest
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.writable", "false");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.writable", "false");
 
-		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
+		final BucketProperties properties = BucketProperties.create("myBucketKey", true, Sources.view(source, "DESC"));
 		assertEquals(asList(
+				"algorithm",
+				"service",
+				"service.root",
+				"service.content",
+				"service.writable",
+				"service.directory",
+				"service.directory.length",
 				"trail.startLimit",
 				"trail.fieldLimit",
-				"trail.originLimit",
-				"buckets",
-				"default.algorithm",
-				"default.service",
-				"default.service.root",
-				"default.service.content",
-				"default.service.writable",
-				"default.service.directory",
-				"default.service.directory.length",
-				"default.trail.startLimit",
-				"default.trail.fieldLimit",
-				"default.trail.originLimit",
-				"isAppliedToAllFields"),
+				"trail.originLimit"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
-
+		//noinspection resource
 		final RuntimeException e2 = assertFails(
-				properties::newServices,
+				() -> properties.newServiceNonResilient(() -> false),
 				RuntimeException.class,
 				"com.exedio.filevault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.filevault.VaultFileService$Props)");
 		final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();

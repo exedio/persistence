@@ -170,7 +170,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 	{
 		@SuppressWarnings("OptionalGetWithoutIsPresent") // OK: will fail if not present
 		final Callable<?> probe = getProperties().getProbes().stream().
-				filter(s -> "default.service.root.Exists".equals(s.toString())).
+				filter(s -> "service.root.Exists".equals(s.toString())).
 				findFirst().
 				get();
 		assertEquals(new java.net.URI(URL+'/'), probe.call());
