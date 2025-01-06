@@ -41,7 +41,7 @@ final class ContractProbe
 
 	String call()
 	{
-		try(VaultService s = properties.resiliate(properties.newService(() -> false)))
+		try(VaultService s = properties.newResilientService())
 		{
 			return probe(s);
 		}
