@@ -41,13 +41,13 @@ final class ContractProbe
 
 	String call()
 	{
-		try(VaultService s = properties.newService())
+		try(VaultResilientService s = properties.newService())
 		{
 			return probe(s);
 		}
 	}
 
-	private String probe(final VaultService service)
+	private String probe(final VaultResilientService service)
 	{
 		final String info = service.toString();
 		String hostname;
@@ -90,7 +90,7 @@ final class ContractProbe
 	}
 
 	private static void probeGetAndPut(
-			final VaultService service,
+			final VaultResilientService service,
 			final String hash,
 			final byte[] value,
 			final boolean putResult,
