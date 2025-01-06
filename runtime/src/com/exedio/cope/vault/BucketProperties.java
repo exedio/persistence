@@ -62,14 +62,14 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 
 	private final Service service;
 
-	VaultService newService(final BooleanSupplier markPut)
+	VaultService newServiceNonResilient(final BooleanSupplier markPut)
 	{
 		return service.newService(this, key, markPut);
 	}
 
 	VaultService newResilientService()
 	{
-		return resiliate(newService(() -> false));
+		return resiliate(newServiceNonResilient(() -> false));
 	}
 
 

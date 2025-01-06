@@ -211,7 +211,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final String key : keys)
 		{
-			result.put(key, buckets.get(key).newService(markPut));
+			result.put(key, buckets.get(key).newServiceNonResilient(markPut));
 		}
 		return Collections.unmodifiableMap(result);
 	}
@@ -228,7 +228,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		{
 			final String key = e.getKey();
 			final BucketProperties value = e.getValue();
-			result.put(key, value.resiliate(value.newService(markPut.apply(key))));
+			result.put(key, value.resiliate(value.newServiceNonResilient(markPut.apply(key))));
 		}
 		return Collections.unmodifiableMap(result);
 	}
