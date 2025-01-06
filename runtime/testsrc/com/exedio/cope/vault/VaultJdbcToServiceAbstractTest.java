@@ -67,8 +67,8 @@ public class VaultJdbcToServiceAbstractTest extends TestWithEnvironment
 		props.setProperty("source.url", connect.getConnectionUrl());
 		props.setProperty("source.username", connect.getConnectionUsername());
 		props.setProperty("source.password", password);
-		props.setProperty("target.default.algorithm", "MD5");
-		props.setProperty("target.default.service", TestService.class.getName());
+		props.setProperty("target.algorithm", "MD5");
+		props.setProperty("target.service", TestService.class.getName());
 		for(final Map.Entry<String,String> e : additional.entrySet())
 			props.setProperty(e.getKey(), e.getValue());
 		final Path propsFile = files.newFile().toPath();
@@ -88,7 +88,7 @@ public class VaultJdbcToServiceAbstractTest extends TestWithEnvironment
 		{
 			assertNotNull(parameters);
 			assertEquals("MD5", parameters.getMessageDigestAlgorithm());
-			assertEquals("default", parameters.getBucket());
+			assertEquals("target", parameters.getBucket());
 			assertEquals(true, parameters.isWritable());
 		}
 

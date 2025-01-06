@@ -20,7 +20,6 @@ package com.exedio.cope.vault;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.Vault;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.util.Properties;
@@ -54,8 +53,8 @@ import java.util.concurrent.Callable;
  * source.username=myuser
  * source.password=mypassword
  * source.query=SELECT hash,data FROM Vault
- * target.default.service=com.exedio.filevault.VaultFileService
- * target.default.service.root=myrootdir
+ * target.service=com.exedio.filevault.VaultFileService
+ * target.service.root=myrootdir
  * </pre>
  * The SQL query specified by {@code source.query} must return the hash in the first column of the result set
  * and the actual data in the second column.
@@ -111,7 +110,7 @@ public final class VaultJdbcToService
 		final int queriesSize = props.queries.size();
 		final ArrayList<Stats> statsSummary = new ArrayList<>(queriesSize);
 		final MessageDigestFactory queryHash = props.queryHash();
-		try(VaultService service = props.target.newServices(BUCKET).get(BUCKET);
+		try(VaultService service = props.target.newResilientService();
 			 Connection connection = props.newConnection();
 			 Statement stmt = connection.createStatement())
 		{
@@ -282,7 +281,7 @@ public final class VaultJdbcToService
 		{
 			return queryHash
 					? null
-					: target.bucket(BUCKET).getAlgorithmFactory();
+					: target.getAlgorithmFactory();
 		}
 
 		/**
@@ -294,13 +293,13 @@ public final class VaultJdbcToService
 				url.startsWith("jdbc:mysql:") ? Integer.MIN_VALUE : 1,
 				Integer.MIN_VALUE);
 
-		final VaultProperties target = valnp("target", VaultProperties.factory());
+		final BucketProperties target = valnp("target", BucketProperties.factory("target"));
 
 		final Set<String> targetProbesSuppressed = Set.copyOf(valuesSpaceSeparated("targetProbesSuppressed"));
 
 		void probeService(final PrintStream out)
 		{
-			final String NAME_PREFIX = BUCKET + ".service.";
+			final String NAME_PREFIX = "service.";
 
 			for(final Callable<?> probe : target.getProbes())
 			{
@@ -340,8 +339,6 @@ public final class VaultJdbcToService
 			super(source);
 		}
 	}
-
-	private static final String BUCKET = Vault.DEFAULT;
 
 	private VaultJdbcToService()
 	{
