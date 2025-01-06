@@ -67,7 +67,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 		return service.newService(this, key, markPut);
 	}
 
-	VaultService newService()
+	VaultResilientService newService()
 	{
 		return resiliate(newServiceNonResilient(() -> false));
 	}
@@ -123,7 +123,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	@Probe(name="BucketTag", order=1)
 	Object probeBucketTag() throws Exception
 	{
-		try(VaultService s = newService())
+		try(VaultResilientService s = newService())
 		{
 			return s.probeBucketTag(key);
 		}
