@@ -200,11 +200,6 @@ public abstract class TestWithEnvironment
 		tester.assertPrimaryKeySequenceName(sequenceNameBase, type);
 	}
 
-	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
-	{
-		tester.assertPrimaryKeySequenceName(sequenceNameBase, batchedSequenceNameBase, type);
-	}
-
 	protected final PrimaryKeyConstraint assertPkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
