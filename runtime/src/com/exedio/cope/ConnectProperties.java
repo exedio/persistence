@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.lang.Math.toIntExact;
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
@@ -246,14 +245,14 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * PostgreSQL maximum length is 63:
 	 * <a href="https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS">...</a>
 	 */
-	final Trimmer trimmerStandard = valueTrimmer("",       TrimClass.standard);
-	final Trimmer trimmerLegacy   = valueTrimmer("Legacy", TrimClass.legacy);
+	final Trimmer trimmerStandard = valueTrimmer("", 60);
+	final Trimmer trimmerLegacy   = valueTrimmer("Legacy", factory.legacyNameLength ? 25 : trimmerStandard.maxLength);
 
 	Trimmer valueTrimmer(
 			@Nonnull final String keyPostfix,
-			@Nonnull final TrimClass trimClass)
+			final int defaultValue)
 	{
-		return new Trimmer(value("schema.nameLength" + keyPostfix, trimClass.maxLength, 1));
+		return new Trimmer(value("schema.nameLength" + keyPostfix, defaultValue, 1));
 	}
 
 	Trimmer trimmer(@Nonnull final TrimClass trimClass)
@@ -267,15 +266,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	enum TrimClass
 	{
-		standard(60),
-		legacy(25);
-
-		private final int maxLength;
-
-		TrimClass(final int maxLength)
-		{
-			this.maxLength = requireGreaterZero(maxLength, "maxLength");
-		}
+		standard, legacy
 	}
 
 
@@ -485,6 +476,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		return new Factory(
 				false, // disableNativeDate
+				false, // legacyNameLength
 				PrimaryKeyGenerator.memory,
 				"while", "protected",
 				"media/");
@@ -493,6 +485,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	public static final class Factory implements Properties.Factory<ConnectProperties>
 	{
 		private final boolean disableNativeDate;
+		private final boolean legacyNameLength;
 		private final PrimaryKeyGenerator primaryKeyGenerator;
 		private final String revisionTableName;
 		private final String revisionPrimaryKeyName;
@@ -500,12 +493,14 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 		Factory(
 				final boolean disableNativeDate,
+				final boolean legacyNameLength,
 				final PrimaryKeyGenerator primaryKeyGenerator,
 				final String revisionTableName,
 				final String revisionPrimaryKeyName,
 				final String mediaRootUrl)
 		{
 			this.disableNativeDate = disableNativeDate;
+			this.legacyNameLength = legacyNameLength;
 			this.primaryKeyGenerator = primaryKeyGenerator;
 			this.revisionTableName = revisionTableName;
 			this.revisionPrimaryKeyName = revisionPrimaryKeyName;
@@ -515,7 +510,18 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory disableNativeDate()
 		{
 			return new Factory(
-					true, primaryKeyGenerator,
+					true, legacyNameLength, primaryKeyGenerator,
+					revisionTableName, revisionPrimaryKeyName,
+					mediaRootUrl);
+		}
+
+		/**
+		 * Changes default of {@code schema.nameLengthLegacy} to {@code 25}.
+		 */
+		public Factory legacyNameLength()
+		{
+			return new Factory(
+					disableNativeDate, true, primaryKeyGenerator,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -523,7 +529,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory primaryKeyGeneratorSequence()
 		{
 			return new Factory(
-					disableNativeDate, PrimaryKeyGenerator.sequence,
+					disableNativeDate, legacyNameLength, PrimaryKeyGenerator.sequence,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -531,7 +537,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory revisionTable(final String name, final String primaryKeyName)
 		{
 			return new Factory(
-					disableNativeDate, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, primaryKeyGenerator,
 					name, primaryKeyName,
 					mediaRootUrl);
 		}
@@ -539,7 +545,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory mediaRootUrl(final String mediaRootUrl)
 		{
 			return new Factory(
-					disableNativeDate, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, primaryKeyGenerator,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
