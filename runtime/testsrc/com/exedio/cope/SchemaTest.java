@@ -224,7 +224,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(OK, stringLongColumn.getParticularColor());
 
 		final Sequence sequence        = schema.getSequence("Main_this_Seq");
-		final Sequence batchedSequence = schema.getSequence("Main_this_Seq6");
+		final Sequence batchedSequence = schema.getSequence("Main_this_Sq6");
 		switch ( model.getConnectProperties().primaryKeyGenerator )
 		{
 			case memory -> {

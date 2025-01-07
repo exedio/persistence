@@ -47,7 +47,7 @@ enum PrimaryKeyGenerator
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
-			return new SequenceImplSequence(metrics, column, type, start, connectionPool, database, "");
+			return new SequenceImplSequence(metrics, column, type, start, connectionPool, database, NAME_SUFFIX);
 		}
 	},
 	batchedSequence(true)
@@ -63,10 +63,12 @@ enum PrimaryKeyGenerator
 		{
 			return column.kind.primaryKey()
 				? new SequenceImplBatchedSequence(metrics, column, type, start, connectionPool, database)
-				: new SequenceImplSequence       (metrics, column, type, start, connectionPool, database, "")
+				: new SequenceImplSequence       (metrics, column, type, start, connectionPool, database, NAME_SUFFIX)
 			;
 		}
 	};
+
+	private static final String NAME_SUFFIX = "Seq";
 
 	final boolean persistent;
 
