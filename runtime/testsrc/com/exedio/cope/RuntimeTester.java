@@ -100,11 +100,16 @@ final class RuntimeTester
 
 	void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
 	{
+		assertTrue(sequenceNameBase.endsWith("_Seq"), sequenceNameBase);
+
 		assertPrimaryKeySequenceName( sequenceNameBase, sequenceNameBase+"6", type );
 	}
 
 	void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
 	{
+		assertTrue(sequenceNameBase.endsWith("_Seq"), sequenceNameBase);
+		assertTrue(batchedSequenceNameBase.endsWith("_Seq6"), batchedSequenceNameBase);
+
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
 			final String name;
@@ -176,6 +181,8 @@ final class RuntimeTester
 
 	String primaryKeySequenceName(final String nameBase)
 	{
+		assertTrue(nameBase.endsWith("_Seq"), nameBase);
+
 		final String name;
 		if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
 		{
