@@ -372,7 +372,15 @@ final class Types
 		if(type.isAbstract)
 			throw new NoSuchIDException(id, true, "type is abstract");
 
-		final String pkString = id.substring(pos+1);
+		final long pk = parsePk(id, id.substring(pos+1));
+		if(pk>type.createLimit)
+			throw new NoSuchIDException(id, true, "must be less or equal " + type.createLimit);
+
+		return new ActivationParameters(type, pk);
+	}
+
+	private static long parsePk(final String id, final String pkString) throws NoSuchIDException
+	{
 		if(pkString.length()>1)
 		{
 			switch(pkString.charAt(0))
@@ -396,10 +404,7 @@ final class Types
 
 		if(pk<0)
 			throw new NoSuchIDException(id, true, "must be positive");
-		if(pk>type.createLimit)
-			throw new NoSuchIDException(id, true, "must be less or equal " + type.createLimit);
-
-		return new ActivationParameters(type, pk);
+		return pk;
 	}
 
 	Item getItem(final String id) throws NoSuchIDException
