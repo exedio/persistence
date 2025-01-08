@@ -51,8 +51,8 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(AnItem  .TYPE, "AnItem");
 		assertIt(LongItem.TYPE, "LooooooooooooooooooooItem");
 
-		assertSequence(AnItem  .TYPE, "AnItem_this_Seq",           "AnItem_this_Seq6");
-		assertSequence(LongItem.TYPE, "LoooooooooooItem_this_Seq", "LooooooooooItem_this_Seq6");
+		assertSequence(AnItem  .TYPE, "AnItem_this_Seq",           "AnItem_this_Sq6");
+		assertSequence(LongItem.TYPE, "LoooooooooooItem_this_Seq", "LoooooooooooItem_this_Sq6");
 
 		assertIt(AnItem.fieldShort, "fieldShort");
 		assertIt(AnItem.fieldLong , "fieldLooooooooooooooooooo");

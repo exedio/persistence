@@ -105,14 +105,14 @@ public class NameTest extends TestWithEnvironment
 
 		assertEquals("NameCollisionloooooooItem", getTableName(NameCollisionlongaItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionloooItem"), getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
-		assertPrimaryKeySequenceName("NameCollisioItem_this_Seq", "NameCollisiItem_this_Seq6", NameCollisionlongaItem.TYPE);
+		assertPrimaryKeySequenceName("NameCollisioItem_this_Seq", "NameCollisioItem_this_Sq6", NameCollisionlongaItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
 		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 
 		assertEquals("NameCollisionlongBItem", getTableName(NameCollisionlongbItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlonBItem"), getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
-		assertPrimaryKeySequenceName("NameCollisiBItem_this_Seq", "NameCollisBItem_this_Seq6", NameCollisionlongbItem.TYPE);
+		assertPrimaryKeySequenceName("NameCollisiBItem_this_Seq", "NameCollisiBItem_this_Sq6", NameCollisionlongbItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
 
 		model.commit();

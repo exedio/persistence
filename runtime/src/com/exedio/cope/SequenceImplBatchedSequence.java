@@ -43,7 +43,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 			final Database database)
 	{
 		this.type = type;
-		this.sequence = new SequenceImplSequence( metrics, column, type, start, connectionPool, database, String.valueOf(BATCH_POWER) );
+		this.sequence = new SequenceImplSequence( metrics, column, type, start, connectionPool, database, "Sq"+BATCH_POWER );
 	}
 
 	@Override
