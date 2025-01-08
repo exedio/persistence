@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.dsmf.Constraint.Type.Check;
@@ -51,8 +50,8 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(AnItem  .TYPE, "AnItem");
 		assertIt(LongItem.TYPE, "LooooooooooooooooooooItem");
 
-		assertSequence(AnItem  .TYPE, "AnItem_this_Seq",           "AnItem_this_Sq6");
-		assertSequence(LongItem.TYPE, "LoooooooooooItem_this_Seq", "LoooooooooooItem_this_Sq6");
+		assertPrimaryKeySequenceName("AnItem_this_Seq", AnItem.TYPE);
+		assertPrimaryKeySequenceName("LoooooooooooItem_this_Seq", LongItem.TYPE);
 
 		assertIt(AnItem.fieldShort, "fieldShort");
 		assertIt(AnItem.fieldLong , "fieldLooooooooooooooooooo");
@@ -89,24 +88,6 @@ public class NameLengthTest extends TestWithEnvironment
 	private static void assertIt(final Type<?> type, final String name)
 	{
 		assertEquals(name, getTableName(type));
-	}
-
-	private void assertSequence(final Type<?> type, final String name, final String batchedName)
-	{
-		final PrimaryKeyGenerator primaryKeyGenerator = model.getConnectProperties().primaryKeyGenerator;
-		switch(primaryKeyGenerator)
-		{
-			case memory -> {
-			}
-			case sequence ->
-				assertEquals(name, getPrimaryKeySequenceName(type));
-
-			case batchedSequence ->
-				assertEquals(batchedName, getPrimaryKeySequenceName(type));
-
-			default ->
-				throw new RuntimeException(String.valueOf(primaryKeyGenerator));
-		}
 	}
 
 	private static void assertIt(final Field<?> field, final String name)
