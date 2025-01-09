@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.vault;
 
 import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -31,9 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import com.exedio.cope.transientvault.VaultTransientService;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.vault.VaultProperties;
-import com.exedio.cope.vault.VaultReferenceService;
-import com.exedio.cope.vault.VaultServiceParameters;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.ByteArrayOutputStream;
 import java.nio.file.Path;
