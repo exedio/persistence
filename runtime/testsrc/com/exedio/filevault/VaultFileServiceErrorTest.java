@@ -25,11 +25,11 @@ import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.IllegalPropertiesException;
-import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultProperties;
+import com.exedio.filevault.VaultFileService.Props;
 import java.nio.file.Paths;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
@@ -118,17 +118,14 @@ public class VaultFileServiceErrorTest
 	@Test void posixBroken()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.posixPermissions", "zack");
+		source.setProperty("root", "rootDir");
+		source.setProperty("posixPermissions", "zack");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.posixPermissions in DESC " +
+				"property posixPermissions in DESC " +
 				"must be posix file permissions according to PosixFilePermissions.fromString, " +
 				"but was 'zack'");
 	}
@@ -136,17 +133,14 @@ public class VaultFileServiceErrorTest
 	@Test void posixEmpty()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.posixPermissions", "");
+		source.setProperty("root", "rootDir");
+		source.setProperty("posixPermissions", "");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.posixPermissions in DESC " +
+				"property posixPermissions in DESC " +
 				"must be posix file permissions according to PosixFilePermissions.fromString, " +
 				"but was ''");
 	}
@@ -154,17 +148,14 @@ public class VaultFileServiceErrorTest
 	@Test void posixAfterwardsBroken()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.posixPermissionsAfterwards", "zack");
+		source.setProperty("root", "rootDir");
+		source.setProperty("posixPermissionsAfterwards", "zack");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.posixPermissionsAfterwards in DESC " +
+				"property posixPermissionsAfterwards in DESC " +
 				"must be posix file permissions according to PosixFilePermissions.fromString, " +
 				"but was 'zack'");
 	}
@@ -172,17 +163,14 @@ public class VaultFileServiceErrorTest
 	@Test void posixDirectoryBroken()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.directory.posixPermissions", "zack");
+		source.setProperty("root", "rootDir");
+		source.setProperty("directory.posixPermissions", "zack");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.directory.posixPermissions in DESC " +
+				"property directory.posixPermissions in DESC " +
 				"must be posix file permissions according to PosixFilePermissions.fromString, " +
 				"but was 'zack'");
 	}
@@ -190,17 +178,14 @@ public class VaultFileServiceErrorTest
 	@Test void posixDirectoryEmpty()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.directory.posixPermissions", "");
+		source.setProperty("root", "rootDir");
+		source.setProperty("directory.posixPermissions", "");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.directory.posixPermissions in DESC " +
+				"property directory.posixPermissions in DESC " +
 				"must be posix file permissions according to PosixFilePermissions.fromString, " +
 				"but was ''");
 	}
@@ -208,17 +193,14 @@ public class VaultFileServiceErrorTest
 	@Test void posixDirectoryAfterwardsBroken()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.directory.posixPermissionsAfterwards", "zack");
+		source.setProperty("root", "rootDir");
+		source.setProperty("directory.posixPermissionsAfterwards", "zack");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.directory.posixPermissionsAfterwards in DESC " +
+				"property directory.posixPermissionsAfterwards in DESC " +
 				"must be posix file permissions according to PosixFilePermissions.fromString, " +
 				"but was 'zack'");
 	}
@@ -245,48 +227,39 @@ public class VaultFileServiceErrorTest
 	@Test void contentTrim()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.content", " x");
+		source.setProperty("root", "rootDir");
+		source.setProperty("content", " x");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.content in DESC must be trimmed, but was > x<");
+				"property content in DESC must be trimmed, but was > x<");
 	}
 
 	@Test void tempEmpty()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.temp", "");
+		source.setProperty("root", "rootDir");
+		source.setProperty("temp", "");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.temp in DESC must not be empty");
+				"property temp in DESC must not be empty");
 	}
 
 	@Test void tempTrim()
 	{
 		final Properties source = new Properties();
-		source.setProperty("algorithm", "MD5");
-		source.setProperty("default.service", VaultFileService.class.getName());
-		source.setProperty("default.service.root", "rootDir");
-		source.setProperty("default.service.temp", " x");
+		source.setProperty("root", "rootDir");
+		source.setProperty("temp", " x");
 
-		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
 		assertFails(
-				() -> factory.create(sourceView),
+				() -> new Props(sourceView),
 				IllegalPropertiesException.class,
-				"property default.service.temp in DESC must be trimmed, but was > x<");
+				"property temp in DESC must be trimmed, but was > x<");
 	}
 }
