@@ -31,6 +31,7 @@ import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -57,6 +58,9 @@ public class NameLengthTest extends TestWithEnvironment
 
 		assertIt(AnItem.fieldShort, "fieldShort");
 		assertIt(AnItem.fieldLong , "fieldLooooooooooooooooooo");
+
+		assertIt(AnItem.foreignShort, "foreignShort");
+		assertIt(AnItem.foreignLong , "foreignLooooooooooooooooo");
 
 		assertSequence(AnItem.nextShort, "AnItem_nextShort_Seq");
 		assertSequence(AnItem.nextLong , "AnItem_nextLooooooooo_Seq");
@@ -126,12 +130,12 @@ public class NameLengthTest extends TestWithEnvironment
 	private static final class AnItem extends Item
 	{
 		@CopeName("fieldLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
-		static final EnumField<AnEnum> fieldLong  = EnumField.create(AnEnum.class).toFinal().unique();
-		static final EnumField<AnEnum> fieldShort = EnumField.create(AnEnum.class).toFinal().unique();
+		@WrapperIgnore static final EnumField<AnEnum> fieldLong  = EnumField.create(AnEnum.class).toFinal().unique();
+		@WrapperIgnore static final EnumField<AnEnum> fieldShort = EnumField.create(AnEnum.class).toFinal().unique();
 
 		@CopeName("foreignLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
-		static final ItemField<AnItem> foreignLong  = ItemField.create(AnItem.class).toFinal();
-		static final ItemField<AnItem> foreignShort = ItemField.create(AnItem.class).toFinal();
+		@WrapperIgnore static final ItemField<AnItem> foreignLong  = ItemField.create(AnItem.class).toFinal();
+		@WrapperIgnore static final ItemField<AnItem> foreignShort = ItemField.create(AnItem.class).toFinal();
 
 		@CopeName("checkLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
 		@SuppressWarnings("unused") // OK: CheckConstraint
@@ -140,108 +144,12 @@ public class NameLengthTest extends TestWithEnvironment
 		static final CheckConstraint checkShort = new CheckConstraint(fieldShort.isNotNull());
 
 		@CopeName("sequenceLooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
-		static final Sequence sequenceLong  = new Sequence(7);
-		static final Sequence sequenceShort = new Sequence(7);
+		@WrapperIgnore static final Sequence sequenceLong  = new Sequence(7);
+		@WrapperIgnore static final Sequence sequenceShort = new Sequence(7);
 
 		@CopeName("nextLooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
-		static final IntegerField nextLong  = new IntegerField().toFinal().defaultToNext(5);
-		static final IntegerField nextShort = new IntegerField().toFinal().defaultToNext(5);
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nonnull
-		AnEnum getFieldLong()
-		{
-			return AnItem.fieldLong.get(this);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nullable
-		static AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
-		{
-			return AnItem.fieldLong.searchUnique(AnItem.class,fieldLong);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nonnull
-		static AnItem forFieldLongStrict(@javax.annotation.Nonnull final AnEnum fieldLong)
-				throws
-					java.lang.IllegalArgumentException
-		{
-			return AnItem.fieldLong.searchUniqueStrict(AnItem.class,fieldLong);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nonnull
-		AnEnum getFieldShort()
-		{
-			return AnItem.fieldShort.get(this);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nullable
-		static AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
-		{
-			return AnItem.fieldShort.searchUnique(AnItem.class,fieldShort);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nonnull
-		static AnItem forFieldShortStrict(@javax.annotation.Nonnull final AnEnum fieldShort)
-				throws
-					java.lang.IllegalArgumentException
-		{
-			return AnItem.fieldShort.searchUniqueStrict(AnItem.class,fieldShort);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nonnull
-		AnItem getForeignLong()
-		{
-			return AnItem.foreignLong.get(this);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nonnull
-		AnItem getForeignShort()
-		{
-			return AnItem.foreignShort.get(this);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		static int nextSequenceLong()
-		{
-			return AnItem.sequenceLong.next();
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		static int nextSequenceShort()
-		{
-			return AnItem.sequenceShort.next();
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		int getNextLong()
-		{
-			return AnItem.nextLong.getMandatory(this);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		int getNextShort()
-		{
-			return AnItem.nextShort.getMandatory(this);
-		}
+		@WrapperIgnore static final IntegerField nextLong  = new IntegerField().toFinal().defaultToNext(5);
+		@WrapperIgnore static final IntegerField nextShort = new IntegerField().toFinal().defaultToNext(5);
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
