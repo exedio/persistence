@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -40,14 +39,14 @@ public class VaultReferenceServiceTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultReferenceService.class),
-						single("default.service.main", VaultMockService.class),
-						single("default.service.main.example", "mainEx"),
-						single("default.service.reference", VaultMockService.class),
-						single("default.service.reference.example", "refrEx")
+						single("service", VaultReferenceService.class),
+						single("service.main", VaultMockService.class),
+						single("service.main.example", "mainEx"),
+						single("service.reference", VaultMockService.class),
+						single("service.reference.example", "refrEx")
 				));
-		final VaultProperties props = VaultProperties.factory().create(source);
-		final VaultReferenceService service = (VaultReferenceService)props.newServicesNonResilient(DEFAULT).get(DEFAULT);
+		final BucketProperties props = BucketProperties.factory("myKey").create(source);
+		final VaultReferenceService service = (VaultReferenceService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceService();

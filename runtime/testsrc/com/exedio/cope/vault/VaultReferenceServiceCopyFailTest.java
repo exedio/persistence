@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
@@ -49,18 +48,18 @@ public class VaultReferenceServiceCopyFailTest
 		final Source source =
 				describe("DESC", cascade(
 						single("algorithm", "MD5"),
-						single("default.service", VaultReferenceService.class),
-						single("default.service.main", PutFailService.class),
-						single("default.service.main.example", "mainEx"),
-						single("default.service.reference", VaultTransientService.class),
-						single("default.service.reference.example", "refrEx")
+						single("service", VaultReferenceService.class),
+						single("service.main", PutFailService.class),
+						single("service.main.example", "mainEx"),
+						single("service.reference", VaultTransientService.class),
+						single("service.reference.example", "refrEx")
 				));
-		final VaultProperties props = VaultProperties.factory().create(source);
-		final VaultReferenceService service = (VaultReferenceService)props.newServicesNonResilient(DEFAULT).get(DEFAULT);
+		final BucketProperties props = BucketProperties.factory("myKey").create(source);
+		final VaultReferenceService service = (VaultReferenceService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
 		final byte[] value = {1,2,3,4,5};
-		hash = Hex.encodeLower(props.bucket("default").getAlgorithmFactory().digest(value));
+		hash = Hex.encodeLower(props.getAlgorithmFactory().digest(value));
 		service.getReferenceService().put(hash, value);
 		main.assertIt("");
 	}
