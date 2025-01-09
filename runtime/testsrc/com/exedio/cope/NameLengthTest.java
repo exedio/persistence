@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.ForeignKey;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
@@ -30,6 +31,7 @@ import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -120,6 +122,7 @@ public class NameLengthTest extends TestWithEnvironment
 		eins, zwei
 	}
 
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
 		@CopeName("fieldLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
@@ -144,236 +147,125 @@ public class NameLengthTest extends TestWithEnvironment
 		static final IntegerField nextLong  = new IntegerField().toFinal().defaultToNext(5);
 		static final IntegerField nextShort = new IntegerField().toFinal().defaultToNext(5);
 
-	/**
-	 * Creates a new AnItem with all the fields initially needed.
-	 * @param fieldLong the initial value for field {@link #fieldLong}.
-	 * @param fieldShort the initial value for field {@link #fieldShort}.
-	 * @param foreignLong the initial value for field {@link #foreignLong}.
-	 * @param foreignShort the initial value for field {@link #foreignShort}.
-	 * @throws com.exedio.cope.MandatoryViolationException if fieldLong, fieldShort, foreignLong, foreignShort is null.
-	 * @throws com.exedio.cope.UniqueViolationException if fieldLong, fieldShort is not unique.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	private AnItem(
-				@javax.annotation.Nonnull final AnEnum fieldLong,
-				@javax.annotation.Nonnull final AnEnum fieldShort,
-				@javax.annotation.Nonnull final AnItem foreignLong,
-				@javax.annotation.Nonnull final AnItem foreignShort)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.UniqueViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.SetValue.map(AnItem.fieldLong,fieldLong),
-			com.exedio.cope.SetValue.map(AnItem.fieldShort,fieldShort),
-			com.exedio.cope.SetValue.map(AnItem.foreignLong,foreignLong),
-			com.exedio.cope.SetValue.map(AnItem.foreignShort,foreignShort),
-		});
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		AnEnum getFieldLong()
+		{
+			return AnItem.fieldLong.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		static AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
+		{
+			return AnItem.fieldLong.searchUnique(AnItem.class,fieldLong);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		static AnItem forFieldLongStrict(@javax.annotation.Nonnull final AnEnum fieldLong)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnItem.fieldLong.searchUniqueStrict(AnItem.class,fieldLong);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		AnEnum getFieldShort()
+		{
+			return AnItem.fieldShort.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		static AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
+		{
+			return AnItem.fieldShort.searchUnique(AnItem.class,fieldShort);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		static AnItem forFieldShortStrict(@javax.annotation.Nonnull final AnEnum fieldShort)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnItem.fieldShort.searchUniqueStrict(AnItem.class,fieldShort);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		AnItem getForeignLong()
+		{
+			return AnItem.foreignLong.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		AnItem getForeignShort()
+		{
+			return AnItem.foreignShort.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		static int nextSequenceLong()
+		{
+			return AnItem.sequenceLong.next();
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		static int nextSequenceShort()
+		{
+			return AnItem.sequenceShort.next();
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		int getNextLong()
+		{
+			return AnItem.nextLong.getMandatory(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		int getNextShort()
+		{
+			return AnItem.nextShort.getMandatory(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new AnItem and sets the given fields initially.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
-	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #fieldLong}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	AnEnum getFieldLong()
-	{
-		return AnItem.fieldLong.get(this);
-	}
-
-	/**
-	 * Finds a anItem by its {@link #fieldLong}.
-	 * @param fieldLong shall be equal to field {@link #fieldLong}.
-	 * @return null if there is no matching item.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	static AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
-	{
-		return AnItem.fieldLong.searchUnique(AnItem.class,fieldLong);
-	}
-
-	/**
-	 * Finds a anItem by its {@link #fieldLong}.
-	 * @param fieldLong shall be equal to field {@link #fieldLong}.
-	 * @throws java.lang.IllegalArgumentException if there is no matching item.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	static AnItem forFieldLongStrict(@javax.annotation.Nonnull final AnEnum fieldLong)
-			throws
-				java.lang.IllegalArgumentException
-	{
-		return AnItem.fieldLong.searchUniqueStrict(AnItem.class,fieldLong);
-	}
-
-	/**
-	 * Returns the value of {@link #fieldShort}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	AnEnum getFieldShort()
-	{
-		return AnItem.fieldShort.get(this);
-	}
-
-	/**
-	 * Finds a anItem by its {@link #fieldShort}.
-	 * @param fieldShort shall be equal to field {@link #fieldShort}.
-	 * @return null if there is no matching item.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	static AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
-	{
-		return AnItem.fieldShort.searchUnique(AnItem.class,fieldShort);
-	}
-
-	/**
-	 * Finds a anItem by its {@link #fieldShort}.
-	 * @param fieldShort shall be equal to field {@link #fieldShort}.
-	 * @throws java.lang.IllegalArgumentException if there is no matching item.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	static AnItem forFieldShortStrict(@javax.annotation.Nonnull final AnEnum fieldShort)
-			throws
-				java.lang.IllegalArgumentException
-	{
-		return AnItem.fieldShort.searchUniqueStrict(AnItem.class,fieldShort);
-	}
-
-	/**
-	 * Returns the value of {@link #foreignLong}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	AnItem getForeignLong()
-	{
-		return AnItem.foreignLong.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #foreignShort}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	AnItem getForeignShort()
-	{
-		return AnItem.foreignShort.get(this);
-	}
-
-	/**
-	 * Generates a new sequence number.
-	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="next")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static int nextSequenceLong()
-	{
-		return AnItem.sequenceLong.next();
-	}
-
-	/**
-	 * Generates a new sequence number.
-	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="next")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static int nextSequenceShort()
-	{
-		return AnItem.sequenceShort.next();
-	}
-
-	/**
-	 * Returns the value of {@link #nextLong}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	int getNextLong()
-	{
-		return AnItem.nextLong.getMandatory(this);
-	}
-
-	/**
-	 * Returns the value of {@link #nextShort}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	int getNextShort()
-	{
-		return AnItem.nextShort.getMandatory(this);
-	}
-
-	@com.exedio.cope.instrument.Generated
-	@java.io.Serial
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for anItem.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@com.exedio.cope.instrument.Generated
-	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 
 	@CopeName("LoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongItem")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class LongItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
 
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class,LongItem::new);
 
-	/**
-	 * Creates a new LongItem with all the fields initially needed.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	private LongItem()
-	{
-		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
+		@com.exedio.cope.instrument.Generated
+		private LongItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new LongItem and sets the given fields initially.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
-	private LongItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	@com.exedio.cope.instrument.Generated
-	@java.io.Serial
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for longItem.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	private static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class,LongItem::new);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@com.exedio.cope.instrument.Generated
-	private LongItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 }
