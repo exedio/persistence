@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.ForeignKey;
@@ -40,7 +41,7 @@ import org.junit.jupiter.api.Test;
 
 public class NameLengthTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(AnItem.TYPE, LongItem.TYPE);
+	static final Model MODEL = new Model(AnItem.TYPE, SubItem.TYPE, LongItem.TYPE);
 
 	public NameLengthTest()
 	{
@@ -50,7 +51,7 @@ public class NameLengthTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		assertIt(AnItem  .TYPE, "AnItem");
+		assertIt(AnItem  .TYPE, "AnItem", synthetic("class", "AnItem"));
 		assertIt(LongItem.TYPE, "LooooooooooooooooooooItem");
 
 		assertPrimaryKeySequenceName("AnItem_this_Seq", AnItem.TYPE);
@@ -59,8 +60,8 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(AnItem.fieldShort, "fieldShort");
 		assertIt(AnItem.fieldLong , "fieldLooooooooooooooooooo");
 
-		assertIt(AnItem.foreignShort, "foreignShort");
-		assertIt(AnItem.foreignLong , "foreignLooooooooooooooooo");
+		assertIt(AnItem.foreignShort, "foreignShort", "foreignShortType");
+		assertIt(AnItem.foreignLong , "foreignLooooooooooooooooo", "foreignLoooooooooooooType");
 
 		assertSequence(AnItem.nextShort, "AnItem_nextShort_Seq");
 		assertSequence(AnItem.nextLong , "AnItem_nextLooooooooo_Seq");
@@ -96,9 +97,21 @@ public class NameLengthTest extends TestWithEnvironment
 		assertEquals(name, getTableName(type));
 	}
 
+	private static void assertIt(final Type<?> type, final String name, final String typeColumnName)
+	{
+		assertIt(type, name);
+		assertEquals(typeColumnName, getTypeColumnName(type));
+	}
+
 	private static void assertIt(final Field<?> field, final String name)
 	{
 		assertEquals(name, getColumnName(field));
+	}
+
+	private static void assertIt(final ItemField<?> field, final String name, final String typeColumnName)
+	{
+		assertIt(field, name);
+		assertEquals(typeColumnName, getTypeColumnName(field));
 	}
 
 	private static void assertSequence(final IntegerField field, final String name)
@@ -127,7 +140,7 @@ public class NameLengthTest extends TestWithEnvironment
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	private static final class AnItem extends Item
+	private static class AnItem extends Item
 	{
 		@CopeName("fieldLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
 		@WrapperIgnore static final EnumField<AnEnum> fieldLong  = EnumField.create(AnEnum.class).toFinal().unique();
@@ -159,7 +172,21 @@ public class NameLengthTest extends TestWithEnvironment
 		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
 
 		@com.exedio.cope.instrument.Generated
-		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class SubItem extends AnItem
+	{
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<SubItem> TYPE = com.exedio.cope.TypesBound.newType(SubItem.class,SubItem::new);
+
+		@com.exedio.cope.instrument.Generated
+		private SubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@CopeName("LoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongItem")
