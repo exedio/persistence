@@ -19,14 +19,9 @@ class InheritanceDepthTest
 	@Test
 	void depth()
 	{
-		assertEquals(0, getInheritanceDepth(Grandparent.TYPE));
-		assertEquals(1, getInheritanceDepth(Parent.TYPE));
-		assertEquals(2, getInheritanceDepth(Child.TYPE));
-	}
-
-	private static int getInheritanceDepth(final Type<?> t)
-	{
-		return t.getSupertype()==null ? 0 : getInheritanceDepth(t.getSupertype())+1;
+		assertEquals(0, Grandparent.TYPE.inheritanceDepth);
+		assertEquals(1, Parent.TYPE.inheritanceDepth);
+		assertEquals(2, Child.TYPE.inheritanceDepth);
 	}
 
 	@WrapperType(indent=2, comments=false)
