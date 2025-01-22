@@ -37,6 +37,7 @@ public class DispatcherConfigTest
 		assertEquals(1000, config.getSearchSize());
 		assertEquals(15, config.getSessionLimit());
 		assertSame(TRUE, config.getNarrowCondition());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 	@Test void testOk()
 	{
@@ -45,6 +46,7 @@ public class DispatcherConfigTest
 		assertEquals(2, config.getSearchSize());
 		assertEquals(15, config.getSessionLimit());
 		assertSame(TRUE, config.getNarrowCondition());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 	@Test void testMinimal()
 	{
@@ -53,6 +55,7 @@ public class DispatcherConfigTest
 		assertEquals(1, config.getSearchSize());
 		assertEquals(15, config.getSessionLimit());
 		assertSame(TRUE, config.getNarrowCondition());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 	@Test void testFailureLimitZero()
 	{
@@ -89,12 +92,14 @@ public class DispatcherConfigTest
 		assertEquals(1000, config0.getSearchSize());
 		assertEquals(15, config0.getSessionLimit());
 		assertSame(TRUE, config0.getNarrowCondition());
+		assertEquals(false, config0.deleteOnSuccess);
 
 		final Config config1 = config0.sessionLimit(88);
 		assertEquals(5, config1.getFailureLimit());
 		assertEquals(1000, config1.getSearchSize());
 		assertEquals(88, config1.getSessionLimit());
 		assertSame(TRUE, config1.getNarrowCondition());
+		assertEquals(false, config1.deleteOnSuccess);
 	}
 	@Test void testSessionLimitZero()
 	{
@@ -119,6 +124,7 @@ public class DispatcherConfigTest
 		assertEquals(66, config0.getSearchSize());
 		assertEquals(15, config0.getSessionLimit());
 		assertSame(TRUE, config0.getNarrowCondition());
+		assertEquals(false, config0.deleteOnSuccess);
 
 		final IntegerField f = new IntegerField();
 		final Condition condition1 = f.equal(1);
@@ -129,6 +135,7 @@ public class DispatcherConfigTest
 		assertEquals(15, config1.getSessionLimit());
 		assertSame(condition1, config1.getNarrowCondition());
 		assertEquals(f+"='1'", config1.getNarrowCondition().toString());
+		assertEquals(false, config1.deleteOnSuccess);
 
 		final Condition condition2 = f.equal(2);
 		final Config config2 = config1.narrow(condition2);
@@ -138,6 +145,7 @@ public class DispatcherConfigTest
 		assertEquals(15, config2.getSessionLimit());
 		assertEquals(condition1.and(condition2), config2.getNarrowCondition());
 		assertEquals("("+f+"='1' and "+f+"='2')", config2.getNarrowCondition().toString());
+		assertEquals(false, config2.deleteOnSuccess);
 	}
 	@Test void testNarrowReset()
 	{
@@ -146,6 +154,7 @@ public class DispatcherConfigTest
 		assertEquals(66, config0.getSearchSize());
 		assertEquals(15, config0.getSessionLimit());
 		assertSame(TRUE, config0.getNarrowCondition());
+		assertEquals(false, config0.deleteOnSuccess);
 
 		final Condition condition = new IntegerField().equal(1);
 		final Config config1 = config0.narrow(condition);
@@ -154,6 +163,7 @@ public class DispatcherConfigTest
 		assertEquals(66, config1.getSearchSize());
 		assertEquals(15, config1.getSessionLimit());
 		assertSame(condition, config1.getNarrowCondition());
+		assertEquals(false, config1.deleteOnSuccess);
 
 		final Config configR = config1.resetNarrow();
 		assertNotSame(config1, configR);
@@ -162,6 +172,7 @@ public class DispatcherConfigTest
 		assertEquals(66, configR.getSearchSize());
 		assertEquals(15, configR.getSessionLimit());
 		assertSame(TRUE, configR.getNarrowCondition());
+		assertEquals(false, configR.deleteOnSuccess);
 	}
 	@Test void testNarrowNull()
 	{
@@ -170,6 +181,22 @@ public class DispatcherConfigTest
 			c.narrow(null),
 			NullPointerException.class,
 			"other");
+	}
+	@Test void testDeleteOnSuccess()
+	{
+		final Config config0 = new Config();
+		assertEquals(5, config0.getFailureLimit());
+		assertEquals(1000, config0.getSearchSize());
+		assertEquals(15, config0.getSessionLimit());
+		assertSame(TRUE, config0.getNarrowCondition());
+		assertEquals(false, config0.deleteOnSuccess);
+
+		final Config config1 = config0.deleteOnSuccess();
+		assertEquals(5, config1.getFailureLimit());
+		assertEquals(1000, config1.getSearchSize());
+		assertEquals(15, config1.getSessionLimit());
+		assertSame(TRUE, config1.getNarrowCondition());
+		assertEquals(true, config1.deleteOnSuccess);
 	}
 
 	private static final Condition TRUE = Condition.ofTrue();

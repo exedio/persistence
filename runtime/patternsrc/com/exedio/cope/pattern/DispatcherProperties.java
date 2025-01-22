@@ -33,12 +33,14 @@ public final class DispatcherProperties extends FactoryProperties<DispatcherProp
 	private final int failureLimit = value("failureLimit", factory.failureLimit,  1);
 	private final int searchSize   = value("searchSize",   DEFAULT_SEARCH_SIZE,   1);
 	private final int sessionLimit = value("sessionLimit", factory.sessionLimit,  1);
+	private final boolean deleteOnSuccess = value("deleteOnSuccess", factory.deleteOnSuccess);
 	private final Config value =
 			new Config(
 				failureLimit,
 				searchSize,
 				sessionLimit,
-				DEFAULT_NARROW_CONDITION);
+				DEFAULT_NARROW_CONDITION,
+				deleteOnSuccess);
 
 	public Config get()
 	{
@@ -49,34 +51,48 @@ public final class DispatcherProperties extends FactoryProperties<DispatcherProp
 	{
 		return new Factory(
 				DEFAULT_FAILURE_LIMIT,
-				DEFAULT_SESSION_LIMIT);
+				DEFAULT_SESSION_LIMIT,
+				false);
 	}
 
 	public static final class Factory implements Properties.Factory<DispatcherProperties>
 	{
 		private final int failureLimit;
 		private final int sessionLimit;
+		private final boolean deleteOnSuccess;
 
 		Factory(
 				final int failureLimit,
-				final int sessionLimit)
+				final int sessionLimit,
+				final boolean deleteOnSuccess)
 		{
 			this.failureLimit = requireGreaterZero(failureLimit, "failureLimit"); // corresponds to Dispatcher.Config constructor
 			this.sessionLimit = requireGreaterZero(sessionLimit, "sessionLimit"); // corresponds to Dispatcher.Config constructor
+			this.deleteOnSuccess = deleteOnSuccess;
 		}
 
 		public Factory failureLimit(final int failureLimit)
 		{
 			return new Factory(
 					failureLimit,
-					sessionLimit);
+					sessionLimit,
+					deleteOnSuccess);
 		}
 
 		public Factory sessionLimit(final int sessionLimit)
 		{
 			return new Factory(
 					failureLimit,
-					sessionLimit);
+					sessionLimit,
+					deleteOnSuccess);
+		}
+
+		public Factory deleteOnSuccess()
+		{
+			return new Factory(
+					failureLimit,
+					sessionLimit,
+					true);
 		}
 
 		@Override
