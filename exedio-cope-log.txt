@@ -24,7 +24,8 @@ The items are sorted inversely, i.e. the latest items are on top.
 	Classes VaultFileService, VaultHttpService, and VaultFileToTrail moved there
 	from package com.exedio.cope.vault.
 	This breaks backwards API compatibility - check for usage of moved API in your project, including used libraries!
-	In particular, check configuration of deployed systems!
+	In particular, check configuration of deployed systems for occurrences of the old class names
+	(specifically in ConnectProperties entries "cope.vault.*.service")!
 * Serializer no longer supports non-implicit storage. Dropped:
 	- Serializer.create(Class valueClass, DataField source)
 	This breaks backwards API compatibility - check for usage of dropped API in your project, including used libraries!
