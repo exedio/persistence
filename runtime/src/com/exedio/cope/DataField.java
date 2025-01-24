@@ -151,7 +151,7 @@ public final class DataField extends Field<DataField.Value>
 		return store.column();
 	}
 
-	private boolean willBeStoredAsBlob(final VaultProperties vaultProperties)
+	boolean willBeStoredAsBlob(final VaultProperties vaultProperties)
 	{
 		return vaultProperties==null ||
 				!(
