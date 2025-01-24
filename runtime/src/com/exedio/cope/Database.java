@@ -371,21 +371,21 @@ final class Database
 
 			for(final Column column : columns)
 			{
-				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
-				{
-					if(first)
-						first = false;
-					else
-						bf.append(',');
+				if(column instanceof BlobColumn && !blobs.containsKey(column))
+					continue;
 
-					bf.append(column.quotedID).
-						append('=');
+				if(first)
+					first = false;
+				else
+					bf.append(',');
 
-					if(column instanceof BlobColumn)
-						bf.appendParameterBlob(blobs.get(column));
-					else
-						bf.appendParameter(column, state.store(column));
-				}
+				bf.append(column.quotedID).
+					append('=');
+
+				if(column instanceof BlobColumn)
+					bf.appendParameterBlob(blobs.get(column));
+				else
+					bf.appendParameter(column, state.store(column));
 			}
 			if(first) // no columns in table
 				return;
