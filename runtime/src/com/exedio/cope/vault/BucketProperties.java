@@ -23,7 +23,7 @@ import static com.exedio.cope.util.Check.requireNonEmpty;
 import com.exedio.cope.util.MessageDigestFactory;
 import java.util.function.BooleanSupplier;
 
-final class BucketProperties extends AbstractVaultProperties implements Bucket
+public final class BucketProperties extends AbstractVaultProperties implements Bucket
 {
 	private final String key;
 
@@ -62,7 +62,7 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 
 	private final Service service;
 
-	VaultService newServiceNonResilient(final BooleanSupplier markPut)
+	public VaultService newServiceNonResilient(final BooleanSupplier markPut)
 	{
 		return service.newService(this, key, markPut);
 	}
@@ -94,13 +94,30 @@ final class BucketProperties extends AbstractVaultProperties implements Bucket
 	}
 
 
+	public static BucketProperties create(
+			final String key,
+			final boolean writable,
+			final Source source)
+	{
+		return factory(key, writable).create(source);
+	}
+
 	static Factory<BucketProperties> factory(final String key)
+	{
+		return factory(
+				key,
+				true); // writable
+	}
+
+	private static Factory<BucketProperties> factory(
+			final String key,
+			final boolean writable)
 	{
 		return source -> new BucketProperties(
 				source,
 				null, // parent VaultProperties
 				key,
-				true); // writable
+				writable);
 	}
 
 	BucketProperties(

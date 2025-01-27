@@ -25,6 +25,7 @@ import static java.time.ZoneOffset.UTC;
 import com.exedio.cope.transientvault.VaultTransientService;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.vault.BucketProperties;
 import com.exedio.cope.vault.VaultProperties;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -114,10 +115,9 @@ public final class VaultFileToTrail
 	private static int startLimitDefault()
 	{
 		final Properties rr = new Properties();
-		rr.setProperty("default.service", VaultTransientService.class.getName());
-		return VaultProperties.factory().
-				create(Sources.view(rr, VaultTransientService.class.getName())).
-				bucket("default").
+		rr.setProperty("service", VaultTransientService.class.getName());
+		return BucketProperties.
+				create("myKey", true, Sources.view(rr, VaultTransientService.class.getName())).
 				getTrailStartLimit();
 	}
 

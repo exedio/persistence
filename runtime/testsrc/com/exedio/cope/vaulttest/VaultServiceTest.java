@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vaulttest;
 
-import static com.exedio.cope.Vault.DEFAULT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,8 +29,8 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.vault.BucketProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceContains;
 import java.io.ByteArrayInputStream;
@@ -54,7 +53,7 @@ public abstract class VaultServiceTest
 {
 	protected static final String ALGORITHM = "SHA-512";
 
-	private VaultProperties properties;
+	private BucketProperties properties;
 	private VaultService service;
 	private VaultService servicePut;
 
@@ -97,14 +96,14 @@ public abstract class VaultServiceTest
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", ALGORITHM);
-		source.setProperty("default.service", getServiceClass().getName());
+		source.setProperty("service", getServiceClass().getName());
 
 		final Properties sp = getServiceProperties();
 		for(final String key : sp.stringPropertyNames())
-			source.setProperty("default.service." + key, sp.getProperty(key));
+			source.setProperty("service." + key, sp.getProperty(key));
 
-		properties = VaultProperties.factory(isServiceWritable()).create(Sources.view(source, "DESC"));
-		final VaultService service = properties.newServicesNonResilient(() -> markPut, DEFAULT).get(DEFAULT);
+		properties = BucketProperties.create("myBucketKey", isServiceWritable(), Sources.view(source, "DESC"));
+		final VaultService service = properties.newServiceNonResilient(() -> markPut);
 		this.service = maskService(service);
 		this.servicePut = maskServicePut(service);
 	}
@@ -124,7 +123,7 @@ public abstract class VaultServiceTest
 		servicePut = null;
 	}
 
-	protected final VaultProperties getProperties()
+	protected final BucketProperties getProperties()
 	{
 		return properties;
 	}
@@ -142,9 +141,9 @@ public abstract class VaultServiceTest
 
 	@Test final void vaultPropertiesAlgorithm()
 	{
-		assertEquals(ALGORITHM, properties.bucket("default").getAlgorithm());
-		assertEquals(hash("ab").length(), properties.bucket("default").getAlgorithmLength());
-		assertEquals(hash(""), properties.bucket("default").getAlgorithmDigestForEmptyByteSequence());
+		assertEquals(ALGORITHM, properties.getAlgorithm());
+		assertEquals(hash("ab").length(), properties.getAlgorithmLength());
+		assertEquals(hash(""), properties.getAlgorithmDigestForEmptyByteSequence());
 	}
 
 	@Test final void testPurgeSchema()
