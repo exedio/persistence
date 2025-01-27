@@ -19,11 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DispatcherProperties.factory;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.Dispatcher.Config;
+import com.exedio.cope.pattern.DispatcherProperties.Factory;
 import com.exedio.cope.util.Sources;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +48,51 @@ public class DispatcherPropertiesTest
 		assertEquals(55, config.getFailureLimit());
 		assertEquals(66, config.getSearchSize());
 		assertEquals(77, config.getSessionLimit());
+	}
+
+	@Test void testFactoryFailureLimit()
+	{
+		final Config config = factory().failureLimit(55).create(Sources.EMPTY).get();
+		assertEquals(55,   config.getFailureLimit());
+		assertEquals(1000, config.getSearchSize());
+		assertEquals(15,   config.getSessionLimit());
+	}
+	@Test void testFactoryFailureLimitMinimum()
+	{
+		final Config config = factory().failureLimit(1).create(Sources.EMPTY).get();
+		assertEquals(1,    config.getFailureLimit());
+		assertEquals(1000, config.getSearchSize());
+		assertEquals(15,   config.getSessionLimit());
+	}
+	@Test void testFactoryFailureLimitMinimumExceeded()
+	{
+		final Factory factory = factory();
+		assertFails(
+				() -> factory.failureLimit(0),
+				IllegalArgumentException.class,
+				"failureLimit must be greater zero, but was 0");
+	}
+
+	@Test void testFactorySessionLimit()
+	{
+		final Config config = factory().sessionLimit(77).create(Sources.EMPTY).get();
+		assertEquals(5,    config.getFailureLimit());
+		assertEquals(1000, config.getSearchSize());
+		assertEquals(77,   config.getSessionLimit());
+	}
+	@Test void testFactorySessionLimitMinimum()
+	{
+		final Config config = factory().sessionLimit(1).create(Sources.EMPTY).get();
+		assertEquals(5,    config.getFailureLimit());
+		assertEquals(1000, config.getSearchSize());
+		assertEquals(1,    config.getSessionLimit());
+	}
+	@Test void testFactorySessionLimitMinimumExceeded()
+	{
+		final Factory factory = factory();
+		assertFails(
+				() -> factory.sessionLimit(0),
+				IllegalArgumentException.class,
+				"sessionLimit must be greater zero, but was 0");
 	}
 }
