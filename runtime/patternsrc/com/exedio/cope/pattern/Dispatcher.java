@@ -636,17 +636,18 @@ public final class Dispatcher extends Pattern
 	{
 		final boolean delete = success && config.deleteOnSuccess;
 
-		final ArrayList<SetValue<?>> sv;
+		final SetValue<?>[] setValues;
 		if(delete)
 		{
-			sv = null;
+			setValues = null;
 		}
 		else
 		{
-			sv = new ArrayList<>(3);
+			final ArrayList<SetValue<?>> sv = new ArrayList<>(3);
 			sv.add(map(pending, false));
 			if(supportsPurge())
 				sv.add(map(unpend, new Unpend(success, date)));
+			setValues = sv.toArray(SetValue.EMPTY_ARRAY);
 		}
 
 		// A separate transaction for unpend helps to avoid TemporaryTransactionException
@@ -657,7 +658,7 @@ public final class Dispatcher extends Pattern
 			if(delete)
 				item.deleteCopeItem();
 			else
-				item.set(sv.toArray(SetValue.EMPTY_ARRAY));
+				item.set(setValues);
 			tx.commit();
 		}
 	}
