@@ -39,7 +39,9 @@ public class UpdateCounterNonFinalBlobTest extends TestWithEnvironment
 	{
 		final boolean vault = MyItem.data.getVaultBucket() != null;
 		assertEquals(
-				List.of(synthetic("this"), synthetic("catch"), "someFinalField", "data", "anotherFinalField"),
+				vault
+				? List.of(synthetic("this"), synthetic("catch"), "someFinalField", "data", "anotherFinalField")
+				: List.of(synthetic("this"), "someFinalField", "data", "anotherFinalField"),
 				MODEL.getSchema().getTable(getTableName(MyItem.TYPE)).
 						getColumns().stream().map(Column::getName).toList());
 

@@ -32,6 +32,7 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.vault.VaultProperties;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -559,7 +560,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				supertype,
 				typeColumnMinLength,
 				mount().typesOfInstancesColumnValues,
-				hasUpdateableTable(),
+				hasUpdateableTable(connect.properties.vault),
 				createLimit);
 		if(supertype==null)
 		{
@@ -579,13 +580,14 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				((Sequence)f).connect(database, metrics);
 	}
 
-	private boolean hasUpdateableTable()
+	private boolean hasUpdateableTable(final VaultProperties vaultProperties)
 	{
 		for(final Field<?> f : fields.all)
-			if(!f.isFinal())
+			if(!f.isFinal() &&
+				!(f instanceof final DataField df && df.willBeStoredAsBlob(vaultProperties)))
 				return true;
 		for(final Type<?> t : getSubtypes())
-			if(t.hasUpdateableTable())
+			if(t.hasUpdateableTable(vaultProperties))
 				return true;
 		return false;
 	}
