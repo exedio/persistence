@@ -545,7 +545,7 @@ public final class Dispatcher extends Pattern
 							Result.success, null);
 					tx.commit();
 
-					unpend(item, true, new Date(start));
+					unpend(config, item, true, new Date(start));
 					logger.info("success for {}, took {}ms", itemID, elapsed);
 				}
 				catch(final DispatchDeferredException deferred)
@@ -602,7 +602,7 @@ public final class Dispatcher extends Pattern
 
 					if(isFinal)
 					{
-						unpend(item, false, new Date(start));
+						unpend(null, item, false, new Date(start));
 						if(logger.isErrorEnabled())
 							//noinspection StringConcatenationArgumentToLogCall
 							logger.error(
@@ -632,8 +632,11 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private void unpend(final Item item, final boolean success, final Date date)
+	private void unpend(final Config config, final Item item, final boolean success, final Date date)
 	{
+		final boolean delete = success && config.deleteOnSuccess;
+
+		// TODO omit when delete==true
 		final ArrayList<SetValue<?>> sv = new ArrayList<>(3);
 		sv.add(map(pending, false));
 		if(supportsPurge())
@@ -644,7 +647,10 @@ public final class Dispatcher extends Pattern
 		// the same time.
 		try(TransactionTry tx = getType().getModel().startTransactionTry(getID() + " unpend " + item.getCopeID()))
 		{
-			item.set(sv.toArray(SetValue.EMPTY_ARRAY));
+			if(delete)
+				item.deleteCopeItem();
+			else
+				item.set(sv.toArray(SetValue.EMPTY_ARRAY));
 			tx.commit();
 		}
 	}
@@ -734,6 +740,7 @@ public final class Dispatcher extends Pattern
 		private final int searchSize;
 		private final int sessionLimit;
 		private final Condition narrowCondition;
+		final boolean deleteOnSuccess;
 
 		public Config()
 		{
@@ -742,20 +749,22 @@ public final class Dispatcher extends Pattern
 
 		public Config(final int failureLimit, final int searchSize)
 		{
-			this(failureLimit, searchSize, DEFAULT_SESSION_LIMIT, DEFAULT_NARROW_CONDITION);
+			this(failureLimit, searchSize, DEFAULT_SESSION_LIMIT, DEFAULT_NARROW_CONDITION, false);
 		}
 
 		Config(
 				final int failureLimit,
 				final int searchSize,
 				final int sessionLimit,
-				final Condition narrowCondition)
+				final Condition narrowCondition,
+				final boolean deleteOnSuccess)
 		{
 			this.failureLimit = requireGreaterZero(failureLimit, "failureLimit");
 			this.searchSize = requireGreaterZero(searchSize, "searchSize");
 			this.sessionLimit = requireGreaterZero(sessionLimit, "sessionLimit");
 			this.narrowCondition = narrowCondition;
 			assert narrowCondition!=null;
+			this.deleteOnSuccess = deleteOnSuccess;
 		}
 
 		public int getFailureLimit()
@@ -770,7 +779,7 @@ public final class Dispatcher extends Pattern
 
 		public Config sessionLimit(final int sessionLimit)
 		{
-			return new Config(failureLimit, searchSize, sessionLimit, narrowCondition);
+			return new Config(failureLimit, searchSize, sessionLimit, narrowCondition, deleteOnSuccess);
 		}
 
 		public int getSessionLimit()
@@ -781,17 +790,22 @@ public final class Dispatcher extends Pattern
 		public Config narrow(final Condition condition)
 		{
 			return new Config(failureLimit, searchSize, sessionLimit,
-					narrowCondition.and(condition));
+					narrowCondition.and(condition), deleteOnSuccess);
 		}
 
 		public Config resetNarrow()
 		{
-			return new Config(failureLimit, searchSize, sessionLimit, DEFAULT_NARROW_CONDITION);
+			return new Config(failureLimit, searchSize, sessionLimit, DEFAULT_NARROW_CONDITION, deleteOnSuccess);
 		}
 
 		public Condition getNarrowCondition()
 		{
 			return narrowCondition;
+		}
+
+		Config deleteOnSuccess()
+		{
+			return new Config(failureLimit, searchSize, sessionLimit, narrowCondition, true);
 		}
 	}
 

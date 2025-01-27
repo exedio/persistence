@@ -37,6 +37,7 @@ public class DispatcherPropertiesTest
 		assertEquals(5,    config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 		assertEquals(15,   config.getSessionLimit());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 
 	@Test void testCustom()
@@ -44,10 +45,12 @@ public class DispatcherPropertiesTest
 		final Config config = factory().create(cascade(
 				single("failureLimit", 55),
 				single("searchSize", 66),
-				single("sessionLimit", 77))).get();
+				single("sessionLimit", 77),
+				single("deleteOnSuccess", true))).get();
 		assertEquals(55, config.getFailureLimit());
 		assertEquals(66, config.getSearchSize());
 		assertEquals(77, config.getSessionLimit());
+		assertEquals(true, config.deleteOnSuccess);
 	}
 
 	@Test void testFactoryFailureLimit()
@@ -56,6 +59,7 @@ public class DispatcherPropertiesTest
 		assertEquals(55,   config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 		assertEquals(15,   config.getSessionLimit());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 	@Test void testFactoryFailureLimitMinimum()
 	{
@@ -63,6 +67,7 @@ public class DispatcherPropertiesTest
 		assertEquals(1,    config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 		assertEquals(15,   config.getSessionLimit());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 	@Test void testFactoryFailureLimitMinimumExceeded()
 	{
@@ -79,6 +84,7 @@ public class DispatcherPropertiesTest
 		assertEquals(5,    config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 		assertEquals(77,   config.getSessionLimit());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 	@Test void testFactorySessionLimitMinimum()
 	{
@@ -86,6 +92,7 @@ public class DispatcherPropertiesTest
 		assertEquals(5,    config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 		assertEquals(1,    config.getSessionLimit());
+		assertEquals(false, config.deleteOnSuccess);
 	}
 	@Test void testFactorySessionLimitMinimumExceeded()
 	{
@@ -94,5 +101,14 @@ public class DispatcherPropertiesTest
 				() -> factory.sessionLimit(0),
 				IllegalArgumentException.class,
 				"sessionLimit must be greater zero, but was 0");
+	}
+
+	@Test void testFactoryDeleteOnSuccess()
+	{
+		final Config config = factory().deleteOnSuccess().create(Sources.EMPTY).get();
+		assertEquals(5,    config.getFailureLimit());
+		assertEquals(1000, config.getSearchSize());
+		assertEquals(15,   config.getSessionLimit());
+		assertEquals(true, config.deleteOnSuccess);
 	}
 }

@@ -54,7 +54,7 @@ import org.junit.jupiter.api.Test;
 @MainRule.Tag
 public class DispatcherTest extends TestWithEnvironment
 {
-	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
+	private Dispatcher.Config config;
 
 	public DispatcherTest()
 	{
@@ -72,6 +72,7 @@ public class DispatcherTest extends TestWithEnvironment
 
 	@BeforeEach final void setUp()
 	{
+		config = new Dispatcher.Config(3, 2);
 		item1 = new DispatcherItem("item1", false);
 		item2 = new DispatcherItem("item2", true);
 		item3 = new DispatcherItem("item3", false);
@@ -180,6 +181,32 @@ public class DispatcherTest extends TestWithEnvironment
 		assertFailed (item4, failure(d1[3]), failure(d2[1], 1), finalFailure(d3[1]));
 
 		log.assertEmpty();
+		probeT.assertCount(0);
+		purgeT.assertCount(0);
+	}
+
+	@Test void testDeleteOnSuccess()
+	{
+		config = config.deleteOnSuccess();
+
+		assertPending(item1);
+		assertPending(item2);
+		assertPending(item3);
+		assertPending(item4);
+
+		final Date[] d1 = dispatch();
+		historyAssert(
+				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress",
+				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
+				"ctx stop", "ctx defer", "clock", "dispatch " + item3, "ctx progress",
+				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
+		succeedT.assertCount(2);
+		failT.   assertCount(2);
+		assertFalse(item1.existsCopeItem());
+		assertPending(item2, failure(d1[1]));
+		assertFalse(item3.existsCopeItem());
+		assertPending(item4, failure(d1[3]));
+
 		probeT.assertCount(0);
 		purgeT.assertCount(0);
 	}
