@@ -636,11 +636,18 @@ public final class Dispatcher extends Pattern
 	{
 		final boolean delete = success && config.deleteOnSuccess;
 
-		// TODO omit when delete==true
-		final ArrayList<SetValue<?>> sv = new ArrayList<>(3);
-		sv.add(map(pending, false));
-		if(supportsPurge())
-			sv.add(map(unpend, new Unpend(success, date)));
+		final ArrayList<SetValue<?>> sv;
+		if(delete)
+		{
+			sv = null;
+		}
+		else
+		{
+			sv = new ArrayList<>(3);
+			sv.add(map(pending, false));
+			if(supportsPurge())
+				sv.add(map(unpend, new Unpend(success, date)));
+		}
 
 		// A separate transaction for unpend helps to avoid TemporaryTransactionException
 		// if there are two Dispatchers on the same type dispatching the same item at
