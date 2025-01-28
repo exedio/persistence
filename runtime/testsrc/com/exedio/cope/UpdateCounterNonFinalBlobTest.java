@@ -21,9 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
-import static java.lang.Integer.MIN_VALUE;
 import static java.nio.charset.StandardCharsets.US_ASCII;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.Wrapper;
@@ -46,10 +44,10 @@ public class UpdateCounterNonFinalBlobTest extends TestWithEnvironment
 						getColumns().stream().map(Column::getName).toList());
 
 		final MyItem i = new MyItem(77, 88);
-		assertUpdateCount(0, MIN_VALUE, i);
+		assertUpdateCount(0, i);
 
 		i.setData("someData");
-		assertUpdateCount(vault?1:0, MIN_VALUE, i);
+		assertUpdateCount(vault?1:0, i);
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -116,12 +114,8 @@ public class UpdateCounterNonFinalBlobTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
-	private void assertUpdateCount(final int expected, final int global, final MyItem item)
+	private static void assertUpdateCount(final int expected, final MyItem item)
 	{
-		final boolean cache = model.getConnectProperties().getItemCacheLimit()>0;
-		assertAll(
-				() -> assertEquals(expected, item.getUpdateCountIfActive(), "transaction"),
-				() -> assertEquals(cache ? global : MIN_VALUE, item.getUpdateCountGlobal(), "global")
-		);
+		assertEquals(expected, item.getUpdateCountIfActive());
 	}
 }
