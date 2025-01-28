@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.security.SecureRandom;
@@ -29,8 +28,8 @@ public class NestedHashAlgorithmTest
 	@Test void testNormal()
 	{
 		final HashAlgorithm a = NestedHashAlgorithm.create(
-				MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, null,               100),
-				MessageDigestHashAlgorithm.create(UTF_8, "SHA-512", 8, new SecureRandom(), 200));
+				MessageDigestHashAlgorithm.create("MD5",     0, null,               100),
+				MessageDigestHashAlgorithm.create("SHA-512", 8, new SecureRandom(), 200));
 
 		assertEquals("MD5i100-SHA512s8i200", a.getID());
 		assertEquals("MD5i100-SHA512s8i200", a.getDescription());
@@ -42,13 +41,13 @@ public class NestedHashAlgorithmTest
 
 	@Test void testMigration()
 	{
-		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create(UTF_8, "MD5", 0, null, 100);
+		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create("MD5", 0, null, 100);
 
 		final String legacyHash = legacy.hash("1234");
 		assertEquals(true,  legacy.check("1234", legacyHash));
 		assertEquals(false, legacy.check("12345", legacyHash));
 
-		final HashAlgorithm neu = MessageDigestHashAlgorithm.create(UTF_8, "SHA-512", 8, new SecureRandom(), 200);
+		final HashAlgorithm neu = MessageDigestHashAlgorithm.create("SHA-512", 8, new SecureRandom(), 200);
 		final String newHash = neu.hash(legacyHash);
 		final HashAlgorithm a = NestedHashAlgorithm.create(legacy, neu);
 		assertEquals(true,  a.check("1234", newHash));
@@ -60,8 +59,8 @@ public class NestedHashAlgorithmTest
 		try
 		{
 			NestedHashAlgorithm.create(
-					MessageDigestHashAlgorithm.create(UTF_8, "SHA-512", 8, new SecureRandom(), 200),
-					MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, null,               100));
+					MessageDigestHashAlgorithm.create("SHA-512", 8, new SecureRandom(), 200),
+					MessageDigestHashAlgorithm.create("MD5",     0, null,               100));
 		}
 		catch(final IllegalArgumentException e)
 		{

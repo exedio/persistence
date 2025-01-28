@@ -20,13 +20,12 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
-import java.nio.charset.StandardCharsets;
 
 final class DrivebyHashMigrationItem extends Item
 {
 	static final DrivebyHashMigration password = new DrivebyHashMigration(
-			MessageDigestHashAlgorithm.create(StandardCharsets.UTF_8, "MD5"    , 0, null, 1),
-			MessageDigestHashAlgorithm.create(StandardCharsets.UTF_8, "SHA-512", 0, null, 1));
+			MessageDigestHashAlgorithm.create("MD5"    , 0, null, 1),
+			MessageDigestHashAlgorithm.create("SHA-512", 0, null, 1));
 
 
 	@SuppressWarnings("unused")

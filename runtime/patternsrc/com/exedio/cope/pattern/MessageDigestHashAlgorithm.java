@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -29,6 +31,18 @@ import java.security.SecureRandom;
  */
 public final class MessageDigestHashAlgorithm
 {
+	/**
+	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
+	 */
+	public static HashAlgorithm create(
+			final String digest,
+			final int saltLength,
+			final SecureRandom saltSource,
+			final int iterations)
+	{
+		return create(UTF_8, digest, saltLength, saltSource, iterations);
+	}
+
 	/**
 	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */

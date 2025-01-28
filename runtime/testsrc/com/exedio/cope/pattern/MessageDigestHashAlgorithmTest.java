@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MessageDigestHashAlgorithm.create;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -39,7 +38,7 @@ public class MessageDigestHashAlgorithmTest
 	{
 		try
 		{
-			create(UTF_8, "NIXUS", -1, null, 0);
+			create("NIXUS", -1, null, 0);
 			fail();
 		}
 		catch(final IllegalAlgorithmException e)
@@ -48,7 +47,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		try
 		{
-			create(UTF_8, "SHA-512", -1, null, 1);
+			create("SHA-512", -1, null, 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -57,7 +56,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		try
 		{
-			create(UTF_8, "SHA-512", 0, new SecureRandom(), 1);
+			create("SHA-512", 0, new SecureRandom(), 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -66,7 +65,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		try
 		{
-			create(UTF_8, "SHA-512", 1, null, 1);
+			create("SHA-512", 1, null, 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -75,7 +74,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		try
 		{
-			create(UTF_8, "SHA-512", -1, null, 0);
+			create("SHA-512", -1, null, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -87,7 +86,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testSalted()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "SHA-512", 8, random(8), 5);
+			create("SHA-512", 8, random(8), 5);
 		assertEqualsN("SHA512s8i5", a);
 		assertEqualsL(72, a);
 
@@ -108,7 +107,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testSaltedMinimal()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "SHA-512", 1, random(1), 2);
+			create("SHA-512", 1, random(1), 2);
 		assertEqualsN("SHA512s1i2", a);
 		assertEqualsL(65, a);
 
@@ -129,7 +128,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testUnsalted()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "SHA-512", 0, null, 5);
+			create("SHA-512", 0, null, 5);
 		assertEqualsN("SHA512i5", a);
 		assertEqualsL(64, a);
 
@@ -150,7 +149,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testNoniterated()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "SHA-512", 8, random(8), 1);
+			create("SHA-512", 8, random(8), 1);
 		assertEqualsN("SHA512s8", a);
 		assertEqualsL(72, a);
 
@@ -171,7 +170,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testUnsaltedNoniterated()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "SHA-512", 0, null, 1);
+			create("SHA-512", 0, null, 1);
 		assertEqualsN("SHA512", a);
 		assertEqualsL(64, a);
 
@@ -200,7 +199,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testUnsaltedNoniteratedMD5()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "MD5", 0, null, 1);
+			create("MD5", 0, null, 1);
 		assertEqualsN("MD5", a);
 		assertEqualsL(16, a);
 
