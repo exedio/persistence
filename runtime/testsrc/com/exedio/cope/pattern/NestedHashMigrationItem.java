@@ -20,14 +20,13 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
-import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 final class NestedHashMigrationItem extends Item
 {
 	static final NestedHashMigration password = new NestedHashMigration(
-			MessageDigestHashAlgorithm.create(StandardCharsets.UTF_8, "MD5", 0, null, 1),
-			MessageDigestHashAlgorithm.create(StandardCharsets.UTF_8, "MD5", 1, new SecureRandom(), 1));
+			MessageDigestHashAlgorithm.create("MD5", 0, null, 1),
+			MessageDigestHashAlgorithm.create("MD5", 1, new SecureRandom(), 1));
 
 
 	@SuppressWarnings("unused")
