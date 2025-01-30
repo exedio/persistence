@@ -387,7 +387,7 @@ final class Database
 				else
 					bf.appendParameter(column, state.store(column));
 			}
-			if(first) // no columns in table
+			if(first) // no updated columns in table
 				return;
 
 			bf.append(" WHERE ").
