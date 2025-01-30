@@ -38,7 +38,6 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 import com.exedio.cope.pattern.Hash;
-import com.exedio.cope.pattern.MessageDigestHash;
 
 /**
  * TODO: length constraint
@@ -153,11 +152,11 @@ public final class Standard extends Item
 
 	static final DoubleField defaultFeature = new DoubleField().optional().unique().range(1.0, 2.0);
 
-	public static final Hash publicHash = new Hash(MessageDigestHash.algorithm(5)).optional();
-	private static final Hash privateHash = new Hash(MessageDigestHash.algorithm(5)).optional();
-	public static final Hash mandatoryHash = new Hash(MessageDigestHash.algorithm(5));
+	public static final Hash publicHash = new Hash(new ConstructorHashAlgorithm("pubID")).optional();
+	private static final Hash privateHash = new Hash(new ConstructorHashAlgorithm("privID")).optional();
+	public static final Hash mandatoryHash = new Hash(new ConstructorHashAlgorithm("manID"));
 	@Wrapper(wrap="set", visibility=PRIVATE)
-	public static final Hash privateSetterHash = new Hash(MessageDigestHash.algorithm(5));
+	public static final Hash privateSetterHash = new Hash(new ConstructorHashAlgorithm("privSetID"));
 
 	/**
 	 * An upper-case attribute
@@ -184,12 +183,12 @@ public final class Standard extends Item
 		getInternalSetterString();
 		getPrivateDate();
 		getPrivateGetterString();
-		getPrivateHashSHA512s8i5();
+		getPrivateHashprivID();
 		getPrivateString();
 		setInternalSetterStringInternal(null);
 		setPrivateDate(null);
 		setPrivateHash(null);
-		setPrivateHashSHA512s8i5(null);
+		setPrivateHashprivID(null);
 		blindPrivateHash(null);
 		setPrivateSetterHash(null);
 		setPrivateSetterString(null);
@@ -1283,10 +1282,10 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #publicHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getpubID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
-	public java.lang.String getPublicHashSHA512s8i5()
+	public java.lang.String getPublicHashpubID()
 	{
 		return Standard.publicHash.getHash(this);
 	}
@@ -1294,9 +1293,9 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #publicHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setpubID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	public void setPublicHashSHA512s8i5(@javax.annotation.Nullable final java.lang.String publicHash)
+	public void setPublicHashpubID(@javax.annotation.Nullable final java.lang.String publicHash)
 	{
 		Standard.publicHash.setHash(this,publicHash);
 	}
@@ -1335,10 +1334,10 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #privateHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getprivID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
-	private java.lang.String getPrivateHashSHA512s8i5()
+	private java.lang.String getPrivateHashprivID()
 	{
 		return Standard.privateHash.getHash(this);
 	}
@@ -1346,9 +1345,9 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #privateHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setprivID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	private void setPrivateHashSHA512s8i5(@javax.annotation.Nullable final java.lang.String privateHash)
+	private void setPrivateHashprivID(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		Standard.privateHash.setHash(this,privateHash);
 	}
@@ -1389,10 +1388,10 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #mandatoryHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getmanID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
-	public java.lang.String getMandatoryHashSHA512s8i5()
+	public java.lang.String getMandatoryHashmanID()
 	{
 		return Standard.mandatoryHash.getHash(this);
 	}
@@ -1400,9 +1399,9 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #mandatoryHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setmanID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	public void setMandatoryHashSHA512s8i5(@javax.annotation.Nonnull final java.lang.String mandatoryHash)
+	public void setMandatoryHashmanID(@javax.annotation.Nonnull final java.lang.String mandatoryHash)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -1445,10 +1444,10 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #privateSetterHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getprivSetID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
-	public java.lang.String getPrivateSetterHashSHA512s8i5()
+	public java.lang.String getPrivateSetterHashprivSetID()
 	{
 		return Standard.privateSetterHash.getHash(this);
 	}
@@ -1456,9 +1455,9 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #privateSetterHash}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setprivSetID")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	public void setPrivateSetterHashSHA512s8i5(@javax.annotation.Nonnull final java.lang.String privateSetterHash)
+	public void setPrivateSetterHashprivSetID(@javax.annotation.Nonnull final java.lang.String privateSetterHash)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
