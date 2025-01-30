@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.Vault.NONE;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataField;
@@ -88,6 +89,7 @@ public final class VaultProperties extends AbstractVaultProperties
 	/**
 	 * Check a bucket name as specified by {@link Vault#value()}
 	 * for correctness.
+	 * Fails for {@link Vault#NONE} as well.
 	 */
 	public static void checkBucket(
 			final String value,
@@ -97,6 +99,8 @@ public final class VaultProperties extends AbstractVaultProperties
 		requireNonNull(exception, "exception");
 		if(value.isEmpty())
 			throw exception.apply("must not be empty");
+		if(NONE.equals(value)) // check is redundant to VAULT_CHAR_SET below, but provides specific error message
+			throw exception.apply("must not be special value >" + NONE + "< from Vault.NONE");
 
 		final int pos = VAULT_CHAR_SET.indexOfNotContains(value);
 		if(pos>=0)

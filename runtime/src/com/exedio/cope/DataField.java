@@ -124,6 +124,9 @@ public final class DataField extends Field<DataField.Value>
 
 	private static String checkVault(final String value, final Object origin)
 	{
+		if(Vault.NONE.equals(value))
+			return null;
+
 		checkBucket(value, message ->
 				new IllegalArgumentException("@Vault at " + origin + ' ' + message));
 		return value;
@@ -911,7 +914,8 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
-	 * @return null if vault is not enabled for this field
+	 * @return null if vault is not enabled for this field.
+	 * Never returns {@link Vault#NONE}.
 	 */
 	public String getVaultBucket()
 	{

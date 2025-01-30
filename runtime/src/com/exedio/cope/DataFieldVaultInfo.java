@@ -56,6 +56,9 @@ public final class DataFieldVaultInfo
 		return field;
 	}
 
+	/**
+	 * Never returns {@link Vault#NONE}.
+	 */
 	public String getBucket()
 	{
 		return bucket;
