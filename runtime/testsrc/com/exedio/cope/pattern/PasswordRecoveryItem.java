@@ -19,11 +19,12 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.testmodel.WrapHash;
 
 @SuppressWarnings("UnusedReturnValue")
 public final class PasswordRecoveryItem extends Item
 {
-	static final Hash password = new Hash(MessageDigestHash.algorithm(5));
+	static final Hash password = new Hash(WrapHash.ALGORITHM);
 	static final PasswordRecovery passwordRecovery = new PasswordRecovery(password);
 
 
@@ -87,10 +88,10 @@ public final class PasswordRecoveryItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #password}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
-	java.lang.String getPasswordSHA512s8i5()
+	java.lang.String getPasswordwrap()
 	{
 		return PasswordRecoveryItem.password.getHash(this);
 	}
@@ -98,9 +99,9 @@ public final class PasswordRecoveryItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setPasswordSHA512s8i5(@javax.annotation.Nonnull final java.lang.String password)
+	void setPasswordwrap(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MessageDigestHashAlgorithm.create;
+
 import com.exedio.cope.Item;
 
 public final class MD5Item extends Item
 {
-	static final Hash password = new Hash(new MessageDigestAlgorithm("MD5", 0, 1));
+	static final Hash password = new Hash(create("MD5", 0, null, 1));
 
 	/**
 	 * Creates a new MD5Item with all the fields initially needed.

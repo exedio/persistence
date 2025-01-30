@@ -172,7 +172,7 @@ public class PasswordRecoveryConfigTest
 
 	@Test void testPasswordRecoveryRandomNull()
 	{
-		final Hash hash = new Hash(MessageDigestHash.algorithm(20));
+		final Hash hash = new Hash(new ConstructorHashAlgorithm("---"));
 		assertFails(() ->
 			new PasswordRecovery(hash, null),
 			NullPointerException.class,

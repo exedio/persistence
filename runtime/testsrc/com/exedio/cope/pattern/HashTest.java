@@ -41,6 +41,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
+import com.exedio.cope.testmodel.WrapHash;
 import java.io.Serial;
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -284,7 +285,7 @@ public class HashTest extends TestWithEnvironment
 	@Test void testValidatorValidate()
 	{
 		// try null as validator
-		final Hash withoutValidator = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));
+		final Hash withoutValidator = new Hash(WrapHash.ALGORITHM);
 		try
 		{
 			withoutValidator.validate(null);

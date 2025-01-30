@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.pattern.MessageDigestHashAlgorithm.create;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
@@ -28,12 +29,12 @@ import java.nio.charset.StandardCharsets;
 public final class MessageDigestHashItem extends Item
 {
 	@Wrapper(wrap="set", visibility=NONE)
-	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())).optional().limit(200);
+	static final Hash password = new Hash(create("SHA-512", 8, new MockSecureRandom(), 5)).optional().limit(200);
 	@Wrapper(wrap="set", visibility=NONE)
-	static final Hash passwordLatin = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom()), StandardCharsets.ISO_8859_1).optional();
-	static final Hash passwordFinal = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())).toFinal();
+	static final Hash passwordLatin = new Hash(create(StandardCharsets.ISO_8859_1, "SHA-512", 8, new MockSecureRandom(), 5)).optional();
+	static final Hash passwordFinal = new Hash(create("SHA-512", 8, new MockSecureRandom(), 5)).toFinal();
 	@Wrapper(wrap="set", visibility=NONE)
-	static final Hash passwordMandatory = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom()));
+	static final Hash passwordMandatory = new Hash(create("SHA-512", 8, new MockSecureRandom(), 5));
 
 	void setPassword(final String password)
 	{

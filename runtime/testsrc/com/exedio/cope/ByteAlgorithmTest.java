@@ -59,6 +59,7 @@ public class ByteAlgorithmTest
 			}
 		};
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testCharsetNull()
 	{
 		try
