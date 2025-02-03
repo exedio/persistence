@@ -46,6 +46,7 @@ public final class MessageDigestHashAlgorithm
 	/**
 	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
+	@SuppressWarnings("deprecation") // OK: wrapping deprecated API
 	public static HashAlgorithm create(
 			final Charset charset,
 			final String digest,

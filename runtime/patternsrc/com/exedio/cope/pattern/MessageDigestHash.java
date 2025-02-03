@@ -30,6 +30,10 @@ public final class MessageDigestHash
 		// prevent instantiation
 	}
 
+	/**
+	 * @deprecated Use {@link MessageDigestHashAlgorithm#create(String, int, java.security.SecureRandom, int)} instead
+	 */
+	@Deprecated
 	@SuppressWarnings("unused")
 	public static Algorithm algorithm(final int iterations)
 	{

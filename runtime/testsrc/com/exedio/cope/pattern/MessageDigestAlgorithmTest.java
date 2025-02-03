@@ -36,7 +36,7 @@ public class MessageDigestAlgorithmTest
 	{
 		try
 		{
-			new MessageDigestAlgorithm("NIXUS", -1, 0);
+			newMessageDigestAlgorithm("NIXUS", -1, 0);
 			fail();
 		}
 		catch(final IllegalAlgorithmException e)
@@ -45,14 +45,14 @@ public class MessageDigestAlgorithmTest
 		}
 		try
 		{
-			new MessageDigestAlgorithm("SHA-512", -1, 0);
+			newMessageDigestAlgorithm("SHA-512", -1, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("saltLength must be at least zero, but was -1", e.getMessage());
 		}
-		final MessageDigestAlgorithm a = new MessageDigestAlgorithm("SHA-512", 0, 1);
+		final MessageDigestAlgorithm a = newMessageDigestAlgorithm("SHA-512", 0, 1);
 		try
 		{
 			a.salt(0, new SecureRandom());
@@ -73,7 +73,7 @@ public class MessageDigestAlgorithmTest
 		}
 		try
 		{
-			new MessageDigestAlgorithm("SHA-512", 0, 0);
+			newMessageDigestAlgorithm("SHA-512", 0, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -85,12 +85,12 @@ public class MessageDigestAlgorithmTest
 	@Test void testCompatibleTo()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
+			newMessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
 		assertTrue(a.compatibleTo(a));
-		assertTrue( a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())));
-		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("MD5",     0, 5).salt(8, new MockSecureRandom())));
-		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(7, new MockSecureRandom())));
-		assertFalse(a.compatibleTo(new MessageDigestAlgorithm("SHA-512", 0, 4).salt(8, new MockSecureRandom())));
+		assertTrue( a.compatibleTo(newMessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(newMessageDigestAlgorithm("MD5",     0, 5).salt(8, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(newMessageDigestAlgorithm("SHA-512", 0, 5).salt(7, new MockSecureRandom())));
+		assertFalse(a.compatibleTo(newMessageDigestAlgorithm("SHA-512", 0, 4).salt(8, new MockSecureRandom())));
 		try
 		{
 			a.compatibleTo(null);
@@ -105,7 +105,7 @@ public class MessageDigestAlgorithmTest
 	@Test void testSalted()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
+			newMessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8i5", a.name());
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
@@ -128,7 +128,7 @@ public class MessageDigestAlgorithmTest
 	@Test void testSaltedMinimal()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 0, 2).salt(1, new MockSecureRandom());
+			newMessageDigestAlgorithm("SHA-512", 0, 2).salt(1, new MockSecureRandom());
 		assertEquals("SHA512s1i2", a.name());
 		assertEquals(65, a.length());
 		assertEquals(1, a.getSaltLength());
@@ -151,7 +151,7 @@ public class MessageDigestAlgorithmTest
 	@Test void testUnsalted()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 0, 5);
+			newMessageDigestAlgorithm("SHA-512", 0, 5);
 		assertEquals("SHA512i5", a.name());
 		assertEquals(64, a.length());
 		assertEquals(0, a.getSaltLength());
@@ -174,7 +174,7 @@ public class MessageDigestAlgorithmTest
 	@Test void testNoniterated()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 0, 1).salt(8, new MockSecureRandom());
+			newMessageDigestAlgorithm("SHA-512", 0, 1).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8", a.name());
 		assertEquals(72, a.length());
 		assertEquals(8, a.getSaltLength());
@@ -197,7 +197,7 @@ public class MessageDigestAlgorithmTest
 	@Test void testUnsaltedNoniterated()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("SHA-512", 0, 1);
+			newMessageDigestAlgorithm("SHA-512", 0, 1);
 		assertEquals("SHA512", a.name());
 		assertEquals(64, a.length());
 		assertEquals(0, a.getSaltLength());
@@ -228,7 +228,7 @@ public class MessageDigestAlgorithmTest
 	@Test void testUnsaltedNoniteratedMD5()
 	{
 		final MessageDigestAlgorithm a =
-			new MessageDigestAlgorithm("MD5", 0, 1);
+			newMessageDigestAlgorithm("MD5", 0, 1);
 		assertEquals("MD5", a.name());
 		assertEquals(16, a.length());
 		assertEquals(0, a.getSaltLength());
@@ -313,5 +313,14 @@ public class MessageDigestAlgorithmTest
 		assertTrue(algorithm.check(plainTextBytes, Hex.decodeLower(expectedHash)));
 		assertTrue(java.util.Arrays.equals(plainTextBytes, plainTextBytesCopy));
 		assertFalse(algorithm.check((plainText+"x").getBytes(UTF_8), Hex.decodeLower(expectedHash)));
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	private static MessageDigestAlgorithm newMessageDigestAlgorithm(
+			final String digest,
+			final int saltLength,
+			final int iterations)
+	{
+		return new MessageDigestAlgorithm(digest, saltLength, iterations);
 	}
 }
