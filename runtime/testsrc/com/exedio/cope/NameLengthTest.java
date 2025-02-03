@@ -52,22 +52,22 @@ public class NameLengthTest extends TestWithEnvironment
 	@Test void testIt()
 	{
 		assertIt(AnItem  .TYPE, "AnItem", synthetic("class", "AnItem"));
-		assertIt(LongItem.TYPE, "LooooooooooooooooooooItem");
+		assertIt(LongItem.TYPE, l25("LooooooooooooooooooooItem"));
 
 		assertPrimaryKeySequenceName("AnItem_this_Seq", AnItem.TYPE);
-		assertPrimaryKeySequenceName("LoooooooooooItem_this_Seq", LongItem.TYPE);
+		assertPrimaryKeySequenceName(l25("LoooooooooooItem_this_Seq"), LongItem.TYPE);
 
 		assertIt(AnItem.fieldShort, "fieldShort");
-		assertIt(AnItem.fieldLong , "fieldLooooooooooooooooooo");
+		assertIt(AnItem.fieldLong , l25("fieldLooooooooooooooooooo"));
 
 		assertIt(AnItem.foreignShort, "foreignShort", "foreignShortType");
-		assertIt(AnItem.foreignLong , "foreignLooooooooooooooooo", "foreignLoooooooooooooType");
+		assertIt(AnItem.foreignLong , l25("foreignLooooooooooooooooo"), l25("foreignLoooooooooooooType"));
 
 		assertSequence(AnItem.nextShort, "AnItem_nextShort_Seq");
-		assertSequence(AnItem.nextLong , "AnItem_nextLooooooooo_Seq");
+		assertSequence(AnItem.nextLong , l25("AnItem_nextLooooooooo_Seq"));
 
 		assertIt(AnItem.sequenceShort, "AnItem_sequenceShort");
-		assertIt(AnItem.sequenceLong , "AnItem_sequenceLooooooooo");
+		assertIt(AnItem.sequenceLong , l25("AnItem_sequenceLooooooooo"));
 
 		final Schema schema = model.getVerifiedSchema();
 
@@ -79,13 +79,13 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(table, Check,      "AnItem_fieldShort_EN");
 		assertIt(table, Check,      "AnItem_checkShort");
 
-		assertIt(table, ForeignKey, "AnItem_foreignLoooooooooooooooooooooooooooooooooooooooooo_Fk");
-		assertIt(table, Unique,     "AnItem_fieldLooooooooooooooooooooooooooooooooooooooooooo_Unq");
-		assertIt(table, Check,      "AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN");
-		assertIt(table, Check,      "AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo");
+		assertIt(table, ForeignKey, l60("AnItem_foreignLoooooooooooooooooooooooooooooooooooooooooo_Fk"));
+		assertIt(table, Unique,     l60("AnItem_fieldLooooooooooooooooooooooooooooooooooooooooooo_Unq"));
+		assertIt(table, Check,      l60("AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN"));
+		assertIt(table, Check,      l60("AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo"));
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
-		assertIt(longTable, PrimaryKey, "LooooooooooooooooooooItem_PK");
+		assertIt(longTable, PrimaryKey, assertLength(28, "LooooooooooooooooooooItem_PK")); // table name was trimmed to 25 before appending "_PK"
 
 		assertEquals(OK, table.getCumulativeColor());
 		assertEquals(OK, schema.getCumulativeColor());
@@ -130,6 +130,22 @@ public class NameLengthTest extends TestWithEnvironment
 		assertNotNull(result, name);
 		assertEquals(type, result.getType(), name);
 		assertEquals(OK, result.getCumulativeColor(), name);
+	}
+
+	private static String l25(final String actualName)
+	{
+		return assertLength(25, actualName);
+	}
+
+	private static String l60(final String actualName)
+	{
+		return assertLength(60, actualName);
+	}
+
+	private static String assertLength(final int expectedLength, final String actualName)
+	{
+		assertEquals(expectedLength, actualName.length(), actualName);
+		return actualName;
 	}
 
 
