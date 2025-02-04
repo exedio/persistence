@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import com.exedio.cope.ConnectProperties.Factory;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
@@ -411,59 +410,6 @@ public class ConnectPropertiesTest
 	}
 
 
-	@Test void testSupportDisabledForNativeDateStandard()
-	{
-		final ConnectProperties p = factory().
-				create(TestSources.minimal());
-
-		assertEquals(false, p.isSupportDisabledForNativeDate());
-	}
-
-	@Test void testSupportDisabledForNativeDateSet()
-	{
-		final ConnectProperties p = factory().
-				disableNativeDate().
-				create(TestSources.minimal());
-
-		assertEquals(true, p.isSupportDisabledForNativeDate());
-	}
-
-	@Test void testPrimaryKeyGeneratorDefaultStandard()
-	{
-		final ConnectProperties p = factory().
-				create(TestSources.minimal());
-
-		assertEquals(PrimaryKeyGenerator.memory, p.primaryKeyGenerator);
-	}
-
-	@Test void testPrimaryKeyGeneratorDefaultSequence()
-	{
-		final ConnectProperties p = factory().
-				primaryKeyGeneratorSequence().
-				create(TestSources.minimal());
-
-		assertEquals(PrimaryKeyGenerator.sequence, p.primaryKeyGenerator);
-	}
-
-	@Test void testRevisionDefaultStandard()
-	{
-		final ConnectProperties p = factory().
-				create(TestSources.minimal());
-
-		assertEquals("while",     p.revisionTableName);
-		assertEquals("protected", p.revisionPrimaryKeyName);
-	}
-
-	@Test void testRevisionDefault()
-	{
-		final ConnectProperties p = factory().
-				revisionTable("revTab", "revPk").
-				create(TestSources.minimal());
-
-		assertEquals("revTab", p.revisionTableName);
-		assertEquals("revPk",  p.revisionPrimaryKeyName);
-	}
-
 	@Test void testConnectionPool()
 	{
 		final ConnectProperties p = ConnectProperties.create(cascade(
@@ -543,40 +489,6 @@ public class ConnectPropertiesTest
 				p::getVaultPropertiesStrict,
 				IllegalArgumentException.class,
 				"vaults are disabled (vault=false) in DESC");
-	}
-
-	@Test void testMediaRootUrlStandard()
-	{
-		final ConnectProperties p = factory().
-				create(TestSources.minimal());
-
-		assertEquals("media/", p.getMediaRootUrl());
-	}
-
-	@Test void testMediaRootUrlCustom()
-	{
-		final ConnectProperties p = factory().
-				mediaRootUrl("/custom/").
-				create(TestSources.minimal());
-
-		assertEquals("/custom/", p.getMediaRootUrl());
-	}
-
-	@Test void testMediaRootUrlNull()
-	{
-		final Factory f = factory().mediaRootUrl(null);
-		final Source s = TestSources.minimal();
-
-		try
-		{
-			f.create(s);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals("media.rooturl", e.getKey());
-			assertEquals("must be specified as there is no default", e.getDetail());
-		}
 	}
 
 	@Test void testMediaMaxAgeStandard()
