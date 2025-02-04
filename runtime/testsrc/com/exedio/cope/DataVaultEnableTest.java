@@ -43,15 +43,28 @@ public class DataVaultEnableTest
 		assertEquals(false, MyBlank.blankM.isAnnotationPresent(Vault.class));
 		assertEquals(true,  MyBlank.vaultF.isAnnotationPresent(Vault.class));
 		assertEquals(true,  MyBlank.vaultM.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyBlank.nonneF.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyBlank.nonneM.isAnnotationPresent(Vault.class));
+
 		assertEquals(false, AnVault.blankF.isAnnotationPresent(Vault.class));
 		assertEquals(false, AnVault.blankM.isAnnotationPresent(Vault.class));
 		assertEquals(true,  AnVault.vaultF.isAnnotationPresent(Vault.class));
 		assertEquals(true,  AnVault.vaultM.isAnnotationPresent(Vault.class));
+		assertEquals(true,  AnVault.nonneF.isAnnotationPresent(Vault.class));
+		assertEquals(true,  AnVault.nonneM.isAnnotationPresent(Vault.class));
+
+		assertEquals(false, MyNonne.blankF.isAnnotationPresent(Vault.class));
+		assertEquals(false, MyNonne.blankM.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyNonne.vaultF.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyNonne.vaultM.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyNonne.nonneF.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyNonne.nonneM.isAnnotationPresent(Vault.class));
 	}
 	@Test void testAnnotationsType()
 	{
 		assertEquals(false, MyBlank.TYPE.isAnnotationPresent(Vault.class));
 		assertEquals(true,  AnVault.TYPE.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyNonne.TYPE.isAnnotationPresent(Vault.class));
 	}
 	@Test void testIsAnnotatedVault()
 	{
@@ -59,10 +72,22 @@ public class DataVaultEnableTest
 		assertEquals(false, MyBlank.blankM.isAnnotatedVault());
 		assertEquals(true,  MyBlank.vaultF.isAnnotatedVault());
 		assertEquals(true,  MyBlank.vaultM.isAnnotatedVault());
+		assertEquals(false, MyBlank.nonneF.isAnnotatedVault());
+		assertEquals(false, MyBlank.nonneM.isAnnotatedVault());
+
 		assertEquals(true,  AnVault.blankF.isAnnotatedVault());
 		assertEquals(true,  AnVault.blankM.isAnnotatedVault());
 		assertEquals(true,  AnVault.vaultF.isAnnotatedVault());
 		assertEquals(true,  AnVault.vaultM.isAnnotatedVault());
+		assertEquals(false, AnVault.nonneF.isAnnotatedVault());
+		assertEquals(false, AnVault.nonneM.isAnnotatedVault());
+
+		assertEquals(false, MyNonne.blankF.isAnnotatedVault());
+		assertEquals(false, MyNonne.blankM.isAnnotatedVault());
+		assertEquals(true,  MyNonne.vaultF.isAnnotatedVault());
+		assertEquals(true,  MyNonne.vaultM.isAnnotatedVault());
+		assertEquals(false, MyNonne.nonneF.isAnnotatedVault());
+		assertEquals(false, MyNonne.nonneM.isAnnotatedVault());
 	}
 	@Test void testGetAnnotatedVaultValue()
 	{
@@ -70,28 +95,53 @@ public class DataVaultEnableTest
 		assertEquals(null,               MyBlank.blankM.getAnnotatedVaultValue());
 		assertEquals("MyBlank-vaultF-V", MyBlank.vaultF.getAnnotatedVaultValue());
 		assertEquals("MyBlank-vaultM-V", MyBlank.vaultM.getAnnotatedVaultValue());
+		assertEquals(null,               MyBlank.nonneF.getAnnotatedVaultValue());
+		assertEquals(null,               MyBlank.nonneM.getAnnotatedVaultValue());
+
 		assertEquals("AnVault-V",        AnVault.blankF.getAnnotatedVaultValue());
 		assertEquals("AnVault-V",        AnVault.blankM.getAnnotatedVaultValue());
 		assertEquals("AnVault-vaultF-V", AnVault.vaultF.getAnnotatedVaultValue());
 		assertEquals("AnVault-vaultM-V", AnVault.vaultM.getAnnotatedVaultValue());
+		assertEquals(null,               AnVault.nonneF.getAnnotatedVaultValue());
+		assertEquals(null,               AnVault.nonneM.getAnnotatedVaultValue());
+
+		assertEquals(null,               MyNonne.blankF.getAnnotatedVaultValue());
+		assertEquals(null,               MyNonne.blankM.getAnnotatedVaultValue());
+		assertEquals("MyNonne-vaultF-V", MyNonne.vaultF.getAnnotatedVaultValue());
+		assertEquals("MyNonne-vaultM-V", MyNonne.vaultM.getAnnotatedVaultValue());
+		assertEquals(null,               MyNonne.nonneF.getAnnotatedVaultValue());
+		assertEquals(null,               MyNonne.nonneM.getAnnotatedVaultValue());
 	}
 	@Test void testDisabled()
 	{
 		model.connect(ConnectProperties.create(minimal()));
+
 		assertIt(MyBlank.blankF);
 		assertIt(MyBlank.blankM);
 		assertIt(MyBlank.vaultF);
 		assertIt(MyBlank.vaultM);
+		assertIt(MyBlank.nonneF);
+		assertIt(MyBlank.nonneM);
+
 		assertIt(AnVault.blankF);
 		assertIt(AnVault.blankM);
 		assertIt(AnVault.vaultF);
 		assertIt(AnVault.vaultM);
+		assertIt(AnVault.nonneF);
+		assertIt(AnVault.nonneM);
+
+		assertIt(MyNonne.blankF);
+		assertIt(MyNonne.blankM);
+		assertIt(MyNonne.vaultF);
+		assertIt(MyNonne.vaultM);
+		assertIt(MyNonne.nonneF);
+		assertIt(MyNonne.nonneM);
 	}
 	@Test void testEnabledAny()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.buckets", "default MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("vault.buckets", "default MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V MyNonne-vaultF-V MyNonne-vaultM-V"),
 				single("vault.default.service",          VaultMockService.class),
 				single("vault.default.service.example",          "default-X"),
 				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
@@ -104,23 +154,40 @@ public class DataVaultEnableTest
 				single("vault.AnVault-vaultF-V.service.example", "AnVault-vaultF-X"),
 				single("vault.AnVault-vaultM-V.service", VaultMockService.class),
 				single("vault.AnVault-vaultM-V.service.example", "AnVault-vaultM-X"),
+				single("vault.MyNonne-vaultF-V.service", VaultMockService.class),
+				single("vault.MyNonne-vaultF-V.service.example", "MyNonne-vaultF-X"),
+				single("vault.MyNonne-vaultM-V.service", VaultMockService.class),
+				single("vault.MyNonne-vaultM-V.service.example", "MyNonne-vaultM-X"),
 				single("vault.isAppliedToAllFields", true),
 				minimal()
 		)));
+
 		assertIt(MyBlank.blankF, "VaultMockService:default-X");
 		assertIt(MyBlank.blankM, "VaultMockService:default-X");
 		assertIt(MyBlank.vaultF, "VaultMockService:MyBlank-vaultF-X");
 		assertIt(MyBlank.vaultM, "VaultMockService:MyBlank-vaultM-X");
+		assertIt(MyBlank.nonneF, "VaultMockService:default-X");
+		assertIt(MyBlank.nonneM, "VaultMockService:default-X");
+
 		assertIt(AnVault.blankF, "VaultMockService:AnVault-X");
 		assertIt(AnVault.blankM, "VaultMockService:AnVault-X");
 		assertIt(AnVault.vaultF, "VaultMockService:AnVault-vaultF-X");
 		assertIt(AnVault.vaultM, "VaultMockService:AnVault-vaultM-X");
+		assertIt(AnVault.nonneF, "VaultMockService:default-X");
+		assertIt(AnVault.nonneM, "VaultMockService:default-X");
+
+		assertIt(MyNonne.blankF, "VaultMockService:default-X");
+		assertIt(MyNonne.blankM, "VaultMockService:default-X");
+		assertIt(MyNonne.vaultF, "VaultMockService:MyNonne-vaultF-X");
+		assertIt(MyNonne.vaultM, "VaultMockService:MyNonne-vaultM-X");
+		assertIt(MyNonne.nonneF, "VaultMockService:default-X");
+		assertIt(MyNonne.nonneM, "VaultMockService:default-X");
 	}
 	@Test void testEnabled()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V MyNonne-vaultF-V MyNonne-vaultM-V"),
 				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
 				single("vault.MyBlank-vaultF-V.service.example", "MyBlank-vaultF-X"),
 				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
@@ -131,16 +198,33 @@ public class DataVaultEnableTest
 				single("vault.AnVault-vaultF-V.service.example", "AnVault-vaultF-X"),
 				single("vault.AnVault-vaultM-V.service", VaultMockService.class),
 				single("vault.AnVault-vaultM-V.service.example", "AnVault-vaultM-X"),
+				single("vault.MyNonne-vaultF-V.service", VaultMockService.class),
+				single("vault.MyNonne-vaultF-V.service.example", "MyNonne-vaultF-X"),
+				single("vault.MyNonne-vaultM-V.service", VaultMockService.class),
+				single("vault.MyNonne-vaultM-V.service.example", "MyNonne-vaultM-X"),
 				minimal()
 		)));
+
 		assertIt(MyBlank.blankF);
 		assertIt(MyBlank.blankM);
 		assertIt(MyBlank.vaultF, "VaultMockService:MyBlank-vaultF-X");
 		assertIt(MyBlank.vaultM, "VaultMockService:MyBlank-vaultM-X");
+		assertIt(MyBlank.nonneF);
+		assertIt(MyBlank.nonneM);
+
 		assertIt(AnVault.blankF, "VaultMockService:AnVault-X");
 		assertIt(AnVault.blankM, "VaultMockService:AnVault-X");
 		assertIt(AnVault.vaultF, "VaultMockService:AnVault-vaultF-X");
 		assertIt(AnVault.vaultM, "VaultMockService:AnVault-vaultM-X");
+		assertIt(AnVault.nonneF);
+		assertIt(AnVault.nonneM);
+
+		assertIt(MyNonne.blankF);
+		assertIt(MyNonne.blankM);
+		assertIt(MyNonne.vaultF, "VaultMockService:MyNonne-vaultF-X");
+		assertIt(MyNonne.vaultM, "VaultMockService:MyNonne-vaultM-X");
+		assertIt(MyNonne.nonneF);
+		assertIt(MyNonne.nonneM);
 	}
 	@Test void testMissingBucketAppliedToAllFields()
 	{
@@ -155,7 +239,7 @@ public class DataVaultEnableTest
 		assertFails(
 				() -> model.connect(props),
 				IllegalArgumentException.class,
-				"@Vault for buckets [default, AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
+				"@Vault for buckets [default, AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V, MyNonne-vaultF-V, MyNonne-vaultM-V] " +
 				"not supported by ConnectProperties.");
 	}
 	@Test void testMissingBucket()
@@ -170,7 +254,7 @@ public class DataVaultEnableTest
 		assertFails(
 				() -> model.connect(props),
 				IllegalArgumentException.class,
-				"@Vault for buckets [AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
+				"@Vault for buckets [AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V, MyNonne-vaultF-V, MyNonne-vaultM-V] " +
 				"not supported by ConnectProperties.");
 	}
 	@Test void testAlgorithm()
@@ -178,12 +262,14 @@ public class DataVaultEnableTest
 		model.connect(ConnectProperties.create(cascade(
 				single("vault", true),
 				single("vault.MyBlank-vaultF-V.algorithm", "MD5"),
-				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("vault.buckets", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V MyNonne-vaultF-V MyNonne-vaultM-V"),
 				single("vault.MyBlank-vaultF-V.service", VaultMockService.class),
 				single("vault.MyBlank-vaultM-V.service", VaultMockService.class),
 				single("vault.AnVault-V.service",        VaultMockService.class),
 				single("vault.AnVault-vaultF-V.service", VaultMockService.class),
 				single("vault.AnVault-vaultM-V.service", VaultMockService.class),
+				single("vault.MyNonne-vaultF-V.service", VaultMockService.class),
+				single("vault.MyNonne-vaultM-V.service", VaultMockService.class),
 				minimal()
 		)));
 		final DataFieldVaultInfo info = MyBlank.vaultF.getVaultInfo();
@@ -241,7 +327,7 @@ public class DataVaultEnableTest
 			model.disconnect();
 	}
 
-	static final Model model = new Model(MyBlank.TYPE, AnVault.TYPE);
+	static final Model model = new Model(MyBlank.TYPE, AnVault.TYPE, MyNonne.TYPE);
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MyBlank extends Item
@@ -253,12 +339,20 @@ public class DataVaultEnableTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField vaultF = new DataField();
 
+		@Vault(Vault.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField nonneF = new DataField();
+
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media blankM = new Media();
 
 		@Vault("MyBlank-vaultM-V")
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media vaultM = new Media();
+
+		@Vault(Vault.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media nonneM = new Media();
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
@@ -282,12 +376,20 @@ public class DataVaultEnableTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField vaultF = new DataField();
 
+		@Vault(Vault.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField nonneF = new DataField();
+
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media blankM = new Media();
 
 		@Vault("AnVault-vaultM-V")
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media vaultM = new Media();
+
+		@Vault(Vault.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media nonneM = new Media();
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
@@ -298,5 +400,42 @@ public class DataVaultEnableTest
 
 		@com.exedio.cope.instrument.Generated
 		protected AnVault(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@Vault(Vault.NONE)
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static class MyNonne extends Item
+	{
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField blankF = new DataField();
+
+		@Vault("MyNonne-vaultF-V")
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField vaultF = new DataField();
+
+		@Vault(Vault.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField nonneF = new DataField();
+
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media blankM = new Media();
+
+		@Vault("MyNonne-vaultM-V")
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media vaultM = new Media();
+
+		@Vault(Vault.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media nonneM = new Media();
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyNonne> TYPE = com.exedio.cope.TypesBound.newType(MyNonne.class,MyNonne::new);
+
+		@com.exedio.cope.instrument.Generated
+		protected MyNonne(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

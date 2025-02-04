@@ -61,8 +61,23 @@ public @interface Vault
 	 * <p>
 	 * Must not be empty, and must contain latin letters (A-Z,a-z), digits (0-9),
 	 * and dashes (-) only.
+	 * As a special exception may contain {@link #NONE}.
 	 * May be checked by {@link com.exedio.cope.vault.VaultProperties#checkBucket(String, java.util.function.Function)}.
 	 */
 	String value() default DEFAULT;
 	String DEFAULT = "default";
+
+	/**
+	 * Annotating a data field with {@code @Vault(Vault.NONE)} is equivalent to
+	 * not annotating the field at all.
+	 * Thus, the data is not stored in a vault bucket,
+	 * but in a blob column of the database table.
+	 * Useful for overriding/reverting a {@code @Vault} annotation at the type
+	 * of the field.
+	 * <p>
+	 * The value is deliberately not a valid bucket key according to
+	 * {@link com.exedio.cope.vault.VaultProperties#checkBucket(String, java.util.function.Function)} -
+	 * slashes are not allowed.
+	 */
+	String NONE = "/none/";
 }

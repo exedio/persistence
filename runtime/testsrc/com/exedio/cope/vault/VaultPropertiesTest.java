@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.ConnectPropertiesTest.assertMatches;
 import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.Vault.DEFAULT;
+import static com.exedio.cope.Vault.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
@@ -85,6 +86,13 @@ public class VaultPropertiesTest
 				ArithmeticException.class,
 				"must contain just [---,0-9,A-Z,a-z], " +
 				"but was >abc.efg< containing a forbidden character at position 3");
+	}
+	@Test void checkBucketNone()
+	{
+		assertFails(
+				() -> checkBucket(NONE, ArithmeticException::new),
+				ArithmeticException.class,
+				"must not be special value >/none/< from Vault.NONE");
 	}
 	@Test void checkBucketOk()
 	{
