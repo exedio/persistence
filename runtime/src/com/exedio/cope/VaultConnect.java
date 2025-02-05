@@ -34,6 +34,7 @@ final class VaultConnect
 	VaultConnect(
 			final String key,
 			final VaultProperties properties,
+			final Trimmer trimmer,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final VaultResilientService service,
@@ -41,7 +42,7 @@ final class VaultConnect
 	{
 		this.service = requireNonNull(service);
 		this.markPut = requireNonNull(markPut);
-		this.trail = new VaultTrail(key, properties.bucket(key), connectionPool, executor, markPut);
+		this.trail = new VaultTrail(key, properties.bucket(key), trimmer, connectionPool, executor, markPut);
 	}
 
 	void purgeSchema(final JobContext ctx)

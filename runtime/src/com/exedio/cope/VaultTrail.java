@@ -65,6 +65,7 @@ final class VaultTrail
 	VaultTrail(
 			final String bucketKey,
 			final Bucket bucket,
+			final Trimmer trimmer,
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final VaultMarkPut markPutSupplier)
@@ -79,7 +80,6 @@ final class VaultTrail
 		this.originLimit = bucket.getTrailOriginLimit();
 		this.originValue = truncate(ORIGIN, originLimit);
 
-		final Trimmer trimmer = TrimClass.standard.trimmer;
 		table   = trimmer.trimString("VaultTrail_" + bucketKey);
 		hash    = trimmer.trimString("hash");
 		hashPK  = trimmer.trimString(table + "_PK");
