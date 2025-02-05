@@ -235,6 +235,25 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 
 	// schema
+	private final Trimmer trimmerStandard = valueTrimmer("",       TrimClass.standard);
+	private final Trimmer trimmerLegacy   = valueTrimmer("Legacy", TrimClass.legacy);
+
+	Trimmer valueTrimmer(
+			@Nonnull final String keyPostfix,
+			@Nonnull final TrimClass trimClass)
+	{
+		return new Trimmer(value("schema.nameLength" + keyPostfix, trimClass.maxLength, 1));
+	}
+
+	Trimmer trimmer(@Nonnull final TrimClass trimClass)
+	{
+		return switch(trimClass)
+		{
+			case legacy -> trimmerLegacy;
+			case standard -> trimmerStandard;
+		};
+	}
+
 
 	final PrimaryKeyGenerator primaryKeyGenerator = value("schema.primaryKeyGenerator", factory.primaryKeyGenerator);
 	final boolean longSyntheticNames = value("schema.tableInNames", false);

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.NameLengthTest.assertProperties;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
@@ -58,6 +59,8 @@ public class NameTest extends TestWithEnvironment
 
 	@Test void test()
 	{
+		assertProperties(model);
+
 		final StringField NameLongItem_codeLongName =
 			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;
 		final ItemField<NameLongItem> NameLongItem_pointerLongName =

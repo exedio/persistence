@@ -104,6 +104,8 @@ public class ConnectPropertiesTest
 				"disableSupport.semicolon",
 				"fulltextIndex",
 				"deleteSchemaForTest",
+				"schema.nameLength",
+				"schema.nameLengthLegacy",
 				"schema.primaryKeyGenerator",
 				"schema.tableInNames",
 				"schema.revision.table",

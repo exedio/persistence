@@ -18,25 +18,30 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.Check.requireGreaterZero;
+import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
+import org.junit.jupiter.api.BeforeEach;
 
-/**
- * MySQL maximum length is 64:
- * <a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-length.html">...</a>
- * MySQL does support check constraints only since version 8.
- * <p>
- * PostgreSQL maximum length is 63:
- * <a href="https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS">...</a>
- */
-enum TrimClass
+public class NameLengthShortTest extends NameLengthTest
 {
-	legacy(25),
-	standard(60); // on MySQL a primary key constraint does not have a name
-
-	final int maxLength;
-
-	TrimClass(final int maxLength)
+	public NameLengthShortTest()
 	{
-		this.maxLength = requireGreaterZero(maxLength, "maxLength");
+		super(false);
+	}
+
+	@Override
+	public Properties.Source override(final Properties.Source s)
+	{
+		return Sources.cascade(
+				TestSources.single("schema.nameLength", 30),
+				TestSources.single("schema.nameLengthLegacy", 20),
+				s);
+	}
+
+	@BeforeEach
+	void beforeEach()
+	{
+		assertProperties(30, 20, model);
 	}
 }
