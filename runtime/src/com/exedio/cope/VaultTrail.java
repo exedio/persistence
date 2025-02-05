@@ -79,7 +79,7 @@ final class VaultTrail
 		this.originLimit = bucket.getTrailOriginLimit();
 		this.originValue = truncate(ORIGIN, originLimit);
 
-		final Trimmer trimmer = TrimClass.Constraint.trimmer; // is correct, 60 characters from the beginning
+		final Trimmer trimmer = TrimClass.standard.trimmer;
 		table   = trimmer.trimString("VaultTrail_" + bucketKey);
 		hash    = trimmer.trimString("hash");
 		hashPK  = trimmer.trimString(table + "_PK");

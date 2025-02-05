@@ -48,7 +48,7 @@ final class SequenceImplSequence implements SequenceImpl
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
-		this.name = column.makeGlobalID(TrimClass.Data, nameSuffix);
+		this.name = column.makeGlobalID(TrimClass.legacy, nameSuffix);
 		this.quotedName = database.dsmfDialect.quoteName(this.name);
 	}
 

@@ -33,7 +33,7 @@ final class ItemColumn extends IntegerColumn
 	{
 		super(table, id, false, optional, PK.MIN_VALUE, targetType.createLimit, true);
 		this.targetType = targetType;
-		this.integrityConstraintName = intern(makeGlobalID(TrimClass.Constraint, "Fk"));
+		this.integrityConstraintName = intern(makeGlobalID(TrimClass.standard, "Fk"));
 	}
 
 	/**
