@@ -41,7 +41,7 @@ abstract class Column
 	{
 		final Database database = table.database;
 		this.table = table;
-		this.id = intern(TrimClass.Data.trimmer.trimString(
+		this.id = intern(TrimClass.legacy.trimmer.trimString(
 				(synthetic&&table.database.properties.longSyntheticNames) ? (id+table.id) : id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		this.idForGlobal = id;
@@ -84,7 +84,7 @@ abstract class Column
 			final com.exedio.dsmf.Column dsmf,
 			final String suffix, final String condition)
 	{
-		dsmf.newCheck(makeGlobalID(TrimClass.Constraint, suffix), condition);
+		dsmf.newCheck(makeGlobalID(TrimClass.standard, suffix), condition);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ abstract class Column
 				dsmf.newColumn(id, databaseTypeClause);
 
 		if(kind.primaryKey())
-			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.Constraint, "PK"));
+			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.standard, "PK"));
 
 		makeSchema(dsmfColumn);
 	}

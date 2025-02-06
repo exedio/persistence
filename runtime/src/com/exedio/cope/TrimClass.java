@@ -28,8 +28,8 @@ package com.exedio.cope;
  */
 enum TrimClass
 {
-	Data(25),
-	Constraint(60); // on MySQL a primary key constraint does not have a name
+	legacy(25),
+	standard(60); // on MySQL a primary key constraint does not have a name
 
 	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: enum is singleton
 	final Trimmer trimmer;
