@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.lang.Math.toIntExact;
 import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
@@ -249,9 +250,30 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		return switch(trimClass)
 		{
-			case legacy -> trimmerLegacy;
 			case standard -> trimmerStandard;
+			case legacy   -> trimmerLegacy;
 		};
+	}
+
+	/**
+	 * MySQL maximum length is 64:
+	 * <a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-length.html">...</a>
+	 * MySQL does support check constraints only since version 8.
+	 * <p>
+	 * PostgreSQL maximum length is 63:
+	 * <a href="https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS">...</a>
+	 */
+	enum TrimClass
+	{
+		standard(60), // on MySQL a primary key constraint does not have a name
+		legacy(25);
+
+		private final int maxLength;
+
+		TrimClass(final int maxLength)
+		{
+			this.maxLength = requireGreaterZero(maxLength, "maxLength");
+		}
 	}
 
 
