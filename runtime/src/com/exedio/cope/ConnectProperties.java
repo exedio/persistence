@@ -235,8 +235,8 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 
 	// schema
-	private final Trimmer trimmerStandard = valueTrimmer("",       TrimClass.standard);
-	private final Trimmer trimmerLegacy   = valueTrimmer("Legacy", TrimClass.legacy);
+	final Trimmer trimmerStandard = valueTrimmer("",       TrimClass.standard);
+	final Trimmer trimmerLegacy   = valueTrimmer("Legacy", TrimClass.legacy);
 
 	Trimmer valueTrimmer(
 			@Nonnull final String keyPostfix,
