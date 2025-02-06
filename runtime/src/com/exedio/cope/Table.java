@@ -45,7 +45,7 @@ final class Table
 			final long maximum)
 	{
 		this.database = database;
-		this.id = intern(database.properties.trimmer(TrimClass.legacy).trimString(id));
+		this.id = intern(database.properties.trimmerLegacy.trimString(id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		//noinspection ThisEscapedInObjectConstruction
 		this.primaryKey =

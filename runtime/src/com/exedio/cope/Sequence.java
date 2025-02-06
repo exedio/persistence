@@ -89,7 +89,7 @@ public final class Sequence extends Feature
 
 	void connect(final Database database, final ModelMetrics metrics)
 	{
-		sequenceX.connectSequence(database, database.properties.trimmer(TrimClass.legacy).trimString(
+		sequenceX.connectSequence(database, database.properties.trimmerLegacy.trimString(
 				getType().schemaId + '_' + getDeclaredSchemaName()), metrics);
 		database.addSequence(sequenceX);
 	}

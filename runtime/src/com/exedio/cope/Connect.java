@@ -106,7 +106,7 @@ final class Connect
 			final Map<String, VaultResilientService> services = props!=null ? props.newServices(markPut) : emptyMap();
 			final HashMap<String, VaultConnect> vaults = new HashMap<>();
 			for(final Map.Entry<String, VaultResilientService> e : services.entrySet())
-				vaults.put(e.getKey(), new VaultConnect(e.getKey(), props, properties.trimmer(TrimClass.standard), connectionPool, executor, e.getValue(), vaultMarkPut.get(e.getKey())));
+				vaults.put(e.getKey(), new VaultConnect(e.getKey(), props, properties.trimmerStandard, connectionPool, executor, e.getValue(), vaultMarkPut.get(e.getKey())));
 			this.vaults = Collections.unmodifiableMap(vaults);
 		}
 		this.database = new Database(
