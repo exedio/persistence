@@ -27,9 +27,10 @@ import java.util.ArrayList;
  * Trims a name to length for being a suitable qualifier for database entities,
  * such as tables, columns, indexes, constraints, partitions etc.
  */
+@SuppressWarnings("ClassCanBeRecord")
 final class Trimmer
 {
-	private final int maxLength;
+	final int maxLength;
 
 	Trimmer(final int maxLength)
 	{

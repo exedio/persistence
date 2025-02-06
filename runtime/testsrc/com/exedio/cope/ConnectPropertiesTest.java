@@ -412,6 +412,43 @@ public class ConnectPropertiesTest
 	}
 
 
+	@Test void testNameLengthDefault()
+	{
+		final ConnectProperties p = ConnectProperties.create(cascade(
+				TestSources.minimal()));
+		assertEquals(60, p.trimmerStandard.maxLength);
+		assertEquals(25, p.trimmerLegacy  .maxLength);
+	}
+
+	@Test void testNameLengthCustom()
+	{
+		final ConnectProperties p = ConnectProperties.create(cascade(
+				single("schema.nameLength", 22),
+				TestSources.minimal()));
+		assertEquals(22, p.trimmerStandard.maxLength);
+		assertEquals(25, p.trimmerLegacy  .maxLength);
+	}
+
+	@Test void testNameLengthLegacy()
+	{
+		final ConnectProperties p = ConnectProperties.create(cascade(
+				single("schema.nameLengthLegacy", 33),
+				TestSources.minimal()));
+		assertEquals(60, p.trimmerStandard.maxLength);
+		assertEquals(33, p.trimmerLegacy  .maxLength);
+	}
+
+	@Test void testNameLengthCustomAll()
+	{
+		final ConnectProperties p = ConnectProperties.create(cascade(
+				single("schema.nameLength", 22),
+				single("schema.nameLengthLegacy", 33),
+				TestSources.minimal()));
+		assertEquals(22, p.trimmerStandard.maxLength);
+		assertEquals(33, p.trimmerLegacy  .maxLength);
+	}
+
+
 	@Test void testConnectionPool()
 	{
 		final ConnectProperties p = ConnectProperties.create(cascade(
