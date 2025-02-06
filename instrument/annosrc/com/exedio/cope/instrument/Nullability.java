@@ -32,7 +32,7 @@ public enum Nullability
 	@SuppressWarnings("NonFinalFieldInEnum")
 	private static Boolean nullabilityClassesAvailable;
 
-	private static boolean nullabilityClassesAreAvailable()
+	static boolean nullabilityClassesAreAvailable()
 	{
 		if (nullabilityClassesAvailable==null)
 		{
