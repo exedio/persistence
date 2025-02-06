@@ -236,6 +236,16 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 
 	// schema
+
+	/**
+	 * MySQL maximum length is 64:
+	 * <a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-length.html">...</a>
+	 * MySQL does support check constraints only since version 8.
+	 * On MySQL a primary key constraint does not have a name.
+	 * <p>
+	 * PostgreSQL maximum length is 63:
+	 * <a href="https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS">...</a>
+	 */
 	final Trimmer trimmerStandard = valueTrimmer("",       TrimClass.standard);
 	final Trimmer trimmerLegacy   = valueTrimmer("Legacy", TrimClass.legacy);
 
@@ -255,17 +265,9 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		};
 	}
 
-	/**
-	 * MySQL maximum length is 64:
-	 * <a href="https://dev.mysql.com/doc/refman/8.0/en/identifier-length.html">...</a>
-	 * MySQL does support check constraints only since version 8.
-	 * <p>
-	 * PostgreSQL maximum length is 63:
-	 * <a href="https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS">...</a>
-	 */
 	enum TrimClass
 	{
-		standard(60), // on MySQL a primary key constraint does not have a name
+		standard(60),
 		legacy(25);
 
 		private final int maxLength;
