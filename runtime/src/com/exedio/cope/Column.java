@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
+import com.exedio.cope.ConnectProperties.TrimClass;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

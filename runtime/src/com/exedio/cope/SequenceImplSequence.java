@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.ConnectProperties.TrimClass;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import io.micrometer.core.instrument.Tags;

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
+import com.exedio.cope.ConnectProperties.TrimClass;
+
 final class ItemColumn extends IntegerColumn
 {
 	private final Type<?> targetType;

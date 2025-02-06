@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.ConnectProperties.TrimClass;
 import com.exedio.dsmf.Schema;
 import java.io.Serial;
 import java.util.ArrayList;
