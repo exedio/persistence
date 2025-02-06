@@ -34,44 +34,49 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.ModelConnector;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-public class NameLengthTest extends TestWithEnvironment
+public abstract class NameLengthTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(AnItem.TYPE, SubItem.TYPE, LongItem.TYPE);
 
-	public NameLengthTest()
+	private final boolean def;
+
+	protected NameLengthTest(final boolean def)
 	{
 		super(MODEL);
+		this.def = def;
 		copeRule.omitTransaction();
 	}
 
 	@Test void testIt()
 	{
 		assertIt(AnItem  .TYPE, "AnItem", synthetic("class", "AnItem"));
-		assertIt(LongItem.TYPE, l25("LooooooooooooooooooooItem"));
+		assertIt(LongItem.TYPE, def?l25("LooooooooooooooooooooItem"):l20("LoooooooooooooooItem"));
 
 		assertPrimaryKeySequenceName("AnItem_this_Seq", AnItem.TYPE);
-		assertPrimaryKeySequenceName(l25("LoooooooooooItem_this_Seq"), LongItem.TYPE);
+		assertPrimaryKeySequenceName(def?l25("LoooooooooooItem_this_Seq"):l20("LooooooItem_this_Seq"), LongItem.TYPE);
 
 		assertIt(AnItem.fieldShort, "fieldShort");
-		assertIt(AnItem.fieldLong , l25("fieldLooooooooooooooooooo"));
+		assertIt(AnItem.fieldLong , def?l25("fieldLooooooooooooooooooo"):l20("fieldLoooooooooooooo"));
 
 		assertIt(AnItem.foreignShort,
 				"foreignShort",
 				"foreignShortType");
 		assertIt(AnItem.foreignLong,
-				l25("foreignLooooooooooooooooo"),
-				l25("foreignLoooooooooooooType"));
+				def?l25("foreignLooooooooooooooooo"):l20("foreignLoooooooooooo"),
+				def?l25("foreignLoooooooooooooType"):l20("foreignLooooooooType"));
 
 		assertSequence(AnItem.nextShort, "AnItem_nextShort_Seq");
-		assertSequence(AnItem.nextLong , l25("AnItem_nextLooooooooo_Seq"));
+		assertSequence(AnItem.nextLong , def?l25("AnItem_nextLooooooooo_Seq"):l20("AnItem_nextLoooo_Seq"));
 
 		assertIt(AnItem.sequenceShort, "AnItem_sequenceShort");
-		assertIt(AnItem.sequenceLong , l25("AnItem_sequenceLooooooooo"));
+		assertIt(AnItem.sequenceLong , def?l25("AnItem_sequenceLooooooooo"):l20("AnItem_sequenLoooooo"));
 
 		final Schema schema = model.getVerifiedSchema();
 
@@ -83,13 +88,13 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(table, Check,      "AnItem_fieldShort_EN");
 		assertIt(table, Check,      "AnItem_checkShort");
 
-		assertIt(table, ForeignKey, l60("AnItem_foreignLoooooooooooooooooooooooooooooooooooooooooo_Fk"));
-		assertIt(table, Unique,     l60("AnItem_fieldLooooooooooooooooooooooooooooooooooooooooooo_Unq"));
-		assertIt(table, Check,      l60("AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN"));
-		assertIt(table, Check,      l60("AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo"));
+		assertIt(table, ForeignKey, def?l60("AnItem_foreignLoooooooooooooooooooooooooooooooooooooooooo_Fk"):l30("AnItem_foreignLoooooooooooo_Fk"));
+		assertIt(table, Unique,     def?l60("AnItem_fieldLooooooooooooooooooooooooooooooooooooooooooo_Unq"):l30("AnItem_fieldLooooooooooooo_Unq"));
+		assertIt(table, Check,      def?l60("AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN"):l30("AnItem_fieldLoooooooooooooo_EN"));
+		assertIt(table, Check,      def?l60("AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo"):l30("AnItem_checkLooooooooooooooooo"));
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
-		assertIt(longTable, PrimaryKey, assertLength(28, "LooooooooooooooooooooItem_PK")); // table name was trimmed to 25 before appending "_PK"
+		assertIt(longTable, PrimaryKey, def?assertLength(28, "LooooooooooooooooooooItem_PK"):assertLength(23, "LoooooooooooooooItem_PK")); // table name was trimmed to 25/20 before appending "_PK"
 
 		assertEquals(OK, table.getCumulativeColor());
 		assertEquals(OK, schema.getCumulativeColor());
@@ -136,9 +141,19 @@ public class NameLengthTest extends TestWithEnvironment
 		assertEquals(OK, result.getCumulativeColor(), name);
 	}
 
+	private static String l20(final String actualName)
+	{
+		return assertLength(20, actualName);
+	}
+
 	private static String l25(final String actualName)
 	{
 		return assertLength(25, actualName);
+	}
+
+	private static String l30(final String actualName)
+	{
+		return assertLength(30, actualName);
 	}
 
 	private static String l60(final String actualName)
@@ -150,6 +165,11 @@ public class NameLengthTest extends TestWithEnvironment
 	{
 		assertEquals(expectedLength, actualName.length(), actualName);
 		return actualName;
+	}
+
+	@AfterEach final void afterEach()
+	{
+		ModelConnector.reset();
 	}
 
 
@@ -222,5 +242,17 @@ public class NameLengthTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		private LongItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	static void assertProperties(final Model model)
+	{
+		assertProperties(60, 25, model);
+	}
+
+	static void assertProperties(final int standard, final int legacy, final Model model)
+	{
+		final ConnectProperties p = model.getConnectProperties();
+		assertEquals(Integer.valueOf(standard), p.getField("schema.nameLength"      ).get());
+		assertEquals(Integer.valueOf(legacy  ), p.getField("schema.nameLengthLegacy").get());
 	}
 }
