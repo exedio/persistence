@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapInterim;
 
-@SuppressWarnings({"ConstantForZeroLengthArrayAllocation", "FinalMethodInFinalClass", "UnnecessarilyQualifiedStaticUsage", "MissingSerialAnnotation"})
+@SuppressWarnings({"ConstantForZeroLengthArrayAllocation", "FinalMethodInFinalClass", "UnnecessarilyQualifiedStaticUsage"})
 public final class UTF8Item extends Item
 {
 	public static final StringField string = new StringField().defaultTo("Hallöle! Arabic(إ) Cyrillic(Х) Emoji(😱🆒)");
@@ -81,6 +81,7 @@ public final class UTF8Item extends Item
 	}
 
 	@com.exedio.cope.instrument.GeneratedClass
+	@java.io.Serial
 	private static final long serialVersionUID = 1;
 
 	/**

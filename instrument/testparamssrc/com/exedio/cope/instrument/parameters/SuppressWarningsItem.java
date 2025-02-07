@@ -21,7 +21,7 @@ package com.exedio.cope.instrument.parameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
-@SuppressWarnings({"FinalMethodInFinalClass", "UnnecessarilyQualifiedStaticUsage", "MissingSerialAnnotation"})
+@SuppressWarnings({"FinalMethodInFinalClass", "UnnecessarilyQualifiedStaticUsage"})
 final class SuppressWarningsItem extends Item
 {
 	static final StringField field = new StringField();
@@ -76,6 +76,7 @@ final class SuppressWarningsItem extends Item
 	}
 
 	@com.exedio.cope.instrument.GeneratedClass
+	@java.io.Serial
 	private static final long serialVersionUID = 1;
 
 	/**
