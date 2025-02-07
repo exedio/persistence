@@ -41,6 +41,7 @@ abstract class AbstractItem extends Item
 	protected AbstractItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.GeneratedClass
+	@java.io.Serial
 	private static final long serialVersionUID = 2;
 
 	/**
