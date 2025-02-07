@@ -4,7 +4,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 
 /** item without initial fields */
-@SuppressWarnings({"UnnecessarilyQualifiedStaticUsage", "ConstantForZeroLengthArrayAllocation", "MissingSerialAnnotation"})
+@SuppressWarnings({"UnnecessarilyQualifiedStaticUsage", "ConstantForZeroLengthArrayAllocation"})
 class EmptyConstructorItem extends Item
 {
 	static final StringField field = new StringField().optional();

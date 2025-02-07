@@ -20,7 +20,6 @@ package com.exedio.cope.instrument.parameters;
 
 import com.exedio.cope.pattern.Block;
 
-@SuppressWarnings("MissingSerialAnnotation")
 final class BlockWithReflectionActivator extends Block
 {
 	@com.exedio.cope.instrument.GeneratedClass
