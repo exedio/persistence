@@ -417,7 +417,7 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = ConnectProperties.create(cascade(
 				TestSources.minimal()));
 		assertEquals(60, p.trimmerStandard.maxLength);
-		assertEquals(25, p.trimmerLegacy  .maxLength);
+		assertEquals(60, p.trimmerLegacy  .maxLength);
 	}
 
 	@Test void testNameLengthCustom()
@@ -426,7 +426,7 @@ public class ConnectPropertiesTest
 				single("schema.nameLength", 22),
 				TestSources.minimal()));
 		assertEquals(22, p.trimmerStandard.maxLength);
-		assertEquals(25, p.trimmerLegacy  .maxLength);
+		assertEquals(22, p.trimmerLegacy  .maxLength);
 	}
 
 	@Test void testNameLengthLegacy()

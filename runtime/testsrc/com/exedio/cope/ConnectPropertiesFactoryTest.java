@@ -36,27 +36,32 @@ public class ConnectPropertiesFactoryTest
 {
 	@Test void testDefault()
 	{
-		assertIt(false, memory, "while", "protected", "media/", f -> f);
+		assertIt(false, 60, 60, memory, "while", "protected", "media/", f -> f);
 	}
 
 	@Test void testDisableNativeDate()
 	{
-		assertIt(true, memory, "while", "protected", "media/", Factory::disableNativeDate);
+		assertIt(true, 60, 60, memory, "while", "protected", "media/", Factory::disableNativeDate);
+	}
+
+	@Test void testLegacyNameLength()
+	{
+		assertIt(false, 60, 25, memory, "while", "protected", "media/", Factory::legacyNameLength);
 	}
 
 	@Test void testPrimaryKeyGeneratorSequence()
 	{
-		assertIt(false, sequence, "while", "protected", "media/", Factory::primaryKeyGeneratorSequence);
+		assertIt(false, 60, 60, sequence, "while", "protected", "media/", Factory::primaryKeyGeneratorSequence);
 	}
 
 	@Test void testRevisionTable()
 	{
-		assertIt(false, memory, "revTab", "revPk", "media/", f -> f.revisionTable("revTab", "revPk"));
+		assertIt(false, 60, 60, memory, "revTab", "revPk", "media/", f -> f.revisionTable("revTab", "revPk"));
 	}
 
 	@Test void testMediaRootUrl()
 	{
-		assertIt(false, memory, "while", "protected", "/custom/", f -> f.mediaRootUrl("/custom/"));
+		assertIt(false, 60, 60, memory, "while", "protected", "/custom/", f -> f.mediaRootUrl("/custom/"));
 	}
 
 	@Test void testMediaRootUrlNull()
@@ -71,6 +76,8 @@ public class ConnectPropertiesFactoryTest
 
 	private static void assertIt(
 			final boolean supportDisabledForNativeDate,
+			final int trimmerStandard,
+			final int trimmerLegacy,
 			final PrimaryKeyGenerator primaryKeyGenerator,
 			final String revisionTableName,
 			final String revisionPrimaryKeyName,
@@ -81,6 +88,8 @@ public class ConnectPropertiesFactoryTest
 				modifier.apply(FACTORY).create(SOURCE);
 		assertAll(
 				() -> assertEquals(supportDisabledForNativeDate, p.isSupportDisabledForNativeDate(), "supportDisabledForNativeDate"),
+				() -> assertEquals(trimmerStandard, p.trimmerStandard.maxLength, "trimmerStandard"),
+				() -> assertEquals(trimmerLegacy  , p.trimmerLegacy  .maxLength, "trimmerLegacy"  ),
 				() -> assertEquals(primaryKeyGenerator, p.primaryKeyGenerator, "primaryKeyGenerator"),
 				() -> assertEquals(revisionTableName, p.revisionTableName, "revisionTableName"),
 				() -> assertEquals(revisionPrimaryKeyName, p.revisionPrimaryKeyName, "revisionPrimaryKeyName"),

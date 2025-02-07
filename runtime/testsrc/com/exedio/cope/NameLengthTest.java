@@ -58,18 +58,18 @@ public abstract class NameLengthTest extends TestWithEnvironment
 	{
 		assertIt(AnItem  .TYPE, "AnItem", synthetic("class", "AnItem"));
 		assertIt(LongItem.TYPE, defaulT
-				? l25("LooooooooooooooooooooItem")
+				? l60("LoooooooooooooooooooooooooooooooooooooooooooooooooooooooItem")
 				: l20("LoooooooooooooooItem"));
 
 		assertPrimaryKeySequenceName("AnItem_this_Seq", AnItem.TYPE);
 		assertPrimaryKeySequenceName(defaulT
-				? l25("LoooooooooooItem_this_Seq")
+				? l60("LooooooooooooooooooooooooooooooooooooooooooooooItem_this_Seq")
 				: l20("LooooooItem_this_Seq"),
 				LongItem.TYPE);
 
 		assertIt(AnItem.fieldShort, "fieldShort");
 		assertIt(AnItem.fieldLong , defaulT
-				? l25("fieldLooooooooooooooooooo")
+				? l60("fieldLoooooooooooooooooooooooooooooooooooooooooooooooooooooo")
 				: l20("fieldLoooooooooooooo"));
 
 		assertIt(AnItem.foreignShort,
@@ -77,20 +77,20 @@ public abstract class NameLengthTest extends TestWithEnvironment
 				"foreignShortType");
 		assertIt(AnItem.foreignLong,
 				defaulT
-				? l25("foreignLooooooooooooooooo")
+				? l60("foreignLoooooooooooooooooooooooooooooooooooooooooooooooooooo")
 				: l20("foreignLoooooooooooo"),
 				defaulT
-				? l25("foreignLoooooooooooooType")
+				? l60("foreignLooooooooooooooooooooooooooooooooooooooooooooooooType")
 				: l20("foreignLooooooooType"));
 
 		assertSequence(AnItem.nextShort, "AnItem_nextShort_Seq");
 		assertSequence(AnItem.nextLong , defaulT
-				? l25("AnItem_nextLooooooooo_Seq")
+				? l60("AnItem_nextLoooooooooooooooooooooooooooooooooooooooooooo_Seq")
 				: l20("AnItem_nextLoooo_Seq"));
 
 		assertIt(AnItem.sequenceShort, "AnItem_sequenceShort");
 		assertIt(AnItem.sequenceLong , defaulT
-				? l25("AnItem_sequenceLooooooooo")
+				? l60("AnItem_sequenceLoooooooooooooooooooooooooooooooooooooooooooo")
 				: l20("AnItem_sequenLoooooo"));
 
 		final Schema schema = model.getVerifiedSchema();
@@ -118,8 +118,8 @@ public abstract class NameLengthTest extends TestWithEnvironment
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
 		assertIt(longTable, PrimaryKey, defaulT
-				? assertLength(28, "LooooooooooooooooooooItem_PK") // table name was trimmed to 25 before appending "_PK"
-				: assertLength(23, "LoooooooooooooooItem_PK"));    // table name was trimmed to 20 before appending "_PK"
+				? assertLength(60, "LooooooooooooooooooooooooooooooooooooooooooooooooooooItem_PK")
+				: assertLength(23, "LoooooooooooooooItem_PK")); // table name was trimmed to 20 before appending "_PK"
 
 		assertEquals(OK, table.getCumulativeColor());
 		assertEquals(OK, schema.getCumulativeColor());
@@ -169,11 +169,6 @@ public abstract class NameLengthTest extends TestWithEnvironment
 	private static String l20(final String actualName)
 	{
 		return assertLength(20, actualName);
-	}
-
-	private static String l25(final String actualName)
-	{
-		return assertLength(25, actualName);
 	}
 
 	private static String l30(final String actualName)
@@ -271,7 +266,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 
 	static void assertProperties(final Model model)
 	{
-		assertProperties(60, 25, model);
+		assertProperties(60, 60, model);
 	}
 
 	static void assertProperties(final int standard, final int legacy, final Model model)
