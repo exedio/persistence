@@ -183,7 +183,7 @@ public final class AntTask extends Task
 
 	public void setSerialAnnotation(final boolean value)
 	{
-		params.serialAnnotation = value;
+		throwNoLongerSupported("serialAnnotation", true);
 	}
 
 	public void setIntroCommentOneTime(final String value)
