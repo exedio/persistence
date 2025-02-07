@@ -768,7 +768,6 @@
 				verify="${instrument.verify}"
 				encoding="utf8"
 				serialVersionUIDSuffix="none"
-				serialAnnotation="false"
 				useConstantForEmptySetValuesArray="false"
 				generatedAnnotationRetention="CLASS"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
