@@ -29,7 +29,6 @@ import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -46,51 +45,26 @@ public class SchemaInfoTest extends TestWithEnvironment
 		final char q = mysql ? '`' : '"';
 		assertEquals(q + "name" + q, quoteName(model, "name"));
 		assertEquals(q + "x" + q, quoteName(model, "x"));
-		try
-		{
-			quoteName(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("model", e.getMessage());
-		}
-		try
-		{
-			quoteName(model, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name", e.getMessage());
-		}
-		try
-		{
-			quoteName(model, "");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must not be empty", e.getMessage());
-		}
-		try
-		{
-			quoteName(model, "\"`");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("database name contains forbidden characters: \"`", e.getMessage());
-		}
-		try
-		{
-			getPrimaryKeyColumnValueL(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("Cannot read field \"pk\" because \"item\" is null", e.getMessage());
-		}
+		assertFails(
+				() -> quoteName(null, null),
+				NullPointerException.class,
+				"model");
+		assertFails(
+				() -> quoteName(model, null),
+				NullPointerException.class,
+				"name");
+		assertFails(
+				() -> quoteName(model, ""),
+				IllegalArgumentException.class,
+				"name must not be empty");
+		assertFails(
+				() -> quoteName(model, "\"`"),
+				IllegalArgumentException.class,
+				"database name contains forbidden characters: \"`");
+		assertFails(
+				() -> getPrimaryKeyColumnValueL(null),
+				NullPointerException.class,
+				"Cannot read field \"pk\" because \"item\" is null");
 
 		// with sub types
 		assertEquals("InstanceOfAItem", getTableName(InstanceOfAItem.TYPE));
@@ -112,26 +86,16 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("InstanceOfB2Item", getTableName(InstanceOfB2Item.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfB2Item.TYPE);
 		assertEquals(synthetic("this", "InstanceOfB2Item"), getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
-		try
-		{
-			getTypeColumnName(InstanceOfB2Item.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no type column for InstanceOfB2Item", e.getMessage());
-		}
+		assertFails(
+				() -> getTypeColumnName(InstanceOfB2Item.TYPE),
+				IllegalArgumentException.class,
+				"no type column for InstanceOfB2Item");
 		assertEquals("textb2", getColumnName(InstanceOfB2Item.textb2));
 		assertEquals("refb2", getColumnName(InstanceOfRefItem.refb2));
-		try
-		{
-			getTypeColumnName(InstanceOfRefItem.refb2);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no type column for InstanceOfRefItem.refb2", e.getMessage());
-		}
+		assertFails(
+				() -> getTypeColumnName(InstanceOfRefItem.refb2),
+				IllegalArgumentException.class,
+				"no type column for InstanceOfRefItem.refb2");
 
 		assertEquals(synthetic("catch", "InstanceOfAItem"), getUpdateCounterColumnName(InstanceOfAItem.TYPE));
 
