@@ -98,6 +98,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 				"no type column for InstanceOfRefItem.refb2");
 
 		assertEquals(synthetic("catch", "InstanceOfAItem"), getUpdateCounterColumnName(InstanceOfAItem.TYPE));
+		assertEquals(synthetic("catch", "InstanceOfB1Item"), getUpdateCounterColumnName(InstanceOfB1Item.TYPE));
 
 		assertCacheInfo(
 			InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE
