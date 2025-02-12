@@ -127,7 +127,9 @@ public final class ServletUtil
 		{
 			final String contextParam = config.getServletContext().getInitParameter(PARAMETER_MODEL);
 			if(contextParam==null)
-				throw new IllegalArgumentException(description + ": neither init-param nor context-param '"+PARAMETER_MODEL+"' set");
+				throw new IllegalArgumentException(
+						description + ": " +
+						"neither init-param nor context-param '" + PARAMETER_MODEL + "' set");
 			modelName = contextParam;
 			modelNameSource = "context-param";
 		}
@@ -144,7 +146,11 @@ public final class ServletUtil
 		}
 		catch(final IllegalArgumentException e)
 		{
-			throw new IllegalArgumentException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
+			throw new IllegalArgumentException(
+					description + ", " +
+					modelNameSource + ' ' + PARAMETER_MODEL + ": " +
+					e.getMessage(),
+					e);
 		}
 		return ConnectToken.issue(result, description);
 	}
