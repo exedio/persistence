@@ -87,7 +87,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		item = new MediaPathItem();
 		id = item.getCopeID();
 		servlet = new MyMediaServlet();
-		servlet.initPathes(MODEL);
+		servlet.initPaths(MODEL);
 		servlet.initConnected(MODEL);
 		noSuchPathBefore = getNoSuchPath();
 		normalBefore = MediaPathItem.normal.getInfo();

@@ -83,7 +83,7 @@ public class MediaServlet extends HttpServlet
 
 		connectToken = ServletUtil.getConnectedModel(this).returnOnFailureOf(connectToken ->
 		{
-			initPathes(connectToken.getModel()); // TODO do this before connect
+			initPaths(connectToken.getModel()); // TODO do this before connect
 			initConnected(connectToken.getModel());
 		});
 		// DO NOT WRITE ANYTHING HERE, BUT IN initConnected ONLY
@@ -95,7 +95,7 @@ public class MediaServlet extends HttpServlet
 		model.reviseIfSupportedAndAutoEnabled();
 	}
 
-	void initPathes(final Model model)
+	void initPaths(final Model model)
 	{
 		for(final Type<?> type : model.getTypes())
 		{
