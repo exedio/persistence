@@ -32,6 +32,7 @@ import java.security.SecureRandom;
 public final class MessageDigestHashAlgorithm
 {
 	/**
+	 * @see com.exedio.cope.misc.MessageDigestApiKeyHashAlgorithm#create(int, String)
 	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
 	public static HashAlgorithm create(
