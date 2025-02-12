@@ -116,13 +116,11 @@ public final class ServletUtil
 	{
 		final String PARAMETER_MODEL = "model";
 		final String initParam = config.getInitParameter(PARAMETER_MODEL);
-		final String name = config.getName();
 
 		final String description =
 					config.getKind() + ' ' +
-					'"' + name + '"' + ' ' +
+					'"' + config.getName() + '"' + ' ' +
 					'(' + nameObject.getClass().getName() + '@' + System.identityHashCode(nameObject) + ')';
-		//System.out.println("----------" + name + "---init-param---"+initParam+"---context-param---"+context.getInitParameter(PARAMETER_MODEL)+"---");
 		final String modelName;
 		final String modelNameSource;
 		if(initParam==null)
