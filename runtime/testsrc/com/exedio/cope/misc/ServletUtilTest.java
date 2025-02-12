@@ -22,12 +22,12 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.Assert;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
@@ -131,18 +131,12 @@ public class ServletUtilTest
 			final String name,
 			final String message)
 	{
-		try
-		{
-			ServletUtil.getConnectedModel(servlet);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
+		Assert.assertFails(
+				() -> ServletUtil.getConnectedModel(servlet),
+				IllegalArgumentException.class,
 				"servlet \"" + name + "\" " +
 				"(" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')' +
-				message, e.getMessage());
-		}
+				message);
 	}
 
 	private static void assertFails(
@@ -151,18 +145,12 @@ public class ServletUtilTest
 			final String name,
 			final String message)
 	{
-		try
-		{
-			ServletUtil.getConnectedModel(filter, config);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
+		Assert.assertFails(
+				() -> ServletUtil.getConnectedModel(filter, config),
+				IllegalArgumentException.class,
 				"filter \"" + name + "\" " +
 					"(" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')' +
-					message, e.getMessage());
-		}
+					message);
 	}
 
 	private static class MockServlet implements Servlet
