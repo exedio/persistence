@@ -37,6 +37,14 @@ final class WrapLiteralItem extends Item
 	static final WrapLiteralFeature singleQuoteString = new WrapLiteralFeature("singleQuote'String");
 	static final WrapLiteralFeature singleQuoteChar   = new WrapLiteralFeature('\'');
 
+	static final WrapLiteralFeature multiLineString = new WrapLiteralFeature(
+			"""
+			multi
+			Line
+			String
+			"""
+	);
+
 	@com.exedio.cope.instrument.Generated
 	@java.io.Serial
 	private static final long serialVersionUID = 1l;
