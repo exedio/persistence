@@ -39,8 +39,7 @@ rm /tmp/ideaIC.tar.gz
 EOF
 
 # keeping idea files  out of workspace, where they are scanned by idea inspections
-COPY idea64.vmoptions /tmp
-RUN cat /tmp/idea64.vmoptions >> /opt/idea/bin/idea64.vmoptions
+RUN echo "-Duser.home=/tmp/idea" >> /opt/idea/bin/idea64.vmoptions
 
 ARG IDEA
 LABEL purpose=jenkins-idea
