@@ -129,7 +129,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	public EnumField<E> noDefault()
 	{
-		return new EnumField<>(isfinal, optional, valueClass, unique, copyFrom, null);
+		return defaultTo(null);
 	}
 
 	@Override

@@ -154,7 +154,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, null, precision, roundingMode);
+		return defaultTo(null);
 	}
 
 	@Override

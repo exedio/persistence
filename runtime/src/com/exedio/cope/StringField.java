@@ -163,7 +163,7 @@ public final class StringField extends FunctionField<String>
 	@Override
 	public StringField noDefault()
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, null, minimumLength, maximumLength, charSet, regexp);
+		return defaultTo(null);
 	}
 
 	@Override

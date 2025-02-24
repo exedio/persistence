@@ -117,7 +117,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	public BooleanField noDefault()
 	{
-		return new BooleanField(isfinal, optional, unique, copyFrom, null);
+		return defaultTo(null);
 	}
 
 	@Override

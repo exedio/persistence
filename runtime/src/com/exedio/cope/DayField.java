@@ -138,7 +138,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField noDefault()
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, null);
+		return defaultTo(null);
 	}
 
 	@Override
