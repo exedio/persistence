@@ -30,11 +30,9 @@ import com.exedio.cope.util.Clock;
 import java.io.Serial;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -42,6 +40,8 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class DateField extends FunctionField<Date>
 {
@@ -160,7 +160,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant), precision, roundingMode);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantChecked(defaultConstant), precision, roundingMode);
 	}
 
 	private static final class DefaultNow extends DefaultSupplier<Date>
@@ -434,30 +434,38 @@ public final class DateField extends FunctionField<Date>
 		return result;
 	}
 
-	@Override
-	public Collection<String> getSuspicions()
+	private DefaultSupplier<Date> defaultConstantChecked(final Date value)
 	{
-		final Collection<String> superResult = super.getSuspicions();
-		if(!suspiciousForWrongDefaultNow())
-			return superResult;
-		final ArrayList<String> result = new ArrayList<>(superResult);
-		result.add(
-				"Very probably you called \"DateField.defaultTo(new Date())\". " +
-				"This will not work as expected, use \"defaultToNow()\" instead.");
-		return Collections.unmodifiableList(result);
+		if(suspiciousForWrongDefaultNow(value))
+		{
+			final String suspicion =
+					"Very probably you called \"DateField.defaultTo(new Date())\". " +
+					"This will not work as expected, use \"defaultToNow()\" instead.";
+
+			logWithStacktrace(LoggerFactory.getLogger(getClass()), suspicion);
+			return defaultConstantSuspicious(value, suspicion);
+		}
+		else
+			return defaultConstant(value);
 	}
 
-	private boolean suspiciousForWrongDefaultNow()
+	private static boolean suspiciousForWrongDefaultNow(final Date defaultConstant)
 	{
-		final Date defaultConstant = getDefaultConstant();
 		if(defaultConstant==null)
 			return false;
 
 		return Duration.ofMillis(100).compareTo(
 				Duration.between(
 						defaultConstant.toInstant(),
-						getDefaultConstantCreatedInstant()).abs()
+						Instant.now()).abs()
 		) > 0;
+	}
+
+	static void logWithStacktrace(final Logger logger, final String message)
+	{
+		logger.error(
+				message,
+				new RuntimeException("exception just for creating stacktrace"));
 	}
 
 	@Override

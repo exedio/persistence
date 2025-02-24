@@ -452,6 +452,9 @@ final class Types
 			for(final Feature feature : type.getDeclaredFeatures())
 				feature.afterModelCreated();
 
+		// TODO
+		// May be we don't need this functionality anymore,
+		// since DateField/DayField do log their suspicions on their own.
 		for(final Type<?> type : typesSorted)
 			for(final Feature feature : type.getDeclaredFeatures())
 			{
