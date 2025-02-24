@@ -198,4 +198,18 @@ public class ColorFieldModelTest
 			assertEquals(new Color(11, 22, 33, 44), e.getValue());
 		}
 	}
+	@Test void testDefaultToNull()
+	{
+		final ColorField f = new ColorField();
+		assertEquals(true, f.isInitial());
+		assertEquals(null, f.getDefaultConstant());
+
+		final ColorField fDef = f.defaultTo(new Color(11, 22, 33));
+		assertEquals(false, fDef.isInitial());
+		assertEquals(new Color(11, 22, 33), fDef.getDefaultConstant());
+
+		final ColorField fNoDef = fDef.defaultTo(null);
+		assertEquals(true, fNoDef.isInitial());
+		assertEquals(null, fNoDef.getDefaultConstant());
+	}
 }
