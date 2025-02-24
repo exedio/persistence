@@ -140,7 +140,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	public DoubleField noDefault()
 	{
-		return new DoubleField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
+		return defaultTo(null);
 	}
 
 	@Override

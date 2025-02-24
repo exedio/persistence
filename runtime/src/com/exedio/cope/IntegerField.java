@@ -247,7 +247,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField noDefault()
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
+		return defaultTo(null);
 	}
 
 	@Override

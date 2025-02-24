@@ -175,7 +175,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	public LongField noDefault()
 	{
-		return new LongField(isfinal, optional, unique, copyFrom, null, minimum, maximum);
+		return defaultTo(null);
 	}
 
 	@Override
