@@ -85,9 +85,12 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return new ColorField(rgb.optional());
 	}
 
+	/**
+	 * @see com.exedio.cope.FunctionField#defaultTo(Object)
+	 */
 	public ColorField defaultTo(final Color defaultConstant)
 	{
-		return new ColorField(rgb.defaultTo(rgb(defaultConstant, null)));
+		return new ColorField(rgb.defaultTo(defaultConstant!=null ? rgb(defaultConstant, null) : null));
 	}
 
 	/**
