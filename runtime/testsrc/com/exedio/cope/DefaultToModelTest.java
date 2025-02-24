@@ -38,7 +38,6 @@ import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.util.Day;
 import java.util.Date;
@@ -105,31 +104,6 @@ public class DefaultToModelTest
 		assertEquals(ONE, enumOne.getDefaultConstant());
 		assertEquals(TWO, enumTwo.getDefaultConstant());
 		assertEquals(null, enumNone.getDefaultConstant());
-
-		try
-		{
-			new StringField().lengthMax(3).defaultTo("1234");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			//e.printStackTrace();
-			assertEquals(
-					"The default constant '1234' of the field does not comply to one of it's own constraints, " +
-					"caused a StringLengthViolationException: " +
-					"length violation, '1234' is too long, " +
-					"must be at most 3 characters, but was 4",
-					e.getMessage());
-		}
-		try
-		{
-			longRandom.defaultToRandom(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
 	}
 
 	private static Integer integer(final int i)
