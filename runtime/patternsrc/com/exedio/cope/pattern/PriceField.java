@@ -84,9 +84,12 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return new PriceField(integer.optional());
 	}
 
+	/**
+	 * @see com.exedio.cope.FunctionField#defaultTo(Object)
+	 */
 	public PriceField defaultTo(final Price defaultConstant)
 	{
-		return new PriceField(integer.defaultTo(defaultConstant.store()));
+		return new PriceField(integer.defaultTo(defaultConstant!=null ? defaultConstant.store() : null));
 	}
 
 	public PriceField rangeEvenIfRedundant(final Price minimum, final Price maximum)

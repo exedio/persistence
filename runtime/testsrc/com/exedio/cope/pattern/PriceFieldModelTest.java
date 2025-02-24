@@ -212,9 +212,8 @@ public class PriceFieldModelTest
 		assertEquals(Price.storeOf(2000), df.getDefaultConstant());
 		assertEquals(false, df.isInitial());
 
-		assertFails(
-				() -> f.defaultTo(null),
-				NullPointerException.class,
-				"Cannot invoke \"com.exedio.cope.pattern.Price.store()\" because \"defaultConstant\" is null");
+		final PriceField ndf = f.defaultTo(null);
+		assertEquals(null, ndf.getDefaultConstant());
+		assertEquals(true, ndf.isInitial());
 	}
 }
