@@ -19,11 +19,30 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 public class DefaultToMethodTest
 {
+	@Test void testDefaultToNull()
+	{
+		final StringField f = new StringField();
+		assertEquals(false, f.hasDefault());
+		assertEquals(null, f.getDefaultConstant());
+
+		final StringField fDef = f.defaultTo("abc");
+		assertEquals(true, fDef.hasDefault());
+		assertEquals("abc", fDef.getDefaultConstant());
+
+		final StringField fNoDefA = fDef.defaultTo(null);
+		assertEquals(false, fNoDefA.hasDefault());
+		assertEquals(null, fNoDefA.getDefaultConstant());
+
+		final StringField fNoDefB = fDef.noDefault();
+		assertEquals(false, fNoDefB.hasDefault());
+		assertEquals(null, fNoDefB.getDefaultConstant());
+	}
 	@Test void testConstraintViolated()
 	{
 		final StringField f = new StringField().lengthMax(3);
