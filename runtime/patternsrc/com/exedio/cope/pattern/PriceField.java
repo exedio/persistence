@@ -89,7 +89,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 	 */
 	public PriceField defaultTo(final Price defaultConstant)
 	{
-		return new PriceField(integer.defaultTo(defaultConstant!=null ? defaultConstant.store() : null));
+		return new PriceField(integer.defaultTo(Price.store(defaultConstant)));
 	}
 
 	public PriceField rangeEvenIfRedundant(final Price minimum, final Price maximum)
@@ -192,7 +192,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
 
-		integer.set(item, value!=null ? value.store() : null);
+		integer.set(item, Price.store(value));
 	}
 
 	@Override
@@ -201,7 +201,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return new SetValue<?>[]{ SetValue.map(integer, value!=null ? value.store() : null) };
+		return new SetValue<?>[]{ SetValue.map(integer, Price.store(value)) };
 	}
 
 	// convenience methods for conditions and views ---------------------------------
@@ -231,13 +231,13 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 	@Override
 	public Condition equal(final Price value)
 	{
-		return value!=null ? integer.equal(value.store()) : integer.isNull();
+		return integer.equal(Price.store(value));
 	}
 
 	@Override
 	public Condition notEqual(final Price value)
 	{
-		return value!=null ? integer.notEqual(value.store()) : integer.isNotNull();
+		return integer.notEqual(Price.store(value));
 	}
 
 	@Override
