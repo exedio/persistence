@@ -280,7 +280,15 @@ public abstract class FunctionField<E> extends Field<E>
 	 */
 	public abstract FunctionField<E> noCopyFrom();
 
+	/**
+	 * Equivalent to {@link #defaultTo(Object) defaultTo(null)}.
+	 */
 	public abstract FunctionField<E> noDefault();
+
+	/**
+	 * @param defaultConstant
+	 * May be null, then the call is equivalent to {@link #noDefault()}.
+	 */
 	public abstract FunctionField<E> defaultTo(E defaultConstant);
 
 	boolean overlaps(final FunctionField<?> other)
