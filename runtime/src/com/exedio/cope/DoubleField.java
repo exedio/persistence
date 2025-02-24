@@ -298,7 +298,7 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	@Override
-	public Condition equal(final Double value)
+	public Condition is(final Double value)
 	{
 		if(value!=null)
 		{
@@ -307,14 +307,14 @@ public final class DoubleField extends NumberField<Double>
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.ofFalse();
 			else
-				return super.equal(value);
+				return super.is(value);
 		}
 		else
 			return isNull();
 	}
 
 	@Override
-	public Condition notEqual(final Double value)
+	public Condition isNot(final Double value)
 	{
 		if(value!=null)
 		{
@@ -323,7 +323,7 @@ public final class DoubleField extends NumberField<Double>
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.ofTrue();
 			else
-				return super.notEqual(value);
+				return super.isNot(value);
 		}
 		else
 			return isNotNull();

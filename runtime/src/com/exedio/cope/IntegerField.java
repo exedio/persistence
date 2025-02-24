@@ -469,7 +469,7 @@ public final class IntegerField extends NumberField<Integer>
 
 
 	@Override
-	public Condition equal(final Integer value)
+	public Condition is(final Integer value)
 	{
 		if(value!=null)
 		{
@@ -478,14 +478,14 @@ public final class IntegerField extends NumberField<Integer>
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.ofFalse();
 			else
-				return super.equal(value);
+				return super.is(value);
 		}
 		else
 			return isNull();
 	}
 
 	@Override
-	public Condition notEqual(final Integer value)
+	public Condition isNot(final Integer value)
 	{
 		if(value!=null)
 		{
@@ -494,7 +494,7 @@ public final class IntegerField extends NumberField<Integer>
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.ofTrue();
 			else
-				return super.notEqual(value);
+				return super.isNot(value);
 		}
 		else
 			return isNotNull();
