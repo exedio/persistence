@@ -88,6 +88,9 @@ public class FieldBooleanTest extends FieldTest
 		assertContains(item, item2, TYPE.search(someBoolean.isNull()));
 		assertContains(TYPE.search(someBoolean.notEqual((Boolean)null)));
 		assertContains(TYPE.search(someBoolean.isNotNull()));
+
+		assertEquals(someBoolean.equal(true ).toString(), someBoolean.isTrue ().toString());
+		assertEquals(someBoolean.equal(false).toString(), someBoolean.isFalse().toString());
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage

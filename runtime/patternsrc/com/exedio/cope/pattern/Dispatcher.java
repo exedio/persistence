@@ -497,7 +497,7 @@ public final class Dispatcher extends Pattern
 		for(final P item : Iterables.once(
 				iterateTypeTransactionally(
 						type,
-						pending.equal(true).and(config.narrowCondition),
+						pending.isTrue().and(config.narrowCondition),
 						config.getSearchSize())))
 		{
 			if(probe!=EMPTY_PROBE && probeRequired)
@@ -1046,14 +1046,14 @@ public final class Dispatcher extends Pattern
 		{
 			//noinspection DataFlowIssue OK: getUnpendSuccess cannot return null if supportsPurge return true
 			dateCondition = Cope.or(
-					getUnpendSuccess().equal(true ).and(dateBefore(now, success)),
-					getUnpendSuccess().equal(false).and(dateBefore(now, failure))
+					getUnpendSuccess().isTrue ().and(dateBefore(now, success)),
+					getUnpendSuccess().isFalse().and(dateBefore(now, failure))
 				);
 		}
 
 		return getType().newQuery(
-				pending.equal(false).and(
-				noPurge.equal(false)).and(
+				pending.isFalse().and(
+				noPurge.isFalse()).and(
 				restriction).and(
 				dateCondition));
 	}
