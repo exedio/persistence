@@ -52,13 +52,6 @@ public final class ConnectTokenRule extends MainRule
 		ConnectToken.removePropertiesVoid(model);
 	}
 
-	@SuppressWarnings("deprecation") // OK testing deprecated api
-	public ConnectProperties remove()
-	{
-		assertBeforeCalled();
-		return ConnectToken.removeProperties(model);
-	}
-
 
 	@Override
 	protected void after()
