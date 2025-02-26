@@ -71,10 +71,17 @@ public class PriceTest
 	private static final Price mp98 = p98.negate();
 	private static final Price mp99 = p99.negate();
 
-	@Test void testIt()
+	@Test void testStore()
 	{
 		assertEquals(5, storeOf(5).store());
 		assertEquals(0, storeOf(0).store());
+	}
+
+	@Test void testStoreStatic()
+	{
+		assertEquals(Long.valueOf(5), Price.store(storeOf(5)));
+		assertEquals(Long.valueOf(0), Price.store(storeOf(0)));
+		assertEquals(null,            Price.store(null));
 	}
 
 	@Test void testStoreIntExact()

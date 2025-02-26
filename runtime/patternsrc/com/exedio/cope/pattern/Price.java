@@ -117,6 +117,11 @@ public final class Price implements Serializable, Comparable<Price>
 		return store;
 	}
 
+	public static Long store(final Price price)
+	{
+		return price!=null ? price.store : null;
+	}
+
 	public int storeIntExact()
 	{
 		if(store<Integer.MIN_VALUE || store>Integer.MAX_VALUE)
