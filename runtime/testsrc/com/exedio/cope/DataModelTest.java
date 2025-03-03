@@ -33,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
@@ -148,7 +147,7 @@ public class DataModelTest
 	{
 		final DataItem item = TYPE.activate(567);
 		assertFails(
-				() -> item.getData((File)null),
+				() -> item.getDataDeprecated(null),
 				NullPointerException.class,
 				"sink");
 	}

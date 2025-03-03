@@ -119,7 +119,7 @@ public class DataTest extends TestWithEnvironment
 			}
 			{
 				final File temp = files.newFileNotExists();
-				item.getData(temp);
+				item.getDataDeprecated(temp);
 				assertTrue(temp.exists());
 				assertEqualContent(expectedData, temp);
 			}
@@ -131,7 +131,7 @@ public class DataTest extends TestWithEnvironment
 			}
 			{
 				final File temp = files.newFile(alreadyExists);
-				item.getData(temp);
+				item.getDataDeprecated(temp);
 				assertTrue(temp.exists());
 				assertEqualContent(expectedData, temp);
 			}
@@ -175,7 +175,7 @@ public class DataTest extends TestWithEnvironment
 			}
 			{
 				final File temp = files.newFileNotExists();
-				item.getData(temp);
+				item.getDataDeprecated(temp);
 				assertFalse(temp.exists());
 			}
 			{
@@ -186,7 +186,7 @@ public class DataTest extends TestWithEnvironment
 			}
 			{
 				final File temp = files.newFile(alreadyExists);
-				item.getData(temp);
+				item.getDataDeprecated(temp);
 				assertTrue(temp.exists()); // TODO maybe file should be deleted when field is null?
 				assertEqualContent(alreadyExists, temp);
 			}

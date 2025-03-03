@@ -323,6 +323,7 @@ public class DataVaultInfoTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		final void getField(@javax.annotation.Nonnull final java.io.File field)
 				throws
 					java.io.IOException
