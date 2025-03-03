@@ -267,16 +267,16 @@ public class DataTest extends TestWithEnvironment
 
 
 		// set File
-		item.setData(files.newFile(bytes8));
+		item.setDataDeprecated(files.newFile(bytes8));
 		assertIt(bytes8);
 
-		item.setData(files.newFile(bytes0));
+		item.setDataDeprecated(files.newFile(bytes0));
 		assertIt(bytes0);
 
-		item.setData(files.newFile(dataBig));
+		item.setDataDeprecated(files.newFile(dataBig));
 		assertIt(dataBig);
 
-		item.setData((File)null);
+		item.setDataDeprecated(null);
 		assertIt(null);
 
 
@@ -314,7 +314,7 @@ public class DataTest extends TestWithEnvironment
 		assertData(bytes10, item.getData10Array());
 
 		assertFailsLength(
-				() -> item.setData10(files.newFile(bytes11)),
+				() -> item.setData10Deprecated(files.newFile(bytes11)),
 				item, data10, 11, true,
 				"length violation on " + item + ", 11 bytes is too long for " + data10);
 		assertData(bytes10, item.getData10Array());

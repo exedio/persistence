@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -109,12 +108,12 @@ public class DataMandatoryTest extends TestWithEnvironment
 		}
 		assertData(bytes5, item.getDataArray());
 
-		item.setData(files.newFile(bytes6));
+		item.setDataDeprecated(files.newFile(bytes6));
 		assertData(bytes6, item.getDataArray());
 
 		try
 		{
-			item.setData((File)null);
+			item.setDataDeprecated(null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

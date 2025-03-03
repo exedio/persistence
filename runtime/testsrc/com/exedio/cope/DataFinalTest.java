@@ -97,7 +97,7 @@ public class DataFinalTest extends TestWithEnvironment
 
 		try
 		{
-			data.set(item, files.newFile(bytes6));
+			item.setDataDeprecated(files.newFile(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)

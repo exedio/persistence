@@ -329,6 +329,7 @@ public class HashConstraintTest
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		void setData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					com.exedio.cope.MandatoryViolationException,

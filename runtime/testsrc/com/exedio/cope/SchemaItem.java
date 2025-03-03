@@ -1081,6 +1081,7 @@ final class SchemaItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException

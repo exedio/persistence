@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.File;
 import java.io.IOException;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 class DataItem extends Item
 {
@@ -48,6 +49,16 @@ class DataItem extends Item
 	final void getDataDeprecated(@Nonnull final File data) throws IOException
 	{
 		getData(data);
+	}
+
+	final void setDataDeprecated(@Nullable final File data) throws IOException
+	{
+		setData(data);
+	}
+
+	final void setData10Deprecated(@Nullable final File data10) throws IOException
+	{
+		setData10(data10);
 	}
 
 
@@ -184,6 +195,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
@@ -308,6 +320,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void setData10(@javax.annotation.Nullable final java.io.File data10)
 			throws
 				java.io.IOException
@@ -432,6 +445,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void setData10k(@javax.annotation.Nullable final java.io.File data10k)
 			throws
 				java.io.IOException
@@ -556,6 +570,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void setData100M(@javax.annotation.Nullable final java.io.File data100M)
 			throws
 				java.io.IOException
