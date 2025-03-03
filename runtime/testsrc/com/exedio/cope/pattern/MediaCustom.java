@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapInterim;
 import java.io.Serial;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +34,10 @@ final class MediaCustom extends MediaPath
 	@Serial
 	private static final long serialVersionUID = 1l;
 
+	@WrapInterim
 	final StringField source;
 
+	@WrapInterim
 	MediaCustom(final StringField source)
 	{
 		this.source = source;
@@ -46,6 +49,7 @@ final class MediaCustom extends MediaPath
 	}
 
 	@Override
+	@WrapInterim
 	public boolean isMandatory()
 	{
 		return false;
