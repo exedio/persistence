@@ -104,22 +104,6 @@ public class ConnectTokenSetTest
 		assertEquals(1, supplied.get());
 	}
 
-	@Test void testNormalVoid()
-	{
-		assertFalse(model.isConnected());
-		assertSame(null, getProperties(model));
-		assertNotSet();
-
-		final ConnectProperties properties = ConnectProperties.create(TestSources.minimal());
-		ctr.set(properties);
-		assertSame(properties, getProperties(model));
-		assertEquals(list(), getTokens(model));
-
-		ctr.removeVoid();
-		assertSame(null, getProperties(model));
-		assertNotSet();
-	}
-
 	@Test void testSupplierReturnsNull()
 	{
 		assertFalse(model.isConnected());
@@ -220,17 +204,6 @@ public class ConnectTokenSetTest
 	}
 
 	@Test void testRemoveWithoutSet()
-	{
-		assertFalse(model.isConnected());
-		assertSame(null, getProperties(model));
-		assertNotSet();
-
-		ctr.removeVoid();
-		assertSame(null, getProperties(model));
-		assertNotSet();
-	}
-
-	@Test void testRemoveWithoutSetVoid()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
