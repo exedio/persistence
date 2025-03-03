@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DateField.logWithStacktrace;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DayPartView.Part;
@@ -26,15 +27,14 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
 import java.io.Serial;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.TimeZone;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
+import org.slf4j.LoggerFactory;
 
 public final class DayField extends FunctionField<Day>
 {
@@ -146,7 +146,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField defaultTo(final Day defaultConstant)
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant));
+		return new DayField(isfinal, optional, unique, copyFrom, defaultConstantChecked(defaultConstant));
 	}
 
 	private static final class DefaultNow extends DefaultSupplier<Day>
@@ -223,27 +223,28 @@ public final class DayField extends FunctionField<Day>
 		return SimpleSelectType.DAY;
 	}
 
-	@Override
-	public Collection<String> getSuspicions()
+	private DefaultSupplier<Day> defaultConstantChecked(final Day value)
 	{
-		final Collection<String> superResult = super.getSuspicions();
-		if(!suspiciousForWrongDefaultNow())
-			return superResult;
-		final ArrayList<String> result = new ArrayList<>(superResult);
-		result.add(
-				"Very probably you called \"DayField.defaultTo(new Day())\". " +
-				"This will not work as expected, use \"defaultToNow()\" instead.");
-		return Collections.unmodifiableList(result);
+		if(suspiciousForWrongDefaultNow(value))
+		{
+			final String suspicion =
+					"Very probably you called \"DayField.defaultTo(new Day())\". " +
+					"This will not work as expected, use \"defaultToNow()\" instead.";
+
+			logWithStacktrace(LoggerFactory.getLogger(getClass()), suspicion);
+			return defaultConstantSuspicious(value, suspicion);
+		}
+		else
+			return defaultConstant(value);
 	}
 
-	private boolean suspiciousForWrongDefaultNow()
+	private static boolean suspiciousForWrongDefaultNow(final Day defaultConstant)
 	{
-		final Day defaultConstant = getDefaultConstant();
 		if(defaultConstant==null)
 			return false;
 
 		final LocalDate defaultDate = defaultConstant.toLocalDate();
-		final LocalDate today = getDefaultConstantCreatedInstant().atZone(ZoneOffset.UTC).toLocalDate();
+		final LocalDate today = Instant.now().atZone(ZoneOffset.UTC).toLocalDate();
 		return
 				defaultDate.equals(today) ||
 				defaultDate.equals(today.minusDays(1)) || // margin for time zone offsets

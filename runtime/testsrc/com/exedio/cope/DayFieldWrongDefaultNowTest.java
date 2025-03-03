@@ -49,6 +49,9 @@ public class DayFieldWrongDefaultNowTest
 		assertEqualsUnmodifiable(asList(), AnItem.past.getSuspicions());
 		assertEqualsUnmodifiable(asList(), AnItem.future.getSuspicions());
 
+		log.assertError(
+				"Very probably you called \"DayField.defaultTo(new Day())\". " +
+				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();
 		final Type<?> type = newType(AnItem.class, AnItem::new);
 		log.assertEmpty();

@@ -28,8 +28,8 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
-import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -100,20 +100,20 @@ public abstract class FunctionField<E> extends Field<E>
 		return value!=null ? new DefaultConstant<>(value, null) : null;
 	}
 
-	final DefaultConstant<E> defaultConstantWithCreatedTime(final E value)
+	final DefaultConstant<E> defaultConstantSuspicious(@Nonnull final E value, @Nonnull final String suspicion)
 	{
-		return value!=null ? new DefaultConstant<>(value, Instant.now()) : null;
+		return new DefaultConstant<>(requireNonNull(value), requireNonNull(suspicion));
 	}
 
 	private static final class DefaultConstant<E> extends DefaultSupplier<E>
 	{
 		final E value;
-		private final Instant createdInstant;
+		final String suspicion;
 
-		DefaultConstant(final E value, final Instant createdInstant)
+		DefaultConstant(final E value, final String suspicion)
 		{
 			this.value = value;
-			this.createdInstant = createdInstant;
+			this.suspicion = suspicion;
 
 			assert value!=null;
 		}
@@ -122,12 +122,6 @@ public abstract class FunctionField<E> extends Field<E>
 		E generate(final Context ctx)
 		{
 			return value;
-		}
-
-		Instant createdInstant()
-		{
-			assert createdInstant!=null;
-			return createdInstant;
 		}
 
 		@Override
@@ -158,9 +152,16 @@ public abstract class FunctionField<E> extends Field<E>
 		}
 	}
 
-	final Instant getDefaultConstantCreatedInstant()
+	@Override
+	public final Collection<String> getSuspicions()
 	{
-		return ((DefaultConstant<E>)defaultS).createdInstant();
+		final Collection<String> superResult = super.getSuspicions();
+		final String suspicion = defaultS instanceof final DefaultConstant<?> dc ? dc.suspicion : null;
+		if(suspicion==null)
+			return superResult;
+		final ArrayList<String> result = new ArrayList<>(superResult);
+		result.add(suspicion);
+		return Collections.unmodifiableList(result);
 	}
 
 	/**
