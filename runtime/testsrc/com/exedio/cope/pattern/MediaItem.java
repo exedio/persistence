@@ -25,6 +25,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
+import java.io.File;
+import java.io.IOException;
+import javax.annotation.Nonnull;
 
 public final class MediaItem extends Item
 {
@@ -77,6 +80,11 @@ public final class MediaItem extends Item
 	MediaPath.Locator getCustomLocator()
 	{
 		return custom.getLocator(this);
+	}
+
+	void getFileBodyDeprecated(@Nonnull final File body) throws IOException
+	{
+		getFileBody(body);
 	}
 
 	/**
@@ -217,6 +225,7 @@ public final class MediaItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -385,6 +394,7 @@ public final class MediaItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void getImageBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -542,6 +552,7 @@ public final class MediaItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void getPhotoBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -710,6 +721,7 @@ public final class MediaItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void getSheetBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException

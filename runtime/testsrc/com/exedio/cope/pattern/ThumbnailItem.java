@@ -156,6 +156,7 @@ public final class ThumbnailItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException

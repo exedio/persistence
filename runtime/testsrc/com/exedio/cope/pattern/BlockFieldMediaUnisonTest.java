@@ -234,6 +234,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		void getUnoBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
@@ -358,6 +359,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		void getDuoBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
