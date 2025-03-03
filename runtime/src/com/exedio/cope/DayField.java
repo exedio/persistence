@@ -26,7 +26,9 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
 import java.io.Serial;
+import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -240,7 +242,12 @@ public final class DayField extends FunctionField<Day>
 		if(defaultConstant==null)
 			return false;
 
-		return defaultConstant.toLocalDate().equals(getDefaultConstantCreatedInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		final LocalDate defaultDate = defaultConstant.toLocalDate();
+		final LocalDate today = getDefaultConstantCreatedInstant().atZone(ZoneOffset.UTC).toLocalDate();
+		return
+				defaultDate.equals(today) ||
+				defaultDate.equals(today.minusDays(1)) || // margin for time zone offsets
+				defaultDate.equals(today.plusDays (1));   // margin for time zone offsets
 	}
 
 	@Override
