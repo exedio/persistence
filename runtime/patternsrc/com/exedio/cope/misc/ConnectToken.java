@@ -360,30 +360,6 @@ public final class ConnectToken implements AutoCloseable
 		}
 	}
 
-	/**
-	 * @deprecated
-	 * Use {@link #removePropertiesVoid(Model) removePropertiesVoid} instead.
-	 * This method may fail at computing the result if used together with
-	 * {@link #setProperties(Model, Supplier)} and the supplier fails.
-	 * @see #setProperties(Model, ConnectProperties)
-	 */
-	@Deprecated
-	public static ConnectProperties removeProperties(final Model model)
-	{
-		requireNonNull(model, "model");
-
-		final Manciple manciple;
-
-		synchronized(manciples)
-		{
-			manciple = manciples.remove(model);
-		}
-
-		// BEWARE:
-		// may fail if used together with #setProperties(Model, Supplier) and the supplier fails
-		return manciple!=null ? manciple.properties(model) : null;
-	}
-
 	private static Manciple manciple(final Model model)
 	{
 		requireNonNull(model, "model");

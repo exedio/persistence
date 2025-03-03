@@ -76,20 +76,6 @@ public class ConnectTokenNullModelTest
 		}
 	}
 
-	@SuppressWarnings("deprecation") // OK testing deprecated api
-	@Test void testDeprecated()
-	{
-		try
-		{
-			ConnectToken.removeProperties(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("model", e.getMessage());
-		}
-	}
-
 	@Test void testIt2()
 	{
 		try
