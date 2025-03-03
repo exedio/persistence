@@ -269,6 +269,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFoto(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -427,6 +428,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFotoSecure(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -585,6 +587,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFotoFinger(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -743,6 +746,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFotoSecFin(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -901,6 +905,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFile(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -1059,6 +1064,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFileSecure(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -1217,6 +1223,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFileFinger(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -1375,6 +1382,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFileSecFin(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -1522,6 +1530,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setNoLocator(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException

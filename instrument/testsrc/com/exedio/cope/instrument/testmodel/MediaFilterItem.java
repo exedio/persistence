@@ -191,19 +191,6 @@ public class MediaFilterItem extends Item
 	}
 
 	/**
-	 * Sets the content of media {@link #text}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	final void setText(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		MediaFilterItem.text.set(this,body,contentType);
-	}
-
-	/**
 	 * Returns a URL the content of {@link #textConverted} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
@@ -371,19 +358,6 @@ public class MediaFilterItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setOptionalText(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		MediaFilterItem.optionalText.set(this,body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #optionalText}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	final void setOptionalText(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -559,19 +533,6 @@ public class MediaFilterItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setTextOrImage(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		MediaFilterItem.textOrImage.set(this,body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #textOrImage}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	final void setTextOrImage(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

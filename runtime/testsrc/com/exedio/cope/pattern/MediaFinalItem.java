@@ -25,6 +25,8 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.File;
+import java.io.IOException;
 
 @WrapperType(genericConstructor=PACKAGE)
 public final class MediaFinalItem extends Item
@@ -40,6 +42,12 @@ public final class MediaFinalItem extends Item
 	public MediaFinalItem(final byte[] fileBody, final String fileContentType)
 	{
 		this(Media.toValue(fileBody, fileContentType));
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	void setFileDeprecated(final File body, final String contentType) throws IOException
+	{
+		file.set(this, body, contentType);
 	}
 
 

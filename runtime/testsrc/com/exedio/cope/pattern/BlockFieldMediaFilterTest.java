@@ -272,6 +272,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setSource(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException

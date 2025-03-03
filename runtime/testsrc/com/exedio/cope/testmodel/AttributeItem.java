@@ -736,6 +736,7 @@ public final class AttributeItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	public void setSomeData(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException

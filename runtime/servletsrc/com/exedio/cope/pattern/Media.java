@@ -635,11 +635,13 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * @throws DataLengthViolationException
 	 *         if {@code body} is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading {@code body} throws an IOException.
+	 * @deprecated Use {@link #set(Item, Path, String)} instead.
 	 */
 	@Wrap(order=140,
 			doc="Sets the content of media {0}.",
 			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
+	@Deprecated
 	public void set(
 			@Nonnull final Item item,
 			@Parameter(value="body", nullability=NullableIfOptional.class) final File body,
