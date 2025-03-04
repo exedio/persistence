@@ -27,7 +27,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -44,7 +43,6 @@ final class MediaServletItem extends Item
 
 	@Wrapper(wrap="set", internal=true)
 	@Wrapper(wrap="set", parameters=Media.Value.class, visibility=NONE)
-	@Wrapper(wrap="set", parameters={File.class, String.class}, visibility=NONE)
 	@Wrapper(wrap="getURL", visibility=NONE)
 	@RedirectFrom({"contentAlt1", "contentAlt2"})
 	static final Media content = new Media().optional();

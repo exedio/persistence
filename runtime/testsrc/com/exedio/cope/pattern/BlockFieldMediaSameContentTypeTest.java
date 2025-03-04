@@ -269,6 +269,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		void setUno(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -394,6 +395,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		void setDuo(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException

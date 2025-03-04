@@ -199,11 +199,11 @@ public class MediaDefaultTest extends TestWithEnvironment
 		assertContentNull();
 		{
 			clock.add(123457);
-			item.setFile(files.newFile(bytes8), "empty-major/empty-minor");
+			item.setFileDeprecated(files.newFile(bytes8), "empty-major/empty-minor");
 			clock.assertEmpty();
 			assertContent(bytes8, new Date(123457), "empty-major/empty-minor", "");
 		}
-		item.setFile((File)null, null);
+		item.setFileDeprecated(null, null);
 		assertContentNull();
 		{
 			clock.add(123456004);
@@ -304,7 +304,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 			clock.add(123456009);
 			try
 			{
-				item.setFile(files.newFile(bytes21), "empty-major-long/empty-minor-long");
+				item.setFileDeprecated(files.newFile(bytes21), "empty-major-long/empty-minor-long");
 				fail();
 			}
 			catch(final DataLengthViolationException e)

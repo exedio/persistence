@@ -41,7 +41,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -155,7 +154,7 @@ public class MediaFinalTest extends TestWithEnvironment
 
 		try
 		{
-			file.set(item, (File)null, null);
+			item.setFileDeprecated(null, null);
 			fail();
 		}
 		catch(final FinalViolationException e)

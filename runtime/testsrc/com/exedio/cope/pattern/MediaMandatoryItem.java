@@ -25,6 +25,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import java.io.File;
+import java.io.IOException;
+import javax.annotation.Nonnull;
 
 @WrapperType(genericConstructor=PACKAGE)
 public final class MediaMandatoryItem extends Item
@@ -47,6 +50,11 @@ public final class MediaMandatoryItem extends Item
 	boolean isFileNull()
 	{
 		return file.isNull(this);
+	}
+
+	void setFileDeprecated(@Nonnull final File body, @Nonnull final String contentType) throws IOException
+	{
+		setFile(body, contentType);
 	}
 
 
@@ -248,6 +256,7 @@ public final class MediaMandatoryItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setFile(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException

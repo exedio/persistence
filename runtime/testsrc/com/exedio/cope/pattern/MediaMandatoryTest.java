@@ -41,7 +41,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -160,7 +159,7 @@ public class MediaMandatoryTest extends TestWithEnvironment
 
 		try
 		{
-			item.setFile((File)null, null);
+			item.setFileDeprecated(null, null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
