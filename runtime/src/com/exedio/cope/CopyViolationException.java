@@ -131,6 +131,13 @@ public final class CopyViolationException extends ConstraintViolationException
 	{
 		if (additionalFeature==null)
 		{
+			if(feature.isChoice())
+				return
+						"choice violation" + getItemPhrase() +
+						" for " + feature +
+						", mismatching backPointer " + toString(expectedValue) +
+						" at " + targetItem.getCopeID();
+
 			return
 				"copy violation" + getItemPhrase() +
 				" for " + feature +
@@ -140,6 +147,7 @@ public final class CopyViolationException extends ConstraintViolationException
 		}
 		else
 		{
+			assert !feature.isChoice();
 			return
 				"copy violation" + getItemPhrase() +
 				" for " + feature + " and " + additionalFeature +
