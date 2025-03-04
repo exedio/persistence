@@ -21,12 +21,20 @@ package com.exedio.cope;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
 
 import com.exedio.cope.instrument.WrapperType;
+import java.io.File;
+import java.io.IOException;
+import javax.annotation.Nonnull;
 
 @WrapperType(genericConstructor=PACKAGE)
 final class DataMandatoryItem extends Item
 {
 	static final DataField data = new DataField();
 
+
+	void setDataDeprecated(@Nonnull final File data) throws IOException
+	{
+		setData(data);
+	}
 
 	/**
 	 * Creates a new DataMandatoryItem with all the fields initially needed.
@@ -174,6 +182,7 @@ final class DataMandatoryItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	void setData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				com.exedio.cope.MandatoryViolationException,

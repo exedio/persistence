@@ -18,11 +18,19 @@
 
 package com.exedio.cope;
 
+import java.io.File;
+import java.io.IOException;
 
 final class DataFinalItem extends Item
 {
 
 	static final DataField data = new DataField().toFinal().optional();
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	void setDataDeprecated(final File value) throws IOException
+	{
+		data.set(this, value);
+	}
 
 	/**
 	 * Creates a new DataFinalItem with all the fields initially needed.

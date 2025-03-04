@@ -282,6 +282,7 @@ public class DumperItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void setData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				com.exedio.cope.MandatoryViolationException,

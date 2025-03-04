@@ -400,11 +400,13 @@ public final class DataField extends Field<DataField.Value>
 	 * @throws DataLengthViolationException
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
+	 * @deprecated Use {@link #set(Item, Path)} instead.
 	 */
 	@Wrap(order=130,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalSettableGetter.class)
+	@Deprecated
 	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final File data)
 	throws IOException

@@ -320,6 +320,7 @@ public class HashConditionTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		void setDataInternal(@javax.annotation.Nullable final java.io.File data)
 				throws
 					java.io.IOException
