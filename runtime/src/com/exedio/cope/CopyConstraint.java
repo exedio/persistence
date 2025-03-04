@@ -346,7 +346,7 @@ public final class CopyConstraint extends Feature
 			final Object actualValue = fieldValues.getBackingItem();
 			// special case if actualValue is an item about to be created
 			if(actualValue==null)
-				throw new CopyViolationException(targetItem, CopyConstraint.this, expectedValue, fieldValues.backingType);
+				throw new CopyViolationException(targetItem, CopyConstraint.this, expectedValue);
 			return actualValue;
 		}
 		@Override public String toString()
