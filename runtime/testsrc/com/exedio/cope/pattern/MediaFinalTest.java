@@ -191,9 +191,9 @@ public class MediaFinalTest extends TestWithEnvironment
 
 	private void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
 	{
-		final File tempFile = files.newFileNotExists();
-		item.getFileBody(tempFile);
-		assertEqualContent(expectedData, tempFile);
+		final File temp = files.newFileNotExists();
+		item.getFileBody(temp);
+		assertEqualContent(expectedData, temp);
 	}
 
 	private static void assertContentNull(final MediaFinalItem item)
