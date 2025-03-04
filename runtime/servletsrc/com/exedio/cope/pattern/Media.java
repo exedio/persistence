@@ -595,11 +595,13 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * @throws NullPointerException
 	 *         if {@code body} is null.
 	 * @throws IOException if writing {@code body} throws an IOException.
+	 * @deprecated Use {@link #getBody(Item,Path)} instead.
 	 */
 	@Wrap(order=60,
 			doc={"Writes the body of media {0} into the given file.",
 					"Does nothing, if the media is null."},
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
+	@Deprecated
 	public void getBody(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("body") final File body)

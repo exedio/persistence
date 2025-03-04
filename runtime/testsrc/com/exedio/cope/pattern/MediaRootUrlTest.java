@@ -217,6 +217,7 @@ public class MediaRootUrlTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException

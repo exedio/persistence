@@ -185,6 +185,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getNonFinalBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -354,6 +355,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getIsFinalBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -461,6 +463,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getNonFinalFingerBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -630,6 +633,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getIsFinalFingerBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException

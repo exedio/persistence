@@ -142,20 +142,6 @@ public class MediaFilterItem extends Item
 	}
 
 	/**
-	 * Writes the body of media {@link #text} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	final void getTextBody(@javax.annotation.Nonnull final java.io.File body)
-			throws
-				java.io.IOException
-	{
-		MediaFilterItem.text.getBody(this,body);
-	}
-
-	/**
 	 * Sets the content of media {@link #text}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
@@ -336,20 +322,6 @@ public class MediaFilterItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getOptionalTextBody(@javax.annotation.Nonnull final java.nio.file.Path body)
-			throws
-				java.io.IOException
-	{
-		MediaFilterItem.optionalText.getBody(this,body);
-	}
-
-	/**
-	 * Writes the body of media {@link #optionalText} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	final void getOptionalTextBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -538,20 +510,6 @@ public class MediaFilterItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getTextOrImageBody(@javax.annotation.Nonnull final java.nio.file.Path body)
-			throws
-				java.io.IOException
-	{
-		MediaFilterItem.textOrImage.getBody(this,body);
-	}
-
-	/**
-	 * Writes the body of media {@link #textOrImage} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	final void getTextOrImageBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{

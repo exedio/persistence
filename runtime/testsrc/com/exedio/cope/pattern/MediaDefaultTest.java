@@ -417,7 +417,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 	private void assertDataFile(final byte[] expectedData) throws IOException
 	{
 		final File temp = files.newFileNotExists();
-		item.getFileBody(temp);
+		item.getFileBodyDeprecated(temp);
 		assertEqualContent(expectedData, temp);
 	}
 

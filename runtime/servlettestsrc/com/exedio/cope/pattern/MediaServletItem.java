@@ -301,20 +301,6 @@ final class MediaServletItem extends Item
 	}
 
 	/**
-	 * Writes the body of media {@link #content} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void getContentBody(@javax.annotation.Nonnull final java.io.File body)
-			throws
-				java.io.IOException
-	{
-		MediaServletItem.content.getBody(this,body);
-	}
-
-	/**
 	 * Sets the content of media {@link #content}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")

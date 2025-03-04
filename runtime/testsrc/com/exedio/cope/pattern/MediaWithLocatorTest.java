@@ -199,6 +199,7 @@ public class MediaWithLocatorTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		final void getWithLocatorBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
@@ -307,6 +308,7 @@ public class MediaWithLocatorTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		final void getNoLocatorBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException

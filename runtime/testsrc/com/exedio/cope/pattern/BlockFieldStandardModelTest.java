@@ -496,6 +496,7 @@ public class BlockFieldStandardModelTest
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.Deprecated
 		void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException

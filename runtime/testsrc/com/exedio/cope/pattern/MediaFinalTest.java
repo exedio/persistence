@@ -44,6 +44,7 @@ import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
@@ -191,9 +192,9 @@ public class MediaFinalTest extends TestWithEnvironment
 
 	private void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
 	{
-		final File temp = files.newFileNotExists();
+		final Path temp = files.newPathNotExists();
 		item.getFileBody(temp);
-		assertEqualContent(expectedData, temp);
+		assertEqualContent(expectedData, temp.toFile());
 	}
 
 	private static void assertContentNull(final MediaFinalItem item)
