@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import java.io.File;
+import java.io.IOException;
+import javax.annotation.Nonnull;
+
 class DataItem extends Item
 {
 	static final DataField data = new DataField().optional();
@@ -39,6 +43,11 @@ class DataItem extends Item
 				DataItem.data.map(data),
 				DataItem.data10.map(data10),
 		});
+	}
+
+	final void getDataDeprecated(@Nonnull final File data) throws IOException
+	{
+		getData(data);
 	}
 
 
@@ -118,6 +127,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
@@ -241,6 +251,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getData10(@javax.annotation.Nonnull final java.io.File data10)
 			throws
 				java.io.IOException
@@ -364,6 +375,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getData10k(@javax.annotation.Nonnull final java.io.File data10k)
 			throws
 				java.io.IOException
@@ -487,6 +499,7 @@ class DataItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	final void getData100M(@javax.annotation.Nonnull final java.io.File data100M)
 			throws
 				java.io.IOException

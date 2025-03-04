@@ -296,10 +296,12 @@ public final class DataField extends Field<DataField.Value>
 	 * @throws NullPointerException
 	 *         if {@code sink} is null.
 	 * @throws IOException if writing {@code sink} throws an IOException.
+	 * @deprecated Use {@link #get(Item, Path)} instead.
 	 */
 	@Wrap(order=50,
 			doc="Writes the data of this persistent data field into the given file.",
 			thrown=@Wrap.Thrown(IOException.class))
+	@Deprecated
 	public void get(@Nonnull final Item item, @Nonnull final File sink) throws IOException
 	{
 		requireNonNull(sink, "sink");

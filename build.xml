@@ -346,6 +346,7 @@
 			<classpath refid="runtime.test.path"/>
 			<generateDeprecated>com.exedio.cope.pattern.Media#getBody(com.exedio.cope.Item,java.io.File)</generateDeprecated>
 			<generateDeprecated>com.exedio.cope.pattern.Media#set(com.exedio.cope.Item,java.io.File,java.lang.String)</generateDeprecated>
+			<generateDeprecated>com.exedio.cope.DataField#get(com.exedio.cope.Item,java.io.File)</generateDeprecated>
 			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#redeem(com.exedio.cope.Item,long)</generateDeprecated>
 			<suppressWarnings>
 				<constructor>RedundantSuppression</constructor>
