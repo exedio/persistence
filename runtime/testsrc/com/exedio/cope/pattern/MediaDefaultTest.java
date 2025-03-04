@@ -409,16 +409,16 @@ public class MediaDefaultTest extends TestWithEnvironment
 
 	private void assertDataPath(final byte[] expectedData) throws IOException
 	{
-		final Path tempPath = files.newPathNotExists();
-		item.getFileBody(tempPath);
-		assertEqualContent(expectedData, tempPath.toFile());
+		final Path temp = files.newPathNotExists();
+		item.getFileBody(temp);
+		assertEqualContent(expectedData, temp.toFile());
 	}
 
 	private void assertDataFile(final byte[] expectedData) throws IOException
 	{
-		final File tempFile = files.newFileNotExists();
-		item.getFileBody(tempFile);
-		assertEqualContent(expectedData, tempFile);
+		final File temp = files.newFileNotExists();
+		item.getFileBody(temp);
+		assertEqualContent(expectedData, temp);
 	}
 
 	private void assertExtension(final String contentType, final String extension)

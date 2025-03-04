@@ -240,9 +240,9 @@ public class MediaMandatoryTest extends TestWithEnvironment
 
 	private void assertDataFile(final MediaMandatoryItem item, final byte[] expectedData) throws IOException
 	{
-		final File tempFile = files.newFileNotExists();
-		item.getFileBody(tempFile);
-		assertEqualContent(expectedData, tempFile);
+		final File temp = files.newFileNotExists();
+		item.getFileBody(temp);
+		assertEqualContent(expectedData, temp);
 	}
 
 	@Test void testSetLastModified()
