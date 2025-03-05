@@ -474,8 +474,10 @@ final class InterimProcessor extends JavacProcessor
 			{
 				if (enclosedElement.getKind()!=ElementKind.METHOD) continue;
 				final ExecutableElement method = (ExecutableElement) enclosedElement;
-				if ( isOverrideOfExternallyDefinedAbstractMethod(method, element) ||
+				if ( method.getAnnotation(WrapInterim.class)==null && (
+					  isOverrideOfExternallyDefinedAbstractMethod(method, element) ||
 					  isOverrideOfMethodDefinedInInterface(method, element, implementedInterfaces) )
+					)
 					result.add(method);
 			}
 			return result;
