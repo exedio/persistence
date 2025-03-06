@@ -412,9 +412,14 @@ final class InterimProcessor extends JavacProcessor
 		{
 			if (kind.typeField!=null && wrapperType.type()!=Visibility.NONE)
 			{
+				final boolean isAbstract = ct.getModifiers().getFlags().contains(Modifier.ABSTRACT);
 				code.addLine(
 						"public static final "+kind.typeField+"<"+ct.getSimpleName()+"> TYPE = "+
-						kind.typeFactory+"."+Kind.TYPE_FACTORY_METHOD+"("+ct.getSimpleName()+".class);"
+						kind.typeFactory+"."+(isAbstract?Kind.ABSTRACT_TYPE_FACTORY_METHOD:Kind.TYPE_FACTORY_METHOD)+
+						"("+
+						ct.getSimpleName()+".class"+
+						(isAbstract?"":(", "+ct.getSimpleName()+"::new"))+
+						");"
 				);
 			}
 		}
