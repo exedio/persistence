@@ -93,7 +93,7 @@ class ConcurrentModificationTest extends TestWithEnvironment
 			restartTransaction();
 
 			assertEquals(
-					0, // '0' is dubious - a committed tx changed the value to '1'
+					model.getConnectProperties().storeOnlyModifiedColumns ? 1 : 0, // '0' is dubious - a committed tx changed the value to '1'
 					item.getChildField()
 			);
 			assertArrayEquals(new byte[]{4, 2}, item.getChildDataArray());

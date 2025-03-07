@@ -70,4 +70,6 @@ abstract class State
 	{
 		return getClass().getName()+"-"+item.getCopeID();
 	}
+
+	abstract boolean needsUpdate(final ConnectProperties properties, final Column column);
 }
