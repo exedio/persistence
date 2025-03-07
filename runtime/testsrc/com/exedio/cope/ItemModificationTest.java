@@ -72,17 +72,19 @@ class ItemModificationTest extends TestWithEnvironment
 	}
 
 	private <E, F extends Feature & Settable<E>> void check(final F settable, final E initial, final E changeTo,
-			final int expectedUpdateCounterValue, final List<Update> expectedUpdates) throws SQLException
+			final int expectedMyItemUpdateCounterValue, final int expectedModifiableParentUpdateCounterValue,
+			final List<Update> expectedUpdates) throws SQLException
 	{
 		check(
 				new SetValue<?>[]{SetValue.map(settable, initial)},
 				new SetValue<?>[]{SetValue.map(settable, changeTo)},
-				expectedUpdateCounterValue, expectedUpdates
+				expectedMyItemUpdateCounterValue, expectedModifiableParentUpdateCounterValue, expectedUpdates
 		);
 	}
 
 	private void check(final SetValue<?>[] initial, final SetValue<?>[] changeTo,
-			final int expectedUpdateCounterValue, final List<Update> expectedUpdates) throws SQLException
+			final int expectedMyItemUpdateCounterValue, final int expectedModifiableParentUpdateCounterValue,
+			final List<Update> expectedUpdates) throws SQLException
 	{
 		final MyItem item = new MyItem(initial);
 		commit();
@@ -92,21 +94,23 @@ class ItemModificationTest extends TestWithEnvironment
 
 		startTransaction();
 		item.getField(); // load item
-		assertEquals(0, getEntityUpdateCount(item));
+		assertEquals(0, getEntityUpdateCount(item, MyItem.TYPE));
+		assertEquals(0, getEntityUpdateCount(item, ModifiableParent.TYPE));
 		final UpdateCounter updateCounter = new UpdateCounter();
 		model.setDatabaseListener(updateCounter);
 		item.set(changeTo);
 		assertEquals(expectedUpdates, updateCounter.tables);
-		assertEquals(expectedUpdateCounterValue, getEntityUpdateCount(item));
+		assertEquals(expectedMyItemUpdateCounterValue, getEntityUpdateCount(item, MyItem.TYPE));
+		assertEquals(expectedModifiableParentUpdateCounterValue, getEntityUpdateCount(item, ModifiableParent.TYPE));
 		commit();
-		assertEquals(expectedUpdateCounterValue, queryUpdateCount(item, MyItem.TYPE));
-		assertEquals(expectedUpdateCounterValue, queryUpdateCount(item, ModifiableParent.TYPE));
+		assertEquals(expectedMyItemUpdateCounterValue, queryUpdateCount(item, MyItem.TYPE));
+		assertEquals(expectedModifiableParentUpdateCounterValue, queryUpdateCount(item, ModifiableParent.TYPE));
 	}
 
 	@SuppressWarnings("deprecation")
-	private static int getEntityUpdateCount(final Item item)
+	private static <T extends Item> int getEntityUpdateCount(final T item, final Type<? super T> type)
 	{
-		return item.getEntity().getUpdateCount();
+		return item.getEntity().getUpdateCount(type);
 	}
 
 	@Test
@@ -114,10 +118,9 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.field, null, "A",
-				1,
+				1, storeOnlyModified ? 0 : 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true),
 								new Update(MyItem.TYPE, true, MyItem.field)
 						) :
 						List.of(
@@ -132,7 +135,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.field, null, null,
-				0,
+				0, 0,
 				List.of()
 		);
 	}
@@ -142,10 +145,9 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.field, "A", null,
-				1,
+				1, storeOnlyModified ? 0 : 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true),
 								new Update(MyItem.TYPE, true, MyItem.field)
 						) :
 						List.of(
@@ -160,7 +162,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.field, "A", "A",
-				0,
+				0, 0,
 				List.of()
 		);
 	}
@@ -170,11 +172,10 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				ModifiableParent.modifiableAtParent, 1, 2,
-				1,
+				storeOnlyModified ? 0 : 1, 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-								new Update(MyItem.TYPE, true)
+								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent)
 						) :
 						List.of(
 								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
@@ -188,7 +189,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				ModifiableParent.modifiableAtParent, 1, 1,
-				0,
+				0, 0,
 				List.of()
 		);
 	}
@@ -198,10 +199,9 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.reference, null, new MyItem(),
-				1,
+				1, storeOnlyModified ? 0 : 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true),
 								new Update(MyItem.TYPE, true, MyItem.reference)
 						) :
 						List.of(
@@ -216,7 +216,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.reference, null, null,
-				0,
+				0, 0,
 				List.of()
 		);
 	}
@@ -226,10 +226,9 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.reference, new MyItem(), null,
-				1,
+				1, storeOnlyModified ? 0 : 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true),
 								new Update(MyItem.TYPE, true, MyItem.reference)
 						) :
 						List.of(
@@ -245,7 +244,7 @@ class ItemModificationTest extends TestWithEnvironment
 		final MyItem item = new MyItem();
 		check(
 				MyItem.reference, item, item,
-				0,
+				0, 0,
 				List.of()
 		);
 	}
@@ -255,7 +254,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.blobData, null, DataField.toValue(new byte[]{1}),
-				0,
+				0, 0,
 				storeOnlyModified ?
 						List.of(
 								new Update(MyItem.TYPE, false, MyItem.blobData)
@@ -272,7 +271,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.blobData, null, null,
-				0,
+				0, 0,
 				storeOnlyModified ?
 						List.of(
 								new Update(MyItem.TYPE, false, MyItem.blobData)
@@ -289,7 +288,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.blobData, DataField.toValue(new byte[]{1}), null,
-				0,
+				0, 0,
 				storeOnlyModified ?
 						List.of(
 								new Update(MyItem.TYPE, false, MyItem.blobData)
@@ -306,7 +305,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.blobData, DataField.toValue(new byte[]{1}), DataField.toValue(new byte[]{1}),
-				0,
+				0, 0,
 				storeOnlyModified ?
 						List.of(
 								new Update(MyItem.TYPE, false, MyItem.blobData)
@@ -330,10 +329,9 @@ class ItemModificationTest extends TestWithEnvironment
 						SetValue.map(MyItem.field, "B"),
 						SetValue.map(MyItem.blobData, DataField.toValue(new byte[]{2}))
 				},
-				1,
+				1, storeOnlyModified ? 0 : 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true),
 								new Update(MyItem.TYPE, true, MyItem.field, MyItem.blobData)
 						) :
 						List.of(
@@ -355,7 +353,7 @@ class ItemModificationTest extends TestWithEnvironment
 						SetValue.map(ModifiableParent.modifiableAtParent, 2),
 						SetValue.map(MyItem.field, "B")
 				},
-				1,
+				1, 1,
 				storeOnlyModified ?
 						List.of(
 								new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
@@ -373,10 +371,9 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.vaultData, null, DataField.toValue(new byte[]{1}),
-				1,
+				1, storeOnlyModified ? 0 : 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true),
 								new Update(MyItem.TYPE, true, MyItem.vaultData)
 						) :
 						List.of(
@@ -391,7 +388,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.vaultData, null, null,
-				0,
+				0, 0,
 				List.of()
 		);
 	}
@@ -401,10 +398,9 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.vaultData, DataField.toValue(new byte[]{1}), null,
-				1,
+				1, storeOnlyModified ? 0 : 1,
 				storeOnlyModified ?
 						List.of(
-								new Update(ModifiableParent.TYPE, true),
 								new Update(MyItem.TYPE, true, MyItem.vaultData)
 						) :
 						List.of(
@@ -419,7 +415,7 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.vaultData, DataField.toValue(new byte[]{1}), DataField.toValue(new byte[]{1}),
-				0,
+				0, 0,
 				List.of()
 		);
 	}

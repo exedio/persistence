@@ -10,6 +10,8 @@ The items are sorted inversely, i.e. the latest items are on top.
 * ConnectToken#removeProperties(Model) dropped.
 	Use #removePropertiesVoid(Model) instead.
 	This breaks backwards API compatibility - check for usage of dropped API in your project, including used libraries!
+* Items get separate update counter values for each inheritance level.
+	COPE Console tab "Update Counters" becomes empty.
 * When changing an item field, only those columns that have been modified are stored to the database.
 	Use ConnectProperty storeOnlyModifiedColumns=false to enforce always writing all columns (=old behaviour).
 * No update counters at types that don't have an own field that requires an update counter.

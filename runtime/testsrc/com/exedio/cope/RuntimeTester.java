@@ -297,27 +297,12 @@ final class RuntimeTester
 			assertEquals(0, ci.length);
 	}
 
+	@SuppressWarnings("deprecation")
 	void assertCheckUpdateCounters()
 	{
 		for(final Type<?> type : model.getTypes())
 		{
-			if(type.needsCheckUpdateCounter())
-				assertEquals(0, type.checkUpdateCounterL());
-			else
-				assertCheckUpdateCounterFails(type);
-		}
-	}
-
-	private static void assertCheckUpdateCounterFails(final Type<?> type)
-	{
-		try
-		{
-			type.checkUpdateCounterL();
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("no check for update counter needed for " + type, e.getMessage());
+			assertEquals(false, type.needsCheckUpdateCounter());
 		}
 	}
 

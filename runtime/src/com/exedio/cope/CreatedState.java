@@ -26,7 +26,7 @@ final class CreatedState extends State
 
 	CreatedState(final Transaction transaction, final Item item)
 	{
-		super(item, Integer.MAX_VALUE); // on insert MAX_VALUE becomes 0
+		super(item, UpdateCount.initial(item.getCopeType()));
 		transaction.addInvalidation(item);
 		row = new Row(item.type);
 	}
@@ -68,9 +68,10 @@ final class CreatedState extends State
 	State write(final Transaction transaction, final IdentityHashMap<BlobColumn, byte[]> blobs)
 	{
 		boolean discard = true;
+		final UpdateCount nextUpdateCount;
 		try
 		{
-			transaction.connect.database.store(transaction.getConnection(), this, false, true, blobs);
+			nextUpdateCount = transaction.connect.database.store(transaction.getConnection(), this, false, true, blobs);
 			discard = false;
 		}
 		finally
@@ -78,7 +79,7 @@ final class CreatedState extends State
 			if(discard)
 				discard( transaction );
 		}
-		return new WrittenState(this);
+		return new WrittenState(this, nextUpdateCount);
 	}
 
 	@Override

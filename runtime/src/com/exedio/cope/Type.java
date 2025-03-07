@@ -1425,57 +1425,25 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return bf;
 	}
 
+	/**
+	 * @deprecated since update counter consistency between tables has been abandoned
+	 * @return false
+	 */
+	@Deprecated
 	public boolean needsCheckUpdateCounter()
 	{
-		return getTable().updateCounter!=null && getSupertypeWithUpdateCounter()!=null;
-	}
-
-	private Type<? super T> getSupertypeWithUpdateCounter()
-	{
-		for(Type<? super T> candidate = supertype; candidate!=null; candidate = candidate.supertype)
-		{
-			if (candidate.getTable().updateCounter!=null)
-				return candidate;
-		}
-		return null;
+		return false;
 	}
 
 	/**
+	 * @deprecated since update counter consistency between tables has been abandoned
+	 * @throws RuntimeException always
 	 * @see SchemaInfo#checkUpdateCounter(Type)
 	 */
+	@Deprecated
 	public long checkUpdateCounterL()
 	{
-		final Statement statement = // must be first to throw Model.NotConnectedException when needed
-				checkUpdateCounterStatement(Statement.Mode.NORMAL);
-		final Transaction tx = getModel().currentTransaction();
-		return tx.connect.executor.query(
-				tx.getConnection(),
-				statement,
-				null, false, longResultSetHandler);
-
-	}
-
-	Statement checkUpdateCounterStatement(final Statement.Mode mode)
-	{
-		if(!needsCheckUpdateCounter())
-			throw new RuntimeException("no check for update counter needed for " + this);
-
-		final Executor executor = getModel().connect().executor;
-		final Table table = getTable();
-		final Table superTable = requireNonNull(getSupertypeWithUpdateCounter()).getTable();
-
-		final Statement bf = executor.newStatement(true, mode);
-		//language=SQL
-		bf.append("SELECT COUNT(*) FROM ").
-			append(table).append(',').append(superTable).
-			append(" WHERE ").
-			append(table.primaryKey).append('=').append(superTable.primaryKey).
-			append(" AND ").
-			append(table.updateCounter).append("<>").append(superTable.updateCounter);
-
-		//System.out.println("CHECKM:"+bf.toString());
-
-		return bf;
+		throw new RuntimeException("update counter consistency between tables has been abandoned");
 	}
 
 	public Random random(final int seed)

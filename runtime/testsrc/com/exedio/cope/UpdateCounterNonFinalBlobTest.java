@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,10 +45,17 @@ public class UpdateCounterNonFinalBlobTest extends TestWithEnvironment
 						getColumns().stream().map(Column::getName).toList());
 
 		final MyItem i = new MyItem(77, 88);
-		assertUpdateCount(0, i);
+
+		if (vault)
+			assertUpdateCount(0, i);
+		else
+			assertNoUpdateCount(i);
 
 		i.setData("someData");
-		assertUpdateCount(vault?1:0, i);
+		if (vault)
+			assertUpdateCount(1, i);
+		else
+			assertNoUpdateCount(i);
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -116,6 +124,12 @@ public class UpdateCounterNonFinalBlobTest extends TestWithEnvironment
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
 	private static void assertUpdateCount(final int expected, final MyItem item)
 	{
-		assertEquals(expected, item.getUpdateCountIfActive());
+		assertEquals(expected, item.getUpdateCountIfActive(MyItem.TYPE));
+	}
+
+	@SuppressWarnings("deprecation") // OK: using special accessors for tests
+	private static void assertNoUpdateCount(final MyItem item)
+	{
+		assertFails(()->item.getUpdateCountIfActive(MyItem.TYPE), IllegalArgumentException.class, "unexpected request for unmodifiable MyItem");
 	}
 }

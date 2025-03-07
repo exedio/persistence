@@ -323,12 +323,15 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @deprecated since update counter consistency between tables has been abandoned
+	 * @throws RuntimeException always
 	 * @see Type#checkUpdateCounterL()
 	 */
+	@Deprecated
 	public static String checkUpdateCounter(final Type<?> type)
 	{
-		return requireNonNull(type, "type").
-				checkUpdateCounterStatement(SQL_ONLY).getText();
+		requireNonNull(type, "type");
+		throw new RuntimeException("update counter consistency between tables has been abandoned");
 	}
 
 	/**

@@ -25,15 +25,15 @@ final class WrittenState extends State
 {
 	private final Row row;
 
-	WrittenState(final Item item, final Row row, final int updateCount)
+	WrittenState(final Item item, final Row row, final UpdateCount updateCount)
 	{
 		super(item, updateCount);
 		this.row = row;
 	}
 
-	WrittenState(final State original)
+	WrittenState(final State original, final UpdateCount updateCount)
 	{
-		super(original.item, original.updateCountNext());
+		super(original.item, updateCount);
 		row = original.stealValues();
 		if(row==null) throw new RuntimeException(original.getClass().getName());
 	}

@@ -25,9 +25,9 @@ abstract class State
 	final Item item;
 	final Type<?> type;
 	final long pk;
-	final int updateCount;
+	final UpdateCount updateCount;
 
-	protected State(final Item item, final int updateCount)
+	protected State(final Item item, final UpdateCount updateCount)
 	{
 		this.item = item;
 		this.type = item.type;
@@ -35,12 +35,11 @@ abstract class State
 		this.updateCount = updateCount;
 
 		assert PK.isValid(pk) : pk;
-		assert updateCount>=0 : updateCount;
 	}
 
-	int updateCountNext()
+	UpdateCount.Modifier updateCountNext()
 	{
-		return updateCount!=Integer.MAX_VALUE ? updateCount+1 : 0;
+		return updateCount.modifier();
 	}
 
 	abstract Object get(FunctionField<?> field);
