@@ -84,7 +84,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 0, 2, 2, 0, 0, 2);
 
 		model.startTransaction("ItemCacheStampPurgeTest");
-		assertEquals(list(), TYPE.search(name.equal("testSequential"))); // make transaction acquire a connection
+		assertEquals(list(), TYPE.search(name.is("testSequential"))); // make transaction acquire a connection
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		model.commit();
@@ -108,7 +108,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheStampPurgeTest overlap");
-		assertEquals(list(), TYPE.search(name.equal("testOverlappingOnce"))); // make transaction acquire a connection
+		assertEquals(list(), TYPE.search(name.is("testOverlappingOnce"))); // make transaction acquire a connection
 		final Transaction overlapTx = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
 		assertCache(2, 0, 0, 0, 0, 0, 0, 0);
@@ -171,7 +171,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheStampPurgeTest overlap1");
-		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice1"))); // make transaction acquire a connection
+		assertEquals(list(), TYPE.search(name.is("testOverlappingTwice1"))); // make transaction acquire a connection
 		final Transaction overlapTx1 = model.leaveTransaction();
 		model.joinTransaction(modifyTx);
 		assertCache(2, 0, 0, 0, 0, 0, 0, 0);
@@ -180,7 +180,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 0, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheStampPurgeTest overlap2");
-		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice2"))); // make transaction acquire a connection
+		assertEquals(list(), TYPE.search(name.is("testOverlappingTwice2"))); // make transaction acquire a connection
 		final Transaction overlapTx2 = model.leaveTransaction();
 
 		model.joinTransaction(overlapTx1);

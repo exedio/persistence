@@ -95,12 +95,12 @@ public final class SchemaTypeStringField extends Pattern
 
 	List<StringItem> searchEqual(final String value)
 	{
-		return search(sourceField.equal(value));
+		return search(sourceField.is(value));
 	}
 
 	List<StringItem> searchNotEqual(final String value)
 	{
-		return search(sourceField.notEqual(value));
+		return search(sourceField.isNot(value));
 	}
 
 	List<StringItem> searchIn(final String... value)

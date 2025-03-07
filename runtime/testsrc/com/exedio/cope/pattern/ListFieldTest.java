@@ -278,10 +278,10 @@ public class ListFieldTest extends TestWithEnvironment
 		q.join(stringsType, stringsParent().equalTarget());
 		assertEquals(list(), q.search());
 
-		q.setCondition(stringsElement.equal("zack"));
+		q.setCondition(stringsElement.is("zack"));
 		assertEquals(list(), q.search());
 
-		q.setCondition(dates.getElement().equal(new Date()));
+		q.setCondition(dates.getElement().is(new Date()));
 		assertFails(
 				q::search,
 				IllegalArgumentException.class,

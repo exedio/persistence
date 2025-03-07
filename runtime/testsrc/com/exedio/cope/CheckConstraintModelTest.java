@@ -117,7 +117,7 @@ public class CheckConstraintModelTest
 				IllegalArgumentException.class,
 				"not yet implemented: " + unsupportedCondition);
 		final ExtremumAggregate<Integer> unsupportedFunction = new IntegerField().max();
-		final Condition unsupportedFunctionCondition = unsupportedFunction.equal(5);
+		final Condition unsupportedFunctionCondition = unsupportedFunction.is(5);
 		assertFails(
 				() -> new CheckConstraint(unsupportedFunctionCondition),
 				IllegalArgumentException.class,

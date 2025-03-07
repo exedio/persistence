@@ -30,14 +30,14 @@ public class CompositeConditionOfflineTest
 		final StringField f = new StringField();
 		final StringField f2 = new StringField();
 		assertEqualsAndHash(
-				Cope.and(f.equal("a"), f2.equal("b")),
-				Cope.and(f.equal("a"), f2.equal("b")));
+				Cope.and(f.is("a"), f2.is("b")),
+				Cope.and(f.is("a"), f2.is("b")));
 		assertNotEqualsAndHash(
-				Cope.and(f.equal("a" ), f2.equal("b")),
-				Cope.and(f.equal("aX"), f2.equal("b")),
-				Cope.and(f.equal("a" ), f2.like ("b")),
-				Cope.or (f.equal("a" ), f2.equal("b")),
+				Cope.and(f.is("a" ), f2.is  ("b")),
+				Cope.and(f.is("aX"), f2.is  ("b")),
+				Cope.and(f.is("a" ), f2.like("b")),
+				Cope.or (f.is("a" ), f2.is  ("b")),
 				// not commutative
-				Cope.and(f2.equal("b"), f.equal("a")));
+				Cope.and(f2.is("b"), f.is("a")));
 	}
 }

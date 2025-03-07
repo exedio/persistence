@@ -66,45 +66,45 @@ public class DoubleFieldTest
 	@Test void testRangeShortcutEqual()
 	{
 		final DoubleField f = new DoubleField().optional().range(-3, 5);
-		assertEquals(f+" is null", f.equal((Double)null).toString());
-		assertEquals("FALSE", f.equal(-3.1).toString());
-		assertEquals(f+"='-3.0'", f.equal(-3d).toString());
-		assertEquals(f+"='5.0'", f.equal(5d).toString());
-		assertEquals("FALSE", f.equal(5.1).toString());
-		assertEquals("FALSE", f.is(5.1).toString()); // test whether override works for new method
-		assertEquals("FALSE", f.equal(MIN).toString());
-		assertEquals("FALSE", f.equal(MAX).toString());
+		assertEquals(f+" is null", f.is((Double)null).toString());
+		assertEquals("FALSE", f.is(-3.1).toString());
+		assertEquals(f+"='-3.0'", f.is(-3d).toString());
+		assertEquals(f+"='5.0'", f.is(5d).toString());
+		assertEquals("FALSE", f.is(5.1).toString());
+		assertEquals("FALSE", f.equal(5.1).toString()); // test whether override works for deprecated method
+		assertEquals("FALSE", f.is(MIN).toString());
+		assertEquals("FALSE", f.is(MAX).toString());
 
 		final NumberFunction<Double> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
-		assertEquals("a1."+f+" is null", b.equal((Double)null).toString());
-		assertEquals("a1."+f+"='-3.1'", b.equal(-3.1).toString()); // TODO should be "FALSE"
-		assertEquals("a1."+f+"='-3.0'", b.equal(-3d).toString());
-		assertEquals("a1."+f+"='5.0'", b.equal(5d).toString());
-		assertEquals("a1."+f+"='5.1'", b.equal(5.1).toString()); // TODO should be "FALSE"
-		assertEquals("a1."+f+"='"+MIN+"'", b.equal(MIN).toString()); // TODO should be "FALSE"
-		assertEquals("a1."+f+"='"+MAX+"'", b.equal(MAX).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+" is null", b.is((Double)null).toString());
+		assertEquals("a1."+f+"='-3.1'", b.is(-3.1).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='-3.0'", b.is(-3d).toString());
+		assertEquals("a1."+f+"='5.0'", b.is(5d).toString());
+		assertEquals("a1."+f+"='5.1'", b.is(5.1).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MIN+"'", b.is(MIN).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MAX+"'", b.is(MAX).toString()); // TODO should be "FALSE"
 	}
 
 	@Test void testRangeShortcutNotEqual()
 	{
 		final DoubleField f = new DoubleField().optional().range(-3, 5);
-		assertEquals(f+" is not null", f.notEqual((Double)null).toString());
-		assertEquals("TRUE",  f.notEqual(-3.1).toString());
-		assertEquals(f+"<>'-3.0'", f.notEqual(-3d).toString());
-		assertEquals(f+"<>'5.0'", f.notEqual(5d).toString());
-		assertEquals("TRUE", f.notEqual(5.1).toString());
-		assertEquals("TRUE", f.isNot(5.1).toString()); // test whether override works for new method
-		assertEquals("TRUE", f.notEqual(MIN).toString());
-		assertEquals("TRUE", f.notEqual(MAX).toString());
+		assertEquals(f+" is not null", f.isNot((Double)null).toString());
+		assertEquals("TRUE",  f.isNot(-3.1).toString());
+		assertEquals(f+"<>'-3.0'", f.isNot(-3d).toString());
+		assertEquals(f+"<>'5.0'", f.isNot(5d).toString());
+		assertEquals("TRUE", f.isNot(5.1).toString());
+		assertEquals("TRUE", f.notEqual(5.1).toString()); // test whether override works for deprecated method
+		assertEquals("TRUE", f.isNot(MIN).toString());
+		assertEquals("TRUE", f.isNot(MAX).toString());
 
 		final NumberFunction<Double> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
-		assertEquals("a1."+f+" is not null", b.notEqual((Double)null).toString());
-		assertEquals("a1."+f+"<>'-3.1'", b.notEqual(-3.1).toString()); // TODO should be "TRUE"
-		assertEquals("a1."+f+"<>'-3.0'", b.notEqual(-3d).toString());
-		assertEquals("a1."+f+"<>'5.0'", b.notEqual(5d).toString());
-		assertEquals("a1."+f+"<>'5.1'", b.notEqual(5.1).toString()); // TODO should be "TRUE"
-		assertEquals("a1."+f+"<>'"+MIN+"'", b.notEqual(MIN).toString()); // TODO should be "TRUE"
-		assertEquals("a1."+f+"<>'"+MAX+"'", b.notEqual(MAX).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+" is not null", b.isNot((Double)null).toString());
+		assertEquals("a1."+f+"<>'-3.1'", b.isNot(-3.1).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'-3.0'", b.isNot(-3d).toString());
+		assertEquals("a1."+f+"<>'5.0'", b.isNot(5d).toString());
+		assertEquals("a1."+f+"<>'5.1'", b.isNot(5.1).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MIN+"'", b.isNot(MIN).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MAX+"'", b.isNot(MAX).toString()); // TODO should be "TRUE"
 	}
 
 	private static final double MIN = -Double.MAX_VALUE;

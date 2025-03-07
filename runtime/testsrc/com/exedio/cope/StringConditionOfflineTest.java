@@ -44,16 +44,16 @@ public class StringConditionOfflineTest
 	{
 		final StringField f = new StringField();
 		final StringField f2 = new StringField();
-		assertEqualsAndHash(f.equal("hallo"), f.equal("hallo"));
-		assertEqualsAndHash(f.equal(f2), f.equal(f2));
+		assertEqualsAndHash(f.is("hallo"), f.is("hallo"));
+		assertEqualsAndHash(f.is(f2), f.is(f2));
 		assertNotEqualsAndHash(
-				f.equal("hallo"),
-				f.equal("bello"),
-				f.equal((String)null),
+				f.is("hallo"),
+				f.is("bello"),
+				f.is((String)null),
 				f.like("hallo"),
 				f.regexpLike("regexp"),
-				f.equal(f2),
-				f.equal(f));
+				f.is(f2),
+				f.is(f));
 		assertSame(f, f.like("hallo").getFunction());
 		assertSame("hallo", f.like("hallo").getValue());
 	}
@@ -65,7 +65,7 @@ public class StringConditionOfflineTest
 		assertEquals(f.like("%lowerUPPER" ), f.  endsWith("lowerUPPER"));
 		assertEquals(f.like("%lowerUPPER%"), f.  contains("lowerUPPER"));
 		final CaseView l = f.toLowerCase();
-		assertEquals(l.equal( "lowerupper" ), f.     equalIgnoreCase("lowerUPPER" ));
+		assertEquals(l.is   ( "lowerupper" ), f.     equalIgnoreCase("lowerUPPER" ));
 		assertEquals(l.like ( "lowerupper%"), f.      likeIgnoreCase("lowerUPPER%"));
 		assertEquals(l.like ( "lowerupper%"), f.startsWithIgnoreCase("lowerUPPER" ));
 		assertEquals(l.like ("%lowerupper" ), f.  endsWithIgnoreCase("lowerUPPER" ));
@@ -73,7 +73,7 @@ public class StringConditionOfflineTest
 
 		final StringField f2 = new StringField();
 		final CaseView l2 = f2.toLowerCase();
-		assertEquals(l.equal(l2), f.equalIgnoreCase(f2));
+		assertEquals(l.is(l2), f.equalIgnoreCase(f2));
 	}
 
 	@Test void testConditionsConvenienceEmpty() // TODO should be isNotNull
@@ -83,7 +83,7 @@ public class StringConditionOfflineTest
 		assertEquals(f.like("%" ), f.  endsWith(""));
 		assertEquals(f.like("%%"), f.  contains(""));
 		final CaseView l = f.toLowerCase();
-		assertEquals(l.equal(""  ), f.     equalIgnoreCase("" ));
+		assertEquals(l.is   (""  ), f.     equalIgnoreCase("" ));
 		assertEquals(l.like ("%" ), f.      likeIgnoreCase("%"));
 		assertEquals(l.like ("%" ), f.startsWithIgnoreCase("" ));
 		assertEquals(l.like ("%" ), f.  endsWithIgnoreCase("" ));

@@ -38,9 +38,9 @@ public class FieldLongTest extends FieldTest
 		assertSerializedSame(someLong, 377);
 
 		assertEquals(null, item.getSomeLong());
-		assertContains(item, item2, TYPE.search(someLong.equal((Long)null)));
+		assertContains(item, item2, TYPE.search(someLong.is((Long)null)));
 		assertContains(item, item2, TYPE.search(someLong.isNull()));
-		assertContains(TYPE.search(someLong.notEqual((Long)null)));
+		assertContains(TYPE.search(someLong.isNot((Long)null)));
 		assertContains(TYPE.search(someLong.isNotNull()));
 
 		someLong.set(item, Long.valueOf(22));
@@ -66,18 +66,18 @@ public class FieldLongTest extends FieldTest
 		assertEquals(Long.valueOf(11), item.getSomeLong());
 		assertEquals(
 			list(item),
-			TYPE.search(someLong.equal(11l)));
+			TYPE.search(someLong.is(11l)));
 		assertEquals(
 			list(),
-			TYPE.search(someLong.notEqual(11l)));
+			TYPE.search(someLong.isNot(11l)));
 
-		assertEquals(list(item2), TYPE.search(someLong.equal((Long)null)));
+		assertEquals(list(item2), TYPE.search(someLong.is((Long)null)));
 		assertEquals(list(item2), TYPE.search(someLong.isNull()));
-		assertEquals(list(item), TYPE.search(someLong.notEqual((Long)null)));
+		assertEquals(list(item), TYPE.search(someLong.isNot((Long)null)));
 		assertEquals(list(item), TYPE.search(someLong.isNotNull()));
 
 		assertContains(Long.valueOf(11), null, search(someLong));
-		assertContains(Long.valueOf(11), search(someLong, someLong.equal(Long.valueOf(11))));
+		assertContains(Long.valueOf(11), search(someLong, someLong.is(Long.valueOf(11))));
 
 		item.setSomeLong(null);
 		assertEquals(null, item.getSomeLong());
@@ -122,7 +122,7 @@ public class FieldLongTest extends FieldTest
 		restartTransaction();
 		assertEquals(0l, item.getSomeNotNullLong());
 		assertContains(item,
-			TYPE.search(someNotNullLong.equal(0l)));
+			TYPE.search(someNotNullLong.is(0l)));
 
 		item.setSomeNotNullLong(Long.MIN_VALUE);
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
@@ -130,7 +130,7 @@ public class FieldLongTest extends FieldTest
 		restartTransaction();
 		assertEquals(Long.MIN_VALUE, item.getSomeNotNullLong());
 		assertContains(item,
-			TYPE.search(someNotNullLong.equal(Long.MIN_VALUE)));
+			TYPE.search(someNotNullLong.is(Long.MIN_VALUE)));
 
 		item.setSomeNotNullLong(Long.MAX_VALUE);
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
@@ -138,6 +138,6 @@ public class FieldLongTest extends FieldTest
 		restartTransaction();
 		assertEquals(Long.MAX_VALUE, item.getSomeNotNullLong());
 		assertContains(item,
-			TYPE.search(someNotNullLong.equal(Long.MAX_VALUE)));
+			TYPE.search(someNotNullLong.is(Long.MAX_VALUE)));
 	}
 }

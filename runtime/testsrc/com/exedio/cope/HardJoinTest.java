@@ -72,7 +72,7 @@ public class HardJoinTest extends TestWithEnvironment
 	{
 		reset();
 		final Query<HardJoinA3Item> q = aTYPE.newQuery();
-		q.join(bTYPE, ax.equal(bx));
+		q.join(bTYPE, ax.is(bx));
 		assertEquals(list(), q.search());
 		bx.set(b, bv);
 		assertEquals(list(a), q.search());
@@ -95,7 +95,7 @@ public class HardJoinTest extends TestWithEnvironment
 	{
 		reset();
 		final Query<HardJoinA3Item> q = aTYPE.newQuery();
-		q.join(bTYPE, a1.equal(bx).and(a2.equal(bx)));
+		q.join(bTYPE, a1.is(bx).and(a2.is(bx)));
 		assertEquals(list(), q.search());
 		a1.set(a, bv);
 		assertEquals(list(), q.search());
@@ -120,7 +120,7 @@ public class HardJoinTest extends TestWithEnvironment
 	{
 		reset();
 		final Query<HardJoinA3Item> q = aTYPE.newQuery();
-		q.join(bTYPE, ax.equal(b1).and(ax.equal(b2)));
+		q.join(bTYPE, ax.is(b1).and(ax.is(b2)));
 		assertEquals(list(), q.search());
 		b1.set(b, av);
 		assertEquals(list(), q.search());
@@ -145,22 +145,22 @@ public class HardJoinTest extends TestWithEnvironment
 	{
 		{
 			final Query<HardJoinA3Item> q = aTYPE.newQuery();
-			q.joinOuterLeft(bTYPE, a1.equal(b3));
+			q.joinOuterLeft(bTYPE, a1.is(b3));
 			assertEquals(list(a), q.search());
 		}
 		{
 			final Query<HardJoinA3Item> q = aTYPE.newQuery();
-			q.joinOuterLeft(bTYPE, a1.equal(b1));
+			q.joinOuterLeft(bTYPE, a1.is(b1));
 			assertEquals(list(a), q.search());
 		}
 		{
 			final Query<HardJoinA3Item> q = aTYPE.newQuery();
-			q.joinOuterLeft(bTYPE, a2.equal(b2));
+			q.joinOuterLeft(bTYPE, a2.is(b2));
 			assertEquals(list(a), q.search());
 		}
 		{
 			final Query<HardJoinA3Item> q = aTYPE.newQuery();
-			q.joinOuterLeft(bTYPE, a3.equal(b3));
+			q.joinOuterLeft(bTYPE, a3.is(b3));
 			assertEquals(list(a), q.search());
 		}
 	}
@@ -169,8 +169,8 @@ public class HardJoinTest extends TestWithEnvironment
 	{
 		{
 			final Query<HardJoinA3Item> q = aTYPE.newQuery();
-			final Join j1 = q.join(bTYPE, b3.equal(a3));
-			final Join j2 = q.join(bTYPE, b3.equal(a3));
+			final Join j1 = q.join(bTYPE, b3.is(a3));
+			final Join j2 = q.join(bTYPE, b3.is(a3));
 			try
 			{
 				q.search();
@@ -181,7 +181,7 @@ public class HardJoinTest extends TestWithEnvironment
 				assertEquals(b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j1.setCondition(b3.bind(j1).equal(a3));
+			j1.setCondition(b3.bind(j1).is(a3));
 			try
 			{
 				q.search();
@@ -192,12 +192,12 @@ public class HardJoinTest extends TestWithEnvironment
 				assertEquals(b3 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j2.setCondition(b3.bind(j2).equal(a3));
+			j2.setCondition(b3.bind(j2).is(a3));
 			assertEquals(list(), q.search());
 
 			// test with super fields
-			j1.setCondition(b1.equal(a3));
-			j2.setCondition(b1.equal(a3));
+			j1.setCondition(b1.is(a3));
+			j2.setCondition(b1.is(a3));
 			try
 			{
 				q.search();
@@ -208,7 +208,7 @@ public class HardJoinTest extends TestWithEnvironment
 				assertEquals(b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j1.setCondition(b1.bind(j1).equal(a3));
+			j1.setCondition(b1.bind(j1).is(a3));
 			try
 			{
 				q.search();
@@ -219,7 +219,7 @@ public class HardJoinTest extends TestWithEnvironment
 				assertEquals(b1 + " is ambiguous, use Function#bind in query: " + q, e.getMessage());
 			}
 
-			j2.setCondition(b1.bind(j2).equal(a3));
+			j2.setCondition(b1.bind(j2).is(a3));
 			assertEquals(list(), q.search());
 		}
 		// test with typeIn

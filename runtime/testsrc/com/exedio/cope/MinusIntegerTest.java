@@ -78,16 +78,16 @@ public class MinusIntegerTest extends TestWithEnvironment
 		assertEquals(valueOf(7), item.getNumA());
 		assertEquals(valueOf(9), item.getNumB());
 		assertEquals(valueOf(3), item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(7)));
-		assertContains(item, TYPE.search(numB.equal(9)));
-		assertContains(item, TYPE.search(numC.equal(3)));
+		assertContains(item, TYPE.search(numA.is(7)));
+		assertContains(item, TYPE.search(numB.is(9)));
+		assertContains(item, TYPE.search(numC.is(3)));
 
 		assertEquals(valueOf(-2), item.getViewAB());
 		assertEquals(valueOf( 4), item.getViewAC());
 		assertEquals(valueOf( 6), item.getViewBC());
-		assertContains(item, TYPE.search(viewAB.equal(-2)));
-		assertContains(item, TYPE.search(viewAC.equal( 4)));
-		assertContains(item, TYPE.search(viewBC.equal( 6)));
+		assertContains(item, TYPE.search(viewAB.is(-2)));
+		assertContains(item, TYPE.search(viewAC.is( 4)));
+		assertContains(item, TYPE.search(viewBC.is( 6)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -95,16 +95,16 @@ public class MinusIntegerTest extends TestWithEnvironment
 		assertEquals(null, item.getNumA());
 		assertEquals(valueOf(9), item.getNumB());
 		assertEquals(valueOf(3), item.getNumC());
-		assertContains(item, TYPE.search(numA.equal((Integer)null)));
-		assertContains(item, TYPE.search(numB.equal(9)));
-		assertContains(item, TYPE.search(numC.equal(3)));
+		assertContains(item, TYPE.search(numA.is((Integer)null)));
+		assertContains(item, TYPE.search(numB.is(9)));
+		assertContains(item, TYPE.search(numC.is(3)));
 
 		assertEquals(null, item.getViewAB());
 		assertEquals(null, item.getViewAC());
 		assertEquals(valueOf(6), item.getViewBC());
-		assertContains(item, TYPE.search(viewAB.equal((Integer)null)));
-		assertContains(item, TYPE.search(viewAC.equal((Integer)null)));
-		assertContains(item, TYPE.search(viewBC.equal(6)));
-		assertContains(item, TYPE.search(numA.divide(numB).equal((Integer)null)));
+		assertContains(item, TYPE.search(viewAB.is((Integer)null)));
+		assertContains(item, TYPE.search(viewAC.is((Integer)null)));
+		assertContains(item, TYPE.search(viewBC.is(6)));
+		assertContains(item, TYPE.search(numA.divide(numB).is((Integer)null)));
 	}
 }

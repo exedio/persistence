@@ -88,18 +88,18 @@ public class FieldEnumTest extends FieldTest
 			item.getSomeEnum());
 
 		assertContains(item,
-				TYPE.search(someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
+				TYPE.search(someEnum.is(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item2,
-				TYPE.search(someEnum.equal((SomeEnum)null)));
+				TYPE.search(someEnum.is((SomeEnum)null)));
 		assertContains(item,
-				TYPE.search(someEnum.notEqual(AttributeItem.SomeEnum.enumValue1)));
+				TYPE.search(someEnum.isNot(AttributeItem.SomeEnum.enumValue1)));
 		assertContains(
-				TYPE.search(someEnum.notEqual(AttributeItem.SomeEnum.enumValue2)));
+				TYPE.search(someEnum.isNot(AttributeItem.SomeEnum.enumValue2)));
 		assertContains(item,
-				TYPE.search(someEnum.notEqual((SomeEnum)null)));
+				TYPE.search(someEnum.isNot((SomeEnum)null)));
 
 		assertContains(AttributeItem.SomeEnum.enumValue2, null, search(someEnum));
-		assertContains(AttributeItem.SomeEnum.enumValue2, search(someEnum, someEnum.equal(AttributeItem.SomeEnum.enumValue2)));
+		assertContains(AttributeItem.SomeEnum.enumValue2, search(someEnum, someEnum.is(AttributeItem.SomeEnum.enumValue2)));
 
 		restartTransaction();
 		assertEquals(

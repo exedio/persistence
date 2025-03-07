@@ -221,42 +221,42 @@ public class InstanceOfTest extends TestWithEnvironment
 	{
 		{
 			itemc1.setTextc1("textC1");
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1"));
-			q.join(TYPE_C1, j -> textc1.bind(j).equal(textc1));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1"));
+			q.join(TYPE_C1, j -> textc1.bind(j).is(textc1));
 			assertContains(itemc1, q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1"));
-			q.join(TYPE_B2, j -> code.bind(j).equal(code));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1"));
+			q.join(TYPE_B2, j -> code.bind(j).is(code));
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1").and(TYPE_B1.getThis().notInstanceOf(TYPE_C1)));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1").and(TYPE_B1.getThis().notInstanceOf(TYPE_C1)));
 			q.join(TYPE_B2);
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1"));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1"));
 			q.join(TYPE_B2, j -> TYPE_B1.getThis().notInstanceOf(TYPE_C1));
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1").and(TYPE_A.getThis().notInstanceOf(TYPE_C1)));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1").and(TYPE_A.getThis().notInstanceOf(TYPE_C1)));
 			q.join(TYPE_B2);
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1"));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1"));
 			q.join(TYPE_B2, j -> TYPE_A.getThis().notInstanceOf(TYPE_C1));
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1").and(TYPE_A.getThis().notInstanceOf(TYPE_C1)));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1").and(TYPE_A.getThis().notInstanceOf(TYPE_C1)));
 			q.join(TYPE_B1);
 			assertContains(q.search());
 		}
 		{
-			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.equal("itemc1"));
+			final Query<InstanceOfC1Item> q = TYPE_C1.newQuery(code.is("itemc1"));
 			q.join(TYPE_B1, j -> TYPE_A.getThis().notInstanceOf(TYPE_C1));
 			assertContains(q.search());
 		}
@@ -314,7 +314,7 @@ public class InstanceOfTest extends TestWithEnvironment
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfAItem.TYPE, refb2.equal((Function<InstanceOfB2Item>)(This<?>)InstanceOfAItem.TYPE.getThis())); // TODO
+			q.join(InstanceOfAItem.TYPE, refb2.is((Function<InstanceOfB2Item>)(This<?>)InstanceOfAItem.TYPE.getThis())); // TODO
 			assertContains(q.search());
 		}
 	}
@@ -323,7 +323,7 @@ public class InstanceOfTest extends TestWithEnvironment
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfB2Item.TYPE, ref.equal(InstanceOfB2Item.TYPE.getThis()));
+			q.join(InstanceOfB2Item.TYPE, ref.is(InstanceOfB2Item.TYPE.getThis()));
 			assertContains(reffb2, q.search());
 		}
 	}

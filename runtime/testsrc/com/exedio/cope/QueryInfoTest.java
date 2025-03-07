@@ -42,7 +42,7 @@ public class QueryInfoTest extends TestWithEnvironment
 	@Test void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
-		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));
+		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.is("zack"));
 		transaction.setQueryInfoEnabled(true);
 		query.search();
 		final List<QueryInfo> infos = transaction.getQueryInfos();

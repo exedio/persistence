@@ -148,18 +148,18 @@ public class HiddenFeatureTest extends TestWithEnvironment
 		assertEquals("hiddenSameSub", HiddenFeatureSubItem.hiddenSame.get(sb));
 		assertEquals(Integer.valueOf(55), HiddenFeatureSubItem.hiddenOther.get(sb));
 
-		assertContains(sp, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSuper")));
-		assertContains(sp, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSuper")));
-		assertContains(sb, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSub")));
-		assertContains(sb, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSub")));
+		assertContains(sp, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.is("hiddenSameSuperSuper")));
+		assertContains(sp, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.is("hiddenOtherSuperSuper")));
+		assertContains(sb, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.is("hiddenSameSuperSub")));
+		assertContains(sb, HiddenFeatureSuperItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.is("hiddenOtherSuperSub")));
 
-		assertContains(HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSuper")));
-		assertContains(HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSuper")));
-		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.equal("hiddenSameSuperSub")));
-		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.equal("hiddenOtherSuperSub")));
+		assertContains(HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.is("hiddenSameSuperSuper")));
+		assertContains(HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.is("hiddenOtherSuperSuper")));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenSame.is("hiddenSameSuperSub")));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSuperItem.hiddenOther.is("hiddenOtherSuperSub")));
 
-		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSubItem.hiddenSame.equal("hiddenSameSub")));
-		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSubItem.hiddenOther.equal(55)));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSubItem.hiddenSame.is("hiddenSameSub")));
+		assertContains(sb, HiddenFeatureSubItem.TYPE.search(HiddenFeatureSubItem.hiddenOther.is(55)));
 	}
 
 }

@@ -78,16 +78,16 @@ public class MinusLongTest extends TestWithEnvironment
 		assertEquals(valueOf(7), item.getNumA());
 		assertEquals(valueOf(9), item.getNumB());
 		assertEquals(valueOf(3), item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(7l)));
-		assertContains(item, TYPE.search(numB.equal(9l)));
-		assertContains(item, TYPE.search(numC.equal(3l)));
+		assertContains(item, TYPE.search(numA.is(7l)));
+		assertContains(item, TYPE.search(numB.is(9l)));
+		assertContains(item, TYPE.search(numC.is(3l)));
 
 		assertEquals(valueOf(-2), item.getViewAB());
 		assertEquals(valueOf( 4), item.getViewAC());
 		assertEquals(valueOf( 6), item.getViewBC());
-		assertContains(item, TYPE.search(viewAB.equal(-2l)));
-		assertContains(item, TYPE.search(viewAC.equal( 4l)));
-		assertContains(item, TYPE.search(viewBC.equal( 6l)));
+		assertContains(item, TYPE.search(viewAB.is(-2l)));
+		assertContains(item, TYPE.search(viewAC.is( 4l)));
+		assertContains(item, TYPE.search(viewBC.is( 6l)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -95,16 +95,16 @@ public class MinusLongTest extends TestWithEnvironment
 		assertEquals(null, item.getNumA());
 		assertEquals(valueOf(9), item.getNumB());
 		assertEquals(valueOf(3), item.getNumC());
-		assertContains(item, TYPE.search(numA.equal((Long)null)));
-		assertContains(item, TYPE.search(numB.equal(9l)));
-		assertContains(item, TYPE.search(numC.equal(3l)));
+		assertContains(item, TYPE.search(numA.is((Long)null)));
+		assertContains(item, TYPE.search(numB.is(9l)));
+		assertContains(item, TYPE.search(numC.is(3l)));
 
 		assertEquals(null, item.getViewAB());
 		assertEquals(null, item.getViewAC());
 		assertEquals(valueOf(6), item.getViewBC());
-		assertContains(item, TYPE.search(viewAB.equal((Long)null)));
-		assertContains(item, TYPE.search(viewAC.equal((Long)null)));
-		assertContains(item, TYPE.search(viewBC.equal(6l)));
-		assertContains(item, TYPE.search(numA.divide(numB).equal((Long)null)));
+		assertContains(item, TYPE.search(viewAB.is((Long)null)));
+		assertContains(item, TYPE.search(viewAC.is((Long)null)));
+		assertContains(item, TYPE.search(viewBC.is(6l)));
+		assertContains(item, TYPE.search(numA.divide(numB).is((Long)null)));
 	}
 }

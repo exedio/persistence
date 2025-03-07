@@ -39,9 +39,9 @@ public class FieldDoubleTest extends FieldTest
 		assertSerializedSame(someDouble, 379);
 
 		assertEquals(null, item.getSomeDouble());
-		assertContains(item, item2, TYPE.search(someDouble.equal((Double)null)));
+		assertContains(item, item2, TYPE.search(someDouble.is((Double)null)));
 		assertContains(item, item2, TYPE.search(someDouble.isNull()));
-		assertContains(TYPE.search(someDouble.notEqual((Double)null)));
+		assertContains(TYPE.search(someDouble.isNot((Double)null)));
 		assertContains(TYPE.search(someDouble.isNotNull()));
 
 		someDouble.set(item, valueOf(44.44));
@@ -67,17 +67,17 @@ public class FieldDoubleTest extends FieldTest
 		assertEquals(valueOf(22.22), item.getSomeDouble());
 		assertEquals(
 			list(item),
-			TYPE.search(someDouble.equal(22.22)));
+			TYPE.search(someDouble.is(22.22)));
 		assertEquals(
 			list(),
-			TYPE.search(someDouble.notEqual(22.22)));
-		assertEquals(list(item2), TYPE.search(someDouble.equal((Double)null)));
+			TYPE.search(someDouble.isNot(22.22)));
+		assertEquals(list(item2), TYPE.search(someDouble.is((Double)null)));
 		assertEquals(list(item2), TYPE.search(someDouble.isNull()));
-		assertEquals(list(item), TYPE.search(someDouble.notEqual((Double)null)));
+		assertEquals(list(item), TYPE.search(someDouble.isNot((Double)null)));
 		assertEquals(list(item), TYPE.search(someDouble.isNotNull()));
 
 		assertContains(valueOf(22.22), null, search(someDouble));
-		assertContains(valueOf(22.22), search(someDouble, someDouble.equal(valueOf(22.22))));
+		assertContains(valueOf(22.22), search(someDouble, someDouble.is(valueOf(22.22))));
 
 		item.setSomeDouble(null);
 		assertEquals(null, item.getSomeDouble());
@@ -122,7 +122,7 @@ public class FieldDoubleTest extends FieldTest
 		restartTransaction();
 		assertEquals(0.0, item.getSomeNotNullDouble());
 		assertContains(item,
-			TYPE.search(someNotNullDouble.equal(0.0)));
+			TYPE.search(someNotNullDouble.is(0.0)));
 
 		// TODO: test with extreme values
 		/*item.setSomeNotNullDouble(Double.MIN_VALUE);

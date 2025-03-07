@@ -106,14 +106,14 @@ public class IntegerModelTest
 
 	@Test void testConditions()
 	{
-		assertEqualsAndHash(any.equal(1), any.equal(1));
-		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
+		assertEqualsAndHash(any.is(1), any.is(1));
+		assertEqualsAndHash(any.is(mandatory), any.is(mandatory));
 		assertNotEqualsAndHash(
-				any.equal(1),
-				any.equal(2),
-				any.equal((Integer)null),
+				any.is(1),
+				any.is(2),
+				any.is((Integer)null),
 				any.greater(1),
-				any.equal(mandatory),
-				any.equal(any));
+				any.is(mandatory),
+				any.is(any));
 	}
 }

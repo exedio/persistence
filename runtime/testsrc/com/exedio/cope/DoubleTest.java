@@ -102,14 +102,14 @@ public class DoubleTest extends TestWithEnvironment
 		{
 			assertEqualsAndHash(in(any), any.isNull());
 			assertEqualsAndHash(nn(any), any.isNotNull());
-			assertEqualsAndHash(in(any), any.equal((Double)null));
-			assertEqualsAndHash(nn(any), any.notEqual((Double)null));
-			assertEqualsAndHash(cc(Operator.Equal, any, 0.0), any.equal(0.0));
-			assertEqualsAndHash(cc(Operator.Equal, any, MIN), any.equal(MIN));
-			assertEqualsAndHash(cc(Operator.Equal, any, MAX), any.equal(MAX));
-			assertEqualsAndHash(cc(Operator.NotEqual, any, 0.0), any.notEqual(0.0));
-			assertEqualsAndHash(cc(Operator.NotEqual, any, MIN), any.notEqual(MIN));
-			assertEqualsAndHash(cc(Operator.NotEqual, any, MAX), any.notEqual(MAX));
+			assertEqualsAndHash(in(any), any.is((Double)null));
+			assertEqualsAndHash(nn(any), any.isNot((Double)null));
+			assertEqualsAndHash(cc(Operator.Equal, any, 0.0), any.is(0.0));
+			assertEqualsAndHash(cc(Operator.Equal, any, MIN), any.is(MIN));
+			assertEqualsAndHash(cc(Operator.Equal, any, MAX), any.is(MAX));
+			assertEqualsAndHash(cc(Operator.NotEqual, any, 0.0), any.isNot(0.0));
+			assertEqualsAndHash(cc(Operator.NotEqual, any, MIN), any.isNot(MIN));
+			assertEqualsAndHash(cc(Operator.NotEqual, any, MAX), any.isNot(MAX));
 			assertEqualsAndHash(cc(Operator.Less, any, 0.0), any.less(0.0));
 			assertEqualsAndHash(cc(Operator.Less, any, MIN), any.less(MIN));
 			assertEqualsAndHash(cc(Operator.Less, any, MAX), any.less(MAX));
@@ -125,11 +125,11 @@ public class DoubleTest extends TestWithEnvironment
 
 			assertEqualsAndHash(in(mandatory), mandatory.isNull());
 			assertEqualsAndHash(nn(mandatory), mandatory.isNotNull());
-			assertEqualsAndHash(in(mandatory), mandatory.equal((Double)null));
-			assertEqualsAndHash(nn(mandatory), mandatory.notEqual((Double)null));
-			assertEqualsAndHash(cc(Operator.Equal, mandatory, 0.0), mandatory.equal(0.0));
-			assertEqualsAndHash(cc(Operator.Equal, mandatory, MIN), mandatory.equal(MIN));
-			assertEqualsAndHash(cc(Operator.Equal, mandatory, MAX), mandatory.equal(MAX));
+			assertEqualsAndHash(in(mandatory), mandatory.is((Double)null));
+			assertEqualsAndHash(nn(mandatory), mandatory.isNot((Double)null));
+			assertEqualsAndHash(cc(Operator.Equal, mandatory, 0.0), mandatory.is(0.0));
+			assertEqualsAndHash(cc(Operator.Equal, mandatory, MIN), mandatory.is(MIN));
+			assertEqualsAndHash(cc(Operator.Equal, mandatory, MAX), mandatory.is(MAX));
 
 			assertEqualsAndHash(in(min4Max8), min4Max8.isNull());
 			assertEqualsAndHash(nn(min4Max8), min4Max8.isNotNull());
@@ -243,14 +243,14 @@ public class DoubleTest extends TestWithEnvironment
 		}
 
 		// test conditions
-		assertEqualsAndHash(any.equal(1.1), any.equal(1.1));
+		assertEqualsAndHash(any.is(1.1), any.is(1.1));
 		assertNotEqualsAndHash(
-				any.equal(1.1),
-				any.equal(2.2),
-				any.equal((Double)null),
+				any.is(1.1),
+				any.is(2.2),
+				any.is((Double)null),
 				any.greater(1.1));
-		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
-		assertNotEqualsAndHash(any.equal(mandatory), any.equal(any));
+		assertEqualsAndHash(any.is(mandatory), any.is(mandatory));
+		assertNotEqualsAndHash(any.is(mandatory), any.is(any));
 
 		// any
 		item.setAny(1234.56);

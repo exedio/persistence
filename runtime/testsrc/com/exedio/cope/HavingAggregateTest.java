@@ -75,12 +75,12 @@ public class HavingAggregateTest extends TestWithEnvironment
 		assertIt(asList(asList(group1, 11  ), asList(group2, 43  ), asList(group3, 96  ), asList(group4, 126  ), asList(groupN, null)), sumQ);
 		assertIt(asList(asList(group1, 11.0), asList(group2, 21.5), asList(group3, 32.0), asList(group4,  42.0), asList(groupN, null)), avgQ);
 
-		cntQ.setHaving(cnt.equal( 2));
-		cdsQ.setHaving(cds.equal( 2));
-		minQ.setHaving(min.equal(21));
-		maxQ.setHaving(max.equal(22));
-		sumQ.setHaving(sum.equal(43));
-		avgQ.setHaving(avg.equal(21.5));
+		cntQ.setHaving(cnt.is( 2));
+		cdsQ.setHaving(cds.is( 2));
+		minQ.setHaving(min.is(21));
+		maxQ.setHaving(max.is(22));
+		sumQ.setHaving(sum.is(43));
+		avgQ.setHaving(avg.is(21.5));
 		assertIt(asList(asList(group2,  2  )), cntQ);
 		assertIt(asList(asList(group2,  2  )), cdsQ);
 		assertIt(asList(asList(group2, 21  )), minQ);
@@ -88,12 +88,12 @@ public class HavingAggregateTest extends TestWithEnvironment
 		assertIt(asList(asList(group2, 43  )), sumQ);
 		assertIt(asList(asList(group2, 21.5)), avgQ);
 
-		cntQ.setHaving(cnt.notEqual( 2));
-		cdsQ.setHaving(cnt.notEqual( 2));
-		minQ.setHaving(min.notEqual(21));
-		maxQ.setHaving(max.notEqual(22));
-		sumQ.setHaving(sum.notEqual(43));
-		avgQ.setHaving(avg.notEqual(21.5));
+		cntQ.setHaving(cnt.isNot( 2));
+		cdsQ.setHaving(cnt.isNot( 2));
+		minQ.setHaving(min.isNot(21));
+		maxQ.setHaving(max.isNot(22));
+		sumQ.setHaving(sum.isNot(43));
+		avgQ.setHaving(avg.isNot(21.5));
 		assertIt(asList(asList(group1,  1  ), asList(group3,  3  ), asList(group4,   4  ), asList(groupN, 1)), cntQ);
 		assertIt(asList(asList(group1,  1  ), asList(group3,  3  ), asList(group4,   1  ), asList(groupN,    0)), cdsQ);
 		assertIt(asList(asList(group1, 11  ), asList(group3, 31  ), asList(group4,  42  )), minQ);
@@ -101,12 +101,12 @@ public class HavingAggregateTest extends TestWithEnvironment
 		assertIt(asList(asList(group1, 11  ), asList(group3, 96  ), asList(group4, 126  )), sumQ);
 		assertIt(asList(asList(group1, 11.0), asList(group3, 32.0), asList(group4,  42.0)), avgQ);
 
-		cntQ.setHaving(cnt.equal((Integer)null));
-		cdsQ.setHaving(cnt.equal((Integer)null));
-		minQ.setHaving(min.equal((Integer)null));
-		maxQ.setHaving(max.equal((Integer)null));
-		sumQ.setHaving(sum.equal((Integer)null));
-		avgQ.setHaving(avg.equal((Double) null));
+		cntQ.setHaving(cnt.is((Integer)null));
+		cdsQ.setHaving(cnt.is((Integer)null));
+		minQ.setHaving(min.is((Integer)null));
+		maxQ.setHaving(max.is((Integer)null));
+		sumQ.setHaving(sum.is((Integer)null));
+		avgQ.setHaving(avg.is((Double) null));
 		assertIt(asList(                    ), cntQ);
 		assertIt(asList(                    ), cdsQ);
 		assertIt(asList(asList(groupN, null)), minQ);
@@ -114,12 +114,12 @@ public class HavingAggregateTest extends TestWithEnvironment
 		assertIt(asList(asList(groupN, null)), sumQ);
 		assertIt(asList(asList(groupN, null)), avgQ);
 
-		cntQ.setHaving(cnt.notEqual( 2));
-		cdsQ.setHaving(cds.notEqual((Integer)null));
-		minQ.setHaving(min.notEqual((Integer)null));
-		maxQ.setHaving(max.notEqual((Integer)null));
-		sumQ.setHaving(sum.notEqual((Integer)null));
-		avgQ.setHaving(avg.notEqual((Double) null));
+		cntQ.setHaving(cnt.isNot( 2));
+		cdsQ.setHaving(cds.isNot((Integer)null));
+		minQ.setHaving(min.isNot((Integer)null));
+		maxQ.setHaving(max.isNot((Integer)null));
+		sumQ.setHaving(sum.isNot((Integer)null));
+		avgQ.setHaving(avg.isNot((Double) null));
 		assertIt(asList(asList(group1,  1  ), asList(group3,  3  ), asList(group4,  4  ), asList(groupN,   1  )), cntQ);
 		assertIt(asList(asList(group1,  1  ), asList(group2,  2  ), asList(group3,  3  ), asList(group4,   1  ), asList(groupN,    0)), cdsQ);
 		assertIt(asList(asList(group1, 11  ), asList(group2, 21  ), asList(group3, 31  ), asList(group4,  42  )), minQ);

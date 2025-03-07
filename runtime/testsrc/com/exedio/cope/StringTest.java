@@ -511,9 +511,9 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(Integer.valueOf(VALUE2.length()), saln.get(item2));
 
 		{
-			assertContains(item, type.search(sa.equal(VALUE)));
-			assertContains(item2, type.search(sa.notEqual(VALUE)));
-			assertContains(type.search(sa.equal(VALUE_UPPER)));
+			assertContains(item, type.search(sa.is(VALUE)));
+			assertContains(item2, type.search(sa.isNot(VALUE)));
+			assertContains(type.search(sa.is(VALUE_UPPER)));
 			assertContains(item, type.search(sa.like(VALUE)));
 			assertContains(item, item2, type.search(sa.like(VALUE+"%")));
 			assertContains(item2, type.search(sa.like(VALUE2+"%")));
@@ -522,19 +522,19 @@ public class StringTest extends TestWithEnvironment
 			assertContains(type.search(sa.regexpLike("[a-z]{4}S[a-z]{6}")));
 			assertContains(item2, type.search(sa.regexpLike("[a-z]{4}S[a-z]{5}2")));
 
-			assertContains(item, type.search(saup.equal(VALUE_UPPER)));
-			assertContains(item2, type.search(saup.notEqual(VALUE_UPPER)));
-			assertContains(type.search(saup.equal(VALUE)));
+			assertContains(item, type.search(saup.is(VALUE_UPPER)));
+			assertContains(item2, type.search(saup.isNot(VALUE_UPPER)));
+			assertContains(type.search(saup.is(VALUE)));
 			assertContains(item, type.search(saup.like(VALUE_UPPER)));
 			assertContains(item, item2, type.search(saup.like(VALUE_UPPER+"%")));
 			assertContains(item2, type.search(saup.like(VALUE2_UPPER+"%")));
 
-			assertContains(item, type.search(saln.equal(VALUE.length())));
-			assertContains(item2, type.search(saln.notEqual(VALUE.length())));
-			assertContains(type.search(saln.equal(VALUE.length()+2)));
+			assertContains(item, type.search(saln.is(VALUE.length())));
+			assertContains(item2, type.search(saln.isNot(VALUE.length())));
+			assertContains(type.search(saln.is(VALUE.length()+2)));
 
 			assertContains(VALUE, VALUE2, search(sa));
-			assertContains(VALUE, search(sa, sa.equal(VALUE)));
+			assertContains(VALUE, search(sa, sa.is(VALUE)));
 			// TODO allow functions for select
 			//assertContains(VALUE_UPPER, search(saup, sa.equal(VALUE)));
 		}
@@ -643,8 +643,8 @@ public class StringTest extends TestWithEnvironment
 		restartTransaction();
 		assertEquals(value, sa.get(item));
 		{
-			assertEquals(list(item), type.search(sa.equal(value)));
-			assertEquals(list(), type.search(sa.equal(value+"x")));
+			assertEquals(list(item), type.search(sa.is(value)));
+			assertEquals(list(), type.search(sa.is(value+"x")));
 		}
 
 		// test length view

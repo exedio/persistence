@@ -84,12 +84,12 @@ public class FunctionTest extends TestWithEnvironment
 		assertEquals(Integer.valueOf(2), item2.getMax4UpperLength());
 		assertEquals(Integer.valueOf(8), item2.getMin4AndMax4UpperLength());
 
-		assertContains(item1, TYPE.search(min4.equal("5ffff")));
-		assertContains(item1, TYPE.search(min4Upper.equal("5FFFF")));
-		assertContains(item1, TYPE.search(min4UpperLength.equal(5)));
-		assertContains(item1, TYPE.search(min4Upper.length().equal(5)));
-		assertContains(item1, TYPE.search(min4AndMax4UpperLength.equal(9)));
-		assertContains(item1, TYPE.search(min4Upper.length().plus(max4Upper.length()).equal(9)));
+		assertContains(item1, TYPE.search(min4.is("5ffff")));
+		assertContains(item1, TYPE.search(min4Upper.is("5FFFF")));
+		assertContains(item1, TYPE.search(min4UpperLength.is(5)));
+		assertContains(item1, TYPE.search(min4Upper.length().is(5)));
+		assertContains(item1, TYPE.search(min4AndMax4UpperLength.is(9)));
+		assertContains(item1, TYPE.search(min4Upper.length().plus(max4Upper.length()).is(9)));
 
 		assertContains(
 				list("5ffff",  "5FFFF",  Integer.valueOf(5), "4ddd", "4DDD", Integer.valueOf(4), Integer.valueOf(9), Integer.valueOf(9)),

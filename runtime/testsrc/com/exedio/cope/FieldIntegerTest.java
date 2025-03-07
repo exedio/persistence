@@ -39,9 +39,9 @@ public class FieldIntegerTest extends FieldTest
 
 		assertEquals(null, item.getSomeInteger());
 		assertEquals(null, item.get(someInteger));
-		assertContains(item, item2, TYPE.search(someInteger.equal((Integer)null)));
+		assertContains(item, item2, TYPE.search(someInteger.is((Integer)null)));
 		assertContains(item, item2, TYPE.search(someInteger.isNull()));
-		assertContains(TYPE.search(someInteger.notEqual((Integer)null)));
+		assertContains(TYPE.search(someInteger.isNot((Integer)null)));
 		assertContains(TYPE.search(someInteger.isNotNull()));
 
 		someInteger.set(item, Integer.valueOf(14));
@@ -68,17 +68,17 @@ public class FieldIntegerTest extends FieldTest
 		assertEquals(Integer.valueOf(10), item.getSomeInteger());
 		assertEquals(
 			list(item),
-			TYPE.search(someInteger.equal(10)));
+			TYPE.search(someInteger.is(10)));
 		assertEquals(
 			list(),
-			TYPE.search(someInteger.notEqual(10)));
-		assertEquals(list(item2), TYPE.search(someInteger.equal((Integer)null)));
+			TYPE.search(someInteger.isNot(10)));
+		assertEquals(list(item2), TYPE.search(someInteger.is((Integer)null)));
 		assertEquals(list(item2), TYPE.search(someInteger.isNull()));
-		assertEquals(list(item), TYPE.search(someInteger.notEqual((Integer)null)));
+		assertEquals(list(item), TYPE.search(someInteger.isNot((Integer)null)));
 		assertEquals(list(item), TYPE.search(someInteger.isNotNull()));
 
 		assertContains(Integer.valueOf(10), null, search(someInteger));
-		assertContains(Integer.valueOf(10), search(someInteger, someInteger.equal(Integer.valueOf(10))));
+		assertContains(Integer.valueOf(10), search(someInteger, someInteger.is(Integer.valueOf(10))));
 
 		item.setSomeInteger(null);
 		assertEquals(null, item.getSomeInteger());
@@ -123,7 +123,7 @@ public class FieldIntegerTest extends FieldTest
 		restartTransaction();
 		assertEquals(0, item.getSomeNotNullInteger());
 		assertContains(item,
-			TYPE.search(someNotNullInteger.equal(0)));
+			TYPE.search(someNotNullInteger.is(0)));
 
 		item.setSomeNotNullInteger(Integer.MIN_VALUE);
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
@@ -131,7 +131,7 @@ public class FieldIntegerTest extends FieldTest
 		restartTransaction();
 		assertEquals(Integer.MIN_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
-			TYPE.search(someNotNullInteger.equal(Integer.MIN_VALUE)));
+			TYPE.search(someNotNullInteger.is(Integer.MIN_VALUE)));
 
 		item.setSomeNotNullInteger(Integer.MAX_VALUE);
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
@@ -139,6 +139,6 @@ public class FieldIntegerTest extends FieldTest
 		restartTransaction();
 		assertEquals(Integer.MAX_VALUE, item.getSomeNotNullInteger());
 		assertContains(item,
-			TYPE.search(someNotNullInteger.equal(Integer.MAX_VALUE)));
+			TYPE.search(someNotNullInteger.is(Integer.MAX_VALUE)));
 	}
 }

@@ -183,8 +183,8 @@ public class HierarchyTest extends TestWithEnvironment
 		final HierarchyFirstSub firstItem2 = new HierarchyFirstSub(4);
 		assertCheckUpdateCounters();
 
-		assertEquals(list(firstItem), HierarchyFirstSub.TYPE.search(HierarchyFirstSub.firstSubString.equal("firstSubString")));
-		assertEquals(list(), HierarchyFirstSub.TYPE.search(HierarchyFirstSub.firstSubString.equal("firstSubStringX")));
+		assertEquals(list(firstItem), HierarchyFirstSub.TYPE.search(HierarchyFirstSub.firstSubString.is("firstSubString")));
+		assertEquals(list(), HierarchyFirstSub.TYPE.search(HierarchyFirstSub.firstSubString.is("firstSubStringX")));
 		assertContains(firstItem, secondItem, firstItem2, secondItem2, HierarchySuper.TYPE.search(null));
 
 		// model HierarchySingle
@@ -207,49 +207,49 @@ public class HierarchyTest extends TestWithEnvironment
 		assertCheckUpdateCounters();
 		final HierarchySingleSub singleSub2a = new HierarchySingleSub(2, "a");
 		assertCheckUpdateCounters();
-		assertContains(singleSub1a, singleSub1b, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
-		assertContains(singleSub1a, singleSub1b, HierarchySingleSuper.TYPE.search(HierarchySingleSuper.superInt.equal(1)));
-		assertContains(singleSub1a, singleSub2a, HierarchySingleSub.TYPE.search(HierarchySingleSub.subString.equal("a")));
-		assertContains(singleSub1a, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))));
+		assertContains(singleSub1a, singleSub1b, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.is(1)));
+		assertContains(singleSub1a, singleSub1b, HierarchySingleSuper.TYPE.search(HierarchySingleSuper.superInt.is(1)));
+		assertContains(singleSub1a, singleSub2a, HierarchySingleSub.TYPE.search(HierarchySingleSub.subString.is("a")));
+		assertContains(singleSub1a, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))));
 
 		restartTransaction();
 		assertCheckUpdateCounters();
-		assertContains(singleSub1a, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))));
+		assertContains(singleSub1a, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))));
 		assertEquals("a", singleSub2a.getSubString());
 		assertEquals(Integer.valueOf(1), singleSub1b.getSuperInt());
 
 		// test polymorphic pointers
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 		singleSub1a.setHierarchySuper( firstItem );
 		assertCheckUpdateCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
-		assertEquals(list(firstItem), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
-		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(firstItem)));
+		assertEquals(list(firstItem), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
+		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(firstItem)));
 		restartTransaction();
 		assertCheckUpdateCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
-		assertEquals(list(firstItem), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
-		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(firstItem)));
+		assertEquals(list(firstItem), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
+		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(firstItem)));
 
 		singleSub1a.setHierarchySuper(secondItem2);
 		assertCheckUpdateCounters();
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
-		assertEquals(list(secondItem2), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
-		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(secondItem2)));
+		assertEquals(list(secondItem2), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
+		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(secondItem2)));
 		restartTransaction();
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
-		assertEquals(list(secondItem2), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
-		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.equal(secondItem2)));
+		assertEquals(list(secondItem2), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
+		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(secondItem2)));
 
 		singleSub1a.setHierarchySuper(null);
 		assertCheckUpdateCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 		restartTransaction();
 		assertCheckUpdateCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
-		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.equal(1).and(HierarchySingleSub.subString.equal("a"))).search());
+		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 
 		// test wrong attributes
 		try
@@ -330,8 +330,8 @@ public class HierarchyTest extends TestWithEnvironment
 	{
 		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 
-		final Query<?> q1 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.equal(10));
-		final Query<?> q2 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.equal(20));
+		final Query<?> q1 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.is(10));
+		final Query<?> q2 = HierarchySuper.TYPE.newQuery(HierarchySuper.superInt.is(20));
 		assertEquals(list(item), q1.search());
 		assertEquals(list(), q2.search());
 

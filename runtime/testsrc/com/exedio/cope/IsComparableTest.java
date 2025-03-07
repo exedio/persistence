@@ -57,20 +57,20 @@ public class IsComparableTest
 	{
 		assertEquals(
 				stringA + "='123-45'",
-				stringA.equal("123-45").toString());
+				stringA.is("123-45").toString());
 		assertEquals(
 				stringA + "=" + stringB,
-				stringA.equal(stringB).toString());
+				stringA.is(stringB).toString());
 	}
 	@Test void testStringInt()
 	{
 		final Function<Integer> stringAInt = cast(stringA);
 		assertFails(
-				() -> stringAInt.equal(12345),
+				() -> stringAInt.is(12345),
 				IllegalArgumentException.class,
 				stringA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> stringAInt.equal(intA),
+				() -> stringAInt.is(intA),
 				IllegalArgumentException.class,
 				stringA + " not comparable to " + intA);
 	}
@@ -78,11 +78,11 @@ public class IsComparableTest
 	{
 		final Function<AnEnum> stringAEnum = cast(stringA);
 		assertFails(
-				() -> stringAEnum.equal(AnEnum.V4),
+				() -> stringAEnum.is(AnEnum.V4),
 				IllegalArgumentException.class,
 				stringA + " not comparable to 'V4' (com.exedio.cope.IsComparableTest$AnEnum$1)");
 		assertFails(
-				() -> stringAEnum.equal(enumA),
+				() -> stringAEnum.is(enumA),
 				IllegalArgumentException.class,
 				stringA + " not comparable to " + enumA);
 	}
@@ -90,11 +90,11 @@ public class IsComparableTest
 	{
 		final Function<AnItem> stringAItem = cast(stringA);
 		assertFails(
-				() -> stringAItem.equal(AnItem.TYPE.activate(12345)),
+				() -> stringAItem.is(AnItem.TYPE.activate(12345)),
 				IllegalArgumentException.class,
 				stringA + " not comparable to 'AnItem-12345' (com.exedio.cope.IsComparableTest$AnItem)");
 		assertFails(
-				() -> stringAItem.equal(itemA),
+				() -> stringAItem.is(itemA),
 				IllegalArgumentException.class,
 				stringA + " not comparable to " + itemA);
 	}
@@ -103,20 +103,20 @@ public class IsComparableTest
 	{
 		assertEquals(
 				boolA + "='true'",
-				boolA.equal(true).toString());
+				boolA.is(true).toString());
 		assertEquals(
 				boolA + "=" + boolB,
-				boolA.equal(boolB).toString());
+				boolA.is(boolB).toString());
 	}
 	@Test void testBoolInt()
 	{
 		final Function<Integer> boolAInt = cast(boolA);
 		assertFails(
-				() -> boolAInt.equal(12345),
+				() -> boolAInt.is(12345),
 				IllegalArgumentException.class,
 				boolA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> boolAInt.equal(intA),
+				() -> boolAInt.is(intA),
 				IllegalArgumentException.class,
 				boolA + " not comparable to " + intA);
 	}
@@ -125,10 +125,10 @@ public class IsComparableTest
 	{
 		assertEquals(
 				intA + "='12345'",
-				intA.equal(12345).toString());
+				intA.is(12345).toString());
 		assertEquals(
 				intA + "=" + intB,
-				intA.equal(intB).toString());
+				intA.is(intB).toString());
 		assertEquals(
 				intA + " in ('12345','23456')",
 				intA.in(12345, 23456).toString());
@@ -141,7 +141,7 @@ public class IsComparableTest
 				IllegalArgumentException.class,
 				intA + " not comparable to '12345' (java.lang.Long)");
 		assertFails(
-				() -> intALong.equal(longA),
+				() -> intALong.is(longA),
 				IllegalArgumentException.class,
 				intA + " not comparable to " + longA);
 		assertFails(
@@ -158,20 +158,20 @@ public class IsComparableTest
 	{
 		assertEquals(
 				longA + "='12345'",
-				longA.equal(12345l).toString());
+				longA.is(12345l).toString());
 		assertEquals(
 				longA + "=" + longB,
-				longA.equal(longB).toString());
+				longA.is(longB).toString());
 	}
 	@Test void testLongInt()
 	{
 		final Function<Integer> longAInt = cast(longA);
 		assertFails(
-				() -> longAInt.equal(12345),
+				() -> longAInt.is(12345),
 				IllegalArgumentException.class,
 				longA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> longAInt.equal(intA),
+				() -> longAInt.is(intA),
 				IllegalArgumentException.class,
 				longA + " not comparable to " + intA);
 	}
@@ -180,10 +180,10 @@ public class IsComparableTest
 	{
 		assertEquals(
 				doubleA + "='123.45'",
-				doubleA.equal(123.45).toString());
+				doubleA.is(123.45).toString());
 		assertEquals(
 				doubleA + "=" + doubleB,
-				doubleA.equal(doubleB).toString());
+				doubleA.is(doubleB).toString());
 	}
 	@Test void testDoubleInt()
 	{
@@ -193,7 +193,7 @@ public class IsComparableTest
 				IllegalArgumentException.class,
 				doubleA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> doubleAInt.equal(intA),
+				() -> doubleAInt.is(intA),
 				IllegalArgumentException.class,
 				doubleA + " not comparable to " + intA);
 	}
@@ -202,20 +202,20 @@ public class IsComparableTest
 	{
 		assertEquals(
 				dateA + "='1970-01-01 00:00:12.345'",
-				dateA.equal(new Date(12345)).toString());
+				dateA.is(new Date(12345)).toString());
 		assertEquals(
 				dateA + "=" + dateB,
-				dateA.equal(dateB).toString());
+				dateA.is(dateB).toString());
 	}
 	@Test void testDateInt()
 	{
 		final Function<Integer> dateAInt = cast(dateA);
 		assertFails(
-				() -> dateAInt.equal(12345),
+				() -> dateAInt.is(12345),
 				IllegalArgumentException.class,
 				dateA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> dateAInt.equal(intA),
+				() -> dateAInt.is(intA),
 				IllegalArgumentException.class,
 				dateA + " not comparable to " + intA);
 	}
@@ -223,11 +223,11 @@ public class IsComparableTest
 	{
 		final Function<Day> dateADay = cast(dateA);
 		assertFails(
-				() -> dateADay.equal(new Day(8123, 4, 5)),
+				() -> dateADay.is(new Day(8123, 4, 5)),
 				IllegalArgumentException.class,
 				dateA + " not comparable to '8123/4/5' (com.exedio.cope.util.Day)");
 		assertFails(
-				() -> dateADay.equal(dayA),
+				() -> dateADay.is(dayA),
 				IllegalArgumentException.class,
 				dateA + " not comparable to " + dayA);
 	}
@@ -236,20 +236,20 @@ public class IsComparableTest
 	{
 		assertEquals(
 				dayA + "='8123/4/5'",
-				dayA.equal(new Day(8123, 4, 5)).toString());
+				dayA.is(new Day(8123, 4, 5)).toString());
 		assertEquals(
 				dayA + "=" + dayB,
-				dayA.equal(dayB).toString());
+				dayA.is(dayB).toString());
 	}
 	@Test void testDayInt()
 	{
 		final Function<Integer> dayAInt = cast(dayA);
 		assertFails(
-				() -> dayAInt.equal(12345),
+				() -> dayAInt.is(12345),
 				IllegalArgumentException.class,
 				dayA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> dayAInt.equal(intA),
+				() -> dayAInt.is(intA),
 				IllegalArgumentException.class,
 				dayA + " not comparable to " + intA);
 	}
@@ -257,11 +257,11 @@ public class IsComparableTest
 	{
 		final Function<Date> dayADate = cast(dayA);
 		assertFails(
-				() -> dayADate.equal(new Date(12345)),
+				() -> dayADate.is(new Date(12345)),
 				IllegalArgumentException.class,
 				dayA + " not comparable to '1970-01-01 00:00:12.345' (java.util.Date)");
 		assertFails(
-				() -> dayADate.equal(dateA),
+				() -> dayADate.is(dateA),
 				IllegalArgumentException.class,
 				dayA + " not comparable to " + dateA);
 	}
@@ -270,13 +270,13 @@ public class IsComparableTest
 	{
 		assertEquals(
 				enumA + "='V2'",
-				enumA.equal(AnEnum.V2).toString());
+				enumA.is(AnEnum.V2).toString());
 		assertEquals(
 				enumA + "='V4'",
-				enumA.equal(AnEnum.V4).toString());
+				enumA.is(AnEnum.V4).toString());
 		assertEquals(
 				enumA + "=" + enumB,
-				enumA.equal(enumB).toString());
+				enumA.is(enumB).toString());
 	}
 	enum AnEnum
 	{
@@ -290,11 +290,11 @@ public class IsComparableTest
 	{
 		final Function<Integer> enumAInt = cast(enumA);
 		assertFails(
-				() -> enumAInt.equal(12345),
+				() -> enumAInt.is(12345),
 				IllegalArgumentException.class,
 				enumA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> enumAInt.equal(intA),
+				() -> enumAInt.is(intA),
 				IllegalArgumentException.class,
 				enumA + " not comparable to " + intA);
 	}
@@ -302,15 +302,15 @@ public class IsComparableTest
 	{
 		final Function<AnEnumOther> enumAOther = cast(enumA);
 		assertFails(
-				() -> enumAOther.equal(AnEnumOther.V2),
+				() -> enumAOther.is(AnEnumOther.V2),
 				IllegalArgumentException.class,
 				enumA + " not comparable to 'V2' (com.exedio.cope.IsComparableTest$AnEnumOther)");
 		assertFails(
-				() -> enumAOther.equal(AnEnumOther.V4),
+				() -> enumAOther.is(AnEnumOther.V4),
 				IllegalArgumentException.class,
 				enumA + " not comparable to 'V4' (com.exedio.cope.IsComparableTest$AnEnumOther$1)");
 		assertFails(
-				() -> enumAOther.equal(enumOther),
+				() -> enumAOther.is(enumOther),
 				IllegalArgumentException.class,
 				enumA + " not comparable to " + enumOther);
 	}
@@ -327,49 +327,49 @@ public class IsComparableTest
 	{
 		assertEquals(
 				itemA + "='AnItem-12345'",
-				itemA.equal(AnItem.TYPE.activate(12345)).toString());
+				itemA.is(AnItem.TYPE.activate(12345)).toString());
 		assertEquals(
 				itemA + "=" + itemB,
-				itemA.equal(itemB).toString());
+				itemA.is(itemB).toString());
 	}
 	@Test void testItemSuper()
 	{
 		final Function<AnItemSuper> itemASuper = cast(itemA);
 		assertEquals(
 				itemA + "='AnItemSuper-12345'",
-				itemASuper.equal(AnItemSuper.TYPE.activate(12345)).toString());
+				itemASuper.is(AnItemSuper.TYPE.activate(12345)).toString());
 		assertEquals(
 				itemA + "=" + itemSuper,
-				itemASuper.equal(itemSuper).toString());
+				itemASuper.is(itemSuper).toString());
 	}
 	@Test void testItemBrother()
 	{
 		final Function<AnItemBrother> itemABrother = cast(itemA);
 		assertEquals(
 				itemA + "='AnItemBrother-12345'",
-				itemABrother.equal(AnItemBrother.TYPE.activate(12345)).toString());
+				itemABrother.is(AnItemBrother.TYPE.activate(12345)).toString());
 		assertEquals(
 				itemA + "=" + itemBrother,
-				itemABrother.equal(itemBrother).toString());
+				itemABrother.is(itemBrother).toString());
 	}
 	@Test void testItemSub()
 	{
 		assertEquals(
 				itemA + "='AnItemSub-12345'",
-				itemA.equal(AnItemSub.TYPE.activate(12345)).toString());
+				itemA.is(AnItemSub.TYPE.activate(12345)).toString());
 		assertEquals(
 				itemA + "=" + itemSub,
-				itemA.equal(itemSub).toString());
+				itemA.is(itemSub).toString());
 	}
 	@Test void testItemInt()
 	{
 		final Function<Integer> itemAInt = cast(itemA);
 		assertFails(
-				() -> itemAInt.equal(12345),
+				() -> itemAInt.is(12345),
 				IllegalArgumentException.class,
 				itemA + " not comparable to '12345' (java.lang.Integer)");
 		assertFails(
-				() -> itemAInt.equal(intA),
+				() -> itemAInt.is(intA),
 				IllegalArgumentException.class,
 				itemA + " not comparable to " + intA);
 	}
@@ -377,11 +377,11 @@ public class IsComparableTest
 	{
 		final Function<AnItemOther> itemAOther = cast(itemA);
 		assertFails(
-				() -> itemAOther.equal(AnItemOther.TYPE.activate(12345)),
+				() -> itemAOther.is(AnItemOther.TYPE.activate(12345)),
 				IllegalArgumentException.class,
 				itemA + " not comparable to 'AnItemOther-12345' (com.exedio.cope.IsComparableTest$AnItemOther)");
 		assertFails(
-				() -> itemAOther.equal(itemOther),
+				() -> itemAOther.is(itemOther),
 				IllegalArgumentException.class,
 				itemA + " not comparable to " + itemOther);
 	}

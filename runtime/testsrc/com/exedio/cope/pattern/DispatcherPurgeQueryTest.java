@@ -144,7 +144,7 @@ public class DispatcherPurgeQueryTest
 				"and (" +
 					"(toTarget-unpend-success='true' and toTarget-unpend-date<'1969-12-12 00:00:00.555') or " +
 					"(toTarget-unpend-success='false' and toTarget-unpend-date<'1969-12-22 00:00:00.555')))",
-				query(20, 10, DispatcherItem.body.equal("bodyValue")));
+				query(20, 10, DispatcherItem.body.is("bodyValue")));
 		clock.assertEmpty();
 	}
 

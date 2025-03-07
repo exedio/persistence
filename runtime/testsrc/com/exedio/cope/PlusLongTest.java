@@ -109,9 +109,9 @@ public class PlusLongTest extends TestWithEnvironment
 		assertEquals(l1, item.getNumA());
 		assertEquals(l2, item.getNumB());
 		assertEquals(l3, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(1l)));
-		assertContains(item, TYPE.search(numB.equal(2l)));
-		assertContains(item, TYPE.search(numC.equal(3l)));
+		assertContains(item, TYPE.search(numA.is(1l)));
+		assertContains(item, TYPE.search(numB.is(2l)));
+		assertContains(item, TYPE.search(numC.is(3l)));
 
 		assertEquals(l10,item.getPlusA9());
 		assertEquals(l3, item.getPlusAB());
@@ -120,18 +120,18 @@ public class PlusLongTest extends TestWithEnvironment
 		assertEquals(l6, item.getPlusABC());
 		assertEquals(l18,item.getMultiplyB9());
 		assertEquals(l6, item.getMultiplyBC());
-		assertContains(item, TYPE.search(plusA9.equal(10l)));
-		assertContains(item, TYPE.search(plusAB.equal(3l)));
-		assertContains(item, TYPE.search(plusAC.equal(4l)));
-		assertContains(item, TYPE.search(plusBC.equal(5l)));
-		assertContains(item, TYPE.search(plusABC.equal(6l)));
-		assertContains(item, TYPE.search(plusABaC.equal(6l)));
-		assertContains(item, TYPE.search(multiplyB9.equal(18l)));
-		assertContains(item, TYPE.search(multiplyBC.equal(6l)));
-		assertContains(item, TYPE.search(numA.plus(9l  ).equal(10l)));
-		assertContains(item, TYPE.search(numA.plus(numB).equal(3l)));
-		assertContains(item, TYPE.search(numB.multiply(9l  ).equal(18l)));
-		assertContains(item, TYPE.search(numB.multiply(numC).equal(6l)));
+		assertContains(item, TYPE.search(plusA9.is(10l)));
+		assertContains(item, TYPE.search(plusAB.is(3l)));
+		assertContains(item, TYPE.search(plusAC.is(4l)));
+		assertContains(item, TYPE.search(plusBC.is(5l)));
+		assertContains(item, TYPE.search(plusABC.is(6l)));
+		assertContains(item, TYPE.search(plusABaC.is(6l)));
+		assertContains(item, TYPE.search(multiplyB9.is(18l)));
+		assertContains(item, TYPE.search(multiplyBC.is(6l)));
+		assertContains(item, TYPE.search(numA.plus(9l  ).is(10l)));
+		assertContains(item, TYPE.search(numA.plus(numB).is(3l)));
+		assertContains(item, TYPE.search(numB.multiply(9l  ).is(18l)));
+		assertContains(item, TYPE.search(numB.multiply(numC).is(6l)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -139,22 +139,22 @@ public class PlusLongTest extends TestWithEnvironment
 		assertEquals(null, item.getNumA());
 		assertEquals(l2, item.getNumB());
 		assertEquals(l3, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal((Long)null)));
-		assertContains(item, TYPE.search(numB.equal(2l)));
-		assertContains(item, TYPE.search(numC.equal(3l)));
+		assertContains(item, TYPE.search(numA.is((Long)null)));
+		assertContains(item, TYPE.search(numB.is(2l)));
+		assertContains(item, TYPE.search(numC.is(3l)));
 
 		assertEquals(null, item.getPlusA9());
 		assertEquals(null, item.getPlusAB());
 		assertEquals(null, item.getPlusAC());
 		assertEquals(l5, item.getPlusBC());
 		assertEquals(null, item.getPlusABC());
-		assertContains(item, TYPE.search(plusA9.equal((Long)null)));
-		assertContains(item, TYPE.search(plusAB.equal((Long)null)));
-		assertContains(item, TYPE.search(plusAC.equal((Long)null)));
-		assertContains(item, TYPE.search(plusBC.equal(5l)));
-		assertContains(item, TYPE.search(plusABC.equal((Long)null)));
-		assertContains(item, TYPE.search(plusABaC.equal((Long)null)));
-		assertContains(item, TYPE.search(numA.multiply(9l  ).equal((Long)null)));
-		assertContains(item, TYPE.search(numA.multiply(numB).equal((Long)null)));
+		assertContains(item, TYPE.search(plusA9.is((Long)null)));
+		assertContains(item, TYPE.search(plusAB.is((Long)null)));
+		assertContains(item, TYPE.search(plusAC.is((Long)null)));
+		assertContains(item, TYPE.search(plusBC.is(5l)));
+		assertContains(item, TYPE.search(plusABC.is((Long)null)));
+		assertContains(item, TYPE.search(plusABaC.is((Long)null)));
+		assertContains(item, TYPE.search(numA.multiply(9l  ).is((Long)null)));
+		assertContains(item, TYPE.search(numA.multiply(numB).is((Long)null)));
 	}
 }

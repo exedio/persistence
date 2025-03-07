@@ -60,9 +60,9 @@ public class FieldDateTest extends FieldTest
 		assertSerializedSame(someDate, 377);
 
 		assertEqualsVerbose(null, item.getSomeDate());
-		assertContains(item, item2, TYPE.search(someDate.equal((Date)null)));
+		assertContains(item, item2, TYPE.search(someDate.is((Date)null)));
 		assertContains(item, item2, TYPE.search(someDate.isNull()));
-		assertContains(TYPE.search(someDate.notEqual((Date)null)));
+		assertContains(TYPE.search(someDate.isNot((Date)null)));
 		assertContains(TYPE.search(someDate.isNotNull()));
 
 		item.setSomeDate(date);
@@ -74,19 +74,19 @@ public class FieldDateTest extends FieldTest
 		assertNotSame(date2, item.getSomeDate());
 
 		assertContains(date, null, search(someDate));
-		assertContains(date, search(someDate, someDate.equal(date)));
+		assertContains(date, search(someDate, someDate.is(date)));
 
 		restartTransaction();
 		assertEqualsVerbose(date, item.getSomeDate());
-		assertEquals(list(item), TYPE.search(someDate.equal(date)));
+		assertEquals(list(item), TYPE.search(someDate.is(date)));
 		assertEquals(list(item), TYPE.search(someDate.greaterOrEqual(date).and(someDate.lessOrEqual(date))));
-		assertEquals(list(), TYPE.search(someDate.notEqual(date)));
-		assertEquals(list(item2), TYPE.search(someDate.equal((Date)null)));
+		assertEquals(list(), TYPE.search(someDate.isNot(date)));
+		assertEquals(list(item2), TYPE.search(someDate.is((Date)null)));
 		assertEquals(list(item2), TYPE.search(someDate.isNull()));
-		assertEquals(list(item), TYPE.search(someDate.notEqual((Date)null)));
+		assertEquals(list(item), TYPE.search(someDate.isNot((Date)null)));
 		assertEquals(list(item), TYPE.search(someDate.isNotNull()));
-		assertEquals(list(), TYPE.search(someDate.equal(beforeDate)));
-		assertEquals(list(), TYPE.search(someDate.equal(nextDate)));
+		assertEquals(list(), TYPE.search(someDate.is(beforeDate)));
+		assertEquals(list(), TYPE.search(someDate.is(nextDate)));
 		assertEquals(list(), TYPE.search(someDate.greaterOrEqual(beforeDate).and(someDate.lessOrEqual(beforeDate))));
 		assertEquals(list(), TYPE.search(someDate.greaterOrEqual(nextDate).and(someDate.lessOrEqual(nextDate))));
 		assertEquals(list(item), TYPE.search(someDate.greaterOrEqual(date).and(someDate.lessOrEqual(nextDate))));

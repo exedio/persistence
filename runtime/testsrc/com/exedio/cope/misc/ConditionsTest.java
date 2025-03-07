@@ -44,12 +44,12 @@ public class ConditionsTest
 		assertEquals(
 				"((AnItem.name1='alpha' and AnItem.name1='beta') or" +
 				" (AnItem.name1<>'alpha' and AnItem.name1<>'beta'))",
-				equal(name1.equal("alpha"), name1.equal("beta")).toString());
+				equal(name1.is("alpha"), name1.is("beta")).toString());
 	}
 
 	@Test void testEqualNull()
 	{
-		final Condition c = name1.equal("beta");
+		final Condition c = name1.is("beta");
 		try
 		{
 			equal(null, c);
@@ -74,12 +74,12 @@ public class ConditionsTest
 	{
 		assertEquals(
 				"(AnItem.name1<>'alpha' or AnItem.name1='beta')",
-				implies(name1.equal("alpha"), name1.equal("beta")).toString());
+				implies(name1.is("alpha"), name1.is("beta")).toString());
 	}
 
 	@Test void testImpliesNull()
 	{
-		final Condition c = name1.equal("beta");
+		final Condition c = name1.is("beta");
 		try
 		{
 			implies(null, c);

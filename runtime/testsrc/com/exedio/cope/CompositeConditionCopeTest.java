@@ -39,8 +39,8 @@ public class CompositeConditionCopeTest
 	@Test void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
-		final Condition c1 = field.equal(1d);
-		final Condition c2 = field.equal(2d);
+		final Condition c1 = field.is(1d);
+		final Condition c2 = field.is(2d);
 
 		assertNullPointerException(null, "conditions");
 		assertNullPointerException(new Condition[]{null}, "conditions[0]");
@@ -103,9 +103,9 @@ public class CompositeConditionCopeTest
 	@Test void testFlatting()
 	{
 		final DoubleField field = new DoubleField().optional();
-		final Condition c1 = field.equal(1d);
-		final Condition c2 = field.equal(2d);
-		final Condition c3 = field.equal(3d);
+		final Condition c1 = field.is(1d);
+		final Condition c2 = field.is(2d);
+		final Condition c3 = field.is(3d);
 
 		assertEqualsAnd(newAnd(c1, c2, c3), newAnd(c1, c2), c3);
 		assertEqualsOr (newOr (c1, c2, c3), newOr (c1, c2), c3);
@@ -169,9 +169,9 @@ public class CompositeConditionCopeTest
 		final DoubleField f1 = new DoubleField();
 		final DoubleField f2 = new DoubleField();
 		final DoubleField f3 = new DoubleField();
-		final Condition c1 = f1.equal(1d);
-		final Condition c2 = f2.equal(2d);
-		final Condition c3 = f3.equal(3d);
+		final Condition c1 = f1.is(1d);
+		final Condition c2 = f2.is(2d);
+		final Condition c3 = f3.is(3d);
 
 		assertFieldsCovered(Arrays.asList(f1, f2), newOr( c1, c2));
 		assertFieldsCovered(Arrays.asList(f2, f3), newAnd(c2, c3));

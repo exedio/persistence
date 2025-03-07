@@ -148,7 +148,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 
 		@SuppressWarnings("OverlyStrongTypeCast")
 		static final CheckConstraint chk = new CheckConstraint(
-				((IntegerField)uno.getContentType()).equal((IntegerField)duo.getContentType()));
+				((IntegerField)uno.getContentType()).is((IntegerField)duo.getContentType()));
 
 
 		@com.exedio.cope.instrument.Generated

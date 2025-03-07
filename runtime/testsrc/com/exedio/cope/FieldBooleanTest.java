@@ -37,9 +37,9 @@ public class FieldBooleanTest extends FieldTest
 		assertSerializedSame(someBoolean, 380);
 
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, TYPE.search(someBoolean.equal((Boolean)null)));
+		assertContains(item, item2, TYPE.search(someBoolean.is((Boolean)null)));
 		assertContains(item, item2, TYPE.search(someBoolean.isNull()));
-		assertContains(TYPE.search(someBoolean.notEqual((Boolean)null)));
+		assertContains(TYPE.search(someBoolean.isNot((Boolean)null)));
 		assertContains(TYPE.search(someBoolean.isNotNull()));
 
 		someBoolean.set(item, Boolean.TRUE);
@@ -60,37 +60,37 @@ public class FieldBooleanTest extends FieldTest
 		{
 			assertEquals("field "+someBoolean+" is not mandatory", e.getMessage());
 		}
-		assertContains(item, TYPE.search(someBoolean.equal(true)));
+		assertContains(item, TYPE.search(someBoolean.is(true)));
 		assertContains(item2, TYPE.search(someBoolean.isNull()));
-		assertContains(TYPE.search(someBoolean.notEqual(true)));
+		assertContains(TYPE.search(someBoolean.isNot(true)));
 		assertContains(item, TYPE.search(someBoolean.isNotNull()));
 
 		item.setSomeBoolean(Boolean.FALSE);
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
-		assertContains(item, TYPE.search(someBoolean.equal(false)));
+		assertContains(item, TYPE.search(someBoolean.is(false)));
 		assertContains(item2, TYPE.search(someBoolean.isNull()));
-		assertContains(TYPE.search(someBoolean.notEqual(false)));
+		assertContains(TYPE.search(someBoolean.isNot(false)));
 		assertContains(item, TYPE.search(someBoolean.isNotNull()));
 
 		assertContains(Boolean.FALSE, null, search(someBoolean));
-		assertContains(Boolean.FALSE, search(someBoolean, someBoolean.equal(false)));
+		assertContains(Boolean.FALSE, search(someBoolean, someBoolean.is(false)));
 
 		restartTransaction();
 		assertEquals(Boolean.FALSE, item.getSomeBoolean());
-		assertContains(item, TYPE.search(someBoolean.equal(false)));
+		assertContains(item, TYPE.search(someBoolean.is(false)));
 		assertContains(item2, TYPE.search(someBoolean.isNull()));
-		assertContains(TYPE.search(someBoolean.notEqual(false)));
+		assertContains(TYPE.search(someBoolean.isNot(false)));
 		assertContains(item, TYPE.search(someBoolean.isNotNull()));
 
 		item.setSomeBoolean(null);
 		assertEquals(null, item.getSomeBoolean());
-		assertContains(item, item2, TYPE.search(someBoolean.equal((Boolean)null)));
+		assertContains(item, item2, TYPE.search(someBoolean.is((Boolean)null)));
 		assertContains(item, item2, TYPE.search(someBoolean.isNull()));
-		assertContains(TYPE.search(someBoolean.notEqual((Boolean)null)));
+		assertContains(TYPE.search(someBoolean.isNot((Boolean)null)));
 		assertContains(TYPE.search(someBoolean.isNotNull()));
 
-		assertEquals(someBoolean.equal(true ).toString(), someBoolean.isTrue ().toString());
-		assertEquals(someBoolean.equal(false).toString(), someBoolean.isFalse().toString());
+		assertEquals(someBoolean.is(true ).toString(), someBoolean.isTrue ().toString());
+		assertEquals(someBoolean.is(false).toString(), someBoolean.isFalse().toString());
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
@@ -111,9 +111,9 @@ public class FieldBooleanTest extends FieldTest
 	{
 		assertEquals(TYPE, someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());
-		assertContains(item, TYPE.search(someNotNullBoolean.equal(true)));
+		assertContains(item, TYPE.search(someNotNullBoolean.is(true)));
 		assertContains(TYPE.search(someNotNullBoolean.isNull()));
-		assertContains(item, TYPE.search(someNotNullBoolean.notEqual(false)));
+		assertContains(item, TYPE.search(someNotNullBoolean.isNot(false)));
 		assertContains(item, item2, TYPE.search(someNotNullBoolean.isNotNull()));
 
 		someNotNullBoolean.set(item, Boolean.FALSE);
@@ -126,9 +126,9 @@ public class FieldBooleanTest extends FieldTest
 		assertEquals(false, item.getSomeNotNullBoolean());
 		assertEquals(Boolean.FALSE, someNotNullBoolean.get(item));
 		assertEquals(false, someNotNullBoolean.getMandatory(item));
-		assertContains(TYPE.search(someNotNullBoolean.equal(true)));
+		assertContains(TYPE.search(someNotNullBoolean.is(true)));
 		assertContains(TYPE.search(someNotNullBoolean.isNull()));
-		assertContains(TYPE.search(someNotNullBoolean.notEqual(false)));
+		assertContains(TYPE.search(someNotNullBoolean.isNot(false)));
 		assertContains(item, item2, TYPE.search(someNotNullBoolean.isNotNull()));
 	}
 }

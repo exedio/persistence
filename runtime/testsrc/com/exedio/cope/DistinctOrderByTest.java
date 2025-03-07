@@ -59,7 +59,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	@Test void noDistinctOrOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
-		query.join(TYPE, join -> numC.equal(numC.bind(join)));
+		query.join(TYPE, join -> numC.is(numC.bind(join)));
 
 		assertEquals(
 				"select this from PlusIntegerItem " +
@@ -93,7 +93,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	@Test void noOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
-		query.join(TYPE, join -> numC.equal(numC.bind(join)));
+		query.join(TYPE, join -> numC.is(numC.bind(join)));
 		query.setDistinct(true);
 
 		assertEquals(
@@ -130,7 +130,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	@Test void noDistinct()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
-		query.join(TYPE, join -> numC.equal(numC.bind(join)));
+		query.join(TYPE, join -> numC.is(numC.bind(join)));
 		query.setOrderBy(numA, true);
 
 		assertEquals(
@@ -200,7 +200,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	@Test void problemWithJoin()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
-		query.join(TYPE, join -> numC.equal(numC.bind(join)));
+		query.join(TYPE, join -> numC.is(numC.bind(join)));
 		query.setDistinct(true);
 		query.setOrderBy(numA, true);
 
@@ -241,7 +241,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	@Test void problemWithJoinAndOtherOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
-		final Join join = query.join(TYPE, j -> numC.equal(numC.bind(j)));
+		final Join join = query.join(TYPE, j -> numC.is(numC.bind(j)));
 		query.setDistinct(true);
 		query.setOrderBy(numA.bind(join), true);
 
@@ -299,7 +299,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	@Test void testDistinctOrderByAnyAggregate()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
-		query.join(TYPE, join -> numC.equal(numC.bind(join)));
+		query.join(TYPE, join -> numC.is(numC.bind(join)));
 		query.setDistinct(true);
 		query.setOrderBy(numA.any(), true);
 
