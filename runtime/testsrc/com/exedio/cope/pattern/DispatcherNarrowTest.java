@@ -95,7 +95,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 	}
 
 	private static final Config config = new Config().narrow(
-			MyItem.dropByNarrowCondition.equal(false));
+			MyItem.dropByNarrowCondition.isFalse());
 
 	private static void assertPending(final MyItem item)
 	{
