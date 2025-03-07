@@ -381,7 +381,7 @@ public final class Schedule extends Pattern
 
 			final Date lastUntilDate = new Query<>(
 					runs.until.max(),
-					runs.mount().parent.as(parentClass).equal(item)).
+					runs.mount().parent.as(parentClass).is(item)).
 					searchSingleton();
 			lastUntil = lastUntilDate!=null ? lastUntilDate.toInstant() : null;
 			interval = this.interval.get(item);

@@ -91,7 +91,7 @@ public interface Function<E> extends Selectable<E>
 	@Deprecated
 	default Condition equal(final Join join, final E value)
 	{
-		return equal(value).bind(join);
+		return is(value).bind(join);
 	}
 
 	@SuppressWarnings("unchecked") // Possible heap pollution from parameterized vararg type E

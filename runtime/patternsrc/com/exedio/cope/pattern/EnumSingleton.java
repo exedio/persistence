@@ -114,7 +114,7 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 		requireNonNull(value, "value");
 
 		final Type<P> type = getType().as(typeClass);
-		final P found = type.searchSingleton(once.equal(value));
+		final P found = type.searchSingleton(once.is(value));
 		if(found!=null)
 			return found;
 		else

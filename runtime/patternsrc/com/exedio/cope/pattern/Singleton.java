@@ -60,7 +60,7 @@ public final class Singleton extends Pattern
 	{
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
-		final P found = type.searchSingleton(source.equal(THE_ONE_OBJECT));
+		final P found = type.searchSingleton(source.is(THE_ONE_OBJECT));
 		if(found!=null)
 			return found;
 		else

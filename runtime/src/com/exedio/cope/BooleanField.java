@@ -227,18 +227,18 @@ public final class BooleanField extends FunctionField<Boolean>
 	}
 
 	/**
-	 * Equivalent to {@link #equal(Object) equal(true)}
+	 * Equivalent to {@link #is(Object) is(true)}
 	 */
 	public Condition isTrue()
 	{
-		return equal(true);
+		return is(true);
 	}
 
 	/**
-	 * Equivalent to {@link #equal(Object) equal(false)}
+	 * Equivalent to {@link #is(Object) is(false)}
 	 */
 	public Condition isFalse()
 	{
-		return equal(false);
+		return is(false);
 	}
 }

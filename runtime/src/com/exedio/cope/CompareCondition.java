@@ -39,8 +39,8 @@ public final class CompareCondition<E> extends Condition
 	 * @deprecated
 	 * Use the convenience methods instead,
 	 * any non-Function will cause this method to fail.
-	 * @see com.exedio.cope.Function#equal(Object)
-	 * @see com.exedio.cope.Function#notEqual(Object)
+	 * @see com.exedio.cope.Function#is(Object)
+	 * @see com.exedio.cope.Function#isNot(Object)
 	 * @see com.exedio.cope.Function#less(Object)
 	 * @see com.exedio.cope.Function#lessOrEqual(Object)
 	 * @see com.exedio.cope.Function#greater(Object)

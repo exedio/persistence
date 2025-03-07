@@ -73,12 +73,12 @@ public class CaseView extends StringView
 
 	public static Condition equalIgnoreCase(final Function<String> function, final String value)
 	{
-		return normalizeCase(function).equal(normalizeCase(value));
+		return normalizeCase(function).is(normalizeCase(value));
 	}
 
 	public static Condition equalIgnoreCase(final Function<String> function, final Function<String> right)
 	{
-		return normalizeCase(function).equal(normalizeCase(right));
+		return normalizeCase(function).is(normalizeCase(right));
 	}
 
 	public static LikeCondition likeIgnoreCase(final Function<String> function, final String value)

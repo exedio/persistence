@@ -300,6 +300,6 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		return q.joinOuterLeft(
 				mount.entryType,
 				mount.parent.equalTarget().
-					and(this.key.equal(key)));
+					and(this.key.is(key)));
 	}
 }

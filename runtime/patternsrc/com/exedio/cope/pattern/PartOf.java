@@ -144,7 +144,7 @@ public final class PartOf<C extends Item> extends Pattern
 	{
 		final Type<P> type =
 				requireParentClass(partClass, "partClass");
-		final Condition parentCondition = this.container.equal(container);
+		final Condition parentCondition = this.container.is(container);
 		final Query<P> q = type.newQuery(condition!=null ? Cope.and(parentCondition, condition) : parentCondition);
 
 		final This<?> typeThis = type.getThis(); // make search deterministic

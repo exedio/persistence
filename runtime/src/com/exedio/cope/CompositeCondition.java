@@ -225,7 +225,7 @@ public final class CompositeCondition extends Condition
 			case 0 -> {
 				return ofFalse();
 			} case 1 -> {
-				return function.equal(values[0]);
+				return function.is(values[0]);
 			} default -> {
 				if (Stream.of(values).anyMatch(Objects::isNull))
 				{
@@ -246,7 +246,7 @@ public final class CompositeCondition extends Condition
 			case 0 -> {
 				return ofFalse();
 			} case 1 -> {
-				return function.equal(values.iterator().next());
+				return function.is(values.iterator().next());
 			} default -> {
 				boolean containsNull;
 				try
@@ -276,7 +276,7 @@ public final class CompositeCondition extends Condition
 			case 0 ->
 				function.isNull();
 			case 1 ->
-				composite(Operator.OR, function.isNull(), function.equal(nonNullValues.get(0)));
+				composite(Operator.OR, function.isNull(), function.is(nonNullValues.get(0)));
 			default ->
 				composite(Operator.OR, function.isNull(), new InCondition<>(function, false, nonNullValues));
 		};

@@ -580,7 +580,7 @@ public final class Dispatcher extends Pattern
 					}
 					else
 					{
-						final Query<Run> query = runType.type.newQuery(runParent.equal(item));
+						final Query<Run> query = runType.type.newQuery(runParent.is(item));
 						if(supportsPurge())
 						{
 							final Date unpendDate = unpend.of(Unpend.date).get(item);
@@ -878,7 +878,7 @@ public final class Dispatcher extends Pattern
 			final Query<Run> q =
 					type.newQuery(Cope.and(
 							Cope.equalAndCast(parent, item),
-							result.equal(Result.success)));
+							result.is(Result.success)));
 			q.setOrderBy(type.getThis(), false);
 			q.setPage(0, 1);
 			return q.searchSingleton();
@@ -899,7 +899,7 @@ public final class Dispatcher extends Pattern
 					type.search(
 							Cope.and(
 									Cope.equalAndCast(parent, item),
-									result.notEqual(Result.success)),
+									result.isNot(Result.success)),
 							type.getThis(),
 							true);
 		}

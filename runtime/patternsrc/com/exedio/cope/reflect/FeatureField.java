@@ -322,7 +322,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(isInstance(feature) && getForbidden(feature)==null)
-					conditions.add(idField.notEqual(feature.getID()));
+					conditions.add(idField.isNot(feature.getID()));
 
 		return Cope.and(conditions);
 	}
