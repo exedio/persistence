@@ -100,10 +100,9 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		assertFails(
 				() -> c1.setChoiceA(p),
-				"copy violation on " + c1 + " " +
+				"choice violation on " + c1 + " " +
 				"for Container.choiceAChoice, " +
-				"expected '" + c2 + "' from target " + p + ", " +
-				"but was '" + c1 + "'",
+				"mismatching backPointer '" + c2 + "' at " + p,
 				c1, c2, c1, p);
 		assertEquals(c2, p.getParent());
 		assertEquals(null, c1.getChoiceA());
@@ -123,10 +122,9 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		assertFails(
 				() -> c1.setChoiceB(p),
-				"copy violation on " + c1 + " " +
+				"choice violation on " + c1 + " " +
 				"for Container.choiceBChoice, " +
-				"expected '" + c2 + "' from target " + p + ", " +
-				"but was '" + c1 + "'",
+				"mismatching backPointer '" + c2 + "' at " + p,
 				c1, c2, c1, p);
 		assertEquals(c2, p.getParent());
 		assertEquals(null, c1.getChoiceA());
@@ -144,10 +142,9 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		assertFails(
 				() -> c.setChoiceA(p),
-				"copy violation on " + c + " " +
+				"choice violation on " + c + " " +
 				"for Container.choiceAChoice, " +
-				"expected null from target " + p + ", " +
-				"but was '" + c + "'",
+				"mismatching backPointer null at " + p,
 				c, null, c, p);
 		assertEquals(null, p.getParent());
 		assertEquals(null, c.getChoiceA());
@@ -164,10 +161,9 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		assertFails(
 				() -> c.setChoiceB(p),
-				"copy violation on " + c + " " +
+				"choice violation on " + c + " " +
 				"for Container.choiceBChoice, " +
-				"expected null from target " + p + ", " +
-				"but was '" + c + "'",
+				"mismatching backPointer null at " + p,
 				c, null, c, p);
 		assertEquals(null, p.getParent());
 		assertEquals(null, c.getChoiceA());
@@ -184,9 +180,8 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceAChoice, " +
-				"expected '" + c1 + "' from target " + p + ", " +
-				"but was newly created instance of type Container",
+				"choice violation for Container.choiceAChoice, " +
+				"mismatching backPointer '" + c1 + "' at " + p,
 				null, c1, null, p);
 		assertEquals(asList(c1), Container.TYPE.search());
 		assertEquals(0, Container.choiceA.getChoice().check());
@@ -202,9 +197,8 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceBChoice, " +
-				"expected '" + c1 + "' from target " + p + ", " +
-				"but was newly created instance of type Container",
+				"choice violation for Container.choiceBChoice, " +
+				"mismatching backPointer '" + c1 + "' at " + p,
 				null, c1, null, p);
 		assertEquals(asList(c1), Container.TYPE.search());
 		assertEquals(0, Container.choiceA.getChoice().check());
@@ -217,9 +211,8 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		assertEquals(null, p.getParent());
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceAChoice, " +
-				"expected null from target " + p + ", " +
-				"but was newly created instance of type Container",
+				"choice violation for Container.choiceAChoice, " +
+				"mismatching backPointer null at " + p,
 				null, null, null, p);
 		assertEquals(asList(), Container.TYPE.search());
 		assertEquals(0, Container.choiceA.getChoice().check());
@@ -232,9 +225,8 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		assertEquals(null, p.getParent());
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceBChoice, " +
-				"expected null from target " + p + ", " +
-				"but was newly created instance of type Container",
+				"choice violation for Container.choiceBChoice, " +
+				"mismatching backPointer null at " + p,
 				null, null, null, p);
 		assertEquals(asList(), Container.TYPE.search());
 		assertEquals(0, Container.choiceA.getChoice().check());

@@ -85,10 +85,9 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 
 		assertFails(
 				() -> c1.setChoice(p),
-				"copy violation on " + c1 + " " +
+				"choice violation on " + c1 + " " +
 				"for Container.choiceChoice, " +
-				"expected '" + c2 + "' from target " + p + ", " +
-				"but was '" + c1 + "'",
+				"mismatching backPointer '" + c2 + "' at " + p,
 				c1, c2, c1, p);
 		assertEquals(c2, p.getParent());
 		assertEquals(null, c1.getChoice());
@@ -105,10 +104,9 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 
 		assertFails(
 				() -> c.setChoice(p),
-				"copy violation on " + c + " " +
+				"choice violation on " + c + " " +
 				"for Container.choiceChoice, " +
-				"expected null from target " + p + ", " +
-				"but was '" + c + "'",
+				"mismatching backPointer null at " + p,
 				c, null, c, p);
 		assertEquals(null, p.getParent());
 		assertEquals(null, c.getChoice());
@@ -124,9 +122,8 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceChoice, " +
-				"expected '" + c1 + "' from target " + p + ", " +
-				"but was newly created instance of type Container",
+				"choice violation for Container.choiceChoice, " +
+				"mismatching backPointer '" + c1 + "' at " + p,
 				null, c1, null, p);
 		assertEquals(asList(c1), Container.TYPE.search());
 		assertEquals(0, Container.choice.getChoice().check());
@@ -138,9 +135,8 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 		assertEquals(null, p.getParent());
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceChoice, " +
-				"expected null from target " + p + ", " +
-				"but was newly created instance of type Container",
+				"choice violation for Container.choiceChoice, " +
+				"mismatching backPointer null at " + p,
 				null, null, null, p);
 		assertEquals(asList(), Container.TYPE.search());
 		assertEquals(0, Container.choice.getChoice().check());
