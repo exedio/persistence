@@ -352,7 +352,7 @@ public final class Schedule extends Pattern
 		final Instant now = Clock.newDate().toInstant(); // TODO per item
 
 		for(final P item : once(iterateTypeTransactionally(
-				type, enabled.equal(true), 1000)))
+				type, enabled.isTrue(), 1000)))
 		{
 			deferOrStopIfRequested(ctx);
 			runInternal(parentClass, now, item, ctx);

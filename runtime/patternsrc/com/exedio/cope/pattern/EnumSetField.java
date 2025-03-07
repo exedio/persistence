@@ -199,7 +199,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 
 	public Condition contains(final E element)
 	{
-		return field(element).equal(true);
+		return field(element).isTrue();
 	}
 
 	public Condition isEmpty()
@@ -208,7 +208,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		int i = 0;
 		for(final Enum<E> e : elementClass.getEnumConstants())
 			//noinspection SuspiciousMethodCalls OK: bug in idea
-			c[i++] = fields.get(e).equal(false);
+			c[i++] = fields.get(e).isFalse();
 		return Cope.and(c);
 	}
 
@@ -218,7 +218,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		int i = 0;
 		for(final Enum<E> e : elementClass.getEnumConstants())
 			//noinspection SuspiciousMethodCalls OK: bug in idea
-			c[i++] = fields.get(e).equal(true);
+			c[i++] = fields.get(e).isTrue();
 		return Cope.or(c);
 	}
 }

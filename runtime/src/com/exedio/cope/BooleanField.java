@@ -225,4 +225,20 @@ public final class BooleanField extends FunctionField<Boolean>
 	{
 		return searchUniqueStrict(typeClass, Boolean.valueOf(value));
 	}
+
+	/**
+	 * Equivalent to {@link #equal(Object) equal(true)}
+	 */
+	public Condition isTrue()
+	{
+		return equal(true);
+	}
+
+	/**
+	 * Equivalent to {@link #equal(Object) equal(false)}
+	 */
+	public Condition isFalse()
+	{
+		return equal(false);
+	}
 }
