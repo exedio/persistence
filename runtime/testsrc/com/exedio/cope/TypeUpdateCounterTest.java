@@ -33,12 +33,12 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	@Test
 	void hasUpdateCounter()
 	{
-		assertNotNull(UnmodifiableGrandparent.TYPE.table.updateCounter);
+		assertNull(UnmodifiableGrandparent.TYPE.table.updateCounter);
 		assertNotNull(ModifiableParent.TYPE.table.updateCounter);
 		assertNotNull(ModifiableChild.TYPE.table.updateCounter);
-		assertNotNull(UnmodifiableChild.TYPE.table.updateCounter);
-		assertNotNull(BlobChild.TYPE.table.updateCounter);
-		assertNotNull(VaultChild.TYPE.table.updateCounter);
+		assertNull(UnmodifiableChild.TYPE.table.updateCounter);
+		assertNullIff(!isVaultAllFields(), BlobChild.TYPE.table.updateCounter);
+		assertNullIff(isVaultEnabled(), VaultChild.TYPE.table.updateCounter);
 		assertNull(SeparateUnmodifiable.TYPE.table.updateCounter);
 		assertNullIff(!isVaultAllFields(), SeparateBlob.TYPE.table.updateCounter);
 	}
@@ -49,6 +49,11 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 			assertNull(actual);
 		else
 			assertNotNull(actual);
+	}
+
+	private boolean isVaultEnabled()
+	{
+		return model.getConnectProperties().vault == null;
 	}
 
 	private boolean isVaultAllFields()

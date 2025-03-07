@@ -97,7 +97,10 @@ public class SchemaInfoTest extends TestWithEnvironment
 				IllegalArgumentException.class,
 				"no type column for InstanceOfRefItem.refb2");
 
-		assertEquals(synthetic("catch", "InstanceOfAItem"), getUpdateCounterColumnName(InstanceOfAItem.TYPE));
+		assertFails(
+				() -> getUpdateCounterColumnName(InstanceOfAItem.TYPE),
+				IllegalArgumentException.class,
+				"no update counter for InstanceOfAItem");
 		assertEquals(synthetic("catch", "InstanceOfB1Item"), getUpdateCounterColumnName(InstanceOfB1Item.TYPE));
 
 		assertCacheInfo(

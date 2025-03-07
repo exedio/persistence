@@ -41,7 +41,6 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 				"select " +
 				SI.pk(InstanceOfAItem.TYPE) + ',' +
 				SI.type(InstanceOfAItem.TYPE) + ',' +
-				SI.update(InstanceOfAItem.TYPE) + ',' +
 				SI.col(InstanceOfAItem.code) +
 				" from " +
 				SI.tab(InstanceOfAItem.TYPE));
