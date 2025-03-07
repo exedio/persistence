@@ -70,6 +70,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final String patternPostfix;
 	final boolean isAbstract;
 	final Type<? super T> supertype;
+	final int inheritanceDepth;
 	final Type<? super T> toptype;
 	private final IdentityHashMap<Type<?>,Void> supertypes;
 
@@ -195,6 +196,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		this.patternPostfix = patternPostfix;
 		this.isAbstract = Modifier.isAbstract(javaClass.getModifiers());
 		this.supertype = supertype;
+		this.inheritanceDepth = supertype==null ? 0 : supertype.inheritanceDepth+1;
 		this.typeColumnMinLength = getTypeColumnMinLength();
 
 		if(supertype==null)
