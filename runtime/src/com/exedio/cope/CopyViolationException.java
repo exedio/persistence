@@ -33,7 +33,6 @@ public final class CopyViolationException extends ConstraintViolationException
 	@Nullable private final CopyConstraint additionalFeature;
 	private final Object expectedValue;
 	private final Object actualValue;
-	private final Type<?> actualValueType;
 	@Nonnull  private final Item targetItem;
 	@Nullable private final Item additionalTargetItem;
 
@@ -62,7 +61,6 @@ public final class CopyViolationException extends ConstraintViolationException
 		this.additionalFeature = additionalFeature;
 		this.expectedValue = expectedValue;
 		this.actualValue = actualValue;
-		this.actualValueType = null;
 		this.targetItem = requireNonNull(targetItem);
 		this.additionalTargetItem = additionalTargetItem;
 	}
@@ -70,15 +68,13 @@ public final class CopyViolationException extends ConstraintViolationException
 	CopyViolationException(
 			final Item targetItem,
 			final CopyConstraint feature,
-			final Object expectedValue,
-			final Type<?> actualValueType)
+			final Object expectedValue)
 	{
 		super(null, null);
 		this.feature = requireNonNull(feature);
 		this.additionalFeature = null;
 		this.expectedValue = expectedValue;
 		this.actualValue = null;
-		this.actualValueType = actualValueType;
 		this.targetItem = requireNonNull(targetItem);
 		this.additionalTargetItem = null;
 	}
@@ -143,7 +139,7 @@ public final class CopyViolationException extends ConstraintViolationException
 				" for " + feature +
 				", expected " + toString(expectedValue) +
 				" from target " + targetItem.getCopeID() +
-				", but was " + (actualValueType!=null ? ("newly created instance of type " + actualValueType) : toString(actualValue));
+				", but was " + toString(actualValue);
 		}
 		else
 		{
