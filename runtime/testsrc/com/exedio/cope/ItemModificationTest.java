@@ -118,11 +118,8 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.field, null, null,
-				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				0,
+				List.of()
 		);
 	}
 
@@ -144,11 +141,8 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.field, "A", "A",
-				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				0,
+				List.of()
 		);
 	}
 
@@ -170,11 +164,8 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				ModifiableParent.modifiableAtParent, 1, 1,
-				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				0,
+				List.of()
 		);
 	}
 
@@ -196,11 +187,8 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.reference, null, null,
-				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				0,
+				List.of()
 		);
 	}
 
@@ -223,11 +211,8 @@ class ItemModificationTest extends TestWithEnvironment
 		final MyItem item = new MyItem();
 		check(
 				MyItem.reference, item, item,
-				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				0,
+				List.of()
 		);
 	}
 
@@ -341,11 +326,8 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.vaultData, null, null,
-				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				0,
+				List.of()
 		);
 	}
 
@@ -367,11 +349,8 @@ class ItemModificationTest extends TestWithEnvironment
 	{
 		check(
 				MyItem.vaultData, DataField.toValue(new byte[]{1}), DataField.toValue(new byte[]{1}),
-				1,
-				List.of(
-						new Update(ModifiableParent.TYPE, true, ModifiableParent.modifiableAtParent),
-						new Update(MyItem.TYPE, true, MyItem.field, MyItem.reference, MyItem.vaultData)
-				)
+				0,
+				List.of()
 		);
 	}
 
