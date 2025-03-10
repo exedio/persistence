@@ -24,8 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * The COPE instrumentor will (largely) ignore a feature that has this annotation.
- * Specifically, it will not generate any wrappers, and not try to instantiate the
+ * The COPE instrumentor will (largely) ignore a feature or a class that has this annotation.
+ * Specifically, at features it will not generate any wrappers, and not try to instantiate the
  * feature (unless required for an other, non-ignored feature).
  */
 @Target({ElementType.FIELD, ElementType.TYPE})
