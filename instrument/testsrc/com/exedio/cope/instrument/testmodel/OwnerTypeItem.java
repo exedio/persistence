@@ -18,10 +18,8 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testlib.OwnerTypeSuper;
 
-@WrapperType(constructorSuppressWarnings="rawtypes") // TODO needed to avoid compiler error in initial constructor create by instrumentor: method map in class SetValue cannot be applied to given types;
 public class OwnerTypeItem extends OwnerTypeSuper
 {
 	/**
@@ -30,10 +28,10 @@ public class OwnerTypeItem extends OwnerTypeSuper
 	 * @param byClassFeature the initial value for field {@link #byClassFeature}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess","rawtypes"})
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	protected OwnerTypeItem(
 				@javax.annotation.Nullable final com.exedio.cope.instrument.testlib.OwnerTypeSuper.MyInterface<?> plainFeature,
-				@javax.annotation.Nullable final java.lang.Class<? extends com.exedio.cope.instrument.testlib.OwnerTypeSuper.MyInterface> byClassFeature)
+				@javax.annotation.Nullable final java.lang.Class<? extends com.exedio.cope.instrument.testlib.OwnerTypeSuper.MyInterface<?>> byClassFeature)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.SetValue.map(com.exedio.cope.instrument.testlib.OwnerTypeSuper.plainFeature,plainFeature),

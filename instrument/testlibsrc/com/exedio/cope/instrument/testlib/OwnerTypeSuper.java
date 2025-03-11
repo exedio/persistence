@@ -24,7 +24,6 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testfeature.OwnerTypeFeatureByClass;
 import com.exedio.cope.instrument.testfeature.OwnerTypeFeaturePlain;
 
-@WrapperType(constructorSuppressWarnings="rawtypes") // TODO needed to avoid compiler error in initial constructor create by instrumentor: method map in class SetValue cannot be applied to given types;
 public class OwnerTypeSuper extends Item
 {
 	/**
@@ -34,7 +33,7 @@ public class OwnerTypeSuper extends Item
 	@SuppressWarnings("unchecked")
 	private static final Class<MyInterface<?>> myInterfaceClassWildcard = (Class<MyInterface<?>>)((Class<?>)MyInterface.class);
 	protected static final OwnerTypeFeaturePlain<MyInterface<?>> plainFeature = OwnerTypeFeaturePlain.create(myInterfaceClassWildcard);
-	@SuppressWarnings("rawtypes") // TODO needed to avoid compiler error in initial constructor create by instrumentor: method map in class SetValue cannot be applied to given types;
+	@SuppressWarnings("rawtypes") // OK: fixed in following MR
 	protected static final OwnerTypeFeatureByClass<MyInterface> byClassFeature = OwnerTypeFeatureByClass.create(MyInterface.class);
 
 	@SuppressWarnings({"InterfaceNeverImplemented", "MarkerInterface", "unused"}) // OK: just a dummy
@@ -49,10 +48,10 @@ public class OwnerTypeSuper extends Item
 	 * @param byClassFeature the initial value for field {@link #byClassFeature}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess","rawtypes"})
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	protected OwnerTypeSuper(
 				@javax.annotation.Nullable final MyInterface<?> plainFeature,
-				@javax.annotation.Nullable final java.lang.Class<? extends MyInterface> byClassFeature)
+				@javax.annotation.Nullable final java.lang.Class<? extends MyInterface<?>> byClassFeature)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.SetValue.map(OwnerTypeSuper.plainFeature,plainFeature),
