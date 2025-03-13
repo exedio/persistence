@@ -333,10 +333,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(final Iterator<E> it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = sources[i].equal(it.next());
+			conditions[i] = sources[i].is(it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = sources[i].equal((E)null);
+			conditions[i] = sources[i].is((E) null);
 
 		return Cope.and(conditions);
 	}
@@ -357,7 +357,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		for(final E v : value)
 		{
-			conditions[i] = sources[i].notEqual(v).or(sources[i].isNull());
+			conditions[i] = sources[i].isNot(v).or(sources[i].isNull());
 			i++;
 		}
 
@@ -383,7 +383,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		final Function<Integer> l = value==null ? length : null;
 		for(int i = 0; i<sources.length; i++)
 		{
-			conditions[i] = sources[i].equal(value);
+			conditions[i] = sources[i].is(value);
 			if(value==null)
 				conditions[i] = conditions[i].and(l.greater(i));
 		}
@@ -401,7 +401,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		final Condition[] conditions = new Condition[sources.length];
 
 		for(int i = 0; i<sources.length; i++)
-			conditions[i] = bind(sources[i], join).equal(requireNonNull(value, "value"));
+			conditions[i] = bind(sources[i], join).is(requireNonNull(value, "value"));
 
 		return Cope.or(conditions);
 	}
@@ -432,12 +432,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public Condition lengthEqual(final int value)
 	{
-		return length.equal(value);
+		return length.is(value);
 	}
 
 	public Condition lengthNotEqual(final int value)
 	{
-		return length.notEqual(value);
+		return length.isNot(value);
 	}
 
 	public Condition lengthLess(final int value)

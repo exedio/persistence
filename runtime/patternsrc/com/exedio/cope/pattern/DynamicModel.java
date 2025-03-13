@@ -265,7 +265,7 @@ public final class DynamicModel<L> extends Pattern
 
 	public Type<L> getType(final String code)
 	{
-		return mount().typeType.searchSingleton(typeCode.equal(code));
+		return mount().typeType.searchSingleton(typeCode.is(code));
 	}
 
 	@Wrap(order=10, doc="Returns the dynamic type of this item in the model {0}.")
@@ -476,7 +476,7 @@ public final class DynamicModel<L> extends Pattern
 
 		private List<Field<L>> getFields(final DynamicModel<L> p, final Mount<L> m, final ValueType valueType)
 		{
-			return m.fieldType.search(m.fieldParent.equal(this).and(p.fieldValueType.equal(valueType)), p.fieldPositionPerValueType, true);
+			return m.fieldType.search(m.fieldParent.is(this).and(p.fieldValueType.is(valueType)), p.fieldPositionPerValueType, true);
 		}
 
 		public Field<L> addStringField(final String code)
@@ -510,7 +510,7 @@ public final class DynamicModel<L> extends Pattern
 			final Mount<L> m = p.mount();
 			return
 				m.fieldType.search(
-						m.fieldParent.equal(this),
+						m.fieldParent.is(this),
 						p.fieldPosition,
 						true);
 		}
@@ -521,8 +521,8 @@ public final class DynamicModel<L> extends Pattern
 			final Mount<L> m = p.mount();
 			return
 				m.fieldType.searchSingleton(Cope.and(
-						m.fieldParent.equal(this),
-						p.fieldCode.equal(code)));
+						m.fieldParent.is(this),
+						p.fieldCode.is(code)));
 		}
 
 		public com.exedio.cope.Type<?> getParentType()
@@ -592,7 +592,7 @@ public final class DynamicModel<L> extends Pattern
 			final Mount<L> m = p.mount();
 			return
 				m.enumType.search(
-						m.enumParent.equal(this),
+						m.enumParent.is(this),
 						p.enumPosition,
 						true);
 		}
@@ -604,8 +604,8 @@ public final class DynamicModel<L> extends Pattern
 			assertEnum();
 			return
 				m.enumType.searchSingleton(Cope.and(
-						m.enumParent.equal(this),
-						p.enumCode.equal(code)));
+						m.enumParent.is(this),
+						p.enumCode.is(code)));
 		}
 
 		public Enum<L> addEnumValue(final String code)

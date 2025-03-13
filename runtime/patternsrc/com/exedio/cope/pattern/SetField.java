@@ -274,7 +274,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		requireParentClass(parentClass, "parentClass");
 		return new Query<>(
 				mount().parent.as(parentClass),
-				this.element.equal(element)).
+				this.element.is(element)).
 			search();
 	}
 

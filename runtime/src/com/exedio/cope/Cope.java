@@ -110,23 +110,23 @@ public final class Cope
 	/**
 	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
-	 * {@link Function#equal(Object)}
+	 * {@link Function#is(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
-		return function.equal(function.getValueClass().cast(value));
+		return function.is(function.getValueClass().cast(value));
 	}
 
 	/**
 	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
-	 * {@link Function#notEqual(Object)}
+	 * {@link Function#isNot(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.notEqual(function.getValueClass().cast(value));
+		return function.isNot(function.getValueClass().cast(value));
 	}
 
 	/**

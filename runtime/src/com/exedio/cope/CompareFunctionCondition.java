@@ -46,8 +46,8 @@ public final class CompareFunctionCondition<E> extends Condition
 	 * @deprecated
 	 * Instead of using this constructor directly,
 	 * use the convenience methods.
-	 * @see com.exedio.cope.Function#equal(Function)
-	 * @see com.exedio.cope.Function#notEqual(Function)
+	 * @see com.exedio.cope.Function#is(Function)
+	 * @see com.exedio.cope.Function#isNot(Function)
 	 * @see com.exedio.cope.Function#less(Function)
 	 * @see com.exedio.cope.Function#lessOrEqual(Function)
 	 * @see com.exedio.cope.Function#greater(Function)

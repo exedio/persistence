@@ -231,13 +231,13 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 	@Override
 	public Condition equal(final Price value)
 	{
-		return integer.equal(Price.store(value));
+		return integer.is(Price.store(value));
 	}
 
 	@Override
 	public Condition notEqual(final Price value)
 	{
-		return integer.notEqual(Price.store(value));
+		return integer.isNot(Price.store(value));
 	}
 
 	@Override

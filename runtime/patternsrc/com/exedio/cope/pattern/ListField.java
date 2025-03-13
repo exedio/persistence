@@ -275,7 +275,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		final List<Entry> entries =
 				mount.entryType.search(Cope.and(
 						Cope.equalAndCast(mount.parent, item),
-						this.element.equal(element)));
+						this.element.is(element)));
 
 		if(entries.isEmpty())
 			return false;

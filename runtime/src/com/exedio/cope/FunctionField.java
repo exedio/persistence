@@ -438,7 +438,7 @@ public abstract class FunctionField<E> extends Field<E>
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
-		return getType().searchSingleton(equal(value));
+		return getType().searchSingleton(is(value));
 	}
 
 	/**
@@ -459,7 +459,7 @@ public abstract class FunctionField<E> extends Field<E>
 				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
-		return type.searchSingleton(equal(value));
+		return type.searchSingleton(is(value));
 	}
 
 	/**
@@ -481,7 +481,7 @@ public abstract class FunctionField<E> extends Field<E>
 				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
-		return type.searchSingletonStrict(equal(value));
+		return type.searchSingletonStrict(is(value));
 	}
 
 	boolean isPrimitive()

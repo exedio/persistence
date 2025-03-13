@@ -269,7 +269,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 
 		for(final Type<?> type : getType().getModel().getTypes())
 			if(isInstance(type))
-				conditions.add(idField.notEqual(type.getID()));
+				conditions.add(idField.isNot(type.getID()));
 
 		return Cope.and(conditions);
 	}
