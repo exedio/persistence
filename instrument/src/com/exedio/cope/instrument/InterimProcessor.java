@@ -398,15 +398,25 @@ final class InterimProcessor extends JavacProcessor
 						"}"
 					);
 				}
-				if (kind.typeField!=null && wrapperType.type()!=Visibility.NONE)
-					code.addLine(
-						"public static final "+kind.typeField+"<"+ct.getSimpleName()+"> TYPE = "+
-							kind.typeFactory+"."+Kind.TYPE_FACTORY_METHOD+"("+ct.getSimpleName()+".class);"
-					);
+				writeType(ct, kind, wrapperType);
 			}
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
 			return result;
+		}
+
+		/*
+		 * Generator#writeType does the same for instrumented code
+		 */
+		private void writeType(final ClassTree ct, final Kind kind, final WrapperType wrapperType)
+		{
+			if (kind.typeField!=null && wrapperType.type()!=Visibility.NONE)
+			{
+				code.addLine(
+						"public static final "+kind.typeField+"<"+ct.getSimpleName()+"> TYPE = "+
+						kind.typeFactory+"."+Kind.TYPE_FACTORY_METHOD+"("+ct.getSimpleName()+".class);"
+				);
+			}
 		}
 
 		private static CharSequence getTypeParameterString(final List<? extends TypeParameterTree> tp)
