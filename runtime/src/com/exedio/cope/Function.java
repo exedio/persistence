@@ -67,8 +67,20 @@ public interface Function<E> extends Selectable<E>
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is equal to the given parameter.
+	 * <p>
+	 * To be deprecated, use {@link #is(Object)} instead.
 	 */
 	default Condition equal(final E value)
+	{
+		return is(value);
+	}
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is equal to the given parameter.
+	 */
+	default Condition is(final E value)
 	{
 		return Cope.equal(this, value);
 	}
@@ -93,7 +105,15 @@ public interface Function<E> extends Selectable<E>
 		return CompositeCondition.in(this, values);
 	}
 
+	/**
+	 * To be deprecated, use {@link #isNot(Object)} instead.
+	 */
 	default Condition notEqual(final E value)
+	{
+		return isNot(value);
+	}
+
+	default Condition isNot(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}
@@ -151,8 +171,21 @@ public interface Function<E> extends Selectable<E>
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is equal to the value of the {@code right} function.
+	 * <p>
+	 * To be deprecated, use {@link #is(Function)} instead.
 	 */
+	@SuppressWarnings("unchecked") // OK: deprecated API
 	default CompareFunctionCondition<E> equal(final Function<? extends E> right)
+	{
+		return (CompareFunctionCondition<E>)is(right);
+	}
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is equal to the value of the {@code right} function.
+	 */
+	default Condition is(final Function<? extends E> right)
 	{
 		return CompareFunctionCondition.create(Operator.Equal, this, right);
 	}
@@ -161,8 +194,21 @@ public interface Function<E> extends Selectable<E>
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is not equal to the value of the {@code right} function.
+	 * <p>
+	 * To be deprecated, use {@link #isNot(Function)} instead.
 	 */
+	@SuppressWarnings("unchecked") // OK: deprecated API
 	default CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
+	{
+		return (CompareFunctionCondition<E>)isNot(right);
+	}
+
+	/**
+	 * Returns a condition, that is true for all items,
+	 * if and only if the value of this function for that item
+	 * is not equal to the value of the {@code right} function.
+	 */
+	default Condition isNot(final Function<? extends E> right)
 	{
 		return CompareFunctionCondition.create(Operator.NotEqual, this, right);
 	}
