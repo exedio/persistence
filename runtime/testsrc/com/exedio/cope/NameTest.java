@@ -185,14 +185,14 @@ public class NameTest extends TestWithEnvironment
 
 		assertEquals(null, itemca.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
-		assertContains(itemca, itemcb, NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal((Integer)null)));
-		assertContains(NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(Integer.valueOf(5))));
+		assertContains(itemca, itemcb, NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.is((Integer)null)));
+		assertContains(NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.is(Integer.valueOf(5))));
 
 		itemca.setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber(Integer.valueOf(5));
 		assertEquals(Integer.valueOf(5), itemca.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
 		assertEquals(null, itemcb.getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber());
-		assertContains(itemcb, NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal((Integer)null)));
-		assertContains(itemca, NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(Integer.valueOf(5))));
+		assertContains(itemcb, NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.is((Integer)null)));
+		assertContains(itemca, NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.is(Integer.valueOf(5))));
 	}
 
 	private String q(final String name)

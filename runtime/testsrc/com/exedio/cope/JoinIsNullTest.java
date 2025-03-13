@@ -51,7 +51,7 @@ public class JoinIsNullTest extends TestWithEnvironment
 
 		{
 			final Query<Source> query = Source.TYPE.newQuery();
-			query.joinOuterLeft(Target.TYPE, Source.field.equal(Target.field));
+			query.joinOuterLeft(Target.TYPE, Source.field.is(Target.field));
 			query.setOrderByThis(true);
 
 			assertEquals(
@@ -83,7 +83,7 @@ public class JoinIsNullTest extends TestWithEnvironment
 			final Query<List<Object>> query = Query.newQuery(
 					new Selectable<?>[]{Source.field, Source.TYPE.getThis()},
 					Source.TYPE, null);
-			query.joinOuterLeft(Target.TYPE, Source.field.equal(Target.field));
+			query.joinOuterLeft(Target.TYPE, Source.field.is(Target.field));
 			query.setOrderByThis(true);
 
 			assertEquals(

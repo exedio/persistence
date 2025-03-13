@@ -44,13 +44,13 @@ public class QuerySerializeTest
 		final Join j = q.join(TYPE);
 		assertSerializedEquals(q, size += 253);
 
-		j.setCondition(field.equal("zack"));
+		j.setCondition(field.is("zack"));
 		assertSerializedEquals(q, size += 272);
 
 		q.addOrderBy(field);
 		assertSerializedEquals(q, size += 75);
 
-		q.setHaving(field.equal("zick"));
+		q.setHaving(field.is("zick"));
 		assertSerializedEquals(q, size += 22);
 
 		q.setPage(10, 20);

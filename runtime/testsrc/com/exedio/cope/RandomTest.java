@@ -87,7 +87,7 @@ public class RandomTest extends TestWithEnvironment
 				NullPointerException.class,
 				"type");
 		{
-			final Condition c = TYPE.random(5).equal(6.6);
+			final Condition c = TYPE.random(5).is(6.6);
 			assertFails(
 					() -> new CheckConstraint(c),
 					IllegalArgumentException.class,

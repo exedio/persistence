@@ -65,7 +65,7 @@ public class CacheTouchItemTest extends TestWithEnvironment
 		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
-		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
+		assertEquals(item, TYPE.searchSingleton(name.is("itemName")));
 		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 

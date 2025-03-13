@@ -91,9 +91,9 @@ public class AsStringTest extends TestWithEnvironment
 			assertFalse(i.hasNext());
 		}
 
-		assertEquals(item2, TYPE.searchSingleton(intx   .asString().equal("23")));
-		assertEquals(item2, TYPE.searchSingleton(longx  .asString().equal("25")));
-		assertEquals(item2, TYPE.searchSingleton(doublex.asString().equal(hsqldb?"29.0E0":"29")));
+		assertEquals(item2, TYPE.searchSingleton(intx   .asString().is("23")));
+		assertEquals(item2, TYPE.searchSingleton(longx  .asString().is("25")));
+		assertEquals(item2, TYPE.searchSingleton(doublex.asString().is(hsqldb?"29.0E0":"29")));
 
 		assertEquals(item2, TYPE.searchSingleton(intx   .asString().like("2%")));
 		assertEquals(item2, TYPE.searchSingleton(longx  .asString().like("2%")));

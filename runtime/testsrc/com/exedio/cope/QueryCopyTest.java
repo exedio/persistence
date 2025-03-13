@@ -67,7 +67,7 @@ public class QueryCopyTest
 
 		query.setDistinct(true);
 		final Join joinQuery = query.join(TYPE);
-		final Condition conditionQuery = string.equal("zack");
+		final Condition conditionQuery = string.is("zack");
 		query.setCondition(conditionQuery);
 		query.addOrderBy(date, false);
 		query.setPage(33, 44);
@@ -111,7 +111,7 @@ public class QueryCopyTest
 
 		query.setDistinct(true);
 		final Join joinQuery = query.join(TYPE);
-		final Condition conditionQuery = string.equal("zack");
+		final Condition conditionQuery = string.is("zack");
 		query.setCondition(conditionQuery);
 		query.addOrderBy(date, false);
 		query.setPage(33, 44);
@@ -141,7 +141,7 @@ public class QueryCopyTest
 
 		copy.setDistinct(false);
 		final Join joinCopy = copy.join(TYPE);
-		final Condition conditionCopy = intx.equal(1);
+		final Condition conditionCopy = intx.is(1);
 		copy.setCondition(conditionCopy);
 		copy.resetOrderBy();
 		copy.setPageUnlimited(0);
@@ -173,13 +173,13 @@ public class QueryCopyTest
 	{
 		final Query<?> query = TYPE.newQuery();
 		final Join firstJoin = query.join(TYPE);
-		firstJoin.setCondition(intx.bind(firstJoin).equal(intx));
+		firstJoin.setCondition(intx.bind(firstJoin).is(intx));
 		final Join secondJoin = query.join(TYPE);
-		secondJoin.setCondition(intx.bind(secondJoin).equal(intx));
+		secondJoin.setCondition(intx.bind(secondJoin).is(intx));
 		final Condition condition = Cope.and(
-				string.equal("zack0"),
-				string.bind(firstJoin).equal("zack1"),
-				string.bind(secondJoin).equal("zack2"));
+				string.is("zack0"),
+				string.bind(firstJoin).is("zack1"),
+				string.bind(secondJoin).is("zack2"));
 		query.setCondition(condition);
 
 		assertIt(
@@ -222,7 +222,7 @@ public class QueryCopyTest
 	{
 		final Query<?> query = Query.newQuery(new Selectable<?>[]{string, date}, TYPE, null);
 		query.setGroupBy(date, intx);
-		query.setHaving(string.equal("haveItOrNot"));
+		query.setHaving(string.is("haveItOrNot"));
 
 		assertIt(
 				false, TYPE, null, null, asList(date, intx), null, null, 0, -1,

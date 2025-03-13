@@ -38,9 +38,9 @@ public class CompositeConditionUtilTest
 	@Test void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
-		final Condition c1 = field.equal(1d);
-		final Condition c2 = field.equal(2d);
-		final Condition c3 = field.equal(3d);
+		final Condition c1 = field.is(1d);
+		final Condition c2 = field.is(2d);
+		final Condition c3 = field.is(3d);
 
 		assertNotEqualsAndHash(TRUE, FALSE, c1, c2, c3);
 
@@ -116,9 +116,9 @@ public class CompositeConditionUtilTest
 	@Test void testFlatting()
 	{
 		final DoubleField field = new DoubleField().optional();
-		final Condition c1 = field.equal(1d);
-		final Condition c2 = field.equal(2d);
-		final Condition c3 = field.equal(3d);
+		final Condition c1 = field.is(1d);
+		final Condition c2 = field.is(2d);
+		final Condition c3 = field.is(3d);
 
 		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2).and(c3));
 		assertEquals(newCompositeCondition(AND, c1, c2, c3), c1.and(c2.and(c3)));
@@ -160,8 +160,8 @@ public class CompositeConditionUtilTest
 	@Test void testNeutrumAbsolutum()
 	{
 		final DoubleField field = new DoubleField().optional();
-		final Condition c1 = field.equal(1d);
-		final Condition c2 = field.equal(2d);
+		final Condition c1 = field.is(1d);
+		final Condition c2 = field.is(2d);
 
 		// Condition.and/or
 		assertSame(c1, c1.and(TRUE));

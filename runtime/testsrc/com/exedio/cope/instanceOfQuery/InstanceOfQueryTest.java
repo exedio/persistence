@@ -46,7 +46,7 @@ public class InstanceOfQueryTest extends TestWithEnvironment
 		joinB.setCondition(IoqSourceSubB.brother.bind(joinB).equalTarget());
 
 		final Join targetB = query.join(IoqTargetSub.TYPE);
-		targetB.setCondition(IoqSourceSuper.ref.equal(IoqTargetSub.TYPE.getThis().bind(targetB)));
+		targetB.setCondition(IoqSourceSuper.ref.is(IoqTargetSub.TYPE.getThis().bind(targetB)));
 
 		query.setCondition(
 				IoqSourceSuper.ref.bind(targetB).instanceOf(IoqTargetSub.TYPE)

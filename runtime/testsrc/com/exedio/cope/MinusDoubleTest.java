@@ -116,15 +116,15 @@ public class MinusDoubleTest extends TestWithEnvironment
 		assertEquals(nA, item.getNumA());
 		assertEquals(nB, item.getNumB());
 		assertEquals(nC, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(nA)));
-		assertContains(item, TYPE.search(numB.equal(nB)));
-		assertContains(item, TYPE.search(numC.equal(nC)));
+		assertContains(item, TYPE.search(numA.is(nA)));
+		assertContains(item, TYPE.search(numB.is(nB)));
+		assertContains(item, TYPE.search(numC.is(nC)));
 
 		assertEquals(dAB, item.getViewAB());
 		assertEquals(dAC, item.getViewAC());
 		assertEquals(dBC, item.getViewBC());
-		assertContains(item, TYPE.search(viewAB.equal(dAB)));
-		assertContains(item, TYPE.search(viewAC.equal(dAC)));
+		assertContains(item, TYPE.search(viewAB.is(dAB)));
+		assertContains(item, TYPE.search(viewAC.is(dAC)));
 		assertContains(item, TYPE.search(viewBC.between(dBC-EPS,dBC+EPS)));
 
 		// test null propagation
@@ -133,16 +133,16 @@ public class MinusDoubleTest extends TestWithEnvironment
 		assertEquals(null, item.getNumA());
 		assertEquals(nB, item.getNumB());
 		assertEquals(nC, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal((Double)null)));
-		assertContains(item, TYPE.search(numB.equal(nB)));
-		assertContains(item, TYPE.search(numC.equal(nC)));
+		assertContains(item, TYPE.search(numA.is((Double)null)));
+		assertContains(item, TYPE.search(numB.is(nB)));
+		assertContains(item, TYPE.search(numC.is(nC)));
 
 		assertEquals(null, item.getViewAB());
 		assertEquals(null, item.getViewAC());
 		assertEquals(dBC, item.getViewBC());
-		assertContains(item, TYPE.search(viewAB.equal((Double)null)));
-		assertContains(item, TYPE.search(viewAC.equal((Double)null)));
+		assertContains(item, TYPE.search(viewAB.is((Double)null)));
+		assertContains(item, TYPE.search(viewAC.is((Double)null)));
 		assertContains(item, TYPE.search(viewBC.between(dBC-EPS,dBC+EPS)));
-		assertContains(item, TYPE.search(numA.divide(numB).equal((Double)null)));
+		assertContains(item, TYPE.search(numA.divide(numB).is((Double)null)));
 	}
 }

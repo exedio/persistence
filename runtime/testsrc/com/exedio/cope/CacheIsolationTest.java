@@ -143,7 +143,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	@Test void testSearch() throws MandatoryViolationException
 	{
-		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
+		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.is("blub")) );
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
@@ -152,19 +152,19 @@ public class CacheIsolationTest extends TestWithEnvironment
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setTestDatabaseListener(listener));
 		listener.expectSearch( txChange, CacheIsolationItem.TYPE );
-		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
+		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.is("blub")) );
 		listener.verifyExpectations();
 		listener.expectSearch( txChange, CacheIsolationItem.TYPE );
-		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("notblub")) );
+		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.is("notblub")) );
 		listener.verifyExpectations();
 		model.leaveTransaction();
 		final Transaction txSearch = model.startTransaction("search");
 		// TODO: model.getDatabase().expectNoCall();
 		listener.expectSearch( txSearch, CacheIsolationItem.TYPE );
-		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
+		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.is("blub")) );
 		listener.verifyExpectations();
 		listener.expectSearch( txSearch, CacheIsolationItem.TYPE );
-		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("notblub")) );
+		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.is("notblub")) );
 		listener.verifyExpectations();
 		assertInvalidations(0, 0);
 		model.commit();

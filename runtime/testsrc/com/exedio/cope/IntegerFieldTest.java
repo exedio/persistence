@@ -38,14 +38,14 @@ public class IntegerFieldTest
 
 		assertEquals(in(any), any.isNull());
 		assertEquals(nn(any), any.isNotNull());
-		assertEquals(in(any), any.equal((Integer)null));
-		assertEquals(nn(any), any.notEqual((Integer)null));
-		assertEquals(cc(Operator.Equal, any, 0), any.equal(0));
-		assertEquals(cc(Operator.Equal, any, MIN), any.equal(MIN));
-		assertEquals(cc(Operator.Equal, any, MAX), any.equal(MAX));
-		assertEquals(cc(Operator.NotEqual, any, 0), any.notEqual(0));
-		assertEquals(cc(Operator.NotEqual, any, MIN), any.notEqual(MIN));
-		assertEquals(cc(Operator.NotEqual, any, MAX), any.notEqual(MAX));
+		assertEquals(in(any), any.is((Integer)null));
+		assertEquals(nn(any), any.isNot((Integer)null));
+		assertEquals(cc(Operator.Equal, any, 0), any.is(0));
+		assertEquals(cc(Operator.Equal, any, MIN), any.is(MIN));
+		assertEquals(cc(Operator.Equal, any, MAX), any.is(MAX));
+		assertEquals(cc(Operator.NotEqual, any, 0), any.isNot(0));
+		assertEquals(cc(Operator.NotEqual, any, MIN), any.isNot(MIN));
+		assertEquals(cc(Operator.NotEqual, any, MAX), any.isNot(MAX));
 		assertEquals(cc(Operator.Less, any, 0), any.less(0));
 		assertEquals(cc(Operator.Less, any, MIN), any.less(MIN));
 		assertEquals(cc(Operator.Less, any, MAX), any.less(MAX));
@@ -61,11 +61,11 @@ public class IntegerFieldTest
 
 		assertEquals(in(mandatory), mandatory.isNull());
 		assertEquals(nn(mandatory), mandatory.isNotNull());
-		assertEquals(in(mandatory), mandatory.equal((Integer)null));
-		assertEquals(nn(mandatory), mandatory.notEqual((Integer)null));
-		assertEquals(cc(Operator.Equal, mandatory, 0), mandatory.equal(0));
-		assertEquals(cc(Operator.Equal, mandatory, MIN), mandatory.equal(MIN));
-		assertEquals(cc(Operator.Equal, mandatory, MAX), mandatory.equal(MAX));
+		assertEquals(in(mandatory), mandatory.is((Integer)null));
+		assertEquals(nn(mandatory), mandatory.isNot((Integer)null));
+		assertEquals(cc(Operator.Equal, mandatory, 0), mandatory.is(0));
+		assertEquals(cc(Operator.Equal, mandatory, MIN), mandatory.is(MIN));
+		assertEquals(cc(Operator.Equal, mandatory, MAX), mandatory.is(MAX));
 
 		assertEquals(in(min4Max8), min4Max8.isNull());
 		assertEquals(nn(min4Max8), min4Max8.isNotNull());
@@ -209,45 +209,45 @@ public class IntegerFieldTest
 	@Test void testRangeShortcutEqual()
 	{
 		final IntegerField f = new IntegerField().optional().range(-3, 5);
-		assertEquals(f+" is null", f.equal((Integer)null).toString());
-		assertEquals("FALSE", f.equal(-4).toString());
-		assertEquals(f+"='-3'", f.equal(-3).toString());
-		assertEquals(f+"='5'", f.equal(5).toString());
-		assertEquals("FALSE", f.equal(6).toString());
-		assertEquals("FALSE", f.is(6).toString()); // test whether override works for new method
-		assertEquals("FALSE", f.equal(MIN).toString());
-		assertEquals("FALSE", f.equal(MAX).toString());
+		assertEquals(f+" is null", f.is((Integer)null).toString());
+		assertEquals("FALSE", f.is(-4).toString());
+		assertEquals(f+"='-3'", f.is(-3).toString());
+		assertEquals(f+"='5'", f.is(5).toString());
+		assertEquals("FALSE", f.is(6).toString());
+		assertEquals("FALSE", f.equal(6).toString()); // test whether override works for deprecated method
+		assertEquals("FALSE", f.is(MIN).toString());
+		assertEquals("FALSE", f.is(MAX).toString());
 
 		final NumberFunction<Integer> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
-		assertEquals("a1."+f+" is null", b.equal((Integer)null).toString());
-		assertEquals("a1."+f+"='-4'", b.equal(-4).toString()); // TODO should be "FALSE"
-		assertEquals("a1."+f+"='-3'", b.equal(-3).toString());
-		assertEquals("a1."+f+"='5'", b.equal(5).toString());
-		assertEquals("a1."+f+"='6'", b.equal(6).toString()); // TODO should be "FALSE"
-		assertEquals("a1."+f+"='"+MIN+"'", b.equal(MIN).toString()); // TODO should be "FALSE"
-		assertEquals("a1."+f+"='"+MAX+"'", b.equal(MAX).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+" is null", b.is((Integer)null).toString());
+		assertEquals("a1."+f+"='-4'", b.is(-4).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='-3'", b.is(-3).toString());
+		assertEquals("a1."+f+"='5'", b.is(5).toString());
+		assertEquals("a1."+f+"='6'", b.is(6).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MIN+"'", b.is(MIN).toString()); // TODO should be "FALSE"
+		assertEquals("a1."+f+"='"+MAX+"'", b.is(MAX).toString()); // TODO should be "FALSE"
 	}
 
 	@Test void testRangeShortcutNotEqual()
 	{
 		final IntegerField f = new IntegerField().optional().range(-3, 5);
-		assertEquals(f+" is not null", f.notEqual((Integer)null).toString());
-		assertEquals("TRUE",  f.notEqual(-4).toString());
-		assertEquals(f+"<>'-3'", f.notEqual(-3).toString());
-		assertEquals(f+"<>'5'", f.notEqual(5).toString());
-		assertEquals("TRUE", f.notEqual(6).toString());
-		assertEquals("TRUE", f.isNot(6).toString()); // test whether override works for new method
-		assertEquals("TRUE", f.notEqual(MIN).toString());
-		assertEquals("TRUE", f.notEqual(MAX).toString());
+		assertEquals(f+" is not null", f.isNot((Integer)null).toString());
+		assertEquals("TRUE",  f.isNot(-4).toString());
+		assertEquals(f+"<>'-3'", f.isNot(-3).toString());
+		assertEquals(f+"<>'5'", f.isNot(5).toString());
+		assertEquals("TRUE", f.isNot(6).toString());
+		assertEquals("TRUE", f.notEqual(6).toString()); // test whether override works for deprecated method
+		assertEquals("TRUE", f.isNot(MIN).toString());
+		assertEquals("TRUE", f.isNot(MAX).toString());
 
 		final NumberFunction<Integer> b = f.bind(AnItem.TYPE.newQuery().join(AnItem.TYPE, (Condition)null));
-		assertEquals("a1."+f+" is not null", b.notEqual((Integer)null).toString());
-		assertEquals("a1."+f+"<>'-4'", b.notEqual(-4).toString()); // TODO should be "TRUE"
-		assertEquals("a1."+f+"<>'-3'", b.notEqual(-3).toString());
-		assertEquals("a1."+f+"<>'5'", b.notEqual(5).toString());
-		assertEquals("a1."+f+"<>'6'", b.notEqual(6).toString()); // TODO should be "TRUE"
-		assertEquals("a1."+f+"<>'"+MIN+"'", b.notEqual(MIN).toString()); // TODO should be "TRUE"
-		assertEquals("a1."+f+"<>'"+MAX+"'", b.notEqual(MAX).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+" is not null", b.isNot((Integer)null).toString());
+		assertEquals("a1."+f+"<>'-4'", b.isNot(-4).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'-3'", b.isNot(-3).toString());
+		assertEquals("a1."+f+"<>'5'", b.isNot(5).toString());
+		assertEquals("a1."+f+"<>'6'", b.isNot(6).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MIN+"'", b.isNot(MIN).toString()); // TODO should be "TRUE"
+		assertEquals("a1."+f+"<>'"+MAX+"'", b.isNot(MAX).toString()); // TODO should be "TRUE"
 	}
 
 	private static IsNullCondition<Integer> in(

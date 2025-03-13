@@ -37,7 +37,7 @@ public class SearchTest extends TestmodelTest
 {
 	@Test void testIllegalSearch()
 	{
-		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.equal(0));
+		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.is(0));
 		assertFails(
 				illegalQuery::search,
 				IllegalArgumentException.class,
@@ -58,25 +58,25 @@ public class SearchTest extends TestmodelTest
 		final AttributeItem item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 		final AttributeItem item2 = new AttributeItem("someString2", 5, 6l, 2.2, false, someItem, AttributeItem.SomeEnum.enumValue2);
 		item.setSomeNotNullInteger(0);
-		assertCondition(item, TYPE, someNotNullInteger.equal(0));
-		assertCondition(item2, TYPE, someNotNullInteger.equal(0).not());
+		assertCondition(item, TYPE, someNotNullInteger.is(0));
+		assertCondition(item2, TYPE, someNotNullInteger.is(0).not());
 
 		assertContainsUnmodifiable(item, item2, TYPE.search());
 		assertContainsUnmodifiable(item, item2, TYPE.search(null));
 		assertCondition(item, item2,
 			TYPE,
 				Cope.or(
-					someNotNullString.equal("someString"),
-					someNotNullString.equal("someString2")));
+					someNotNullString.is("someString"),
+					someNotNullString.is("someString2")));
 		assertCondition(
 			TYPE,
 				Cope.and(
-					someNotNullString.equal("someString"),
-					someNotNullString.equal("someString2")));
+					someNotNullString.is("someString"),
+					someNotNullString.is("someString2")));
 
 		// test Query#searchSingleton
-		assertEquals(null, TYPE.searchSingleton(someNotNullString.equal("someStringx")));
-		assertEquals(item, TYPE.searchSingleton(someNotNullString.equal("someString")));
+		assertEquals(null, TYPE.searchSingleton(someNotNullString.is("someStringx")));
+		assertEquals(item, TYPE.searchSingleton(someNotNullString.is("someString")));
 		final Query<?> q = TYPE.newQuery();
 		q.setOrderBy(TYPE.getThis(), true);
 		try
@@ -96,7 +96,7 @@ public class SearchTest extends TestmodelTest
 		// test Query#searchSingletonStrict
 		try
 		{
-			assertEquals(null, TYPE.searchSingletonStrict(someNotNullString.equal("someStringx")));
+			assertEquals(null, TYPE.searchSingletonStrict(someNotNullString.is("someStringx")));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -107,7 +107,7 @@ public class SearchTest extends TestmodelTest
 					"select this from AttributeItem where someNotNullString='someStringx'",
 				e.getMessage());
 		}
-		assertEquals(item, TYPE.searchSingletonStrict(someNotNullString.equal("someString")));
+		assertEquals(item, TYPE.searchSingletonStrict(someNotNullString.is("someString")));
 		q.setOrderBy(TYPE.getThis(), true);
 		try
 		{

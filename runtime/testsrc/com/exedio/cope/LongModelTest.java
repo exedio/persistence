@@ -106,14 +106,14 @@ public class LongModelTest
 
 	@Test void testConditions()
 	{
-		assertEqualsAndHash(any.equal(1l), any.equal(1l));
-		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
+		assertEqualsAndHash(any.is(1l), any.is(1l));
+		assertEqualsAndHash(any.is(mandatory), any.is(mandatory));
 		assertNotEqualsAndHash(
-				any.equal(1l),
-				any.equal(2l),
-				any.equal((Long)null),
+				any.is(1l),
+				any.is(2l),
+				any.is((Long)null),
 				any.greater(1l),
-				any.equal(mandatory),
-				any.equal(any));
+				any.is(mandatory),
+				any.is(any));
 	}
 }

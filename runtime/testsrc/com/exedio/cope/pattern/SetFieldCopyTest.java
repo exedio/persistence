@@ -78,7 +78,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		final ElementInCatalog e = new ElementInCatalog(c);
 		assertEquals(true, p.addToElementsSameCatalog(e));
 		final Item entry = ParentInCatalog.elementsSameCatalog.getEntryType().searchSingletonStrict(
-			ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog).equal(c)
+			ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog).is(c)
 		);
 		assertEquals(c, ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog).get(entry));
 	}

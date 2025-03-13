@@ -164,7 +164,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 				"and toTarget-noPurge='false' " +
 				"and body='bodyMismatch' " +
 				"and toTarget-unpend-date<'1970-01-09 00:00:00.555')",
-				purge(555+20*day, 12, 12, DispatcherItem.body.equal("bodyMismatch")));
+				purge(555+20*day, 12, 12, DispatcherItem.body.is("bodyMismatch")));
 
 		assertPurged(true, true, 1);
 

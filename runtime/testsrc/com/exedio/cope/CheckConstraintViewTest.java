@@ -80,7 +80,7 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 		static final IntegerField sum = new IntegerField();
 
 		@SuppressWarnings("unused") // OK: CheckConstraint
-		static final CheckConstraint check = new CheckConstraint(one.plus(two).equal(sum));
+		static final CheckConstraint check = new CheckConstraint(one.plus(two).is(sum));
 
 
 		void set(

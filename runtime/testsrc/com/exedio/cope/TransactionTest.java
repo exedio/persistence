@@ -65,8 +65,8 @@ public class TransactionTest extends TestmodelTest
 	private static void assertSomeString(final AttributeItem actualItem, final String someStringValue)
 	{
 		assertEquals(someStringValue, actualItem.getSomeString());
-		assertTrue(TYPE.search(someString.equal(someStringValue)).contains(actualItem));
-		assertFalse(TYPE.search(someString.equal("X"+someStringValue)).contains(actualItem));
+		assertTrue(TYPE.search(someString.is(someStringValue)).contains(actualItem));
+		assertFalse(TYPE.search(someString.is("X"+someStringValue)).contains(actualItem));
 	}
 
 	private void assertSomeString(final String someString)
@@ -219,34 +219,34 @@ public class TransactionTest extends TestmodelTest
 		commit();
 
 		createTransaction("testRollbackCreate1");
-		assertContains(TYPE.search(someNotNullString.equal("someStringX")));
-		assertContains(TYPE.search(someNotNullString.equal("someStringY")));
+		assertContains(TYPE.search(someNotNullString.is("someStringX")));
+		assertContains(TYPE.search(someNotNullString.is("someStringY")));
 		final AttributeItem itemx = newItem("someStringX");
 		assertSomeString(itemx, null);
-		assertContains(itemx, TYPE.search(someNotNullString.equal("someStringX")));
-		assertContains(TYPE.search(someNotNullString.equal("someStringY")));
+		assertContains(itemx, TYPE.search(someNotNullString.is("someStringX")));
+		assertContains(TYPE.search(someNotNullString.is("someStringY")));
 		assertTrue(itemx.existsCopeItem());
 		rollback();
 
 		createTransaction("testRollbackCreate2");
-		assertContains(TYPE.search(someNotNullString.equal("someStringX")));
-		assertContains(TYPE.search(someNotNullString.equal("someStringY")));
+		assertContains(TYPE.search(someNotNullString.is("someStringX")));
+		assertContains(TYPE.search(someNotNullString.is("someStringY")));
 		assertTrue(!itemx.existsCopeItem());
 		final AttributeItem itemy = newItem("someStringY");
 		assertNotEqualsAndHash(itemx, itemy);
 		assertSomeString(itemy, null);
-		assertContains(TYPE.search(someNotNullString.equal("someStringX")));
-		assertContains(itemy, TYPE.search(someNotNullString.equal("someStringY")));
+		assertContains(TYPE.search(someNotNullString.is("someStringX")));
+		assertContains(itemy, TYPE.search(someNotNullString.is("someStringY")));
 		assertTrue(itemy.existsCopeItem());
 		itemy.setSomeString("someStringYY");
 		assertSomeString(itemy, "someStringYY");
-		assertContains(TYPE.search(someNotNullString.equal("someStringX")));
-		assertContains(itemy, TYPE.search(someNotNullString.equal("someStringY")));
+		assertContains(TYPE.search(someNotNullString.is("someStringX")));
+		assertContains(itemy, TYPE.search(someNotNullString.is("someStringY")));
 		rollback();
 
 		createTransaction("testRollbackCreate3");
-		assertContains(TYPE.search(someNotNullString.equal("someStringX")));
-		assertContains(TYPE.search(someNotNullString.equal("someStringY")));
+		assertContains(TYPE.search(someNotNullString.is("someStringX")));
+		assertContains(TYPE.search(someNotNullString.is("someStringY")));
 		assertNotEqualsAndHash(itemx, itemy);
 		assertTrue(!itemx.existsCopeItem());
 		assertTrue(!itemy.existsCopeItem());

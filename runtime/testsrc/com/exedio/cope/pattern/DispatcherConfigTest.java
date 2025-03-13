@@ -127,7 +127,7 @@ public class DispatcherConfigTest
 		assertEquals(false, config0.deleteOnSuccess);
 
 		final IntegerField f = new IntegerField();
-		final Condition condition1 = f.equal(1);
+		final Condition condition1 = f.is(1);
 		final Config config1 = config0.narrow(condition1);
 		assertNotSame(config0, config1);
 		assertEquals(55, config1.getFailureLimit());
@@ -137,7 +137,7 @@ public class DispatcherConfigTest
 		assertEquals(f+"='1'", config1.getNarrowCondition().toString());
 		assertEquals(false, config1.deleteOnSuccess);
 
-		final Condition condition2 = f.equal(2);
+		final Condition condition2 = f.is(2);
 		final Config config2 = config1.narrow(condition2);
 		assertNotSame(config1, config2);
 		assertEquals(55, config2.getFailureLimit());
@@ -156,7 +156,7 @@ public class DispatcherConfigTest
 		assertSame(TRUE, config0.getNarrowCondition());
 		assertEquals(false, config0.deleteOnSuccess);
 
-		final Condition condition = new IntegerField().equal(1);
+		final Condition condition = new IntegerField().is(1);
 		final Config config1 = config0.narrow(condition);
 		assertNotSame(config0, config1);
 		assertEquals(55, config1.getFailureLimit());

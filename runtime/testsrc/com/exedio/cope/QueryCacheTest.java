@@ -65,8 +65,8 @@ public class QueryCacheTest extends TestWithEnvironment
 
 		final DBL l = new DBL();
 		model.setTestDatabaseListener(l);
-		final Query<?> q1 = TYPE.newQuery(text.equal("someString"));
-		final Query<?> q2 = TYPE.newQuery(text.equal("someString2"));
+		final Query<?> q1 = TYPE.newQuery(text.is("someString"));
+		final Query<?> q2 = TYPE.newQuery(text.is("someString2"));
 
 		q1.search();
 		assertEquals(list(sc(q1, SEARCH)), l.scs);

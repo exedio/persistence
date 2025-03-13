@@ -78,7 +78,7 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
 		assertEqualsUnmodifiable(map(), item.getNameLengthMap());
 		{
-			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().is("nameDE"));
 			final Join join = name.join(q, DE);
 			assertEquals(Join.Kind.OUTER_LEFT, join.getKind());
 			assertEquals(name.getEntryType(), join.getType());
@@ -88,12 +88,12 @@ public class MapFieldTest extends TestWithEnvironment
 			assertContains(item, q.search());
 		}
 		{
-			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameEN"));
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().is("nameEN"));
 			name.join(q, DE);
 			assertContains(q.search());
 		}
 		{
-			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
+			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().is("nameDE"));
 			name.join(q, EN);
 			assertContains(q.search());
 		}

@@ -136,9 +136,9 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertEquals(d1, item.getNumA());
 		assertEquals(d2, item.getNumB());
 		assertEquals(d3, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(1.1)));
-		assertContains(item, TYPE.search(numB.equal(2.2)));
-		assertContains(item, TYPE.search(numC.equal(3.3)));
+		assertContains(item, TYPE.search(numA.is(1.1)));
+		assertContains(item, TYPE.search(numB.is(2.2)));
+		assertContains(item, TYPE.search(numC.is(3.3)));
 
 		assertEquals(d10,item.getPlusA9());
 		assertEquals(d3, item.getPlusAB(), EPS);
@@ -149,16 +149,16 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertEquals(d6x,item.getMultiplyBC());
 		assertContains(item, TYPE.search(plusA9.between(10.4-EPS, 10.4+EPS)));
 		assertContains(item, TYPE.search(plusAB.between(3.3-EPS, 3.3+EPS)));
-		assertContains(item, TYPE.search(plusAC.equal(4.4)));
-		assertContains(item, TYPE.search(plusBC.equal(5.5)));
-		assertContains(item, TYPE.search(plusABC.equal(6.6)));
-		assertContains(item, TYPE.search(plusABaC.equal(6.6)));
+		assertContains(item, TYPE.search(plusAC.is(4.4)));
+		assertContains(item, TYPE.search(plusBC.is(5.5)));
+		assertContains(item, TYPE.search(plusABC.is(6.6)));
+		assertContains(item, TYPE.search(plusABaC.is(6.6)));
 		assertContains(item, TYPE.search(multiplyB9.between(d18-EPS, d18+EPS)));
-		assertContains(item, TYPE.search(multiplyBC.equal(d6x)));
+		assertContains(item, TYPE.search(multiplyBC.is(d6x)));
 		assertContains(item, TYPE.search(numA.plus(9.3 ).between(10.4-EPS, 10.4+EPS)));
 		assertContains(item, TYPE.search(numA.plus(numB).between(3.3-EPS, 3.3+EPS)));
 		assertContains(item, TYPE.search(numB.multiply(9.3 ).between(d18-EPS, d18+EPS)));
-		assertContains(item, TYPE.search(numB.multiply(numC).equal(d6x)));
+		assertContains(item, TYPE.search(numB.multiply(numC).is(d6x)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -166,22 +166,22 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertEquals(null, item.getNumA());
 		assertEquals(d2, item.getNumB());
 		assertEquals(d3, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal((Double)null)));
-		assertContains(item, TYPE.search(numB.equal(2.2)));
-		assertContains(item, TYPE.search(numC.equal(3.3)));
+		assertContains(item, TYPE.search(numA.is((Double)null)));
+		assertContains(item, TYPE.search(numB.is(2.2)));
+		assertContains(item, TYPE.search(numC.is(3.3)));
 
 		assertEquals(null, item.getPlusA9());
 		assertEquals(null, item.getPlusAB());
 		assertEquals(null, item.getPlusAC());
 		assertEquals(d5, item.getPlusBC());
 		assertEquals(null, item.getPlusABC());
-		assertContains(item, TYPE.search(plusA9.equal((Double)null)));
-		assertContains(item, TYPE.search(plusAB.equal((Double)null)));
-		assertContains(item, TYPE.search(plusAC.equal((Double)null)));
-		assertContains(item, TYPE.search(plusBC.equal(5.5)));
-		assertContains(item, TYPE.search(plusABC.equal((Double)null)));
-		assertContains(item, TYPE.search(plusABaC.equal((Double)null)));
-		assertContains(item, TYPE.search(numA.multiply(9.9 ).equal((Double)null)));
-		assertContains(item, TYPE.search(numA.multiply(numB).equal((Double)null)));
+		assertContains(item, TYPE.search(plusA9.is((Double)null)));
+		assertContains(item, TYPE.search(plusAB.is((Double)null)));
+		assertContains(item, TYPE.search(plusAC.is((Double)null)));
+		assertContains(item, TYPE.search(plusBC.is(5.5)));
+		assertContains(item, TYPE.search(plusABC.is((Double)null)));
+		assertContains(item, TYPE.search(plusABaC.is((Double)null)));
+		assertContains(item, TYPE.search(numA.multiply(9.9 ).is((Double)null)));
+		assertContains(item, TYPE.search(numA.multiply(numB).is((Double)null)));
 	}
 }

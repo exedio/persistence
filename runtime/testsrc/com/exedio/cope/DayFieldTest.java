@@ -77,42 +77,42 @@ public class DayFieldTest extends TestWithEnvironment
 
 		// test persistence
 		assertEquals(DEFAULT, item.getMandatory());
-		assertContains(TYPE.search(mandatory.equal((Day)null)));
+		assertContains(TYPE.search(mandatory.is((Day)null)));
 		assertContains(TYPE.search(mandatory.isNull()));
-		assertContains(item, item2, TYPE.search(mandatory.notEqual((Day)null)));
+		assertContains(item, item2, TYPE.search(mandatory.isNot((Day)null)));
 		assertContains(item, item2, TYPE.search(mandatory.isNotNull()));
 		assertEquals(null, item.getOptional());
-		assertContains(item, item2, TYPE.search(optional.equal((Day)null)));
+		assertContains(item, item2, TYPE.search(optional.is((Day)null)));
 		assertContains(item, item2, TYPE.search(optional.isNull()));
-		assertContains(TYPE.search(optional.notEqual((Day)null)));
+		assertContains(TYPE.search(optional.isNot((Day)null)));
 		assertContains(TYPE.search(optional.isNotNull()));
 
 		item.setMandatory(thisDay);
 		assertEquals(thisDay, item.getMandatory());
 
 		assertContains(thisDay, DEFAULT2, search(mandatory));
-		assertContains(thisDay, search(mandatory, mandatory.equal(thisDay)));
+		assertContains(thisDay, search(mandatory, mandatory.is(thisDay)));
 		assertContains(null, null, search(optional));
 
 		restartTransaction();
 		assertEquals(thisDay, item.getMandatory());
-		assertEquals(list(item), TYPE.search(mandatory.equal(thisDay)));
+		assertEquals(list(item), TYPE.search(mandatory.is(thisDay)));
 		assertEquals(list(item), TYPE.search(mandatory.greaterOrEqual(thisDay).and(mandatory.lessOrEqual(thisDay))));
-		assertEquals(list(item2), TYPE.search(mandatory.notEqual(thisDay)));
-		assertEquals(list(), TYPE.search(mandatory.equal((Day)null)));
+		assertEquals(list(item2), TYPE.search(mandatory.isNot(thisDay)));
+		assertEquals(list(), TYPE.search(mandatory.is((Day)null)));
 		assertEquals(list(), TYPE.search(mandatory.isNull()));
-		assertContains(item, item2, TYPE.search(mandatory.notEqual((Day)null)));
+		assertContains(item, item2, TYPE.search(mandatory.isNot((Day)null)));
 		assertContains(item, item2, TYPE.search(mandatory.isNotNull()));
-		assertEquals(list(), TYPE.search(mandatory.equal(beforeDay)));
-		assertEquals(list(), TYPE.search(mandatory.equal(nextDay)));
+		assertEquals(list(), TYPE.search(mandatory.is(beforeDay)));
+		assertEquals(list(), TYPE.search(mandatory.is(nextDay)));
 		assertEquals(list(), TYPE.search(mandatory.greaterOrEqual(beforeDay).and(mandatory.lessOrEqual(beforeDay))));
 		assertEquals(list(), TYPE.search(mandatory.greaterOrEqual(nextDay).and(mandatory.lessOrEqual(nextDay))));
 		assertEquals(list(item), TYPE.search(mandatory.greaterOrEqual(thisDay).and(mandatory.lessOrEqual(nextDay))));
 		assertEquals(list(item), TYPE.search(mandatory.greaterOrEqual(beforeDay).and(mandatory.lessOrEqual(thisDay))));
 		assertEquals(null, item.getOptional());
-		assertContains(item, item2, TYPE.search(optional.equal((Day)null)));
+		assertContains(item, item2, TYPE.search(optional.is((Day)null)));
 		assertContains(item, item2, TYPE.search(optional.isNull()));
-		assertEquals(list(), TYPE.search(optional.notEqual((Day)null)));
+		assertEquals(list(), TYPE.search(optional.isNot((Day)null)));
 		assertEquals(list(), TYPE.search(optional.isNotNull()));
 
 		item.setMandatory(nextDay);
@@ -168,14 +168,14 @@ public class DayFieldTest extends TestWithEnvironment
 		assertEquals(9, monthDpv.get(item).intValue());
 		assertEquals(2006, yearDpv.get(item).intValue());
 		assertEquals(38, weekDpv.get(item).intValue());
-		assertContains(TYPE.search(dayDpv.equal(1)));
-		assertContains(item, TYPE.search(dayDpv.equal(23)));
-		assertContains(TYPE.search(monthDpv.equal(10)));
-		assertContains(item, TYPE.search(monthDpv.equal(9)));
-		assertContains(TYPE.search(yearDpv.equal(2007)));
-		assertContains(item, TYPE.search(yearDpv.equal(2006)));
-		assertContains(TYPE.search(weekDpv.equal(1)));
-		assertContains(item, TYPE.search(weekDpv.equal(38)));
+		assertContains(TYPE.search(dayDpv.is(1)));
+		assertContains(item, TYPE.search(dayDpv.is(23)));
+		assertContains(TYPE.search(monthDpv.is(10)));
+		assertContains(item, TYPE.search(monthDpv.is(9)));
+		assertContains(TYPE.search(yearDpv.is(2007)));
+		assertContains(item, TYPE.search(yearDpv.is(2006)));
+		assertContains(TYPE.search(weekDpv.is(1)));
+		assertContains(item, TYPE.search(weekDpv.is(38)));
 
 		item.setMandatory(day2);
 		restartTransaction();
@@ -183,14 +183,14 @@ public class DayFieldTest extends TestWithEnvironment
 		assertEquals(9, monthDpv.get(item).intValue());
 		assertEquals(2006, yearDpv.get(item).intValue());
 		assertEquals(38, weekDpv.get(item).intValue());
-		assertContains(TYPE.search(dayDpv.equal(1)));
-		assertContains(item, TYPE.search(dayDpv.equal(22)));
-		assertContains(TYPE.search(monthDpv.equal(10)));
-		assertContains(item, TYPE.search(monthDpv.equal(9)));
-		assertContains(TYPE.search(yearDpv.equal(2007)));
-		assertContains(item, TYPE.search(yearDpv.equal(2006)));
-		assertContains(TYPE.search(weekDpv.equal(1)));
-		assertContains(item, TYPE.search(weekDpv.equal(38)));
+		assertContains(TYPE.search(dayDpv.is(1)));
+		assertContains(item, TYPE.search(dayDpv.is(22)));
+		assertContains(TYPE.search(monthDpv.is(10)));
+		assertContains(item, TYPE.search(monthDpv.is(9)));
+		assertContains(TYPE.search(yearDpv.is(2007)));
+		assertContains(item, TYPE.search(yearDpv.is(2006)));
+		assertContains(TYPE.search(weekDpv.is(1)));
+		assertContains(item, TYPE.search(weekDpv.is(38)));
 
 		item.setMandatory(day3);
 		restartTransaction();
@@ -198,19 +198,19 @@ public class DayFieldTest extends TestWithEnvironment
 		assertEquals(10, monthDpv.get(item).intValue());
 		assertEquals(2006, yearDpv.get(item).intValue());
 		assertEquals(43, weekDpv.get(item).intValue());
-		assertContains(TYPE.search(dayDpv.equal(1)));
-		assertContains(item, TYPE.search(dayDpv.equal(23)));
-		assertContains(TYPE.search(monthDpv.equal(9)));
-		assertContains(item, TYPE.search(monthDpv.equal(10)));
-		assertContains(TYPE.search(yearDpv.equal(2007)));
-		assertContains(item, TYPE.search(yearDpv.equal(2006)));
-		assertContains(TYPE.search(weekDpv.equal(1)));
-		assertContains(item, TYPE.search(weekDpv.equal(43)));
+		assertContains(TYPE.search(dayDpv.is(1)));
+		assertContains(item, TYPE.search(dayDpv.is(23)));
+		assertContains(TYPE.search(monthDpv.is(9)));
+		assertContains(item, TYPE.search(monthDpv.is(10)));
+		assertContains(TYPE.search(yearDpv.is(2007)));
+		assertContains(item, TYPE.search(yearDpv.is(2006)));
+		assertContains(TYPE.search(weekDpv.is(1)));
+		assertContains(item, TYPE.search(weekDpv.is(43)));
 
-		assertContains(23, new Query<>(dayDpv, TYPE, TYPE.thisFunction.equal(item)).search());
-		assertContains(10, new Query<>(monthDpv, TYPE, TYPE.thisFunction.equal(item)).search());
-		assertContains(2006, new Query<>(yearDpv, TYPE, TYPE.thisFunction.equal(item)).search());
-		assertContains(43, new Query<>(weekDpv, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(23, new Query<>(dayDpv, TYPE, TYPE.thisFunction.is(item)).search());
+		assertContains(10, new Query<>(monthDpv, TYPE, TYPE.thisFunction.is(item)).search());
+		assertContains(2006, new Query<>(yearDpv, TYPE, TYPE.thisFunction.is(item)).search());
+		assertContains(43, new Query<>(weekDpv, TYPE, TYPE.thisFunction.is(item)).search());
 
 		final DayPartView optionalDayDpv = optional.dayOfMonth();
 		final DayPartView optionalMonthDpv = optional.month();
@@ -305,7 +305,7 @@ public class DayFieldTest extends TestWithEnvironment
 		final DayPartView view = mandatory.weekOfYear();
 		item.setMandatory(value);
 		assertEquals(week, view.get(item).intValue());
-		assertContains(week, new Query<>(view, TYPE, TYPE.thisFunction.equal(item)).search());
+		assertContains(week, new Query<>(view, TYPE, TYPE.thisFunction.is(item)).search());
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage

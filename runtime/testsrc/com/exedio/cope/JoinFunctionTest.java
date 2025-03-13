@@ -50,8 +50,8 @@ public class JoinFunctionTest extends TestWithEnvironment
 	{
 		{
 			final Query<JoinFunctionItemSingle> q = JoinFunctionItemSingle.TYPE.newQuery(null);
-			final Join j1 = q.join(TYPE, name.equal("single"));
-			final Join j2 = q.join(TYPE, name.equal("single"));
+			final Join j1 = q.join(TYPE, name.is("single"));
+			final Join j2 = q.join(TYPE, name.is("single"));
 			q.setCondition(
 					integer.bind(j1).
 						plus(

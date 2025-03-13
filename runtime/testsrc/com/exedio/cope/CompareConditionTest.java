@@ -93,8 +93,8 @@ public class CompareConditionTest extends TestWithEnvironment
 	{
 		assertFieldsCovered(asList(string), string.isNull());
 		assertFieldsCovered(asList(string), string.isNotNull());
-		assertFieldsCovered(asList(string), string.equal("a"));
-		assertFieldsCovered(asList(string), string.notEqual("a"));
+		assertFieldsCovered(asList(string), string.is("a"));
+		assertFieldsCovered(asList(string), string.isNot("a"));
 		assertFieldsCovered(asList(string), string.less("a"));
 		assertFieldsCovered(asList(string), string.lessOrEqual("a"));
 		assertFieldsCovered(asList(string), string.greater("a"));
@@ -113,8 +113,8 @@ public class CompareConditionTest extends TestWithEnvironment
 
 	@Test void testToString()
 	{
-		assertEquals("CompareConditionItem.string='string3'",  string.equal("string3").toString());
-		assertEquals("CompareConditionItem.string<>'string3'", string.notEqual("string3").toString());
+		assertEquals("CompareConditionItem.string='string3'",  string.is("string3").toString());
+		assertEquals("CompareConditionItem.string<>'string3'", string.isNot("string3").toString());
 		assertEquals("CompareConditionItem.string<'string3'",  string.less("string3").toString());
 		assertEquals("CompareConditionItem.string<='string3'", string.lessOrEqual("string3").toString());
 		assertEquals("CompareConditionItem.string>'string3'",  string.greater("string3").toString());
@@ -149,28 +149,28 @@ public class CompareConditionTest extends TestWithEnvironment
 
 	@Test void testEqual()
 	{
-		assertCondition(item3, TYPE, string.equal("string3"));
-		assertCondition(item3, TYPE, intx.equal(3));
-		assertCondition(item3, TYPE, longx.equal(13l));
-		assertCondition(item3, TYPE, doublex.equal(2.3));
-		assertCondition(item3, TYPE, date.equal(aDate));
-		assertCondition(item3, TYPE, day.equal(aDay));
-		assertCondition(item3, TYPE, enumx.equal(YEnum.V3));
-		assertCondition(item3, TYPE, item.equal(item3));
-		assertCondition(item3, TYPE, THIS.equal(item3));
+		assertCondition(item3, TYPE, string.is("string3"));
+		assertCondition(item3, TYPE, intx.is(3));
+		assertCondition(item3, TYPE, longx.is(13l));
+		assertCondition(item3, TYPE, doublex.is(2.3));
+		assertCondition(item3, TYPE, date.is(aDate));
+		assertCondition(item3, TYPE, day.is(aDay));
+		assertCondition(item3, TYPE, enumx.is(YEnum.V3));
+		assertCondition(item3, TYPE, item.is(item3));
+		assertCondition(item3, TYPE, THIS.is(item3));
 	}
 
 	@Test void testNotEqual()
 	{
-		assertCondition(item1, item2, item4, item5, TYPE, string.notEqual("string3"));
-		assertCondition(item1, item2, item4, item5, TYPE, intx.notEqual(3));
-		assertCondition(item1, item2, item4, item5, TYPE, longx.notEqual(13l));
-		assertCondition(item1, item2, item4, item5, TYPE, doublex.notEqual(2.3));
-		assertCondition(item1, item2, item4, item5, TYPE, date.notEqual(aDate));
-		assertCondition(item1, item2, item4, item5, TYPE, day.notEqual(aDay));
-		assertCondition(item1, item2, item4, item5, TYPE, enumx.notEqual(YEnum.V3));
-		assertCondition(item1, item2, item4, item5, TYPE, item.notEqual(item3));
-		assertCondition(item1, item2, item4, item5, itemX, TYPE, THIS.notEqual(item3));
+		assertCondition(item1, item2, item4, item5, TYPE, string.isNot("string3"));
+		assertCondition(item1, item2, item4, item5, TYPE, intx.isNot(3));
+		assertCondition(item1, item2, item4, item5, TYPE, longx.isNot(13l));
+		assertCondition(item1, item2, item4, item5, TYPE, doublex.isNot(2.3));
+		assertCondition(item1, item2, item4, item5, TYPE, date.isNot(aDate));
+		assertCondition(item1, item2, item4, item5, TYPE, day.isNot(aDay));
+		assertCondition(item1, item2, item4, item5, TYPE, enumx.isNot(YEnum.V3));
+		assertCondition(item1, item2, item4, item5, TYPE, item.isNot(item3));
+		assertCondition(item1, item2, item4, item5, itemX, TYPE, THIS.isNot(item3));
 	}
 
 	@Test void testLess()
@@ -229,16 +229,16 @@ public class CompareConditionTest extends TestWithEnvironment
 	{
 		assertEquals(intx+" is not null", intx.isNull   ().not().toString());
 		assertEquals(intx+" is null",     intx.isNotNull().not().toString());
-		assertEquals(intx+"<>'3'", intx.   equal      (3) .not().toString());
-		assertEquals(intx+ "='3'", intx.notEqual      (3) .not().toString());
+		assertEquals(intx+"<>'3'", intx.is            (3) .not().toString());
+		assertEquals(intx+ "='3'", intx.isNot         (3) .not().toString());
 		assertEquals(intx+">='3'", intx.less          (3) .not().toString());
 		assertEquals(intx+ ">'3'", intx.lessOrEqual   (3) .not().toString());
 		assertEquals(intx+"<='3'", intx.greater       (3) .not().toString());
 		assertEquals(intx+ "<'3'", intx.greaterOrEqual(3) .not().toString());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNull().not());
 		assertCondition(itemX,                             TYPE, intx.isNotNull().not());
-		assertCondition(item1, item2,        item4, item5, TYPE, intx.equal(3).not());
-		assertCondition(              item3,               TYPE, intx.notEqual(3).not());
+		assertCondition(item1, item2,        item4, item5, TYPE, intx.is(3).not());
+		assertCondition(              item3,               TYPE, intx.isNot(3).not());
 		assertCondition(              item3, item4, item5, TYPE, intx.less(3).not());
 		assertCondition(                     item4, item5, TYPE, intx.lessOrEqual(3).not());
 		assertCondition(item1, item2, item3,               TYPE, intx.greater(3).not());

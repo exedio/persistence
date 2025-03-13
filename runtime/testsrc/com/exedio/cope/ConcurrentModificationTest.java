@@ -184,8 +184,8 @@ class ConcurrentModificationTest extends TestWithEnvironment
 		static final DataField childData = new DataField().optional();
 
 		static final CheckConstraint oneMustBeZero = new CheckConstraint(Cope.or(
-				childField.equal(0),
-				parentField.equal(0)
+				childField.is(0),
+				parentField.is(0)
 		));
 
 		@com.exedio.cope.instrument.Generated

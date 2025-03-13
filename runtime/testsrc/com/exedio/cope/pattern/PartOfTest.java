@@ -123,5 +123,5 @@ public class PartOfTest extends TestWithEnvironment
 		}
 	}
 
-	private static final Condition part1Condition = PartOfItem.partString.equal("part1");
+	private static final Condition part1Condition = PartOfItem.partString.is("part1");
 }

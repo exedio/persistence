@@ -64,11 +64,11 @@ public class QueryTest extends TestWithEnvironment
 		assertEqualsAndHash(mandatory.less(d1).and(mandatory.greater(d1)), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
-		final Condition c1 = mandatory.equal(d1);
-		final Condition c2 = mandatory.equal(d2);
+		final Condition c1 = mandatory.is(d1);
+		final Condition c2 = mandatory.is(d2);
 
-		assertEqualsAndHash(c1, mandatory.equal(d1));
-		assertEqualsAndHash(c1.and(c2), mandatory.equal(d1).and(mandatory.equal(d2)));
+		assertEqualsAndHash(c1, mandatory.is(d1));
+		assertEqualsAndHash(c1.and(c2), mandatory.is(d1).and(mandatory.is(d2)));
 		assertNotEqualsAndHash(c1, c2, c1.and(c2), c2.and(c1));
 	}
 

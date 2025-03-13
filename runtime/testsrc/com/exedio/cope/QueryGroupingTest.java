@@ -87,7 +87,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(2, query.total());
 		assertEquals(true, query.exists());
 
-		query.setCondition( number.notEqual(3) );
+		query.setCondition( number.isNot(3) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where number<>'3' group by day", query.toString() );
 		assertContains(
 			list(day1, 1, 1), list(day2, 2, 2), list(day3, 4, 4),
@@ -97,7 +97,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(true, query.exists());
 
 		query.setSelects( day, optionalDouble.sum() );
-		query.setCondition( day.equal(day2) );
+		query.setCondition( day.is(day2) );
 		assertEquals( "select day,sum(optionalDouble) from GroupItem where day='2006/2/20' group by day", query.toString() );
 		assertContains(
 			list(day2, null),
@@ -244,7 +244,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			new Selectable<?>[]{day, day}, TYPE, null
 		);
 		final Join join = query.join( TYPE );
-		join.setCondition( day.bind(join).equal(day) );
+		join.setCondition( day.bind(join).is(day) );
 		query.setSelects( day, number, number.bind(join) );
 		assertContains(
 			list(day1, 1, 2), list(day1, 2, 1), list(day1, 1, 1), list(day1, 2, 2), list(day2, 3, 3),

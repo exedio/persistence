@@ -143,9 +143,9 @@ public class PlusIntegerTest extends TestWithEnvironment
 		assertEquals(valueOf(1), item.getNumA());
 		assertEquals(valueOf(2), item.getNumB());
 		assertEquals(valueOf(3), item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(1)));
-		assertContains(item, TYPE.search(numB.equal(2)));
-		assertContains(item, TYPE.search(numC.equal(3)));
+		assertContains(item, TYPE.search(numA.is(1)));
+		assertContains(item, TYPE.search(numB.is(2)));
+		assertContains(item, TYPE.search(numC.is(3)));
 
 		assertEquals(valueOf(10), item.getPlusA9());
 		assertEquals(valueOf( 3), item.getPlusAB());
@@ -154,18 +154,18 @@ public class PlusIntegerTest extends TestWithEnvironment
 		assertEquals(valueOf( 6), item.getPlusABC());
 		assertEquals(valueOf(18), item.getMultiplyB9());
 		assertEquals(valueOf( 6), item.getMultiplyBC());
-		assertContains(item, TYPE.search(plusA9.equal(10)));
-		assertContains(item, TYPE.search(plusAB.equal(3)));
-		assertContains(item, TYPE.search(plusAC.equal(4)));
-		assertContains(item, TYPE.search(plusBC.equal(5)));
-		assertContains(item, TYPE.search(plusABC.equal(6)));
-		assertContains(item, TYPE.search(plusABaC.equal(6)));
-		assertContains(item, TYPE.search(multiplyB9.equal(18)));
-		assertContains(item, TYPE.search(multiplyBC.equal(6)));
-		assertContains(item, TYPE.search(numA.plus(9   ).equal(10)));
-		assertContains(item, TYPE.search(numA.plus(numB).equal(3)));
-		assertContains(item, TYPE.search(numB.multiply(9   ).equal(18)));
-		assertContains(item, TYPE.search(numB.multiply(numC).equal(6)));
+		assertContains(item, TYPE.search(plusA9.is(10)));
+		assertContains(item, TYPE.search(plusAB.is(3)));
+		assertContains(item, TYPE.search(plusAC.is(4)));
+		assertContains(item, TYPE.search(plusBC.is(5)));
+		assertContains(item, TYPE.search(plusABC.is(6)));
+		assertContains(item, TYPE.search(plusABaC.is(6)));
+		assertContains(item, TYPE.search(multiplyB9.is(18)));
+		assertContains(item, TYPE.search(multiplyBC.is(6)));
+		assertContains(item, TYPE.search(numA.plus(9   ).is(10)));
+		assertContains(item, TYPE.search(numA.plus(numB).is(3)));
+		assertContains(item, TYPE.search(numB.multiply(9   ).is(18)));
+		assertContains(item, TYPE.search(numB.multiply(numC).is(6)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -173,22 +173,22 @@ public class PlusIntegerTest extends TestWithEnvironment
 		assertEquals(null,       item.getNumA());
 		assertEquals(valueOf(2), item.getNumB());
 		assertEquals(valueOf(3), item.getNumC());
-		assertContains(item, TYPE.search(numA.equal((Integer)null)));
-		assertContains(item, TYPE.search(numB.equal(2)));
-		assertContains(item, TYPE.search(numC.equal(3)));
+		assertContains(item, TYPE.search(numA.is((Integer)null)));
+		assertContains(item, TYPE.search(numB.is(2)));
+		assertContains(item, TYPE.search(numC.is(3)));
 
 		assertEquals(null,       item.getPlusA9());
 		assertEquals(null,       item.getPlusAB());
 		assertEquals(null,       item.getPlusAC());
 		assertEquals(valueOf(5), item.getPlusBC());
 		assertEquals(null, item.getPlusABC());
-		assertContains(item, TYPE.search(plusA9.equal((Integer)null)));
-		assertContains(item, TYPE.search(plusAB.equal((Integer)null)));
-		assertContains(item, TYPE.search(plusAC.equal((Integer)null)));
-		assertContains(item, TYPE.search(plusBC.equal(5)));
-		assertContains(item, TYPE.search(plusABC.equal((Integer)null)));
-		assertContains(item, TYPE.search(plusABaC.equal((Integer)null)));
-		assertContains(item, TYPE.search(numA.multiply(9   ).equal((Integer)null)));
-		assertContains(item, TYPE.search(numA.multiply(numB).equal((Integer)null)));
+		assertContains(item, TYPE.search(plusA9.is((Integer)null)));
+		assertContains(item, TYPE.search(plusAB.is((Integer)null)));
+		assertContains(item, TYPE.search(plusAC.is((Integer)null)));
+		assertContains(item, TYPE.search(plusBC.is(5)));
+		assertContains(item, TYPE.search(plusABC.is((Integer)null)));
+		assertContains(item, TYPE.search(plusABaC.is((Integer)null)));
+		assertContains(item, TYPE.search(numA.multiply(9   ).is((Integer)null)));
+		assertContains(item, TYPE.search(numA.multiply(numB).is((Integer)null)));
 	}
 }

@@ -84,7 +84,7 @@ public class ItemSerializationTest extends TestWithEnvironment
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =
-			list.getEntryType().searchSingleton(listParent().equal(item));
+			list.getEntryType().searchSingleton(listParent().is(item));
 		final String id = unboundItem.getCopeID();
 		assertEquals(list.getEntryType(), unboundItem.getCopeType());
 

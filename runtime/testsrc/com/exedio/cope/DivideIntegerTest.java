@@ -82,16 +82,16 @@ public class DivideIntegerTest extends TestWithEnvironment
 		assertEquals(i7, item.getNumA());
 		assertEquals(i9, item.getNumB());
 		assertEquals(i3, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal(7)));
-		assertContains(item, TYPE.search(numB.equal(9)));
-		assertContains(item, TYPE.search(numC.equal(3)));
+		assertContains(item, TYPE.search(numA.is(7)));
+		assertContains(item, TYPE.search(numB.is(9)));
+		assertContains(item, TYPE.search(numC.is(3)));
 
 		assertEquals(i0, item.getDivideAB());
 		assertEquals(i2, item.getDivideAC());
 		assertEquals(i3, item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal(0)));
-		assertContains(item, TYPE.search(divideAC.equal(2)));
-		assertContains(item, TYPE.search(divideBC.equal(3)));
+		assertContains(item, TYPE.search(divideAB.is(0)));
+		assertContains(item, TYPE.search(divideAC.is(2)));
+		assertContains(item, TYPE.search(divideBC.is(3)));
 
 		// test null propagation
 		item.setNumA(null);
@@ -99,17 +99,17 @@ public class DivideIntegerTest extends TestWithEnvironment
 		assertEquals(null, item.getNumA());
 		assertEquals(i9, item.getNumB());
 		assertEquals(i3, item.getNumC());
-		assertContains(item, TYPE.search(numA.equal((Integer)null)));
-		assertContains(item, TYPE.search(numB.equal(9)));
-		assertContains(item, TYPE.search(numC.equal(3)));
+		assertContains(item, TYPE.search(numA.is((Integer)null)));
+		assertContains(item, TYPE.search(numB.is(9)));
+		assertContains(item, TYPE.search(numC.is(3)));
 
 		assertEquals(null, item.getDivideAB());
 		assertEquals(null, item.getDivideAC());
 		assertEquals(i3, item.getDivideBC());
-		assertContains(item, TYPE.search(divideAB.equal((Integer)null)));
-		assertContains(item, TYPE.search(divideAC.equal((Integer)null)));
-		assertContains(item, TYPE.search(divideBC.equal(3)));
-		assertContains(item, TYPE.search(numA.divide(numB).equal((Integer)null)));
+		assertContains(item, TYPE.search(divideAB.is((Integer)null)));
+		assertContains(item, TYPE.search(divideAC.is((Integer)null)));
+		assertContains(item, TYPE.search(divideBC.is(3)));
+		assertContains(item, TYPE.search(numA.divide(numB).is((Integer)null)));
 	}
 
 

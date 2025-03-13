@@ -98,12 +98,12 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 				stringA.less(stringA),
 				stringB.less(stringB),
 				stringA.lessOrEqual(stringB),
-				stringA.equal(stringB));
+				stringA.is(stringB));
 	}
 
 	@Test void testFieldsCovered()
 	{
-		assertFieldsCovered(asList(stringA, stringB), stringA.equal(stringB));
+		assertFieldsCovered(asList(stringA, stringB), stringA.is(stringB));
 		assertFieldsCovered(asList(stringA, stringB), stringA.less(stringB));
 		assertFieldsCovered(asList(stringA, stringB), stringA.lessOrEqual(stringB));
 		assertFieldsCovered(asList(stringA, stringB), stringA.greater(stringB));
@@ -112,7 +112,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 
 	@Test void testToString()
 	{
-		assertEquals("CompareFunctionConditionItem.stringA=CompareFunctionConditionItem.stringB",  stringA.equal(stringB).toString());
+		assertEquals("CompareFunctionConditionItem.stringA=CompareFunctionConditionItem.stringB",  stringA.is(stringB).toString());
 		assertEquals("CompareFunctionConditionItem.stringA<CompareFunctionConditionItem.stringB",  stringA.less(stringB).toString());
 		assertEquals("CompareFunctionConditionItem.stringA<=CompareFunctionConditionItem.stringB", stringA.lessOrEqual(stringB).toString());
 		assertEquals("CompareFunctionConditionItem.stringA>CompareFunctionConditionItem.stringB",  stringA.greater(stringB).toString());
@@ -123,30 +123,30 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item3);
-		assertCondition(expected, TYPE, stringA.equal(stringB));
-		assertCondition(expected, TYPE, intA   .equal(intB));
-		assertCondition(expected, TYPE, longA  .equal(longB));
-		assertCondition(expected, TYPE, doubleA.equal(doubleB));
-		assertCondition(expected, TYPE, dateA  .equal(dateB));
-		assertCondition(expected, TYPE, dayA   .equal(dayB));
-		assertCondition(expected, TYPE, enumA  .equal(enumB));
-		assertCondition(expected, TYPE, itemA  .equal(itemB));
-		assertCondition(expected, TYPE, THIS   .equal(itemB));
+		assertCondition(expected, TYPE, stringA.is(stringB));
+		assertCondition(expected, TYPE, intA   .is(intB));
+		assertCondition(expected, TYPE, longA  .is(longB));
+		assertCondition(expected, TYPE, doubleA.is(doubleB));
+		assertCondition(expected, TYPE, dateA  .is(dateB));
+		assertCondition(expected, TYPE, dayA   .is(dayB));
+		assertCondition(expected, TYPE, enumA  .is(enumB));
+		assertCondition(expected, TYPE, itemA  .is(itemB));
+		assertCondition(expected, TYPE, THIS   .is(itemB));
 	}
 
 	@Test void testNotEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item1, item2, item4, item5);
-		assertCondition(expected, TYPE, stringA.notEqual(stringB));
-		assertCondition(expected, TYPE, intA   .notEqual(intB));
-		assertCondition(expected, TYPE, longA  .notEqual(longB));
-		assertCondition(expected, TYPE, doubleA.notEqual(doubleB));
-		assertCondition(expected, TYPE, dateA  .notEqual(dateB));
-		assertCondition(expected, TYPE, dayA   .notEqual(dayB));
-		assertCondition(expected, TYPE, enumA  .notEqual(enumB));
-		assertCondition(expected, TYPE, itemA  .notEqual(itemB));
-		assertCondition(expected, TYPE, THIS   .notEqual(itemB));
+		assertCondition(expected, TYPE, stringA.isNot(stringB));
+		assertCondition(expected, TYPE, intA   .isNot(intB));
+		assertCondition(expected, TYPE, longA  .isNot(longB));
+		assertCondition(expected, TYPE, doubleA.isNot(doubleB));
+		assertCondition(expected, TYPE, dateA  .isNot(dateB));
+		assertCondition(expected, TYPE, dayA   .isNot(dayB));
+		assertCondition(expected, TYPE, enumA  .isNot(enumB));
+		assertCondition(expected, TYPE, itemA  .isNot(itemB));
+		assertCondition(expected, TYPE, THIS   .isNot(itemB));
 	}
 
 	@Test void testLess()
@@ -211,14 +211,14 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 
 	@Test void testNot()
 	{
-		assertEquals(intA+"<>"+intB, intA.   equal      (intB) .not().toString());
-		assertEquals(intA+ "="+intB, intA.notEqual      (intB) .not().toString());
+		assertEquals(intA+"<>"+intB, intA.is            (intB) .not().toString());
+		assertEquals(intA+ "="+intB, intA.isNot         (intB) .not().toString());
 		assertEquals(intA+">="+intB, intA.less          (intB) .not().toString());
 		assertEquals(intA+ ">"+intB, intA.lessOrEqual   (intB) .not().toString());
 		assertEquals(intA+"<="+intB, intA.greater       (intB) .not().toString());
 		assertEquals(intA+ "<"+intB, intA.greaterOrEqual(intB) .not().toString());
-		assertCondition(item1, item2,        item4, item5, TYPE, intA.equal(intB).not());
-		assertCondition(              item3,               TYPE, intA.notEqual(intB).not());
+		assertCondition(item1, item2,        item4, item5, TYPE, intA.is(intB).not());
+		assertCondition(              item3,               TYPE, intA.isNot(intB).not());
 		assertCondition(              item3, item4, item5, TYPE, intA.less(intB).not());
 		assertCondition(                     item4, item5, TYPE, intA.lessOrEqual(intB).not());
 		assertCondition(item1, item2, item3,               TYPE, intA.greater(intB).not());

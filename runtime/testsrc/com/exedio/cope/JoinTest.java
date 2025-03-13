@@ -75,11 +75,11 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
-			query.join(PointerItem.TYPE, PointerItem.code.equal(PointerTargetItem.code));
+			query.join(PointerItem.TYPE, PointerItem.code.is(PointerTargetItem.code));
 			assertContains(item2b, query.search());
 		}
 		{
-			final Query<PointerItem> query = PointerItem.TYPE.newQuery(PointerTargetItem.code.equal("item2a"));
+			final Query<PointerItem> query = PointerItem.TYPE.newQuery(PointerTargetItem.code.is("item2a"));
 			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
 			assertContains(item1a, query.search());
 		}

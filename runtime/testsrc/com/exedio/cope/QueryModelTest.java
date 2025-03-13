@@ -177,7 +177,7 @@ public class QueryModelTest
 		q.setCondition(TRUE);
 		assertSame(null, q.getCondition());
 
-		final Condition c1 = field1.equal(new Day(2006, 2, 19));
+		final Condition c1 = field1.is(new Day(2006, 2, 19));
 		q.setCondition(c1);
 		assertSame(c1, q.getCondition());
 
@@ -193,8 +193,8 @@ public class QueryModelTest
 
 	@Test void testNarrow()
 	{
-		final Condition c1 = field1.equal(new Day(2006, 2, 19));
-		final Condition c2 = field2.equal(new Day(2006, 2, 20));
+		final Condition c1 = field1.is(new Day(2006, 2, 19));
+		final Condition c2 = field2.is(new Day(2006, 2, 20));
 		final Query<AnItem> q = TYPE.newQuery(null);
 		assertSame(null, q.getCondition());
 
@@ -217,12 +217,12 @@ public class QueryModelTest
 		assertSame(null, q.getHaving());
 		assertEquals("select this from AnItem", q.toString());
 
-		final Condition having1 = field1.equal(new Day(2008,3,14));
+		final Condition having1 = field1.is(new Day(2008,3,14));
 		q.setHaving(having1);
 		assertSame(having1, q.getHaving());
 		assertEquals("select this from AnItem having field1='2008/3/14'", q.toString());
 
-		final Condition having2 = field1.equal(new Day(2010,12,5));
+		final Condition having2 = field1.is(new Day(2010,12,5));
 		q.setHaving(having2);
 		assertSame(having2, q.getHaving());
 		assertEquals("select this from AnItem having field1='2010/12/5'", q.toString());
@@ -243,25 +243,25 @@ public class QueryModelTest
 	@Test void joinConditionFunction()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
-		final Join join = q.join(TYPE, j -> field1.equal(field1.bind(j)));
+		final Join join = q.join(TYPE, j -> field1.is(field1.bind(j)));
 		assertEquals(Join.Kind.INNER, join.getKind());
-		assertEquals(field1.equal(field1.bind(join)), join.getCondition());
+		assertEquals(field1.is(field1.bind(join)), join.getCondition());
 	}
 
 	@Test void joinOuterLeftConditionFunction()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
-		final Join join = q.joinOuterLeft(TYPE, j -> field1.equal(field1.bind(j)));
+		final Join join = q.joinOuterLeft(TYPE, j -> field1.is(field1.bind(j)));
 		assertEquals(Join.Kind.OUTER_LEFT, join.getKind());
-		assertEquals(field1.equal(field1.bind(join)), join.getCondition());
+		assertEquals(field1.is(field1.bind(join)), join.getCondition());
 	}
 
 	@Test void joinOuterRightConditionFunction()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
-		final Join join = q.joinOuterRight(TYPE, j -> field1.equal(field1.bind(j)));
+		final Join join = q.joinOuterRight(TYPE, j -> field1.is(field1.bind(j)));
 		assertEquals(Join.Kind.OUTER_RIGHT, join.getKind());
-		assertEquals(field1.equal(field1.bind(join)), join.getCondition());
+		assertEquals(field1.is(field1.bind(join)), join.getCondition());
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
