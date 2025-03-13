@@ -790,6 +790,9 @@ final class Generator
 		write(lineSeparator);
 	}
 
+	/*
+	 * InterimProcessor.InterimVisitor#writeType does the same for interim code
+	 */
 	private void writeType(final LocalCopeType type)
 	{
 		final Kind kind = type.kind;
