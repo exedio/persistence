@@ -228,14 +228,32 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return integer.isNotNull();
 	}
 
+	/**
+	 * @deprecated Use {@link #is(Price)} instead.
+	 */
+	@Deprecated
 	@Override
 	public Condition equal(final Price value)
+	{
+		return is(value);
+	}
+
+	public Condition is(final Price value)
 	{
 		return integer.is(Price.store(value));
 	}
 
+	/**
+	 * @deprecated Use {@link #isNot(Price)} instead.
+	 */
+	@Deprecated
 	@Override
 	public Condition notEqual(final Price value)
+	{
+		return isNot(value);
+	}
+
+	public Condition isNot(final Price value)
 	{
 		return integer.isNot(Price.store(value));
 	}
@@ -270,14 +288,32 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 
+	/**
+	 * @deprecated Use {@link #is(PriceField)} instead.
+	 */
+	@Deprecated
 	public CompareFunctionCondition<?> equal(final PriceField right)
 	{
-		return integer.equal(right.integer);
+		return (CompareFunctionCondition<?>)is(right);
 	}
 
+	public Condition is(final PriceField right)
+	{
+		return integer.is(right.integer);
+	}
+
+	/**
+	 * @deprecated Use {@link #isNot(PriceField)} instead.
+	 */
+	@Deprecated
 	public CompareFunctionCondition<?> notEqual(final PriceField right)
 	{
-		return integer.notEqual(right.integer);
+		return (CompareFunctionCondition<?>)isNot(right);
+	}
+
+	public Condition isNot(final PriceField right)
+	{
+		return integer.isNot(right.integer);
 	}
 
 	public CompareFunctionCondition<?> less(final PriceField right)
