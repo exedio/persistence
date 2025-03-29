@@ -192,8 +192,21 @@ public final class Importer<K> extends Pattern
 	 * method {@link #doImport(Class, Object, SetValue...)}
 	 * becomes more efficient when item do not yet exist
 	 * and less efficient when items already do exist.
+	 * @deprecated Use {@link #setHintInitialExperimental(boolean)} instead
 	 */
+	@Deprecated
 	public void setHintInitialExerimental(final boolean hintInitial)
+	{
+		setHintInitialExperimental(hintInitial);
+	}
+
+	/**
+	 * When setting to true,
+	 * method {@link #doImport(Class, Object, SetValue...)}
+	 * becomes more efficient when item do not yet exist
+	 * and less efficient when items already do exist.
+	 */
+	public void setHintInitialExperimental(final boolean hintInitial)
 	{
 		this.hintInitial = hintInitial;
 	}
