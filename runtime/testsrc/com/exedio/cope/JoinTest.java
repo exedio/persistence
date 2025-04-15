@@ -51,8 +51,8 @@ public class JoinTest extends TestmodelTest
 	@Test void testJoin()
 	{
 		// test conditions
-		assertEqualsAndHash(PointerItem.pointer.equalTarget(), PointerItem.pointer.equalTarget());
-		assertNotEqualsAndHash(PointerItem.pointer.equalTarget(), PointerItem.pointer2.equalTarget());
+		assertEqualsAndHash(PointerItem.pointer.isTarget(), PointerItem.pointer.isTarget());
+		assertNotEqualsAndHash(PointerItem.pointer.isTarget(), PointerItem.pointer2.isTarget());
 
 		{
 			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
@@ -65,12 +65,12 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			final Query<PointerTargetItem> query = PointerTargetItem.TYPE.newQuery(null);
-			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
+			query.join(PointerItem.TYPE, PointerItem.pointer.isTarget());
 			assertContains(item2b, item2a, query.search());
 		}
 		{
 			final Query<PointerItem> query = new Query<>(PointerItem.TYPE.getThis(), PointerTargetItem.TYPE, null);
-			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
+			query.join(PointerItem.TYPE, PointerItem.pointer.isTarget());
 			assertContains(item1b, item1a, query.search());
 		}
 		{
@@ -80,13 +80,13 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(PointerTargetItem.code.is("item2a"));
-			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
+			query.join(PointerTargetItem.TYPE, PointerItem.pointer.isTarget());
 			assertContains(item1a, query.search());
 		}
 		{
 			// test join needed for orderby only
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);
-			query.join(PointerTargetItem.TYPE, PointerItem.pointer.equalTarget());
+			query.join(PointerTargetItem.TYPE, PointerItem.pointer.isTarget());
 			query.setOrderBy(PointerTargetItem.code, true);
 			assertEquals(list(item1b, item1a), query.search());
 			query.setOrderBy(PointerTargetItem.code, false);
@@ -94,7 +94,7 @@ public class JoinTest extends TestmodelTest
 		}
 		{
 			final Query<List<Object>> query = newQuery(new Function<?>[]{PointerTargetItem.code, PointerItem.TYPE.getThis(), PointerItem.code}, PointerTargetItem.TYPE, null);
-			query.join(PointerItem.TYPE, PointerItem.pointer.equalTarget());
+			query.join(PointerItem.TYPE, PointerItem.pointer.isTarget());
 			assertContains(
 					list("item1a2b", item1b, "item1b"),
 					list("item2a", item1a, "item1a2b"),

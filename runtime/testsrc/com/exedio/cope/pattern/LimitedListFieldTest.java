@@ -289,7 +289,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test void testContainsInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
+		final Join j = q.join(TYPE, limitedListFieldItem.isTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 		assertEquals("("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a')",
@@ -307,7 +307,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test void testContainsFunctionInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
+		final Join j = q.join(TYPE, limitedListFieldItem.isTarget());
 		q.join(ItemWithSimpleFields.TYPE);
 
 		final String f = "l1.LimitedListFieldItem.strings-";
@@ -331,7 +331,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test void testContainsAnyInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join join = q.join(TYPE, limitedListFieldItem.equalTarget());
+		final Join join = q.join(TYPE, limitedListFieldItem.isTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 
@@ -348,7 +348,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test void testEqualInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
+		final Join j = q.join(TYPE, limitedListFieldItem.isTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 		assertEquals("("+f+"0='a' and "+f+"1='b' and "+f+"2 is null and "+f+"3 is null)",
@@ -362,7 +362,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test void testNotEqualInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
+		final Join j = q.join(TYPE, limitedListFieldItem.isTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 		assertEquals("("+f+"0<>'a' or "+f+"0 is null or "+f+"1<>'b' or "+f+"1 is null or "+f+"2 is not null or "+f+"3 is not null)",

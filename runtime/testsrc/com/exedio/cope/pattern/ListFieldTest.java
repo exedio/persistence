@@ -275,7 +275,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals("select element from ListFieldItem-items"   + " where parent='" + item + "' order by order", item.getItemsQuery  ().toString());
 
 		final Query<ListFieldItem> q = TYPE.newQuery();
-		q.join(stringsType, stringsParent().equalTarget());
+		q.join(stringsType, stringsParent().isTarget());
 		assertEquals(list(), q.search());
 
 		q.setCondition(stringsElement.is("zack"));

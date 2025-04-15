@@ -52,8 +52,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		container.addToArticles(new SpecificArticle());
 
 		final Query<Container> query = Container.TYPE.newQuery();
-		query.joinOuterLeft(articles.getEntryType(), articles.getParent().equalTarget());
-		query.join(SpecificArticle.TYPE, articleJoin -> ((ItemField<?>)articles.getElement()).equalTarget(articleJoin));
+		query.joinOuterLeft(articles.getEntryType(), articles.getParent().isTarget());
+		query.join(SpecificArticle.TYPE, articleJoin -> ((ItemField<?>)articles.getElement()).isTarget(articleJoin));
 		assertEquals(
 				"select this from Container " +
 				"left join Container-articles c1 on Container-articles.parent=this " +
@@ -69,8 +69,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 		final Query<Container> query = Container.TYPE.newQuery();
 		query.joinOuterLeft(specificArticles.getEntryType(), specificArticles.getParent()
-				.equalTarget());
-		query.join(ReallySpecificArticle.TYPE, articleJoin -> ((ItemField<?>)specificArticles.getElement()).equalTarget(articleJoin));
+				.isTarget());
+		query.join(ReallySpecificArticle.TYPE, articleJoin -> ((ItemField<?>)specificArticles.getElement()).isTarget(articleJoin));
 		assertEquals(
 				"select this from Container " +
 				"left join Container-specificArticles c1 on Container-specificArticles.parent=this " +
@@ -85,11 +85,11 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		container.addToArticles(new SpecificArticle());
 
 		final Query<Container> query = Container.TYPE.newQuery();
-		query.joinOuterLeft(specificArticles.getEntryType(), specificArticles.getParent().equalTarget());
+		query.joinOuterLeft(specificArticles.getEntryType(), specificArticles.getParent().isTarget());
 		final Join articleJoin = query.join(Article.TYPE);
 		try
 		{
-			((ItemField<?>)specificArticles.getElement()).equalTarget(articleJoin);
+			((ItemField<?>)specificArticles.getElement()).isTarget(articleJoin);
 			fail("exception expected");
 		}
 		catch(final ClassCastException e)
@@ -105,11 +105,11 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 		final Query<Container> query = Container.TYPE.newQuery();
 		final Join test = query.joinOuterLeft(articles.getEntryType(), articles.getParent()
-				.equalTarget());
+				.isTarget());
 		query.join(SpecificArticle.TYPE);
 		try
 		{
-			((ItemField<?>)articles.getElement()).equalTarget(test);
+			((ItemField<?>)articles.getElement()).isTarget(test);
 			fail("exception expected");
 		}
 		catch(final ClassCastException e)
