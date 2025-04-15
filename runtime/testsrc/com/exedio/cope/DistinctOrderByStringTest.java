@@ -55,7 +55,7 @@ final class DistinctOrderByStringTest extends TestWithEnvironment
 	private static Query<MyItem> createQuery()
 	{
 		final Query<MyItem> query = TYPE.newQuery();
-		query.join(ints.getEntryType(), intsParent().equalTarget());
+		query.join(ints.getEntryType(), intsParent().isTarget());
 		query.narrow(ints.getElement().in(1, 2));
 		query.setDistinct(true);
 		return query;

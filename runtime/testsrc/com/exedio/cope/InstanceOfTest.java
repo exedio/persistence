@@ -266,18 +266,18 @@ public class InstanceOfTest extends TestWithEnvironment
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfAItem.TYPE, ref.equalTarget());
+			q.join(InstanceOfAItem.TYPE, ref.isTarget());
 			assertContains(reffa, reffb1, reffb2, reffc1, q.search());
 		}
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfB2Item.TYPE, refb2.equalTarget());
+			q.join(InstanceOfB2Item.TYPE, refb2.isTarget());
 			assertContains(q.search());
 		}
 
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfAItem.TYPE, refb2.equalTarget());
+			q.join(InstanceOfAItem.TYPE, refb2.isTarget());
 			try
 			{
 				q.search();
@@ -293,7 +293,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfB2Item.TYPE, ref.equalTarget());
+			q.join(InstanceOfB2Item.TYPE, ref.isTarget());
 			try
 			{
 				q.search();

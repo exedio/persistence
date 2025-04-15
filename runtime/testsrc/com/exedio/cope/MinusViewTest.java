@@ -43,7 +43,7 @@ public class MinusViewTest extends TestWithEnvironment
 	@Test void testGreater()
 	{
 		final Query<Supplier> q = Supplier.TYPE.newQuery(Supplier.stockable.is("product1"));
-		q.join(StockAccounting.TYPE, StockAccounting.supplier.equalTarget());
+		q.join(StockAccounting.TYPE, StockAccounting.supplier.isTarget());
 		q.setGroupBy(Supplier.TYPE.getThis(), Supplier.keepSupplierStockReserve);
 		q.setHaving(StockAccounting.amount.sum().greater(Supplier.keepSupplierStockReserve));
 		assertEquals(asList(), q.search());
@@ -69,7 +69,7 @@ public class MinusViewTest extends TestWithEnvironment
 	@Test void testMinus()
 	{
 		final Query<Supplier> q = Supplier.TYPE.newQuery(Supplier.stockable.is("product1"));
-		q.join(StockAccounting.TYPE, StockAccounting.supplier.equalTarget());
+		q.join(StockAccounting.TYPE, StockAccounting.supplier.isTarget());
 		q.setGroupBy(Supplier.TYPE.getThis(), Supplier.keepSupplierStockReserve);
 		q.setHaving(StockAccounting.amount.sum().minus(Supplier.keepSupplierStockReserve).greater(0));
 		assertEquals(asList(), q.search());

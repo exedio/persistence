@@ -313,7 +313,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 	@Test void testEmpty()
 	{
 		final Query<SetOrderedFieldItem> q = TYPE.newQuery(strings.getElement().isNull());
-		q.joinOuterLeft(strings.getEntryType(), strings.getParent().equalTarget());
+		q.joinOuterLeft(strings.getEntryType(), strings.getParent().isTarget());
 
 		assertContains(item, otherItem, q.search());
 		assertEquals(2, q.total());

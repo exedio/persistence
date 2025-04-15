@@ -57,8 +57,8 @@ public class BadQueryTest extends TestWithEnvironment
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);
-		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
-		query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
+		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).isTarget());
+		query.join(SubContainer.TYPE, SubContainer.superContainer.isTarget(superJoin));
 		query.setCondition(SuperContainer.TYPE.getThis().bind(superJoin).notInstanceOf(SubContainer.TYPE));
 		assertContains(leftX, left1, query.search());
 	}
@@ -67,8 +67,8 @@ public class BadQueryTest extends TestWithEnvironment
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);
-		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
-		query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
+		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).isTarget());
+		query.join(SubContainer.TYPE, SubContainer.superContainer.isTarget(superJoin));
 		assertContains(leftX, left1, left2, query.search());
 	}
 
@@ -76,8 +76,8 @@ public class BadQueryTest extends TestWithEnvironment
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);
-		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).equalTarget());
-		query.join(SubContainer.TYPE, SubContainer.superContainer.equalTarget(superJoin));
+		superJoin.setCondition(SuperContainer.queryItem.bind(superJoin).isTarget());
+		query.join(SubContainer.TYPE, SubContainer.superContainer.isTarget(superJoin));
 		query.setCondition(SuperContainer.TYPE.getThis().notInstanceOf(SubContainer.TYPE));
 		try
 		{

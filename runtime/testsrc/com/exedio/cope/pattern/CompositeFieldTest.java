@@ -498,11 +498,11 @@ public class CompositeFieldTest extends TestWithEnvironment
 		{
 			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
 			final Join join1 = query.join(CompositeOptionalItem.TYPE);
-			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
+			join1.setCondition(CompositeItemHolder.anItem.isTarget(join1));
 			query.narrow( uno.of(aString).bind(join1).startsWith( "uno1" ) );
 
 			final Join join2 = query.join(CompositeOptionalItem.TYPE);
-			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
+			join2.setCondition(CompositeItemHolder.anItem.isTarget(join2));
 			query.narrow( duo.isNull(join2) );
 
 			assertEquals(
@@ -517,10 +517,10 @@ public class CompositeFieldTest extends TestWithEnvironment
 
 		{
 			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(CompositeOptionalItem.TYPE, CompositeItemHolder.anItem::equalTarget);
+			final Join join1 = query.join(CompositeOptionalItem.TYPE, CompositeItemHolder.anItem::isTarget);
 			query.narrow( uno.of(aString).bind(join1).startsWith( "uno1" ) );
 
-			final Join join2 = query.join(CompositeOptionalItem.TYPE, CompositeItemHolder.anItem::equalTarget);
+			final Join join2 = query.join(CompositeOptionalItem.TYPE, CompositeItemHolder.anItem::isTarget);
 			query.narrow( duo.isNotNull(join2) );
 
 			assertEquals(
