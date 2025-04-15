@@ -204,28 +204,28 @@ public class LimitedListFieldModelTest
 
 		// TODO return Condition.FALSE instead
 		assertFails(
-				() -> nums.equal(asList(i1, i2, i3, i4)),
+				() -> nums.is(asList(i1, i2, i3, i4)),
 				ArrayIndexOutOfBoundsException.class,
 				"Index 3 out of bounds for length 3");
 		assertFails(
-				() -> dates.equal(asList(ts1, ts2, ts1)),
+				() -> dates.is(asList(ts1, ts2, ts1)),
 				ArrayIndexOutOfBoundsException.class,
 				"Index 2 out of bounds for length 2");
 		assertFails(
-				() -> strings.equal(asList("one", "two", "three", "four", "five")),
+				() -> strings.is(asList("one", "two", "three", "four", "five")),
 				ArrayIndexOutOfBoundsException.class,
 				"Index 4 out of bounds for length 4");
 		// TODO return Condition.TRUE instead
 		assertFails(
-				() -> nums.notEqual(asList(i1, i2, i3, i4)),
+				() -> nums.isNot(asList(i1, i2, i3, i4)),
 				ArrayIndexOutOfBoundsException.class,
 				"Index 3 out of bounds for length 3");
 		assertFails(
-				() -> dates.notEqual(asList(ts1, ts2, ts1)),
+				() -> dates.isNot(asList(ts1, ts2, ts1)),
 				ArrayIndexOutOfBoundsException.class,
 				"Index 2 out of bounds for length 2");
 		assertFails(
-				() -> strings.notEqual(asList("one", "two", "three", "four", "five")),
+				() -> strings.isNot(asList("one", "two", "three", "four", "five")),
 				ArrayIndexOutOfBoundsException.class,
 				"Index 4 out of bounds for length 4");
 		final StringField template = new StringField();

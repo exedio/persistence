@@ -326,7 +326,16 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return bind(equal(value), join);
 	}
 
+	/**
+	 * @deprecated Use {@link #is(Collection)} instead.
+	 */
+	@Deprecated
 	public Condition equal(final Collection<E> value)
+	{
+		return is(value);
+	}
+
+	public Condition is(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
@@ -350,7 +359,16 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return bind(notEqual(value), join);
 	}
 
+	/**
+	 * @deprecated Use {@link #isNot(Collection)} instead.
+	 */
+	@Deprecated
 	public Condition notEqual(final Collection<E> value)
+	{
+		return isNot(value);
+	}
+
+	public Condition isNot(final Collection<E> value)
 	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
