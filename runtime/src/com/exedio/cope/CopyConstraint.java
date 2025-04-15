@@ -219,7 +219,7 @@ public final class CopyConstraint extends Feature
 	Query<?> checkQuery()
 	{
 		final Query<?> q = getType().newQuery();
-		final Join j = q.join(target.getValueType(), target::equalTarget);
+		final Join j = q.join(target.getValueType(), target::isTarget);
 		final Function<?> copy = this.copy.getFunction();
 		final Function<?> template = getTemplate().bind(j);
 		// TODO isNull/isNotNull could be omitted for mandatory fields of primary key
