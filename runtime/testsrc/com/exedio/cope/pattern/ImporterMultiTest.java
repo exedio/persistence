@@ -78,7 +78,7 @@ class ImporterMultiTest extends TestWithEnvironment
 
 	private static void doTest(final boolean initial)
 	{
-		MyItem.byAllThree.setHintInitialExerimental(initial);
+		MyItem.byAllThree.setHintInitialExperimental(initial);
 		final MyItem a1f = MyItem.importByAllThree(
 				List.of(SetValue.map(MyItem.data, "d1")),
 				"a", 1, false
