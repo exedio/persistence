@@ -83,12 +83,30 @@ public interface StringFunction extends Function<String>
 		return new CaseView(this, false);
 	}
 
+	/**
+	 * To be deprecated, use {@link #isIgnoreCase(String)} instead.
+	 */
+	@SuppressWarnings("unused") // OK: no longer to be used
 	default Condition equalIgnoreCase(final String value)
+	{
+		return isIgnoreCase(value);
+	}
+
+	default Condition isIgnoreCase(final String value)
 	{
 		return CaseView.equalIgnoreCase(this, value);
 	}
 
+	/**
+	 * To be deprecated, use {@link #isIgnoreCase(Function)} instead.
+	 */
+	@SuppressWarnings("unused") // OK: no longer to be used
 	default Condition equalIgnoreCase(final Function<String> right)
+	{
+		return isIgnoreCase(right);
+	}
+
+	default Condition isIgnoreCase(final Function<String> right)
 	{
 		return CaseView.equalIgnoreCase(this, right);
 	}

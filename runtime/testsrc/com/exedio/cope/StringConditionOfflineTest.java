@@ -65,7 +65,7 @@ public class StringConditionOfflineTest
 		assertEquals(f.like("%lowerUPPER" ), f.  endsWith("lowerUPPER"));
 		assertEquals(f.like("%lowerUPPER%"), f.  contains("lowerUPPER"));
 		final CaseView l = f.toLowerCase();
-		assertEquals(l.is   ( "lowerupper" ), f.     equalIgnoreCase("lowerUPPER" ));
+		assertEquals(l.is   ( "lowerupper" ), f.        isIgnoreCase("lowerUPPER" ));
 		assertEquals(l.like ( "lowerupper%"), f.      likeIgnoreCase("lowerUPPER%"));
 		assertEquals(l.like ( "lowerupper%"), f.startsWithIgnoreCase("lowerUPPER" ));
 		assertEquals(l.like ("%lowerupper" ), f.  endsWithIgnoreCase("lowerUPPER" ));
@@ -73,7 +73,7 @@ public class StringConditionOfflineTest
 
 		final StringField f2 = new StringField();
 		final CaseView l2 = f2.toLowerCase();
-		assertEquals(l.is(l2), f.equalIgnoreCase(f2));
+		assertEquals(l.is(l2), f.isIgnoreCase(f2));
 	}
 
 	@Test void testConditionsConvenienceEmpty() // TODO should be isNotNull
@@ -83,7 +83,7 @@ public class StringConditionOfflineTest
 		assertEquals(f.like("%" ), f.  endsWith(""));
 		assertEquals(f.like("%%"), f.  contains(""));
 		final CaseView l = f.toLowerCase();
-		assertEquals(l.is   (""  ), f.     equalIgnoreCase("" ));
+		assertEquals(l.is   (""  ), f.        isIgnoreCase("" ));
 		assertEquals(l.like ("%" ), f.      likeIgnoreCase("%"));
 		assertEquals(l.like ("%" ), f.startsWithIgnoreCase("" ));
 		assertEquals(l.like ("%" ), f.  endsWithIgnoreCase("" ));
@@ -96,8 +96,8 @@ public class StringConditionOfflineTest
 		assertFails(() -> f.startsWith(null), NullPointerException.class, "Cannot invoke \"String.replaceAll(String, String)\" because \"value\" is null");
 		assertFails(() -> f.  endsWith(null), NullPointerException.class, "Cannot invoke \"String.replaceAll(String, String)\" because \"value\" is null");
 		assertFails(() -> f.  contains(null), NullPointerException.class, "Cannot invoke \"String.replaceAll(String, String)\" because \"value\" is null");
-		assertFails(() -> f.     equalIgnoreCase((String)null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
-		assertFails(() -> f.     equalIgnoreCase((Function<String>)null), NullPointerException.class, "sources[0]");
+		assertFails(() -> f.        isIgnoreCase((String)null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
+		assertFails(() -> f.        isIgnoreCase((Function<String>)null), NullPointerException.class, "sources[0]");
 		assertFails(() -> f.      likeIgnoreCase(null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
 		assertFails(() -> f.startsWithIgnoreCase(null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
 		assertFails(() -> f.  endsWithIgnoreCase(null), NullPointerException.class, "Cannot invoke \"String.toLowerCase(java.util.Locale)\" because \"value\" is null");
