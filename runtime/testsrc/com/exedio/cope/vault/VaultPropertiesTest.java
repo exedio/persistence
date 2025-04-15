@@ -557,7 +557,8 @@ public class VaultPropertiesTest
 		final VaultProperties props = factory.create(source);
 		final VaultReferenceService service = (VaultReferenceService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
-		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();
+		assertEquals(1, service.getReferenceServices().size());
+		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceServices().get(0);
 		assertSame(props.bucket("default"), main.parameters.getBucketProperties());
 		assertSame(props.bucket("default"), ref .parameters.getBucketProperties());
 		assertNotSame(main, ref);

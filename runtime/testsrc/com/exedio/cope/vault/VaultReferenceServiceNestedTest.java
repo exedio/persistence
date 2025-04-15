@@ -54,9 +54,9 @@ public class VaultReferenceServiceNestedTest
 		final VaultReferenceService service = (VaultReferenceService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		serviceNested = (VaultReferenceService)service.getMainService();
-		ref2 = (VaultMockService)service.getReferenceService();
+		ref2 = (VaultMockService)service.getReferenceServices().get(0);
 		main = (VaultMockService)serviceNested.getMainService();
-		ref1 = (VaultMockService)serviceNested.getReferenceService();
+		ref1 = (VaultMockService)serviceNested.getReferenceServices().get(0);
 	}
 
 
