@@ -47,12 +47,28 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	@Override
 	ItemFunction<E> bind(Join join); // narrows return type for implementations
 
+	/**
+	 * To be deprecated, use {@link #isTarget()} instead.
+	 */
 	default CompareFunctionCondition<?> equalTarget()
+	{
+		return (CompareFunctionCondition<?>)isTarget();
+	}
+
+	default Condition isTarget()
 	{
 		return equal(getValueType().thisFunction);
 	}
 
+	/**
+	 * To be deprecated, use {@link #isTarget(Join)} instead.
+	 */
 	default CompareFunctionCondition<?> equalTarget(final Join targetJoin)
+	{
+		return (CompareFunctionCondition<?>)isTarget(targetJoin);
+	}
+
+	default Condition isTarget(final Join targetJoin)
 	{
 		return equal(getValueType().castTypeExtends(targetJoin.getType()).thisFunction.bind(targetJoin));
 	}
