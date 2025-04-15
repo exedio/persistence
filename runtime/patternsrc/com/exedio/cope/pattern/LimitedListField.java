@@ -156,7 +156,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	/**
 	 * @deprecated
 	 * Use {@link #getLengthIfExists()}
-	 * or methods {@link #lengthEqual(int)}}, {@link #lengthLess(int)} etc.
+	 * or methods {@link #lengthIs(int)}}, {@link #lengthLess(int)} etc.
 	 * instead
 	 */
 	@Deprecated
@@ -171,7 +171,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	 * {@code minimumSize==maximumSize} there will be no length field and
 	 * consequentially this method will return {@code null}.
 	 * <p>
-	 * Therefore, better use methods {@link #lengthEqual(int)}}, {@link #lengthLess(int)} etc.
+	 * Therefore, better use methods {@link #lengthIs(int)}}, {@link #lengthLess(int)} etc.
 	 * if this is what you need.
 	 */
 	public IntegerField getLengthIfExists()
@@ -448,12 +448,30 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return Cope.or(conditions);
 	}
 
+	/**
+	 * @deprecated Use {@link #lengthIs(int)} instead.
+	 */
+	@Deprecated
 	public Condition lengthEqual(final int value)
+	{
+		return lengthIs(value);
+	}
+
+	public Condition lengthIs(final int value)
 	{
 		return length.is(value);
 	}
 
+	/**
+	 * @deprecated Use {@link #lengthIsNot(int)} instead.
+	 */
+	@Deprecated
 	public Condition lengthNotEqual(final int value)
+	{
+		return lengthIsNot(value);
+	}
+
+	public Condition lengthIsNot(final int value)
 	{
 		return length.isNot(value);
 	}
