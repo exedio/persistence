@@ -94,7 +94,7 @@ public interface StringFunction extends Function<String>
 
 	default Condition isIgnoreCase(final String value)
 	{
-		return CaseView.equalIgnoreCase(this, value);
+		return CaseView.isIgnoreCase(this, value);
 	}
 
 	/**
@@ -108,7 +108,7 @@ public interface StringFunction extends Function<String>
 
 	default Condition isIgnoreCase(final Function<String> right)
 	{
-		return CaseView.equalIgnoreCase(this, right);
+		return CaseView.isIgnoreCase(this, right);
 	}
 
 	default LikeCondition likeIgnoreCase(final String value)
