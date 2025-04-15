@@ -127,6 +127,14 @@ public class ConditionsTest
 		}
 	}
 
+	@Test void testDeprecated()
+	{
+		assertEquals(name1.is   ("blah"), name1.   equal("blah"));
+		assertEquals(name1.isNot("blah"), name1.notEqual("blah"));
+		assertEquals(name1.is   (name1 ), name1.   equal(name1 ));
+		assertEquals(name1.isNot(name1 ), name1.notEqual(name1 ));
+	}
+
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
