@@ -165,10 +165,10 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(strings.contains("bello")));
 		assertContains(TYPE.search(strings.contains((String)null)));
 		assertContains(TYPE.search(strings.contains("zollo")));
-		assertContains(item, TYPE.search(strings.lengthEqual(      2)));
-		assertContains(      TYPE.search(strings.lengthEqual(      3)));
-		assertContains(item, TYPE.search(strings.lengthNotEqual(      3)));
-		assertContains(      TYPE.search(strings.lengthNotEqual(      2)));
+		assertContains(item, TYPE.search(strings.lengthIs(      2)));
+		assertContains(      TYPE.search(strings.lengthIs(      3)));
+		assertContains(item, TYPE.search(strings.lengthIsNot(      3)));
+		assertContains(      TYPE.search(strings.lengthIsNot(      2)));
 		assertContains(item, TYPE.search(strings.lengthLess(      3)));
 		assertContains(      TYPE.search(strings.lengthLess(      2)));
 		assertContains(item, TYPE.search(strings.lengthLessOrEqual(      2)));
