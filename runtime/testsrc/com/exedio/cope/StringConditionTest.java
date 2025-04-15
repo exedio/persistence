@@ -129,13 +129,13 @@ public class StringConditionTest extends TestWithEnvironment
 		final MyItem upper = new MyItem("LOWERUPPER");
 		new MyItem((String)null);
 
-		assertEquals(asList(mixed, lower, upper), search(field.     equalIgnoreCase("lowerUPPER" )));
+		assertEquals(asList(mixed, lower, upper), search(field.        isIgnoreCase("lowerUPPER" )));
 		assertEquals(asList(mixed, lower, upper), search(field.      likeIgnoreCase("lowerUPPER%")));
 		assertEquals(asList(mixed, lower, upper), search(field.startsWithIgnoreCase("lowerUPPER" )));
 		assertEquals(asList(mixed, lower, upper), search(field.  endsWithIgnoreCase("lowerUPPER" )));
 		assertEquals(asList(mixed, lower, upper), search(field.  containsIgnoreCase("lowerUPPER" )));
 
-		assertEquals(asList(), search(field.     equalIgnoreCase("lowerUPPEX" )));
+		assertEquals(asList(), search(field.        isIgnoreCase("lowerUPPEX" )));
 		assertEquals(asList(), search(field.      likeIgnoreCase("lowerUPPEX%")));
 		assertEquals(asList(), search(field.startsWithIgnoreCase("lowerUPPEX" )));
 		assertEquals(asList(), search(field.  endsWithIgnoreCase("lowerUPPEX" )));
@@ -149,7 +149,7 @@ public class StringConditionTest extends TestWithEnvironment
 		final MyItem upper = new MyItem("LOWER\u00dfUPPER");
 		new MyItem("lowerUPPER");
 		new MyItem((String)null);
-		assertEquals(asList(mixed, lower, upper), search(field.equalIgnoreCase("lower\u00dfUPPER")));
+		assertEquals(asList(mixed, lower, upper), search(field.   isIgnoreCase("lower\u00dfUPPER")));
 		assertEquals(asList(mixed, lower, upper), search(field. likeIgnoreCase("lower\u00dfUPPER")));
 	}
 
@@ -163,7 +163,7 @@ public class StringConditionTest extends TestWithEnvironment
 		new MyItem("lowerUPPER", null);
 		new MyItem(null, null);
 
-		assertEquals(List.of(same, lower, upper), search(field.equalIgnoreCase(MyItem.right)));
+		assertEquals(List.of(same, lower, upper), search(field.isIgnoreCase(MyItem.right)));
 	}
 
 	private static List<MyItem> search(final Condition condition)
