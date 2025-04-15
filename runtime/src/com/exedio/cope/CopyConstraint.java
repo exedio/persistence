@@ -203,7 +203,7 @@ public final class CopyConstraint extends Feature
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static Condition notEqual(final Function f1, final Function f2)
+	private static Condition isNot(final Function f1, final Function f2)
 	{
 		return f1.isNot(f2);
 	}
@@ -224,7 +224,7 @@ public final class CopyConstraint extends Feature
 		final Function<?> template = getTemplate().bind(j);
 		// TODO isNull/isNotNull could be omitted for mandatory fields of primary key
 		q.setCondition(Cope.or(
-				notEqual(copy, template),
+				isNot(copy, template),
 				copy.isNull   ().and(template.isNotNull()),
 				copy.isNotNull().and(template.isNull   ())
 		));
