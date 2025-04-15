@@ -299,7 +299,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		final Mount mount = mount();
 		return q.joinOuterLeft(
 				mount.entryType,
-				mount.parent.equalTarget().
+				mount.parent.isTarget().
 					and(this.key.is(key)));
 	}
 }
