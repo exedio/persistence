@@ -59,10 +59,10 @@ public class PriceFieldConditionsTest extends TestWithEnvironment
 
 		assertIt(f.isNull(),       iN             );
 		assertIt(f.isNotNull(),        i1, i2, i3 );
-		assertIt(f.equal(pN),      iN             );
-		assertIt(f.notEqual(pN),       i1, i2, i3 );
-		assertIt(f.equal(p1),          i1         );
-		assertIt(f.notEqual(p1),           i2, i3 );
+		assertIt(f.is   (pN),      iN             );
+		assertIt(f.isNot(pN),          i1, i2, i3 );
+		assertIt(f.is   (p1),          i1         );
+		assertIt(f.isNot(p1),              i2, i3 );
 
 		assertIt(f.less          (p2), i1         );
 		assertIt(f.lessOrEqual   (p2), i1, i2     );
@@ -71,8 +71,8 @@ public class PriceFieldConditionsTest extends TestWithEnvironment
 		assertIt(f.between   (p2, p3),     i2, i3 );
 		assertIt(f.between   (p1, p2), i1, i2     );
 
-		assertIt(f.equal         (f2),      i2    );
-		assertIt(f.notEqual      (f2), i1,     i3 );
+		assertIt(f.is            (f2),      i2    );
+		assertIt(f.isNot         (f2), i1,     i3 );
 		assertIt(f.less          (f2), i1         );
 		assertIt(f.lessOrEqual   (f2), i1, i2     );
 		assertIt(f.greaterOrEqual(f2),     i2, i3 );

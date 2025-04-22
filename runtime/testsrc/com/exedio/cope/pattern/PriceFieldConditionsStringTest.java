@@ -54,18 +54,18 @@ public class PriceFieldConditionsStringTest
 		assertEquals(      s+" is not null", f.isNotNull() .toString());
 		assertEquals("p1."+s+" is not null", b.isNotNull() .toString());
 		assertEquals("p1."+s+" is not null", f.isNotNull().bind(j).toString());
-		assertEquals(      s+" is null"    , f.equal(vN)   .toString());
+		assertEquals(      s+" is null"    , f.is   (vN)   .toString());
 		assertEquals("p1."+s+" is null"    , b.equal(vN)   .toString());
-		assertEquals("p1."+s+" is null"    , f.equal(vN).bind(j).toString());
-		assertEquals(      s+" is not null", f.notEqual(vN).toString());
+		assertEquals("p1."+s+" is null"    , f.is   (vN).bind(j).toString());
+		assertEquals(      s+" is not null", f.isNot   (vN).toString());
 		assertEquals("p1."+s+" is not null", b.notEqual(vN).toString());
-		assertEquals("p1."+s+" is not null", f.notEqual(vN).bind(j).toString());
-		assertEquals(      s+"='111'"      , f.equal(v1)   .toString());
+		assertEquals("p1."+s+" is not null", f.isNot   (vN).bind(j).toString());
+		assertEquals(      s+"='111'"      , f.is   (v1)   .toString());
 		assertEquals("p1."+s+"='111'"      , b.equal(v1)   .toString());
-		assertEquals("p1."+s+"='111'"      , f.equal(v1).bind(j).toString());
-		assertEquals(      s+"<>'111'"     , f.notEqual(v1).toString());
+		assertEquals("p1."+s+"='111'"      , f.is   (v1).bind(j).toString());
+		assertEquals(      s+"<>'111'"     , f.isNot(v1).toString());
 		assertEquals("p1."+s+"<>'111'"     , b.notEqual(v1).toString());
-		assertEquals("p1."+s+"<>'111'"     , f.notEqual(v1).bind(j).toString());
+		assertEquals("p1."+s+"<>'111'"     , f.isNot   (v1).bind(j).toString());
 
 		assertEquals(      s+"<'222'" , f.less          (v2).toString());
 		assertEquals("p1."+s+"<'222'" , b.less          (v2).toString());
@@ -90,6 +90,15 @@ public class PriceFieldConditionsStringTest
 		assertFails(
 				() -> f.bind(null),
 				NullPointerException.class, "join");
+	}
+
+	@SuppressWarnings("deprecation") // OK testing deprecated api
+	@Test void testEqual()
+	{
+		final PriceField p1 = new PriceField();
+		final PriceField p2 = new PriceField();
+		assertEquals(p1.is   (p2), p1.   equal(p2));
+		assertEquals(p1.isNot(p2), p1.notEqual(p2));
 	}
 
 	@SuppressWarnings("unused") // OK: initializes types

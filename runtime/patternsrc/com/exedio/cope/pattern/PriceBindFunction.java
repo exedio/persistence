@@ -49,13 +49,13 @@ final class PriceBindFunction implements PriceFunction
 	@Override
 	public Condition equal(final Price value)
 	{
-		return field.equal(value).bind(join);
+		return field.is(value).bind(join);
 	}
 
 	@Override
 	public Condition notEqual(final Price value)
 	{
-		return field.notEqual(value).bind(join);
+		return field.isNot(value).bind(join);
 	}
 
 	@Override
