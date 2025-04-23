@@ -74,26 +74,26 @@ public class ColorFieldConditionsTest extends TestWithEnvironment
 		assertIt(fieldAlpha.isNotNull(), iBB, iWW, iNT, iNL);
 
 		// equals searches fieldOpt
-		assertIt(fieldOpt.equal(cNull), iNN, iNT, iNL);
-		assertIt(fieldOpt.notEqual(cNull), iBB, iWW);
-		assertIt(fieldOpt.equal(cWhite), iWW);
-		assertIt(fieldOpt.notEqual(cWhite), iBB);
-		assertIt(fieldOpt.equal(cBlack), iBB);
-		assertIt(fieldOpt.notEqual(cBlack), iWW );
-		assertIt(fieldOpt.equal(cTransparent));
-		assertIt(fieldOpt.notEqual(cTransparent), iBB, iWW );
+		assertIt(fieldOpt.is(cNull), iNN, iNT, iNL);
+		assertIt(fieldOpt.isNot(cNull), iBB, iWW);
+		assertIt(fieldOpt.is(cWhite), iWW);
+		assertIt(fieldOpt.isNot(cWhite), iBB);
+		assertIt(fieldOpt.is(cBlack), iBB);
+		assertIt(fieldOpt.isNot(cBlack), iWW );
+		assertIt(fieldOpt.is(cTransparent));
+		assertIt(fieldOpt.isNot(cTransparent), iBB, iWW );
 
 		// equals searches fieldAlpha
-		assertIt(fieldAlpha.equal(cNull), iNN);
-		assertIt(fieldAlpha.notEqual(cNull), iBB, iWW, iNT, iNL);
-		assertIt(fieldAlpha.equal(cWhite), iWW);
-		assertIt(fieldAlpha.notEqual(cWhite), iBB, iNT, iNL );
-		assertIt(fieldAlpha.equal(cBlack), iBB);
-		assertIt(fieldAlpha.notEqual(cBlack), iWW, iNT, iNL );
-		assertIt(fieldAlpha.equal(cTransparent), iNT);
-		assertIt(fieldAlpha.notEqual(cTransparent), iBB, iWW, iNL );
-		assertIt(fieldAlpha.equal(cTranslucent), iNL);
-		assertIt(fieldAlpha.notEqual(cTranslucent), iBB, iWW, iNT );
+		assertIt(fieldAlpha.is(cNull), iNN);
+		assertIt(fieldAlpha.isNot(cNull), iBB, iWW, iNT, iNL);
+		assertIt(fieldAlpha.is(cWhite), iWW);
+		assertIt(fieldAlpha.isNot(cWhite), iBB, iNT, iNL );
+		assertIt(fieldAlpha.is(cBlack), iBB);
+		assertIt(fieldAlpha.isNot(cBlack), iWW, iNT, iNL );
+		assertIt(fieldAlpha.is(cTransparent), iNT);
+		assertIt(fieldAlpha.isNot(cTransparent), iBB, iWW, iNL );
+		assertIt(fieldAlpha.is(cTranslucent), iNL);
+		assertIt(fieldAlpha.isNot(cTranslucent), iBB, iWW, iNT );
 
 		// opaque searches
 		assertIt(fieldOpt.isOpaque(), iBB, iWW);

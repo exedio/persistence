@@ -50,13 +50,13 @@ final class ColorBindFunction implements ColorFunction
 	@Override
 	public Condition equal(final Color value)
 	{
-		return field.equal(value).bind(join);
+		return field.is(value).bind(join);
 	}
 
 	@Override
 	public Condition notEqual(final Color value)
 	{
-		return field.notEqual(value).bind(join);
+		return field.isNot(value).bind(join);
 	}
 
 	@Override

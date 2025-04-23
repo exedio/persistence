@@ -52,18 +52,18 @@ public class ColorFieldConditionsStringTest
 		assertEquals(      s+" is not null", f.isNotNull() .toString());
 		assertEquals("c1."+s+" is not null", b.isNotNull() .toString());
 		assertEquals("c1."+s+" is not null", f.isNotNull().bind(j).toString());
-		assertEquals(      s+" is null"    , f.equal(vN)   .toString());
+		assertEquals(      s+" is null"    , f.is   (vN)   .toString());
 		assertEquals("c1."+s+" is null"    , b.equal(vN)   .toString());
-		assertEquals("c1."+s+" is null"    , f.equal(vN).bind(j).toString());
-		assertEquals(      s+" is not null", f.notEqual(vN).toString());
+		assertEquals("c1."+s+" is null"    , f.is   (vN).bind(j).toString());
+		assertEquals(      s+" is not null", f.isNot(vN).toString());
 		assertEquals("c1."+s+" is not null", b.notEqual(vN).toString());
-		assertEquals("c1."+s+" is not null", f.notEqual(vN).bind(j).toString());
-		assertEquals(      s+"='16711680'" , f.equal(v1)   .toString());
+		assertEquals("c1."+s+" is not null", f.isNot(vN).bind(j).toString());
+		assertEquals(      s+"='16711680'" , f.is   (v1)   .toString());
 		assertEquals("c1."+s+"='16711680'" , b.equal(v1)   .toString());
-		assertEquals("c1."+s+"='16711680'" , f.equal(v1).bind(j).toString());
-		assertEquals(      s+"<>'16711680'", f.notEqual(v1).toString());
+		assertEquals("c1."+s+"='16711680'" , f.is   (v1).bind(j).toString());
+		assertEquals(      s+"<>'16711680'", f.isNot(v1).toString());
 		assertEquals("c1."+s+"<>'16711680'", b.notEqual(v1).toString());
-		assertEquals("c1."+s+"<>'16711680'", f.notEqual(v1).bind(j).toString());
+		assertEquals("c1."+s+"<>'16711680'", f.isNot(v1).bind(j).toString());
 	}
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api
