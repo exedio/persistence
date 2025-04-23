@@ -298,8 +298,17 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return rgb.isNotNull();
 	}
 
+	/**
+	 * @deprecated Use {@link #is(Color)} instead.
+	 */
+	@Deprecated
 	@Override
 	public Condition equal(final Color value)
+	{
+		return is(value);
+	}
+
+	public Condition is(final Color value)
 	{
 		if (value == null)
 			return rgb.isNull();
@@ -312,9 +321,21 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	 * NOT EQUAL Condition.
 	 * <p>
 	 * Note: according to SQL, a NULL value is evaluated to unknown, so a NOT EQUAL using a non null RHS is false for null values
+	 * @deprecated Use {@link #isNot(Color)} instead.
 	 */
+	@Deprecated
 	@Override
 	public Condition notEqual(final Color value)
+	{
+		return isNot(value);
+	}
+
+	/**
+	 * NOT EQUAL Condition.
+	 * <p>
+	 * Note: according to SQL, a NULL value is evaluated to unknown, so a NOT EQUAL using a non null RHS is false for null values
+	 */
+	public Condition isNot(final Color value)
 	{
 		if (value == null)
 			return rgb.isNotNull();
