@@ -145,7 +145,7 @@ final class Context
 			final Type superTypeArgument = superTypeArguments[parameterPosition];
 			if(superTypeArgument instanceof Class<?>)
 			{
-				return ((Class<?>)superTypeArgument).getCanonicalName();
+				return name((Class<?>)superTypeArgument);
 			}
 			else if(superTypeArgument instanceof TypeVariable<?>)
 			{
@@ -199,7 +199,7 @@ final class Context
 		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower));
 	}
 
-	private static String write(final Class<?> t, final boolean varArgs)
+	private String write(final Class<?> t, final boolean varArgs)
 	{
 		if (varArgs && t.isArray())
 		{
@@ -207,7 +207,7 @@ final class Context
 		}
 		else
 		{
-			return t.getCanonicalName();
+			return name(t);
 		}
 	}
 
@@ -217,12 +217,6 @@ final class Context
 	}
 
 	String write(final Type t, final boolean varArgs)
-	{
-		final String full = writeFull(t, varArgs);
-		return fullyQualified ? full : feature.applyTypeShortcuts(full);
-	}
-
-	private String writeFull(final Type t, final boolean varArgs)
 	{
 		if(t instanceof Class<?>)
 			return write((Class<?>)t, varArgs);
@@ -236,5 +230,11 @@ final class Context
 			return write((WildcardType)t, varArgs);
 		else
 			throw new RuntimeException(t.toString());
+	}
+
+	private String name(final Class<?> clazz)
+	{
+		final String full = clazz.getCanonicalName();
+		return fullyQualified ? full : feature.applyTypeShortcuts(full);
 	}
 }
