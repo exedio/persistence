@@ -115,6 +115,45 @@ public class VaultReferenceTest
 		log.assertEmpty();
 	}
 
+	@Test void errorInMain()
+	{
+		final VaultItem item = new VaultItem(VALUE1);
+		main.assertIt(HASH1, VALUE1, "putBytes");
+		refr.assertIt("");
+
+		main.clear();
+		main.failOnGet(HASH1, new IllegalStateException("error in main"));
+		final IllegalStateException exception = assertFails(
+				item::getFieldBytes,
+				IllegalStateException.class,
+				"error in main"
+		);
+		assertEquals(0, exception.getSuppressed().length);
+		main.assertIt("getBytes");
+		refr.assertIt("");
+	}
+
+	@Test void errorInReference()
+	{
+		final VaultItem item = new VaultItem(VALUE1);
+		main.assertIt(HASH1, VALUE1, "putBytes");
+		refr.assertIt("");
+
+		main.clear();
+		refr.failOnGet(HASH1, new IllegalStateException("error in reference"));
+		final IllegalStateException exception = assertFails(
+				item::getFieldBytes,
+				IllegalStateException.class,
+				"error in reference"
+		);
+		final VaultNotFoundException suppressed = singleSuppressed(exception);
+		assertEquals(HASH1, suppressed.getHashComplete());
+		assertEquals(HASH1A, suppressed.getHashAnonymous());
+		assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+		main.assertIt("getBytes");
+		refr.assertIt("getBytes");
+	}
+
 	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
@@ -317,7 +356,7 @@ public class VaultReferenceTest
 		MODEL.disconnect();
 	}
 
-	private static VaultNotFoundException singleSuppressed(final VaultNotFoundException cause)
+	private static VaultNotFoundException singleSuppressed(final Exception cause)
 	{
 		final Throwable[] suppressedAll = cause.getSuppressed();
 		assertEquals(1, suppressedAll.length);
