@@ -40,6 +40,7 @@ import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.IOException;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -146,10 +147,15 @@ public class VaultReferenceTest
 				IllegalStateException.class,
 				"error in reference"
 		);
-		final VaultNotFoundException suppressed = singleSuppressed(exception);
-		assertEquals(HASH1, suppressed.getHashComplete());
-		assertEquals(HASH1A, suppressed.getHashAnonymous());
-		assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+		checkSuppressed(
+				exception,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				}
+		);
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
 	}
@@ -280,10 +286,15 @@ public class VaultReferenceTest
 		assertEquals(HASH1, cause.getHashComplete());
 		assertEquals(HASH1A, cause.getHashAnonymous());
 		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
-		final VaultNotFoundException suppressed = singleSuppressed(cause);
-		assertEquals(HASH1, suppressed.getHashComplete());
-		assertEquals(HASH1A, suppressed.getHashAnonymous());
-		assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+		checkSuppressed(
+				cause,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				}
+		);
 
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
@@ -311,10 +322,15 @@ public class VaultReferenceTest
 		assertEquals(HASH1, cause.getHashComplete());
 		assertEquals(HASH1A, cause.getHashAnonymous());
 		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
-		final VaultNotFoundException suppressed = singleSuppressed(cause);
-		assertEquals(HASH1, suppressed.getHashComplete());
-		assertEquals(HASH1A, suppressed.getHashAnonymous());
-		assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+		checkSuppressed(
+				cause,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				}
+		);
 
 		main.assertIt("getStream");
 		refr.assertIt("getStream");
@@ -356,10 +372,10 @@ public class VaultReferenceTest
 		MODEL.disconnect();
 	}
 
-	private static VaultNotFoundException singleSuppressed(final Exception cause)
+	private static void checkSuppressed(final Exception cause, final Consumer<VaultNotFoundException> check)
 	{
 		final Throwable[] suppressedAll = cause.getSuppressed();
 		assertEquals(1, suppressedAll.length);
-		return (VaultNotFoundException)suppressedAll[0];
+		check.accept((VaultNotFoundException) suppressedAll[0]);
 	}
 }
