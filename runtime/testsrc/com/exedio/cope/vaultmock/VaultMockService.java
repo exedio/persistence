@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
@@ -50,6 +51,7 @@ import javax.annotation.Nonnull;
 public class VaultMockService implements VaultServiceContains
 {
 	private final LinkedHashMap<String, String> store = new LinkedHashMap<>();
+	private final Map<String,RuntimeException> errorStore = new HashMap<>();
 	private final StringBuilder history = new StringBuilder();
 	public final Bucket bucketProperties;
 	public final Props serviceProperties;
@@ -131,6 +133,10 @@ public class VaultMockService implements VaultServiceContains
 	{
 		assertHash(hash);
 		assertFalse(closed);
+
+		final RuntimeException runtimeException = errorStore.get(hash);
+		if (runtimeException!=null)
+			throw runtimeException;
 
 		final String hex = store.get(hash);
 		if(hex==null)
@@ -220,6 +226,7 @@ public class VaultMockService implements VaultServiceContains
 	public void clear()
 	{
 		store.clear();
+		errorStore.clear();
 	}
 
 	public void put(final String hash, final String value)
@@ -230,8 +237,19 @@ public class VaultMockService implements VaultServiceContains
 		assertEquals(hash, Hex.encodeLower(
 				bucketProperties.getAlgorithmFactory().
 						digest(Hex.decodeLower(value))));
+		if (errorStore.containsKey(hash))
+			throw new RuntimeException("error registered for hash");
 
 		store.put(hash, value);
+	}
+
+	public void failOnGet(final String hash, final RuntimeException exception)
+	{
+		assertHash(hash);
+		if (store.containsKey(hash))
+			throw new RuntimeException("hash in store");
+
+		errorStore.put(hash, exception);
 	}
 
 	@Override
