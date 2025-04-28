@@ -347,7 +347,7 @@ public final class VaultReferenceService implements VaultService
 				referenceArray[i] = valueService(key, false);
 				if(referenceArray[i].getServiceClass()==VaultReferenceService.class)
 					throw newException(key,
-							"must not nest another VaultReferenceService, nest into main instead");
+							"must not nest another VaultReferenceService, use multiple reference services instead");
 			}
 			return List.of(referenceArray);
 		}
