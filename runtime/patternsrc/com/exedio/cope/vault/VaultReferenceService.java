@@ -28,7 +28,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +41,8 @@ import org.slf4j.LoggerFactory;
 public final class VaultReferenceService implements VaultService
 {
 	private final String bucket;
-	private final VaultService main, reference;
+	private final VaultService main;
+	private final VaultService[] references;
 	private final boolean copyReferenceToMain;
 
 	VaultReferenceService(
@@ -46,7 +51,7 @@ public final class VaultReferenceService implements VaultService
 	{
 		bucket = parameters.getBucket();
 		main = properties.main.newService(parameters);
-		reference = properties.reference.newService(parameters);
+		references = properties.references.stream().map(s->s.newService(parameters)).toArray(VaultService[]::new);
 		copyReferenceToMain = properties.copyReferenceToMain;
 	}
 
@@ -54,13 +59,15 @@ public final class VaultReferenceService implements VaultService
 	public void purgeSchema(final JobContext ctx)
 	{
 		main.purgeSchema(ctx);
-		reference.purgeSchema(ctx);
+		for(final VaultService reference : references)
+			reference.purgeSchema(ctx);
 	}
 
 	@Override
 	public void close()
 	{
-		reference.close();
+		for (int i = references.length-1; i>=0; i--)
+			references[i].close();
 		main.close();
 	}
 
@@ -69,11 +76,24 @@ public final class VaultReferenceService implements VaultService
 		return main;
 	}
 
+	/**
+	 * @return getReferenceServices().get(0)
+	 * @throws IllegalStateException if there is more than one reference service
+	 * @deprecated use {@link #getReferenceServices()}
+	 */
+	@Deprecated
 	public VaultService getReferenceService()
 	{
-		return reference;
+		if (references.length!=1)
+			throw new IllegalStateException("there are " + references.length + " reference services - use getReferenceServices()");
+		return references[0];
 	}
 
+	/** @return the list of reference services, with at least one element */
+	public List<VaultService> getReferenceServices()
+	{
+		return List.of(references);
+	}
 
 	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
@@ -82,21 +102,41 @@ public final class VaultReferenceService implements VaultService
 		{
 			return main.get(hash);
 		}
-		catch(final VaultNotFoundException suppressed)
+		catch(final VaultNotFoundException mainSuppressed)
 		{
-			try
+			//noinspection ReassignedVariable
+			List<VaultNotFoundException> refSuppressed = null;
+			for(int i = 0; i < references.length; i++)
 			{
-				final byte[] result = reference.get(hash);
-				logGetReference(hash);
-				if(copyReferenceToMain)
-					main.put(hash, result);
-				return result;
+				final VaultService reference = references[i];
+				try
+				{
+					final byte[] result = reference.get(hash);
+					logGetReference(i, hash);
+					if(copyReferenceToMain)
+						main.put(hash, result);
+					return result;
+				}
+				catch(final VaultNotFoundException e)
+				{
+					if (i==references.length-1)
+					{
+						throw addSuppressed(e, mainSuppressed, refSuppressed);
+					}
+					else
+					{
+						if(refSuppressed == null)
+							refSuppressed = new ArrayList<>(references.length);
+						refSuppressed.add(e);
+					}
+				}
+				catch(final RuntimeException e)
+				{
+					throw addSuppressed(e, mainSuppressed, refSuppressed);
+				}
 			}
-			catch(final Exception e)
-			{
-				e.addSuppressed(suppressed);
-				throw e;
-			}
+			//noinspection ThrowInsideCatchBlockWhichIgnoresCaughtException
+			throw new RuntimeException("must not reach");
 		}
 	}
 
@@ -107,48 +147,79 @@ public final class VaultReferenceService implements VaultService
 		{
 			main.get(hash, sink);
 		}
-		catch(final VaultNotFoundException suppressed)
+		catch(final VaultNotFoundException mainSuppressed)
 		{
-			try
+			//noinspection ReassignedVariable
+			List<VaultNotFoundException> refSuppressed = null;
+			for(int i = 0; i < references.length; i++)
 			{
-				if(!copyReferenceToMain)
+				final VaultService reference = references[i];
+				try
 				{
-					reference.get(hash, sink);
-					logGetReference(hash);
+					if(!copyReferenceToMain)
+					{
+						reference.get(hash, sink);
+						logGetReference(i, hash);
+						return;
+					}
+
+					final Path temp = createTempFileFromReference(i, hash);
+					main.put(hash, temp);
+					Files.copy(temp, sink);
+					delete(temp);
 					return;
 				}
-
-				final Path temp = createTempFileFromReference(hash);
-				main.put(hash, temp);
-				Files.copy(temp, sink);
-				delete(temp);
+				catch(final VaultNotFoundException e)
+				{
+					if (i==references.length-1)
+					{
+						throw addSuppressed(e, mainSuppressed, refSuppressed);
+					}
+					else
+					{
+						if(refSuppressed == null)
+							refSuppressed = new ArrayList<>(references.length);
+						refSuppressed.add(e);
+					}
+				}
+				catch(final RuntimeException e)
+				{
+					throw addSuppressed(e, mainSuppressed, refSuppressed);
+				}
 			}
-			catch(final Exception e)
-			{
-				e.addSuppressed(suppressed);
-				throw e;
-			}
+			//noinspection ThrowInsideCatchBlockWhichIgnoresCaughtException
+			throw new RuntimeException("must not reach");
 		}
 	}
 
-	private Path createTempFileFromReference(final String hash)
+	private static <T extends Exception> T addSuppressed(final T e,
+														final VaultNotFoundException mainSuppressed,
+														final List<VaultNotFoundException> refSuppressed)
+	{
+		e.addSuppressed(mainSuppressed);
+		if (refSuppressed!=null)
+			refSuppressed.forEach(e::addSuppressed);
+		return e;
+	}
+
+	private Path createTempFileFromReference(final int referenceIndex, final String hash)
 			throws VaultNotFoundException, IOException
 	{
-		final Path result = Files.createTempFile("VaultReferenceService-" + anonymiseHash(hash), ".dat");
+		final Path result = Files.createTempFile("VaultReferenceService-" + referenceIndex + "-" + anonymiseHash(hash), ".dat");
 
 		try(OutputStream s = Files.newOutputStream(result))
 		{
-			reference.get(hash, s);
+			references[referenceIndex].get(hash, s);
 		}
-		logGetReference(hash);
+		logGetReference(referenceIndex, hash);
 
 		return result;
 	}
 
-	private void logGetReference(final String hash)
+	private void logGetReference(final int referenceIndex, final String hash)
 	{
 		if(logger.isDebugEnabled())
-			logger.debug("get from reference in {}: {}", bucket, anonymiseHash(hash));
+			logger.debug("get from reference {} in {}: {}", referenceIndex, bucket, anonymiseHash(hash));
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultReferenceService.class);
@@ -164,8 +235,37 @@ public final class VaultReferenceService implements VaultService
 					"main service " + main.getClass().getName() + " does not support VaultServiceContains");
 
 		final boolean isMain = ((VaultServiceContains)main).contains(hash);
-		sink.accept(isMain ? ANCESTRY_PATH_MAIN : ANCESTRY_PATH_REFERENCE);
-		(isMain?main:reference).addToAncestryPath(hash, sink);
+		if (isMain)
+		{
+			sink.accept(ANCESTRY_PATH_MAIN);
+			main.addToAncestryPath(hash, sink);
+		}
+		else
+		{
+			for(int i=0; i<references.length; i++)
+			{
+				final VaultService reference = references[i];
+				final boolean assumeRefContains;
+				if (i==references.length-1)
+				{
+					assumeRefContains = true;
+				}
+				else
+				{
+					if(!(reference instanceof VaultServiceContains))
+						throw new IllegalArgumentException(
+								"reference service " + i + " (" + reference.getClass().getName() + ") does not support VaultServiceContains");
+					assumeRefContains = ((VaultServiceContains) reference).contains(hash);
+				}
+				if (assumeRefContains)
+				{
+					sink.accept(ANCESTRY_PATH_REFERENCE+(i==0?"":i));
+					reference.addToAncestryPath(hash, sink);
+					return;
+				}
+			}
+			throw new RuntimeException("must not reach");
+		}
 	}
 
 	public static final String ANCESTRY_PATH_MAIN = "main";
@@ -200,33 +300,50 @@ public final class VaultReferenceService implements VaultService
 	}
 	/**
 	 * This method has the sole purpose to appear in stack traces
-	 * showing that any exception was caused by the reference service.
+	 * showing that any exception was caused by one of the reference services.
 	 */
 	private void REFERENCE(final String bucket) throws Exception
 	{
-		reference.probeBucketTag(bucket);
+		for(final VaultService reference : references)
+		{
+			reference.probeBucketTag(bucket);
+		}
 	}
 
 
 	@Override
 	public String toString()
 	{
-		return main + " (reference " + reference + ')';
+		return main +
+				 " (reference" + (references.length>1 ? "s" : "") + " " +
+				 Arrays.stream(references).map(Object::toString).collect(Collectors.joining(" ")) + ')';
 	}
 
 
 	static final class Props extends AbstractVaultProperties
 	{
 		private final Service main = valueService("main", true);
-		private final Service reference = valueService("reference", false);
+		private final List<Service> references = valueReferences();
 		private final boolean copyReferenceToMain = value("copyReferenceToMain", true);
 
 		Props(final Source source)
 		{
 			super(source);
-			if(reference.getServiceClass()==VaultReferenceService.class)
-				throw newException("reference",
-						"must not nest another VaultReferenceService, nest into main instead");
+		}
+
+		private List<Service> valueReferences()
+		{
+			final int referenceCount = value("referenceCount", 1, 1);
+			final Service[] referenceArray = new Service[referenceCount];
+			for (int i=0; i<referenceCount; i++)
+			{
+				final String key = "reference" + (i == 0 ? "" : i );
+				referenceArray[i] = valueService(key, false);
+				if(referenceArray[i].getServiceClass()==VaultReferenceService.class)
+					throw newException(key,
+							"must not nest another VaultReferenceService, nest into main instead");
+			}
+			return List.of(referenceArray);
 		}
 	}
 }

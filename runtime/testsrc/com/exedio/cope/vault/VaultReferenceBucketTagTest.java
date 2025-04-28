@@ -26,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vaultmock.VaultMockService;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("resource")
@@ -39,9 +41,36 @@ public class VaultReferenceBucketTagTest
 				"mock:mainGenuine(my-Bucket)",
 				service.probeBucketTag("my-Bucket"));
 	}
+	@Test void succeedSucceedSucceed() throws Exception
+	{
+		final VaultReferenceService service = service("mainGenuine", "refrGenuine0", "refrGenuine1");
+
+		assertEquals(
+				"mock:mainGenuine(my-Bucket)",
+				service.probeBucketTag("my-Bucket"));
+	}
 	@Test void succeedAbort()
 	{
 		final VaultReferenceService service = service("mainGenuine", "ABORT refrGenuine");
+
+		assertStackTrace(true, assertFails(
+				() -> service.probeBucketTag("my-Bucket"),
+				BucketTagNotSupported.class,
+				"ABORT refrGenuine(my-Bucket)"));
+	}
+	@Test void succeedSucceedAbort()
+	{
+		final VaultReferenceService service = service("mainGenuine", "refrGenuine", "ABORT refr1Genuine");
+		assertEquals(2, service.getReferenceServices().size());
+
+		assertStackTrace(true, assertFails(
+				() -> service.probeBucketTag("my-Bucket"),
+				BucketTagNotSupported.class,
+				"ABORT refr1Genuine(my-Bucket)"));
+	}
+	@Test void succeedAbortSucceed()
+	{
+		final VaultReferenceService service = service("mainGenuine", "ABORT refrGenuine", "refr1Genuine");
 
 		assertStackTrace(true, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -112,15 +141,21 @@ public class VaultReferenceBucketTagTest
 				"FAIL mainGenuine(my-Bucket)"));
 	}
 
-	private static VaultReferenceService service(final String main, final String reference)
+	private static VaultReferenceService service(final String main, final String... references)
 	{
-		final Source source = cascade(
+		final List<Source> sources = new ArrayList<>(List.of(
 				single("service", VaultReferenceService.class),
 				single("service.main", VaultMockService.class),
-				single("service.main.bucketTagAction", main),
-				single("service.reference", VaultMockService.class),
-				single("service.reference.bucketTagAction", reference)
-		);
+				single("service.main.bucketTagAction", main)
+		));
+		sources.add(single("service.referenceCount", references.length));
+		for (int i=0; i<references.length; i++)
+		{
+			final String key = "service.reference" + (i == 0 ? "" : i);
+			sources.add(single(key, VaultMockService.class));
+			sources.add(single(key + ".bucketTagAction", references[i]));
+		}
+		final Source source = cascade(sources.toArray(Source[]::new));
 		return (VaultReferenceService)BucketProperties.factory("myKey").create(source).newServiceNonResilient(() -> false);
 	}
 	private static void assertStackTrace(final boolean expected, final Exception actual)

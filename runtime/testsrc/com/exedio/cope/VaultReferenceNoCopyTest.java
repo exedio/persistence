@@ -254,7 +254,7 @@ public class VaultReferenceNoCopyTest
 		)));
 		this.service = (VaultReferenceService)VaultTest.vaultService(MODEL);
 		main = (VaultMockService)service.getMainService();
-		refr = (VaultMockService)service.getReferenceService();
+		refr = (VaultMockService)service.getReferenceServices().get(0);
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}

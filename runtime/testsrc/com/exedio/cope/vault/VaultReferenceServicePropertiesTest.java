@@ -44,8 +44,31 @@ public class VaultReferenceServicePropertiesTest
 		final Props p = new Props(source);
 		assertEquals(asList(
 				"main",
+				"referenceCount",
 				"reference",
 				"copyReferenceToMain"),
+				p.getFields().stream().map(Properties.Field::getKey).collect(toList()));
+	}
+
+	@Test
+	void testOrder3()
+	{
+		final Source source = describe("DESC", cascade(
+				single("main", MyService.class),
+				single("referenceCount", 3),
+				single("reference", MyService.class),
+				single("reference1", MyService.class),
+				single("reference2", MyService.class)
+		));
+
+		final Props p = new Props(source);
+		assertEquals(asList(
+						"main",
+						"referenceCount",
+						"reference",
+						"reference1",
+						"reference2",
+						"copyReferenceToMain"),
 				p.getFields().stream().map(Properties.Field::getKey).collect(toList()));
 	}
 
