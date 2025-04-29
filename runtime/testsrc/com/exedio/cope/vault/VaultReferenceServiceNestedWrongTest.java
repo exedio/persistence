@@ -48,7 +48,7 @@ public class VaultReferenceServiceNestedWrongTest
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
 				"property default.service.reference in DESC must not nest another VaultReferenceService, " +
-				"nest into main instead");
+				"use multiple reference services instead");
 	}
 
 	@Test void testRef2()
@@ -70,6 +70,6 @@ public class VaultReferenceServiceNestedWrongTest
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
 				"property default.service.reference1 in DESC must not nest another VaultReferenceService, " +
-				"nest into main instead");
+				"use multiple reference services instead");
 	}
 }
