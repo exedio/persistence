@@ -335,6 +335,11 @@ public final class VaultReferenceService implements VaultService
 		Props(final Source source)
 		{
 			super(source);
+			if(logger.isErrorEnabled() &&
+				main.getServiceClass()==VaultReferenceService.class)
+				logger.error(
+						"do not nest another VaultReferenceService in main, " +
+						"use multiple reference services instead");
 		}
 
 		private List<Service> valueReferences()
