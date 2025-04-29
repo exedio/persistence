@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
@@ -230,11 +231,7 @@ public final class VaultReferenceService implements VaultService
 			@Nonnull final String hash,
 			@Nonnull final Consumer<String> sink)
 	{
-		if(!(main instanceof VaultServiceContains))
-			throw new IllegalArgumentException(
-					"main service " + main.getClass().getName() + " does not support VaultServiceContains");
-
-		final boolean isMain = ((VaultServiceContains)main).contains(hash);
+		final boolean isMain = contains(main, hash, () -> "main service");
 		if (isMain)
 		{
 			sink.accept(ANCESTRY_PATH_MAIN);
@@ -252,10 +249,8 @@ public final class VaultReferenceService implements VaultService
 				}
 				else
 				{
-					if(!(reference instanceof VaultServiceContains))
-						throw new IllegalArgumentException(
-								"reference service " + i + " (" + reference.getClass().getName() + ") does not support VaultServiceContains");
-					assumeRefContains = ((VaultServiceContains) reference).contains(hash);
+					final int ifinal = i;
+					assumeRefContains = contains(reference, hash, () -> ("reference service " + ifinal));
 				}
 				if (assumeRefContains)
 				{
@@ -266,6 +261,17 @@ public final class VaultReferenceService implements VaultService
 			}
 			throw new RuntimeException("must not reach");
 		}
+	}
+
+	private static boolean contains(
+			@Nonnull final VaultService service,
+			@Nonnull final String hash,
+			@Nonnull final Supplier<String> name)
+	{
+		if(!(service instanceof VaultServiceContains))
+			throw new IllegalArgumentException(
+					name.get() + " (" + service.getClass().getName() + ") does not support VaultServiceContains");
+		return ((VaultServiceContains)service).contains(hash);
 	}
 
 	public static final String ANCESTRY_PATH_MAIN = "main";
