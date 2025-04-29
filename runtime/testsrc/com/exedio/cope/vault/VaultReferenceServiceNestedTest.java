@@ -23,12 +23,15 @@ import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@MainRule.Tag
 public class VaultReferenceServiceNestedTest
 {
 	private VaultReferenceService service;
@@ -106,5 +109,15 @@ public class VaultReferenceServiceNestedTest
 		main.assertIt("close");
 		ref1.assertIt("close");
 		ref2.assertIt("close");
+	}
+
+	private final LogRule log = new LogRule(VaultReferenceService.class);
+
+	@Test void testLog()
+	{
+		log.assertError(
+				"do not nest another VaultReferenceService in main, " +
+				"use multiple reference services instead");
+		log.assertEmpty();
 	}
 }
