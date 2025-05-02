@@ -339,6 +339,7 @@
 		<instrument
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
+				encoding="ascii"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				buildDirectory="build/instrument/runtime.test">
@@ -545,6 +546,7 @@
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
+				encoding="ascii"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
@@ -770,7 +772,6 @@
 		<instrument
 				dir="instrument/testparamssrc"
 				verify="${instrument.verify}"
-				encoding="utf8"
 				serialVersionUIDSuffix="none"
 				useConstantForEmptySetValuesArray="false"
 				generatedAnnotationRetention="CLASS"
