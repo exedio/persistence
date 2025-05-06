@@ -570,7 +570,7 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				dirs::call,
 				ProbeAbortedException.class,
-				"missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)");
+				"premised disabled, yet to be created: 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)");
 	}
 
 	@Test void probePremisedNotPremisedOne() throws Exception
@@ -588,7 +588,7 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				dirs::call,
 				ProbeAbortedException.class,
-				"missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
+				"premised disabled, yet to be created: 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
 
 		createDirectory(root.toPath());
 		for(final String s : asList("0", "1", "2","3","4","5","6","7","8","9","a","b","c","d","e"))
@@ -596,7 +596,7 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				dirs::call,
 				ProbeAbortedException.class,
-				"missing f");
+				"premised disabled, yet to be created: f");
 
 		createDirectory(root.toPath().resolve("f"));
 		assertEquals(16, dirs.call());

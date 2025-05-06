@@ -489,9 +489,12 @@ public final class VaultFileService implements VaultServiceContains
 		{
 			int missingTotal = 0;
 			final int MISSING_LIMIT = 15;
+			final var directory = directoryForProbe();
 			final StringBuilder missing = new StringBuilder();
+			if(!directory.premised)
+				missing.append("premised disabled, yet to be created: ");
 			int ok = 0;
-			for(final Iterator<String> i = directoryForProbe().iterator(); i.hasNext(); )
+			for(final Iterator<String> i = directory.iterator(); i.hasNext(); )
 			{
 				final String dirName = i.next();
 				if(Files.isDirectory(content.resolve(dirName)))
@@ -501,7 +504,7 @@ public final class VaultFileService implements VaultServiceContains
 					if((missingTotal++)<MISSING_LIMIT)
 					{
 						if(missingTotal==1)
-							missing.append("missing ");
+							missing.append(directory.premised ? "missing " : "");
 						else
 							missing.append(',');
 
