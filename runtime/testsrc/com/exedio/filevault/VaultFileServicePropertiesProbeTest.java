@@ -573,6 +573,35 @@ public class VaultFileServicePropertiesProbeTest
 				"missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)");
 	}
 
+	@Test void probePremisedNotPremisedOne() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("directory.length", 1)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(false, p.directory.premised);
+		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
+		assertFails(
+				dirs::call,
+				ProbeAbortedException.class,
+				"missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
+
+		createDirectory(root.toPath());
+		for(final String s : asList("0", "1", "2","3","4","5","6","7","8","9","a","b","c","d","e"))
+			createDirectory(root.toPath().resolve(s));
+		assertFails(
+				dirs::call,
+				ProbeAbortedException.class,
+				"missing f");
+
+		createDirectory(root.toPath().resolve("f"));
+		assertEquals(16, dirs.call());
+	}
+
 	@Test void probePremisedOne() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
