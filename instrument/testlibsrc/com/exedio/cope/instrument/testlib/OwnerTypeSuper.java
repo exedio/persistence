@@ -32,9 +32,10 @@ public class OwnerTypeSuper extends Item
 	@WrapInterim
 	@SuppressWarnings("unchecked")
 	private static final Class<MyInterface<?>> myInterfaceClassWildcard = (Class<MyInterface<?>>)((Class<?>)MyInterface.class);
+
 	protected static final OwnerTypeFeaturePlain<MyInterface<?>> plainFeature = OwnerTypeFeaturePlain.create(myInterfaceClassWildcard);
-	@SuppressWarnings("rawtypes") // OK: fixed in following MR
-	protected static final OwnerTypeFeatureByClass<MyInterface> byClassFeature = OwnerTypeFeatureByClass.create(MyInterface.class);
+
+	protected static final OwnerTypeFeatureByClass<MyInterface<?>> byClassFeature = OwnerTypeFeatureByClass.create(myInterfaceClassWildcard);
 
 	@SuppressWarnings({"InterfaceNeverImplemented", "MarkerInterface", "unused"}) // OK: just a dummy
 	public interface MyInterface<DUMMY>
