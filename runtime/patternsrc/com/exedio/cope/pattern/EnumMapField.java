@@ -96,7 +96,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Override
 	public EnumMapField<K,V> copy(final CopyMapper mapper)
 	{
-		return new EnumMapField<>(keyClass, fallback, mapper.copy(valueTemplate), defaultConstant);
+		final EnumMapField<K, V> enumMapField = new EnumMapField<>(keyClass, fallback, mapper.copy(valueTemplate), defaultConstant);
+		for(final K k : keyClass.getEnumConstants())
+		{
+			mapper.put(getField(k), enumMapField.getField(k));
+		}
+		return enumMapField;
 	}
 
 	public EnumMapField<K,V> fallbackTo(final K key)
