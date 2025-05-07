@@ -19,8 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.tojunit.Assert.assertFails;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.CheckConstraint;
@@ -37,14 +35,7 @@ class EnumMapFieldInBlockTest
 	@Test
 	void test()
 	{
-		final Throwable cause = assertFails(
-				() -> new Model(MyItem.TYPE),
-				ExceptionInInitializerError.class,
-				null
-		).getCause();
-		final String message = cause.getMessage();
-		assertEquals("not mapped " + MyBlock.myMap.getField(MyEnum.one), message);
-		assertEquals(null, cause.getCause());
+		new Model(MyItem.TYPE);
 	}
 
 	private enum MyEnum
@@ -59,10 +50,11 @@ class EnumMapFieldInBlockTest
 		@Wrapper(wrap = "*", visibility = NONE)
 		private static final BooleanField needsValueForOne = new BooleanField().defaultTo(false);
 
+		@SuppressWarnings("unused") // used in CheckConstraint
 		@Wrapper(wrap = "*", visibility = NONE)
 		private static final EnumMapField<MyEnum,Integer> myMap = EnumMapField.create(MyEnum.class, new IntegerField().optional());
 
-		@SuppressWarnings("unused") // needed to illustrate problem with accessing component field
+		@SuppressWarnings("unused") // makes sure we can access component field
 		private static final CheckConstraint check = new CheckConstraint(Conditions.implies(
 				needsValueForOne.isTrue(),
 				myMap.getField(MyEnum.one).isNotNull()
@@ -82,7 +74,7 @@ class EnumMapFieldInBlockTest
 	@WrapperType(comments=false, indent=2)
 	private static class MyItem extends Item
 	{
-		@SuppressWarnings("unused") // needed to illustrate problem with accessing component field
+		@SuppressWarnings("unused") // make sure we can access component field
 		@Wrapper(wrap = "*", visibility = NONE)
 		private static final BlockField<MyBlock> blockField = BlockField.create(MyBlock.TYPE);
 
