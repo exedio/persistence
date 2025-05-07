@@ -41,7 +41,7 @@ final class Params
 	/** in {@link #sourceDirectories}, the files to look at for understanding source code, but not instrument */
 	List<File> ignoreFiles;
 	boolean verify = false;
-	Charset charset = StandardCharsets.US_ASCII;
+	Charset charset = StandardCharsets.UTF_8;
 	private final List<Method> generateDeprecateds = new ArrayList<>();
 	private final List<Method> disabledWraps = new ArrayList<>();
 
