@@ -37,26 +37,21 @@ public final class ReflectionTypes
 			final Class<?> rawType,
 			final Type... actualTypeArguments)
 	{
-		return new ParameterizedToplevel(actualTypeArguments, rawType);
+		return new Parameterized(actualTypeArguments, rawType);
 	}
 
-	private static final class ParameterizedToplevel implements ParameterizedType
+	private static final class Parameterized implements ParameterizedType
 	{
 		private final Type[] arguments;
 		private final Class<?> rawType;
 
-		ParameterizedToplevel(
+		Parameterized(
 				final Type[] actualTypeArguments,
 				final Class<?> rawType)
 		{
 			this.arguments = requireNonEmptyAndCopy(actualTypeArguments, "actualTypeArguments");
 			this.rawType = requireNonNull(rawType, "rawType");
 
-			{
-				final Type ownerType = rawType.getDeclaringClass();
-				if(ownerType!=null)
-					throw new IllegalArgumentException("ownerType not supported: " + ownerType);
-			}
 			{
 				final TypeVariable<?>[] parameters = rawType.getTypeParameters();
 				if(parameters.length!=actualTypeArguments.length)
@@ -79,7 +74,7 @@ public final class ReflectionTypes
 		@Override
 		public Type getOwnerType()
 		{
-			return null;
+			return rawType.getDeclaringClass();
 		}
 
 		@Override
@@ -92,7 +87,7 @@ public final class ReflectionTypes
 				return false;
 
 			return
-					null==o.getOwnerType() &&
+					// getOwnerType() ignored, because different getOwnerType() is possible with different getRawType() only
 					rawType.equals(o.getRawType()) &&
 					Arrays.equals(arguments, o.getActualTypeArguments());
 		}
