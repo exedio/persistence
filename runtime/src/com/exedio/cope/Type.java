@@ -1183,7 +1183,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * result in an {@code UnsupportedOperationException}.
 	 *
 	 * @param condition the condition the searched items must match.
-	 * @param ascending whether the result is sorted ascendingly ({@code true</tt>) or descendingly (<tt>false}).
+	 * @param ascending whether the result is sorted ascendingly ({@code true}) or descendingly ({@code false}).
 	 */
 	public List<T> search(final Condition condition, final com.exedio.cope.Function<?> orderBy, final boolean ascending)
 	{
