@@ -90,9 +90,13 @@ public final class Cope
 		return MultiplyView.multiply(multiplier1, multiplier2, multiplier3);
 	}
 
+	/**
+	 * @deprecated Use {@link SetValue#mapCasted(Field, Object)} instead.
+	 */
+	@Deprecated
 	public static <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
-		return SetValue.map(a, a.getValueClass().cast(o));
+		return SetValue.mapCasted(a, o);
 	}
 
 	/**
