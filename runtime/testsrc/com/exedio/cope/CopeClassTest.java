@@ -27,6 +27,7 @@ import static com.exedio.cope.Cope.lessOrEqualAndCast;
 import static com.exedio.cope.Cope.multiply;
 import static com.exedio.cope.Cope.notEqualAndCast;
 import static com.exedio.cope.Cope.plus;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -73,6 +74,10 @@ public class CopeClassTest
 		assertEquals(
 				f + "='55'",
 				equalAndCast(f, 55).toString());
+		assertFails(
+				() -> equalAndCast(f, 55l),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
 	@Test void testNotEqualAndCast()
 	{
@@ -80,6 +85,10 @@ public class CopeClassTest
 		assertEquals(
 				f + "<>'55'",
 				notEqualAndCast(f, 55).toString());
+		assertFails(
+				() -> notEqualAndCast(f, 55l),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
 	@Test void testLessAndCast()
 	{
@@ -87,6 +96,10 @@ public class CopeClassTest
 		assertEquals(
 				f + "<'55'",
 				lessAndCast(f, 55).toString());
+		assertFails(
+				() -> lessAndCast(f, 55l),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
 	@Test void testLessOrEqualAndCast()
 	{
@@ -94,6 +107,10 @@ public class CopeClassTest
 		assertEquals(
 				f + "<='55'",
 				lessOrEqualAndCast(f, 55).toString());
+		assertFails(
+				() -> lessOrEqualAndCast(f, 55l),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
 	@Test void testGreaterAndCast()
 	{
@@ -101,6 +118,10 @@ public class CopeClassTest
 		assertEquals(
 				f + ">'55'",
 				greaterAndCast(f, 55).toString());
+		assertFails(
+				() -> greaterAndCast(f, 55l),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
 	@Test void testGreaterOrEqualAndCast()
 	{
@@ -108,6 +129,10 @@ public class CopeClassTest
 		assertEquals(
 				f + ">='55'",
 				greaterOrEqualAndCast(f, 55).toString());
+		assertFails(
+				() -> greaterOrEqualAndCast(f, 55l),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
 	@Test void testBetweenAndCast()
 	{
@@ -115,5 +140,13 @@ public class CopeClassTest
 		assertEquals(
 				"(" + f + ">='55' and " + f + "<='66')",
 				betweenAndCast(f, 55, 66).toString());
+		assertFails(
+				() -> betweenAndCast(f, 55l, 66),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
+		assertFails(
+				() -> betweenAndCast(f, 55, 66l),
+				ClassCastException.class,
+				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
 }
