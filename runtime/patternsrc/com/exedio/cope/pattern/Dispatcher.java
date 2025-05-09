@@ -877,7 +877,7 @@ public final class Dispatcher extends Pattern
 		{
 			final Query<Run> q =
 					type.newQuery(Cope.and(
-							Cope.equalAndCast(parent, item),
+							parent.isCasted(item),
 							result.is(Result.success)));
 			q.setOrderBy(type.getThis(), false);
 			q.setPage(0, 1);
@@ -888,7 +888,7 @@ public final class Dispatcher extends Pattern
 		{
 			return
 					type.search(
-							Cope.equalAndCast(parent, item),
+							parent.isCasted(item),
 							type.getThis(),
 							true);
 		}
@@ -898,7 +898,7 @@ public final class Dispatcher extends Pattern
 			return
 					type.search(
 							Cope.and(
-									Cope.equalAndCast(parent, item),
+									parent.isCasted(item),
 									result.isNot(Result.success)),
 							type.getThis(),
 							true);

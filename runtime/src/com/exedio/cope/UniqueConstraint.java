@@ -267,7 +267,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		final Condition[] conditions = new Condition[fields.size()];
 		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(int j = 0; fieldIter.hasNext(); j++)
-			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
+			conditions[j] = fieldIter.next().isCasted(values[j]);
 		return Cope.and(conditions);
 	}
 

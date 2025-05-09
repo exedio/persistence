@@ -218,7 +218,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
-			new Query<>(element, Cope.equalAndCast(mount().parent, item));
+			new Query<>(element, mount().parent.isCasted(item));
 		q.setOrderBy(order, true);
 		return q;
 	}
@@ -239,7 +239,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		requireParentClass(parentClass, "parentClass");
 		final Query<P> q = new Query<>(
 				mount().parent.as(parentClass),
-				Cope.equalAndCast(this.element, element));
+				this.element.isCasted(element));
 		q.setDistinct(true);
 		return q.search();
 	}
@@ -252,7 +252,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		final Mount mount = mount();
 		final Query<Integer> q = new Query<>(
 				this.order.max(),
-				Cope.equalAndCast(mount.parent, item));
+				mount.parent.isCasted(item));
 		final Integer max = q.searchSingleton();
 		final int newOrder = max!=null ? (max+1) : 0;
 		mount.entryType.newItem(
@@ -274,7 +274,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		final Mount mount = mount();
 		final List<Entry> entries =
 				mount.entryType.search(Cope.and(
-						Cope.equalAndCast(mount.parent, item),
+						mount.parent.isCasted(item),
 						this.element.is(element)));
 
 		if(entries.isEmpty())
@@ -300,7 +300,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		final Mount mount = mount();
 		final Iterator<Entry> actual =
 			mount.entryType.search(
-					Cope.equalAndCast(mount.parent, item),
+					mount.parent.isCasted(item),
 					this.order,
 					true).
 			iterator();

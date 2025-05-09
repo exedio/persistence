@@ -254,7 +254,7 @@ public final class SetField<E> extends Pattern implements Copyable
 	@Nonnull
 	public Query<E> getQuery(@Nonnull final Item item)
 	{
-		final Query<E> result = new Query<>(element, Cope.equalAndCast(mount().parent, item));
+		final Query<E> result = new Query<>(element, mount().parent.isCasted(item));
 		result.setOrderBy(ordered ? order : element, true);
 		return result;
 	}
@@ -292,7 +292,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		{
 			final Query<Integer> q = new Query<>(
 					this.order.max(),
-					Cope.equalAndCast(mount.parent, item));
+					mount.parent.isCasted(item));
 			final Integer max = q.searchSingleton();
 			final int newOrder = max!=null ? (max+1) : 0;
 			try
@@ -365,7 +365,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			element.check(e);
 		final ArrayList<Entry> toDeleteList = new ArrayList<>();
 
-		for(final Entry entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final Entry entry : mount.entryType.search(mount.parent.isCasted(item)))
 		{
 			final E element = this.element.get(entry);
 
@@ -409,7 +409,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 		// TODO reuse entries that can be reused
 
-		for(final Entry entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final Entry entry : mount.entryType.search(mount.parent.isCasted(item)))
 			entry.deleteCopeItem();
 
 		int order = 0;

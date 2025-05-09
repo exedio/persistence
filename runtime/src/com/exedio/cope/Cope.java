@@ -112,8 +112,9 @@ public final class Cope
 	 * {@code value} to {@code X} before calling
 	 * {@link Function#is(Object)}
 	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
-	 * To be deprecated Use {@link Function#isCasted(Object)} instead.
+	 * @deprecated Use {@link Function#isCasted(Object)} instead.
 	 */
+	@Deprecated
 	public static <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
 		return function.isCasted(value);

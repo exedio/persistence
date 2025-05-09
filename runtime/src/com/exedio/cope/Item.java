@@ -349,13 +349,13 @@ public abstract class Item implements Serializable, Comparable<Item>
 			{
 				case FORBID ->
 				{
-					final int referrers = field.getType().newQuery(Cope.equalAndCast(field, this)).total();
+					final int referrers = field.getType().newQuery(field.isCasted(this)).total();
 					if(referrers!=0)
 						throw new IntegrityViolationException(field, this, referrers);
 				}
 				case CASCADE ->
 				{
-					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
+					for(final Item item : field.getType().search(field.isCasted(this)))
 					{
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))
@@ -402,7 +402,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			{
 				case NULLIFY ->
 				{
-					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
+					for(final Item item : field.getType().search(field.isCasted(this)))
 					{
 						//System.out.println("------------nullify:"+item.toString());
 						item.set(field, null);
@@ -410,7 +410,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 				}
 				case CASCADE ->
 				{
-					for(final Item item : field.getType().search(Cope.equalAndCast(field, this)))
+					for(final Item item : field.getType().search(field.isCasted(this)))
 					{
 						//System.out.println("------------check:"+item.toString());
 						if(!toDelete.contains(item))

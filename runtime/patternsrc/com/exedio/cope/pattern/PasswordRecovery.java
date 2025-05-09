@@ -166,7 +166,7 @@ public final class PasswordRecovery extends Pattern
 		{
 			final Query<Token> tokens =
 				tokenType.newQuery(Cope.and(
-					Cope.equalAndCast(parent, item),
+					parent.isCasted(item),
 					expires.greaterOrEqual(new Date(now + expiry - reuse))));
 			tokens.setOrderBy(expires, false);
 			tokens.setPage(0, 1);
@@ -205,7 +205,7 @@ public final class PasswordRecovery extends Pattern
 		final Date now = Clock.newDate();
 		final List<Token> tokens =
 			tokenType.search(Cope.and(
-				Cope.equalAndCast(this.parent, item),
+				this.parent.isCasted(item),
 				this.secret.is(secret),
 				this.expires.greaterOrEqual(now)));
 
@@ -370,7 +370,7 @@ public final class PasswordRecovery extends Pattern
 		{
 			final PasswordRecovery passwordRecovery = getPattern();
 			final List<Token> tokens = passwordRecovery.tokenType.search(Cope.and(
-					Cope.equalAndCast(passwordRecovery.parent, getParent()),
+					passwordRecovery.parent.isCasted(getParent()),
 					passwordRecovery.secret.is(getSecret()),
 					passwordRecovery.expires.greaterOrEqual(Clock.newDate())));
 			for(final Token t : tokens)

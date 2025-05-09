@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Cope.betweenAndCast;
-import static com.exedio.cope.Cope.equalAndCast;
 import static com.exedio.cope.Cope.greaterAndCast;
 import static com.exedio.cope.Cope.greaterOrEqualAndCast;
 import static com.exedio.cope.Cope.lessAndCast;
@@ -68,14 +67,14 @@ public class CopeClassTest
 				"multiply(" + f1 + "," + f2 + "," + f3 + ")",
 				multiply(f1, f2, f3).toString());
 	}
-	@Test void testEqualAndCast()
+	@Test void testIsCasted()
 	{
 		final IntegerField f = new IntegerField();
 		assertEquals(
 				f + "='55'",
-				equalAndCast(f, 55).toString());
+				f.isCasted(55).toString());
 		assertFails(
-				() -> equalAndCast(f, 55l),
+				() -> f.isCasted(55l),
 				ClassCastException.class,
 				"Cannot cast java.lang.Long to java.lang.Integer");
 	}

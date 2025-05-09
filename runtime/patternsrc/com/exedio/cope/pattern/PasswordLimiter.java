@@ -192,7 +192,7 @@ public final class PasswordLimiter extends Pattern
 		final Mount mount = mount();
 		return
 			mount.refusalType.newQuery(Cope.and(
-				Cope.equalAndCast(mount.parent, item),
+				mount.parent.isCasted(item),
 				date.greater(getExpiryDate(now))));
 	}
 
@@ -260,7 +260,7 @@ public final class PasswordLimiter extends Pattern
 	{
 		final Mount mount = mount();
 		for(final Refusal refusal : mount.refusalType.newQuery(
-				Cope.equalAndCast(mount.parent, item)).search())
+				mount.parent.isCasted(item)).search())
 		{
 			refusal.deleteCopeItem();
 		}
