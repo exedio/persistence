@@ -97,9 +97,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code value</tt> to <tt>X} before calling
+	 * {@code value} to {@code X} before calling
 	 * {@link Field#set(Item, Object)}
-	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
 	 */
 	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	public static <X> void setAndCast(final Field<X> field, final Item item, final Object value)
@@ -109,9 +109,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code value</tt> to <tt>X} before calling
+	 * {@code value} to {@code X} before calling
 	 * {@link Function#is(Object)}
-	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
 	 */
 	public static <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
@@ -120,9 +120,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code value</tt> to <tt>X} before calling
+	 * {@code value} to {@code X} before calling
 	 * {@link Function#isNot(Object)}
-	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
 	 */
 	public static <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
@@ -131,9 +131,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code value</tt> to <tt>X} before calling
+	 * {@code value} to {@code X} before calling
 	 * {@link Function#less(Object)}
-	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
 	 */
 	public static <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
 	{
@@ -142,9 +142,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code value</tt> to <tt>X} before calling
+	 * {@code value} to {@code X} before calling
 	 * {@link Function#lessOrEqual(Object)}
-	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
 	 */
 	public static <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
 	{
@@ -153,9 +153,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code value</tt> to <tt>X} before calling
+	 * {@code value} to {@code X} before calling
 	 * {@link Function#greater(Object)}
-	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
 	 */
 	public static <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
 	{
@@ -164,9 +164,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code value</tt> to <tt>X} before calling
+	 * {@code value} to {@code X} before calling
 	 * {@link Function#greaterOrEqual(Object)}
-	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
 	 */
 	public static <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
 	{
@@ -175,9 +175,9 @@ public final class Cope
 
 	/**
 	 * {@link Class#cast(Object) Casts}
-	 * {@code values</tt> to <tt>X} before calling
+	 * {@code values} to {@code X} before calling
 	 * {@link Function#between(Object, Object)}
-	 * @throws ClassCastException if one of the {@code values</tt> is not assignable to <tt>X}
+	 * @throws ClassCastException if one of the {@code values} is not assignable to {@code X}
 	 */
 	public static <X> Condition betweenAndCast(final Function<X> function, final Object lowerBound, final Object upperBound)
 	{

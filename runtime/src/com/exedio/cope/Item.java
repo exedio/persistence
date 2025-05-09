@@ -162,9 +162,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Returns the active item object representing the same item as this item object.
-	 * For any two item objects {@code a</tt>, <tt>b} the following holds true:
+	 * For any two item objects {@code a}, {@code b} the following holds true:
 	 * <p>
-	 * If and only if {@code a.equals(b)</tt> then <tt>a.activeCopeItem() == b.activeCopeItem()}.
+	 * If and only if {@code a.equals(b)} then {@code a.activeCopeItem() == b.activeCopeItem()}.
 	 * <p>
 	 * So it does for items, what {@link String#intern} does for strings.
 	 * Does activate this item, if it's not already active.
@@ -280,12 +280,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if {@code value</tt> is null and <tt>field}
+	 *         if {@code value} is null and {@code field}
 	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws FinalViolationException
 	 *         if {@code field} is {@link Field#isFinal() final}.
 	 * @throws ClassCastException
-	 *         if {@code value</tt> is not compatible to <tt>field}.
+	 *         if {@code value} is not compatible to {@code field}.
 	 */
 	public final <E> void set(final FunctionField<E> field, final E value)
 	{
@@ -294,12 +294,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if {@code value</tt> is null and <tt>field}
+	 *         if {@code value} is null and {@code field}
 	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws FinalViolationException
 	 *         if {@code field} is {@link Field#isFinal() final}.
 	 * @throws ClassCastException
-	 *         if {@code value</tt> is not compatible to <tt>field}.
+	 *         if {@code value} is not compatible to {@code field}.
 	 */
 	public final void set(SetValue<?>... setValues)
 	{
