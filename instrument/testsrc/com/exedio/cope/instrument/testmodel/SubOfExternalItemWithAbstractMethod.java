@@ -29,7 +29,7 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 	@UsageEntryPoint
 	private static final ImplementationOfExternalInterface object = new ImplementationOfExternalInterface();
 
-	// adding @WrapInterim here would result in instrumentor error:
+	@WrapInterim // makes sure, there is no instrumentor error:
 	// java.lang.RuntimeException: don't call in interim code
 	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	private static final int fortyTwo = object.methodInInterface();
@@ -56,7 +56,7 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 	@WrapInterim
 	static class ImplementationOfExternalInterface implements ExternalInterface
 	{
-		// adding @WrapInterim here would result in instrumentor error:
+		@WrapInterim // makes sure, there is no instrumentor error:
 		// error: method methodInInterface() is already defined in class ...
 		@Override
 		public int methodInInterface()
