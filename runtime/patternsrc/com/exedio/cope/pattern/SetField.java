@@ -135,7 +135,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			features.put("order", order);
 			features.put("uniqueOrder", uniqueOrder);
 		}
-		features.put("element", element);
+		features.put("element", element, new MysqlExtendedVarcharAnnotationProxy(this));
 		features.put("uniqueConstraint", uniqueElement);
 		copyWith.onMount(features, parent, element);
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);

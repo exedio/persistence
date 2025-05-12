@@ -101,11 +101,12 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 		final UniqueConstraint uniqueConstraint = UniqueConstraint.create(parent, key);
+		final MysqlExtendedVarcharAnnotationProxy annotationSource = new MysqlExtendedVarcharAnnotationProxy(this);
 		final Features features = new Features();
 		features.put("parent", parent);
-		features.put("key", key);
+		features.put("key", key, annotationSource);
 		features.put("uniqueConstraint", uniqueConstraint);
-		features.put("value", value);
+		features.put("value", value, annotationSource);
 		CopyFields.onMountAll(features, parent, new FunctionField<?>[]{key, value}, new CopyFields[]{keyCopyWiths, valueCopyWiths});
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
