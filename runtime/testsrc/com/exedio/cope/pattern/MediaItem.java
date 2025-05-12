@@ -24,7 +24,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperIgnore;
 import java.io.File;
 import java.io.IOException;
 import javax.annotation.Nonnull;
@@ -46,7 +45,6 @@ public final class MediaItem extends Item
 	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media sheet = new Media().optional().lengthMax(5000).contentTypes("application/pdf", "image/png");
 
-	@WrapperIgnore // required because MediaCustom inherits @WrapFeature
 	static final MediaCustom custom = new MediaCustom(name);
 
 
@@ -69,18 +67,6 @@ public final class MediaItem extends Item
 	java.lang.String getPhotoContentType()
 	{
 		return photo.getContentType(this);
-	}
-
-	// TODO generate by instrumentor
-	String getCustomContentType()
-	{
-		return custom.getContentType(this);
-	}
-
-	// TODO generate by instrumentor
-	MediaPath.Locator getCustomLocator()
-	{
-		return custom.getLocator(this);
 	}
 
 	void getFileBodyDeprecated(@Nonnull final File body) throws IOException
@@ -799,6 +785,39 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.sheet.set(this,body,contentType);
+	}
+
+	/**
+	 * Returns a URL the content of {@link #custom} is available under.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	java.lang.String getCustomURL()
+	{
+		return MediaItem.custom.getURL(this);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #custom} is available under.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	com.exedio.cope.pattern.MediaPath.Locator getCustomLocator()
+	{
+		return MediaItem.custom.getLocator(this);
+	}
+
+	/**
+	 * Returns the content type of the media {@link #custom}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	java.lang.String getCustomContentType()
+	{
+		return MediaItem.custom.getContentType(this);
 	}
 
 	@com.exedio.cope.instrument.Generated
