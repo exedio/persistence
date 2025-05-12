@@ -18,10 +18,24 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import com.exedio.cope.instrument.WrapInterim;
+import com.exedio.cope.instrument.testfeature.SimpleSettable;
+import com.exedio.cope.instrument.testlib.ExternalInterface;
 import com.exedio.cope.instrument.testlib.ExternalItemWithAbstractMethod;
 
 class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 {
+	@WrapInterim
+	@UsageEntryPoint
+	private static final ImplementationOfExternalInterface object = new ImplementationOfExternalInterface();
+
+	// adding @WrapInterim here would result in instrumentor error:
+	// java.lang.RuntimeException: don't call in interim code
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
+	private static final int fortyTwo = object.methodInInterface();
+
+	private static final SimpleSettable justToMakeSureClassGetsLoaded = new SimpleSettable();
+
 	@Override
 	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	protected void abstractMethod()
@@ -39,6 +53,18 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 		new DontInstrument();
 	}
 
+	@WrapInterim
+	static class ImplementationOfExternalInterface implements ExternalInterface
+	{
+		// adding @WrapInterim here would result in instrumentor error:
+		// error: method methodInInterface() is already defined in class ...
+		@Override
+		public int methodInInterface()
+		{
+			return 42;
+		}
+	}
+
 	/**
 	 * Creates a new SubOfExternalItemWithAbstractMethod with all the fields initially needed.
 	 */
@@ -54,6 +80,13 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected SubOfExternalItemWithAbstractMethod(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	private java.lang.String oneJustToMakeSureClassGetsLoaded()
+	{
+		return SubOfExternalItemWithAbstractMethod.justToMakeSureClassGetsLoaded.one(this);
+	}
 
 	@com.exedio.cope.instrument.Generated
 	@java.io.Serial
