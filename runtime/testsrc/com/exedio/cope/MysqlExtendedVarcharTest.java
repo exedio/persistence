@@ -34,21 +34,21 @@ public class MysqlExtendedVarcharTest
 	{
 		assertEquals(false, ext(MyItem.setWith.getParent()));
 		assertEquals(false, ext(MyItem.setWith.getOrder()));
-		assertEquals(false, ext(MyItem.setWith.getElement()));
+		assertEquals(true,  ext(MyItem.setWith.getElement()));
 		assertEquals(false, ext(MyItem.setWithout.getParent()));
 		assertEquals(false, ext(MyItem.setWithout.getOrder()));
 		assertEquals(false, ext(MyItem.setWithout.getElement()));
 
 		assertEquals(false, ext(MyItem.listWith.getParent()));
 		assertEquals(false, ext(MyItem.listWith.getOrder()));
-		assertEquals(false, ext(MyItem.listWith.getElement()));
+		assertEquals(true,  ext(MyItem.listWith.getElement()));
 		assertEquals(false, ext(MyItem.listWithout.getParent()));
 		assertEquals(false, ext(MyItem.listWithout.getOrder()));
 		assertEquals(false, ext(MyItem.listWithout.getElement()));
 
 		assertEquals(false, ext(MyItem.mapWith.getParent()));
-		assertEquals(false, ext(MyItem.mapWith.getKey()));
-		assertEquals(false, ext(MyItem.mapWith.getValue()));
+		assertEquals(true,  ext(MyItem.mapWith.getKey()));
+		assertEquals(true,  ext(MyItem.mapWith.getValue()));
 		assertEquals(false, ext(MyItem.mapWithout.getParent()));
 		assertEquals(false, ext(MyItem.mapWithout.getKey()));
 		assertEquals(false, ext(MyItem.mapWithout.getValue()));

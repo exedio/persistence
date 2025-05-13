@@ -107,7 +107,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		features.put("parent", parent);
 		features.put("order", order);
 		features.put("uniqueConstraint", uniqueConstraint);
-		features.put("element", element);
+		features.put("element", element, new MysqlExtendedVarcharAnnotationProxy(this));
 		copyWith.onMount(features, parent, element);
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
