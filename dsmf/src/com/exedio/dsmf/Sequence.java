@@ -98,11 +98,11 @@ public final class Sequence extends Node
 
 		if(type.mismatches())
 			return Result.error(
-					"unexpected type " + type.getExisting());
+					"unexpected type " + type.getExisting()); // The value of this string literal must not be changed, otherwise cope console breaks
 
 		if(start.mismatches())
 			return Result.error(
-					"unexpected start " + start.getExisting());
+					"unexpected start " + start.getExisting()); // The value of this string literal must not be changed, otherwise cope console breaks
 
 		return Result.ok;
 	}

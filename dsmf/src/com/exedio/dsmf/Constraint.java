@@ -133,12 +133,12 @@ public abstract class Constraint extends Node
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append(
-					"unexpected condition >>>").append(existingConditionAdjusted).append("<<<");
+					"unexpected condition >>>").append(existingConditionAdjusted).append("<<<"); // The value of this string literal must not be changed, otherwise cope console breaks
 
 			if(!existingCondition.equals(existingConditionAdjusted))
-				bf.append(" (originally >>>").
+				bf.append(" (originally >>>"). // The value of this string literal must not be changed, otherwise cope console breaks
 					append(existingCondition).
-					append("<<<)");
+					append("<<<)"); // The value of this string literal must not be changed, otherwise cope console breaks
 
 			return Result.error(bf.toString());
 		}
