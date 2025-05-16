@@ -228,9 +228,12 @@ public abstract class Node
 					Color.ERROR);
 		}
 
+		private static final String MISSING = "missing"; // The value of this string literal must not be changed, otherwise cope console breaks
+		private static final String UNUSED = "unused"; // The value of this string literal must not be changed, otherwise cope console breaks
+
 		static final Result ok = new Result(null, Color.OK);
-		static final Result missing = new Result("missing", Color.ERROR);
-		private static final Result missingWarning = new Result("missing", Color.WARNING);
+		static final Result missing = new Result(MISSING, Color.ERROR);
+		private static final Result missingWarning = new Result(MISSING, Color.WARNING);
 
 		static Result missing(final boolean error)
 		{
@@ -238,8 +241,8 @@ public abstract class Node
 		}
 
 		static final Result unsupported = new Result("unsupported", Color.OK);
-		static final Result unusedWarning = new Result("unused", Color.WARNING);
-		private static final Result unusedError = new Result("unused", Color.ERROR);
+		static final Result unusedWarning = new Result(UNUSED, Color.WARNING);
+		private static final Result unusedError = new Result(UNUSED, Color.ERROR);
 
 		static Result unused(final boolean error)
 		{
