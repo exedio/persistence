@@ -203,10 +203,9 @@ public abstract class TestWithEnvironment
 	protected final PrimaryKeyConstraint assertPkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
-			final String condition,
 			final String column)
 	{
-		return tester.assertPkConstraint(table, name, condition, column);
+		return tester.assertPkConstraint(table, name, column);
 	}
 
 	protected final ForeignKeyConstraint assertFkConstraint(

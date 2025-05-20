@@ -165,7 +165,7 @@ public class SchemaTest extends TestWithEnvironment
 				"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
 				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
 
-		assertPkConstraint(table, "Main_PK", null, getPrimaryKeyColumnName(TYPE));
+		assertPkConstraint(table, "Main_PK", getPrimaryKeyColumnName(TYPE));
 
 		assertFkConstraint(table, "Main_item_Fk", getColumnName(item), getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 

@@ -72,7 +72,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		assertEquals(null, table.getError());
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
-		assertPkConstraint(table, "Zain_PK", null, getPrimaryKeyColumnName(TYPE));
+		assertPkConstraint(table, "Zain_PK", getPrimaryKeyColumnName(TYPE));
 
 		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 

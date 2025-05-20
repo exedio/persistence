@@ -219,10 +219,9 @@ final class RuntimeTester
 	PrimaryKeyConstraint assertPkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
-			final String condition,
 			final String column)
 	{
-		final PrimaryKeyConstraint constraint = assertConstraint(table, PrimaryKeyConstraint.class, name, condition);
+		final PrimaryKeyConstraint constraint = assertConstraint(table, PrimaryKeyConstraint.class, name, null);
 
 		assertEquals(column, constraint.getPrimaryKeyColumn());
 
