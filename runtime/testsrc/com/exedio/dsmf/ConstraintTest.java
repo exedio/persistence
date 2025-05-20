@@ -106,7 +106,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertSame(nn, assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"));
 		assertSame(ck, assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+p(CHECK_COLUMN)+" IN (0,1))"));
 		assertSame(ct ,assertCheckConstraint(table, CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0"));
-		assertSame(pk, assertPkConstraint(table, PK_NAME, null, PK_COLUMN));
+		assertSame(pk, assertPkConstraint(table, PK_NAME, PK_COLUMN));
 		assertSame(fk, assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN));
 		assertSame(us, assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")"));
 		assertSame(ud, assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")"));
