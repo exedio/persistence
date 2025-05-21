@@ -25,7 +25,7 @@ import com.exedio.cope.ConnectProperties.TrimClass;
 final class ItemColumn extends IntegerColumn
 {
 	private final Type<?> targetType;
-	final String integrityConstraintName;
+	final String foreignKeyConstraintName;
 
 	ItemColumn(
 			final Table table,
@@ -35,7 +35,7 @@ final class ItemColumn extends IntegerColumn
 	{
 		super(table, id, false, optional, PK.MIN_VALUE, targetType.createLimit, true);
 		this.targetType = targetType;
-		this.integrityConstraintName = intern(makeGlobalID(TrimClass.standard, "Fk"));
+		this.foreignKeyConstraintName = intern(makeGlobalID(TrimClass.standard, "Fk"));
 	}
 
 	/**
@@ -46,7 +46,7 @@ final class ItemColumn extends IntegerColumn
 		super(table, maximum);
 		assert targetType!=null;
 		this.targetType = targetType;
-		this.integrityConstraintName = table.id+"_Sup";
+		this.foreignKeyConstraintName = table.id + "_Sup";
 	}
 
 	@Override
@@ -54,6 +54,6 @@ final class ItemColumn extends IntegerColumn
 	{
 		super.makeSchema(dsmf);
 		final Table targetTable = targetType.getTable();
-		dsmf.newForeignKey(integrityConstraintName, targetTable.id, targetTable.primaryKey.id);
+		dsmf.newForeignKey(foreignKeyConstraintName, targetTable.id, targetTable.primaryKey.id);
 	}
 }

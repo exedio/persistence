@@ -225,7 +225,7 @@ public final class SchemaInfo
 
 	public static String getForeignKeyConstraintName(final ItemField<?> field)
 	{
-		return ((ItemColumn)field.getColumn()).integrityConstraintName;
+		return ((ItemColumn)field.getColumn()).foreignKeyConstraintName;
 	}
 
 	public static String getSuperForeignKeyConstraintName(final Type<?> type)
@@ -233,7 +233,7 @@ public final class SchemaInfo
 		final IntegerColumn column = type.table.primaryKey;
 		if(!(column instanceof ItemColumn))
 			throw new IllegalArgumentException("no super type for " + type);
-		return ((ItemColumn)column).integrityConstraintName;
+		return ((ItemColumn)column).foreignKeyConstraintName;
 	}
 
 	/**
