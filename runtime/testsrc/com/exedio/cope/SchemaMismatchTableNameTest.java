@@ -107,7 +107,9 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 				assertExistance(false, true, seqA);
 				assertExistance(true, false, seqB);
 				assertEquals(bit31, seqB.getType());
+				assertEquals(null, seqB.getMismatchingType());
 				assertEquals(0, seqB.getStartL());
+				assertEquals(null, seqB.getMismatchingStart());
 
 				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA, seqA), schema.getTables());
 				assertEqualsUnmodifiable(asList(seqB), schema.getSequences());
@@ -120,9 +122,13 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 				assertExistance(false, true, seqA);
 				assertExistance(true, false, seqB);
 				assertEquals(bit31, seqA.getType());
+				assertEquals(null, seqA.getMismatchingType());
 				assertEquals(0, seqA.getStartL());
+				assertEquals(null, seqA.getMismatchingStart());
 				assertEquals(bit31, seqB.getType());
+				assertEquals(null, seqB.getMismatchingType());
 				assertEquals(0, seqB.getStartL());
+				assertEquals(null, seqB.getMismatchingStart());
 
 				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA), schema.getTables());
 				assertEqualsUnmodifiable(asList(seqB, seqA), schema.getSequences());

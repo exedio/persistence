@@ -20,6 +20,8 @@ package com.exedio.dsmf;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 final class Field<T>
 {
 	private final T required;
@@ -65,6 +67,12 @@ final class Field<T>
 			required!=null &&
 			existing!=null &&
 			!required.equals(existing);
+	}
+
+	T getMismatching(final Node node)
+	{
+		return (!node.required() || !node.exists() || Objects.equals(required, existing))
+			? null : existing;
 	}
 
 	T getRequired()
