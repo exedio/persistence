@@ -49,6 +49,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 			assertEquals(type(ItemA.field), field.getType());
 			assertEquals(type(ItemA.field), field.getRequiredType());
 			assertEquals(type(ItemA.field), field.getExistingType());
+			assertEquals(null, field.getMismatchingType());
 			assertEquals(false, field.mismatchesType());
 		}
 
@@ -69,6 +70,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 		assertEquals(type(ItemB.field), field.getType());
 		assertEquals(type(ItemB.field), field.getRequiredType());
 		assertEquals(type(ItemA.field), field.getExistingType());
+		assertEquals(type(ItemA.field), field.getMismatchingType());
 		assertEquals(true, field.mismatchesType());
 
 		assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
