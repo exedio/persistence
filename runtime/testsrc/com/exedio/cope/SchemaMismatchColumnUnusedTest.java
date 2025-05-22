@@ -90,7 +90,7 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 			if(supported)
 			{
 				assertIt("unused", ERROR, ERROR, Check, checkA);
-				assertFails(checkA::isSupported, NullPointerException.class, "ItemAB_field_EN");
+				assertFails(checkA::isSupported, IllegalStateException.class, "not required");
 				assertExistance(false, true, checkA);
 				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 			}

@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import java.util.Objects;
+
 public abstract class Constraint extends Node
 {
 	public enum Type
@@ -36,8 +38,7 @@ public abstract class Constraint extends Node
 	final Column column;
 	final String name;
 	final Type type;
-	final String requiredCondition;
-	private String existingCondition;
+	final Field<String> condition;
 	private String existingConditionRaw;
 
 	Constraint(
@@ -71,14 +72,8 @@ public abstract class Constraint extends Node
 		this.column = column;
 		this.name = name;
 		this.type = type;
-		if(required)
-			this.requiredCondition = condition;
-		else
-		{
-			this.requiredCondition = null;
-			this.existingCondition = condition;
-			this.existingConditionRaw = conditionRaw;
-		}
+		this.condition = (type==Type.PrimaryKey) ? null : new Field<>(condition, required);
+		this.existingConditionRaw = required ? null : conditionRaw;
 		//noinspection ThisEscapedInObjectConstruction
 		table.register(this);
 		if(column!=null)
@@ -106,9 +101,24 @@ public abstract class Constraint extends Node
 		return type;
 	}
 
+	public final String getCondition()
+	{
+		return condition!=null ? condition.get() : null;
+	}
+
 	public final String getRequiredCondition()
 	{
-		return requiredCondition;
+		return condition!=null ? condition.getRequiredOrNull() : null;
+	}
+
+	public final String getMismatchingCondition()
+	{
+		return condition!=null ? condition.getMismatching(this) : null;
+	}
+
+	public final String getMismatchingConditionRaw()
+	{
+		return getMismatchingCondition()!=null ? existingConditionRaw : null;
 	}
 
 	final void notifyExists()
@@ -128,11 +138,10 @@ public abstract class Constraint extends Node
 		if(conditionRaw==null)
 			throw new NullPointerException();
 
-		assert existingCondition==null;
 		assert existingConditionRaw==null;
 
 		notifyExistsNode();
-		this.existingCondition = condition;
+		this.condition.notifyExists(condition);
 		this.existingConditionRaw = conditionRaw;
 	}
 
@@ -147,28 +156,20 @@ public abstract class Constraint extends Node
 		if(!required())
 			return Result.unused(table.required());
 
-		if(requiredCondition!=null && existingCondition!=null &&
-			!requiredCondition.equals(existingCondition))
+		if(condition!=null && condition.mismatches())
 		{
+			final String mismatching = condition.getMismatching(this);
 			final StringBuilder bf = new StringBuilder();
 			bf.append(
-					"unexpected condition >>>").append(existingCondition).append("<<<"); // The value of this string literal must not be changed, otherwise cope console breaks
+					"unexpected condition >>>").append(mismatching).append("<<<"); // The value of this string literal must not be changed, otherwise cope console breaks
 
-			if(!existingCondition.equals(existingConditionRaw))
+			if(!Objects.equals(mismatching, existingConditionRaw))
 				bf.append(" (originally >>>"). // The value of this string literal must not be changed, otherwise cope console breaks
 					append(existingConditionRaw).
 					append("<<<)"); // The value of this string literal must not be changed, otherwise cope console breaks
 
 			return Result.error(bf.toString());
 		}
-
-		if(requiredCondition==null && existingCondition!=null)
-			return Result.error(
-					"surplus condition >>>" + existingCondition + "<<<");
-
-		if(requiredCondition!=null && existingCondition==null)
-			return Result.error(
-					"missing condition >>>" + requiredCondition + "<<<");
 
 		return Result.ok;
 	}

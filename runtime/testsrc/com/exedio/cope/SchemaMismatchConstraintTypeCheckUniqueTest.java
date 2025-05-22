@@ -59,7 +59,10 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 			final Constraint constraint = table.getConstraint("ItemAB_constraint_Unq");
 			assertExistance(true, supportsCheck, constraint);
 			assertEquals(Constraint.Type.Check, constraint.getType());
+			assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getCondition());
 			assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getRequiredCondition());
+			assertEquals(null, constraint.getMismatchingCondition());
+			assertEquals(null, constraint.getMismatchingConditionRaw());
 			assertEquals(CheckConstraint.class, constraint.getClass());
 			assertIt(supportsCheck ? null : "unsupported", OK, OK, constraint);
 		}
@@ -75,7 +78,16 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 		final Constraint constraint = table.getConstraint("ItemAB_constraint_Unq");
 		assertExistance(true, supportsCheck, constraint);
 		assertEquals(Constraint.Type.Unique, constraint.getType());
+		assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getCondition());
 		assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getRequiredCondition());
+		assertEquals(supportsCheck
+				? q("fieldA")+"<"+q("fieldB")
+				: null,
+				constraint.getMismatchingCondition());
+		assertEquals(supportsCheck
+				? q("fieldA")+sao+"<"+sao+q("fieldB")
+				: null,
+				constraint.getMismatchingConditionRaw());
 		assertEquals(UniqueConstraint.class, constraint.getClass());
 		assertIt(
 				supportsCheck
