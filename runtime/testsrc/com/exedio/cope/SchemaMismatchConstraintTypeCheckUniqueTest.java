@@ -33,6 +33,9 @@ import com.exedio.dsmf.Table;
 import com.exedio.dsmf.UniqueConstraint;
 import org.junit.jupiter.api.Test;
 
+/**
+ * @see SchemaMismatchConstraintTypeUniqueCheckTest
+ */
 public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchTest
 {
 	public SchemaMismatchConstraintTypeCheckUniqueTest()
@@ -76,7 +79,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 		assertEquals(UniqueConstraint.class, constraint.getClass());
 		assertIt(
 				supportsCheck
-				? "unexpected condition >>>"+q("fieldA")+sao+"<"+sao+q("fieldB")+"<<<" // TODO should have been subject to Constraint#adjustExistingCondition
+				? "unexpected condition >>>"+q("fieldA")+"<"+q("fieldB")+"<<<" + (!sao.isEmpty() ? " (originally >>>"+q("fieldA")+sao+"<"+sao+q("fieldB")+"<<<)" : "")
 				: "missing",
 				ERROR, ERROR, constraint);
 
@@ -86,7 +89,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 
 	@CopeName("ItemAB")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	private static final class ItemA extends Item
+	static final class ItemA extends Item
 	{
 		@WrapperIgnore static final IntegerField fieldA = new IntegerField().toFinal(); // avoid update counter
 		@WrapperIgnore static final IntegerField fieldB = new IntegerField().toFinal(); // avoid update counter
@@ -99,7 +102,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class,ItemA::new);
+		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class,ItemA::new);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -107,7 +110,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 
 	@CopeName("ItemAB")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	private static final class ItemB extends Item
+	static final class ItemB extends Item
 	{
 		@WrapperIgnore static final IntegerField fieldA = new IntegerField().toFinal(); // avoid update counter
 		@WrapperIgnore static final IntegerField fieldB = new IntegerField().toFinal(); // avoid update counter
@@ -119,7 +122,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class,ItemB::new);
+		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class,ItemB::new);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}

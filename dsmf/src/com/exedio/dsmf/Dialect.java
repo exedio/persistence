@@ -221,7 +221,7 @@ public abstract class Dialect
 			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new CheckConstraint(table, null, constraintName, false, condition);
 		else
-			result.notifyExistsCondition(condition);
+			result.notifyExistsCondition(table.dialect.adjustExistingCheckConstraintCondition(condition), condition);
 	}
 
 	protected static final void notifyExistentPrimaryKey(
