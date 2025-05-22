@@ -296,8 +296,16 @@ public final class Assert
 
 	public static void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
 	{
+		assertEqualsUnmodifiable(expected, actual, null);
+	}
+
+	public static void assertEqualsUnmodifiable(
+			final List<?> expected,
+			final Collection<?> actual,
+			final String message)
+	{
 		assertUnmodifiable(actual);
-		assertEquals(expected, actual);
+		assertEquals(expected, actual, message);
 	}
 
 	public static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)

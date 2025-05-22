@@ -22,6 +22,7 @@ import static com.exedio.cope.MysqlDialect.REGEXP;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -363,6 +364,7 @@ final class RuntimeTester
 				() -> assertEquals(error, node.getError(), "error"),
 				() -> assertEquals(true, node.required(), "required"),
 				() -> assertEquals(!"unsupported".equals(error), node.exists(), "exists"),
+				() -> assertEqualsUnmodifiable(List.of(), node.getAdditionalErrors(), "additionalErrors"),
 				() -> assertEquals(Node.Color.OK, node.getParticularColor(), "particularColor"),
 				() -> assertEquals(Node.Color.OK, node.getCumulativeColor(), "cumulativeColor"));
 	}

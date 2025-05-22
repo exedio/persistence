@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
@@ -35,6 +36,7 @@ import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.SQLException;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class MysqlSchemaEngineTest extends TestWithEnvironment
@@ -79,6 +81,9 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 	{
 		final Schema schema = model.getVerifiedSchema();
 		final Table table = schema.getTable(getTableName(MyItem.TYPE));
+		assertEqualsUnmodifiable(
+				tableError!=null ? List.of(tableError) : List.of(),
+				table.getAdditionalErrors());
 		final Column column = table.getColumn(getPrimaryKeyColumnName(MyItem.TYPE));
 		assertEquals(columnError, column.getError(),           "column.error");
 		assertEquals(columnColor, column.getParticularColor(), "column.particularColor");

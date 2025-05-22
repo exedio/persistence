@@ -18,11 +18,14 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.dsmf.Dialect.ResultSetHandler;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Nonnull;
 
 public abstract class Node
@@ -52,7 +55,7 @@ public abstract class Node
 
 	private final boolean required;
 	private boolean exists;
-	private String additionalError;
+	private ArrayList<String> additionalErrors;
 
 	private Result resultIfSet;
 
@@ -140,16 +143,20 @@ public abstract class Node
 	{
 		requireNonNull(message);
 
-		additionalError =
-				(additionalError!=null)
-				? additionalError + ", " + message
-				: message;
+		if(additionalErrors==null)
+			additionalErrors = new ArrayList<>();
+		additionalErrors.add(message);
+	}
+
+	public List<String> getAdditionalErrors()
+	{
+		return additionalErrors!=null ? unmodifiableList(additionalErrors) : List.of();
 	}
 
 	final Result finish()
 	{
 		return this.resultIfSet = requireNonNull(computeResult(), "computeResult").
-				additionalError(additionalError);
+				additionalError(additionalErrors!=null ? String.join(", ", additionalErrors) : null);
 	}
 
 	abstract Result computeResult();
