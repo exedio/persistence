@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -157,6 +158,16 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 	{
 		assertIt(expectedError, expectedParticularColor, expectedCumulativeColor, actual);
 		assertEquals(expectedType, actual.getType(), "type");
+	}
+
+	protected static final void assertExistance(
+			final boolean expectedRequired,
+			final boolean expectedExists,
+			final Node node)
+	{
+		assertAll(
+				() -> assertEquals(expectedRequired, node.required(), "required"),
+				() -> assertEquals(expectedExists, node.exists(), "exists"));
 	}
 
 	protected List<Table> withTrail(
