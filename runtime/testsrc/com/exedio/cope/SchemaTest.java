@@ -171,7 +171,7 @@ public class SchemaTest extends TestWithEnvironment
 
 		assertUniqueConstraint(table, "Main_uniqueString_Unq", "("+q(uniqueString)+")");
 
-		assertUniqueConstraint(table, "Main_doubleUnique_Unq", "("+q(string)+","+q(anEnum)+")");
+		assertUniqueConstraint(table, unq("Main_doubleUnique"), "("+q(string)+","+q(anEnum)+")");
 
 		final Column min4Max8Column = table.getColumn(getColumnName(stringMin4Max8));
 		assertEquals(null, min4Max8Column.getError());

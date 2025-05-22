@@ -68,7 +68,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 				"AnItem_uniqueSingle_EN",
 				"AnItem_uniqueA_EN", "AnItem_uniqueB_EN",
 				"AnItem_uniqueSingle_Unq",
-				"AnItem_uniqueDouble_Unq"),
+				unq("AnItem_uniqueDouble")),
 				names(table.getConstraints()));
 
 		assertColumn(table, getPrimaryKeyColumnName(TYPE), "AnItem_PK", "AnItem_this_MN", "AnItem_this_MX");
@@ -80,7 +80,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		assertColumn(table, getColumnName(uniqueSingle), "AnItem_uniqueSingle_EN", "AnItem_uniqueSingle_Unq");
 		assertColumn(table, getColumnName(uniqueA), "AnItem_uniqueA_EN");
 		assertColumn(table, getColumnName(uniqueB), "AnItem_uniqueB_EN");
-		assertColumn(table, null, "AnItem_uniqueDouble_Unq");
+		assertColumn(table, null, unq("AnItem_uniqueDouble"));
 
 		assertEquals(asList(
 				"AnItem_PK", "AnItem_this_MN", "AnItem_this_MX"),
@@ -110,7 +110,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 				"AnItem_uniqueB_EN"),
 				names(table.getColumn(getColumnName(uniqueB)).getConstraints()));
 		assertEquals(asList(
-				"AnItem_uniqueDouble_Unq"),
+				unq("AnItem_uniqueDouble")),
 				names(table.getTableConstraints()));
 	}
 

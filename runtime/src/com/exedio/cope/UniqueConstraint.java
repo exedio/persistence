@@ -180,12 +180,14 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 		final String schemaName =
 			(fields.length==1)
-			? fields[0].getDeclaredSchemaName()
-			: getDeclaredSchemaName();
-		databaseID = intern(table.makeGlobalID(TrimClass.standard, schemaName + "_Unq"));
+			? fields[0].getDeclaredSchemaName() + POSTFIX
+			: table.database.properties.redundantUnq(getDeclaredSchemaName());
+		databaseID = intern(table.makeGlobalID(TrimClass.standard, schemaName));
 
 		table.database.executor.addUniqueConstraint(databaseID, this);
 	}
+
+	static final String POSTFIX = "_Unq";
 
 	void disconnect()
 	{

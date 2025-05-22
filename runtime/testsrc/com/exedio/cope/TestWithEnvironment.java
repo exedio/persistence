@@ -42,6 +42,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
 import java.util.regex.Matcher;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 
 @TestWithEnvironment.Tag
@@ -168,6 +169,16 @@ public abstract class TestWithEnvironment
 	protected final String synthetic(final String name, final String global)
 	{
 		return tester.synthetic(name, global);
+	}
+
+	protected final String unq(final String s)
+	{
+		return model.getConnectProperties().redundantUnq(s);
+	}
+
+	protected final void assumeUnq()
+	{
+		Assumptions.assumeTrue(model.getConnectProperties().redundantUnq);
 	}
 
 	protected final void notAllowed(final Query<?> query, final String message)

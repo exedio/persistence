@@ -728,7 +728,8 @@ void branchMysql(
 				'mysql',
 				binlogName,
 				'disableSupport.semicolon=true\n' +
-				'disableSupport.nativeDate=true\n'
+				'disableSupport.nativeDate=true\n' +
+				'schema.redundantUnq=true\n'
 			)
 			envMysql(
 				'my' + code + '-nprep',
@@ -789,7 +790,8 @@ void branchMysql(
 				'mariadb',
 				binlogName,
 				'disableSupport.semicolon=true\n' +
-				'disableSupport.nativeDate=true\n'
+				'disableSupport.nativeDate=true\n' +
+				'schema.redundantUnq=true\n'
 			)
 			envMysql(
 				'my' + code + 'm-nprep',

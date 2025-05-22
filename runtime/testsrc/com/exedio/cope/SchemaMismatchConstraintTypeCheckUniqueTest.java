@@ -45,6 +45,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 
 	@Test void testIt()
 	{
+		assumeUnq();
 		final boolean supportsCheck = SchemaInfo.supportsCheckConstraint(modelA);
 		final String sao = switch(dialect) // space around operator
 		{
