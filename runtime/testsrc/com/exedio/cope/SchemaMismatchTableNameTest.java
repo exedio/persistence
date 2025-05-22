@@ -24,6 +24,7 @@ import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;
+import static com.exedio.dsmf.Sequence.Type.bit31;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -58,6 +59,9 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			assertIt("unused", WARNING, WARNING, tableA);
 			assertIt("unused", WARNING, WARNING, pkA = tableA.getColumn(name(ItemA.TYPE.getThis())));
 			assertIt("unused", WARNING, WARNING, fdA = tableA.getColumn(name(ItemA.field)));
+			assertExistance(false, true, tableA);
+			assertExistance(false, true, pkA);
+			assertExistance(false, true, fdA);
 			assertEqualsUnmodifiable(asList(pkA, fdA), tableA.getColumns());
 		}
 		final Table tableB = schema.getTable(name(ItemB.TYPE));
@@ -67,6 +71,9 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			assertIt("missing", ERROR, ERROR, tableB);
 			assertIt("missing", ERROR, ERROR, pkB = tableB.getColumn(name(ItemB.TYPE.getThis())));
 			assertIt("missing", ERROR, ERROR, fdB = tableB.getColumn(name(ItemB.field)));
+			assertExistance(true, false, tableB);
+			assertExistance(true, false, pkB);
+			assertExistance(true, false, fdB);
 			assertEqualsUnmodifiable(asList(pkB, fdB), tableB.getColumns());
 			pkBcolumn = pkB;
 		}
@@ -97,6 +104,10 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 				assertEquals(null, schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
 				assertIt("unused",   WARNING, WARNING, seqA = schema.getTable   (nameSeq(ItemA.TYPE.getThis())));
 				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
+				assertExistance(false, true, seqA);
+				assertExistance(true, false, seqB);
+				assertEquals(bit31, seqB.getType());
+				assertEquals(0, seqB.getStartL());
 
 				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA, seqA), schema.getTables());
 				assertEqualsUnmodifiable(asList(seqB), schema.getSequences());
@@ -106,6 +117,12 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 				final Sequence seqA, seqB;
 				assertIt("unused",   WARNING, WARNING, seqA = schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
 				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
+				assertExistance(false, true, seqA);
+				assertExistance(true, false, seqB);
+				assertEquals(bit31, seqA.getType());
+				assertEquals(0, seqA.getStartL());
+				assertEquals(bit31, seqB.getType());
+				assertEquals(0, seqB.getStartL());
 
 				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA), schema.getTables());
 				assertEqualsUnmodifiable(asList(seqB, seqA), schema.getSequences());

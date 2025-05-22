@@ -85,12 +85,15 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			{
 				assertIt("unused",   ERROR,   ERROR,   Check, checkA);
 				assertIt("missing",  WARNING, WARNING, Check, checkB);
+				assertEquals(null, checkA.getRequiredCondition());
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredCondition());
 				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 			}
 			else
 			{
 				assertNull(checkA);
 				assertIt("unsupported",  OK, OK, Check, checkB);
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredCondition());
 			}
 
 			assertTrue(pkPk    instanceof com.exedio.dsmf.PrimaryKeyConstraint);

@@ -44,11 +44,20 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 
 	@Test void testIt()
 	{
-		assertIt(null, OK, OK, modelA.getVerifiedSchema());
+		final boolean supported = supportsCheckConstraint(model);
+		{
+			final Schema schema = modelA.getVerifiedSchema();
+			assertIt(null, OK, OK, schema);
+
+			final Constraint check = schema.getTable(name(ItemA.TYPE)).getConstraint(nameCkMax(ItemA.field));
+			assertIt(supported ? null : "unsupported", OK, OK, Check, check);
+			assertEquals(supported, check.isSupported());
+			assertExistance(true, supported, check);
+			assertEquals(q("field") + "<=66", check.getRequiredCondition());
+		}
 
 		assertEquals(name(ItemA.TYPE), name(ItemB.TYPE));
 
-		final boolean supported = supportsCheckConstraint(model);
 		final Schema schema = modelB.getVerifiedSchema();
 		assertIt(null, OK, supported ? ERROR : OK, schema);
 
@@ -67,6 +76,9 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 						" (originally >>>"+ q("field") + " <= 66<<<)";
 
 			assertIt(error, ERROR, ERROR, Check, check);
+			assertEquals(true, check.isSupported());
+			assertExistance(true, true, check);
+			assertEquals(q("field") + "<=88", check.getRequiredCondition());
 
 			// test propagation to cumulativeColor
 			assertIt(null, OK, ERROR, table.getColumn(name(ItemA.field)));
@@ -74,6 +86,10 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		else
 		{
 			assertIt("unsupported", OK, OK, Check, check);
+			assertEquals(false, check.isSupported());
+			assertExistance(true, false, check);
+			assertEquals(q("field") + "<=88", check.getRequiredCondition());
+
 			// test propagation to cumulativeColor
 			assertIt(null, OK, OK, table.getColumn(name(ItemA.field)));
 		}
