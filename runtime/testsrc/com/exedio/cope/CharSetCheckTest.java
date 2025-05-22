@@ -28,8 +28,7 @@ class CharSetCheckTest extends TestWithEnvironment
 		MODEL.commit();
 		if(mysql)
 		{
-			//TODO should always be 0
-			assertEquals(atLeastMysql8() ? 1 : 0, csConstraint.checkL(), csConstraint::getName);
+			assertEquals(0, csConstraint.checkL(), csConstraint::getName);
 		}
 		else
 		{
