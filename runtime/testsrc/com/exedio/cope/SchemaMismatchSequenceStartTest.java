@@ -22,6 +22,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
+import static com.exedio.dsmf.Sequence.Type.bit31;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,6 +51,9 @@ public class SchemaMismatchSequenceStartTest extends SchemaMismatchTest
 
 		final Sequence sequence = schema.getSequence(name(ItemA.sequence));
 		assertIt(supported("unexpected start 55"), supported(ERROR), supported(ERROR), sequence);
+		assertExistance(true, true, sequence);
+		assertEquals(bit31, sequence.getType());
+		assertEquals(66, sequence.getStartL());
 
 		assertEqualsUnmodifiable(
 				model.getConnectProperties().primaryKeyGenerator.persistent

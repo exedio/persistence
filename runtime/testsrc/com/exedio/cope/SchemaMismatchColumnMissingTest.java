@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
@@ -61,6 +62,11 @@ public class SchemaMismatchColumnMissingTest extends SchemaMismatchTest
 		{
 			assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
 			assertIt("missing", ERROR, ERROR, field = table.getColumn(name(ItemA.field)));
+			assertExistance(true, false, field);
+			assertEquals(type(ItemA.field), field.getType());
+			assertEquals(type(ItemA.field), field.getRequiredType());
+			assertFails(field::getExistingType, IllegalStateException.class, "not existing");
+			assertEquals(false, field.mismatchesType());
 
 			assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
 		}
@@ -83,6 +89,8 @@ public class SchemaMismatchColumnMissingTest extends SchemaMismatchTest
 					supported ? WARNING : OK,
 					supported ? WARNING : OK, Check,
 					checkA);
+			assertEquals(supported, checkA.isSupported());
+			assertExistance(true, false, checkA);
 			assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 
 			assertTrue(pkPk       instanceof com.exedio.dsmf.PrimaryKeyConstraint);

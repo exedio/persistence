@@ -125,6 +125,20 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 				element.getType().getModel().connect().dialect.getIntegerType(PK.MIN_VALUE, element.getType().createLimit);
 	}
 
+	protected static final String type(final IntegerField element)
+	{
+		return
+				element.getType().getModel().connect().dialect.getIntegerType(element.getMinimum(), element.getMaximum()) +
+				(element.isMandatory() ? " not null" : "");
+	}
+
+	protected static final String type(final BooleanField element)
+	{
+		return
+				element.getType().getModel().connect().dialect.getIntegerType(0, 1) +
+				(element.isMandatory() ? " not null" : "");
+	}
+
 	protected static final String type(final StringField element)
 	{
 		return

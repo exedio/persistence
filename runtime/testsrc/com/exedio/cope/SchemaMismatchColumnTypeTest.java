@@ -40,7 +40,17 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 
 	@Test void testIt()
 	{
-		assertIt(null, OK, OK, modelA.getVerifiedSchema());
+		{
+			final Schema schema = modelA.getVerifiedSchema();
+			assertIt(null, OK, OK, schema);
+			final Column field = schema.getTable(name(ItemA.TYPE)).getColumn(name(ItemA.field));
+			assertIt(null, OK, OK, field);
+			assertExistance(true, true, field);
+			assertEquals(type(ItemA.field), field.getType());
+			assertEquals(type(ItemA.field), field.getRequiredType());
+			assertEquals(type(ItemA.field), field.getExistingType());
+			assertEquals(false, field.mismatchesType());
+		}
 
 		assertEquals(name(ItemA.TYPE) , name(ItemB.TYPE ));
 		assertEquals(name(ItemA.field), name(ItemB.field));
@@ -56,6 +66,10 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 		assertIt(
 				"unexpected type >" + type(ItemA.field) + "<",
 				ERROR, ERROR, field = table.getColumn(name(ItemA.field)));
+		assertEquals(type(ItemB.field), field.getType());
+		assertEquals(type(ItemB.field), field.getRequiredType());
+		assertEquals(type(ItemA.field), field.getExistingType());
+		assertEquals(true, field.mismatchesType());
 
 		assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
 		assertEqualsUnmodifiable(withTrail(schema, table), schema.getTables());

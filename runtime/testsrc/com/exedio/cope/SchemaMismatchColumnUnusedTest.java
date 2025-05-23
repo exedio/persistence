@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
@@ -64,6 +65,11 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 		{
 			assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
 			assertIt("unused", ERROR, ERROR, field = table.getColumn(name(ItemA.field)));
+			assertExistance(false, true, field);
+			assertEquals(type(ItemA.field), field.getType());
+			assertFails(field::getRequiredType, IllegalStateException.class, "not required");
+			assertEquals(type(ItemA.field), field.getExistingType());
+			assertEquals(false, field.mismatchesType());
 
 			assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
 		}
@@ -84,6 +90,8 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 			if(supported)
 			{
 				assertIt("unused", ERROR, ERROR, Check, checkA);
+				assertFails(checkA::isSupported, NullPointerException.class, "ItemAB_field_EN");
+				assertExistance(false, true, checkA);
 				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 			}
 			else
