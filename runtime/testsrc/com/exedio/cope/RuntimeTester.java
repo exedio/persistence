@@ -22,6 +22,7 @@ import static com.exedio.cope.MysqlDialect.REGEXP;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -348,9 +349,11 @@ final class RuntimeTester
 
 	private static void assertOk(final String error, final Node node, final String message)
 	{
-		assertEquals(error, node.getError(), message);
-		assertEquals(Node.Color.OK, node.getParticularColor(), message);
-		assertEquals(Node.Color.OK, node.getCumulativeColor(), message);
+		assertAll(
+				message,
+				() -> assertEquals(error, node.getError(), "error"),
+				() -> assertEquals(Node.Color.OK, node.getParticularColor(), "particularColor"),
+				() -> assertEquals(Node.Color.OK, node.getCumulativeColor(), "cumulativeColor"));
 	}
 
 	static void assertFieldsCovered(
