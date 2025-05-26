@@ -60,6 +60,11 @@ public class ICUTest
 		assertIt("\\A[\\&-\\-\\[-\\]]*\\z", new CharSet('&', '-', '[', ']'));
 		assertIt("\\A[\\\\]*\\z", new CharSet('\\', '\\'));
 	}
+	@Test void testSupplementary()
+	{
+		assertIt("\\A[ -\\uffff]*\\z", new CharSet(' ', '\uffff')); // TODO allow supplementary code points
+		assertIt("\\A[\\ud800-\\udfff]*\\z", new CharSet(Character.MIN_SURROGATE, Character.MAX_SURROGATE)); // TODO allow supplementary code points
+	}
 
 	private static void assertIt(final String expected, final CharSet actual)
 	{
