@@ -319,20 +319,7 @@ final class RuntimeTester
 				assertOk(column, table.getName() + '#' + column.getName() + '#' + column.getType());
 
 			for(final Constraint constraint : table.getConstraints())
-			{
-				final String message = table.getName() + '#' + constraint.getName();
-				if(constraint instanceof CheckConstraint &&
-					(!supportsCheckConstraint(model) || constraint.getRequiredCondition().contains(REGEXP)))
-				{
-					assertEquals("unsupported", constraint.getError(), message);
-					assertEquals(Node.Color.OK, constraint.getParticularColor(), message);
-					assertEquals(Node.Color.OK, constraint.getCumulativeColor(), message);
-				}
-				else
-				{
-					assertOk(constraint, message);
-				}
-			}
+				assertOk(constraint);
 
 			assertOk(table, table.getName());
 		}
@@ -343,9 +330,25 @@ final class RuntimeTester
 		assertOk(schema, "schema");
 	}
 
+	private void assertOk(final Constraint constraint)
+	{
+		assertOk(
+				constraint instanceof CheckConstraint &&
+				(!supportsCheckConstraint(model) || constraint.getRequiredCondition().contains(REGEXP))
+						? "unsupported"
+						: null,
+				constraint,
+				constraint.getTable().getName() + '#' + constraint.getName());
+	}
+
 	private static void assertOk(final Node node, final String message)
 	{
-		assertEquals(null, node.getError(), message);
+		assertOk(null, node, message);
+	}
+
+	private static void assertOk(final String error, final Node node, final String message)
+	{
+		assertEquals(error, node.getError(), message);
 		assertEquals(Node.Color.OK, node.getParticularColor(), message);
 		assertEquals(Node.Color.OK, node.getCumulativeColor(), message);
 	}
