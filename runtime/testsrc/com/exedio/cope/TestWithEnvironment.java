@@ -33,6 +33,7 @@ import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.UniqueConstraint;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -126,6 +127,11 @@ public abstract class TestWithEnvironment
 	protected final void assertSchema()
 	{
 		tester.assertSchema();
+	}
+
+	protected final void assertSchema(final Schema schema)
+	{
+		tester.assertSchema(schema);
 	}
 
 	// copied from CopeTest

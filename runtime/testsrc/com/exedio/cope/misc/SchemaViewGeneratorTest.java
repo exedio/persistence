@@ -26,7 +26,6 @@ import static java.time.Month.OCTOBER;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -44,7 +43,6 @@ import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.SI;
-import com.exedio.dsmf.Node;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -133,7 +131,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 			assertFalse(rs.next());
 		}
-		assertSame(Node.Color.OK, MODEL.getVerifiedSchema().getCumulativeColor());
+		assertSchema(MODEL.getVerifiedSchema());
 
 
 		sv.tearDown();
