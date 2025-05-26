@@ -302,45 +302,45 @@ try
 	}
 
 	if(branchConsidersDatabase("Mysql"))
-	parallelBranches["Mysql57CR"] = {
+	parallelBranches["Mysql80CR"] = {
 		nodeCheckoutAndDelete { scmResult ->
 			String buildTag = makeBuildTag(scmResult)
 
 			sh 'rm -f conf/environment/*.properties'
 
 			envMysql(
-				'my57-stampsA',
+				'my80-stampsA',
 				'mysql',
 				'mysql-bin',
 				'cache.stamps=true'
 			)
 			envMysql(
-				'my57-stampsB',
+				'my80-stampsB',
 				'mysql',
 				'mysql-bin',
 				'cache.stamps=false'
 			)
 			envMysql(
-				'my57m-stampsA',
+				'my80m-stampsA',
 				'mariadb',
 				'mysql-bin',
 				'cache.stamps=true'
 			)
 			envMysql(
-				'my57m-stampsB',
+				'my80m-stampsB',
 				'mariadb',
 				'mysql-bin',
 				'cache.stamps=false'
 			)
 
-			def mainImage = mainImage(imageName("Mysql57CR"))
+			def mainImage = mainImage(imageName("Mysql80CR"))
 			def dbImage = docker.build(
-				imageName('Mysql57CR', 'db'),
-				'--build-arg VERSION=' + databaseMysql57 + ' ' +
-				'--build-arg CONF=my57.cnf ' +
+				imageName('Mysql80CR', 'db'),
+				'--build-arg VERSION=' + databaseMysql80 + ' ' +
+				'--build-arg CONF=my80.cnf ' +
 				'conf/mysql')
 
-			withBridge("Mysql57CR-db") { dbBridge ->
+			withBridge("Mysql80CR-db") { dbBridge ->
 				dbImage.withRun(
 					dockerRunDefaults(dbBridge, 'test-db-host') +
 					"--cap-add CHOWN " +
@@ -362,8 +362,8 @@ try
 						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
-					sh "docker logs " + c.id + " &> db-Mysql57CR.log"
-					archiveArtifacts 'db-Mysql57CR.log'
+					sh "docker logs " + c.id + " &> db-Mysql80CR.log"
+					archiveArtifacts 'db-Mysql80CR.log'
 				}
 			}
 			junit(
@@ -371,12 +371,12 @@ try
 				testResults: 'build/testresults/**/*.xml',
 				skipPublishingChecks: true
 			)
-			sh "mv build buildMysql57CR"
+			sh "mv build buildMysql80CR"
 			archiveArtifacts(
-				'buildMysql57CR/testprotocol.*,' +
-				'buildMysql57CR/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
-				'buildMysql57CR/*.log,' +
-				'buildMysql57CR/testtmpdir'
+				'buildMysql80CR/testprotocol.*,' +
+				'buildMysql80CR/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+				'buildMysql80CR/*.log,' +
+				'buildMysql80CR/testtmpdir'
 			)
 		}
 	}
