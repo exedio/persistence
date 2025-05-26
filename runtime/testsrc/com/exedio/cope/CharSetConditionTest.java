@@ -273,11 +273,6 @@ public class CharSetConditionTest extends TestWithEnvironment
 			assertEquals(expected, actual, "charSet");
 		}
 
-		// TODO the "if" below works around a bug in cope
-		if(charSet.contains('\uD800') && charSet.contains('\uDFFF') &&
-			mysql && atLeastMysql8())
-			expected.removeIf(item -> item.getField().startsWith(BEYOND_BMP));
-
 		final CharSetCondition condition =
 				(CharSetCondition)AnItem.field.conformsTo(charSet);
 		assertSame(AnItem.field, condition.getFunction());

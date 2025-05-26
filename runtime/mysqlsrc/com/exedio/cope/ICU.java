@@ -48,6 +48,11 @@ final class ICU
 				append(bf, b);
 			}
 		}
+		if(charSet.contains(Character.MIN_SURROGATE) && charSet.contains(Character.MAX_SURROGATE))
+		{
+			// charSet allows surrogate characters - so we allow code points in the supplementary planes:
+			bf.append("\\U00010000-\\U0010ffff");
+		}
 
 		bf.append("]*\\z");
 		return bf.toString();

@@ -62,8 +62,8 @@ public class ICUTest
 	}
 	@Test void testSupplementary()
 	{
-		assertIt("\\A[ -\\uffff]*\\z", new CharSet(' ', '\uffff')); // TODO allow supplementary code points
-		assertIt("\\A[\\ud800-\\udfff]*\\z", new CharSet(Character.MIN_SURROGATE, Character.MAX_SURROGATE)); // TODO allow supplementary code points
+		assertIt("\\A[ -\\uffff\\U00010000-\\U0010ffff]*\\z", new CharSet(' ', '\uffff'));
+		assertIt("\\A[\\ud800-\\udfff\\U00010000-\\U0010ffff]*\\z", new CharSet(Character.MIN_SURROGATE, Character.MAX_SURROGATE));
 	}
 
 	private static void assertIt(final String expected, final CharSet actual)
