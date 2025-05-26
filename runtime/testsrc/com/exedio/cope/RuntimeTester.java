@@ -316,7 +316,7 @@ final class RuntimeTester
 		for(final com.exedio.dsmf.Table table : schema.getTables())
 		{
 			for(final com.exedio.dsmf.Column column : table.getColumns())
-				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
+				assertOk(column, table.getName() + '#' + column.getName() + '#' + column.getType());
 
 			for(final Constraint constraint : table.getConstraints())
 			{
@@ -330,20 +330,20 @@ final class RuntimeTester
 				}
 				else
 				{
-					assertOk(message, constraint);
+					assertOk(constraint, message);
 				}
 			}
 
-			assertOk(table.getName(), table);
+			assertOk(table, table.getName());
 		}
 
 		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
-			assertOk(sequence.getName(), sequence);
+			assertOk(sequence, sequence.getName());
 
-		assertOk("schema", schema);
+		assertOk(schema, "schema");
 	}
 
-	private static void assertOk(final String message, final Node node)
+	private static void assertOk(final Node node, final String message)
 	{
 		assertEquals(null, node.getError(), message);
 		assertEquals(Node.Color.OK, node.getParticularColor(), message);
