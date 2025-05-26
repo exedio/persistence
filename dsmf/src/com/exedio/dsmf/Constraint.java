@@ -38,6 +38,7 @@ public abstract class Constraint extends Node
 	final Type type;
 	final String requiredCondition;
 	private String existingCondition;
+	private String existingConditionRaw;
 
 	Constraint(
 			final Table table,
@@ -46,6 +47,18 @@ public abstract class Constraint extends Node
 			final Type type,
 			final boolean required,
 			final String condition)
+	{
+		this(table, column, name, type, required, condition, condition);
+	}
+
+	Constraint(
+			final Table table,
+			final Column column,
+			final String name,
+			final Type type,
+			final boolean required,
+			final String condition,
+			final String conditionRaw)
 	{
 		super(table.dialect, table.connectionProvider, required);
 
@@ -64,6 +77,7 @@ public abstract class Constraint extends Node
 		{
 			this.requiredCondition = null;
 			this.existingCondition = condition;
+			this.existingConditionRaw = conditionRaw;
 		}
 		//noinspection ThisEscapedInObjectConstruction
 		table.register(this);
@@ -104,13 +118,22 @@ public abstract class Constraint extends Node
 
 	final void notifyExistsCondition(final String condition)
 	{
+		notifyExistsCondition(condition, condition);
+	}
+
+	final void notifyExistsCondition(final String condition, final String conditionRaw)
+	{
 		if(condition==null)
+			throw new NullPointerException();
+		if(conditionRaw==null)
 			throw new NullPointerException();
 
 		assert existingCondition==null;
+		assert existingConditionRaw==null;
 
 		notifyExistsNode();
 		this.existingCondition = condition;
+		this.existingConditionRaw = conditionRaw;
 	}
 
 	@Override
@@ -124,20 +147,16 @@ public abstract class Constraint extends Node
 		if(!required())
 			return Result.unused(table.required());
 
-		final String existingConditionAdjusted =
-				existingCondition!=null
-				? adjustExistingCondition(existingCondition)
-				: null;
 		if(requiredCondition!=null && existingCondition!=null &&
-			!requiredCondition.equals(existingConditionAdjusted))
+			!requiredCondition.equals(existingCondition))
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append(
-					"unexpected condition >>>").append(existingConditionAdjusted).append("<<<"); // The value of this string literal must not be changed, otherwise cope console breaks
+					"unexpected condition >>>").append(existingCondition).append("<<<"); // The value of this string literal must not be changed, otherwise cope console breaks
 
-			if(!existingCondition.equals(existingConditionAdjusted))
+			if(!existingCondition.equals(existingConditionRaw))
 				bf.append(" (originally >>>"). // The value of this string literal must not be changed, otherwise cope console breaks
-					append(existingCondition).
+					append(existingConditionRaw).
 					append("<<<)"); // The value of this string literal must not be changed, otherwise cope console breaks
 
 			return Result.error(bf.toString());
@@ -152,11 +171,6 @@ public abstract class Constraint extends Node
 					"missing condition >>>" + requiredCondition + "<<<");
 
 		return Result.ok;
-	}
-
-	String adjustExistingCondition(final String s)
-	{
-		return s;
 	}
 
 	@Override

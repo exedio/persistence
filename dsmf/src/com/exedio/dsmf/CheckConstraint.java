@@ -57,7 +57,11 @@ public final class CheckConstraint extends Constraint
 			final boolean required,
 			final String condition)
 	{
-		super(table, column, name, Type.Check, required, condition);
+		super(table, column, name, Type.Check, required, condition,
+				required
+				? condition
+				: table.dialect.adjustExistingCheckConstraintCondition(condition)
+		);
 
 		if(condition==null)
 			throw new RuntimeException(name);
@@ -71,12 +75,6 @@ public final class CheckConstraint extends Constraint
 				dialect.supportsCheckConstraint() &&
 				dialect.supportsCheckConstraint(
 						requireNonNull(requiredCondition, name)); // isSupported must be called for required constraints only
-	}
-
-	@Override
-	String adjustExistingCondition(final String s)
-	{
-		return dialect.adjustExistingCheckConstraintCondition(s);
 	}
 
 	@Override
