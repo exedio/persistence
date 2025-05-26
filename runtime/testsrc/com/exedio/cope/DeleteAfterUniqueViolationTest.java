@@ -45,7 +45,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 	@BeforeEach final void setUp()
 	{
 		unq = model.connect().supportsUniqueViolation;
-		unqPrefix = (unq && mysql && atLeastMysql8()) ? "Main." : "";
+		unqPrefix = unq ? ((mysql && atLeastMysql8()) ? "Main." : "") : "DO NOT ASSERT";
 	}
 
 	@Test void testCommit()
