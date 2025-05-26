@@ -317,9 +317,13 @@ final class RuntimeTester
 		for(final com.exedio.dsmf.Table table : schema.getTables())
 		{
 			for(final com.exedio.dsmf.Column column : table.getColumns())
+			{
+				for(final Constraint constraint : column.getConstraints())
+					assertOk(constraint);
 				assertOk(column, table.getName() + '#' + column.getName() + '#' + column.getType());
+			}
 
-			for(final Constraint constraint : table.getConstraints())
+			for(final Constraint constraint : table.getTableConstraints())
 				assertOk(constraint);
 
 			assertOk(table, table.getName());
