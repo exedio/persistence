@@ -42,7 +42,6 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
-import com.exedio.dsmf.Node;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -364,8 +363,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testSchema()
 	{
-		model.commit();
-		assertEquals(Node.Color.OK, model.getVerifiedSchema().getCumulativeColor());
+		assertSchema();
 	}
 
 

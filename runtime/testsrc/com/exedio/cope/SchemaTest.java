@@ -245,7 +245,7 @@ public class SchemaTest extends TestWithEnvironment
 				fail();
 		}
 
-		assertEquals(OK, table.getCumulativeColor());
+		assertSchema(schema);
 	}
 
 	private static String q(final Field<?> f)

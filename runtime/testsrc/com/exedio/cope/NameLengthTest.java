@@ -121,8 +121,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 				? assertLength(60, "LooooooooooooooooooooooooooooooooooooooooooooooooooooItem_PK")
 				: assertLength(23, "LoooooooooooooooItem_PK")); // table name was trimmed to 20 before appending "_PK"
 
-		assertEquals(OK, table.getCumulativeColor());
-		assertEquals(OK, schema.getCumulativeColor());
+		assertSchema(schema);
 	}
 
 
@@ -163,6 +162,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 		final Constraint result = table.getConstraint(name);
 		assertNotNull(result, name);
 		assertEquals(type, result.getType(), name);
+		assertEquals(OK, result.getParticularColor(), name);
 		assertEquals(OK, result.getCumulativeColor(), name);
 	}
 

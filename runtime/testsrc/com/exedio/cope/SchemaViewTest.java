@@ -19,14 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
-import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
@@ -50,7 +48,7 @@ public class SchemaViewTest extends TestWithEnvironment
 	@Test void testIt() throws SQLException
 	{
 		final Schema schema1 = MODEL.getVerifiedSchema();
-		assertSame(Color.OK, schema1.getCumulativeColor());
+		assertSchema(schema1);
 
 		switch(dialect)
 		{
@@ -69,7 +67,7 @@ public class SchemaViewTest extends TestWithEnvironment
 		}
 
 		final Schema schema2 = MODEL.getVerifiedSchema();
-		assertSame(Color.OK, schema2.getCumulativeColor());
+		assertSchema(schema2);
 	}
 
 	@AfterEach void after() throws SQLException

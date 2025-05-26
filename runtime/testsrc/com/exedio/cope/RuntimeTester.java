@@ -314,6 +314,11 @@ final class RuntimeTester
 
 		model.startTransaction(RuntimeTester.class.getName() + "#assertSchema");
 
+		assertSchema(schema);
+	}
+
+	void assertSchema(final com.exedio.dsmf.Schema schema)
+	{
 		for(final com.exedio.dsmf.Table table : schema.getTables())
 		{
 			for(final com.exedio.dsmf.Column column : table.getColumns())
