@@ -352,6 +352,8 @@ final class RuntimeTester
 		assertAll(
 				message,
 				() -> assertEquals(error, node.getError(), "error"),
+				() -> assertEquals(true, node.required(), "required"),
+				() -> assertEquals(!"unsupported".equals(error), node.exists(), "exists"),
 				() -> assertEquals(Node.Color.OK, node.getParticularColor(), "particularColor"),
 				() -> assertEquals(Node.Color.OK, node.getCumulativeColor(), "cumulativeColor"));
 	}
