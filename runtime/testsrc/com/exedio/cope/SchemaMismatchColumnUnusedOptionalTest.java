@@ -72,6 +72,7 @@ public class SchemaMismatchColumnUnusedOptionalTest extends SchemaMismatchTest
 			assertEquals(type(ItemA.field), field.getExistingType());
 			assertEquals(null, field.getMismatchingType());
 			assertEquals(false, field.mismatchesType());
+			assertEquals(true, field.toleratesInsertIfUnused());
 
 			assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
 		}

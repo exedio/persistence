@@ -166,6 +166,14 @@ public final class Column extends Node
 		return type.getExisting();
 	}
 
+	public boolean toleratesInsertIfUnused()
+	{
+		if(!(!required() && exists()))
+			throw new IllegalStateException("supported for unused columns only");
+
+		return !type.get().endsWith(Dialect.NOT_NULL);
+	}
+
 	public void create()
 	{
 		create(null);

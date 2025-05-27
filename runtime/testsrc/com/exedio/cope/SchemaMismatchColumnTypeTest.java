@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static java.util.Arrays.asList;
@@ -51,6 +52,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 			assertEquals(type(ItemA.field), field.getExistingType());
 			assertEquals(null, field.getMismatchingType());
 			assertEquals(false, field.mismatchesType());
+			assertFails(field::toleratesInsertIfUnused, IllegalStateException.class, "supported for unused columns only");
 		}
 
 		assertEquals(name(ItemA.TYPE) , name(ItemB.TYPE ));
@@ -72,6 +74,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 		assertEquals(type(ItemA.field), field.getExistingType());
 		assertEquals(type(ItemA.field), field.getMismatchingType());
 		assertEquals(true, field.mismatchesType());
+		assertFails(field::toleratesInsertIfUnused, IllegalStateException.class, "supported for unused columns only");
 
 		assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
 		assertEqualsUnmodifiable(withTrail(schema, table), schema.getTables());
