@@ -106,6 +106,7 @@ public class ConnectPropertiesTest
 				"deleteSchemaForTest",
 				"schema.nameLength",
 				"schema.nameLengthLegacy",
+				"schema.redundantUnq",
 				"schema.primaryKeyGenerator",
 				"schema.tableInNames",
 				"schema.revision.table",

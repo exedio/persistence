@@ -42,7 +42,7 @@ public class UniqueDoubleTest extends TestWithEnvironment
 	@Test void test()
 	{
 		assertEquals(
-				"UniqueDoubleItem_constraint_Unq",
+				unq("UniqueDoubleItem_constraint"),
 				getConstraintName(constraint));
 
 		assertEquals(null, forConstraint("a", 1));

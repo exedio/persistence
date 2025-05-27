@@ -84,10 +84,11 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return element.getType() + "_PK";
 	}
 
-	protected static final String name(final UniqueConstraint element)
+	protected final String name(final UniqueConstraint element)
 	{
 		// TODO this is guessing and works just for short names
-		return element.getType() + "_" + element.getName() + "_Unq";
+		final String base = element.getType() + "_" + element.getName();
+		return element.getFields().size()>1 ? unq(base) : base;
 	}
 
 	protected static final String nameFk(final ItemField<?> element)

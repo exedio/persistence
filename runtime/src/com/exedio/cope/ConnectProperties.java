@@ -270,6 +270,13 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	}
 
 
+	final boolean redundantUnq = value("schema.redundantUnq", factory.redundantUnq);
+
+	String redundantUnq(final String name)
+	{
+		return redundantUnq ? name + UniqueConstraint.POSTFIX : name;
+	}
+
 	final PrimaryKeyGenerator primaryKeyGenerator = value("schema.primaryKeyGenerator", factory.primaryKeyGenerator);
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
@@ -479,6 +486,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return new Factory(
 				false, // disableNativeDate
 				false, // legacyNameLength
+				false, // redundantUnq
 				PrimaryKeyGenerator.memory,
 				"while", "protected",
 				"media/");
@@ -488,6 +496,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		private final boolean disableNativeDate;
 		private final boolean legacyNameLength;
+		private final boolean redundantUnq;
 		private final PrimaryKeyGenerator primaryKeyGenerator;
 		private final String revisionTableName;
 		private final String revisionPrimaryKeyName;
@@ -496,6 +505,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		Factory(
 				final boolean disableNativeDate,
 				final boolean legacyNameLength,
+				final boolean redundantUnq,
 				final PrimaryKeyGenerator primaryKeyGenerator,
 				final String revisionTableName,
 				final String revisionPrimaryKeyName,
@@ -503,6 +513,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			this.disableNativeDate = disableNativeDate;
 			this.legacyNameLength = legacyNameLength;
+			this.redundantUnq = redundantUnq;
 			this.primaryKeyGenerator = primaryKeyGenerator;
 			this.revisionTableName = revisionTableName;
 			this.revisionPrimaryKeyName = revisionPrimaryKeyName;
@@ -512,7 +523,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory disableNativeDate()
 		{
 			return new Factory(
-					true, legacyNameLength, primaryKeyGenerator,
+					true, legacyNameLength, redundantUnq, primaryKeyGenerator,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -523,7 +534,18 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory legacyNameLength()
 		{
 			return new Factory(
-					disableNativeDate, true, primaryKeyGenerator,
+					disableNativeDate, true, redundantUnq, primaryKeyGenerator,
+					revisionTableName, revisionPrimaryKeyName,
+					mediaRootUrl);
+		}
+
+		/**
+		 * Changes default of {@code schema.redundantUnq} to {@code true}.
+		 */
+		public Factory redundantUnq()
+		{
+			return new Factory(
+					disableNativeDate, legacyNameLength, true, primaryKeyGenerator,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -531,7 +553,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory primaryKeyGeneratorSequence()
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, PrimaryKeyGenerator.sequence,
+					disableNativeDate, legacyNameLength, redundantUnq, PrimaryKeyGenerator.sequence,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -539,7 +561,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory revisionTable(final String name, final String primaryKeyName)
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
 					name, primaryKeyName,
 					mediaRootUrl);
 		}
@@ -547,7 +569,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory mediaRootUrl(final String mediaRootUrl)
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}

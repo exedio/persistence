@@ -78,7 +78,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+SI.col(uniqueSingle)+")");
 
-		assertUniqueConstraint(table, "Zain_zuniqueDouble_Unq", "("+SI.col(uniqueDouble1)+","+SI.col(uniqueDouble2)+")");
+		assertUniqueConstraint(table, unq("Zain_zuniqueDouble"), "("+SI.col(uniqueDouble1)+","+SI.col(uniqueDouble2)+")");
 
 		assertCheckConstraint(table, "Zain_zring_MN", "CHAR_LENGTH("+SI.col(string)+")>=1");
 		assertCheckConstraint(table, "Zain_zring_MX", "CHAR_LENGTH("+SI.col(string)+")<=4");

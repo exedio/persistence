@@ -43,6 +43,7 @@ public class SchemaMismatchConstraintTypeUniqueCheckTest extends SchemaMismatchT
 
 	@Test void testIt()
 	{
+		assumeUnq();
 		{
 			final Schema schema = modelA.getVerifiedSchema();
 			assertIt(null, OK, OK, schema);
