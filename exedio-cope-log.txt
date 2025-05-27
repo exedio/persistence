@@ -8,7 +8,7 @@ The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
 * If a CharSet allows surrogate chars (\ud800-\udfff), the MySQL 8 CheckConstraints for that CharSet now allow
- 	supplementary plane code points.
+	supplementary plane code points.
 	If you have StringFields with such CharSets, MainSchemaTest will fail, and the CharSet check constraints for these
 	fields have to be re-created via patch.
 * Instrumentor uses UTF-8 by default.
