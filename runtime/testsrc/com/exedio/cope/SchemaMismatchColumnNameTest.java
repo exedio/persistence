@@ -85,11 +85,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			{
 				assertIt("unused",   ERROR,   ERROR,   Check, checkA);
 				assertIt("missing",  WARNING, WARNING, Check, checkB);
-				assertEquals(switch(dialect) {
-					case hsqldb -> "(" + q("fieldA") + ") IN ((0),(1))";
-					case mysql -> q("fieldA") + " in (0,1)";
-					case postgresql -> q("fieldA") + " = ANY (ARRAY[0, 1])";
-				}, checkA.getCondition()); // TODO bug, should be adjusted
+				assertEquals(q("fieldA") + " IN (0,1)", checkA.getCondition());
 				assertEquals(null, checkA.getRequiredCondition());
 				assertEquals(null, checkA.getMismatchingCondition());
 				assertEquals(null, checkA.getMismatchingConditionRaw());
