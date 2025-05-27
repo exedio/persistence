@@ -42,6 +42,7 @@ public class NodeTest
 		assertEquals(true, c.required());
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
+		assertEquals(null, c.getMismatchingType());
 		assertEquals("requiredType", c.getRequiredType());
 		try
 		{
@@ -60,6 +61,7 @@ public class NodeTest
 		assertEquals(true, c.required());
 		assertEquals(true, c.exists());
 		assertEquals(false, c.mismatchesType());
+		assertEquals(null, c.getMismatchingType());
 		assertEquals("requiredType", c.getRequiredType());
 		assertEquals("requiredType", c.getExistingType());
 	}
@@ -76,6 +78,7 @@ public class NodeTest
 		assertEquals(true, c.required());
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
+		assertEquals(null, c.getMismatchingType());
 		assertEquals("requiredType", c.getRequiredType());
 		try
 		{
@@ -96,6 +99,7 @@ public class NodeTest
 		assertEquals(true, c.required());
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
+		assertEquals(null, c.getMismatchingType());
 		assertEquals("requiredType", c.getRequiredType());
 		try
 		{
@@ -113,6 +117,7 @@ public class NodeTest
 		assertEquals(false, c2.required());
 		assertEquals(true, c2.exists());
 		assertEquals(false, c2.mismatchesType());
+		assertEquals(null, c2.getMismatchingType());
 		try
 		{
 			c2.getRequiredType();
@@ -137,6 +142,7 @@ public class NodeTest
 		assertEquals(true, c.required());
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
+		assertEquals(null, c.getMismatchingType());
 		assertEquals("requiredType", c.getRequiredType());
 		try
 		{
@@ -154,6 +160,7 @@ public class NodeTest
 		assertEquals(true, c.required());
 		assertEquals(true, c.exists());
 		assertEquals(true, c.mismatchesType());
+		assertEquals("existingType", c.getMismatchingType());
 		assertEquals("requiredType", c.getRequiredType());
 		assertEquals("existingType", c.getExistingType());
 	}
@@ -170,6 +177,7 @@ public class NodeTest
 		assertEquals(false, c.required());
 		assertEquals(true, c.exists());
 		assertEquals(false, c.mismatchesType());
+		assertEquals(null, c.getMismatchingType());
 		try
 		{
 			c.getRequiredType();

@@ -151,6 +151,11 @@ public final class Column extends Node
 		return type.mismatches();
 	}
 
+	public String getMismatchingType()
+	{
+		return type.getMismatching(this);
+	}
+
 	public String getRequiredType()
 	{
 		return type.getRequired();
