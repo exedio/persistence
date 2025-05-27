@@ -61,6 +61,11 @@ public final class Sequence extends Node
 		return type.get();
 	}
 
+	public Type getMismatchingType()
+	{
+		return type.getMismatching(this);
+	}
+
 	/**
 	 * @deprecated Use {@link #getStartL()} instead
 	 */
@@ -73,6 +78,11 @@ public final class Sequence extends Node
 	public long getStartL()
 	{
 		return start.get();
+	}
+
+	public Long getMismatchingStart()
+	{
+		return start.getMismatching(this);
 	}
 
 	void notifyExists(final Type existingType)

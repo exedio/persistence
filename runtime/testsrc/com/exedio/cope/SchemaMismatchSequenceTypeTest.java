@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
+import static com.exedio.dsmf.Sequence.Type.bit31;
 import static com.exedio.dsmf.Sequence.Type.bit63;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +66,9 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 			assertIt("unexpected type bit31", ERROR, ERROR, seq);
 			assertExistance(true, true, seq);
 			assertEquals(bit63, seq.getType());
+			assertEquals(bit31, seq.getMismatchingType());
 			assertEquals(0, seq.getStartL());
+			assertEquals(null, seq.getMismatchingStart());
 			assertEqualsUnmodifiable(asList(seq), schema.getSequences());
 		}
 		else

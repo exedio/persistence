@@ -53,7 +53,9 @@ public class SchemaMismatchSequenceStartTest extends SchemaMismatchTest
 		assertIt(supported("unexpected start 55"), supported(ERROR), supported(ERROR), sequence);
 		assertExistance(true, true, sequence);
 		assertEquals(bit31, sequence.getType());
+		assertEquals(null, sequence.getMismatchingType());
 		assertEquals(66, sequence.getStartL());
+		assertEquals(mysql ? null : Long.valueOf(55), sequence.getMismatchingStart());
 
 		assertEqualsUnmodifiable(
 				model.getConnectProperties().primaryKeyGenerator.persistent
