@@ -57,10 +57,11 @@ public final class CheckConstraint extends Constraint
 			final boolean required,
 			final String condition)
 	{
-		super(table, column, name, Type.Check, required, condition,
+		super(table, column, name, Type.Check, required,
 				required
 				? condition
-				: table.dialect.adjustExistingCheckConstraintCondition(condition)
+				: table.dialect.adjustExistingCheckConstraintCondition(condition),
+				condition
 		);
 
 		if(condition==null)
