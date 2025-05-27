@@ -45,7 +45,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 
 	@Test void testIt()
 	{
-		assumeUnq();
+		assumeNotUnq();
 		final boolean supportsCheck = SchemaInfo.supportsCheckConstraint(modelA);
 		final String sao = switch(dialect) // space around operator
 		{
@@ -57,7 +57,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 			assertIt(null, OK, OK, schema);
 			final Table table = schema.getTable(name(ItemA.TYPE));
 			assertIt(null, OK, OK, table);
-			final Constraint constraint = table.getConstraint("ItemAB_constraint_Unq");
+			final Constraint constraint = table.getConstraint("ItemAB_constraint");
 			assertExistance(true, supportsCheck, constraint);
 			assertEquals(Constraint.Type.Check, constraint.getType());
 			assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getCondition());
@@ -76,7 +76,7 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
-		final Constraint constraint = table.getConstraint("ItemAB_constraint_Unq");
+		final Constraint constraint = table.getConstraint("ItemAB_constraint");
 		assertExistance(true, supportsCheck, constraint);
 		assertEquals(Constraint.Type.Unique, constraint.getType());
 		assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getCondition());
@@ -106,7 +106,6 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 	{
 		@WrapperIgnore static final IntegerField fieldA = new IntegerField().toFinal(); // avoid update counter
 		@WrapperIgnore static final IntegerField fieldB = new IntegerField().toFinal(); // avoid update counter
-		@CopeSchemaName("constraint_Unq") // needed because unique constraint always end with "_Unq"
 		@UsageEntryPoint
 		static final com.exedio.cope.CheckConstraint constraint = new com.exedio.cope.CheckConstraint(fieldA.less(fieldB));
 

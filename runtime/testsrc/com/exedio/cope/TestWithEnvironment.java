@@ -176,9 +176,9 @@ public abstract class TestWithEnvironment
 		return model.getConnectProperties().redundantUnq(s);
 	}
 
-	protected final void assumeUnq()
+	protected final void assumeNotUnq()
 	{
-		Assumptions.assumeTrue(model.getConnectProperties().redundantUnq);
+		Assumptions.assumeFalse(model.getConnectProperties().redundantUnq);
 	}
 
 	protected final void notAllowed(final Query<?> query, final String message)
