@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -36,6 +37,7 @@ import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.SQLException;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,40 +53,47 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 
 	@Test void testDeleteCascade() throws SQLException
 	{
-		assertSchema(null, OK);
+		assertSchema(null, List.of(), OK);
 
 		testRules(
 				"ON DELETE Cascade",
+				List.of("unexpected delete rule CASCADE"),
 				"unexpected delete rule CASCADE");
 	}
 
 	@Test void testUpdateNull() throws SQLException
 	{
-		assertSchema(null, OK);
+		assertSchema(null, List.of(), OK);
 
 		dropCheckIfNeeded();
 		testRules(
 				"ON UPDATE set NULL",
+				List.of("unexpected update rule SET NULL"),
 				"unexpected update rule SET NULL");
 	}
 
 	@Test void testDeleteNullUpdateCascade() throws SQLException
 	{
-		assertSchema(null, OK);
+		assertSchema(null, List.of(), OK);
 
 		dropCheckIfNeeded();
 		testRules(
 				"ON DELETE SET NULL ON UPDATE CASCADE",
+				List.of("unexpected delete rule SET NULL", "unexpected update rule CASCADE"),
 				"unexpected delete rule SET NULL, unexpected update rule CASCADE");
 	}
 
-	private void assertSchema(final String error, final Color color)
+	private void assertSchema(
+			final String error,
+			final List<String> additionalErrors,
+			final Color color)
 	{
 		final Schema schema = model.getVerifiedSchema();
 		final Table table = schema.getTable(getTableName(MyItem.TYPE));
 		final Column column = table.getColumn(getColumnName(MyItem.field));
 		final Constraint fk = table.getConstraint(FK_NAME);
 		assertAll(
+				() -> assertEqualsUnmodifiable(additionalErrors, fk.getAdditionalErrors(), "fk.additionalErrors"),
 				() -> assertEquals(error, fk.getError(),               "fk.error"),
 				() -> assertEquals(color, fk.getParticularColor(),     "fk.particularColor"),
 				() -> assertEquals(color, fk.getCumulativeColor(),     "fk.cumulativeColor"),
@@ -120,14 +129,18 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 
 	private boolean checkDropped = false;
 
-	private void testRules(final String rule, final String error) throws SQLException
+	private void testRules(
+			final String rule,
+			final List<String> additionalErrors,
+			final String error)
+			throws SQLException
 	{
 		model.
 				getSchema().
 				getTable(getTableName(MyItem.TYPE)).
 				getConstraint(FK_NAME).
 				drop();
-		assertSchema("missing", ERROR);
+		assertSchema("missing", List.of(), ERROR);
 
 		connection.execute(
 				"ALTER TABLE " + SI.tab(MyItem.TYPE) + " " +
@@ -135,7 +148,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 				"FOREIGN KEY (" + SI.col(MyItem.field) + ") " +
 				"REFERENCES " + SI.tab(MyItem.TYPE) + "(" + SI.pk(MyItem.TYPE) + ") " +
 				rule);
-		assertSchema(error, ERROR);
+		assertSchema(error, additionalErrors, ERROR);
 	}
 
 	private static final String FK_NAME = "ForeignKeyRule_field_Fk";
