@@ -43,13 +43,13 @@ public class SchemaMismatchConstraintTypeUniqueCheckTest extends SchemaMismatchT
 
 	@Test void testIt()
 	{
-		assumeUnq();
+		assumeNotUnq();
 		{
 			final Schema schema = modelA.getVerifiedSchema();
 			assertIt(null, OK, OK, schema);
 			final Table table = schema.getTable(name(ItemA.TYPE));
 			assertIt(null, OK, OK, table);
-			final Constraint constraint = table.getConstraint("ItemAB_constraint_Unq");
+			final Constraint constraint = table.getConstraint("ItemAB_constraint");
 			assertExistance(true, true, constraint);
 			assertEquals(Constraint.Type.Unique, constraint.getType());
 			assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getCondition());
@@ -68,7 +68,7 @@ public class SchemaMismatchConstraintTypeUniqueCheckTest extends SchemaMismatchT
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
-		final Constraint constraint = table.getConstraint("ItemAB_constraint_Unq");
+		final Constraint constraint = table.getConstraint("ItemAB_constraint");
 		assertExistance(true, true, constraint);
 		assertEquals(Constraint.Type.Check, constraint.getType());
 		assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getCondition());
