@@ -83,6 +83,11 @@ final class Field<T>
 		return required;
 	}
 
+	T getRequiredOrNull()
+	{
+		return required;
+	}
+
 	T getExisting()
 	{
 		if(existing==null)

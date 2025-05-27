@@ -45,6 +45,11 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 	@Test void testIt()
 	{
 		final boolean supported = supportsCheckConstraint(model);
+		final String sao = switch(dialect) // space around operator
+		{
+			case hsqldb-> "";
+			case mysql, postgresql-> " ";
+		};
 		{
 			final Schema schema = modelA.getVerifiedSchema();
 			assertIt(null, OK, OK, schema);
@@ -53,7 +58,10 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 			assertIt(supported ? null : "unsupported", OK, OK, Check, check);
 			assertEquals(supported, check.isSupported());
 			assertExistance(true, supported, check);
+			assertEquals(q("field") + "<=66", check.getCondition());
 			assertEquals(q("field") + "<=66", check.getRequiredCondition());
+			assertEquals(null, check.getMismatchingCondition());
+			assertEquals(null, check.getMismatchingConditionRaw());
 		}
 
 		assertEquals(name(ItemA.TYPE), name(ItemB.TYPE));
@@ -78,7 +86,10 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 			assertIt(error, ERROR, ERROR, Check, check);
 			assertEquals(true, check.isSupported());
 			assertExistance(true, true, check);
+			assertEquals(q("field") + "<=88", check.getCondition());
 			assertEquals(q("field") + "<=88", check.getRequiredCondition());
+			assertEquals(q("field") + "<=66", check.getMismatchingCondition());
+			assertEquals(q("field") + sao+"<="+sao + "66", check.getMismatchingConditionRaw());
 
 			// test propagation to cumulativeColor
 			assertIt(null, OK, ERROR, table.getColumn(name(ItemA.field)));
@@ -88,7 +99,10 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 			assertIt("unsupported", OK, OK, Check, check);
 			assertEquals(false, check.isSupported());
 			assertExistance(true, false, check);
+			assertEquals(q("field") + "<=88", check.getCondition());
 			assertEquals(q("field") + "<=88", check.getRequiredCondition());
+			assertEquals(null, check.getMismatchingCondition());
+			assertEquals(null, check.getMismatchingConditionRaw());
 
 			// test propagation to cumulativeColor
 			assertIt(null, OK, OK, table.getColumn(name(ItemA.field)));

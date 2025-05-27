@@ -85,15 +85,28 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			{
 				assertIt("unused",   ERROR,   ERROR,   Check, checkA);
 				assertIt("missing",  WARNING, WARNING, Check, checkB);
+				assertEquals(switch(dialect) {
+					case hsqldb -> "(" + q("fieldA") + ") IN ((0),(1))";
+					case mysql -> q("fieldA") + " in (0,1)";
+					case postgresql -> q("fieldA") + " = ANY (ARRAY[0, 1])";
+				}, checkA.getCondition()); // TODO bug, should be adjusted
 				assertEquals(null, checkA.getRequiredCondition());
+				assertEquals(null, checkA.getMismatchingCondition());
+				assertEquals(null, checkA.getMismatchingConditionRaw());
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getCondition());
 				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredCondition());
+				assertEquals(null, checkB.getMismatchingCondition());
+				assertEquals(null, checkB.getMismatchingConditionRaw());
 				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 			}
 			else
 			{
 				assertNull(checkA);
 				assertIt("unsupported",  OK, OK, Check, checkB);
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getCondition());
 				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredCondition());
+				assertEquals(null, checkB.getMismatchingCondition());
+				assertEquals(null, checkB.getMismatchingConditionRaw());
 			}
 
 			assertTrue(pkPk    instanceof com.exedio.dsmf.PrimaryKeyConstraint);
