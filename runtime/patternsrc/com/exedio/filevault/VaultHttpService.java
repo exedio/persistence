@@ -28,6 +28,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNonWritableService;
 import com.exedio.cope.vault.VaultNotFoundException;
+import com.exedio.cope.vault.VaultServiceContains;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -44,7 +45,7 @@ import java.time.Duration;
 import java.util.function.Supplier;
 
 @ServiceProperties(VaultHttpService.Props.class)
-public final class VaultHttpService extends VaultNonWritableService
+public final class VaultHttpService extends VaultNonWritableService implements VaultServiceContains
 {
 	private final String rootUri;
 	private final VaultDirectory directory;
@@ -64,6 +65,24 @@ public final class VaultHttpService extends VaultNonWritableService
 
 
 	private static final String REQUEST_METHOD_HEAD = "HEAD";
+
+	@Override
+	public boolean contains(final String hash)
+	{
+		try
+		{
+			getOk(hash, REQUEST_METHOD_HEAD, BodySubscribers::discarding);
+			return true;
+		}
+		catch(final VaultNotFoundException e)
+		{
+			return false;
+		}
+		catch(final IOException e)
+		{
+			throw wrap(hash, e);
+		}
+	}
 
 	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
