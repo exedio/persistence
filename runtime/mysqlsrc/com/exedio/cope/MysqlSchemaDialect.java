@@ -492,8 +492,7 @@ final class MysqlSchemaDialect extends Dialect
 				// are not relevant for such a sequence table.
 				append(sequenceTypeMapper.map(type)).
 				append(" AUTO_INCREMENT PRIMARY KEY)" +
-			ENGINE_CLAUSE +
-			" COMMENT='cope_sequence_table'");
+			ENGINE_CLAUSE);
 
 		appendRowFormat(bf);
 		initializeSequence(bf, sequenceName, start);
