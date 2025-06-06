@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceContains;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +38,7 @@ import java.util.HashMap;
  * which corresponds to the time of the cope
  * {@link com.exedio.cope.Model#connect(ConnectProperties) connect}.
  */
-public final class VaultTransientService implements VaultService
+public final class VaultTransientService implements VaultServiceContains
 {
 	private final HashMap<String, byte[]> store = new HashMap<>();
 
@@ -45,6 +46,12 @@ public final class VaultTransientService implements VaultService
 	{
 	}
 
+
+	@Override
+	public boolean contains(final String hash)
+	{
+		return store.containsKey(hash);
+	}
 
 	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
