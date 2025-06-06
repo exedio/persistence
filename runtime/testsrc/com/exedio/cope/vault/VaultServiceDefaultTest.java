@@ -48,7 +48,7 @@ public class VaultServiceDefaultTest
 				"not supported by com.exedio.cope.vault.VaultServiceDefaultTest$VaultDefaultService");
 	}
 
-	private static final class VaultDefaultService implements VaultService
+	static final class VaultDefaultService implements VaultService
 	{
 		@Override
 		public byte[] get(final String hash)

@@ -270,6 +270,41 @@ public class VaultPropertiesTest
 			return new byte[]{4,5,6};
 		}
 	}
+	@Test void probeFailContainsMismatch()
+	{
+		final VaultProperties props =
+				factory.create(single("default.service", FailContainsMismatchService.class));
+		final RuntimeException e = assertThrows(
+				RuntimeException.class,
+				() -> probe(props));
+		assertMatches(
+				"FailContainsMismatchService:exampleDefault: " +
+				"contains should have returned false",
+				e.getMessage());
+	}
+	private static final class FailContainsMismatchService extends VaultMockService
+	{
+		private FailContainsMismatchService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public boolean contains(final String hash) throws VaultServiceUnsupportedOperationException
+		{
+			return !super.contains(hash);
+		}
+	}
+	@Test void probeContainsUnsupported() throws Exception
+	{
+		final VaultProperties props =
+				factory.create(single("default.service", ContainsUnsupportedService.class));
+		probe(props);
+	}
+	private static final class ContainsUnsupportedService extends VaultMockService
+	{
+		private ContainsUnsupportedService(final VaultServiceParameters pa, final Props po) { super(pa, po); }
+		@Override public boolean contains(final String hash) throws VaultServiceUnsupportedOperationException
+		{
+			//noinspection resource OK: no resources allocated
+			return new VaultServiceDefaultTest.VaultDefaultService().contains(hash);
+		}
+	}
 	private static Object probe(final VaultProperties p) throws Exception
 	{
 		final Map<String,Callable<?>> probes = probes(p);

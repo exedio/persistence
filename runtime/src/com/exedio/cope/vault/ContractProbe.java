@@ -82,6 +82,7 @@ final class ContractProbe
 						info + ": VaultNotFoundException should have matching hash " +
 						anonymiseHash(hash) + " vs. " + e.getHashAnonymous());
 		}
+		probeContains(service, hash, false, info);
 
 		probeGetAndPut(service, hash, value, true,  info);
 		probeGetAndPut(service, hash, value, false, info);
@@ -113,6 +114,24 @@ final class ContractProbe
 					info + ": get should have returned matching value " +
 					encodeValue(value) + " vs. " +
 					encodeValue(gotValue));
+
+		probeContains(service, hash, true, info);
+	}
+
+	private static void probeContains(
+			final VaultResilientService service,
+			final String hash,
+			final boolean value,
+			final String info)
+	{
+		try
+		{
+			if(value!=service.contains(hash))
+				throw new RuntimeException(info + ": contains should have returned " + value);
+		}
+		catch(final VaultServiceUnsupportedOperationException ignored)
+		{
+		}
 	}
 
 	private static String encodeValue(final byte[] value)

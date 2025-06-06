@@ -33,6 +33,7 @@ import com.exedio.cope.vault.Bucket;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
+import com.exedio.cope.vault.VaultServiceUnsupportedOperationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -100,7 +101,7 @@ public class VaultMockService implements VaultService
 
 
 	@Override
-	public boolean contains(final String hash)
+	public boolean contains(final String hash) throws VaultServiceUnsupportedOperationException
 	{
 		historyAppend("contains");
 
