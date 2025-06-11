@@ -29,6 +29,7 @@ import com.sun.source.tree.ImportTree;
 import com.sun.source.tree.LambdaExpressionTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.ModifiersTree;
+import com.sun.source.tree.NewClassTree;
 import com.sun.source.tree.ParameterizedTypeTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.TypeParameterTree;
@@ -338,6 +339,8 @@ final class InterimProcessor extends JavacProcessor
 				final LineCodePart line = code.startLine("");
 				final CollectEnumValuesVisitor enumCollector = new CollectEnumValuesVisitor(getElement(ct));
 				enumCollector.visitClass(ct, null);
+				final CollectClassConstructorsVisitor constructorsCollector = new CollectClassConstructorsVisitor();
+				constructorsCollector.visitClass(ct, null);
 				final StringSeparator comma = new StringSeparator(", ");
 				for (final VariableTree enumValue : enumCollector.enumValues)
 				{
@@ -347,6 +350,11 @@ final class InterimProcessor extends JavacProcessor
 						line.continueLine(interimAnnotation+" ");
 					}
 					line.continueLine(enumValue.getName().toString());
+					final NewClassTree initializer = (NewClassTree)enumValue.getInitializer();
+					if (addEnumInitializer(ct, initializer, constructorsCollector))
+					{
+						line.continueLine("(" + initializer.getArguments() + ")");
+					}
 				}
 				line.continueLine(";");
 				line.endLine();
@@ -403,6 +411,38 @@ final class InterimProcessor extends JavacProcessor
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
 			return result;
+		}
+
+		private boolean addEnumInitializer(final ClassTree enumClassTree,
+													  final NewClassTree initializer,
+													  final CollectClassConstructorsVisitor constructorsCollector)
+		{
+			if (initializer.getArguments().isEmpty())
+				return false;
+			final int argCount = initializer.getArguments().size();
+			final List<MethodTree> matchingConstructors = constructorsCollector.getConstructorsWithArgCount(argCount);
+			Boolean foundWrapInterimConstructor = null;
+			for(final MethodTree constructorTree : matchingConstructors)
+			{
+				final Element constructor = getElement(constructorTree);
+				final boolean isWrapInterim = constructor.getAnnotation(WrapInterim.class)!=null;
+				if (foundWrapInterimConstructor==null)
+				{
+					foundWrapInterimConstructor = isWrapInterim;
+				}
+				else
+				{
+					if (foundWrapInterimConstructor != isWrapInterim)
+					{
+						throw new RuntimeException(
+								"not supported: either none or all " + argCount + "-arg constructors of enum " +
+								enumClassTree.getSimpleName() +
+								" must be annotated as @" + WrapInterim.class.getSimpleName()
+						);
+					}
+				}
+			}
+			return Boolean.TRUE.equals(foundWrapInterimConstructor);
 		}
 
 		/*
@@ -913,6 +953,30 @@ final class InterimProcessor extends JavacProcessor
 					enumValues.add(vt);
 				}
 				return null;
+			}
+		}
+
+		private static class CollectClassConstructorsVisitor extends TreeScanner<Void, Void>
+		{
+			private final List<MethodTree> constructors = new ArrayList<>();
+
+			@Override
+			public Void visitMethod(final MethodTree mt, final Void p)
+			{
+				if (mt.getReturnType()==null)
+					constructors.add(mt);
+				return null;
+			}
+
+			@Override
+			public Void visitVariable(final VariableTree vt, final Void p)
+			{
+				return null;
+			}
+
+			private List<MethodTree> getConstructorsWithArgCount(final int argCount)
+			{
+				return constructors.stream().filter( c -> c.getParameters().size()==argCount ).toList();
 			}
 		}
 	}
