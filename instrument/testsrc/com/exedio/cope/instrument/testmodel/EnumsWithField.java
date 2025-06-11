@@ -3,7 +3,7 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.instrument.WrapInterim;
 
 @SuppressWarnings("unused") // test instrumentation
-class EnumWithField
+class EnumsWithField
 {
 	@WrapInterim
 	enum FieldInitializedInInterim
@@ -11,16 +11,16 @@ class EnumWithField
 		A(1), B;
 
 		@SuppressWarnings("FieldCanBeLocal") // test instrumentation
-		// @WrapInterim would break instrumentation
+		@WrapInterim
 		private final int field;
 
-		@WrapInterim(methodBody = false) // true would break instrumentation
+		@WrapInterim
 		FieldInitializedInInterim()
 		{
 			this(0);
 		}
 
-		// @WrapInterim would break instrumentation
+		@WrapInterim
 		FieldInitializedInInterim(final int field)
 		{
 			this.field = field;
