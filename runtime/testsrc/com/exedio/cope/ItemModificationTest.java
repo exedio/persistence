@@ -440,6 +440,7 @@ class ItemModificationTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // just for test
 	record Update(String table, Set<String> columns)
 	{
 		Update(final Type<?> type, final boolean updateCatch, final Field<?>... fields)
