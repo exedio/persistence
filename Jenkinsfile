@@ -10,9 +10,9 @@ String debianSnapshot = '20220418'
 @Field
 String jdk = 'openjdk-17'
 @Field
-String idea = '2023.3.8'
+String idea = '2025.1.2-PATCHED'
 @Field
-String ideaSHA256 = '0f611af8539a0a1744e2d0083930aef128ece20a4086631240bfa6228677614e'
+String ideaSHA256 = 'b86f5c434ab49ba40f4eec24020955320f73f47798ca26f63b1a0d1dad974d9b'
 @Field
 String databaseMysql57 = '5.7.40'
 @Field
