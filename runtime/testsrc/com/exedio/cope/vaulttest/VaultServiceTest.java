@@ -32,7 +32,7 @@ import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.BucketProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
-import com.exedio.cope.vault.VaultServiceContains;
+import com.exedio.cope.vault.VaultServiceUnsupportedOperationException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -151,7 +151,7 @@ public abstract class VaultServiceTest
 		service.purgeSchema(JobContexts.EMPTY);
 	}
 
-	@Test final void notFoundContains()
+	@Test final void notFoundContains() throws VaultServiceUnsupportedOperationException
 	{
 		final String hash = hash("ab");
 		assertContains(false, hash);
@@ -170,7 +170,7 @@ public abstract class VaultServiceTest
 		assertNotFound(() -> service.get(hash, sink), hash);
 	}
 
-	@Test final void foundContains()
+	@Test final void foundContains() throws VaultServiceUnsupportedOperationException
 	{
 		final String hash = putHash("abcdef01234567");
 		assertContains(true, hash);
@@ -354,9 +354,26 @@ public abstract class VaultServiceTest
 	private void assertContains(
 			final boolean expected,
 			final String hash)
+			throws VaultServiceUnsupportedOperationException
 	{
-		assumeTrue(service instanceof VaultServiceContains);
-		assertEquals(expected, ((VaultServiceContains)service).contains(hash));
+		final boolean supports = supportsContains();
+		if(supports)
+		{
+			assertEquals(expected, service.contains(hash));
+		}
+		else
+		{
+			final Throwable e = assertThrows(
+					VaultServiceUnsupportedOperationException.class,
+					() -> service.contains(hash));
+			assertEquals(service.getClass().getName(), e.getMessage());
+			assumeTrue(supports, "supportsContains");
+		}
+	}
+
+	protected boolean supportsContains()
+	{
+		return true;
 	}
 
 

@@ -58,6 +58,16 @@ public interface VaultService extends AutoCloseable
 	default void close() {}
 
 
+	/**
+	 * Must return true if and only if {@link #get(String)} would not throw a
+	 * {@link VaultNotFoundException} for the same {@code hash}.
+	 * @throws UnsupportedOperationException if the implementation des not support this operation
+	 */
+	default boolean contains(@Nonnull final String hash) throws VaultServiceUnsupportedOperationException
+	{
+		throw new VaultServiceUnsupportedOperationException(getClass().getName());
+	}
+
 	byte[] get(@Nonnull String hash) throws VaultNotFoundException;
 
 	/**

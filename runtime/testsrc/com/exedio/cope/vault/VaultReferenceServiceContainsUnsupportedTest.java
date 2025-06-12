@@ -21,14 +21,20 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vaultmock.VaultMockService;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
@@ -49,11 +55,14 @@ public class VaultReferenceServiceContainsUnsupportedTest
 		//noinspection resource OK: does not allocate resources
 		final var service = newService(Service.class, VaultMockService.class);
 
-		assertFails(
+		final IllegalArgumentException e = assertFails(
 				() -> service.addToAncestryPath(HASH, SINK),
 				IllegalArgumentException.class,
 				"main service (com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$Service) " +
-				"does not support VaultServiceContains");
+				"does not support contains");
+		assertNotNull(e.getCause());
+		assertEquals(VaultServiceUnsupportedOperationException.class, e.getCause().getClass());
+		assertEquals("com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$1", e.getCause().getMessage());
 	}
 
 	@Test void testReference()
@@ -61,11 +70,14 @@ public class VaultReferenceServiceContainsUnsupportedTest
 		//noinspection resource OK: does not allocate resources
 		final var service = newService(VaultMockService.class, Service.class);
 
-		assertFails(
+		final IllegalArgumentException e = assertFails(
 				() -> service.addToAncestryPath(HASH, SINK),
 				IllegalArgumentException.class,
 				"reference service 0 (com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$Service) " +
-				"does not support VaultServiceContains");
+				"does not support contains");
+		assertNotNull(e.getCause());
+		assertEquals(VaultServiceUnsupportedOperationException.class, e.getCause().getClass());
+		assertEquals("com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$1", e.getCause().getMessage());
 	}
 
 	private static VaultReferenceService newService(
@@ -89,7 +101,42 @@ public class VaultReferenceServiceContainsUnsupportedTest
 				@SuppressWarnings("unused") final VaultServiceParameters parameters)
 		{
 		}
+
+		@Override
+		public boolean contains(@Nonnull final String hash) throws VaultServiceUnsupportedOperationException
+		{
+			return MINIMAL_SERVICE.contains(hash);
+		}
 	}
+
+	private static final VaultService MINIMAL_SERVICE = new VaultService()
+	{
+		@Override
+		public byte[] get(final String hash)
+		{
+			throw new AssertionError(anonymiseHash(hash));
+		}
+		@Override
+		public void get(final String hash, final OutputStream sink)
+		{
+			throw new AssertionError(anonymiseHash(hash));
+		}
+		@Override
+		public boolean put(final String hash, final byte[] value)
+		{
+			throw new AssertionError(anonymiseHash(hash));
+		}
+		@Override
+		public boolean put(final String hash, final InputStream value)
+		{
+			throw new AssertionError(anonymiseHash(hash));
+		}
+		@Override
+		public boolean put(final String hash, final Path value)
+		{
+			throw new AssertionError(anonymiseHash(hash));
+		}
+	};
 
 	private static final Consumer<String> SINK = path ->
 	{

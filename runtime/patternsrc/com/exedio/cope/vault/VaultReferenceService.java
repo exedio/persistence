@@ -268,10 +268,15 @@ public final class VaultReferenceService implements VaultService
 			@Nonnull final String hash,
 			@Nonnull final Supplier<String> name)
 	{
-		if(!(service instanceof VaultServiceContains))
+		try
+		{
+			return service.contains(hash);
+		}
+		catch(final VaultServiceUnsupportedOperationException e)
+		{
 			throw new IllegalArgumentException(
-					name.get() + " (" + service.getClass().getName() + ") does not support VaultServiceContains");
-		return ((VaultServiceContains)service).contains(hash);
+					name.get() + " (" + service.getClass().getName() + ") does not support contains", e);
+		}
 	}
 
 	public static final String ANCESTRY_PATH_MAIN = "main";

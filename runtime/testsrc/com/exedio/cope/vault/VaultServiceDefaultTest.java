@@ -28,6 +28,16 @@ import org.junit.jupiter.api.Test;
 
 public class VaultServiceDefaultTest
 {
+	@Test void contains()
+	{
+		@SuppressWarnings("resource")
+		final VaultDefaultService s = new VaultDefaultService();
+		assertFails(
+				() -> s.contains(null),
+				VaultServiceUnsupportedOperationException.class,
+				"com.exedio.cope.vault.VaultServiceDefaultTest$VaultDefaultService");
+	}
+
 	@Test void probeBucketTag()
 	{
 		@SuppressWarnings("resource")

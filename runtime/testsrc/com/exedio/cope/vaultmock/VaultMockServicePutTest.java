@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceUnsupportedOperationException;
 import com.exedio.cope.vaulttest.VaultServiceTest;
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +52,11 @@ public class VaultMockServicePutTest extends VaultServiceTest
 
 	private record VaultServiceMask(VaultService service) implements VaultService
 	{
+		@Override
+		public boolean contains(@Nonnull final String hash) throws VaultServiceUnsupportedOperationException
+		{
+			return service.contains(hash);
+		}
 		@Override
 		public byte[] get(@Nonnull final String hash) throws VaultNotFoundException
 		{
