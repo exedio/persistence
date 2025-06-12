@@ -22,6 +22,7 @@ import com.exedio.cope.testmodel.Main;
 
 public abstract class TestmodelTest extends TestWithEnvironment
 {
+	@SuppressWarnings("unused") // OK: called by junit via reflection
 	protected TestmodelTest()
 	{
 		super(Main.model);

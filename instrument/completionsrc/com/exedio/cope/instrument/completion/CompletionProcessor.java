@@ -69,6 +69,7 @@ public class CompletionProcessor extends AbstractProcessor
 		// log.log(Level.INFO, message, params);
 	}
 
+	@SuppressWarnings("unused") // OK: called by IDE via reflection
 	public CompletionProcessor()
 	{
 		debug("create");

@@ -126,6 +126,7 @@ public abstract class SchemaTest extends TestWithEnvironment
 		private SchemaTestItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	private static final Model MODEL = new Model(SchemaTestItem.TYPE);
+	@SuppressWarnings("unused") // OK: called by junit via reflection
 	SchemaTest()
 	{
 		super(MODEL);
