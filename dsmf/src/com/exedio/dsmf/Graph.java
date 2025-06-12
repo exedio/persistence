@@ -18,7 +18,6 @@
 
 package com.exedio.dsmf;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -123,10 +122,10 @@ final class Graph
 		}
 
 		if(logger.isInfoEnabled())
-			logger.info(MessageFormat.format(
-					"broken {0} of {1} edges for cycle-free subgraph",
+			logger.info(
+					"broken {} of {} edges for cycle-free subgraph",
 					edgesBroken.size(),
-					allEdges.size()));
+					allEdges.size());
 	}
 
 	List<Table> getTablesOrdered()

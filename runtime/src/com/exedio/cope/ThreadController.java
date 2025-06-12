@@ -23,7 +23,6 @@ import static java.lang.Thread.MIN_PRIORITY;
 import static java.util.Objects.requireNonNull;
 
 import java.lang.Thread.State;
-import java.text.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -143,7 +142,7 @@ public final class ThreadController
 		{
 			thread.join();
 			if(logger.isInfoEnabled())
-				logger.info(MessageFormat.format("{0} ({1}) done.", thread.getName(), thread.getId()));
+				logger.info("{} ({}) done.", thread.getName(), thread.getId());
 		}
 	}
 

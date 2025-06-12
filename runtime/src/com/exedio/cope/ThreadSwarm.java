@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.slf4j.Logger;
@@ -61,7 +60,7 @@ final class ThreadSwarm
 
 			thread.start();
 			if(logger.isInfoEnabled())
-				logger.info(MessageFormat.format("{0} ({1}) started.", thread.getName(), thread.getId()));
+				logger.info("{} ({}) started.", thread.getName(), thread.getId());
 		}
 	}
 

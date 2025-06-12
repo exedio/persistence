@@ -42,7 +42,6 @@ import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.JobContext;
 import java.io.Serial;
 import java.security.SecureRandom;
-import java.text.MessageFormat;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -174,9 +173,9 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 				if(legacyHashValue==null)
 				{
 					if(logger.isInfoEnabled())
-						logger.info( MessageFormat.format(
-								"Already migrated {1} by {0}, probably due to concurrent migrating.",
-								id, itemID ) );
+						logger.info(
+								"Already migrated {} by {}, probably due to concurrent migrating.",
+								itemID, id);
 					continue;
 				}
 

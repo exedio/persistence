@@ -18,7 +18,6 @@
 
 package com.exedio.cope.misc;
 
-import java.text.MessageFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ public final class TimeUtil
 	public static long toMillies(final long endNanos, final long startNanos)
 	{
 		if ( logger.isErrorEnabled() && endNanos<startNanos )
-			logger.error(MessageFormat.format( "backwards nanos {0} {1}" , startNanos, endNanos ));
+			logger.error("backwards nanos {} {}", startNanos, endNanos);
 
 		final long diff = endNanos - startNanos;
 		if(diff<500000)

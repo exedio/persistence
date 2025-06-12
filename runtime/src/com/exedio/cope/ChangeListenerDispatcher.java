@@ -23,7 +23,6 @@ import static java.util.Objects.requireNonNull;
 import gnu.trove.TLongHashSet;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,7 +134,7 @@ final class ChangeListenerDispatcher implements Runnable
 		if(logger.isInfoEnabled())
 		{
 			final Thread t = Thread.currentThread();
-			logger.info(MessageFormat.format("{0} ({1}) terminates.", t.getName(), t.getId()));
+			logger.info("{} ({}) terminates.", t.getName(), t.getId());
 		}
 	}
 
