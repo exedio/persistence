@@ -67,12 +67,7 @@ public final class ConnectToken implements AutoCloseable
 		this.conditional = conditional;
 		this.didConnect = didConnect;
 
-		if(logger.isInfoEnabled())
-			logger.info(
-					"{}: {} {} ({})",
-						model,
-						didConnect ? "connected" : conditional ? "issued conditionally" : "issued",
-						id, name);
+		log(didConnect ? "connected" : conditional ? "issued conditionally" : "issued");
 	}
 
 	void onReturn(final boolean disconnect)
@@ -80,12 +75,15 @@ public final class ConnectToken implements AutoCloseable
 		if(disconnect)
 			model.disconnect();
 
+		log(disconnect ? "disconnected" : "returned");
+	}
+
+	private void log(final String action)
+	{
 		if(logger.isInfoEnabled())
 			logger.info(
 					"{}: {} {} ({})",
-							model,
-							disconnect ? "disconnected" : "returned",
-							id, name);
+					model, action, id, name);
 	}
 
 	public Model getModel()
