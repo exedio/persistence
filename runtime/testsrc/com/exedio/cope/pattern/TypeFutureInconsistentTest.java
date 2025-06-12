@@ -64,7 +64,7 @@ public class TypeFutureInconsistentTest
 		assertFails(
 				() -> FeatureComposite.field.getValueType(),
 				IllegalArgumentException.class,
-				"ItemField " + FeatureComposite.field + ": " +
+				"ItemField " + FeatureComposite.field + ": " + // FeatureComposite.field#toString still falls back to Object#toString
 				"resolving TypeFuture TypeFuture(FeatureComposite.field) " +
 				"expected " + ValueClassItem.class.getName() + ", " +
 				"but was " + TypeItem.class.getName() + " " +
@@ -76,7 +76,7 @@ public class TypeFutureInconsistentTest
 		assertFails(
 				() -> FeatureComposite.field.getValueType(),
 				IllegalArgumentException.class,
-				"ItemField " + FeatureComposite.field + ": " +
+				"ItemField com.exedio.cope.pattern.TypeFutureInconsistentTest$FeatureComposite#field: " +
 				"resolving TypeFuture TypeFuture(FeatureComposite.field) " +
 				"expected " + ValueClassItem.class.getName() + ", " +
 				"but was " + TypeItem.class.getName() + " " +
@@ -85,14 +85,16 @@ public class TypeFutureInconsistentTest
 
 	@Test void testBlock()
 	{
-		assertFails(
-				() -> FeatureBlock.field.getValueType(),
-				IllegalArgumentException.class,
-				"ItemField " + FeatureBlock.field + ": " +
+		final String message =
+				"ItemField com.exedio.cope.pattern.TypeFutureInconsistentTest$FeatureBlock#field: " +
 				"resolving TypeFuture TypeFuture(FeatureBlock.field) " +
 				"expected " + ValueClassItem.class.getName() + ", " +
 				"but was " + TypeItem.class.getName() + " " +
-				"from TypeItem.");
+				"from TypeItem.";
+		assertFails(
+				() -> FeatureBlock.field.getValueType(),
+				IllegalArgumentException.class,
+				message);
 
 		BlockField.create(FeatureBlock.TYPE);
 
@@ -100,11 +102,7 @@ public class TypeFutureInconsistentTest
 		assertFails(
 				() -> FeatureBlock.field.getValueType(),
 				IllegalArgumentException.class,
-				"ItemField " + FeatureBlock.field + ": " +
-				"resolving TypeFuture TypeFuture(FeatureBlock.field) " +
-				"expected " + ValueClassItem.class.getName() + ", " +
-				"but was " + TypeItem.class.getName() + " " +
-				"from TypeItem.");
+				message);
 	}
 
 	@Test void testUnmounted()
