@@ -26,7 +26,6 @@ import gnu.trove.TLongObjectHashMap;
 import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -75,7 +74,7 @@ public final class Transaction
 		this.entityMaps = cast(new TLongObjectHashMap<?>[concreteTypeCount]);
 
 		if(logger.isDebugEnabled())
-			logger.debug(MessageFormat.format("{0} start: {1}", id, name));
+			logger.debug("{} start: {}", id, name);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
@@ -395,7 +394,7 @@ public final class Transaction
 		}
 
 		if(logger.isDebugEnabled())
-			logger.debug(MessageFormat.format("{0} {2} ({3}): {1}", id, name, (commit ? "commit" : "rollback"), ofNanos(durationNanos)));
+			logger.debug("{} {} ({}): {}", id, (commit ? "commit" : "rollback"), ofNanos(durationNanos), name);
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup

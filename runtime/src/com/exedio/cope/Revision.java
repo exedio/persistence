@@ -27,7 +27,6 @@ import static java.lang.System.nanoTime;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.MessageFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -103,7 +102,7 @@ public final class Revision
 			{
 				final String sql = body[bodyIndex];
 				if(logger.isInfoEnabled())
-					logger.info(MessageFormat.format("revise {0}/{1}:{2}", number, bodyIndex, sql));
+					logger.info("revise {}/{}:{}", number, bodyIndex, sql);
 				final long start = nanoTime();
 				final int rows = executeUpdate(connection, sql);
 				final long elapsed = toMillies(nanoTime(), start);
