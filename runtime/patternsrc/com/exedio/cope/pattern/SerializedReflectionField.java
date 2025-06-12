@@ -65,6 +65,10 @@ final class SerializedReflectionField implements Serializable
 	@Serial
 	private Object readResolve() throws InvalidObjectException
 	{
+		if(clazz==null)
+			throw new InvalidObjectException("clazz");
+		if(fieldName==null)
+			throw new InvalidObjectException("fieldName");
 		try
 		{
 			return resolve(clazz, fieldName);

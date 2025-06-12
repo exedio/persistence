@@ -550,6 +550,10 @@ public abstract class Feature implements Serializable
 		@Serial
 		private Object readResolve() throws InvalidObjectException
 		{
+			if(type==null)
+				throw new InvalidObjectException("type");
+			if(name==null)
+				throw new InvalidObjectException("name");
 			final Feature result = type.getDeclaredFeature(name);
 			if(result==null)
 				throw new InvalidObjectException("feature does not exist: " + type + '.' + name);
