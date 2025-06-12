@@ -56,7 +56,7 @@ public final class Price implements Serializable, Comparable<Price>
 		private static Price[] newCache()
 		{
 			final Price[] result = new Price[CACHE_MAX];
-			result[0] = Price.ZERO;
+			result[0] = ZERO;
 			for(int i = 1; i<CACHE_MAX; i++)
 				result[i] = new Price(i);
 			return result;
