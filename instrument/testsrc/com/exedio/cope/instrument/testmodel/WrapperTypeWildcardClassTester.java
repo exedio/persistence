@@ -61,7 +61,6 @@ public final class WrapperTypeWildcardClassTester
 		private DefaultPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@SuppressWarnings("ProtectedMemberInFinalClass")
 	@WrapperType(wildcardClass=DEFAULT,
 			constructor=NONE, genericConstructor=NONE, indent=2)
 	protected static final class DefaultProtected<E> extends Item

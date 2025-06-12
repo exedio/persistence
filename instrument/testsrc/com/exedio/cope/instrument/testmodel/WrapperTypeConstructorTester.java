@@ -76,7 +76,6 @@ public final class WrapperTypeConstructorTester
 
 	@WrapperType(constructor=DEFAULT,
 			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
-	@SuppressWarnings("ProtectedMemberInFinalClass")
 	protected static final class DefaultProtected extends Item
 	{
 		private DefaultProtected(final SetValue<?>[] sv) { super(sv); }
