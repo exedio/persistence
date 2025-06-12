@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public interface NumberFunction<E extends Number> extends Function<E>
 {
 	// convenience methods for conditions and views ---------------------------------
@@ -90,5 +92,6 @@ public interface NumberFunction<E extends Number> extends Function<E>
 		return new AverageAggregate<>(this);
 	}
 
+	@Serial
 	long serialVersionUID = 3484464008830007161L;
 }

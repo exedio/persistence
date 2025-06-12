@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.io.Serial;
+
 public interface ItemFunction<E extends Item> extends Function<E>
 {
 	@Override
@@ -134,6 +136,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 		return new InstanceOfCondition<>(this, true, types);
 	}
 
+	@Serial
 	long serialVersionUID = -3944156504239779975L;
 
 	// ------------------- deprecated stuff -------------------
