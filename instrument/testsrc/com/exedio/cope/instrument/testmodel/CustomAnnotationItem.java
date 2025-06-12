@@ -16,6 +16,7 @@ class CustomAnnotationItem extends Item
 
 	@interface MyOtherAnnotation
 	{
+		@SuppressWarnings("UnusedReturnValue")
 		int parameter();
 	}
 
