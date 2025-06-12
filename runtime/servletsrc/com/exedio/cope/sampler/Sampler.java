@@ -179,7 +179,7 @@ public class Sampler
 		final List<?> dates;
 		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeDate"))
 		{
-			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
+			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingletonStrict();
 			tx.commit();
 		}
 		return new Date[] {
