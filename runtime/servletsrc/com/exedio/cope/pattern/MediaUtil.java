@@ -96,8 +96,6 @@ public final class MediaUtil
 		response.setContentType(contentType);
 
 		final long contentLength = body.length();
-		if(contentLength<0)
-			throw new RuntimeException(String.valueOf(contentLength));
 		response.setContentLengthLong(contentLength);
 		if(contentLength==0)
 			return;
