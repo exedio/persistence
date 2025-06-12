@@ -61,7 +61,7 @@ public class VaultMockService implements VaultServiceContains
 	public String ancestryPath = null;
 	private boolean closed = false;
 
-	protected VaultMockService(
+	public VaultMockService(
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
