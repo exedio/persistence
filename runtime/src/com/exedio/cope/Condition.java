@@ -201,7 +201,7 @@ public abstract class Condition implements Serializable
 		@Serial
 		private Object readResolve()
 		{
-			return Condition.of(value);
+			return of(value);
 		}
 	}
 

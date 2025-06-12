@@ -25,10 +25,10 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	public static final ItemField<HierarchySuper> hierarchySuper = ItemField.create(HierarchySuper.class).optional();
 
 
-	public HierarchySingleSub(final int initialSuperInt, final String subString)
+	public HierarchySingleSub(final int superInt, final String subString)
 	{
 		super(new com.exedio.cope.SetValue<?>[]{
-			SetValue.map(HierarchySingleSuper.superInt, initialSuperInt),
+			SetValue.map(HierarchySingleSuper.superInt, superInt),
 			SetValue.map(HierarchySingleSub.subString, subString),
 		});
 	}
