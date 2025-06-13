@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="NonRecognizedBinaryFiles" pattern="file:*.avif||file:*.mov||file:*.mp4||file:*.ogg||file:*.webm" />
+</component>
