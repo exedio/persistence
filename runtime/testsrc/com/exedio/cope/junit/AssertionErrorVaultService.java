@@ -95,6 +95,12 @@ public class AssertionErrorVaultService implements VaultService
 	}
 
 	@Override
+	public Object probeBucketTag(@Nonnull final String bucket) throws Exception
+	{
+		throw new AssertionError(bucket);
+	}
+
+	@Override
 	public String toString()
 	{
 		throw new AssertionError();
