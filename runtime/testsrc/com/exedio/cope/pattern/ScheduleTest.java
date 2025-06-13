@@ -751,7 +751,9 @@ public class ScheduleTest extends TestWithEnvironment
 
 	record Log(
 			ScheduleItem item,
+			@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // just for test
 			Date from,
+			@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // just for test
 			Date until,
 			String transactionName)
 	{

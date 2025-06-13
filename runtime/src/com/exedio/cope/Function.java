@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import java.io.Serial;
 import java.util.Collection;
 
 public interface Function<E> extends Selectable<E>
@@ -287,5 +288,6 @@ public interface Function<E> extends Selectable<E>
 
 	Function<E> bind(Join join);
 
+	@Serial
 	long serialVersionUID = 8575436913882709690L;
 }

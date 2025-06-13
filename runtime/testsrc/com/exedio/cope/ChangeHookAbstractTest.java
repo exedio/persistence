@@ -110,6 +110,7 @@ public abstract class ChangeHookAbstractTest extends TestWithEnvironment
 
 	protected static void assertEvents(final String... logs)
 	{
+		//noinspection MisorderedAssertEqualsArguments OK: false positive
 		assertEquals(Arrays.asList(logs), events);
 		events.clear();
 	}

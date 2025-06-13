@@ -55,7 +55,6 @@ public final class WrapperTypeTypeTester
 
 	@WrapperType(type=DEFAULT,
 			constructor=NONE, genericConstructor=NONE, indent=2)
-	@SuppressWarnings("ProtectedMemberInFinalClass")
 	protected static final class DefaultProtected extends Item
 	{
 		@com.exedio.cope.instrument.Generated

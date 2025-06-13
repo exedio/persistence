@@ -335,6 +335,7 @@ public final class DateField extends FunctionField<Date>
 			final GregorianCalendar cal = newGregorianCalendar(value);
 			for(final int field : fields)
 			{
+				//noinspection MagicConstant OK: generically using constants
 				final int violation = cal.get(field);
 				if(violation!=0)
 					throw new DatePrecisionViolationException(feature, this, exceptionItem, value, violation);
@@ -362,9 +363,11 @@ public final class DateField extends FunctionField<Date>
 
 			final GregorianCalendar cal = newGregorianCalendar(value);
 			for(final int field : fields)
+				//noinspection MagicConstant OK: generically using constants
 				cal.set(field, 0);
 
 			if(roundingMode==RoundingMode.FUTURE && (cal.getTimeInMillis()!=value.getTime()))
+				//noinspection MagicConstant OK: generically using constants
 				cal.add(field, 1);
 
 			return cal.getTime();

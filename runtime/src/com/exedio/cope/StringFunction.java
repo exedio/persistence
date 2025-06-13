@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.CharSet;
+import java.io.Serial;
 
 public interface StringFunction extends Function<String>
 {
@@ -145,5 +146,6 @@ public interface StringFunction extends Function<String>
 		return new RegexpLikeCondition(this, pattern);
 	}
 
+	@Serial
 	long serialVersionUID = 6196781661929849730L;
 }

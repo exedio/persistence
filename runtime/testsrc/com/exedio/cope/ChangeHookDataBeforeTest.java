@@ -384,6 +384,7 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 
 	private static void assertEvents(final String... logs)
 	{
+		//noinspection MisorderedAssertEqualsArguments OK: false positive
 		assertEquals(Arrays.asList(logs), events);
 		events.clear();
 	}

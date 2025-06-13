@@ -27,6 +27,11 @@ import java.util.List;
 
 final class Main
 {
+	@SuppressWarnings("unused") // OK: called by ant via reflection
+	Main()
+	{
+	}
+
 	void run(final Params params) throws HumanReadableException, IOException
 	{
 		if (params.nullabilityAnnotations && !Nullability.nullabilityClassesAreAvailable())
