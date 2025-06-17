@@ -23,6 +23,7 @@ import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceUnsupportedOperationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -53,6 +54,12 @@ public class AssertionErrorVaultService implements VaultService
 	public void close()
 	{
 		throw new AssertionError();
+	}
+
+	@Override
+	public boolean contains(@Nonnull final String hash) throws VaultServiceUnsupportedOperationException
+	{
+		throw new AssertionError(anonymiseHash(hash));
 	}
 
 	@Override

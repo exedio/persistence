@@ -18,12 +18,15 @@
 
 package com.exedio.cope.vault;
 
-/**
- * To be deprecated.
- * No longer needed since {@link VaultService#contains(String)} was moved from here
- * to the super interface.
- */
-@SuppressWarnings("MarkerInterface")
-public interface VaultServiceContains extends VaultService
+import java.io.Serial;
+
+public final class VaultServiceUnsupportedOperationException extends Exception
 {
+	VaultServiceUnsupportedOperationException(final String message)
+	{
+		super(message);
+	}
+
+	@Serial
+	private static final long serialVersionUID = 1l;
 }

@@ -35,6 +35,12 @@ public class VaultMinimalServiceTest extends VaultServiceTest
 		return Service.class;
 	}
 
+	@Override
+	protected boolean supportsContains()
+	{
+		return false;
+	}
+
 	@ServiceProperties(VaultMockService.Props.class)
 	private static final class Service implements VaultService
 	{
