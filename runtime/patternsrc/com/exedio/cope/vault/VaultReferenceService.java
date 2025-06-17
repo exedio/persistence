@@ -97,6 +97,24 @@ public final class VaultReferenceService implements VaultService
 	}
 
 	@Override
+	public boolean contains(final String hash) throws VaultServiceUnsupportedOperationException
+	{
+		// TODO
+		// Maybe I want to catch VaultServiceUnsupportedOperationException
+		// and ask other references before giving up.
+		// That means implementing a Three-valued_logic:
+		// https://en.wikipedia.org/wiki/Three-valued_logic
+		if(main.contains(hash))
+			return true;
+
+		for(final VaultService reference : references)
+			if(reference.contains(hash))
+				return true;
+
+		return false;
+	}
+
+	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		try
