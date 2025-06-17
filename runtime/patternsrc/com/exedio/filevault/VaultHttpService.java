@@ -28,7 +28,6 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNonWritableService;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultServiceContains;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -45,7 +44,7 @@ import java.time.Duration;
 import java.util.function.Supplier;
 
 @ServiceProperties(VaultHttpService.Props.class)
-public final class VaultHttpService extends VaultNonWritableService implements VaultServiceContains
+public final class VaultHttpService extends VaultNonWritableService
 {
 	private final String rootUri;
 	private final VaultDirectory directory;

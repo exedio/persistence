@@ -32,7 +32,6 @@ import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.Bucket;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
-import com.exedio.cope.vault.VaultServiceContains;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,7 +47,7 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 @ServiceProperties(VaultMockService.Props.class)
-public class VaultMockService implements VaultServiceContains
+public class VaultMockService implements VaultService
 {
 	private final LinkedHashMap<String, String> store = new LinkedHashMap<>();
 	private final Map<String,RuntimeException> errorStore = new HashMap<>();

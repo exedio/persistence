@@ -19,11 +19,12 @@
 package com.exedio.cope.vault;
 
 /**
- * To be deprecated.
+ * @deprecated
  * No longer needed since {@link VaultService#contains(String)} was moved from here
  * to the super interface.
  */
-@SuppressWarnings("MarkerInterface")
+@Deprecated
+@SuppressWarnings({"MarkerInterface", "InterfaceNeverImplemented"})
 public interface VaultServiceContains extends VaultService
 {
 }
