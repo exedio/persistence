@@ -120,6 +120,7 @@ public class VaultResilientServiceProxyTest
 	private List<Executable> hashMethods(final String hash)
 	{
 		return asList(
+				() -> s.contains(hash),
 				() -> s.get(hash),
 				() -> s.get(hash, null),
 				() -> s.addToAncestryPath(hash, null),
@@ -128,6 +129,11 @@ public class VaultResilientServiceProxyTest
 				() -> s.put(hash, (Path)       null));
 	}
 
+	@Test void containsEmpty() throws VaultServiceUnsupportedOperationException
+	{
+		assertEquals(true, s.contains(emptyHash));
+		m.assertIt("");
+	}
 	@Test void getBytesEmpty() throws VaultNotFoundException
 	{
 		assertArrayEquals(new byte[]{}, s.get(emptyHash));
@@ -237,6 +243,16 @@ public class VaultResilientServiceProxyTest
 				"expected: <false> but was: <true>");
 		m.assertIt("close");
 	}
+	@Test void containsClosed()
+	{
+		s.close();
+		m.assertIt("close");
+		assertFails(
+				() -> s.contains("0123456789abcdef0123456789abcdef"),
+				IllegalStateException.class,
+				"closed");
+		m.assertIt("");
+	}
 	@Test void getBytesClosed()
 	{
 		s.close();
@@ -321,6 +337,11 @@ public class VaultResilientServiceProxyTest
 		final JobContext ctx = new AssertionErrorJobContext();
 		s.purgeSchema(ctx);
 		m.assertIt("purgeSchema");
+	}
+	@Test void contains() throws VaultServiceUnsupportedOperationException
+	{
+		assertEquals(false, s.contains("0123456789abcdef0123456789abcdef"));
+		m.assertIt("contains");
 	}
 	@Test void getBytes()
 	{

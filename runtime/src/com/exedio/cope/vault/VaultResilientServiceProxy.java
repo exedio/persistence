@@ -68,6 +68,18 @@ final class VaultResilientServiceProxy implements VaultResilientService
 	}
 
 	@Override
+	public boolean contains(final String hash) throws VaultServiceUnsupportedOperationException
+	{
+		requireHash(hash);
+		requireNonClosed();
+
+		if(isEmptyHash(hash))
+			return true;
+
+		return service.contains(hash);
+	}
+
+	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		requireHash(hash);
