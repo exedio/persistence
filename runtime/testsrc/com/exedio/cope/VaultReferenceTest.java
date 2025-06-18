@@ -510,7 +510,7 @@ public class VaultReferenceTest
 	}
 
 	@SafeVarargs
-	private static void checkSuppressed(final Exception cause, final Consumer<VaultNotFoundException>... check)
+	static void checkSuppressed(final Exception cause, final Consumer<VaultNotFoundException>... check)
 	{
 		final Throwable[] suppressedAll = cause.getSuppressed();
 		assertEquals(check.length, suppressedAll.length);
