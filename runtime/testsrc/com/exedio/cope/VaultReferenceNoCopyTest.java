@@ -52,7 +52,7 @@ public class VaultReferenceNoCopyTest
 	@Test void connect()
 	{
 		assertNotNull(service);
-		assertEquals("VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue)", service.toString());
+		assertEquals("VaultMockService:mainExampleValue (references VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue)", service.toString());
 
 		assertNotNull(main);
 		assertEquals("SHA-512", main.bucketProperties.getAlgorithm());
@@ -79,6 +79,7 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
@@ -86,6 +87,7 @@ public class VaultReferenceNoCopyTest
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		main.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -95,6 +97,7 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
@@ -102,6 +105,7 @@ public class VaultReferenceNoCopyTest
 		assertEquals(VALUE1, item.getFieldBytes());
 		main.assertIt(HASH1, VALUE1, "getBytes");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -111,6 +115,7 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		main.failOnGet(HASH1, new IllegalStateException("error in main"));
@@ -122,6 +127,7 @@ public class VaultReferenceNoCopyTest
 		assertEquals(0, exception.getSuppressed().length);
 		main.assertIt("getBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 	}
 
 	@Test void errorInReference()
@@ -129,6 +135,7 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		refr.failOnGet(HASH1, new IllegalStateException("error in reference"));
@@ -148,6 +155,41 @@ public class VaultReferenceNoCopyTest
 		);
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
+		refr1.assertIt("");
+	}
+
+	@Test void errorInReference1()
+	{
+		final VaultItem item = new VaultItem(VALUE1);
+		main.assertIt(HASH1, VALUE1, "putBytes");
+		refr.assertIt("");
+		refr1.assertIt("");
+
+		main.clear();
+		refr1.failOnGet(HASH1, new IllegalStateException("error in reference"));
+		final IllegalStateException exception = assertFails(
+				item::getFieldBytes,
+				IllegalStateException.class,
+				"error in reference"
+		);
+		checkSuppressed(
+				exception,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				},
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				}
+		);
+		main.assertIt("getBytes");
+		refr.assertIt("getBytes");
+		refr1.assertIt("getBytes");
 	}
 
 	@Test void mainGetStream() throws IOException
@@ -155,6 +197,7 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
@@ -162,6 +205,7 @@ public class VaultReferenceNoCopyTest
 		assertEquals(VALUE1, item.getFieldStream());
 		main.assertIt(HASH1, VALUE1, "getStream");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -171,17 +215,20 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		refr.put(HASH1, VALUE1);
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		log.assertEmpty(); // DataField#getLength no longer calls VaultService#getLength
 		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
+		refr1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -191,17 +238,45 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
+
 		refr.put(HASH1, VALUE1);
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference 0 in default: " + HASH1A);
 		main.assertIt("getBytes");
 		refr.assertIt(HASH1, VALUE1, "getBytes");
+		refr1.assertIt("");
+
+		log.assertEmpty();
+	}
+
+	@Test void reference1GetBytes()
+	{
+		final VaultItem item = new VaultItem(VALUE1);
+		main.assertIt(HASH1, VALUE1, "putBytes");
+		refr.assertIt("");
+		refr1.assertIt("");
+
+		main.clear();
+
+		refr1.put(HASH1, VALUE1);
+		main.assertIt("");
+		refr.assertIt("");
+		refr1.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
+		assertEquals(VALUE1, item.getFieldBytes());
+		log.assertDebug("get from reference 1 in default: " + HASH1A);
+		main.assertIt("getBytes");
+		refr.assertIt("getBytes");
+		refr1.assertIt(HASH1, VALUE1, "getBytes");
 
 		log.assertEmpty();
 	}
@@ -211,17 +286,43 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		refr.put(HASH1, VALUE1);
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference 0 in default: " + HASH1A);
 		main.assertIt(               "getStream");
 		refr.assertIt(HASH1, VALUE1, "getStream");
+		refr1.assertIt("");
+
+		log.assertEmpty();
+	}
+
+	@Test void reference1GetStream() throws IOException
+	{
+		final VaultItem item = new VaultItem(VALUE1);
+		main.assertIt(HASH1, VALUE1, "putBytes");
+		refr.assertIt("");
+		refr1.assertIt("");
+
+		main.clear();
+		refr1.put(HASH1, VALUE1);
+		main.assertIt("");
+		refr.assertIt("");
+		refr1.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
+		assertEquals(VALUE1, item.getFieldStream());
+		log.assertDebug("get from reference 1 in default: " + HASH1A);
+		main.assertIt("getStream");
+		refr.assertIt("getStream");
+		refr1.assertIt(HASH1, VALUE1, "getStream");
 
 		log.assertEmpty();
 	}
@@ -231,14 +332,17 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		main.assertIt("");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		assertEquals(6, item.getFieldLength()); // DataField#getLength no longer calls VaultService#getLength
 		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
+		refr1.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 
 		log.assertEmpty();
 	}
@@ -248,16 +352,18 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		main.assertIt("");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		final IllegalStateException e = assertFails(
 				item::getFieldBytes,
 				IllegalStateException.class,
 				"vault data missing on " + item + " for VaultItem.field, " +
-				"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
+				"service: VaultMockService:mainExampleValue (references VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
 				"hash(SHA-512): " + HASH1A);
 		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 		assertEquals(HASH1, cause.getHashComplete());
@@ -265,6 +371,12 @@ public class VaultReferenceNoCopyTest
 		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		checkSuppressed(
 				cause,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				},
 				suppressed ->
 				{
 					assertEquals(HASH1, suppressed.getHashComplete());
@@ -275,6 +387,7 @@ public class VaultReferenceNoCopyTest
 
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
+		refr1.assertIt("getBytes");
 
 		log.assertEmpty();
 	}
@@ -284,16 +397,18 @@ public class VaultReferenceNoCopyTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		main.assertIt("");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		final IllegalStateException e = assertFails(
 				item::getFieldStream,
 				IllegalStateException.class,
 				"vault data missing on " + item + " for VaultItem.field, " +
-				"service: VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue), " +
+				"service: VaultMockService:mainExampleValue (references VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
 				"hash(SHA-512): " + HASH1A);
 		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 		assertEquals(HASH1, cause.getHashComplete());
@@ -306,11 +421,18 @@ public class VaultReferenceNoCopyTest
 					assertEquals(HASH1, suppressed.getHashComplete());
 					assertEquals(HASH1A, suppressed.getHashAnonymous());
 					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				},
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
 				}
 		);
 
 		main.assertIt("getStream");
 		refr.assertIt("getStream");
+		refr1.assertIt("getStream");
 
 		log.assertEmpty();
 	}
@@ -318,7 +440,7 @@ public class VaultReferenceNoCopyTest
 
 	private final LogRule log = new LogRule(VaultReferenceService.class);
 	private VaultReferenceService service;
-	private VaultMockService main, refr;
+	private VaultMockService main, refr, refr1;
 
 	@BeforeEach void setUp()
 	{
@@ -328,8 +450,11 @@ public class VaultReferenceNoCopyTest
 				single("vault.default.service", VaultReferenceService.class),
 				single("vault.default.service.main", VaultMockService.class),
 				single("vault.default.service.main.example", "mainExampleValue"),
+				single("vault.default.service.referenceCount", 2),
 				single("vault.default.service.reference", VaultMockService.class),
 				single("vault.default.service.reference.example", "referenceExampleValue"),
+				single("vault.default.service.reference1", VaultMockService.class),
+				single("vault.default.service.reference1.example", "reference1ExampleValue"),
 				single("vault.default.service.copyReferenceToMain", false),
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
@@ -337,6 +462,8 @@ public class VaultReferenceNoCopyTest
 		this.service = (VaultReferenceService)VaultTest.vaultService(MODEL);
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceServices().get(0);
+		refr1 = (VaultMockService)service.getReferenceServices().get(1);
+		assertEquals(2, service.getReferenceServices().size());
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
