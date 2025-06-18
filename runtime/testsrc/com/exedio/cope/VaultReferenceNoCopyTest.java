@@ -31,6 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultReferenceService;
@@ -43,6 +45,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @see VaultReferenceTest
  */
+@MainRule.Tag
 public class VaultReferenceNoCopyTest
 {
 	@Test void connect()
@@ -66,6 +69,8 @@ public class VaultReferenceNoCopyTest
 
 		assertSame(main.bucketProperties, refr.bucketProperties);
 		assertNotSame(main.serviceProperties, refr.serviceProperties);
+
+		log.assertEmpty();
 	}
 
 	@Test void mainGetLength()
@@ -80,6 +85,8 @@ public class VaultReferenceNoCopyTest
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		main.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
 	}
 
 	@Test void mainGetBytes()
@@ -94,6 +101,8 @@ public class VaultReferenceNoCopyTest
 		assertEquals(VALUE1, item.getFieldBytes());
 		main.assertIt(HASH1, VALUE1, "getBytes");
 		refr.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
 	}
 
 	@Test void mainGetStream() throws IOException
@@ -108,6 +117,8 @@ public class VaultReferenceNoCopyTest
 		assertEquals(VALUE1, item.getFieldStream());
 		main.assertIt(HASH1, VALUE1, "getStream");
 		refr.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
 	}
 
 	@Test void referenceGetLength()
@@ -121,9 +132,13 @@ public class VaultReferenceNoCopyTest
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
 
+		log.assertEmpty();
 		assertEquals(VALUE1.length(), item.getFieldLength());
+		log.assertEmpty(); // DataField#getLength no longer calls VaultService#getLength
 		main.assertIt(               ""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
+
+		log.assertEmpty();
 	}
 
 	@Test void referenceGetBytes()
@@ -137,9 +152,13 @@ public class VaultReferenceNoCopyTest
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
 
+		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
+		log.assertDebug("get from reference 0 in default: " + HASH1A);
 		main.assertIt(               "getBytes");
 		refr.assertIt(HASH1, VALUE1, "getBytes");
+
+		log.assertEmpty();
 	}
 
 	@Test void referenceGetStream() throws IOException
@@ -153,9 +172,13 @@ public class VaultReferenceNoCopyTest
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
 
+		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
+		log.assertDebug("get from reference 0 in default: " + HASH1A);
 		main.assertIt(               "getStream");
 		refr.assertIt(HASH1, VALUE1, "getStream");
+
+		log.assertEmpty();
 	}
 
 	@Test void notFoundGetLength()
@@ -171,6 +194,8 @@ public class VaultReferenceNoCopyTest
 		assertEquals(6, item.getFieldLength()); // DataField#getLength no longer calls VaultService#getLength
 		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
+
+		log.assertEmpty();
 	}
 
 	@Test void notFoundGetBytes()
@@ -202,6 +227,8 @@ public class VaultReferenceNoCopyTest
 		}
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
+
+		log.assertEmpty();
 	}
 
 	@Test void notFoundGetStream() throws IOException
@@ -233,14 +260,18 @@ public class VaultReferenceNoCopyTest
 		}
 		main.assertIt("getStream");
 		refr.assertIt("getStream");
+
+		log.assertEmpty();
 	}
 
 
+	private final LogRule log = new LogRule(VaultReferenceService.class);
 	private VaultReferenceService service;
 	private VaultMockService main, refr;
 
 	@BeforeEach void setUp()
 	{
+		log.setLevelDebug();
 		MODEL.connect(ConnectProperties.create(cascade(
 				single("vault", true),
 				single("vault.default.service", VaultReferenceService.class),
