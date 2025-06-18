@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.VaultReferenceTest.checkSuppressed;
 import static com.exedio.cope.VaultTest.HASH1;
 import static com.exedio.cope.VaultTest.HASH1A;
 import static com.exedio.cope.VaultTest.MODEL;
@@ -218,6 +219,16 @@ public class VaultReferenceNoCopyTest
 		assertEquals(HASH1, cause.getHashComplete());
 		assertEquals(HASH1A, cause.getHashAnonymous());
 		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
+		checkSuppressed(
+				cause,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				}
+		);
+
 		main.assertIt("getBytes");
 		refr.assertIt("getBytes");
 
@@ -244,6 +255,16 @@ public class VaultReferenceNoCopyTest
 		assertEquals(HASH1, cause.getHashComplete());
 		assertEquals(HASH1A, cause.getHashAnonymous());
 		assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
+		checkSuppressed(
+				cause,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				}
+		);
+
 		main.assertIt("getStream");
 		refr.assertIt("getStream");
 
