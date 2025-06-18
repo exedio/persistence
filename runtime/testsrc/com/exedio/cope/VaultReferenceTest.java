@@ -81,6 +81,7 @@ public class VaultReferenceTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
@@ -88,6 +89,7 @@ public class VaultReferenceTest
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		main.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -97,10 +99,12 @@ public class VaultReferenceTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
@@ -108,10 +112,12 @@ public class VaultReferenceTest
 		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		assertEquals(VALUE1, item.getFieldBytes());
 		main.assertIt(HASH1, VALUE1, "getBytes");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -121,6 +127,7 @@ public class VaultReferenceTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		main.clear();
 		main.failOnGet(HASH1, new IllegalStateException("error in main"));
@@ -132,6 +139,7 @@ public class VaultReferenceTest
 		assertEquals(0, exception.getSuppressed().length);
 		main.assertIt("getBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 	}
 
 	@Test void errorInReference()
@@ -201,6 +209,7 @@ public class VaultReferenceTest
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
 		refr.assertIt("");
+		refr1.assertIt("");
 
 		refr.put(HASH1, VALUE1);
 		refr.assertIt(HASH1, VALUE1, "");
@@ -208,6 +217,7 @@ public class VaultReferenceTest
 		assertEquals(VALUE1, item.getFieldStream());
 		main.assertIt(HASH1, VALUE1, "getStream");
 		refr.assertIt(HASH1, VALUE1, "");
+		refr1.assertIt("");
 
 		log.assertEmpty();
 	}
