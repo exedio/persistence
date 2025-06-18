@@ -106,6 +106,50 @@ public class VaultReferenceNoCopyTest
 		log.assertEmpty();
 	}
 
+	@Test void errorInMain()
+	{
+		final VaultItem item = new VaultItem(VALUE1);
+		main.assertIt(HASH1, VALUE1, "putBytes");
+		refr.assertIt("");
+
+		main.clear();
+		main.failOnGet(HASH1, new IllegalStateException("error in main"));
+		final IllegalStateException exception = assertFails(
+				item::getFieldBytes,
+				IllegalStateException.class,
+				"error in main"
+		);
+		assertEquals(0, exception.getSuppressed().length);
+		main.assertIt("getBytes");
+		refr.assertIt("");
+	}
+
+	@Test void errorInReference()
+	{
+		final VaultItem item = new VaultItem(VALUE1);
+		main.assertIt(HASH1, VALUE1, "putBytes");
+		refr.assertIt("");
+
+		main.clear();
+		refr.failOnGet(HASH1, new IllegalStateException("error in reference"));
+		final IllegalStateException exception = assertFails(
+				item::getFieldBytes,
+				IllegalStateException.class,
+				"error in reference"
+		);
+		checkSuppressed(
+				exception,
+				suppressed ->
+				{
+					assertEquals(HASH1, suppressed.getHashComplete());
+					assertEquals(HASH1A, suppressed.getHashAnonymous());
+					assertEquals("hash not found in vault: " + HASH1A, suppressed.getMessage());
+				}
+		);
+		main.assertIt("getBytes");
+		refr.assertIt("getBytes");
+	}
+
 	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
@@ -136,7 +180,7 @@ public class VaultReferenceNoCopyTest
 		log.assertEmpty();
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		log.assertEmpty(); // DataField#getLength no longer calls VaultService#getLength
-		main.assertIt(               ""); // DataField#getLength no longer calls VaultService#getLength
+		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 		refr.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 
 		log.assertEmpty();
@@ -156,7 +200,7 @@ public class VaultReferenceNoCopyTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference 0 in default: " + HASH1A);
-		main.assertIt(               "getBytes");
+		main.assertIt("getBytes");
 		refr.assertIt(HASH1, VALUE1, "getBytes");
 
 		log.assertEmpty();
