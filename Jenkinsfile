@@ -89,6 +89,7 @@ try
 					}
 					sh "docker logs " + c.id + " &> apache.log"
 					archiveArtifacts 'apache.log'
+					shSilent("rm -f apache.log")
 				}
 			}
 
@@ -111,6 +112,8 @@ try
 				'tomcat/logs/*,' +
 				'build/testtmpdir'
 			)
+			assertGitUnchanged()
+
 			if (isRelease || env.BRANCH_NAME.contains("archiveSuccessArtifacts"))
 				archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
 			plot(
