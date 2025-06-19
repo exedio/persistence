@@ -45,12 +45,14 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * @see VaultReferenceNoCopyTest
- */
 @MainRule.Tag
-public class VaultReferenceTest
+public abstract class VaultReferenceTest
 {
+	protected boolean copyReferenceToMain()
+	{
+		return true;
+	}
+
 	@Test void connect()
 	{
 		assertNotNull(service);
@@ -272,14 +274,20 @@ public class VaultReferenceTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference 0 in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getBytes putBytes");
+		if(copyReferenceToMain())
+			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
+		else
+			main.assertIt("getBytes");
 		refr.assertIt(HASH1, VALUE1, "getBytes");
 		refr1.assertIt("");
 
-		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
-		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		if(copyReferenceToMain())
+		{
+			assertAncestry(field, item, HASH1, "main", "myMainAncestry");
+			main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
+			refr.assertIt(HASH1, VALUE1, "");
+			refr1.assertIt("");
+		}
 
 		log.assertEmpty();
 	}
@@ -311,14 +319,20 @@ public class VaultReferenceTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference 1 in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getBytes putBytes");
+		if(copyReferenceToMain())
+			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
+		else
+			main.assertIt("getBytes");
 		refr.assertIt("getBytes");
 		refr1.assertIt(HASH1, VALUE1, "getBytes");
 
-		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
-		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
-		refr.assertIt("");
-		refr1.assertIt(HASH1, VALUE1, "");
+		if(copyReferenceToMain())
+		{
+			assertAncestry(field, item, HASH1, "main", "myMainAncestry");
+			main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
+			refr.assertIt("");
+			refr1.assertIt(HASH1, VALUE1, "");
+		}
 
 		log.assertEmpty();
 	}
@@ -339,7 +353,10 @@ public class VaultReferenceTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference 0 in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getStream putFile");
+		if(copyReferenceToMain())
+			main.assertIt(HASH1, VALUE1, "getStream putFile");
+		else
+			main.assertIt("getStream");
 		refr.assertIt(HASH1, VALUE1, "getStream");
 		refr1.assertIt("");
 
@@ -362,7 +379,10 @@ public class VaultReferenceTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference 1 in default: " + HASH1A);
-		main.assertIt(HASH1, VALUE1, "getStream putFile");
+		if(copyReferenceToMain())
+			main.assertIt(HASH1, VALUE1, "getStream putFile");
+		else
+			main.assertIt("getStream");
 		refr.assertIt("getStream");
 		refr1.assertIt(HASH1, VALUE1, "getStream");
 
@@ -497,6 +517,7 @@ public class VaultReferenceTest
 				single("vault.default.service.reference.example", "referenceExampleValue"),
 				single("vault.default.service.reference1", VaultMockService.class),
 				single("vault.default.service.reference1.example", "reference1ExampleValue"),
+				single("vault.default.service.copyReferenceToMain", copyReferenceToMain()),
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
@@ -520,7 +541,7 @@ public class VaultReferenceTest
 	}
 
 	@SafeVarargs
-	static void checkSuppressed(final Exception cause, final Consumer<VaultNotFoundException>... check)
+	private static void checkSuppressed(final Exception cause, final Consumer<VaultNotFoundException>... check)
 	{
 		final Throwable[] suppressedAll = cause.getSuppressed();
 		assertEquals(check.length, suppressedAll.length);
