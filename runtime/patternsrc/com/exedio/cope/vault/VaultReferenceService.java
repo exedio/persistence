@@ -324,19 +324,20 @@ public final class VaultReferenceService implements VaultService
 	public Object probeBucketTag(final String bucket) throws Exception
 	{
 		final Object result = main.probeBucketTag(bucket);
-		REFERENCE(bucket);
+		REFERENCE(bucket, 0);
 		return result;
 	}
 	/**
 	 * This method has the sole purpose to appear in stack traces
-	 * showing that any exception was caused by one of the reference services.
+	 * showing that any exception was caused by which of the reference services.
 	 */
-	private void REFERENCE(final String bucket) throws Exception
+	private void REFERENCE(final String bucket, int index) throws Exception
 	{
-		for(final VaultService reference : references)
-		{
-			reference.probeBucketTag(bucket);
-		}
+		references[index++].probeBucketTag(bucket);
+
+		if(index<references.length)
+			//noinspection TailRecursion OK: recursion is the sole prupuse of this method
+			REFERENCE(bucket, index);
 	}
 
 
