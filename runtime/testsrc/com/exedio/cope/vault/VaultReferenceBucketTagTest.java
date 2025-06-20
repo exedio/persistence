@@ -63,7 +63,7 @@ public class VaultReferenceBucketTagTest
 		final VaultReferenceService service = service("mainGenuine", "refrGenuine", "ABORT refr1Genuine");
 		assertEquals(2, service.getReferenceServices().size());
 
-		assertStackTrace(1, assertFails(
+		assertStackTrace(2, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
 				"ABORT refr1Genuine(my-Bucket)"));
