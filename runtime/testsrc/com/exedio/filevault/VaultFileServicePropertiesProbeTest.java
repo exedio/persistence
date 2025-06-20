@@ -31,7 +31,6 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -97,7 +96,7 @@ public class VaultFileServicePropertiesProbeTest
 				"directory.posixPermissionsAfterwards",
 				"directory.posixGroup",
 				"temp"),
-				p.getFields().stream().map(Field::getKey).collect(toList()));
+				p.getFields().stream().map(Field::getKey).toList());
 		assertEquals(root.toPath(), p.root);
 		assertEquals(root.toPath(), p.content);
 		assertEquals(temp.toPath(), p.tempDir());
@@ -220,7 +219,7 @@ public class VaultFileServicePropertiesProbeTest
 						"directory.posixPermissionsAfterwards",
 						"directory.posixGroup",
 						"temp"),
-				p.getFields().stream().map(Field::getKey).collect(toList()));
+				p.getFields().stream().map(Field::getKey).toList());
 		assertEquals(root.toPath(), p.root);
 		assertEquals(cont.toPath(), p.content);
 		assertEquals(temp.toPath(), p.tempDir());
@@ -323,7 +322,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Props p = new Props(source);
 		assertEquals(
 				asList("root", "content", "writable", "directory", "directory.length"),
-				p.getFields().stream().map(Field::getKey).collect(toList()));
+				p.getFields().stream().map(Field::getKey).toList());
 		assertEquals(root.toPath(), p.root);
 		assertFails(
 				p::tempDir,

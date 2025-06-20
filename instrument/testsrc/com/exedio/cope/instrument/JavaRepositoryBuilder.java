@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.annotation.processing.RoundEnvironment;
@@ -66,13 +65,13 @@ final class JavaRepositoryBuilder
 
 	JavaRepositoryBuilder withSrcDir(final File srcDir)
 	{
-		srcDirs = Stream.concat(srcDirs.stream(), Stream.of(srcDir)).collect(Collectors.toList());
+		srcDirs = Stream.concat(srcDirs.stream(), Stream.of(srcDir)).toList();
 		return this;
 	}
 
 	JavaRepositoryBuilder withClasspath(final File classpathEntry)
 	{
-		classpath = Stream.concat(classpath.stream(), Stream.of(classpathEntry)).collect(Collectors.toList());
+		classpath = Stream.concat(classpath.stream(), Stream.of(classpathEntry)).toList();
 		return this;
 	}
 

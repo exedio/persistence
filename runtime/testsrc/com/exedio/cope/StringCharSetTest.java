@@ -28,7 +28,6 @@ import static com.exedio.cope.StringCharSetItem.email;
 import static com.exedio.cope.StringCharSetItem.nonascii;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -194,7 +193,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	private void assertIt(final CharSet cs, final boolean isSubsetOfAscii, final StringCharSetItem... result)
 	{
 		assertEquals(isSubsetOfAscii, cs.isSubsetOfAscii(), "isSubsetOfAscii");
-		assertEquals(asList(result), Arrays.stream(result).sorted().collect(toList()));
+		assertEquals(asList(result), Arrays.stream(result).sorted().toList());
 		final CharSetCondition c = (CharSetCondition)any.conformsTo(cs);
 		final HashSet<StringCharSetItem> resultSet = new HashSet<>(asList(result));
 		for(final StringCharSetItem i : TYPE.search(null, TYPE.getThis(), true))

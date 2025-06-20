@@ -22,7 +22,6 @@ import static com.exedio.cope.CopyConstraint.RESOLVE_TEMPLATE;
 import static com.exedio.cope.CopyConstraint.SELF_TEMPLATE;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -92,10 +91,10 @@ public class FunctionFieldTest
 			final FunctionField<E> fieldC = fieldB.copyFrom(secondItemField, templateC);
 			final FunctionField<E> fieldD = fieldC.noCopyFrom();
 
-			assertEquals(List.of(firstItemField), stream(fieldB.copyFrom).map(c -> c.target).collect(toList()));
-			assertEquals(List.of(firstItemField, secondItemField), stream(fieldC.copyFrom).map(c -> c.target).collect(toList()));
-			assertEquals(List.of(templateB), stream(fieldB.copyFrom).map(c -> c.template).collect(toList()));
-			assertEquals(List.of(templateB, templateC), stream(fieldC.copyFrom).map(c -> c.template).collect(toList()));
+			assertEquals(List.of(firstItemField), stream(fieldB.copyFrom).map(c -> c.target).toList());
+			assertEquals(List.of(firstItemField, secondItemField), stream(fieldC.copyFrom).map(c -> c.target).toList());
+			assertEquals(List.of(templateB), stream(fieldB.copyFrom).map(c -> c.template).toList());
+			assertEquals(List.of(templateB, templateC), stream(fieldC.copyFrom).map(c -> c.template).toList());
 			assertArrayEquals(null, fieldD.copyFrom);
 			assertNotSame(fieldA, fieldD);
 			assertEquals(fieldA.getClass(), fieldB.getClass());
@@ -107,10 +106,10 @@ public class FunctionFieldTest
 			final FunctionField<E> fieldC = fieldB.copyFromSelf(secondItemField);
 			final FunctionField<E> fieldD = fieldC.noCopyFrom();
 
-			assertEquals(List.of(firstItemField), stream(fieldB.copyFrom).map(c -> c.target).collect(toList()));
-			assertEquals(List.of(firstItemField, secondItemField), stream(fieldC.copyFrom).map(c -> c.target).collect(toList()));
-			assertEquals(List.of(SELF_TEMPLATE), stream(fieldB.copyFrom).map(c -> c.template).collect(toList()));
-			assertEquals(List.of(SELF_TEMPLATE, SELF_TEMPLATE), stream(fieldC.copyFrom).map(c -> c.template).collect(toList()));
+			assertEquals(List.of(firstItemField), stream(fieldB.copyFrom).map(c -> c.target).toList());
+			assertEquals(List.of(firstItemField, secondItemField), stream(fieldC.copyFrom).map(c -> c.target).toList());
+			assertEquals(List.of(SELF_TEMPLATE), stream(fieldB.copyFrom).map(c -> c.template).toList());
+			assertEquals(List.of(SELF_TEMPLATE, SELF_TEMPLATE), stream(fieldC.copyFrom).map(c -> c.template).toList());
 			assertArrayEquals(null, fieldD.copyFrom);
 			assertNotSame(fieldA, fieldD);
 			assertEquals(fieldA.getClass(), fieldB.getClass());
@@ -122,10 +121,10 @@ public class FunctionFieldTest
 		final FunctionField<E> fieldD = fieldC.noCopyFrom();
 
 		assertArrayEquals(null, fieldA.copyFrom);
-		assertEquals(List.of(firstItemField), stream(fieldB.copyFrom).map(c -> c.target).collect(toList()));
-		assertEquals(List.of(firstItemField, secondItemField), stream(fieldC.copyFrom).map(c -> c.target).collect(toList()));
-		assertEquals(List.of(RESOLVE_TEMPLATE), stream(fieldB.copyFrom).map(c -> c.template).collect(toList()));
-		assertEquals(List.of(RESOLVE_TEMPLATE, RESOLVE_TEMPLATE), stream(fieldC.copyFrom).map(c -> c.template).collect(toList()));
+		assertEquals(List.of(firstItemField), stream(fieldB.copyFrom).map(c -> c.target).toList());
+		assertEquals(List.of(firstItemField, secondItemField), stream(fieldC.copyFrom).map(c -> c.target).toList());
+		assertEquals(List.of(RESOLVE_TEMPLATE), stream(fieldB.copyFrom).map(c -> c.template).toList());
+		assertEquals(List.of(RESOLVE_TEMPLATE, RESOLVE_TEMPLATE), stream(fieldC.copyFrom).map(c -> c.template).toList());
 		assertArrayEquals(null, fieldD.copyFrom);
 		assertNotSame(fieldA, fieldD);
 		assertEquals(fieldA.getClass(), fieldB.getClass());

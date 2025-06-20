@@ -25,7 +25,6 @@ import static com.exedio.cope.tojunit.TestSources.minimal;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -221,7 +220,7 @@ public class DataVaultInfoTest
 		assertNotNull(tab);
 		assertEquals(
 				Arrays.asList("hash", "length", "start20", "markPut", "date", "field", "origin"),
-				tab.getColumns().stream().map(Column::getName).collect(toList()));
+				tab.getColumns().stream().map(Column::getName).toList());
 		assertEquals("VARCHAR(128)"     + " not null", tab.getColumn("hash")   .getType());
 		assertEquals("BIGINT"           + " not null", tab.getColumn("length") .getType());
 		assertEquals("BLOB"             + " not null", tab.getColumn("start20").getType());

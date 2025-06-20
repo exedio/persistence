@@ -22,7 +22,6 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.AssertionErrorVaultService;
@@ -47,7 +46,7 @@ public class VaultReferenceServicePropertiesTest
 				"referenceCount",
 				"reference",
 				"copyReferenceToMain"),
-				p.getFields().stream().map(Properties.Field::getKey).collect(toList()));
+				p.getFields().stream().map(Properties.Field::getKey).toList());
 	}
 
 	@Test
@@ -69,7 +68,7 @@ public class VaultReferenceServicePropertiesTest
 						"reference1",
 						"reference2",
 						"copyReferenceToMain"),
-				p.getFields().stream().map(Properties.Field::getKey).collect(toList()));
+				p.getFields().stream().map(Properties.Field::getKey).toList());
 	}
 
 	private static final class MyService extends AssertionErrorVaultService

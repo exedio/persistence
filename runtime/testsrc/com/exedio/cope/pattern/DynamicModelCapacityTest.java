@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Feature;
@@ -51,7 +50,7 @@ public class DynamicModelCapacityTest
 				"AnItem.explicitCapacities-enum3",
 				"AnItem.explicitCapacities-enum4",
 				"AnItem.explicitCapacities-type"),
-				AnItem.explicitCapacities.getSourceFeatures().stream().map(Feature::getID).collect(toList()));
+				AnItem.explicitCapacities.getSourceFeatures().stream().map(Feature::getID).toList());
 		assertEquals(asList(
 				"AnItem.defaultCapacities-string0",
 				"AnItem.defaultCapacities-string1",
@@ -79,7 +78,7 @@ public class DynamicModelCapacityTest
 				"AnItem.defaultCapacities-enum3",
 				"AnItem.defaultCapacities-enum4",
 				"AnItem.defaultCapacities-type"),
-				AnItem.defaultCapacities.getSourceFeatures().stream().map(Feature::getID).collect(toList()));
+				AnItem.defaultCapacities.getSourceFeatures().stream().map(Feature::getID).toList());
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
