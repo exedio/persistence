@@ -44,12 +44,6 @@ public class VaultReferenceServiceSpecificationTest extends VaultServiceTest
 		return result;
 	}
 
-	@Override
-	protected boolean supportsContains()
-	{
-		return false;
-	}
-
 	/**
 	 * Sufficiently tested in {@link VaultReferenceBucketTagTest}
 	 */
