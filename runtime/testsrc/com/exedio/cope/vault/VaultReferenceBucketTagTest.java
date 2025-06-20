@@ -53,7 +53,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("mainGenuine", "ABORT refrGenuine");
 
-		assertStackTrace(true, assertFails(
+		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
 				"ABORT refrGenuine(my-Bucket)"));
@@ -63,7 +63,7 @@ public class VaultReferenceBucketTagTest
 		final VaultReferenceService service = service("mainGenuine", "refrGenuine", "ABORT refr1Genuine");
 		assertEquals(2, service.getReferenceServices().size());
 
-		assertStackTrace(true, assertFails(
+		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
 				"ABORT refr1Genuine(my-Bucket)"));
@@ -72,7 +72,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("mainGenuine", "ABORT refrGenuine", "refr1Genuine");
 
-		assertStackTrace(true, assertFails(
+		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
 				"ABORT refrGenuine(my-Bucket)"));
@@ -81,7 +81,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("mainGenuine", "FAIL refrGenuine");
 
-		assertStackTrace(true, assertFails(
+		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
 				"FAIL refrGenuine(my-Bucket)"));
@@ -90,7 +90,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("ABORT mainGenuine", "refrGenuine");
 
-		assertStackTrace(false, assertFails(
+		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
 				"ABORT mainGenuine(my-Bucket)"));
@@ -99,7 +99,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("ABORT mainGenuine", "ABORT refrGenuine");
 
-		assertStackTrace(false, assertFails(
+		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
 				"ABORT mainGenuine(my-Bucket)"));
@@ -108,7 +108,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("ABORT mainGenuine", "FAIL refrGenuine");
 
-		assertStackTrace(false, assertFails(
+		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
 				"ABORT mainGenuine(my-Bucket)"));
@@ -117,7 +117,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("FAIL mainGenuine", "refrGenuine");
 
-		assertStackTrace(false, assertFails(
+		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
 				"FAIL mainGenuine(my-Bucket)"));
@@ -126,7 +126,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("FAIL mainGenuine", "ABORT refrGenuine");
 
-		assertStackTrace(false, assertFails(
+		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
 				"FAIL mainGenuine(my-Bucket)"));
@@ -135,7 +135,7 @@ public class VaultReferenceBucketTagTest
 	{
 		final VaultReferenceService service = service("FAIL mainGenuine", "FAIL refrGenuine");
 
-		assertStackTrace(false, assertFails(
+		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
 				"FAIL mainGenuine(my-Bucket)"));
@@ -158,10 +158,10 @@ public class VaultReferenceBucketTagTest
 		final Source source = cascade(sources.toArray(Source[]::new));
 		return (VaultReferenceService)BucketProperties.factory("myKey").create(source).newServiceNonResilient(() -> false);
 	}
-	private static void assertStackTrace(final boolean expected, final Exception actual)
+	private static void assertStackTrace(final int expected, final Exception actual)
 	{
 		assertEquals(expected, stream(actual.getStackTrace()).
 				map(StackTraceElement::getMethodName).
-				anyMatch("REFERENCE"::equals));
+				filter("REFERENCE"::equals).count());
 	}
 }
