@@ -26,7 +26,6 @@ import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -63,7 +62,7 @@ public class VaultHttpServicePropertiesTest
 				"requestTimeout",
 				"followRedirects",
 				"authenticator"),
-				p.getFields().stream().map(Field::getKey).collect(toList()));
+				p.getFields().stream().map(Field::getKey).toList());
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
 		assertEquals(HttpClient.Version.HTTP_2, client.version());
 		assertEquals(Optional.of(ofSeconds(3)), client.connectTimeout());

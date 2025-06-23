@@ -20,7 +20,6 @@ package com.exedio.filevault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.IllegalPropertiesException;
@@ -65,7 +64,7 @@ public class VaultFileServiceErrorTest
 				"trail.startLimit",
 				"trail.fieldLimit",
 				"trail.originLimit"),
-				properties.getFields().stream().map(Field::getKey).collect(toList()));
+				properties.getFields().stream().map(Field::getKey).toList());
 		//noinspection resource
 		final VaultFileService service = (VaultFileService)properties.newServiceNonResilient(() -> false);
 
@@ -93,7 +92,7 @@ public class VaultFileServiceErrorTest
 				"trail.startLimit",
 				"trail.fieldLimit",
 				"trail.originLimit"),
-				properties.getFields().stream().map(Field::getKey).collect(toList()));
+				properties.getFields().stream().map(Field::getKey).toList());
 		//noinspection resource
 		final RuntimeException e2 = assertFails(
 				() -> properties.newServiceNonResilient(() -> false),

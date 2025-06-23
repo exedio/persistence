@@ -42,7 +42,6 @@ import static com.exedio.cope.SchemaTypeStringItem.f86Ext;
 import static com.exedio.cope.SchemaTypeStringItem.fMax;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
@@ -262,7 +261,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		return SchemaTypeStringField.get(TYPE).
 				stream().
 				filter(f -> f!=f1 && f!=f2). // too short for containing the values and has no additional relevance for test
-				collect(toList());
+				toList();
 	}
 
 

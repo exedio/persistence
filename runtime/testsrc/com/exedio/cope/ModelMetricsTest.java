@@ -25,7 +25,6 @@ import static java.time.Month.DECEMBER;
 import static java.time.Month.JANUARY;
 import static java.time.Month.OCTOBER;
 import static java.time.ZoneOffset.UTC;
-import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.micrometer.core.instrument.Meter;
@@ -65,7 +64,7 @@ public class ModelMetricsTest
 	{
 		final Meter.Id id = meter.getId();
 		assertEquals(nameClass.getName() + "." + word + "NameSuffix", id.getName());
-		assertEquals(tags.and(word + "Key", word + "Value", "model", "myModelName").stream().collect(toList()), id.getTags());
+		assertEquals(tags.and(word + "Key", word + "Value", "model", "myModelName").stream().toList(), id.getTags());
 		assertEquals(word + "Desc", id.getDescription());
 	}
 

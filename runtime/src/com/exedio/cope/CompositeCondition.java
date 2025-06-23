@@ -229,7 +229,7 @@ public final class CompositeCondition extends Condition
 			} default -> {
 				if (Stream.of(values).anyMatch(Objects::isNull))
 				{
-					return getConditionForInWithNull(function, Stream.of(values).filter(Objects::nonNull).distinct().collect(Collectors.toList()));
+					return getConditionForInWithNull(function, Stream.of(values).filter(Objects::nonNull).distinct().toList());
 				}
 				else
 				{

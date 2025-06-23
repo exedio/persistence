@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 public class ConnectPropertiesTest
@@ -132,7 +131,7 @@ public class ConnectPropertiesTest
 				"media.offsetExpires",
 				"media.fingerprintOffset",
 				"media.url.secret"),
-				p.getFields().stream().map(Field::getKey).collect(Collectors.toList()));
+				p.getFields().stream().map(Field::getKey).toList());
 	}
 
 	@Test void testConnectionUrlMissingPrefix()
