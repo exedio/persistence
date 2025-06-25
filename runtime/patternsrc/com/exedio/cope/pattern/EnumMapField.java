@@ -79,7 +79,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			FunctionField<V> value = valueTemplate.copy();
 			if(defaultConstant.containsKey(key))
 				value = value.defaultTo(defaultConstant.get(key));
-			if(fallback!=null && key!=fallback && value.isMandatory())
+			if(fallback!=null && fallback!=key && value.isMandatory())
 				value = value.optional();
 			addSourceFeature(value, name(key), EnumAnnotatedElement.get(key));
 			fields.put(key, value);
@@ -380,7 +380,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			{
 				result.put(key, value);
 
-				if(key==fallback)
+				if(fallback==key)
 					fallbackValue = value;
 			}
 		}
