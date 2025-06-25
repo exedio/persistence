@@ -35,7 +35,7 @@ final class MediaCustom extends MediaPath
 	private static final long serialVersionUID = 1l;
 
 	@WrapInterim
-	final StringField source;
+	private final StringField source;
 
 	@WrapInterim
 	MediaCustom(final StringField source)
