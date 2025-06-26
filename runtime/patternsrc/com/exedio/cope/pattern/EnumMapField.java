@@ -59,6 +59,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	private final K fallback;
 	private final FunctionField<V> valueTemplate;
 	private final EnumMap<K, FunctionField<V>> fields;
+	private final FunctionField<V> fallbackField;
 	private final EnumMap<K, V> defaultConstant;
 
 	private EnumMapField(
@@ -74,6 +75,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		this.fields = new EnumMap<>(keyClass);
 		this.defaultConstant = defaultConstant;
 
+		FunctionField<V> fallbackField = null;
 		for(final K key : keyClass.getEnumConstants())
 		{
 			FunctionField<V> value = valueTemplate.copy();
@@ -83,7 +85,11 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 				value = value.optional();
 			addSourceFeature(value, name(key), EnumAnnotatedElement.get(key));
 			fields.put(key, value);
+			if(fallback==key)
+				fallbackField = value;
 		}
+		this.fallbackField = fallbackField;
+		assert fallback==null || fields.get(fallback)==fallbackField;
 	}
 
 	public static <K extends Enum<K>,V> EnumMapField<K,V> create(
@@ -363,7 +369,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			key==fallback) // shortcut spares second call to get
 			return withoutFallback;
 
-		return field(fallback).get(item);
+		return fallbackField.get(item);
 	}
 
 	@Wrap(order=111, hide=NoFallbacksGetter.class)
@@ -405,7 +411,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		if(fallback==key)
 			return forKey;
 		else
-			return coalesce(forKey, fields.get(fallback));
+			return coalesce(forKey, fallbackField);
 	}
 
 	private void assertFallbacks()
