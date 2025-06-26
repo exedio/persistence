@@ -359,7 +359,8 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		assertFallbacks();
 
 		final V withoutFallback = field(key).get(item);
-		if(withoutFallback!=null)
+		if(withoutFallback!=null ||
+			key==fallback) // shortcut spares second call to get
 			return withoutFallback;
 
 		return field(fallback).get(item);
