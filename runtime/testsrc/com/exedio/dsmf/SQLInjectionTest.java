@@ -18,8 +18,7 @@
 
 package com.exedio.dsmf;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import org.junit.jupiter.api.Test;
 
@@ -38,16 +37,10 @@ public class SQLInjectionTest extends SchemaTest
 		final Schema schema = newSchema();
 		final Table badTable = schema.newTable(BAD_TABLE);
 		badTable.newColumn(COLUMN, stringType);
-
-		try
-		{
-			badTable.create();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(MESSAGE_PREFIX + BAD_TABLE, e.getMessage());
-		}
+		assertFails(
+				badTable::create,
+				IllegalArgumentException.class,
+				MESSAGE_PREFIX + BAD_TABLE);
 	}
 
 	@Test void testColumnCreate()
@@ -58,14 +51,9 @@ public class SQLInjectionTest extends SchemaTest
 		final Schema schema = newSchema();
 		final Table table = schema.newTable(TABLE);
 		table.newColumn(BAD_COLUMN, stringType);
-		try
-		{
-			table.create();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(MESSAGE_PREFIX + BAD_COLUMN, e.getMessage());
-		}
+		assertFails(
+				table::create,
+				IllegalArgumentException.class,
+				MESSAGE_PREFIX + BAD_COLUMN);
 	}
 }
