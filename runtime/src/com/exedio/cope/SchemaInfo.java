@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Statement.Mode.SQL_ONLY;
 import static com.exedio.cope.util.Check.requireNonEmpty;
+import static com.exedio.cope.vault.VaultProperties.checkBucket;
 import static java.util.Objects.requireNonNull;
 
 import java.sql.Connection;
@@ -358,6 +359,53 @@ public final class SchemaInfo
 	public static String check(final CopyConstraint constraint)
 	{
 		return total(requireNonNull(constraint, "constraint").checkQuery());
+	}
+
+	public static String getVaultTrailTableName(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).table;
+	}
+
+	public static String getVaultTrailHashColumnName(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).hash;
+	}
+
+	public static String getVaultTrailLengthColumnName(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).length;
+	}
+
+	public static String getVaultTrailStartColumnName(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).start;
+	}
+
+	public static int getVaultTrailStartColumnLimit(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).startLimit;
+	}
+
+	public static String getVaultTrailDateColumnName(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).date;
+	}
+
+	public static String getVaultTrailFieldColumnName(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).field;
+	}
+
+	public static String getVaultTrailOriginColumnName(final Model model, final String bucket)
+	{
+		return vaultTrail(model, bucket).origin;
+	}
+
+	private static VaultTrail vaultTrail(final Model model, final String bucket)
+	{
+		checkBucket(bucket, message ->
+				new IllegalArgumentException("bucket " + message));
+		return model.connect().vault(bucket).trail;
 	}
 
 	/**

@@ -42,15 +42,15 @@ final class VaultTrail
 	private final int originLimit;
 	private final String originValue;
 
-	private final String table;
-	private final String hash;
+	final String table;
+	final String hash;
 	private final String hashPK;
-	private final String length;
-	private final String start;
+	final String length;
+	final String start;
 	private final String markPut;
-	private final String date;
-	private final String field;
-	private final String origin;
+	final String date;
+	final String field;
+	final String origin;
 
 	final String tableQuoted;
 	final String hashQuoted;
