@@ -20,7 +20,16 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.SchemaInfo.checkVaultTrail;
+import static com.exedio.cope.SchemaInfo.getVaultTrailDateColumnName;
+import static com.exedio.cope.SchemaInfo.getVaultTrailFieldColumnName;
+import static com.exedio.cope.SchemaInfo.getVaultTrailHashColumnName;
+import static com.exedio.cope.SchemaInfo.getVaultTrailLengthColumnName;
+import static com.exedio.cope.SchemaInfo.getVaultTrailOriginColumnName;
+import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnLimit;
+import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnName;
+import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static com.exedio.cope.vault.VaultPropertiesTest.deresiliate;
@@ -364,6 +373,35 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	@Test void testSchema()
 	{
 		assertSchema();
+	}
+	@Test void testSchemaInfo()
+	{
+		assertEquals("VaultTrail_my_Bucket", getVaultTrailTableName(model, "my-Bucket"));
+		assertEquals("VaultTrail_default",   getVaultTrailTableName(model, "default"));
+		assertEquals("hash",    getVaultTrailHashColumnName  (model, "my-Bucket"));
+		assertEquals("hash",    getVaultTrailHashColumnName  (model, "default"));
+		assertEquals("length",  getVaultTrailLengthColumnName(model, "my-Bucket"));
+		assertEquals("length",  getVaultTrailLengthColumnName(model, "default"));
+		assertEquals("start20", getVaultTrailStartColumnName (model, "my-Bucket"));
+		assertEquals("start20", getVaultTrailStartColumnName (model, "default"));
+		assertEquals(20,        getVaultTrailStartColumnLimit(model, "my-Bucket"));
+		assertEquals(20,        getVaultTrailStartColumnLimit(model, "default"));
+		assertEquals("date",    getVaultTrailDateColumnName  (model, "my-Bucket"));
+		assertEquals("date",    getVaultTrailDateColumnName  (model, "default"));
+		assertEquals("field",   getVaultTrailFieldColumnName (model, "my-Bucket"));
+		assertEquals("field",   getVaultTrailFieldColumnName (model, "default"));
+		assertEquals("origin",  getVaultTrailOriginColumnName(model, "my-Bucket"));
+		assertEquals("origin",  getVaultTrailOriginColumnName(model, "default"));
+
+		assertFails(
+				() -> getVaultTrailTableName(model, "xxx"),
+				IllegalArgumentException.class,
+				"bucket xxx does not exist, use one of [default, my-Bucket]");
+		assertFails(
+				() -> getVaultTrailTableName(model, "xx.x"),
+				IllegalArgumentException.class,
+				"bucket must contain just [---,0-9,A-Z,a-z], " +
+				"but was >xx.x< containing a forbidden character at position 2");
 	}
 
 
