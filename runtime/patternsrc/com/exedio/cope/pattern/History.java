@@ -147,7 +147,7 @@ public final class History extends Pattern
 	public List<Event> getEvents(final Item item)
 	{
 		final EventType type = eventType();
-		final Query<Event> q = type.type.newQuery(Cope.equalAndCast(type.parent, item));
+		final Query<Event> q = type.type.newQuery(type.parent.isCasted(item));
 		q.setOrderBy(
 				new Function<?>[]{ type.date, type.type.getThis() },
 				new boolean    []{ false,     false });
@@ -238,7 +238,7 @@ public final class History extends Pattern
 		public List<? extends Feature> getFeatures()
 		{
 			final FeatureType type = getPattern().featureType();
-			return type.type.search(Cope.equalAndCast(type.event, this), type.type.getThis(), true);
+			return type.type.search(type.event.isCasted(this), type.type.getThis(), true);
 		}
 
 		private static SetValue<?> cut(final StringField f, final Object o)

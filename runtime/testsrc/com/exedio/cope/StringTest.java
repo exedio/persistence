@@ -651,7 +651,7 @@ public class StringTest extends TestWithEnvironment
 		final Integer valueChars = value.length();
 		final String message = value+'('+valueChars+','+value.getBytes(UTF_8).length+')';
 		assertEquals(valueChars, sa.length().get(item), message);
-		assertEquals(valueChars, new Query<>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict(), message);
+		assertEquals(valueChars, new Query<>(sa.length(), item.getCopeType().getThis().isCasted(item)).searchSingletonStrict(), message);
 	}
 
 	protected static List<?> search(final FunctionField<?> selectAttribute)

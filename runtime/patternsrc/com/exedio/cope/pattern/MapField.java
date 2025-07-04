@@ -242,7 +242,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	{
 		final Mount mount = mount();
 		final LinkedHashMap<K,V> result = new LinkedHashMap<>();
-		final Query<Entry> query = mount.entryType.newQuery(Cope.equalAndCast(mount.parent, item));
+		final Query<Entry> query = mount.entryType.newQuery(mount.parent.isCasted(item));
 		query.setOrderBy(key, true);
 		for(final Entry entry : query.search())
 			result.put(key.get(entry), value.get(entry));
@@ -264,7 +264,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		final Mount mount = mount();
 		final HashMap<K,V> done = new HashMap<>();
 
-		for(final Entry entry : mount.entryType.search(Cope.equalAndCast(mount.parent, item)))
+		for(final Entry entry : mount.entryType.search(mount.parent.isCasted(item)))
 		{
 			final K key = this.key.get(entry);
 			if(map.containsKey(key))

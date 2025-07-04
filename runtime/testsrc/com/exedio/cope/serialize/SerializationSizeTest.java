@@ -20,7 +20,6 @@ package com.exedio.cope.serialize;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
@@ -149,7 +148,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 
 	private static List<? extends Item> getItems(final ListField<?> f, final Item parent)
 	{
-		final Query<? extends Item> q = new Query<>(f.getEntryType().getThis(), Cope.equalAndCast(f.getParent(), parent));
+		final Query<? extends Item> q = new Query<>(f.getEntryType().getThis(), f.getParent().isCasted(parent));
 		q.setOrderBy(f.getOrder(), true);
 		return q.search();
 	}
