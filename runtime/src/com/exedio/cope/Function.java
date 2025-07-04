@@ -254,6 +254,19 @@ public interface Function<E> extends Selectable<E>
 		return CompareFunctionCondition.create(Operator.GreaterEqual, this, right);
 	}
 
+
+	/**
+	 * {@link Class#cast(Object) Casts}
+	 * {@code value} to {@link E} before calling
+	 * {@link #is(Object)}
+	 * @throws ClassCastException if {@code value} is not assignable to {@link E}
+	 */
+	default Condition isCasted(final Object value)
+	{
+		return is(getValueClass().cast(value));
+	}
+
+
 	@SuppressWarnings("deprecation")
 	default ExtremumAggregate<E> min()
 	{
