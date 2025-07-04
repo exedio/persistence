@@ -24,7 +24,6 @@ import static com.exedio.cope.Cope.greaterOrEqualAndCast;
 import static com.exedio.cope.Cope.lessAndCast;
 import static com.exedio.cope.Cope.lessOrEqualAndCast;
 import static com.exedio.cope.Cope.multiply;
-import static com.exedio.cope.Cope.notEqualAndCast;
 import static com.exedio.cope.Cope.plus;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,14 +77,14 @@ public class CopeClassTest
 				ClassCastException.class,
 				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
-	@Test void testNotEqualAndCast()
+	@Test void testIsNotCasted()
 	{
 		final IntegerField f = new IntegerField();
 		assertEquals(
 				f + "<>'55'",
-				notEqualAndCast(f, 55).toString());
+				f.isNotCasted(55).toString());
 		assertFails(
-				() -> notEqualAndCast(f, 55l),
+				() -> f.isNotCasted(55l),
 				ClassCastException.class,
 				"Cannot cast java.lang.Long to java.lang.Integer");
 	}
