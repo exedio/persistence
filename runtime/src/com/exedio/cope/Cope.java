@@ -129,10 +129,11 @@ public final class Cope
 	 * {@code value} to {@code X} before calling
 	 * {@link Function#isNot(Object)}
 	 * @throws ClassCastException if {@code value} is not assignable to {@code X}
+	 * To be deprecated Use {@link Function#isNotCasted(Object)} instead.
 	 */
 	public static <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.isNot(function.getValueClass().cast(value));
+		return function.isNotCasted(value);
 	}
 
 	/**
