@@ -38,7 +38,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaTest extends TestWithEnvironment
 {
-	private Dialect dialect;
+	private Dialect dsmfDialect;
 	String stringType;
 	String intType;
 	String intType2;
@@ -48,13 +48,13 @@ public abstract class SchemaTest extends TestWithEnvironment
 
 	@BeforeEach final void setUpSchemaTest() throws SQLException
 	{
-		dialect = dialect(MODEL);
+		dsmfDialect = dialect(MODEL);
 		stringType = getStringType(MODEL, 8);
 		intType  = getIntegerType(MODEL, 0, Integer.MAX_VALUE);
 		intType2 = getIntegerType(MODEL, 0, Long.MAX_VALUE);
 		assertNotEquals(intType, intType2);
 
-		supportsCheckConstraint = !dialect.disableCheckConstraint && dialect.supportsCheckConstraint();
+		supportsCheckConstraint = !dsmfDialect.disableCheckConstraint && dsmfDialect.supportsCheckConstraint();
 		final int numberOfConnections =
 				"HSQL Database Engine".equals(MODEL.getEnvironmentInfo().getDatabaseProductName()) ? 2 : 1;
 		for(int i = 0; i<numberOfConnections; i++)
@@ -103,12 +103,12 @@ public abstract class SchemaTest extends TestWithEnvironment
 
 	protected final Schema newSchema()
 	{
-		return new Schema(dialect, provider);
+		return new Schema(dsmfDialect, provider);
 	}
 
 	protected final String p(final String name)
 	{
-		return dialect.quoteName(name);
+		return dsmfDialect.quoteName(name);
 	}
 
 
