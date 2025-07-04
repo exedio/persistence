@@ -101,6 +101,16 @@ public abstract class SchemaTest extends TestWithEnvironment
 		}
 	}
 
+	protected Connection getConnection()
+	{
+		return provider.getConnection();
+	}
+
+	protected void putConnection(final Connection connection) throws SQLException
+	{
+		provider.putConnection(connection);
+	}
+
 	protected final Schema newSchema()
 	{
 		return new Schema(dsmfDialect, provider);

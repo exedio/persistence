@@ -51,7 +51,7 @@ final class RuntimeTester
 		this.model = model;
 	}
 
-	protected enum Dialect
+	public enum Dialect
 	{
 		hsqldb("TIMESTAMP(3) WITHOUT TIME ZONE"),
 		mysql("datetime(3)"),
