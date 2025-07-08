@@ -49,7 +49,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<Map<K,V>>, MapFieldInterface<K,V>, Copyable
+public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<Map<K,V>>, EnumMapFieldInterface<K,V>, Copyable
 {
 	@Serial
 	private static final long serialVersionUID = 1l;
@@ -137,6 +137,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return keyClass;
 	}
 
+	@Override
 	public FunctionField<V> getField(final K key)
 	{
 		return fields.get(key);
