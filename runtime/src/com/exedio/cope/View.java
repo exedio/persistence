@@ -135,17 +135,17 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
+	void toStringNotMounted(final StringBuilder sb, final Type<?> defaultType)
 	{
-		bf.append(name);
-		bf.append('(');
+		sb.append(name);
+		sb.append('(');
 		for(int i = 0; i<sources.length; i++)
 		{
 			if(i>0)
-				bf.append(',');
-			sources[i].toString(bf, defaultType);
+				sb.append(',');
+			sources[i].toString(sb, defaultType);
 		}
-		bf.append(')');
+		sb.append(')');
 	}
 
 	@Override

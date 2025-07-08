@@ -256,10 +256,10 @@ final class HsqldbSchemaDialect extends Dialect
 
 	@Override
 	protected void createSequence(
-			final StringBuilder bf, final String sequenceName,
+			final StringBuilder sb, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{
-		bf.append("CREATE SEQUENCE ").
+		sb.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
 					" AS ").append(sequenceTypeMapper.map(type)).append(

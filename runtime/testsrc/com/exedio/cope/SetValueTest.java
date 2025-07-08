@@ -162,9 +162,9 @@ public class SetValueTest
 		}
 
 		@Override
-		void toStringNotMounted(final StringBuilder bf, final com.exedio.cope.Type<?> defaultType)
+		void toStringNotMounted(final StringBuilder sb, final com.exedio.cope.Type<?> defaultType)
 		{
-			bf.append(toString);
+			sb.append(toString);
 		}
 	}
 

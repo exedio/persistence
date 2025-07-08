@@ -28,11 +28,11 @@ final class StringSeparator
 		this.value = value;
 	}
 
-	void appendTo(final StringBuilder bf)
+	void appendTo(final StringBuilder sb)
 	{
 		if(first)
 			first = false;
 		else
-			bf.append(value);
+			sb.append(value);
 	}
 }

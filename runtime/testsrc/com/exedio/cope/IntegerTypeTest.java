@@ -181,7 +181,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 
 			final String sequenceName = getPrimaryKeySequenceName(type);
 
-			final StringBuilder bf = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 			long sequenceValue = lastUsedPkValue+1L;
 			if (PrimaryKeyGenerator.batchedSequence==model.getConnectProperties().primaryKeyGenerator)
 			{
@@ -189,7 +189,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 				sequenceValue = sequenceValue / SequenceImplBatchedSequence.BATCH_SIZE;
 			}
 
-			MODEL.connect().database.dialect.deleteSequence(bf,
+			MODEL.connect().database.dialect.deleteSequence(sb,
 					quoteName(MODEL, sequenceName),
 					sequenceValue);
 
@@ -197,7 +197,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					Connection connection = newConnection(model);
 					Statement statement = connection.createStatement())
 			{
-				statement.execute(bf.toString());
+				statement.execute(sb.toString());
 			}
 		}
 		model.disconnect();

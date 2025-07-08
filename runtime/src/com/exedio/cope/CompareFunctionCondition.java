@@ -157,11 +157,11 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		left.toString(bf, defaultType);
-		bf.append(operator.sql);
-		right.toString(bf, defaultType);
+		left.toString(sb, defaultType);
+		sb.append(operator.sql);
+		right.toString(sb, defaultType);
 	}
 
 	public enum Operator

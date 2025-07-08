@@ -238,36 +238,36 @@ public abstract class MediaPath extends Pattern
 		 */
 		public String getPath()
 		{
-			final StringBuilder bf = new StringBuilder();
-			appendPath(bf);
-			return bf.toString();
+			final StringBuilder sb = new StringBuilder();
+			appendPath(sb);
+			return sb.toString();
 		}
 
 		/**
-		 * Is equivalent to {@code bf.{@link StringBuilder#append(String) append}({@link #getPath()});}
+		 * Is equivalent to {@code sb.{@link StringBuilder#append(String) append}({@link #getPath()});}
 		 */
-		public void appendPath(final StringBuilder bf)
+		public void appendPath(final StringBuilder sb)
 		{
-			bf.append(getUrlPath());
+			sb.append(getUrlPath());
 
 			if(fingerprintLastModified!=Long.MIN_VALUE)
 			{
-				bf.append("." + SPECIAL_FINGERPRINT);
-				MediaBase64.append(bf, fingerprintOffset(fingerprintLastModified, item));
-				bf.append('/');
+				sb.append("." + SPECIAL_FINGERPRINT);
+				MediaBase64.append(sb, fingerprintOffset(fingerprintLastModified, item));
+				sb.append('/');
 			}
 
 			if(secret!=null)
 			{
-				bf.append("." + SPECIAL_TOKEN).
+				sb.append("." + SPECIAL_TOKEN).
 					append(secret).
 					append('/');
 			}
 
-			item.appendCopeID(bf);
+			item.appendCopeID(sb);
 
 			if(catchphrase!=null)
-				bf.append('/').append(catchphrase);
+				sb.append('/').append(catchphrase);
 
 			{
 				final MediaType mediaType =
@@ -276,7 +276,7 @@ public abstract class MediaPath extends Pattern
 				{
 					final String extension = mediaType.getDefaultExtension();
 					if(extension!=null)
-						bf.append(extension);
+						sb.append(extension);
 				}
 			}
 		}
@@ -287,18 +287,18 @@ public abstract class MediaPath extends Pattern
 		 */
 		@Nonnull public String getURLByConnect()
 		{
-			final StringBuilder bf = new StringBuilder();
-			appendURLByConnect(bf);
-			return bf.toString();
+			final StringBuilder sb = new StringBuilder();
+			appendURLByConnect(sb);
+			return sb.toString();
 		}
 
 		/**
-		 * Is equivalent to {@code bf.{@link StringBuilder#append(String) append}({@link #getURLByConnect()});}
+		 * Is equivalent to {@code sb.{@link StringBuilder#append(String) append}({@link #getURLByConnect()});}
 		 */
-		public void appendURLByConnect(final StringBuilder bf)
+		public void appendURLByConnect(final StringBuilder sb)
 		{
-			bf.append(getMediaRootUrl());
-			appendPath(bf);
+			sb.append(getMediaRootUrl());
+			appendPath(sb);
 		}
 
 		@Override
@@ -386,19 +386,19 @@ public abstract class MediaPath extends Pattern
 		final String sss = connectProperties().getMediaUrlSecret();
 		if(sss==null)
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append(getID()).
+			final StringBuilder sb = new StringBuilder();
+			sb.append(getID()).
 				append('-');
-			item.appendCopeID(bf);
-			return bf.toString();
+			item.appendCopeID(sb);
+			return sb.toString();
 		}
 
-		final StringBuilder bf = new StringBuilder();
-		bf.append(getUrlPath());
-		item.appendCopeID(bf);
-		bf.append('-').
+		final StringBuilder sb = new StringBuilder();
+		sb.append(getUrlPath());
+		item.appendCopeID(sb);
+		sb.append('-').
 			append(sss);
-		return makeUrlTokenDigest(bf.toString());
+		return makeUrlTokenDigest(sb.toString());
 	}
 
 	private String makeUrlToken(final String itemID)
@@ -916,32 +916,32 @@ public abstract class MediaPath extends Pattern
 
 		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
 
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
 		if(servlet.isCacheControlPrivate(locator))
-			bf.append("private");
+			sb.append("private");
 
 		if(maxAge!=null)
 		{
-			if(!bf.isEmpty())
-				bf.append(',');
+			if(!sb.isEmpty())
+				sb.append(',');
 
-			bf.append("max-age=").
+			sb.append("max-age=").
 				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
 		}
 
-		mediaResponse.addToCacheControl(bf);
+		mediaResponse.addToCacheControl(sb);
 
 		if(immutable)
 		{
-			if(!bf.isEmpty())
-				bf.append(',');
+			if(!sb.isEmpty())
+				sb.append(',');
 
-			bf.append("immutable");
+			sb.append("immutable");
 		}
 
-		if(!bf.isEmpty())
-			response.setHeader("Cache-Control", bf.toString());
+		if(!sb.isEmpty())
+			response.setHeader("Cache-Control", sb.toString());
 	}
 
 	private void deliver(

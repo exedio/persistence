@@ -112,7 +112,7 @@ public abstract class Feature implements Serializable
 			// empty default implementation
 		}
 
-		abstract void toString(StringBuilder bf, Type<?> defaultType);
+		abstract void toString(StringBuilder sb, Type<?> defaultType);
 		abstract Serializable serializable();
 	}
 
@@ -178,9 +178,9 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final Type<?> defaultType)
+		void toString(final StringBuilder sb, final Type<?> defaultType)
 		{
-			bf.append((defaultType==type) ? name : id);
+			sb.append((defaultType==type) ? name : id);
 		}
 
 		@Override
@@ -214,9 +214,9 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final Type<?> defaultType)
+		void toString(final StringBuilder sb, final Type<?> defaultType)
 		{
-			bf.append(string);
+			sb.append(string);
 		}
 
 		@Override
@@ -396,9 +396,9 @@ public abstract class Feature implements Serializable
 	/**
 	 * @param defaultType is used by subclasses
 	 */
-	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
+	void toStringNotMounted(final StringBuilder sb, final Type<?> defaultType)
 	{
-		bf.append(super.toString());
+		sb.append(super.toString());
 	}
 
 	@Override
@@ -411,19 +411,19 @@ public abstract class Feature implements Serializable
 		}
 		else
 		{
-			final StringBuilder bf = new StringBuilder();
-			toStringNotMounted(bf, null);
-			return bf.toString();
+			final StringBuilder sb = new StringBuilder();
+			toStringNotMounted(sb, null);
+			return sb.toString();
 		}
 	}
 
-	public final void toString(final StringBuilder bf, final Type<?> defaultType)
+	public final void toString(final StringBuilder sb, final Type<?> defaultType)
 	{
 		final Mount mount = mountIfMounted;
 		if(mount!=null)
-			mount.toString(bf, defaultType);
+			mount.toString(sb, defaultType);
 		else
-			toStringNotMounted(bf, defaultType);
+			toStringNotMounted(sb, defaultType);
 	}
 
 	// patterns ------------------

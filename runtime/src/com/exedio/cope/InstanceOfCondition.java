@@ -221,28 +221,28 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		function.toString(bf, defaultType);
+		function.toString(sb, defaultType);
 
 		if(not)
-			bf.append(" not");
+			sb.append(" not");
 
-		bf.append(" instanceOf ");
+		sb.append(" instanceOf ");
 
 		if(types.length==1)
-			bf.append(types[0]);
+			sb.append(types[0]);
 		else
 		{
-			bf.append('[').
+			sb.append('[').
 				append(types[0]);
 
 			for(int i = 1; i<types.length; i++)
 			{
-				bf.append(", ").
+				sb.append(", ").
 					append(types[i]);
 			}
-			bf.append(']');
+			sb.append(']');
 		}
 	}
 }

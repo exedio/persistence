@@ -130,14 +130,14 @@ public class MediaResponseTest
 	private void assertCacheControl(final String expected, final String expectedTrailing)
 	{
 		{
-			final StringBuilder bf = new StringBuilder();
-			response.addToCacheControl(bf);
-			assertEquals(expected, bf.toString());
+			final StringBuilder sb = new StringBuilder();
+			response.addToCacheControl(sb);
+			assertEquals(expected, sb.toString());
 		}
 		{
-			final StringBuilder bf = new StringBuilder("prefix");
-			response.addToCacheControl(bf);
-			assertEquals(expectedTrailing, bf.toString(), "with prefix");
+			final StringBuilder sb = new StringBuilder("prefix");
+			response.addToCacheControl(sb);
+			assertEquals(expectedTrailing, sb.toString(), "with prefix");
 		}
 	}
 }

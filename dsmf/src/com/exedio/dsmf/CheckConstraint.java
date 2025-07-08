@@ -109,9 +109,9 @@ public final class CheckConstraint extends Constraint
 	}
 
 	@Override
-	void appendCreateClause(final StringBuilder bf)
+	void appendCreateClause(final StringBuilder sb)
 	{
-		bf.append("CONSTRAINT ").
+		sb.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" CHECK(").
 			append(condition.get()).
@@ -119,8 +119,8 @@ public final class CheckConstraint extends Constraint
 	}
 
 	@Override
-	void drop(final StringBuilder bf)
+	void drop(final StringBuilder sb)
 	{
-		Dialect.dropConstraint(bf, quoteName(table.name), quoteName(name));
+		Dialect.dropConstraint(sb, quoteName(table.name), quoteName(name));
 	}
 }

@@ -971,11 +971,11 @@ final class Generator
 						"@WrapperType(indent) at type " + type.getCanonicalName() + " must not be negative, " +
 						"but was " + level + '.');
 
-			final StringBuilder bf = new StringBuilder("\t".repeat(level));
+			final StringBuilder sb = new StringBuilder("\t".repeat(level));
 			for(int i = 0; i<indent.length; i++)
 			{
-				indent[i] = bf.toString();
-				bf.append('\t');
+				indent[i] = sb.toString();
+				sb.append('\t');
 			}
 
 			this.comments = option.comments();

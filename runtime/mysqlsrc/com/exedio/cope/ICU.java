@@ -28,8 +28,8 @@ final class ICU
 {
 	static String getRegularExpression(final CharSet charSet)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("\\A[");
+		final StringBuilder sb = new StringBuilder();
+		sb.append("\\A[");
 
 		final char[] set = charSet.getCharacters();
 		for(int i = 0; i<set.length; i+=2)
@@ -39,40 +39,40 @@ final class ICU
 
 			if(a==b)
 			{
-				append(bf, a);
+				append(sb, a);
 			}
 			else
 			{
-				append(bf, a);
-				bf.append('-');
-				append(bf, b);
+				append(sb, a);
+				sb.append('-');
+				append(sb, b);
 			}
 		}
 		if(charSet.contains(Character.MIN_SURROGATE) && charSet.contains(Character.MAX_SURROGATE))
 		{
 			// charSet allows surrogate characters - so we allow code points in the supplementary planes:
-			bf.append("\\U00010000-\\U0010ffff");
+			sb.append("\\U00010000-\\U0010ffff");
 		}
 
-		bf.append("]*\\z");
-		return bf.toString();
+		sb.append("]*\\z");
+		return sb.toString();
 	}
 
-	private static void append(final StringBuilder bf, final char c)
+	private static void append(final StringBuilder sb, final char c)
 	{
 		switch(c)
 		{
 			case '[', ']', '\\', '-', '&' ->
-				bf.append('\\').append(c);
+				sb.append('\\').append(c);
 
 			default -> {
 				if(c<' ' || c>126)
 				{
-					if(c>0xff) bf.append("\\u").append(String.format("%1$04x", (int)c));
-					else       bf.append("\\x").append(String.format("%1$02x", (int)c));
+					if(c>0xff) sb.append("\\u").append(String.format("%1$04x", (int)c));
+					else       sb.append("\\x").append(String.format("%1$02x", (int)c));
 				}
 				else
-					bf.append(c);
+					sb.append(c);
 			}
 		}
 	}

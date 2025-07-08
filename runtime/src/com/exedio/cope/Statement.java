@@ -424,20 +424,20 @@ final class Statement
 		}
 	}
 
-	private static void appendValue(final StringBuilder bf, final Object o)
+	private static void appendValue(final StringBuilder sb, final Object o)
 	{
 		if(o==null)
-			bf.append("NULL");
+			sb.append("NULL");
 		else if(o instanceof Item)
-			((Item)o).appendCopeID(bf);
+			((Item)o).appendCopeID(sb);
 		else if(o instanceof Date)
-			bf.append(DateField.format().format((Date)o));
+			sb.append(DateField.format().format((Date)o));
 		else if(o instanceof String)
-			bf.append(StringField.truncateValue((String)o));
+			sb.append(StringField.truncateValue((String)o));
 		else if(o instanceof byte[])
-			Arrays.append(bf, (byte[])o, 30);
+			Arrays.append(sb, (byte[])o, 30);
 		else
-			bf.append(o);
+			sb.append(o);
 	}
 
 	// join aliases

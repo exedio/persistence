@@ -318,9 +318,9 @@ public final class SchemaInfo
 
 	private static String search(final Query<?> query, final Query.Mode mode)
 	{
-		final StringBuilder bf = new StringBuilder();
-		query.search(null, query.getType().getModel().connect().executor, mode, bf, null);
-		return bf.toString();
+		final StringBuilder sb = new StringBuilder();
+		query.search(null, query.getType().getModel().connect().executor, mode, sb, null);
+		return sb.toString();
 	}
 
 	/**

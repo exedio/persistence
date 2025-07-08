@@ -32,7 +32,7 @@ interface SequenceImpl
 	 * return the same value again and again.
 	 */
 	long getNext();
-	void delete(StringBuilder bf, Dialect dialect);
+	void delete(StringBuilder sb, Dialect dialect);
 	void flush();
 	String getSchemaName();
 }

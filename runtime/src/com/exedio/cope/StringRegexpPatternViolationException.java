@@ -76,9 +76,9 @@ public final class StringRegexpPatternViolationException extends ConstraintViola
 	public String getMessage(final boolean withFeature)
 	{
 		final String pattern = feature.getRegexp();
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
-		bf.append("regexp pattern violation").
+		sb.append("regexp pattern violation").
 			append(getItemPhrase()).
 			append(", ").
 			append(truncateValue(value)).
@@ -86,9 +86,9 @@ public final class StringRegexpPatternViolationException extends ConstraintViola
 			append(RegexpLikeCondition.getIcuRegexp(pattern));
 
 		if(withFeature)
-			bf.append(" for ").
+			sb.append(" for ").
 				append(feature);
 
-		return bf.toString();
+		return sb.toString();
 	}
 }

@@ -131,19 +131,19 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null && allowedValues.length>1)
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append(quotedID).
+			final StringBuilder sb = new StringBuilder();
+			sb.append(quotedID).
 				append(" IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
-					bf.append(',');
-				bf.append(allowedValues[j]);
+					sb.append(',');
+				sb.append(allowedValues[j]);
 			}
-			bf.append(')');
+			sb.append(')');
 
-			newCheck(dsmf, "EN", bf.toString());
+			newCheck(dsmf, "EN", sb.toString());
 		}
 		else
 		{

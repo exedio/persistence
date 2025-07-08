@@ -106,7 +106,7 @@ class AssertionFailedDialect extends Dialect
 	}
 	@Override
 	void deleteSequence(
-			final StringBuilder bf, final String quotedName,
+			final StringBuilder sb, final String quotedName,
 			final long start)
 	{
 		throw new AssertionError();

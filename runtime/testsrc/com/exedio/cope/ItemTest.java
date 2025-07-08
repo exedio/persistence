@@ -201,8 +201,8 @@ public class ItemTest extends TestmodelTest
 	private static void assertID(final String id, final Item item)
 	{
 		assertEquals(id, item.getCopeID());
-		final StringBuilder bf = new StringBuilder();
-		item.appendCopeID(bf);
-		assertEquals(id, bf.toString());
+		final StringBuilder sb = new StringBuilder();
+		item.appendCopeID(sb);
+		assertEquals(id, sb.toString());
 	}
 }

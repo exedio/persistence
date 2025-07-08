@@ -133,10 +133,10 @@ public final class MatchCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		function.toString(bf, defaultType);
-		bf.append(" matches '").
+		function.toString(sb, defaultType);
+		sb.append(" matches '").
 			append(value).
 			append('\'');
 	}

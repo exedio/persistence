@@ -152,18 +152,18 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		field.toString(bf, defaultType);
-		bf.append(" startsWith ");
+		field.toString(sb, defaultType);
+		sb.append(" startsWith ");
 		if(offset>0)
 		{
-			bf.append("offset ").
+			sb.append("offset ").
 				append(offset).
 				append(' ');
 		}
-		bf.append('\'');
-		Hex.append(bf, value, value.length);
-		bf.append('\'');
+		sb.append('\'');
+		Hex.append(sb, value, value.length);
+		sb.append('\'');
 	}
 }

@@ -45,9 +45,9 @@ public final class MediaLocatorAssert
 			assertEquals(path, locator.getPath());
 			assertEquals(path, locator.toString());
 
-			final StringBuilder bf = new StringBuilder();
-			locator.appendPath(bf);
-			assertEquals(path, bf.toString());
+			final StringBuilder sb = new StringBuilder();
+			locator.appendPath(sb);
+			assertEquals(path, sb.toString());
 
 			final Locator reserialized = reserialize(locator);
 			assertSame(feature, reserialized.getFeature());

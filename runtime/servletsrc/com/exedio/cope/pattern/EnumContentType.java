@@ -102,18 +102,18 @@ final class EnumContentType extends ContentType<Integer>
 	@Override
 	String describe()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		boolean first = true;
 		for(final String t : types)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(',');
+				sb.append(',');
 
-			bf.append(t);
+			sb.append(t);
 		}
-		return bf.toString();
+		return sb.toString();
 	}
 
 	@Override

@@ -101,9 +101,9 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	}
 
 	@Override
-	public void delete(final StringBuilder bf, final Dialect dialect)
+	public void delete(final StringBuilder sb, final Dialect dialect)
 	{
-		sequence.delete( bf, dialect );
+		sequence.delete( sb, dialect );
 	}
 
 	@Override

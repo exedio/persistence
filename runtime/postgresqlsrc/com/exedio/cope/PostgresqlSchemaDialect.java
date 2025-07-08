@@ -239,9 +239,9 @@ final class PostgresqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void appendTableCreateStatement(final StringBuilder bf)
+	protected void appendTableCreateStatement(final StringBuilder sb)
 	{
-		bf.append(" WITH (OIDS=FALSE)");
+		sb.append(" WITH (OIDS=FALSE)");
 	}
 
 	@Override
@@ -254,10 +254,10 @@ final class PostgresqlSchemaDialect extends Dialect
 
 	@Override
 	protected void createSequence(
-			final StringBuilder bf, final String sequenceName,
+			final StringBuilder sb, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{
-		bf.append("CREATE SEQUENCE ").
+		sb.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
 					" INCREMENT BY 1" +

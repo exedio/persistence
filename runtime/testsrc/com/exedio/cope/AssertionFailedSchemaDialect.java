@@ -70,7 +70,7 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void appendTableCreateStatement(final StringBuilder bf)
+	protected void appendTableCreateStatement(final StringBuilder sb)
 	{
 		throw new AssertionFailedError();
 	}
@@ -88,26 +88,26 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
 	{
 		throw new AssertionFailedError();
 	}
 
 	@Override
-	protected void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
 	{
 		throw new AssertionFailedError();
 	}
 
 	@Override
-	protected void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String constraintName)
 	{
 		throw new AssertionFailedError();
 	}
 
 	@Override
 	protected void createSequence(
-			final StringBuilder bf,
+			final StringBuilder sb,
 			final String sequenceName,
 			final Sequence.Type type,
 			final long start)
@@ -116,7 +116,7 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void dropSequence(final StringBuilder bf, final String sequenceName)
+	protected void dropSequence(final StringBuilder sb, final String sequenceName)
 	{
 		throw new AssertionFailedError();
 	}

@@ -90,13 +90,13 @@ public final class Random implements NumberFunction<Double>
 	}
 
 	@Override
-	public void toString(final StringBuilder bf, final Type<?> defaultType)
+	public void toString(final StringBuilder sb, final Type<?> defaultType)
 	{
 		if(defaultType!=type)
-			bf.append(type.id).
+			sb.append(type.id).
 				append('.');
 
-		bf.append("rand(").
+		sb.append("rand(").
 			append(seed).
 			append(')');
 	}
@@ -104,9 +104,9 @@ public final class Random implements NumberFunction<Double>
 	@Override
 	public String toString()
 	{
-		final StringBuilder bf = new StringBuilder();
-		toString(bf, null);
-		return bf.toString();
+		final StringBuilder sb = new StringBuilder();
+		toString(sb, null);
+		return sb.toString();
 	}
 
 	@Override

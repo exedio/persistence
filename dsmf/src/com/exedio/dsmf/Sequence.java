@@ -124,14 +124,14 @@ public final class Sequence extends Node
 
 	public void create(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		create(bf);
-		executeSQL(bf.toString(), listener);
+		final StringBuilder sb = new StringBuilder();
+		create(sb);
+		executeSQL(sb.toString(), listener);
 	}
 
-	void create(final StringBuilder bf)
+	void create(final StringBuilder sb)
 	{
-		dialect.createSequence(bf, quoteName(name), type.get(), start.get());
+		dialect.createSequence(sb, quoteName(name), type.get(), start.get());
 	}
 
 	public void drop()
@@ -141,14 +141,14 @@ public final class Sequence extends Node
 
 	public void drop(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		drop(bf);
-		executeSQL(bf.toString(), listener);
+		final StringBuilder sb = new StringBuilder();
+		drop(sb);
+		executeSQL(sb.toString(), listener);
 	}
 
-	void drop(final StringBuilder bf)
+	void drop(final StringBuilder sb)
 	{
-		dialect.dropSequence(bf, quoteName(name));
+		dialect.dropSequence(sb, quoteName(name));
 	}
 
 	@Override

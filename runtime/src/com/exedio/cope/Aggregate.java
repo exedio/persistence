@@ -137,11 +137,11 @@ public abstract class Aggregate<E,S> implements Function<E>
 	}
 
 	@Override
-	public final void toString(final StringBuilder bf, final Type<?> defaultType)
+	public final void toString(final StringBuilder sb, final Type<?> defaultType)
 	{
-		bf.append(name).
+		sb.append(name).
 			append('(');
-		source.toString(bf, defaultType);
-		bf.append(')');
+		source.toString(sb, defaultType);
+		sb.append(')');
 	}
 }

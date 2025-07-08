@@ -131,9 +131,9 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		function.toString(bf, defaultType);
-		bf.append(not ? " is not null" : " is null");
+		function.toString(sb, defaultType);
+		sb.append(not ? " is not null" : " is null");
 	}
 }

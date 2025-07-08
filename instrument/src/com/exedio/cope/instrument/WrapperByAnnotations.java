@@ -89,13 +89,13 @@ final class WrapperByAnnotations
 
 	private static String toString(final Method method)
 	{
-		final StringBuilder bf =
+		final StringBuilder sb =
 			new StringBuilder(method.getDeclaringClass().getName());
 
-		bf.append('#');
-		bf.append(method.getName());
+		sb.append('#');
+		sb.append(method.getName());
 
-		bf.append('(');
+		sb.append('(');
 
 		boolean first = true;
 		for(final Class<?> parameter : method.getParameterTypes())
@@ -103,12 +103,12 @@ final class WrapperByAnnotations
 			if(first)
 				first = false;
 			else
-				bf.append(',');
+				sb.append(',');
 
-			bf.append(parameter.getName());
+			sb.append(parameter.getName());
 		}
-		bf.append(')');
-		return bf.toString();
+		sb.append(')');
+		return sb.toString();
 	}
 
 	private static final Comparator<Wrap> ORDER_COMPARATOR =

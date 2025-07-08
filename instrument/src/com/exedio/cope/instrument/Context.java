@@ -58,13 +58,13 @@ final class Context
 		if(parameters<=0)
 			return name;
 
-		final StringBuilder bf = new StringBuilder(name);
-		bf.append("<?");
+		final StringBuilder sb = new StringBuilder(name);
+		sb.append("<?");
 		//noinspection StringRepeatCanBeUsed
 		for(int i = 1; i<parameters; i++)
-			bf.append(",?");
-		bf.append('>');
-		return bf.toString();
+			sb.append(",?");
+		sb.append('>');
+		return sb.toString();
 	}
 
 	private String getGenericFieldParameter(final int number)
@@ -79,21 +79,21 @@ final class Context
 
 	private String write(final ParameterizedType t, final boolean varArgs)
 	{
-		final StringBuilder bf = new StringBuilder(write(false, t.getRawType(), varArgs));
-		bf.append('<');
+		final StringBuilder sb = new StringBuilder(write(false, t.getRawType(), varArgs));
+		sb.append('<');
 		boolean first = true;
 		for(final Type a : t.getActualTypeArguments())
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(',');
+				sb.append(',');
 
-			bf.append(write(true, a, varArgs));
+			sb.append(write(true, a, varArgs));
 		}
-		bf.append('>');
+		sb.append('>');
 
-		return bf.toString();
+		return sb.toString();
 	}
 
 	private String write(final TypeVariable<?> t)

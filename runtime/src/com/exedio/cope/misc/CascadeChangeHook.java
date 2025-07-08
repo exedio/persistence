@@ -79,17 +79,17 @@ final class CascadeChangeHook implements ChangeHook
 	@Override
 	public String toString()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		boolean first = true;
 		for(final ChangeHook hook : hooks)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(" / ");
+				sb.append(" / ");
 
-			bf.append(hook);
+			sb.append(hook);
 		}
-		return bf.toString();
+		return sb.toString();
 	}
 }

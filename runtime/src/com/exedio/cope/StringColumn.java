@@ -101,9 +101,9 @@ class StringColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
-			final StringBuilder bf = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 
-			bf.append(quotedID).
+			sb.append(quotedID).
 				append(" IN (");
 
 			boolean first = true;
@@ -112,15 +112,15 @@ class StringColumn extends Column
 				if(first)
 					first = false;
 				else
-					bf.append(',');
+					sb.append(',');
 
-				bf.append('\'').
+				sb.append('\'').
 					append(allowedValue).
 					append('\'');
 			}
-			bf.append(')');
+			sb.append(')');
 
-			newCheck(dsmf, "EN", bf.toString());
+			newCheck(dsmf, "EN", sb.toString());
 		}
 		else
 		{

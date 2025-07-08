@@ -114,9 +114,9 @@ final class SequenceImplSequence implements SequenceImpl
 	}
 
 	@Override
-	public void delete(final StringBuilder bf, final Dialect dialect)
+	public void delete(final StringBuilder sb, final Dialect dialect)
 	{
-		dialect.deleteSequence(bf, quotedName, start);
+		dialect.deleteSequence(sb, quotedName, start);
 	}
 
 	@Override

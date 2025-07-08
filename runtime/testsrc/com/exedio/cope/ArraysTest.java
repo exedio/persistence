@@ -172,8 +172,8 @@ public class ArraysTest
 	private static void assertIt(final String expected, final byte[] a, final int limit)
 	{
 		assertEquals(expected, Arrays.toString(a, limit));
-		final StringBuilder bf = new StringBuilder();
-		Arrays.append(bf, a, limit);
-		assertEquals(expected, bf.toString());
+		final StringBuilder sb = new StringBuilder();
+		Arrays.append(sb, a, limit);
+		assertEquals(expected, sb.toString());
 	}
 }

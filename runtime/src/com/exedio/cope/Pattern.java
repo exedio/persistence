@@ -361,19 +361,19 @@ public abstract class Pattern extends Feature
 
 	static final String newSourceTypeId(final String type, final String name, final String postfix)
 	{
-		final StringBuilder bf = new StringBuilder(type);
+		final StringBuilder sb = new StringBuilder(type);
 
 		if(!name.isEmpty())
-			bf.append('-').
+			sb.append('-').
 				append(name);
 		else if(postfix==null)
-			bf.append("-default"); // avoids id collision with parent type
+			sb.append("-default"); // avoids id collision with parent type
 
 		if(postfix!=null)
-			bf.append('-').
+			sb.append('-').
 				append(postfix);
 
-		return bf.toString();
+		return sb.toString();
 	}
 
 	@Override

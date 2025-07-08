@@ -116,9 +116,9 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	public String getMessage(final boolean withFeature)
 	{
 		final SimpleDateFormat df = DateField.format();
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
-		bf.append("precision violation").
+		sb.append("precision violation").
 			append(getItemPhrase()).
 			append(", ").
 			append(df.format(getValue())).
@@ -130,14 +130,14 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			append(precision.name());
 
 		if(withFeature)
-			bf.append(" of ").
+			sb.append(" of ").
 				append(feature);
-		bf.append(", round either to ").
+		sb.append(", round either to ").
 			append(df.format(getValueAllowedInPast())).
 			append(" in the past or ").
 			append(df.format(getValueAllowedInFuture())).
 			append(" in the future");
 
-		return bf.toString();
+		return sb.toString();
 	}
 }

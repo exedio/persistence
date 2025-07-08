@@ -125,7 +125,7 @@ final class HookAuditHook implements ChangeHook
 			{
 				final Item item = e.getKey();
 				final boolean exists = item.existsCopeItem();
-				final StringBuilder bf = new StringBuilder();
+				final StringBuilder sb = new StringBuilder();
 				final HashMap<StringField,String> values = e.getValue();
 				if(!exists && values==null) // item created and deleted in the same transaction
 					continue;
@@ -137,10 +137,10 @@ final class HookAuditHook implements ChangeHook
 						if(field.getType().isAssignableFrom(type) &&
 							field.isAnnotationPresent(HookAuditWatched.class))
 						{
-							if(!bf.isEmpty())
-								bf.append(',');
+							if(!sb.isEmpty())
+								sb.append(',');
 
-							bf.append(name(field)).
+							sb.append(name(field)).
 								append('=').
 								append(field.get(item));
 						}
@@ -154,20 +154,20 @@ final class HookAuditHook implements ChangeHook
 						if(exists && Objects.equals(newValue, e2.getValue()))
 							continue;
 
-						if(!bf.isEmpty())
-							bf.append(',');
+						if(!sb.isEmpty())
+							sb.append(',');
 
-						bf.append(name(field)).
+						sb.append(name(field)).
 							append('=').
 							append(exists ? newValue : e2.getValue());
 					}
 				}
 
-				if(!bf.isEmpty())
+				if(!sb.isEmpty())
 					new HookAudit(
 							author.get() + ':' +
 							item.getCopeID() + ':' +
-							(values==null?"NEW:":(exists?"":"DEL:")) + bf);
+							(values==null?"NEW:":(exists?"":"DEL:")) + sb);
 			}
 		}
 

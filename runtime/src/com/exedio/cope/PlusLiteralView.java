@@ -83,13 +83,13 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
+	void toStringNotMounted(final StringBuilder sb, final Type<?> defaultType)
 	{
-		bf.append('(');
-		left.toString(bf, defaultType);
-		bf.append('+');
-		bf.append(right);
-		bf.append(')');
+		sb.append('(');
+		left.toString(sb, defaultType);
+		sb.append('+');
+		sb.append(right);
+		sb.append(')');
 	}
 
 	@Override

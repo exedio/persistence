@@ -36,14 +36,14 @@ public final class InCondition<E> extends Condition
 		{
 			if(! isComparable(function.getValueClass(), element.getClass(), element))
 			{
-				final StringBuilder bf = new StringBuilder();
-				bf.append(function).
+				final StringBuilder sb = new StringBuilder();
+				sb.append(function).
 						append(" not comparable to '");
-				toStringForValue(bf, element, false);
-				bf.append("' (").
+				toStringForValue(sb, element, false);
+				sb.append("' (").
 						append(element.getClass().getName()).
 						append(')');
-				throw new IllegalArgumentException(bf.toString());
+				throw new IllegalArgumentException(sb.toString());
 			}
 		}
 	}
@@ -140,26 +140,26 @@ public final class InCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		function.toString(bf, defaultType);
+		function.toString(sb, defaultType);
 		if (not)
 		{
-			bf.append(" not");
+			sb.append(" not");
 		}
-		bf.append(" in (");
-		bf.append('\'');
-		toStringForValue(bf, allowedValues.get(0), key);
-		bf.append('\'');
+		sb.append(" in (");
+		sb.append('\'');
+		toStringForValue(sb, allowedValues.get(0), key);
+		sb.append('\'');
 
 		for (int i = 1; i<allowedValues.size(); i++)
 		{
-			bf.append(',');
-			bf.append('\'');
-			toStringForValue(bf, allowedValues.get(i), key);
-			bf.append('\'');
+			sb.append(',');
+			sb.append('\'');
+			toStringForValue(sb, allowedValues.get(i), key);
+			sb.append('\'');
 		}
 
-		bf.append(')');
+		sb.append(')');
 	}
 }

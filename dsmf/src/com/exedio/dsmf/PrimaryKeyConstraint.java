@@ -55,9 +55,9 @@ public final class PrimaryKeyConstraint extends Constraint
 	}
 
 	@Override
-	void appendCreateClause(final StringBuilder bf)
+	void appendCreateClause(final StringBuilder sb)
 	{
-		bf.append("CONSTRAINT ").
+		sb.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" PRIMARY KEY(").
 			append(quoteName(primaryKeyColumn)).
@@ -65,8 +65,8 @@ public final class PrimaryKeyConstraint extends Constraint
 	}
 
 	@Override
-	void drop(final StringBuilder bf)
+	void drop(final StringBuilder sb)
 	{
-		dialect.dropPrimaryKeyConstraint(bf, quoteName(table.name), quoteName(name));
+		dialect.dropPrimaryKeyConstraint(sb, quoteName(table.name), quoteName(name));
 	}
 }

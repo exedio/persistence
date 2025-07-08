@@ -284,11 +284,11 @@ public class PurgePropertiesTest extends ConnectedTest
 
 	private static class MC extends EmptyJobContext
 	{
-		private final StringBuilder bf = new StringBuilder();
+		private final StringBuilder sb = new StringBuilder();
 
 		String getMessages()
 		{
-			return bf.toString();
+			return sb.toString();
 		}
 
 		MC()
@@ -305,7 +305,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		@Override
 		public void setMessage(final String message)
 		{
-			bf.append(message).append('\n');
+			sb.append(message).append('\n');
 		}
 	}
 }

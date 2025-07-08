@@ -338,10 +338,10 @@ final class PostgresqlDialect extends Dialect
 
 	@Override
 	void deleteSequence(
-			final StringBuilder bf, final String quotedName,
+			final StringBuilder sb, final String quotedName,
 			final long start)
 	{
-		bf.append("ALTER SEQUENCE ").
+		sb.append("ALTER SEQUENCE ").
 			append(quotedName).
 			append(" RESTART WITH ").
 			append(start).
@@ -406,29 +406,29 @@ final class PostgresqlDialect extends Dialect
 			final boolean forTest,
 			final ConnectionPool connectionPool)
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
 		if(!tables.isEmpty())
 		{
-			bf.append("TRUNCATE ");
+			sb.append("TRUNCATE ");
 			boolean first = true;
 			for(final Table table : tables)
 			{
 				if(first)
 					first = false;
 				else
-					bf.append(',');
+					sb.append(',');
 
-				bf.append(table.quotedID);
+				sb.append(table.quotedID);
 			}
-			bf.append(" CASCADE;");
+			sb.append(" CASCADE;");
 		}
 
 		for(final SequenceX sequence : sequences)
-			sequence.delete(bf, this);
+			sequence.delete(sb, this);
 
-		if(!bf.isEmpty())
-			execute(connectionPool, bf.toString());
+		if(!sb.isEmpty())
+			execute(connectionPool, sb.toString());
 	}
 
 	private static void execute(final ConnectionPool connectionPool, final String sql)

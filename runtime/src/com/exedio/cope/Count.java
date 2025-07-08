@@ -75,14 +75,14 @@ public final class Count implements NumberFunction<Integer>
 	}
 
 	@Override
-	public void toString( final StringBuilder bf, final Type<?> defaultType )
+	public void toString( final StringBuilder sb, final Type<?> defaultType )
 	{
-		bf.append("count(");
+		sb.append("count(");
 		if (source==null)
-			bf.append('*');
+			sb.append('*');
 		else
-			source.toString(bf, defaultType);
-		bf.append(')');
+			source.toString(sb, defaultType);
+		sb.append(')');
 	}
 
 	/**
