@@ -38,7 +38,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getFeature());
 
 		assumeNotGithub(); // expectedSize 3746 on github
-		final InvalidPlainTextException es = reserialize(e, 3744);
+		final InvalidPlainTextException es = reserialize(e, 7477); // size depends on stacktrace
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
 		assertEquals(null, es.getPlainText());
@@ -56,7 +56,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getFeature());
 
 		assumeNotGithub(); // expectedSize 3742 on github
-		final InvalidPlainTextException es = reserialize(e, 3740);
+		final InvalidPlainTextException es = reserialize(e, 7473); // size depends on stacktrace
 		assertEquals(null, es.getMessageWithoutFeature());
 		assertEquals("null for null", es.getMessage());
 		assertEquals(null, es.getPlainText());
@@ -74,7 +74,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getFeature());
 
 		assumeNotGithub(); // expectedSize 3753 on github
-		final InvalidPlainTextException es = reserialize(e, 3751);
+		final InvalidPlainTextException es = reserialize(e, 7484); // size depends on stacktrace
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
 		assertEquals(null, es.getPlainText());
