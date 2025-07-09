@@ -93,16 +93,6 @@ public class PasswordLimiterErrorTest
 		assertEquals(ofMillis(1), l.getPeriodDuration());
 		assertEquals(1, l.getLimit());
 	}
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void testMinimumInterface()
-	{
-		//noinspection RedundantCast
-		final PasswordLimiter l = new PasswordLimiter((HashInterface)password, 1, 1);
-		assertEquals(password, l.getPassword());
-		assertEquals(1, l.getPeriod());
-		assertEquals(ofMillis(1), l.getPeriodDuration());
-		assertEquals(1, l.getLimit());
-	}
 	@Test void testMinimumDuration()
 	{
 		final PasswordLimiter l = new PasswordLimiter(password, ofMillis(1), 1);
