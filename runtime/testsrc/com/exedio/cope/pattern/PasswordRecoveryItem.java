@@ -19,31 +19,21 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.testmodel.WrapHash;
 
 @SuppressWarnings("UnusedReturnValue")
 public final class PasswordRecoveryItem extends Item
 {
-	static final Hash password = new Hash(WrapHash.ALGORITHM);
-	static final PasswordRecovery passwordRecovery = new PasswordRecovery(password);
-
+	static final PasswordRecovery passwordRecovery = new PasswordRecovery();
 
 
 	/**
 	 * Creates a new PasswordRecoveryItem with all the fields initially needed.
-	 * @param password the initial value for field {@link #password}.
-	 * @throws com.exedio.cope.MandatoryViolationException if password is null.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	PasswordRecoveryItem(
-				@javax.annotation.Nonnull final java.lang.String password)
-			throws
-				com.exedio.cope.MandatoryViolationException
+	public PasswordRecoveryItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			com.exedio.cope.SetValue.map(PasswordRecoveryItem.password,password),
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**
@@ -51,62 +41,6 @@ public final class PasswordRecoveryItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PasswordRecoveryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns whether the given value corresponds to the hash in {@link #password}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
-	{
-		return PasswordRecoveryItem.password.check(this,password);
-	}
-
-	/**
-	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPassword} would have needed.
-	 * Needed to prevent Timing Attacks.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static void blindPassword(@javax.annotation.Nullable final java.lang.String password)
-	{
-		PasswordRecoveryItem.password.blind(password);
-	}
-
-	/**
-	 * Sets a new value for {@link #password}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
-			throws
-				com.exedio.cope.MandatoryViolationException
-	{
-		PasswordRecoveryItem.password.set(this,password);
-	}
-
-	/**
-	 * Returns the encoded hash value for hash {@link #password}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	java.lang.String getPasswordwrap()
-	{
-		return PasswordRecoveryItem.password.getHash(this);
-	}
-
-	/**
-	 * Sets the encoded hash value for hash {@link #password}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setPasswordwrap(@javax.annotation.Nonnull final java.lang.String password)
-			throws
-				com.exedio.cope.MandatoryViolationException
-	{
-		PasswordRecoveryItem.password.setHash(this,password);
-	}
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="issue")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})

@@ -155,6 +155,7 @@ public class PasswordRecoveryConfigTest
 		assertEquals(ofMillis(20), c.getReuse());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testPasswordRecoveryHashNull()
 	{
 		assertFails(() ->
@@ -163,6 +164,7 @@ public class PasswordRecoveryConfigTest
 			"password");
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testPasswordRecoveryHashNullWithRandom()
 	{
 		final SecureRandom random = new SecureRandom();

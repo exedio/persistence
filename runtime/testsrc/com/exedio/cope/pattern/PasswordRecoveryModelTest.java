@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.TYPE;
-import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,14 +50,10 @@ public class PasswordRecoveryModelTest
 		}), MODEL.getTypes());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
-				password,
-				password.getStorage(),
 				passwordRecovery,
 			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
-				password,
-				password.getStorage(),
 				passwordRecovery,
 			}), TYPE.getDeclaredFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
@@ -80,7 +75,6 @@ public class PasswordRecoveryModelTest
 		assertEquals(null, passwordRecovery.getSecret().getPattern());
 		assertEquals(null, passwordRecovery.getExpires().getPattern());
 
-		assertFalse(password                       .isAnnotationPresent(Computed.class));
 		assertFalse(passwordRecovery               .isAnnotationPresent(Computed.class));
 		assertTrue (passwordRecovery.getTokenType().isAnnotationPresent(Computed.class));
 
