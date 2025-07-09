@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
-import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 public class HashPlainTextValidatorTest
@@ -46,12 +45,6 @@ public class HashPlainTextValidatorTest
 		{
 			@Override
 			protected void validate(final String plainText, final Item exceptionItem, final Hash hash)
-			{
-				throw new RuntimeException();
-			}
-			@Override
-			@Deprecated
-			protected String newRandomPlainText(final SecureRandom secureRandom)
 			{
 				throw new RuntimeException();
 			}

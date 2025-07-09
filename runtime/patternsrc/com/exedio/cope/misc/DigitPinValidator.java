@@ -20,7 +20,6 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Hash;
-import java.security.SecureRandom;
 
 /**
  * Allow only digits as pin, pin len can be specified, reference implementation
@@ -66,19 +65,6 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 			if (c < '0' || c > '9')
 				throw new Hash.InvalidPlainTextException("Pin is not a number",	pinString, exceptionItem, hash);
 		}
-	}
-
-	@Deprecated
-	@Override public String newRandomPlainText(final SecureRandom secureRandom)
-	{
-		final char[] result = new char[pinLen];
-		for(int i = 0; i<pinLen; i++)
-		{
-			result[i] = (char)('0' + secureRandom.nextInt(10));
-			assert result[i]>='0' : result[i];
-			assert result[i]<='9' : result[i];
-		}
-		return new String(result);
 	}
 
 	@Override

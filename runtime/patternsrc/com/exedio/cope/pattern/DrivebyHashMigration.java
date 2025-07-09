@@ -29,7 +29,6 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.io.Serial;
-import java.security.SecureRandom;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -113,13 +112,6 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 	public void blind(@Nullable final String plainText)
 	{
 		targetHash.blind(plainText);
-	}
-
-	@Deprecated
-	@Override
-	public String newRandomPassword(final SecureRandom random)
-	{
-		return targetHash.newRandomPassword(random);
 	}
 
 	@Wrap(order=30,

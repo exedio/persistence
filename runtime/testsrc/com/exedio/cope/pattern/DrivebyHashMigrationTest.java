@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.TYPE;
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.password;
-import static com.exedio.cope.pattern.HashTest.newRandomPassword;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,8 +31,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
-import java.io.Serial;
-import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 public class DrivebyHashMigrationTest extends TestWithEnvironment
@@ -78,11 +75,6 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		}
 
 		assertEquals(false, password.isNull(null));
-		//noinspection SerializableInnerClassWithNonSerializableOuterClass
-		assertEquals("21i3v9", newRandomPassword(password, new SecureRandom(){
-			@Serial
-			private static final long serialVersionUID = 1l;
-			@Override public long nextLong() { return 123456789l; }}));
 	}
 
 	@Test void testMigratePasswordOnChange()

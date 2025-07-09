@@ -60,9 +60,6 @@ public final class PasswordRecovery extends Pattern
 
 	private static final long NOT_A_SECRET = 0l;
 
-	@Deprecated
-	private final HashInterface password;
-
 	ItemField<?> parent = null;
 	PartOf<?> tokens = null;
 	final LongField secret = new LongField().toFinal();
@@ -71,14 +68,31 @@ public final class PasswordRecovery extends Pattern
 
 	private final SecureRandom random;
 
+	/**
+	 * To be deprecated, Use {@link #PasswordRecovery()} instead, parameter {@code password} is no longer needed.
+	 */
 	public PasswordRecovery(final HashInterface password)
 	{
-		this(password, new SecureRandom());
+		this();
+		requireNonNull(password, "password");
 	}
 
+	public PasswordRecovery()
+	{
+		this(new SecureRandom());
+	}
+
+	/**
+	 * To be deprecated, Use {@link #PasswordRecovery(SecureRandom)} instead, parameter {@code password} is no longer needed.
+	 */
 	public PasswordRecovery(final HashInterface password, final SecureRandom random)
 	{
-		this.password = requireNonNull(password, "password");
+		this(random);
+		requireNonNull(password, "password");
+	}
+
+	public PasswordRecovery(final SecureRandom random)
+	{
 		this.random = requireNonNull(random, "random");
 	}
 
@@ -97,18 +111,7 @@ public final class PasswordRecovery extends Pattern
 		features.put("tokens", tokens);
 		tokenType = newSourceType(Token.class, Token::new, features, "Token");
 
-		FeatureMeter.onMount(this, issueCounter, issueReuseCounter, getTimer, getFailCounter, setPasswordCounter);
-	}
-
-	/**
-	 * @deprecated
-	 * This method is needed to support the recently deprecated {@link PasswordRecovery#redeem(Item, long)} only.
-	 * Therefore it is deprecated as well.
-	 */
-	@Deprecated
-	public HashInterface getPassword()
-	{
-		return password;
+		FeatureMeter.onMount(this, issueCounter, issueReuseCounter, getTimer, getFailCounter);
 	}
 
 	public <P extends Item> ItemField<P> getParent(@Nonnull final Class<P> parentClass)
@@ -207,34 +210,6 @@ public final class PasswordRecovery extends Pattern
 
 		getFailCounter.increment();
 		return null;
-	}
-
-	/**
-	 * @param secret a secret for password recovery
-	 * @return a new password, if the secret was valid, otherwise null
-	 * @deprecated
-	 * This method has been deprecated because it is needed for single-step token redemption.
-	 * In that single step, both the token is redeemed and the password is set to a random value.
-	 * Which is generally a bad idea, because mail filters following links contained in the mail may set the new password.
-	 * Implement a two-step redemption using {@link #getValidToken(Item, long)} instead.
-	 */
-	@Deprecated
-	@Wrap(order=30, docReturn="a new password, if the secret was valid, otherwise {nullResult}")
-	@Nullable
-	public String redeem(
-			@Nonnull final Item item,
-			@Parameter(value="secret", doc="a secret for password recovery") final long secret)
-	{
-		final Token validToken = getValidToken(item, secret);
-
-		if(validToken != null)
-		{
-			return validToken.redeemAndSetNewPassword();
-		}
-		else
-		{
-			return null;
-		}
 	}
 
 	@SuppressWarnings("ClassCanBeRecord")
@@ -366,27 +341,10 @@ public final class PasswordRecovery extends Pattern
 			for(final Token t : tokens)
 				t.deleteCopeItem();
 		}
-
-		/**
-		 * @deprecated for the same reason that lead to the deprecation of {@link PasswordRecovery#redeem(Item, long)}.
-		 */
-		@Deprecated
-		public String redeemAndSetNewPassword()
-		{
-			final Item parent = getParent();
-			redeem();
-			final PasswordRecovery passwordRecovery = getPattern();
-			final HashInterface password = passwordRecovery.password;
-			final String newPassword = password.newRandomPassword(passwordRecovery.random);
-			password.set(parent, newPassword);
-			passwordRecovery.setPasswordCounter.increment();
-			return newPassword;
-		}
 	}
 
 	private final FeatureCounter issueCounter = counter("issue", "A token was issued.", "reuse", "no");
 	private final FeatureCounter issueReuseCounter = issueCounter.newValue("yes");
 	private final FeatureTimer getTimer = timer("get", "A valid token was got the measured time before expiry.");
 	private final FeatureCounter getFailCounter = counter("getFail", "An attempt to get a token failed, because either there was no token with such a secret or that token was expired.");
-	private final FeatureCounter setPasswordCounter = counter("setPassword", "The password was set to a new value, because a token was redeemed.");
 }

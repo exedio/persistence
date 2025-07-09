@@ -18,18 +18,11 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.pattern.HashTest.newRandomPlainText;
-import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.pattern.Hash;
-import java.io.Serial;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -105,40 +98,6 @@ public class DigitPinValidatorTest
 			assertEquals("12a", e.getPlainText());
 			assertEquals(false, e.wasLimit());
 		}
-	}
-
-	@Test void testNewRandomPlainText()
-	{
-		assertIt(1, asList("0", "1", "2", "3", "4"));
-		assertIt(2, asList("01", "23", "45", "67", "89"));
-		assertIt(3, asList("012", "345", "678", "901", "234"));
-		assertIt(4, asList("0123", "4567", "8901", "2345", "6789"));
-	}
-
-	private static void assertIt(final int pinLen, final List<String> expected)
-	{
-		final SecureRandom random = new SecureRandom() {
-			@Serial
-			private static final long serialVersionUID = 1l;
-			int seq=0;
-
-			// overridden to get pre defined numbers instead of the random ones
-			@Override public int nextInt(final int n) {
-				assert n==10;
-				return (seq++)%n;
-			}
-		};
-
-		final ArrayList<String> actual = new ArrayList<>();
-		final DigitPinValidator pinValidator = new DigitPinValidator(pinLen);
-		for (int i=0; i<5; i++)
-		{
-			final String newPin = newRandomPlainText(pinValidator, random);
-			assertTrue(Integer.parseInt(newPin)>=0);
-			assertEquals(pinLen, newPin.length());
-			actual.add(newPin);
-		}
-		assertEquals(expected, actual);
 	}
 
 	@Test void testToString()

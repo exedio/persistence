@@ -57,19 +57,6 @@ final class PasswordRecoveryInstrumentItem extends Item
 		return PasswordRecoveryInstrumentItem.standard.getValidToken(this,secret);
 	}
 
-	/**
-	 * @param secret a secret for password recovery
-	 * @return a new password, if the secret was valid, otherwise null
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="redeem")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@java.lang.Deprecated
-	@javax.annotation.Nullable
-	java.lang.String redeemStandard(final long secret)
-	{
-		return PasswordRecoveryInstrumentItem.standard.redeem(this,secret);
-	}
-
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgeStandard(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
@@ -95,19 +82,6 @@ final class PasswordRecoveryInstrumentItem extends Item
 	java.util.Optional<com.exedio.cope.pattern.PasswordRecovery.Token> getValidNullableAsOptionalToken(final long secret)
 	{
 		return java.util.Optional.ofNullable(PasswordRecoveryInstrumentItem.nullableAsOptional.getValidToken(this,secret));
-	}
-
-	/**
-	 * @param secret a secret for password recovery
-	 * @return a new password, if the secret was valid, otherwise an empty {@link java.util.Optional}
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="redeem")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@java.lang.Deprecated
-	@javax.annotation.Nonnull
-	java.util.Optional<java.lang.String> redeemNullableAsOptional(final long secret)
-	{
-		return java.util.Optional.ofNullable(PasswordRecoveryInstrumentItem.nullableAsOptional.redeem(this,secret));
 	}
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")

@@ -128,19 +128,6 @@ public final class PasswordRecoveryItem extends Item
 		return PasswordRecoveryItem.passwordRecovery.getValidToken(this,secret);
 	}
 
-	/**
-	 * @param secret a secret for password recovery
-	 * @return a new password, if the secret was valid, otherwise null
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="redeem")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@java.lang.Deprecated
-	@javax.annotation.Nullable
-	java.lang.String redeemPasswordRecovery(final long secret)
-	{
-		return PasswordRecoveryItem.passwordRecovery.redeem(this,secret);
-	}
-
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)

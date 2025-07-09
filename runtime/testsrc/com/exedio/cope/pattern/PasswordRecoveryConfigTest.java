@@ -24,6 +24,7 @@ import static java.time.Duration.ofNanos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.PasswordRecovery.Config;
+import java.security.SecureRandom;
 import java.time.Duration;
 import org.junit.jupiter.api.Test;
 
@@ -157,24 +158,24 @@ public class PasswordRecoveryConfigTest
 	@Test void testPasswordRecoveryHashNull()
 	{
 		assertFails(() ->
-			new PasswordRecovery(null),
+			new PasswordRecovery((HashInterface)null),
 			NullPointerException.class,
 			"password");
 	}
 
 	@Test void testPasswordRecoveryHashNullWithRandom()
 	{
+		final SecureRandom random = new SecureRandom();
 		assertFails(() ->
-			new PasswordRecovery(null, null),
+			new PasswordRecovery(null, random),
 			NullPointerException.class,
 			"password");
 	}
 
 	@Test void testPasswordRecoveryRandomNull()
 	{
-		final Hash hash = new Hash(new ConstructorHashAlgorithm("---"));
 		assertFails(() ->
-			new PasswordRecovery(hash, null),
+			new PasswordRecovery((SecureRandom)null),
 			NullPointerException.class,
 			"random");
 	}
