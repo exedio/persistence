@@ -94,9 +94,9 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	@Override
 	@Wrap(order=10, doc=Wrap.HASH_CHECK_DOC)
-	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
+	public boolean check(@Nonnull final Item item, @Nullable final String plainText)
 	{
-		return select(item).check(item, actualPlainText);
+		return select(item).check(item, plainText);
 	}
 
 	private Hash select(final Item item)
@@ -126,9 +126,9 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	@Wrap(order=20, doc={Wrap.HASH_BLIND_DOC_1, Wrap.HASH_BLIND_DOC_2})
 	@Override
-	public void blind(@Nonnull final String actualPlainText)
+	public void blind(@Nonnull final String plainText)
 	{
-		targetHash.blind(actualPlainText);
+		targetHash.blind(plainText);
 	}
 
 	@Deprecated

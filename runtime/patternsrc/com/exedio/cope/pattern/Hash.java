@@ -296,14 +296,14 @@ public final class Hash extends Pattern implements HashInterface
 
 	@Override
 	@Wrap(order=10, doc=Wrap.HASH_CHECK_DOC)
-	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
+	public boolean check(@Nonnull final Item item, @Nullable final String plainText)
 	{
 		final String expectedHash = storage.get(item);
-		if(actualPlainText!=null)
+		if(plainText!=null)
 			return
 					(expectedHash!=null) &&
-					checkPlainTextLimit(actualPlainText) &&
-					algorithmCheck(actualPlainText, expectedHash); // Algorithm#hash(String) must not return null
+					checkPlainTextLimit(plainText) &&
+					algorithmCheck(plainText, expectedHash); // Algorithm#hash(String) must not return null
 		else
 			return expectedHash==null;
 	}
@@ -325,14 +325,14 @@ public final class Hash extends Pattern implements HashInterface
 	 */
 	@Override
 	@Wrap(order=20, doc={Wrap.HASH_BLIND_DOC_1, Wrap.HASH_BLIND_DOC_2})
-	public void blind(@Nullable final String actualPlainText)
+	public void blind(@Nullable final String plainText)
 	{
-		if(actualPlainText!=null)
+		if(plainText!=null)
 		{
 			if(hashForBlind==null)
 				hashForBlind = algorithmHash("1234");
 
-			algorithmCheck(actualPlainText, hashForBlind);
+			algorithmCheck(plainText, hashForBlind);
 		}
 	}
 
