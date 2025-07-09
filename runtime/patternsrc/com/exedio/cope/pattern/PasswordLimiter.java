@@ -319,19 +319,6 @@ public final class PasswordLimiter extends Pattern
 	/**
 	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
 	 */
-	// for binary backwards compatibility
-	@Deprecated
-	public PasswordLimiter(
-			final Hash password,
-			final long period,
-			final int limit)
-	{
-		this((HashInterface)password, period, limit);
-	}
-
-	/**
-	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
-	 */
 	@Deprecated
 	public PasswordLimiter(
 			final HashInterface password,

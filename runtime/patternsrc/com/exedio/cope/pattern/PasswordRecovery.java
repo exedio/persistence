@@ -70,21 +70,9 @@ public final class PasswordRecovery extends Pattern
 
 	private final SecureRandom random;
 
-	// for binary backwards compatibility
-	public PasswordRecovery(final Hash password)
-	{
-		this((HashInterface)password);
-	}
-
 	public PasswordRecovery(final HashInterface password)
 	{
 		this(password, new SecureRandom());
-	}
-
-	// for binary backwards compatibility
-	public PasswordRecovery(final Hash password, final SecureRandom random)
-	{
-		this((HashInterface)password, random);
 	}
 
 	public PasswordRecovery(final HashInterface password, final SecureRandom random)
