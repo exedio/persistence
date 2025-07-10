@@ -65,7 +65,7 @@ final class SamplerPurge extends Item
 		final DateField field = (DateField)type.getDeclaredFeature("date");
 		final Model model = type.getModel();
 		final Query<?> query = type.newQuery(field.less(limit));
-		final String bf =
+		final String sql =
 				"DELETE " + removePrefix(
 						"SELECT " + quoteName(model, getPrimaryKeyColumnName(type)) + ' ',
 						search(query)
@@ -79,7 +79,7 @@ final class SamplerPurge extends Item
 		final Timer.Sample start = Timer.start();
 		try(Statement stat = con.createStatement())
 		{
-			rows = stat.executeUpdate(bf);
+			rows = stat.executeUpdate(sql);
 		}
 		final long elapsed = toMillies(timer, start);
 
