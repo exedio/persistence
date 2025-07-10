@@ -61,5 +61,5 @@ public interface Selectable<E> extends Serializable
 	 * @deprecated For internal use within COPE only.
 	 */
 	@Deprecated // OK: for internal use within COPE only
-	void append(@SuppressWarnings("ClassEscapesDefinedScope") Statement bf, Join join);
+	void append(@SuppressWarnings("ClassEscapesDefinedScope") Statement st, Join join);
 }

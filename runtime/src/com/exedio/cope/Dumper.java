@@ -117,24 +117,24 @@ public final class Dumper
 
 		final List<Column> columns = table.getColumns();
 
-		final Statement bf = new Statement(dialect, marshallers);
+		final Statement st = new Statement(dialect, marshallers);
 		final StringColumn typeColumn = table.typeColumn;
 		final IntegerColumn updateCounter = table.updateCounter;
 
-		bf.append("insert into ").
+		st.append("insert into ").
 			append(table.quotedID).
 			append("(").
 			append(table.primaryKey.quotedID);
 
 		if(typeColumn!=null)
 		{
-			bf.append(',').
+			st.append(',').
 				append(typeColumn.quotedID);
 		}
 
 		if(updateCounter!=null)
 		{
-			bf.append(',').
+			st.append(',').
 				append(updateCounter.quotedID);
 		}
 
@@ -142,23 +142,23 @@ public final class Dumper
 		{
 			if(!(column instanceof BlobColumn) || blobs.containsKey(column))
 			{
-				bf.append(',').
+				st.append(',').
 					append(column.quotedID);
 			}
 		}
 
-		bf.append(")values(").
+		st.append(")values(").
 			appendParameter(pk);
 
 		if(typeColumn!=null)
 		{
-			bf.append(',').
+			st.append(',').
 				appendParameter(type.schemaId);
 		}
 
 		if(updateCounter!=null)
 		{
-			bf.append(',').
+			st.append(',').
 				appendParameter(0);
 		}
 
@@ -168,18 +168,18 @@ public final class Dumper
 			{
 				if(blobs.containsKey(column))
 				{
-					bf.append(',').
+					st.append(',').
 						appendParameterBlob(blobs.get(column));
 				}
 			}
 			else
 			{
-				bf.append(',').
+				st.append(',').
 					appendParameter(column, row.get(column));
 			}
 		}
-		bf.append(");");
+		st.append(");");
 
-		out.append(bf.getText());
+		out.append(st.getText());
 	}
 }

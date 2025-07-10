@@ -558,10 +558,10 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	@Deprecated // OK: for internal use within COPE only
 	@SuppressWarnings("deprecation") // needed for idea
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		super.append(bf, join);
-		bf.appendTypeColumnIfRequired(getTypeColumn(), join);
+		super.append(st, join);
+		st.appendTypeColumnIfRequired(getTypeColumn(), join);
 	}
 
 	/**
@@ -569,9 +569,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void appendType(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void appendType(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append(Statement.assertTypeColumn(getTypeColumn(), getValueType()), join);
+		st.append(Statement.assertTypeColumn(getTypeColumn(), getValueType()), join);
 	}
 
 	@Override
@@ -664,9 +664,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		final String alias1 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_1);
 		final String alias2 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_2);
 
-		final Statement bf = executor.newStatement(false, mode);
+		final Statement st = executor.newStatement(false, mode);
 		//language=SQL
-		bf.append("SELECT COUNT(*) FROM ").
+		st.append("SELECT COUNT(*) FROM ").
 			append(table).append(' ').append(alias1).
 			append(',').
 			append(valueTable).append(' ').append(alias2).
@@ -679,9 +679,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			append("<>").
 			append(alias2).append('.').append(valueTable.typeColumn);
 
-		//System.out.println("CHECKA:"+bf.toString());
+		//System.out.println("CHECKA:"+st.toString());
 
-		return bf;
+		return st;
 	}
 
 	public enum DeletePolicy

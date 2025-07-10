@@ -85,9 +85,9 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append('(').
+		st.append('(').
 			append(minuend, join).
 			append('-').
 			append(subtrahend, join).

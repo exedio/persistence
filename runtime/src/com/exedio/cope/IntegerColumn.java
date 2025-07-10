@@ -202,13 +202,13 @@ class IntegerColumn extends Column
 
 	Long max(final Connection connection, final Executor executor)
 	{
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT MAX(").
+		final Statement st = executor.newStatement();
+		st.append("SELECT MAX(").
 			append(quotedID).
 			append(") FROM ").
 			append(table.quotedID);
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(connection, st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);

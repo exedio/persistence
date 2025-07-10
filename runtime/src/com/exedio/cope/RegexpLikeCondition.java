@@ -60,9 +60,9 @@ public final class RegexpLikeCondition extends Condition
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.dialect.appendRegexpLike(bf, function, regexp);
+		st.dialect.appendRegexpLike(st, function, regexp);
 	}
 
 	@Override

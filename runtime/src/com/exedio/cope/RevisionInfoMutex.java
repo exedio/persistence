@@ -94,8 +94,8 @@ public final class RevisionInfoMutex extends RevisionInfo
 			final Executor executor)
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
-		final Statement bf = executor.newStatement();
-		bf.append("DELETE FROM ").
+		final Statement st = executor.newStatement();
+		st.append("DELETE FROM ").
 			append(dsmfDialect.quoteName(properties.revisionTableName)).
 			append(" WHERE ").
 			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
@@ -105,7 +105,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			executor.updateStrict(connection, null, bf);
+			executor.updateStrict(connection, null, st);
 		}
 		finally
 		{

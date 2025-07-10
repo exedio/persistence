@@ -342,7 +342,7 @@ public class QueryGroupOrderBySetterSelectableTest
 		}
 		@Override
 		@Deprecated
-		public void append(final Statement bf, final Join join)
+		public void append(final Statement st, final Join join)
 		{
 			throw new AssertionFailedError();
 		}

@@ -106,14 +106,14 @@ public final class Count implements NumberFunction<Integer>
 	 */
 	@Deprecated // OK: for internal use within COPE only
 	@Override
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append("COUNT(");
+		st.append("COUNT(");
 		if (source==null)
-			bf.append('*');
+			st.append('*');
 		else
-			source.append(bf, join);
-		bf.append(')');
+			source.append(st, join);
+		st.append(')');
 	}
 
 

@@ -121,14 +121,14 @@ final class DataFieldVaultStore extends DataFieldStore
 	}
 
 	@Override
-	void appendHashExpression(final Statement bf, final String algorithm)
+	void appendHashExpression(final Statement st, final String algorithm)
 	{
 		if(!algorithm.equals(algorithmName))
 			throw new UnsupportedQueryException(
 					"DataField " + field + " supports hashMatches with algorithm >" + algorithmName + "< only, " +
 					"but not >" + algorithm + "< as it has vault enabled");
 
-		bf.append(column);
+		st.append(column);
 	}
 
 
@@ -285,7 +285,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	}
 
 	@Override
-	void appendStartsWithAfterFrom(final Statement bf, final int offset, final byte[] value)
+	void appendStartsWithAfterFrom(final Statement st, final int offset, final byte[] value)
 	{
 		final int required = offset + value.length;
 		if(required>trail.startLimit)
@@ -295,14 +295,14 @@ final class DataFieldVaultStore extends DataFieldStore
 					"condition requires " + required + " bytes" +
 					(offset>0 ? " (offset " + offset + " plus value " + value.length + ')' : ""));
 
-		bf.joinVaultTrailIfAbsent(field, trail);
+		st.joinVaultTrailIfAbsent(field, trail);
 	}
 
 	@Override
 	Consumer<Statement> getStartsWithColumn()
 	{
-		return bf -> bf.
-				append(bf.getJoinVaultTrailAlias(field)).
+		return st -> st.
+				append(st.getJoinVaultTrailAlias(field)).
 				append('.').
 				append(trail.startQuoted);
 	}

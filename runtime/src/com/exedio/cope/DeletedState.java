@@ -73,8 +73,8 @@ final class DeletedState extends State
 		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			final Table currentTable = currentType.getTable();
-			final Statement bf = executor.newStatement();
-			bf.append("DELETE FROM ").
+			final Statement st = executor.newStatement();
+			st.append("DELETE FROM ").
 				append(currentTable.quotedID).
 				append(" WHERE ").
 				append(currentTable.primaryKey.quotedID).
@@ -84,15 +84,15 @@ final class DeletedState extends State
 			final IntegerColumn updateCounter = currentTable.updateCounter;
 			if(updateCounter!=null)
 			{
-				bf.append(" AND ").
+				st.append(" AND ").
 					append(updateCounter.quotedID).
 					append('=').
 					appendParameter(updateCount.getValue(currentType));
 			}
 
-			//System.out.println("deleting "+bf.toString());
+			//System.out.println("deleting "+st.toString());
 
-			executor.updateStrict(connection, null, bf);
+			executor.updateStrict(connection, null, st);
 		}
 	}
 

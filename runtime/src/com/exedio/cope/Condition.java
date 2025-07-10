@@ -30,8 +30,8 @@ public abstract class Condition implements Serializable
 	@Serial
 	private static final long serialVersionUID = 1l;
 
-	void appendAfterFrom(final Statement statement) {}
-	abstract void append(Statement statement);
+	void appendAfterFrom(final Statement st) {}
+	abstract void append(Statement st);
 
 	public final boolean get(@Nonnull final Item item)
 	{
@@ -128,7 +128,7 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		void append(final Statement statement)
+		void append(final Statement st)
 		{
 			throw new RuntimeException();
 		}

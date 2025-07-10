@@ -76,8 +76,8 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Executor executor = tx.connect.executor;
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT ").
+		final Statement st = executor.newStatement();
+		st.append("SELECT ").
 			append(quotedID).
 			append(" FROM ").
 			append(table.quotedID).
@@ -87,7 +87,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(tx.getConnection(), bf, null, false, resultSetHandler);
+		return executor.query(tx.getConnection(), st, null, false, resultSetHandler);
 	}
 
 	byte[] load(final Transaction tx, final Item item)
@@ -120,8 +120,8 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Executor executor = tx.connect.executor;
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT OCTET_LENGTH(").
+		final Statement st = executor.newStatement();
+		st.append("SELECT OCTET_LENGTH(").
 			append(quotedID).
 			append(") FROM ").
 			append(table.quotedID).
@@ -131,7 +131,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(tx.getConnection(), bf, null, false, resultSet ->
+		return executor.query(tx.getConnection(), st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -149,9 +149,9 @@ final class BlobColumn extends Column
 	{
 		final Table table = this.table;
 		final Executor executor = tx.connect.executor;
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT ");
-		bf.append(quotedID).
+		final Statement st = executor.newStatement();
+		st.append("SELECT ");
+		st.append(quotedID).
 			append(" IS NULL FROM ").
 			append(table.quotedID).
 			append(" WHERE ").
@@ -160,7 +160,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(tx.getConnection(), bf, null, false, resultSet ->
+		return executor.query(tx.getConnection(), st, null, false, resultSet ->
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);

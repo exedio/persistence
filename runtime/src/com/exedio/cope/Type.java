@@ -1367,24 +1367,24 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table table = getTable();
 		final Table superTable = supertype.getTable();
 
-		final Statement bf = executor.newStatement(true, mode);
+		final Statement st = executor.newStatement(true, mode);
 		//language=SQL
-		bf.append("SELECT COUNT(*) FROM ").
+		st.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
 			append(" WHERE ").
 			append(table.primaryKey).append('=').append(superTable.primaryKey).
 			append(" AND ");
 
 		if(table.typeColumn!=null)
-			bf.append(table.typeColumn);
+			st.append(table.typeColumn);
 		else
-			bf.appendParameter(getOnlyPossibleTypeOfInstances().schemaId);
+			st.appendParameter(getOnlyPossibleTypeOfInstances().schemaId);
 
-		bf.append("<>").append(superTable.typeColumn);
+		st.append("<>").append(superTable.typeColumn);
 
-		//System.out.println("CHECKT:"+bf.toString());
+		//System.out.println("CHECKT:"+st.toString());
 
-		return bf;
+		return st;
 	}
 
 	/**
@@ -1413,16 +1413,16 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table table = getTable();
 		final Table subTable = subType.getTable();
 
-		final Statement bf = executor.newStatement(true, mode);
+		final Statement st = executor.newStatement(true, mode);
 		//language=SQL
-		bf.append("SELECT COUNT(*) FROM ").append(table).
+		st.append("SELECT COUNT(*) FROM ").append(table).
 			append(" LEFT JOIN ").append(subTable).
 			append(" ON ").append(table.primaryKey).append('=').append(subTable.primaryKey).
 			append(" WHERE ").append(subTable.primaryKey).append(" IS NULL");
 		if(table.typeColumn!=null)
-			bf.append(" AND ").append(table.typeColumn).append('=').appendParameter(subType.schemaId);
+			st.append(" AND ").append(table.typeColumn).append('=').appendParameter(subType.schemaId);
 
-		return bf;
+		return st;
 	}
 
 	/**

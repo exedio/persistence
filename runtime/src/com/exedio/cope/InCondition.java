@@ -49,21 +49,21 @@ public final class InCondition<E> extends Condition
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.append(function);
+		st.append(function);
 		if (not)
 		{
-			bf.append(" NOT");
+			st.append(" NOT");
 		}
-		bf.append(" IN (");
-		bf.appendParameterAny(allowedValues.get(0));
+		st.append(" IN (");
+		st.appendParameterAny(allowedValues.get(0));
 		for (int i = 1; i<allowedValues.size(); i++)
 		{
-			bf.append(',');
-			bf.appendParameterAny(allowedValues.get(i));
+			st.append(',');
+			st.appendParameterAny(allowedValues.get(i));
 		}
-		bf.append(')');
+		st.append(')');
 	}
 
 	@Override

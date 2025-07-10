@@ -85,19 +85,19 @@ public final class DivideView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append('(');
+		st.append('(');
 		if(valueClass==Double.class)
 		{
-			bf.append(dividend, join).
+			st.append(dividend, join).
 				append('/').
 				append(divisor, join);
 		}
 		else
 		{
-			bf.dialect.appendIntegerDivision(bf, dividend, divisor, join);
+			st.dialect.appendIntegerDivision(st, dividend, divisor, join);
 		}
-		bf.append(')');
+		st.append(')');
 	}
 }
