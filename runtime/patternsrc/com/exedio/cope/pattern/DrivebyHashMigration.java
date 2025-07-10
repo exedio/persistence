@@ -76,18 +76,18 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 
 	@Wrap(order=10, doc=Wrap.HASH_CHECK_DOC)
 	@Override
-	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
+	public boolean check(@Nonnull final Item item, @Nullable final String plainText)
 	{
 		if(!legacyHash.isNull(item))
 		{
-			final boolean result = legacyHash.check(item, actualPlainText);
-			if(result && actualPlainText!=null)
-				set(item, actualPlainText);
+			final boolean result = legacyHash.check(item, plainText);
+			if(result && plainText!=null)
+				set(item, plainText);
 			return result;
 		}
 		else
 		{
-			return targetHash.check(item, actualPlainText);
+			return targetHash.check(item, plainText);
 		}
 	}
 
@@ -110,9 +110,9 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 
 	@Wrap(order=20, doc={Wrap.HASH_BLIND_DOC_1, Wrap.HASH_BLIND_DOC_2})
 	@Override
-	public void blind(@Nullable final String actualPlainText)
+	public void blind(@Nullable final String plainText)
 	{
-		targetHash.blind(actualPlainText);
+		targetHash.blind(plainText);
 	}
 
 	@Deprecated

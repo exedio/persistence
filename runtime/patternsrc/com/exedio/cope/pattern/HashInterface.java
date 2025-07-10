@@ -27,12 +27,12 @@ import javax.annotation.Nullable;
 @SuppressWarnings("unused") // OK: Methods are tested on implementation classes, but never used as a member of this interface.
 public interface HashInterface extends Settable<String>
 {
-	boolean check(@Nonnull Item item, @Nullable String actualPlainText);
+	boolean check(@Nonnull Item item, @Nullable String plainText);
 	boolean isNull(Item item);
 	String getHash(Item item);
 	void set(Item item, String plainText);
 
-	void blind(String actualPlainText);
+	void blind(String plainText);
 
 	/**
 	 * @deprecated
