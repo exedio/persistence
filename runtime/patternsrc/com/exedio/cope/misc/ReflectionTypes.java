@@ -103,11 +103,11 @@ public final class ReflectionTypes
 		@Override
 		public String toString()
 		{
-			final StringBuilder bf = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 
-			bf.append(rawType.getName());
+			sb.append(rawType.getName());
 
-			bf.append('<');
+			sb.append('<');
 
 			boolean first = true;
 			for(final Type argument : arguments)
@@ -115,14 +115,14 @@ public final class ReflectionTypes
 				if(first)
 					first = false;
 				else
-					bf.append(", ");
+					sb.append(", ");
 
-				bf.append(argument.getTypeName());
+				sb.append(argument.getTypeName());
 			}
 
-			bf.append('>');
+			sb.append('>');
 
-			return bf.toString();
+			return sb.toString();
 		}
 	}
 

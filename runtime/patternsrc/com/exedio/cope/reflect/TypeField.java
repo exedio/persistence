@@ -197,21 +197,21 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		@Override
 		public String getMessage()
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append("not found '").
+			final StringBuilder sb = new StringBuilder();
+			sb.append("not found '").
 				append(id).append("' on ").
 				append(item.getCopeID()).
 				append(" for ").append(feature).
 				append(", ");
 
 			if(value==null)
-				bf.append("no such id in model");
+				sb.append("no such id in model");
 			else
-				bf.append("expected instance of ").append(feature.getValueClass().getName()).
+				sb.append("expected instance of ").append(feature.getValueClass().getName()).
 					append(", but was ").append(value.getJavaClass().getName());
 
-			bf.append('.');
-			return bf.toString();
+			sb.append('.');
+			return sb.toString();
 		}
 
 		@Serial

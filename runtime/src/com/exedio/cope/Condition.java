@@ -188,9 +188,9 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+		void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 		{
-			bf.append(name);
+			sb.append(name);
 		}
 
 		/**
@@ -241,10 +241,10 @@ public abstract class Condition implements Serializable
 	@Override
 	public final String toString()
 	{
-		final StringBuilder bf = new StringBuilder();
-		toString(bf, false, null);
-		return bf.toString();
+		final StringBuilder sb = new StringBuilder();
+		toString(sb, false, null);
+		return sb.toString();
 	}
 
-	abstract void toString(StringBuilder bf, boolean key, Type<?> defaultType);
+	abstract void toString(StringBuilder sb, boolean key, Type<?> defaultType);
 }

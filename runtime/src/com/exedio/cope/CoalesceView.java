@@ -84,25 +84,25 @@ public final class CoalesceView<E> extends View<E>
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
+	void toStringNotMounted(final StringBuilder sb, final Type<?> defaultType)
 	{
-		bf.append("coalesce(");
+		sb.append("coalesce(");
 		boolean first = true;
 		for(final Function<E> parameter : parameters)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(',');
+				sb.append(',');
 
-			parameter.toString(bf, defaultType);
+			parameter.toString(sb, defaultType);
 		}
 		if(literal!=null)
 		{
-			bf.append(',');
-			bf.append(literal);
+			sb.append(',');
+			sb.append(literal);
 		}
-		bf.append(')');
+		sb.append(')');
 	}
 
 	@Override

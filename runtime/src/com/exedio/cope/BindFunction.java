@@ -120,11 +120,11 @@ class BindFunction<E> implements Function<E>
 	}
 
 	@Override
-	public final void toString(final StringBuilder bf, final Type<?> defaultType)
+	public final void toString(final StringBuilder sb, final Type<?> defaultType)
 	{
-		bf.append(join.getToStringAlias()).
+		sb.append(join.getToStringAlias()).
 			append('.');
-		function.toString(bf, defaultType);
+		function.toString(sb, defaultType);
 	}
 
 	/**

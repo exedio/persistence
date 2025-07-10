@@ -201,14 +201,14 @@ public final class ConnectToken implements AutoCloseable
 	@Override
 	public String toString()
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append(model).
+		final StringBuilder sb = new StringBuilder();
+		sb.append(model).
 			append('/').append(id);
 		if(name!=null)
-			bf.append('(').
+			sb.append('(').
 				append(name).
 				append(')');
-		return bf.toString();
+		return sb.toString();
 	}
 
 	private static final class Manciple

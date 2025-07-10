@@ -85,9 +85,9 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 		final int len = value.length();
 		final int min = feature.getMinimumLength();
 		final int max = feature.getMaximumLength();
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
-		bf.append("length violation").
+		sb.append("length violation").
 			append(getItemPhrase()).
 			append(", ").
 			append(truncateValue(value)).
@@ -95,21 +95,21 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 			append((len<min)?"short":"long");
 
 		if(withFeature)
-			bf.append(" for ").
+			sb.append(" for ").
 				append(feature);
-		bf.append(", must be ");
+		sb.append(", must be ");
 
 		if(min==max)
-			bf.append("exactly");
+			sb.append("exactly");
 		else
-			bf.append("at ").
+			sb.append("at ").
 				append((len<min)?"least":"most");
 
-		bf.append(' ').
+		sb.append(' ').
 			append((len<min)?min:max).
 			append(" characters, but was ").
 			append(len);
 
-		return bf.toString();
+		return sb.toString();
 	}
 }

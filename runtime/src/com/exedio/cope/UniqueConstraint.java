@@ -207,33 +207,33 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append('(');
+		final StringBuilder sb = new StringBuilder();
+		sb.append('(');
 		for(int i = 0; i<fields.length; i++)
 		{
 			if(i>0)
-				bf.append(',');
+				sb.append(',');
 			final FunctionField<?> f = fields[i];
-			bf.append(f.getColumn().quotedID);
+			sb.append(f.getColumn().quotedID);
 		}
-		bf.append(')');
+		sb.append(')');
 
 		dsmf.newUnique(
 				(fields.length==1) ? dsmf.getColumn(fields[0].getColumn().id) : null,
-				getDatabaseID(), bf.toString());
+				getDatabaseID(), sb.toString());
 	}
 
 	@Override
-	void toStringNotMounted(final StringBuilder bf, final Type<?> defaultType)
+	void toStringNotMounted(final StringBuilder sb, final Type<?> defaultType)
 	{
-		bf.append("unique(");
-		fields[0].toString(bf, defaultType);
+		sb.append("unique(");
+		fields[0].toString(sb, defaultType);
 		for(int i = 1; i<fields.length; i++)
 		{
-			bf.append(',');
-			fields[i].toString(bf, defaultType);
+			sb.append(',');
+			fields[i].toString(sb, defaultType);
 		}
-		bf.append(')');
+		sb.append(')');
 	}
 
 	/**

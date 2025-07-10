@@ -159,16 +159,16 @@ public abstract class Constraint extends Node
 		if(condition!=null && condition.mismatches())
 		{
 			final String mismatching = condition.getMismatching(this);
-			final StringBuilder bf = new StringBuilder();
-			bf.append(
+			final StringBuilder sb = new StringBuilder();
+			sb.append(
 					"unexpected condition >>>").append(mismatching).append("<<<"); // The value of this string literal must not be changed, otherwise cope console breaks
 
 			if(!Objects.equals(mismatching, existingConditionRaw))
-				bf.append(" (originally >>>"). // The value of this string literal must not be changed, otherwise cope console breaks
+				sb.append(" (originally >>>"). // The value of this string literal must not be changed, otherwise cope console breaks
 					append(existingConditionRaw).
 					append("<<<)"); // The value of this string literal must not be changed, otherwise cope console breaks
 
-			return Result.error(bf.toString());
+			return Result.error(sb.toString());
 		}
 
 		return Result.ok;
@@ -222,21 +222,21 @@ public abstract class Constraint extends Node
 
 	public final void create(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
+		final StringBuilder sb = new StringBuilder();
+		sb.append("ALTER TABLE ").
 			append(quoteName(table.name)).
 			append(" ADD ");
-		appendCreateClause(bf);
-		executeSQL(bf.toString(), listener);
+		appendCreateClause(sb);
+		executeSQL(sb.toString(), listener);
 	}
 
 	public final void drop(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		drop(bf);
-		executeSQL(bf.toString(), listener);
+		final StringBuilder sb = new StringBuilder();
+		drop(sb);
+		executeSQL(sb.toString(), listener);
 	}
 
-	abstract void appendCreateClause(StringBuilder bf);
-	abstract void drop(StringBuilder bf);
+	abstract void appendCreateClause(StringBuilder sb);
+	abstract void drop(StringBuilder sb);
 }

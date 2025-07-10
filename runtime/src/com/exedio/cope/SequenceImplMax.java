@@ -100,7 +100,7 @@ final class SequenceImplMax implements SequenceImpl
 	}
 
 	@Override
-	public void delete(final StringBuilder bf, final Dialect dialect)
+	public void delete(final StringBuilder sb, final Dialect dialect)
 	{
 		flush();
 	}

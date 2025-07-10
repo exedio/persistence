@@ -1091,19 +1091,19 @@ public final class Query<R> implements Serializable
 	String toString(final boolean key, final Mode mode)
 	{
 		final Type<?> type = this.type;
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
-		bf.append("select ");
+		sb.append("select ");
 
 		if(mode.isExists())
-			bf.append("exists( select ");
+			sb.append("exists( select ");
 
 		if(distinct && !mode.isExists())
-			bf.append("distinct ");
+			sb.append("distinct ");
 
 		if(!mode.isSearch())
 		{
-			bf.append("count(*)");
+			sb.append("count(*)");
 		}
 		else
 		{
@@ -1111,76 +1111,76 @@ public final class Query<R> implements Serializable
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
-					bf.append(',');
+					sb.append(',');
 
-				selects[i].toString(bf, type);
+				selects[i].toString(sb, type);
 			}
 		}
 
-		bf.append(" from ").
+		sb.append(" from ").
 			append(type);
 
 		if(joins!=null)
 		{
 			for(final Join join : joins)
-				join.toString(bf, key, type);
+				join.toString(sb, key, type);
 		}
 
 		if(condition!=null)
 		{
-			bf.append(" where ");
-			condition.toString(bf, key, type);
+			sb.append(" where ");
+			condition.toString(sb, key, type);
 		}
 
 		if(groupBy!=null)
 		{
-			bf.append(" group by ");
+			sb.append(" group by ");
 			for(int i = 0; i<groupBy.length; i++)
 			{
 				if(i>0)
-					bf.append(',');
+					sb.append(',');
 
-				groupBy[i].toString(bf, type);
+				groupBy[i].toString(sb, type);
 			}
 		}
 
 		if(having!=null)
 		{
-			bf.append(" having ");
-			having.toString(bf, key, type);
+			sb.append(" having ");
+			having.toString(sb, key, type);
 		}
 
 		if(mode.isSearch())
 		{
 			if(orderBy!=null)
 			{
-				bf.append(" order by ");
+				sb.append(" order by ");
 				for(int i = 0; i<orderBy.length; i++)
 				{
 					if(i>0)
-						bf.append(", ");
+						sb.append(", ");
 
-					orderBy[i].toString(bf, type);
+					orderBy[i].toString(sb, type);
 					if(!orderAscending[i])
-						bf.append(" desc");
+						sb.append(" desc");
 				}
 			}
 
 			if(pageOffset>0)
-				bf.append(" offset '").
+				sb.append(" offset '").
 					append(pageOffset).
 					append('\'');
 
 			if(pageLimit!=UNLIMITED)
-				bf.append(" limit '").
+				sb.append(" limit '").
 					append(pageLimit).
 					append('\'');
 		}
 
 		if(mode.isExists())
-			bf.append(" )");
+			sb.append(" )");
 
-		return bf.toString();
+		return sb.toString();
 	}
 
 	@SuppressWarnings("RedundantCast")

@@ -179,7 +179,7 @@ final class HookStampHook implements ChangeHook
 				if(!item.existsCopeItem())
 					continue;
 
-				final StringBuilder bf = new StringBuilder();
+				final StringBuilder sb = new StringBuilder();
 				final HashMap<StringField,String> values = e.getValue();
 
 				if(values==null) // new item
@@ -188,10 +188,10 @@ final class HookStampHook implements ChangeHook
 					for(final Field<?> field : watched)
 						if(field.getType().isAssignableFrom(type))
 						{
-							if(!bf.isEmpty())
-								bf.append(',');
+							if(!sb.isEmpty())
+								sb.append(',');
 
-							bf.append(name(field)).
+							sb.append(name(field)).
 								append('=').
 								append(field.get(item));
 						}
@@ -205,17 +205,17 @@ final class HookStampHook implements ChangeHook
 						if(Objects.equals(newValue, e2.getValue()))
 							continue;
 
-						if(!bf.isEmpty())
-							bf.append(',');
+						if(!sb.isEmpty())
+							sb.append(',');
 
-						bf.append(name(field)).
+						sb.append(name(field)).
 							append('=').
 							append(newValue);
 					}
 				}
 
-				if(!bf.isEmpty())
-					store.set(item, store.get(item) + '{' + (values==null?"NEW:":"") + author.get() + ':' + bf + '}');
+				if(!sb.isEmpty())
+					store.set(item, store.get(item) + '{' + (values==null?"NEW:":"") + author.get() + ':' + sb + '}');
 			}
 		}
 

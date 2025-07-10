@@ -66,14 +66,14 @@ public final class CompareCondition<E> extends Condition
 
 		if(!isComparable(left.getValueClass(), right.getClass(), right))
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append(left).
+			final StringBuilder sb = new StringBuilder();
+			sb.append(left).
 				append(" not comparable to '");
-			toStringForValue(bf, right, false);
-			bf.append("' (").
+			toStringForValue(sb, right, false);
+			sb.append("' (").
 				append(right.getClass().getName()).
 				append(')');
-			throw new IllegalArgumentException(bf.toString());
+			throw new IllegalArgumentException(sb.toString());
 		}
 	}
 
@@ -176,27 +176,27 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		left.toString(bf, defaultType);
-		bf.append(operator.sql).
+		left.toString(sb, defaultType);
+		sb.append(operator.sql).
 			append('\'');
-		toStringForValue(bf, right, key);
-		bf.append('\'');
+		toStringForValue(sb, right, key);
+		sb.append('\'');
 	}
 
-	static void toStringForValue(final StringBuilder bf, final Object o, final boolean key)
+	static void toStringForValue(final StringBuilder sb, final Object o, final boolean key)
 	{
 		if(o instanceof Item)
 		{
 			if(key)
-				((Item)o).appendCopeID(bf);
+				((Item)o).appendCopeID(sb);
 			else
-				bf.append(o);
+				sb.append(o);
 		}
 		else if(o instanceof Date)
-			bf.append(key ? String.valueOf(((Date)o).getTime()) : DateField.format().format((Date)o));
+			sb.append(key ? String.valueOf(((Date)o).getTime()) : DateField.format().format((Date)o));
 		else
-			bf.append(o);
+			sb.append(o);
 	}
 }

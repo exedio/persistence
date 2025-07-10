@@ -117,10 +117,10 @@ public final class RegexpLikeCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		function.toString(bf, defaultType);
-		bf.append(" regexp '").append(icuPattern.pattern()).append("'");
+		function.toString(sb, defaultType);
+		sb.append(" regexp '").append(icuPattern.pattern()).append("'");
 	}
 
 	@Override

@@ -235,26 +235,26 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public String toStringShort()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		if((store<0 && store>(-FACTOR_I)))
-			bf.append('-');
-		bf.append(store/FACTOR_I);
+			sb.append('-');
+		sb.append(store/FACTOR_I);
 		final long minor = Math.abs(store%FACTOR_I);
 		if(minor!=0)
 		{
-			bf.append('.');
+			sb.append('.');
 			final long x = minor % 10;
 			if(x==0)
-				bf.append(minor/10);
+				sb.append(minor/10);
 			else
 			{
 				if(minor<=10)
-					bf.append('0');
-				bf.append(minor);
+					sb.append('0');
+				sb.append(minor);
 			}
 		}
 
-		return bf.toString();
+		return sb.toString();
 	}
 
 	/**

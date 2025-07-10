@@ -89,49 +89,49 @@ public final class Arrays
 		if(a.length==0)
 			return "[]";
 
-		final StringBuilder bf = new StringBuilder();
-		append0(bf, a, limit);
-		return bf.toString();
+		final StringBuilder sb = new StringBuilder();
+		append0(sb, a, limit);
+		return sb.toString();
 	}
 
 	/**
-	 * Is equivalent to {@code bf.{@link StringBuilder#append(String) append}({@link #toString(byte[], int) toString}(a, limit));}
+	 * Is equivalent to {@code sb.{@link StringBuilder#append(String) append}({@link #toString(byte[], int) toString}(a, limit));}
 	 */
-	public static void append(final StringBuilder bf, final byte[] a, final int limit)
+	public static void append(final StringBuilder sb, final byte[] a, final int limit)
 	{
 		if(limit<=0)
 			throw new IllegalArgumentException("limit must be greater that zero, but was " + limit);
 		if(a==null)
 		{
-			bf.append("null");
+			sb.append("null");
 			return;
 		}
 		if(a.length==0)
 		{
-			bf.append("[]");
+			sb.append("[]");
 			return;
 		}
-		append0(bf, a, limit);
+		append0(sb, a, limit);
 	}
 
-	private static void append0(final StringBuilder bf, final byte[] a, final int limit)
+	private static void append0(final StringBuilder sb, final byte[] a, final int limit)
 	{
-		bf.append('[').
+		sb.append('[').
 			append(a[0]);
 
 		final boolean exceedLimit = a.length>limit;
 		final int actualLimit = exceedLimit ? limit : a.length;
 
 		for(int i = 1; i<actualLimit; i++)
-			bf.append(", ").
+			sb.append(", ").
 				append(a[i]);
 
 		if(exceedLimit)
-			bf.append(" ... (").
+			sb.append(" ... (").
 				append(a.length).
 				append(")]");
 		else
-			bf.append(']');
+			sb.append(']');
 	}
 
 	private Arrays()

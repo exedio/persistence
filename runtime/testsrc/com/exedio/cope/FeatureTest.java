@@ -94,9 +94,9 @@ public class FeatureTest
 
 	private static String toString(final Feature f, final Type<?> defaultType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		f.toString(bf, defaultType);
-		return bf.toString();
+		final StringBuilder sb = new StringBuilder();
+		f.toString(sb, defaultType);
+		return sb.toString();
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

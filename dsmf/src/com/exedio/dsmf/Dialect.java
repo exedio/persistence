@@ -318,20 +318,20 @@ public abstract class Dialect
 
 		private void flush()
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append('(');
+			final StringBuilder sb = new StringBuilder();
+			sb.append('(');
 			boolean first = true;
 			for(final String column: columns)
 			{
 				if(first)
 					first = false;
 				else
-					bf.append(',');
+					sb.append(',');
 
-				bf.append(schema.quoteName(column));
+				sb.append(schema.quoteName(column));
 			}
-			bf.append(')');
-			notifyExistentUnique(table, name, bf.toString());
+			sb.append(')');
+			notifyExistentUnique(table, name, sb.toString());
 
 			this.table = null;
 			this.name = null;
@@ -390,16 +390,16 @@ public abstract class Dialect
 		else if(trueValue.equals(value))
 			return true;
 
-		final StringBuilder bf = new StringBuilder();
-		bf.append("inconsistent boolean value, \"").
+		final StringBuilder sb = new StringBuilder();
+		sb.append("inconsistent boolean value, \"").
 			append(trueValue).
 			append("\"/\"").
 			append(falseValue).
 			append("\" required");
 
-		append(bf, resultSet, columnIndex);
+		append(sb, resultSet, columnIndex);
 
-		throw new IllegalStateException(bf.toString());
+		throw new IllegalStateException(sb.toString());
 	}
 
 	protected static final Table getTableStrict(
@@ -412,22 +412,22 @@ public abstract class Dialect
 		if(result!=null)
 			return result;
 
-		final StringBuilder bf = new StringBuilder();
-		bf.append("table \"").
+		final StringBuilder sb = new StringBuilder();
+		sb.append("table \"").
 				append(name).
 				append("\" required");
 
-		append(bf, resultSet, columnIndex);
+		append(sb, resultSet, columnIndex);
 
-		throw new IllegalStateException(bf.toString());
+		throw new IllegalStateException(sb.toString());
 	}
 
 	private static void append(
-			final StringBuilder bf, final ResultSet resultSet,
+			final StringBuilder sb, final ResultSet resultSet,
 			final int columnIndexMarked)
 	throws SQLException
 	{
-		bf.append(", result set was");
+		sb.append(", result set was");
 
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
@@ -438,11 +438,11 @@ public abstract class Dialect
 			if(o==null)
 				continue;
 
-			bf.append(' ').
+			sb.append(' ').
 				append(metaData.getColumnName(i));
 			if(i==columnIndexMarked)
-				bf.append('*');
-			bf.append('=').
+				sb.append('*');
+			sb.append('=').
 				append(o);
 		}
 	}
@@ -535,9 +535,9 @@ public abstract class Dialect
 	}
 
 	/**
-	 * @param bf used in subclasses
+	 * @param sb used in subclasses
 	 */
-	protected void appendTableCreateStatement(final StringBuilder bf)
+	protected void appendTableCreateStatement(final StringBuilder sb)
 	{
 		// empty default implementation
 	}
@@ -551,36 +551,36 @@ public abstract class Dialect
 
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
-	static void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	static void dropConstraint(final StringBuilder sb, final String tableName, final String constraintName)
 	{
-		bf.append("ALTER TABLE ").
+		sb.append("ALTER TABLE ").
 			append(tableName).
 			append(" DROP CONSTRAINT ").
 			append(constraintName);
 	}
 
-	protected void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
 	{
-		dropConstraint(bf, tableName, constraintName);
+		dropConstraint(sb, tableName, constraintName);
 	}
 
-	protected void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
 	{
-		dropConstraint(bf, tableName, constraintName);
+		dropConstraint(sb, tableName, constraintName);
 	}
 
-	protected void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String constraintName)
 	{
-		dropConstraint(bf, tableName, constraintName);
+		dropConstraint(sb, tableName, constraintName);
 	}
 
 	protected abstract void createSequence(
-			StringBuilder bf, String sequenceName,
+			StringBuilder sb, String sequenceName,
 			Sequence.Type type, long start);
 
-	protected void dropSequence(final StringBuilder bf, final String sequenceName)
+	protected void dropSequence(final StringBuilder sb, final String sequenceName)
 	{
-		bf.append("DROP SEQUENCE ").
+		sb.append("DROP SEQUENCE ").
 			append(sequenceName);
 	}
 
@@ -590,7 +590,7 @@ public abstract class Dialect
 	@Deprecated // OK: for debugging
 	static final void print(final ResultSet resultSet) throws SQLException
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
@@ -601,15 +601,15 @@ public abstract class Dialect
 			if(first)
 				first = false;
 			else
-				bf.append(' ');
+				sb.append(' ');
 
-			bf.append(metaData.getColumnName(i)).
+			sb.append(metaData.getColumnName(i)).
 				append(':').
 				append(metaData.getColumnType(i)).
 				append('=').
 				append(resultSet.getObject(i));
 		}
 
-		System.out.println(bf);
+		System.out.println(sb);
 	}
 }

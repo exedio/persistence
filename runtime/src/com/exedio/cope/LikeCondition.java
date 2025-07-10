@@ -133,10 +133,10 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		function.toString(bf, defaultType);
-		bf.append(" like '").
+		function.toString(sb, defaultType);
+		sb.append(" like '").
 			append(value).
 			append('\'');
 	}

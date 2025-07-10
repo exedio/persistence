@@ -33,7 +33,7 @@ public interface Selectable<E> extends Serializable
 
 	Type<?> getType();
 
-	void toString(StringBuilder bf, Type<?> defaultType);
+	void toString(StringBuilder sb, Type<?> defaultType);
 
 	/**
 	 * @deprecated For internal use within COPE only.

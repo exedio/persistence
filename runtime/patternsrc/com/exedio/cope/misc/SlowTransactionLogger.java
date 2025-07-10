@@ -101,16 +101,16 @@ public final class SlowTransactionLogger
 	// almost equal to code in SamplerThread
 	static String toString(final StackTraceElement[] trace)
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		boolean first = true;
 		for(final StackTraceElement e : trace)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(' ');
+				sb.append(' ');
 
-			bf.
+			sb.
 					append(e.getClassName()).
 					append('.').
 					append(e.getMethodName()).
@@ -118,7 +118,7 @@ public final class SlowTransactionLogger
 					append(':').
 					append(e.getLineNumber()).append(')');
 		}
-		return !bf.isEmpty() ? bf.toString() : null;
+		return !sb.isEmpty() ? sb.toString() : null;
 	}
 
 	private static final String FORMAT = "exceeds threshold id={} age={}ms name=\"{}\" inv={} pre={} predup={} post={} postdup={} "; // https://www.cloudbees.com/blog/logfmt-a-log-format-thats-easy-to-read-and-write

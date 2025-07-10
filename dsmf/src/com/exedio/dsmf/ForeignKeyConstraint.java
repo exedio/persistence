@@ -88,9 +88,9 @@ public final class ForeignKeyConstraint extends Constraint
 	}
 
 	@Override
-	void appendCreateClause(final StringBuilder bf)
+	void appendCreateClause(final StringBuilder sb)
 	{
-		bf.append("CONSTRAINT ").
+		sb.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" FOREIGN KEY (").
 			append(quoteName(foreignKeyColumn)).
@@ -102,8 +102,8 @@ public final class ForeignKeyConstraint extends Constraint
 	}
 
 	@Override
-	void drop(final StringBuilder bf)
+	void drop(final StringBuilder sb)
 	{
-		dialect.dropForeignKeyConstraint(bf, quoteName(table.name), quoteName(name));
+		dialect.dropForeignKeyConstraint(sb, quoteName(table.name), quoteName(name));
 	}
 }

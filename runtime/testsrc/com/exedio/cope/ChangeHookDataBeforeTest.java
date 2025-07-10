@@ -331,17 +331,17 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 
 		private SetValue<?>[] before(final String operation, final Item item, final SetValue<?>[] sv)
 		{
-			final StringBuilder bf = new StringBuilder("Hook#" + operation + "(");
+			final StringBuilder sb = new StringBuilder("Hook#" + operation + "(");
 			final ArrayList<SetValue<?>> result = new ArrayList<>();
 			if(item!=null)
-				bf.append(item);
+				sb.append(item);
 			for(final SetValue<?> s : sv)
 			{
 				final Field<?> settable = (Field<?>)s.settable;
 				final String value;
-				if(bf.charAt(bf.length()-1)!='(')
-					bf.append(",");
-				bf.append(settable.getName() + '=');
+				if(sb.charAt(sb.length()-1)!='(')
+					sb.append(",");
+				sb.append(settable.getName() + '=');
 				if(settable==field)
 				{
 					value = decode(s.value);
@@ -359,14 +359,14 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 					throw new AssertionFailedError(settable.getID());
 				}
 
-				bf.append(value);
+				sb.append(value);
 				if(value.contains("(FIELD)"))
 					result.add(SetValue.map(field, encode("(FIELD" + operation + ")")));
 				if(value.contains("(OTHER)"))
 					result.add(SetValue.map(other, "(OTHER" + operation + ")"));
 			}
-			bf.append(")");
-			addEvent(bf.toString());
+			sb.append(")");
+			addEvent(sb.toString());
 			return result.toArray(SetValue.EMPTY_ARRAY);
 		}
 

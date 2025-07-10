@@ -528,15 +528,15 @@ public final class Transaction
 	@Override
 	public String toString()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
-		bf.append(id);
+		sb.append(id);
 		if(closed)
-			bf.append("(closed)");
-		bf.append(':');
-		bf.append(name!=null ? name : ANONYMOUS);
+			sb.append("(closed)");
+		sb.append(':');
+		sb.append(name!=null ? name : ANONYMOUS);
 
-		return bf.toString();
+		return sb.toString();
 	}
 
 	static final String ANONYMOUS = "ANONYMOUS_TRANSACTION";

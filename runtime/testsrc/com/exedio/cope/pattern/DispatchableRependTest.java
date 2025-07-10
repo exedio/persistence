@@ -144,24 +144,24 @@ public class DispatchableRependTest extends TestWithEnvironment
 
 		String getPendingMessage() // prepares for spurious failure
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append("-----------");
+			final StringBuilder sb = new StringBuilder();
+			sb.append("-----------");
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			try(PrintStream ps = new PrintStream(baos, false, US_ASCII))
 			{
 				new Exception("Stack trace").printStackTrace(ps);
 			}
-			bf.append(baos.toString(US_ASCII));
-			bf.append("-----------");
+			sb.append(baos.toString(US_ASCII));
+			sb.append("-----------");
 			for(final Dispatcher.Run run : getToTargetRuns())
 			{
-				bf.append(run.getCopeID()).append('/').
+				sb.append(run.getCopeID()).append('/').
 					append(run.getResult()).append('/').
 					append(run.getElapsed()).append('/').
 					append(run.getFailure()).
 					append("-----------");
 			}
-			return bf.toString();
+			return sb.toString();
 		}
 
 

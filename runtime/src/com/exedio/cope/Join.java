@@ -106,14 +106,14 @@ public final class Join implements Serializable
 	@Override
 	public String toString()
 	{
-		final StringBuilder bf = new StringBuilder();
-		toString(bf, false, null);
-		return bf.toString();
+		final StringBuilder sb = new StringBuilder();
+		toString(sb, false, null);
+		return sb.toString();
 	}
 
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		bf.append(' ').
+		sb.append(' ').
 			append(kind.toString).
 			append(type).
 			append(' ').
@@ -121,8 +121,8 @@ public final class Join implements Serializable
 
 		if(condition!=null)
 		{
-			bf.append(" on ");
-			condition.toString(bf, key, defaultType);
+			sb.append(" on ");
+			condition.toString(sb, key, defaultType);
 		}
 	}
 

@@ -465,14 +465,14 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 	private String SELECT_EXISTS(final String s)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append(mysql ? "SELECT EXISTS (" : "SELECT COUNT(*) FROM (");
-		bf.append(s);
+		final StringBuilder sb = new StringBuilder();
+		sb.append(mysql ? "SELECT EXISTS (" : "SELECT COUNT(*) FROM (");
+		sb.append(s);
 		if(!mysql)
-			bf.append(" LIMIT 1");
-		bf.append(")");
+			sb.append(" LIMIT 1");
+		sb.append(")");
 		if(!hsqldb)
-			bf.append(" AS cope_exists");
-		return bf.toString();
+			sb.append(" AS cope_exists");
+		return sb.toString();
 	}
 }

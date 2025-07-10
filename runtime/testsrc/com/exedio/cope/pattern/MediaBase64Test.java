@@ -54,8 +54,8 @@ public class MediaBase64Test
 
 	private static void assertIt(final String expected, final long actual)
 	{
-		final StringBuilder bf = new StringBuilder();
-		MediaBase64.append(bf, actual);
-		assertEquals(expected, bf.toString());
+		final StringBuilder sb = new StringBuilder();
+		MediaBase64.append(sb, actual);
+		assertEquals(expected, sb.toString());
 	}
 }

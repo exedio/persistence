@@ -156,7 +156,7 @@ public final class Schema extends Node
 
 		if(connectionProvider.isSemicolonEnabled())
 		{
-			final StringBuilder bf = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 			boolean first = true;
 
 			for(final Sequence s : sequenceList)
@@ -164,9 +164,9 @@ public final class Schema extends Node
 				if(first)
 					first = false;
 				else
-					bf.append(';');
+					sb.append(';');
 
-				s.create(bf);
+				s.create(sb);
 			}
 
 			for(final Table t : graph.getTablesOrdered())
@@ -174,12 +174,12 @@ public final class Schema extends Node
 				if(first)
 					first = false;
 				else
-					bf.append(';');
+					sb.append(';');
 
-				t.create(bf, constraintsBroken);
+				t.create(sb, constraintsBroken);
 			}
 
-			executeSQL(bf.toString(), listener);
+			executeSQL(sb.toString(), listener);
 		}
 		else
 		{
@@ -211,7 +211,7 @@ public final class Schema extends Node
 
 		if(connectionProvider.isSemicolonEnabled())
 		{
-			final StringBuilder bf = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 			boolean first = true;
 
 			for(final Table t : reverse(graph.getTablesOrdered()))
@@ -219,9 +219,9 @@ public final class Schema extends Node
 				if(first)
 					first = false;
 				else
-					bf.append(';');
+					sb.append(';');
 
-				t.drop(bf);
+				t.drop(sb);
 			}
 
 			for(final Sequence s : reverse(sequenceList))
@@ -229,12 +229,12 @@ public final class Schema extends Node
 				if(first)
 					first = false;
 				else
-					bf.append(';');
+					sb.append(';');
 
-				s.drop(bf);
+				s.drop(sb);
 			}
 
-			executeSQL(bf.toString(), listener);
+			executeSQL(sb.toString(), listener);
 		}
 		else
 		{

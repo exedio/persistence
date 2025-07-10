@@ -113,14 +113,14 @@ public final class MediaResponse
 		cacheControlNoTransform = true;
 	}
 
-	void addToCacheControl(final StringBuilder bf)
+	void addToCacheControl(final StringBuilder sb)
 	{
 		if(cacheControlNoTransform)
 		{
-			if(!bf.isEmpty())
-				bf.append(',');
+			if(!sb.isEmpty())
+				sb.append(',');
 
-			bf.append("no-transform");
+			sb.append("no-transform");
 		}
 	}
 }

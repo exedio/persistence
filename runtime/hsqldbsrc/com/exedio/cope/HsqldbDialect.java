@@ -373,20 +373,20 @@ final class HsqldbDialect extends Dialect
 			final boolean forTest,
 			final ConnectionPool connectionPool)
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
 		for(final Table table : tables)
 		{
-			bf.append("TRUNCATE TABLE ").
+			sb.append("TRUNCATE TABLE ").
 				append(table.quotedID).
 				append(" RESTART IDENTITY AND COMMIT NO CHECK;");
 		}
 
 		for(final SequenceX sequence : sequences)
-			sequence.delete(bf, this);
+			sequence.delete(sb, this);
 
-		if(!bf.isEmpty())
-			execute(connectionPool, bf.toString());
+		if(!sb.isEmpty())
+			execute(connectionPool, sb.toString());
 	}
 
 	private static void execute(final ConnectionPool connectionPool, final String sql)
@@ -404,10 +404,10 @@ final class HsqldbDialect extends Dialect
 
 	@Override
 	void deleteSequence(
-			final StringBuilder bf, final String quotedName,
+			final StringBuilder sb, final String quotedName,
 			final long start)
 	{
-		bf.append("ALTER SEQUENCE ").
+		sb.append("ALTER SEQUENCE ").
 			append(quotedName).
 			append(" RESTART WITH ").
 			append(start).

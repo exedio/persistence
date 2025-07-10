@@ -160,27 +160,27 @@ public final class DatabaseLogListener implements DatabaseListener
 		{
 			logsLeft--;
 
-			final StringBuilder bf = new StringBuilder(
+			final StringBuilder sb = new StringBuilder(
 					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(new Date()));
 
-			bf.append('|');
-			bf.append(durationPrepare);
-			bf.append('|');
-			bf.append(durationExecute);
-			bf.append('|');
-			bf.append(durationRead);
-			bf.append('|');
-			bf.append(durationClose);
-			bf.append('|');
-			bf.append(statement);
+			sb.append('|');
+			sb.append(durationPrepare);
+			sb.append('|');
+			sb.append(durationExecute);
+			sb.append('|');
+			sb.append(durationRead);
+			sb.append('|');
+			sb.append(durationClose);
+			sb.append('|');
+			sb.append(statement);
 
 			if(parameters!=null)
 			{
-				bf.append('|');
-				bf.append(parameters);
+				sb.append('|');
+				sb.append(parameters);
 			}
 
-			out.println(bf);
+			out.println(sb);
 
 			if(printStackTrace)
 				new Exception("DatabaseLogListener").printStackTrace(out); // same as Thread.dumpStack(), but directed to out

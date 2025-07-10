@@ -596,15 +596,15 @@ final class MysqlDialect extends Dialect
 
 	@Override
 	void deleteSequence(
-			final StringBuilder bf, final String quotedName,
+			final StringBuilder sb, final String quotedName,
 			final long start)
 	{
-		bf.append("TRUNCATE ").
+		sb.append("TRUNCATE ").
 			append(quotedName);
 
-		MysqlSchemaDialect.initializeSequence(bf, quotedName, start);
+		MysqlSchemaDialect.initializeSequence(sb, quotedName, start);
 
-		bf.append(';');
+		sb.append(';');
 	}
 
 	@Override
@@ -660,7 +660,7 @@ final class MysqlDialect extends Dialect
 			final boolean forTest,
 			final ConnectionPool connectionPool)
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
 		if(!tables.isEmpty())
 		{
@@ -668,23 +668,23 @@ final class MysqlDialect extends Dialect
 			// with a lot of rows
 			final String deleteTable = forTest ? "DELETE FROM " : "TRUNCATE ";
 
-			bf.append("SET FOREIGN_KEY_CHECKS=0;");
+			sb.append("SET FOREIGN_KEY_CHECKS=0;");
 
 			for(final Table table : tables)
 			{
-				bf.append(deleteTable).
+				sb.append(deleteTable).
 					append(table.quotedID).
 					append(';');
 			}
 
-			bf.append("SET FOREIGN_KEY_CHECKS=1;");
+			sb.append("SET FOREIGN_KEY_CHECKS=1;");
 		}
 
 		for(final SequenceX sequence : sequences)
-			sequence.delete(bf, this);
+			sequence.delete(sb, this);
 
-		if(!bf.isEmpty())
-			execute(connectionPool, bf.toString());
+		if(!sb.isEmpty())
+			execute(connectionPool, sb.toString());
 	}
 
 	private static void execute(final ConnectionPool connectionPool, final String sql)
@@ -787,15 +787,15 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendStringParameterPrefix(final StringBuilder bf)
+	void appendStringParameterPrefix(final StringBuilder sb)
 	{
-		bf.append("cast("); // equivalent to "CAST(... AS BINARY)", but normalized by MySQL 8 check constraint
+		sb.append("cast("); // equivalent to "CAST(... AS BINARY)", but normalized by MySQL 8 check constraint
 	}
 
 	@Override
-	void appendStringParameterPostfix(final StringBuilder bf)
+	void appendStringParameterPostfix(final StringBuilder sb)
 	{
-		bf.append(" as char charset binary)"); // equivalent to "CAST(... AS BINARY)", but normalized by MySQL 8 check constraint
+		sb.append(" as char charset binary)"); // equivalent to "CAST(... AS BINARY)", but normalized by MySQL 8 check constraint
 	}
 
 	@Override
@@ -902,38 +902,38 @@ final class MysqlDialect extends Dialect
 			if(!rs.next())
 				throw new SchemaSavepointNotAvailableException(sql + " returns empty result, probably because binlog is disabled");
 
-			final StringBuilder bf = new StringBuilder(sql);
+			final StringBuilder sb = new StringBuilder(sql);
 			boolean first = true;
 			do
 			{
 				if(first)
 					first = false;
 				else
-					bf.append(" newLine");
+					sb.append(" newLine");
 
 				{
 					// https://dev.mysql.com/doc/refman/5.7/en/replication-gtids.html
 					final String s = rs.getString("Executed_Gtid_Set");
 					if(s!=null && !s.isEmpty())
-						bf.append(" Gtid=").append(s);
+						sb.append(" Gtid=").append(s);
 				}
 
-				bf.append(' ').append(rs.getString("File")).
+				sb.append(' ').append(rs.getString("File")).
 					append(':').append(rs.getInt   ("Position"));
 				{
 					final String s = rs.getString("Binlog_Do_DB");
 					if(s!=null && !s.isEmpty())
-						bf.append(" doDB=").append(s);
+						sb.append(" doDB=").append(s);
 				}
 				{
 					final String s = rs.getString("Binlog_Ignore_DB");
 					if(s!=null && !s.isEmpty())
-						bf.append(" ignoreDB=").append(s);
+						sb.append(" ignoreDB=").append(s);
 				}
 			}
 			while(rs.next());
 
-			return bf.toString();
+			return sb.toString();
 		}
 		catch(final SQLException e)
 		{

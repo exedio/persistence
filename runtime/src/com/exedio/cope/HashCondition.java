@@ -122,13 +122,13 @@ final class HashCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		hash.toString(bf, defaultType);
-		bf.append("=").
+		hash.toString(sb, defaultType);
+		sb.append("=").
 			append(algorithm).
 			append('(');
-		data.toString(bf, defaultType);
-		bf.append(")");
+		data.toString(sb, defaultType);
+		sb.append(")");
 	}
 }

@@ -130,10 +130,10 @@ public final class CharSetCondition extends Condition
 	}
 
 	@Override
-	void toString(final StringBuilder bf, final boolean key, final Type<?> defaultType)
+	void toString(final StringBuilder sb, final boolean key, final Type<?> defaultType)
 	{
-		function.toString(bf, defaultType);
-		bf.append(" conformsTo ").
+		function.toString(sb, defaultType);
+		sb.append(" conformsTo ").
 			append(value);
 	}
 }

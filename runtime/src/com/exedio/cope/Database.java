@@ -155,15 +155,15 @@ final class Database
 
 	void checkEmptySchema(final Connection connection)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("SELECT t,c FROM(");
+		final StringBuilder sb = new StringBuilder();
+		sb.append("SELECT t,c FROM(");
 		int n = 0;
 		for(final Table table : tables)
 		{
 			if(n>0)
-				bf.append("union");
+				sb.append("union");
 
-			bf.append("(SELECT '").
+			sb.append("(SELECT '").
 				append(table.id).
 				append("' t, COUNT(*) c, ").
 				append(n++).
@@ -171,9 +171,9 @@ final class Database
 				append(table.quotedID).
 				append(')');
 		}
-		bf.append(") b WHERE c>0 ORDER BY n");
+		sb.append(") b WHERE c>0 ORDER BY n");
 
-		final String message = Executor.query(connection, bf.toString(), resultSet ->
+		final String message = Executor.query(connection, sb.toString(), resultSet ->
 			{
 				StringBuilder mb = null;
 				while(resultSet.next())

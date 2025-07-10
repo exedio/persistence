@@ -72,21 +72,21 @@ public final class ForbiddenFeatureException extends ConstraintViolationExceptio
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
 		final Class<? extends Feature> valueClass = value.getClass();
-		bf.append("forbidden feature ").append(value).
+		sb.append("forbidden feature ").append(value).
 			append(" which is a ").	append(valueClass.getName()).
 			append(getItemPhrase());
 
 		if(withFeature)
-			bf.append(" for ").
+			sb.append(" for ").
 				append(feature);
 
 		if(!valueClass.equals(forbiddenValueClass))
-			bf.append(", is forbidden by ").
+			sb.append(", is forbidden by ").
 				append(forbiddenValueClass.getName());
 
-		return bf.toString();
+		return sb.toString();
 	}
 }

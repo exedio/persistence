@@ -57,17 +57,17 @@ public final class UniqueConstraint extends Constraint
 	}
 
 	@Override
-	void appendCreateClause(final StringBuilder bf)
+	void appendCreateClause(final StringBuilder sb)
 	{
-		bf.append("CONSTRAINT ").
+		sb.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" UNIQUE").
 			append(clause);
 	}
 
 	@Override
-	void drop(final StringBuilder bf)
+	void drop(final StringBuilder sb)
 	{
-		dialect.dropUniqueConstraint(bf, quoteName(table.name), quoteName(name));
+		dialect.dropUniqueConstraint(sb, quoteName(table.name), quoteName(name));
 	}
 }

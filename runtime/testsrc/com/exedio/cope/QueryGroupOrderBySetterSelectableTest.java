@@ -325,7 +325,7 @@ public class QueryGroupOrderBySetterSelectableTest
 			throw new AssertionFailedError();
 		}
 		@Override
-		public void toString(final StringBuilder bf, final Type<?> defaultType)
+		public void toString(final StringBuilder sb, final Type<?> defaultType)
 		{
 			throw new AssertionFailedError();
 		}

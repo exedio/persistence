@@ -142,14 +142,14 @@ public final class PrometheusMeterRegistrar
 				final List<Tag> tags = id.getTags();
 				if(tags.contains(featureTags))
 				{
-					final StringBuilder bf =
+					final StringBuilder sb =
 							new StringBuilder(name.substring(namePrefix.length()));
 					for(final Tag tag : tags)
 						if(!FEATURE.equals(tag.getKey()))
-							bf.append(' ').append(tag.getKey()).
+							sb.append(' ').append(tag.getKey()).
 								append('=').append(tag.getValue());
 
-					result.add(bf.toString());
+					result.add(sb.toString());
 				}
 			}
 		}

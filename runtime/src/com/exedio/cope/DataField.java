@@ -612,16 +612,16 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		public String toString()
 		{
-			final StringBuilder bf = new StringBuilder((2*TO_STRING_LIMIT)+30);
-			bf.append("DataField.Value:");
-			Hex.append(bf, array, Math.min(TO_STRING_LIMIT, array.length));
+			final StringBuilder sb = new StringBuilder((2*TO_STRING_LIMIT)+30);
+			sb.append("DataField.Value:");
+			Hex.append(sb, array, Math.min(TO_STRING_LIMIT, array.length));
 
 			if(array.length>TO_STRING_LIMIT)
-				bf.append("...(").
+				sb.append("...(").
 					append(array.length).
 					append(')');
 
-			return bf.toString();
+			return sb.toString();
 		}
 
 		@Override

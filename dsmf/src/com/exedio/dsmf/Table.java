@@ -185,9 +185,9 @@ public final class Table extends Node
 		create((StatementListener)null);
 	}
 
-	void create(final StringBuilder bf, final Set<ForeignKeyConstraint> constraintsBroken)
+	void create(final StringBuilder sb, final Set<ForeignKeyConstraint> constraintsBroken)
 	{
-		bf.append("CREATE TABLE ").
+		sb.append("CREATE TABLE ").
 			append(quoteName(name)).
 			append('(');
 
@@ -197,9 +197,9 @@ public final class Table extends Node
 			if(first)
 				first = false;
 			else
-				bf.append(',');
+				sb.append(',');
 
-			bf.append(quoteName(column.name)).
+			sb.append(quoteName(column.name)).
 				append(' ').
 				append(column.getType());
 		}
@@ -209,14 +209,14 @@ public final class Table extends Node
 			//noinspection SuspiciousMethodCalls
 			if(c.isSupported() && (constraintsBroken!=null ? !constraintsBroken.contains(c) : !c.type.secondPhase))
 			{
-				bf.append(',');
-				c.appendCreateClause(bf);
+				sb.append(',');
+				c.appendCreateClause(sb);
 			}
 		}
 
-		bf.append(')');
+		sb.append(')');
 
-		dialect.appendTableCreateStatement(bf);
+		dialect.appendTableCreateStatement(sb);
 	}
 
 	public void create(final StatementListener listener)
@@ -226,9 +226,9 @@ public final class Table extends Node
 
 	void create(final StatementListener listener, final Set<ForeignKeyConstraint> constraintsBroken)
 	{
-		final StringBuilder bf = new StringBuilder();
-		create(bf, constraintsBroken);
-		executeSQL(bf.toString(), listener);
+		final StringBuilder sb = new StringBuilder();
+		create(sb, constraintsBroken);
+		executeSQL(sb.toString(), listener);
 
 	}
 
@@ -237,17 +237,17 @@ public final class Table extends Node
 		drop((StatementListener)null);
 	}
 
-	void drop(final StringBuilder bf)
+	void drop(final StringBuilder sb)
 	{
-		bf.append("DROP TABLE ").
+		sb.append("DROP TABLE ").
 			append(quoteName(name));
 	}
 
 	public void drop(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		drop(bf);
-		executeSQL(bf.toString(), listener);
+		final StringBuilder sb = new StringBuilder();
+		drop(sb);
+		executeSQL(sb.toString(), listener);
 
 	}
 

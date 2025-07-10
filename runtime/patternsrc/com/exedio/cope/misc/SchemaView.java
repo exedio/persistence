@@ -50,11 +50,11 @@ public final class SchemaView
 	{
 		try(Connection connection = SchemaInfo.newConnection(model))
 		{
-			final StringBuilder bf = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 
 			for(final Type<?> type : model.getTypes())
 			{
-				bf.append("CREATE VIEW ").
+				sb.append("CREATE VIEW ").
 					append(view(type)).
 					append(" AS (SELECT ").
 					append(table(type)).append('.').append(column(type));
@@ -67,27 +67,27 @@ public final class SchemaView
 				{
 					for(final Field<?> field : superType.getDeclaredFields())
 					{
-						bf.append(',');
+						sb.append(',');
 						if(field instanceof EnumField)
 						{
-							bf.append("CASE ").
+							sb.append("CASE ").
 								append(table(superType)).append('.').append(column(field));
 
 							//noinspection OverlyStrongTypeCast bug in inspection
 							for(final Enum<?> v : ((EnumField<?>)field).getValueClass().getEnumConstants())
 							{
 								final int columnValue = getColumnValue(v);
-								bf.append(" WHEN ").
+								sb.append(" WHEN ").
 									append(columnValue).
 									append(" THEN '").
 									append(v.name()).
 									append('\'');
 							}
-							bf.append(" END AS ").append(column(field));
+							sb.append(" END AS ").append(column(field));
 						}
 						else if(field instanceof DateField && !SchemaInfo.supportsNativeDate(model))
 						{
-							bf.append("IF("). // needed to deal with null
+							sb.append("IF("). // needed to deal with null
 								append(table(superType)).append('.').append(column(field)).
 								append(" IS NULL,NULL,DATE_ADD(FROM_UNIXTIME(0),INTERVAL "). // needed to deal with negative values
 								append(table(superType)).append('.').append(column(field)).
@@ -95,12 +95,12 @@ public final class SchemaView
 						}
 						else
 						{
-							bf.append(table(superType)).append('.').append(column(field));
+							sb.append(table(superType)).append('.').append(column(field));
 						}
 					}
 				}
 
-				bf.append(" FROM ").
+				sb.append(" FROM ").
 					append(table(type));
 
 				for(
@@ -109,7 +109,7 @@ public final class SchemaView
 						superType!=null;
 						superType=superType.getSupertype())
 				{
-					bf.append(" JOIN ").
+					sb.append(" JOIN ").
 						append(table(superType)).
 						append(" ON ").
 						append(table(superType)).append('.').append(column(superType)).
@@ -117,9 +117,9 @@ public final class SchemaView
 						append(table(type)).append('.').append(column(type));
 				}
 
-				bf.append(')');
+				sb.append(')');
 
-				execute(connection, bf);
+				execute(connection, sb);
 			}
 		}
 	}
@@ -128,27 +128,27 @@ public final class SchemaView
 	{
 		try(Connection connection = SchemaInfo.newConnection(model))
 		{
-			final StringBuilder bf = new StringBuilder();
+			final StringBuilder sb = new StringBuilder();
 
 			for(final Type<?> type : model.getTypes())
 			{
-				bf.append("DROP VIEW IF EXISTS ").
+				sb.append("DROP VIEW IF EXISTS ").
 					append(view(type));
-				execute(connection, bf);
+				execute(connection, sb);
 			}
 		}
 	}
 
-	private static void execute(final Connection connection, final StringBuilder bf) throws SQLException
+	private static void execute(final Connection connection, final StringBuilder sb) throws SQLException
 	{
-		final String sql = bf.toString();
+		final String sql = sb.toString();
 		logger.info(sql);
 
 		try(Statement statement = connection.createStatement())
 		{
 			statement.execute(sql);
 		}
-		bf.setLength(0);
+		sb.setLength(0);
 	}
 
 	private String table(final Type<?> type)

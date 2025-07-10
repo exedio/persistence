@@ -335,28 +335,28 @@ public final class StringField extends FunctionField<String>
 
 	static String truncateValue(final String value)
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		final int length = value.length();
 		final boolean truncate = length>200;
-		bf.append('\'');
+		sb.append('\'');
 		if(truncate)
 		{
-			bf.append(value, 0, 100).
+			sb.append(value, 0, 100).
 				append(" ... ").
 				append(value, length-20, length);
 		}
 		else
 		{
-			bf.append(value);
+			sb.append(value);
 		}
-		bf.append('\'');
+		sb.append('\'');
 
 		if(truncate)
-			bf.append(" (truncated, was ").
+			sb.append(" (truncated, was ").
 				append(length).
 				append(" characters)");
 
-		return bf.toString();
+		return sb.toString();
 	}
 
 	// ------------------- deprecated stuff -------------------

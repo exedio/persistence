@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 final class MediaBase64
 {
-	static void append(final StringBuilder bf, long src)
+	static void append(final StringBuilder sb, long src)
 	{
 		// NOTE
 		// algorithm does not work for Long.MIN_VALUE because
@@ -30,14 +30,14 @@ final class MediaBase64
 		if(src<0)
 		{
 			// use dot instead of a minus, since minus is already part of alphabet
-			bf.append('.');
+			sb.append('.');
 			src = -src;
 		}
 
 		while(src>0)
 		{
 			// least significant digits first, just because it's easier to implement
-			bf.append(alphabet[(int)(src & 63)]);
+			sb.append(alphabet[(int)(src & 63)]);
 			src >>= 6;
 		}
 	}

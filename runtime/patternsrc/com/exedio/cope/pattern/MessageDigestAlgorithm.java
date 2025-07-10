@@ -90,15 +90,15 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	@Override
 	public String name()
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append(digest.getAlgorithm().replaceAll("-", ""));
+		final StringBuilder sb = new StringBuilder();
+		sb.append(digest.getAlgorithm().replaceAll("-", ""));
 		if(saltLength>0)
-			bf.append('s').
+			sb.append('s').
 				append(saltLength);
 		if(iterations>1)
-			bf.append('i').
+			sb.append('i').
 				append(iterations);
-		return bf.toString();
+		return sb.toString();
 	}
 
 	@Override

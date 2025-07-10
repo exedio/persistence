@@ -160,12 +160,12 @@ abstract class Dialect
 		return false;
 	}
 
-	void appendStringParameterPrefix(final StringBuilder bf)
+	void appendStringParameterPrefix(final StringBuilder sb)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
-	void appendStringParameterPostfix(final StringBuilder bf)
+	void appendStringParameterPostfix(final StringBuilder sb)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}
@@ -395,7 +395,7 @@ abstract class Dialect
 
 	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, boolean forTest, ConnectionPool connectionPool);
 	abstract void deleteSequence(
-			StringBuilder bf, String quotedName,
+			StringBuilder sb, String quotedName,
 			long start);
 	abstract Long    nextSequence(Executor executor, Connection connection, String quotedName);
 	abstract Long getNextSequence(Executor executor, Connection connection, String name);

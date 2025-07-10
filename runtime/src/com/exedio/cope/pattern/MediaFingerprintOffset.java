@@ -67,24 +67,24 @@ public final class MediaFingerprintOffset
 
 		String getInfo()
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append(value);
+			final StringBuilder sb = new StringBuilder();
+			sb.append(value);
 
 			if(value!=initialValue)
-				bf.append(" (initially ").
+				sb.append(" (initially ").
 					append(initialValue).
 					append(')');
 
 			if(ramp!=0)
-				bf.append(" ramp ").
+				sb.append(" ramp ").
 					append(ramp).
 					append('/').
 					append(RAMP_MODULUS);
 
 			if(dummy)
-				bf.append(" OVERRIDDEN BY DUMMY");
+				sb.append(" OVERRIDDEN BY DUMMY");
 
-			return bf.toString();
+			return sb.toString();
 		}
 
 		State setValueAndResetRamp(final int value)

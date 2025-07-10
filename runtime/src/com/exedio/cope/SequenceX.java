@@ -102,9 +102,9 @@ final class SequenceX
 		return result;
 	}
 
-	void delete(final StringBuilder bf, final Dialect dialect)
+	void delete(final StringBuilder sb, final Dialect dialect)
 	{
-		impl().delete(bf, dialect);
+		impl().delete(sb, dialect);
 	}
 
 	void flush()

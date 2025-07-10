@@ -38,104 +38,104 @@ public class CommitHookPostTest
 {
 	@Test void testOne()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
 		assertEquals(true, model.isAddPreCommitHookAllowed());
-		add(1, appender(bf, "one"));
+		add(1, appender(sb, "one"));
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		assertEquals(true, model.isAddPreCommitHookAllowed());
 		model.commit();
-		assertEquals("one,", bf.toString());
+		assertEquals("one,", sb.toString());
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testTwo()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		model.startTransaction("tx");
-		add(1, appender(bf, "one"));
-		add(1, appender(bf, "two"));
+		add(1, appender(sb, "one"));
+		add(1, appender(sb, "two"));
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		model.commit();
-		assertEquals("one,two,", bf.toString());
+		assertEquals("one,two,", sb.toString());
 	}
 
 	@Test void testDuplicate()
 	{
 		final Runnable two;
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		model.startTransaction("tx");
-		add(1, appender(bf, "one"));
-		add(1, two = appender(bf, "two", "same"));
-		add(1, appender(bf, "three"));
-		add(two, 0, 1, appender(bf, "four", "same"));
-		add(1, appender(bf, "five"));
+		add(1, appender(sb, "one"));
+		add(1, two = appender(sb, "two", "same"));
+		add(1, appender(sb, "three"));
+		add(two, 0, 1, appender(sb, "four", "same"));
+		add(1, appender(sb, "five"));
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		model.commit();
-		assertEquals("one,two/same,three,five,", bf.toString());
+		assertEquals("one,two/same,three,five,", sb.toString());
 	}
 
 	@Test void testDuplicateNot()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		model.startTransaction("tx");
-		add(1, appender(bf, "one"));
-		add(1, appender(bf, "two", "same"));
-		add(1, appender(bf, "three"));
-		add(1, appender(bf, "four", "other"));
-		add(1, appender(bf, "five"));
+		add(1, appender(sb, "one"));
+		add(1, appender(sb, "two", "same"));
+		add(1, appender(sb, "three"));
+		add(1, appender(sb, "four", "other"));
+		add(1, appender(sb, "five"));
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		model.commit();
-		assertEquals("one,two/same,three,four/other,five,", bf.toString());
+		assertEquals("one,two/same,three,four/other,five,", sb.toString());
 	}
 
 	@Test void testThrower()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
 		assertEquals(true, model.isAddPreCommitHookAllowed());
-		add(1, appender(bf, "one"));
+		add(1, appender(sb, "one"));
 		add(1, thrower("thrower"));
-		add(1, appender(bf, "two"));
+		add(1, appender(sb, "two"));
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		assertTransaction();
 		assertEquals(true, model.isAddPreCommitHookAllowed());
 		assertFails(
 				model::commit,
 				IllegalArgumentException.class,
 				"thrower");
-		assertEquals("one,", bf.toString());
+		assertEquals("one,", sb.toString());
 		assertNoTransaction();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testRollback()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
 		assertEquals(true, model.isAddPreCommitHookAllowed());
-		add(1, appender(bf, "one"));
+		add(1, appender(sb, "one"));
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		assertTransaction();
 		assertEquals(true, model.isAddPreCommitHookAllowed());
 		model.rollback();
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		assertNoTransaction();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testAddInHook()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
 		assertEquals(true, model.isAddPreCommitHookAllowed());
@@ -143,12 +143,12 @@ public class CommitHookPostTest
 		{
 			assertNoTransaction();
 			assertEquals(false, model.isAddPreCommitHookAllowed());
-			bf.append("beforeAdd");
+			sb.append("beforeAdd");
 			model.addPostCommitHookIfAbsent(FAIL);
-			bf.append("afterAdd");
+			sb.append("afterAdd");
 		});
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		assertTransaction();
 		assertEquals(true, model.isAddPreCommitHookAllowed());
 		assertFails(
@@ -156,14 +156,14 @@ public class CommitHookPostTest
 				IllegalStateException.class,
 				"there is no cope transaction bound to this thread for model " + model + ", " +
 				"see Model#startTransaction");
-		assertEquals("beforeAdd", bf.toString());
+		assertEquals("beforeAdd", sb.toString());
 		assertNoTransaction();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testAddPreHookInHook()
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
 		assertEquals(true, model.isAddPreCommitHookAllowed());
@@ -171,19 +171,19 @@ public class CommitHookPostTest
 		{
 			assertNoTransaction();
 			assertEquals(false, model.isAddPreCommitHookAllowed());
-			bf.append("beforeAdd");
+			sb.append("beforeAdd");
 			model.addPreCommitHookIfAbsent(FAIL);
-			bf.append("afterAdd");
+			sb.append("afterAdd");
 		});
 
-		assertEquals("", bf.toString());
+		assertEquals("", sb.toString());
 		assertTransaction();
 		assertFails(
 				model::commit,
 				IllegalStateException.class,
 				"there is no cope transaction bound to this thread for model " + model + ", " +
 				"see Model#startTransaction");
-		assertEquals("beforeAdd", bf.toString());
+		assertEquals("beforeAdd", sb.toString());
 		assertNoTransaction();
 		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
@@ -211,12 +211,12 @@ public class CommitHookPostTest
 	}
 
 
-	private static Runnable appender(final StringBuilder bf, final String value)
+	private static Runnable appender(final StringBuilder sb, final String value)
 	{
 		return () ->
 		{
 			assertNoTransaction();
-			bf.append(value).append(',');
+			sb.append(value).append(',');
 		};
 	}
 
@@ -229,13 +229,13 @@ public class CommitHookPostTest
 		};
 	}
 
-	private static Runnable appender(final StringBuilder bf, final String value, final String identity)
+	private static Runnable appender(final StringBuilder sb, final String value, final String identity)
 	{
-		return new EqualHook(bf, value, identity);
+		return new EqualHook(sb, value, identity);
 	}
 
 	private record EqualHook(
-			StringBuilder bf,
+			StringBuilder sb,
 			String value,
 			String identity)
 			implements Runnable
@@ -244,7 +244,7 @@ public class CommitHookPostTest
 		public void run()
 		{
 			assertNoTransaction();
-			bf.append(value).append('/').append(identity).append(',');
+			sb.append(value).append('/').append(identity).append(',');
 		}
 		@Override
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")

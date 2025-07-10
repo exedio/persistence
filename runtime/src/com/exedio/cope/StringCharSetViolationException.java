@@ -93,20 +93,20 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		final StringBuilder bf = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 
-		bf.append("character set violation").
+		sb.append("character set violation").
 			append(getItemPhrase()).
 			append(", ").append(truncateValue(value));
 
 		if(withFeature)
-			bf.append(" for ").
+			sb.append(" for ").
 				append(feature);
 
-		bf.append(", contains forbidden character '").append(character).
+		sb.append(", contains forbidden character '").append(character).
 			append("' (U+").append(String.format("%04x", (int)character)).
 			append(") on position ").append(position);
 
-		return bf.toString();
+		return sb.toString();
 	}
 }

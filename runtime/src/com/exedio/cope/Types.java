@@ -319,24 +319,24 @@ final class Types
 		for(final Type<?> t : typeSet)
 			if(typesAsSet.contains(t))
 			{
-				final StringBuilder bf = new StringBuilder("inconsistent type set: ");
+				final StringBuilder sb = new StringBuilder("inconsistent type set: ");
 				boolean first = true;
 				for(final Type<?> tx : typeSet)
 				{
 					if(first)
 						first = false;
 					else
-						bf.append(", ");
+						sb.append(", ");
 
 					final boolean n = typesAsSet.contains(tx);
 					if(n)
-						bf.append('[');
-					bf.append(tx.id);
+						sb.append('[');
+					sb.append(tx.id);
 					if(n)
-						bf.append(']');
+						sb.append(']');
 				}
 
-				throw new IllegalArgumentException(bf.toString());
+				throw new IllegalArgumentException(sb.toString());
 			}
 
 		return false;
