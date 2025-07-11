@@ -29,18 +29,35 @@ public final class SetValue<E>
 	public final Settable<E> settable;
 	public final E value;
 
-	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
+	/**
+	 * @deprecated Use {@link SetValue#map(Settable, Object)} instead.
+	 */
+	@Deprecated
+	@SuppressWarnings({"ClassEscapesDefinedScope", "unchecked"})
+	//The "PreventUsage" generic bound is required so that the compiler no longer resolves map(Feature, Object) to
+	//this method and instead to map(Settable, Object). The interface is not supposed to be available outside this class.
+	public static <F extends Feature & Settable<?> & PreventUsage> SetValue<?> map(final F settable, final Object value)
+	{
+		return map((Settable<? super Object>)settable, value);
+	}
+
+	@SuppressWarnings({"InterfaceNeverImplemented", "MarkerInterface", "unused"})
+	private interface PreventUsage
+	{}
+
+	public static <E> SetValue<E> map(final Settable<E> settable, final E value)
 	{
 		return new SetValue<>(settable, value);
 	}
 
 	/**
 	 * @throws ClassCastException if {@code settable} is not an instance of class {@link Feature}.
+	 * @deprecated Use {@link #map(Settable, Object)} instead.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <E, F extends Feature & Settable<E>> SetValue<E> mapAndCastToFeature(final Settable<E> settable, final E value)
+	@Deprecated
+	public static <E> SetValue<E> mapAndCastToFeature(final Settable<E> settable, final E value)
 	{
-		return map((F)settable, value);
+		return map(settable, value);
 	}
 
 	public static <E> SetValue<E> mapCasted(final Field<E> settable, final Object value)
@@ -48,7 +65,7 @@ public final class SetValue<E>
 		return map(settable, settable.getValueClass().cast(value));
 	}
 
-	SetValue(final Settable<E> settable, final E value)
+	private SetValue(final Settable<E> settable, final E value)
 	{
 		this.settable = requireNonNull(settable, "settable");
 		this.value = value;

@@ -38,6 +38,7 @@ import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.instrument.WrapperType;
@@ -433,7 +434,7 @@ public class CompositeTest
 						SetValue.map(Value.longField, 5l),
 						SetValue.map(Value.doubleField, 6.6),
 						SetValue.map(Value.booleanField, false),
-						SetValue.map((FunctionField)Value.booleanOptional, "")
+						SetValue.map((Settable)Value.booleanOptional, "")
 				),
 				ClassCastException.class,
 				"expected a java.lang.Boolean, " +
@@ -458,7 +459,7 @@ public class CompositeTest
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertFails(
-				() -> value.set(SetValue.map(((FunctionField)Value.booleanOptional), "")),
+				() -> value.set(SetValue.map(((Settable)Value.booleanOptional), "")),
 				ClassCastException.class,
 				"expected a java.lang.Boolean, " +
 				"but was a java.lang.String for " +

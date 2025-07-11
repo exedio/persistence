@@ -438,14 +438,14 @@ public class DataTest extends TestWithEnvironment
 		assertData(bytes8, item.getDataArray());
 
 		assertFails(
-				() -> item.set(SetValue.map((Field)data, "zack")),
+				() -> item.set(SetValue.map((Settable)data, "zack")),
 				ClassCastException.class,
 				"expected a " + DataField.Value.class.getName() + ", " +
 				"but was a java.lang.String for " + data + '.');
 		assertData(bytes8, item.getDataArray());
 
 		assertFails(
-				() -> DataItem.TYPE.newItem(SetValue.map((Field)data, Integer.valueOf(1))),
+				() -> DataItem.TYPE.newItem(SetValue.map((Settable)data, Integer.valueOf(1))),
 				ClassCastException.class,
 				"expected a " + DataField.Value.class.getName() + ", " +
 				"but was a java.lang.Integer for " + data + '.');

@@ -21,7 +21,6 @@ package com.exedio.cope.hookstamp;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ChangeHook;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -108,7 +107,7 @@ final class HookStampHook implements ChangeHook
 		{
 			return
 				setValues.length==1 &&
-				((Feature)setValues[0].settable).isAnnotationPresent(HookStampWatcher.class);
+				setValues[0].settable.isAnnotationPresent(HookStampWatcher.class);
 		}
 	}
 
