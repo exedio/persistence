@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
@@ -76,7 +77,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 	@Test void testMD5()
 	{
 		assertEquals(Arrays.asList(
-				TYPE.getThis(),
+				(Feature)TYPE.getThis(),
 				password,
 				password.getStorage(),
 				passwordLatin,

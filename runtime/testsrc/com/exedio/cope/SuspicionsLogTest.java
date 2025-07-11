@@ -52,7 +52,7 @@ public class SuspicionsLogTest
 		log.assertEmpty();
 	}
 
-	static final class AFeature extends Feature
+	static final class AFeature extends AbstractFeature
 	{
 		private final String[] suspicions;
 

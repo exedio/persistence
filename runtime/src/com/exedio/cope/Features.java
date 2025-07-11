@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractFeature.asAbstract;
 import static java.util.Objects.requireNonNull;
 
 import java.lang.reflect.AnnotatedElement;
@@ -42,7 +43,7 @@ public final class Features
 	{
 		requireNonNull(name, "name");
 		{
-			final int i = Feature.NAME_CHAR_SET.indexOfNotContains(name);
+			final int i = AbstractFeature.NAME_CHAR_SET.indexOfNotContains(name);
 			if(i>=0)
 				throw new IllegalArgumentException("name >" + name + "< contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
@@ -78,7 +79,7 @@ public final class Features
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 		{
 			final Feature feature = entry.getValue();
-			feature.mount(type, entry.getKey(), annotationSources.get(feature));
+			asAbstract(feature).mount(type, entry.getKey(), annotationSources.get(feature));
 		}
 	}
 
@@ -93,7 +94,7 @@ public final class Features
 		{
 			final Feature source = entry.getValue();
 			final String postfix = entry.getKey();
-			source.mount(type, name + '-' + postfix, annotationSources.get(source));
+			asAbstract(source).mount(type, name + '-' + postfix, annotationSources.get(source));
 			final Type<?> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))

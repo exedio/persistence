@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public final class CheckConstraint extends Feature implements Copyable
+public final class CheckConstraint extends AbstractFeature implements Copyable
 {
 	@Serial
 	private static final long serialVersionUID = 1l;

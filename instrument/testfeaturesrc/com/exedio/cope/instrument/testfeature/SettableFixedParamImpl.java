@@ -18,8 +18,8 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ReflectionTypes;
@@ -31,7 +31,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 @WrapFeature
-public class SettableFixedParamImpl extends Feature implements SettableFixedParamInterface
+public class SettableFixedParamImpl extends Pattern implements SettableFixedParamInterface
 {
 	@Override
 	public boolean isInitial()

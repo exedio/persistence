@@ -27,6 +27,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
@@ -50,7 +51,7 @@ public class TypeFutureInPatternsModelTest
 	@Test void testIt()
 	{
 		assertEquals(asList(TYPE, featureType, feature2.sourceType()), MODEL.getTypes());
-		assertEquals(asList(TYPE.getThis(), feature, feature2), TYPE.getDeclaredFeatures());
+		assertEquals(asList((Feature)TYPE.getThis(), feature, feature2), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, feature.getType());
 		assertEquals("feature", feature.getName());
@@ -59,7 +60,7 @@ public class TypeFutureInPatternsModelTest
 		assertEquals(asList(featureType), feature.getSourceTypes());
 		assertEquals(feature, featureType.getPattern());
 
-		assertEquals(asList(featureType.getThis(), featureField, featureSelf), featureType.getDeclaredFeatures());
+		assertEquals(asList((Feature)featureType.getThis(), featureField, featureSelf), featureType.getDeclaredFeatures());
 
 		assertEquals(featureType, featureField.getType());
 		assertEquals("field", featureField.getName());

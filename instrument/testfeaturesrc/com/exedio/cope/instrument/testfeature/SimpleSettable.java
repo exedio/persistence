@@ -18,8 +18,8 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Wrap;
@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.Set;
 
 @WrapFeature
-public class SimpleSettable extends Feature implements Settable<String>
+public class SimpleSettable extends Pattern implements Settable<String>
 {
 	final boolean initial;
 

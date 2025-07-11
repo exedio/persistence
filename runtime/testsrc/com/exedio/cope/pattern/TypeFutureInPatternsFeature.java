@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Feature.requireMounted;
 import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.Features;

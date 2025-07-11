@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -65,7 +66,7 @@ public class HashTest extends TestWithEnvironment
 	@Test void testExplicitExternal()
 	{
 		assertEquals(Arrays.asList(
-				TYPE.getThis(),
+				(Feature)TYPE.getThis(),
 				internal,
 				internal.getStorage(),
 				limited15,

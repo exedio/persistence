@@ -105,7 +105,7 @@ public class SetValueTest
 		assertFails(
 				() -> mapAndCastToFeature(settable, "alphaValue"),
 				ClassCastException.class,
-				MockSettableOnly.class + " cannot be cast to " + Feature.class + " " +
+				MockSettableOnly.class + " cannot be cast to class " + Feature.class.getName() + " " +
 				"(" + MockSettableOnly.class.getName() + " and " + Feature.class.getName() + " are in unnamed module of loader 'app')");
 	}
 
@@ -117,7 +117,7 @@ public class SetValueTest
 				"settable");
 	}
 
-	private static final class MockSettable extends Feature implements Settable<String>
+	private static final class MockSettable extends AbstractFeature implements Settable<String>
 	{
 		@Serial
 		private static final long serialVersionUID = 1l;

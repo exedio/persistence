@@ -27,6 +27,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
@@ -66,7 +67,7 @@ public class MD5Test extends TestWithEnvironment
 	@Test void testMD5()
 	{
 		assertEquals(Arrays.asList(
-				TYPE.getThis(),
+				(Feature)TYPE.getThis(),
 				password,
 				password.getStorage()),
 			TYPE.getFeatures());

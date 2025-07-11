@@ -27,7 +27,7 @@ import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
-public final class CopyConstraint extends Feature
+public final class CopyConstraint extends AbstractFeature
 {
 	@Serial
 	private static final long serialVersionUID = 1l;
