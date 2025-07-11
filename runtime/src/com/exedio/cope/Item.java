@@ -314,7 +314,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 		for(final SetValue<?> sv : setValues)
 			if(sv.settable.isFinal())
-				throw new FinalViolationException(sv.settable, this);
+				throw FinalViolationException.create(sv.settable, this);
 
 		final FieldValues fieldValues = new FieldValues(this, setValues);
 		type.executeCopyConstraints(fieldValues);

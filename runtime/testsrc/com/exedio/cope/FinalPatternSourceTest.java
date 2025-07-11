@@ -51,6 +51,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(pattern.source, e.getFeature());
+			assertEquals(pattern.source, e.getFeatureSettable());
 		}
 		assertEquals("createValue", pattern.source.get(item));
 	}
@@ -69,6 +70,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 		{
 			assertEquals(item, e.getItem());
 			assertEquals(pattern.source, e.getFeature());
+			assertEquals(pattern.source, e.getFeatureSettable());
 		}
 		assertEquals("createValue", pattern.source.get(item));
 	}

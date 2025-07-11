@@ -45,19 +45,38 @@ public final class FinalViolationException extends ConstraintViolationException
 	@Serial
 	private static final long serialVersionUID = 1l;
 
-	private final Feature feature;
+	private final Settable<?> feature;
 
 	/**
 	 * Creates a new FinalViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
-	 * @param feature initializes, what is returned by {@link #getFeature()}.
+	 * @param feature initializes, what is returned by {@link #getFeature()} and {@link #getFeatureSettable()}.
+	 * @deprecated Use {@link #create(Settable, Item)} instead.
 	 */
-	public static <F extends Feature & Settable<?>> FinalViolationException create(final F feature, final Item item)
+	@Deprecated
+	@SuppressWarnings({"ClassEscapesDefinedScope", "unchecked"})
+	//The "PreventUsage" generic bound is required so that the compiler no longer resolves create(Feature, Item) to
+	//this method and instead to create(Settable, Item). The interface is not supposed to be available outside this class.
+	public static <F extends Feature & Settable<?> & PreventUsage> FinalViolationException create(final F feature, final Item item)
+	{
+		return create((Settable<? super Object>)feature, item);
+	}
+
+	@SuppressWarnings({"InterfaceNeverImplemented", "MarkerInterface", "unused"})
+	private interface PreventUsage
+	{}
+
+	/**
+	 * Creates a new FinalViolationException with the necessary information about the violation.
+	 * @param item initializes, what is returned by {@link #getItem()}.
+	 * @param feature initializes, what is returned by {@link #getFeature()} and {@link #getFeatureSettable()}.
+	 */
+	public static FinalViolationException create(final Settable<?> feature, final Item item)
 	{
 		return new FinalViolationException(feature, item);
 	}
 
-	FinalViolationException(final Feature feature, final Item item)
+	private FinalViolationException(final Settable<?> feature, final Item item)
 	{
 		super(requireNonNull(item, "item"), null);
 
@@ -66,9 +85,22 @@ public final class FinalViolationException extends ConstraintViolationException
 
 	/**
 	 * Returns the feature, that was attempted to be written.
+	 * <p>
+	 * Always returns implementations of {@link Settable}.
+	 * If you need the result casted to {@link Settable},
+	 * use {@link #getFeatureSettable()} instead.
 	 */
 	@Override
 	public Feature getFeature()
+	{
+		return feature;
+	}
+
+	/**
+	 * Returns the feature, that was attempted to be written.
+	 * Is equivalent to {@link #getFeature()}.
+	 */
+	public Settable<?> getFeatureSettable()
 	{
 		return feature;
 	}
