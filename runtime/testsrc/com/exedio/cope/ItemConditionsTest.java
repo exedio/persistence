@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.ItemConditionsTest.AnItem.TYPE;
 import static com.exedio.cope.ItemConditionsTest.AnItem.pointer;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
