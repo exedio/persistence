@@ -57,9 +57,9 @@ final class BindItemFunction<E extends Item> extends BindFunction<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void appendType(final Statement bf, final Join join)
+	public void appendType(final Statement st, final Join join)
 	{
-		function.appendType(bf, this.join);
+		function.appendType(st, this.join);
 	}
 
 	@Override

@@ -46,13 +46,13 @@ final class HashCondition extends Condition
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.append('(').
+		st.append('(').
 			append(hash).
 			append('=');
-		data.appendHashExpression(bf, algorithm);
-		bf.append(')');
+		data.appendHashExpression(st, algorithm);
+		st.append(')');
 	}
 
 	@Override

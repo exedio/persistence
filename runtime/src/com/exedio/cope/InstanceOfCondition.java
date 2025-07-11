@@ -104,14 +104,14 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
-	private void appendType(final Statement bf)
+	private void appendType(final Statement st)
 	{
-		function.appendType(bf, null);
+		function.appendType(st, null);
 	}
 
 	@SuppressWarnings("ExtractMethodRecommender")
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
 		final Type<?> type = function.getValueType();
 
@@ -130,16 +130,16 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 
 		if(typeIds.size()==1)
 		{
-			appendType(bf);
-			bf.append(not ? "<>" : "=");
-			bf.appendParameter(typeIds.iterator().next());
+			appendType(st);
+			st.append(not ? "<>" : "=");
+			st.appendParameter(typeIds.iterator().next());
 		}
 		else
 		{
-			appendType(bf);
+			appendType(st);
 			if(not)
-				bf.append(" NOT");
-			bf.append(" IN (");
+				st.append(" NOT");
+			st.append(" IN (");
 
 			boolean first = true;
 			for(final String id : typeIds)
@@ -147,11 +147,11 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 				if(first)
 					first = false;
 				else
-					bf.append(',');
+					st.append(',');
 
-				bf.appendParameter(id);
+				st.appendParameter(id);
 			}
-			bf.append(')');
+			st.append(')');
 		}
 	}
 

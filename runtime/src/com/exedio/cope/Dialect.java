@@ -173,12 +173,12 @@ abstract class Dialect
 	abstract void addBlobInStatementText(StringBuilder statementText, byte[] parameter);
 
 	<E extends Number> void  appendIntegerDivision(
-			final Statement bf,
+			final Statement st,
 			final Function<E> dividend,
 			final Function<E> divisor,
 			final Join join)
 	{
-		bf.append(dividend, join).
+		st.append(dividend, join).
 			append('/').
 			append(divisor, join);
 	}
@@ -198,9 +198,9 @@ abstract class Dialect
 		return "WEEK";
 	}
 
-	void appendDatePartExtraction(final DayPartView view, final Statement bf, final Join join)
+	void appendDatePartExtraction(final DayPartView view, final Statement st, final Join join)
 	{
-		bf.append("EXTRACT(")
+		st.append("EXTRACT(")
 				.append(view.getPart().getNameForDialect(this))
 				.append(" FROM ")
 				.append(view.getSource(), join)
@@ -283,7 +283,7 @@ abstract class Dialect
 	}
 
 	void appendBlobHash(
-			final Statement bf, final BlobColumn column, final Join join,
+			final Statement st, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
 		throw new UnsupportedQueryException("hash >" + algorithm + "< not supported");
@@ -291,12 +291,12 @@ abstract class Dialect
 
 
 	/**
-	 * @param bf the statement, the postfix is to be appended to
+	 * @param st the statement, the postfix is to be appended to
 	 * @param ascending whether the order by is ascending or descending
 	 */
-	void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	void appendOrderByPostfix(final Statement st, final boolean ascending)
 	{
-		bf.append(
+		st.append(
 				ascending
 				? " NULLS FIRST"
 				: " NULLS LAST" );
@@ -313,7 +313,7 @@ abstract class Dialect
 	 *        or {@link Query#UNLIMITED} if all rows to be returned.
 	 *        Is always positive (greater zero).
 	 */
-	abstract void appendPageClauseAfter(Statement bf, int offset, int limit);
+	abstract void appendPageClauseAfter(Statement st, int offset, int limit);
 
 	String getExistsPrefix()
 	{
@@ -325,23 +325,23 @@ abstract class Dialect
 		return " LIMIT 1)";
 	}
 
-	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
+	abstract void appendAsString(Statement st, NumberFunction<?> source, Join join);
 
-	void appendCaseViewPostfix(final Statement bf)
+	void appendCaseViewPostfix(final Statement st)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
-	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);
+	abstract void appendMatchClauseFullTextIndex(Statement st, StringFunction function, String value);
 
-	static final void appendMatchClauseByLike(final Statement bf, final StringFunction function, final String value)
+	static final void appendMatchClauseByLike(final Statement st, final StringFunction function, final String value)
 	{
-		bf.append(function).
+		st.append(function).
 			append(" LIKE ").
 			appendParameterAny(LikeCondition.WILDCARD + value + LikeCondition.WILDCARD);
 	}
 
-	abstract void appendStartsWith(Statement bf, Consumer<Statement> column, int offset, byte[] value);
+	abstract void appendStartsWith(Statement st, Consumer<Statement> column, int offset, byte[] value);
 
 	String getAveragePrefix()
 	{
@@ -368,7 +368,7 @@ abstract class Dialect
 		return false;
 	}
 
-	abstract void appendRegexpLike(Statement bf, StringFunction function, String regexp);
+	abstract void appendRegexpLike(Statement st, StringFunction function, String regexp);
 
 	@Nonnull abstract String getClause(String column, String regexp);
 
@@ -415,7 +415,7 @@ abstract class Dialect
 
 	abstract void append(
 			VaultTrail trail,
-			Statement bf,
+			Statement st,
 			String hashValue,
 			DataConsumer consumer,
 			boolean markPutEnabled,

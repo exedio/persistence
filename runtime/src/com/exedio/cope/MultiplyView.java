@@ -102,15 +102,15 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append('(');
+		st.append('(');
 		for(int i = 0; i<multipliers.length; i++)
 		{
 			if(i>0)
-				bf.append('*');
-			bf.append(multipliers[i], join);
+				st.append('*');
+			st.append(multipliers[i], join);
 		}
-		bf.append(')');
+		st.append(')');
 	}
 }

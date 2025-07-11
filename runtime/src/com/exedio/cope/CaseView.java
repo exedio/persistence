@@ -60,12 +60,12 @@ public class CaseView extends StringView
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append(upper? "UPPER(" : "LOWER(").
+		st.append(upper? "UPPER(" : "LOWER(").
 			append(source, join);
-		bf.dialect.appendCaseViewPostfix(bf);
-		bf.
+		st.dialect.appendCaseViewPostfix(st);
+		st.
 			append(')');
 	}
 

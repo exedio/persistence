@@ -128,15 +128,15 @@ public final class PlusView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append('(');
+		st.append('(');
 		for(int i = 0; i<addends.length; i++)
 		{
 			if(i>0)
-				bf.append('+');
-			bf.append(addends[i], join);
+				st.append('+');
+			st.append(addends[i], join);
 		}
-		bf.append(')');
+		st.append(')');
 	}
 }

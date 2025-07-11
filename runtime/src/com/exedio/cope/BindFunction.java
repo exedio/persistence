@@ -87,9 +87,9 @@ class BindFunction<E> implements Function<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public final void append(final Statement st, final Join join)
 	{
-		function.append(bf, this.join);
+		function.append(st, this.join);
 	}
 
 	@Override

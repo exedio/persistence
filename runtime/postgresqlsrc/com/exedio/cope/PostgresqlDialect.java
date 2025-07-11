@@ -228,19 +228,19 @@ final class PostgresqlDialect extends Dialect
 
 	@Override
 	void appendBlobHash(
-			final Statement bf, final BlobColumn column, final Join join,
+			final Statement st, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
 		switch(algorithm)
 		{
-			case HASH_MD5 -> bf.append("MD5(").append(column, join).append(')');
-			case HASH_SHA1   -> appendDigest(bf, column, join, algorithm, "sha1"  );
-			case HASH_SHA224 -> appendDigest(bf, column, join, algorithm, "sha224");
-			case HASH_SHA256 -> appendDigest(bf, column, join, algorithm, "sha256");
-			case HASH_SHA384 -> appendDigest(bf, column, join, algorithm, "sha384");
-			case HASH_SHA512 -> appendDigest(bf, column, join, algorithm, "sha512");
+			case HASH_MD5 -> st.append("MD5(").append(column, join).append(')');
+			case HASH_SHA1   -> appendDigest(st, column, join, algorithm, "sha1"  );
+			case HASH_SHA224 -> appendDigest(st, column, join, algorithm, "sha224");
+			case HASH_SHA256 -> appendDigest(st, column, join, algorithm, "sha256");
+			case HASH_SHA384 -> appendDigest(st, column, join, algorithm, "sha384");
+			case HASH_SHA512 -> appendDigest(st, column, join, algorithm, "sha512");
 			default ->
-				super.appendBlobHash(bf, column, join, algorithm);
+				super.appendBlobHash(st, column, join, algorithm);
 		}
 	}
 
@@ -248,13 +248,13 @@ final class PostgresqlDialect extends Dialect
 	 * See <a href="https://www.postgresql.org/docs/9.6/pgcrypto.html">pgcrypto</a>
 	 */
 	private void appendDigest(
-			final Statement bf, final BlobColumn column, final Join join,
+			final Statement st, final BlobColumn column, final Join join,
 			final String algorithm, final String type)
 	{
 		if(pgcryptoSchemaQuoted==null)
-			super.appendBlobHash(bf, column, join, algorithm);
+			super.appendBlobHash(st, column, join, algorithm);
 
-		bf.append("encode(").
+		st.append("encode(").
 			append(pgcryptoSchemaQuoted).
 			append(".digest(").
 			append(column, join).
@@ -264,58 +264,58 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
+	void appendPageClauseAfter(final Statement st, final int offset, final int limit)
 	{
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
 
 		if(limit!=Query.UNLIMITED)
-			bf.append(" LIMIT ").appendParameter(limit);
+			st.append(" LIMIT ").appendParameter(limit);
 
 		if(offset>0)
-			bf.append(" OFFSET ").appendParameter(offset);
+			st.append(" OFFSET ").appendParameter(offset);
 	}
 
 	@Override
-	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
+	void appendAsString(final Statement st, final NumberFunction<?> source, final Join join)
 	{
-		bf.append("TRIM(TO_CHAR(").
+		st.append("TRIM(TO_CHAR(").
 			append(source, join).
 			append(", '9999999999999'))");
 	}
 
 	@Override
-	void appendCaseViewPostfix(final Statement bf)
+	void appendCaseViewPostfix(final Statement st)
 	{
-		bf.append(" COLLATE \"default\"");
+		st.append(" COLLATE \"default\"");
 	}
 
 	@Override
-	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClauseFullTextIndex(final Statement st, final StringFunction function, final String value)
 	{
 		// TODO check for full text indexes
-		appendMatchClauseByLike(bf, function, value);
+		appendMatchClauseByLike(st, function, value);
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement st, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
-		bf.append("SUBSTRING(");
-		column.accept(bf);
+		st.append("SUBSTRING(");
+		column.accept(st);
 		if(offset>0)
-			bf.append(" FROM ").
+			st.append(" FROM ").
 				appendParameter(offset+1);
-		bf.append(" FOR ").
+		st.append(" FOR ").
 			appendParameter(value.length).
 			append(")=").
 			appendParameterBlob(value);
 	}
 
 	@Override
-	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	void appendRegexpLike(final Statement st, final StringFunction function, final String regexp)
 	{
-		bf.append(function).
+		st.append(function).
 			append(" ~ ").
 			// https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP
 			appendParameter("^" + regexp + "$");
@@ -354,12 +354,12 @@ final class PostgresqlDialect extends Dialect
 			final Connection connection,
 			final String quotedName)
 	{
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT NEXTVAL('").
+		final Statement st = executor.newStatement();
+		st.append("SELECT NEXTVAL('").
 			append(quotedName).
 			append("')");
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(connection, st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -377,17 +377,17 @@ final class PostgresqlDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = executor.newStatement();
+		final Statement st = executor.newStatement();
 		// BEWARE:
 		// LAST_VALUE contains the last result returned by NEXTVAL -
 		// except if the sequence has not been used before. Then it contains
 		// the next result to be returned by NEXTVAL.
 		// This is a problem in either PostgreSQL or cope without any idea for
 		// resolution yet.
-		bf.append("SELECT LAST_VALUE FROM ").
+		st.append("SELECT LAST_VALUE FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(connection, st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
@@ -447,26 +447,26 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	void append(
 			final VaultTrail trail,
-			final Statement bf,
+			final Statement st,
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
 			final DataField fieldValue)
 	{
-		trail.appendInsert(bf, hashValue, consumer, markPutEnabled, fieldValue);
+		trail.appendInsert(st, hashValue, consumer, markPutEnabled, fieldValue);
 
 		// https://www.postgresql.org/docs/11/sql-insert.html#SQL-ON-CONFLICT
-		bf.
+		st.
 				append("ON CONFLICT ON CONSTRAINT ").
 				append(trail.hashPKQuoted).
 				append(" DO ");
 
 		if(markPutEnabled)
 		{
-			bf.append("UPDATE SET ");
-			trail.appendSetMarkPut(bf);
+			st.append("UPDATE SET ");
+			trail.appendSetMarkPut(st);
 		}
 		else
-			bf.append("NOTHING");
+			st.append("NOTHING");
 	}
 }

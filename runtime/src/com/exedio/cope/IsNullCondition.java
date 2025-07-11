@@ -64,9 +64,9 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.append(function).
+		st.append(function).
 			append(not ? " IS NOT NULL" : " IS NULL");
 	}
 

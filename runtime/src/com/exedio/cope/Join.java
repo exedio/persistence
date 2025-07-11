@@ -138,7 +138,7 @@ public final class Join implements Serializable
 			condition.check(tc);
 	}
 
-	void search(final Statement bf)
+	void search(final Statement st)
 	{
 		final Condition condition = this.condition;
 
@@ -147,20 +147,20 @@ public final class Join implements Serializable
 			if(kind!=Kind.INNER)
 				throw new RuntimeException("outer join must have join condition");
 
-			bf.append(" CROSS JOIN ");
+			st.append(" CROSS JOIN ");
 		}
 		else
 		{
-			bf.append(' ').
+			st.append(' ').
 				append(kind.sql);
 		}
 
-		bf.appendTypeDefinition(this, type, true);
+		st.appendTypeDefinition(this, type, true);
 
 		if(condition!=null)
 		{
-			bf.append(" ON ");
-			condition.append(bf);
+			st.append(" ON ");
+			condition.append(st);
 		}
 	}
 }

@@ -54,9 +54,9 @@ final class DataFieldBlobStore extends DataFieldStore
 	}
 
 	@Override
-	void appendHashExpression(final Statement bf, final String algorithm)
+	void appendHashExpression(final Statement st, final String algorithm)
 	{
-		bf.dialect.appendBlobHash(bf, column, null, algorithm);
+		st.dialect.appendBlobHash(st, column, null, algorithm);
 	}
 
 	@Override
@@ -104,6 +104,6 @@ final class DataFieldBlobStore extends DataFieldStore
 	@Override
 	Consumer<Statement> getStartsWithColumn()
 	{
-		return bf -> bf.append(column);
+		return st -> st.append(column);
 	}
 }

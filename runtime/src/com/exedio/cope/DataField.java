@@ -170,9 +170,9 @@ public final class DataField extends Field<DataField.Value>
 		store = null;
 	}
 
-	void appendHashExpression(final Statement bf, final String algorithm)
+	void appendHashExpression(final Statement st, final String algorithm)
 	{
-		store.appendHashExpression(bf, algorithm);
+		store.appendHashExpression(st, algorithm);
 	}
 
 	void put(final Entity entity, final Value value, final Item exceptionItem) // just for DataVault

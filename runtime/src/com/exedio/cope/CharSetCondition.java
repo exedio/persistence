@@ -68,9 +68,9 @@ public final class CharSetCondition extends Condition
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.dialect.append(bf, function, null, value);
+		st.dialect.append(st, function, null, value);
 	}
 
 	@Override

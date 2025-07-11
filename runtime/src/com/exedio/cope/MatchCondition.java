@@ -73,9 +73,9 @@ public final class MatchCondition extends Condition
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.appendMatch(function, value);
+		st.appendMatch(function, value);
 	}
 
 	@Override

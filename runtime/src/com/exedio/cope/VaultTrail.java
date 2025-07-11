@@ -127,7 +127,7 @@ final class VaultTrail
 	}
 
 	void appendInsert(
-			final Statement bf,
+			final Statement st,
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
@@ -136,50 +136,50 @@ final class VaultTrail
 		// BEWARE:
 		// Do not use INSERT IGNORE on MySQL, as it ignores more than just duplicate keys:
 		// https://dev.mysql.com/doc/refman/5.7/en/insert.html
-		bf.append("INSERT INTO ").append(tableQuoted).
+		st.append("INSERT INTO ").append(tableQuoted).
 				append('(');
-		appendInsertColumns(bf, markPutEnabled);
-		bf.
+		appendInsertColumns(st, markPutEnabled);
+		st.
 				append(")VALUES(").
 				appendParameter(hashValue);
-		appendInsertValuesAfterHash(bf, consumer, markPutEnabled, fieldValue);
-		bf.append(')');
+		appendInsertValuesAfterHash(st, consumer, markPutEnabled, fieldValue);
+		st.append(')');
 	}
 
 	void appendInsertColumns(
-			final Statement bf,
+			final Statement st,
 			final boolean markPutEnabled)
 	{
-		bf.
+		st.
 				append(hashQuoted).
 				append(',').append(lengthQuoted).
 				append(',').append(startQuoted);
 
 		if(markPutEnabled)
-			bf.append(',').append(markPutQuoted);
+			st.append(',').append(markPutQuoted);
 
-		bf.
+		st.
 				append(',').append(dateQuoted).
 				append(',').append(fieldQuoted).
 				append(',').append(originQuoted);
 	}
 
 	void appendInsertValuesAfterHash(
-			final Statement bf,
+			final Statement st,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
 			final DataField fieldValue)
 	{
-		bf.
+		st.
 				append(',').
 				appendParameter(consumer.length()).
 				append(',').
 				appendParameterBlob(consumer.start());
 
 		if(markPutEnabled)
-			bf.append(',').appendParameter(MARK_PUT_VALUE);
+			st.append(',').appendParameter(MARK_PUT_VALUE);
 
-		bf.
+		st.
 				append(',').
 				appendParameterDateNativelyEvenIfSupportDisabled(new Date()).
 				append(',').
@@ -188,9 +188,9 @@ final class VaultTrail
 				appendParameter(originValue);
 	}
 
-	void appendSetMarkPut(final Statement bf)
+	void appendSetMarkPut(final Statement st)
 	{
-		bf.
+		st.
 				append(markPutQuoted).
 				append('=').
 				appendParameter(MARK_PUT_VALUE);
@@ -202,15 +202,15 @@ final class VaultTrail
 			final DataConsumer consumer,
 			final DataField fieldValue)
 	{
-		final Statement bf = executor.newStatement();
+		final Statement st = executor.newStatement();
 
-		dialect.append(this, bf, hashValue, consumer, markPutSupplier.value, fieldValue);
+		dialect.append(this, st, hashValue, consumer, markPutSupplier.value, fieldValue);
 
 		final Connection connection = connectionPool.get(true);
 		try
 		{
 			// result (rows affected) contains nonsense on MySQL, see branch VaultTrailMetrics
-			executor.update(connection, null, bf);
+			executor.update(connection, null, st);
 		}
 		finally
 		{
@@ -236,8 +236,8 @@ final class VaultTrail
 
 	long getLength(@Nonnull final String hash)
 	{
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT ").append(lengthQuoted).
+		final Statement st = executor.newStatement();
+		st.append("SELECT ").append(lengthQuoted).
 			append(" FROM ").append(tableQuoted).
 			append(" WHERE ").append(hashQuoted).
 			append('=').appendParameter(hash);
@@ -245,7 +245,7 @@ final class VaultTrail
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.query(connection, bf, null, false, resultSet ->
+			return executor.query(connection, st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty for hash " + anonymiseHash(hash) + " in table " + table);
@@ -266,9 +266,9 @@ final class VaultTrail
 		final Type<?> type = field.getType();
 		final Executor executor = type.getModel().connect().executor;
 
-		final Statement bf = executor.newStatement(true, mode);
+		final Statement st = executor.newStatement(true, mode);
 		//language=SQL
-		bf.append("SELECT COUNT(*) FROM ").
+		st.append("SELECT COUNT(*) FROM ").
 				append(type.getTable()).
 				append(" LEFT JOIN ").
 				append(tableQuoted).
@@ -281,6 +281,6 @@ final class VaultTrail
 				append(" AND ").
 				append(tableQuoted).append('.').append(hashQuoted).append(" IS NULL");
 
-		return bf;
+		return st;
 	}
 }

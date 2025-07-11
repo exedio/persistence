@@ -107,24 +107,24 @@ public final class CoalesceView<E> extends View<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append("coalesce(");
+		st.append("coalesce(");
 		boolean first = true;
 		for(final Function<E> parameter : parameters)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(',');
+				st.append(',');
 
-			bf.append(parameter, join);
+			st.append(parameter, join);
 		}
 		if(literal!=null)
 		{
-			bf.append(',');
-			bf.appendParameterAny(literal);
+			st.append(',');
+			st.appendParameterAny(literal);
 		}
-		bf.append(')');
+		st.append(')');
 	}
 }

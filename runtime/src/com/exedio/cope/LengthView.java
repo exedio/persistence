@@ -63,9 +63,9 @@ public final class LengthView extends NumberView<Integer>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append("CHAR_LENGTH(").
+		st.append("CHAR_LENGTH(").
 			append(source, join).
 			append(')');
 	}

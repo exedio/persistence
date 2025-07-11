@@ -171,51 +171,51 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	void appendOrderByPostfix(final Statement st, final boolean ascending)
 	{
 		if(!ascending)
-			bf.append(" NULLS LAST");
+			st.append(" NULLS LAST");
 	}
 
 	@Override
-	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
+	void appendPageClauseAfter(final Statement st, final int offset, final int limit)
 	{
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
 
-		bf.append(" OFFSET ").
+		st.append(" OFFSET ").
 			appendParameter(offset);
 		if(limit!=Query.UNLIMITED)
-			bf.append(" LIMIT ").
+			st.append(" LIMIT ").
 				appendParameter(limit);
 	}
 
 	@Override
-	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
+	void appendAsString(final Statement st, final NumberFunction<?> source, final Join join)
 	{
-		bf.append("CONVERT(").
+		st.append("CONVERT(").
 			append(source, join).
 			append(",VARCHAR(40))");
 	}
 
 	@Override
-	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClauseFullTextIndex(final Statement st, final StringFunction function, final String value)
 	{
-		appendMatchClauseByLike(bf, function, value);
+		appendMatchClauseByLike(st, function, value);
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement st, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
-		bf.append( offset>0 ? "SUBSTR" : "LEFT" ).
+		st.append( offset>0 ? "SUBSTR" : "LEFT" ).
 			append("(RAWTOHEX(");
-		column.accept(bf);
-		bf.append("),");
+		column.accept(st);
+		st.append("),");
 		if(offset>0)
-			bf.appendParameter(2*offset+1).
+			st.appendParameter(2*offset+1).
 				append(',');
-		bf.appendParameter(2*value.length).
+		st.appendParameter(2*value.length).
 			append(")=").
 			appendParameter(Hex.encodeLower(value));
 	}
@@ -259,9 +259,9 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	void appendRegexpLike(final Statement st, final StringFunction function, final String regexp)
 	{
-		bf.append("REGEXP_MATCHES(").
+		st.append("REGEXP_MATCHES(").
 			append(function).
 			append(',').
 			appendParameter(RegexpLikeCondition.getIcuRegexp(regexp)).
@@ -293,28 +293,28 @@ final class HsqldbDialect extends Dialect
 			throw new SQLRuntimeException(e, "setAutoCommit");
 		}
 		{
-			final Statement bf = executor.newStatement();
-			bf.append("DECLARE LOCAL TEMPORARY TABLE ").
+			final Statement st = executor.newStatement();
+			st.append("DECLARE LOCAL TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x BIGINT)");
-			executor.update(connection, null, bf);
+			executor.update(connection, null, st);
 		}
 		{
-			final Statement bf = executor.newStatement();
-			bf.append("INSERT INTO ").
+			final Statement st = executor.newStatement();
+			st.append("INSERT INTO ").
 				append(TEMP_TABLE).
 				append(" VALUES (0)");
-			executor.updateStrict(connection, null, bf);
+			executor.updateStrict(connection, null, st);
 		}
 		final Long result;
 		{
-			final Statement bf = executor.newStatement();
-			bf.append("SELECT NEXT VALUE FOR ").
+			final Statement st = executor.newStatement();
+			st.append("SELECT NEXT VALUE FOR ").
 				append(quotedName).
 				append(" FROM ").
 				append(TEMP_TABLE);
 
-			result = executor.query(connection, bf, null, false, resultSet ->
+			result = executor.query(connection, st, null, false, resultSet ->
 				{
 					if(!resultSet.next())
 						throw new RuntimeException("empty in sequence " + quotedName);
@@ -326,10 +326,10 @@ final class HsqldbDialect extends Dialect
 			);
 		}
 		{
-			final Statement bf = executor.newStatement();
-			bf.append("DROP TABLE session.").
+			final Statement st = executor.newStatement();
+			st.append("DROP TABLE session.").
 				append(TEMP_TABLE);
-			executor.update(connection, null, bf);
+			executor.update(connection, null, st);
 		}
 		try
 		{
@@ -349,12 +349,12 @@ final class HsqldbDialect extends Dialect
 			final String name)
 	{
 		//language=SQL
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT NEXT_VALUE" +
+		final Statement st = executor.newStatement();
+		st.append("SELECT NEXT_VALUE" +
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(connection, st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
@@ -417,14 +417,14 @@ final class HsqldbDialect extends Dialect
 	@Override
 	void append(
 			final VaultTrail trail,
-			final Statement bf,
+			final Statement st,
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
 			final DataField fieldValue)
 	{
 		// http://hsqldb.org/doc/2.0/guide/dataaccess-chapt.html#dac_merge_statement
-		bf.append("MERGE INTO ").append(trail.tableQuoted).
+		st.append("MERGE INTO ").append(trail.tableQuoted).
 				append(" USING(VALUES(").
 				appendParameter(hashValue).
 				append("))AS vals(\"x\")ON ").
@@ -432,16 +432,16 @@ final class HsqldbDialect extends Dialect
 				append('.').
 				append(trail.hashQuoted).
 				append("=vals.\"x\" WHEN NOT MATCHED THEN INSERT(");
-		trail.appendInsertColumns(bf, markPutEnabled);
-		bf.
+		trail.appendInsertColumns(st, markPutEnabled);
+		st.
 				append(")VALUES ").
 				append("vals.\"x\"");
-		trail.appendInsertValuesAfterHash(bf, consumer, markPutEnabled, fieldValue);
+		trail.appendInsertValuesAfterHash(st, consumer, markPutEnabled, fieldValue);
 
 		if(markPutEnabled)
 		{
-			bf.append(" WHEN MATCHED THEN UPDATE SET ");
-			trail.appendSetMarkPut(bf);
+			st.append(" WHEN MATCHED THEN UPDATE SET ");
+			trail.appendSetMarkPut(st);
 		}
 	}
 

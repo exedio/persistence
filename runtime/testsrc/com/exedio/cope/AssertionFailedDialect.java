@@ -70,27 +70,27 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
+	void appendPageClauseAfter(final Statement st, final int offset, final int limit)
 	{
 		throw new AssertionError();
 	}
 	@Override
-	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
+	void appendAsString(final Statement st, final NumberFunction<?> source, final Join join)
 	{
 		throw new AssertionError();
 	}
 	@Override
-	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClauseFullTextIndex(final Statement st, final StringFunction function, final String value)
 	{
 		throw new AssertionError();
 	}
 	@Override
-	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement st, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
 		throw new AssertionError();
 	}
 	@Override
-	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	void appendRegexpLike(final Statement st, final StringFunction function, final String regexp)
 	{
 		throw new AssertionError();
 	}
@@ -124,7 +124,7 @@ class AssertionFailedDialect extends Dialect
 	@Override
 	void append(
 			final VaultTrail trail,
-			final Statement bf,
+			final Statement st,
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,

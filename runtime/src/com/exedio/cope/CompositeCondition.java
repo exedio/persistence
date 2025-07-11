@@ -82,25 +82,25 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	void appendAfterFrom(final Statement statement)
+	void appendAfterFrom(final Statement st)
 	{
 		for(final Condition condition : conditions)
-			condition.appendAfterFrom(statement);
+			condition.appendAfterFrom(st);
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.append('(');
-		conditions[0].append(bf);
+		st.append('(');
+		conditions[0].append(st);
 		for(int i = 1; i<conditions.length; i++)
 		{
-			bf.append(')');
-			bf.append(operator.sql);
-			bf.append('(');
-			conditions[i].append(bf);
+			st.append(')');
+			st.append(operator.sql);
+			st.append('(');
+			conditions[i].append(st);
 		}
-		bf.append(')');
+		st.append(')');
 	}
 
 	@Override

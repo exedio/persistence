@@ -80,23 +80,23 @@ public final class This<E extends Item> extends Feature
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.appendPK(type, join);
-		bf.appendTypeColumnIfRequired(type.getTable().typeColumn, join);
+		st.appendPK(type, join);
+		st.appendTypeColumnIfRequired(type.getTable().typeColumn, join);
 	}
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public void appendType(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final Join join)
+	public void appendType(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		bf.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);
+		st.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);
 	}
 
 	@Deprecated // OK: for internal use within COPE only
-	public void appendParameter(@SuppressWarnings("ClassEscapesDefinedScope") final Statement bf, final E value)
+	public void appendParameter(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final E value)
 	{
-		bf.appendParameter(value.pk);
+		st.appendParameter(value.pk);
 	}
 
 	@Override

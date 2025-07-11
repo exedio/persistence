@@ -295,17 +295,17 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendDatePartExtraction(final DayPartView view, final Statement bf, final Join join)
+	void appendDatePartExtraction(final DayPartView view, final Statement st, final Join join)
 	{
 		if(Part.WEEK_OF_YEAR==view.getPart())
 		{
-			bf.append("WEEKOFYEAR(").
+			st.append("WEEKOFYEAR(").
 				append(view.getSource(), join).
 				append(')');
 		}
 		else
 		{
-			super.appendDatePartExtraction(view, bf, join);
+			super.appendDatePartExtraction(view, st, join);
 		}
 	}
 
@@ -362,56 +362,56 @@ final class MysqlDialect extends Dialect
 
 	@Override
 	void appendBlobHash(
-			final Statement bf, final BlobColumn column, final Join join,
+			final Statement st, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
 		switch(algorithm)
 		{
-			case HASH_MD5    -> bf.append("MD5(" ).append(column, join).append(')');
-			case HASH_SHA1   -> bf.append("SHA1(").append(column, join).append(')');
-			case HASH_SHA224 -> bf.append("SHA2(").append(column, join).append(",224)");
-			case HASH_SHA256 -> bf.append("SHA2(").append(column, join).append(",256)");
-			case HASH_SHA384 -> bf.append("SHA2(").append(column, join).append(",384)");
-			case HASH_SHA512 -> bf.append("SHA2(").append(column, join).append(",512)");
+			case HASH_MD5    -> st.append("MD5(" ).append(column, join).append(')');
+			case HASH_SHA1   -> st.append("SHA1(").append(column, join).append(')');
+			case HASH_SHA224 -> st.append("SHA2(").append(column, join).append(",224)");
+			case HASH_SHA256 -> st.append("SHA2(").append(column, join).append(",256)");
+			case HASH_SHA384 -> st.append("SHA2(").append(column, join).append(",384)");
+			case HASH_SHA512 -> st.append("SHA2(").append(column, join).append(",512)");
 			default ->
-				super.appendBlobHash(bf, column, join, algorithm);
+				super.appendBlobHash(st, column, join, algorithm);
 		}
 	}
 
 	@Override
 	<E extends Number> void  appendIntegerDivision(
-			final Statement bf,
+			final Statement st,
 			final Function<E> dividend,
 			final Function<E> divisor,
 			final Join join)
 	{
-		bf.append(dividend, join).
+		st.append(dividend, join).
 			append(" DIV ").
 			append(divisor, join);
 	}
 
 	@Override
-	void appendOrderByPostfix(final Statement bf, final boolean ascending)
+	void appendOrderByPostfix(final Statement st, final boolean ascending)
 	{
 		// Do nothing, as MySQL default behaviour defines behaviour of cope.
 		// All other dialects have to adapt.
 	}
 
 	@Override
-	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
+	void appendPageClauseAfter(final Statement st, final int offset, final int limit)
 	{
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
 
-		bf.append(" LIMIT ");
+		st.append(" LIMIT ");
 
 		if(offset>0)
-			bf.appendParameter(offset).append(',');
+			st.appendParameter(offset).append(',');
 
 		// using MAX_VALUE is really the recommended usage, see MySQL doc.
 		final int countInStatement = limit!=Query.UNLIMITED ? limit : Integer.MAX_VALUE;
-		bf.appendParameter(countInStatement);
+		st.appendParameter(countInStatement);
 	}
 
 	@Override
@@ -427,17 +427,17 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
+	void appendAsString(final Statement st, final NumberFunction<?> source, final Join join)
 	{
-		bf.append("CONVERT(").
+		st.append("CONVERT(").
 			append(source, join).
 			append(",CHAR)");
 	}
 
 	@Override
-	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
+	void appendMatchClauseFullTextIndex(final Statement st, final StringFunction function, final String value)
 	{
-		bf.append("(MATCH(").
+		st.append("(MATCH(").
 			append(function).
 			append(")AGAINST(").
 			appendParameterAny(value).
@@ -445,15 +445,15 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final Consumer<Statement> column, final int offset, final byte[] value)
+	void appendStartsWith(final Statement st, final Consumer<Statement> column, final int offset, final byte[] value)
 	{
-		bf.append( offset>0 ? "SUBSTRING" : "LEFT" ).
+		st.append( offset>0 ? "SUBSTRING" : "LEFT" ).
 			append('(');
-		column.accept(bf);
+		column.accept(st);
 		if(offset>0)
-			bf.append(',').
+			st.append(',').
 				appendParameter(offset+1);
-		bf.append(',').
+		st.append(',').
 			appendParameter(value.length).
 			append(")=").
 			appendParameterBlob(value);
@@ -466,9 +466,9 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendRegexpLike(final Statement bf, final StringFunction function, final String regexp)
+	void appendRegexpLike(final Statement st, final StringFunction function, final String regexp)
 	{
-		bf.append(function).
+		st.append(function).
 			append(REGEXP + "CAST(").
 			appendParameter(regexpICU
 					? RegexpLikeCondition.getIcuRegexp(regexp)
@@ -557,12 +557,12 @@ final class MysqlDialect extends Dialect
 
 		final QueryInfo root = new QueryInfo(EXPLAIN_PLAN);
 		{
-			final Statement bf = executor.newStatement();
-			bf.append("EXPLAIN ").
+			final Statement st = executor.newStatement();
+			st.append("EXPLAIN ").
 				append(statementText).
 				appendParameters(statement);
 
-			executor.query(connection, bf, null, true, resultSet ->
+			executor.query(connection, st, null, true, resultSet ->
 				{
 					final ResultSetMetaData metaData = resultSet.getMetaData();
 					final int columnCount = metaData.getColumnCount();
@@ -613,12 +613,12 @@ final class MysqlDialect extends Dialect
 			final Connection connection,
 			final String quotedName)
 	{
-		final Statement bf = executor.newStatement();
-		bf.append("INSERT "). // MySQL allows INSERT without INTO: https://dev.mysql.com/doc/refman/5.7/en/insert.html
+		final Statement st = executor.newStatement();
+		st.append("INSERT "). // MySQL allows INSERT without INTO: https://dev.mysql.com/doc/refman/5.7/en/insert.html
 			append(quotedName).
 			append(" VALUES()");
 
-		return executor.insertAndGetGeneratedKeys(connection, bf, resultSet ->
+		return executor.insertAndGetGeneratedKeys(connection, st, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -636,13 +636,13 @@ final class MysqlDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT MAX(").
+		final Statement st = executor.newStatement();
+		st.append("SELECT MAX(").
 			append(dsmfDialect.quoteName(sequenceColumnName)).
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(connection, st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
@@ -867,21 +867,21 @@ final class MysqlDialect extends Dialect
 	@Override
 	void append(
 			final VaultTrail trail,
-			final Statement bf,
+			final Statement st,
 			final String hashValue,
 			final DataConsumer consumer,
 			final boolean markPutEnabled,
 			final DataField fieldValue)
 	{
-		trail.appendInsert(bf, hashValue, consumer, markPutEnabled, fieldValue);
+		trail.appendInsert(st, hashValue, consumer, markPutEnabled, fieldValue);
 
 		// https://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html
-		bf.append("ON DUPLICATE KEY UPDATE ");
+		st.append("ON DUPLICATE KEY UPDATE ");
 
 		if(markPutEnabled)
-			trail.appendSetMarkPut(bf);
+			trail.appendSetMarkPut(st);
 		else
-			bf.
+			st.
 					// Below is a workaround for a hypothetical ON DUPLICATE KEY DO NOTHING.
 					// According to stackoverflow it does not trigger an actual row update:
 					// https://stackoverflow.com/questions/4596390/insert-on-duplicate-key-do-nothing

@@ -234,8 +234,8 @@ public abstract class RevisionInfo
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
-		final Statement bf = executor.newStatement();
-		bf.append("INSERT INTO ").
+		final Statement st = executor.newStatement();
+		st.append("INSERT INTO ").
 			append(dsmfDialect.quoteName(properties.revisionTableName)).
 			append('(').
 			append(dsmfDialect.quoteName(Revisions.COLUMN_NUMBER_NAME)).
@@ -250,7 +250,7 @@ public abstract class RevisionInfo
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			executor.updateStrict(connection, null, bf);
+			executor.updateStrict(connection, null, st);
 		}
 		finally
 		{

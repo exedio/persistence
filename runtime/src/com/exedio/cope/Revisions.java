@@ -132,9 +132,9 @@ public final class Revisions
 	{
 		final com.exedio.dsmf.Dialect dsmfDialect = executor.dialect.dsmfDialect;
 
-		final Statement bf = executor.newStatement();
+		final Statement st = executor.newStatement();
 		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
-		bf.append("SELECT MAX(").
+		st.append("SELECT MAX(").
 			append(revision).
 			append(") FROM ").
 			append(dsmfDialect.quoteName(properties.revisionTableName)).
@@ -145,7 +145,7 @@ public final class Revisions
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.query(connection, bf, null, false, integerResultSetHandler);
+			return executor.query(connection, st, null, false, integerResultSetHandler);
 		}
 		finally
 		{
@@ -163,9 +163,9 @@ public final class Revisions
 		final Dialect dialect = executor.dialect;
 		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
 
-		final Statement bf = executor.newStatement();
+		final Statement st = executor.newStatement();
 		final String revision = dsmfDialect.quoteName(COLUMN_NUMBER_NAME);
-		bf.append("SELECT ").
+		st.append("SELECT ").
 			append(revision).
 			append(',').
 			append(dsmfDialect.quoteName(COLUMN_INFO_NAME)).
@@ -173,7 +173,7 @@ public final class Revisions
 			append(dsmfDialect.quoteName(properties.revisionTableName));
 
 		if(!withMutex)
-			bf.append(" WHERE ").
+			st.append(" WHERE ").
 				append(revision).
 				append(">=0");
 
@@ -182,7 +182,7 @@ public final class Revisions
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			executor.query(connection, bf, null, false, resultSet ->
+			executor.query(connection, st, null, false, resultSet ->
 				{
 					while(resultSet.next())
 					{

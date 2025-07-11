@@ -81,15 +81,15 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	void appendAfterFrom(final Statement bf)
+	void appendAfterFrom(final Statement st)
 	{
-		field.store().appendStartsWithAfterFrom(bf, offset, value);
+		field.store().appendStartsWithAfterFrom(st, offset, value);
 	}
 
 	@Override
-	void append(final Statement bf)
+	void append(final Statement st)
 	{
-		bf.dialect.appendStartsWith(bf, field.store().getStartsWithColumn(), offset, value);
+		st.dialect.appendStartsWith(st, field.store().getStartsWithColumn(), offset, value);
 	}
 
 	@Override

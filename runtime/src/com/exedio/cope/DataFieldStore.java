@@ -40,7 +40,7 @@ abstract class DataFieldStore
 	{
 		// do nothing
 	}
-	abstract void appendHashExpression(Statement bf, String algorithm);
+	abstract void appendHashExpression(Statement st, String algorithm);
 	abstract boolean isNull(Transaction tx, Item item);
 	abstract long loadLength(Transaction tx, Item item);
 	abstract byte[] load(Transaction tx, Item item);
@@ -64,6 +64,6 @@ abstract class DataFieldStore
 		return null;
 	}
 
-	void appendStartsWithAfterFrom(final Statement bf, final int offset, final byte[] value) {}
+	void appendStartsWithAfterFrom(final Statement st, final int offset, final byte[] value) {}
 	abstract Consumer<Statement> getStartsWithColumn();
 }

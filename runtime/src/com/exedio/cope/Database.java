@@ -207,8 +207,8 @@ final class Database
 
 		executor.testListener().load(connection, item);
 
-		final Statement bf = executor.newStatement(type.supertype!=null, Statement.Mode.NORMAL);
-		bf.append("SELECT ");
+		final Statement st = executor.newStatement(type.supertype!=null, Statement.Mode.NORMAL);
+		st.append("SELECT ");
 
 		boolean first = true;
 		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
@@ -221,9 +221,9 @@ final class Database
 				if(first)
 					first = false;
 				else
-					bf.append(',');
+					st.append(',');
 
-				bf.append(updateCounter);
+				st.append(updateCounter);
 			}
 
 			for(final Column column : table.getColumns())
@@ -233,9 +233,9 @@ final class Database
 					if(first)
 						first = false;
 					else
-						bf.append(',');
+						st.append(',');
 
-					bf.append(column);
+					st.append(column);
 				}
 			}
 		}
@@ -243,39 +243,39 @@ final class Database
 		if(first)
 		{
 			// no columns in type
-			bf.appendPK(type);
+			st.appendPK(type);
 		}
 
-		bf.append(" FROM ");
+		st.append(" FROM ");
 		first = true;
 		for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(',');
+				st.append(',');
 
-			bf.append(superType.getTable().quotedID);
+			st.append(superType.getTable().quotedID);
 		}
 
-		bf.append(" WHERE ");
+		st.append(" WHERE ");
 		first = true;
 		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
 			if(first)
 				first = false;
 			else
-				bf.append(" AND ");
+				st.append(" AND ");
 
-			bf.appendPK(currentType).
+			st.appendPK(currentType).
 				append('=').
 				appendParameter(item.pk).
 				appendTypeCheck(currentType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 
-		//System.out.println(bf.toString());
+		//System.out.println(st.toString());
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(connection, st, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new NoSuchItemException(item);
@@ -342,12 +342,12 @@ final class Database
 
 		final List<Column> columns = table.getColumns();
 
-		final Statement bf = executor.newStatement();
+		final Statement st = executor.newStatement();
 		final StringColumn typeColumn = table.typeColumn;
 		final IntegerColumn updateCounter = incrementUpdateCounter ? table.updateCounter : null;
 		if(present)
 		{
-			bf.append("UPDATE ").
+			st.append("UPDATE ").
 				append(table.quotedID).
 				append(" SET ");
 
@@ -366,27 +366,27 @@ final class Database
 				if(first)
 					first = false;
 				else
-					bf.append(',');
+					st.append(',');
 
-				bf.append(column.quotedID).
+				st.append(column.quotedID).
 					append('=');
 
 				if(column instanceof BlobColumn)
-					bf.appendParameterBlob(blobs.get(column));
+					st.appendParameterBlob(blobs.get(column));
 				else
-					bf.appendParameter(column, state.store(column));
+					st.appendParameter(column, state.store(column));
 			}
 			if(first) // no updated columns in table
 				return;
 			if(updateCounter!=null)
 			{
-				bf.append(',').
+				st.append(',').
 					append(updateCounter.quotedID).
 					append('=').
 					appendParameter(updateCounter, nextUpdateCount.nextValue(type));
 			}
 
-			bf.append(" WHERE ").
+			st.append(" WHERE ").
 				append(table.primaryKey.quotedID).
 				append('=').
 				appendParameter(state.pk).
@@ -394,7 +394,7 @@ final class Database
 
 			if(updateCounter!=null)
 			{
-				bf.append(" AND ").
+				st.append(" AND ").
 					append(updateCounter.quotedID).
 					append('=').
 					appendParameter(state.updateCount.getValue(type));
@@ -402,20 +402,20 @@ final class Database
 		}
 		else
 		{
-			bf.append("INSERT INTO ").
+			st.append("INSERT INTO ").
 				append(table.quotedID).
 				append("(").
 				append(table.primaryKey.quotedID);
 
 			if(typeColumn!=null)
 			{
-				bf.append(',').
+				st.append(',').
 					append(typeColumn.quotedID);
 			}
 
 			if(updateCounter!=null)
 			{
-				bf.append(',').
+				st.append(',').
 					append(updateCounter.quotedID);
 			}
 
@@ -423,17 +423,17 @@ final class Database
 			{
 				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
 				{
-					bf.append(',').
+					st.append(',').
 						append(column.quotedID);
 				}
 			}
 
-			bf.append(")VALUES(").
+			st.append(")VALUES(").
 				appendParameter(state.pk);
 
 			if(typeColumn!=null)
 			{
-				bf.append(',').
+				st.append(',').
 					appendParameter(state.type.schemaId);
 			}
 
@@ -442,7 +442,7 @@ final class Database
 				assert state.updateCount.isInitial() : state.updateCount; // comes from CreatedState
 				final int nextValue = nextUpdateCount.nextValue(type);
 				assert nextValue==0 : nextValue;
-				bf.append(",0");
+				st.append(",0");
 			}
 
 			for(final Column column : columns)
@@ -451,21 +451,21 @@ final class Database
 				{
 					if(blobs.containsKey(column))
 					{
-						bf.append(',').
+						st.append(',').
 							appendParameterBlob(blobs.get(column));
 					}
 				}
 				else
 				{
-					bf.append(',').
+					st.append(',').
 						appendParameter(column, state.store(column));
 				}
 			}
-			bf.append(')');
+			st.append(')');
 		}
 
-		//System.out.println("storing "+bf.toString());
-		executor.updateStrict(connection, present ? state.item : null, bf);
+		//System.out.println("storing "+st.toString());
+		executor.updateStrict(connection, present ? state.item : null, st);
 	}
 
 	@SuppressWarnings("ExtractMethodRecommender")

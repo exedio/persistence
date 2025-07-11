@@ -1212,20 +1212,20 @@ public final class Query<R> implements Serializable
 		final boolean distinct = this.distinct;
 
 		final ArrayList<Join> joins = this.joins;
-		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
+		final Statement st = executor.newStatement(this, sqlOnlyBuffer!=null);
 
 		if(mode.isExists())
 		{
-			bf.append(dialect.getExistsPrefix());
+			st.append(dialect.getExistsPrefix());
 		}
 
 		final boolean countSubSelect = mode.isTotal() && (distinct || groupBy!=null);
 		if (countSubSelect)
 		{
-			bf.append("SELECT COUNT(*) FROM ( ");
+			st.append("SELECT COUNT(*) FROM ( ");
 		}
 
-		bf.append("SELECT ");
+		st.append("SELECT ");
 
 		final Selectable<?>[] selects = selects();
 		final Marshaller<?>[] selectMarshallers;
@@ -1240,26 +1240,26 @@ public final class Query<R> implements Serializable
 
 		if(!countSubSelect && mode.isTotal())
 		{
-			bf.append("COUNT(*)");
+			st.append("COUNT(*)");
 			selectMarshallers = null;
 		}
 		else
 		{
 			if(distinct && !mode.isExists())
-				bf.append("DISTINCT ");
+				st.append("DISTINCT ");
 
-			bf.typeColumnsRequired = true;
+			st.typeColumnsRequired = true;
 			selectMarshallers = new Marshaller<?>[selects.length];
 			final Marshallers marshallers = model.connect().marshallers;
 			int copeTotalDistinctCount = 0;
 			for(int i = 0; i<selects.length; i++)
 			{
 				if(i>0)
-					bf.append(',');
+					st.append(',');
 
-				bf.append(selects[i], null);
+				st.append(selects[i], null);
 				if(mode.isTotal() && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
-					bf.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
+					st.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
 				selectMarshallers[i] = marshallers.get(selects[i]);
 			}
 			// The following content of the SELECT clause is just for satisfying databases:
@@ -1270,51 +1270,51 @@ public final class Query<R> implements Serializable
 				{
 					if(isOrderByDependent(selectable))
 					{
-						bf.append(',');
-						bf.append(selectable, null);
+						st.append(',');
+						st.append(selectable, null);
 					}
 				}
 			}
-			bf.typeColumnsRequired = false;
+			st.typeColumnsRequired = false;
 		}
 
-		bf.append(" FROM ").
+		st.append(" FROM ").
 			appendTypeDefinition(null, type, joins!=null);
 
 		if(condition!=null)
-			condition.appendAfterFrom(bf);
+			condition.appendAfterFrom(st);
 
 		if(joins!=null)
 		{
 			for(final Join join : joins)
-				join.search(bf);
+				join.search(st);
 		}
 
 		if(condition!=null)
 		{
-			bf.append(" WHERE ");
-			condition.append(bf);
+			st.append(" WHERE ");
+			condition.append(st);
 		}
 
 		if (groupBy!=null)
 		{
-			bf.typeColumnsRequired = true;
+			st.typeColumnsRequired = true;
 			for ( int i=0; i<groupBy.length; i++ )
 			{
 				if(i==0)
-					bf.append(" GROUP BY ");
+					st.append(" GROUP BY ");
 				else
-					bf.append(',');
+					st.append(',');
 
-				bf.append(groupBy[i], null);
+				st.append(groupBy[i], null);
 			}
-			bf.typeColumnsRequired = false;
+			st.typeColumnsRequired = false;
 		}
 
 		if(having!=null)
 		{
-			bf.append(" HAVING ");
-			having.append(bf);
+			st.append(" HAVING ");
+			having.append(st);
 		}
 
 		if(mode.isSearch())
@@ -1331,24 +1331,24 @@ public final class Query<R> implements Serializable
 				for(int i = 0; i<orderBy.length; i++)
 				{
 					if(i==0)
-						bf.append(" ORDER BY ");
+						st.append(" ORDER BY ");
 					else
-						bf.append(',');
+						st.append(',');
 
 					final boolean anyValue =
 							anyValuePossible &&
 							isOrderByDependent(orderBy[i]);
 					if(anyValue)
-						bf.append("ANY_VALUE(");
+						st.append("ANY_VALUE(");
 
-					bf.append(orderBy[i]);
+					st.append(orderBy[i]);
 
 					if(anyValue)
-						bf.append(')');
+						st.append(')');
 
 					if(!orderAscending[i])
-						bf.append(" DESC");
-					dialect.appendOrderByPostfix(bf, orderAscending[i]);
+						st.append(" DESC");
+					dialect.appendOrderByPostfix(st, orderAscending[i]);
 
 					// TODO break here, if already ordered by some unique function
 				}
@@ -1357,24 +1357,24 @@ public final class Query<R> implements Serializable
 			final int pageOffset = this.pageOffset;
 			final int pageLimit  = this.pageLimit;
 			if( pageOffset>0 || pageLimit!=UNLIMITED )
-				dialect.appendPageClauseAfter(bf, pageOffset, pageLimit);
+				dialect.appendPageClauseAfter(st, pageOffset, pageLimit);
 		}
 
 		if(countSubSelect)
 		{
-			bf.append(" )");
+			st.append(" )");
 			if (dialect.subqueryRequiresAlias())
 			{
-				bf.append(" AS cope_total_distinct");
+				st.append(" AS cope_total_distinct");
 			}
 		}
 
 		if(mode.isExists())
 		{
-			bf.append(dialect.getExistsPostfix());
+			st.append(dialect.getExistsPostfix());
 			if(dialect.subqueryRequiresAlias())
 			{
-				bf.append(" AS cope_exists");
+				st.append(" AS cope_exists");
 			}
 		}
 
@@ -1384,23 +1384,23 @@ public final class Query<R> implements Serializable
 
 		if(sqlOnlyBuffer!=null)
 		{
-			assert bf.getParameters()==null;
-			sqlOnlyBuffer.append(bf.getText());
+			assert st.getParameters()==null;
+			sqlOnlyBuffer.append(st.getText());
 			return null;
 		}
 
-		//System.out.println(bf.toString());
+		//System.out.println(st.toString());
 
 		final ArrayList<Object> result = new ArrayList<>();
 		final int sizeLimit = getSearchSizeLimit();
-		executor.query(connection, bf, queryInfo, false, resultSet ->
+		executor.query(connection, st, queryInfo, false, resultSet ->
 			{
 				if(!mode.isSearch())
 				{
 					resultSet.next();
 					result.add(resultSet.getInt(1));
 					if(resultSet.next())
-						throw new RuntimeException("Only one total result set expected: " + bf);
+						throw new RuntimeException("Only one total result set expected: " + st);
 					return null;
 				}
 
