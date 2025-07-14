@@ -102,7 +102,7 @@ public class PartOfModelTest
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(PartOfItem.unordered, 384);
+		assertSerializedSame(PartOfItem.unordered, 392);
 	}
 
 	@Test void testContainerNull()

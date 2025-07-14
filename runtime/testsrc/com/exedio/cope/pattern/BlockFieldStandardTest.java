@@ -140,7 +140,7 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertSame(AnItem.eins.getValueType(), b2b.getCopeType());
 
 		// serialization
-		final ABlock b1aS = reserialize(b1a, 708);
+		final ABlock b1aS = reserialize(b1a, 716);
 		assertEqualsAndHash(b1aS, b1a);
 		assertNotEqualsAndHash(b1aS, b1b, b2a);
 		assertEquals("AnItem.eins#AnItem-0", b1aS.toString());

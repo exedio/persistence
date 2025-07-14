@@ -66,7 +66,7 @@ public class MountTest
 		assertEquals("MyItem.field", f.getID());
 		assertEquals( MyItem.TYPE,   f.getType());
 		assertEquals( MyItem.TYPE,   f.getAbstractType());
-		assertSerializedSame(f, 362);
+		assertSerializedSame(f, 370);
 	}
 
 	@Test void testItemFieldRenamed()
@@ -78,7 +78,7 @@ public class MountTest
 		assertEquals("MyItem.actual", f.getID());
 		assertEquals( MyItem.TYPE,    f.getType());
 		assertEquals( MyItem.TYPE,    f.getAbstractType());
-		assertSerializedSame(f, 363);
+		assertSerializedSame(f, 371);
 	}
 
 	@Test void testItemRenamedField()
@@ -90,7 +90,7 @@ public class MountTest
 		assertEquals("ActualItem.field", f.getID());
 		assertEquals(   PureItem.TYPE,   f.getType());
 		assertEquals(   PureItem.TYPE,   f.getAbstractType());
-		assertSerializedSame(f, 366);
+		assertSerializedSame(f, 374);
 	}
 
 	@Test void testItemRenamedFieldRenamed()
@@ -102,7 +102,7 @@ public class MountTest
 		assertEquals("ActualItem.actual", f.getID());
 		assertEquals(   PureItem.TYPE,    f.getType());
 		assertEquals(   PureItem.TYPE,    f.getAbstractType());
-		assertSerializedSame(f, 367);
+		assertSerializedSame(f, 375);
 	}
 
 	@Test void testCompositeType()

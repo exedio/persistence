@@ -87,6 +87,6 @@ public class PasswordLimiterModelTest
 		assertFalse(passwordLimited                 .isAnnotationPresent(Computed.class));
 		assertTrue (passwordLimited.getRefusalType().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(passwordLimited, 408);
+		assertSerializedSame(passwordLimited, 416);
 	}
 }

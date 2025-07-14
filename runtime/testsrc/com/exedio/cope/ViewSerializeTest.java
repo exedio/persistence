@@ -38,13 +38,13 @@ public class ViewSerializeTest
 {
 	@Test void testField()
 	{
-		assertSerializedSame(field, 370);
+		assertSerializedSame(field, 378);
 		assertEquals("AnItem.field", field.toString());
 	}
 
 	@Test void testView()
 	{
-		assertSerializedSame(view,  369);
+		assertSerializedSame(view,  377);
 		assertEquals("AnItem.view", view.toString());
 	}
 
@@ -56,7 +56,7 @@ public class ViewSerializeTest
 		assertEquals(TYPE, feature.getType());
 		assertEquals("upper(AnItem.field)", feature.toString());
 
-		final UppercaseView reserialized = reserialize(feature, 1109);
+		final UppercaseView reserialized = reserialize(feature, 1133);
 		assertNotSame(feature, reserialized);
 		assertEquals(asList(field), reserialized.getSources());
 		assertSame  (       field , reserialized.getSources().get(0));

@@ -98,7 +98,7 @@ public class CopyMultiCopyModelTest
 		assertSame(copyA, constraintA.getCopyFunction());
 		assertSame(copyB, constraintB.getCopyFunction());
 
-		assertSerializedSame(constraintA, 402);
-		assertSerializedSame(constraintB, 402);
+		assertSerializedSame(constraintA, 410);
+		assertSerializedSame(constraintB, 410);
 	}
 }

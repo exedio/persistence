@@ -105,9 +105,9 @@ public class PriceFieldModelTest
 		assertTrue(optionalPrice.getInt().isAnnotationPresent(Computed.class));
 		assertTrue(     bigPrice.getInt().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(   finalPrice, 393);
-		assertSerializedSame(optionalPrice, 396);
-		assertSerializedSame(     bigPrice, 391);
+		assertSerializedSame(   finalPrice, 401);
+		assertSerializedSame(optionalPrice, 404);
+		assertSerializedSame(     bigPrice, 399);
 
 		assertEquals(null,    finalPrice.getDefaultConstant());
 		assertEquals(null, optionalPrice.getDefaultConstant());

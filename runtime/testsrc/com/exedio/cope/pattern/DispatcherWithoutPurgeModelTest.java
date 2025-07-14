@@ -145,7 +145,7 @@ public class DispatcherWithoutPurgeModelTest
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(toTarget, 415);
+		assertSerializedSame(toTarget, 423);
 	}
 
 	@Test void testDispatchParentClassWrong()

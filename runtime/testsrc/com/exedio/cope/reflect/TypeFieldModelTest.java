@@ -91,7 +91,7 @@ public class TypeFieldModelTest
 		assertEquals(1,  length  .getIdField().getMinimumLength());
 		assertEquals(77, length  .getIdField().getMaximumLength());
 
-		assertSerializedSame(standard, 389);
+		assertSerializedSame(standard, 397);
 
 		assertEqualsUnmodifiable(MODEL.getTypes(), standard.getValues());
 		assertEqualsUnmodifiable(list(TypeFieldSubItem.TYPE), restricted.getValues());

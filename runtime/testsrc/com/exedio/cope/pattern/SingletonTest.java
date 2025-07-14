@@ -83,7 +83,7 @@ public class SingletonTest extends TestWithEnvironment
 		assertFalse(einzigartig.            isAnnotationPresent(Computed.class));
 		assertTrue (einzigartig.getSource().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(einzigartig, 387);
+		assertSerializedSame(einzigartig, 395);
 
 		// test persistence
 		assertEquals("einzigartig_once", SchemaInfo.getColumnName(einzigartig.getSource()));

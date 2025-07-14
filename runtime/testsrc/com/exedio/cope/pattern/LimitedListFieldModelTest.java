@@ -194,9 +194,9 @@ public class LimitedListFieldModelTest
 			")",
 			TYPE.newQuery(nums.getUnison().getCondition()).toString());
 
-		assertSerializedSame(nums   , 399);
-		assertSerializedSame(dates  , 400);
-		assertSerializedSame(strings, 402);
+		assertSerializedSame(nums   , 407);
+		assertSerializedSame(dates  , 408);
+		assertSerializedSame(strings, 410);
 
 		// test persistence
 		final Date ts1 = new Date(8172541283976l);

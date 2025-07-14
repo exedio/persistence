@@ -89,9 +89,9 @@ public class DivideDoubleTest extends TestWithEnvironment
 				numB.divide(numA));
 
 		// serialization
-		assertSerializedSame(divideAB, 382);
-		assertSerializedSame(divideAC, 382);
-		assertSerializedSame(divideBC, 382);
+		assertSerializedSame(divideAB, 390);
+		assertSerializedSame(divideAC, 390);
+		assertSerializedSame(divideBC, 390);
 
 		// exceptions
 		try

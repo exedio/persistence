@@ -98,6 +98,6 @@ public class TypeFutureInPatternsModelTest
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(feature, 410);
+		assertSerializedSame(feature, 418);
 	}
 }

@@ -39,9 +39,9 @@ public class JavaViewGenericsReflectionTest
 {
 	@Test void testSerialize()
 	{
-		assertSerializedSame(MyItem.list, 390);
-		assertSerializedSame(MyItem.set,  389);
-		assertSerializedSame(MyItem.map,  389);
+		assertSerializedSame(MyItem.list, 398);
+		assertSerializedSame(MyItem.set,  397);
+		assertSerializedSame(MyItem.map,  397);
 	}
 
 	@Test void testList()

@@ -101,8 +101,8 @@ public class EnumMapFieldModelTest
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
-		assertSerializedSame(name      , 391);
-		assertSerializedSame(nameLength, 397);
+		assertSerializedSame(name      , 399);
+		assertSerializedSame(nameLength, 405);
 	}
 
 	@Test void testIsEmpty()

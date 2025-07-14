@@ -75,7 +75,7 @@ public class EnumSetFieldModelTest
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
 
-		assertSerializedSame(activeLanguage, 401);
+		assertSerializedSame(activeLanguage, 409);
 	}
 
 	@Test void testContains()

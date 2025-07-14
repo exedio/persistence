@@ -48,6 +48,6 @@ public class UniqueDoubleModelTest
 		assertEqualsUnmodifiable(list(constraint), string.getUniqueConstraints());
 		assertEqualsUnmodifiable(list(constraint), integer.getUniqueConstraints());
 
-		assertSerializedSame(constraint, 389);
+		assertSerializedSame(constraint, 397);
 	}
 }

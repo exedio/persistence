@@ -86,7 +86,7 @@ public class RangeFieldModelTest
 		assertEquals(false, valid.getFrom().isFinal());
 		assertEquals(false, valid.getTo().isFinal());
 		assertContains(IntegerRangeViolationException.class, MandatoryViolationException.class, valid.getInitialExceptions());
-		assertSerializedSame(valid, 388);
+		assertSerializedSame(valid, 396);
 
 		assertEquals(true, text.isInitial());
 		assertEquals(true, text.isFinal());
@@ -94,7 +94,7 @@ public class RangeFieldModelTest
 		assertEquals(true, text.getFrom().isFinal());
 		assertEquals(true, text.getTo().isFinal());
 		assertContains(FinalViolationException.class, MandatoryViolationException.class, StringLengthViolationException.class, text.getInitialExceptions());
-		assertSerializedSame(text, 387);
+		assertSerializedSame(text, 395);
 	}
 
 	@Test void testUnison()

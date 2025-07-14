@@ -57,7 +57,7 @@ public class FieldDateTest extends FieldTest
 
 		assertEquals(TYPE, someDate.getType());
 		assertEquals(Date.class, someDate.getValueClass());
-		assertSerializedSame(someDate, 377);
+		assertSerializedSame(someDate, 385);
 
 		assertEqualsVerbose(null, item.getSomeDate());
 		assertContains(item, item2, TYPE.search(someDate.is((Date)null)));

@@ -48,7 +48,7 @@ public class FieldItemTest extends FieldTest
 		assertEquals(DeletePolicy.FORBID, someItem.getDeletePolicy());
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(), FinalItem.TYPE.getReferences());
-		assertSerializedSame(someItem, 377);
+		assertSerializedSame(someItem, 385);
 
 		assertEquals(null, item.getSomeItem());
 		item.setSomeItem(emptyItem);

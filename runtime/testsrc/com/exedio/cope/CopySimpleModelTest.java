@@ -141,8 +141,8 @@ public class CopySimpleModelTest
 		assertSame(templateItem,     templateItemCopyFromTarget.getCopyFunction());
 		assertSame(selfTemplate,     selfTemplateCopyFromTarget.getCopyFunction());
 
-		assertSerializedSame(templateStringCopyFromTarget , 409);
-		assertSerializedSame(templateItemCopyFromTarget   , 407);
-		assertSerializedSame(selfTemplateCopyFromTarget   , 405);
+		assertSerializedSame(templateStringCopyFromTarget , 417);
+		assertSerializedSame(templateItemCopyFromTarget   , 415);
+		assertSerializedSame(selfTemplateCopyFromTarget   , 413);
 	}
 }

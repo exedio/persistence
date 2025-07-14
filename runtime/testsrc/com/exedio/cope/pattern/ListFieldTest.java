@@ -272,10 +272,10 @@ public class ListFieldTest extends TestWithEnvironment
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 		assertTrue(  itemsType.isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(strings, 388);
-		assertSerializedSame(dates  , 386);
-		assertSerializedSame(items  , 386);
-		assertSerializedSame(itemsSameValue, 395);
+		assertSerializedSame(strings, 396);
+		assertSerializedSame(dates  , 394);
+		assertSerializedSame(items  , 394);
+		assertSerializedSame(itemsSameValue, 403);
 
 		// test persistence
 		// test searching

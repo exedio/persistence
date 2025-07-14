@@ -78,10 +78,10 @@ public final class MediaPathLocatorTest extends TestWithEnvironment
 		assertEquals("MediaPathItem/normal/MediaPathItem-1", l2a.toString());
 		assertEquals("MediaPathItem/finger/MediaPathItem-1", l2b.toString());
 
-		final Locator l1as = reserialize(l1a, 722);
-		final Locator l1bs = reserialize(l1b, 722);
-		final Locator l2as = reserialize(l2a, 722);
-		final Locator l2bs = reserialize(l2b, 722);
+		final Locator l1as = reserialize(l1a, 730);
+		final Locator l1bs = reserialize(l1b, 730);
+		final Locator l2as = reserialize(l2a, 730);
+		final Locator l2bs = reserialize(l2b, 730);
 
 		assertSame(MediaPathItem.normal, l1as.getFeature());
 		assertSame(MediaPathItem.finger, l1bs.getFeature());

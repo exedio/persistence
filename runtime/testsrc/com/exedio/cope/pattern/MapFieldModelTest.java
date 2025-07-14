@@ -127,10 +127,10 @@ public class MapFieldModelTest
 		assertEquals(String.class, integer.getKeyClass());
 		assertEquals(Integer.class, integer.getValueClass());
 
-		assertSerializedSame(name      , 383);
-		assertSerializedSame(nameLength, 389);
-		assertSerializedSame(string    , 385);
-		assertSerializedSame(integer   , 386);
+		assertSerializedSame(name      , 391);
+		assertSerializedSame(nameLength, 397);
+		assertSerializedSame(string    , 393);
+		assertSerializedSame(integer   , 394);
 	}
 
 	@Test void testKeyNull()

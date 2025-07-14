@@ -146,9 +146,9 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		assertEquals(UTF_8.name(), encoding(passwordMandatory));
 		assertEquals(5, algo(passwordMandatory).getIterations());
 
-		assertSerializedSame(password         , 400);
-		assertSerializedSame(passwordLatin    , 405);
-		assertSerializedSame(passwordMandatory, 409);
+		assertSerializedSame(password         , 408);
+		assertSerializedSame(passwordLatin    , 413);
+		assertSerializedSame(passwordMandatory, 417);
 
 		blindPassword(null);
 		expectSalt(password, "885406ef34cef302");

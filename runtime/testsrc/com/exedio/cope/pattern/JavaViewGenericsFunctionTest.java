@@ -41,9 +41,9 @@ public class JavaViewGenericsFunctionTest
 {
 	@Test void testSerialize()
 	{
-		assertSerializedSame(MyItem.list, 388);
-		assertSerializedSame(MyItem.set,  387);
-		assertSerializedSame(MyItem.map,  387);
+		assertSerializedSame(MyItem.list, 396);
+		assertSerializedSame(MyItem.set,  395);
+		assertSerializedSame(MyItem.map,  395);
 	}
 
 	@Test void testList()

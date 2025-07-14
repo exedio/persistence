@@ -239,10 +239,10 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertSame(eins.getTemplate(eins.of(anInt  )), eins.getTemplate((Feature)eins.of(anInt)));
 		assertSame(uno .getTemplate(uno .of(anInt  )), uno .getTemplate((Feature)uno .of(anInt)));
 
-		assertSerializedSame(eins, 385);
-		assertSerializedSame(zwei, 385);
-		assertSerializedSame(uno,  392);
-		assertSerializedSame(duo,  392);
+		assertSerializedSame(eins, 393);
+		assertSerializedSame(zwei, 393);
+		assertSerializedSame(uno,  400);
+		assertSerializedSame(duo,  400);
 		assertSerializedSame(eins.getValueType(), 235);
 
 		// test type safety of template-component relation

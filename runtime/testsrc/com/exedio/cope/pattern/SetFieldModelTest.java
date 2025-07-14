@@ -166,8 +166,8 @@ public class SetFieldModelTest
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(strings, 386);
-		assertSerializedSame(dates  , 384);
+		assertSerializedSame(strings, 394);
+		assertSerializedSame(dates  , 392);
 	}
 
 	@Test void testElementNull()

@@ -116,6 +116,6 @@ public class SetOrderedFieldModelTest
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(strings, 400);
+		assertSerializedSame(strings, 408);
 	}
 }

@@ -149,9 +149,9 @@ public class ModelSerializationTest
 		assertSerializedSame(model, 181);
 		assertSerializedSame(MyItem.TYPE, 282);
 		assertNotSerializable(NotItem.TYPE, Type.class);
-		assertSerializedSame(MyItem.TYPE.getThis(), 384);
-		assertSerializedSame(MyItem.name, 384);
-		assertSerializedSame(MyItem.list, 384);
+		assertSerializedSame(MyItem.TYPE.getThis(), 392);
+		assertSerializedSame(MyItem.name, 392);
+		assertSerializedSame(MyItem.list, 392);
 		assertNotSerializable(NotItem.field, Type.class);
 		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
