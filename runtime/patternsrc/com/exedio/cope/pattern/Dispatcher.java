@@ -330,6 +330,21 @@ public final class Dispatcher extends Pattern
 	 * Disables {@link #purge(DispatcherPurgeProperties, JobContext)} functionality.
 	 * Avoids additional columns in database needed for purge functionality.
 	 * Additionally disables resetting failureLimit on unpend.
+	 * <p>
+	 * Fixing the database schema for a dispatcher Mail.send could look like this on MySQL:
+	 * <pre>
+	 * ALTER TABLE `Mail`
+	 * 	ADD COLUMN `send_noPurge` int not null,
+	 * 	ADD COLUMN `send_unpend_success` int,
+	 * 	ADD COLUMN `send_unpend_date` bigint
+	 * CREATE TABLE `DispatcherPurgeTempMail` AS (
+	 * 	SELECT MAX(`this`) `this`, `parent` FROM `Mail_send_Run` GROUP BY `parent`)
+	 * UPDATE `Mail` p
+	 * 	JOIN `DispatcherPurgeTempMail` t ON p.`this`=t.`parent`
+	 * 	JOIN `Mail_send_Run` r ON t.`this`=r.`this`
+	 * 	SET p.`send_unpend_success`=r.`success`, p.`send_unpend_date`=r.`date`
+	 * DROP TABLE `DispatcherPurgeTempMail`
+	 * </pre>
 	 */
 	public Dispatcher withoutPurgeLEGACY()
 	{
@@ -347,6 +362,19 @@ public final class Dispatcher extends Pattern
 	 * <p>
 	 * Disables {@link Run#getRemaining()} and {@link Run#getLimit()} fields.
 	 * Avoids additional columns in database.
+	 * <p>
+	 * Fixing database schema for a dispatcher Mail.send could look like this on MySQL:
+	 * <pre>
+	 * ALTER TABLE `Mail_send_Run`
+	 * 	ADD COLUMN `remaining` int not null DEFAULT 999 AFTER `elapsed`,
+	 * 	ADD COLUMN `limit`     int not null DEFAULT   5 AFTER `remaining`
+	 *
+	 * ALTER TABLE `Mail_send_Run`
+	 * 	ALTER COLUMN `remaining` DROP DEFAULT,
+	 * 	ALTER COLUMN `limit`     DROP DEFAULT
+	 * </pre>
+	 * Note that value '5' for limit comes from Dispatcher.Config#failureLimit,
+	 * you may have configured a different value.
 	 */
 	public Dispatcher withoutRemainingLEGACY()
 	{
