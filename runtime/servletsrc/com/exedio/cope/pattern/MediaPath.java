@@ -244,7 +244,7 @@ public abstract class MediaPath extends Pattern
 		}
 
 		/**
-		 * Is equivalent to {@code sb.{@link StringBuilder#append(String) append}({@link #getPath()});}
+		 * Is equivalent to <code>sb.{@link StringBuilder#append(String) append}({@link #getPath()});</code>
 		 */
 		public void appendPath(final StringBuilder sb)
 		{
@@ -293,7 +293,7 @@ public abstract class MediaPath extends Pattern
 		}
 
 		/**
-		 * Is equivalent to {@code sb.{@link StringBuilder#append(String) append}({@link #getURLByConnect()});}
+		 * Is equivalent to <code>sb.{@link StringBuilder#append(String) append}({@link #getURLByConnect()});</code>
 		 */
 		public void appendURLByConnect(final StringBuilder sb)
 		{
