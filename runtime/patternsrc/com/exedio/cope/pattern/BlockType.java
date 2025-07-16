@@ -57,7 +57,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 		this.javaClass = javaClass;
 		this.constructor = constructor;
 		final String id = javaClass.getName();
-		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
+		for(final Map.Entry<? extends Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 		{
 			final Feature feature = entry.getKey();
 			final java.lang.reflect.Field field = entry.getValue();

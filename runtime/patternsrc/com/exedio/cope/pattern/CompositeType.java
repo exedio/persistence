@@ -68,7 +68,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		final LinkedHashMap<String, Feature> templatesFeature = new LinkedHashMap<>();
 		{
 			int position = 0;
-			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
+			for(final Map.Entry<? extends Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 			{
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();

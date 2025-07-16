@@ -99,7 +99,7 @@ public final class TypesBound
 
 		// features
 		final Features features = new Features();
-		for(final Map.Entry<Feature, Field> entry : getFeatures(javaClass).entrySet())
+		for(final Map.Entry<? extends Feature, Field> entry : getFeatures(javaClass).entrySet())
 		{
 			final Field field = entry.getValue();
 			features.put(
@@ -131,7 +131,7 @@ public final class TypesBound
 		return o;
 	}
 
-	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
+	public static SortedMap<? extends Feature, Field> getFeatures(final Class<?> clazz)
 	{
 		final TreeMap<Feature, Field> result = new TreeMap<>(INSTANTIATION_COMPARATOR);
 		try
