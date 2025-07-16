@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Cope.mapAndCast;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -219,17 +221,16 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	@Wrap(order=10, doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)
 	@Override
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	public E get(@Nonnull final Item item)
 	{
 		if(mandatoryComponent!=null && mandatoryComponent.get(item)==null)
 			return null;
 
-		final SetValue[] initargs = new SetValue[componentSize];
+		final SetValue<?>[] initargs = new SetValue<?>[componentSize];
 		int i = 0;
 		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
 		{
-			initargs[i++] = SetValue.map(((FunctionField)e.getKey()), e.getValue().get(item));
+			initargs[i++] = mapAndCast(e.getKey(), e.getValue().get(item));
 		}
 		return newValue(initargs);
 	}
@@ -243,26 +244,24 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			doc=Wrap.SET_DOC,
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		FinalViolationException.check(this, item);
 
-		final SetValue[] setValues = new SetValue[componentSize];
+		final SetValue<?>[] setValues = new SetValue<?>[componentSize];
 		int i = 0;
 		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
-			setValues[i++] = SetValue.map(((FunctionField) e.getValue()), value!=null ? value.get(e.getKey()) : null);
+			setValues[i++] = mapAndCast(e.getValue(), value!=null ? value.get(e.getKey()) : null);
 		item.set(setValues);
 	}
 
 	@Override
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public SetValue[] execute(final E value, final Item exceptionItem)
+	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		final SetValue[] result = new SetValue[componentSize];
+		final SetValue<?>[] result = new SetValue<?>[componentSize];
 		int i = 0;
 		for(final Map.Entry<FunctionField<?>, FunctionField<?>> e : templateToComponent.entrySet())
-			result[i++] = SetValue.map(((FunctionField)e.getValue()), value!=null ? value.get(e.getKey()) : null);
+			result[i++] = mapAndCast(e.getValue(), value!=null ? value.get(e.getKey()) : null);
 		return result;
 	}
 
