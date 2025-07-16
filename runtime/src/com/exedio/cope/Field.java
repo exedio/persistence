@@ -110,7 +110,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This default implementation returns
-	 * {@code {@link #isFinal()} || {@link #isMandatory()}}.
+	 * <code>{@link #isFinal()} || {@link #isMandatory()}</code>.
 	 */
 	@Override
 	public boolean isInitial()

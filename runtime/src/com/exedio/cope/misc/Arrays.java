@@ -95,7 +95,7 @@ public final class Arrays
 	}
 
 	/**
-	 * Is equivalent to {@code sb.{@link StringBuilder#append(String) append}({@link #toString(byte[], int) toString}(a, limit));}
+	 * Is equivalent to <code>sb.{@link StringBuilder#append(String) append}({@link #toString(byte[], int) toString}(a, limit));</code>
 	 */
 	public static void append(final StringBuilder sb, final byte[] a, final int limit)
 	{

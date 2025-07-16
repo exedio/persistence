@@ -263,7 +263,7 @@ public final class Query<R> implements Serializable
 	/**
 	 * If there is already a condition set for this query,
 	 * this is equivalent to
-	 * {@code {@link #setCondition(Condition) setCondition}({@link #getCondition()}.{@link Condition#and(Condition) and}(narrowingCondition))}.
+	 * <code>{@link #setCondition(Condition) setCondition}({@link #getCondition()}.{@link Condition#and(Condition) and}(narrowingCondition))</code>.
 	 */
 	public void narrow(final Condition narrowingCondition)
 	{

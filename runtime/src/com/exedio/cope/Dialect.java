@@ -304,7 +304,7 @@ abstract class Dialect
 
 	/**
 	 * Appends a clause to the statement causing the database paging the query result.
-	 * This method is never called for {@code offset==0 &amp;&amp; limit=={@link Query#UNLIMITED}}.
+	 * This method is never called for <code>offset==0 &amp;&amp; limit=={@link Query#UNLIMITED}</code>.
 	 * NOTE: Don't forget the space before the keyword 'limit'!
 	 * @param offset the number of rows to be skipped
 	 *        or zero, if no rows to be skipped.
