@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.Serial;
 import java.lang.reflect.Type;
@@ -35,28 +36,36 @@ public class SetValueTest
 	@Test void testNormal()
 	{
 		final MockSettable settable = new MockSettable("alpha");
-		final SetValue<?> value = map(settable, "alphaValue");
+		final SetValue<String> value = map(settable, "alphaValue");
+		assertSame(settable, value.settable);
+		assertSame("alphaValue", value.value);
 		assertEquals("alpha=alphaValue", value.toString());
 	}
 
 	@Test void testNormal2()
 	{
 		final MockSettable settable = new MockSettable("beta");
-		final SetValue<?> value = map(settable, "betaValue");
+		final SetValue<String> value = map(settable, "betaValue");
+		assertSame(settable, value.settable);
+		assertSame("betaValue", value.value);
 		assertEquals("beta=betaValue", value.toString());
 	}
 
 	@Test void testNullValue()
 	{
 		final MockSettable settable = new MockSettable("gamma");
-		final SetValue<?> value = map(settable, null);
+		final SetValue<String> value = map(settable, null);
+		assertSame(settable, value.settable);
+		assertSame(null, value.value);
 		assertEquals("gamma=null", value.toString());
 	}
 
 	@Test void testNullValueAndNullToString()
 	{
 		final MockSettable settable = new MockSettable(null);
-		final SetValue<?> value = map(settable, null);
+		final SetValue<String> value = map(settable, null);
+		assertSame(settable, value.settable);
+		assertSame(null, value.value);
 		assertEquals("null=null", value.toString());
 	}
 
@@ -85,6 +94,8 @@ public class SetValueTest
 	{
 		final MockSettable settable = new MockSettable("alpha");
 		final SetValue<String> value = mapAndCastToFeature(settable, "alphaValue");
+		assertSame(settable, value.settable);
+		assertSame("alphaValue", value.value);
 		assertEquals("alpha=alphaValue", value.toString());
 	}
 
