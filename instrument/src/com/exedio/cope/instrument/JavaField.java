@@ -30,8 +30,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.Element;
@@ -59,15 +61,14 @@ final class JavaField
 	private final String initializer;
 	final WrapperInitial wrapperInitial;
 	final WrapperIgnore wrapperIgnore;
-	final List<Wrapper> wrappers;
-	private final Set<Wrapper> copeWrapsThatHaveBeenRead=new HashSet<>();
+	final List<WrapperWrap> wrappers;
+	private final Set<WrapperWrap> copeWrapsThatHaveBeenRead=new HashSet<>();
 	private final Set<String> unusedValidWrapKeys=new TreeSet<>();
 
 	private Object rtvalue = null;
 
 	private final Map<String,String> typeShortcuts=new HashMap<>();
 
-	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	JavaField(
 		final JavaClass parent,
 		final int modifiers,
@@ -86,11 +87,15 @@ final class JavaField
 		this.deprecated = deprecated;
 		this.typeMirror=typeMirror;
 		this.typeFullyQualified=typeFullyQualified;
-		checkWrapUnique(wrappers);
 		this.initializer=initializer;
 		this.wrapperInitial=wrapperInitial;
 		this.wrapperIgnore=wrapperIgnore;
-		this.wrappers=wrappers;
+		this.wrappers = new ArrayList<>();
+		for(final Wrapper wrapper : wrappers)
+		{
+			this.wrappers.add(new WrapperWrap(wrapper.wrap(), toWrapperConfiguration(wrapper)));
+		}
+		checkWrapUnique(this.wrappers);
 
 		//noinspection ThisEscapedInObjectConstruction
 		parent.add(this);
@@ -164,27 +169,23 @@ final class JavaField
 
 	void reportInvalidWrapperUsages(final Messager messager)
 	{
-		final List<Wrapper> unused=new ArrayList<>(wrappers);
+		final List<WrapperWrap> unused=new ArrayList<>(wrappers);
 		unused.removeAll(copeWrapsThatHaveBeenRead);
 		if (!unused.isEmpty())
 		{
 			final StringBuilder details=new StringBuilder();
 			details.append("unused ").append(Wrapper.class.getSimpleName()).append(" annotation").append(unused.size()>1?"s":"");
-			for (final Wrapper copeWrap: unused)
+			for (final WrapperWrap copeWrap: unused)
 			{
-				details.append(" ").append(copeWrap.wrap());
-				if (!isParametersDefault(copeWrap))
+				details.append(" ").append(copeWrap.wrapKey());
+				if (!copeWrap.configuration().isParametersDefault())
 				{
 					details.append(" (");
-					final Class<?>[] params=parameters(copeWrap);
-					for (int i=0; i<params.length; i++)
-					{
-						if (i!=0) details.append(", ");
-						details.append(params[i].getName());
-					}
+					final List<Class<?>> params=copeWrap.configuration().parameters();
+					details.append(params.stream().map(Class::getName).collect(Collectors.joining(", ")));
 					details.append(")");
 				}
-				if (copeWrap.wrap().contains(Wrapper.ALL_WRAPS) && !Wrapper.ALL_WRAPS.equals(copeWrap.wrap()))
+				if (copeWrap.wrapKey().contains(Wrapper.ALL_WRAPS) && !Wrapper.ALL_WRAPS.equals(copeWrap.wrapKey()))
 				{
 					details.append(" (\"").append(Wrapper.ALL_WRAPS).append("\" is only supported as full value)");
 				}
@@ -205,12 +206,12 @@ final class JavaField
 		}
 	}
 
-	private void checkWrapUnique(final List<Wrapper> wrappers)
+	private static void checkWrapUnique(final List<WrapperWrap> wrappers)
 	{
 		final Set<WrapperTarget> wraps=new HashSet<>();
-		for (final Wrapper wrapper: wrappers)
+		for (final WrapperWrap wrapper: wrappers)
 		{
-			final WrapperTarget wrapperTarget = new WrapperTarget(this, wrapper);
+			final WrapperTarget wrapperTarget = new WrapperTarget(wrapper);
 			if (wrapperTarget.wrap.equals(Wrapper.ALL_WRAPS) && wrapperTarget.parameters!=null)
 			{
 				throw new RuntimeException("invalid @"+Wrapper.class.getSimpleName()+": parameters not supported for wrap=\""+Wrapper.ALL_WRAPS+"\"");
@@ -225,18 +226,18 @@ final class JavaField
 	private static final class WrapperTarget
 	{
 		private final String wrap;
-		private final Class<?>[] parameters;
+		private final List<Class<?>> parameters;
 
-		private WrapperTarget(final JavaField outer, final Wrapper wrapper)
+		private WrapperTarget(final WrapperWrap wrapper)
 		{
-			this.wrap = requireNonNull(wrapper.wrap());
-			this.parameters = outer.isParametersDefault(wrapper) ? null : outer.parameters(wrapper);
+			this.wrap = requireNonNull(wrapper.wrapKey());
+			this.parameters = wrapper.configuration().parameters();
 		}
 
 		@Override
 		public String toString()
 		{
-			return wrap+(parameters==null?"":(" "+Arrays.toString(parameters)));
+			return wrap+(parameters==null?"":(" "+parameters));
 		}
 
 		@Override
@@ -244,46 +245,41 @@ final class JavaField
 		{
 			return obj instanceof WrapperTarget
 				&& ((WrapperTarget)obj).wrap.equals(wrap)
-				&& Arrays.equals(((WrapperTarget)obj).parameters, parameters);
+				&& Objects.equals(((WrapperTarget)obj).parameters, parameters);
 		}
 
 		@Override
 		public int hashCode()
 		{
-			return wrap.hashCode() ^ Arrays.hashCode(parameters);
+			return wrap.hashCode() ^ Objects.hashCode(parameters);
 		}
 	}
 
 	@Nullable
-	Wrapper getWrappers(final String modifierTag, final Type[] parameterTypes)
+	WrapperConfiguration getWrappers(final String modifierTag, final Type[] parameterTypes)
 	{
-		final Wrapper byModifierTagAndParameters=readWrapper(modifierTag, parameterTypes);
+		final WrapperWrap byModifierTagAndParameters=readWrapper(modifierTag, parameterTypes);
 		if (byModifierTagAndParameters!=null)
-			return byModifierTagAndParameters;
-		final Wrapper byModifierTag=readWrapper(modifierTag, PARAMETERS_DEFAULT);
+			return byModifierTagAndParameters.configuration();
+		final WrapperWrap byModifierTag=readWrapper(modifierTag, null);
 		if (byModifierTag!=null)
-			return byModifierTag;
+			return byModifierTag.configuration();
 		unusedValidWrapKeys.add(modifierTag);
-		return readWrapper(Wrapper.ALL_WRAPS, PARAMETERS_DEFAULT);
+		final WrapperWrap byAll = readWrapper(Wrapper.ALL_WRAPS, null);
+		return byAll==null ? null : byAll.configuration();
 	}
 
-	private Wrapper readWrapper(final String wrap, final Type[] parameterTypes)
+	private WrapperWrap readWrapper(final String wrap, final Type[] parameterTypes)
 	{
-		for (final Wrapper wrapper: wrappers)
+		for (final WrapperWrap wrapper: wrappers)
 		{
-			if (wrap.equals(wrapper.wrap()) && Arrays.equals(parameterTypes, parameters(wrapper)))
+			if (wrap.equals(wrapper.wrapKey()) && Objects.equals(parameterTypes==null ? null : Arrays.asList(parameterTypes), wrapper.configuration().parameters()))
 			{
 				copeWrapsThatHaveBeenRead.add(wrapper);
 				return wrapper;
 			}
 		}
 		return null;
-	}
-
-	private boolean isParametersDefault(final Wrapper wrapper)
-	{
-		final Class<?>[] parameters = parameters(wrapper);
-		return Arrays.equals(parameters, PARAMETERS_DEFAULT);
 	}
 
 	private Class<?>[] parameters(final Wrapper wrapper)
@@ -353,6 +349,41 @@ final class JavaField
 		catch (final ClassNotFoundException|NoSuchFieldException|IllegalAccessException e)
 		{
 			throw new RuntimeException(e);
+		}
+	}
+
+	private WrapperConfiguration toWrapperConfiguration(final Wrapper wrapper)
+	{
+		final Class<?>[] parameters = parameters(wrapper);
+		final boolean parametersIsDefault = Arrays.equals(parameters, PARAMETERS_DEFAULT);
+		return new WrapperConfiguration(
+				parametersIsDefault ? null : Arrays.asList(parameters),
+				wrapper.visibility(),
+				wrapper.internal(),
+				wrapper.booleanAsIs(),
+				wrapper.asFinal(),
+				wrapper.override(),
+				Arrays.asList(wrapper.suppressWarnings()),
+				Arrays.asList(wrapper.annotate()),
+				wrapper.nullableAsOptional()
+		);
+	}
+
+	/**
+	 * one 'wrap' key in a {@link Wrapper} annotation
+	 */
+	private record WrapperWrap(String wrapKey, WrapperConfiguration configuration)
+	{
+	}
+
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
+	record WrapperConfiguration(List<Class<?>> parameters, Visibility visibility, boolean internal,
+										 boolean booleanAsIs, boolean asFinal, boolean override,
+										 List<String> suppressWarnings, List<String> annotate, NullableAsOptional nullableAsOptional)
+	{
+		private boolean isParametersDefault()
+		{
+			return null==parameters;
 		}
 	}
 }
