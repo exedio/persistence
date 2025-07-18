@@ -81,9 +81,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 	@Wrapper(wrap="one", override=true, visibility=PUBLIC)
 	private static final SimpleSettable overrideFeature = new SimpleSettable();
 
-	@Wrapper(wrap="get", visibility=PACKAGE)
-	@Wrapper(wrap="set", visibility=PACKAGE)
-	@Wrapper(wrap="for", visibility=PACKAGE)
+	@Wrapper(wrap={"get", "set", "for"}, visibility=PACKAGE)
 	@Wrapper(wrap="forStrict", visibility=PUBLIC)
 	private static final BooleanField manyWrapsFeature = new BooleanField().unique().optional();
 
