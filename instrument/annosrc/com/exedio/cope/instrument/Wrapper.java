@@ -36,7 +36,7 @@ public @interface Wrapper
 	 * Use wrap="*" to influence all wraps of the field.
 	 * @see #ALL_WRAPS
 	 */
-	String wrap();
+	String[] wrap();
 
 	/**
 	 * If several wrapper methods with the same {@link #wrap()} get generated, but your

@@ -93,7 +93,10 @@ final class JavaField
 		this.wrappers = new ArrayList<>();
 		for(final Wrapper wrapper : wrappers)
 		{
-			this.wrappers.add(new WrapperWrap(wrapper.wrap(), toWrapperConfiguration(wrapper)));
+			for (final String wrapKey: wrapper.wrap())
+			{
+				this.wrappers.add(new WrapperWrap(wrapKey, toWrapperConfiguration(wrapper)));
+			}
 		}
 		checkWrapUnique(this.wrappers);
 
