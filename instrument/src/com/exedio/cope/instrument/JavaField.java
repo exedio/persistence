@@ -62,6 +62,7 @@ final class JavaField
 	final WrapperInitial wrapperInitial;
 	final WrapperIgnore wrapperIgnore;
 	final List<WrapperWrap> wrappers;
+	final boolean hasWrappersWithoutWrap;
 	private final Set<WrapperWrap> copeWrapsThatHaveBeenRead=new HashSet<>();
 	private final Set<String> unusedValidWrapKeys=new TreeSet<>();
 
@@ -99,6 +100,7 @@ final class JavaField
 			}
 		}
 		checkWrapUnique(this.wrappers);
+		this.hasWrappersWithoutWrap = wrappers.stream().anyMatch(w->w.wrap().length==0);
 
 		//noinspection ThisEscapedInObjectConstruction
 		parent.add(this);
@@ -206,6 +208,10 @@ final class JavaField
 				}
 			}
 			messager.printMessage(Diagnostic.Kind.ERROR, details.toString(), sourceLocation);
+		}
+		if (hasWrappersWithoutWrap)
+		{
+			messager.printMessage(Diagnostic.Kind.ERROR, Wrapper.class.getSimpleName()+" annotation with empty wrap list", sourceLocation);
 		}
 	}
 
