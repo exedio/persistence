@@ -36,26 +36,26 @@ public class TypesBoundFeaturesTest
 {
 	@Test void testIt() throws NoSuchFieldException
 	{
-		final SortedMap<Feature, Field> m = getFeatures(AClass.class);
+		final SortedMap<? extends Feature, Field> m = getFeatures(AClass.class);
 		assertUnmodifiable(m);
-		final Iterator<Map.Entry<Feature, Field>> iterator = m.entrySet().iterator();
+		final Iterator<? extends Map.Entry<? extends Feature, Field>> iterator = m.entrySet().iterator();
 		{
-			final Map.Entry<Feature, Field> entry = iterator.next();
+			final Map.Entry<? extends Feature, Field> entry = iterator.next();
 			assertSame(AClass.feature1, entry.getKey());
 			assertEquals(AClass.class.getDeclaredField("feature1"), entry.getValue());
 		}
 		{
-			final Map.Entry<Feature, Field> entry = iterator.next();
+			final Map.Entry<? extends Feature, Field> entry = iterator.next();
 			assertSame(AClass.feature2, entry.getKey());
 			assertEquals(AClass.class.getDeclaredField("feature2"), entry.getValue());
 		}
 		{
-			final Map.Entry<Feature, Field> entry = iterator.next();
+			final Map.Entry<? extends Feature, Field> entry = iterator.next();
 			assertSame(AClass.feature3, entry.getKey());
 			assertEquals(AClass.class.getDeclaredField("feature3"), entry.getValue());
 		}
 		{
-			final Map.Entry<Feature, Field> entry = iterator.next();
+			final Map.Entry<? extends Feature, Field> entry = iterator.next();
 			assertSame(AClass.feature4, entry.getKey());
 			assertEquals(AClass.class.getDeclaredField("feature4"), entry.getValue());
 		}
@@ -115,16 +115,16 @@ public class TypesBoundFeaturesTest
 	 */
 	@Test void testInstantiationOrder() throws NoSuchFieldException
 	{
-		final SortedMap<Feature, Field> m = getFeatures(OrderClass.class);
+		final SortedMap<? extends Feature, Field> m = getFeatures(OrderClass.class);
 		assertUnmodifiable(m);
-		final Iterator<Map.Entry<Feature, Field>> iterator = m.entrySet().iterator();
+		final Iterator<? extends Map.Entry<? extends Feature, Field>> iterator = m.entrySet().iterator();
 		{
-			final Map.Entry<Feature, Field> entry = iterator.next();
+			final Map.Entry<? extends Feature, Field> entry = iterator.next();
 			assertSame(OrderClass.feature1, entry.getKey());
 			assertEquals(OrderClass.class.getDeclaredField("feature1"), entry.getValue());
 		}
 		{
-			final Map.Entry<Feature, Field> entry = iterator.next();
+			final Map.Entry<? extends Feature, Field> entry = iterator.next();
 			assertSame(OrderClass.feature2, entry.getKey());
 			assertEquals(OrderClass.class.getDeclaredField("feature2"), entry.getValue());
 		}
