@@ -323,6 +323,7 @@ public final class Assert
 
 	private static final HashSet<String> UNMODIFIABLE_MAPS = new HashSet<>(Arrays.asList(
 			"java.util.Collections$UnmodifiableMap",
+			"java.util.Collections$UnmodifiableSortedMap",
 			"java.util.Collections$EmptyMap"));
 
 	public static void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)

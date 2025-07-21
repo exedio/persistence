@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static java.util.Collections.unmodifiableSortedMap;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.CopeNameUtil;
@@ -163,7 +164,7 @@ public final class TypesBound
 		{
 			throw new RuntimeException(clazz.getName(), e);
 		}
-		return result;
+		return unmodifiableSortedMap(result);
 	}
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;

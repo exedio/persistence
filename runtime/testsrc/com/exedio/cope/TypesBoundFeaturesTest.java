@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.getFeatures;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -36,6 +37,7 @@ public class TypesBoundFeaturesTest
 	@Test void testIt() throws NoSuchFieldException
 	{
 		final SortedMap<Feature, Field> m = getFeatures(AClass.class);
+		assertUnmodifiable(m);
 		final Iterator<Map.Entry<Feature, Field>> iterator = m.entrySet().iterator();
 		{
 			final Map.Entry<Feature, Field> entry = iterator.next();
@@ -114,6 +116,7 @@ public class TypesBoundFeaturesTest
 	@Test void testInstantiationOrder() throws NoSuchFieldException
 	{
 		final SortedMap<Feature, Field> m = getFeatures(OrderClass.class);
+		assertUnmodifiable(m);
 		final Iterator<Map.Entry<Feature, Field>> iterator = m.entrySet().iterator();
 		{
 			final Map.Entry<Feature, Field> entry = iterator.next();
