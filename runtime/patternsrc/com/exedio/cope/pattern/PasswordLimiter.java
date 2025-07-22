@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Cope.mapAndCast;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.pattern.FeatureCounter.counter;
@@ -204,7 +205,7 @@ public final class PasswordLimiter extends Pattern
 		{
 			final Mount mount = mount();
 			mount.refusalType.newItem(
-				Cope.mapAndCast(mount.parent, item),
+				mapAndCast(mount.parent, item),
 				map(this.date, new Date(now)));
 		}
 

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Cope.mapAndCast;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.misc.Iterables.once;
@@ -36,7 +37,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.Cope;
 import com.exedio.cope.CopeSchemaValue;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
@@ -567,7 +567,7 @@ public final class Schedule extends Pattern
 		{
 			final Mount mount = mount();
 			mount.type.newItem(
-					Cope.mapAndCast(mount.parent, item),
+					mapAndCast(mount.parent, item),
 					map(this.interval, interval),
 					map(this.from, from),
 					map(this.until, until),

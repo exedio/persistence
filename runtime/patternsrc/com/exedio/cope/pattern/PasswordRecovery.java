@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Cope.mapAndCast;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.pattern.FeatureCounter.counter;
@@ -172,7 +173,7 @@ public final class PasswordRecovery extends Pattern
 
 		issueCounter.increment();
 		return tokenType.newItem(
-			Cope.mapAndCast(parent, item),
+			mapAndCast(parent, item),
 			map(this.secret, secret),
 			map(this.expires, new Date(now + expiry)));
 	}
