@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Cope.mapAndCast;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.SetValue.map;
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
@@ -298,7 +298,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			try
 			{
 				mount.entryType.newItem(
-						Cope.mapAndCast(mount.parent, item),
+						mapAndCast(mount.parent, item),
 						map(this.order, newOrder),
 						map(this.element, element)
 				);
@@ -314,7 +314,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		try
 		{
 			mount.entryType.newItem(
-					Cope.mapAndCast(mount.parent, item),
+					mapAndCast(mount.parent, item),
 					map(this.element, element)
 			);
 			return true;
@@ -384,7 +384,7 @@ public final class SetField<E> extends Pattern implements Copyable
 				while(toCreate.hasNext())
 				{
 					mount.entryType.newItem(
-							Cope.mapAndCast(mount.parent, item),
+							mapAndCast(mount.parent, item),
 							map(this.element, toCreate.next())
 					);
 				}
@@ -418,7 +418,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			element.check(e);
 		for(final E element : toCreateSet)
 			mount.entryType.newItem(
-					Cope.mapAndCast(mount.parent, item),
+					mapAndCast(mount.parent, item),
 					map(this.order, order++),
 					map(this.element, element));
 	}
