@@ -380,7 +380,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final ItemField<?> component = components.get(i);
 			if(component.getValueClass().isInstance(value))
 			{
-				result[i] = Cope.mapAndCast(component, value);
+				result[i] = SetValue.mapCasted(component, value);
 				valueSet = true;
 			}
 			else

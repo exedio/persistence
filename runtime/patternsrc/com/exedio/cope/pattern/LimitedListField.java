@@ -305,7 +305,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		final SetValue<?>[] result = new SetValue<?>[sources.length+1];
 
 		for(final Object v : value)
-			result[i] = Cope.mapAndCast(sources[i++], v);
+			result[i] = SetValue.mapCasted(sources[i++], v);
 
 		final int length = i;
 

@@ -25,7 +25,6 @@ import static com.exedio.cope.util.Hex.encodeLower;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
@@ -240,7 +239,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 				// resource created by
 				//   echo -n "abcd0123" | gzip > runtime/testsrc/com/exedio/cope/pattern/MediaGzipTestNative.gz
 				AnItem.gzipped.getBody().map(getClass().getResourceAsStream("MediaGzipTestNative.gz")),
-				Cope.mapAndCast(AnItem.gzipped.getContentType(), CONTENT_TYPE),
+				SetValue.mapCasted(AnItem.gzipped.getContentType(), CONTENT_TYPE),
 				SetValue.map(AnItem.gzipped.getLastModified(), new Date()));
 
 		final String plain = "61626364"+"30313233";

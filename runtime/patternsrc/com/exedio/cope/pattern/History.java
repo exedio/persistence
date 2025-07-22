@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Cope.mapAndCast;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.SetValue.mapCasted;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
@@ -163,7 +163,7 @@ public final class History extends Pattern
 	{
 		final EventType type = eventType();
 		return type.type.newItem(
-				mapAndCast(type.parent, item),
+				mapCasted(type.parent, item),
 				map(type.author, author),
 				map(type.New, isNew)
 			);
@@ -263,7 +263,7 @@ public final class History extends Pattern
 		{
 			final FeatureType type = getPattern().featureType();
 			return type.type.newItem(
-					mapAndCast(type.event, this),
+					mapCasted(type.event, this),
 					map(type.id, f),
 					map(type.name, name),
 					cut(type.old, oldValue),

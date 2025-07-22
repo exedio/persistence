@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Cope.mapAndCast;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.SetValue.mapCasted;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
@@ -67,7 +67,7 @@ public final class MediaPattern extends Pattern
 	{
 		final SourceItem result =
 			sourceType.newItem(
-				mapAndCast(parent, item),
+				mapCasted(parent, item),
 				map(sourceTypeValue, Media.toValue(body, contentType)));
 		sourceTypeValue.getLastModified().set(result, hour(hour));
 	}
