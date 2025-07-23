@@ -85,6 +85,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 	@Wrapper(wrap="forStrict", visibility=PUBLIC)
 	private static final BooleanField manyWrapsFeature = new BooleanField().unique().optional();
 
+	@SuppressWarnings("WrapperCombinable") // ok: verify that the combinable @Wrappers don't cause a warning
 	@Wrapper(wrap="get", visibility=NONE)
 	@Wrapper(wrap="set", visibility=NONE)
 	@Wrapper(wrap="for", visibility=NONE)

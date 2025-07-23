@@ -34,6 +34,12 @@ public final class CopeWarnings
 	 */
 	public static final String FEATURE_NOT_STATIC_FINAL = "FeatureNotStaticFinal";
 
+	/**
+	 * Two or more {@link Wrapper} annotations of a field are equal except for their {@link Wrapper#wrap} value. These
+	 * annotations can be combined into a single {@link Wrapper} annotation.
+	 */
+	public static final String WRAPPER_COMBINABLE = "WrapperCombinable";
+
 	private CopeWarnings()
 	{
 	}

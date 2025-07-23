@@ -85,6 +85,7 @@ final class Params
 	boolean finalMethodInFinalClass = true;
 	boolean useConstantForEmptySetValuesArray = true;
 	String introCommentOneTime = null;
+	boolean warnWrappersCombinable = false;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;

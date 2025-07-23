@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -37,6 +38,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
@@ -63,6 +65,7 @@ final class JavaField
 	final WrapperIgnore wrapperIgnore;
 	final List<WrapperWrap> wrappers;
 	final boolean hasWrappersWithoutWrap;
+	private final List<List<Wrapper>> combinable;
 	private final Set<WrapperWrap> copeWrapsThatHaveBeenRead=new HashSet<>();
 	private final Set<String> unusedValidWrapKeys=new TreeSet<>();
 
@@ -92,13 +95,17 @@ final class JavaField
 		this.wrapperInitial=wrapperInitial;
 		this.wrapperIgnore=wrapperIgnore;
 		this.wrappers = new ArrayList<>();
+		final Map<WrapperConfiguration,List<Wrapper>> groupedByConfig = new LinkedHashMap<>();
 		for(final Wrapper wrapper : wrappers)
 		{
+			final WrapperConfiguration wrapperConfiguration = toWrapperConfiguration(wrapper);
+			groupedByConfig.computeIfAbsent(wrapperConfiguration, w -> new ArrayList<>()).add(wrapper);
 			for (final String wrapKey: wrapper.wrap())
 			{
-				this.wrappers.add(new WrapperWrap(wrapKey, toWrapperConfiguration(wrapper)));
+				this.wrappers.add(new WrapperWrap(wrapKey, wrapperConfiguration));
 			}
 		}
+		combinable = groupedByConfig.values().stream().filter( l -> l.size()>1 ).toList();
 		checkWrapUnique(this.wrappers);
 		this.hasWrappersWithoutWrap = wrappers.stream().anyMatch(w->w.wrap().length==0);
 
@@ -172,7 +179,7 @@ final class JavaField
 		return shortType==null ? typeName : shortType;
 	}
 
-	void reportInvalidWrapperUsages(final Messager messager)
+	void reportInvalidWrapperUsages(final Messager messager, final boolean warnWrappersCombinable)
 	{
 		final List<WrapperWrap> unused=new ArrayList<>(wrappers);
 		unused.removeAll(copeWrapsThatHaveBeenRead);
@@ -212,6 +219,19 @@ final class JavaField
 		if (hasWrappersWithoutWrap)
 		{
 			messager.printMessage(Diagnostic.Kind.ERROR, Wrapper.class.getSimpleName()+" annotation with empty wrap list", sourceLocation);
+		}
+		if (warnWrappersCombinable)
+		{
+			for(final List<Wrapper> combinableWrappers : combinable)
+			{
+				WarningHelper.printWarning(
+						(VariableElement) sourceLocation,
+						messager,
+						CopeWarnings.WRAPPER_COMBINABLE,
+						Wrapper.class.getSimpleName() + " annotations can be combined: " +
+							combinableWrappers.stream().map(w->Arrays.asList(w.wrap()).toString()).collect(Collectors.joining(" / "))
+				);
+			}
 		}
 	}
 

@@ -98,7 +98,7 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 				{
 					for(final JavaField field : clazz.getFields())
 					{
-						field.reportInvalidWrapperUsages(processingEnv.getMessager());
+						field.reportInvalidWrapperUsages(processingEnv.getMessager(), params.warnWrappersCombinable);
 					}
 				}
 			}
