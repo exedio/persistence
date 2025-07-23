@@ -345,6 +345,8 @@ public final class Dispatcher extends Pattern
 	 * 	SET p.`send_unpend_success`=r.`success`, p.`send_unpend_date`=r.`date`
 	 * DROP TABLE `DispatcherPurgeTempMail`
 	 * </pre>
+	 * If you don't want to call {@link #purge(DispatcherPurgeProperties, JobContext) purge},
+	 * the first statement {@code ALTER TABLE ...} is sufficient.
 	 */
 	public Dispatcher withoutPurgeLEGACY()
 	{
