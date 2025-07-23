@@ -85,8 +85,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 
 	// boolean-as-is
 
-	@Wrapper(wrap="get", booleanAsIs=true)
-	@Wrapper(wrap="set", booleanAsIs=true)
+	@Wrapper(wrap={"get", "set"}, booleanAsIs=true)
 	static final BooleanField booleanAs = new BooleanField();
 
 	@Wrapper(wrap="get", booleanAsIs=true)

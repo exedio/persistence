@@ -79,8 +79,7 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 		@Wrapper(wrap="*", visibility=NONE)
 		private static final StringField field = new StringField().toFinal();
 
-		@Wrapper(wrap="getMap", visibility=NONE)
-		@Wrapper(wrap="setMap", visibility=NONE)
+		@Wrapper(wrap={"getMap", "setMap"}, visibility=NONE)
 		private static final EnumMapField<Color,EnumMapFieldCopyValue> map = EnumMapField.create(
 				Color.class,
 				ItemField.create(EnumMapFieldCopyValue.class).copyTo(field, () -> EnumMapFieldCopyValue.field).optional()

@@ -122,8 +122,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 
 		@Wrapper(visibility=Visibility.NONE, wrap="*")
 		@Wrapper(visibility=Visibility.DEFAULT, wrap="dispatch", parameters={Config.class, JobContext.class})
-		@Wrapper(visibility=Visibility.DEFAULT, wrap="isPending")
-		@Wrapper(visibility=Visibility.DEFAULT, wrap="getLastSuccessDate")
+		@Wrapper(visibility=Visibility.DEFAULT, wrap={"isPending", "getLastSuccessDate"})
 		static final Dispatcher toTarget = Dispatcher.create(i -> {});
 
 
