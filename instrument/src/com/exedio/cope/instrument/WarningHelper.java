@@ -1,7 +1,10 @@
 package com.exedio.cope.instrument;
 
+import static java.util.Objects.requireNonNull;
+
 import javax.annotation.processing.Messager;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.VariableElement;
 import javax.tools.Diagnostic;
 
 final class WarningHelper
@@ -10,17 +13,21 @@ final class WarningHelper
 	{
 	}
 
-	static void printWarning(final Element sourceLocation, final Messager messager, final String key, final String message)
+	static void printWarning(final VariableElement variableElement, final Messager messager, final String key, final String message)
 	{
-		final SuppressWarnings suppressWarnings=sourceLocation.getAnnotation(SuppressWarnings.class);
-		if (suppressWarnings!=null)
+		requireNonNull(variableElement);
+		for (Element sourceLocation = variableElement; sourceLocation!=null; sourceLocation = sourceLocation.getEnclosingElement())
 		{
-			for (final String string: suppressWarnings.value())
+			final SuppressWarnings suppressWarnings = sourceLocation.getAnnotation(SuppressWarnings.class);
+			if(suppressWarnings != null)
 			{
-				if (key.equals(string))
-					return;
+				for(final String string : suppressWarnings.value())
+				{
+					if(key.equals(string))
+						return;
+				}
 			}
 		}
-		messager.printMessage(Diagnostic.Kind.WARNING, "[" + key + "] " + message, sourceLocation);
+		messager.printMessage(Diagnostic.Kind.WARNING, "[" + key + "] " + message, variableElement);
 	}
 }

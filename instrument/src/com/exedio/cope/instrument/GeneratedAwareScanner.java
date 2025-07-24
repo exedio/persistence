@@ -24,6 +24,7 @@ import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePathScanner;
 import java.lang.annotation.Annotation;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.VariableElement;
 
 @SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: abstract TreePathScanner subclasses have no choice
 abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
@@ -91,7 +92,7 @@ abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 
 	final void printWarning(final String key, final String message)
 	{
-		WarningHelper.printWarning(context.getElement(getCurrentPath()), context.messager, key, message);
+		WarningHelper.printWarning((VariableElement) context.getElement(getCurrentPath()), context.messager, key, message);
 	}
 
 }
