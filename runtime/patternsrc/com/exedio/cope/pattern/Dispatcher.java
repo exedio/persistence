@@ -336,7 +336,11 @@ public final class Dispatcher extends Pattern
 	 * ALTER TABLE `Mail`
 	 * 	ADD COLUMN `send_noPurge` int not null,
 	 * 	ADD COLUMN `send_unpend_success` int,
-	 * 	ADD COLUMN `send_unpend_date` bigint
+	 * 	ADD COLUMN `send_unpend_date` bigint,
+	 * 	ADD CONSTRAINT `Mail_send_noPurge_EN` CHECK(`send_noPurge` IN (0,1)),
+	 * 	ADD CONSTRAINT `Mail_send_unpend_success_EN` CHECK(`send_unpend_success` IN (0,1)),
+	 * 	ADD CONSTRAINT `Mail_send_unpend_date_MN` CHECK(`send_unpend_date`>=-11676096000000),
+	 * 	ADD CONSTRAINT `Mail_send_unpend_date_MX` CHECK(`send_unpend_date`&lt;=253402300799999)
 	 * CREATE TABLE `DispatcherPurgeTempMail` AS (
 	 * 	SELECT MAX(`this`) `this`, `parent` FROM `Mail_send_Run` GROUP BY `parent`)
 	 * UPDATE `Mail` p
@@ -369,7 +373,11 @@ public final class Dispatcher extends Pattern
 	 * <pre>
 	 * ALTER TABLE `Mail_send_Run`
 	 * 	ADD COLUMN `remaining` int not null DEFAULT 999 AFTER `elapsed`,
-	 * 	ADD COLUMN `limit`     int not null DEFAULT   5 AFTER `remaining`
+	 * 	ADD COLUMN `limit`     int not null DEFAULT   5 AFTER `remaining`,
+	 * 	ADD CONSTRAINT `Mail_send_Run_remaining_MN` CHECK(`remaining`>=0),
+	 * 	ADD CONSTRAINT `Mail_send_Run_remaining_MX` CHECK(`remaining`&lt;=2147483647),
+	 * 	ADD CONSTRAINT `Mail_send_Run_limit_MN` CHECK(`limit`>=1),
+	 * 	ADD CONSTRAINT `Mail_send_Run_limit_MX` CHECK(`limit`&lt;=2147483647)
 	 *
 	 * ALTER TABLE `Mail_send_Run`
 	 * 	ALTER COLUMN `remaining` DROP DEFAULT,
