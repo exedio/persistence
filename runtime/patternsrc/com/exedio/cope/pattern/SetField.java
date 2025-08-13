@@ -128,30 +128,36 @@ public final class SetField<E> extends Pattern implements Copyable
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 		final UniqueConstraint uniqueOrder = ordered ? UniqueConstraint.create(parent, order) : null;
 		final UniqueConstraint uniqueElement = UniqueConstraint.create(parent, element);
+		final PartOf<?> entries              =           PartOf.create(parent, ordered ? order : element);
 		final Features features = new Features();
 		features.put("parent", parent);
 		if(ordered)
 		{
 			features.put("order", order);
 			features.put("uniqueOrder", uniqueOrder);
+			features.put("entries", entries);
 		}
 		features.put("element", element, new MysqlExtendedVarcharAnnotationProxy(this));
 		features.put("uniqueConstraint", uniqueElement);
+		if(!ordered)
+			features.put("entries", entries);
 		copyWith.onMount(features, parent, element);
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
-		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, entryType);
+		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, entries, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueOrder,
 			UniqueConstraint uniqueElement,
+			PartOf<?> entries,
 			Type<Entry> entryType)
 	{
 		Mount
 		{
 			assert parent!=null;
 			assert uniqueElement != null;
+			assert entries!=null;
 			assert entryType!=null;
 		}
 	}
@@ -201,6 +207,11 @@ public final class SetField<E> extends Pattern implements Copyable
 	public UniqueConstraint getUniqueConstraint()
 	{
 		return mount().uniqueElement;
+	}
+
+	public PartOf<?> getEntries()
+	{
+		return mount().entries;
 	}
 
 	/**

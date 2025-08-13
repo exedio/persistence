@@ -124,6 +124,7 @@ public class ListFieldTest extends TestWithEnvironment
 				stringsParent(),
 				stringsOrder,
 				strings.getUniqueConstraint(),
+				strings.getEntries(),
 				stringsElement
 			), stringsType.getFeatures());
 		assertEqualsUnmodifiable(list(
@@ -131,6 +132,7 @@ public class ListFieldTest extends TestWithEnvironment
 				datesParent(),
 				dates.getOrder(),
 				dates.getUniqueConstraint(),
+				dates.getEntries(),
 				dates.getElement()
 			), datesType.getFeatures());
 		assertEqualsUnmodifiable(list(
@@ -138,6 +140,7 @@ public class ListFieldTest extends TestWithEnvironment
 				itemsParent(),
 				items.getOrder(),
 				items.getUniqueConstraint(),
+				items.getEntries(),
 				items.getElement()
 			), itemsType.getFeatures());
 		assertEqualsUnmodifiable(list(
@@ -145,6 +148,7 @@ public class ListFieldTest extends TestWithEnvironment
 				itemsSameValueParent(),
 				itemsSameValue.getOrder(),
 				itemsSameValue.getUniqueConstraint(),
+				itemsSameValue.getEntries(),
 				itemsSameValue.getElement(),
 				itemsSameValue.getCopyWithCopyField(value),
 				copyParent,
@@ -246,6 +250,11 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(list(datesParent(), dates.getOrder()), dates.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(itemsParent(), items.getOrder()), items.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(itemsSameValueParent(), itemsSameValue.getOrder()), itemsSameValue.getUniqueConstraint().getFields());
+
+		assertSame(stringsParent(), strings.getEntries().getContainer());
+		assertEquals("[" + stringsOrder + " asc]", strings.getEntries().getOrders().toString());
+		assertEquals("entries", strings.getEntries().getName());
+		assertSame(strings.getEntryType(), strings.getEntries().getType());
 
 		assertTrue(stringsType.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(datesType));

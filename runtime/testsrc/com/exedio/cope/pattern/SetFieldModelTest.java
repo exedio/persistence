@@ -80,13 +80,15 @@ public class SetFieldModelTest
 				stringsType.getThis(),
 				stringsParent(),
 				stringsElement,
-				strings.getUniqueConstraint()
+				strings.getUniqueConstraint(),
+				strings.getEntries()
 			), stringsType.getFeatures());
 		assertEqualsUnmodifiable(list(
 				datesType.getThis(),
 				datesParent(),
 				dates.getElement(),
-				dates.getUniqueConstraint()
+				dates.getUniqueConstraint(),
+				dates.getEntries()
 			), datesType.getFeatures());
 
 		assertEquals(TYPE, strings.getType());
@@ -141,6 +143,11 @@ public class SetFieldModelTest
 
 		assertEqualsUnmodifiable(list(stringsParent(), stringsElement), strings.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(datesParent(), dates.getElement()), dates.getUniqueConstraint().getFields());
+
+		assertSame(stringsParent(), strings.getEntries().getContainer());
+		assertEquals("[" + strings.getElement() + " asc]", strings.getEntries().getOrders().toString());
+		assertEquals("entries", strings.getEntries().getName());
+		assertSame(strings.getEntryType(), strings.getEntries().getType());
 
 		assertTrue(stringsType.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(datesType));

@@ -101,26 +101,30 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
 		final UniqueConstraint uniqueConstraint = UniqueConstraint.create(parent, key);
+		final PartOf<?> entries                 =           PartOf.create(parent, key);
 		final MysqlExtendedVarcharAnnotationProxy annotationSource = new MysqlExtendedVarcharAnnotationProxy(this);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("key", key, annotationSource);
 		features.put("uniqueConstraint", uniqueConstraint);
+		features.put("entries", entries);
 		features.put("value", value, annotationSource);
 		CopyFields.onMountAll(features, parent, new FunctionField<?>[]{key, value}, new CopyFields[]{keyCopyWiths, valueCopyWiths});
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
-		this.mountIfMounted = new Mount(parent, uniqueConstraint, entryType);
+		this.mountIfMounted = new Mount(parent, uniqueConstraint, entries, entryType);
 	}
 
 	private record Mount(
 			ItemField<?> parent,
 			UniqueConstraint uniqueConstraint,
+			PartOf<?> entries,
 			Type<Entry> entryType)
 	{
 		Mount
 		{
 			assert parent!=null;
 			assert uniqueConstraint!=null;
+			assert entries!=null;
 			assert entryType!=null;
 		}
 	}
@@ -158,6 +162,11 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	public UniqueConstraint getUniqueConstraint()
 	{
 		return mount().uniqueConstraint;
+	}
+
+	public PartOf<?> getEntries()
+	{
+		return mount().entries;
 	}
 
 	@Override

@@ -70,6 +70,7 @@ public class SetOrderedFieldModelTest
 				stringsParent(),
 				stringsOrder,
 				strings.getUniqueConstraintForOrder(),
+				strings.getEntries(),
 				stringsElement,
 				strings.getUniqueConstraint()
 			), stringsType.getFeatures());
@@ -104,6 +105,11 @@ public class SetOrderedFieldModelTest
 
 		assertEqualsUnmodifiable(list(stringsParent(), stringsOrder), strings.getUniqueConstraintForOrder().getFields());
 		assertEqualsUnmodifiable(list(stringsParent(), stringsElement), strings.getUniqueConstraint().getFields());
+
+		assertSame(stringsParent(), strings.getEntries().getContainer());
+		assertEquals("[" + strings.getOrder() + " asc]", strings.getEntries().getOrders().toString());
+		assertEquals("entries", strings.getEntries().getName());
+		assertSame(strings.getEntryType(), strings.getEntries().getType());
 
 		assertEqualsUnmodifiable(list(), strings.getSourceFeatures());
 	}
