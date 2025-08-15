@@ -187,16 +187,16 @@ final class Generator
 
 	private void writeSuppressWarnings(
 			final Params.Suppressor byParams,
-			final String[] byAnnotation)
+			final List<String> byAnnotation)
 	{
 		final SortedSet<String> byParamsSet = byParams.get();
 		final SortedSet<String> set;
-		if(byAnnotation.length==0)
+		if(byAnnotation.isEmpty())
 			set = byParamsSet;
 		else
 		{
 			set = new TreeSet<>(byParamsSet);
-			set.addAll(asList(byAnnotation));
+			set.addAll(byAnnotation);
 		}
 		if(set.isEmpty())
 			return;
@@ -260,7 +260,7 @@ final class Generator
 		}
 		writeComment(commentLines);
 		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE);
-		writeSuppressWarnings(suppressWarningsConstructor, type.getOption().constructorSuppressWarnings());
+		writeSuppressWarnings(suppressWarningsConstructor, asList(type.getOption().constructorSuppressWarnings()));
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
@@ -393,7 +393,7 @@ final class Generator
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.name;
 			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
-			final Wrapper option = feature.getOption(modifierTag, getRawTypes(parameters));
+			final JavaField.WrapperConfiguration option = feature.getOption(modifierTag, getRawTypes(parameters));
 
 			final Visibility visibility = option.visibility();
 			if(!visibility.exists())
@@ -409,7 +409,7 @@ final class Generator
 			final boolean isStatic = wrapper.isStatic();
 			final boolean internal = option.internal();
 			final boolean override = option.override();
-			final String[] customAnnotations = option.annotate();
+			final List<String> customAnnotations = option.annotate();
 			final boolean useIs = feature.getInstance() instanceof BooleanField && methodName.startsWith("get");
 			final boolean wrapResultInOptional = wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
 
@@ -806,7 +806,7 @@ final class Generator
 
 		writeComment(List.of(format(kind.typeDoc, lowerCamelCase(type.getName()))));
 		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
-		writeSuppressWarnings(suppressWarningsType, option.typeSuppressWarnings());
+		writeSuppressWarnings(suppressWarningsType, asList(option.typeSuppressWarnings()));
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write(kind.typeField);

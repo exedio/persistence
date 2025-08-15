@@ -191,6 +191,11 @@ public final class AntTask extends Task
 		params.introCommentOneTime = value;
 	}
 
+	public void setWarnWrapperCombinable(final boolean value)
+	{
+		params.warnWrappersCombinable = value;
+	}
+
 	public void setWildcardClass(final boolean value)
 	{
 		throwNoLongerSupported("wildcardClass", true);

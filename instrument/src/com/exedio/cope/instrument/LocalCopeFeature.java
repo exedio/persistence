@@ -18,14 +18,11 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.List;
 
 final class LocalCopeFeature extends CopeFeature
 {
-	private static final String[] EMPTY_STRING_ARRAY = new String[0];
-
 	private final JavaField javaField;
 	private final Boolean initialByConfiguration;
 
@@ -71,9 +68,9 @@ final class LocalCopeFeature extends CopeFeature
 		return javaField.evaluate();
 	}
 
-	Wrapper getOption(final String modifierTag, final Type[] parameterTypes)
+	JavaField.WrapperConfiguration getOption(final String modifierTag, final Type[] parameterTypes)
 	{
-		final Wrapper option = javaField.getWrappers(modifierTag, parameterTypes);
+		final JavaField.WrapperConfiguration option = javaField.getWrappers(modifierTag, parameterTypes);
 		return option!=null ? option : OPTION_DEFAULT;
 	}
 
@@ -91,20 +88,17 @@ final class LocalCopeFeature extends CopeFeature
 		return javaField.getInitializer();
 	}
 
-	private static final Wrapper OPTION_DEFAULT = new Wrapper()
-	{
-		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
-		@Override public String wrap() { throw new RuntimeException(); }
-		@Override public Class<?>[] parameters() { throw new RuntimeException(); }
-		@Override public Visibility visibility() { return Visibility.DEFAULT; }
-		@Override public boolean internal() { return false; }
-		@Override public boolean booleanAsIs() { return false; }
-		@Override public boolean asFinal() { return true; }
-		@Override public boolean override() { return false; }
-		@Override public String[] suppressWarnings() { return EMPTY_STRING_ARRAY; }
-		@Override public String[] annotate() { return EMPTY_STRING_ARRAY; }
-		@Override public NullableAsOptional nullableAsOptional() { return NullableAsOptional.DEFAULT; }
-	};
+	private static final JavaField.WrapperConfiguration OPTION_DEFAULT = new JavaField.WrapperConfiguration(
+			null,
+			Visibility.DEFAULT,
+			false,
+			false,
+			true,
+			false,
+			List.of(),
+			List.of(),
+			NullableAsOptional.DEFAULT
+	);
 
 	@Override
 	String getJavadocReference()

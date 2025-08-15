@@ -81,6 +81,17 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 	@Wrapper(wrap="one", override=true, visibility=PUBLIC)
 	private static final SimpleSettable overrideFeature = new SimpleSettable();
 
+	@Wrapper(wrap={"get", "set", "for"}, visibility=PACKAGE)
+	@Wrapper(wrap="forStrict", visibility=PUBLIC)
+	private static final BooleanField manyWrapsFeature = new BooleanField().unique().optional();
+
+	@SuppressWarnings("WrapperCombinable") // ok: verify that the combinable @Wrappers don't cause a warning
+	@Wrapper(wrap="get", visibility=NONE)
+	@Wrapper(wrap="set", visibility=NONE)
+	@Wrapper(wrap="for", visibility=NONE)
+	@Wrapper(wrap="forStrict", visibility=PUBLIC)
+	private static final BooleanField manyWrapsSeparateAnnotationsFeature = new BooleanField().unique().optional();
+
 	@AnnotationNotInInterim
 	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	static final void annotatedMethod()
@@ -206,6 +217,72 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		public final java.lang.String oneOverrideFeature()
 		{
 			return AnnotatedItem.overrideFeature.one(this);
+		}
+
+		/**
+		 * Returns the value of {@link #manyWrapsFeature}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		final java.lang.Boolean getManyWrapsFeature()
+		{
+			return AnnotatedItem.manyWrapsFeature.get(this);
+		}
+
+		/**
+		 * Sets a new value for {@link #manyWrapsFeature}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		final void setManyWrapsFeature(@javax.annotation.Nullable final java.lang.Boolean manyWrapsFeature)
+				throws
+					com.exedio.cope.UniqueViolationException
+		{
+			AnnotatedItem.manyWrapsFeature.set(this,manyWrapsFeature);
+		}
+
+		/**
+		 * Finds a annotatedItem by its {@link #manyWrapsFeature}.
+		 * @param manyWrapsFeature shall be equal to field {@link #manyWrapsFeature}.
+		 * @return null if there is no matching item.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		static final AnnotatedItem forManyWrapsFeature(@javax.annotation.Nonnull final java.lang.Boolean manyWrapsFeature)
+		{
+			return AnnotatedItem.manyWrapsFeature.searchUnique(AnnotatedItem.class,manyWrapsFeature);
+		}
+
+		/**
+		 * Finds a annotatedItem by its {@link #manyWrapsFeature}.
+		 * @param manyWrapsFeature shall be equal to field {@link #manyWrapsFeature}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		public static final AnnotatedItem forManyWrapsFeatureStrict(@javax.annotation.Nonnull final java.lang.Boolean manyWrapsFeature)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnnotatedItem.manyWrapsFeature.searchUniqueStrict(AnnotatedItem.class,manyWrapsFeature);
+		}
+
+		/**
+		 * Finds a annotatedItem by its {@link #manyWrapsSeparateAnnotationsFeature}.
+		 * @param manyWrapsSeparateAnnotationsFeature shall be equal to field {@link #manyWrapsSeparateAnnotationsFeature}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		public static final AnnotatedItem forManyWrapsSeparateAnnotationsFeatureStrict(@javax.annotation.Nonnull final java.lang.Boolean manyWrapsSeparateAnnotationsFeature)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnnotatedItem.manyWrapsSeparateAnnotationsFeature.searchUniqueStrict(AnnotatedItem.class,manyWrapsSeparateAnnotationsFeature);
 		}
 
 		@com.exedio.cope.instrument.Generated
