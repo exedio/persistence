@@ -24,8 +24,7 @@ import com.exedio.cope.instrument.Wrapper;
 
 abstract class DeleteSchemaItemSuper extends Item
 {
-	@Wrapper(wrap="get", visibility=NONE)
-	@Wrapper(wrap="set", visibility=NONE)
+	@Wrapper(wrap={"get", "set"}, visibility=NONE)
 	@SuppressWarnings("unused")
 	private static final StringField superField = new StringField().optional();
 

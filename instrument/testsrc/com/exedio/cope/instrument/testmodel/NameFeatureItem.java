@@ -37,8 +37,7 @@ public final class NameFeatureItem extends Item
 	@Wrapper(wrap="", visibility=PROTECTED)
 	static final NameFeature beta = new NameFeature();
 
-	@Wrapper(wrap="", visibility=NONE)
-	@Wrapper(wrap="withinMethod", visibility=NONE)
+	@Wrapper(wrap={"", "withinMethod"}, visibility=NONE)
 	@SuppressWarnings("unused")
 	static final NameFeature gamma = new NameFeature();
 

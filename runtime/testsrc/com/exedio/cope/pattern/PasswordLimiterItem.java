@@ -34,8 +34,7 @@ public final class PasswordLimiterItem extends Item
 {
 	static final Hash password = new Hash(WrapHash.ALGORITHM);
 
-	@Wrapper(wrap="check", visibility=PRIVATE)
-	@Wrapper(wrap="checkVerbosely", visibility=PRIVATE)
+	@Wrapper(wrap={"check", "checkVerbosely"}, visibility=PRIVATE)
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, ofMinutes(1), 2);
 
 	boolean checkPasswordLimited(

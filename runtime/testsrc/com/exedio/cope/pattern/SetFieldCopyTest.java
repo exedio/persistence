@@ -265,9 +265,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		private static final ItemField<Catalog> catalog = ItemField.create(Catalog.class).toFinal();
 
 		@Wrapper(wrap="*", visibility=NONE)
-		@Wrapper(wrap="get", visibility=DEFAULT)
-		@Wrapper(wrap="set", visibility=DEFAULT)
-		@Wrapper(wrap="addTo", visibility=DEFAULT)
+		@Wrapper(wrap={"get", "set", "addTo"}, visibility=DEFAULT)
 		private static final SetField<ElementInCatalog> elementsSameCatalog = SetField.create(ItemField.create(ElementInCatalog.class)).copyWith(catalog);
 
 		@com.exedio.cope.instrument.Generated
@@ -395,9 +393,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		private static final IntegerField number = new IntegerField().optional().toFinal();
 
 		@Wrapper(wrap="*", visibility=NONE)
-		@Wrapper(wrap="set", visibility=DEFAULT)
-		@Wrapper(wrap="addTo", visibility=DEFAULT)
-		@Wrapper(wrap="get", visibility=DEFAULT)
+		@Wrapper(wrap={"set", "addTo", "get"}, visibility=DEFAULT)
 		private static final SetField<ElementWithNumber> elements = SetField.create(ItemField.create(ElementWithNumber.class)).copyWith(number).ordered();
 
 		@com.exedio.cope.instrument.Generated

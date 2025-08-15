@@ -26,12 +26,10 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 {
 	static final StringField nonHiddenSub = new StringField().optional();
 
-	@Wrapper(wrap="get", visibility=NONE)
-	@Wrapper(wrap="set", visibility=NONE)
+	@Wrapper(wrap={"get", "set"}, visibility=NONE)
 	static final StringField hiddenSame = new StringField().optional();
 
-	@Wrapper(wrap="get", visibility=NONE)
-	@Wrapper(wrap="set", visibility=NONE)
+	@Wrapper(wrap={"get", "set"}, visibility=NONE)
 	static final IntegerField hiddenOther = new IntegerField().optional();
 
 	/**

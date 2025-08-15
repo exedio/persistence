@@ -11,8 +11,8 @@ import com.exedio.cope.instrument.WrapperType;
 @WrapperType(constructor=NONE, genericConstructor=NONE, comments=false)
 class CombinableWrappersItem extends Item
 {
-	@Wrapper(wrap="get", visibility=DEFAULT)
-	@Wrapper(wrap="set", visibility=DEFAULT)
+	@Wrapper(wrap="get", visibility=DEFAULT) // test case for not setting <instrument warnWrapperCombinable="true"/>
+	@Wrapper(wrap="set", visibility=DEFAULT) // test case for not setting <instrument warnWrapperCombinable="true"/>
 	public static final StringField string = new StringField();
 
 	@com.exedio.cope.instrument.GeneratedClass
