@@ -252,6 +252,7 @@ public class ServletUtilTest
 		}
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	private static class MockFilterConfig implements FilterConfig
 	{
 		final String model;

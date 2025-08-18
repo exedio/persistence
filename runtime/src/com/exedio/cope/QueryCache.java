@@ -72,6 +72,7 @@ final class QueryCache
 		this.stampList = (stamps && map!=null) ? new ArrayDeque<>() : null;
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	private static final class Metrics
 	{
 		final ModelMetrics back;

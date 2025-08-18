@@ -86,6 +86,7 @@ final class ItemCache
 		metrics.gaugeL(c -> c.stampList,   "stamp.transactions", "Number of transactions in stamp list");
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	private static final class Metrics
 	{
 		final ModelMetrics back;

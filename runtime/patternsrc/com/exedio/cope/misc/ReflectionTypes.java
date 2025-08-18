@@ -40,6 +40,7 @@ public final class ReflectionTypes
 		return new Parameterized(actualTypeArguments, rawType);
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	private static final class Parameterized implements ParameterizedType
 	{
 		private final Type[] arguments;

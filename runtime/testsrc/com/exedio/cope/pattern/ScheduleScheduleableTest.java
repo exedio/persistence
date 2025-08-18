@@ -178,6 +178,7 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 		assertEquals(expectedRuns, actual);
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	private static class ExpectedRun
 	{
 		final MyItem parent;
