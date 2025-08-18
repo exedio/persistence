@@ -896,7 +896,7 @@ public abstract class MediaPath extends Pattern
 		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
 	}
 
-	private void setCacheControl(
+	private static void setCacheControl(
 			final MediaServlet servlet,
 			final HttpServletResponse response,
 			final MediaResponse mediaResponse,
