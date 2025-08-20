@@ -287,7 +287,7 @@ public final class VaultJdbcToService
 		/**
 		 * Stream result sets row-by-row with minimum heap space requirement.
 		 * MySQL requires non-standard setting of {@link Integer#MIN_VALUE}, setting to 1 is not sufficient.
-		 * See <a href="https://dev.mysql.com/doc/connector-j/8.1/en/connector-j-reference-implementation-notes.html">Docs</a>
+		 * See <a href="https://dev.mysql.com/doc/connector-j/en/connector-j-reference-implementation-notes.html">Docs</a>
 		 */
 		final int fetchSize = value("source.fetchSize",
 				url.startsWith("jdbc:mysql:") ? Integer.MIN_VALUE : 1,
