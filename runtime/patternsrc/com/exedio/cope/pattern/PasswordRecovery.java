@@ -237,6 +237,7 @@ public final class PasswordRecovery extends Pattern
 		}
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	public static final class Config
 	{
 		private final Duration expiry;

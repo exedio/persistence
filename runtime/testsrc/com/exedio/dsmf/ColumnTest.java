@@ -225,6 +225,7 @@ public class ColumnTest extends SchemaReadyTest
 		schema.querySQL(selectSQL, new UpdateResultSetHandler("88", "88", "88"));
 	}
 
+	@SuppressWarnings("ClassCanBeRecord")
 	private static final class UpdateResultSetHandler implements Dialect.ResultSetHandler
 	{
 		private final List<String> expected;
