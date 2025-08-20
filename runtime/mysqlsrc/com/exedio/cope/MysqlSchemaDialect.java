@@ -132,7 +132,7 @@ final class MysqlSchemaDialect extends Dialect
 				"SELECT TABLE_NAME, ENGINE " +
 				"FROM information_schema.TABLES " +
 				"WHERE TABLE_SCHEMA=" + catalog + " AND TABLE_TYPE='BASE TABLE' " +
-				"ORDER BY TABLE_NAME", // make it deterministic for more than one unused table
+				"ORDER BY TABLE_NAME", // make it deterministic for more than one unused table, dropping ORDER BY does not improve execution time significantly
 		resultSet ->
 		{
 			while(resultSet.next())
@@ -171,7 +171,7 @@ final class MysqlSchemaDialect extends Dialect
 						"WHERE t.TABLE_SCHEMA=" + catalog + " " +
 						"AND t.TABLE_TYPE='BASE TABLE'" + // excludes views (CREATE VIEW) from result
 				") " +
-				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
+				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table, dropping ORDER BY does not improve execution time significantly
 		resultSet ->
 		{
 			while(resultSet.next())
@@ -358,7 +358,7 @@ final class MysqlSchemaDialect extends Dialect
 				"WHERE tc.CONSTRAINT_SCHEMA=" + catalog + " " +
 						"AND tc.TABLE_SCHEMA=" + catalog + " " +
 						"AND tc.CONSTRAINT_TYPE IN ('" + PRIMARY_KEY + "','" + UNIQUE + "') " +
-				"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ",
+				"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ", // dropping ORDER BY does not improve execution time significantly
 		resultSet ->
 		{
 			final UniqueConstraintCollector uniqueConstraintCollector =
