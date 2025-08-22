@@ -88,7 +88,7 @@ try
 						    ' -Druntime.test.VaultHttpServiceTest.url=http://test-apache-host' +
 						    ' -Druntime.test.VaultHttpServiceTest.dir=VaultHttpServiceDocumentRoot'
 					}
-					sh "docker logs " + c.id + " &> apache.log"
+					sh "docker logs " + c.id + " 2>&1 > apache.log"
 					archiveArtifacts 'apache.log'
 					shSilent("rm -f apache.log")
 				}
@@ -366,7 +366,7 @@ try
 						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
-					sh "docker logs " + c.id + " &> db-Mysql80CR.log"
+					sh "docker logs " + c.id + " 2>&1 > db-Mysql80CR.log"
 					archiveArtifacts 'db-Mysql80CR.log'
 				}
 			}
@@ -453,7 +453,7 @@ try
 						    ' -Druntime.test.withEnv.setup.postgresql.url=jdbc:postgresql://test-db-host/' +
 						    ' -Ddisable-ansi-colors=true'
 					}
-					sh "docker logs " + c.id + " &> db-Postgresql.log"
+					sh "docker logs " + c.id + " 2>&1 > db-Postgresql.log"
 					archiveArtifacts 'db-Postgresql.log'
 				}
 			}
@@ -875,7 +875,7 @@ void branchMysql(
 						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
-					sh "docker logs " + c.id + " &> db-Mysql" + code + ".log"
+					sh "docker logs " + c.id + " 2>&1 > db-Mysql" + code + ".log"
 					archiveArtifacts 'db-Mysql' + code + '.log'
 				}
 			}
