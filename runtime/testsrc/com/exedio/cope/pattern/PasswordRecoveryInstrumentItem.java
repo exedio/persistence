@@ -87,7 +87,7 @@ final class PasswordRecoveryInstrumentItem extends Item
 
 	/**
 	 * @param secret a secret for password recovery
-	 * @return a valid token, if existing, otherwise null
+	 * @return a valid token, if existing, otherwise an empty {@link java.util.Optional}
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getValidToken")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
@@ -99,7 +99,7 @@ final class PasswordRecoveryInstrumentItem extends Item
 
 	/**
 	 * @param secret a secret for password recovery
-	 * @return a new password, if the secret was valid, otherwise null
+	 * @return a new password, if the secret was valid, otherwise an empty {@link java.util.Optional}
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="redeem")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
