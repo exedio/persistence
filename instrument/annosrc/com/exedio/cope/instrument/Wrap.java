@@ -73,7 +73,7 @@ public @interface Wrap
 	 */
 	@Deprecated
 	String FOR_DOC_BROKEN = "Finds a {2} by it''s {0}.";
-	String FOR_RETURN = "null if there is no matching item.";
+	String FOR_RETURN = "{nullResult} if there is no matching item.";
 	String FOR_PARAM = "shall be equal to field {0}.";
 	String FOR_STRICT_THROWN = "if there is no matching item.";
 

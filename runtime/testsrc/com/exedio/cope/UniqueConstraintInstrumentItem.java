@@ -42,7 +42,7 @@ final class UniqueConstraintInstrumentItem extends Item
 	/**
 	 * Finds a uniqueConstraintInstrumentItem by its {@link #b}.
 	 * @param b shall be equal to field {@link #b}.
-	 * @return null if there is no matching item.
+	 * @return an empty {@link java.util.Optional} if there is no matching item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
@@ -86,7 +86,7 @@ final class UniqueConstraintInstrumentItem extends Item
 	 * Finds a uniqueConstraintInstrumentItem by its unique fields.
 	 * @param b shall be equal to field {@link #b}.
 	 * @param c shall be equal to field {@link #c}.
-	 * @return null if there is no matching item.
+	 * @return an empty {@link java.util.Optional} if there is no matching item.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
