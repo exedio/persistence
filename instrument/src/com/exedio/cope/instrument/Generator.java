@@ -420,7 +420,7 @@ final class Generator
 					featureNameCamelCase};
 			{
 				final List<String> commentLines=new ArrayList<>();
-				collectCommentParagraph(commentLines, "", "", wrapper.getCommentArray(), arguments);
+				collectCommentParagraph(commentLines, "", "", wrapResultInOptional, wrapper.getCommentArray(), arguments);
 
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -428,8 +428,9 @@ final class Generator
 					{
 						collectCommentParagraph(
 								commentLines,
-								"@param " + format(parameter.name, arguments),
+								"@param " + formatMethodComment(parameter.name, wrapResultInOptional, arguments),
 								"       ",
+								wrapResultInOptional,
 								parameter.getComment(), arguments);
 					}
 					else
@@ -445,8 +446,9 @@ final class Generator
 									lowerCamelCase(parameterFeature.parent.getName())};
 							collectCommentParagraph(
 									commentLines,
-									"@param " + format(parameterName, parameterArguments),
+									"@param " + formatMethodComment(parameterName, wrapResultInOptional, parameterArguments),
 									"       ",
+									wrapResultInOptional,
 									parameter.getComment(), parameterArguments);
 						}
 					}
@@ -455,6 +457,7 @@ final class Generator
 						commentLines,
 						"@return",
 						"        ",
+						wrapResultInOptional,
 						wrapper.getReturnComment(), arguments);
 
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
@@ -463,6 +466,7 @@ final class Generator
 							commentLines,
 							"@throws " + e.getKey().getCanonicalName(),
 							"        ",
+							wrapResultInOptional,
 							e.getValue(), arguments);
 				}
 				writeComment(commentLines);
@@ -722,19 +726,25 @@ final class Generator
 	private static void collectCommentParagraph(
 			final List<String> commentLines,
 			final String prefix1, final String prefixN,
+			final boolean wrapResultInOptional,
 			final String[] lines,
 			final Object[] arguments)
 	{
 		if(lines.length>0)
 		{
 			final String line = lines[0];
-			commentLines.add(prefix1 + (line.isEmpty()?"":((prefix1.isEmpty()?"":" ")+format(line, arguments))));
+			commentLines.add(prefix1 + (line.isEmpty()?"":((prefix1.isEmpty()?"":" ") + formatMethodComment(line, wrapResultInOptional, arguments))));
 		}
 		for(int i = 1; i<lines.length; i++)
 		{
 			final String line = lines[i];
-			commentLines.add(line.isEmpty()?"":(prefixN+format(line, arguments)));
+			commentLines.add(line.isEmpty()?"":(prefixN + formatMethodComment(line, wrapResultInOptional, arguments)));
 		}
+	}
+
+	private static String formatMethodComment(final String pattern, final boolean wrapResultInOptional, final Object... arguments)
+	{
+		return format(pattern.replace("{nullResult}", wrapResultInOptional ? ("an empty '{@link " + OPTIONAL + "}'") : "null"), arguments);
 	}
 
 	private void writeSerialVersionUID(final LocalCopeType type)
