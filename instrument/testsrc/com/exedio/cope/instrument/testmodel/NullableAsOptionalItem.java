@@ -81,8 +81,8 @@ class NullableAsOptionalItem extends Item
 	}
 
 	/**
-	 * This method can return null.
-	 * @return may be null
+	 * This method can return an empty {@link java.util.Optional}.
+	 * @return may be an empty {@link java.util.Optional}
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})

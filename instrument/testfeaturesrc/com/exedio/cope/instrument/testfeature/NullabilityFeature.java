@@ -37,7 +37,7 @@ public class NullabilityFeature
 		this.optional = optional;
 	}
 
-	@Wrap(order=10, doc="This method can return null.", docReturn="may be null")
+	@Wrap(order=10, doc="This method can return {nullResult}.", docReturn="may be {nullResult}")
 	@Nullable
 	public Object allCanReturnNull()
 	{
