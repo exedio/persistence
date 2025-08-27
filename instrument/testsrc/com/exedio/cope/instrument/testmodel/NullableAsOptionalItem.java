@@ -31,6 +31,10 @@ class NullableAsOptionalItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected NullableAsOptionalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
+	/**
+	 * This method can return null.
+	 * @return may be null
+	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
@@ -76,6 +80,10 @@ class NullableAsOptionalItem extends Item
 		NullableAsOptionalItem.wrapDefault.onlyOptionalsCanTakeNull(this,wrapDefault);
 	}
 
+	/**
+	 * This method can return null.
+	 * @return may be null
+	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
@@ -121,6 +129,10 @@ class NullableAsOptionalItem extends Item
 		NullableAsOptionalItem.wrapped.onlyOptionalsCanTakeNull(this,wrapped);
 	}
 
+	/**
+	 * This method can return null.
+	 * @return may be null
+	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable

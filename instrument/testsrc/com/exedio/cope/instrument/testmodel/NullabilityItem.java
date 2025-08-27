@@ -42,6 +42,10 @@ public final class NullabilityItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private NullabilityItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
+	/**
+	 * This method can return null.
+	 * @return may be null
+	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
@@ -87,6 +91,10 @@ public final class NullabilityItem extends Item
 		NullabilityItem.optional.onlyOptionalsCanTakeNull(this,optional);
 	}
 
+	/**
+	 * This method can return null.
+	 * @return may be null
+	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
