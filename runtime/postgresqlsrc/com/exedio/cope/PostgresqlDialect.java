@@ -51,7 +51,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		super(new PostgresqlSchemaDialect(probe, properties));
 		probe.environmentInfo().
-				requireDatabaseVersionAtLeast("PostgreSQL", 11, 12);
+				requireDatabaseVersionAtLeast("PostgreSQL", 15, 6);
 
 		timeZoneStatement = properties.timeZoneStatement();
 		schemaStatement = properties.schemaStatement();
