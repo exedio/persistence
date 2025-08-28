@@ -3,7 +3,7 @@
 -- You have to adapt the identifier "bucket" (part of VaultTrail_bucket)
 -- to the concrete project and bucket.
 --
--- Furthermore you may have to adjust the SHA-512 hash (cf83e1357...) to the
+-- Furthermore, you may have to adjust the SHA-512 hash (cf83e1357...) to the
 -- actual value of connect property vault.algorithm, which is typically at its
 -- default of SHA-512.
 
