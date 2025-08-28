@@ -7,7 +7,3 @@ ENV MYSQL_INITDB_SKIP_TZINFO=disable
 
 ARG CONF
 COPY ${CONF} /etc/mysql/conf.d/z_my.cnf
-
-ARG VERSION
-LABEL purpose=jenkins-mysql
-LABEL mysql=${VERSION}
