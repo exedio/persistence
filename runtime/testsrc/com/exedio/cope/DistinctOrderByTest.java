@@ -349,7 +349,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				assertContains(item2, item3, item1, query.search());
 			case postgresql ->
 				notAllowed(query,
-						"ERROR: function any_value(integer) does not exist");
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list"); // TODO ANY_VALUE should work, don't know why it doesn't
 			default ->
 				throw new RuntimeException(dialect.name());
 		}

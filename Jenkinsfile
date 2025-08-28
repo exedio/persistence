@@ -22,7 +22,7 @@ String databaseMysql80 = '8.0.36'
 @Field
 String databaseMysql84 = '8.4.5'
 @Field
-String databasePostgresql = '15.6'
+String databasePostgresql = '17.6'
 
 boolean isRelease = env.BRANCH_NAME=="master"
 
