@@ -182,7 +182,7 @@ public final class PasswordRecovery extends Pattern
 	 * @param secret a secret for password recovery
 	 * @return a valid token, if existing, otherwise null
 	 */
-	@Wrap(order=20, name="getValid{0}Token", docReturn="a valid token, if existing, otherwise null")
+	@Wrap(order=20, name="getValid{0}Token", docReturn="a valid token, if existing, otherwise {nullResult}")
 	@Nullable
 	public Token getValidToken(
 			@Nonnull final Item item,
@@ -219,7 +219,7 @@ public final class PasswordRecovery extends Pattern
 	 * Implement a two-step redemption using {@link #getValidToken(Item, long)} instead.
 	 */
 	@Deprecated
-	@Wrap(order=30, docReturn="a new password, if the secret was valid, otherwise null")
+	@Wrap(order=30, docReturn="a new password, if the secret was valid, otherwise {nullResult}")
 	@Nullable
 	public String redeem(
 			@Nonnull final Item item,
