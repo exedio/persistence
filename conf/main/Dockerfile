@@ -24,6 +24,3 @@ set -e
 addgroup copevaultfilesv1
 addgroup copevaultfilesv2
 EOF
-
-LABEL purpose=jenkins
-LABEL jdk=${JDK}

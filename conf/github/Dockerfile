@@ -11,6 +11,3 @@ apt-get install --no-install-recommends --assume-yes \
 	${JDK}-jdk-headless
 rm -rf /var/lib/apt/lists/*
 EOF
-
-LABEL purpose=jenkins
-LABEL jdk=${JDK}

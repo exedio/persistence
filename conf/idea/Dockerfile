@@ -40,9 +40,3 @@ EOF
 
 # keeping idea files  out of workspace, where they are scanned by idea inspections
 RUN echo "-Duser.home=/tmp/idea" >> /opt/idea/bin/idea64.vmoptions
-
-ARG IDEA
-LABEL purpose=jenkins-idea
-LABEL jdk=${JDK}
-LABEL idea=${IDEA}
-LABEL idea.properties=yes
