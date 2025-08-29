@@ -54,6 +54,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import org.junit.jupiter.api.function.Executable;
@@ -161,6 +162,15 @@ public final class Assert
 			!expected.containsAll(actual) ||
 			!actual.containsAll(expected))
 			fail("expected "+expected+", but was "+actual);
+
+		expected.stream().distinct().forEach(p -> {
+			final long expectedCount = expected.stream().filter(t -> Objects.equals(p, t)).count();
+			final long actualCount = actual.stream().filter(t -> Objects.equals(p, t)).count();
+			if (expectedCount != actualCount)
+			{
+				fail("expected "+expected+", but was "+actual);
+			}
+		});
 	}
 
 	public static void assertContains(final Collection<?> actual)
