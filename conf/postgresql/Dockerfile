@@ -1,3 +1,4 @@
+# check=error=true;skip=InvalidDefaultArgInFrom,SecretsUsedInArgOrEnv
 ARG VERSION
 FROM postgres:${VERSION}-bookworm
 

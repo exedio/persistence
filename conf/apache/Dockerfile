@@ -1,3 +1,4 @@
+# check=error=true;skip=InvalidDefaultArgInFrom
 ARG DEBIAN_RELEASE
 FROM httpd:2.4.53-${DEBIAN_RELEASE}
 
