@@ -180,10 +180,9 @@ final class MysqlSchemaDialect extends Dialect
 				final String columnName = resultSet.getString(2);
 				final String dataType = resultSet.getString(4);
 				{
-					final Sequence sequence = schema.getSequence(tableName);
-					if(sequence!=null && sequenceColumnName.equals(columnName))
+					if(sequenceColumnName.equals(columnName))
 					{
-						notifyExists(sequence, sequenceTypeMapper.unmap(dataType, columnName));
+						notifyExistentSequenceWithoutStart(schema, tableName, sequenceTypeMapper.unmap(dataType, columnName));
 						continue;
 					}
 				}
