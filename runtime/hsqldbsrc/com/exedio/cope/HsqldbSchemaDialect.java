@@ -239,28 +239,28 @@ final class HsqldbSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	public String renameColumn(final String tableName, final String name, final String newName, final String type)
 	{
 		return
 				"ALTER TABLE " + tableName +
-				" ALTER COLUMN " + oldColumnName + " RENAME TO " + newColumnName;
+				" ALTER COLUMN " + name + " RENAME TO " + newName;
 	}
 
 	@Override
-	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
+	public String modifyColumn(final String tableName, final String name, final String newType)
 	{
 		return
 				"ALTER TABLE " + tableName +
-				" ALTER " + columnName + " SET DATA TYPE " + newColumnType;
+				" ALTER " + name + " SET DATA TYPE " + newType;
 	}
 
 	@Override
 	protected void createSequence(
-			final StringBuilder sb, final String sequenceName,
+			final StringBuilder sb, final String name,
 			final Sequence.Type type, final long start)
 	{
 		sb.append("CREATE SEQUENCE ").
-			append(sequenceName).
+			append(name).
 			append(
 					" AS ").append(sequenceTypeMapper.map(type)).append(
 					" START WITH ").append(start).append(

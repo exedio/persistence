@@ -542,46 +542,46 @@ public abstract class Dialect
 		// empty default implementation
 	}
 
-	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	public String renameColumn(final String tableName, final String name, final String newName, final String type)
 	{
 		return
 				"ALTER TABLE " + tableName +
-				" RENAME COLUMN " + oldColumnName + " TO " + newColumnName;
+				" RENAME COLUMN " + name + " TO " + newName;
 	}
 
-	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
+	public abstract String modifyColumn(String tableName, String name, String newType);
 
-	static void dropConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	static void dropConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
 		sb.append("ALTER TABLE ").
 			append(tableName).
 			append(" DROP CONSTRAINT ").
-			append(constraintName);
+			append(name);
 	}
 
-	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
-		dropConstraint(sb, tableName, constraintName);
+		dropConstraint(sb, tableName, name);
 	}
 
-	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
-		dropConstraint(sb, tableName, constraintName);
+		dropConstraint(sb, tableName, name);
 	}
 
-	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
-		dropConstraint(sb, tableName, constraintName);
+		dropConstraint(sb, tableName, name);
 	}
 
 	protected abstract void createSequence(
-			StringBuilder sb, String sequenceName,
+			StringBuilder sb, String name,
 			Sequence.Type type, long start);
 
-	protected void dropSequence(final StringBuilder sb, final String sequenceName)
+	protected void dropSequence(final StringBuilder sb, final String name)
 	{
 		sb.append("DROP SEQUENCE ").
-			append(sequenceName);
+			append(name);
 	}
 
 	/**
