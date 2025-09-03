@@ -420,26 +420,26 @@ final class MysqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	public String renameColumn(final String tableName, final String name, final String newName, final String type)
 	{
 		if(mysql80) // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html#mysqld-8-0-3-sql-syntax
-			return super.renameColumn(tableName, oldColumnName, newColumnName, columnType);
+			return super.renameColumn(tableName, name, newName, type);
 
 		return
 				"ALTER TABLE " + tableName +
-				" CHANGE " + oldColumnName + ' ' + newColumnName + ' ' + columnType;
+				" CHANGE " + name + ' ' + newName + ' ' + type;
 	}
 
 	@Override
-	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
+	public String modifyColumn(final String tableName, final String name, final String newType)
 	{
 		return
 				"ALTER TABLE " + tableName +
-				" MODIFY " + columnName + ' ' + newColumnType;
+				" MODIFY " + name + ' ' + newType;
 	}
 
 	@Override
-	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
 		sb.append("ALTER TABLE ").
 			append(tableName).
@@ -447,44 +447,44 @@ final class MysqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
 		if(mysql80) // supported since MySQL 8.0.19: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-19.html#mysqld-8-0-19-sql-syntax
 		{
-			super.dropForeignKeyConstraint(sb, tableName, constraintName);
+			super.dropForeignKeyConstraint(sb, tableName, name);
 			return;
 		}
 
 		sb.append("ALTER TABLE ").
 			append(tableName).
 			append(" DROP FOREIGN KEY ").
-			append(constraintName);
+			append(name);
 	}
 
 	@Override
-	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
 		if(mysql80) // supported since MySQL 8.0.19: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-19.html#mysqld-8-0-19-sql-syntax
 		{
-			super.dropUniqueConstraint(sb, tableName, constraintName);
+			super.dropUniqueConstraint(sb, tableName, name);
 			return;
 		}
 
 		sb.append("ALTER TABLE ").
 			append(tableName).
 			append(" DROP INDEX ").
-			append(constraintName);
+			append(name);
 	}
 
 	@Override
 	protected void createSequence(
-			final StringBuilder sb, final String sequenceName,
+			final StringBuilder sb, final String name,
 			final Sequence.Type type, final long start)
 	{
 		// TODO support CREATE SEQUENCE in MariaDB 10.3 https://mariadb.com/kb/en/library/create-sequence/
 
 		sb.append("CREATE TABLE ").
-			append(sequenceName).
+			append(name).
 			append("(").
 				append(quoteName(sequenceColumnName)).
 				append(' ').
@@ -495,13 +495,13 @@ final class MysqlSchemaDialect extends Dialect
 			ENGINE_CLAUSE);
 
 		appendRowFormat(sb);
-		initializeSequence(sb, sequenceName, start);
+		initializeSequence(sb, name, start);
 	}
 
 	static final SequenceTypeMapper sequenceTypeMapper = new SequenceTypeMapper("int", "bigint");
 
 	static void initializeSequence(
-			final StringBuilder sb, final String sequenceName,
+			final StringBuilder sb, final String name,
 			final long start)
 	{
 		// From the MySQL documentation:
@@ -515,7 +515,7 @@ final class MysqlSchemaDialect extends Dialect
 		if(start!=0)
 		{
 			sb.append(";INSERT "). // MySQL allows INSERT without INTO: https://dev.mysql.com/doc/refman/5.7/en/insert.html
-				append(sequenceName).
+				append(name).
 				append(" VALUES(").
 				append(start).
 				append(')');
@@ -523,9 +523,9 @@ final class MysqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void dropSequence(final StringBuilder sb, final String sequenceName)
+	protected void dropSequence(final StringBuilder sb, final String name)
 	{
 		sb.append("DROP TABLE ").
-			append(sequenceName);
+			append(name);
 	}
 }

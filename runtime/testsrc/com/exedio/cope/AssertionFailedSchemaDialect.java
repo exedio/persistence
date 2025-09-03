@@ -76,31 +76,31 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	public String renameColumn(final String tableName, final String name, final String newName, final String type)
 	{
 		throw new AssertionFailedError();
 	}
 
 	@Override
-	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
+	public String modifyColumn(final String tableName, final String name, final String newType)
 	{
 		throw new AssertionFailedError();
 	}
 
 	@Override
-	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropPrimaryKeyConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
 		throw new AssertionFailedError();
 	}
 
 	@Override
-	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
 		throw new AssertionFailedError();
 	}
 
 	@Override
-	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String constraintName)
+	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String name)
 	{
 		throw new AssertionFailedError();
 	}
@@ -108,7 +108,7 @@ public class AssertionFailedSchemaDialect extends Dialect
 	@Override
 	protected void createSequence(
 			final StringBuilder sb,
-			final String sequenceName,
+			final String name,
 			final Sequence.Type type,
 			final long start)
 	{
@@ -116,7 +116,7 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void dropSequence(final StringBuilder sb, final String sequenceName)
+	protected void dropSequence(final StringBuilder sb, final String name)
 	{
 		throw new AssertionFailedError();
 	}

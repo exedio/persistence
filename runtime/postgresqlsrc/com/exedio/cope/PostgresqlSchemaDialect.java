@@ -245,20 +245,20 @@ final class PostgresqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
+	public String modifyColumn(final String tableName, final String name, final String newType)
 	{
 		return
 				"ALTER TABLE " + tableName +
-				" ALTER " + columnName + " TYPE " + newColumnType;
+				" ALTER " + name + " TYPE " + newType;
 	}
 
 	@Override
 	protected void createSequence(
-			final StringBuilder sb, final String sequenceName,
+			final StringBuilder sb, final String name,
 			final Sequence.Type type, final long start)
 	{
 		sb.append("CREATE SEQUENCE ").
-			append(sequenceName).
+			append(name).
 			append(
 					" INCREMENT BY 1" +
 					" START WITH ").append(start).append(
