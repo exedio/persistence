@@ -151,6 +151,18 @@ public final class Sequence extends Node
 		dialect.dropSequence(sb, quoteName(name));
 	}
 
+	public void renameTo(final String newName)
+	{
+		renameTo(newName, null);
+	}
+
+	public void renameTo(final String newName, final StatementListener listener)
+	{
+		final StringBuilder sb = new StringBuilder();
+		dialect.renameSequence(sb, quoteName(name), quoteName(newName));
+		executeSQL(sb.toString(), listener);
+	}
+
 	@Override
 	public String toString()
 	{

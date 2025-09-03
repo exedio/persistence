@@ -585,6 +585,20 @@ public abstract class Dialect
 	}
 
 	/**
+	 * See <a href="https://www.postgresql.org/docs/current/sql-altersequence.html">postgresql</a>
+	 */
+	protected void renameSequence(
+			final StringBuilder sb,
+			final String name,
+			final String newName)
+	{
+		sb.append("ALTER SEQUENCE ").
+			append(name).
+			append(" RENAME TO ").
+			append(newName);
+	}
+
+	/**
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated // OK: for debugging
