@@ -286,8 +286,9 @@ try
 				'conf/idea')
 			ideaImage.inside(dockerRunDefaults()) {
 				shSilent "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
+				shSilent 'cp /tmp/idea/.cache/JetBrains/*/log/idea.log .'
 			}
-			archiveArtifacts 'idea-inspection-output/**'
+			archiveArtifacts 'idea-inspection-output/**,idea.log'
 			// replace project dir to prevent UnsupportedOperationException - will not be exposed in artifacts
 			shSilent "find idea-inspection-output -name '*.xml' | " +
 			         "xargs --no-run-if-empty sed --in-place -- 's=\\\$PROJECT_DIR\\\$=" + env.WORKSPACE + "=g'"
