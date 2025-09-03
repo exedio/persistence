@@ -120,4 +120,13 @@ public class AssertionFailedSchemaDialect extends Dialect
 	{
 		throw new AssertionFailedError();
 	}
+
+	@Override
+	protected void renameSequence(
+			final StringBuilder sb,
+			final String name,
+			final String newName)
+	{
+		throw new AssertionFailedError();
+	}
 }

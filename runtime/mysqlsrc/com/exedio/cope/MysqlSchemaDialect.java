@@ -528,4 +528,16 @@ final class MysqlSchemaDialect extends Dialect
 		sb.append("DROP TABLE ").
 			append(name);
 	}
+
+	@Override
+	protected void renameSequence(
+			final StringBuilder sb,
+			final String name,
+			final String newName)
+	{
+		sb.append("ALTER TABLE ").
+			append(name).
+			append(" RENAME TO ").
+			append(newName);
+	}
 }
