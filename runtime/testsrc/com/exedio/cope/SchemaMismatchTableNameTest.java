@@ -27,6 +27,7 @@ import static com.exedio.dsmf.Node.Color.WARNING;
 import static com.exedio.dsmf.Sequence.Type.bit31;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -97,22 +98,27 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
-			if(mysql) // TODO fix
+			if(mysql)
 			{
-				final Table seqA;
-				final Sequence seqB;
-				assertEquals(null, schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
-				assertIt("unused",   WARNING, WARNING, seqA = schema.getTable   (nameSeq(ItemA.TYPE.getThis())));
+				final Table fakeSeqA;
+				final Sequence seqA, seqB;
+				assertNotNull(fakeSeqA = schema.getTable(nameSeq(ItemA.TYPE.getThis()))); // TODO should not be recognized as table as well
+				assertIt("unused",   WARNING, WARNING, seqA = schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
 				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
+				assertExistance(false, true, fakeSeqA);
 				assertExistance(false, true, seqA);
 				assertExistance(true, false, seqB);
+				assertEquals(bit31, seqA.getType());
+				assertEquals(null, seqA.getMismatchingType());
+				assertEquals(777, seqA.getStartL()); // TODO should be 0
+				assertEquals(null, seqA.getMismatchingStart());
 				assertEquals(bit31, seqB.getType());
 				assertEquals(null, seqB.getMismatchingType());
 				assertEquals(0, seqB.getStartL());
 				assertEquals(null, seqB.getMismatchingStart());
 
-				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA, seqA), schema.getTables());
-				assertEqualsUnmodifiable(asList(seqB), schema.getSequences());
+				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA, fakeSeqA), schema.getTables());
+				assertEqualsUnmodifiable(asList(seqB, seqA), schema.getSequences());
 			}
 			else
 			{

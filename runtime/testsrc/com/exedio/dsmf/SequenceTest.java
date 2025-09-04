@@ -114,14 +114,21 @@ public class SequenceTest extends SchemaReadyTest
 
 			if(mysql)
 			{
-				// TODO should be recognized as sequence, not as table
-				assertEquals(null, schema.getSequence(NEW_NAME));
-				final Table newSequence = schema.getTable(NEW_NAME);
+				// TODO should not be recognized as table as well
+				final Table fakeSequence = schema.getTable(NEW_NAME);
+				assertNotNull(fakeSequence);
+				assertEquals(false, fakeSequence.required());
+				assertEquals(true, fakeSequence.exists());
+				assertEquals("unused", fakeSequence.getError());
+				assertEquals(WARNING, fakeSequence.getParticularColor());
+
+				final Sequence newSequence = schema.getSequence(NEW_NAME);
 				assertNotNull(newSequence);
 				assertEquals(false, newSequence.required());
 				assertEquals(true, newSequence.exists());
 				assertEquals("unused", newSequence.getError());
 				assertEquals(WARNING, newSequence.getParticularColor());
+				assertEquals(777, newSequence.getStartL()); // TODO should be 55
 
 				newSequence.renameTo(NAME);
 			}

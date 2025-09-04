@@ -269,9 +269,17 @@ public abstract class Dialect
 			result.notifyExistsCondition(condition);
 	}
 
-	protected static final void notifyExists(final Sequence sequence, final Sequence.Type existingType)
+	protected static final void notifyExistentSequenceWithoutStart(
+			final Schema schema,
+			final String sequenceName,
+			final Sequence.Type existingType)
 	{
-		sequence.notifyExists(existingType);
+		final Sequence result = schema.getSequence(sequenceName);
+		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+			new Sequence(schema, sequenceName, existingType, 777 /* just a stupid dummy value */, false);
+		else
+			result.notifyExists(existingType);
 	}
 
 	protected static final class UniqueConstraintCollector
