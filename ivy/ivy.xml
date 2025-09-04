@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE ivy-module [
+		<!ENTITY artifacts.name "exedio-cope">
 		<!ENTITY junit.version.minor "13.3">
 	]>
 <ivy-module
@@ -49,15 +50,15 @@
 				description="classpath for IDEs such as Eclipse and IntelliJ, includes java sources and changelogs" />
 	</configurations>
 	<publications defaultconf="SPECIFY_A_CONFIGURATION">
-		<artifact name="exedio-cope" conf="runtime" />
-		<artifact name="exedio-cope-hsqldb" conf="hsqldb" />
-		<artifact name="exedio-cope-mysql" conf="mysql,mariadb" />
-		<artifact name="exedio-cope-postgresql" conf="postgresql" />
-		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
-		<artifact name="exedio-cope" conf="changelog" type="log" ext="txt" />
-		<artifact name="exedio-cope-instrument-annotations" conf="instrument-annotations" />
-		<artifact name="exedio-cope-instrument" conf="instrument" />
-		<artifact name="exedio-cope-instrument-completion" conf="completion" />
+		<artifact name="&artifacts.name;" conf="runtime"   type="jar" ext="jar" />
+		<artifact name="&artifacts.name;-hsqldb"     conf="hsqldb"        type="jar" ext="jar" />
+		<artifact name="&artifacts.name;-mysql"      conf="mysql,mariadb" type="jar" ext="jar" />
+		<artifact name="&artifacts.name;-postgresql" conf="postgresql"    type="jar" ext="jar" />
+		<artifact name="&artifacts.name;" conf="sources"   type="src" ext="zip" />
+		<artifact name="&artifacts.name;" conf="changelog" type="log" ext="txt" />
+		<artifact name="&artifacts.name;-instrument-annotations" conf="instrument-annotations" type="jar" ext="jar" />
+		<artifact name="&artifacts.name;-instrument"             conf="instrument"             type="jar" ext="jar" />
+		<artifact name="&artifacts.name;-instrument-completion"  conf="completion"             type="jar" ext="jar" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION->*">
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="4.0.1" conf="servlet->default; ide->sources" />
