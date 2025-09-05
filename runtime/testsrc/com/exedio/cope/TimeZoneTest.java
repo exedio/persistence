@@ -93,8 +93,8 @@ public class TimeZoneTest extends TestWithEnvironment
 		assertTimeZone("+05:00", "Europe/Moscow");
 		assertItems();
 
-		reconnect("-08:30", "Canada/Eastern");
-		assertTimeZone("-08:30", "Canada/Eastern");
+		reconnect("-08:30", "America/Toronto");
+		assertTimeZone("-08:30", "America/Toronto");
 		assertItems();
 
 		reconnect("+00:00", GMT);
