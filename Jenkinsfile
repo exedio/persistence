@@ -475,7 +475,7 @@ try
 
 	parallelBranches["Ivy"] = {
 		def cache = 'jenkins-build-survivor-' + projectName() + "-Ivy"
-		lockNodeCheckoutAndDelete(cache) {
+		lockNodeCheckoutAndDelete(cache, "jenkins-build-survivor") {
 			mainImage(imageName('Ivy')).inside(
 				dockerRunDefaults('bridge') +
 				"--mount type=volume,src=" + cache + ",target=/var/jenkins-build-survivor") {
@@ -551,16 +551,18 @@ String projectName()
 	return result
 }
 
-void lockNodeCheckoutAndDelete(String resource, Closure body)
+void lockNodeCheckoutAndDelete(String resource, String additionalLabel = '', Closure body)
 {
 	lock(resource) {
-		nodeCheckoutAndDelete(body)
+		nodeCheckoutAndDelete(additionalLabel, body)
 	}
 }
 
-void nodeCheckoutAndDelete(@ClosureParams(value = SimpleType, options = ["Map<String, String>"]) Closure body)
+void nodeCheckoutAndDelete(
+	String additionalLabel = '',
+	@ClosureParams(value = SimpleType, options = ["Map<String, String>"]) Closure body)
 {
-	node('GitCloneExedio && docker') {
+	node('GitCloneExedio && docker' + (additionalLabel.isEmpty() ? '' : " && " + additionalLabel)) {
 		env.JENKINS_OWNER = shStdout("id --user") + ':' + shStdout("id --group")
 		try
 		{
