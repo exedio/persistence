@@ -150,8 +150,8 @@ public final class Dispatcher extends Pattern
 			this.session = session;
 		}
 
-		abstract void dispatch(@SuppressWarnings("unused") Dispatcher dispatcher, Item item, AutoCloseable session) throws Exception;
-		abstract void notifyFinalFailure(@SuppressWarnings("unused") Dispatcher dispatcher, Item item, Exception cause);
+		abstract void dispatch(Item item, AutoCloseable session) throws Exception;
+		abstract void notifyFinalFailure(Item item, Exception cause);
 	}
 
 	@FunctionalInterface
@@ -183,14 +183,14 @@ public final class Dispatcher extends Pattern
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override void dispatch(final Dispatcher dispatcher, final Item item, final AutoCloseable session) throws Exception
+		@Override void dispatch(final Item item, final AutoCloseable session) throws Exception
 		{
 			assert (this.session==null) == (session==null);
 			((SessionTarget<Item,AutoCloseable>)target).dispatch(item, session);
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override void notifyFinalFailure(final Dispatcher dispatcher, final Item item, final Exception cause)
+		@Override void notifyFinalFailure(final Item item, final Exception cause)
 		{
 			if(onFinalFailure!=null)
 				((BiConsumer<Item,Exception>)onFinalFailure).accept(item, cause);
@@ -484,7 +484,7 @@ public final class Dispatcher extends Pattern
 				final Timer.Sample startSample = Timer.start();
 				try
 				{
-					variant.dispatch(this, item, session.get());
+					variant.dispatch(item, session.get());
 
 					final long elapsed = succeedTimer.stopMillies(startSample);
 					runType.newItem(
@@ -560,7 +560,7 @@ public final class Dispatcher extends Pattern
 											? "@DispatcherImmediateFinalFailure thrown"
 											: limit + " runs exhausted"),
 									failureCause);
-						variant.notifyFinalFailure(this, item, failureCause);
+						variant.notifyFinalFailure(item, failureCause);
 					}
 					else
 					{
