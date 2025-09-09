@@ -197,6 +197,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
+	@SuppressWarnings("CastToIncompatibleInterface")
 	private static final Variant INTERFACE_VARIANT = new Variant(null)
 	{
 		@Override void dispatch(final Dispatcher dispatcher, final Item item, final AutoCloseable session) throws Exception
