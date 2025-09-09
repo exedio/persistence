@@ -140,8 +140,6 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private final boolean supportRemaining;
-
 	private final Variant variant;
 
 	private abstract static class Variant
@@ -252,7 +250,7 @@ public final class Dispatcher extends Pattern
 	@Deprecated
 	public Dispatcher()
 	{
-		this(new BooleanField().defaultTo(true), true, true, INTERFACE_VARIANT);
+		this(new BooleanField().defaultTo(true), true, INTERFACE_VARIANT);
 	}
 
 	public static <I extends Item> Dispatcher create(
@@ -294,11 +292,11 @@ public final class Dispatcher extends Pattern
 			final BiConsumer<I,Exception> finalFailureListener)
 	{
 		return new Dispatcher(
-				new BooleanField().defaultTo(true), true, true,
+				new BooleanField().defaultTo(true), true,
 				new TargetVariant(session, target, finalFailureListener));
 	}
 
-	private Dispatcher(final BooleanField pending, final boolean supportPurge, final boolean supportRemaining, final Variant variant)
+	private Dispatcher(final BooleanField pending, final boolean supportPurge, final Variant variant)
 	{
 		this.pending = addSourceFeature(pending, "pending");
 		if(supportPurge)
@@ -311,13 +309,12 @@ public final class Dispatcher extends Pattern
 			noPurge = null;
 			unpend = null;
 		}
-		this.supportRemaining = supportRemaining;
 		this.variant = requireNonNull(variant);
 	}
 
 	public Dispatcher defaultPendingTo(final boolean defaultConstant)
 	{
-		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge(), supportRemaining, variant);
+		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge(), variant);
 	}
 
 	/**
@@ -354,41 +351,12 @@ public final class Dispatcher extends Pattern
 	 */
 	public Dispatcher withoutPurgeLEGACY()
 	{
-		return new Dispatcher(pending.copy(), false, supportRemaining, variant);
+		return new Dispatcher(pending.copy(), false, variant);
 	}
 
 	boolean supportsPurge()
 	{
 		return unpend!=null;
-	}
-
-	/**
-	 * <b>The method is just for maintaining database schema compatibility!<br>
-	 * Do not use for new Dispatchers!</b>
-	 * <p>
-	 * Disables {@link Run#getRemaining()} and {@link Run#getLimit()} fields.
-	 * Avoids additional columns in database.
-	 * <p>
-	 * Fixing database schema for a dispatcher Mail.send could look like this on MySQL:
-	 * <pre>
-	 * ALTER TABLE `Mail_send_Run`
-	 * 	ADD COLUMN `remaining` int not null DEFAULT 999 AFTER `elapsed`,
-	 * 	ADD COLUMN `limit`     int not null DEFAULT   5 AFTER `remaining`,
-	 * 	ADD CONSTRAINT `Mail_send_Run_remaining_MN` CHECK(`remaining`>=0),
-	 * 	ADD CONSTRAINT `Mail_send_Run_remaining_MX` CHECK(`remaining`&lt;=2147483647),
-	 * 	ADD CONSTRAINT `Mail_send_Run_limit_MN` CHECK(`limit`>=1),
-	 * 	ADD CONSTRAINT `Mail_send_Run_limit_MX` CHECK(`limit`&lt;=2147483647)
-	 *
-	 * ALTER TABLE `Mail_send_Run`
-	 * 	ALTER COLUMN `remaining` DROP DEFAULT,
-	 * 	ALTER COLUMN `limit`     DROP DEFAULT
-	 * </pre>
-	 * Note that value '5' for limit comes from Dispatcher.Config#failureLimit,
-	 * you may have configured a different value.
-	 */
-	public Dispatcher withoutRemainingLEGACY()
-	{
-		return new Dispatcher(pending.copy(), supportsPurge(), false, variant);
 	}
 
 	@Override
@@ -862,8 +830,8 @@ public final class Dispatcher extends Pattern
 		final DateField date = new DateField().toFinal();
 		final PartOf<?> runs;
 		final LongField elapsed = new LongField().toFinal().min(0);
-		final IntegerField remaining = supportRemaining ? new IntegerField().toFinal().min(0) : null;
-		final IntegerField limit     = supportRemaining ? new IntegerField().toFinal().min(1) : null;
+		final IntegerField remaining = new IntegerField().toFinal().min(0);
+		final IntegerField limit     = new IntegerField().toFinal().min(1);
 		final EnumField<Result> result = EnumField.create(Result.class).toFinal();
 		final DataField failure = new DataField().toFinal().optional();
 		final Type<Run> type;
@@ -877,11 +845,8 @@ public final class Dispatcher extends Pattern
 			features.put("date", date);
 			features.put("runs", runs);
 			features.put("elapsed", elapsed);
-			if(supportRemaining)
-			{
-				features.put("remaining", remaining);
-				features.put("limit", limit);
-			}
+			features.put("remaining", remaining);
+			features.put("limit", limit);
 			features.put("result", result, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
 			features.put("failure", failure);
 			type = newSourceType(Run.class, Run::new, features, "Run");
@@ -903,7 +868,7 @@ public final class Dispatcher extends Pattern
 					map(this.elapsed, elapsed),
 					map(this.result, result),
 					this.failure.map(failure)};
-			if(supportRemaining)
+			// TODO move upwards
 			{
 				setValues = SetValueUtil.add(setValues, map(this.remaining, remaining));
 				setValues = SetValueUtil.add(setValues, map(this.limit, limit));
@@ -973,21 +938,12 @@ public final class Dispatcher extends Pattern
 
 		public int getRemaining()
 		{
-			return requireRemaining(type().remaining).getMandatory(this);
+			return type().remaining.getMandatory(this);
 		}
 
 		public int getLimit()
 		{
-			return requireRemaining(type().limit).getMandatory(this);
-		}
-
-		private IntegerField requireRemaining(final IntegerField f)
-		{
-			if(f==null)
-				throw new IllegalArgumentException(
-						"remaining has been disabled for Dispatcher " + getPattern().getID() +
-						" by method withoutRemaining()");
-			return f;
+			return type().limit.getMandatory(this);
 		}
 
 		public Result getResult()
@@ -1121,14 +1077,5 @@ public final class Dispatcher extends Pattern
 	public Dispatcher withoutPurge()
 	{
 		return withoutPurgeLEGACY();
-	}
-
-	/**
-	 * @deprecated renamed to {@link #withoutRemainingLEGACY()}
-	 */
-	@Deprecated
-	public Dispatcher withoutRemaining()
-	{
-		return withoutRemainingLEGACY();
 	}
 }
