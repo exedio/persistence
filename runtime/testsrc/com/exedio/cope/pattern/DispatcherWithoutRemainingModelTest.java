@@ -90,11 +90,11 @@ public class DispatcherWithoutRemainingModelTest
 				toTarget.getRunDate(),
 				toTarget.getRunRuns(),
 				toTarget.getRunElapsed(),
+				toTarget.getRunRemaining(),
+				toTarget.getRunLimit(),
 				toTarget.getRunResult(),
 				toTarget.getRunFailure()
 			), runType.getFeatures());
-		assertEquals(null, toTarget.getRunRemaining());
-		assertEquals(null, toTarget.getRunLimit());
 
 		assertEquals(TYPE, toTarget.getType());
 		assertEquals("toTarget", toTarget.getName());
