@@ -141,19 +141,6 @@ public final class Dispatcher extends Pattern
 
 	private final Variant variant;
 
-	private abstract static class Variant
-	{
-		final Supplier<? extends AutoCloseable> session;
-
-		protected Variant(final Supplier<? extends AutoCloseable> session)
-		{
-			this.session = session;
-		}
-
-		abstract void dispatch(Item item, AutoCloseable session) throws Exception;
-		abstract void notifyFinalFailure(Item item, Exception cause);
-	}
-
 	@FunctionalInterface
 	public interface Target<I extends Item>
 	{
@@ -167,30 +154,31 @@ public final class Dispatcher extends Pattern
 		void dispatch(I item, S session) throws Exception;
 	}
 
-	private static final class TargetVariant extends Variant
+	@SuppressWarnings("ClassCanBeRecord") private static final class Variant
 	{
+		final Supplier<? extends AutoCloseable> session;
 		private final SessionTarget<?,?> target;
 		private final BiConsumer<? extends Item,Exception> onFinalFailure;
 
-		private TargetVariant(
+		private Variant(
 				final Supplier<? extends AutoCloseable> session,
 				final SessionTarget<?,?> target,
 				final BiConsumer<? extends Item,Exception> onFinalFailure)
 		{
-			super(session);
+			this.session = session;
 			this.target = requireNonNull(target, "target");
 			this.onFinalFailure = onFinalFailure;
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override void dispatch(final Item item, final AutoCloseable session) throws Exception
+		void dispatch(final Item item, final AutoCloseable session) throws Exception
 		{
 			assert (this.session==null) == (session==null);
 			((SessionTarget<Item,AutoCloseable>)target).dispatch(item, session);
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override void notifyFinalFailure(final Item item, final Exception cause)
+		void notifyFinalFailure(final Item item, final Exception cause)
 		{
 			if(onFinalFailure!=null)
 				((BiConsumer<Item,Exception>)onFinalFailure).accept(item, cause);
@@ -241,7 +229,7 @@ public final class Dispatcher extends Pattern
 	{
 		return new Dispatcher(
 				new BooleanField().defaultTo(true), true,
-				new TargetVariant(session, target, finalFailureListener));
+				new Variant(session, target, finalFailureListener));
 	}
 
 	private Dispatcher(final BooleanField pending, final boolean supportPurge, final Variant variant)
