@@ -150,8 +150,8 @@ public final class Dispatcher extends Pattern
 			this.session = session;
 		}
 
-		abstract void dispatch(Dispatcher dispatcher, Item item, AutoCloseable session) throws Exception;
-		abstract void notifyFinalFailure(Dispatcher dispatcher, Item item, Exception cause);
+		abstract void dispatch(@SuppressWarnings("unused") Dispatcher dispatcher, Item item, AutoCloseable session) throws Exception;
+		abstract void notifyFinalFailure(@SuppressWarnings("unused") Dispatcher dispatcher, Item item, Exception cause);
 	}
 
 	@FunctionalInterface
@@ -197,61 +197,9 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	@SuppressWarnings("CastToIncompatibleInterface")
-	private static final Variant INTERFACE_VARIANT = new Variant(null)
-	{
-		@Override void dispatch(final Dispatcher dispatcher, final Item item, final AutoCloseable session) throws Exception
-		{
-			assert session==null;
-			((Dispatchable)item).dispatch(dispatcher);
-		}
-
-		@Override void notifyFinalFailure(final Dispatcher dispatcher, final Item item, final Exception cause)
-		{
-			((Dispatchable)item).notifyFinalFailure(dispatcher, cause);
-		}
-	};
-
 	private RunType runTypeIfMounted = null;
 
 	private volatile boolean probeRequired = true;
-
-	/**
-	 * If your code now looks like this:
-	 * <pre>
-	 * class Mail extends Item <span style="text-decoration: line-through;">implements Dispatchable</span>
-	 * {
-	 *    static final Dispatcher toSmtp =
-	 *       <span style="text-decoration: line-through;">new</span> Dispatcher();
-	 *
-	 *    <span style="text-decoration: line-through;">@Override</span>
-	 *    <span style="text-decoration: line-through;">public</span> void dispatch(<span style="text-decoration: line-through;">Dispatcher dispatcher</span>)
-	 *    {
-	 *       // your code
-	 *    }
-	 * }
-	 * </pre>
-	 * then change it to this:
-	 * <pre>
-	 * class Mail extends Item
-	 * {
-	 *    static final Dispatcher toSmtp =
-	 *       Dispatcher<b>.create</b>(<b>Mail::dispatch</b>);
-	 *
-	 *    <b>@{@link com.exedio.cope.instrument.WrapInterim WrapInterim}(methodBody=false)</b>
-	 *    <b>private</b> void dispatch()
-	 *    {
-	 *       // your code
-	 *    }
-	 * }
-	 * </pre>
-	 * @deprecated Use {@link #create(Target,BiConsumer)} instead as described.
-	 */
-	@Deprecated
-	public Dispatcher()
-	{
-		this(new BooleanField().defaultTo(true), true, INTERFACE_VARIANT);
-	}
 
 	public static <I extends Item> Dispatcher create(
 			final Target<I> target)
@@ -364,12 +312,6 @@ public final class Dispatcher extends Pattern
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		if(variant==INTERFACE_VARIANT &&
-			!Dispatchable.class.isAssignableFrom(type.getJavaClass()))
-			throw new ClassCastException(
-					"type of " + getID() + " must implement " + Dispatchable.class +
-					", but was " + type.getJavaClass().getName());
-
 		this.runTypeIfMounted = new RunType(type);
 
 		if(variant.session!=null)
