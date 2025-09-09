@@ -22,6 +22,7 @@ import com.exedio.cope.instrument.WrapImplementsInterim;
 
 @FunctionalInterface
 @WrapImplementsInterim(addMethods=true)
+@SuppressWarnings({"InterfaceNeverImplemented","RedundantThrows"})
 public interface Dispatchable
 {
 	void dispatch(Dispatcher dispatcher) throws Exception;

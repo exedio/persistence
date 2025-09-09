@@ -37,6 +37,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Visibility;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Dispatcher.Result;
@@ -301,7 +302,7 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	private static final class MyItem extends Item implements Dispatchable
+	private static final class MyItem extends Item
 	{
 		static final StringField body = new StringField();
 		static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);
@@ -321,13 +322,11 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 		}
 
 		@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
-		@SuppressWarnings("deprecation") // OK: testing deprecated API
-		static final Dispatcher toTarget = new Dispatcher();
+		static final Dispatcher toTarget = Dispatcher.create(MyItem::dispatch, MyItem::notifyFinalFailure);
 
-		@Override
-		public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
+		@WrapInterim(methodBody=false)
+		private void dispatch() throws IOException, InterruptedException
 		{
-			assertSame(toTarget, dispatcher);
 			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 			setDispatchCountCommitted(getDispatchCountCommitted()+1);
@@ -340,10 +339,9 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 				throw new IOException(getBody());
 		}
 
-		@Override
-		public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
+		@WrapInterim(methodBody=false)
+		private void notifyFinalFailure(final Exception cause)
 		{
-			assertSame(toTarget, dispatcher);
 			assertTrue(!MODEL.hasCurrentTransaction());
 			assertEquals(IOException.class, cause.getClass());
 			logs.get(this).notifyFinalFailureCount++;
