@@ -53,7 +53,6 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.misc.Iterables;
-import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import io.micrometer.core.instrument.Timer;
@@ -862,18 +861,14 @@ public final class Dispatcher extends Pattern
 				final Result result,
 				final byte[] failure)
 		{
-			SetValue<?>[] setValues = {
+			type.newItem(
 					map(this.parent.as(parentClass), parent),
 					map(this.date, date),
 					map(this.elapsed, elapsed),
+					map(this.remaining, remaining),
+					map(this.limit, limit),
 					map(this.result, result),
-					this.failure.map(failure)};
-			// TODO move upwards
-			{
-				setValues = SetValueUtil.add(setValues, map(this.remaining, remaining));
-				setValues = SetValueUtil.add(setValues, map(this.limit, limit));
-			}
-			type.newItem(setValues);
+					this.failure.map(failure));
 		}
 
 		private Run getLastSuccess(final Item item)
