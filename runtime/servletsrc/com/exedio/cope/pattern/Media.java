@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaCounter.counter;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
@@ -72,6 +73,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	private final boolean optional;
 	private final DataField body;
 	final boolean isBodySmall;
+	private final GzipCompressor compressor;
 	private final ContentType<?> contentType;
 	private final DateField lastModified;
 	private final CheckConstraint unison;
@@ -80,6 +82,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	private Media(
 			final DataField body,
+			final GzipCompressor compressor,
 			final ContentType<?> contentType,
 			final DateField lastModified,
 			final boolean withLocator)
@@ -93,6 +96,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 				"body",
 				new MediaVaultAnnotationProxy(this));
 		this.isBodySmall = body.getMaximumLength()<=DEFAULT_LENGTH;
+		this.compressor = compressor;
 		this.contentType = contentType;
 		final FunctionField<?> contentTypeField = contentType.field;
 		if(contentTypeField!=null)
@@ -145,13 +149,13 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media()
 	{
-		this(new DataField(), new DefaultContentType(), new DateField(), true);
+		this(new DataField(), null, new DefaultContentType(), new DateField(), true);
 	}
 
 	@Override
 	public Media copy(final CopyMapper mapper)
 	{
-		final Media result = new Media(body.copy(), contentType.copy(), lastModified.copy(), isWithLocator());
+		final Media result = new Media(body.copy(), compressor, contentType.copy(), lastModified.copy(), isWithLocator());
 		// TODO implement some generic mapping
 		if(contentType.field!=null)
 			mapper.put(contentType.field, result.contentType.field);
@@ -161,17 +165,35 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Media toFinal()
 	{
-		return new Media(body.toFinal(), contentType.toFinal(), lastModified.toFinal(), isWithLocator());
+		return new Media(body.toFinal(), compressor, contentType.toFinal(), lastModified.toFinal(), isWithLocator());
 	}
 
 	public Media optional()
 	{
-		return new Media(body.optional(), contentType.optional(), lastModified.optional(), isWithLocator());
+		return new Media(body.optional(), compressor, contentType.optional(), lastModified.optional(), isWithLocator());
 	}
 
+	/**
+	 * For {@link #isCompressed() compressed} media {@code maximumLength}
+	 * refers to the length of the compressed data.
+	 */
 	public Media lengthMax(final long maximumLength)
 	{
-		return new Media(body.lengthMax(maximumLength), contentType.copy(), lastModified.copy(), isWithLocator());
+		return new Media(body.lengthMax(maximumLength), compressor, contentType.copy(), lastModified.copy(), isWithLocator());
+	}
+
+	/**
+	 * Causes the {@link #getBody() body} of this media to be compressed by
+	 * <a href="https://www.rfc-editor.org/rfc/rfc1952">gzip</a>.
+	 * <p>
+	 * Note: The body length of this media as referred to by
+	 * {@link #getLength(Item)} and {@link #lengthMax(long)}
+	 * applies to the compressed data.
+	 * @see #isGzip()
+	 */
+	public Media gzip()
+	{
+		return new Media(body.copy(), GzipCompressor.INSTANCE, contentType.copy(), lastModified.copy(), isWithLocator());
 	}
 
 	/**
@@ -179,7 +201,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentType(final String contentType)
 	{
-		return new Media(body.copy(), new FixedContentType(contentType), lastModified.copy(), isWithLocator());
+		return new Media(body.copy(), compressor, new FixedContentType(contentType), lastModified.copy(), isWithLocator());
 	}
 
 	/**
@@ -290,7 +312,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	private Media contentTypesInternal(final String... types)
 	{
-		return new Media(body.copy(), new EnumContentType(types, body), lastModified.copy(), isWithLocator());
+		return new Media(body.copy(), compressor, new EnumContentType(types, body), lastModified.copy(), isWithLocator());
 	}
 
 	/**
@@ -302,12 +324,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media contentTypeSub(final String majorContentType)
 	{
-		return new Media(body.copy(), new SubContentType(majorContentType, body), lastModified.copy(), isWithLocator());
+		return new Media(body.copy(), compressor, new SubContentType(majorContentType, body), lastModified.copy(), isWithLocator());
 	}
 
 	public Media contentTypeLengthMax(final int maximumLength)
 	{
-		return new Media(body.copy(), contentType.lengthMax(maximumLength), lastModified.copy(), isWithLocator());
+		return new Media(body.copy(), compressor, contentType.lengthMax(maximumLength), lastModified.copy(), isWithLocator());
 	}
 
 	/**
@@ -315,7 +337,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Media withLocator(final boolean withLocator)
 	{
-		return new Media(body.copy(), contentType.copy(), lastModified.copy(), withLocator);
+		return new Media(body.copy(), compressor, contentType.copy(), lastModified.copy(), withLocator);
 	}
 
 	@Override
@@ -371,6 +393,27 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return body;
 	}
 
+	/**
+	 * Returns whether the {@link #getBody() body} of this media
+	 * is compressed by any {@code Content-Encoding}.
+	 * @see #isGzip()
+	 */
+	public boolean isCompressed()
+	{
+		return compressor!=null;
+	}
+
+	/**
+	 * Returns whether the {@link #getBody() body} of this media
+	 * is compressed by {@code Content-Encoding: gzip}.
+	 * @see #isCompressed()
+	 * @see #gzip()
+	 */
+	public boolean isGzip()
+	{
+		return compressor!=null;
+	}
+
 	public FunctionField<?> getContentType()
 	{
 		return contentType.field;
@@ -419,6 +462,14 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return isfinal || !optional;
 	}
 
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		if(compressor!=null)
+			compressorInflate.onMount(this);
+	}
+
 	@Wrap(order=10, doc="Returns whether media {0} is null.", hide=MandatoryGetter.class)
 	public boolean isNull(@Nonnull final Item item)
 	{
@@ -456,6 +507,9 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	/**
 	 * Returns the length of the body of this media.
 	 * Returns -1, if this media is null.
+	 * <p>
+	 * For {@link #isCompressed() compressed} media the result
+	 * is the length of the compressed data.
 	 */
 	@Wrap(order=30, doc=Wrap.MEDIA_LENGTH)
 	public long getLength(@Nonnull final Item item)
@@ -500,7 +554,17 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=40, doc=Wrap.MEDIA_BODY, nullability=NullableIfOptional.class)
 	public byte[] getBody(@Nonnull final Item item)
 	{
-		return body.getArray(item);
+		return uncompress(body.getArray(item));
+	}
+
+	private byte[] uncompress(final byte[] compressed)
+	{
+		if(compressed==null)
+			return null;
+		if(compressor==null)
+			return compressed;
+
+		return compressor.uncompress(compressed);
 	}
 
 	/**
@@ -547,6 +611,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Nonnull @Parameter("body") final OutputStream body)
 	throws IOException
 	{
+		if(compressor!=null)
+		{
+			compressor.getBody(this, item, body);
+			return;
+		}
+
 		this.body.get(item, body);
 	}
 
@@ -586,6 +656,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Nonnull @Parameter("body") final Path body)
 			throws IOException
 	{
+		if(compressor!=null)
+		{
+			compressor.getBody(this, item, body);
+			return;
+		}
+
 		this.body.get(item, body);
 	}
 
@@ -607,6 +683,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Nonnull @Parameter("body") final File body)
 	throws IOException
 	{
+		if(compressor!=null)
+		{
+			compressor.getBody(this, item, body.toPath());
+			return;
+		}
+
 		this.body.get(item, body);
 	}
 
@@ -724,7 +806,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
 			values.add(SetValue.map(this.lastModified, Clock.newDate()));
-			values.add(SetValue.map(this.body, body));
+			values.add(SetValue.map(this.body, compressor!=null ? compressor.compress(body) : body));
 
 			return SetValueUtil.toArray(values);
 		}
@@ -768,9 +850,22 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		if(contentType==null)
 			throw notFoundIsNull();
 
+		final boolean inflate;
+		if(compressor!=null)
+		{
+			// https://www.rfc-editor.org/rfc/rfc2616#section-3.5
+			final String header = request.getHeader("Accept-Encoding"); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Accept-Encoding
+			inflate = header==null || !compressor.acceptsEncoding(header);
+			// ContentLength reflects compressed length, not original length
+			if(!inflate)
+				response.setHeader("Content-Encoding", compressor.contentEncoding); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Encoding
+		}
+		else
+			inflate = false;
+
 		if(isBodySmall)
 		{
-			final byte[] body = getBody(item);
+			final byte[] body = inflate ? getBody(item) : this.body.getArray(item);
 
 			commit();
 
@@ -780,14 +875,24 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		{
 			final Path body = Files.createTempFile(
 					Media.class.getName() + '#' + getID() + '#' + item.getCopeID(), "");
-			getBody(item, body);
+			if(inflate)
+				getBody(item, body);
+			else
+				this.body.get(item, body);
 
 			commit();
 
 			MediaUtil.send(contentType, body, response);
 			Files.delete(body);
 		}
+
+		// do this at the end of this method to count consistently to timer "delivered"
+		// even if this method fails.
+		if(inflate)
+			this.compressorInflate.increment();
 	}
+
+	private final MediaCounter compressorInflate = counter("inflate", "Inflated response. Happens if Accept-Encoding did not mention the compression of this media.");
 
 	@Override
 	public Condition isNull()
@@ -817,6 +922,10 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	public Condition bodyMismatchesContentTypeIfSupported()
 	{
+		if(compressor!=null)
+			return lastModified.isNotNull().and(
+					compressor.bodyMatchesContentType(body).not());
+
 		return MediaType.mismatchesIfSupported(this);
 	}
 

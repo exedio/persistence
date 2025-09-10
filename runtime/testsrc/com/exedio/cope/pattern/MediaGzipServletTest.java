@@ -22,6 +22,7 @@ import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.pattern.MediaGzipTest.COMPRESSED;
 import static com.exedio.cope.pattern.MediaGzipTest.CONTENT_TYPE;
 import static com.exedio.cope.pattern.MediaGzipTest.PLAIN;
 import static com.exedio.cope.util.Hex.decodeLower;
@@ -85,33 +86,33 @@ public final class MediaGzipServletTest extends TestWithEnvironment
 				Media.toValue(decodeLower(PLAIN), CONTENT_TYPE),
 				Media.toValue(decodeLower(PLAIN), CONTENT_TYPE),
 				Media.toValue(decodeLower(PLAIN), CONTENT_TYPE));
-		assertEquals(PLAIN,      item.getGzippedRaw());
-		assertEquals(PLAIN,      item.getGzLargeRaw());
+		assertEquals(COMPRESSED, item.getGzippedRaw());
+		assertEquals(COMPRESSED, item.getGzLargeRaw());
 		assertEquals(PLAIN,      item.getIdentityRaw());
 
 		{
 			final String path = "/" + item.getGzippedLocator().getPath();
-			assertCounters(0, AnItem.gzipped, false);
+			assertCounters(0, AnItem.gzipped, true);
 			service(new Request(path, null   )).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzipped, false);
+			assertCounters(1, AnItem.gzipped, true);
 			service(new Request(path, "other")).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzipped, false);
-			service(new Request(path, "gzip" )).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzipped, false);
-			service(new Request(path, "GziP" )).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzipped, false);
+			assertCounters(2, AnItem.gzipped, true);
+			service(new Request(path, "gzip" )).assertOk(COMPRESSED, "gzip");
+			assertCounters(2, AnItem.gzipped, true);
+			service(new Request(path, "GziP" )).assertOk(COMPRESSED, "gzip");
+			assertCounters(2, AnItem.gzipped, true);
 		}
 		{
 			final String path = "/" + item.getGzLargeLocator().getPath();
-			assertCounters(0, AnItem.gzLarge, false);
+			assertCounters(0, AnItem.gzLarge, true);
 			service(new Request(path, null   )).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzLarge, false);
+			assertCounters(1, AnItem.gzLarge, true);
 			service(new Request(path, "other")).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzLarge, false);
-			service(new Request(path, "gzip" )).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzLarge, false);
-			service(new Request(path, "GziP" )).assertOk(PLAIN, null);
-			assertCounters(0, AnItem.gzLarge, false);
+			assertCounters(2, AnItem.gzLarge, true);
+			service(new Request(path, "gzip" )).assertOk(COMPRESSED, "gzip");
+			assertCounters(2, AnItem.gzLarge, true);
+			service(new Request(path, "GziP" )).assertOk(COMPRESSED, "gzip");
+			assertCounters(2, AnItem.gzLarge, true);
 		}
 		{
 			final String path = "/" + item.getIdentityLocator().getPath();
@@ -125,8 +126,8 @@ public final class MediaGzipServletTest extends TestWithEnvironment
 			service(new Request(path, "GziP" )).assertOk(PLAIN, null);
 			assertCounters(0, AnItem.identity, false);
 		}
-		assertCounters(0, AnItem.gzipped, false);
-		assertCounters(0, AnItem.gzLarge, false);
+		assertCounters(2, AnItem.gzipped, true);
+		assertCounters(2, AnItem.gzLarge, true);
 		assertCounters(0, AnItem.identity, false);
 	}
 
@@ -362,11 +363,11 @@ public final class MediaGzipServletTest extends TestWithEnvironment
 	{
 		@Wrapper(wrap="getLocator", visibility=PACKAGE)
 		@Wrapper(wrap="*", visibility=NONE)
-		static final Media gzipped = new Media();
+		static final Media gzipped = new Media().gzip();
 
 		@Wrapper(wrap="getLocator", visibility=PACKAGE)
 		@Wrapper(wrap="*", visibility=NONE)
-		static final Media gzLarge = new Media().lengthMax(Media.DEFAULT_LENGTH+1);
+		static final Media gzLarge = new Media().gzip().lengthMax(Media.DEFAULT_LENGTH+1);
 
 		@Wrapper(wrap="getLocator", visibility=PACKAGE)
 		@Wrapper(wrap="*", visibility=NONE)

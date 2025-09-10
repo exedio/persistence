@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * @see MediaTypeConditionVideoTest
+ * @see MediaTypeConditionGzipTest
  */
 public class MediaTypeConditionImageTest extends TestWithEnvironment
 {

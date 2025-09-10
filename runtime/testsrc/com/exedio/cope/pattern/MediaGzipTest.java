@@ -25,8 +25,10 @@ import static com.exedio.cope.util.Hex.encodeLower;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -38,6 +40,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 public final class MediaGzipTest extends TestWithEnvironment
@@ -51,6 +54,11 @@ public final class MediaGzipTest extends TestWithEnvironment
 
 	@Test void test() throws IOException
 	{
+		assertEquals(true,  AnItem.gzipped .isCompressed());
+		assertEquals(false, AnItem.identity.isCompressed());
+		assertEquals(true,  AnItem.gzipped .isGzip());
+		assertEquals(false, AnItem.identity.isGzip());
+
 		final AnItem item = new AnItem();
 		assertEquals(null, item.getGzippedRaw());
 		assertEquals(null, item.getIdentityRaw());
@@ -77,9 +85,9 @@ public final class MediaGzipTest extends TestWithEnvironment
 		item.setGzipped (decodeLower(PLAIN), CONTENT_TYPE);
 		item.setIdentity(decodeLower(PLAIN), CONTENT_TYPE);
 
-		assertEquals(PLAIN,      item.getGzippedRaw());
+		assertEquals(COMPRESSED, item.getGzippedRaw());
 		assertEquals(PLAIN,      item.getIdentityRaw());
-		assertEquals(PLAIN     .length()/2, item.getGzippedLength());
+		assertEquals(COMPRESSED.length()/2, item.getGzippedLength()); // TODO would be nicer, if this was PLAIN length, but I have no good idea how to do this
 		assertEquals(PLAIN     .length()/2, item.getIdentityLength());
 
 		assertEquals(PLAIN, encodeLower(item.getGzippedBody()));
@@ -129,7 +137,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		assertStreamClosed();
 		item.setIdentity(stream(decodeLower(PLAIN)), CONTENT_TYPE);
 		assertStreamClosed();
-		assertEquals(PLAIN,      item.getGzippedRaw());
+		assertEquals(COMPRESSED, item.getGzippedRaw());
 		assertEquals(PLAIN,      item.getIdentityRaw());
 
 		item.setGzipped ((InputStream)null, null);
@@ -145,7 +153,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		final AnItem item = new AnItem();
 		item.setGzipped (files.newPath(decodeLower(PLAIN)), CONTENT_TYPE);
 		item.setIdentity(files.newPath(decodeLower(PLAIN)), CONTENT_TYPE);
-		assertEquals(PLAIN,      item.getGzippedRaw());
+		assertEquals(COMPRESSED, item.getGzippedRaw());
 		assertEquals(PLAIN,      item.getIdentityRaw());
 
 		item.setGzipped ((Path)null, null);
@@ -159,7 +167,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		final AnItem item = new AnItem();
 		item.setGzipped (files.newFile(decodeLower(PLAIN)), CONTENT_TYPE);
 		item.setIdentity(files.newFile(decodeLower(PLAIN)), CONTENT_TYPE);
-		assertEquals(PLAIN,      item.getGzippedRaw());
+		assertEquals(COMPRESSED, item.getGzippedRaw());
 		assertEquals(PLAIN,      item.getIdentityRaw());
 
 		item.setGzipped ((File)null, null);
@@ -173,7 +181,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		final AnItem item = new AnItem();
 		item.setGzipped (Media.toValue(decodeLower(PLAIN), CONTENT_TYPE));
 		item.setIdentity(Media.toValue(decodeLower(PLAIN), CONTENT_TYPE));
-		assertEquals(PLAIN,      item.getGzippedRaw());
+		assertEquals(COMPRESSED, item.getGzippedRaw());
 		assertEquals(PLAIN,      item.getIdentityRaw());
 
 		item.setGzipped ((Media.Value)null);
@@ -183,6 +191,18 @@ public final class MediaGzipTest extends TestWithEnvironment
 	}
 
 	static final String PLAIN = "0102030405060708090a0b0c0d0e0f";
+
+	// https://en.wikipedia.org/wiki/Gzip#File_structure
+	static final String COMPRESSED =
+			"1f8b"     + // 0: Magic number
+			"08"       + // 2: Compression method = Deflate
+			"00"       + // 3: Flags
+			"00000000" + // 4: Unix time (0 = no timestamp is available)
+			"00"       + // 8: Extra flags = None (default)
+			"ff"       + // 9: Filesystem = Unknown (default)
+			"63646266616563e7e0e4e2e6e1e5e30700" + // The compressed data
+			"3aaaa6f5" + // CRC-32
+			"0f000000";  // Size of the uncompressed data = 15 bytes
 
 	@Test void testLarge() throws IOException
 	{
@@ -213,6 +233,35 @@ public final class MediaGzipTest extends TestWithEnvironment
 		}
 	}
 
+	@Test void testNative() throws IOException
+	{
+		final AnItem item = new AnItem();
+		item.set(
+				// resource created by
+				//   echo -n "abcd0123" | gzip > runtime/testsrc/com/exedio/cope/pattern/MediaGzipTestNative.gz
+				AnItem.gzipped.getBody().map(getClass().getResourceAsStream("MediaGzipTestNative.gz")),
+				Cope.mapAndCast(AnItem.gzipped.getContentType(), CONTENT_TYPE),
+				SetValue.map(AnItem.gzipped.getLastModified(), new Date()));
+
+		final String plain = "61626364"+"30313233";
+		assertEquals(plain, encodeLower(item.getGzippedBody()));
+		{
+			final Path sink = files.newPathNotExists();
+			item.getGzippedBody(sink);
+			assertEquals(plain, encodeLower(Files.readAllBytes(sink)));
+		}
+		{
+			final Path sink = files.newPathNotExists();
+			item.getGzippedBody(sink.toFile());
+			assertEquals(plain, encodeLower(Files.readAllBytes(sink)));
+		}
+		{
+			final var sink = new NonCloseableOrFlushableOutputStream();
+			item.getGzippedBody(sink);
+			assertEquals(plain, encodeLower(sink.toByteArray()));
+		}
+	}
+
 	static final String CONTENT_TYPE = "major/minor";
 
 	@WrapperType(indent=2, comments=false)
@@ -220,7 +269,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 	{
 		@Wrapper(wrap={"getBody","getLength","set"}, visibility=PACKAGE)
 		@Wrapper(wrap="*", visibility=NONE)
-		static final Media gzipped = new Media().optional();
+		static final Media gzipped = new Media().optional().gzip();
 
 		@Wrapper(wrap={"getBody","getLength","set"}, visibility=PACKAGE)
 		@Wrapper(wrap="*", visibility=NONE)
