@@ -150,6 +150,16 @@ public class MediaTypeMediaTest
 		assertEquals(Condition.ofFalse(), m.bodyMismatchesContentTypeIfSupported());
 	}
 
+	@Test void testGzip()
+	{
+		final Media m = new Media().contentTypes("image/jpeg");
+		final DataField b = m.getBody();
+		final DateField l = m.getLastModified();
+		assertEquals(
+				"("+l+" is not null and !("+b+" startsWith '"+JPEG+"'))",
+				m.bodyMismatchesContentTypeIfSupported().toString());
+	}
+
 	@Test void testAllowed()
 	{
 		final MediaType jpg = forName("image/jpeg");
