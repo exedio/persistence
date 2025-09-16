@@ -16,49 +16,56 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class MediaTypeConditionTest extends TestWithEnvironment
+public class MediaTypeConditionVideoTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(MediaItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(MediaTypeConditionTest.class, "MODEL");
+		MODEL.enableSerialization(MediaTypeConditionVideoTest.class, "MODEL");
 	}
 
-	MediaTypeConditionTest()
+	MediaTypeConditionVideoTest()
 	{
 		super(MODEL);
 	}
 
-	private MediaItem image, empty;
+	private MediaItem video, empty;
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
 
 	@BeforeEach
 	void setUp() throws IOException
 	{
-		image = new MediaItem();
-		image.setPng(files.newPath(MediaTypeConditionTest.class, "thumbnail-test.png"), "image/png");
+		video = new MediaItem();
+		video.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot.mp4"), "video/mp4");
 
 		empty = new MediaItem();
 	}
 
 	@Test
-	void testImage() throws IOException
+	void testVideo() throws IOException
 	{
-		final Condition mismatch = MediaItem.png.bodyMismatchesContentTypeIfSupported();
+		final Condition mismatch = MediaItem.mp4.bodyMismatchesContentTypeIfSupported();
 		final Condition inverted = mismatch.not();
-		assertEquals(List.of(), search(mismatch));
-		assertEquals(isVault(mysql?List.of(image):List.of(), List.of(image, empty)), search(inverted)); // TODO bug, should be image, empty
 
-		image.setPng(files.newPath(MediaTypeConditionTest.class, "thumbnail-test.jpg"), "image/png");
-		assertEquals(isVault(List.of(), List.of(image)), search(mismatch)); // TODO bug, should be image
+		assertEquals(List.of(), search(mismatch));
+		assertEquals(isVault(List.of(video), List.of(video, empty)), search(inverted)); // TODO bug, should be video, empty
+
+		video.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot_mp42.mp4"), "video/mp4");
+
+		assertEquals(List.of(), search(mismatch));
+		assertEquals(isVault(List.of(), List.of(video, empty)), search(inverted)); // TODO bug, should be video, empty
+
+		video.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot.ogg"), "video/mp4");
+
+		assertEquals(isVault(List.of(), List.of(video)), search(mismatch)); // TODO bug, should be video
 		assertEquals(isVault(List.of(), List.of(empty)), search(inverted)); // TODO bug, should be empty
 	}
 
 	// TODO should not depend on vault
 	private static <T> T isVault(final T vaultValue, final T nonVaultValue)
 	{
-		return MediaItem.png.getBody().getVaultBucket() != null ? vaultValue : nonVaultValue;
+		return MediaItem.mp4.getBody().getVaultBucket() != null ? vaultValue : nonVaultValue;
 	}
 
 	private static List<MediaItem> search(final Condition condition)
@@ -71,7 +78,7 @@ public class MediaTypeConditionTest extends TestWithEnvironment
 	{
 		@Wrapper(wrap = "set", parameters = {Path.class, String.class}, visibility=Visibility.PACKAGE)
 		@Wrapper(wrap = "*", visibility=Visibility.NONE)
-		static final Media png = new Media().optional().contentType("image/png");
+		static final Media mp4 = new Media().optional().contentType("video/mp4");
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
@@ -85,11 +92,11 @@ public class MediaTypeConditionTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		final void setPng(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+		final void setMp4(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{
-			MediaItem.png.set(this,body,contentType);
+			MediaItem.mp4.set(this,body,contentType);
 		}
 
 		@com.exedio.cope.instrument.Generated
