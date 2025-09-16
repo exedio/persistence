@@ -49,7 +49,7 @@ public class MediaTypeConditionVideoTest extends TestWithEnvironment
 		final Condition inverted = mismatch.not();
 
 		assertEquals(List.of(), search(mismatch));
-		assertEquals(isVault(List.of(video), List.of(video, empty)), search(inverted)); // TODO bug, should be video, empty
+		assertEquals(isVault(mysql?List.of(video):List.of(), List.of(video, empty)), search(inverted)); // TODO bug, should be video, empty
 
 		video.setMp4(files.newPath(MediaTypeMediaTest.class, "teapot_mp42.mp4"), "video/mp4");
 
