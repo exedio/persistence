@@ -45,6 +45,7 @@ public class MediaTypeMediaTest
 	private static final String ZIP = "504b0304";
 	private static final String PDF = "25504446";
 	private static final String STL = "736f6c6964";
+	private static final String GZIP = "1f8b08";
 
 	@Test void testDefault()
 	{
@@ -152,11 +153,11 @@ public class MediaTypeMediaTest
 
 	@Test void testGzip()
 	{
-		final Media m = new Media().contentTypes("image/jpeg");
+		final Media m = new Media().contentTypes("image/jpeg").gzip();
 		final DataField b = m.getBody();
 		final DateField l = m.getLastModified();
 		assertEquals(
-				"("+l+" is not null and !("+b+" startsWith '"+JPEG+"'))",
+				"("+l+" is not null and !("+b+" startsWith '"+GZIP+"'))",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 

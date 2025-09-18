@@ -17,18 +17,18 @@ import org.junit.jupiter.api.Test;
 
 /**
  * @see MediaTypeConditionImageTest
- * @see MediaTypeConditionGzipTest
+ * @see MediaTypeConditionVideoTest
  */
-public class MediaTypeConditionVideoTest extends TestWithEnvironment
+public class MediaTypeConditionGzipTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(AnItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(MediaTypeConditionVideoTest.class, "MODEL");
+		MODEL.enableSerialization(MediaTypeConditionGzipTest.class, "MODEL");
 	}
 
-	MediaTypeConditionVideoTest()
+	MediaTypeConditionGzipTest()
 	{
 		super(MODEL);
 	}
@@ -39,7 +39,7 @@ public class MediaTypeConditionVideoTest extends TestWithEnvironment
 	void test() throws IOException
 	{
 		final AnItem item = new AnItem();
-		item.setField(files.newPath(MediaTypeMediaTest.class, "teapot.mp4"), "video/mp4");
+		item.setField(files.newPath(MediaTypeMediaTest.class, "thumbnail-test.png"), "image/png");
 		final AnItem empty = new AnItem();
 
 		final Condition mismatch = AnItem.field.bodyMismatchesContentTypeIfSupported();
@@ -47,11 +47,7 @@ public class MediaTypeConditionVideoTest extends TestWithEnvironment
 		assertEquals(List.of(), search(mismatch));
 		assertEquals(isVault(mysql?List.of(item):List.of(), List.of(item, empty)), search(inverted)); // TODO bug, should be item, empty
 
-		item.setField(files.newPath(MediaTypeMediaTest.class, "teapot_mp42.mp4"), "video/mp4");
-		assertEquals(List.of(), search(mismatch));
-		assertEquals(isVault(List.of(), List.of(item, empty)), search(inverted)); // TODO bug, should be item, empty
-
-		item.setField(files.newPath(MediaTypeMediaTest.class, "teapot.ogg"), "video/mp4");
+		AnItem.field.getBody().set(item, files.newPath(MediaTypeMediaTest.class, "thumbnail-test.png"));
 		assertEquals(isVault(List.of(), List.of(item)), search(mismatch)); // TODO bug, should be item
 		assertEquals(isVault(List.of(), List.of(empty)), search(inverted)); // TODO bug, should be empty
 	}
@@ -72,7 +68,7 @@ public class MediaTypeConditionVideoTest extends TestWithEnvironment
 	{
 		@Wrapper(wrap="set", parameters={Path.class, String.class}, visibility=Visibility.PACKAGE)
 		@Wrapper(wrap="*", visibility=Visibility.NONE)
-		static final Media field = new Media().optional().contentType("video/mp4");
+		static final Media field = new Media().optional().gzip();
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
