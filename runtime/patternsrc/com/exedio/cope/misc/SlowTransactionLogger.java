@@ -26,6 +26,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.util.Holder;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.function.LongSupplier;

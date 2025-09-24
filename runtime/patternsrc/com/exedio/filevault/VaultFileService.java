@@ -32,7 +32,7 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.misc.Holder;
+import com.exedio.cope.util.Holder;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultService;
