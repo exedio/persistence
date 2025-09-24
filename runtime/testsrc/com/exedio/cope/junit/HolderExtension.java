@@ -20,7 +20,7 @@ package com.exedio.cope.junit;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.misc.Holder;
+import com.exedio.cope.util.Holder;
 import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
