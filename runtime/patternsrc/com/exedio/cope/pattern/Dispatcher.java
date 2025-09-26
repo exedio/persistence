@@ -154,20 +154,14 @@ public final class Dispatcher extends Pattern
 		void dispatch(I item, S session) throws Exception;
 	}
 
-	@SuppressWarnings("ClassCanBeRecord") private static final class Initial
+	private record Initial(
+			Supplier<? extends AutoCloseable> session,
+			SessionTarget<?, ?> target,
+			BiConsumer<? extends Item, Exception> onFinalFailure)
 	{
-		final Supplier<? extends AutoCloseable> session;
-		private final SessionTarget<?,?> target;
-		private final BiConsumer<? extends Item,Exception> onFinalFailure;
-
-		private Initial(
-				final Supplier<? extends AutoCloseable> session,
-				final SessionTarget<?,?> target,
-				final BiConsumer<? extends Item,Exception> onFinalFailure)
+		Initial
 		{
-			this.session = session;
-			this.target = requireNonNull(target, "target");
-			this.onFinalFailure = onFinalFailure;
+			requireNonNull(target, "target");
 		}
 	}
 
