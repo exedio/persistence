@@ -139,7 +139,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private final Variant variant;
+	private final Initial initial;
 
 	@FunctionalInterface
 	public interface Target<I extends Item>
@@ -154,13 +154,13 @@ public final class Dispatcher extends Pattern
 		void dispatch(I item, S session) throws Exception;
 	}
 
-	@SuppressWarnings("ClassCanBeRecord") private static final class Variant
+	@SuppressWarnings("ClassCanBeRecord") private static final class Initial
 	{
 		final Supplier<? extends AutoCloseable> session;
 		private final SessionTarget<?,?> target;
 		private final BiConsumer<? extends Item,Exception> onFinalFailure;
 
-		private Variant(
+		private Initial(
 				final Supplier<? extends AutoCloseable> session,
 				final SessionTarget<?,?> target,
 				final BiConsumer<? extends Item,Exception> onFinalFailure)
@@ -215,10 +215,10 @@ public final class Dispatcher extends Pattern
 	{
 		return new Dispatcher(
 				new BooleanField().defaultTo(true), true,
-				new Variant(session, target, finalFailureListener));
+				new Initial(session, target, finalFailureListener));
 	}
 
-	private Dispatcher(final BooleanField pending, final boolean supportPurge, final Variant variant)
+	private Dispatcher(final BooleanField pending, final boolean supportPurge, final Initial initial)
 	{
 		this.pending = addSourceFeature(pending, "pending");
 		if(supportPurge)
@@ -231,12 +231,12 @@ public final class Dispatcher extends Pattern
 			noPurge = null;
 			unpend = null;
 		}
-		this.variant = requireNonNull(variant);
+		this.initial = requireNonNull(initial);
 	}
 
 	public Dispatcher defaultPendingTo(final boolean defaultConstant)
 	{
-		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge(), variant);
+		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge(), initial);
 	}
 
 	/**
@@ -273,7 +273,7 @@ public final class Dispatcher extends Pattern
 	 */
 	public Dispatcher withoutPurgeLEGACY()
 	{
-		return new Dispatcher(pending.copy(), false, variant);
+		return new Dispatcher(pending.copy(), false, initial);
 	}
 
 	boolean supportsPurge()
@@ -288,7 +288,7 @@ public final class Dispatcher extends Pattern
 		final Type<?> type = getType();
 		this.runTypeIfMounted = new RunType(type);
 
-		if(variant.session!=null)
+		if(initial.session!=null)
 			FeatureMeter.onMount(this, sessionCreateTimer, sessionCloseTimer);
 		FeatureMeter.onMount(this, succeedTimer, failTimer, probeTimer);
 		if(supportsPurge())
@@ -412,7 +412,7 @@ public final class Dispatcher extends Pattern
 		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
 
 		try(DispatcherSessionManager session = new DispatcherSessionManager(
-				variant.session, config, ctx, id, sessionCreateTimer, sessionCloseTimer, logger))
+				initial.session, config, ctx, id, sessionCreateTimer, sessionCloseTimer, logger))
 		{
 			// TODO indent
 
@@ -460,9 +460,9 @@ public final class Dispatcher extends Pattern
 				{
 					{
 						final AutoCloseable s = session.get();
-						assert (variant.session==null) == (s==null);
+						assert (initial.session==null) == (s==null);
 						@SuppressWarnings("unchecked")
-						final SessionTarget<Item, AutoCloseable> target = (SessionTarget<Item, AutoCloseable>)variant.target;
+						final SessionTarget<Item, AutoCloseable> target = (SessionTarget<Item, AutoCloseable>)initial.target;
 						target.dispatch(item, s);
 					}
 
@@ -541,10 +541,10 @@ public final class Dispatcher extends Pattern
 											: limit + " runs exhausted"),
 									failureCause);
 
-						if(variant.onFinalFailure!=null)
+						if(initial.onFinalFailure!=null)
 						{
 							@SuppressWarnings("unchecked")
-							final BiConsumer<Item, Exception> onFinalFailure = (BiConsumer<Item, Exception>)variant.onFinalFailure;
+							final BiConsumer<Item, Exception> onFinalFailure = (BiConsumer<Item, Exception>)initial.onFinalFailure;
 							onFinalFailure.accept(item, failureCause);
 						}
 					}
