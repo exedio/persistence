@@ -171,13 +171,6 @@ public final class Dispatcher extends Pattern
 		}
 
 		@SuppressWarnings("unchecked")
-		void dispatch(final Item item, final AutoCloseable session) throws Exception
-		{
-			assert (this.session==null) == (session==null);
-			((SessionTarget<Item,AutoCloseable>)target).dispatch(item, session);
-		}
-
-		@SuppressWarnings("unchecked")
 		void notifyFinalFailure(final Item item, final Exception cause)
 		{
 			if(onFinalFailure!=null)
@@ -472,7 +465,13 @@ public final class Dispatcher extends Pattern
 				final Timer.Sample startSample = Timer.start();
 				try
 				{
-					variant.dispatch(item, session.get());
+					{
+						final AutoCloseable s = session.get();
+						assert (variant.session==null) == (s==null);
+						@SuppressWarnings("unchecked")
+						final SessionTarget<Item, AutoCloseable> target = (SessionTarget<Item, AutoCloseable>)variant.target;
+						target.dispatch(item, s);
+					}
 
 					final long elapsed = succeedTimer.stopMillies(startSample);
 					runType.newItem(
