@@ -169,13 +169,6 @@ public final class Dispatcher extends Pattern
 			this.target = requireNonNull(target, "target");
 			this.onFinalFailure = onFinalFailure;
 		}
-
-		@SuppressWarnings("unchecked")
-		void notifyFinalFailure(final Item item, final Exception cause)
-		{
-			if(onFinalFailure!=null)
-				((BiConsumer<Item,Exception>)onFinalFailure).accept(item, cause);
-		}
 	}
 
 	private RunType runTypeIfMounted = null;
@@ -547,7 +540,13 @@ public final class Dispatcher extends Pattern
 											? "@DispatcherImmediateFinalFailure thrown"
 											: limit + " runs exhausted"),
 									failureCause);
-						variant.notifyFinalFailure(item, failureCause);
+
+						if(variant.onFinalFailure!=null)
+						{
+							@SuppressWarnings("unchecked")
+							final BiConsumer<Item, Exception> onFinalFailure = (BiConsumer<Item, Exception>)variant.onFinalFailure;
+							onFinalFailure.accept(item, failureCause);
+						}
 					}
 					else
 					{
