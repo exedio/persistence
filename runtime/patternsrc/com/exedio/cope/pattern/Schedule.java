@@ -135,43 +135,6 @@ public final class Schedule extends Pattern
 
 	final Runs runs = new Runs();
 
-	/**
-	 * If your code now looks like this:
-	 * <pre>
-	 * class SalesReport extends Item <span style="text-decoration: line-through;">implements Scheduleable</span>
-	 * {
-	 *    static final Schedule report =
-	 *       <span style="text-decoration: line-through;">new</span> Schedule(ZoneId.of("..."));
-	 *
-	 *    <span style="text-decoration: line-through;">@Override</span>
-	 *    <span style="text-decoration: line-through;">public</span> void run(<span style="text-decoration: line-through;">Schedule schedule</span>, Date from, Date until, JobContext ctx)
-	 *    {
-	 *       // your code
-	 *    }
-	 * }
-	 * </pre>
-	 * then change it to this:
-	 * <pre>
-	 * class SalesReport extends Item
-	 * {
-	 *    static final Schedule report =
-	 *       Schedule<b>.create</b>(ZoneId.of("..."), <b>SalesReport::run</b>);
-	 *
-	 *    <b>@{@link com.exedio.cope.instrument.WrapInterim WrapInterim}(methodBody=false)</b>
-	 *    <b>private</b> void run(Date from, Date until, JobContext ctx)
-	 *    {
-	 *       // your code
-	 *    }
-	 * }
-	 * </pre>
-	 * @deprecated Use {@link #create(ZoneId, Target)} instead as described.
-	 */
-	@Deprecated
-	public Schedule(final ZoneId zoneId)
-	{
-		this(zoneId, INTERFACE_VARIANT);
-	}
-
 	public static <I extends Item> Schedule create(
 			final ZoneId zoneId,
 			final Target<I> target)
@@ -189,7 +152,7 @@ public final class Schedule extends Pattern
 
 	private abstract static class Variant
 	{
-		abstract void run(Schedule schedule, Item item, Date fromDate, Date untilDate, RunContext runCtx);
+		abstract void run(@SuppressWarnings("unused") Schedule schedule, Item item, Date fromDate, Date untilDate, RunContext runCtx);
 	}
 
 	@FunctionalInterface
@@ -215,15 +178,6 @@ public final class Schedule extends Pattern
 		}
 	}
 
-	@SuppressWarnings("CastToIncompatibleInterface")
-	private static final Variant INTERFACE_VARIANT = new Variant()
-	{
-		@Override void run(final Schedule schedule, final Item item, final Date fromDate, final Date untilDate, final RunContext runCtx)
-		{
-			((Scheduleable)item).run(schedule, fromDate, untilDate, runCtx);
-		}
-	};
-
 	public ZoneId getZoneId()
 	{
 		return zoneId;
@@ -239,11 +193,6 @@ public final class Schedule extends Pattern
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		if(variant==INTERFACE_VARIANT &&
-			!Scheduleable.class.isAssignableFrom(type.getJavaClass()))
-			throw new ClassCastException(
-					"type of " + getID() + " must implement " + Scheduleable.class +
-					", but was " + type.getJavaClass().getName());
 
 		runs.onMount(this, type);
 		FeatureMeter.onMount(this, runTimer);

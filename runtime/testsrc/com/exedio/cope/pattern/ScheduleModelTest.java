@@ -131,20 +131,6 @@ public class ScheduleModelTest
 				"zoneId");
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void testZoneIdNull()
-	{
-		try
-		{
-			new Schedule(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("zoneId", e.getMessage());
-		}
-	}
-
 	@Test void testMoreGetters()
 	{
 		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
