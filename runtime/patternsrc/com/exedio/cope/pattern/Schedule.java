@@ -139,7 +139,7 @@ public final class Schedule extends Pattern
 			final ZoneId zoneId,
 			final Target<I> target)
 	{
-		return new Schedule(zoneId, new TargetVariant(target));
+		return new Schedule(zoneId, new Variant(target));
 	}
 
 	private Schedule(final ZoneId zoneId, final Variant variant)
@@ -150,11 +150,6 @@ public final class Schedule extends Pattern
 		addSourceFeature(interval, "interval");
 	}
 
-	private abstract static class Variant
-	{
-		abstract void run(@SuppressWarnings("unused") Schedule schedule, Item item, Date fromDate, Date untilDate, RunContext runCtx);
-	}
-
 	@FunctionalInterface
 	public interface Target<I extends Item>
 	{
@@ -162,17 +157,18 @@ public final class Schedule extends Pattern
 		void run(I item, Date from, Date until, JobContext ctx);
 	}
 
-	private static final class TargetVariant extends Variant
+	@SuppressWarnings("ClassCanBeRecord")
+	private static final class Variant
 	{
 		private final Target<?> target;
 
-		private TargetVariant(final Target<?> target)
+		private Variant(final Target<?> target)
 		{
 			this.target = requireNonNull(target, "target");
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override void run(final Schedule schedule, final Item item, final Date fromDate, final Date untilDate, final RunContext runCtx)
+		void run(@SuppressWarnings("unused") final Schedule schedule, final Item item, final Date fromDate, final Date untilDate, final RunContext runCtx)
 		{
 			((Target<Item>)target).run(item, fromDate, untilDate, runCtx);
 		}
