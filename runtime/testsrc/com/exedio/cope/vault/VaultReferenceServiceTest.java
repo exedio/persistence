@@ -40,7 +40,7 @@ public class VaultReferenceServiceTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultReferenceService.class),
+						single("service", VaultFallbackService.class),
 						single("service.main", VaultMockService.class),
 						single("service.main.example", "mainEx"),
 						single("service.reference", VaultMockService.class),

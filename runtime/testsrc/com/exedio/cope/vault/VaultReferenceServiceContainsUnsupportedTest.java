@@ -85,7 +85,7 @@ public class VaultReferenceServiceContainsUnsupportedTest
 			final Class<? extends VaultService> reference)
 	{
 		final Source source = cascade(
-				single("service", VaultReferenceService.class),
+				single("service", VaultFallbackService.class),
 				single("service.referenceCount", 2),
 				single("service.main", main),
 				single("service.reference", reference),

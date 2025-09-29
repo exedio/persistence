@@ -44,8 +44,8 @@ public class VaultReferenceServiceNestedTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("service", VaultReferenceService.class),
-						single("service.main", VaultReferenceService.class),
+						single("service", VaultFallbackService.class),
+						single("service.main", VaultFallbackService.class),
 						single("service.main.main", VaultMockService.class),
 						single("service.main.main.example", "mainEx"),
 						single("service.main.reference", VaultMockService.class),

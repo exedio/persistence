@@ -144,7 +144,7 @@ public class VaultReferenceBucketTagTest
 	private static VaultFallbackService service(final String main, final String... references)
 	{
 		final List<Source> sources = new ArrayList<>(List.of(
-				single("service", VaultReferenceService.class),
+				single("service", VaultFallbackService.class),
 				single("service.main", VaultMockService.class),
 				single("service.main.bucketTagAction", main)
 		));

@@ -36,7 +36,7 @@ public class VaultReferenceServiceContainsTest
 	@BeforeEach void before()
 	{
 		final Source source = cascade(
-				single("service", VaultReferenceService.class),
+				single("service", VaultFallbackService.class),
 				single("service.main", Service.class),
 				single("service.reference", Service.class)
 		);

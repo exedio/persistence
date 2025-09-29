@@ -585,7 +585,7 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultReferenceService.class),
+						single("default.service", VaultFallbackService.class),
 						single("default.service.main", ServicePropertiesMissing.class),
 						single("default.service.reference", ServicePropertiesMissing.class)
 				));
@@ -638,7 +638,7 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultReferenceService.class),
+						single("default.service", VaultFallbackService.class),
 						single("default.service.main", ServicePropertiesNoConstructor.class)
 				));
 		final Exception e = assertFails(
@@ -703,7 +703,7 @@ public class VaultPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultReferenceService.class),
+						single("default.service", VaultFallbackService.class),
 						single("default.service.main", ServicePropertiesFails.class)
 				));
 		final Exception e = assertFails(

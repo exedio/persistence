@@ -37,9 +37,9 @@ public class VaultReferenceServiceNestedWrongTest
 
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultReferenceService.class),
+						single("default.service", VaultFallbackService.class),
 						single("default.service.main", VaultMockService.class),
-						single("default.service.reference", VaultReferenceService.class),
+						single("default.service.reference", VaultFallbackService.class),
 						single("default.service.reference.main", VaultMockService.class),
 						single("default.service.reference.reference", VaultMockService.class)
 				));
@@ -57,11 +57,11 @@ public class VaultReferenceServiceNestedWrongTest
 
 		final Source source =
 				describe("DESC", cascade(
-						single("default.service", VaultReferenceService.class),
+						single("default.service", VaultFallbackService.class),
 						single("default.service.main", VaultMockService.class),
 						single("default.service.referenceCount", 2),
 						single("default.service.reference", VaultMockService.class),
-						single("default.service.reference1", VaultReferenceService.class),
+						single("default.service.reference1", VaultFallbackService.class),
 						single("default.service.reference1.main", VaultMockService.class),
 						single("default.service.reference1.reference", VaultMockService.class)
 				));
