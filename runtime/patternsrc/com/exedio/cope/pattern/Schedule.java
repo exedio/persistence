@@ -215,6 +215,7 @@ public final class Schedule extends Pattern
 		}
 	}
 
+	@SuppressWarnings("CastToIncompatibleInterface")
 	private static final Variant INTERFACE_VARIANT = new Variant()
 	{
 		@Override void run(final Schedule schedule, final Item item, final Date fromDate, final Date untilDate, final RunContext runCtx)

@@ -24,6 +24,7 @@ import java.util.Date;
 
 @FunctionalInterface
 @WrapImplementsInterim(addMethods=true)
+@SuppressWarnings("InterfaceNeverImplemented")
 public interface Scheduleable
 {
 	void run(Schedule schedule, Date from, Date until, JobContext ctx);

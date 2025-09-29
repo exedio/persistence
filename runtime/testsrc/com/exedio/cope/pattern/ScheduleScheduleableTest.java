@@ -23,13 +23,13 @@ import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.Schedule.Interval;
@@ -236,15 +236,14 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	private static final class MyItem extends Item implements Scheduleable
+	private static final class MyItem extends Item
 	{
-		@SuppressWarnings("deprecation") // OK: testing deprecated API
-		static final Schedule report = new Schedule(ZoneId.of("Europe/Berlin"));
+		// was testing deprecated API
+		static final Schedule report = Schedule.create(ZoneId.of("Europe/Berlin"), MyItem::run);
 
-		@Override
-		public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
+		@WrapInterim(methodBody=false)
+		@SuppressWarnings("MethodMayBeStatic") private void run(final Date from, final Date until, final JobContext ctx)
 		{
-			assertSame(report, schedule);
 			assertNotNull(from);
 			assertNotNull(until);
 			assertTrue(from.before(until));
