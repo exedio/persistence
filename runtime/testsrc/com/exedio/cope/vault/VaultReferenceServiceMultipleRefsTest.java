@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class VaultReferenceServiceMultipleRefsTest
 {
-	private VaultReferenceService service;
+	private VaultFallbackService service;
 	private VaultMockService main;
 	private VaultMockService refr0;
 	private VaultMockService refr1;
@@ -55,7 +55,7 @@ public class VaultReferenceServiceMultipleRefsTest
 						single("service.reference2.example", "refrEx2")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
-		final VaultReferenceService service = (VaultReferenceService)props.newServiceNonResilient(() -> false);
+		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
 		refr0 = (VaultMockService)service.getReferenceServices().get(0);

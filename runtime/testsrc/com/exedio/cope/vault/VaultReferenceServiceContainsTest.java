@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class VaultReferenceServiceContainsTest
 {
-	private VaultReferenceService service;
+	private VaultFallbackService service;
 	private Service main;
 	private Service refr;
 
@@ -41,7 +41,7 @@ public class VaultReferenceServiceContainsTest
 				single("service.reference", Service.class)
 		);
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
-		final VaultReferenceService service = (VaultReferenceService)props.newServiceNonResilient(() -> false);
+		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (Service)service.getMainService();
 		refr = (Service)service.getReferenceServices().get(0);

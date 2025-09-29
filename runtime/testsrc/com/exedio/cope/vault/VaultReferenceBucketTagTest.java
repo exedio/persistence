@@ -141,7 +141,7 @@ public class VaultReferenceBucketTagTest
 				"FAIL mainGenuine(my-Bucket)"));
 	}
 
-	private static VaultReferenceService service(final String main, final String... references)
+	private static VaultFallbackService service(final String main, final String... references)
 	{
 		final List<Source> sources = new ArrayList<>(List.of(
 				single("service", VaultReferenceService.class),
@@ -156,7 +156,7 @@ public class VaultReferenceBucketTagTest
 			sources.add(single(key + ".bucketTagAction", references[i]));
 		}
 		final Source source = cascade(sources.toArray(Source[]::new));
-		return (VaultReferenceService)BucketProperties.factory("myKey").create(source).newServiceNonResilient(() -> false);
+		return (VaultFallbackService)BucketProperties.factory("myKey").create(source).newServiceNonResilient(() -> false);
 	}
 	private static void assertStackTrace(final int expected, final Exception actual)
 	{

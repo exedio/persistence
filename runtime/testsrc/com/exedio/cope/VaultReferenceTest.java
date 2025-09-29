@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.vault.VaultFallbackService;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
@@ -501,7 +502,7 @@ public abstract class VaultReferenceTest
 
 
 	private final LogRule log = new LogRule(VaultReferenceService.class);
-	private VaultReferenceService service;
+	private VaultFallbackService service;
 	private VaultMockService main, refr, refr1;
 
 	@BeforeEach void setUp()
@@ -521,7 +522,7 @@ public abstract class VaultReferenceTest
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
-		this.service = (VaultReferenceService)VaultTest.vaultService(MODEL);
+		this.service = (VaultFallbackService)VaultTest.vaultService(MODEL);
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceServices().get(0);
 		refr1 = (VaultMockService)service.getReferenceServices().get(1);

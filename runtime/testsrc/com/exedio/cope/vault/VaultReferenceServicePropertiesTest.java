@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.vault.VaultReferenceService.Props;
+import com.exedio.cope.vault.VaultFallbackService.Props;
 import org.junit.jupiter.api.Test;
 
 public class VaultReferenceServicePropertiesTest
