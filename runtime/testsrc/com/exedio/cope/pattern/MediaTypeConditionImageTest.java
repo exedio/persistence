@@ -1,12 +1,13 @@
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
@@ -66,8 +67,8 @@ public class MediaTypeConditionImageTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class AnItem extends Item
 	{
-		@Wrapper(wrap="set", parameters={Path.class, String.class}, visibility=Visibility.PACKAGE)
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="set", parameters={Path.class, String.class}, visibility=PACKAGE)
+		@Wrapper(wrap="*", visibility=NONE)
 		static final Media field = new Media().optional().contentType("image/png");
 
 		@com.exedio.cope.instrument.Generated

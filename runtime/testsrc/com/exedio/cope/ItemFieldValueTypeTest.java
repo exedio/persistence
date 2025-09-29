@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Block;
@@ -111,7 +111,7 @@ public class ItemFieldValueTypeTest
 	}
 
 
-	@WrapperType(constructor=Visibility.NONE, indent=2, comments=false)
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	private static final class MyComp extends Composite
 	{
 		@WrapperIgnore
@@ -145,7 +145,7 @@ public class ItemFieldValueTypeTest
 		private MyBlok(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(constructor=Visibility.NONE, genericConstructor=Visibility.NONE, indent=2, comments=false)
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
 		@WrapperIgnore

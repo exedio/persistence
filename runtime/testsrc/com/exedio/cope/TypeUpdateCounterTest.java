@@ -1,9 +1,9 @@
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.vault.VaultProperties;
@@ -90,7 +90,7 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class ModifiableParent extends UnmodifiableGrandparent
 	{
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
 		private static final IntegerField modA = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
@@ -120,7 +120,7 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class ModifiableChild extends ModifiableParent
 	{
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
 		private static final IntegerField modB = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
@@ -152,7 +152,7 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class UnmodifiableChild extends ModifiableParent
 	{
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
 		private static final IntegerField unmod = new IntegerField().toFinal();
 
 		@com.exedio.cope.instrument.Generated
@@ -184,7 +184,7 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class BlobChild extends ModifiableParent
 	{
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
 		private static final DataField data = new DataField();
 
 		@com.exedio.cope.instrument.Generated
@@ -218,7 +218,7 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class VaultChild extends ModifiableParent
 	{
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
 		@Vault
 		private static final DataField data = new DataField();
 
@@ -254,7 +254,7 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 		@WrapperType(indent=2, comments=false)
 	private static class SeparateUnmodifiable extends Item
 	{
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
 		private static final IntegerField unmod = new IntegerField().toFinal();
 
 		@com.exedio.cope.instrument.Generated
@@ -285,7 +285,7 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	private static class SeparateBlob extends Item
 	{
 		@SuppressWarnings("unused")
-		@Wrapper(wrap="*", visibility=Visibility.NONE)
+		@Wrapper(wrap="*", visibility=NONE)
 		private static final DataField data = new DataField().optional();
 
 		@com.exedio.cope.instrument.Generated

@@ -1,12 +1,13 @@
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 
-@WrapperType(constructorSuppressWarnings="JustOneConstructor", type=Visibility.NONE)
+@WrapperType(constructorSuppressWarnings="JustOneConstructor", type=NONE)
 class SuppressWarningsItem extends Item
 {
 	@Wrapper(wrap="*", suppressWarnings="JustOne")

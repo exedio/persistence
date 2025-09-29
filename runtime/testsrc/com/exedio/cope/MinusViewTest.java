@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
@@ -96,10 +96,10 @@ public class MinusViewTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static final class Supplier extends Item
 	{
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final StringField stockable = new StringField();
 
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final IntegerField keepSupplierStockReserve = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
@@ -134,10 +134,10 @@ public class MinusViewTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static final class StockAccounting extends Item
 	{
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final ItemField<Supplier> supplier = ItemField.create(Supplier.class);
 
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final IntegerField amount = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
@@ -31,7 +32,6 @@ import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
@@ -174,7 +174,7 @@ public class CompositeCheckConstraintTest
 	{
 		static final IntegerField alpha = new IntegerField();
 		@WrapperInitial
-		@Wrapper(wrap="get", visibility=Visibility.PACKAGE, internal=true)
+		@Wrapper(wrap="get", visibility=PACKAGE, internal=true)
 		static final IntegerField gamma = new IntegerField().optional();
 
 		static final CheckConstraint check = new CheckConstraint(alpha.less(gamma));

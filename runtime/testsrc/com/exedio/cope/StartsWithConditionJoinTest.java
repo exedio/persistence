@@ -19,13 +19,13 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.MainRule;
@@ -263,14 +263,14 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class MyItem extends Item
 	{
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final DataField alpha = new DataField().toFinal();
 
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final DataField beta = new DataField().toFinal();
 
 		@Vault("jo-ta")
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final DataField jota = new DataField().toFinal();
 
 		private MyItem(
