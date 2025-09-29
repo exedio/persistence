@@ -126,7 +126,7 @@ public final class Schedule extends Pattern
 	}
 
 	private final ZoneId zoneId;
-	private final Variant variant;
+	private final Target<?> target;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(DAILY);
@@ -139,13 +139,13 @@ public final class Schedule extends Pattern
 			final ZoneId zoneId,
 			final Target<I> target)
 	{
-		return new Schedule(zoneId, new Variant(target));
+		return new Schedule(zoneId, target);
 	}
 
-	private Schedule(final ZoneId zoneId, final Variant variant)
+	private Schedule(final ZoneId zoneId, final Target<?> target)
 	{
 		this.zoneId = requireNonNull(zoneId, "zoneId");
-		this.variant = requireNonNull(variant);
+		this.target = requireNonNull(target, "target");
 		addSourceFeature(enabled,  "enabled");
 		addSourceFeature(interval, "interval");
 	}
@@ -155,17 +155,6 @@ public final class Schedule extends Pattern
 	{
 		@SuppressWarnings("unused") // OK: bug in idea, ignores method reference
 		void run(I item, Date from, Date until, JobContext ctx);
-	}
-
-	@SuppressWarnings("ClassCanBeRecord")
-	private static final class Variant
-	{
-		private final Target<?> target;
-
-		private Variant(final Target<?> target)
-		{
-			this.target = requireNonNull(target, "target");
-		}
 	}
 
 	public ZoneId getZoneId()
@@ -393,7 +382,7 @@ public final class Schedule extends Pattern
 			{
 				final Timer.Sample start = Timer.start();
 				@SuppressWarnings("unchecked")
-				final Target<Item> target = (Target<Item>)variant.target;
+				final Target<Item> target = (Target<Item>)this.target;
 				target.run(item, fromDate, untilDate, runCtx); // TODO switch to Instant
 				final long elapsed = runTimer.stopMillies(start);
 				runs.newItem(
