@@ -22,6 +22,7 @@ import java.lang.annotation.Annotation;
 
 final class AnnotationHelper
 {
+	@SuppressWarnings("StaticImportCanBeUsed")
 	private static final WrapperType OPTION_DEFAULT = new WrapperType()
 	{
 		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
