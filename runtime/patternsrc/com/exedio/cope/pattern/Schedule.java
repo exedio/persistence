@@ -166,12 +166,6 @@ public final class Schedule extends Pattern
 		{
 			this.target = requireNonNull(target, "target");
 		}
-
-		@SuppressWarnings("unchecked")
-		void run(@SuppressWarnings("unused") final Schedule schedule, final Item item, final Date fromDate, final Date untilDate, final RunContext runCtx)
-		{
-			((Target<Item>)target).run(item, fromDate, untilDate, runCtx);
-		}
 	}
 
 	public ZoneId getZoneId()
@@ -398,7 +392,9 @@ public final class Schedule extends Pattern
 			try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 			{
 				final Timer.Sample start = Timer.start();
-				variant.run(this, item, fromDate, untilDate, runCtx); // TODO switch to Instant
+				@SuppressWarnings("unchecked")
+				final Target<Item> target = (Target<Item>)variant.target;
+				target.run(item, fromDate, untilDate, runCtx); // TODO switch to Instant
 				final long elapsed = runTimer.stopMillies(start);
 				runs.newItem(
 						item, interval, fromDate, untilDate, Date.from(now), // TODO switch to InstantField
