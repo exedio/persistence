@@ -118,7 +118,7 @@ public class ScheduleModelTest
 	@Test void testCreateTargetNull()
 	{
 		assertFails(
-				() -> create(null, null),
+				() -> create(ZoneId.of("Europe/Berlin"), null),
 				NullPointerException.class,
 				"target");
 	}
