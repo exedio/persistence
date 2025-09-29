@@ -238,7 +238,6 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
-		// was testing deprecated API
 		static final Schedule report = Schedule.create(ZoneId.of("Europe/Berlin"), MyItem::run);
 
 		@WrapInterim(methodBody=false)
