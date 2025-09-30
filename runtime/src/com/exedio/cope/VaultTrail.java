@@ -278,8 +278,11 @@ final class VaultTrail
 				append(tableQuoted).append('.').append(hashQuoted).
 				append(" WHERE ").
 				append(field.getColumn()).append(" IS NOT NULL").
-				append(" AND ").
-				append(tableQuoted).append('.').append(hashQuoted).append(" IS NULL");
+				append(" AND (").
+					append(tableQuoted).append('.').append(hashQuoted).append(" IS NULL").
+					append(" OR ").
+					append(tableQuoted).append('.').append(lengthQuoted).append('>').appendParameter(field.getMaximumLength()).
+				append(")");
 
 		return st;
 	}
