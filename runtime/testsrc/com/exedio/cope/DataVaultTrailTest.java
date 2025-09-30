@@ -190,6 +190,15 @@ public class DataVaultTrailTest extends TestWithEnvironment
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
+	}
+
+	@Test void testIncomplete() throws SQLException
+	{
+		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
+		queryTrail("my_Bucket", rs ->
+			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
+		assertEquals(0, MyItem.field.checkVaultTrail());
+		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail("DELETE FROM " + quoteName(model, "VaultTrail_my_Bucket"));
 		queryTrail("my_Bucket", rs -> {});
