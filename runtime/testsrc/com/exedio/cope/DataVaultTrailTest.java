@@ -97,19 +97,20 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final String trailTab  = quoteName(model, "VaultTrail_my_Bucket");
 		final String trailTabD = quoteName(model, "VaultTrail_default");
 		final String trailHash = quoteName(model, "hash");
+		final String trailLength = quoteName(model, "length");
 		assertEquals(
 				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " +
 				"LEFT JOIN " + trailTab + " " +
 				"ON " + SI.colq(MyItem.field) + "=" + trailTab + "." + trailHash + " " +
 				"WHERE " + SI.colq(MyItem.field) + " IS NOT NULL " +
-				"AND " + trailTab + "." + trailHash + " IS NULL",
+				"AND (" + trailTab + "." + trailHash + " IS NULL OR " + trailTab + "." + trailLength + ">10000000)",
 				checkVaultTrail(MyItem.field));
 		assertEquals(
 				"SELECT COUNT(*) FROM " + SI.tab(MyItem.TYPE) + " " +
 				"LEFT JOIN " + trailTabD + " " +
 				"ON " + SI.colq(MyItem.other) + "=" + trailTabD + "." + trailHash + " " +
 				"WHERE " + SI.colq(MyItem.other) + " IS NOT NULL " +
-				"AND " + trailTabD + "." + trailHash + " IS NULL",
+				"AND (" + trailTabD + "." + trailHash + " IS NULL OR " + trailTabD + "." + trailLength + ">10000000)",
 				checkVaultTrail(MyItem.other));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
@@ -227,7 +228,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
 		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, toIntExact(MyItem.field.getMaximumLength())+1, "abcdef", "MyItem.field", rs));
-		assertEquals(0, MyItem.field.checkVaultTrail()); // TODO should return 1
+		assertEquals(1, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail(

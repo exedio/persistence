@@ -474,12 +474,13 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(0, data.checkVaultTrail());
 			final String trailTab  = SchemaInfo.quoteName(model, "VaultTrail_default");
 			final String trailHash = SchemaInfo.quoteName(model, "hash");
+			final String trailLength=SchemaInfo.quoteName(model, "length");
 			assertEquals(
 					"SELECT COUNT(*) FROM " + SI.tab(DataItem.TYPE) + " " +
 					"LEFT JOIN " + trailTab + " " +
 					"ON " + SI.colq(data) + "=" + trailTab + "." + trailHash + " " +
 					"WHERE " + SI.colq(data) + " IS NOT NULL " +
-					"AND " + trailTab + "." + trailHash + " IS NULL",
+					"AND (" + trailTab + "." + trailHash + " IS NULL OR " + trailTab + "." + trailLength + ">10000000)",
 					checkVaultTrail(data));
 		}
 	}
