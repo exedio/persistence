@@ -33,6 +33,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static com.exedio.cope.vault.VaultPropertiesTest.deresiliate;
+import static java.lang.Math.toIntExact;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -208,6 +209,33 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		item.setField(toValue(decodeLower("abcdef")));
 		queryTrail("my_Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
+		assertEquals(0, MyItem.field.checkVaultTrail());
+		assertEquals(0, MyItem.other.checkVaultTrail());
+	}
+
+	@Test void testLengthExceeded() throws SQLException
+	{
+		new MyItem(toValue(decodeLower("abcdef")));
+		queryTrail("my_Bucket", rs ->
+			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
+		assertEquals(0, MyItem.field.checkVaultTrail());
+		assertEquals(0, MyItem.other.checkVaultTrail());
+
+		updateTrail(
+				"UPDATE " + quoteName(model, "VaultTrail_my_Bucket") + " " +
+				"SET " + quoteName(model, "length") + "=" + (MyItem.field.getMaximumLength()+1) + " " +
+				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
+		queryTrail("my_Bucket", rs ->
+			assertRow(abcdefHash, toIntExact(MyItem.field.getMaximumLength())+1, "abcdef", "MyItem.field", rs));
+		assertEquals(0, MyItem.field.checkVaultTrail()); // TODO should return 1
+		assertEquals(0, MyItem.other.checkVaultTrail());
+
+		updateTrail(
+				"UPDATE " + quoteName(model, "VaultTrail_my_Bucket") + " " +
+				"SET " + quoteName(model, "length") + "=" + MyItem.field.getMaximumLength() + " " +
+				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
+		queryTrail("my_Bucket", rs ->
+			assertRow(abcdefHash, toIntExact(MyItem.field.getMaximumLength()), "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 	}
