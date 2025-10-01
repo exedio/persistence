@@ -383,18 +383,18 @@ final class InterimProcessor extends JavacProcessor
 			if (kind!=null)
 			{
 				final WrapperType wrapperType = AnnotationHelper.getOrDefault(getCurrentPathAnnotation(WrapperType.class));
-				if (kind.activationConstructor!=null && wrapperType.activationConstructor()!=Visibility.NONE)
+				if (kind.activationConstructor!=null && wrapperType.activationConstructor().exists())
 				{
 					code.addLine("public "+ct.getSimpleName()+"(final "+kind.activationConstructor+" ap) { super(ap); }");
 				}
-				if (kind.hasGenericConstructor && wrapperType.genericConstructor()!=Visibility.NONE)
+				if (kind.hasGenericConstructor && wrapperType.genericConstructor().exists())
 				{
 					code = code.openBlock(null, "public "+ct.getSimpleName()+"(final com.exedio.cope.SetValue<?>... setValues)", true);
 					code.addLine("super(setValues);");
 					code = code.closeBlock();
 				}
 				final int typeParametersNumber = ct.getTypeParameters().size();
-				if (typeParametersNumber>0 && wrapperType.wildcardClass()!=Visibility.NONE)
+				if (typeParametersNumber>0 && wrapperType.wildcardClass().exists())
 				{
 					final String type = Context.nameWithWildcards(ct.getSimpleName().toString(), typeParametersNumber);
 					code.addLine(
@@ -450,7 +450,7 @@ final class InterimProcessor extends JavacProcessor
 		 */
 		private void writeType(final ClassTree ct, final Kind kind, final WrapperType wrapperType)
 		{
-			if (kind.typeField!=null && wrapperType.type()!=Visibility.NONE)
+			if (kind.typeField!=null && wrapperType.type().exists())
 			{
 				final boolean isAbstract = ct.getModifiers().getFlags().contains(Modifier.ABSTRACT);
 				code.addLine(
