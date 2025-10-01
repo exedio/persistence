@@ -36,6 +36,7 @@ public @interface WrapperType
 	 * The visibility {@link Visibility#DEFAULT defaults} to
 	 * the visibility of the class.
 	 */
+	@SuppressWarnings("StaticImportCanBeUsed")
 	Visibility wildcardClass() default Visibility.DEFAULT;
 
 	/**
@@ -43,6 +44,7 @@ public @interface WrapperType
 	 * The visibility {@link Visibility#DEFAULT defaults} to
 	 * the visibility of the class.
 	 */
+	@SuppressWarnings("StaticImportCanBeUsed")
 	Visibility type() default Visibility.DEFAULT;
 
 	/**
@@ -64,6 +66,7 @@ public @interface WrapperType
 	 * the constructor.
 	 * However, the constructor is not "more public" than the class.
 	 */
+	@SuppressWarnings("StaticImportCanBeUsed")
 	Visibility constructor() default Visibility.DEFAULT;
 
 	/**
@@ -78,7 +81,9 @@ public @interface WrapperType
 	 * The visibility {@link Visibility#DEFAULT defaults} to
 	 * "private" for final classes, and "protected" for non-final classes.
 	 */
-	@SuppressWarnings("JavadocReference") // OK: protected member of public class is part of public API
+	@SuppressWarnings({
+			"JavadocReference",
+			"StaticImportCanBeUsed"}) // OK: protected member of public class is part of public API
 	Visibility genericConstructor() default Visibility.DEFAULT;
 
 	/**
@@ -87,7 +92,9 @@ public @interface WrapperType
 	 * The visibility {@link Visibility#DEFAULT defaults} to
 	 * "private" for final classes, and "protected" for non-final classes.
 	 */
-	@SuppressWarnings("JavadocReference") // OK: protected member of public class is part of public API
+	@SuppressWarnings({
+			"StaticImportCanBeUsed",
+			"JavadocReference"}) // OK: protected member of public class is part of public API
 	Visibility activationConstructor() default Visibility.DEFAULT;
 
 	int indent() default 1;

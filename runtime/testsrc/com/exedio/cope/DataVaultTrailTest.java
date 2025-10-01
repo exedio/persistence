@@ -29,6 +29,8 @@ import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnLimit;
 import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnName;
 import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.instrument.Visibility.DEFAULT;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
@@ -40,7 +42,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
@@ -506,19 +507,19 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	private static class MyItem extends Item
 	{
 		@Vault("my-Bucket")
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
-		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=Visibility.DEFAULT)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
+		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=DEFAULT)
 		static final DataField field = new DataField();
 
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
-		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=Visibility.DEFAULT)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
+		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=DEFAULT)
 		static final DataField other = new DataField().optional();
 
 		@Vault("my-Bucket")
 		@CopeName("veryLong01234567890123456789012345678901234567890123456789012345678901234567890123456789")
 		@CopeSchemaName("veryLongSchema")
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
-		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=Visibility.DEFAULT)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
+		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=DEFAULT)
 		static final DataField veryLong = new DataField().optional();
 
 		@com.exedio.cope.instrument.Generated

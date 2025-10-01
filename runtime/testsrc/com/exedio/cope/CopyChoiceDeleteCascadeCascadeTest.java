@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exedio.cope.ItemField.DeletePolicy;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -104,7 +104,7 @@ public class CopyChoiceDeleteCascadeCascadeTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static final class Container extends Item
 	{
-		@Wrapper(wrap="get", visibility=Visibility.NONE)
+		@Wrapper(wrap="get", visibility=NONE)
 		static final ItemField<Part> choice = ItemField.create(Part.class, POLICY1).optional().choice(() -> Part.parent);
 
 		static List<List<Object>> search()
@@ -143,7 +143,7 @@ public class CopyChoiceDeleteCascadeCascadeTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static final class Part extends Item
 	{
-		@Wrapper(wrap="get", visibility=Visibility.NONE)
+		@Wrapper(wrap="get", visibility=NONE)
 		static final ItemField<Container> parent = ItemField.create(Container.class, POLICY2).toFinal();
 
 		static List<List<Object>> search()

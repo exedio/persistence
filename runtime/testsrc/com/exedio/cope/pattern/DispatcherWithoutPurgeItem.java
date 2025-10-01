@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeModelTest.MODEL;
 import static java.lang.System.nanoTime;
@@ -27,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.JobContext;
@@ -56,7 +56,7 @@ public final class DispatcherWithoutPurgeItem extends Item
 		}
 	}
 
-	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
+	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=NONE)
 	static final Dispatcher toTarget = Dispatcher.create(
 			DispatcherWithoutPurgeItem::dispatch,
 			DispatcherWithoutPurgeItem::notifyFinalFailure).

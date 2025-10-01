@@ -88,6 +88,7 @@ final class LocalCopeFeature extends CopeFeature
 		return javaField.getInitializer();
 	}
 
+	@SuppressWarnings("StaticImportCanBeUsed")
 	private static final JavaField.WrapperConfiguration OPTION_DEFAULT = new JavaField.WrapperConfiguration(
 			null,
 			Visibility.DEFAULT,

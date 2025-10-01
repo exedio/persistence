@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.instrument.Visibility.DEFAULT;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.TestSources.minimal;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
@@ -30,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.CounterDeferredTester;
@@ -261,8 +262,8 @@ public class DataVaultInfoTest
 	private static class MyItem extends Item
 	{
 		@Vault
-		@Wrapper(wrap="set", visibility=Visibility.NONE)
-		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=Visibility.DEFAULT)
+		@Wrapper(wrap="set", visibility=NONE)
+		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=DEFAULT)
 		static final DataField field = new DataField();
 
 		@com.exedio.cope.instrument.Generated

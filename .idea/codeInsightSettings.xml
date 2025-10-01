@@ -2,6 +2,7 @@
 <project version="4">
   <component name="JavaProjectCodeInsightSettings">
     <included-static-names>
+      <name>com.exedio.cope.instrument.Visibility</name>
       <name>org.junit.jupiter.api.Assertions</name>
     </included-static-names>
   </component>

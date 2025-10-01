@@ -52,6 +52,7 @@ public @interface Wrapper
 	 * the visibility of the feature,
 	 * unless {@link #internal() internal} is set.
 	 */
+	@SuppressWarnings("StaticImportCanBeUsed")
 	Visibility visibility() default Visibility.DEFAULT;
 
 	/**

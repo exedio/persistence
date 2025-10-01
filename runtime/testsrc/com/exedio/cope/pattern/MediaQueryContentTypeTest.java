@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,7 +26,6 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
@@ -192,16 +192,16 @@ public class MediaQueryContentTypeTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static class MyItem extends Item
 	{
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final Media def = new Media().optional().toFinal();
 
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final Media enu = new Media().optional().toFinal().contentTypes("major/minor1", "major/minor2", "major/minor3");
 
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final Media sub = new Media().optional().toFinal().contentTypeSub("major");
 
-		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=Visibility.NONE)
+		@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
 		static final Media fix = new Media().optional().toFinal().contentType("major/minor");
 
 		@com.exedio.cope.instrument.Generated

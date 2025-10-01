@@ -1,13 +1,14 @@
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 
 @SuppressWarnings("unused")
-@WrapperType(constructor=Visibility.NONE, genericConstructor=Visibility.NONE, type=Visibility.NONE)
+@WrapperType(constructor=NONE, genericConstructor=NONE, type=NONE)
 class CustomAnnotationItem extends Item
 {
 	@interface MyAnnotation

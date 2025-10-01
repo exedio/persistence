@@ -2,12 +2,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.StringRegexpLikeTest.AnItem.TYPE;
 import static com.exedio.cope.StringRegexpLikeTest.AnItem.field;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.regex.PatternSyntaxException;
@@ -109,7 +109,7 @@ public class StringRegexpLikeTest extends TestWithEnvironment
 		assertFails(() -> new StringField().regexp("[A-Z"), PatternSyntaxException.class, "Illegal/unsupported escape sequence near index 11\n(?s)\\A[A-Z\\z\n           ^");
 	}
 
-	@WrapperType(indent=2, comments=false, type=Visibility.PACKAGE)
+	@WrapperType(indent=2, comments=false, type=PACKAGE)
 	static final class AnItem extends Item
 	{
 		static final StringField code = new StringField().unique();

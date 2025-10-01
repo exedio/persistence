@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.DEFAULT;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -27,7 +29,6 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Dispatcher.Config;
@@ -117,12 +118,12 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	private static final class MyItem extends Item
 	{
-		@Wrapper(visibility=Visibility.NONE, wrap="get")
+		@Wrapper(visibility=NONE, wrap="get")
 		static final BooleanField dropByNarrowCondition = new BooleanField();
 
-		@Wrapper(visibility=Visibility.NONE, wrap="*")
-		@Wrapper(visibility=Visibility.DEFAULT, wrap="dispatch", parameters={Config.class, JobContext.class})
-		@Wrapper(visibility=Visibility.DEFAULT, wrap={"isPending", "getLastSuccessDate"})
+		@Wrapper(visibility=NONE, wrap="*")
+		@Wrapper(visibility=DEFAULT, wrap="dispatch", parameters={Config.class, JobContext.class})
+		@Wrapper(visibility=DEFAULT, wrap={"isPending", "getLastSuccessDate"})
 		static final Dispatcher toTarget = Dispatcher.create(i -> {});
 
 

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.DispatcherSessionTest.MODEL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -27,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.JobContext;
@@ -40,7 +40,7 @@ public final class DispatcherSessionItem extends Item
 	static final BooleanField fail = new BooleanField().toFinal();
 	static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);
 
-	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
+	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=NONE)
 	static final Dispatcher toTarget = Dispatcher.createWithSession(
 			Session::new,
 			DispatcherSessionItem::dispatch);
