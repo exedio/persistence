@@ -90,7 +90,6 @@ try
 					}
 					sh "docker logs " + c.id + " > apache.log 2>&1"
 					archiveArtifacts 'apache.log'
-					shSilent("rm -f apache.log")
 				}
 			}
 
@@ -113,7 +112,6 @@ try
 				'tomcat/logs/*,' +
 				'build/testtmpdir'
 			)
-			assertGitUnchanged()
 
 			if (isRelease || env.BRANCH_NAME.contains("archiveSuccessArtifacts"))
 				archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
@@ -188,6 +186,7 @@ try
 					label:      'exedio-cope-instrument-completion.jar',
 				]],
 			)
+			assertGitUnchanged()
 		}
 	}
 
@@ -215,6 +214,7 @@ try
 				testResults: 'build/testresults/**/*.xml',
 				skipPublishingChecks: true
 			)
+			assertGitUnchanged()
 		}
 	}
 
@@ -246,6 +246,7 @@ try
 				testResults: 'build/testresults/**/*.xml',
 				skipPublishingChecks: true
 			)
+			assertGitUnchanged()
 		}
 	}
 
@@ -271,6 +272,7 @@ try
 						ignoreCase: true),
 				],
 			)
+			assertGitUnchanged()
 		}
 	}
 
@@ -296,6 +298,7 @@ try
 				*: recordIssuesDefaults,
 				tools: [ideaInspection(pattern: 'idea-inspection-output/**')],
 			)
+			assertGitUnchanged()
 		}
 	}
 
@@ -485,8 +488,6 @@ try
 			}
 			archiveArtifacts 'ivy/artifacts/report/**'
 
-			assertGitUnchanged()
-
 			// There should be an assertIvyExtends for each <conf name="abc" extends="def" /> in ivy/ivy.xml.
 			assertIvyExtends("servlet", "runtime")
 			assertIvyExtends("instrument", "runtime")
@@ -510,6 +511,7 @@ try
 			assertIvyExtends("ide", "hsqldb")
 			assertIvyExtends("ide", "mysql")
 			assertIvyExtends("ide", "postgresql")
+			assertGitUnchanged()
 		}
 	}
 
@@ -692,10 +694,10 @@ void ant(String script, String jvmargs = '')
 
 void assertGitUnchanged()
 {
-	String gitStatus = shStdout "git status --porcelain --untracked-files=normal"
+	String gitStatus = shStdout "git -c core.excludesFile=.gitignore-jenkins status --porcelain --untracked-files=normal"
 	if (gitStatus != '')
 	{
-		error 'FAILURE because fetching dependencies produces git diff:\n' + gitStatus
+		error 'FAILURE because build produces git diff:\n' + gitStatus
 	}
 }
 
