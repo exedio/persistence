@@ -46,6 +46,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -516,14 +517,28 @@ public final class Model implements Serializable
 	/**
 	 * Gives this cope model the chance to purge / cleanup whatever it needs to.
 	 * Should be called once a day.
+	 * @throws IllegalStateException if called concurrently on the same instance by multiple threads
 	 */
 	public void purgeSchema(final JobContext ctx)
 	{
 		requireNonNull(ctx, "ctx");
 		transactions.assertNoCurrentTransaction();
 
-		connect().purgeSchema(ctx);
+		final Connect connect = connect();
+
+		if(!purgeSchemaLock.tryLock())
+			throw new IllegalStateException("concurrent call");
+		try
+		{
+			connect.purgeSchema(ctx);
+		}
+		finally
+		{
+			purgeSchemaLock.unlock();
+		}
 	}
+
+	private final ReentrantLock purgeSchemaLock = new ReentrantLock();
 
 	/**
 	 * Returns a string that may help you resetting the schema to the
