@@ -468,6 +468,16 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 
+	/**
+	 * To be deprecated, use {@link #is(Integer)} instead.
+	 * Needed for binary compatibility.
+	 */
+	@Override
+	public Condition equal(final Integer value)
+	{
+		return is(value);
+	}
+
 	@Override
 	public Condition is(final Integer value)
 	{
@@ -482,6 +492,16 @@ public final class IntegerField extends NumberField<Integer>
 		}
 		else
 			return isNull();
+	}
+
+	/**
+	 * To be deprecated, use {@link #isNot(Integer)} instead.
+	 * Needed for binary compatibility.
+	 */
+	@Override
+	public Condition notEqual(final Integer value)
+	{
+		return isNot(value);
 	}
 
 	@Override

@@ -297,6 +297,16 @@ public final class DoubleField extends NumberField<Double>
 		return searchUniqueStrict(typeClass, Double.valueOf(value));
 	}
 
+	/**
+	 * To be deprecated, use {@link #is(Double)} instead.
+	 * Needed for binary compatibility.
+	 */
+	@Override
+	public Condition equal(final Double value)
+	{
+		return is(value);
+	}
+
 	@Override
 	public Condition is(final Double value)
 	{
@@ -311,6 +321,16 @@ public final class DoubleField extends NumberField<Double>
 		}
 		else
 			return isNull();
+	}
+
+	/**
+	 * To be deprecated, use {@link #isNot(Double)} instead.
+	 * Needed for binary compatibility.
+	 */
+	@Override
+	public Condition notEqual(final Double value)
+	{
+		return isNot(value);
 	}
 
 	@Override
