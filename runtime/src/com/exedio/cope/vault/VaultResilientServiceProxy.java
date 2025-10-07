@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
@@ -57,8 +58,19 @@ final class VaultResilientServiceProxy implements VaultResilientService
 		requireNonNull(ctx, "ctx");
 		requireNonClosed();
 
-		service.purgeSchema(ctx);
+		if(!purgeSchemaLock.tryLock())
+			throw new IllegalStateException("concurrent call");
+		try
+		{
+			service.purgeSchema(ctx);
+		}
+		finally
+		{
+			purgeSchemaLock.unlock();
+		}
 	}
+
+	private final ReentrantLock purgeSchemaLock = new ReentrantLock();
 
 	@Override
 	public void close()

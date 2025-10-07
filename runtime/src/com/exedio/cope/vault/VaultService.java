@@ -47,6 +47,7 @@ public interface VaultService extends AutoCloseable
 	 * Gives this service the chance to purge / cleanup whatever it needs to.
 	 * Is called by {@link com.exedio.cope.Model#purgeSchema(JobContext)}.
 	 * The default implementation does nothing.
+	 * Must not be called concurrently by multiple threads.
 	 */
 	default void purgeSchema(@Nonnull final JobContext ctx) {}
 
