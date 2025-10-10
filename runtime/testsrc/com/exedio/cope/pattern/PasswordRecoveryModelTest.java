@@ -70,10 +70,10 @@ public class PasswordRecoveryModelTest
 				passwordRecovery.getTokens(),
 			}), passwordRecovery.getTokenType().getFeatures());
 
-		assertEquals(TYPE, password.getType());
+		assertEquals(TYPE, passwordRecovery.getType());
 		assertEquals(passwordRecovery.getTokenType(), passwordRecovery.getSecret().getType());
 		assertEquals(passwordRecovery.getTokenType(), passwordRecovery.getExpires().getType());
-		assertEquals("password", password.getName());
+		assertEquals("passwordRecovery", passwordRecovery.getName());
 		assertEquals("secret", passwordRecovery.getSecret().getName());
 		assertEquals("expires", passwordRecovery.getExpires().getName());
 
