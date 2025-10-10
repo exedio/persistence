@@ -266,6 +266,17 @@ public interface Function<E> extends Selectable<E>
 		return is(getValueClass().cast(value));
 	}
 
+	/**
+	 * {@link Class#cast(Object) Casts}
+	 * {@code value} to {@link E} before calling
+	 * {@link #isNot(Object)}
+	 * @throws ClassCastException if {@code value} is not assignable to {@link E}
+	 */
+	default Condition isNotCasted(final Object value)
+	{
+		return isNot(getValueClass().cast(value));
+	}
+
 
 	@SuppressWarnings("deprecation")
 	default ExtremumAggregate<E> min()
