@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.instrument.Visibility.*;
+import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.NullableAsOptional;
