@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
@@ -209,7 +208,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 		private Object readResolve()
 		{
 			final SetValue<?>[] setValues = new SetValue<?>[values.length];
-			Arrays.setAll(setValues, i -> Cope.mapAndCast(fields[i], values[i]));
+			Arrays.setAll(setValues, i -> SetValue.mapCasted(fields[i], values[i]));
 			return type.newValue(setValues);
 		}
 	}

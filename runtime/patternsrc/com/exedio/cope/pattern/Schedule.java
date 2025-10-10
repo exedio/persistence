@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Cope.mapAndCast;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.SetValue.mapCasted;
 import static com.exedio.cope.misc.Iterables.once;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.pattern.FeatureTimer.timer;
@@ -498,7 +498,7 @@ public final class Schedule extends Pattern
 		{
 			final Mount mount = mount();
 			mount.type.newItem(
-					mapAndCast(mount.parent, item),
+					mapCasted(mount.parent, item),
 					map(this.interval, interval),
 					map(this.from, from),
 					map(this.until, until),

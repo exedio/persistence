@@ -43,6 +43,11 @@ public final class SetValue<E>
 		return map((F)settable, value);
 	}
 
+	public static <E> SetValue<E> mapCasted(final Field<E> settable, final Object value)
+	{
+		return map(settable, settable.getValueClass().cast(value));
+	}
+
 	SetValue(final Settable<E> settable, final E value)
 	{
 		this.settable = requireNonNull(settable, "settable");
