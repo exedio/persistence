@@ -32,6 +32,8 @@ package com.exedio.cope.vault;
  *     if parameter {@code bucket} is illegal according to {@link com.exedio.cope.vault.VaultProperties#checkBucket(String,  java.util.function.Function)}.</li>
  * <li>All methods (except {@link #close()}) guarantee to fail with an {@link IllegalStateException},
  *     if {@code close()} has been called on the same instance before.</li>
+ * <li>Method {@link #purgeSchema(com.exedio.cope.util.JobContext)} guarantees to fail with an
+ *     {@link IllegalStateException}, if called concurrently on the same instance by multiple threads.
  * </ul>
  */
 @SuppressWarnings("MarkerInterface") // OK: extends contract
