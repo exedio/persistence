@@ -1,13 +1,3 @@
 /apache.log
 /idea-inspection-output/
 /idea.log
-/buildMysql57/
-/db-Mysql57.log
-/buildMysql80/
-/db-Mysql80.log
-/buildMysql84/
-/db-Mysql84.log
-/buildMysql80CR/
-/db-Mysql80CR.log
-/buildPostgresql/
-/db-Postgresql.log
