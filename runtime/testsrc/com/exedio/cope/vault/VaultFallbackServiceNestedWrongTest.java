@@ -39,15 +39,15 @@ public class VaultFallbackServiceNestedWrongTest
 				describe("DESC", cascade(
 						single("default.service", VaultFallbackService.class),
 						single("default.service.main", VaultMockService.class),
-						single("default.service.reference", VaultFallbackService.class),
-						single("default.service.reference.main", VaultMockService.class),
-						single("default.service.reference.reference", VaultMockService.class)
+						single("default.service.fallbacks.0", VaultFallbackService.class),
+						single("default.service.fallbacks.0.main", VaultMockService.class),
+						single("default.service.fallbacks.0.fallbacks.0", VaultMockService.class)
 				));
 
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property default.service.reference in DESC must not nest another VaultFallbackService, " +
+				"property default.service.fallbacks.0 in DESC must not nest another VaultFallbackService, " +
 				"use multiple fallback services instead");
 	}
 
@@ -59,17 +59,17 @@ public class VaultFallbackServiceNestedWrongTest
 				describe("DESC", cascade(
 						single("default.service", VaultFallbackService.class),
 						single("default.service.main", VaultMockService.class),
-						single("default.service.referenceCount", 2),
-						single("default.service.reference", VaultMockService.class),
-						single("default.service.reference1", VaultFallbackService.class),
-						single("default.service.reference1.main", VaultMockService.class),
-						single("default.service.reference1.reference", VaultMockService.class)
+						single("default.service.fallbacks.count", 2),
+						single("default.service.fallbacks.0", VaultMockService.class),
+						single("default.service.fallbacks.1", VaultFallbackService.class),
+						single("default.service.fallbacks.1.main", VaultMockService.class),
+						single("default.service.fallbacks.1.fallbacks.0", VaultMockService.class)
 				));
 
 		assertFails(
 				() -> factory.create(source),
 				IllegalPropertiesException.class,
-				"property default.service.reference1 in DESC must not nest another VaultFallbackService, " +
+				"property default.service.fallbacks.1 in DESC must not nest another VaultFallbackService, " +
 				"use multiple fallback services instead");
 	}
 }

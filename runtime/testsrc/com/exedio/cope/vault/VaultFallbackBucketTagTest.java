@@ -148,10 +148,10 @@ public class VaultFallbackBucketTagTest
 				single("service.main", VaultMockService.class),
 				single("service.main.bucketTagAction", main)
 		));
-		sources.add(single("service.referenceCount", references.length));
+		sources.add(single("service.fallbacks.count", references.length));
 		for (int i=0; i<references.length; i++)
 		{
-			final String key = "service.reference" + (i == 0 ? "" : i);
+			final String key = "service.fallbacks." + i;
 			sources.add(single(key, VaultMockService.class));
 			sources.add(single(key + ".bucketTagAction", references[i]));
 		}

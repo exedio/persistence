@@ -68,7 +68,7 @@ public class ConnectPropertiesTest
 		notOnDefault.put("vault.default.service", VaultFallbackService.class);
 		notOnDefault.put("vault.default.service.main", VaultFileService.class);
 		notOnDefault.put("vault.default.service.main.root", Paths.get("vaultFileRoot"));
-		notOnDefault.put("vault.default.service.reference", VaultMockService.class);
+		notOnDefault.put("vault.default.service.fallbacks.0", VaultMockService.class);
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
 		final ConnectProperties p = ConnectProperties.create(loadProperties());

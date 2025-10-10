@@ -86,10 +86,10 @@ public class VaultFallbackServiceContainsUnsupportedTest
 	{
 		final Source source = cascade(
 				single("service", VaultFallbackService.class),
-				single("service.referenceCount", 2),
+				single("service.fallbacks.count", 2),
 				single("service.main", main),
-				single("service.reference", reference),
-				single("service.reference1", VaultMockService.class)
+				single("service.fallbacks.0", reference),
+				single("service.fallbacks.1", VaultMockService.class)
 		);
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		return (VaultFallbackService)props.newServiceNonResilient(() -> false);

@@ -377,11 +377,11 @@ public final class VaultFallbackService implements VaultService
 
 		private List<Service> valueFallbacks()
 		{
-			final int count = value("referenceCount", 1, 1);
+			final int count = value("fallbacks.count", 1, 1);
 			final Service[] array = new Service[count];
 			for (int i=0; i<count; i++)
 			{
-				final String key = "reference" + (i == 0 ? "" : i );
+				final String key = "fallbacks." + i;
 				array[i] = valueService(key, false);
 				if(array[i].getServiceClass()==VaultFallbackService.class)
 					throw newException(key,

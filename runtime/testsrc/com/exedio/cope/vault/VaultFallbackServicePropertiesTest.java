@@ -37,14 +37,14 @@ public class VaultFallbackServicePropertiesTest
 	{
 		final Source source = describe("DESC", cascade(
 				single("main", MyService.class),
-				single("reference", MyService.class)
+				single("fallbacks.0", MyService.class)
 		));
 
 		final Props p = new Props(source);
 		assertEquals(asList(
 				"main",
-				"referenceCount",
-				"reference",
+				"fallbacks.count",
+				"fallbacks.0",
 				"copyReferenceToMain"),
 				p.getFields().stream().map(Properties.Field::getKey).toList());
 	}
@@ -54,19 +54,19 @@ public class VaultFallbackServicePropertiesTest
 	{
 		final Source source = describe("DESC", cascade(
 				single("main", MyService.class),
-				single("referenceCount", 3),
-				single("reference", MyService.class),
-				single("reference1", MyService.class),
-				single("reference2", MyService.class)
+				single("fallbacks.count", 3),
+				single("fallbacks.0", MyService.class),
+				single("fallbacks.1", MyService.class),
+				single("fallbacks.2", MyService.class)
 		));
 
 		final Props p = new Props(source);
 		assertEquals(asList(
 						"main",
-						"referenceCount",
-						"reference",
-						"reference1",
-						"reference2",
+						"fallbacks.count",
+						"fallbacks.0",
+						"fallbacks.1",
+						"fallbacks.2",
 						"copyReferenceToMain"),
 				p.getFields().stream().map(Properties.Field::getKey).toList());
 	}

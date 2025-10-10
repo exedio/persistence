@@ -51,8 +51,8 @@ public class VaultFallbackServiceCopyFailTest
 						single("service", VaultFallbackService.class),
 						single("service.main", PutFailService.class),
 						single("service.main.example", "mainEx"),
-						single("service.reference", VaultTransientService.class),
-						single("service.reference.example", "refrEx")
+						single("service.fallbacks.0", VaultTransientService.class),
+						single("service.fallbacks.0.example", "refrEx")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
