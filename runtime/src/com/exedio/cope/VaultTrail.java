@@ -23,9 +23,10 @@ import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.vault.Bucket;
-import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.util.Date;
 import javax.annotation.Nonnull;
@@ -102,8 +103,19 @@ final class VaultTrail
 		originQuoted  = d.quoteName(origin);
 	}
 
-	@SuppressWarnings("deprecation") // OK: Use the public method as long as it's there
-	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
+	private static final String ORIGIN = getOrigin();
+
+	private static String getOrigin()
+	{
+		try
+		{
+			return InetAddress.getLocalHost().getHostName();
+		}
+		catch(final UnknownHostException ignored)
+		{
+			return null;
+		}
+	}
 
 	void makeSchema(
 			final Schema schema,
