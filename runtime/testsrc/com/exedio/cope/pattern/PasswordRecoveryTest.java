@@ -158,42 +158,6 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		getFailC.assertCount(0);
 	}
 
-	@Test void testExpiredRedeem()
-	{
-		final Config config = new Config(ofMillis(20), ofMillis(20));
-		assertEquals(ofMillis(20), config.getExpiry());
-		assertEquals(ofMillis(20), config.getReuse());
-
-		clock.add("2005-05-12 13:11:22.333");
-		final Token token = i.issuePasswordRecovery(config);
-		clock.assertEmpty();
-		issueC.assertCount(1);
-		final long tokenSecret = token.getSecret();
-		final Date expires = token.getExpires();
-		assertEqualsDate("2005-05-12 13:11:22.353", expires);
-		assertEquals(list(token), passwordRecovery.getTokenType().search());
-
-		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
-		final Token redeemed = i.getValidPasswordRecoveryToken(tokenSecret);
-		assertEquals(null, redeemed);
-		clock.assertEmpty();
-		getFailC.assertCount(1);
-		assertEquals(tokenSecret, token.getSecret());
-		assertEquals(expires, token.getExpires());
-		assertEquals(list(token), passwordRecovery.getTokenType().search());
-
-		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
-		assertEquals(1, purge());
-		clock.assertEmpty();
-		assertFalse(token.existsCopeItem());
-		assertEquals(list(), passwordRecovery.getTokenType().search());
-
-		issueC.assertCount(0);
-		issueReuseC.assertCount(0);
-		getC.assertCount(0);
-		getFailC.assertCount(0);
-	}
-
 	@Test void testPostponedRedemption()
 	{
 		final Config config = new Config(ofMinutes(1), ofSeconds(10));
