@@ -28,12 +28,30 @@ import java.util.List;
  */
 public final class Cope
 {
+	/**
+	 * @deprecated Use {@link #is(Function, Object)} instead
+	 */
+	@Deprecated
 	public static <E> Condition equal(final Function<E> function, final E value)
+	{
+		return is(function, value);
+	}
+
+	public static <E> Condition is(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<>(Operator.Equal, function, value) : function.isNull();
 	}
 
+	/**
+	 * @deprecated Use {@link #isNot(Function, Object)} instead
+	 */
+	@Deprecated
 	public static <E> Condition notEqual(final Function<E> function, final E value)
+	{
+		return isNot(function, value);
+	}
+
+	public static <E> Condition isNot(final Function<E> function, final E value)
 	{
 		return value!=null ? new CompareCondition<>(Operator.NotEqual, function, value) : function.isNotNull();
 	}

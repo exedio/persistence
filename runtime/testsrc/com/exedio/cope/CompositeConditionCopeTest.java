@@ -21,8 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.Cope.and;
-import static com.exedio.cope.Cope.equal;
-import static com.exedio.cope.Cope.notEqual;
+import static com.exedio.cope.Cope.is;
+import static com.exedio.cope.Cope.isNot;
 import static com.exedio.cope.Cope.or;
 import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -220,15 +220,15 @@ public class CompositeConditionCopeTest
 	}
 
 
-	@Test void testEqual()
+	@Test void testIs()
 	{
 		final StringField f = new StringField();
-		assertEquals(f +  "='a'",    equal(f, "a").toString());
-		assertEquals(f + "<>'a'", notEqual(f, "a").toString());
-		assertEquals(f +  "=''",    equal(f, "").toString());
-		assertEquals(f + "<>''", notEqual(f, "").toString());
-		assertEquals(f + " is " +"null",    equal(f, null).toString());
-		assertEquals(f + " is not null", notEqual(f, null).toString());
+		assertEquals(f +  "='a'",    is(f, "a").toString());
+		assertEquals(f + "<>'a'", isNot(f, "a").toString());
+		assertEquals(f +  "=''",    is(f, "").toString());
+		assertEquals(f + "<>''", isNot(f, "").toString());
+		assertEquals(f + " is " +"null",    is(f, null).toString());
+		assertEquals(f + " is not null", isNot(f, null).toString());
 	}
 
 

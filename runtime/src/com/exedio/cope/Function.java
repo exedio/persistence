@@ -83,7 +83,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default Condition is(final E value)
 	{
-		return Cope.equal(this, value);
+		return Cope.is(this, value);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public interface Function<E> extends Selectable<E>
 
 	default Condition isNot(final E value)
 	{
-		return Cope.notEqual(this, value);
+		return Cope.isNot(this, value);
 	}
 
 	/**
