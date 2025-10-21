@@ -69,8 +69,9 @@ public final class PasswordRecovery extends Pattern
 	private final SecureRandom random;
 
 	/**
-	 * To be deprecated, Use {@link #PasswordRecovery()} instead, parameter {@code password} is no longer needed.
+	 * @deprecated Use {@link #PasswordRecovery()} instead, parameter {@code password} is no longer needed.
 	 */
+	@Deprecated
 	public PasswordRecovery(final HashInterface password)
 	{
 		this();
@@ -83,8 +84,9 @@ public final class PasswordRecovery extends Pattern
 	}
 
 	/**
-	 * To be deprecated, Use {@link #PasswordRecovery(SecureRandom)} instead, parameter {@code password} is no longer needed.
+	 * @deprecated Use {@link #PasswordRecovery(SecureRandom)} instead, parameter {@code password} is no longer needed.
 	 */
+	@Deprecated
 	public PasswordRecovery(final HashInterface password, final SecureRandom random)
 	{
 		this(random);

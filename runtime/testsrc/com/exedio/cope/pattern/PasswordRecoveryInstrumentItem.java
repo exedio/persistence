@@ -24,18 +24,14 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.NullableAsOptional;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.cope.testmodel.WrapHash;
 
 @WrapperType(constructor=NONE, genericConstructor=NONE)
 final class PasswordRecoveryInstrumentItem extends Item
 {
-	@Wrapper(wrap="*", visibility=NONE)
-	private static final Hash password = new Hash(WrapHash.ALGORITHM);
-
-	static final PasswordRecovery standard = new PasswordRecovery(password);
+	static final PasswordRecovery standard = new PasswordRecovery();
 
 	@Wrapper(wrap="*", nullableAsOptional=NullableAsOptional.YES)
-	static final PasswordRecovery nullableAsOptional = new PasswordRecovery(password);
+	static final PasswordRecovery nullableAsOptional = new PasswordRecovery();
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="issue")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
