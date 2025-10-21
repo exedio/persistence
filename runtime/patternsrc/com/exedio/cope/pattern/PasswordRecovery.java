@@ -97,7 +97,7 @@ public final class PasswordRecovery extends Pattern
 		features.put("tokens", tokens);
 		tokenType = newSourceType(Token.class, Token::new, features, "Token");
 
-		FeatureMeter.onMount(this, issueCounter, issueReuseCounter, redeemTimer, redeemFailCounter, setPasswordCounter);
+		FeatureMeter.onMount(this, issueCounter, issueReuseCounter, getTimer, getFailCounter, setPasswordCounter);
 	}
 
 	/**
@@ -201,11 +201,11 @@ public final class PasswordRecovery extends Pattern
 		if(!tokens.isEmpty())
 		{
 			final Token token = tokens.get(0);
-			redeemTimer.record(token.getExpires().getTime() - now.getTime(), TimeUnit.MILLISECONDS);
+			getTimer.record(token.getExpires().getTime() - now.getTime(), TimeUnit.MILLISECONDS);
 			return token;
 		}
 
-		redeemFailCounter.increment();
+		getFailCounter.increment();
 		return null;
 	}
 
@@ -386,7 +386,7 @@ public final class PasswordRecovery extends Pattern
 
 	private final FeatureCounter issueCounter = counter("issue", "A token was issued.", "reuse", "no");
 	private final FeatureCounter issueReuseCounter = issueCounter.newValue("yes");
-	private final FeatureTimer redeemTimer = timer("redeem", "A token was redeemed the measured time before expiry.");
-	private final FeatureCounter redeemFailCounter = counter("redeemFail", "An attempt to redeem a secret failed, because either there was no token with such a secret or that token was expired.");
+	private final FeatureTimer getTimer = timer("get", "A valid token was got the measured time before expiry.");
+	private final FeatureCounter getFailCounter = counter("getFail", "An attempt to get a token failed, because either there was no token with such a secret or that token was expired.");
 	private final FeatureCounter setPasswordCounter = counter("setPassword", "The password was set to a new value, because a token was redeemed.");
 }

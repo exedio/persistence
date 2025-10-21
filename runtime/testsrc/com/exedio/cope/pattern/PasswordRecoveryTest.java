@@ -93,7 +93,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret+1));
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
@@ -102,7 +102,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		final Token aToken = i.getValidPasswordRecoveryToken(tokenSecret);
 		assertEquals(token, aToken);
 		clock.assertEmpty();
-		redeemC.assertCount(1);
+		getC.assertCount(1);
 		clock.add("2005-05-12 13:12:22.333");  // at expiry
 		final String newPassword = aToken.redeemAndSetNewPassword();
 		clock.assertEmpty();
@@ -115,7 +115,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), passwordRecovery.getTokenType().search());
@@ -129,8 +129,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -157,7 +157,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		final Token aToken = i.getValidPasswordRecoveryToken(tokenSecret);
 		assertEquals(token, aToken);
 		clock.assertEmpty();
-		redeemC.assertCount(1);
+		getC.assertCount(1);
 		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		aToken.redeem();
 		clock.assertEmpty();
@@ -168,7 +168,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 
@@ -180,8 +180,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -208,7 +208,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret+1));
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
@@ -217,7 +217,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:12:22.333"); // OK: this is for deleting tokens in Token#redeem
 		final String newPassword = i.redeemPasswordRecovery(tokenSecret);
 		clock.assertEmpty();
-		redeemC.assertCount(1);
+		getC.assertCount(1);
 		setPasswordC.assertCount(1);
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
@@ -227,7 +227,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret));
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertNotNull(newPassword);
 		assertTrue(i.checkPassword(newPassword));
 		assertFalse(token.existsCopeItem());
@@ -242,8 +242,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -266,7 +266,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
 		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
@@ -281,8 +281,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -307,7 +307,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		final String redeemed = i.redeemPasswordRecovery(tokenSecret);
 		assertEquals(null, redeemed);
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
@@ -322,8 +322,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -350,7 +350,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		final Token aToken = i.getValidPasswordRecoveryToken(tokenSecret);
 		assertEquals(token, aToken);
 		clock.assertEmpty();
-		redeemC.assertCount(1);
+		getC.assertCount(1);
 		clock.add("2005-05-12 13:12:22.353");  // exactly after expiry
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		final String newPassword = aToken.redeemAndSetNewPassword();
@@ -364,7 +364,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:12:22.353"); // exactly after expiry
 		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
 		clock.assertEmpty();
-		redeemFailC.assertCount(1);
+		getFailC.assertCount(1);
 		assertTrue(i.checkPassword(newPassword));
 		assertTrue(token.existsCopeItem());
 		assertEquals(list(token), passwordRecovery.getTokenType().search());
@@ -378,8 +378,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -459,8 +459,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -488,8 +488,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 		issueC.assertCount(0);
 		issueReuseC.assertCount(0);
-		redeemC.assertCount(0);
-		redeemFailC.assertCount(0);
+		getC.assertCount(0);
+		getFailC.assertCount(0);
 		setPasswordC.assertCount(0);
 	}
 
@@ -509,7 +509,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	private final FeatureCounterTester issueC       = new FeatureCounterTester(passwordRecovery, "issue", "reuse", "no");
 	private final FeatureCounterTester issueReuseC  = new FeatureCounterTester(passwordRecovery, "issue", "reuse", "yes");
-	private final FeatureTimerTester   redeemC      = new FeatureTimerTester  (passwordRecovery, "redeem");
-	private final FeatureCounterTester redeemFailC  = new FeatureCounterTester(passwordRecovery, "redeemFail");
+	private final FeatureTimerTester   getC         = new FeatureTimerTester  (passwordRecovery, "get");
+	private final FeatureCounterTester getFailC     = new FeatureCounterTester(passwordRecovery, "getFail");
 	private final FeatureCounterTester setPasswordC = new FeatureCounterTester(passwordRecovery, "setPassword");
 }
