@@ -25,7 +25,6 @@ import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Feature;
@@ -80,8 +79,6 @@ public class PasswordRecoveryModelTest
 		assertEquals(list(), passwordRecovery.getSourceFeatures());
 		assertEquals(null, passwordRecovery.getSecret().getPattern());
 		assertEquals(null, passwordRecovery.getExpires().getPattern());
-
-		assertSame(password, HashTest.getPassword(passwordRecovery));
 
 		assertFalse(password                       .isAnnotationPresent(Computed.class));
 		assertFalse(passwordRecovery               .isAnnotationPresent(Computed.class));

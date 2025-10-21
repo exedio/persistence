@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.HashAlgorithm;
-import java.security.SecureRandom;
 
 /**
  * A nonsense test hash for unit-testing the hashing mechanism.
@@ -81,11 +80,6 @@ public final class WrapHash
 			throws Hash.InvalidPlainTextException
 		{
 			throw new IllegalStateException("validate");
-		}
-		@Deprecated
-		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
-		{
-			throw new IllegalStateException("newRandomPlainText");
 		}
 	}
 

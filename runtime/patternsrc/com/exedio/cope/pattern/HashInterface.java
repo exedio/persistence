@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Settable;
-import java.security.SecureRandom;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -33,12 +32,4 @@ public interface HashInterface extends Settable<String>
 	void set(Item item, String plainText);
 
 	void blind(String plainText);
-
-	/**
-	 * @deprecated
-	 * This method is needed to support the recently deprecated {@link PasswordRecovery#redeem(Item, long)} only.
-	 * Therefore it is deprecated as well.
-	 */
-	@Deprecated
-	String newRandomPassword(SecureRandom random);
 }

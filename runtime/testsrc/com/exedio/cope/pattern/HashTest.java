@@ -42,8 +42,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
 import com.exedio.cope.testmodel.WrapHash;
-import java.io.Serial;
-import java.security.SecureRandom;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -329,16 +327,6 @@ public class HashTest extends TestWithEnvironment
 		{
 			assertEquals("validate", e.getMessage());
 		}
-
-		try
-		{
-			newRandomPassword(withCorruptValidator, new SecureRandom());
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals("newRandomPlainText", e.getMessage());
-		}
-
 	}
 
 	@Test void testValidatorSingleSetValue()
@@ -469,39 +457,5 @@ public class HashTest extends TestWithEnvironment
 		final SetValue<?> setValue = SetValue.map(with3PinValidator, "978");
 		final HashItem anItem = TYPE.newItem(setValue);
 		assertEquals("[978]", with3PinValidator.getStorage().get(anItem));
-	}
-
-	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
-	@Test void testValidatorNewRandomPassword()
-	{
-		assertEquals("012", newRandomPassword(with3PinValidator, new SecureRandom() {
-			@Serial
-			private static final long serialVersionUID = 1l;
-			int seq=0;  // negative tested too!
-
-			// overridden to get pre defined numbers instead of the random ones
-			@Override public int nextInt(final int n) {
-				assert n==10;
-				return (seq++)%n;
-			}
-		}));
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	public static final HashInterface getPassword(final PasswordRecovery recovery)
-	{
-		return recovery.getPassword();
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	public static final String newRandomPassword(final HashInterface hash, final SecureRandom random)
-	{
-		return hash.newRandomPassword(random);
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	public static final String newRandomPlainText(final Hash.PlainTextValidator validator, final SecureRandom random)
-	{
-		return validator.newRandomPlainText(random);
 	}
 }

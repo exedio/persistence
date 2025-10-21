@@ -41,7 +41,6 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.JobContext;
 import java.io.Serial;
-import java.security.SecureRandom;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -129,13 +128,6 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	public void blind(@Nonnull final String plainText)
 	{
 		targetHash.blind(plainText);
-	}
-
-	@Deprecated
-	@Override
-	public String newRandomPassword(final SecureRandom random)
-	{
-		return targetHash.newRandomPassword(random);
 	}
 
 	@Override

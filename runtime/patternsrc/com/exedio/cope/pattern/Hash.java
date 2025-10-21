@@ -40,7 +40,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
-import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
@@ -440,28 +439,11 @@ public final class Hash extends Pattern implements HashInterface
 		return isNotNull().bind(join);
 	}
 
-	@Deprecated
-	@Override
-	public String newRandomPassword(final SecureRandom random)
-	{
-		return validator.newRandomPlainText(random);
-	}
-
 	/** Validate plain text for potential limits, to be specified in sub classes */
 	public abstract static class PlainTextValidator
 	{
 		protected abstract void validate(String plainText, Item exceptionItem, Hash hash) throws
 			InvalidPlainTextException;
-
-		/**
-		 * Creates a plain text variant to redeem an existing password (password forgotten).
-		 * The result MUST be valid according to {@link #validate(String, Item, Hash)}.
-		 * @deprecated
-		 * This method is needed to support the recently deprecated {@link PasswordRecovery#redeem(Item, long)} only.
-		 * Therefore it is deprecated as well.
-		 */
-		@Deprecated
-		protected abstract String newRandomPlainText(SecureRandom secureRandom);
 	}
 
 	/** Default implementation  */
@@ -472,12 +454,6 @@ public final class Hash extends Pattern implements HashInterface
 		{
 			if(plainText==null)
 				throw new NullPointerException();
-		}
-
-		@Deprecated
-		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
-		{
-			return Long.toString(NonNegativeRandom.nextLong(secureRandom), 36);
 		}
 	}
 
