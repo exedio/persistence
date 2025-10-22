@@ -238,7 +238,7 @@ public final class VaultFallbackService implements VaultService
 	private void logGetFallback(final int fallbackIndex, final String hash)
 	{
 		if(logger.isDebugEnabled())
-			logger.debug("get from reference {} in {}: {}", fallbackIndex, bucket, anonymiseHash(hash));
+			logger.debug("get from fallback {} in {}: {}", fallbackIndex, bucket, anonymiseHash(hash));
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultFallbackService.class);

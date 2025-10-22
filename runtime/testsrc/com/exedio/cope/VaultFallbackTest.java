@@ -273,7 +273,7 @@ public abstract class VaultFallbackTest
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
-		log.assertDebug("get from reference 0 in default: " + HASH1A);
+		log.assertDebug("get from fallback 0 in default: " + HASH1A);
 		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
 		else
@@ -318,7 +318,7 @@ public abstract class VaultFallbackTest
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
-		log.assertDebug("get from reference 1 in default: " + HASH1A);
+		log.assertDebug("get from fallback 1 in default: " + HASH1A);
 		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
 		else
@@ -352,7 +352,7 @@ public abstract class VaultFallbackTest
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
-		log.assertDebug("get from reference 0 in default: " + HASH1A);
+		log.assertDebug("get from fallback 0 in default: " + HASH1A);
 		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getStream putFile");
 		else
@@ -378,7 +378,7 @@ public abstract class VaultFallbackTest
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
-		log.assertDebug("get from reference 1 in default: " + HASH1A);
+		log.assertDebug("get from fallback 1 in default: " + HASH1A);
 		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getStream putFile");
 		else
