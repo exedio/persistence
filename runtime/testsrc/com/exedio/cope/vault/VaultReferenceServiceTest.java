@@ -74,7 +74,7 @@ public class VaultReferenceServiceTest
 	@Test void testToString()
 	{
 		assertEquals(
-				"VaultMockService:mainEx (reference VaultMockService:refrEx)",
+				"VaultMockService:mainEx (fallback VaultMockService:refrEx)",
 				service.toString());
 	}
 

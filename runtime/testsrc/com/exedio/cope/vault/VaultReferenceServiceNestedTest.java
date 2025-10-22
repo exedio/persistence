@@ -80,10 +80,10 @@ public class VaultReferenceServiceNestedTest
 	@Test void testToString()
 	{
 		assertEquals(
-				"VaultMockService:mainEx (reference VaultMockService:ref1Ex) (reference VaultMockService:ref2Ex)",
+				"VaultMockService:mainEx (fallback VaultMockService:ref1Ex) (fallback VaultMockService:ref2Ex)",
 				service.toString());
 		assertEquals(
-				"VaultMockService:mainEx (reference VaultMockService:ref1Ex)",
+				"VaultMockService:mainEx (fallback VaultMockService:ref1Ex)",
 				serviceNested.toString());
 	}
 
