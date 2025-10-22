@@ -38,7 +38,6 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultFallbackService;
 import com.exedio.cope.vault.VaultNotFoundException;
-import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.IOException;
 import java.util.function.Consumer;
@@ -510,7 +509,7 @@ public abstract class VaultReferenceTest
 		log.setLevelDebug();
 		MODEL.connect(ConnectProperties.create(cascade(
 				single("vault", true),
-				single("vault.default.service", VaultReferenceService.class),
+				single("vault.default.service", VaultFallbackService.class),
 				single("vault.default.service.main", VaultMockService.class),
 				single("vault.default.service.main.example", "mainExampleValue"),
 				single("vault.default.service.referenceCount", 2),

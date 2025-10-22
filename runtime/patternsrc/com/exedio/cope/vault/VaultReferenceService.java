@@ -21,7 +21,7 @@ package com.exedio.cope.vault;
 import com.exedio.cope.util.ServiceAlias;
 
 @ServiceAlias(VaultFallbackService.class)
-public final class VaultReferenceService // TODO after VaultFallbackService: not public
+final class VaultReferenceService
 {
 	private VaultReferenceService()
 	{
