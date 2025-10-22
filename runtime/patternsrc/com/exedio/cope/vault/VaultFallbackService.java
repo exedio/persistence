@@ -272,7 +272,7 @@ public final class VaultFallbackService implements VaultService
 				}
 				if (assumeRefContains)
 				{
-					sink.accept(ANCESTRY_PATH_REFERENCE+(i==0?"":i));
+					sink.accept(ANCESTRY_PATH_FALLBACK+(i==0?"":i));
 					fallback.addToAncestryPath(hash, sink);
 					return;
 				}
@@ -298,7 +298,7 @@ public final class VaultFallbackService implements VaultService
 	}
 
 	public static final String ANCESTRY_PATH_MAIN = "main";
-	public static final String ANCESTRY_PATH_REFERENCE = "reference";
+	public static final String ANCESTRY_PATH_FALLBACK = "reference";
 
 
 	@Override
