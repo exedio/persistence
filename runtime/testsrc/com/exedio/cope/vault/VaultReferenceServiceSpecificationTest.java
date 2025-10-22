@@ -28,10 +28,9 @@ import org.junit.jupiter.api.Test;
 public class VaultReferenceServiceSpecificationTest extends VaultServiceTest
 {
 	@Override
-	@SuppressWarnings({"unchecked","rawtypes"}) // TODO after VaultFallbackService: drop
 	protected Class<? extends VaultService> getServiceClass()
 	{
-		return (Class)VaultReferenceService.class;
+		return VaultFallbackService.class;
 	}
 
 	@Override
