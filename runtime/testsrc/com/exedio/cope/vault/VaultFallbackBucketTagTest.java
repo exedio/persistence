@@ -61,7 +61,7 @@ public class VaultFallbackBucketTagTest
 	@Test void succeedSucceedAbort()
 	{
 		final var service = service("mainGenuine", "refrGenuine", "ABORT refr1Genuine");
-		assertEquals(2, service.getReferenceServices().size());
+		assertEquals(2, service.getFallbackServices().size());
 
 		assertStackTrace(2, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),

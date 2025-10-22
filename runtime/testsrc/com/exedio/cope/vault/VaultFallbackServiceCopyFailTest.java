@@ -60,7 +60,7 @@ public class VaultFallbackServiceCopyFailTest
 		main = (VaultMockService)service.getMainService();
 		final byte[] value = {1,2,3,4,5};
 		hash = Hex.encodeLower(props.getAlgorithmFactory().digest(value));
-		service.getReferenceServices().get(0).put(hash, value);
+		service.getFallbackServices().get(0).put(hash, value);
 		main.assertIt("");
 	}
 

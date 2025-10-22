@@ -44,7 +44,7 @@ public class VaultFallbackServiceContainsTest
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (Service)service.getMainService();
-		refr = (Service)service.getReferenceServices().get(0);
+		refr = (Service)service.getFallbackServices().get(0);
 	}
 
 	@Test void testContainsNone() throws VaultServiceUnsupportedOperationException

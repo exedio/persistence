@@ -523,9 +523,9 @@ public abstract class VaultFallbackTest
 		)));
 		this.service = (VaultFallbackService)VaultTest.vaultService(MODEL);
 		main = (VaultMockService)service.getMainService();
-		refr = (VaultMockService)service.getReferenceServices().get(0);
-		refr1 = (VaultMockService)service.getReferenceServices().get(1);
-		assertEquals(2, service.getReferenceServices().size());
+		refr = (VaultMockService)service.getFallbackServices().get(0);
+		refr1 = (VaultMockService)service.getFallbackServices().get(1);
+		assertEquals(2, service.getFallbackServices().size());
 		main.ancestryPath = "myMainAncestry";
 		refr.ancestryPath = "myReferenceAncestry";
 		refr1.ancestryPath = "myReference1Ancestry";

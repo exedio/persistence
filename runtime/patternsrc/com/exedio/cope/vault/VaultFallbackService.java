@@ -80,7 +80,7 @@ public final class VaultFallbackService implements VaultService
 	/**
 	 * @return getReferenceServices().get(0)
 	 * @throws IllegalStateException if there is more than one reference service
-	 * @deprecated use {@link #getReferenceServices()}
+	 * @deprecated use {@link #getFallbackServices()}
 	 */
 	@Deprecated
 	public VaultService getReferenceService()
@@ -90,8 +90,8 @@ public final class VaultFallbackService implements VaultService
 		return fallbacks[0];
 	}
 
-	/** @return the list of reference services, with at least one element */
-	public List<VaultService> getReferenceServices()
+	/** @return the list of fallback services, with at least one element */
+	public List<VaultService> getFallbackServices()
 	{
 		return List.of(fallbacks);
 	}
