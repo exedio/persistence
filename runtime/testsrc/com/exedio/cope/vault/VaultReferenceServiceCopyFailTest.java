@@ -48,7 +48,7 @@ public class VaultReferenceServiceCopyFailTest
 		final Source source =
 				describe("DESC", cascade(
 						single("algorithm", "MD5"),
-						single("service", VaultReferenceService.class),
+						single("service", VaultFallbackService.class),
 						single("service.main", PutFailService.class),
 						single("service.main.example", "mainEx"),
 						single("service.reference", VaultTransientService.class),
