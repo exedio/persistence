@@ -23,7 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.cope.tojunit.UsageEntryPoint;
+import com.exedio.cope.util.UsageEntryPoint;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
