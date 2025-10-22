@@ -77,19 +77,6 @@ public final class VaultFallbackService implements VaultService
 		return main;
 	}
 
-	/**
-	 * @return getReferenceServices().get(0)
-	 * @throws IllegalStateException if there is more than one reference service
-	 * @deprecated use {@link #getFallbackServices()}
-	 */
-	@Deprecated
-	public VaultService getReferenceService()
-	{
-		if (fallbacks.length!=1)
-			throw new IllegalStateException("there are " + fallbacks.length + " reference services - use getReferenceServices()");
-		return fallbacks[0];
-	}
-
 	/** @return the list of fallback services, with at least one element */
 	public List<VaultService> getFallbackServices()
 	{
