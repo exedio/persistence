@@ -65,15 +65,15 @@ public abstract class VaultFallbackTest
 		assertEquals(true, main.writable);
 		assertEquals("VaultMockService:mainExampleValue", main.toString());
 
-		assertNotNull(refr);
-		assertEquals("SHA-512", refr.bucketProperties.getAlgorithm());
-		assertEquals("referenceExampleValue", refr.serviceProperties.example);
-		assertEquals("default", refr.bucket);
-		assertEquals(false, refr.writable);
-		assertEquals("VaultMockService:referenceExampleValue", refr.toString());
+		assertNotNull(fal0);
+		assertEquals("SHA-512", fal0.bucketProperties.getAlgorithm());
+		assertEquals("referenceExampleValue", fal0.serviceProperties.example);
+		assertEquals("default", fal0.bucket);
+		assertEquals(false, fal0.writable);
+		assertEquals("VaultMockService:referenceExampleValue", fal0.toString());
 
-		assertSame(main.bucketProperties, refr.bucketProperties);
-		assertNotSame(main.serviceProperties, refr.serviceProperties);
+		assertSame(main.bucketProperties, fal0.bucketProperties);
+		assertNotSame(main.serviceProperties, fal0.serviceProperties);
 
 		log.assertEmpty();
 	}
@@ -82,16 +82,16 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
-		refr.put(HASH1, VALUE1);
-		refr.assertIt(HASH1, VALUE1, "");
+		fal0.put(HASH1, VALUE1);
+		fal0.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		main.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "");
+		fal1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -100,26 +100,26 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
-		refr.put(HASH1, VALUE1);
-		refr.assertIt(HASH1, VALUE1, "");
+		fal0.put(HASH1, VALUE1);
+		fal0.assertIt(HASH1, VALUE1, "");
 
 		assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 		main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "");
+		fal1.assertIt("");
 
 		assertEquals(VALUE1, item.getFieldBytes());
 		main.assertIt(HASH1, VALUE1, "getBytes");
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "");
+		fal1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -128,8 +128,8 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
 		main.failOnGet(HASH1, new IllegalStateException("error in main"));
@@ -140,19 +140,19 @@ public abstract class VaultFallbackTest
 		);
 		assertEquals(0, exception.getSuppressed().length);
 		main.assertIt("getBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 	}
 
 	@Test void errorInReference()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
-		refr.failOnGet(HASH1, new IllegalStateException("error in reference"));
+		fal0.failOnGet(HASH1, new IllegalStateException("error in reference"));
 		final IllegalStateException exception = assertFails(
 				item::getFieldBytes,
 				IllegalStateException.class,
@@ -168,19 +168,19 @@ public abstract class VaultFallbackTest
 				}
 		);
 		main.assertIt("getBytes");
-		refr.assertIt("getBytes");
-		refr1.assertIt("");
+		fal0.assertIt("getBytes");
+		fal1.assertIt("");
 	}
 
 	@Test void errorInReference1()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
-		refr1.failOnGet(HASH1, new IllegalStateException("error in reference"));
+		fal1.failOnGet(HASH1, new IllegalStateException("error in reference"));
 		final IllegalStateException exception = assertFails(
 				item::getFieldBytes,
 				IllegalStateException.class,
@@ -202,24 +202,24 @@ public abstract class VaultFallbackTest
 				}
 		);
 		main.assertIt("getBytes");
-		refr.assertIt("getBytes");
-		refr1.assertIt("getBytes");
+		fal0.assertIt("getBytes");
+		fal1.assertIt("getBytes");
 	}
 
 	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
-		refr.put(HASH1, VALUE1);
-		refr.assertIt(HASH1, VALUE1, "");
+		fal0.put(HASH1, VALUE1);
+		fal0.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldStream());
 		main.assertIt(HASH1, VALUE1, "getStream");
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "");
+		fal1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -228,21 +228,21 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
-		refr.put(HASH1, VALUE1);
+		fal0.put(HASH1, VALUE1);
 		main.assertIt("");
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "");
+		fal1.assertIt("");
 
 		log.assertEmpty();
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		log.assertEmpty(); // DataField#getLength no longer calls VaultService#getLength
 		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
-		refr.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
+		fal1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -251,25 +251,25 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
 
 		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
 		main.assertIt("contains");
-		refr.assertIt("contains");
-		refr1.assertIt("addToAncestryPath");
+		fal0.assertIt("contains");
+		fal1.assertIt("addToAncestryPath");
 
-		refr.put(HASH1, VALUE1);
+		fal0.put(HASH1, VALUE1);
 		main.assertIt("");
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "");
+		fal1.assertIt("");
 
 		assertAncestry(field, item, HASH1, "fallback", "myReferenceAncestry");
 		main.assertIt("contains");
-		refr.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
+		fal1.assertIt("");
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
@@ -278,15 +278,15 @@ public abstract class VaultFallbackTest
 			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
 		else
 			main.assertIt("getBytes");
-		refr.assertIt(HASH1, VALUE1, "getBytes");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "getBytes");
+		fal1.assertIt("");
 
 		if(copyFallbackToMain())
 		{
 			assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 			main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
-			refr.assertIt(HASH1, VALUE1, "");
-			refr1.assertIt("");
+			fal0.assertIt(HASH1, VALUE1, "");
+			fal1.assertIt("");
 		}
 
 		log.assertEmpty();
@@ -296,25 +296,25 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
 
 		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
 		main.assertIt("contains");
-		refr.assertIt("contains");
-		refr1.assertIt("addToAncestryPath");
+		fal0.assertIt("contains");
+		fal1.assertIt("addToAncestryPath");
 
-		refr1.put(HASH1, VALUE1);
+		fal1.put(HASH1, VALUE1);
 		main.assertIt("");
-		refr.assertIt("");
-		refr1.assertIt(HASH1, VALUE1, "");
+		fal0.assertIt("");
+		fal1.assertIt(HASH1, VALUE1, "");
 
 		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
 		main.assertIt("contains");
-		refr.assertIt("contains");
-		refr1.assertIt(HASH1, VALUE1, "addToAncestryPath");
+		fal0.assertIt("contains");
+		fal1.assertIt(HASH1, VALUE1, "addToAncestryPath");
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
@@ -323,15 +323,15 @@ public abstract class VaultFallbackTest
 			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
 		else
 			main.assertIt("getBytes");
-		refr.assertIt("getBytes");
-		refr1.assertIt(HASH1, VALUE1, "getBytes");
+		fal0.assertIt("getBytes");
+		fal1.assertIt(HASH1, VALUE1, "getBytes");
 
 		if(copyFallbackToMain())
 		{
 			assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 			main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
-			refr.assertIt("");
-			refr1.assertIt(HASH1, VALUE1, "");
+			fal0.assertIt("");
+			fal1.assertIt(HASH1, VALUE1, "");
 		}
 
 		log.assertEmpty();
@@ -341,14 +341,14 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
-		refr.put(HASH1, VALUE1);
+		fal0.put(HASH1, VALUE1);
 		main.assertIt("");
-		refr.assertIt(HASH1, VALUE1, "");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "");
+		fal1.assertIt("");
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
@@ -357,8 +357,8 @@ public abstract class VaultFallbackTest
 			main.assertIt(HASH1, VALUE1, "getStream putFile");
 		else
 			main.assertIt("getStream");
-		refr.assertIt(HASH1, VALUE1, "getStream");
-		refr1.assertIt("");
+		fal0.assertIt(HASH1, VALUE1, "getStream");
+		fal1.assertIt("");
 
 		log.assertEmpty();
 	}
@@ -367,14 +367,14 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
-		refr1.put(HASH1, VALUE1);
+		fal1.put(HASH1, VALUE1);
 		main.assertIt("");
-		refr.assertIt("");
-		refr1.assertIt(HASH1, VALUE1, "");
+		fal0.assertIt("");
+		fal1.assertIt(HASH1, VALUE1, "");
 
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
@@ -383,8 +383,8 @@ public abstract class VaultFallbackTest
 			main.assertIt(HASH1, VALUE1, "getStream putFile");
 		else
 			main.assertIt("getStream");
-		refr.assertIt("getStream");
-		refr1.assertIt(HASH1, VALUE1, "getStream");
+		fal0.assertIt("getStream");
+		fal1.assertIt(HASH1, VALUE1, "getStream");
 
 		log.assertEmpty();
 	}
@@ -393,18 +393,18 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
 		main.assertIt("");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		assertEquals(6, item.getFieldLength()); // DataField#getLength no longer calls VaultService#getLength
 		main.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
-		refr.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
-		refr1.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
+		fal0.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
+		fal1.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 
 		log.assertEmpty();
 	}
@@ -413,13 +413,13 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
 		main.assertIt("");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		final IllegalStateException e = assertFails(
 				item::getFieldBytes,
@@ -448,8 +448,8 @@ public abstract class VaultFallbackTest
 		);
 
 		main.assertIt("getBytes");
-		refr.assertIt("getBytes");
-		refr1.assertIt("getBytes");
+		fal0.assertIt("getBytes");
+		fal1.assertIt("getBytes");
 
 		log.assertEmpty();
 	}
@@ -458,13 +458,13 @@ public abstract class VaultFallbackTest
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		main.clear();
 		main.assertIt("");
-		refr.assertIt("");
-		refr1.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
 
 		final IllegalStateException e = assertFails(
 				item::getFieldStream,
@@ -493,8 +493,8 @@ public abstract class VaultFallbackTest
 		);
 
 		main.assertIt("getStream");
-		refr.assertIt("getStream");
-		refr1.assertIt("getStream");
+		fal0.assertIt("getStream");
+		fal1.assertIt("getStream");
 
 		log.assertEmpty();
 	}
@@ -502,7 +502,7 @@ public abstract class VaultFallbackTest
 
 	private final LogRule log = new LogRule(VaultFallbackService.class);
 	private VaultFallbackService service;
-	private VaultMockService main, refr, refr1;
+	private VaultMockService main, fal0, fal1;
 
 	@BeforeEach void setUp()
 	{
@@ -523,12 +523,12 @@ public abstract class VaultFallbackTest
 		)));
 		this.service = (VaultFallbackService)VaultTest.vaultService(MODEL);
 		main = (VaultMockService)service.getMainService();
-		refr = (VaultMockService)service.getFallbackServices().get(0);
-		refr1 = (VaultMockService)service.getFallbackServices().get(1);
+		fal0 = (VaultMockService)service.getFallbackServices().get(0);
+		fal1 = (VaultMockService)service.getFallbackServices().get(1);
 		assertEquals(2, service.getFallbackServices().size());
 		main.ancestryPath = "myMainAncestry";
-		refr.ancestryPath = "myReferenceAncestry";
-		refr1.ancestryPath = "myReference1Ancestry";
+		fal0.ancestryPath = "myReferenceAncestry";
+		fal1.ancestryPath = "myReference1Ancestry";
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}

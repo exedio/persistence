@@ -34,9 +34,9 @@ public class VaultFallbackServiceMultipleRefsTest
 {
 	private VaultFallbackService service;
 	private VaultMockService main;
-	private VaultMockService refr0;
-	private VaultMockService refr1;
-	private VaultMockService refr2;
+	private VaultMockService fal0;
+	private VaultMockService fal1;
+	private VaultMockService fal2;
 
 	@BeforeEach void before()
 	{
@@ -57,9 +57,9 @@ public class VaultFallbackServiceMultipleRefsTest
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
-		refr0 = (VaultMockService)service.getFallbackServices().get(0);
-		refr1 = (VaultMockService)service.getFallbackServices().get(1);
-		refr2 = (VaultMockService)service.getFallbackServices().get(2);
+		fal0 = (VaultMockService)service.getFallbackServices().get(0);
+		fal1 = (VaultMockService)service.getFallbackServices().get(1);
+		fal2 = (VaultMockService)service.getFallbackServices().get(2);
 		assertEquals(3, service.getFallbackServices().size());
 	}
 
@@ -71,17 +71,17 @@ public class VaultFallbackServiceMultipleRefsTest
 	@Test void testWritable()
 	{
 		assertEquals(true,  main.writable);
-		assertEquals(false, refr0.writable);
-		assertEquals(false, refr1.writable);
-		assertEquals(false, refr2.writable);
+		assertEquals(false, fal0.writable);
+		assertEquals(false, fal1.writable);
+		assertEquals(false, fal2.writable);
 	}
 
 	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
-		assertEquals("refrEx0", refr0.serviceProperties.example);
-		assertEquals("refrEx1", refr1.serviceProperties.example);
-		assertEquals("refrEx2", refr2.serviceProperties.example);
+		assertEquals("refrEx0", fal0.serviceProperties.example);
+		assertEquals("refrEx1", fal1.serviceProperties.example);
+		assertEquals("refrEx2", fal2.serviceProperties.example);
 	}
 
 	@Test void testToString()
@@ -94,28 +94,28 @@ public class VaultFallbackServiceMultipleRefsTest
 	@Test void testPurge()
 	{
 		main.assertIt("");
-		refr0.assertIt("");
-		refr1.assertIt("");
-		refr2.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
+		fal2.assertIt("");
 
 		service.purgeSchema(new AssertionErrorJobContext());
 		main.assertIt("purgeSchema");
-		refr0.assertIt("purgeSchema");
-		refr1.assertIt("purgeSchema");
-		refr2.assertIt("purgeSchema");
+		fal0.assertIt("purgeSchema");
+		fal1.assertIt("purgeSchema");
+		fal2.assertIt("purgeSchema");
 	}
 
 	@Test void testClose()
 	{
 		main.assertIt("");
-		refr0.assertIt("");
-		refr1.assertIt("");
-		refr2.assertIt("");
+		fal0.assertIt("");
+		fal1.assertIt("");
+		fal2.assertIt("");
 
 		service.close();
 		main.assertIt("close");
-		refr0.assertIt("close");
-		refr1.assertIt("close");
-		refr2.assertIt("close");
+		fal0.assertIt("close");
+		fal1.assertIt("close");
+		fal2.assertIt("close");
 	}
 }

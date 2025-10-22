@@ -593,10 +593,10 @@ public class VaultPropertiesTest
 		final VaultFallbackService service = (VaultFallbackService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		assertEquals(1, service.getFallbackServices().size());
-		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getFallbackServices().get(0);
+		final ServicePropertiesMissing fall = (ServicePropertiesMissing)service.getFallbackServices().get(0);
 		assertSame(props.bucket("default"), main.parameters.getBucketProperties());
-		assertSame(props.bucket("default"), ref .parameters.getBucketProperties());
-		assertNotSame(main, ref);
+		assertSame(props.bucket("default"), fall.parameters.getBucketProperties());
+		assertNotSame(main, fall);
 	}
 	static class ServicePropertiesMissing extends AssertionErrorVaultService
 	{

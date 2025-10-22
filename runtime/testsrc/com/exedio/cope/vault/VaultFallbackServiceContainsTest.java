@@ -31,7 +31,7 @@ public class VaultFallbackServiceContainsTest
 {
 	private VaultFallbackService service;
 	private Service main;
-	private Service refr;
+	private Service fall;
 
 	@BeforeEach void before()
 	{
@@ -44,14 +44,14 @@ public class VaultFallbackServiceContainsTest
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (Service)service.getMainService();
-		refr = (Service)service.getFallbackServices().get(0);
+		fall = (Service)service.getFallbackServices().get(0);
 	}
 
 	@Test void testContainsNone() throws VaultServiceUnsupportedOperationException
 	{
 		assertEquals(false, service.contains(HASH));
 		assertEquals(1, main.count);
-		assertEquals(1, refr.count);
+		assertEquals(1, fall.count);
 	}
 
 	@Test void testContainsMain() throws VaultServiceUnsupportedOperationException
@@ -59,24 +59,24 @@ public class VaultFallbackServiceContainsTest
 		main.result = true;
 		assertEquals(true, service.contains(HASH));
 		assertEquals(1, main.count);
-		assertEquals(0, refr.count);
+		assertEquals(0, fall.count);
 	}
 
 	@Test void testContainsRef() throws VaultServiceUnsupportedOperationException
 	{
-		refr.result = true;
+		fall.result = true;
 		assertEquals(true, service.contains(HASH));
 		assertEquals(1, main.count);
-		assertEquals(1, refr.count);
+		assertEquals(1, fall.count);
 	}
 
 	@Test void testContainsBoth() throws VaultServiceUnsupportedOperationException
 	{
 		main.result = true;
-		refr.result = true;
+		fall.result = true;
 		assertEquals(true, service.contains(HASH));
 		assertEquals(1, main.count);
-		assertEquals(0, refr.count);
+		assertEquals(0, fall.count);
 	}
 
 	private static final String HASH = "abcdef";

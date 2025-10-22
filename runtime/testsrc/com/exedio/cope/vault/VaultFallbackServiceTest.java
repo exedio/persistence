@@ -33,7 +33,7 @@ public class VaultFallbackServiceTest
 {
 	private VaultFallbackService service;
 	private VaultMockService main;
-	private VaultMockService refr;
+	private VaultMockService fall;
 
 	@BeforeEach void before()
 	{
@@ -49,19 +49,19 @@ public class VaultFallbackServiceTest
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
-		refr = (VaultMockService)service.getFallbackServices().get(0);
+		fall = (VaultMockService)service.getFallbackServices().get(0);
 	}
 
 	@Test void testWritable()
 	{
 		assertEquals(true,  main.writable);
-		assertEquals(false, refr.writable);
+		assertEquals(false, fall.writable);
 	}
 
 	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
-		assertEquals("refrEx", refr.serviceProperties.example);
+		assertEquals("refrEx", fall.serviceProperties.example);
 	}
 
 	@Test void testToString()
@@ -74,20 +74,20 @@ public class VaultFallbackServiceTest
 	@Test void testPurge()
 	{
 		main.assertIt("");
-		refr.assertIt("");
+		fall.assertIt("");
 
 		service.purgeSchema(new AssertionErrorJobContext());
 		main.assertIt("purgeSchema");
-		refr.assertIt("purgeSchema");
+		fall.assertIt("purgeSchema");
 	}
 
 	@Test void testClose()
 	{
 		main.assertIt("");
-		refr.assertIt("");
+		fall.assertIt("");
 
 		service.close();
 		main.assertIt("close");
-		refr.assertIt("close");
+		fall.assertIt("close");
 	}
 }
