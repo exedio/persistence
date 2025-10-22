@@ -20,6 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.util.UsageEntryPoint;
 
 public class SamePathPatternItem extends Item
 {

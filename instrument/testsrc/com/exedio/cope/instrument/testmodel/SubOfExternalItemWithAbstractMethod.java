@@ -22,6 +22,7 @@ import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import com.exedio.cope.instrument.testlib.ExternalInterface;
 import com.exedio.cope.instrument.testlib.ExternalItemWithAbstractMethod;
+import com.exedio.cope.util.UsageEntryPoint;
 
 class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 {
