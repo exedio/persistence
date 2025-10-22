@@ -362,8 +362,8 @@ public final class VaultFallbackService implements VaultService
 			if(logger.isErrorEnabled() &&
 				main.getServiceClass()==VaultFallbackService.class)
 				logger.error(
-						"do not nest another VaultReferenceService in main, " +
-						"use multiple reference services instead");
+						"do not nest another VaultFallbackService in main, " +
+						"use multiple fallback services instead");
 		}
 
 		private List<Service> valueReferences()
