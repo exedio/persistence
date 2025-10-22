@@ -116,8 +116,8 @@ public class VaultReferenceServiceNestedTest
 	@Test void testLog()
 	{
 		log.assertError(
-				"do not nest another VaultReferenceService in main, " +
-				"use multiple reference services instead");
+				"do not nest another VaultFallbackService in main, " +
+				"use multiple fallback services instead");
 		log.assertEmpty();
 	}
 }
