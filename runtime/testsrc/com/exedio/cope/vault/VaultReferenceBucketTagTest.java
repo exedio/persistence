@@ -162,6 +162,6 @@ public class VaultReferenceBucketTagTest
 	{
 		assertEquals(expected, stream(actual.getStackTrace()).
 				map(StackTraceElement::getMethodName).
-				filter("REFERENCE"::equals).count());
+				filter("FALLBACK"::equals).count());
 	}
 }

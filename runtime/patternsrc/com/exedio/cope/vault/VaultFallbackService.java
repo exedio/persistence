@@ -43,8 +43,8 @@ public final class VaultFallbackService implements VaultService
 {
 	private final String bucket;
 	private final VaultService main;
-	private final VaultService[] references;
-	private final boolean copyReferenceToMain;
+	private final VaultService[] fallbacks;
+	private final boolean copyFallbackToMain;
 
 	VaultFallbackService(
 			final VaultServiceParameters parameters,
@@ -52,23 +52,23 @@ public final class VaultFallbackService implements VaultService
 	{
 		bucket = parameters.getBucket();
 		main = properties.main.newService(parameters);
-		references = properties.references.stream().map(s->s.newService(parameters)).toArray(VaultService[]::new);
-		copyReferenceToMain = properties.copyReferenceToMain;
+		fallbacks = properties.fallbacks.stream().map(s->s.newService(parameters)).toArray(VaultService[]::new);
+		copyFallbackToMain = properties.copyFallbackToMain;
 	}
 
 	@Override
 	public void purgeSchema(final JobContext ctx)
 	{
 		main.purgeSchema(ctx);
-		for(final VaultService reference : references)
-			reference.purgeSchema(ctx);
+		for(final VaultService fallback : fallbacks)
+			fallback.purgeSchema(ctx);
 	}
 
 	@Override
 	public void close()
 	{
-		for (int i = references.length-1; i>=0; i--)
-			references[i].close();
+		for (int i = fallbacks.length-1; i>=0; i--)
+			fallbacks[i].close();
 		main.close();
 	}
 
@@ -85,15 +85,15 @@ public final class VaultFallbackService implements VaultService
 	@Deprecated
 	public VaultService getReferenceService()
 	{
-		if (references.length!=1)
-			throw new IllegalStateException("there are " + references.length + " reference services - use getReferenceServices()");
-		return references[0];
+		if (fallbacks.length!=1)
+			throw new IllegalStateException("there are " + fallbacks.length + " reference services - use getReferenceServices()");
+		return fallbacks[0];
 	}
 
 	/** @return the list of reference services, with at least one element */
 	public List<VaultService> getReferenceServices()
 	{
-		return List.of(references);
+		return List.of(fallbacks);
 	}
 
 	@Override
@@ -101,14 +101,14 @@ public final class VaultFallbackService implements VaultService
 	{
 		// TODO
 		// Maybe I want to catch VaultServiceUnsupportedOperationException
-		// and ask other references before giving up.
+		// and ask other fallbacks before giving up.
 		// That means implementing a Three-valued_logic:
 		// https://en.wikipedia.org/wiki/Three-valued_logic
 		if(main.contains(hash))
 			return true;
 
-		for(final VaultService reference : references)
-			if(reference.contains(hash))
+		for(final VaultService fallback : fallbacks)
+			if(fallback.contains(hash))
 				return true;
 
 		return false;
@@ -125,27 +125,27 @@ public final class VaultFallbackService implements VaultService
 		{
 			//noinspection ReassignedVariable
 			List<VaultNotFoundException> refSuppressed = null;
-			for(int i = 0; i < references.length; i++)
+			for(int i = 0; i < fallbacks.length; i++)
 			{
-				final VaultService reference = references[i];
+				final VaultService fallback = fallbacks[i];
 				try
 				{
-					final byte[] result = reference.get(hash);
-					logGetReference(i, hash);
-					if(copyReferenceToMain)
+					final byte[] result = fallback.get(hash);
+					logGetFallback(i, hash);
+					if(copyFallbackToMain)
 						main.put(hash, result);
 					return result;
 				}
 				catch(final VaultNotFoundException e)
 				{
-					if (i==references.length-1)
+					if (i==fallbacks.length-1)
 					{
 						throw addSuppressed(e, mainSuppressed, refSuppressed);
 					}
 					else
 					{
 						if(refSuppressed == null)
-							refSuppressed = new ArrayList<>(references.length);
+							refSuppressed = new ArrayList<>(fallbacks.length);
 						refSuppressed.add(e);
 					}
 				}
@@ -169,20 +169,20 @@ public final class VaultFallbackService implements VaultService
 		catch(final VaultNotFoundException mainSuppressed)
 		{
 			//noinspection ReassignedVariable
-			List<VaultNotFoundException> refSuppressed = null;
-			for(int i = 0; i < references.length; i++)
+			List<VaultNotFoundException> fallbackSuppressed = null;
+			for(int i = 0; i < fallbacks.length; i++)
 			{
-				final VaultService reference = references[i];
+				final VaultService fallback = fallbacks[i];
 				try
 				{
-					if(!copyReferenceToMain)
+					if(!copyFallbackToMain)
 					{
-						reference.get(hash, sink);
-						logGetReference(i, hash);
+						fallback.get(hash, sink);
+						logGetFallback(i, hash);
 						return;
 					}
 
-					final Path temp = createTempFileFromReference(i, hash);
+					final Path temp = createTempFileFromFallback(i, hash);
 					main.put(hash, temp);
 					Files.copy(temp, sink);
 					delete(temp);
@@ -190,20 +190,20 @@ public final class VaultFallbackService implements VaultService
 				}
 				catch(final VaultNotFoundException e)
 				{
-					if (i==references.length-1)
+					if (i==fallbacks.length-1)
 					{
-						throw addSuppressed(e, mainSuppressed, refSuppressed);
+						throw addSuppressed(e, mainSuppressed, fallbackSuppressed);
 					}
 					else
 					{
-						if(refSuppressed == null)
-							refSuppressed = new ArrayList<>(references.length);
-						refSuppressed.add(e);
+						if(fallbackSuppressed == null)
+							fallbackSuppressed = new ArrayList<>(fallbacks.length);
+						fallbackSuppressed.add(e);
 					}
 				}
 				catch(final RuntimeException e)
 				{
-					throw addSuppressed(e, mainSuppressed, refSuppressed);
+					throw addSuppressed(e, mainSuppressed, fallbackSuppressed);
 				}
 			}
 			//noinspection ThrowInsideCatchBlockWhichIgnoresCaughtException
@@ -221,24 +221,24 @@ public final class VaultFallbackService implements VaultService
 		return e;
 	}
 
-	private Path createTempFileFromReference(final int referenceIndex, final String hash)
+	private Path createTempFileFromFallback(final int fallbackIndex, final String hash)
 			throws VaultNotFoundException, IOException
 	{
-		final Path result = Files.createTempFile("VaultReferenceService-" + referenceIndex + "-" + anonymiseHash(hash), ".dat");
+		final Path result = Files.createTempFile("VaultFallbackService-" + fallbackIndex + "-" + anonymiseHash(hash), ".dat");
 
 		try(OutputStream s = Files.newOutputStream(result))
 		{
-			references[referenceIndex].get(hash, s);
+			fallbacks[fallbackIndex].get(hash, s);
 		}
-		logGetReference(referenceIndex, hash);
+		logGetFallback(fallbackIndex, hash);
 
 		return result;
 	}
 
-	private void logGetReference(final int referenceIndex, final String hash)
+	private void logGetFallback(final int fallbackIndex, final String hash)
 	{
 		if(logger.isDebugEnabled())
-			logger.debug("get from reference {} in {}: {}", referenceIndex, bucket, anonymiseHash(hash));
+			logger.debug("get from reference {} in {}: {}", fallbackIndex, bucket, anonymiseHash(hash));
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultFallbackService.class);
@@ -257,23 +257,23 @@ public final class VaultFallbackService implements VaultService
 		}
 		else
 		{
-			for(int i=0; i<references.length; i++)
+			for(int i=0; i<fallbacks.length; i++)
 			{
-				final VaultService reference = references[i];
+				final VaultService fallback = fallbacks[i];
 				final boolean assumeRefContains;
-				if (i==references.length-1)
+				if (i==fallbacks.length-1)
 				{
 					assumeRefContains = true;
 				}
 				else
 				{
 					final int ifinal = i;
-					assumeRefContains = contains(reference, hash, () -> ("reference service " + ifinal));
+					assumeRefContains = contains(fallback, hash, () -> ("reference service " + ifinal));
 				}
 				if (assumeRefContains)
 				{
 					sink.accept(ANCESTRY_PATH_REFERENCE+(i==0?"":i));
-					reference.addToAncestryPath(hash, sink);
+					fallback.addToAncestryPath(hash, sink);
 					return;
 				}
 			}
@@ -324,20 +324,20 @@ public final class VaultFallbackService implements VaultService
 	public Object probeBucketTag(final String bucket) throws Exception
 	{
 		final Object result = main.probeBucketTag(bucket);
-		REFERENCE(bucket, 0);
+		FALLBACK(bucket, 0);
 		return result;
 	}
 	/**
 	 * This method has the sole purpose to appear in stack traces
-	 * showing that any exception was caused by which of the reference services.
+	 * showing that any exception was caused by which of the fallback services.
 	 */
-	private void REFERENCE(final String bucket, int index) throws Exception
+	private void FALLBACK(final String bucket, int index) throws Exception
 	{
-		references[index++].probeBucketTag(bucket);
+		fallbacks[index++].probeBucketTag(bucket);
 
-		if(index<references.length)
+		if(index<fallbacks.length)
 			//noinspection TailRecursion OK: recursion is the sole prupuse of this method
-			REFERENCE(bucket, index);
+			FALLBACK(bucket, index);
 	}
 
 
@@ -345,16 +345,16 @@ public final class VaultFallbackService implements VaultService
 	public String toString()
 	{
 		return main +
-				 " (fallback" + (references.length>1 ? "s" : "") + " " +
-				 Arrays.stream(references).map(Object::toString).collect(Collectors.joining(" ")) + ')';
+				 " (fallback" + (fallbacks.length>1 ? "s" : "") + " " +
+				 Arrays.stream(fallbacks).map(Object::toString).collect(Collectors.joining(" ")) + ')';
 	}
 
 
 	static final class Props extends AbstractVaultProperties
 	{
 		private final Service main = valueService("main", true);
-		private final List<Service> references = valueReferences();
-		private final boolean copyReferenceToMain = value("copyReferenceToMain", true);
+		private final List<Service> fallbacks = valueFallbacks();
+		private final boolean copyFallbackToMain = value("copyReferenceToMain", true);
 
 		Props(final Source source)
 		{
@@ -366,19 +366,19 @@ public final class VaultFallbackService implements VaultService
 						"use multiple fallback services instead");
 		}
 
-		private List<Service> valueReferences()
+		private List<Service> valueFallbacks()
 		{
-			final int referenceCount = value("referenceCount", 1, 1);
-			final Service[] referenceArray = new Service[referenceCount];
-			for (int i=0; i<referenceCount; i++)
+			final int count = value("referenceCount", 1, 1);
+			final Service[] array = new Service[count];
+			for (int i=0; i<count; i++)
 			{
 				final String key = "reference" + (i == 0 ? "" : i );
-				referenceArray[i] = valueService(key, false);
-				if(referenceArray[i].getServiceClass()==VaultFallbackService.class)
+				array[i] = valueService(key, false);
+				if(array[i].getServiceClass()==VaultFallbackService.class)
 					throw newException(key,
 							"must not nest another VaultFallbackService, use multiple fallback services instead");
 			}
-			return List.of(referenceArray);
+			return List.of(array);
 		}
 	}
 }
