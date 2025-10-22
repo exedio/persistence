@@ -891,18 +891,18 @@ public abstract class ClusterTest
 					assertNotNull(infoNode.getFirstEncounter());
 					assertEquals(null, infoNode.getAddress());
 					assertEquals(967, infoNode.getPort());
-					assertEquals(node[1], infoNode.getPingInfo().getInOrder() - pingInOrderBefore, "ping");
-					assertEquals(node[2], infoNode.getPongInfo().getInOrder() - pongInOrderBefore, "pong");
+					assertEquals(node[1], infoNode.getPingInfo().inOrder() - pingInOrderBefore, "ping");
+					assertEquals(node[2], infoNode.getPongInfo().inOrder() - pongInOrderBefore, "pong");
 
-					assertEquals(0, infoNode.getPingInfo().getOutOfOrder());
-					assertEquals(0, infoNode.getPongInfo().getOutOfOrder());
-					assertEquals(0, infoNode.getPingInfo().getDuplicate());
-					assertEquals(0, infoNode.getPongInfo().getDuplicate());
+					assertEquals(0, infoNode.getPingInfo().outOfOrder());
+					assertEquals(0, infoNode.getPongInfo().outOfOrder());
+					assertEquals(0, infoNode.getPingInfo().duplicate());
+					assertEquals(0, infoNode.getPongInfo().duplicate());
 
-					assertEquals(0, infoNode.getPingInfo().getLost());
-					assertEquals(0, infoNode.getPongInfo().getLost());
-					assertEquals(0, infoNode.getPingInfo().getLate());
-					assertEquals(0, infoNode.getPongInfo().getLate());
+					assertEquals(0, infoNode.getPingInfo().lost());
+					assertEquals(0, infoNode.getPongInfo().lost());
+					assertEquals(0, infoNode.getPingInfo().late());
+					assertEquals(0, infoNode.getPongInfo().late());
 
 					assertEquals(node[1], countSequence("ping", "inOrder") - pingInOrderBefore, "ping");
 					assertEquals(node[2], countSequence("pong", "inOrder") - pongInOrderBefore, "pong");

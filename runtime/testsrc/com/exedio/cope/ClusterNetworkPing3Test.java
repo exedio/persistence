@@ -242,12 +242,12 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 			final int inOrder,
 			final SequenceChecker.Info actual)
 	{
-		assertEquals(inOrder, actual.getInOrder());
-		assertEquals(0, actual.getOutOfOrder());
-		assertEquals(0, actual.getDuplicate());
-		assertEquals(0, actual.getLost());
-		assertEquals(0, actual.getLate());
-		assertEquals(0, actual.getPending());
+		assertEquals(inOrder, actual.inOrder());
+		assertEquals(0, actual.outOfOrder());
+		assertEquals(0, actual.duplicate());
+		assertEquals(0, actual.lost());
+		assertEquals(0, actual.late());
+		assertEquals(0, actual.pending());
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
