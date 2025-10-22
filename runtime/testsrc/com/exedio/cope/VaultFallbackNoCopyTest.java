@@ -21,7 +21,7 @@ package com.exedio.cope;
 public class VaultFallbackNoCopyTest extends VaultFallbackTest
 {
 	@Override
-	protected boolean copyReferenceToMain()
+	protected boolean copyFallbackToMain()
 	{
 		return false;
 	}
