@@ -39,7 +39,7 @@ import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
-import com.exedio.cope.vault.VaultReferenceService;
+import com.exedio.cope.vault.VaultFallbackService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.filevault.VaultFileService;
 import java.lang.reflect.InvocationTargetException;
@@ -65,7 +65,7 @@ public class ConnectPropertiesTest
 		notOnDefault.put("dialect", HsqldbDialect.class);
 		notOnDefault.put("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence);
 		notOnDefault.put("vault", true);
-		notOnDefault.put("vault.default.service", VaultReferenceService.class);
+		notOnDefault.put("vault.default.service", VaultFallbackService.class);
 		notOnDefault.put("vault.default.service.main", VaultFileService.class);
 		notOnDefault.put("vault.default.service.main.root", Paths.get("vaultFileRoot"));
 		notOnDefault.put("vault.default.service.reference", VaultMockService.class);

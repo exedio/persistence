@@ -80,7 +80,7 @@ public class VaultReferenceServiceContainsUnsupportedTest
 		assertEquals("com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$1", e.getCause().getMessage());
 	}
 
-	private static VaultReferenceService newService(
+	private static VaultFallbackService newService(
 			final Class<? extends VaultService> main,
 			final Class<? extends VaultService> reference)
 	{
@@ -92,7 +92,7 @@ public class VaultReferenceServiceContainsUnsupportedTest
 				single("service.reference1", VaultMockService.class)
 		);
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
-		return (VaultReferenceService)props.newServiceNonResilient(() -> false);
+		return (VaultFallbackService)props.newServiceNonResilient(() -> false);
 	}
 
 	private static final class Service extends AssertionErrorVaultService

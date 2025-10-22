@@ -34,8 +34,8 @@ import org.junit.jupiter.api.Test;
 @MainRule.Tag
 public class VaultReferenceServiceNestedTest
 {
-	private VaultReferenceService service;
-	private VaultReferenceService serviceNested;
+	private VaultFallbackService service;
+	private VaultFallbackService serviceNested;
 	private VaultMockService main;
 	private VaultMockService ref1;
 	private VaultMockService ref2;
@@ -54,9 +54,9 @@ public class VaultReferenceServiceNestedTest
 						single("service.reference.example", "ref2Ex")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
-		final VaultReferenceService service = (VaultReferenceService)props.newServiceNonResilient(() -> false);
+		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
-		serviceNested = (VaultReferenceService)service.getMainService();
+		serviceNested = (VaultFallbackService)service.getMainService();
 		ref2 = (VaultMockService)service.getReferenceServices().get(0);
 		main = (VaultMockService)serviceNested.getMainService();
 		ref1 = (VaultMockService)serviceNested.getReferenceServices().get(0);

@@ -590,7 +590,7 @@ public class VaultPropertiesTest
 						single("default.service.reference", ServicePropertiesMissing.class)
 				));
 		final VaultProperties props = factory.create(source);
-		final VaultReferenceService service = (VaultReferenceService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
+		final VaultFallbackService service = (VaultFallbackService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		assertEquals(1, service.getReferenceServices().size());
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceServices().get(0);
