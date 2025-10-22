@@ -27,6 +27,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
+import com.exedio.cope.util.UsageEntryPoint;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;

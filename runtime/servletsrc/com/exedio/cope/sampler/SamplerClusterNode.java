@@ -30,6 +30,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.pattern.CompositeField;
+import com.exedio.cope.util.UsageEntryPoint;
 import java.io.Serial;
 
 @Purgeable

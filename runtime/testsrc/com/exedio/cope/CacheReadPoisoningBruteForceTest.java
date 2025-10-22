@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static java.lang.System.lineSeparator;
 
 import com.exedio.cope.tojunit.MainRule;
-import com.exedio.cope.tojunit.UsageEntryPoint;
+import com.exedio.cope.util.UsageEntryPoint;
 import java.util.Arrays;
 import java.util.Objects;
 import org.junit.jupiter.api.AfterEach;

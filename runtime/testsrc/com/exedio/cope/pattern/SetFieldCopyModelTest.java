@@ -36,7 +36,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.cope.tojunit.UsageEntryPoint;
+import com.exedio.cope.util.UsageEntryPoint;
 import org.junit.jupiter.api.Test;
 
 public class SetFieldCopyModelTest

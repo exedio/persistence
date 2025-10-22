@@ -31,7 +31,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.cope.tojunit.UsageEntryPoint;
+import com.exedio.cope.util.UsageEntryPoint;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 

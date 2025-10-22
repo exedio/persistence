@@ -34,7 +34,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.cope.tojunit.UsageEntryPoint;
+import com.exedio.cope.util.UsageEntryPoint;
 import java.io.Serial;
 import java.util.function.Function;
 import org.junit.jupiter.api.Test;

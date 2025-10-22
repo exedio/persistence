@@ -32,7 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.UsageEntryPoint;
+import com.exedio.cope.util.UsageEntryPoint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
