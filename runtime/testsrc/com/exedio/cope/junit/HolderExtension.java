@@ -23,13 +23,12 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.util.Holder;
 import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.extension.AfterEachCallback;
-import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-public abstract class HolderExtension<E> implements BeforeEachCallback, AfterEachCallback, ParameterResolver
+public abstract class HolderExtension<E> implements AfterEachCallback, ParameterResolver
 {
 	private final Holder<E> holder;
 
@@ -41,12 +40,6 @@ public abstract class HolderExtension<E> implements BeforeEachCallback, AfterEac
 	public final void override(final E value)
 	{
 		holder.override(value);
-	}
-
-	@Override
-	public final void beforeEach(final ExtensionContext context)
-	{
-		// don't do anything
 	}
 
 	@Override
