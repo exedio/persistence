@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
@@ -67,16 +66,6 @@ public class VaultFallbackServiceMultipleRefsTest
 	@Test void testModifyReferenceServices()
 	{
 		assertUnmodifiable(service.getFallbackServices());
-	}
-
-	@Deprecated // OK test deprecated api
-	@Test void getReferenceService()
-	{
-		assertFails(
-				service::getReferenceService,
-				IllegalStateException.class,
-				"there are 3 reference services - use getReferenceServices()"
-		);
 	}
 
 	@Test void testWritable()

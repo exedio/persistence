@@ -22,7 +22,6 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.Properties.Source;
@@ -51,12 +50,6 @@ public class VaultFallbackServiceTest
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getFallbackServices().get(0);
-	}
-
-	@Deprecated // OK test deprecated api
-	@Test void getReferenceService()
-	{
-		assertSame(refr, service.getReferenceService());
 	}
 
 	@Test void testWritable()
