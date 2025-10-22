@@ -32,12 +32,12 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.util.UsageEntryPoint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 import com.exedio.cope.pattern.Hash;
+import com.exedio.cope.util.UsageEntryPoint;
 
 /**
  * TODO: length constraint
