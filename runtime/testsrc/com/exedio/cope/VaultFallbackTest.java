@@ -256,7 +256,7 @@ public abstract class VaultFallbackTest
 
 		main.clear();
 
-		assertAncestry(field, item, HASH1, "reference1", "myReference1Ancestry");
+		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
 		main.assertIt("contains");
 		refr.assertIt("contains");
 		refr1.assertIt("addToAncestryPath");
@@ -266,7 +266,7 @@ public abstract class VaultFallbackTest
 		refr.assertIt(HASH1, VALUE1, "");
 		refr1.assertIt("");
 
-		assertAncestry(field, item, HASH1, "reference", "myReferenceAncestry");
+		assertAncestry(field, item, HASH1, "fallback", "myReferenceAncestry");
 		main.assertIt("contains");
 		refr.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
 		refr1.assertIt("");
@@ -301,7 +301,7 @@ public abstract class VaultFallbackTest
 
 		main.clear();
 
-		assertAncestry(field, item, HASH1, "reference1", "myReference1Ancestry");
+		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
 		main.assertIt("contains");
 		refr.assertIt("contains");
 		refr1.assertIt("addToAncestryPath");
@@ -311,7 +311,7 @@ public abstract class VaultFallbackTest
 		refr.assertIt("");
 		refr1.assertIt(HASH1, VALUE1, "");
 
-		assertAncestry(field, item, HASH1, "reference1", "myReference1Ancestry");
+		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
 		main.assertIt("contains");
 		refr.assertIt("contains");
 		refr1.assertIt(HASH1, VALUE1, "addToAncestryPath");
