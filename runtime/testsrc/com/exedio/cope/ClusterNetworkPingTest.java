@@ -200,12 +200,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			final SequenceChecker.Info actual,
 			final String kind)
 	{
-		assertEquals(inOrder, actual.getInOrder());
-		assertEquals(0, actual.getOutOfOrder());
-		assertEquals(0, actual.getDuplicate());
-		assertEquals(0, actual.getLost());
-		assertEquals(0, actual.getLate());
-		assertEquals(0, actual.getPending());
+		assertEquals(inOrder, actual.inOrder());
+		assertEquals(0, actual.outOfOrder());
+		assertEquals(0, actual.duplicate());
+		assertEquals(0, actual.lost());
+		assertEquals(0, actual.late());
+		assertEquals(0, actual.pending());
 
 		assertEquals(inOrder, countSequence("sequence", sendModel, listenModel, kind, "inOrder"));
 		assertEquals(0,       countSequence("sequence", sendModel, listenModel, kind, "early"));

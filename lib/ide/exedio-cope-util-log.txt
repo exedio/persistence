@@ -7,8 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* JobContexts#deferToProgress added.
+* CharSet must allow either none or all surrogate chars. This is now checked when creating a CharSet.
+* JDK 17 required.
+* servlet-api 4.0.1 required.
+* @UsageEntryPoint annotation added.
 * List<String> Properties#valuesSpaceSeparated added.
-* @UsageEntryPoint added.
 * Holder added.
 * JDK 11 required.
 * com.exedio.cope.util.servlet.ServletSource added.
