@@ -25,7 +25,7 @@ import com.exedio.cope.vaulttest.VaultServiceTest;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
-public class VaultReferenceServiceSpecificationTest extends VaultServiceTest
+public class VaultFallbackServiceSpecificationTest extends VaultServiceTest
 {
 	@Override
 	protected Class<? extends VaultService> getServiceClass()
@@ -45,7 +45,7 @@ public class VaultReferenceServiceSpecificationTest extends VaultServiceTest
 	}
 
 	/**
-	 * Sufficiently tested in {@link VaultReferenceBucketTagTest}
+	 * Sufficiently tested in {@link VaultFallbackBucketTagTest}
 	 */
 	@Override
 	@Test

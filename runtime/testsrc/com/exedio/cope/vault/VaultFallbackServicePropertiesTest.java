@@ -30,7 +30,7 @@ import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultFallbackService.Props;
 import org.junit.jupiter.api.Test;
 
-public class VaultReferenceServicePropertiesTest
+public class VaultFallbackServicePropertiesTest
 {
 	@Test
 	void testOrder()

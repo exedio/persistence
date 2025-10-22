@@ -32,7 +32,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-public class VaultReferenceServiceNestedTest
+public class VaultFallbackServiceNestedTest
 {
 	private VaultFallbackService service;
 	private VaultFallbackService serviceNested;

@@ -46,7 +46,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-public abstract class VaultReferenceTest
+public abstract class VaultFallbackTest
 {
 	protected boolean copyReferenceToMain()
 	{
