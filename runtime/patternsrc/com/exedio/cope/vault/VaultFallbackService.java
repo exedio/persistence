@@ -241,8 +241,7 @@ public final class VaultFallbackService implements VaultService
 			logger.debug("get from reference {} in {}: {}", referenceIndex, bucket, anonymiseHash(hash));
 	}
 
-	@SuppressWarnings("LoggerInitializedWithForeignClass") // TODO after VaultFallbackService: drop
-	private static final Logger logger = LoggerFactory.getLogger(VaultReferenceService.class);
+	private static final Logger logger = LoggerFactory.getLogger(VaultFallbackService.class);
 
 
 	@Override

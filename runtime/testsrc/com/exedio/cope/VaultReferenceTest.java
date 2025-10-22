@@ -501,7 +501,7 @@ public abstract class VaultReferenceTest
 	}
 
 
-	private final LogRule log = new LogRule(VaultReferenceService.class);
+	private final LogRule log = new LogRule(VaultFallbackService.class);
 	private VaultFallbackService service;
 	private VaultMockService main, refr, refr1;
 

@@ -111,7 +111,7 @@ public class VaultReferenceServiceNestedTest
 		ref2.assertIt("close");
 	}
 
-	private final LogRule log = new LogRule(VaultReferenceService.class);
+	private final LogRule log = new LogRule(VaultFallbackService.class);
 
 	@Test void testLog()
 	{
