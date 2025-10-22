@@ -56,7 +56,7 @@ public abstract class VaultReferenceTest
 	@Test void connect()
 	{
 		assertNotNull(service);
-		assertEquals("VaultMockService:mainExampleValue (references VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue)", service.toString());
+		assertEquals("VaultMockService:mainExampleValue (fallbacks VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue)", service.toString());
 
 		assertNotNull(main);
 		assertEquals("SHA-512", main.bucketProperties.getAlgorithm());
@@ -425,7 +425,7 @@ public abstract class VaultReferenceTest
 				item::getFieldBytes,
 				IllegalStateException.class,
 				"vault data missing on " + item + " for VaultItem.field, " +
-				"service: VaultMockService:mainExampleValue (references VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
+				"service: VaultMockService:mainExampleValue (fallbacks VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
 				"hash(SHA-512): " + HASH1A);
 		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 		assertEquals(HASH1, cause.getHashComplete());
@@ -470,7 +470,7 @@ public abstract class VaultReferenceTest
 				item::getFieldStream,
 				IllegalStateException.class,
 				"vault data missing on " + item + " for VaultItem.field, " +
-				"service: VaultMockService:mainExampleValue (references VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
+				"service: VaultMockService:mainExampleValue (fallbacks VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
 				"hash(SHA-512): " + HASH1A);
 		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 		assertEquals(HASH1, cause.getHashComplete());

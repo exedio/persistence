@@ -345,7 +345,7 @@ public final class VaultFallbackService implements VaultService
 	public String toString()
 	{
 		return main +
-				 " (reference" + (references.length>1 ? "s" : "") + " " +
+				 " (fallback" + (references.length>1 ? "s" : "") + " " +
 				 Arrays.stream(references).map(Object::toString).collect(Collectors.joining(" ")) + ')';
 	}
 

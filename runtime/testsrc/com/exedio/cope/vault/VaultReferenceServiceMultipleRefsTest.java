@@ -98,7 +98,7 @@ public class VaultReferenceServiceMultipleRefsTest
 	@Test void testToString()
 	{
 		assertEquals(
-				"VaultMockService:mainEx (references VaultMockService:refrEx0 VaultMockService:refrEx1 VaultMockService:refrEx2)",
+				"VaultMockService:mainEx (fallbacks VaultMockService:refrEx0 VaultMockService:refrEx1 VaultMockService:refrEx2)",
 				service.toString());
 	}
 
