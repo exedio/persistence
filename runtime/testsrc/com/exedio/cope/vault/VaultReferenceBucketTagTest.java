@@ -35,7 +35,7 @@ public class VaultReferenceBucketTagTest
 {
 	@Test void succeedSucceed() throws Exception
 	{
-		final VaultReferenceService service = service("mainGenuine", "refrGenuine");
+		final var service = service("mainGenuine", "refrGenuine");
 
 		assertEquals(
 				"mock:mainGenuine(my-Bucket)",
@@ -43,7 +43,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void succeedSucceedSucceed() throws Exception
 	{
-		final VaultReferenceService service = service("mainGenuine", "refrGenuine0", "refrGenuine1");
+		final var service = service("mainGenuine", "refrGenuine0", "refrGenuine1");
 
 		assertEquals(
 				"mock:mainGenuine(my-Bucket)",
@@ -51,7 +51,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void succeedAbort()
 	{
-		final VaultReferenceService service = service("mainGenuine", "ABORT refrGenuine");
+		final var service = service("mainGenuine", "ABORT refrGenuine");
 
 		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -60,7 +60,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void succeedSucceedAbort()
 	{
-		final VaultReferenceService service = service("mainGenuine", "refrGenuine", "ABORT refr1Genuine");
+		final var service = service("mainGenuine", "refrGenuine", "ABORT refr1Genuine");
 		assertEquals(2, service.getReferenceServices().size());
 
 		assertStackTrace(2, assertFails(
@@ -70,7 +70,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void succeedAbortSucceed()
 	{
-		final VaultReferenceService service = service("mainGenuine", "ABORT refrGenuine", "refr1Genuine");
+		final var service = service("mainGenuine", "ABORT refrGenuine", "refr1Genuine");
 
 		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -79,7 +79,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void succeedFail()
 	{
-		final VaultReferenceService service = service("mainGenuine", "FAIL refrGenuine");
+		final var service = service("mainGenuine", "FAIL refrGenuine");
 
 		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -88,7 +88,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void abortSucceed()
 	{
-		final VaultReferenceService service = service("ABORT mainGenuine", "refrGenuine");
+		final var service = service("ABORT mainGenuine", "refrGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -97,7 +97,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void abortAbort()
 	{
-		final VaultReferenceService service = service("ABORT mainGenuine", "ABORT refrGenuine");
+		final var service = service("ABORT mainGenuine", "ABORT refrGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -106,7 +106,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void abortFail()
 	{
-		final VaultReferenceService service = service("ABORT mainGenuine", "FAIL refrGenuine");
+		final var service = service("ABORT mainGenuine", "FAIL refrGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -115,7 +115,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void failSucceed()
 	{
-		final VaultReferenceService service = service("FAIL mainGenuine", "refrGenuine");
+		final var service = service("FAIL mainGenuine", "refrGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -124,7 +124,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void failAbort()
 	{
-		final VaultReferenceService service = service("FAIL mainGenuine", "ABORT refrGenuine");
+		final var service = service("FAIL mainGenuine", "ABORT refrGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -133,7 +133,7 @@ public class VaultReferenceBucketTagTest
 	}
 	@Test void failFail()
 	{
-		final VaultReferenceService service = service("FAIL mainGenuine", "FAIL refrGenuine");
+		final var service = service("FAIL mainGenuine", "FAIL refrGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
