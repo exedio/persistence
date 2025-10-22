@@ -37,8 +37,8 @@ public class VaultFallbackServiceNestedTest
 	private VaultFallbackService service;
 	private VaultFallbackService serviceNested;
 	private VaultMockService main;
-	private VaultMockService ref1;
-	private VaultMockService ref2;
+	private VaultMockService falN;
+	private VaultMockService fall;
 
 	@BeforeEach void before()
 	{
@@ -57,24 +57,24 @@ public class VaultFallbackServiceNestedTest
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		serviceNested = (VaultFallbackService)service.getMainService();
-		ref2 = (VaultMockService)service.getFallbackServices().get(0);
+		fall = (VaultMockService)service.getFallbackServices().get(0);
 		main = (VaultMockService)serviceNested.getMainService();
-		ref1 = (VaultMockService)serviceNested.getFallbackServices().get(0);
+		falN = (VaultMockService)serviceNested.getFallbackServices().get(0);
 	}
 
 
 	@Test void testWritable()
 	{
 		assertEquals(true,  main.writable);
-		assertEquals(false, ref1.writable);
-		assertEquals(false, ref2.writable);
+		assertEquals(false, falN.writable);
+		assertEquals(false, fall.writable);
 	}
 
 	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
-		assertEquals("ref1Ex", ref1.serviceProperties.example);
-		assertEquals("ref2Ex", ref2.serviceProperties.example);
+		assertEquals("ref1Ex", falN.serviceProperties.example);
+		assertEquals("ref2Ex", fall.serviceProperties.example);
 	}
 
 	@Test void testToString()
@@ -90,25 +90,25 @@ public class VaultFallbackServiceNestedTest
 	@Test void testPurge()
 	{
 		main.assertIt("");
-		ref1.assertIt("");
-		ref2.assertIt("");
+		falN.assertIt("");
+		fall.assertIt("");
 
 		service.purgeSchema(new AssertionErrorJobContext());
 		main.assertIt("purgeSchema");
-		ref1.assertIt("purgeSchema");
-		ref2.assertIt("purgeSchema");
+		falN.assertIt("purgeSchema");
+		fall.assertIt("purgeSchema");
 	}
 
 	@Test void testClose()
 	{
 		main.assertIt("");
-		ref1.assertIt("");
-		ref2.assertIt("");
+		falN.assertIt("");
+		fall.assertIt("");
 
 		service.close();
 		main.assertIt("close");
-		ref1.assertIt("close");
-		ref2.assertIt("close");
+		falN.assertIt("close");
+		fall.assertIt("close");
 	}
 
 	private final LogRule log = new LogRule(VaultFallbackService.class);
