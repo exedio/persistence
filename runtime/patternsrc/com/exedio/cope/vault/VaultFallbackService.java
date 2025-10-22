@@ -255,7 +255,7 @@ public final class VaultFallbackService implements VaultService
 				else
 				{
 					final int ifinal = i;
-					assumeRefContains = contains(fallback, hash, () -> ("reference service " + ifinal));
+					assumeRefContains = contains(fallback, hash, () -> ("fallback service " + ifinal));
 				}
 				if (assumeRefContains)
 				{

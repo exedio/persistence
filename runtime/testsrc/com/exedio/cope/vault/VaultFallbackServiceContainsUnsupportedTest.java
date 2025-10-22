@@ -73,7 +73,7 @@ public class VaultFallbackServiceContainsUnsupportedTest
 		final IllegalArgumentException e = assertFails(
 				() -> service.addToAncestryPath(HASH, SINK),
 				IllegalArgumentException.class,
-				"reference service 0 (com.exedio.cope.vault.VaultFallbackServiceContainsUnsupportedTest$Service) " +
+				"fallback service 0 (com.exedio.cope.vault.VaultFallbackServiceContainsUnsupportedTest$Service) " +
 				"does not support contains");
 		assertNotNull(e.getCause());
 		assertEquals(VaultServiceUnsupportedOperationException.class, e.getCause().getClass());
