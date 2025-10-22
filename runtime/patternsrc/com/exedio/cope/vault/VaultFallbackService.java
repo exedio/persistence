@@ -376,7 +376,7 @@ public final class VaultFallbackService implements VaultService
 				referenceArray[i] = valueService(key, false);
 				if(referenceArray[i].getServiceClass()==VaultFallbackService.class)
 					throw newException(key,
-							"must not nest another VaultReferenceService, use multiple reference services instead");
+							"must not nest another VaultFallbackService, use multiple fallback services instead");
 			}
 			return List.of(referenceArray);
 		}
