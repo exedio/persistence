@@ -50,7 +50,7 @@ public class VaultFallbackServiceTest
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
-		refr = (VaultMockService)service.getReferenceServices().get(0);
+		refr = (VaultMockService)service.getFallbackServices().get(0);
 	}
 
 	@Deprecated // OK test deprecated api

@@ -58,15 +58,15 @@ public class VaultFallbackServiceMultipleRefsTest
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
-		refr0 = (VaultMockService)service.getReferenceServices().get(0);
-		refr1 = (VaultMockService)service.getReferenceServices().get(1);
-		refr2 = (VaultMockService)service.getReferenceServices().get(2);
-		assertEquals(3, service.getReferenceServices().size());
+		refr0 = (VaultMockService)service.getFallbackServices().get(0);
+		refr1 = (VaultMockService)service.getFallbackServices().get(1);
+		refr2 = (VaultMockService)service.getFallbackServices().get(2);
+		assertEquals(3, service.getFallbackServices().size());
 	}
 
 	@Test void testModifyReferenceServices()
 	{
-		assertUnmodifiable(service.getReferenceServices());
+		assertUnmodifiable(service.getFallbackServices());
 	}
 
 	@Deprecated // OK test deprecated api
