@@ -27,7 +27,7 @@ import com.exedio.cope.util.Properties.Source;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class VaultReferenceServiceContainsTest
+public class VaultFallbackServiceContainsTest
 {
 	private VaultFallbackService service;
 	private Service main;

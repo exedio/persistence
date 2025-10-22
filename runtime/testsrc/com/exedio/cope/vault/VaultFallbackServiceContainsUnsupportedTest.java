@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 
-public class VaultReferenceServiceContainsUnsupportedTest
+public class VaultFallbackServiceContainsUnsupportedTest
 {
 	@Test void testSupported()
 	{
@@ -58,11 +58,11 @@ public class VaultReferenceServiceContainsUnsupportedTest
 		final IllegalArgumentException e = assertFails(
 				() -> service.addToAncestryPath(HASH, SINK),
 				IllegalArgumentException.class,
-				"main service (com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$Service) " +
+				"main service (com.exedio.cope.vault.VaultFallbackServiceContainsUnsupportedTest$Service) " +
 				"does not support contains");
 		assertNotNull(e.getCause());
 		assertEquals(VaultServiceUnsupportedOperationException.class, e.getCause().getClass());
-		assertEquals("com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$1", e.getCause().getMessage());
+		assertEquals("com.exedio.cope.vault.VaultFallbackServiceContainsUnsupportedTest$1", e.getCause().getMessage());
 	}
 
 	@Test void testReference()
@@ -73,11 +73,11 @@ public class VaultReferenceServiceContainsUnsupportedTest
 		final IllegalArgumentException e = assertFails(
 				() -> service.addToAncestryPath(HASH, SINK),
 				IllegalArgumentException.class,
-				"reference service 0 (com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$Service) " +
+				"reference service 0 (com.exedio.cope.vault.VaultFallbackServiceContainsUnsupportedTest$Service) " +
 				"does not support contains");
 		assertNotNull(e.getCause());
 		assertEquals(VaultServiceUnsupportedOperationException.class, e.getCause().getClass());
-		assertEquals("com.exedio.cope.vault.VaultReferenceServiceContainsUnsupportedTest$1", e.getCause().getMessage());
+		assertEquals("com.exedio.cope.vault.VaultFallbackServiceContainsUnsupportedTest$1", e.getCause().getMessage());
 	}
 
 	private static VaultFallbackService newService(

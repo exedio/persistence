@@ -31,7 +31,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("resource")
-public class VaultReferenceBucketTagTest
+public class VaultFallbackBucketTagTest
 {
 	@Test void succeedSucceed() throws Exception
 	{

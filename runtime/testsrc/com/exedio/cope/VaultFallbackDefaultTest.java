@@ -18,11 +18,6 @@
 
 package com.exedio.cope;
 
-public class VaultReferenceNoCopyTest extends VaultReferenceTest
+public class VaultFallbackDefaultTest extends VaultFallbackTest
 {
-	@Override
-	protected boolean copyReferenceToMain()
-	{
-		return false;
-	}
 }

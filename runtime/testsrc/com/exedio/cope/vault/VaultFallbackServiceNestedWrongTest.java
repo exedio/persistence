@@ -29,7 +29,7 @@ import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.Test;
 
-public class VaultReferenceServiceNestedWrongTest
+public class VaultFallbackServiceNestedWrongTest
 {
 	@Test void test()
 	{

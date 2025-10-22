@@ -37,7 +37,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class VaultReferenceServiceCopyFailTest
+public class VaultFallbackServiceCopyFailTest
 {
 	private VaultFallbackService service;
 	private VaultMockService main;
