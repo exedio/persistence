@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 @MainRule.Tag
 public abstract class VaultFallbackTest
 {
-	protected boolean copyReferenceToMain()
+	protected boolean copyFallbackToMain()
 	{
 		return true;
 	}
@@ -274,14 +274,14 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference 0 in default: " + HASH1A);
-		if(copyReferenceToMain())
+		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
 		else
 			main.assertIt("getBytes");
 		refr.assertIt(HASH1, VALUE1, "getBytes");
 		refr1.assertIt("");
 
-		if(copyReferenceToMain())
+		if(copyFallbackToMain())
 		{
 			assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 			main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
@@ -319,14 +319,14 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
 		log.assertDebug("get from reference 1 in default: " + HASH1A);
-		if(copyReferenceToMain())
+		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
 		else
 			main.assertIt("getBytes");
 		refr.assertIt("getBytes");
 		refr1.assertIt(HASH1, VALUE1, "getBytes");
 
-		if(copyReferenceToMain())
+		if(copyFallbackToMain())
 		{
 			assertAncestry(field, item, HASH1, "main", "myMainAncestry");
 			main.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
@@ -353,7 +353,7 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference 0 in default: " + HASH1A);
-		if(copyReferenceToMain())
+		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getStream putFile");
 		else
 			main.assertIt("getStream");
@@ -379,7 +379,7 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
 		log.assertDebug("get from reference 1 in default: " + HASH1A);
-		if(copyReferenceToMain())
+		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getStream putFile");
 		else
 			main.assertIt("getStream");
@@ -517,7 +517,7 @@ public abstract class VaultFallbackTest
 				single("vault.default.service.reference.example", "referenceExampleValue"),
 				single("vault.default.service.reference1", VaultMockService.class),
 				single("vault.default.service.reference1.example", "reference1ExampleValue"),
-				single("vault.default.service.copyReferenceToMain", copyReferenceToMain()),
+				single("vault.default.service.copyReferenceToMain", copyFallbackToMain()),
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
