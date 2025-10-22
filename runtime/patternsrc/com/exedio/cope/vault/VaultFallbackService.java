@@ -298,7 +298,7 @@ public final class VaultFallbackService implements VaultService
 	}
 
 	public static final String ANCESTRY_PATH_MAIN = "main";
-	public static final String ANCESTRY_PATH_FALLBACK = "reference";
+	public static final String ANCESTRY_PATH_FALLBACK = "fallback";
 
 
 	@Override

@@ -47,7 +47,7 @@ public class VaultFallbackServiceContainsUnsupportedTest
 
 		final ArrayList<String> result = new ArrayList<>();
 		service.addToAncestryPath(HASH, result::add);
-		assertEquals(List.of("reference1"), result);
+		assertEquals(List.of("fallback1"), result);
 	}
 
 	@Test void testMain()
