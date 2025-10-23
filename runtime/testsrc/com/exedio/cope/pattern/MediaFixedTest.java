@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertData;
+import static com.exedio.cope.pattern.MediaDefaultTest.assertFailsCT;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
@@ -65,6 +66,8 @@ public class MediaFixedTest extends TestWithEnvironment
 		assertEquals(true, photo.checkContentType("image/jpeg"));
 		assertEquals(false, photo.checkContentType("imaxge/jpeg"));
 		assertEquals(false, photo.checkContentType("image/jpxeg"));
+		assertEquals(null,  photo.mapContentTypeToSchema("image/jpeg"));
+		assertFailsCT(() -> photo.mapContentTypeToSchema("imaxge/jpeg"), "imaxge/jpeg", photo);
 		assertEquals(10, photo.getContentTypeMaximumLength());
 		assertEquals("image/jpeg", photo.getContentTypeDescription());
 		assertEqualsUnmodifiable(list("image/jpeg"), photo.getContentTypesAllowed());

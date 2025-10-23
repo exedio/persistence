@@ -363,6 +363,17 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return this.contentType.check(contentType);
 	}
 
+	public Object mapContentTypeToSchema(final String contentType)
+	{
+		if(!this.contentType.check(contentType))
+			throw new IllegalContentTypeException(this, null, contentType);
+
+		if(this.contentType.field==null)
+			return null;
+
+		return this.contentType.set(contentType);
+	}
+
 	public int getContentTypeMaximumLength()
 	{
 		return contentType.getMaximumLength();
