@@ -56,7 +56,7 @@ public abstract class VaultFallbackTest
 	@Test void connect()
 	{
 		assertNotNull(service);
-		assertEquals("VaultMockService:mainExampleValue (fallbacks VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue)", service.toString());
+		assertEquals("VaultMockService:mainExampleValue (fallbacks VaultMockService:fallback0ExampleValue VaultMockService:fallback1ExampleValue)", service.toString());
 
 		assertNotNull(main);
 		assertEquals("SHA-512", main.bucketProperties.getAlgorithm());
@@ -67,10 +67,10 @@ public abstract class VaultFallbackTest
 
 		assertNotNull(fal0);
 		assertEquals("SHA-512", fal0.bucketProperties.getAlgorithm());
-		assertEquals("referenceExampleValue", fal0.serviceProperties.example);
+		assertEquals("fallback0ExampleValue", fal0.serviceProperties.example);
 		assertEquals("default", fal0.bucket);
 		assertEquals(false, fal0.writable);
-		assertEquals("VaultMockService:referenceExampleValue", fal0.toString());
+		assertEquals("VaultMockService:fallback0ExampleValue", fal0.toString());
 
 		assertSame(main.bucketProperties, fal0.bucketProperties);
 		assertNotSame(main.serviceProperties, fal0.serviceProperties);
@@ -425,7 +425,7 @@ public abstract class VaultFallbackTest
 				item::getFieldBytes,
 				IllegalStateException.class,
 				"vault data missing on " + item + " for VaultItem.field, " +
-				"service: VaultMockService:mainExampleValue (fallbacks VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
+				"service: VaultMockService:mainExampleValue (fallbacks VaultMockService:fallback0ExampleValue VaultMockService:fallback1ExampleValue), " +
 				"hash(SHA-512): " + HASH1A);
 		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 		assertEquals(HASH1, cause.getHashComplete());
@@ -470,7 +470,7 @@ public abstract class VaultFallbackTest
 				item::getFieldStream,
 				IllegalStateException.class,
 				"vault data missing on " + item + " for VaultItem.field, " +
-				"service: VaultMockService:mainExampleValue (fallbacks VaultMockService:referenceExampleValue VaultMockService:reference1ExampleValue), " +
+				"service: VaultMockService:mainExampleValue (fallbacks VaultMockService:fallback0ExampleValue VaultMockService:fallback1ExampleValue), " +
 				"hash(SHA-512): " + HASH1A);
 		final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 		assertEquals(HASH1, cause.getHashComplete());
@@ -514,9 +514,9 @@ public abstract class VaultFallbackTest
 				single("vault.default.service.main.example", "mainExampleValue"),
 				single("vault.default.service.fallbacks.count", 2),
 				single("vault.default.service.fallbacks.0", VaultMockService.class),
-				single("vault.default.service.fallbacks.0.example", "referenceExampleValue"),
+				single("vault.default.service.fallbacks.0.example", "fallback0ExampleValue"),
 				single("vault.default.service.fallbacks.1", VaultMockService.class),
-				single("vault.default.service.fallbacks.1.example", "reference1ExampleValue"),
+				single("vault.default.service.fallbacks.1.example", "fallback1ExampleValue"),
 				single("vault.default.service.copyFallbackToMain", copyFallbackToMain()),
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
