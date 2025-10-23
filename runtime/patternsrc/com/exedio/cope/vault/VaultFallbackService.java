@@ -363,7 +363,7 @@ public final class VaultFallbackService implements VaultService
 	{
 		private final Service main = valueService("main", true);
 		private final List<Service> fallbacks = valueFallbacks();
-		private final boolean copyFallbackToMain = value("copyReferenceToMain", true);
+		private final boolean copyFallbackToMain = value("copyFallbackToMain", true);
 
 		Props(final Source source)
 		{

@@ -18,6 +18,7 @@ The items are sorted inversely, i.e. the latest items are on top.
 		cope.vault.*.service.reference           -> cope.vault.*.service.fallbacks.0 <<< Note the "0"!
 		cope.vault.*.service.reference1          -> cope.vault.*.service.fallbacks.1
 		cope.vault.*.service.reference2          -> cope.vault.*.service.fallbacks.2 - etc...
+		cope.vault.*.service.copyReferenceToMain -> cope.vault.*.service.copyFallbackToMain
 
 	Check your deployed systems!
 	Properties at their defaults do not require any adjustment.

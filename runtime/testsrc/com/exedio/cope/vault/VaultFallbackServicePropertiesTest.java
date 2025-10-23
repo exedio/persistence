@@ -45,7 +45,7 @@ public class VaultFallbackServicePropertiesTest
 				"main",
 				"fallbacks.count",
 				"fallbacks.0",
-				"copyReferenceToMain"),
+				"copyFallbackToMain"),
 				p.getFields().stream().map(Properties.Field::getKey).toList());
 	}
 
@@ -67,7 +67,7 @@ public class VaultFallbackServicePropertiesTest
 						"fallbacks.0",
 						"fallbacks.1",
 						"fallbacks.2",
-						"copyReferenceToMain"),
+						"copyFallbackToMain"),
 				p.getFields().stream().map(Properties.Field::getKey).toList());
 	}
 
