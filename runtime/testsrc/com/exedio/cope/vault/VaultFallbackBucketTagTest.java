@@ -141,19 +141,19 @@ public class VaultFallbackBucketTagTest
 				"FAIL mainGenuine(my-Bucket)"));
 	}
 
-	private static VaultFallbackService service(final String main, final String... references)
+	private static VaultFallbackService service(final String main, final String... fallbacks)
 	{
 		final List<Source> sources = new ArrayList<>(List.of(
 				single("service", VaultFallbackService.class),
 				single("service.main", VaultMockService.class),
 				single("service.main.bucketTagAction", main)
 		));
-		sources.add(single("service.fallbacks.count", references.length));
-		for (int i=0; i<references.length; i++)
+		sources.add(single("service.fallbacks.count", fallbacks.length));
+		for (int i=0; i<fallbacks.length; i++)
 		{
 			final String key = "service.fallbacks." + i;
 			sources.add(single(key, VaultMockService.class));
-			sources.add(single(key + ".bucketTagAction", references[i]));
+			sources.add(single(key + ".bucketTagAction", fallbacks[i]));
 		}
 		final Source source = cascade(sources.toArray(Source[]::new));
 		return (VaultFallbackService)BucketProperties.factory("myKey").create(source).newServiceNonResilient(() -> false);

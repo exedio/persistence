@@ -63,7 +63,7 @@ public class VaultFallbackServiceMultipleRefsTest
 		assertEquals(3, service.getFallbackServices().size());
 	}
 
-	@Test void testModifyReferenceServices()
+	@Test void testModifyFallbackServices()
 	{
 		assertUnmodifiable(service.getFallbackServices());
 	}
