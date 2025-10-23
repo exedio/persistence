@@ -517,7 +517,7 @@ public abstract class VaultFallbackTest
 				single("vault.default.service.fallbacks.0.example", "referenceExampleValue"),
 				single("vault.default.service.fallbacks.1", VaultMockService.class),
 				single("vault.default.service.fallbacks.1.example", "reference1ExampleValue"),
-				single("vault.default.service.copyReferenceToMain", copyFallbackToMain()),
+				single("vault.default.service.copyFallbackToMain", copyFallbackToMain()),
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
