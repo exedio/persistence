@@ -43,8 +43,8 @@ import org.junit.jupiter.api.Test;
  * If you want to run this test on a linux work station you have to prepare your system
  * before:
  * <pre>
- * sudo addgroup copevaultfilesv1
- * sudo addgroup copevaultfilesv2
+ * sudo groupadd copevaultfilesv1
+ * sudo groupadd copevaultfilesv2
  * sudo usermod --append --groups copevaultfilesv1,copevaultfilesv2 &lt;user name&gt;
  * </pre>
  * and do a logout/login for changes to take effect.
