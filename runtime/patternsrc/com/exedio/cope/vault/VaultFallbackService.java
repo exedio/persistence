@@ -394,19 +394,18 @@ public final class VaultFallbackService implements VaultService
 						"use multiple fallback services instead");
 		}
 
+		private Service valueFallbackService(final String key)
+		{
+			final Service result = valueService(key, false);
+			if(result.getServiceClass()==VaultFallbackService.class)
+				throw newException(key,
+						"must not nest another VaultFallbackService, use multiple fallback services instead");
+			return result;
+		}
+
 		private List<Service> valueFallbacks()
 		{
-			final int count = value("fallbacks.count", 1, 1);
-			final Service[] array = new Service[count];
-			for (int i=0; i<count; i++)
-			{
-				final String key = "fallbacks." + i;
-				array[i] = valueService(key, false);
-				if(array[i].getServiceClass()==VaultFallbackService.class)
-					throw newException(key,
-							"must not nest another VaultFallbackService, use multiple fallback services instead");
-			}
-			return List.of(array);
+			return valueList("fallbacks", this::valueFallbackService, 1);
 		}
 	}
 }
