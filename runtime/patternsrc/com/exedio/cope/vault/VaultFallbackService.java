@@ -112,7 +112,7 @@ public final class VaultFallbackService implements VaultService
 		catch(final VaultNotFoundException mainSuppressed)
 		{
 			//noinspection ReassignedVariable
-			List<VaultNotFoundException> refSuppressed = null;
+			List<VaultNotFoundException> fallbackSuppressed = null;
 			for(int i = 0; i < fallbacks.length; i++)
 			{
 				final VaultService fallback = fallbacks[i];
@@ -128,18 +128,18 @@ public final class VaultFallbackService implements VaultService
 				{
 					if (i==fallbacks.length-1)
 					{
-						throw addSuppressed(e, mainSuppressed, refSuppressed);
+						throw addSuppressed(e, mainSuppressed, fallbackSuppressed);
 					}
 					else
 					{
-						if(refSuppressed == null)
-							refSuppressed = new ArrayList<>(fallbacks.length);
-						refSuppressed.add(e);
+						if(fallbackSuppressed == null)
+							fallbackSuppressed = new ArrayList<>(fallbacks.length);
+						fallbackSuppressed.add(e);
 					}
 				}
 				catch(final RuntimeException e)
 				{
-					throw addSuppressed(e, mainSuppressed, refSuppressed);
+					throw addSuppressed(e, mainSuppressed, fallbackSuppressed);
 				}
 			}
 			//noinspection ThrowInsideCatchBlockWhichIgnoresCaughtException
@@ -201,11 +201,11 @@ public final class VaultFallbackService implements VaultService
 
 	private static <T extends Exception> T addSuppressed(final T e,
 														final VaultNotFoundException mainSuppressed,
-														final List<VaultNotFoundException> refSuppressed)
+														final List<VaultNotFoundException> fallbackSuppressed)
 	{
 		e.addSuppressed(mainSuppressed);
-		if (refSuppressed!=null)
-			refSuppressed.forEach(e::addSuppressed);
+		if (fallbackSuppressed!=null)
+			fallbackSuppressed.forEach(e::addSuppressed);
 		return e;
 	}
 
@@ -248,17 +248,17 @@ public final class VaultFallbackService implements VaultService
 			for(int i=0; i<fallbacks.length; i++)
 			{
 				final VaultService fallback = fallbacks[i];
-				final boolean assumeRefContains;
+				final boolean assumeFallbackContains;
 				if (i==fallbacks.length-1)
 				{
-					assumeRefContains = true;
+					assumeFallbackContains = true;
 				}
 				else
 				{
 					final int ifinal = i;
-					assumeRefContains = contains(fallback, hash, () -> ("fallback service " + ifinal));
+					assumeFallbackContains = contains(fallback, hash, () -> ("fallback service " + ifinal));
 				}
-				if (assumeRefContains)
+				if (assumeFallbackContains)
 				{
 					sink.accept(ANCESTRY_PATH_FALLBACK(i));
 					fallback.addToAncestryPath(hash, sink);
