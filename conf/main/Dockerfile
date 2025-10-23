@@ -22,6 +22,6 @@ EOF
 # VaultFileServicePosixGroupTest requires these groups
 RUN <<EOF
 set -e
-addgroup copevaultfilesv1
-addgroup copevaultfilesv2
+groupadd copevaultfilesv1
+groupadd copevaultfilesv2
 EOF
