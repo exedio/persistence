@@ -48,10 +48,10 @@ public class VaultFallbackServiceNestedTest
 						single("service.main", VaultFallbackService.class),
 						single("service.main.main", VaultMockService.class),
 						single("service.main.main.example", "mainEx"),
-						single("service.main.reference", VaultMockService.class),
-						single("service.main.reference.example", "ref1Ex"),
-						single("service.reference", VaultMockService.class),
-						single("service.reference.example", "ref2Ex")
+						single("service.main.fallbacks.0", VaultMockService.class),
+						single("service.main.fallbacks.0.example", "ref1Ex"),
+						single("service.fallbacks.0", VaultMockService.class),
+						single("service.fallbacks.0.example", "ref2Ex")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);

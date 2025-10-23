@@ -587,7 +587,7 @@ public class VaultPropertiesTest
 				describe("DESC", cascade(
 						single("default.service", VaultFallbackService.class),
 						single("default.service.main", ServicePropertiesMissing.class),
-						single("default.service.reference", ServicePropertiesMissing.class)
+						single("default.service.fallbacks.0", ServicePropertiesMissing.class)
 				));
 		final VaultProperties props = factory.create(source);
 		final VaultFallbackService service = (VaultFallbackService)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);

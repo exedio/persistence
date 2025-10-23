@@ -39,8 +39,8 @@ public class VaultFallbackServiceSpecificationTest extends VaultServiceTest
 		final Properties result = new Properties();
 		result.setProperty("main", VaultMockService.class.getName());
 		result.setProperty("main.bucketTagAction", "bucketTagAction-main");
-		result.setProperty("reference", VaultMockService.class.getName());
-		result.setProperty("reference.bucketTagAction", "bucketTagAction-reference");
+		result.setProperty("fallbacks.0", VaultMockService.class.getName());
+		result.setProperty("fallbacks.0.bucketTagAction", "bucketTagAction-reference");
 		return result;
 	}
 

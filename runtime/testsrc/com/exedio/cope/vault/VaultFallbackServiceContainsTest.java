@@ -38,7 +38,7 @@ public class VaultFallbackServiceContainsTest
 		final Source source = cascade(
 				single("service", VaultFallbackService.class),
 				single("service.main", Service.class),
-				single("service.reference", Service.class)
+				single("service.fallbacks.0", Service.class)
 		);
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);

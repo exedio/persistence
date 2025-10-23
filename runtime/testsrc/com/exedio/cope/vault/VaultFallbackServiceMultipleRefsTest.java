@@ -45,13 +45,13 @@ public class VaultFallbackServiceMultipleRefsTest
 						single("service", VaultFallbackService.class),
 						single("service.main", VaultMockService.class),
 						single("service.main.example", "mainEx"),
-						single("service.referenceCount", "3"),
-						single("service.reference", VaultMockService.class),
-						single("service.reference.example", "refrEx0"),
-						single("service.reference1", VaultMockService.class),
-						single("service.reference1.example", "refrEx1"),
-						single("service.reference2", VaultMockService.class),
-						single("service.reference2.example", "refrEx2")
+						single("service.fallbacks.count", "3"),
+						single("service.fallbacks.0", VaultMockService.class),
+						single("service.fallbacks.0.example", "refrEx0"),
+						single("service.fallbacks.1", VaultMockService.class),
+						single("service.fallbacks.1.example", "refrEx1"),
+						single("service.fallbacks.2", VaultMockService.class),
+						single("service.fallbacks.2.example", "refrEx2")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);

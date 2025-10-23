@@ -42,8 +42,8 @@ public class VaultFallbackServiceTest
 						single("service", VaultFallbackService.class),
 						single("service.main", VaultMockService.class),
 						single("service.main.example", "mainEx"),
-						single("service.reference", VaultMockService.class),
-						single("service.reference.example", "refrEx")
+						single("service.fallbacks.0", VaultMockService.class),
+						single("service.fallbacks.0.example", "refrEx")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
