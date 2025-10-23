@@ -266,7 +266,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "");
 		fal1.assertIt("");
 
-		assertAncestry(field, item, HASH1, "fallback", "myReferenceAncestry");
+		assertAncestry(field, item, HASH1, "fallback0", "myReferenceAncestry");
 		main.assertIt("contains");
 		fal0.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
 		fal1.assertIt("");

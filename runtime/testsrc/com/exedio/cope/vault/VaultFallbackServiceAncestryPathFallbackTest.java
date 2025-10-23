@@ -30,7 +30,7 @@ public class VaultFallbackServiceAncestryPathFallbackTest
 {
 	@Test void test()
 	{
-		assertEquals("fallback",  ANCESTRY_PATH_FALLBACK(0));
+		assertEquals("fallback0", ANCESTRY_PATH_FALLBACK(0));
 		assertEquals("fallback1", ANCESTRY_PATH_FALLBACK(1));
 		assertEquals("fallback2", ANCESTRY_PATH_FALLBACK(2));
 		assertEquals("fallback3", ANCESTRY_PATH_FALLBACK(3));

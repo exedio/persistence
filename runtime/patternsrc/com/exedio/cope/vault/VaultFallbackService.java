@@ -306,7 +306,7 @@ public final class VaultFallbackService implements VaultService
 
 	private static String ancestryPathfallbackNonPrecomputed(final int index)
 	{
-		return "fallback" + (index==0 ? "" : index);
+		return "fallback" + index;
 	}
 
 
