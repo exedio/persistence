@@ -83,9 +83,17 @@ public interface VaultService extends AutoCloseable
 	void get(@Nonnull String hash, @Nonnull OutputStream sink) throws VaultNotFoundException, IOException;
 
 	/**
-	 * Should be implemented by services only, which forward requests to more than one nested service.
+	 * Should be implemented by services only, which forward requests to nested services.
 	 * All other services should stay with the default implementation.
-	 * This service must add its own path element before recursing to a nested service.
+	 * <p>
+	 * Services forwarding requests to exactly one nested service
+	 * should just forward this method call to that nested service only -
+	 * without adding anything to {@code sink}.
+	 * <p>
+	 * Services forwarding requests to more than one nested service
+	 * must add their own path element to {@code sink}
+	 * <em>before</em> forwarding this method call to the nested service
+	 * a {@link #get(String) get request} for {@code hash} would be forwarded to.
 	 * @see VaultAncestry#path()
 	 */
 	default void addToAncestryPath(
