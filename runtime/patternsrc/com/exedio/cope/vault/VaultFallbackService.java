@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.nio.file.Files.delete;
 
@@ -259,7 +260,7 @@ public final class VaultFallbackService implements VaultService
 				}
 				if (assumeRefContains)
 				{
-					sink.accept(ANCESTRY_PATH_FALLBACK+(i==0?"":i));
+					sink.accept(ANCESTRY_PATH_FALLBACK(i));
 					fallback.addToAncestryPath(hash, sink);
 					return;
 				}
@@ -285,7 +286,11 @@ public final class VaultFallbackService implements VaultService
 	}
 
 	public static final String ANCESTRY_PATH_MAIN = "main";
-	public static final String ANCESTRY_PATH_FALLBACK = "fallback";
+	public static String ANCESTRY_PATH_FALLBACK(final int index)
+	{
+		requireNonNegative(index, "index");
+		return "fallback" + (index==0 ? "" : index);
+	}
 
 
 	@Override
