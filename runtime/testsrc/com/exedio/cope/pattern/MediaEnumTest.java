@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertData;
+import static com.exedio.cope.pattern.MediaDefaultTest.assertFailsCT;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.sheet;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
@@ -68,6 +69,10 @@ public class MediaEnumTest extends TestWithEnvironment
 		assertEquals(false, sheet.checkContentType("image/jpg"));
 		assertEquals(true, sheet.checkContentType("application/pdf"));
 		assertEquals(false, sheet.checkContentType("application/msword"));
+		assertEquals(1,     sheet.mapContentTypeToSchema("image/png"));
+		assertFailsCT(() -> sheet.mapContentTypeToSchema("image/jpg"), "image/jpg", sheet);
+		assertEquals(0,     sheet.mapContentTypeToSchema("application/pdf"));
+		assertFailsCT(() -> sheet.mapContentTypeToSchema("application/msword"), "application/msword", sheet);
 		assertEquals(15, sheet.getContentTypeMaximumLength());
 		assertEquals("application/pdf,image/png", sheet.getContentTypeDescription());
 		assertEqualsUnmodifiable(list("application/pdf", "image/png"), sheet.getContentTypesAllowed());

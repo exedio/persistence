@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertData;
+import static com.exedio.cope.pattern.MediaDefaultTest.assertFailsCT;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.image;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
@@ -66,6 +67,9 @@ public class MediaSubTest extends TestWithEnvironment
 		assertEquals(true, image.checkContentType("image/jpg"));
 		assertEquals(true, image.checkContentType("image/svg+xml"));
 		assertEquals(false, image.checkContentType("application/jpg"));
+		assertEquals("png",   image.mapContentTypeToSchema("image/png"));
+		assertEquals("jpg",   image.mapContentTypeToSchema("image/jpg"));
+		assertFailsCT(() ->   image.mapContentTypeToSchema("application/jpg"), "application/jpg", image);
 		assertEquals(61, image.getContentTypeMaximumLength());
 		assertEquals("image/*", image.getContentTypeDescription());
 		assertEquals(null, image.getContentTypesAllowed());

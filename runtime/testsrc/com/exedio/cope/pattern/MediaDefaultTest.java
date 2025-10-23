@@ -28,6 +28,7 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -50,6 +51,7 @@ import java.nio.file.Path;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 @MainRule.Tag
 public class MediaDefaultTest extends TestWithEnvironment
@@ -89,6 +91,8 @@ public class MediaDefaultTest extends TestWithEnvironment
 		assertContains(file.getInitialExceptions());
 		assertEquals(true, file.checkContentType("some/thing"));
 		assertEquals(false, file.checkContentType("something"));
+		assertEquals("some/thing", file.mapContentTypeToSchema("some/thing"));
+		assertFailsCT(() ->        file.mapContentTypeToSchema("something"), "something", file);
 		assertEquals(61, file.getContentTypeMaximumLength());
 		assertEquals("*/*", file.getContentTypeDescription());
 		assertEquals(null, file.getContentTypesAllowed());
@@ -437,4 +441,16 @@ public class MediaDefaultTest extends TestWithEnvironment
 	private static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
 	private static final byte[] bytes20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 	private static final byte[] bytes21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
+
+	static void assertFailsCT(
+			final Executable executable,
+			final String expectedContentType,
+			final Media expectedFeature)
+	{
+		final IllegalContentTypeException e =
+				assertThrows(IllegalContentTypeException.class, executable);
+		assertEquals(expectedContentType, e.getContentType());
+		assertSame(expectedFeature, e.getFeature());
+		assertEquals(null, e.getItem());
+	}
 }
