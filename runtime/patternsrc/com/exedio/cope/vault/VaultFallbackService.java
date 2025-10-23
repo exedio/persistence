@@ -289,6 +289,23 @@ public final class VaultFallbackService implements VaultService
 	public static String ANCESTRY_PATH_FALLBACK(final int index)
 	{
 		requireNonNegative(index, "index");
+		return
+				index<ANCESTRY_PATH_FALLBACK_PRECOMPUTED.length
+				? ANCESTRY_PATH_FALLBACK_PRECOMPUTED[index]
+				: ancestryPathfallbackNonPrecomputed(index);
+	}
+
+	private static final String[] ANCESTRY_PATH_FALLBACK_PRECOMPUTED = ancestryPathfallbackPrecompute();
+
+	private static String[] ancestryPathfallbackPrecompute()
+	{
+		final String[] result = new String[5];
+		Arrays.setAll(result, VaultFallbackService::ancestryPathfallbackNonPrecomputed);
+		return result;
+	}
+
+	private static String ancestryPathfallbackNonPrecomputed(final int index)
+	{
 		return "fallback" + (index==0 ? "" : index);
 	}
 

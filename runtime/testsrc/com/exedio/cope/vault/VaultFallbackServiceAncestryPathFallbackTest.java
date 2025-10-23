@@ -21,6 +21,8 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.vault.VaultFallbackService.ANCESTRY_PATH_FALLBACK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,6 +37,13 @@ public class VaultFallbackServiceAncestryPathFallbackTest
 		assertEquals("fallback4", ANCESTRY_PATH_FALLBACK(4));
 		assertEquals("fallback5", ANCESTRY_PATH_FALLBACK(5));
 		assertEquals("fallback6", ANCESTRY_PATH_FALLBACK(6));
+	}
+	@Test void testPrecomputed()
+	{
+		assertSame(ANCESTRY_PATH_FALLBACK(0), ANCESTRY_PATH_FALLBACK(0));
+		assertSame(ANCESTRY_PATH_FALLBACK(1), ANCESTRY_PATH_FALLBACK(1));
+		assertSame(ANCESTRY_PATH_FALLBACK(4), ANCESTRY_PATH_FALLBACK(4));
+		assertNotSame(ANCESTRY_PATH_FALLBACK(5), ANCESTRY_PATH_FALLBACK(5));
 	}
 	@Test void testNegative()
 	{
