@@ -43,7 +43,7 @@ public class VaultFallbackServiceTest
 						single("service.main", VaultMockService.class),
 						single("service.main.example", "mainEx"),
 						single("service.fallbacks.0", VaultMockService.class),
-						single("service.fallbacks.0.example", "refrEx")
+						single("service.fallbacks.0.example", "fallEx")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
@@ -61,13 +61,13 @@ public class VaultFallbackServiceTest
 	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
-		assertEquals("refrEx", fall.serviceProperties.example);
+		assertEquals("fallEx", fall.serviceProperties.example);
 	}
 
 	@Test void testToString()
 	{
 		assertEquals(
-				"VaultMockService:mainEx (fallback VaultMockService:refrEx)",
+				"VaultMockService:mainEx (fallback VaultMockService:fallEx)",
 				service.toString());
 	}
 

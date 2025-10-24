@@ -35,7 +35,7 @@ public class VaultFallbackBucketTagTest
 {
 	@Test void succeedSucceed() throws Exception
 	{
-		final var service = service("mainGenuine", "refrGenuine");
+		final var service = service("mainGenuine", "fallGenuine");
 
 		assertEquals(
 				"mock:mainGenuine(my-Bucket)",
@@ -43,7 +43,7 @@ public class VaultFallbackBucketTagTest
 	}
 	@Test void succeedSucceedSucceed() throws Exception
 	{
-		final var service = service("mainGenuine", "refrGenuine0", "refrGenuine1");
+		final var service = service("mainGenuine", "fallGenuine0", "fallGenuine1");
 
 		assertEquals(
 				"mock:mainGenuine(my-Bucket)",
@@ -51,44 +51,44 @@ public class VaultFallbackBucketTagTest
 	}
 	@Test void succeedAbort()
 	{
-		final var service = service("mainGenuine", "ABORT refrGenuine");
+		final var service = service("mainGenuine", "ABORT fallGenuine");
 
 		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
-				"ABORT refrGenuine(my-Bucket)"));
+				"ABORT fallGenuine(my-Bucket)"));
 	}
 	@Test void succeedSucceedAbort()
 	{
-		final var service = service("mainGenuine", "refrGenuine", "ABORT refr1Genuine");
+		final var service = service("mainGenuine", "fall0Genuine", "ABORT fall1Genuine");
 		assertEquals(2, service.getFallbackServices().size());
 
 		assertStackTrace(2, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
-				"ABORT refr1Genuine(my-Bucket)"));
+				"ABORT fall1Genuine(my-Bucket)"));
 	}
 	@Test void succeedAbortSucceed()
 	{
-		final var service = service("mainGenuine", "ABORT refrGenuine", "refr1Genuine");
+		final var service = service("mainGenuine", "ABORT fall0Genuine", "fall1Genuine");
 
 		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				BucketTagNotSupported.class,
-				"ABORT refrGenuine(my-Bucket)"));
+				"ABORT fall0Genuine(my-Bucket)"));
 	}
 	@Test void succeedFail()
 	{
-		final var service = service("mainGenuine", "FAIL refrGenuine");
+		final var service = service("mainGenuine", "FAIL fallGenuine");
 
 		assertStackTrace(1, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
-				"FAIL refrGenuine(my-Bucket)"));
+				"FAIL fallGenuine(my-Bucket)"));
 	}
 	@Test void abortSucceed()
 	{
-		final var service = service("ABORT mainGenuine", "refrGenuine");
+		final var service = service("ABORT mainGenuine", "fallGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -97,7 +97,7 @@ public class VaultFallbackBucketTagTest
 	}
 	@Test void abortAbort()
 	{
-		final var service = service("ABORT mainGenuine", "ABORT refrGenuine");
+		final var service = service("ABORT mainGenuine", "ABORT fallGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -106,7 +106,7 @@ public class VaultFallbackBucketTagTest
 	}
 	@Test void abortFail()
 	{
-		final var service = service("ABORT mainGenuine", "FAIL refrGenuine");
+		final var service = service("ABORT mainGenuine", "FAIL fallGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -115,7 +115,7 @@ public class VaultFallbackBucketTagTest
 	}
 	@Test void failSucceed()
 	{
-		final var service = service("FAIL mainGenuine", "refrGenuine");
+		final var service = service("FAIL mainGenuine", "fallGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -124,7 +124,7 @@ public class VaultFallbackBucketTagTest
 	}
 	@Test void failAbort()
 	{
-		final var service = service("FAIL mainGenuine", "ABORT refrGenuine");
+		final var service = service("FAIL mainGenuine", "ABORT fallGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),
@@ -133,7 +133,7 @@ public class VaultFallbackBucketTagTest
 	}
 	@Test void failFail()
 	{
-		final var service = service("FAIL mainGenuine", "FAIL refrGenuine");
+		final var service = service("FAIL mainGenuine", "FAIL fallGenuine");
 
 		assertStackTrace(0, assertFails(
 				() -> service.probeBucketTag("my-Bucket"),

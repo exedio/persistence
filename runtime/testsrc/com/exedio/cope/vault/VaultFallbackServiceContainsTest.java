@@ -62,7 +62,7 @@ public class VaultFallbackServiceContainsTest
 		assertEquals(0, fall.count);
 	}
 
-	@Test void testContainsRef() throws VaultServiceUnsupportedOperationException
+	@Test void testContainsFallback() throws VaultServiceUnsupportedOperationException
 	{
 		fall.result = true;
 		assertEquals(true, service.contains(HASH));
