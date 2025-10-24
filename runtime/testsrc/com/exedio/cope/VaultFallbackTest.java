@@ -144,7 +144,7 @@ public abstract class VaultFallbackTest
 		fal1.assertIt("");
 	}
 
-	@Test void errorInReference()
+	@Test void errorInFallback0()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -172,7 +172,7 @@ public abstract class VaultFallbackTest
 		fal1.assertIt("");
 	}
 
-	@Test void errorInReference1()
+	@Test void errorInFallback1()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -224,7 +224,7 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 	}
 
-	@Test void referenceGetLength()
+	@Test void fallback0GetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -247,7 +247,7 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 	}
 
-	@Test void referenceGetBytes()
+	@Test void fallback0GetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -256,7 +256,7 @@ public abstract class VaultFallbackTest
 
 		main.clear();
 
-		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
+		assertAncestry(field, item, HASH1, "fallback1", "myFallback1Ancestry");
 		main.assertIt("contains");
 		fal0.assertIt("contains");
 		fal1.assertIt("addToAncestryPath");
@@ -266,7 +266,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "");
 		fal1.assertIt("");
 
-		assertAncestry(field, item, HASH1, "fallback0", "myReferenceAncestry");
+		assertAncestry(field, item, HASH1, "fallback0", "myFallback0Ancestry");
 		main.assertIt("contains");
 		fal0.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
 		fal1.assertIt("");
@@ -292,7 +292,7 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 	}
 
-	@Test void reference1GetBytes()
+	@Test void fallback1GetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -301,7 +301,7 @@ public abstract class VaultFallbackTest
 
 		main.clear();
 
-		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
+		assertAncestry(field, item, HASH1, "fallback1", "myFallback1Ancestry");
 		main.assertIt("contains");
 		fal0.assertIt("contains");
 		fal1.assertIt("addToAncestryPath");
@@ -311,7 +311,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt("");
 		fal1.assertIt(HASH1, VALUE1, "");
 
-		assertAncestry(field, item, HASH1, "fallback1", "myReference1Ancestry");
+		assertAncestry(field, item, HASH1, "fallback1", "myFallback1Ancestry");
 		main.assertIt("contains");
 		fal0.assertIt("contains");
 		fal1.assertIt(HASH1, VALUE1, "addToAncestryPath");
@@ -337,7 +337,7 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 	}
 
-	@Test void referenceGetStream() throws IOException
+	@Test void fallback0GetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -363,7 +363,7 @@ public abstract class VaultFallbackTest
 		log.assertEmpty();
 	}
 
-	@Test void reference1GetStream() throws IOException
+	@Test void fallback1GetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes");
@@ -527,8 +527,8 @@ public abstract class VaultFallbackTest
 		fal1 = (VaultMockService)service.getFallbackServices().get(1);
 		assertEquals(2, service.getFallbackServices().size());
 		main.ancestryPath = "myMainAncestry";
-		fal0.ancestryPath = "myReferenceAncestry";
-		fal1.ancestryPath = "myReference1Ancestry";
+		fal0.ancestryPath = "myFallback0Ancestry";
+		fal1.ancestryPath = "myFallback1Ancestry";
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
