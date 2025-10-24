@@ -581,7 +581,7 @@ public class VaultPropertiesTest
 		final ServicePropertiesMissing service = (ServicePropertiesMissing)deresiliate(props.newServices(DEFAULT)).get(DEFAULT);
 		assertSame(props.bucket("default"), service.parameters.getBucketProperties());
 	}
-	@Test void servicePropertiesMissingReference()
+	@Test void servicePropertiesMissingFallback()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -634,7 +634,7 @@ public class VaultPropertiesTest
 		assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
 		assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 	}
-	@Test void servicePropertiesNoConstructorReference()
+	@Test void servicePropertiesNoConstructorFallback()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -699,7 +699,7 @@ public class VaultPropertiesTest
 		assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
 		assertNull(cause.getCause());
 	}
-	@Test void servicePropertiesFailsReference()
+	@Test void servicePropertiesFailsFallback()
 	{
 		final Source source =
 				describe("DESC", cascade(

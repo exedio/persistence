@@ -65,7 +65,7 @@ public class VaultFallbackServiceContainsUnsupportedTest
 		assertEquals("com.exedio.cope.vault.VaultFallbackServiceContainsUnsupportedTest$1", e.getCause().getMessage());
 	}
 
-	@Test void testReference()
+	@Test void testFallback()
 	{
 		//noinspection resource OK: does not allocate resources
 		final var service = newService(VaultMockService.class, Service.class);
@@ -82,13 +82,13 @@ public class VaultFallbackServiceContainsUnsupportedTest
 
 	private static VaultFallbackService newService(
 			final Class<? extends VaultService> main,
-			final Class<? extends VaultService> reference)
+			final Class<? extends VaultService> fallback)
 	{
 		final Source source = cascade(
 				single("service", VaultFallbackService.class),
 				single("service.fallbacks.count", 2),
 				single("service.main", main),
-				single("service.fallbacks.0", reference),
+				single("service.fallbacks.0", fallback),
 				single("service.fallbacks.1", VaultMockService.class)
 		);
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
