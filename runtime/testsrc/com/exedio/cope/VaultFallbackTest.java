@@ -152,11 +152,11 @@ public abstract class VaultFallbackTest
 		fal1.assertIt("");
 
 		main.clear();
-		fal0.failOnGet(HASH1, new IllegalStateException("error in reference"));
+		fal0.failOnGet(HASH1, new IllegalStateException("error in fallback0"));
 		final IllegalStateException exception = assertFails(
 				item::getFieldBytes,
 				IllegalStateException.class,
-				"error in reference"
+				"error in fallback0"
 		);
 		checkSuppressed(
 				exception,
@@ -180,11 +180,11 @@ public abstract class VaultFallbackTest
 		fal1.assertIt("");
 
 		main.clear();
-		fal1.failOnGet(HASH1, new IllegalStateException("error in reference"));
+		fal1.failOnGet(HASH1, new IllegalStateException("error in fallback1"));
 		final IllegalStateException exception = assertFails(
 				item::getFieldBytes,
 				IllegalStateException.class,
-				"error in reference"
+				"error in fallback1"
 		);
 		checkSuppressed(
 				exception,
