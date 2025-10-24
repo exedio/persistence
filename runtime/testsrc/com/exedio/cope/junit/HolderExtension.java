@@ -21,7 +21,6 @@ package com.exedio.cope.junit;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Holder;
-import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -62,13 +61,6 @@ public abstract class HolderExtension<E> implements AfterEachCallback, Parameter
 			final ParameterContext parameterContext,
 			final ExtensionContext extensionContext) throws ParameterResolutionException
 	{
-		try
-		{
-			return parameterContext.getParameter().getType().getDeclaredConstructor().newInstance();
-		}
-		catch(final InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
-		{
-			throw new ParameterResolutionException(null, e);
-		}
+		return this;
 	}
 }
