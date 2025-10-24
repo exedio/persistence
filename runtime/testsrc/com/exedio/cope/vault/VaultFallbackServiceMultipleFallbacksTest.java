@@ -30,7 +30,7 @@ import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class VaultFallbackServiceMultipleRefsTest
+public class VaultFallbackServiceMultipleFallbacksTest
 {
 	private VaultFallbackService service;
 	private VaultMockService main;
@@ -47,11 +47,11 @@ public class VaultFallbackServiceMultipleRefsTest
 						single("service.main.example", "mainEx"),
 						single("service.fallbacks.count", "3"),
 						single("service.fallbacks.0", VaultMockService.class),
-						single("service.fallbacks.0.example", "refrEx0"),
+						single("service.fallbacks.0.example", "fallEx0"),
 						single("service.fallbacks.1", VaultMockService.class),
-						single("service.fallbacks.1.example", "refrEx1"),
+						single("service.fallbacks.1.example", "fallEx1"),
 						single("service.fallbacks.2", VaultMockService.class),
-						single("service.fallbacks.2.example", "refrEx2")
+						single("service.fallbacks.2.example", "fallEx2")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
@@ -79,15 +79,15 @@ public class VaultFallbackServiceMultipleRefsTest
 	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
-		assertEquals("refrEx0", fal0.serviceProperties.example);
-		assertEquals("refrEx1", fal1.serviceProperties.example);
-		assertEquals("refrEx2", fal2.serviceProperties.example);
+		assertEquals("fallEx0", fal0.serviceProperties.example);
+		assertEquals("fallEx1", fal1.serviceProperties.example);
+		assertEquals("fallEx2", fal2.serviceProperties.example);
 	}
 
 	@Test void testToString()
 	{
 		assertEquals(
-				"VaultMockService:mainEx (fallbacks VaultMockService:refrEx0 VaultMockService:refrEx1 VaultMockService:refrEx2)",
+				"VaultMockService:mainEx (fallbacks VaultMockService:fallEx0 VaultMockService:fallEx1 VaultMockService:fallEx2)",
 				service.toString());
 	}
 

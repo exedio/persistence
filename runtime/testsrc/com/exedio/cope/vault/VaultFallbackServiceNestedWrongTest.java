@@ -51,7 +51,7 @@ public class VaultFallbackServiceNestedWrongTest
 				"use multiple fallback services instead");
 	}
 
-	@Test void testRef2()
+	@Test void testFallback2()
 	{
 		final Factory<VaultProperties> factory = VaultProperties.factory();
 

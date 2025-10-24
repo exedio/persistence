@@ -49,9 +49,9 @@ public class VaultFallbackServiceNestedTest
 						single("service.main.main", VaultMockService.class),
 						single("service.main.main.example", "mainEx"),
 						single("service.main.fallbacks.0", VaultMockService.class),
-						single("service.main.fallbacks.0.example", "ref1Ex"),
+						single("service.main.fallbacks.0.example", "fall1Ex"),
 						single("service.fallbacks.0", VaultMockService.class),
-						single("service.fallbacks.0.example", "ref2Ex")
+						single("service.fallbacks.0.example", "fall2Ex")
 				));
 		final BucketProperties props = BucketProperties.factory("myKey").create(source);
 		final VaultFallbackService service = (VaultFallbackService)props.newServiceNonResilient(() -> false);
@@ -73,17 +73,17 @@ public class VaultFallbackServiceNestedTest
 	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
-		assertEquals("ref1Ex", falN.serviceProperties.example);
-		assertEquals("ref2Ex", fall.serviceProperties.example);
+		assertEquals("fall1Ex", falN.serviceProperties.example);
+		assertEquals("fall2Ex", fall.serviceProperties.example);
 	}
 
 	@Test void testToString()
 	{
 		assertEquals(
-				"VaultMockService:mainEx (fallback VaultMockService:ref1Ex) (fallback VaultMockService:ref2Ex)",
+				"VaultMockService:mainEx (fallback VaultMockService:fall1Ex) (fallback VaultMockService:fall2Ex)",
 				service.toString());
 		assertEquals(
-				"VaultMockService:mainEx (fallback VaultMockService:ref1Ex)",
+				"VaultMockService:mainEx (fallback VaultMockService:fall1Ex)",
 				serviceNested.toString());
 	}
 
