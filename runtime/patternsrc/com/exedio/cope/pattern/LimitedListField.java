@@ -155,8 +155,8 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	/**
 	 * @deprecated
-	 * Use {@link #getLengthIfExists()}
-	 * or methods {@link #lengthIs(int)}}, {@link #lengthLess(int)} etc.
+	 * Use methods {@link #lengthIs(int)}}, {@link #lengthLess(int)} etc.
+	 * or (as the last resort) {@link #getLengthIfExists()}
 	 * instead
 	 */
 	@Deprecated
@@ -166,6 +166,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	/**
+	 * <b>BEWARE:</b>
+	 * Prepare for a future version, where this method may return null!
+	 * <p>
 	 * Currently this method always returns an {@code IntegerField}.
 	 * But, when {@link #create(FunctionField, int, int)} supports
 	 * {@code minimumSize==maximumSize} there will be no length field and
@@ -173,6 +176,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	 * <p>
 	 * Therefore, better use methods {@link #lengthIs(int)}}, {@link #lengthLess(int)} etc.
 	 * if this is what you need.
+	 * Or, ask the maintainer for similar methods if needed.
 	 */
 	public IntegerField getLengthIfExists()
 	{
