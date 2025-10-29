@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
+import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -103,6 +104,7 @@ public abstract class VaultServiceTest
 			source.setProperty("service." + key, sp.getProperty(key));
 
 		properties = BucketProperties.create("myBucketKey", isServiceWritable(), Sources.view(source, "DESC"));
+		assertEquals(Set.of(), properties.getOrphanedKeys(), "orphanedKeys");
 		final VaultService service = properties.newServiceNonResilient(() -> markPut);
 		this.service = maskService(service);
 		this.servicePut = maskServicePut(service);
