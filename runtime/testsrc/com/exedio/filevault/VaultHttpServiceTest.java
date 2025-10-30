@@ -45,6 +45,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,6 +92,11 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 		return result;
 	}
 
+	protected boolean directoryEnabled()
+	{
+		return true;
+	}
+
 	@Override
 	protected final VaultService maskServicePut(final VaultService service)
 	{
@@ -98,9 +104,10 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 				single("root", DIR),
 				single("content", CONTENT_DIR),
 				sourcesPut(),
-				single("directory.posixPermissions", "rwxrwxrwx"),
+				directoryEnabled() ? single("directory.posixPermissions", "rwxrwxrwx") : Sources.EMPTY,
 				single("posixPermissions", "rw-rw-rw-")));
 		assertEquals(true, props.writable);
+		assertEquals(Set.of(), props.getOrphanedKeys(), "orphanedKeys");
 		return new VaultFileService(
 				serviceParameters(VaultProperties.factory().create(Sources.cascade(
 						single("algorithm", ALGORITHM),
