@@ -34,6 +34,12 @@ public class VaultHttpServiceFlatTest extends VaultHttpServiceTest
 	}
 
 	@Override
+	protected boolean directoryEnabled()
+	{
+		return false;
+	}
+
+	@Override
 	Source sourcesPut()
 	{
 		return single("directory", false);
