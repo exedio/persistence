@@ -36,7 +36,6 @@ import com.exedio.cope.vault.VaultServiceUnsupportedOperationException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Properties;
@@ -237,10 +236,7 @@ public abstract class VaultServiceTest
 	{
 		final String hash = hash("abcdef01234567");
 		final Path value = Files.createTempFile("VaultServiceTest", ".dat");
-		try(OutputStream s = Files.newOutputStream(value))
-		{
-			s.write(unhex("abcdef01234567"));
-		}
+		Files.write(value, unhex("abcdef01234567"));
 		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
@@ -251,10 +247,7 @@ public abstract class VaultServiceTest
 		markPut = true;
 		final String hash = hash("abcdef01234567");
 		final Path value = Files.createTempFile("VaultServiceTest", ".dat");
-		try(OutputStream s = Files.newOutputStream(value))
-		{
-			s.write(unhex("abcdef01234567"));
-		}
+		Files.write(value, unhex("abcdef01234567"));
 		assertTrue(servicePut.put(hash, value));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
