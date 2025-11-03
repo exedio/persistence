@@ -216,6 +216,7 @@ public final class VaultHttpService extends VaultNonWritableService
 		private final Duration requestTimeout = valueTimeout("requestTimeout", ofSeconds(3));
 		private final Redirect followRedirects = value("followRedirects", Redirect.NEVER);
 		private final AuthenticatorProperties authenticator = value("authenticator", false, AuthenticatorProperties::new);
+		private final HttpClientProxyProperties proxy = value("proxy", HttpClientProxyProperties.factory());
 
 		private Duration valueTimeout(
 				final String key,
@@ -233,6 +234,7 @@ public final class VaultHttpService extends VaultNonWritableService
 					followRedirects(followRedirects);
 			if(authenticator!=null)
 				builder.authenticator(authenticator.authenticator);
+			proxy.set(builder);
 			return builder.build();
 		}
 

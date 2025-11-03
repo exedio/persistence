@@ -61,7 +61,8 @@ public class VaultHttpServicePropertiesTest
 				"connectTimeout",
 				"requestTimeout",
 				"followRedirects",
-				"authenticator"),
+				"authenticator",
+				"proxy.mode"),
 				p.getFields().stream().map(Field::getKey).toList());
 		assertEquals("http://VaultHttpServicePropertiesTest.invalid", p.root);
 		assertEquals(HttpClient.Version.HTTP_2, client.version());
