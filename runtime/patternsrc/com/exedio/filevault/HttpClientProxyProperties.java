@@ -35,9 +35,9 @@ final class HttpClientProxyProperties extends Properties
 {
 	private enum Mode
 	{
-		NONE,
 		DEFAULT,
 		DEFAULT_SPECIFIED,
+		NONE,
 		SPECIFIED
 	}
 
