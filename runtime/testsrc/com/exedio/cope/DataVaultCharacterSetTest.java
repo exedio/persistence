@@ -32,18 +32,18 @@ public class DataVaultCharacterSetTest
 	{
 		assertEquals(null, MyBlank.blank.getAnnotatedVaultValue());
 		assertEquals("MyBlank-ok-V", MyBlank.ok.getAnnotatedVaultValue());
-		assertBroken("MyBlank.broken.V", "MyBlank.broken", 7, MyBlank.broken);
+		assertBroken("MyBlank.broken.V", "MyBlankBroken.broken", 7, MyBlankBroken.broken);
 		assertEquals("MyOk-V", MyOk.blank.getAnnotatedVaultValue());
 		assertEquals("MyOk-ok-V", MyOk.ok.getAnnotatedVaultValue());
-		assertBroken("MyOk.broken.V", "MyOk.broken", 4, MyOk.broken);
-		assertBroken("MyBroken.V", "MyBroken", 8, MyBroken.blank);
+		assertBroken("MyOk.broken.V", "MyOkBroken.broken", 4, MyOkBroken.broken);
+		assertBroken("MyBroken.V", "MyBrokenBlank", 8, MyBrokenBlank.blank);
 		assertEquals("MyBroken-ok-V", MyBroken.ok.getAnnotatedVaultValue());
-		assertBroken("MyBroken.broken.V", "MyBroken.broken", 8, MyBroken.broken);
+		assertBroken("MyBroken.broken.V", "MyBrokenBroken.broken", 8, MyBrokenBroken.broken);
 
 		assertFails(
-				MyBlank.empty::getAnnotatedVaultValue,
+				MyBlankEmpty.empty::getAnnotatedVaultValue,
 				IllegalArgumentException.class,
-				"@Vault at MyBlank.empty must not be empty");
+				"@Vault at MyBlankEmpty.empty must not be empty");
 	}
 
 	private static void assertBroken(
@@ -66,14 +66,6 @@ public class DataVaultCharacterSetTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField ok = new DataField();
 
-		@Vault("")
-		@Wrapper(wrap="*", visibility=NONE)
-		static final DataField empty = new DataField();
-
-		@Vault("MyBlank.broken.V")
-		@Wrapper(wrap="*", visibility=NONE)
-		static final DataField broken = new DataField();
-
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
@@ -83,6 +75,44 @@ public class DataVaultCharacterSetTest
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static class MyBlankEmpty extends Item
+	{
+		@Vault("")
+		@Wrapper(wrap="*", visibility=NONE)
+		@SuppressWarnings("unused") // OK: feature collected by reflection
+		static final DataField empty = new DataField();
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyBlankEmpty> TYPE = com.exedio.cope.TypesBound.newType(MyBlankEmpty.class,MyBlankEmpty::new);
+
+		@com.exedio.cope.instrument.Generated
+		protected MyBlankEmpty(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static class MyBlankBroken extends Item
+	{
+		@Vault("MyBlank.broken.V")
+		@Wrapper(wrap="*", visibility=NONE)
+		@SuppressWarnings("unused") // OK: feature collected by reflection
+		static final DataField broken = new DataField();
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyBlankBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBlankBroken.class,MyBlankBroken::new);
+
+		@com.exedio.cope.instrument.Generated
+		protected MyBlankBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Vault("MyOk-V")
@@ -96,10 +126,6 @@ public class DataVaultCharacterSetTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField ok = new DataField();
 
-		@Vault("MyOk.broken.V")
-		@Wrapper(wrap="*", visibility=NONE)
-		static final DataField broken = new DataField();
-
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
@@ -111,20 +137,33 @@ public class DataVaultCharacterSetTest
 		protected MyOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
+	@Vault("MyOk-V")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static class MyOkBroken extends Item
+	{
+		@Vault("MyOk.broken.V")
+		@Wrapper(wrap="*", visibility=NONE)
+		@SuppressWarnings("unused") // OK: feature collected by reflection
+		static final DataField broken = new DataField();
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyOkBroken> TYPE = com.exedio.cope.TypesBound.newType(MyOkBroken.class,MyOkBroken::new);
+
+		@com.exedio.cope.instrument.Generated
+		protected MyOkBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
 	@Vault("MyBroken.V")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MyBroken extends Item
 	{
-		@Wrapper(wrap="*", visibility=NONE)
-		static final DataField blank = new DataField();
-
 		@Vault("MyBroken-ok-V")
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField ok = new DataField();
-
-		@Vault("MyBroken.broken.V")
-		@Wrapper(wrap="*", visibility=NONE)
-		static final DataField broken = new DataField();
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
@@ -135,5 +174,44 @@ public class DataVaultCharacterSetTest
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@Vault("MyBroken.V")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static class MyBrokenBlank extends Item
+	{
+		@Wrapper(wrap="*", visibility=NONE)
+		@SuppressWarnings("unused") // OK: feature collected by reflection
+		static final DataField blank = new DataField();
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyBrokenBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBrokenBlank.class,MyBrokenBlank::new);
+
+		@com.exedio.cope.instrument.Generated
+		protected MyBrokenBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@Vault("MyBroken.V")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static class MyBrokenBroken extends Item
+	{
+		@Vault("MyBroken.broken.V")
+		@Wrapper(wrap="*", visibility=NONE)
+		@SuppressWarnings("unused") // OK: feature collected by reflection
+		static final DataField broken = new DataField();
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyBrokenBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBrokenBroken.class,MyBrokenBroken::new);
+
+		@com.exedio.cope.instrument.Generated
+		protected MyBrokenBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
