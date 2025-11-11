@@ -304,7 +304,7 @@ try
 
 	if(branchConsidersDatabase("Mysql"))
 	{
-		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       'mysql-bin')
+		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       /\\p{XDigit}{12}-bin/)
 		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'binlog')
 		branchMysql(parallelBranches, '84', databaseMysql84, 'my80.cnf', '/var/lib/mysql-files', 'binlog')
 	}
