@@ -108,6 +108,9 @@ public final class DataField extends Field<DataField.Value>
 		return getAnnotatedVaultValue()!=null;
 	}
 
+	/**
+	 * Does not return {@link Vault#NONE}, but {@code null} in this case.
+	 */
 	public String getAnnotatedVaultValue()
 	{
 		final Vault byFeature = getAnnotation(Vault.class);
