@@ -20,17 +20,17 @@ package com.exedio.cope;
 
 import java.util.Set;
 
-public interface Settable<E>
+public interface Settable<E> extends Feature
 {
 	/**
 	 * All implementations of this method should return
-	 * <code>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</code>.
-	 * @deprecated Use {@link SetValue#map(Feature, Object) SetValue.map(this,value)} instead
+	 * <code>{@link SetValue#map(Settable, Object) SetValue.map(this,value)}</code>.
+	 * @deprecated Use {@link SetValue#map(Settable, Object) SetValue.map(this,value)} instead
 	 */
 	@Deprecated
 	default SetValue<E> map(final E value)
 	{
-		return new SetValue<>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	SetValue<?>[] execute(E value, Item exceptionItem);

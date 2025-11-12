@@ -135,7 +135,7 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 	}
 
 	/**
-	 * @deprecated Use {@link SetValue#map(Feature, Object) SetValue.map(this,null)} instead
+	 * @deprecated Use {@link SetValue#map(Settable, Object) SetValue.map(this,null)} instead
 	 */
 	@Deprecated
 	public final SetValue<E> mapNull()

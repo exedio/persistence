@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.SetValue.mapAndCastToFeature;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -27,7 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.io.Serial;
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -85,7 +88,7 @@ public class SetValueTest
 	@Test void testNullFeature()
 	{
 		assertFails(
-				() -> map(null, "nullValue"),
+				() -> map((Settable<String>)null, "nullValue"),
 				NullPointerException.class,
 				"settable");
 	}
@@ -102,11 +105,11 @@ public class SetValueTest
 	@Test void testMapAndCastToFeatureSettableOnly()
 	{
 		final MockSettableOnly settable = new MockSettableOnly();
-		assertFails(
-				() -> mapAndCastToFeature(settable, "alphaValue"),
-				ClassCastException.class,
-				MockSettableOnly.class + " cannot be cast to class " + Feature.class.getName() + " " +
-				"(" + MockSettableOnly.class.getName() + " and " + Feature.class.getName() + " are in unnamed module of loader 'app')");
+		final SetValue<?> value = mapAndCastToFeature(settable, "alphaValue");
+		assertSame(settable, value.settable);
+		assertEquals("alphaValue", value.value);
+		//noinspection ObjectToString
+		assertEquals(settable+"=alphaValue", value.toString());
 	}
 
 	@Test void testMapAndCastToFeatureNullFeature()
@@ -223,5 +226,79 @@ public class SetValueTest
 		{
 			throw new RuntimeException();
 		}
+
+		@Override
+		public void mount(
+				final AbstractType<?> type,
+				final String name,
+				final String string,
+				final Serializable serializable,
+				final AnnotatedElement annotationSource)
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public AbstractType<?> getAbstractType()
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public com.exedio.cope.Type<?> getType()
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public String getName()
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public String getID()
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public List<String> getLocalizationKeys()
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public void toString(final StringBuilder sb, final com.exedio.cope.Type<?> defaultType)
+		{
+			throw new AssertionError();
+		}
+
+		@Override
+		public Pattern getPattern()
+		{
+			throw new AssertionError();
+		}
+
+		@Serial
+		private static final long serialVersionUID = 1l;
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	private static <E> SetValue<E> mapAndCastToFeature(final Settable<E> settable, final E value)
+	{
+		return SetValue.mapAndCastToFeature(settable, value);
 	}
 }
