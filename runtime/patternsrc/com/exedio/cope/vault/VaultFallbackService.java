@@ -24,6 +24,9 @@ import static java.nio.file.Files.delete;
 
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ServiceProperties;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -35,6 +38,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +50,7 @@ public final class VaultFallbackService implements VaultService
 	private final VaultService main;
 	private final VaultService[] fallbacks;
 	private final boolean copyFallbackToMain;
+	private final Counter[] getFromFallbackCounter;
 
 	VaultFallbackService(
 			final VaultServiceParameters parameters,
@@ -55,6 +60,19 @@ public final class VaultFallbackService implements VaultService
 		main = properties.main.newService(parameters);
 		fallbacks = properties.fallbacks.stream().map(s->s.newService(parameters)).toArray(VaultService[]::new);
 		copyFallbackToMain = properties.copyFallbackToMain;
+		{
+			final Tags tags = Tags.of("bucket", parameters.getBucket()); // TODO model tag
+			this.getFromFallbackCounter = IntStream.range(0, properties.fallbacks.size()).
+					mapToObj(i ->
+							Counter.builder(VaultFallbackService.class.getName() + ".getFromFallback").
+									description(
+											"The number of times the VaultFallbackService fetches data " +
+											"from its index'th fallback service, " +
+											"because main service responds with a VaultNotFoundException.").
+									tags(tags.and(Tags.of("index", String.valueOf(i)))).
+									register(Metrics.globalRegistry)).
+					toArray(Counter[]::new);
+		}
 	}
 
 	@Override
@@ -225,6 +243,7 @@ public final class VaultFallbackService implements VaultService
 
 	private void logGetFallback(final int fallbackIndex, final String hash)
 	{
+		getFromFallbackCounter[fallbackIndex].increment();
 		if(logger.isDebugEnabled())
 			logger.debug("get from fallback {} in {}: {}", fallbackIndex, bucket, anonymiseHash(hash));
 	}
