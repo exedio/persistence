@@ -89,9 +89,9 @@ public class MinusDoubleTest extends TestWithEnvironment
 				numB.minus(numA));
 
 		// serialization
-		assertSerializedSame(viewAB, 378);
-		assertSerializedSame(viewAC, 378);
-		assertSerializedSame(viewBC, 378);
+		assertSerializedSame(viewAB, 386);
+		assertSerializedSame(viewAC, 386);
+		assertSerializedSame(viewBC, 386);
 
 		// exceptions
 		try

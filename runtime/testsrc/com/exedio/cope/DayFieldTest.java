@@ -73,7 +73,7 @@ public class DayFieldTest extends TestWithEnvironment
 
 		assertEquals(TYPE, mandatory.getType());
 		assertEquals(Day.class, mandatory.getValueClass());
-		assertSerializedSame(mandatory, 370);
+		assertSerializedSame(mandatory, 378);
 
 		// test persistence
 		assertEquals(DEFAULT, item.getMandatory());

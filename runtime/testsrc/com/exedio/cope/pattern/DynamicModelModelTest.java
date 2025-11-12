@@ -182,8 +182,8 @@ public class DynamicModelModelTest
 
 	@Test void testSerialization()
 	{
-		assertSerializedSame(features, 395);
-		assertSerializedSame(small   , 392);
+		assertSerializedSame(features, 403);
+		assertSerializedSame(small   , 400);
 	}
 
 	@Test void testSchema()

@@ -123,6 +123,6 @@ public class CheckConstraintModelTest
 				IllegalArgumentException.class,
 				"check constraint condition contains unsupported function: " + unsupportedFunction);
 
-		assertSerializedSame(alphaToBeta, 381);
+		assertSerializedSame(alphaToBeta, 389);
 	}
 }

@@ -117,18 +117,18 @@ public class ColorFieldModelTest
 		assertEquals(mandatoryAlpha, mandatoryAlphaRGB.getPattern());
 		assertEquals(finalColor, finalColorRGB.getPattern());
 
-		assertSerializedSame(mandatory, 392);
-		assertSerializedSame(mandatoryRGB, 396);
-		assertSerializedSame(optional, 391);
-		assertSerializedSame(optionalRGB, 395);
-		assertSerializedSame(defaultTo, 392);
-		assertSerializedSame(defaultToRGB, 396);
-		assertSerializedSame(alpha, 388);
-		assertSerializedSame(alphaRGB, 392);
-		assertSerializedSame(mandatoryAlpha, 397);
-		assertSerializedSame(mandatoryAlphaRGB, 401);
-		assertSerializedSame(finalColor, 393);
-		assertSerializedSame(finalColorRGB, 397);
+		assertSerializedSame(mandatory, 400);
+		assertSerializedSame(mandatoryRGB, 404);
+		assertSerializedSame(optional, 399);
+		assertSerializedSame(optionalRGB, 403);
+		assertSerializedSame(defaultTo, 400);
+		assertSerializedSame(defaultToRGB, 404);
+		assertSerializedSame(alpha, 396);
+		assertSerializedSame(alphaRGB, 400);
+		assertSerializedSame(mandatoryAlpha, 405);
+		assertSerializedSame(mandatoryAlphaRGB, 409);
+		assertSerializedSame(finalColor, 401);
+		assertSerializedSame(finalColorRGB, 405);
 
 		assertEquals(0, mandatoryRGB.getMinimum());
 		assertEquals(0xffffff, mandatoryRGB.getMaximum());

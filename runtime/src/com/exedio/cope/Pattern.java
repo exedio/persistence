@@ -36,7 +36,7 @@ import java.util.function.Function;
  *
  * @author Ralf Wiebicke
  */
-public abstract class Pattern extends Feature
+public abstract class Pattern extends AbstractFeature
 {
 	@Serial
 	private static final long serialVersionUID = 1l;
@@ -86,7 +86,7 @@ public abstract class Pattern extends Feature
 		if(sourceFeaturesGather==null)
 			throw new IllegalStateException("addSourceFeature can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;
-		feature.registerPattern(this, innerLocalizationKeysClass, postfix);
+		asAbstract(feature).registerPattern(this, innerLocalizationKeysClass, postfix);
 		sourceFeaturesGather.put(postfix, feature, new SourceFeatureAnnotationProxy(annotationSource, postfix));
 		return feature;
 	}

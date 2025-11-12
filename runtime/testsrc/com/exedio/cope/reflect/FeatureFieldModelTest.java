@@ -99,7 +99,7 @@ public class FeatureFieldModelTest
 		assertEquals(1,  length  .getIdField().getMinimumLength());
 		assertEquals(66, length  .getIdField().getMaximumLength());
 
-		assertSerializedSame(standard, 395);
+		assertSerializedSame(standard, 403);
 
 		assertEqualsUnmodifiable(TYPE.getFeatures(), standard.getValues());
 		assertEqualsUnmodifiable(list(

@@ -62,11 +62,11 @@ public class FunctionTest extends TestWithEnvironment
 
 	@Test void testFunctions()
 	{
-		assertSerializedSame(min4Upper, 376);
-		assertSerializedSame(max4Upper, 376);
-		assertSerializedSame(min4UpperLength, 382);
-		assertSerializedSame(max4UpperLength, 382);
-		assertSerializedSame(min4AndMax4UpperLength, 389);
+		assertSerializedSame(min4Upper, 384);
+		assertSerializedSame(max4Upper, 384);
+		assertSerializedSame(min4UpperLength, 390);
+		assertSerializedSame(max4UpperLength, 390);
+		assertSerializedSame(min4AndMax4UpperLength, 397);
 
 		assertEquals("5ffff", item1.getMin4());
 		assertEquals("5FFFF", item1.getMin4Upper());

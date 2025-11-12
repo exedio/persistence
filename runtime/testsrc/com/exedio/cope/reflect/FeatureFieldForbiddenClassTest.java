@@ -50,7 +50,7 @@ public class FeatureFieldForbiddenClassTest extends TestWithEnvironment
 				Pattern.class)),
 				MyItem.field.getForbiddenValueClasses());
 		assertEqualsUnmodifiable(asList(
-				MyItem.TYPE.getThis(),
+				(Feature)MyItem.TYPE.getThis(),
 				MyItem.field.getIdField(),
 				MyItem.booleanF,
 				MyItem.priceF.getInt()),

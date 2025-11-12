@@ -100,7 +100,7 @@ public class CopyMultiTargetModelTest
 		assertSame(copy, constraintA.getCopyFunction());
 		assertSame(copy, constraintB.getCopyFunction());
 
-		assertSerializedSame(constraintA, 406);
-		assertSerializedSame(constraintB, 406);
+		assertSerializedSame(constraintA, 414);
+		assertSerializedSame(constraintB, 414);
 	}
 }

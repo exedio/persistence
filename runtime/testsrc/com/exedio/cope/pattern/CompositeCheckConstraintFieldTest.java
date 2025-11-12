@@ -38,7 +38,7 @@ public class CompositeCheckConstraintFieldTest
 	@Test void testTypeGetFeatures()
 	{
 		assertEqualsUnmodifiable(asList(
-				MyItem.TYPE.getThis(),
+				(Feature)MyItem.TYPE.getThis(),
 				MyItem.field,
 				fieldAlpha, fieldGamma, fieldCheck,
 				MyItem.field.getUnison()),
@@ -48,7 +48,7 @@ public class CompositeCheckConstraintFieldTest
 	@Test void testSourceFeatures()
 	{
 		assertEqualsUnmodifiable(asList(
-				fieldAlpha, fieldGamma, fieldCheck,
+				(Feature)fieldAlpha, fieldGamma, fieldCheck,
 				MyItem.field.getUnison()),
 				MyItem.field.getSourceFeatures());
 	}

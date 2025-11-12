@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
  * @author Ralf Wiebicke
  */
 @WrapFeature
-public abstract class View<E> extends Feature
+public abstract class View<E> extends AbstractFeature
 	implements Function<E>
 {
 	@Serial
@@ -56,7 +56,7 @@ public abstract class View<E> extends Feature
 		this.name = name;
 		this.valueClass = valueClass;
 
-		if(sources[0] instanceof final Feature f)
+		if(sources[0] instanceof final AbstractFeature f)
 		{
 			this.sourceType = f.isMountedToType() ? f.getType() : null;
 		}

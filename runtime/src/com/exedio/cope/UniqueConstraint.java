@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @WrapFeature
-public final class UniqueConstraint extends Feature implements Copyable
+public final class UniqueConstraint extends AbstractFeature implements Copyable
 {
 	@Serial
 	private static final long serialVersionUID = 1l;

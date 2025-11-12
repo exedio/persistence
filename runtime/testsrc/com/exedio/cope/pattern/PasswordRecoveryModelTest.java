@@ -78,6 +78,6 @@ public class PasswordRecoveryModelTest
 		assertFalse(passwordRecovery               .isAnnotationPresent(Computed.class));
 		assertTrue (passwordRecovery.getTokenType().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(passwordRecovery, 411);
+		assertSerializedSame(passwordRecovery, 419);
 	}
 }

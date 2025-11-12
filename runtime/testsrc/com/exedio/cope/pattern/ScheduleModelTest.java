@@ -152,7 +152,7 @@ public class ScheduleModelTest
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(report, 385);
+		assertSerializedSame(report, 393);
 	}
 
 	@Test void testEnumSchema()

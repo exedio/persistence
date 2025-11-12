@@ -35,7 +35,7 @@ public class QuerySerializeTest
 	@Test void testSerialize()
 	{
 		final Query<?> q = TYPE.newQuery(null);
-		int size=818;
+		int size=826;
 		assertSerializedEquals(q, size);
 
 		q.setCondition(field.isNotNull());
@@ -63,13 +63,13 @@ public class QuerySerializeTest
 	@Test void aggregateOfStringQuery()
 	{
 		final Query<String> q = new Query<>(field.min());
-		assertSerializedEquals(q, 1153);
+		assertSerializedEquals(q, 1161);
 	}
 
 	@Test void aggregateOfEnumQuery()
 	{
 		final Query<AnEnum> q = new Query<>(enumField.min());
-		assertSerializedEquals(q, 1209);
+		assertSerializedEquals(q, 1217);
 	}
 
 	@Test void countQuery()
@@ -81,7 +81,7 @@ public class QuerySerializeTest
 	@Test void distinctStringsQuery()
 	{
 		final Query<String> q = new Query<>(field.distinct(), TYPE, null);
-		assertSerializedEquals(q, 1143);
+		assertSerializedEquals(q, 1151);
 	}
 
 

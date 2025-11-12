@@ -67,7 +67,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 		assertAccu(  5, ItemSerializationItem2.TYPE);
 		assertAccu(  5, ItemSerializationItem2.TYPE);
 
-		assertAccu(107, ItemSerializationItem.name);
+		assertAccu(115, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
 		assertAccu( 19, ItemSerializationItem.name2);
@@ -100,7 +100,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 
 	@Test void testFeatures()
 	{
-		assertAccu(394, ItemSerializationItem.name);
+		assertAccu(402, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
 		assertAccu( 19, ItemSerializationItem.name2);
@@ -110,7 +110,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 
 	@Test void testFeaturesFromDifferentTypes()
 	{
-		assertAccu(394, ItemSerializationItem.name);
+		assertAccu(402, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
 		assertAccu( 50, ItemSerializationItem2.name2);

@@ -37,7 +37,7 @@ import java.util.function.Consumer;
  * @author Ralf Wiebicke
  */
 @WrapFeature
-public abstract class Field<E> extends Feature implements Settable<E>
+public abstract class Field<E> extends AbstractFeature implements Settable<E>
 {
 	@Serial
 	private static final long serialVersionUID = 1l;

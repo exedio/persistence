@@ -24,7 +24,7 @@ import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
 import java.util.function.Consumer;
 
-public final class This<E extends Item> extends Feature
+public final class This<E extends Item> extends AbstractFeature
 	implements ItemFunction<E>
 {
 	@Serial

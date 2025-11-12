@@ -100,12 +100,12 @@ public class BlockFieldUniqueMultiModelTest
 
 		assertSerializedSame(alpha, 340);
 		assertSerializedSame(constraint, 345);
-		assertSerializedSame(eins.of(alpha), 396);
-		assertSerializedSame(eins.of(constraint), 401);
-		assertSerializedSame(zwei.of(alpha), 396);
-		assertSerializedSame(zwei.of(constraint), 401);
-		assertSerializedSame(eins, 390);
-		assertSerializedSame(zwei, 390);
+		assertSerializedSame(eins.of(alpha), 404);
+		assertSerializedSame(eins.of(constraint), 409);
+		assertSerializedSame(zwei.of(alpha), 404);
+		assertSerializedSame(zwei.of(constraint), 409);
+		assertSerializedSame(eins, 398);
+		assertSerializedSame(zwei, 398);
 	}
 
 	static final class ABlock extends Block

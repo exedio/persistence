@@ -91,8 +91,8 @@ public class DataModelTest
 		assertEquals(10, data10.getMaximumLength());
 		assertEquals(DataField.Value.class, data10.getValueClass());
 
-		assertSerializedSame(data  , 367);
-		assertSerializedSame(data10, 369);
+		assertSerializedSame(data  , 375);
+		assertSerializedSame(data10, 377);
 
 		assertFails(
 				() -> new DataField().lengthMax(0),

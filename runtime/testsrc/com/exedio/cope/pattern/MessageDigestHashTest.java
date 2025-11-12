@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
@@ -76,7 +77,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 	@Test void testMD5()
 	{
 		assertEquals(Arrays.asList(
-				TYPE.getThis(),
+				(Feature)TYPE.getThis(),
 				password,
 				password.getStorage(),
 				passwordLatin,
@@ -146,9 +147,9 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		assertEquals(UTF_8.name(), encoding(passwordMandatory));
 		assertEquals(5, algo(passwordMandatory).getIterations());
 
-		assertSerializedSame(password         , 400);
-		assertSerializedSame(passwordLatin    , 405);
-		assertSerializedSame(passwordMandatory, 409);
+		assertSerializedSame(password         , 408);
+		assertSerializedSame(passwordLatin    , 413);
+		assertSerializedSame(passwordMandatory, 417);
 
 		blindPassword(null);
 		expectSalt(password, "885406ef34cef302");

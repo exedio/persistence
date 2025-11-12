@@ -122,10 +122,10 @@ public class BlockFieldStandardModelTest
 
 		assertSerializedSame(aString, 339);
 		assertSerializedSame(aColor , 338);
-		assertSerializedSame(eins.of(aString), 395);
-		assertSerializedSame(eins.of(aColor ), 394);
-		assertSerializedSame(eins, 387);
-		assertSerializedSame(zwei, 387);
+		assertSerializedSame(eins.of(aString), 403);
+		assertSerializedSame(eins.of(aColor ), 402);
+		assertSerializedSame(eins, 395);
+		assertSerializedSame(zwei, 395);
 		assertSerializedSame(ABlock.TYPE, 295);
 
 		assertFails(

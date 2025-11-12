@@ -99,7 +99,7 @@ public class UniqueTest extends TestWithEnvironment
 			list(uniqueNotNullString.getImplicitUniqueConstraint()),
 			uniqueNotNullString.getUniqueConstraints());
 
-		assertSerializedSame(uniqueString.getImplicitUniqueConstraint(), 394);
+		assertSerializedSame(uniqueString.getImplicitUniqueConstraint(), 402);
 
 		// test persistence
 		assertEquals(

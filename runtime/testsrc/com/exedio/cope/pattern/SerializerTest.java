@@ -128,8 +128,8 @@ public class SerializerTest extends TestWithEnvironment
 		assertTrue (integer.getSource().isAnnotationPresent(Computed.class));
 		assertTrue (map    .getSource().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(integer, 385);
-		assertSerializedSame(map    , 381);
+		assertSerializedSame(integer, 393);
+		assertSerializedSame(map    , 389);
 
 		// test persistence
 		assertEquals("integer_data", SchemaInfo.getColumnName(integer.getSource()));

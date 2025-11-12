@@ -58,7 +58,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"min(MyItem.field)");
 
-		final ExtremumAggregate<Integer> as = reserialize(a, 740);
+		final ExtremumAggregate<Integer> as = reserialize(a, 748);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("min", as.getName());
 		assertSame(Integer.class, as.getValueClass());
@@ -85,7 +85,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"max(MyItem.field)");
 
-		final ExtremumAggregate<Integer> as = reserialize(a, 740);
+		final ExtremumAggregate<Integer> as = reserialize(a, 748);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("max", as.getName());
 		assertSame(Integer.class, as.getValueClass());
@@ -112,7 +112,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"sum(MyItem.field)");
 
-		final SumAggregate<Integer> as = reserialize(a, 724);
+		final SumAggregate<Integer> as = reserialize(a, 732);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("sum", as.getName());
 		assertSame(Integer.class, as.getValueClass());
@@ -139,7 +139,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"avg(MyItem.field)");
 
-		final AverageAggregate<Integer> as = reserialize(a, 727);
+		final AverageAggregate<Integer> as = reserialize(a, 735);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("avg", as.getName());
 		assertSame(Double.class, as.getValueClass());
@@ -166,7 +166,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"any(MyItem.field)");
 
-		final Aggregate<Integer,Integer> as = reserialize(a, 730);
+		final Aggregate<Integer,Integer> as = reserialize(a, 738);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("any", as.getName());
 		assertSame(Integer.class, as.getValueClass());
@@ -193,7 +193,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"distinct(MyItem.field)");
 
-		final Aggregate<Integer,Integer> as = reserialize(a, 730);
+		final Aggregate<Integer,Integer> as = reserialize(a, 738);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("distinct", as.getName());
 		assertSame(Integer.class, as.getValueClass());

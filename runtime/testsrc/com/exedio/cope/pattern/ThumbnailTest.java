@@ -116,7 +116,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
-		assertSerializedSame(thumb, 381);
+		assertSerializedSame(thumb, 389);
 
 		try
 		{

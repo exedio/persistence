@@ -68,7 +68,7 @@ public class ImporterModelTest
 		assertSame(code.getImplicitUniqueConstraint(), byCode.getUniqueConstraint());
 		assertEquals(list(), byCode.getSourceFeatures());
 		assertEquals(list(), byCode.getSourceTypes());
-		assertSerializedSame(byCode, 385);
+		assertSerializedSame(byCode, 393);
 
 		try
 		{

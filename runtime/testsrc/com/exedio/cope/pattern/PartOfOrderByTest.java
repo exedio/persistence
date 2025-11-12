@@ -44,7 +44,7 @@ public class PartOfOrderByTest
 		assertSame(MyItem.field, o.getField());
 		assertEquals(true, o.isAscending());
 		assertEquals(MyItem.field + " asc", o.toString());
-		assertEquals(o, reserialize(o, 488));
+		assertEquals(o, reserialize(o, 496));
 	}
 
 	@Test void testCreateDescending()
@@ -53,7 +53,7 @@ public class PartOfOrderByTest
 		assertSame(MyItem.field, o.getField());
 		assertEquals(false, o.isAscending());
 		assertEquals(MyItem.field + " desc", o.toString());
-		assertEquals(o, reserialize(o, 488));
+		assertEquals(o, reserialize(o, 496));
 	}
 
 	@Test void testCreateBoolAscending()
@@ -62,7 +62,7 @@ public class PartOfOrderByTest
 		assertSame(MyItem.field, o.getField());
 		assertEquals(true, o.isAscending());
 		assertEquals(MyItem.field + " asc", o.toString());
-		assertEquals(o, reserialize(o, 488));
+		assertEquals(o, reserialize(o, 496));
 	}
 
 	@Test void testCreateBoolDescending()
@@ -71,7 +71,7 @@ public class PartOfOrderByTest
 		assertSame(MyItem.field, o.getField());
 		assertEquals(false, o.isAscending());
 		assertEquals(MyItem.field + " desc", o.toString());
-		assertEquals(o, reserialize(o, 488));
+		assertEquals(o, reserialize(o, 496));
 	}
 
 	@Test void testCreateNullDefault()

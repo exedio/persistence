@@ -123,14 +123,14 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertEquals("multiply("+numB+","+numA+")", numB.multiply(numA).toString());
 
 		// serialization
-		assertSerializedSame(plusA9    , 376);
-		assertSerializedSame(plusAB    , 376);
-		assertSerializedSame(plusAC    , 376);
-		assertSerializedSame(plusBC    , 376);
-		assertSerializedSame(plusABC   , 377);
-		assertSerializedSame(plusABaC  , 378);
-		assertSerializedSame(multiplyBC, 380);
-		assertSerializedSame(multiplyB9, 380);
+		assertSerializedSame(plusA9    , 384);
+		assertSerializedSame(plusAB    , 384);
+		assertSerializedSame(plusAC    , 384);
+		assertSerializedSame(plusBC    , 384);
+		assertSerializedSame(plusABC   , 385);
+		assertSerializedSame(plusABaC  , 386);
+		assertSerializedSame(multiplyBC, 388);
+		assertSerializedSame(multiplyB9, 388);
 
 		// test normal operation
 		assertEquals(d1, item.getNumA());

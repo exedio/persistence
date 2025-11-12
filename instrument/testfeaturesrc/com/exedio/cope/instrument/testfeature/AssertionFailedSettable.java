@@ -18,8 +18,8 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import java.io.Serial;
@@ -27,7 +27,7 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 import java.util.Set;
 
-public class AssertionFailedSettable<E> extends Feature implements Settable<E>
+public class AssertionFailedSettable<E> extends Pattern implements Settable<E>
 {
 	@Override
 	@SuppressWarnings({"deprecation","unused"}) // OK: testing deprecated API

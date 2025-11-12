@@ -112,11 +112,11 @@ public class MediaTest extends TestWithEnvironment
 		assertTrue(file.getContentType ().isAnnotationPresent(Computed.class));
 		assertTrue(file.getLastModified().isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(file,   372);
-		assertSerializedSame(image,  373);
-		assertSerializedSame(photo,  373);
-		assertSerializedSame(sheet,  373);
-		assertSerializedSame(custom, 374);
+		assertSerializedSame(file,   380);
+		assertSerializedSame(image,  381);
+		assertSerializedSame(photo,  381);
+		assertSerializedSame(sheet,  381);
+		assertSerializedSame(custom, 382);
 	}
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api

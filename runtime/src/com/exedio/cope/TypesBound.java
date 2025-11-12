@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AbstractFeature.asAbstract;
 import static java.util.Collections.unmodifiableSortedMap;
 import static java.util.Objects.requireNonNull;
 
@@ -133,7 +134,7 @@ public final class TypesBound
 
 	public static SortedMap<? extends Feature, Field> getFeatures(final Class<?> clazz)
 	{
-		final TreeMap<Feature, Field> result = new TreeMap<>(INSTANTIATION_COMPARATOR);
+		final TreeMap<AbstractFeature, Field> result = new TreeMap<>(INSTANTIATION_COMPARATOR);
 		try
 		{
 			for(final Field field : clazz.getDeclaredFields())
@@ -152,7 +153,7 @@ public final class TypesBound
 				if(feature==null)
 					throw new NullPointerException(clazz.getName() + '#' + field.getName());
 				{
-					final Field duplicate = result.put(feature, field);
+					final Field duplicate = result.put(asAbstract(feature), field);
 					if(duplicate!=null)
 						throw new IllegalArgumentException(
 								clazz.getName() + '#' + field.getName() +
@@ -172,7 +173,7 @@ public final class TypesBound
 	/**
 	 * Needed for not relying on order of result of {@link Class#getDeclaredFields()}.
 	 */
-	private static final Comparator<Feature> INSTANTIATION_COMPARATOR =
+	private static final Comparator<AbstractFeature> INSTANTIATION_COMPARATOR =
 			(f1, f2) -> (f1==f2) ? 0 : Integer.compare(f1.instantiationOrder, f2.instantiationOrder);
 
 

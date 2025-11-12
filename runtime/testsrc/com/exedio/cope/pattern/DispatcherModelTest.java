@@ -154,7 +154,7 @@ public class DispatcherModelTest
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(toTarget, 391);
+		assertSerializedSame(toTarget, 399);
 	}
 
 	@Test void testDefaultPendingTo()
