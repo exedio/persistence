@@ -10,11 +10,11 @@ The items are sorted inversely, i.e. the latest items are on top.
 * Feature becomes an interface.
 	This breaks backwards API compatibility!
 	You MUST update (if present in your project):
-	- copebuilder to rev>=(not yet available)
-	- copedumpshuffler to rev>=(not yet available)
-	- copeconsole to rev>=(not yet available)
-	- copehistory to rev>=(not yet available)
-	- insightcope to rev>=(not yet available)
+	- copebuilder to rev>=395
+	- copedumpshuffler to rev>=38
+	- copeconsole to rev>=7431
+	- copehistory to rev>=111
+	- insightcope to rev>=10.137 (wicket10) or 9.1288 (wicket9)
 	- copeview to rev>=(not yet available)
 * VaultReferenceService renamed to VaultFallbackService.
 	This breaks backwards API compatibility - check for usage of moved API in your project, including used libraries!
