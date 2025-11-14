@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataTest.assertAncestry;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.VaultItem.field;
 import static com.exedio.cope.VaultTest.HASH1;
 import static com.exedio.cope.VaultTest.HASH1A;
@@ -39,6 +40,8 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultFallbackService;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vaultmock.VaultMockService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.AfterEach;
@@ -75,6 +78,7 @@ public abstract class VaultFallbackTest
 		assertSame(main.bucketProperties, fal0.bucketProperties);
 		assertNotSame(main.serviceProperties, fal0.serviceProperties);
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -93,6 +97,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "");
 		fal1.assertIt("");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -121,6 +126,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "");
 		fal1.assertIt("");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -221,6 +227,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "");
 		fal1.assertIt("");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -244,6 +251,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, ""); // DataField#getLength no longer calls VaultService#getLength
 		fal1.assertIt("");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -271,8 +279,10 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "contains addToAncestryPath");
 		fal1.assertIt("");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
+		assertEquals(1, countGetFromFallback());
 		log.assertDebug("get from fallback 0 in default: " + HASH1A);
 		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getBytes putBytes");
@@ -289,6 +299,7 @@ public abstract class VaultFallbackTest
 			fal1.assertIt("");
 		}
 
+		assertEquals(1, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -334,6 +345,7 @@ public abstract class VaultFallbackTest
 			fal1.assertIt(HASH1, VALUE1, "");
 		}
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -350,8 +362,10 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "");
 		fal1.assertIt("");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
+		assertEquals(1, countGetFromFallback());
 		log.assertDebug("get from fallback 0 in default: " + HASH1A);
 		if(copyFallbackToMain())
 			main.assertIt(HASH1, VALUE1, "getStream putFile");
@@ -360,6 +374,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(HASH1, VALUE1, "getStream");
 		fal1.assertIt("");
 
+		assertEquals(1, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -386,6 +401,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt("getStream");
 		fal1.assertIt(HASH1, VALUE1, "getStream");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -406,6 +422,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 		fal1.assertIt(""); // DataField#getLength no longer calls VaultService#getLength
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -451,6 +468,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt("getBytes");
 		fal1.assertIt("getBytes");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -496,6 +514,7 @@ public abstract class VaultFallbackTest
 		fal0.assertIt("getStream");
 		fal1.assertIt("getStream");
 
+		assertEquals(0, countGetFromFallback());
 		log.assertEmpty();
 	}
 
@@ -531,7 +550,10 @@ public abstract class VaultFallbackTest
 		fal1.ancestryPath = "myFallback1Ancestry";
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
+		countGetFromFallbackBefore = countGetFromFallbackRaw();
 	}
+
+	private double countGetFromFallbackBefore;
 
 	@AfterEach void tearDown()
 	{
@@ -549,5 +571,22 @@ public abstract class VaultFallbackTest
 		{
 			check[i].accept((VaultNotFoundException) suppressedAll[i]);
 		}
+	}
+
+	private double countGetFromFallback()
+	{
+		return countGetFromFallbackRaw() - countGetFromFallbackBefore;
+	}
+
+	private static double countGetFromFallbackRaw()
+	{
+		return count("getFromFallback", Tags.of("bucket", "default", "index", "0"));
+	}
+
+	private static double count(
+			final String nameSuffix,
+			final Tags tags)
+	{
+		return ((Counter)meter(VaultFallbackService.class, nameSuffix, tags)).count();
 	}
 }
