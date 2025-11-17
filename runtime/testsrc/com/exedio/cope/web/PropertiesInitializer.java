@@ -43,8 +43,8 @@ import com.exedio.cope.pattern.LimitedListFieldModelTest;
 import com.exedio.cope.pattern.ListFieldModelTest;
 import com.exedio.cope.pattern.MD5Test;
 import com.exedio.cope.sampler.Stuff;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 /**
  * Initializes connect properties for all models in runtime/web.xml.

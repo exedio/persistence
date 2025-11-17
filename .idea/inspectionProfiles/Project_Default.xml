@@ -608,7 +608,7 @@
         <value />
       </option>
       <option name="ignoreAnonymousInnerClasses" value="false" />
-      <option name="superClassString" value="javax.servlet.http.HttpServlet,java.lang.Exception" />
+      <option name="superClassString" value="jakarta.servlet.http.HttpServlet,java.lang.Exception" />
     </inspection_tool>
     <inspection_tool class="NonSerializableObjectBoundToHttpSession" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="NonSerializableObjectPassedToObjectStream" enabled="true" level="WARNING" enabled_by_default="true" />

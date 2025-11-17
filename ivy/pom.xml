@@ -14,9 +14,9 @@
   <version>@BUILD_REVISION@</version>
   <dependencies>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.1</version>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -140,7 +140,7 @@
     <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat</artifactId>
-      <version>9.0.31</version>
+      <version>10.1.34</version>
       <type>tar.gz</type>
       <optional>true</optional>
     </dependency>
@@ -171,20 +171,12 @@
     <dependency>
       <groupId>com.exedio</groupId>
       <artifactId>copeconsole</artifactId>
-      <version>7051</version>
+      <version>7434</version>
       <optional>true</optional>
       <exclusions>
         <exclusion>
           <groupId>com.exedio</groupId>
           <artifactId>cope</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.exedio</groupId>
-          <artifactId>copeservletutil</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>javax.servlet</groupId>
-          <artifactId>javax.servlet-api</artifactId>
         </exclusion>
         <exclusion>
           <groupId>org.slf4j</groupId>
@@ -193,6 +185,42 @@
         <exclusion>
           <groupId>com.exedio</groupId>
           <artifactId>copeutil</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jakarta.servlet</groupId>
+          <artifactId>jakarta.servlet-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.exedio</groupId>
+      <artifactId>cops</artifactId>
+      <version>610</version>
+      <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.exedio</groupId>
+          <artifactId>copeutil</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>io.micrometer</groupId>
+          <artifactId>micrometer-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jakarta.servlet</groupId>
+          <artifactId>jakarta.servlet-api</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

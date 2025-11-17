@@ -61,7 +61,7 @@
 		<artifact name="&artifacts.name;-instrument-completion"  conf="completion"             type="jar" ext="jar" />
 	</publications>
 	<dependencies defaultconf="SPECIFY_A_CONFIGURATION->*">
-		<dependency org="javax.servlet" name="javax.servlet-api" rev="4.0.1" conf="servlet->default; ide->sources" />
+		<dependency org="jakarta.servlet" name="jakarta.servlet-api" rev="6.0.0" conf="servlet->default; ide->sources" />
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" conf="runtime->default; ide->sources" />
 		<dependency org="org.slf4j" name="slf4j-api" rev="2.0.16" conf="runtime->default" /><!-- sources do not work reliably on ivy cache hits -->
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="2.0.16" conf="test->default" />
@@ -93,20 +93,29 @@
 			<exclude org="ant" module="ant" />
 		</dependency>
 		<dependency org="org.apache.ivy" name="ivy" rev="2.5.2" conf="ivy->default" />
-		<dependency org="org.apache.tomcat" name="tomcat" rev="9.0.31" conf="tomcat->default">
+		<dependency org="org.apache.tomcat" name="tomcat" rev="10.1.34" conf="tomcat->default">
 			<artifact name="tomcat" type="tar.gz" />
 		</dependency>
 		<dependency org="org.junit.jupiter"  name="junit-jupiter-api"      rev="5.&junit.version.minor;" conf="test->default; ide->sources" />
 		<dependency org="org.junit.jupiter"  name="junit-jupiter-engine"   rev="5.&junit.version.minor;" conf="test->default" />
 		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.&junit.version.minor;" conf="test->default" />
 		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="compile-annotations->default" />
-		<dependency org="com.exedio" name="copeconsole" rev="7051" conf="copeconsole->runtime,changelog">
+		<dependency org="com.exedio" name="copeconsole" rev="7434" conf="copeconsole->runtime,changelog">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
-			<exclude org="com.exedio" module="copeservletutil" /><!-- redundant dependency of cope since r10333 -->
-			<exclude org="javax.servlet" module="javax.servlet-api" />
 			<exclude org="org.slf4j" module="slf4j-api" />
 			<exclude org="com.exedio" module="copeutil" />
+			<exclude org="com.fasterxml.jackson.core" module="jackson-annotations" />
+			<exclude org="com.fasterxml.jackson.core" module="jackson-databind" />
+			<exclude org="jakarta.servlet" module="jakarta.servlet-api" />
+		</dependency>
+		<dependency org="com.exedio" name="cops" rev="610" conf="copeconsole->runtime"><!-- just for getting a version compatible to servlet-api 6 -->
+			<exclude org="org.slf4j" module="slf4j-api" />
+			<exclude org="com.exedio" module="copeutil" />
+			<exclude org="io.micrometer" module="micrometer-core" />
+			<exclude org="jakarta.servlet" module="jakarta.servlet-api" />
 		</dependency>
 		<dependency org="com.exedio" name="pipeline-gdsl" rev="26" conf="jenkins->runtime; ide->changelog" />
+
+		<exclude org="javax.servlet" module="javax.servlet-api" /><!-- old javax.servlet package instead of new jakarta.servlet -->
 	</dependencies>
 </ivy-module>
