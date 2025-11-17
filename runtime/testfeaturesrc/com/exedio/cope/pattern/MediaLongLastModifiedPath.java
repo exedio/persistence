@@ -23,10 +23,10 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrap;
-import java.io.Serial;
-import java.util.Date;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.Serial;
+import java.util.Date;
 
 /**
  * This feature allows testing {@link MediaPath#getLastModified(Item)} with values,

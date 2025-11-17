@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Locale;
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 class AssertionFailedHttpServletResponse implements HttpServletResponse

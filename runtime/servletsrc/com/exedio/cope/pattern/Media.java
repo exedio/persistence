@@ -47,6 +47,8 @@ import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Clock;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,8 +62,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.Nonnull;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.Contract;
 
 public final class Media extends MediaPath implements Settable<Media.Value>, Copyable

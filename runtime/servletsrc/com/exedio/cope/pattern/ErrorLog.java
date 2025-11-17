@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import jakarta.servlet.http.HttpServletRequest;
 
 final class ErrorLog
 {

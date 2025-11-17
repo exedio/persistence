@@ -19,12 +19,12 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serial;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 public final class MediaFilterFallbackFeature extends MediaFilter
 {

@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import java.io.IOException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.WriteListener;
+import java.io.IOException;
 
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 class AssertionFailedServletOutputStream extends ServletOutputStream

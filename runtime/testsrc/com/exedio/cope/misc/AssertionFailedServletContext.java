@@ -18,12 +18,6 @@
 
 package com.exedio.cope.misc;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Enumeration;
-import java.util.EventListener;
-import java.util.Map;
-import java.util.Set;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.RequestDispatcher;
@@ -33,6 +27,12 @@ import jakarta.servlet.ServletRegistration;
 import jakarta.servlet.SessionCookieConfig;
 import jakarta.servlet.SessionTrackingMode;
 import jakarta.servlet.descriptor.JspConfigDescriptor;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.EventListener;
+import java.util.Map;
+import java.util.Set;
 
 public class AssertionFailedServletContext implements ServletContext
 {

@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import java.util.Date;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 public final class MediaRequestLog
 {

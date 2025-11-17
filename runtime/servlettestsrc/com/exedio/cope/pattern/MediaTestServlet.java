@@ -20,12 +20,12 @@ package com.exedio.cope.pattern;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.io.Serial;
-import jakarta.servlet.http.HttpServletRequest;
 
 public final class MediaTestServlet extends MediaServlet
 {

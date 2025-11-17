@@ -21,11 +21,11 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Locale.ENGLISH;
 
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nonnull;
-import jakarta.servlet.http.HttpServletResponse;
 
 public final class MediaResponse
 {
