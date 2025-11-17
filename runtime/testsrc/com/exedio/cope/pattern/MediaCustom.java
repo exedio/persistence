@@ -21,9 +21,9 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapInterim;
-import java.io.Serial;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.Serial;
 
 /**
  * A test subclass of MediaPath for unit-testing custom extensions of MediaPath.

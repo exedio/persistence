@@ -23,13 +23,13 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.exedio.cope.Model;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.misc.ConnectToken;
-import java.io.IOException;
-import java.io.Serial;
-import java.text.ParseException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.Serial;
+import java.text.ParseException;
 
 public class InitServlet extends HttpServlet
 {

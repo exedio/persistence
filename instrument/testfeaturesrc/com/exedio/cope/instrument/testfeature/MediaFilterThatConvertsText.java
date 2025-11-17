@@ -23,11 +23,11 @@ import static com.exedio.cope.pattern.MediaType.JPEG;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.Serial;
 import java.util.Collections;
 import java.util.Set;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class MediaFilterThatConvertsText extends MediaFilter
 {
