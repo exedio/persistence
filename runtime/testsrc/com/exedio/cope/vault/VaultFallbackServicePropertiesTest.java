@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -25,6 +26,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.AssertionErrorVaultService;
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultFallbackService.Props;
@@ -69,6 +71,20 @@ public class VaultFallbackServicePropertiesTest
 						"fallbacks.2",
 						"copyFallbackToMain"),
 				p.getFields().stream().map(Properties.Field::getKey).toList());
+	}
+
+	@Test
+	void testFallbackRequired()
+	{
+		final Source source = describe("DESC", cascade(
+				single("main", MyService.class),
+				single("fallbacks.count", 0)
+		));
+		assertFails(
+				() -> new Props(source),
+				IllegalPropertiesException.class,
+				"property fallbacks.count in DESC must be an integer greater or equal 1, but was 0"
+		);
 	}
 
 	private static final class MyService extends AssertionErrorVaultService
