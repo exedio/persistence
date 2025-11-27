@@ -381,7 +381,7 @@ public final class VaultFallbackService implements VaultService
 	static final class Props extends AbstractVaultProperties
 	{
 		private final Service main = valueService("main", true);
-		private final List<Service> fallbacks = valueFallbacks();
+		private final List<Service> fallbacks = valueList("fallbacks", this::valueFallbackService, 1);
 		private final boolean copyFallbackToMain = value("copyFallbackToMain", true);
 
 		Props(final Source source)
@@ -401,11 +401,6 @@ public final class VaultFallbackService implements VaultService
 				throw newException(key,
 						"must not nest another VaultFallbackService, use multiple fallback services instead");
 			return result;
-		}
-
-		private List<Service> valueFallbacks()
-		{
-			return valueList("fallbacks", this::valueFallbackService, 1);
 		}
 	}
 }
