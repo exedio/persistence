@@ -27,7 +27,6 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.SQLRuntimeException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -155,35 +154,6 @@ final class MysqlDialect extends Dialect
 
 	private static final String STRICT_MODE_KEY = "innodb_strict_mode";
 	private static final int    STRICT_MODE_VALUE = 1;
-
-	@Override
-	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
-	void prepareDumperConnection(final Appendable out) throws IOException
-	{
-		out.append(
-				"SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;\n" +
-				"SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;\n" +
-				"SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;\n" +
-				"SET NAMES " + CHARSET + ";\n" +
-
-				"SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='" + SQL_MODE + "';\n" +
-
-				"SET @OLD_TIME_ZONE=@@TIME_ZONE;\n"+
-				"SET TIME_ZONE='+00:00';\n");
-	}
-
-	@Override
-	void unprepareDumperConnection(final Appendable out) throws IOException
-	{
-		out.append(
-				"""
-				SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT;
-				SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS;
-				SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION;
-				SET SQL_MODE=@OLD_SQL_MODE;
-				SET TIME_ZONE=@OLD_TIME_ZONE;
-				""");
-	}
 
 	@Override
 	void completeConnection(final Connection connection) throws SQLException

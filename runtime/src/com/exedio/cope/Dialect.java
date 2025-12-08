@@ -72,26 +72,6 @@ abstract class Dialect
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
-	/**
-	 * @param out used in subclasses
-	 * @throws IOException thrown by subclasses
-	 */
-	@SuppressWarnings("RedundantThrows") // IDEA bug - IOException is not redundant
-	void prepareDumperConnection(final Appendable out) throws IOException
-	{
-		// default implementation does nothing, may be overwritten by subclasses
-	}
-
-	/**
-	 * @param out used in subclasses
-	 * @throws IOException thrown by subclasses
-	 */
-	@SuppressWarnings("RedundantThrows") // IDEA bug - IOException is not redundant
-	void unprepareDumperConnection(final Appendable out) throws IOException
-	{
-		// default implementation does nothing, may be overwritten by subclasses
-	}
-
 	static final String EXPLAIN_PLAN = "explain plan";
 
 	/**
