@@ -50,14 +50,14 @@ public final class ModelBuilder
 
 	public ModelBuilder add(final Type<?>... types)
 	{
-		requireNull(this.types);
+		requireNotYetAdded(this.types, "Type<?>...");
 		this.types = requireNonEmptyAndCopy(types, "types");
 		return this;
 	}
 
 	public ModelBuilder add(final TypeSet... typeSets)
 	{
-		requireNull(this.typeSets);
+		requireNotYetAdded(this.typeSets, "TypeSet...");
 		this.typeSets = requireNonEmptyAndCopy(typeSets, "typeSets");
 		return this;
 	}
@@ -73,22 +73,22 @@ public final class ModelBuilder
 	 */
 	public ModelBuilder changeHooks(final ChangeHook.Factory... hooks)
 	{
-		requireNull(this.changeHook);
+		requireNotYetAdded(this.changeHook, "ChangeHook.Factory...");
 		this.changeHook = ChangeHooks.cascade(hooks);
 		return this;
 	}
 
 	public ModelBuilder add(final Revisions.Factory revisions)
 	{
-		requireNull(this.revisions);
+		requireNotYetAdded(this.revisions, "Revisions.Factory");
 		this.revisions = requireNonNull(revisions, "revisions");
 		return this;
 	}
 
-	private static void requireNull(final Object o)
+	private static void requireNotYetAdded(final Object o, final String parameter)
 	{
 		if(o!=null)
-			throw new IllegalStateException("already set");
+			throw new IllegalStateException("add(" +  parameter + ") already called, must be called at most once");
 	}
 
 	public Model build()
