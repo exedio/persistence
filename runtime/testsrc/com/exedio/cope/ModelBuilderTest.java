@@ -242,7 +242,7 @@ public class ModelBuilderTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("already set", e.getMessage());
+			assertEquals("add(Type<?>...) already called, must be called at most once", e.getMessage());
 		}
 	}
 
@@ -256,7 +256,7 @@ public class ModelBuilderTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("already set", e.getMessage());
+			assertEquals("add(TypeSet...) already called, must be called at most once", e.getMessage());
 		}
 	}
 
@@ -270,7 +270,7 @@ public class ModelBuilderTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("already set", e.getMessage());
+			assertEquals("add(ChangeHook.Factory...) already called, must be called at most once", e.getMessage());
 		}
 	}
 
@@ -284,7 +284,7 @@ public class ModelBuilderTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("already set", e.getMessage());
+			assertEquals("add(Revisions.Factory) already called, must be called at most once", e.getMessage());
 		}
 	}
 
