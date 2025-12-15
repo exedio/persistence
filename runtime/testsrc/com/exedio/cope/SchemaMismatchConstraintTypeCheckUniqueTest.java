@@ -60,10 +60,10 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 			final Constraint constraint = table.getConstraint("ItemAB_constraint");
 			assertExistance(true, supportsCheck, constraint);
 			assertEquals(Constraint.Type.Check, constraint.getType());
-			assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getCondition());
-			assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getRequiredCondition());
-			assertEquals(null, constraint.getMismatchingCondition());
-			assertEquals(null, constraint.getMismatchingConditionRaw());
+			assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getClause());
+			assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getRequiredClause());
+			assertEquals(null, constraint.getMismatchingClause());
+			assertEquals(null, constraint.getMismatchingClauseRaw());
 			assertEquals(CheckConstraint.class, constraint.getClass());
 			assertIt(supportsCheck ? null : "unsupported", OK, OK, constraint);
 		}
@@ -79,16 +79,16 @@ public class SchemaMismatchConstraintTypeCheckUniqueTest extends SchemaMismatchT
 		final Constraint constraint = table.getConstraint("ItemAB_constraint");
 		assertExistance(true, supportsCheck, constraint);
 		assertEquals(Constraint.Type.Unique, constraint.getType());
-		assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getCondition());
-		assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getRequiredCondition());
+		assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getClause());
+		assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getRequiredClause());
 		assertEquals(supportsCheck
 				? q("fieldA")+"<"+q("fieldB")
 				: null,
-				constraint.getMismatchingCondition());
+				constraint.getMismatchingClause());
 		assertEquals(supportsCheck
 				? q("fieldA")+sao+"<"+sao+q("fieldB")
 				: null,
-				constraint.getMismatchingConditionRaw());
+				constraint.getMismatchingClauseRaw());
 		assertEquals(UniqueConstraint.class, constraint.getClass());
 		assertIt(
 				supportsCheck

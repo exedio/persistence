@@ -101,24 +101,60 @@ public abstract class Constraint extends Node
 		return type;
 	}
 
+	/**
+	 * @deprecated Use {@link #getClause()} instead.
+	 */
+	@Deprecated
 	public final String getCondition()
+	{
+		return getClause();
+	}
+
+	public final String getClause()
 	{
 		return condition!=null ? condition.get() : null;
 	}
 
+	/**
+	 * @deprecated Use {@link #getRequiredClause()} instead.
+	 */
+	@Deprecated
 	public final String getRequiredCondition()
+	{
+		return getRequiredClause();
+	}
+
+	public final String getRequiredClause()
 	{
 		return condition!=null ? condition.getRequiredOrNull() : null;
 	}
 
+	/**
+	 * @deprecated Use {@link #getMismatchingClause()} instead.
+	 */
+	@Deprecated
 	public final String getMismatchingCondition()
+	{
+		return getMismatchingClause();
+	}
+
+	public final String getMismatchingClause()
 	{
 		return condition!=null ? condition.getMismatching(this) : null;
 	}
 
+	/**
+	 * @deprecated Use {@link #getMismatchingClauseRaw()} instead.
+	 */
+	@Deprecated
 	public final String getMismatchingConditionRaw()
 	{
-		return getMismatchingCondition()!=null ? existingConditionRaw : null;
+		return getMismatchingClauseRaw();
+	}
+
+	public final String getMismatchingClauseRaw()
+	{
+		return getMismatchingClause()!=null ? existingConditionRaw : null;
 	}
 
 	final void notifyExists()

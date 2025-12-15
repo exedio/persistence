@@ -268,7 +268,7 @@ final class RuntimeTester
 		final boolean expectedSupported = type!=CheckConstraint.class || (supportsCheckConstraint(model)&&!condition.contains(REGEXP));
 		assertNotNull(constraint, "no such constraint "+name+", but has "+table.getConstraints());
 		assertEquals(type, constraint.getClass(), name);
-		assertEquals(condition, constraint.getRequiredCondition(), name);
+		assertEquals(condition, constraint.getRequiredClause(), name);
 		assertEquals(expectedSupported, constraint.isSupported());
 		assertEquals(expectedSupported ? null : "unsupported", constraint.getError(), name);
 		assertEquals(Node.Color.OK, constraint.getParticularColor(), name);
@@ -345,7 +345,7 @@ final class RuntimeTester
 	{
 		assertOk(
 				constraint instanceof CheckConstraint &&
-				(!supportsCheckConstraint(model) || constraint.getRequiredCondition().contains(REGEXP))
+				(!supportsCheckConstraint(model) || constraint.getRequiredClause().contains(REGEXP))
 						? "unsupported"
 						: null,
 				constraint,

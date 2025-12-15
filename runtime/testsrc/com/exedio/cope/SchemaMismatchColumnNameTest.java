@@ -85,24 +85,24 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			{
 				assertIt("unused",   ERROR,   ERROR,   Check, checkA);
 				assertIt("missing",  WARNING, WARNING, Check, checkB);
-				assertEquals(q("fieldA") + " IN (0,1)", checkA.getCondition());
-				assertEquals(null, checkA.getRequiredCondition());
-				assertEquals(null, checkA.getMismatchingCondition());
-				assertEquals(null, checkA.getMismatchingConditionRaw());
-				assertEquals(q("fieldB") + " IN (0,1)", checkB.getCondition());
-				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredCondition());
-				assertEquals(null, checkB.getMismatchingCondition());
-				assertEquals(null, checkB.getMismatchingConditionRaw());
+				assertEquals(q("fieldA") + " IN (0,1)", checkA.getClause());
+				assertEquals(null, checkA.getRequiredClause());
+				assertEquals(null, checkA.getMismatchingClause());
+				assertEquals(null, checkA.getMismatchingClauseRaw());
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getClause());
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredClause());
+				assertEquals(null, checkB.getMismatchingClause());
+				assertEquals(null, checkB.getMismatchingClauseRaw());
 				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 			}
 			else
 			{
 				assertNull(checkA);
 				assertIt("unsupported",  OK, OK, Check, checkB);
-				assertEquals(q("fieldB") + " IN (0,1)", checkB.getCondition());
-				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredCondition());
-				assertEquals(null, checkB.getMismatchingCondition());
-				assertEquals(null, checkB.getMismatchingConditionRaw());
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getClause());
+				assertEquals(q("fieldB") + " IN (0,1)", checkB.getRequiredClause());
+				assertEquals(null, checkB.getMismatchingClause());
+				assertEquals(null, checkB.getMismatchingClauseRaw());
 			}
 
 			assertTrue(pkPk    instanceof com.exedio.dsmf.PrimaryKeyConstraint);
