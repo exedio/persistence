@@ -20,11 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
@@ -36,33 +36,18 @@ public class FeatureTest
 		final StringField f = new StringField().lengthRange(5, 8);
 
 		assertEqualsUnmodifiable(asList(), f.getSuspicions());
-		try
-		{
-			f.getType();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
-		try
-		{
-			f.getName();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
-		try
-		{
-			f.getID();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
+		assertFails(
+				f::getType,
+				IllegalStateException.class,
+				"feature not mounted");
+		assertFails(
+				f::getName,
+				IllegalStateException.class,
+				"feature not mounted");
+		assertFails(
+				f::getID,
+				IllegalStateException.class,
+				"feature not mounted");
 		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
 		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));
 		assertEquals(5, f.getMinimumLength());
@@ -81,15 +66,10 @@ public class FeatureTest
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 
-		try
-		{
-			new Type<>(AnItem.class, AnItem::new, AnItem.class, false, "typeId", null, null, null, features);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature already mounted: typeId.featureName", e.getMessage());
-		}
+		assertFails(
+				() -> new Type<>(AnItem.class, AnItem::new, AnItem.class, false, "typeId", null, null, null, features),
+				IllegalStateException.class,
+				"feature already mounted: typeId.featureName");
 	}
 
 	private static String toString(final Feature f, final Type<?> defaultType)
