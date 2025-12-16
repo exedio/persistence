@@ -34,10 +34,15 @@ public class FeatureTest
 	@Test void testType()
 	{
 		final StringField f = new StringField().lengthRange(5, 8);
+		final DataField df = new DataField();
 
 		assertEqualsUnmodifiable(asList(), f.getSuspicions());
 		assertFails(
 				f::getType,
+				IllegalStateException.class,
+				"feature not mounted");
+		assertFails(
+				df::getType,
 				IllegalStateException.class,
 				"feature not mounted");
 		assertFails(
@@ -52,6 +57,10 @@ public class FeatureTest
 				() -> f.getAnnotation(Override.class),
 				IllegalStateException.class,
 				"feature not mounted");
+		assertFails(
+				df::getAnnotatedVaultValue,
+				IllegalStateException.class,
+				"feature not mounted");
 		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
 		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));
 		assertEquals(5, f.getMinimumLength());
@@ -59,15 +68,18 @@ public class FeatureTest
 
 		final Features features = new Features();
 		features.put("featureName", f);
+		features.put("dataFeatureName", df);
 		final Type<AnItem> t = new Type<>(AnItem.class, AnItem::new, AnItem.class, false, "typeId", null, null, null, features);
 
 		assertSame(t, f.getType());
 		assertEquals("featureName", f.getName());
 		assertEquals("typeId.featureName", f.getID());
+		assertEquals("typeId.dataFeatureName", df.getID());
 		assertEquals(null, f.getAnnotation(Override.class));
 		assertEquals("typeId.featureName", f.toString());
 		assertEquals("typeId.featureName", toString(f, null));
 		assertEquals("featureName", toString(f, t));
+		assertEquals(null, df.getAnnotatedVaultValue());
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 
