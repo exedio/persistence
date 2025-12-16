@@ -48,6 +48,10 @@ public class FeatureTest
 				f::getID,
 				IllegalStateException.class,
 				"feature not mounted");
+		assertFails(
+				() -> f.getAnnotation(Override.class),
+				IllegalStateException.class,
+				"feature not mounted");
 		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
 		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));
 		assertEquals(5, f.getMinimumLength());
@@ -60,6 +64,7 @@ public class FeatureTest
 		assertSame(t, f.getType());
 		assertEquals("featureName", f.getName());
 		assertEquals("typeId.featureName", f.getID());
+		assertEquals(null, f.getAnnotation(Override.class));
 		assertEquals("typeId.featureName", f.toString());
 		assertEquals("typeId.featureName", toString(f, null));
 		assertEquals("featureName", toString(f, t));
