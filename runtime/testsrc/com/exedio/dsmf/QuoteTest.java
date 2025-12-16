@@ -104,7 +104,7 @@ public class QuoteTest extends SchemaReadyTest
 		assertNotNull(ckc);
 		assertSame(table, ckc.getTable());
 		assertEquals(CHK_NAME, ckc.getName());
-		assertEquals("(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)", ckc.getRequiredCondition());
+		assertEquals("(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)", ckc.getRequiredClause());
 		assertEquals(supportsCheckConstraint ? null : "unsupported", ckc.getError());
 	}
 

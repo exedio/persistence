@@ -55,10 +55,10 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 				"unexpected condition " +
 				">>>field->" + name(TargetA.TYPE) + "." + name(TargetA.TYPE.getThis()) + "<<<",
 				ERROR, ERROR, ForeignKey, fk = table.getConstraint(nameFk(ItemA.field)));
-		assertEquals("field->TargetB." + synthetic("this", "TargetB"), fk.getCondition());
-		assertEquals("field->TargetB." + synthetic("this", "TargetB"), fk.getRequiredCondition());
-		assertEquals("field->TargetA." + synthetic("this", "TargetA"), fk.getMismatchingCondition());
-		assertEquals("field->TargetA." + synthetic("this", "TargetA"), fk.getMismatchingConditionRaw());
+		assertEquals("field->TargetB." + synthetic("this", "TargetB"), fk.getClause());
+		assertEquals("field->TargetB." + synthetic("this", "TargetB"), fk.getRequiredClause());
+		assertEquals("field->TargetA." + synthetic("this", "TargetA"), fk.getMismatchingClause());
+		assertEquals("field->TargetA." + synthetic("this", "TargetA"), fk.getMismatchingClauseRaw());
 
 		assertTrue(fk instanceof com.exedio.dsmf.ForeignKeyConstraint);
 

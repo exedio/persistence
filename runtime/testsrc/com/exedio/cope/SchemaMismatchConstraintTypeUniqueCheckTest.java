@@ -52,10 +52,10 @@ public class SchemaMismatchConstraintTypeUniqueCheckTest extends SchemaMismatchT
 			final Constraint constraint = table.getConstraint("ItemAB_constraint");
 			assertExistance(true, true, constraint);
 			assertEquals(Constraint.Type.Unique, constraint.getType());
-			assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getCondition());
-			assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getRequiredCondition());
-			assertEquals(null, constraint.getMismatchingCondition());
-			assertEquals(null, constraint.getMismatchingConditionRaw());
+			assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getClause());
+			assertEquals("("+q("fieldA")+","+q("fieldB")+")", constraint.getRequiredClause());
+			assertEquals(null, constraint.getMismatchingClause());
+			assertEquals(null, constraint.getMismatchingClauseRaw());
 			assertEquals(UniqueConstraint.class, constraint.getClass());
 			assertIt(null, OK, OK, constraint);
 		}
@@ -71,14 +71,14 @@ public class SchemaMismatchConstraintTypeUniqueCheckTest extends SchemaMismatchT
 		final Constraint constraint = table.getConstraint("ItemAB_constraint");
 		assertExistance(true, true, constraint);
 		assertEquals(Constraint.Type.Check, constraint.getType());
-		assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getCondition());
-		assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getRequiredCondition());
+		assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getClause());
+		assertEquals(q("fieldA")+"<"+q("fieldB"), constraint.getRequiredClause());
 		assertEquals(
 				"("+q("fieldA")+","+q("fieldB")+")",
-				constraint.getMismatchingCondition());
+				constraint.getMismatchingClause());
 		assertEquals(
 				"("+q("fieldA")+","+q("fieldB")+")",
-				constraint.getMismatchingConditionRaw());
+				constraint.getMismatchingClauseRaw());
 		assertEquals(CheckConstraint.class, constraint.getClass());
 		assertIt(
 				"unexpected condition >>>("+q("fieldA")+","+q("fieldB")+")<<<",

@@ -103,7 +103,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 		assertNotNull(constraint);
 		assertEquals(
 				"("+SI.type(Top.TYPE)+" NOT IN ('Middle','Bottom')) OR ("+SI.col(Top.field)+" IS NOT NULL)",
-				constraint.getRequiredCondition());
+				constraint.getRequiredClause());
 		assertEquals(supportsCheckConstraint(model)?null:"unsupported", constraint.getError());
 		assertEquals(Node.Color.OK, constraint.getParticularColor());
 	}

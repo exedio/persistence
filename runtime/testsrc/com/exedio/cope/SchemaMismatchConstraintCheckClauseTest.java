@@ -58,10 +58,10 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 			assertIt(supported ? null : "unsupported", OK, OK, Check, check);
 			assertEquals(supported, check.isSupported());
 			assertExistance(true, supported, check);
-			assertEquals(q("field") + "<=66", check.getCondition());
-			assertEquals(q("field") + "<=66", check.getRequiredCondition());
-			assertEquals(null, check.getMismatchingCondition());
-			assertEquals(null, check.getMismatchingConditionRaw());
+			assertEquals(q("field") + "<=66", check.getClause());
+			assertEquals(q("field") + "<=66", check.getRequiredClause());
+			assertEquals(null, check.getMismatchingClause());
+			assertEquals(null, check.getMismatchingClauseRaw());
 		}
 
 		assertEquals(name(ItemA.TYPE), name(ItemB.TYPE));
@@ -86,10 +86,10 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 			assertIt(error, ERROR, ERROR, Check, check);
 			assertEquals(true, check.isSupported());
 			assertExistance(true, true, check);
-			assertEquals(q("field") + "<=88", check.getCondition());
-			assertEquals(q("field") + "<=88", check.getRequiredCondition());
-			assertEquals(q("field") + "<=66", check.getMismatchingCondition());
-			assertEquals(q("field") + sao+"<="+sao + "66", check.getMismatchingConditionRaw());
+			assertEquals(q("field") + "<=88", check.getClause());
+			assertEquals(q("field") + "<=88", check.getRequiredClause());
+			assertEquals(q("field") + "<=66", check.getMismatchingClause());
+			assertEquals(q("field") + sao+"<="+sao + "66", check.getMismatchingClauseRaw());
 
 			// test propagation to cumulativeColor
 			assertIt(null, OK, ERROR, table.getColumn(name(ItemA.field)));
@@ -99,10 +99,10 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 			assertIt("unsupported", OK, OK, Check, check);
 			assertEquals(false, check.isSupported());
 			assertExistance(true, false, check);
-			assertEquals(q("field") + "<=88", check.getCondition());
-			assertEquals(q("field") + "<=88", check.getRequiredCondition());
-			assertEquals(null, check.getMismatchingCondition());
-			assertEquals(null, check.getMismatchingConditionRaw());
+			assertEquals(q("field") + "<=88", check.getClause());
+			assertEquals(q("field") + "<=88", check.getRequiredClause());
+			assertEquals(null, check.getMismatchingClause());
+			assertEquals(null, check.getMismatchingClauseRaw());
 
 			// test propagation to cumulativeColor
 			assertIt(null, OK, OK, table.getColumn(name(ItemA.field)));

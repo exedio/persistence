@@ -129,7 +129,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 	private void assertIt(final String name, final String requiredCondition, final CheckConstraint constraint)
 	{
 		assertEquals(name, constraint.getName());
-		assertEquals(requiredCondition, constraint.getRequiredCondition());
+		assertEquals(requiredCondition, constraint.getRequiredClause());
 		assertEquals(supportsCheckConstraint(model)?null:"unsupported", constraint.getError());
 		assertEquals(Node.Color.OK, constraint.getParticularColor());
 	}

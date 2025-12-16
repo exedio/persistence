@@ -72,11 +72,11 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 
 		if(supportsNativeDate(model))
 		{
-			assertEquals(extract(hours  , MINUTE)+"=0",   hoursPM.getRequiredCondition());
+			assertEquals(extract(hours  , MINUTE)+"=0",   hoursPM.getRequiredClause());
 
-			assertEquals(mysql?"EXTRACT("+    "MICROSECOND FROM `seconds`)=0":extract(seconds, SECOND)+"=FLOOR("+extract(seconds, SECOND)+")", secondsPS.getRequiredCondition());
-			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `minutes`)=0":extract(minutes, SECOND)+"=0", minutesPS.getRequiredCondition());
-			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `hours`)=0"  :extract(hours  , SECOND)+"=0",   hoursPS.getRequiredCondition());
+			assertEquals(mysql?"EXTRACT("+    "MICROSECOND FROM `seconds`)=0":extract(seconds, SECOND)+"=FLOOR("+extract(seconds, SECOND)+")", secondsPS.getRequiredClause());
+			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `minutes`)=0":extract(minutes, SECOND)+"=0", minutesPS.getRequiredClause());
+			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `hours`)=0"  :extract(hours  , SECOND)+"=0",   hoursPS.getRequiredClause());
 
 			assertEquals(asList(
 					secondsPS, minutesPS, hoursPM, hoursPS),
@@ -84,9 +84,9 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		}
 		else
 		{
-			assertEquals(precision(seconds,    1000), secondsPR.getRequiredCondition());
-			assertEquals(precision(minutes,   60000), minutesPR.getRequiredCondition());
-			assertEquals(precision(hours  , 3600000),   hoursPR.getRequiredCondition());
+			assertEquals(precision(seconds,    1000), secondsPR.getRequiredClause());
+			assertEquals(precision(minutes,   60000), minutesPR.getRequiredClause());
+			assertEquals(precision(hours  , 3600000),   hoursPR.getRequiredClause());
 
 			assertEquals(asList(
 					secondsPR, minutesPR, hoursPR),

@@ -55,10 +55,10 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 				"unexpected condition " +
 				">>>(" + q("field1") + "," + q("field2") + ")<<<",
 				ERROR, ERROR, Unique, unique = table.getConstraint(name(ItemA.unique)));
-		assertEquals("(" + q("field2") + "," + q("field1") + ")", unique.getCondition());
-		assertEquals("(" + q("field2") + "," + q("field1") + ")", unique.getRequiredCondition());
-		assertEquals("(" + q("field1") + "," + q("field2") + ")", unique.getMismatchingCondition());
-		assertEquals("(" + q("field1") + "," + q("field2") + ")", unique.getMismatchingConditionRaw());
+		assertEquals("(" + q("field2") + "," + q("field1") + ")", unique.getClause());
+		assertEquals("(" + q("field2") + "," + q("field1") + ")", unique.getRequiredClause());
+		assertEquals("(" + q("field1") + "," + q("field2") + ")", unique.getMismatchingClause());
+		assertEquals("(" + q("field1") + "," + q("field2") + ")", unique.getMismatchingClauseRaw());
 
 		assertTrue(unique instanceof com.exedio.dsmf.UniqueConstraint);
 

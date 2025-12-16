@@ -51,11 +51,6 @@ public final class UniqueConstraint extends Constraint
 		//System.out.println("-------------"+name+"-"+clause);
 	}
 
-	public String getClause()
-	{
-		return clause;
-	}
-
 	@Override
 	void appendCreateClause(final StringBuilder sb)
 	{
