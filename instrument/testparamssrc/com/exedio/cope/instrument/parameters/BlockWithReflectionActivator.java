@@ -24,7 +24,7 @@ final class BlockWithReflectionActivator extends Block
 {
 	@com.exedio.cope.instrument.GeneratedClass
 	@java.io.Serial
-	private static final long serialVersionUID = 1;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The type information for blockWithReflectionActivator.

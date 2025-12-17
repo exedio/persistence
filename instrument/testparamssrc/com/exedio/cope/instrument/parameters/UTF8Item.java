@@ -82,7 +82,7 @@ public final class UTF8Item extends Item
 
 	@com.exedio.cope.instrument.GeneratedClass
 	@java.io.Serial
-	private static final long serialVersionUID = 1;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The persistent type information for uTF8Item.
