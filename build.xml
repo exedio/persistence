@@ -777,7 +777,6 @@
 		<instrument
 				dir="instrument/testparamssrc"
 				verify="${instrument.verify}"
-				serialVersionUIDSuffix="none"
 				useConstantForEmptySetValuesArray="false"
 				generatedAnnotationRetention="CLASS"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
