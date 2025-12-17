@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class DataVaultCharacterSetTest
 {
@@ -32,25 +33,25 @@ public class DataVaultCharacterSetTest
 	{
 		assertEquals(null, MyBlank.blank.getAnnotatedVaultValue());
 		assertEquals("MyBlank-ok-V", MyBlank.ok.getAnnotatedVaultValue());
-		assertBroken("MyBlank.broken.V", "MyBlankBroken.broken", 7, MyBlankBroken.broken);
+		assertBroken("MyBlank.broken.V", "MyBlankBroken.broken", 7, MyBlankBroken.class);
 		assertEquals("MyOk-V", MyOk.blank.getAnnotatedVaultValue());
 		assertEquals("MyOk-ok-V", MyOk.ok.getAnnotatedVaultValue());
-		assertBroken("MyOk.broken.V", "MyOkBroken.broken", 4, MyOkBroken.broken);
-		assertBroken("MyBroken.V", "MyBrokenBlank", 8, MyBrokenBlank.blank);
+		assertBroken("MyOk.broken.V", "MyOkBroken.broken", 4, MyOkBroken.class);
+		assertBroken("MyBroken.V", "MyBrokenBlank", 8, MyBrokenBlank.class);
 		assertEquals("MyBroken-ok-V", MyBroken.ok.getAnnotatedVaultValue());
-		assertBroken("MyBroken.broken.V", "MyBrokenBroken.broken", 8, MyBrokenBroken.broken);
+		assertBroken("MyBroken.broken.V", "MyBrokenBroken.broken", 8, MyBrokenBroken.class);
 
 		assertFails(
-				MyBlankEmpty.empty::getAnnotatedVaultValue,
+				() -> TypesBound.newType(MyBlankEmpty.class, ap -> { throw new AssertionFailedError(); }),
 				IllegalArgumentException.class,
 				"@Vault at MyBlankEmpty.empty must not be empty");
 	}
 
 	private static void assertBroken(
-			final String value, final String origin, final int position, final DataField field)
+			final String value, final String origin, final int position, final Class<? extends Item> javaClass)
 	{
 		assertFails(
-				field::getAnnotatedVaultValue,
+				() -> TypesBound.newType(javaClass, ap -> { throw new AssertionFailedError(); }),
 				IllegalArgumentException.class,
 				"@Vault at " + origin + " must contain just [---,0-9,A-Z,a-z], " +
 				"but was >" + value + "< containing a forbidden character at position " + position);
@@ -77,7 +78,7 @@ public class DataVaultCharacterSetTest
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class MyBlankEmpty extends Item
 	{
 		@Vault("")
@@ -88,15 +89,9 @@ public class DataVaultCharacterSetTest
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyBlankEmpty> TYPE = com.exedio.cope.TypesBound.newType(MyBlankEmpty.class,MyBlankEmpty::new);
-
-		@com.exedio.cope.instrument.Generated
-		protected MyBlankEmpty(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class MyBlankBroken extends Item
 	{
 		@Vault("MyBlank.broken.V")
@@ -107,12 +102,6 @@ public class DataVaultCharacterSetTest
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyBlankBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBlankBroken.class,MyBlankBroken::new);
-
-		@com.exedio.cope.instrument.Generated
-		protected MyBlankBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Vault("MyOk-V")
@@ -138,7 +127,7 @@ public class DataVaultCharacterSetTest
 	}
 
 	@Vault("MyOk-V")
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class MyOkBroken extends Item
 	{
 		@Vault("MyOk.broken.V")
@@ -149,12 +138,6 @@ public class DataVaultCharacterSetTest
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyOkBroken> TYPE = com.exedio.cope.TypesBound.newType(MyOkBroken.class,MyOkBroken::new);
-
-		@com.exedio.cope.instrument.Generated
-		protected MyOkBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Vault("MyBroken.V")
@@ -177,7 +160,7 @@ public class DataVaultCharacterSetTest
 	}
 
 	@Vault("MyBroken.V")
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class MyBrokenBlank extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -187,16 +170,10 @@ public class DataVaultCharacterSetTest
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyBrokenBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBrokenBlank.class,MyBrokenBlank::new);
-
-		@com.exedio.cope.instrument.Generated
-		protected MyBrokenBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Vault("MyBroken.V")
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class MyBrokenBroken extends Item
 	{
 		@Vault("MyBroken.broken.V")
@@ -207,11 +184,5 @@ public class DataVaultCharacterSetTest
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<MyBrokenBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBrokenBroken.class,MyBrokenBroken::new);
-
-		@com.exedio.cope.instrument.Generated
-		protected MyBrokenBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

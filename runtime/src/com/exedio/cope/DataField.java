@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serial;
+import java.lang.reflect.AnnotatedElement;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -103,6 +104,16 @@ public final class DataField extends Field<DataField.Value>
 		return maximumLength;
 	}
 
+	private String annotatedVaultValueIfMounted = null;
+
+	@Override
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
+	{
+		super.mount(type, name, annotationSource);
+
+		annotatedVaultValueIfMounted = computeAnnotatedVaultValue(type, annotationSource);
+	}
+
 	public boolean isAnnotatedVault()
 	{
 		return getAnnotatedVaultValue()!=null;
@@ -113,11 +124,21 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public String getAnnotatedVaultValue()
 	{
-		final Vault byFeature = getAnnotation(Vault.class);
+		getType(); // fail if not mounted yet
+		return annotatedVaultValueIfMounted;
+	}
+
+	private String computeAnnotatedVaultValue(
+			final Type<?> type,
+			final AnnotatedElement annotationSource)
+	{
+		final Vault byFeature =
+				annotationSource!=null
+				? annotationSource.getAnnotation(Vault.class)
+				: null;
 		if(byFeature!=null)
 			return checkVault(byFeature.value(), this);
 
-		final Type<?> type = getType();
 		final Vault byType = type.getAnnotation(Vault.class);
 		if(byType!=null)
 			return checkVault(byType.value(), type);
