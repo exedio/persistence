@@ -24,8 +24,8 @@ enum IntegerTypeSuffix
 	 * Not recommended by JLS 3.10.1 Integer Literals, as it might be hard
 	 * to distinguish from the digit one.
 	 */
-	small("l"),
 	@SuppressWarnings("unused") // OK: evaluated generically
+	small("l"),
 	capital("L"),
 	@SuppressWarnings("unused") // OK: evaluated generically
 	none(null);

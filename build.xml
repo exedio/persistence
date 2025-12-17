@@ -340,6 +340,7 @@
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
 				encoding="ascii"
+				serialVersionUIDSuffix="small"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				warnWrapperCombinable="true"
@@ -547,6 +548,7 @@
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
 				encoding="ascii"
+				serialVersionUIDSuffix="small"
 				finalMethodInFinalClass="false"
 				warnWrapperCombinable="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
@@ -741,6 +743,7 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
+				serialVersionUIDSuffix="small"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				warnWrapperCombinable="true"
@@ -797,7 +800,6 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
-				serialVersionUIDSuffix="capital"
 				finalMethodInFinalClass="false"
 				warnWrapperCombinable="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">

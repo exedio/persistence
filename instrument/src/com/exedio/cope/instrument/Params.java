@@ -81,7 +81,7 @@ final class Params
 	}
 
 	boolean nullabilityAnnotations = false;
-	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
+	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.capital;
 	boolean finalMethodInFinalClass = true;
 	boolean useConstantForEmptySetValuesArray = true;
 	String introCommentOneTime = null;
