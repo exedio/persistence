@@ -61,6 +61,10 @@ public class FeatureTest
 				df::getAnnotatedVaultValue,
 				IllegalStateException.class,
 				"feature not mounted");
+		assertFails(
+				df::isAnnotatedVault,
+				IllegalStateException.class,
+				"feature not mounted");
 		assertTrue(f.toString().startsWith("com.exedio.cope.StringField@"));
 		assertTrue(toString(f, null).startsWith("com.exedio.cope.StringField@"));
 		assertEquals(5, f.getMinimumLength());
@@ -80,6 +84,7 @@ public class FeatureTest
 		assertEquals("typeId.featureName", toString(f, null));
 		assertEquals("featureName", toString(f, t));
 		assertEquals(null, df.getAnnotatedVaultValue());
+		assertEquals(false, df.isAnnotatedVault());
 		assertEquals(5, f.getMinimumLength());
 		assertEquals(8, f.getMaximumLength());
 
