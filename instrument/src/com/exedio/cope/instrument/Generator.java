@@ -760,8 +760,7 @@ final class Generator
 		// to de-serialize serialized instances. Therefore, abstract item classes get
 		// a different serialVersionUID.
 		write( Modifier.isAbstract(type.getModifier()) ? '2' : '1' );
-		if(serialVersionUIDSuffix!=null)
-			write(serialVersionUIDSuffix);
+		write(serialVersionUIDSuffix);
 		write(';');
 		write(lineSeparator);
 	}
