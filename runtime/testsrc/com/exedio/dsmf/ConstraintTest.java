@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import static com.exedio.dsmf.TableTest.getError;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -100,7 +101,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 		assertSame(table, schema.getTable(TABLE));
 		assertNotNull(table);
-		assertEquals(null, table.getError());
+		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		assertSame(nn, assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"));

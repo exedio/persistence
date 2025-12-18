@@ -24,6 +24,7 @@ import static com.exedio.cope.CheckConstraintItem.beta;
 import static com.exedio.cope.CheckConstraintSuperItem.eins;
 import static com.exedio.cope.CheckConstraintSuperItem.zwei;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -47,12 +48,12 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
-		assertEquals(null, table.getError());
+		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
 		assertNotNull(superTable);
-		assertEquals(null, superTable.getError());
+		assertEquals(null, getError(superTable));
 		assertEquals(Node.Color.OK, superTable.getParticularColor());
 
 		assertCheckConstraint(table, "Main_alpha_MN"   , SI.col(alpha)+">=-2147483648");

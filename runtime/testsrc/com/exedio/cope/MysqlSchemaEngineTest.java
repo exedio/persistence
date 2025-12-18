@@ -25,6 +25,7 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -85,13 +86,13 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 				tableError!=null ? List.of(tableError) : List.of(),
 				table.getAdditionalErrors());
 		final Column column = table.getColumn(getPrimaryKeyColumnName(MyItem.TYPE));
-		assertEquals(columnError, column.getError(),           "column.error");
+		assertEquals(columnError, getError(column),            "column.error");
 		assertEquals(columnColor, column.getParticularColor(), "column.particularColor");
 		assertEquals(columnColor, column.getCumulativeColor(), "column.cumulativeColor");
-		assertEquals(tableError,  table .getError(),           "table.error");
+		assertEquals(tableError,  getError(table),             "table.error");
 		assertEquals(tableColor,  table .getParticularColor(), "table.particularColor");
 		assertEquals(tableColor,  table .getCumulativeColor(), "table.cumulativeColor");
-		assertEquals(null,        schema.getError(),           "schema.error");
+		assertEquals(null,        getError(schema),            "schema.error");
 		assertEquals(OK,          schema.getParticularColor(), "schema.particularColor");
 		assertEquals(tableColor,  schema.getCumulativeColor(), "schema.cumulativeColor");
 	}

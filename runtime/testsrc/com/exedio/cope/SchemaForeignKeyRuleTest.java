@@ -24,6 +24,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -94,16 +95,16 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 		final Constraint fk = table.getConstraint(FK_NAME);
 		assertAll(
 				() -> assertEqualsUnmodifiable(additionalErrors, fk.getAdditionalErrors(), "fk.additionalErrors"),
-				() -> assertEquals(error, fk.getError(),               "fk.error"),
+				() -> assertEquals(error, getError(fk),                "fk.error"),
 				() -> assertEquals(color, fk.getParticularColor(),     "fk.particularColor"),
 				() -> assertEquals(color, fk.getCumulativeColor(),     "fk.cumulativeColor"),
-				() -> assertEquals(null,  column.getError(),           "column.error"),
+				() -> assertEquals(null,  getError(column),            "column.error"),
 				() -> assertEquals(OK,    column.getParticularColor(), "column.particularColor"),
 				() -> assertEquals(color, column.getCumulativeColor(), "column.cumulativeColor"),
-				() -> assertEquals(null,  table .getError(),           "table.error"),
+				() -> assertEquals(null,  getError(table),             "table.error"),
 				() -> assertEquals(OK,    table .getParticularColor(), "table.particularColor"),
 				() -> assertEquals(color, table .getCumulativeColor(), "table.cumulativeColor"),
-				() -> assertEquals(null,  schema.getError(),           "schema.error"),
+				() -> assertEquals(null,  getError(schema),            "schema.error"),
 				() -> assertEquals(OK,    schema.getParticularColor(), "schema.particularColor"),
 				() -> assertEquals(color, schema.getCumulativeColor(), "schema.cumulativeColor"));
 	}

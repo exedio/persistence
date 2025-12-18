@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.dsmf.TableTest.getError;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -159,7 +160,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 			final Node actual)
 	{
 		assertNotNull(actual, "notNull");
-		assertEquals(expectedError, actual.getError(), "error");
+		assertEquals(expectedError, getError(actual), "error");
 		assertEquals(expectedParticularColor, actual.getParticularColor(), "particularColor");
 		assertEquals(expectedCumulativeColor, actual.getCumulativeColor(), "cumulativeColor");
 	}

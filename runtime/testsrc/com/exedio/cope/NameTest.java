@@ -26,6 +26,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -124,7 +125,7 @@ public class NameTest extends TestWithEnvironment
 			final Schema schema = model.getVerifiedSchema();
 			final com.exedio.dsmf.Table nameSub = schema.getTable(getTableName(NameSubItem.TYPE));
 			assertNotNull(nameSub);
-			assertEquals(null, nameSub.getError());
+			assertEquals(null, getError(nameSub));
 			assertEquals(Node.Color.OK, nameSub.getParticularColor());
 
 			assertEquals(synthetic("this", "Sub"), nameSub.getColumn(synthetic("this", "Sub"))   .getName());
@@ -158,8 +159,8 @@ public class NameTest extends TestWithEnvironment
 			assertCheckConstraint (nameSub, "Sub_itemY_MN",     q("itemY")+">=0");
 			assertCheckConstraint (nameSub, "Sub_itemY_MX",     q("itemY")+"<=2147483647");
 
-			assertEquals(null, nameSub.getColumn("unique").getError());
-			assertEquals(null, nameSub.getColumn("uniqueY").getError());
+			assertEquals(null, getError(nameSub.getColumn("unique")));
+			assertEquals(null, getError(nameSub.getColumn("uniqueY")));
 			if(hsqldb)
 			{
 				assertEquals("INTEGER" + NOT_NULL, nameSub.getColumn("unique") .getType());

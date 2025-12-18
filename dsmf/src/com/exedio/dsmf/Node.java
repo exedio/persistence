@@ -169,6 +169,19 @@ public abstract class Node
 		return result;
 	}
 
+	/**
+	 * @deprecated
+	 * Use more specific methods instead,
+	 * such as
+	 * {@link #required()},
+	 * {@link #exists()},
+	 * {@link #getAdditionalErrors()},
+	 * {@link Column#getMismatchingType()},
+	 * {@link Constraint#getMismatchingClause()},
+	 * {@link Sequence#getMismatchingType()}
+	 * etc.
+	 */
+	@Deprecated
 	public final String getError()
 	{
 		return result().error;

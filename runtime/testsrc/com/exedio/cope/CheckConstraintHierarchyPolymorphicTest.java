@@ -22,6 +22,7 @@ import static com.exedio.cope.CheckConstraintTest.assertFailsCheck;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -96,7 +97,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 
 		final com.exedio.dsmf.Table topTable = schema.getTable(getTableName(Top.TYPE));
 		assertNotNull(topTable);
-		assertEquals(null, topTable.getError());
+		assertEquals(null, getError(topTable));
 		assertEquals(Node.Color.OK, topTable.getParticularColor());
 
 		final Constraint constraint = topTable.getConstraint(Middle.CONSTRAINT_NAME);
@@ -104,7 +105,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 		assertEquals(
 				"("+SI.type(Top.TYPE)+" NOT IN ('Middle','Bottom')) OR ("+SI.col(Top.field)+" IS NOT NULL)",
 				constraint.getRequiredClause());
-		assertEquals(supportsCheckConstraint(model)?null:"unsupported", constraint.getError());
+		assertEquals(supportsCheckConstraint(model)?null:"unsupported", getError(constraint));
 		assertEquals(Node.Color.OK, constraint.getParticularColor());
 	}
 

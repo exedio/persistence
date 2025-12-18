@@ -21,6 +21,7 @@ package com.exedio.dsmf;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -65,13 +66,13 @@ public class ColumnTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
+			assertEquals(null, getError(column));
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
@@ -85,14 +86,14 @@ public class ColumnTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			{
 				assertSame(column, table.getColumn(COLUMN1));
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
-				assertEquals("missing", column.getError());
+				assertEquals("missing", getError(column));
 				assertEquals(ERROR, column.getParticularColor());
 				assertEquals(intType, column.getType());
 			}
@@ -100,7 +101,7 @@ public class ColumnTest extends SchemaReadyTest
 				final Column columnX = table.getColumn(COLUMN1X);
 				assertEquals(false, columnX.required());
 				assertEquals(true, columnX.exists());
-				assertEquals("unused", columnX.getError());
+				assertEquals("unused", getError(columnX));
 				assertEquals(WARNING, columnX.getParticularColor());
 				assertEquals(intType, columnX.getType());
 				assertNotSame(column, columnX);
@@ -116,13 +117,13 @@ public class ColumnTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
+			assertEquals(null, getError(column));
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
@@ -136,13 +137,13 @@ public class ColumnTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals("unexpected type >"+intType2+"<", column.getError());
+			assertEquals("unexpected type >"+intType2+"<", getError(column));
 			assertEquals(ERROR, column.getParticularColor());
 			assertEquals(intType, column.getType());
 			column.modify(intType);
@@ -155,13 +156,13 @@ public class ColumnTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
+			assertEquals(null, getError(column));
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
@@ -175,13 +176,13 @@ public class ColumnTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(false, column.exists());
-			assertEquals("missing", column.getError());
+			assertEquals("missing", getError(column));
 			assertEquals(ERROR, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
@@ -195,13 +196,13 @@ public class ColumnTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
+			assertEquals(null, getError(column));
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 		}

@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -270,7 +271,7 @@ final class RuntimeTester
 		assertEquals(type, constraint.getClass(), name);
 		assertEquals(condition, constraint.getRequiredClause(), name);
 		assertEquals(expectedSupported, constraint.isSupported());
-		assertEquals(expectedSupported ? null : "unsupported", constraint.getError(), name);
+		assertEquals(expectedSupported ? null : "unsupported", getError(constraint), name);
 		assertEquals(Node.Color.OK, constraint.getParticularColor(), name);
 		return type.cast(constraint);
 	}
@@ -361,7 +362,7 @@ final class RuntimeTester
 	{
 		assertAll(
 				message,
-				() -> assertEquals(error, node.getError(), "error"),
+				() -> assertEquals(error, getError(node), "error"),
 				() -> assertEquals(true, node.required(), "required"),
 				() -> assertEquals(!"unsupported".equals(error), node.exists(), "exists"),
 				() -> assertEqualsUnmodifiable(List.of(), node.getAdditionalErrors(), "additionalErrors"),
