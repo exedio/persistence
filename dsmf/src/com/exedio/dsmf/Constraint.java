@@ -38,8 +38,8 @@ public abstract class Constraint extends Node
 	final Column column;
 	final String name;
 	final Type type;
-	final Field<String> condition;
-	private String existingConditionRaw;
+	final Field<String> clause;
+	private String existingClauseRaw;
 
 	Constraint(
 			final Table table,
@@ -47,9 +47,9 @@ public abstract class Constraint extends Node
 			final String name,
 			final Type type,
 			final boolean required,
-			final String condition)
+			final String clause)
 	{
-		this(table, column, name, type, required, condition, condition);
+		this(table, column, name, type, required, clause, clause);
 	}
 
 	Constraint(
@@ -58,8 +58,8 @@ public abstract class Constraint extends Node
 			final String name,
 			final Type type,
 			final boolean required,
-			final String condition,
-			final String conditionRaw)
+			final String clause,
+			final String clauseRaw)
 	{
 		super(table.dialect, table.connectionProvider, required);
 
@@ -72,8 +72,8 @@ public abstract class Constraint extends Node
 		this.column = column;
 		this.name = name;
 		this.type = type;
-		this.condition = (type==Type.PrimaryKey) ? null : new Field<>(condition, required);
-		this.existingConditionRaw = required ? null : conditionRaw;
+		this.clause = (type==Type.PrimaryKey) ? null : new Field<>(clause, required);
+		this.existingClauseRaw = required ? null : clauseRaw;
 		//noinspection ThisEscapedInObjectConstruction
 		table.register(this);
 		if(column!=null)
@@ -112,7 +112,7 @@ public abstract class Constraint extends Node
 
 	public final String getClause()
 	{
-		return condition!=null ? condition.get() : null;
+		return clause!=null ? clause.get() : null;
 	}
 
 	/**
@@ -126,7 +126,7 @@ public abstract class Constraint extends Node
 
 	public final String getRequiredClause()
 	{
-		return condition!=null ? condition.getRequiredOrNull() : null;
+		return clause!=null ? clause.getRequiredOrNull() : null;
 	}
 
 	/**
@@ -140,7 +140,7 @@ public abstract class Constraint extends Node
 
 	public final String getMismatchingClause()
 	{
-		return condition!=null ? condition.getMismatching(this) : null;
+		return clause!=null ? clause.getMismatching(this) : null;
 	}
 
 	/**
@@ -154,7 +154,7 @@ public abstract class Constraint extends Node
 
 	public final String getMismatchingClauseRaw()
 	{
-		return getMismatchingClause()!=null ? existingConditionRaw : null;
+		return getMismatchingClause()!=null ? existingClauseRaw : null;
 	}
 
 	final void notifyExists()
@@ -167,18 +167,18 @@ public abstract class Constraint extends Node
 		notifyExistsCondition(condition, condition);
 	}
 
-	final void notifyExistsCondition(final String condition, final String conditionRaw)
+	final void notifyExistsCondition(final String clause, final String clauseRaw)
 	{
-		if(condition==null)
+		if(clause==null)
 			throw new NullPointerException();
-		if(conditionRaw==null)
+		if(clauseRaw==null)
 			throw new NullPointerException();
 
-		assert existingConditionRaw==null;
+		assert existingClauseRaw==null;
 
 		notifyExistsNode();
-		this.condition.notifyExists(condition);
-		this.existingConditionRaw = conditionRaw;
+		this.clause.notifyExists(clause);
+		this.existingClauseRaw = clauseRaw;
 	}
 
 	@Override
@@ -192,16 +192,16 @@ public abstract class Constraint extends Node
 		if(!required())
 			return Result.unused(table.required());
 
-		if(condition!=null && condition.mismatches())
+		if(clause!=null && clause.mismatches())
 		{
-			final String mismatching = condition.getMismatching(this);
+			final String mismatching = clause.getMismatching(this);
 			final StringBuilder sb = new StringBuilder();
 			sb.append(
 					"unexpected condition >>>").append(mismatching).append("<<<"); // The value of this string literal must not be changed, otherwise cope console breaks
 
-			if(!Objects.equals(mismatching, existingConditionRaw))
+			if(!Objects.equals(mismatching, existingClauseRaw))
 				sb.append(" (originally >>>"). // The value of this string literal must not be changed, otherwise cope console breaks
-					append(existingConditionRaw).
+					append(existingClauseRaw).
 					append("<<<)"); // The value of this string literal must not be changed, otherwise cope console breaks
 
 			return Result.error(sb.toString());
