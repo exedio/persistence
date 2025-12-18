@@ -75,7 +75,7 @@ public final class CheckConstraint extends Constraint
 				!dialect.disableCheckConstraint &&
 				dialect.supportsCheckConstraint() &&
 				dialect.supportsCheckConstraint(
-						requireNonNull(condition.getRequired(), name)); // isSupported must be called for required constraints only
+						requireNonNull(clause.getRequired(), name)); // isSupported must be called for required constraints only
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public final class CheckConstraint extends Constraint
 		final CheckResultSetHandler handler = new CheckResultSetHandler();
 		querySQL(
 				"SELECT COUNT(*) FROM " + quoteName(table.name) +
-				" WHERE NOT(" + condition.get() + ')',
+				" WHERE NOT(" + clause.get() + ')',
 				handler);
 		return handler.result;
 	}
@@ -114,7 +114,7 @@ public final class CheckConstraint extends Constraint
 		sb.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" CHECK(").
-			append(condition.get()).
+			append(clause.get()).
 			append(')');
 	}
 
