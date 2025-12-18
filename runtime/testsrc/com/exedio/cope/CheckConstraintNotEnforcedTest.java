@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -72,16 +73,16 @@ public class CheckConstraintNotEnforcedTest extends TestWithEnvironment
 		final Constraint constraint = table.getConstraint(NAME);
 		final Column column = table.getColumn(getPrimaryKeyColumnName(MyItem.TYPE));
 		assertAll(
-				() -> assertEquals(error, constraint.getError(),           "constraint.error"),
+				() -> assertEquals(error, getError(constraint),            "constraint.error"),
 				() -> assertEquals(color, constraint.getParticularColor(), "constraint.particularColor"),
 				() -> assertEquals(color, constraint.getCumulativeColor(), "constraint.cumulativeColor"),
-				() -> assertEquals(null,  column.getError(),           "column.error"),
+				() -> assertEquals(null,  getError(column),            "column.error"),
 				() -> assertEquals(OK,    column.getParticularColor(), "column.particularColor"),
 				() -> assertEquals(color, column.getCumulativeColor(), "column.cumulativeColor"),
-				() -> assertEquals(null,  table .getError(),           "table.error"),
+				() -> assertEquals(null,  getError(table),             "table.error"),
 				() -> assertEquals(OK,    table .getParticularColor(), "table.particularColor"),
 				() -> assertEquals(color, table .getCumulativeColor(), "table.cumulativeColor"),
-				() -> assertEquals(null,  schema.getError(),           "schema.error"),
+				() -> assertEquals(null,  getError(schema),            "schema.error"),
 				() -> assertEquals(OK,    schema.getParticularColor(), "schema.particularColor"),
 				() -> assertEquals(color, schema.getCumulativeColor(), "schema.cumulativeColor"));
 	}

@@ -27,6 +27,7 @@ import static com.exedio.cope.CheckConstraintHierarchyItemTop.up1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.up2;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -54,12 +55,12 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
-		assertEquals(null, table.getError());
+		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		final Table superTable = schema.getTable(getTableName(CheckConstraintHierarchyItemTop.TYPE));
 		assertNotNull(superTable);
-		assertEquals(null, superTable.getError());
+		assertEquals(null, getError(superTable));
 		assertEquals(Node.Color.OK, superTable.getParticularColor());
 
 		{
@@ -130,7 +131,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 	{
 		assertEquals(name, constraint.getName());
 		assertEquals(requiredCondition, constraint.getRequiredClause());
-		assertEquals(supportsCheckConstraint(model)?null:"unsupported", constraint.getError());
+		assertEquals(supportsCheckConstraint(model)?null:"unsupported", getError(constraint));
 		assertEquals(Node.Color.OK, constraint.getParticularColor());
 	}
 }

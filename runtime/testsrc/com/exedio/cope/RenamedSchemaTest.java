@@ -30,6 +30,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -69,7 +70,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
-		assertEquals(null, table.getError());
+		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		assertPkConstraint(table, "Zain_PK", getPrimaryKeyColumnName(TYPE));

@@ -60,13 +60,13 @@ public class TableTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
+			assertEquals(null, getError(column));
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
@@ -81,13 +81,13 @@ public class TableTest extends SchemaReadyTest
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
-				assertEquals("missing", table.getError());
+				assertEquals("missing", getError(table));
 				assertEquals(ERROR, table.getParticularColor());
 
 				assertSame(column, table.getColumn(COLUMN1));
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
-				assertEquals("missing", column.getError());
+				assertEquals("missing", getError(column));
 				assertEquals(ERROR, column.getParticularColor());
 				assertEquals(intType, column.getType());
 			}
@@ -96,14 +96,14 @@ public class TableTest extends SchemaReadyTest
 				assertNotNull(tableX);
 				assertEquals(false, tableX.required());
 				assertEquals(true, tableX.exists());
-				assertEquals("unused", tableX.getError());
+				assertEquals("unused", getError(tableX));
 				assertEquals(WARNING, tableX.getParticularColor());
 				assertNotSame(table, tableX);
 
 				final Column columnX = tableX.getColumn(COLUMN1);
 				assertEquals(false, columnX.required());
 				assertEquals(true, columnX.exists());
-				assertEquals("unused", columnX.getError());
+				assertEquals("unused", getError(columnX));
 				assertEquals(WARNING, columnX.getParticularColor());
 				assertEquals(intType, columnX.getType());
 				assertNotSame(column, columnX);
@@ -119,13 +119,13 @@ public class TableTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
+			assertEquals(null, getError(column));
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
@@ -140,13 +140,13 @@ public class TableTest extends SchemaReadyTest
 				assertNotNull(table);
 				assertEquals(true, table.required());
 				assertEquals(false, table.exists());
-				assertEquals("missing", table.getError());
+				assertEquals("missing", getError(table));
 				assertEquals(ERROR, table.getParticularColor());
 
 				assertSame(column, table.getColumn(COLUMN1));
 				assertEquals(true, column.required());
 				assertEquals(false, column.exists());
-				assertEquals("missing", column.getError());
+				assertEquals("missing", getError(column));
 				assertEquals(ERROR, column.getParticularColor());
 				assertEquals(intType, column.getType());
 
@@ -161,13 +161,13 @@ public class TableTest extends SchemaReadyTest
 			assertNotNull(table);
 			assertEquals(true, table.required());
 			assertEquals(true, table.exists());
-			assertEquals(null, table.getError());
+			assertEquals(null, getError(table));
 			assertEquals(OK, table.getParticularColor());
 
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals(null, column.getError());
+			assertEquals(null, getError(column));
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 		}
@@ -202,5 +202,11 @@ public class TableTest extends SchemaReadyTest
 		{
 			log.add("AFTER:  " + statement + " (" + rows + ")");
 		}
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	public static final String getError(final Node node)
+	{
+		return node.getError();
 	}
 }

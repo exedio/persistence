@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -70,42 +71,42 @@ public class QuoteTest extends SchemaReadyTest
 		assertSame(table, pk.getTable());
 		assertEquals(PK_COLUMN, pk.getName());
 		assertEquals(stringType, pk.getType());
-		assertEquals(null, table.getError());
+		assertEquals(null, getError(table));
 
 		final PrimaryKeyConstraint pkc = (PrimaryKeyConstraint)table.getConstraint(PK_NAME);
 		assertNotNull(pkc);
 		assertSame(table, pkc.getTable());
 		assertEquals(PK_NAME, pkc.getName());
 		assertEquals(PK_COLUMN, pkc.getPrimaryKeyColumn());
-		assertEquals(null, pkc.getError());
+		assertEquals(null, getError(pkc));
 
 		final Column fk = table.getColumn(FK_COLUMN);
 		assertNotNull(fk);
 		assertSame(table, fk.getTable());
 		assertEquals(FK_COLUMN, fk.getName());
 		assertEquals(stringType, fk.getType());
-		assertEquals(null, fk.getError());
+		assertEquals(null, getError(fk));
 
 		final ForeignKeyConstraint fkc = (ForeignKeyConstraint)table.getConstraint(FK_NAME);
 		assertNotNull(fkc);
 		assertSame(table, fkc.getTable());
 		assertEquals(FK_NAME, fkc.getName());
 		assertEquals(FK_COLUMN, fkc.getForeignKeyColumn());
-		assertEquals(null, fkc.getError());
+		assertEquals(null, getError(fkc));
 
 		final UniqueConstraint unc = (UniqueConstraint)table.getConstraint(UNQ_NAME);
 		assertNotNull(unc);
 		assertSame(table, unc.getTable());
 		assertEquals(UNQ_NAME, unc.getName());
 		assertEquals("("+p(FK_COLUMN)+")", unc.getClause());
-		assertEquals(null, unc.getError());
+		assertEquals(null, getError(unc));
 
 		final CheckConstraint ckc = (CheckConstraint)table.getConstraint(CHK_NAME);
 		assertNotNull(ckc);
 		assertSame(table, ckc.getTable());
 		assertEquals(CHK_NAME, ckc.getName());
 		assertEquals("(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)", ckc.getRequiredClause());
-		assertEquals(supportsCheckConstraint ? null : "unsupported", ckc.getError());
+		assertEquals(supportsCheckConstraint ? null : "unsupported", getError(ckc));
 	}
 
 	@Test void testNonVerified()

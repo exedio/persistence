@@ -21,6 +21,7 @@ package com.exedio.dsmf;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -54,7 +55,7 @@ public class SequenceTest extends SchemaReadyTest
 			assertNotNull(sequence);
 			assertEquals(true, sequence.required());
 			assertEquals(true, sequence.exists());
-			assertEquals(null, sequence.getError());
+			assertEquals(null, getError(sequence));
 			assertEquals(OK, sequence.getParticularColor());
 
 			sequence.drop();
@@ -67,7 +68,7 @@ public class SequenceTest extends SchemaReadyTest
 			assertNotNull(sequence);
 			assertEquals(true, sequence.required());
 			assertEquals(false, sequence.exists());
-			assertEquals("missing", sequence.getError());
+			assertEquals("missing", getError(sequence));
 			assertEquals(ERROR, sequence.getParticularColor());
 
 			sequence.create();
@@ -80,7 +81,7 @@ public class SequenceTest extends SchemaReadyTest
 			assertNotNull(sequence);
 			assertEquals(true, sequence.required());
 			assertEquals(true, sequence.exists());
-			assertEquals(null, sequence.getError());
+			assertEquals(null, getError(sequence));
 			assertEquals(OK, sequence.getParticularColor());
 		}
 	}
@@ -96,7 +97,7 @@ public class SequenceTest extends SchemaReadyTest
 			assertNotNull(sequence);
 			assertEquals(true, sequence.required());
 			assertEquals(true, sequence.exists());
-			assertEquals(null, sequence.getError());
+			assertEquals(null, getError(sequence));
 			assertEquals(OK, sequence.getParticularColor());
 
 			sequence.renameTo(NEW_NAME);
@@ -109,7 +110,7 @@ public class SequenceTest extends SchemaReadyTest
 			assertNotNull(sequence);
 			assertEquals(true, sequence.required());
 			assertEquals(false, sequence.exists());
-			assertEquals("missing", sequence.getError());
+			assertEquals("missing", getError(sequence));
 			assertEquals(ERROR, sequence.getParticularColor());
 
 			if(mysql)
@@ -119,14 +120,14 @@ public class SequenceTest extends SchemaReadyTest
 				assertNotNull(fakeSequence);
 				assertEquals(false, fakeSequence.required());
 				assertEquals(true, fakeSequence.exists());
-				assertEquals("unused", fakeSequence.getError());
+				assertEquals("unused", getError(fakeSequence));
 				assertEquals(WARNING, fakeSequence.getParticularColor());
 
 				final Sequence newSequence = schema.getSequence(NEW_NAME);
 				assertNotNull(newSequence);
 				assertEquals(false, newSequence.required());
 				assertEquals(true, newSequence.exists());
-				assertEquals("unused", newSequence.getError());
+				assertEquals("unused", getError(newSequence));
 				assertEquals(WARNING, newSequence.getParticularColor());
 				assertEquals(777, newSequence.getStartL()); // TODO should be 55
 
@@ -139,7 +140,7 @@ public class SequenceTest extends SchemaReadyTest
 				assertNotNull(newSequence);
 				assertEquals(false, newSequence.required());
 				assertEquals(true, newSequence.exists());
-				assertEquals("unused", newSequence.getError());
+				assertEquals("unused", getError(newSequence));
 				assertEquals(WARNING, newSequence.getParticularColor());
 
 				newSequence.renameTo(NAME);
@@ -153,7 +154,7 @@ public class SequenceTest extends SchemaReadyTest
 			assertNotNull(sequence);
 			assertEquals(true, sequence.required());
 			assertEquals(true, sequence.exists());
-			assertEquals(null, sequence.getError());
+			assertEquals(null, getError(sequence));
 			assertEquals(OK, sequence.getParticularColor());
 		}
 	}

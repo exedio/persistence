@@ -57,6 +57,7 @@ import static com.exedio.cope.SchemaItem.stringOpt;
 import static com.exedio.cope.SchemaItem.stringUpper6;
 import static com.exedio.cope.SchemaItem.uniqueString;
 import static com.exedio.dsmf.Node.Color.OK;
+import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -108,7 +109,7 @@ public class SchemaTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
-		assertEquals(null, table.getError());
+		assertEquals(null, getError(table));
 		assertEquals(OK, table.getParticularColor());
 
 		assertCheckConstraint(table, "Main_string_MN", "CHAR_LENGTH("+q(string)+")>=1");
@@ -174,7 +175,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertUniqueConstraint(table, unq("Main_doubleUnique"), "("+q(string)+","+q(anEnum)+")");
 
 		final Column min4Max8Column = table.getColumn(getColumnName(stringMin4Max8));
-		assertEquals(null, min4Max8Column.getError());
+		assertEquals(null, getError(min4Max8Column));
 		assertEquals(OK, min4Max8Column.getParticularColor());
 
 		assertEquals(
@@ -220,7 +221,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_data_CS", hexSQL, dataVault && mysql);
 
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
-		assertEquals(null, stringLongColumn.getError());
+		assertEquals(null, getError(stringLongColumn));
 		assertEquals(OK, stringLongColumn.getParticularColor());
 
 		final Sequence sequence        = schema.getSequence("Main_this_Seq");
@@ -232,12 +233,12 @@ public class SchemaTest extends TestWithEnvironment
 				assertEquals(null, batchedSequence);
 			}
 			case sequence -> {
-				assertEquals(null, sequence.getError());
+				assertEquals(null, getError(sequence));
 				assertEquals(OK, sequence.getParticularColor());
 				assertEquals(null, batchedSequence);
 			}
 			case batchedSequence -> {
-				assertEquals(null, batchedSequence.getError());
+				assertEquals(null, getError(batchedSequence));
 				assertEquals(OK, batchedSequence.getParticularColor());
 				assertEquals(null, sequence);
 			}
