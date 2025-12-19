@@ -56,11 +56,13 @@ final class DataFieldVaultStore extends DataFieldStore
 			final ModelMetrics metricsTemplate)
 	{
 		super(field);
+		final String bucketByAnnotation;
 		{
 			final String bucketExplicit = field.getAnnotatedVaultValue();
-			this.bucket = bucketExplicit!=null ? bucketExplicit : Vault.DEFAULT;
+			bucketByAnnotation = bucketExplicit!=null ? bucketExplicit : Vault.DEFAULT;
 		}
-		final Bucket properties = vaultProperties.bucket(bucket);
+		final Bucket properties = vaultProperties.bucket(bucketByAnnotation);
+		this.bucket = properties.getKey();
 		final int length = properties.getAlgorithmLength();
 		this.column = new StringColumn(
 				table, name, optional, length, length,

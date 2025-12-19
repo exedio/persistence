@@ -42,6 +42,7 @@ import javax.annotation.Nonnull;
 public final class VaultProperties extends AbstractVaultProperties
 {
 	final Map<String, BucketProperties> buckets;
+	private final Map<String, BucketProperties> bucketsWithAliases;
 
 	private Map<String, BucketProperties> valueBuckets(final boolean writable)
 	{
@@ -69,6 +70,44 @@ public final class VaultProperties extends AbstractVaultProperties
 		return Collections.unmodifiableMap(buckets);
 	}
 
+	private Map<String, BucketProperties> valueBucketsWithAliases()
+	{
+		final LinkedHashMap<String, BucketProperties> aliases = new LinkedHashMap<>();
+		final String KEY = "aliases";
+		int index = 0;
+		for(final String alias : valueStringList(KEY, 0))
+		{
+			final String key = KEY + '.' + (index++);
+			final String[] aliasSplit = alias.split("=");
+			if(aliasSplit.length!=2)
+				throw newException(key,
+						"must contain exactly one '=', " +
+						"but was '" + alias +'\'');
+			final String left  = aliasSplit[0];
+			final String right = aliasSplit[1];
+			// TODO allow Vault.NONE for both left and right
+			checkBucket(left,  message -> newException(key, "left "  + message));
+			checkBucket(right, message -> newException(key, "right " + message));
+			if(left.equals(right))
+				throw newException(key,
+						"'" + left + "' cannot be an alias of itself");
+			final BucketProperties bucket = buckets.get(right);
+			if(bucket==null)
+				throw newException(key,
+						"'" + right + "' does not exist, " +
+						"use one of " + buckets.keySet());
+			final BucketProperties collision = aliases.put(left, bucket);
+			if(collision!=null)
+				throw newException(key,
+						"'" + left + "' is an alias of '" + collision.getKey() + "' already, " +
+						"cannot be an alias of '" + right + "' as well");
+		}
+		final LinkedHashMap<String, BucketProperties> result = new LinkedHashMap<>();
+		result.putAll(buckets);
+		result.putAll(aliases);
+		return Collections.unmodifiableMap(result);
+	}
+
 	@Nonnull
 	public Bucket bucket(@Nonnull final String key)
 	{
@@ -78,10 +117,10 @@ public final class VaultProperties extends AbstractVaultProperties
 	@Nonnull
 	BucketProperties bucketProperties(@Nonnull final String key)
 	{
-		final BucketProperties result = buckets.get(requireNonNull(key, "key"));
+		final BucketProperties result = bucketsWithAliases.get(requireNonNull(key, "key"));
 		if(result==null)
 			throw new IllegalArgumentException(
-					"key must be one of " + buckets.keySet() + ", " +
+					"key must be one of " + bucketsWithAliases.keySet() + ", " +
 					"but was >" + key + '<');
 		return result;
 	}
@@ -127,7 +166,7 @@ public final class VaultProperties extends AbstractVaultProperties
 						fieldBuckets.add(bucket);
 				}
 
-		fieldBuckets.removeAll(buckets.keySet());
+		fieldBuckets.removeAll(bucketsWithAliases.keySet());
 		if(!fieldBuckets.isEmpty())
 			throw new IllegalArgumentException(
 					"@Vault for buckets " + fieldBuckets + " " +
@@ -322,6 +361,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		super(source);
 		trail = valueTrail(null);
 		buckets = valueBuckets(writable);
+		bucketsWithAliases = valueBucketsWithAliases();
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
 

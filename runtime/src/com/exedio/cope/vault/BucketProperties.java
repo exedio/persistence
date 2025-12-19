@@ -27,6 +27,12 @@ public final class BucketProperties extends AbstractVaultProperties implements B
 {
 	private final String key;
 
+	@Override
+	public String getKey()
+	{
+		return key;
+	}
+
 
 	private final MessageDigestFactory algorithm = valueMessageDigest("algorithm", "SHA-512");
 
