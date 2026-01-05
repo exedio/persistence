@@ -369,7 +369,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	// vault
 
-	final VaultProperties vault = value("vault", false, VaultProperties.factory());
+	final VaultProperties vault = value("vault", false, factory.vault);
 
 	public VaultProperties getVaultProperties()
 	{
@@ -488,6 +488,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				false, // legacyNameLength
 				false, // redundantUnq
 				PrimaryKeyGenerator.memory,
+				VaultProperties.factory(),
 				"while", "protected",
 				"media/");
 	}
@@ -498,6 +499,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		private final boolean legacyNameLength;
 		private final boolean redundantUnq;
 		private final PrimaryKeyGenerator primaryKeyGenerator;
+		private final VaultProperties.Factory vault;
 		private final String revisionTableName;
 		private final String revisionPrimaryKeyName;
 		private final String mediaRootUrl;
@@ -507,6 +509,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				final boolean legacyNameLength,
 				final boolean redundantUnq,
 				final PrimaryKeyGenerator primaryKeyGenerator,
+				final VaultProperties.Factory vault,
 				final String revisionTableName,
 				final String revisionPrimaryKeyName,
 				final String mediaRootUrl)
@@ -515,6 +518,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 			this.legacyNameLength = legacyNameLength;
 			this.redundantUnq = redundantUnq;
 			this.primaryKeyGenerator = primaryKeyGenerator;
+			this.vault = vault;
 			this.revisionTableName = revisionTableName;
 			this.revisionPrimaryKeyName = revisionPrimaryKeyName;
 			this.mediaRootUrl = mediaRootUrl;
@@ -524,6 +528,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			return new Factory(
 					true, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -535,6 +540,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			return new Factory(
 					disableNativeDate, true, redundantUnq, primaryKeyGenerator,
+					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -546,6 +552,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			return new Factory(
 					disableNativeDate, legacyNameLength, true, primaryKeyGenerator,
+					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -554,6 +561,16 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			return new Factory(
 					disableNativeDate, legacyNameLength, redundantUnq, PrimaryKeyGenerator.sequence,
+					vault,
+					revisionTableName, revisionPrimaryKeyName,
+					mediaRootUrl);
+		}
+
+		public Factory vault(final VaultProperties.Factory vault)
+		{
+			return new Factory(
+					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}
@@ -562,6 +579,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			return new Factory(
 					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					vault,
 					name, primaryKeyName,
 					mediaRootUrl);
 		}
@@ -570,6 +588,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			return new Factory(
 					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
 		}

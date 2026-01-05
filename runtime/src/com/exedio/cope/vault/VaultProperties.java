@@ -70,15 +70,15 @@ public final class VaultProperties extends AbstractVaultProperties
 		return Collections.unmodifiableMap(buckets);
 	}
 
-	private Map<String, BucketProperties> valueBucketsWithAliases()
+	private Map<String, BucketProperties> valueBucketsWithAliases(final List<String> defaultValues)
 	{
 		final LinkedHashMap<String, BucketProperties> aliases = new LinkedHashMap<>();
 		final String KEY = "aliases";
 		int index = 0;
-		for(final String alias : valueStringList(KEY, 0))
+		for(final String alias : valueStringList(KEY, 0, defaultValues))
 		{
 			final String key = KEY + '.' + (index++);
-			final String[] aliasSplit = alias.split("=");
+			final String[] aliasSplit = alias.split(ALIAS_SEPARATOR);
 			if(aliasSplit.length!=2)
 				throw newException(key,
 						"must contain exactly one '=', " +
@@ -107,6 +107,8 @@ public final class VaultProperties extends AbstractVaultProperties
 		result.putAll(aliases);
 		return Collections.unmodifiableMap(result);
 	}
+
+	private static final String ALIAS_SEPARATOR = "=";
 
 	@Nonnull
 	public Bucket bucket(@Nonnull final String key)
@@ -346,22 +348,64 @@ public final class VaultProperties extends AbstractVaultProperties
 
 
 
-	public static Factory<VaultProperties> factory()
+	public static final class Factory implements com.exedio.cope.util.Properties.Factory<VaultProperties>
+	{
+		private final boolean writable;
+		final List<String> aliases; // must maintain order of aliases
+
+		Factory(
+				final boolean writable,
+				final List<String> aliases)
+		{
+			this.writable = writable;
+			this.aliases = List.copyOf(aliases);
+		}
+
+		/**
+		 * @param aliases
+		 * The iteration order of the map is ignored.
+		 * Instead, aliases are sorted naturally by the key of the map.
+		 * See <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/Map.html#unmodifiable">Unmodifiable Maps</a>.
+		 */
+		public Factory aliases(final Map<String, String> aliases)
+		{
+			return new Factory(writable, aliases.
+					entrySet().
+					stream().
+					sorted(Map.Entry.comparingByKey()).
+					map(e -> {
+						final String key   = e.getKey();
+						final String value = e.getValue();
+						checkBucket(key,   message -> new IllegalArgumentException("key "   + message));
+						checkBucket(value, message -> new IllegalArgumentException("value " + message));
+						return key + ALIAS_SEPARATOR + value;
+					}).
+					toList());
+		}
+
+		@Override
+		public VaultProperties create(final Source source)
+		{
+			return new VaultProperties(source, this);
+		}
+	}
+
+	public static Factory factory()
 	{
 		return factory(true);
 	}
 
-	public static Factory<VaultProperties> factory(final boolean writable)
+	public static Factory factory(final boolean writable)
 	{
-		return s -> new VaultProperties(s, writable);
+		return new Factory(writable, List.of());
 	}
 
-	private VaultProperties(final Source source, final boolean writable)
+	private VaultProperties(final Source source, final Factory factory)
 	{
 		super(source);
 		trail = valueTrail(null);
-		buckets = valueBuckets(writable);
-		bucketsWithAliases = valueBucketsWithAliases();
+		buckets = valueBuckets(factory.writable);
+		bucketsWithAliases = valueBucketsWithAliases(factory.aliases);
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
 

@@ -51,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
@@ -741,6 +742,54 @@ public class VaultPropertiesTest
 	}
 
 
+	@Test void aliasesNone()
+	{
+		assertEquals(
+				List.of(),
+				factory.aliases);
+	}
+	@Test void aliasesEmpty()
+	{
+		assertEquals(
+				List.of(),
+				factory.aliases(Map.of()).aliases);
+	}
+	@Test void aliases()
+	{
+		assertEquals(
+				List.of("a=A"),
+				factory.aliases(Map.of("a", "A")).aliases);
+	}
+	@Test void aliasesLong()
+	{
+		assertEquals(
+				List.of("a=XA", "b=B", "c=XC", "d=D"), // must be sorted by key because Map.of shuffles order
+				factory.aliases(Map.of("a", "XA", "b", "B", "c", "XC", "d", "D")).aliases);
+	}
+	@Test void aliasesLongUnsorted()
+	{
+		assertEquals(
+				List.of("a=A", "b=B", "c=C", "d=D"), // must be sorted by key because Map.of shuffles order
+				factory.aliases(Map.of("b", "B", "a", "A", "d", "D", "c", "C")).aliases);
+	}
+	@Test void aliasesKeyIllegal()
+	{
+		assertFails(
+				() -> factory.aliases(Map.of("left.", "right")),
+				IllegalArgumentException.class,
+				"key must contain just [---,0-9,A-Z,a-z], " +
+				"but was >left.< containing a forbidden character at position 4");
+	}
+	@Test void aliasesValueIllegal()
+	{
+		assertFails(
+				() -> factory.aliases(Map.of("left", "right.")),
+				IllegalArgumentException.class,
+				"value must contain just [---,0-9,A-Z,a-z], " +
+				"but was >right.< containing a forbidden character at position 5");
+	}
+
+
 	@Test void trailDefault()
 	{
 		final Source source = describe("DESC", cascade(
@@ -848,7 +897,7 @@ public class VaultPropertiesTest
 
 
 
-	private static final Properties.Factory<VaultProperties> factory = VaultProperties.factory();
+	private static final VaultProperties.Factory factory = VaultProperties.factory();
 
 
 	public static final Map<String, VaultService> deresiliate(final Map<String, VaultResilientService> services)
