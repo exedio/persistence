@@ -22,6 +22,8 @@ import com.exedio.cope.util.MessageDigestFactory;
 
 public interface Bucket
 {
+	String getKey();
+
 	MessageDigestFactory getAlgorithmFactory();
 	String getAlgorithm();
 	int getAlgorithmLength();
