@@ -65,7 +65,7 @@ public class ClusterPropertiesTest
 		model.connect(props);
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(0, gauge("trafficClass", model));
-		assertEquals(1, gauge("sendLoopback", model));
+		assertEquals(0, gauge("sendLoopback", model));
 		assertEquals(0, gauge("listenLoopback", model));
 		assertEquals(1, gauge("listenThreads", model));
 		assertEquals(NORM_PRIORITY, gauge("listenThreadPriority", model));
@@ -96,7 +96,7 @@ public class ClusterPropertiesTest
 		assertIt("sendBuffer", 50000, fields);
 		assertIt("sendTrafficDefault", true, fields);
 		assertIt("sendTraffic", 0, fields);
-		assertIt("sendLoopback", true, fields);
+		assertIt("sendLoopback", false, fields);
 		assertIt("listenAddress", ADDRESS, fields);
 		assertIt("listenPort", PORT, fields);
 		assertIt("listenInterface", "DEFAULT", fields);
@@ -183,7 +183,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendBuffer", 14888),
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 44),
-				single("cluster.sendLoopback", false),
+				single("cluster.sendLoopback", true),
 				ClusterNetworkTest.listenInterface(),
 				single("cluster.listenLoopback", false),
 				single("cluster.listenBufferDefault", false),
@@ -200,7 +200,7 @@ public class ClusterPropertiesTest
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(14888, gauge("sendBufferSize", model));
 		assertEquals(44,    gauge("trafficClass", model));
-		assertEquals(0,     gauge("sendLoopback", model));
+		assertEquals(1,     gauge("sendLoopback", model));
 		assertEquals(0,     gauge("listenLoopback", model));
 		assertEquals(15888, gauge("receiveBufferSize", model));
 		assertEquals(8,     gauge("listenThreads", model));
