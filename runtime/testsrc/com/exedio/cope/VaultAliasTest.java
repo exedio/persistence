@@ -33,9 +33,11 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -91,6 +93,46 @@ public class VaultAliasTest
 				single("vault.zwei.service.example", "zweiEx"),
 				single("vault.aliases.count", 1),
 				single("vault.aliases.0", "drei=zwei"));
+		final var vp = props.getVaultProperties();
+		assertEquals("eins", vp.bucket("eins").getKey());
+		assertEquals("zwei", vp.bucket("zwei").getKey());
+		assertSame(vp.bucket("zwei"), vp.bucket("drei"));
+
+		connect(props);
+		assertEquals(Set.of("eins", "zwei"), connect.vaultBuckets());
+		assertInfo(null,   AnItem.none);
+		assertInfo("eins", AnItem.eins);
+		assertInfo("zwei", AnItem.zwei);
+		assertInfo("zwei", AnItem.drei);
+
+		newItem();
+		//noinspection resource
+		final VaultMockService einsS = service("eins");
+		//noinspection resource
+		final VaultMockService zweiS = service("zwei");
+		assertFails(
+				() -> connect.vault("drei"),
+				IllegalArgumentException.class,
+				"bucket drei does not exist, use one of [eins, zwei]");
+		assertEquals("einsEx", einsS.serviceProperties.example);
+		assertEquals("zweiEx", zweiS.serviceProperties.example);
+		einsS.assertIt(HASH_EINS, "010203", "putBytes");
+		zweiS.assertIt(HASH_ZWEI, "020304", HASH_DREI, "030405", "putBytes putBytes");
+	}
+
+	@Test void dreiIntoZweiFactory()
+	{
+		final var props = ConnectProperties.factory().
+				vault(VaultProperties.factory().aliases(Map.of("drei", "zwei"))).
+				create(cascade(
+						single("vault", true),
+						single("vault.buckets", "eins zwei"),
+						single("vault.eins.service", VaultMockService.class),
+						single("vault.eins.service.example", "einsEx"),
+						single("vault.zwei.service", VaultMockService.class),
+						single("vault.zwei.service.example", "zweiEx"),
+						TestSources.minimal()));
+		assertEquals(Set.of(), props.getOrphanedKeys(), "orphanedKeys");
 		final var vp = props.getVaultProperties();
 		assertEquals("eins", vp.bucket("eins").getKey());
 		assertEquals("zwei", vp.bucket("zwei").getKey());
