@@ -367,7 +367,6 @@ try
 						    ' -Dskip.instrument=true' + // already verified in branch Main
 						    ' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +
 						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " > db-Mysql80CR.log 2>&1"
@@ -877,7 +876,6 @@ void branchMysql(
 						    ' "-Dbuild.tag=' + buildTag + '"' +
 						    ' -Dskip.instrument=true' + // already verified in branch Main
 						    ' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test-db-host/' +
-						    ' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql.sql' +
 						    ' -Ddisable-ansi-colors=true'
 					}
 					sh "docker logs " + c.id + " > db-Mysql" + code + ".log 2>&1"

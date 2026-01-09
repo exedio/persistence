@@ -378,7 +378,7 @@
 		<sql
 				driver="com.mysql.cj.jdbc.Driver"
 				url="${runtime.test.withEnv.setup.mysql.url}"
-				src="${runtime.test.withEnv.setup.mysql.sql}"
+				src="conf/setup-mysql.sql"
 				userid="root"
 				password="${runtime.test.withEnv.setup.password}"
 		>
