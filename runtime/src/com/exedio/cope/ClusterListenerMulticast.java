@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static java.net.StandardSocketOptions.IP_MULTICAST_LOOP;
-
 import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -41,7 +39,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private final InetSocketAddress address;
 	private final NetworkInterface networkInterface;
 	private final DatagramSocket socket;
-	private final Boolean loopback;
 	private final int receiveBufferSize;
 
 	private final ThreadSwarm threads;
@@ -60,7 +57,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.socket = properties.newListenSocket();
 		try
 		{
-			this.loopback = !socket.getOption(IP_MULTICAST_LOOP); // BEWARE of the negation introduced by IP_MULTICAST_LOOP
 			this.receiveBufferSize = socket.getReceiveBufferSize();
 		}
 		catch(final IOException e)
@@ -136,13 +132,6 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final Thread t = Thread.currentThread();
 			logger.info("{} ({}) terminates.", t.getName(), t.getId());
 		}
-	}
-
-	boolean getLoopback()
-	{
-		// Will throw NullPointerException if loopback is null.
-		// This is intended, then the micrometer gauge will expose NaN.
-		return loopback;
 	}
 
 	@Override
