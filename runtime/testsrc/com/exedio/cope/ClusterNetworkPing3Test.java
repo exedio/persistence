@@ -65,19 +65,19 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		test();
 	}
 
-	@Test void testSinglecast() throws InterruptedException
+	@Test void testUnicast() throws InterruptedException
 	{
 		assertFalse(modelA.isConnected());
 		assertFalse(modelB.isConnected());
 		assertFalse(modelC.isConnected());
 
-		modelC.connect(getPropertiesSinglecast(Port.C, Port.A, Port.B));
-		modelB.connect(getPropertiesSinglecast(Port.B, Port.A, Port.C));
-		modelA.connect(getPropertiesSinglecast(Port.A, Port.B, Port.C));
+		modelC.connect(getPropertiesUnicast(Port.C, Port.A, Port.B));
+		modelB.connect(getPropertiesUnicast(Port.B, Port.A, Port.C));
+		modelA.connect(getPropertiesUnicast(Port.A, Port.B, Port.C));
 
-		assertEquals("Connect Properties Source (singlecast C<-[A, B])", modelC.getConnectProperties().getSource());
-		assertEquals("Connect Properties Source (singlecast B<-[A, C])", modelB.getConnectProperties().getSource());
-		assertEquals("Connect Properties Source (singlecast A<-[B, C])", modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (unicast C<-[A, B])", modelC.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (unicast B<-[A, C])", modelB.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (unicast A<-[B, C])", modelA.getConnectProperties().getSource());
 
 		test();
 	}

@@ -112,7 +112,7 @@ public class ClusterPropertiesTest
 		assertFalse(fields.hasNext());
 	}
 
-	@Test void testSinglecast()
+	@Test void testUnicast()
 	{
 		// https://tools.ietf.org/html/rfc5737
 		// The blocks 192.0.2.0/24 (TEST-NET-1), 198.51.100.0/24 (TEST-NET-2),
@@ -217,7 +217,7 @@ public class ClusterPropertiesTest
 		assertEquals(15888, listener.getReceiveBufferSize());
 	}
 
-	@Test void testCustomSinglecast()
+	@Test void testCustomUnicast()
 	{
 		// https://tools.ietf.org/html/rfc5737
 		// The blocks 192.0.2.0/24 (TEST-NET-1), 198.51.100.0/24 (TEST-NET-2),
@@ -267,7 +267,7 @@ public class ClusterPropertiesTest
 		assertEquals(15999, listener.getReceiveBufferSize());
 	}
 
-	@Test void testSinglecastMissingSendAddress()
+	@Test void testUnicastMissingSendAddress()
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
