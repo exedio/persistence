@@ -42,6 +42,7 @@ public abstract class ClusterNetworkTest
 		assumeMulticast();
 		final Properties p = new Properties();
 		p.setProperty("cluster.sendAddress"  , MULTICAST_ADDRESS);
+		p.setProperty("cluster.sendLoopback", "true");
 		p.setProperty("cluster.listenAddress", MULTICAST_ADDRESS);
 		if(LISTEN_INTERFACE!=null)
 			p.setProperty("cluster.listenInterface", LISTEN_INTERFACE);

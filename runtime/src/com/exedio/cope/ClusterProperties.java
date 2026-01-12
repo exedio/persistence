@@ -66,7 +66,7 @@ final class ClusterProperties extends Properties
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
 	@SuppressWarnings("SimplifiableConditionalExpression")
-	private final boolean sendLoopback        = multicast ? value("sendLoopback", true) : true;
+	private final boolean sendLoopback        = multicast ? value("sendLoopback", false) : true;
 	final InetSocketAddress listenAddress     = multicast ? new InetSocketAddress(valAd("listenAddress", MULTICAST_ADDRESS), 0)  : null;
 	private final int     listenPort          = value("listenPort",          PORT, 1);
 	final NetworkInterface listenInterface    = multicast ? valNI("listenInterface") : null;
