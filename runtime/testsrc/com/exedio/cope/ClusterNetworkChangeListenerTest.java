@@ -63,14 +63,14 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		test();
 	}
 
-	@Test void testSinglecast() throws InterruptedException, NotAvailableException
+	@Test void testUnicast() throws InterruptedException, NotAvailableException
 	{
-		modelA.connect(getPropertiesSinglecast(Port.B, Port.A));
-		modelB.connect(getPropertiesSinglecast(Port.A, Port.B));
+		modelA.connect(getPropertiesUnicast(Port.B, Port.A));
+		modelB.connect(getPropertiesUnicast(Port.A, Port.B));
 		setupSchemaMinimal(modelA);
 
-		assertEquals("Connect Properties Source (singlecast B<-[A])", modelA.getConnectProperties().getSource());
-		assertEquals("Connect Properties Source (singlecast A<-[B])", modelB.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (unicast B<-[A])", modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (unicast A<-[B])", modelB.getConnectProperties().getSource());
 
 		test();
 	}

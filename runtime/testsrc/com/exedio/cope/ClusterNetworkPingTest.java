@@ -84,17 +84,17 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		test();
 	}
 
-	@Test void testSinglecast() throws InterruptedException
+	@Test void testUnicast() throws InterruptedException
 	{
 		localhost = "/127.0.0.1";
 		assertFalse(modelA.isConnected());
 		assertFalse(modelB.isConnected());
 
-		modelA.connect(getPropertiesSinglecast(Port.B, Port.A));
-		modelB.connect(getPropertiesSinglecast(Port.A, Port.B));
+		modelA.connect(getPropertiesUnicast(Port.B, Port.A));
+		modelB.connect(getPropertiesUnicast(Port.A, Port.B));
 
-		assertEquals("Connect Properties Source (singlecast B<-[A])", modelA.getConnectProperties().getSource());
-		assertEquals("Connect Properties Source (singlecast A<-[B])", modelB.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (unicast B<-[A])", modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (unicast A<-[B])", modelB.getConnectProperties().getSource());
 
 		test();
 	}

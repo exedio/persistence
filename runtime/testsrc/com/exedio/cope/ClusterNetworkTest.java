@@ -66,7 +66,7 @@ public abstract class ClusterNetworkTest
 		return LISTEN_INTERFACE;
 	}
 
-	static final ConnectProperties getPropertiesSinglecast(
+	static final ConnectProperties getPropertiesUnicast(
 			final Port listen,
 			final Port... send)
 	{
@@ -77,7 +77,7 @@ public abstract class ClusterNetworkTest
 		p.setProperty("cluster.multicast", "false");
 		p.setProperty("cluster.sendAddress"  , sendAddress.toString());
 		p.setProperty("cluster.listenPort",          PORTS.get(listen));
-		return getProperties(p, "Connect Properties Source (singlecast " + listen + "<-" + java.util.Arrays.toString(send) + ")");
+		return getProperties(p, "Connect Properties Source (unicast " + listen + "<-" + java.util.Arrays.toString(send) + ")");
 	}
 
 	private static final String MULTICAST_ADDRESS;
