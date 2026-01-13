@@ -70,8 +70,6 @@ final class ClusterProperties extends Properties
 	final InetSocketAddress listenAddress     = multicast ? new InetSocketAddress(valAd("listenAddress", MULTICAST_ADDRESS), 0)  : null;
 	private final int     listenPort          = value("listenPort",          PORT, 1);
 	final NetworkInterface listenInterface    = multicast ? valNI("listenInterface") : null;
-	@SuppressWarnings("SimplifiableConditionalExpression")
-	private final boolean listenLoopback      = multicast ? value("listenLoopback", true) : true;
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
 	final ThreadSwarmProperties listenThreads = valnp("listen.threads"     , ThreadSwarmProperties::new);
@@ -313,19 +311,6 @@ final class ClusterProperties extends Properties
 				@SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed", "SocketOpenedButNotSafelyClosed"}) // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				// TODO close socket if code below fails
-				if(!listenLoopback)
-				{
-					// BEWARE:
-					// The setOption(IP_MULTICAST_LOOP) below does not work. Although getOption reflects the change made,
-					// the sender socket still receives datagrams sent by itself. I have no idea why.
-					// https://tldp.org/HOWTO/Multicast-HOWTO-6.html
-					// Moving setOption behind joinGroup did not help.
-					// Calling setOption(IP_MULTICAST_LOOP, false) did not help.
-					// Setting this option at the sender sockets (see sendLoopback) works.
-					resultMulti.setOption(IP_MULTICAST_LOOP, true); // BEWARE of the negation introduced by IP_MULTICAST_LOOP
-					if(!resultMulti.getOption(IP_MULTICAST_LOOP))
-						logger.error("disabling listen IP_MULTICAST_LOOP was ignored by MulticastSocket");
-				}
 				resultMulti.joinGroup(listenAddress, listenInterface);
 				result = resultMulti;
 			}
