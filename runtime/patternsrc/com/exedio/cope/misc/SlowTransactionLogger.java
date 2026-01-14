@@ -99,7 +99,6 @@ public final class SlowTransactionLogger
 
 	static final Holder<LongSupplier> now = new Holder<>(System::currentTimeMillis);
 
-	// almost equal to code in SamplerThread
 	static String toString(final StackTraceElement[] trace)
 	{
 		final StringBuilder sb = new StringBuilder();
