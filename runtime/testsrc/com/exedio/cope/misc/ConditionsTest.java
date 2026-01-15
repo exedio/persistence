@@ -25,9 +25,9 @@ import static com.exedio.cope.misc.Conditions.unisonNull;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name1;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name2;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name3;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
@@ -46,28 +46,17 @@ public class ConditionsTest
 				" (AnItem.name1<>'alpha' and AnItem.name1<>'beta'))",
 				equal(name1.is("alpha"), name1.is("beta")).toString());
 	}
-
 	@Test void testEqualNull()
 	{
 		final Condition c = name1.is("beta");
-		try
-		{
-			equal(null, c);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("Cannot invoke \"com.exedio.cope.Condition.and(com.exedio.cope.Condition)\" because \"left\" is null", e.getMessage());
-		}
-		try
-		{
-			equal(c, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions[1]", e.getMessage());
-		}
+		assertFails(
+				() -> equal(null, c),
+				NullPointerException.class,
+				"Cannot invoke \"com.exedio.cope.Condition.and(com.exedio.cope.Condition)\" because \"left\" is null");
+		assertFails(
+				() -> equal(c, null),
+				NullPointerException.class,
+				"conditions[1]");
 	}
 
 	@Test void testImplies()
@@ -76,28 +65,17 @@ public class ConditionsTest
 				"(AnItem.name1<>'alpha' or AnItem.name1='beta')",
 				implies(name1.is("alpha"), name1.is("beta")).toString());
 	}
-
 	@Test void testImpliesNull()
 	{
 		final Condition c = name1.is("beta");
-		try
-		{
-			implies(null, c);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("Cannot invoke \"com.exedio.cope.Condition.not()\" because \"premises\" is null", e.getMessage());
-		}
-		try
-		{
-			implies(c, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("conditions[1]", e.getMessage());
-		}
+		assertFails(
+				() -> implies(null, c),
+				NullPointerException.class,
+				"Cannot invoke \"com.exedio.cope.Condition.not()\" because \"premises\" is null");
+		assertFails(
+				() -> implies(c, null),
+				NullPointerException.class,
+				"conditions[1]");
 	}
 
 	@Test void testUnisonNull()
@@ -113,18 +91,12 @@ public class ConditionsTest
 			"(AnItem.name1 is not null and AnItem.name2 is not null and AnItem.name3 is not null))",
 			unisonNull(asList(name1, name2, name3)).toString());
 	}
-
 	@Test void testUnisonNullNull()
 	{
-		try
-		{
-			unisonNull(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("Cannot invoke \"java.util.List.size()\" because \"functions\" is null", e.getMessage());
-		}
+		assertFails(
+				() -> unisonNull(null),
+				NullPointerException.class,
+				"Cannot invoke \"java.util.List.size()\" because \"functions\" is null");
 	}
 
 	@Test void testDeprecated()
