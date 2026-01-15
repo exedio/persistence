@@ -22,6 +22,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.misc.Conditions.equal;
 import static com.exedio.cope.misc.Conditions.implies;
 import static com.exedio.cope.misc.Conditions.unisonNull;
+import static com.exedio.cope.misc.Conditions.xor;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name1;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name2;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name3;
@@ -57,6 +58,26 @@ public class ConditionsTest
 				() -> equal(c, null),
 				NullPointerException.class,
 				"conditions[1]");
+	}
+
+	@Test void testXor()
+	{
+		assertEquals(
+				"((AnItem.name1='alpha' and AnItem.name1<>'beta') or" +
+				" (AnItem.name1<>'alpha' and AnItem.name1='beta'))",
+				xor(name1.is("alpha"), name1.is("beta")).toString());
+	}
+	@Test void testXorNull()
+	{
+		final Condition c = name1.is("beta");
+		assertFails(
+				() -> xor(null, c),
+				NullPointerException.class,
+				"Cannot invoke \"com.exedio.cope.Condition.and(com.exedio.cope.Condition)\" because \"left\" is null");
+		assertFails(
+				() -> xor(c, null),
+				NullPointerException.class,
+				"Cannot invoke \"com.exedio.cope.Condition.not()\" because \"right\" is null");
 	}
 
 	@Test void testImplies()
