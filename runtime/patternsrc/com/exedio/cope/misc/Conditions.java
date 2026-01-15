@@ -23,9 +23,13 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.Function;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 public final class Conditions
 {
+	/**
+	 * @see #xor(Condition, Condition)
+	 */
 	public static Condition equal(
 			final Condition left,
 			final Condition right)
@@ -34,6 +38,18 @@ public final class Conditions
 			left      .and(right      ),
 			left.not().and(right.not())
 		);
+	}
+
+	/**
+	 * @see #equal(Condition, Condition)
+	 */
+	public static Condition xor(
+			@Nonnull final Condition left,
+			@Nonnull final Condition right)
+	{
+		return Cope.or(
+				left      .and(right.not()),
+				left.not().and(right      ));
 	}
 
 	public static Condition implies(
