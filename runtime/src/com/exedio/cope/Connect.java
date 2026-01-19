@@ -62,7 +62,7 @@ final class Connect
 	final CacheStamp cacheStamp;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
-	final Cluster cluster;
+	final ClusterService cluster;
 	final ChangeListenerDispatcher changeListenerDispatcher;
 
 	boolean revised = false;
@@ -126,7 +126,7 @@ final class Connect
 		{
 			final ClusterProperties props = properties.cluster;
 			//noinspection ThisEscapedInObjectConstruction
-			this.cluster = props!=null ? new Cluster(metrics, types, props, this) : null;
+			this.cluster = props!=null ? new Cluster(metrics, types, props, this) : ClusterNoneService.INSTANCE;
 		}
 
 		this.changeListenerDispatcher =
@@ -164,8 +164,8 @@ final class Connect
 	void close()
 	{
 		changeListenerDispatcher.startClose();
-		if(cluster!=null)
-			cluster.startClose();
+
+		cluster.startClose();
 
 		connectionPool.flush();
 
@@ -177,8 +177,8 @@ final class Connect
 		// let threads have some time to terminate,
 		// doing other thing in the mean time
 		changeListenerDispatcher.joinClose();
-		if(cluster!=null)
-			cluster.joinClose();
+
+		cluster.joinClose();
 	}
 
 	void invalidate(
@@ -187,7 +187,7 @@ final class Connect
 	{
 		itemCache.invalidate(invalidations);
 		queryCache.invalidate(invalidations);
-		if((transactionInfo instanceof TransactionInfoLocal) && cluster!=null)
+		if((transactionInfo instanceof TransactionInfoLocal))
 			cluster.sendInvalidate(invalidations);
 		changeListenerDispatcher.invalidate(invalidations, transactionInfo);
 	}
@@ -259,8 +259,8 @@ final class Connect
 	{
 		final ArrayList<ThreadController> result = new ArrayList<>(2);
 		changeListenerDispatcher.addThreadControllers(result);
-		if(cluster!=null)
-			cluster.addThreadControllers(result);
+
+		cluster.addThreadControllers(result);
 		return Collections.unmodifiableList(result);
 	}
 

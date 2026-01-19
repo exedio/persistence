@@ -21,7 +21,7 @@ package com.exedio.cope;
 import gnu.trove.TLongHashSet;
 import java.util.ArrayList;
 
-final class Cluster
+final class Cluster extends ClusterService
 {
 	final ClusterProperties properties;
 	final ClusterSenderMulticast sender;
@@ -33,46 +33,59 @@ final class Cluster
 			final ClusterProperties properties,
 			final Connect connect)
 	{
+		super(properties);
 		final ModelMetrics metrics = metricsTemplate.name(Cluster.class);
 		this.properties = properties;
 		this.sender   = new ClusterSenderMulticast(properties, metrics);
 		this.listener = new ClusterListenerMulticast(properties, metrics, sender, types.concreteTypeCount, connect);
-		metrics.gaugeConnect(c -> c.cluster.properties.listenThreads.initial, "listenThreads", "ClusterProperties#listenThreads#initial"); // TODO should expose the actual number of active threads
-		metrics.gaugeConnect(c -> c.cluster.properties.listenThreads.priorityForGauge, "listenThreadPriority", "ClusterProperties#listenThreads#priority"); // TODO should expose the actual priority of threads
-		metrics.gaugeConnect(c -> c.cluster.properties.packetSize, "packetSize", "ClusterProperties#packetSize");
+		metrics.gaugeConnect(c -> of(c).properties.listenThreads.initial, "listenThreads", "ClusterProperties#listenThreads#initial"); // TODO should expose the actual number of active threads
+		metrics.gaugeConnect(c -> of(c).properties.listenThreads.priorityForGauge, "listenThreadPriority", "ClusterProperties#listenThreads#priority"); // TODO should expose the actual priority of threads
+		metrics.gaugeConnect(c -> of(c).properties.packetSize, "packetSize", "ClusterProperties#packetSize");
 	}
 
+	static Cluster of(final Connect connect)
+	{
+		return (Cluster)connect.cluster;
+	}
+
+	@Override
 	void sendInvalidate(final TLongHashSet[] invalidations)
 	{
 		sender.invalidate(invalidations);
 	}
 
+	@Override
 	void sendPing(final int count)
 	{
 		sender.ping(count);
 	}
 
+	@Override
 	void startClose()
 	{
 		sender.close();
 		listener.startClose();
 	}
 
+	@Override
 	void joinClose()
 	{
 		listener.joinClose();
 	}
 
+	@Override
 	void addThreadControllers(final ArrayList<ThreadController> result)
 	{
 		listener.addThreadControllers(result);
 	}
 
+	@Override
 	ClusterSenderInfo getSenderInfo()
 	{
 		return sender.getInfo();
 	}
 
+	@Override
 	ClusterListenerInfo getListenerInfo()
 	{
 		return listener.getInfo();
