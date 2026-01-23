@@ -553,13 +553,15 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 					mediaRootUrl);
 		}
 
+		/**
+		 * @deprecated
+		 * This is now active by default.
+		 * This method does nothing and returns {@code this}.
+		 */
+		@Deprecated
 		public Factory primaryKeyGeneratorSequence()
 		{
-			return new Factory(
-					disableNativeDate, legacyNameLength, redundantUnq,
-					vault,
-					revisionTableName, revisionPrimaryKeyName,
-					mediaRootUrl);
+			return this;
 		}
 
 		public Factory vault(final VaultProperties.Factory vault)
