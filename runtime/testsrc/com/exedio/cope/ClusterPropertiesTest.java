@@ -576,6 +576,7 @@ public class ClusterPropertiesTest
 	{
 		final Source s = describe("DESC", cascade(
 				TestSources.minimal(),
+				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.memory),
 				single("cluster", true),
 				single("cluster.secret", 1234)
 		));
