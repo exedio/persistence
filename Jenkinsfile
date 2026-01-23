@@ -416,20 +416,18 @@ try
 				'pg-public',
 				'connection.username=test_db_user_public\n' +
 				'connection.password=test_db_password_public\n' +
-				'dialect.connection.schema=public\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'dialect.connection.schema=public\n'
 			)
 			envPostgresql(
-				'pg-sq',
-				'schema.primaryKeyGenerator=sequence\n' +
+				'pg-mem',
+				'schema.primaryKeyGenerator=memory\n' +
 				'dialect.pgcryptoSchema=<disabled>\n'
 			)
 			envPostgresql(
 				'pg-vault',
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-				'vault.isAppliedToAllFields=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'vault.isAppliedToAllFields=true\n'
 			)
 
 			def mainImage = mainImage(imageName("Postgresql"))
@@ -765,19 +763,19 @@ void branchMysql(
 				'cache.stamps=false\n'
 			)
 			envMysql(
-				'my' + code + '-nstmp-sq',
+				'my' + code + '-nstmp-mem',
 				'mysql',
 				binlogName,
 				'cache.stamps=false\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'schema.primaryKeyGenerator=memory\n'
 			)
 			envMysql(
-				'my' + code + '-sq',
+				'my' + code + '-mem',
 				'mysql',
 				binlogName,
 				'dialect.connection.compress=true\n' +
 				'disableSupport.checkConstraint=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'schema.primaryKeyGenerator=memory\n'
 			)
 			envMysql(
 				'my' + code + '-sqb',
@@ -797,8 +795,7 @@ void branchMysql(
 				binlogName,
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-				'vault.isAppliedToAllFields=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'vault.isAppliedToAllFields=true\n'
 			)
 			envMysql(
 				'my' + code + 'm',
@@ -827,19 +824,19 @@ void branchMysql(
 				'cache.stamps=false\n'
 			)
 			envMysql(
-				'my' + code + 'm-nstmp-sq',
+				'my' + code + 'm-nstmp-mem',
 				'mariadb',
 				binlogName,
 				'cache.stamps=false\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'schema.primaryKeyGenerator=memory\n'
 			)
 			envMysql(
-				'my' + code + 'm-sq',
+				'my' + code + 'm-mem',
 				'mariadb',
 				binlogName,
 				'dialect.connection.compress=true\n' +
 				'disableSupport.checkConstraint=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'schema.primaryKeyGenerator=memory\n'
 			)
 			envMysql(
 				'my' + code + 'm-vault',
@@ -847,8 +844,7 @@ void branchMysql(
 				binlogName,
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
-				'vault.isAppliedToAllFields=true\n' +
-				'schema.primaryKeyGenerator=sequence\n'
+				'vault.isAppliedToAllFields=true\n'
 			)
 
 			def mainImage = mainImage(imageName("Mysql" + code))
