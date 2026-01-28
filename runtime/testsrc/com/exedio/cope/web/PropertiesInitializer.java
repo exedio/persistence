@@ -42,7 +42,6 @@ import com.exedio.cope.pattern.HashTest;
 import com.exedio.cope.pattern.LimitedListFieldModelTest;
 import com.exedio.cope.pattern.ListFieldModelTest;
 import com.exedio.cope.pattern.MD5Test;
-import com.exedio.cope.sampler.Stuff;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 
@@ -71,7 +70,6 @@ public final class PropertiesInitializer implements ServletContextListener
 				DispatcherModelTest.MODEL,
 				CopySimpleModelTest.MODEL,
 				DefaultToModelTest.MODEL,
-				Stuff.samplerModel,
 				BadQueryTest.MODEL,
 		};
 	}

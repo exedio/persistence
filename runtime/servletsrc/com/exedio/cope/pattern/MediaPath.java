@@ -611,10 +611,11 @@ public abstract class MediaPath extends Pattern
 
 	/**
 	 * For testing only. TODO
+	 * @deprecated No longer supported. Does nothing.
 	 */
+	@Deprecated
 	public final void incrementDelivered()
 	{
-		delivered.stop(Timer.start());
 	}
 
 	public static final List<MediaRequestLog> getNoSuchPathLogs()
