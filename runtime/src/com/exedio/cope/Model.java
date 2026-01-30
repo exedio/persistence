@@ -729,20 +729,17 @@ public final class Model implements Serializable
 
 	public Properties getClusterProperties()
 	{
-		return connect().cluster.
-				properties;
+		return connect().cluster.properties;
 	}
 
 	public ClusterSenderInfo getClusterSenderInfo()
 	{
-		return connect().cluster.
-				getSenderInfo();
+		return connect().cluster.getSenderInfo();
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		return connect().cluster.
-				getListenerInfo();
+		return connect().cluster.getListenerInfo();
 	}
 
 	public void pingClusterNetwork()
