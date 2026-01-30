@@ -487,7 +487,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				false, // disableNativeDate
 				false, // legacyNameLength
 				false, // redundantUnq
-				PrimaryKeyGenerator.memory,
+				PrimaryKeyGenerator.sequence,
 				VaultProperties.factory(),
 				"while", "protected",
 				"media/");
