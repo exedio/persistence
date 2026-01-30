@@ -27,7 +27,7 @@ import java.net.DatagramPacket;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.Test;
 
-public class ClusterIteratorTest
+public class ClusterUdpIteratorTest
 {
 	@Test void testInt()
 	{

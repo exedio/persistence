@@ -40,13 +40,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public abstract class ClusterTest
+public abstract class ClusterUdpTest
 {
 	private ClusterUdpProperties csp;
 	@SuppressWarnings("FieldCanBeLocal")
 	private ClusterUdpProperties clp;
-	private ClusterSenderMock cs;
-	private ClusterListenerMock cl;
+	private ClusterUdpSenderMock cs;
+	private ClusterUdpListenerMock cl;
 
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 64;
@@ -73,8 +73,8 @@ public abstract class ClusterTest
 	{
 		csp = getProperties(0x11224433);
 		clp = getProperties(0x11224434);
-		cs = new ClusterSenderMock(csp);
-		cl = new ClusterListenerMock(clp, 4);
+		cs = new ClusterUdpSenderMock(csp);
+		cl = new ClusterUdpListenerMock(clp, 4);
 		invalidationSplitBefore = count("invalidationSplit");
 		missingMagicBefore = count("missingMagic");
 		wrongSecretBefore = count("wrongSecret");

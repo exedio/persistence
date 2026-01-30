@@ -18,47 +18,17 @@
 
 package com.exedio.cope;
 
-import java.util.ArrayList;
+import java.net.DatagramPacket;
+import java.util.Arrays;
 
-final class ClusterSenderMock extends ClusterUdpSender
+public final class ClusterUdpPaddedTest extends ClusterUdpTest
 {
-	private long nanoTimeSource = 0x2233445566778899l;
-	ArrayList<byte[]> testSink = null;
-
-	ClusterSenderMock(final ClusterUdpProperties properties)
-	{
-		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class));
-	}
-
 	@Override
-	long nanoTime()
+	protected DatagramPacket toPacket(final byte[] buf)
 	{
-		return nanoTimeSource++;
-	}
-
-	@Override
-	void send(final int length, final byte[] buf)
-	{
-		final byte[] bufCopy = new byte[length];
-		System.arraycopy(buf, 0, bufCopy, 0, length);
-		testSink.add(bufCopy);
-	}
-
-	@Override
-	int getLocalPort()
-	{
-		return 123456;
-	}
-
-	@Override
-	int getSendBufferSize()
-	{
-		return 123457;
-	}
-
-	@Override
-	int getTrafficClass()
-	{
-		return 123458;
+		final byte[] padded = new byte[buf.length+8];
+		Arrays.fill(padded, (byte)0xff);
+		System.arraycopy(buf, 0, padded, 4, buf.length);
+		return new DatagramPacket(padded, 4, buf.length, null, 967);
 	}
 }

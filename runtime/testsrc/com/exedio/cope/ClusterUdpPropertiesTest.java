@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterNetworkPingTest.gauge;
+import static com.exedio.cope.ClusterUdpNetworkPingTest.gauge;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
@@ -47,7 +47,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-public class ClusterPropertiesTest
+public class ClusterUdpPropertiesTest
 {
 	@Test void testOk()
 	{
@@ -56,7 +56,7 @@ public class ClusterPropertiesTest
 				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
 				single("cluster.secret", 1234),
-				ClusterNetworkTest.listenInterface(),
+				ClusterUdpNetworkTest.listenInterface(),
 				single("cluster.listen.threads.max", 5)
 		);
 
@@ -182,7 +182,7 @@ public class ClusterPropertiesTest
 				single("cluster.sendTrafficDefault", false),
 				single("cluster.sendTraffic", 44),
 				single("cluster.sendLoopback", true),
-				ClusterNetworkTest.listenInterface(),
+				ClusterUdpNetworkTest.listenInterface(),
 				single("cluster.listenBufferDefault", false),
 				single("cluster.listenBuffer", 15888),
 				single("cluster.listen.threads.initial", 8),
@@ -610,7 +610,7 @@ public class ClusterPropertiesTest
 
 	static
 	{
-		model.enableSerialization(ClusterPropertiesTest.class, "model");
+		model.enableSerialization(ClusterUdpPropertiesTest.class, "model");
 	}
 
 	private static final Properties.Factory<ClusterUdpProperties> FACTORY = ClusterUdpProperties.factory();

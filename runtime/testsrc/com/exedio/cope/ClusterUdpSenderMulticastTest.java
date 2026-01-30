@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterNetworkTest.assumeMulticast;
+import static com.exedio.cope.ClusterUdpNetworkTest.assumeMulticast;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -29,7 +29,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public final class ClusterSenderMulticastTest
+public final class ClusterUdpSenderMulticastTest
 {
 	private ClusterUdpSenderMulticast sender;
 
@@ -39,7 +39,7 @@ public final class ClusterSenderMulticastTest
 	{
 		final ClusterUdpProperties properties =
 			ClusterUdpProperties.factory().create(cascade(
-				ClusterNetworkTest.listenInterface(),
+				ClusterUdpNetworkTest.listenInterface(),
 				single("packetSize", 47),
 				single("secret", SECRET)
 			));

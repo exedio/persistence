@@ -41,7 +41,7 @@ import java.util.Enumeration;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class ClusterNetworkPingTest extends ClusterNetworkTest
+public class ClusterUdpNetworkPingTest extends ClusterUdpNetworkTest
 {
 	private String localhost;
 	private boolean fromMyself = false;

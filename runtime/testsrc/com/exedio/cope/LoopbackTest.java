@@ -96,7 +96,7 @@ public class LoopbackTest
 
 	private static NetworkInterface networkInterface() throws SocketException
 	{
-		final String name = ClusterNetworkTest.listenInterfaceIfSet();
+		final String name = ClusterUdpNetworkTest.listenInterfaceIfSet();
 		return name!=null ? NetworkInterface.getByName(name) : null;
 	}
 }

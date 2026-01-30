@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterNetworkPingTest.assertLastRoundTripSet;
-import static com.exedio.cope.ClusterNetworkPingTest.count;
-import static com.exedio.cope.ClusterNetworkPingTest.gauge;
+import static com.exedio.cope.ClusterUdpNetworkPingTest.assertLastRoundTripSet;
+import static com.exedio.cope.ClusterUdpNetworkPingTest.count;
+import static com.exedio.cope.ClusterUdpNetworkPingTest.gauge;
 import static com.exedio.cope.RuntimeAssert.disconnectIfNeeded;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.sensitive;
@@ -40,7 +40,7 @@ import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-public class ClusterNetworkPing3Test extends ClusterNetworkTest
+public class ClusterUdpNetworkPing3Test extends ClusterUdpNetworkTest
 {
 	private boolean fromMyself = false;
 	private double fromMyselfBeforeA;
@@ -268,7 +268,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 
 	static
 	{
-		modelC.enableSerialization(ClusterNetworkPing3Test.class, "modelC");
+		modelC.enableSerialization(ClusterUdpNetworkPing3Test.class, "modelC");
 	}
 
 	@AfterEach

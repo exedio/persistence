@@ -40,7 +40,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
+public class ClusterUdpNetworkChangeListenerTest extends ClusterUdpNetworkTest
 {
 	@AfterEach final void tearDown()
 	{
@@ -83,7 +83,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		modelB.addChangeListener(listenerB);
 
 		final Transaction transactionA =
-			modelA.startTransaction("ClusterNetworkChangeListenerTest#transactionA");
+			modelA.startTransaction("ClusterUdpNetworkChangeListenerTest#transactionA");
 		final TypeA itemA = new TypeA();
 		listenerA.assertEmpty();
 		listenerB.assertEmpty();
@@ -157,7 +157,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertEquals(expectedTransaction.getName(), event.getTransactionName());
 			assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
 			assertTrue(event.getTransactionDuration().compareTo(Duration.ZERO) > 0);
-			assertEquals(expectedItems + " " + expectedTransaction.getID() + " ClusterNetworkChangeListenerTest#transactionA", event.toString());
+			assertEquals(expectedItems + " " + expectedTransaction.getID() + " ClusterUdpNetworkChangeListenerTest#transactionA", event.toString());
 			assertNull(expectedTransaction.getBoundThread());
 			assertTrue(expectedTransaction.isClosed());
 
