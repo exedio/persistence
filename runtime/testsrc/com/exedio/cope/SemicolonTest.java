@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.StatementListener;
@@ -38,7 +39,7 @@ public class SemicolonTest
 	@Test void testEnabled()
 	{
 		MODEL.connect(ConnectProperties.create(
-				TestSources.minimal()
+				minimal
 		));
 		final Schema schema = MODEL.getSchema();
 
@@ -52,7 +53,7 @@ public class SemicolonTest
 	@Test void testDisabled()
 	{
 		MODEL.connect(ConnectProperties.create(Sources.cascade(
-				TestSources.minimal(),
+				minimal,
 				TestSources.single("disableSupport.semicolon", true)
 		)));
 		final Schema schema = MODEL.getSchema();
@@ -63,6 +64,11 @@ public class SemicolonTest
 		schema.drop(listener);
 		assertStatements(DROP_TO_2, DROP_TAB_2, DROP_TAB_1, DROP_SEQ_2, DROP_SEQ_1);
 	}
+
+	private static final Properties.Source minimal = Sources.cascade(
+			TestSources.minimal(),
+			TestSources.single("schema.primaryKeyGenerator", PrimaryKeyGenerator.memory)
+	);
 
 
 	private final ArrayList<String> statements = new ArrayList<>();
