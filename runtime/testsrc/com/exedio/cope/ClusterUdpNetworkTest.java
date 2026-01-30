@@ -35,7 +35,7 @@ import java.util.Properties;
 import java.util.StringJoiner;
 import org.junit.jupiter.api.AfterEach;
 
-public abstract class ClusterNetworkTest
+public abstract class ClusterUdpNetworkTest
 {
 	static final ConnectProperties getPropertiesMulticast()
 	{
@@ -86,12 +86,12 @@ public abstract class ClusterNetworkTest
 	private static final EnumMap<Port, String> PORTS = new EnumMap<>(Port.class);
 	static
 	{
-		MULTICAST_ADDRESS = parseBoolean(System.getProperty(ClusterNetworkTest.class.getName() + ".skipMulticast")) ? null : System.getProperty(ClusterNetworkTest.class.getName() + ".multicast", "224.0.0.41");
-		LISTEN_INTERFACE = System.getProperty(ClusterNetworkTest.class.getName() + ".listenInterface");
-		final String prefix = ClusterNetworkTest.class.getName() + ".port";
+		MULTICAST_ADDRESS = parseBoolean(System.getProperty(ClusterUdpNetworkTest.class.getName() + ".skipMulticast")) ? null : System.getProperty(ClusterUdpNetworkTest.class.getName() + ".multicast", "224.0.0.41");
+		LISTEN_INTERFACE = System.getProperty(ClusterUdpNetworkTest.class.getName() + ".listenInterface");
+		final String prefix = ClusterUdpNetworkTest.class.getName() + ".port";
 		for(final Port p : Port.values())
 			PORTS.put(p, System.getProperty(prefix + "." + p.name(), String.valueOf(p.defaultValue)));
-		System.out.println(ClusterNetworkTest.class.getName() + ' ' + MULTICAST_ADDRESS + ' ' + LISTEN_INTERFACE + ' ' + PORTS);
+		System.out.println(ClusterUdpNetworkTest.class.getName() + ' ' + MULTICAST_ADDRESS + ' ' + LISTEN_INTERFACE + ' ' + PORTS);
 	}
 
 	enum Port
@@ -173,8 +173,8 @@ public abstract class ClusterNetworkTest
 
 	static
 	{
-		modelA.enableSerialization(ClusterNetworkTest.class, "modelA");
-		modelB.enableSerialization(ClusterNetworkTest.class, "modelB");
+		modelA.enableSerialization(ClusterUdpNetworkTest.class, "modelA");
+		modelB.enableSerialization(ClusterUdpNetworkTest.class, "modelB");
 	}
 
 

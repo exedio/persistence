@@ -18,13 +18,43 @@
 
 package com.exedio.cope;
 
-import java.net.DatagramPacket;
+import gnu.trove.TLongHashSet;
+import java.util.ArrayList;
 
-public final class ClusterUnpaddedTest extends ClusterTest
+final class ClusterUdpListenerMock extends ClusterUdpListener
 {
-	@Override
-	protected DatagramPacket toPacket(final byte[] buf)
+	ArrayList<Object> testSink = null;
+	private boolean closed = false;
+
+	ClusterUdpListenerMock(
+			final ClusterUdpProperties properties,
+			final int typeLength)
 	{
-		return new DatagramPacket(buf, buf.length, null, 967);
+		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class), typeLength);
+	}
+
+	@Override
+	void invalidate(final TLongHashSet[] invalidations, final TransactionInfoRemote info)
+	{
+		testSink.add(invalidations);
+	}
+
+	@Override
+	void pong(final long pingNanos, final int pingNode)
+	{
+		testSink.add("PONG(" + Long.toHexString(pingNanos) + "," + Long.toHexString(pingNode) + ")");
+	}
+
+	@Override
+	int getReceiveBufferSize()
+	{
+		return 234567;
+	}
+
+	void close()
+	{
+		if(closed)
+			throw new RuntimeException();
+		closed = true;
 	}
 }

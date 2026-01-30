@@ -18,43 +18,47 @@
 
 package com.exedio.cope;
 
-import gnu.trove.TLongHashSet;
 import java.util.ArrayList;
 
-final class ClusterListenerMock extends ClusterUdpListener
+final class ClusterUdpSenderMock extends ClusterUdpSender
 {
-	ArrayList<Object> testSink = null;
-	private boolean closed = false;
+	private long nanoTimeSource = 0x2233445566778899l;
+	ArrayList<byte[]> testSink = null;
 
-	ClusterListenerMock(
-			final ClusterUdpProperties properties,
-			final int typeLength)
+	ClusterUdpSenderMock(final ClusterUdpProperties properties)
 	{
-		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class), typeLength);
+		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class));
 	}
 
 	@Override
-	void invalidate(final TLongHashSet[] invalidations, final TransactionInfoRemote info)
+	long nanoTime()
 	{
-		testSink.add(invalidations);
+		return nanoTimeSource++;
 	}
 
 	@Override
-	void pong(final long pingNanos, final int pingNode)
+	void send(final int length, final byte[] buf)
 	{
-		testSink.add("PONG(" + Long.toHexString(pingNanos) + "," + Long.toHexString(pingNode) + ")");
+		final byte[] bufCopy = new byte[length];
+		System.arraycopy(buf, 0, bufCopy, 0, length);
+		testSink.add(bufCopy);
 	}
 
 	@Override
-	int getReceiveBufferSize()
+	int getLocalPort()
 	{
-		return 234567;
+		return 123456;
 	}
 
-	void close()
+	@Override
+	int getSendBufferSize()
 	{
-		if(closed)
-			throw new RuntimeException();
-		closed = true;
+		return 123457;
+	}
+
+	@Override
+	int getTrafficClass()
+	{
+		return 123458;
 	}
 }

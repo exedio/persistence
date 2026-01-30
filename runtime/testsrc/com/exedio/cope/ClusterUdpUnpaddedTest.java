@@ -19,16 +19,12 @@
 package com.exedio.cope;
 
 import java.net.DatagramPacket;
-import java.util.Arrays;
 
-public final class ClusterPaddedTest extends ClusterTest
+public final class ClusterUdpUnpaddedTest extends ClusterUdpTest
 {
 	@Override
 	protected DatagramPacket toPacket(final byte[] buf)
 	{
-		final byte[] padded = new byte[buf.length+8];
-		Arrays.fill(padded, (byte)0xff);
-		System.arraycopy(buf, 0, padded, 4, buf.length);
-		return new DatagramPacket(padded, 4, buf.length, null, 967);
+		return new DatagramPacket(buf, buf.length, null, 967);
 	}
 }

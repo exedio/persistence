@@ -26,7 +26,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ClusterUtilTest
+public class ClusterUdpUtilTest
 {
 	private static final byte FILL = (byte)0xee;
 	private byte[] buf;
