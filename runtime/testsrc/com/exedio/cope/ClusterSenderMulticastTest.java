@@ -31,19 +31,19 @@ import org.junit.jupiter.api.Test;
 
 public final class ClusterSenderMulticastTest
 {
-	private ClusterSenderMulticast sender;
+	private ClusterUdpSenderMulticast sender;
 
 	private static final int SECRET = 0x88776655;
 
 	@BeforeEach void setUp()
 	{
-		final ClusterProperties properties =
-			ClusterProperties.factory().create(cascade(
+		final ClusterUdpProperties properties =
+			ClusterUdpProperties.factory().create(cascade(
 				ClusterNetworkTest.listenInterface(),
 				single("packetSize", 47),
 				single("secret", SECRET)
 			));
-		sender = new ClusterSenderMulticast(properties, ModelMetricsNonConnected.create("SENDER_TEST_MODEL_NAME").name(Cluster.class));
+		sender = new ClusterUdpSenderMulticast(properties, ModelMetricsNonConnected.create("SENDER_TEST_MODEL_NAME").name(ClusterUdpService.class));
 	}
 
 	@AfterEach void tearDown()

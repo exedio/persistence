@@ -31,7 +31,7 @@ public class ClusterIteratorTest
 {
 	@Test void testInt()
 	{
-		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
+		final ClusterUdpIterator iter = new ClusterUdpIterator(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 1, 4));
 		assertTrue(iter.hasNext());
 		assertEquals(0x456789ab, iter.next());
@@ -49,7 +49,7 @@ public class ClusterIteratorTest
 
 	@Test void testLong()
 	{
-		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(new byte[]{(byte)0xff,
+		final ClusterUdpIterator iter = new ClusterUdpIterator(new DatagramPacket(new byte[]{(byte)0xff,
 						(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
 						(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45,
 						(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 1, 8));
@@ -69,7 +69,7 @@ public class ClusterIteratorTest
 
 	@Test void testIntNegative()
 	{
-		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
+		final ClusterUdpIterator iter = new ClusterUdpIterator(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
 		assertTrue(iter.hasNext());
 		assertEquals(0xab896745, iter.next());
@@ -78,7 +78,7 @@ public class ClusterIteratorTest
 
 	@Test void testLongNegative()
 	{
-		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(new byte[]{
+		final ClusterUdpIterator iter = new ClusterUdpIterator(new DatagramPacket(new byte[]{
 						(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
 						(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 8));
 		assertTrue(iter.hasNext());
@@ -88,7 +88,7 @@ public class ClusterIteratorTest
 
 	@Test void testCheckInt()
 	{
-		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
+		final ClusterUdpIterator iter = new ClusterUdpIterator(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff}, 1, 4));
 		assertTrue(iter.hasNext());
 		assertTrue(iter.checkBytes(new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}));
@@ -106,7 +106,7 @@ public class ClusterIteratorTest
 
 	@Test void testCheckIntFalse()
 	{
-		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
+		final ClusterUdpIterator iter = new ClusterUdpIterator(new DatagramPacket(
 				new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}, 4));
 		assertTrue(iter.hasNext());
 		assertFalse(iter.checkBytes(new byte[]{(byte)0xab, (byte)0x89, (byte)0x68, (byte)0x45}));
@@ -115,7 +115,7 @@ public class ClusterIteratorTest
 
 	@Test void testCheckIntNegative()
 	{
-		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
+		final ClusterUdpIterator iter = new ClusterUdpIterator(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
 		assertTrue(iter.hasNext());
 		assertTrue(iter.checkBytes(new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}));

@@ -69,7 +69,7 @@ public class ClusterPropertiesTest
 		assertEquals(1, gauge("listenThreads", model));
 		assertEquals(NORM_PRIORITY, gauge("listenThreadPriority", model));
 		assertEquals(1400, gauge("packetSize", model));
-		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
+		final ClusterUdpProperties p = (ClusterUdpProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		assertEquals(1, p.listenThreads.initial);
 		assertEquals(5, p.listenThreads.max);
@@ -77,7 +77,7 @@ public class ClusterPropertiesTest
 
 	@Test void testMulticast()
 	{
-		final ClusterProperties p = FACTORY.create(describe("DESC", cascade(
+		final ClusterUdpProperties p = FACTORY.create(describe("DESC", cascade(
 				single("secret", 1234)
 		)));
 		final String ADDRESS = "224.0.0.50";
@@ -118,7 +118,7 @@ public class ClusterPropertiesTest
 		// documentation.
 		final String ADDRESS = "192.0.2.88";
 
-		final ClusterProperties p = FACTORY.create(describe("DESC", cascade(
+		final ClusterUdpProperties p = FACTORY.create(describe("DESC", cascade(
 				single("secret", 1234),
 				single("multicast", false),
 				single("sendAddress", ADDRESS)
@@ -202,7 +202,7 @@ public class ClusterPropertiesTest
 		assertEquals(8,     gauge("listenThreads", model));
 		assertEquals(NORM_PRIORITY-1, gauge("listenThreadPriority", model));
 		assertEquals(1412,  gauge("packetSize", model)); // rounded down to multiples of 4
-		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
+		final ClusterUdpProperties p = (ClusterUdpProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		assertEquals(8, p.listenThreads.initial);
 		assertEquals(10, p.listenThreads.max);
@@ -251,7 +251,7 @@ public class ClusterPropertiesTest
 		assertEquals(9,     gauge("listenThreads", model));
 		assertEquals(MIN_PRIORITY, gauge("listenThreadPriority", model));
 		assertEquals(1416,  gauge("packetSize", model)); // rounded down to multiples of 4
-		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
+		final ClusterUdpProperties p = (ClusterUdpProperties)model.getClusterProperties();
 		assertEquals(emptySet(), p.getOrphanedKeys());
 		assertEquals(9, p.listenThreads.initial);
 		assertEquals(10, p.listenThreads.max);
@@ -334,7 +334,7 @@ public class ClusterPropertiesTest
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234)
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -359,7 +359,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", " 224.0.0.55")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals("[/224.0.0.55:14446]", List.of(p.send()).toString());
 	}
 
@@ -369,7 +369,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.55 ")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals("[/224.0.0.55:14446]", List.of(p.send()).toString());
 	}
 
@@ -379,7 +379,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.55")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -391,7 +391,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.55:14464")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14464, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -476,7 +476,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.50:1")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
 		assertEquals(1, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -488,7 +488,7 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "224.0.0.50:65535")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
 		assertEquals(65535, p.send()[0].port);
 		assertEquals(1, p.send().length);
@@ -501,7 +501,7 @@ public class ClusterPropertiesTest
 				single("multicast", false),
 				single("sendAddress", "224.0.0.55 224.0.0.56:14464")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(InetAddress.getByName("224.0.0.56"), p.send()[1].address);
@@ -516,7 +516,7 @@ public class ClusterPropertiesTest
 				single("multicast", false),
 				single("sendAddress", "224.0.0.55   224.0.0.56:14464")
 		));
-		final ClusterProperties p = FACTORY.create(s);
+		final ClusterUdpProperties p = FACTORY.create(s);
 		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
 		assertEquals(14446, p.send()[0].port);
 		assertEquals(InetAddress.getByName("224.0.0.56"), p.send()[1].address);
@@ -613,5 +613,5 @@ public class ClusterPropertiesTest
 		model.enableSerialization(ClusterPropertiesTest.class, "model");
 	}
 
-	private static final Properties.Factory<ClusterProperties> FACTORY = ClusterProperties.factory();
+	private static final Properties.Factory<ClusterUdpProperties> FACTORY = ClusterUdpProperties.factory();
 }

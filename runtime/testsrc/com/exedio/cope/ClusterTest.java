@@ -42,19 +42,19 @@ import org.junit.jupiter.api.Test;
 
 public abstract class ClusterTest
 {
-	private ClusterProperties csp;
+	private ClusterUdpProperties csp;
 	@SuppressWarnings("FieldCanBeLocal")
-	private ClusterProperties clp;
+	private ClusterUdpProperties clp;
 	private ClusterSenderMock cs;
 	private ClusterListenerMock cl;
 
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 64;
 
-	private static ClusterProperties getProperties(final int node)
+	private static ClusterUdpProperties getProperties(final int node)
 	{
 		return
-			ClusterProperties.factory().create(cascade(
+			ClusterUdpProperties.factory().create(cascade(
 				single("packetSize", 67),
 				single("secret", SECRET),
 				single("nodeAuto", false),
@@ -928,7 +928,7 @@ public abstract class ClusterTest
 	private static double count(final String nameSuffix)
 	{
 		return ((Counter)PrometheusMeterRegistrar.meter(
-				Cluster.class, nameSuffix,
+				ClusterUdpService.class, nameSuffix,
 				Tags.of("model", "MOCK_MODEL_NAME"))).count();
 	}
 
@@ -937,7 +937,7 @@ public abstract class ClusterTest
 			final String result)
 	{
 		return ((Counter)PrometheusMeterRegistrar.meter(
-				Cluster.class, "sequence",
+				ClusterUdpService.class, "sequence",
 				Tags.of(
 						"model", "MOCK_MODEL_NAME",
 						"id", "11224433",
@@ -964,7 +964,7 @@ public abstract class ClusterTest
 	private static double gauge(final String nameSuffix)
 	{
 		return ((Gauge)PrometheusMeterRegistrar.meter(
-				Cluster.class, nameSuffix,
+				ClusterUdpService.class, nameSuffix,
 				Tags.of("model", "MOCK_MODEL_NAME"))).value();
 	}
 

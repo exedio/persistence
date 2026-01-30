@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterUtil.nextNode;
-import static com.exedio.cope.ClusterUtil.pingString;
+import static com.exedio.cope.ClusterUdpUtil.nextNode;
+import static com.exedio.cope.ClusterUdpUtil.pingString;
 import static java.lang.Integer.MIN_VALUE;
 import static java.net.StandardSocketOptions.IP_MULTICAST_LOOP;
 import static java.util.Collections.list;
@@ -41,9 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("FieldCanBeLocal")
-final class ClusterProperties extends Properties
+final class ClusterUdpProperties extends Properties
 {
-	private static final Logger logger = LoggerFactory.getLogger(ClusterProperties.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClusterUdpProperties.class);
 
 	/**
 	 * Multicast address for Local subnetwork (Not routable, 224.0.0.0 to 224.0.0.255).
@@ -80,7 +80,7 @@ final class ClusterProperties extends Properties
 	final int packetSize;
 	private final byte[] pingPayload;
 
-	private ClusterProperties(final Source source)
+	private ClusterUdpProperties(final Source source)
 	{
 		super(source);
 
@@ -334,8 +334,8 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	static Factory<ClusterProperties> factory()
+	static Factory<ClusterUdpProperties> factory()
 	{
-		return ClusterProperties::new;
+		return ClusterUdpProperties::new;
 	}
 }

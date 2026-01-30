@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.net.DatagramPacket;
 import java.util.NoSuchElementException;
 
-final class ClusterIterator
+final class ClusterUdpIterator
 {
 	private final int offset;
 	private final int length;
@@ -29,7 +29,7 @@ final class ClusterIterator
 	private final byte[] buf;
 	private int pos;
 
-	ClusterIterator(final DatagramPacket packet)
+	ClusterUdpIterator(final DatagramPacket packet)
 	{
 		this(
 				packet.getOffset(),
@@ -37,7 +37,7 @@ final class ClusterIterator
 				packet.getData());
 	}
 
-	private ClusterIterator(
+	private ClusterUdpIterator(
 			final int offset,
 			final int length,
 			final byte[] buf)
@@ -104,7 +104,7 @@ final class ClusterIterator
 		return result;
 	}
 
-	void checkPingPayload(final ClusterProperties properties, final boolean ping)
+	void checkPingPayload(final ClusterUdpProperties properties, final boolean ping)
 	{
 		properties.checkPingPayload(pos, buf, offset, length, ping);
 	}

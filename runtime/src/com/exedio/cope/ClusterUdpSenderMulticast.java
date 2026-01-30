@@ -20,12 +20,12 @@ package com.exedio.cope;
 
 import static java.net.StandardSocketOptions.IP_MULTICAST_LOOP;
 
-import com.exedio.cope.ClusterProperties.Send;
+import com.exedio.cope.ClusterUdpProperties.Send;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-final class ClusterSenderMulticast extends ClusterSender
+final class ClusterUdpSenderMulticast extends ClusterUdpSender
 {
 	private final Send[] send;
 	private final DatagramSocket socket;
@@ -34,7 +34,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	private final int trafficClass;
 	private final boolean loopback;
 
-	ClusterSenderMulticast(final ClusterProperties properties, final ModelMetrics metrics)
+	ClusterUdpSenderMulticast(final ClusterUdpProperties properties, final ModelMetrics metrics)
 	{
 		super(properties, metrics);
 		this.send = properties.send();

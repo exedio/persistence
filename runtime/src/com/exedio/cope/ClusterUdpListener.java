@@ -19,14 +19,14 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ClusterSenderInfo.toStringNodeID;
-import static com.exedio.cope.ClusterUtil.KIND_INVALIDATE;
-import static com.exedio.cope.ClusterUtil.KIND_PING;
-import static com.exedio.cope.ClusterUtil.KIND_PONG;
-import static com.exedio.cope.ClusterUtil.MAGIC0;
-import static com.exedio.cope.ClusterUtil.MAGIC1;
-import static com.exedio.cope.ClusterUtil.MAGIC2;
-import static com.exedio.cope.ClusterUtil.MAGIC3;
-import static com.exedio.cope.ClusterUtil.pingString;
+import static com.exedio.cope.ClusterUdpUtil.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterUdpUtil.KIND_PING;
+import static com.exedio.cope.ClusterUdpUtil.KIND_PONG;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC0;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC1;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC2;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC3;
+import static com.exedio.cope.ClusterUdpUtil.pingString;
 
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.SequenceChecker;
@@ -50,19 +50,19 @@ import java.util.function.IntConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-abstract class ClusterListener
+abstract class ClusterUdpListener
 {
-	private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClusterUdpListener.class);
 
-	private final ClusterProperties properties;
+	private final ClusterUdpProperties properties;
 	private final int secret;
 	private final int localNode;
 	private final int seqCheckCapacity;
 	private final int typeLength;
 	private final ModelMetrics metrics;
 
-	ClusterListener(
-			final ClusterProperties properties,
+	ClusterUdpListener(
+			final ClusterUdpProperties properties,
 			final ModelMetrics metrics,
 			final int typeLength)
 	{
@@ -72,7 +72,7 @@ abstract class ClusterListener
 		this.seqCheckCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
 		this.metrics = metrics;
-		metrics.gaugeConnect(c -> Cluster.of(c).listener.getReceiveBufferSize(), "receiveBufferSize", "DatagramSocket#getReceiveBufferSize");
+		metrics.gaugeConnect(c -> ClusterUdpService.of(c).listener.getReceiveBufferSize(), "receiveBufferSize", "DatagramSocket#getReceiveBufferSize");
 		exception    = metrics.counter("fail",         "How often a received packet failed to parse.", Tags.empty());
 		missingMagic = metrics.counter("missingMagic", "How often a received packet did not start with the magic bytes " + Hex.encodeUpper(MAGIC) + '.', Tags.empty());
 		wrongSecret  = metrics.counter("wrongSecret",  "How often a received packet did not carry the secret this cluster is configured with.", Tags.empty());
@@ -81,7 +81,7 @@ abstract class ClusterListener
 
 	final void handle(final DatagramPacket packet)
 	{
-		final ClusterIterator iter = new ClusterIterator(packet);
+		final ClusterUdpIterator iter = new ClusterUdpIterator(packet);
 
 		if(!iter.checkBytes(MAGIC))
 		{
@@ -153,7 +153,7 @@ abstract class ClusterListener
 
 	private void handlePingPong(
 			final DatagramPacket packet,
-			final ClusterIterator iter,
+			final ClusterUdpIterator iter,
 			final int remoteNode,
 			final boolean ping)
 	{
@@ -198,7 +198,7 @@ abstract class ClusterListener
 
 	private static final class Node
 	{
-		private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
+		private static final Logger logger = LoggerFactory.getLogger(ClusterUdpListener.class);
 
 		private final int id;
 		private final String idString;
