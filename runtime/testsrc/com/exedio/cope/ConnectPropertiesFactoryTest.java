@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ConnectProperties.factory;
-import static com.exedio.cope.PrimaryKeyGenerator.sequence;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -35,38 +34,38 @@ public class ConnectPropertiesFactoryTest
 {
 	@Test void testDefault()
 	{
-		assertIt(false, 60, 60, false, sequence, "while", "protected", "media/", f -> f);
+		assertIt(false, 60, 60, false, "while", "protected", "media/", f -> f);
 	}
 
 	@Test void testDisableNativeDate()
 	{
-		assertIt(true, 60, 60, false, sequence, "while", "protected", "media/", Factory::disableNativeDate);
+		assertIt(true, 60, 60, false, "while", "protected", "media/", Factory::disableNativeDate);
 	}
 
 	@Test void testLegacyNameLength()
 	{
-		assertIt(false, 60, 25, false, sequence, "while", "protected", "media/", Factory::legacyNameLength);
+		assertIt(false, 60, 25, false, "while", "protected", "media/", Factory::legacyNameLength);
 	}
 
 	@Test void testRedundantUnq()
 	{
-		assertIt(false, 60, 60, true, sequence, "while", "protected", "media/", Factory::redundantUnq);
+		assertIt(false, 60, 60, true, "while", "protected", "media/", Factory::redundantUnq);
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testPrimaryKeyGeneratorSequence()
 	{
-		assertIt(false, 60, 60, false, sequence, "while", "protected", "media/", Factory::primaryKeyGeneratorSequence);
+		assertIt(false, 60, 60, false, "while", "protected", "media/", Factory::primaryKeyGeneratorSequence);
 	}
 
 	@Test void testRevisionTable()
 	{
-		assertIt(false, 60, 60, false, sequence, "revTab", "revPk", "media/", f -> f.revisionTable("revTab", "revPk"));
+		assertIt(false, 60, 60, false, "revTab", "revPk", "media/", f -> f.revisionTable("revTab", "revPk"));
 	}
 
 	@Test void testMediaRootUrl()
 	{
-		assertIt(false, 60, 60, false, sequence, "while", "protected", "/custom/", f -> f.mediaRootUrl("/custom/"));
+		assertIt(false, 60, 60, false, "while", "protected", "/custom/", f -> f.mediaRootUrl("/custom/"));
 	}
 
 	@Test void testMediaRootUrlNull()
@@ -84,7 +83,6 @@ public class ConnectPropertiesFactoryTest
 			final int trimmerStandard,
 			final int trimmerLegacy,
 			final boolean redundantUnq,
-			final PrimaryKeyGenerator primaryKeyGenerator,
 			final String revisionTableName,
 			final String revisionPrimaryKeyName,
 			final String mediaRootUrl,
@@ -97,7 +95,6 @@ public class ConnectPropertiesFactoryTest
 				() -> assertEquals(trimmerStandard, p.trimmerStandard.maxLength, "trimmerStandard"),
 				() -> assertEquals(trimmerLegacy  , p.trimmerLegacy  .maxLength, "trimmerLegacy"  ),
 				() -> assertEquals(redundantUnq, p.redundantUnq, "redundantUnq"),
-				() -> assertEquals(primaryKeyGenerator, p.primaryKeyGenerator, "primaryKeyGenerator"),
 				() -> assertEquals(revisionTableName, p.revisionTableName, "revisionTableName"),
 				() -> assertEquals(revisionPrimaryKeyName, p.revisionPrimaryKeyName, "revisionPrimaryKeyName"),
 				() -> assertEquals(mediaRootUrl, p.getMediaRootUrl(), "mediaRootUrl"));
