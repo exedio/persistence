@@ -123,11 +123,8 @@ final class Connect
 		this.itemCache = new ItemCache(metrics, types, properties, cacheStamp);
 		this.queryCache = new QueryCache(metrics, properties.getQueryCacheLimit(), properties.cacheStamps, cacheStamp);
 
-		{
-			final ClusterUdpProperties props = properties.cluster;
-			//noinspection ThisEscapedInObjectConstruction
-			this.cluster = props!=null ? new ClusterUdpService(new ClusterServiceParameters(metrics, types, this), props) : ClusterNoneService.INSTANCE;
-		}
+		//noinspection ThisEscapedInObjectConstruction
+		this.cluster = properties.cluster.newInstance(new ClusterServiceParameters(metrics, types, this));
 
 		this.changeListenerDispatcher =
 				new ChangeListenerDispatcher(metrics, types, changeListeners, properties);
