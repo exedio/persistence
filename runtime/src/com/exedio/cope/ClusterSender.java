@@ -94,9 +94,9 @@ abstract class ClusterSender
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
 		}
-		metrics.gaugeConnect(c -> c.cluster.sender.getSendBufferSize(), "sendBufferSize", "DatagramSocket#getSendBufferSize");
-		metrics.gaugeConnect(c -> c.cluster.sender.getTrafficClass  (), "trafficClass",   "DatagramSocket#getTrafficClass");
-		metrics.gaugeConnect(c -> c.cluster.sender.getLoopback() ? 1.0 : 0.0, "sendLoopback", "MulticastSocket#getOption(IP_MULTICAST_LOOP)");
+		metrics.gaugeConnect(c -> Cluster.of(c).sender.getSendBufferSize(), "sendBufferSize", "DatagramSocket#getSendBufferSize");
+		metrics.gaugeConnect(c -> Cluster.of(c).sender.getTrafficClass  (), "trafficClass",   "DatagramSocket#getTrafficClass");
+		metrics.gaugeConnect(c -> Cluster.of(c).sender.getLoopback() ? 1.0 : 0.0, "sendLoopback", "MulticastSocket#getOption(IP_MULTICAST_LOOP)");
 		invalidationSplit = metrics.counter("invalidationSplit", "How often an invalidation must be split before sending due to packet size constraint.", Tags.empty());
 	}
 

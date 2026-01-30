@@ -724,25 +724,25 @@ public final class Model implements Serializable
 
 	public boolean isClusterEnabled()
 	{
-		return connect().cluster!=null;
+		return connect().cluster!=ClusterNoneService.INSTANCE;
 	}
 
 	public Properties getClusterProperties()
 	{
-		final Cluster cluster = connect().cluster;
-		return cluster!=null ? cluster.properties : null;
+		return connect().cluster.
+				properties;
 	}
 
 	public ClusterSenderInfo getClusterSenderInfo()
 	{
-		final Cluster cluster = connect().cluster;
-		return cluster!=null ? cluster.getSenderInfo() : null;
+		return connect().cluster.
+				getSenderInfo();
 	}
 
 	public ClusterListenerInfo getClusterListenerInfo()
 	{
-		final Cluster cluster = connect().cluster;
-		return cluster!=null ? cluster.getListenerInfo() : null;
+		return connect().cluster.
+				getListenerInfo();
 	}
 
 	public void pingClusterNetwork()
@@ -753,10 +753,7 @@ public final class Model implements Serializable
 	public void pingClusterNetwork(final int count)
 	{
 		requireGreaterZero(count, "count");
-		final Cluster cluster = connect().cluster;
-		if(cluster==null)
-			throw new IllegalStateException("cluster network not enabled");
-		cluster.sendPing(count);
+		connect().cluster.sendPing(count);
 	}
 
 	// ----------------------- transaction
