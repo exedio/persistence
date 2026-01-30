@@ -126,7 +126,7 @@ final class Connect
 		{
 			final ClusterUdpProperties props = properties.cluster;
 			//noinspection ThisEscapedInObjectConstruction
-			this.cluster = props!=null ? new ClusterUdpService(metrics, types, props, this) : ClusterNoneService.INSTANCE;
+			this.cluster = props!=null ? new ClusterUdpService(new ClusterServiceParameters(metrics, types, this), props) : ClusterNoneService.INSTANCE;
 		}
 
 		this.changeListenerDispatcher =
