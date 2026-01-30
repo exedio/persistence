@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.ConnectProperties.Factory;
 import com.exedio.cope.tojunit.TestSources;
@@ -55,7 +56,7 @@ public class ConnectPropertiesFactoryTest
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testPrimaryKeyGeneratorSequence()
 	{
-		assertIt(false, 60, 60, false, "while", "protected", "media/", Factory::primaryKeyGeneratorSequence);
+		assertSame(FACTORY, FACTORY.primaryKeyGeneratorSequence());
 	}
 
 	@Test void testRevisionTable()
