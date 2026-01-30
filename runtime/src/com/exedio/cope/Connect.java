@@ -164,7 +164,6 @@ final class Connect
 	void close()
 	{
 		changeListenerDispatcher.startClose();
-
 		cluster.startClose();
 
 		connectionPool.flush();
@@ -177,7 +176,6 @@ final class Connect
 		// let threads have some time to terminate,
 		// doing other thing in the mean time
 		changeListenerDispatcher.joinClose();
-
 		cluster.joinClose();
 	}
 
@@ -259,7 +257,6 @@ final class Connect
 	{
 		final ArrayList<ThreadController> result = new ArrayList<>(2);
 		changeListenerDispatcher.addThreadControllers(result);
-
 		cluster.addThreadControllers(result);
 		return Collections.unmodifiableList(result);
 	}
