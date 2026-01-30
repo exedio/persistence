@@ -20,14 +20,14 @@ package com.exedio.cope;
 
 import java.util.ArrayList;
 
-final class ClusterSenderMock extends ClusterSender
+final class ClusterSenderMock extends ClusterUdpSender
 {
 	private long nanoTimeSource = 0x2233445566778899l;
 	ArrayList<byte[]> testSink = null;
 
-	ClusterSenderMock(final ClusterProperties properties)
+	ClusterSenderMock(final ClusterUdpProperties properties)
 	{
-		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(Cluster.class));
+		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class));
 	}
 
 	@Override

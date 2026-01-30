@@ -21,16 +21,16 @@ package com.exedio.cope;
 import gnu.trove.TLongHashSet;
 import java.util.ArrayList;
 
-final class ClusterListenerMock extends ClusterListener
+final class ClusterListenerMock extends ClusterUdpListener
 {
 	ArrayList<Object> testSink = null;
 	private boolean closed = false;
 
 	ClusterListenerMock(
-			final ClusterProperties properties,
+			final ClusterUdpProperties properties,
 			final int typeLength)
 	{
-		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(Cluster.class), typeLength);
+		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class), typeLength);
 	}
 
 	@Override

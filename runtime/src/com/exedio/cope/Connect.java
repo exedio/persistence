@@ -124,9 +124,9 @@ final class Connect
 		this.queryCache = new QueryCache(metrics, properties.getQueryCacheLimit(), properties.cacheStamps, cacheStamp);
 
 		{
-			final ClusterProperties props = properties.cluster;
+			final ClusterUdpProperties props = properties.cluster;
 			//noinspection ThisEscapedInObjectConstruction
-			this.cluster = props!=null ? new Cluster(metrics, types, props, this) : ClusterNoneService.INSTANCE;
+			this.cluster = props!=null ? new ClusterUdpService(metrics, types, props, this) : ClusterNoneService.INSTANCE;
 		}
 
 		this.changeListenerDispatcher =

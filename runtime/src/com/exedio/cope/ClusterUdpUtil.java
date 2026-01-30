@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.Random;
 
-final class ClusterUtil
+final class ClusterUdpUtil
 {
 	static final byte MAGIC0 = (byte)0xc0;
 	static final byte MAGIC1 = (byte)0xbe;
@@ -75,7 +75,7 @@ final class ClusterUtil
 	}
 
 
-	private ClusterUtil()
+	private ClusterUdpUtil()
 	{
 		// prevent instantiation
 	}

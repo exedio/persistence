@@ -392,7 +392,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	final ThreadSwarmProperties chaListThreads = valnp("changeListeners.threads", ThreadSwarmProperties::new);
 
 
-	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
+	final ClusterUdpProperties cluster = value("cluster", false, ClusterUdpProperties.factory());
 
 	public boolean isClusterEnabled()
 	{

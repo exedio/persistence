@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterUtil.marshal;
+import static com.exedio.cope.ClusterUdpUtil.marshal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Hex;

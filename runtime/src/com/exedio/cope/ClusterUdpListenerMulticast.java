@@ -31,9 +31,9 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-final class ClusterListenerMulticast extends ClusterListenerModel implements Runnable
+final class ClusterUdpListenerMulticast extends ClusterUdpListenerModel implements Runnable
 {
-	private static final Logger logger = LoggerFactory.getLogger(ClusterListenerMulticast.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClusterUdpListenerMulticast.class);
 
 	private final int packetSize;
 	private final InetSocketAddress address;
@@ -44,10 +44,10 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private final ThreadSwarm threads;
 	private volatile boolean threadRun = true;
 
-	ClusterListenerMulticast(
-			final ClusterProperties properties,
+	ClusterUdpListenerMulticast(
+			final ClusterUdpProperties properties,
 			final ModelMetrics metrics,
-			final ClusterSender sender,
+			final ClusterUdpSender sender,
 			final int typeLength, final Connect connect)
 	{
 		super(properties, metrics, sender, typeLength, connect);
@@ -67,7 +67,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		//noinspection ThisEscapedInObjectConstruction
 		this.threads = new ThreadSwarm(
 				this,
-				"COPE Cluster Listener " + metrics.modelName + ' ' + ClusterSenderInfo.toStringNodeID(properties.node),
+				"COPE ClusterUdpService Listener " + metrics.modelName + ' ' + ClusterSenderInfo.toStringNodeID(properties.node),
 				properties.listenThreads
 		);
 		threads.start();
@@ -119,7 +119,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			{
 				exception.increment();
 				if(logger.isErrorEnabled())
-					logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ), e);
+					logger.error(MessageFormat.format("ClusterUdpListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ), e);
 			}
 		}
 		logTerminate();

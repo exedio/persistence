@@ -21,31 +21,31 @@ package com.exedio.cope;
 import gnu.trove.TLongHashSet;
 import java.util.ArrayList;
 
-final class Cluster extends ClusterService
+final class ClusterUdpService extends ClusterService
 {
-	final ClusterProperties properties;
-	final ClusterSenderMulticast sender;
-	final ClusterListenerMulticast listener;
+	final ClusterUdpProperties properties;
+	final ClusterUdpSenderMulticast sender;
+	final ClusterUdpListenerMulticast listener;
 
-	Cluster(
+	ClusterUdpService(
 			final ModelMetrics metricsTemplate,
 			final Types types,
-			final ClusterProperties properties,
+			final ClusterUdpProperties properties,
 			final Connect connect)
 	{
 		super(properties);
-		final ModelMetrics metrics = metricsTemplate.name(Cluster.class);
+		final ModelMetrics metrics = metricsTemplate.name(ClusterUdpService.class);
 		this.properties = properties;
-		this.sender   = new ClusterSenderMulticast(properties, metrics);
-		this.listener = new ClusterListenerMulticast(properties, metrics, sender, types.concreteTypeCount, connect);
-		metrics.gaugeConnect(c -> of(c).properties.listenThreads.initial, "listenThreads", "ClusterProperties#listenThreads#initial"); // TODO should expose the actual number of active threads
-		metrics.gaugeConnect(c -> of(c).properties.listenThreads.priorityForGauge, "listenThreadPriority", "ClusterProperties#listenThreads#priority"); // TODO should expose the actual priority of threads
-		metrics.gaugeConnect(c -> of(c).properties.packetSize, "packetSize", "ClusterProperties#packetSize");
+		this.sender   = new ClusterUdpSenderMulticast(properties, metrics);
+		this.listener = new ClusterUdpListenerMulticast(properties, metrics, sender, types.concreteTypeCount, connect);
+		metrics.gaugeConnect(c -> of(c).properties.listenThreads.initial, "listenThreads", "ClusterUdpProperties#listenThreads#initial"); // TODO should expose the actual number of active threads
+		metrics.gaugeConnect(c -> of(c).properties.listenThreads.priorityForGauge, "listenThreadPriority", "ClusterUdpProperties#listenThreads#priority"); // TODO should expose the actual priority of threads
+		metrics.gaugeConnect(c -> of(c).properties.packetSize, "packetSize", "ClusterUdpProperties#packetSize");
 	}
 
-	static Cluster of(final Connect connect)
+	static ClusterUdpService of(final Connect connect)
 	{
-		return (Cluster)connect.cluster;
+		return (ClusterUdpService)connect.cluster;
 	}
 
 	@Override

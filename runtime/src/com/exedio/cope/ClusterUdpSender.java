@@ -18,14 +18,14 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterUtil.KIND_INVALIDATE;
-import static com.exedio.cope.ClusterUtil.KIND_PING;
-import static com.exedio.cope.ClusterUtil.KIND_PONG;
-import static com.exedio.cope.ClusterUtil.MAGIC0;
-import static com.exedio.cope.ClusterUtil.MAGIC1;
-import static com.exedio.cope.ClusterUtil.MAGIC2;
-import static com.exedio.cope.ClusterUtil.MAGIC3;
-import static com.exedio.cope.ClusterUtil.marshal;
+import static com.exedio.cope.ClusterUdpUtil.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterUdpUtil.KIND_PING;
+import static com.exedio.cope.ClusterUdpUtil.KIND_PONG;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC0;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC1;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC2;
+import static com.exedio.cope.ClusterUdpUtil.MAGIC3;
+import static com.exedio.cope.ClusterUdpUtil.marshal;
 
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
@@ -34,9 +34,9 @@ import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
-abstract class ClusterSender
+abstract class ClusterUdpSender
 {
-	private final ClusterProperties properties;
+	private final ClusterUdpProperties properties;
 
 	private static final int KIND = 12;
 	private static final int SEQUENCE = 16;
@@ -51,7 +51,7 @@ abstract class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-	ClusterSender(final ClusterProperties properties, final ModelMetrics metrics)
+	ClusterUdpSender(final ClusterUdpProperties properties, final ModelMetrics metrics)
 	{
 		this.properties = properties;
 		{
@@ -94,9 +94,9 @@ abstract class ClusterSender
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
 		}
-		metrics.gaugeConnect(c -> Cluster.of(c).sender.getSendBufferSize(), "sendBufferSize", "DatagramSocket#getSendBufferSize");
-		metrics.gaugeConnect(c -> Cluster.of(c).sender.getTrafficClass  (), "trafficClass",   "DatagramSocket#getTrafficClass");
-		metrics.gaugeConnect(c -> Cluster.of(c).sender.getLoopback() ? 1.0 : 0.0, "sendLoopback", "MulticastSocket#getOption(IP_MULTICAST_LOOP)");
+		metrics.gaugeConnect(c -> ClusterUdpService.of(c).sender.getSendBufferSize(), "sendBufferSize", "DatagramSocket#getSendBufferSize");
+		metrics.gaugeConnect(c -> ClusterUdpService.of(c).sender.getTrafficClass  (), "trafficClass",   "DatagramSocket#getTrafficClass");
+		metrics.gaugeConnect(c -> ClusterUdpService.of(c).sender.getLoopback() ? 1.0 : 0.0, "sendLoopback", "MulticastSocket#getOption(IP_MULTICAST_LOOP)");
 		invalidationSplit = metrics.counter("invalidationSplit", "How often an invalidation must be split before sending due to packet size constraint.", Tags.empty());
 	}
 

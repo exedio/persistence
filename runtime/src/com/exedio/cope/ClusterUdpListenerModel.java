@@ -20,15 +20,15 @@ package com.exedio.cope;
 
 import gnu.trove.TLongHashSet;
 
-abstract class ClusterListenerModel extends ClusterListener
+abstract class ClusterUdpListenerModel extends ClusterUdpListener
 {
-	private final ClusterSender sender;
+	private final ClusterUdpSender sender;
 	private final Connect connect;
 
-	ClusterListenerModel(
-			final ClusterProperties properties,
+	ClusterUdpListenerModel(
+			final ClusterUdpProperties properties,
 			final ModelMetrics metrics,
-			final ClusterSender sender,
+			final ClusterUdpSender sender,
 			final int typeLength, final Connect connect)
 	{
 		super(properties, metrics, typeLength);
