@@ -110,7 +110,6 @@ public abstract class ClusterUdpNetworkTest
 
 	private static ConnectProperties getProperties(final Properties properties, final String description)
 	{
-		properties.setProperty("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
 		properties.setProperty("cluster", "true");
 		properties.setProperty("cluster.secret", "1234");
 		properties.setProperty("cluster.listen.threads.initial", "2");

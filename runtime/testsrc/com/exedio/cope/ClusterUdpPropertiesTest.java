@@ -53,7 +53,6 @@ public class ClusterUdpPropertiesTest
 	{
 		final Source s = cascade(
 				TestSources.minimal(),
-				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
 				single("cluster.secret", 1234),
 				ClusterUdpNetworkTest.listenInterface(),
@@ -174,7 +173,6 @@ public class ClusterUdpPropertiesTest
 	{
 		final Source s = cascade(
 				TestSources.minimal(),
-				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
 				single("cluster.secret", 1234),
 				single("cluster.sendBufferDefault", false),
@@ -223,7 +221,6 @@ public class ClusterUdpPropertiesTest
 
 		final Source s = cascade(
 				TestSources.minimal(),
-				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
 				single("cluster.secret", 1234),
 				single("cluster.multicast", false),
