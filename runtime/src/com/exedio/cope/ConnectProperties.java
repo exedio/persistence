@@ -277,7 +277,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return redundantUnq ? name + UniqueConstraint.POSTFIX : name;
 	}
 
-	final PrimaryKeyGenerator primaryKeyGenerator = value("schema.primaryKeyGenerator", factory.primaryKeyGenerator);
+	final PrimaryKeyGenerator primaryKeyGenerator = value("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence);
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
 	/**
@@ -487,7 +487,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				false, // disableNativeDate
 				false, // legacyNameLength
 				false, // redundantUnq
-				PrimaryKeyGenerator.sequence,
 				VaultProperties.factory(),
 				"while", "protected",
 				"media/");
@@ -498,7 +497,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		private final boolean disableNativeDate;
 		private final boolean legacyNameLength;
 		private final boolean redundantUnq;
-		private final PrimaryKeyGenerator primaryKeyGenerator;
 		private final VaultProperties.Factory vault;
 		private final String revisionTableName;
 		private final String revisionPrimaryKeyName;
@@ -508,7 +506,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				final boolean disableNativeDate,
 				final boolean legacyNameLength,
 				final boolean redundantUnq,
-				final PrimaryKeyGenerator primaryKeyGenerator,
 				final VaultProperties.Factory vault,
 				final String revisionTableName,
 				final String revisionPrimaryKeyName,
@@ -517,7 +514,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 			this.disableNativeDate = disableNativeDate;
 			this.legacyNameLength = legacyNameLength;
 			this.redundantUnq = redundantUnq;
-			this.primaryKeyGenerator = primaryKeyGenerator;
 			this.vault = vault;
 			this.revisionTableName = revisionTableName;
 			this.revisionPrimaryKeyName = revisionPrimaryKeyName;
@@ -527,7 +523,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory disableNativeDate()
 		{
 			return new Factory(
-					true, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					true, legacyNameLength, redundantUnq,
 					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
@@ -539,7 +535,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory legacyNameLength()
 		{
 			return new Factory(
-					disableNativeDate, true, redundantUnq, primaryKeyGenerator,
+					disableNativeDate, true, redundantUnq,
 					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
@@ -551,7 +547,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory redundantUnq()
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, true, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, true,
 					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
@@ -560,7 +556,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory primaryKeyGeneratorSequence()
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, redundantUnq, PrimaryKeyGenerator.sequence,
+					disableNativeDate, legacyNameLength, redundantUnq,
 					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
@@ -569,7 +565,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory vault(final VaultProperties.Factory vault)
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, redundantUnq,
 					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
@@ -578,7 +574,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory revisionTable(final String name, final String primaryKeyName)
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, redundantUnq,
 					vault,
 					name, primaryKeyName,
 					mediaRootUrl);
@@ -587,7 +583,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		public Factory mediaRootUrl(final String mediaRootUrl)
 		{
 			return new Factory(
-					disableNativeDate, legacyNameLength, redundantUnq, primaryKeyGenerator,
+					disableNativeDate, legacyNameLength, redundantUnq,
 					vault,
 					revisionTableName, revisionPrimaryKeyName,
 					mediaRootUrl);
