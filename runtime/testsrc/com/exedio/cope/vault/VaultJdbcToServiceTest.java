@@ -69,7 +69,7 @@ public class VaultJdbcToServiceTest extends VaultJdbcToServiceAbstractTest
 				"FROM " + SI.tab(MyItem.TYPE) + " " +
 				"ORDER BY " + SI.pk(MyItem.TYPE);
 		final Path propsFile = createProperties(Map.of(
-				"source.query", query));
+				"source.queries.0", query));
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, false, US_ASCII),

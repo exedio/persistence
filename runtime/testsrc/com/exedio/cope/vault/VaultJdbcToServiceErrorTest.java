@@ -69,7 +69,7 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("source.url", "someUrl");
 		props.setProperty("source.username", "someUsername");
 		props.setProperty("source.password", "somePassword");
-		props.setProperty("source.query", "SELECT ");
+		props.setProperty("source.queries.0", "SELECT ");
 		props.setProperty("target.service", UnusedPropertyService.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
@@ -80,7 +80,7 @@ public class VaultJdbcToServiceErrorTest
 				"property unusedProperty in " +
 				propsFile + " " +
 				"is not allowed, but only one of [" +
-				"source.url, source.username, source.password, source.query, source.queryHash, source.fetchSize, " +
+				"source.url, source.username, source.password, source.queries.count, source.queries.0, source.queryHash, source.fetchSize, " +
 				"target.algorithm, target.service, " +
 				"target.trail.startLimit, target.trail.fieldLimit, target.trail.originLimit, " +
 				"targetProbesSuppressed].");
@@ -103,7 +103,7 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("source.url", "someUrl");
 		props.setProperty("source.username", "someUsername");
 		props.setProperty("source.password", "somePassword");
-		props.setProperty("source.query", "SELECT ");
+		props.setProperty("source.queries.0", "SELECT ");
 		props.setProperty("target.service", TestServiceProbeFailed.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);
@@ -146,7 +146,7 @@ public class VaultJdbcToServiceErrorTest
 		props.setProperty("source.url", "someUrl");
 		props.setProperty("source.username", "someUsername");
 		props.setProperty("source.password", "somePassword");
-		props.setProperty("source.query", "SELECT ");
+		props.setProperty("source.queries.0", "SELECT ");
 		props.setProperty("target.service", TestServiceProbeFailedChecked.class.getName());
 		final Path propsFile = files.newFile().toPath();
 		writeProperties(props, propsFile);

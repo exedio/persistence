@@ -20,7 +20,6 @@ package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.readAllLines;
 import static com.exedio.cope.vault.VaultJdbcToServiceErrorTest.writeProperties;
-import static java.lang.System.lineSeparator;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -50,10 +49,10 @@ public class VaultJdbcToServiceHsqldbTest
 {
 	@Test void testNormal() throws IOException, SQLException
 	{
-		final Path propsFile = createProperties(
+		final Path propsFile = createProperties(List.of(
 				"VALUES " +
 						"('012345678901234567890123456789ab', '050401')," +
-						"('022345678901234567890123456789ab', '050402')", Map.of());
+						"('022345678901234567890123456789ab', '050402')"), Map.of());
 		final var out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, true, US_ASCII),
@@ -75,7 +74,7 @@ public class VaultJdbcToServiceHsqldbTest
 
 	@Test void testMultipleLines() throws IOException, SQLException
 	{
-		final Path propsFile = createProperties(
+		final Path propsFile = createProperties(List.of(
 				"VALUES " +
 						"('012345678901234567890123456789ab', '050401')," +
 						"('022345678901234567890123456789ab', '050402')," +
@@ -83,13 +82,13 @@ public class VaultJdbcToServiceHsqldbTest
 						"(NULL, 'fa0401')," +
 						"(NULL, 'fa0401')," +
 						"('fb0145678901234567890123456789ab', 'fb0401')," +
-						"('fb0245678901234567890123456789ab', 'fb0402')" +
-						lineSeparator() +
-				lineSeparator() + // test empty line
+						"('fb0245678901234567890123456789ab', 'fb0402')"
+				,
+
 				"VALUES " +
 						"('032345678901234567890123456789ab', '050403')," +
 						"('042345678901234567890123456789ab', '050404')," +
-						"('052345678901234567890123456789ab', '050405')", Map.of());
+						"('052345678901234567890123456789ab', '050405')"), Map.of());
 		final var out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
 				new PrintStream(out, true, US_ASCII),
@@ -132,11 +131,11 @@ public class VaultJdbcToServiceHsqldbTest
 
 	@Test void testCompute() throws IOException, SQLException
 	{
-		final Path propsFile = createProperties(
+		final Path propsFile = createProperties(List.of(
 				"VALUES " +
 						"(NULL)," +
 						"('010203')," +
-						"('010204')",
+						"('010204')"),
 				Map.of("source.queryHash", "false"));
 		final var out = new ByteArrayOutputStream();
 		VaultJdbcToService.mainInternal(
@@ -161,10 +160,10 @@ public class VaultJdbcToServiceHsqldbTest
 
 	@Test void testProps() throws IOException, SQLException
 	{
-		final Path propsFile = createProperties(
+		final Path propsFile = createProperties(List.of(
 				"VALUES " +
 				"('012345678901234567890123456789ab', '050401')," +
-				"('022345678901234567890123456789ab', '050402')",
+				"('022345678901234567890123456789ab', '050402')"),
 				TestServiceProps.class,
 				Map.of(
 						"targetProbesSuppressed", "4Fails 4FailsOther"));
@@ -268,14 +267,14 @@ public class VaultJdbcToServiceHsqldbTest
 
 
 	@Nonnull
-	private Path createProperties(final String query, final Map<String, String> additional) throws IOException
+	private Path createProperties(final List<String> query, final Map<String, String> additional) throws IOException
 	{
 		return createProperties(query, TestService.class, additional);
 	}
 
 	@Nonnull
 	private Path createProperties(
-			final String query,
+			final List<String> queries,
 			final Class<? extends AssertionErrorVaultService> service,
 			final Map<String, String> additional) throws IOException
 	{
@@ -283,7 +282,9 @@ public class VaultJdbcToServiceHsqldbTest
 		props.setProperty("source.url", "jdbc:hsqldb:mem:VaultJdbcToServiceHsqldbTest");
 		props.setProperty("source.username", "sa");
 		props.setProperty("source.password", "");
-		props.setProperty("source.query", query);
+		props.setProperty("source.queries.count", String.valueOf(queries.size()));
+		for(int i = 0; i<queries.size(); i++)
+			props.setProperty("source.queries." + i, queries.get(i));
 		props.setProperty("target.algorithm", "MD5");
 		props.setProperty("target.service", service.getName());
 		for(final Map.Entry<String,String> e : additional.entrySet())
