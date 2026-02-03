@@ -30,7 +30,7 @@ final class ClusterUdpListenerMock extends ClusterUdpListener
 			final ClusterUdpProperties properties,
 			final int typeLength)
 	{
-		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class), typeLength);
+		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(Cluster.class), typeLength);
 	}
 
 	@Override

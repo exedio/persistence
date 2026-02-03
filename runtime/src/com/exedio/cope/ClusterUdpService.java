@@ -34,7 +34,7 @@ final class ClusterUdpService extends ClusterService
 			final Connect connect)
 	{
 		super(properties);
-		final ModelMetrics metrics = metricsTemplate.name(ClusterUdpService.class);
+		final ModelMetrics metrics = metricsTemplate.name(Cluster.class);
 		this.properties = properties;
 		this.sender   = new ClusterUdpSenderMulticast(properties, metrics);
 		this.listener = new ClusterUdpListenerMulticast(properties, metrics, sender, types.concreteTypeCount, connect);

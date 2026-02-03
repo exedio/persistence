@@ -241,7 +241,7 @@ public class ClusterUdpNetworkPingTest extends ClusterUdpNetworkTest
 			assertNull(actual.getMinimumRoundTrip());
 			assertNull(actual.getMaximumRoundTrip());
 		}
-		assertEquals(expected, ((Timer)PrometheusMeterRegistrar.meter(ClusterUdpService.class, "roundTrip",
+		assertEquals(expected, ((Timer)PrometheusMeterRegistrar.meter(Cluster.class, "roundTrip",
 				Tags.of(
 						"model", expectedLocalModel.toString(),
 						"id", actual.getIDString(),
@@ -267,7 +267,7 @@ public class ClusterUdpNetworkPingTest extends ClusterUdpNetworkTest
 	private static Meter meter(final String nameSuffix, final Model model)
 	{
 		return PrometheusMeterRegistrar.meter(
-				ClusterUdpService.class, nameSuffix,
+				Cluster.class, nameSuffix,
 				Tags.of("model", model.toString()));
 	}
 
@@ -301,7 +301,7 @@ public class ClusterUdpNetworkPingTest extends ClusterUdpNetworkTest
 
 		final ClusterSenderInfo sendInfo = sendModel.getClusterSenderInfo();
 		return PrometheusMeterRegistrar.meter(
-				ClusterUdpService.class, nameSuffix,
+				Cluster.class, nameSuffix,
 				tags.and(
 						"model", listenModel.toString(),
 						"id", sendInfo.getNodeIDString(),

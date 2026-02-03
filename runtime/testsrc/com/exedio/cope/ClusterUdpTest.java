@@ -928,7 +928,7 @@ public abstract class ClusterUdpTest
 	private static double count(final String nameSuffix)
 	{
 		return ((Counter)PrometheusMeterRegistrar.meter(
-				ClusterUdpService.class, nameSuffix,
+				Cluster.class, nameSuffix,
 				Tags.of("model", "MOCK_MODEL_NAME"))).count();
 	}
 
@@ -937,7 +937,7 @@ public abstract class ClusterUdpTest
 			final String result)
 	{
 		return ((Counter)PrometheusMeterRegistrar.meter(
-				ClusterUdpService.class, "sequence",
+				Cluster.class, "sequence",
 				Tags.of(
 						"model", "MOCK_MODEL_NAME",
 						"id", "11224433",
@@ -964,7 +964,7 @@ public abstract class ClusterUdpTest
 	private static double gauge(final String nameSuffix)
 	{
 		return ((Gauge)PrometheusMeterRegistrar.meter(
-				ClusterUdpService.class, nameSuffix,
+				Cluster.class, nameSuffix,
 				Tags.of("model", "MOCK_MODEL_NAME"))).value();
 	}
 
