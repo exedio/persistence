@@ -43,7 +43,7 @@ public final class ClusterUdpSenderMulticastTest
 				single("packetSize", 47),
 				single("secret", SECRET)
 			));
-		sender = new ClusterUdpSenderMulticast(properties, ModelMetricsNonConnected.create("SENDER_TEST_MODEL_NAME").name(ClusterUdpService.class));
+		sender = new ClusterUdpSenderMulticast(properties, ModelMetricsNonConnected.create("SENDER_TEST_MODEL_NAME").name(Cluster.class));
 	}
 
 	@AfterEach void tearDown()

@@ -27,7 +27,7 @@ final class ClusterUdpSenderMock extends ClusterUdpSender
 
 	ClusterUdpSenderMock(final ClusterUdpProperties properties)
 	{
-		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(ClusterUdpService.class));
+		super(properties, ModelMetricsNonConnected.create("MOCK_MODEL_NAME").name(Cluster.class));
 	}
 
 	@Override
