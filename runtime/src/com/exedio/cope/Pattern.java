@@ -81,6 +81,9 @@ public abstract class Pattern extends AbstractFeature
 			final Class<?> innerLocalizationKeysClass)
 	{
 		requireNonNull(feature, "feature");
+		if(feature==this)
+			throw new IllegalArgumentException(
+					"cannot become a source feature of itself: " + feature);
 		requireNonEmpty(postfix, "postfix");
 		requireNonNull(innerLocalizationKeysClass, "innerLocalizationKeysClass");
 		if(sourceFeaturesGather==null)
