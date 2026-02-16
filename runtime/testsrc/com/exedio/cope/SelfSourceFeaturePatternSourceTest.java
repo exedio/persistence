@@ -18,10 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 
-import com.exedio.cope.instrument.WrapperType;
 import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
@@ -30,9 +28,11 @@ public class SelfSourceFeaturePatternSourceTest
 	@Test void test()
 	{
 		assertFails(
-				() -> TypesBound.newType(MyItem.class, MyItem::new),
-				IllegalStateException.class,
-				"feature already mounted: MyItem.pattern");
+				MyPattern::new,
+				IllegalArgumentException.class,
+				"cannot become a source feature of itself: " +
+				"com.exedio.cope.SelfSourceFeaturePatternSourceTest$MyPattern@xxx",
+				s -> s.replaceAll("MyPattern@.*$", "MyPattern@xxx"));
 	}
 
 	private static final class MyPattern extends Pattern
@@ -44,22 +44,5 @@ public class SelfSourceFeaturePatternSourceTest
 
 		@Serial
 		private static final long serialVersionUID = 1l;
-	}
-
-	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	private static final class MyItem extends Item
-	{
-		@SuppressWarnings("unused") // OK: feature collected by reflection
-		static final MyPattern pattern = new MyPattern();
-
-		@com.exedio.cope.instrument.Generated
-		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-		@com.exedio.cope.instrument.Generated
-		@java.io.Serial
-		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
