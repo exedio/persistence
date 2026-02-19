@@ -41,6 +41,7 @@
 					filesonly="true"
 					duplicate="fail"
 					strict="fail"
+					modificationtime="2026-02-10T11:22:33Z"
 					level="9">
 				<implicit-element />
 				<manifest>
@@ -303,6 +304,7 @@
 				filesonly="true"
 				whenempty="fail"
 				duplicate="fail"
+				modificationtime="2026-02-10T11:22:33Z"
 				level="9">
 			<zipfileset dir="${basedir}/dsmf/src"          ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/src"       ><include name="**/*.java"/></zipfileset>
