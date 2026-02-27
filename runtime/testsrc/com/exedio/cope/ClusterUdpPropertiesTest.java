@@ -74,6 +74,21 @@ public class ClusterUdpPropertiesTest
 		assertEquals(5, p.listenThreads.max);
 	}
 
+	@Test void testDisabledExplicitly()
+	{
+		final Source s = cascade(
+				TestSources.minimal(),
+				single("cluster", false)
+		);
+
+		final ConnectProperties props = ConnectProperties.create(s);
+		assertEquals(false, props.isClusterEnabled());
+		assertEquals(emptySet(), props.getOrphanedKeys());
+		model.connect(props);
+		assertEquals(false, model.isClusterEnabled());
+		assertEquals(null, model.getClusterProperties());
+	}
+
 	@Test void testMulticast()
 	{
 		final ClusterUdpProperties p = FACTORY.create(describe("DESC", cascade(
