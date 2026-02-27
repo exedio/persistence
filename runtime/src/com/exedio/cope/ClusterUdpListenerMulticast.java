@@ -98,7 +98,7 @@ final class ClusterUdpListenerMulticast extends ClusterUdpListenerModel implemen
 				}
 
 				handle(packet);
-	      }
+			}
 			catch(final SocketException e)
 			{
 				if(threadRun)
