@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.ChangeEvent.NotAvailableException;
 import java.time.Duration;
@@ -120,15 +119,11 @@ public class ClusterUdpNetworkChangeListenerTest extends ClusterUdpNetworkTest
 			assertSame(null, this.event);
 
 			assertContains(model.getOpenTransactions());
-			try
-			{
-				model.currentTransaction();
-				fail();
-			}
-			catch(final IllegalStateException e)
-			{
-				assertEquals("there is no cope transaction bound to this thread for model " + model + ", see Model#startTransaction", e.getMessage());
-			}
+			assertFails(
+					model::currentTransaction,
+					IllegalStateException.class,
+					"there is no cope transaction bound to this thread for model " + model + ", " +
+					"see Model#startTransaction");
 
 			this.event = event;
 		}
