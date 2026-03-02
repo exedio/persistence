@@ -62,9 +62,8 @@ final class ClusterNoneService extends ClusterService
 	}
 
 
-	static final ClusterNoneService INSTANCE = new ClusterNoneService();
-
-	private ClusterNoneService()
+	private ClusterNoneService(
+			@SuppressWarnings("unused") final ClusterServiceParameters parameters)
 	{
 		super(null);
 	}

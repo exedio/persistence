@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.ServiceProperties;
 import gnu.trove.TLongHashSet;
 import java.util.ArrayList;
 
+@ServiceProperties(ClusterUdpProperties.class)
 final class ClusterUdpService extends ClusterService
 {
 	final ClusterUdpProperties properties;

@@ -39,6 +39,9 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * @see ClusterShortcutChangeListenerTest
+ */
 public class ClusterUdpNetworkChangeListenerTest extends ClusterUdpNetworkTest
 {
 	@AfterEach final void tearDown()

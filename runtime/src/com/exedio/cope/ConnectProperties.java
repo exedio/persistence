@@ -27,6 +27,7 @@ import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.ProxyPropertiesSource;
 import com.exedio.cope.util.ServiceFactory;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultProperties;
@@ -392,11 +393,16 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	final ThreadSwarmProperties chaListThreads = valnp("changeListeners.threads", ThreadSwarmProperties::new);
 
 
-	final ClusterUdpProperties cluster = value("cluster", false, ClusterUdpProperties.factory());
+	final ServiceFactory<ClusterService, ClusterServiceParameters> cluster =
+			valueService(
+					"cluster",
+					ClusterNoneService.class,
+					ClusterService.class,
+					ClusterServiceParameters.class);
 
 	public boolean isClusterEnabled()
 	{
-		return cluster!=null;
+		return cluster.getServiceClass()!=ClusterNoneService.class;
 	}
 
 
@@ -619,11 +625,42 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	ConnectProperties(final Source source, final Factory factory)
 	{
-		super(source, factory);
+		super(new FilterSource(source), factory);
 
-		if(cluster!=null && !primaryKeyGenerator.persistent)
+		if(cluster.getServiceClass()!=ClusterNoneService.class && !primaryKeyGenerator.persistent)
 			throw newException("cluster",
 					"not supported together with schema.primaryKeyGenerator=" + primaryKeyGenerator);
+	}
+
+	private static final class FilterSource extends ProxyPropertiesSource
+	{
+		FilterSource(final Source target)
+		{
+			super(target);
+		}
+		@Override
+		public String get(final String key)
+		{
+			final String value = super.get(key);
+			//noinspection SwitchStatementWithTooFewBranches
+			return switch(key)
+			{
+				case "cluster" ->
+					value==null ? null :
+						switch(value)
+						{
+							case "true"  -> ClusterUdpService .class.getName();
+							case "false" -> ClusterNoneService.class.getName();
+							default -> value;
+						};
+				default -> value;
+			};
+		}
+		@Override
+		protected ProxyPropertiesSource reload(final Source reloadedTarget)
+		{
+			return new FilterSource(reloadedTarget);
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------
