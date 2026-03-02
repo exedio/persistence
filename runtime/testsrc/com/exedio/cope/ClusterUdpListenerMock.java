@@ -34,7 +34,7 @@ final class ClusterUdpListenerMock extends ClusterUdpListener
 	}
 
 	@Override
-	void invalidate(final TLongHashSet[] invalidations, final TransactionInfoRemote info)
+	void invalidate(final TLongHashSet[] invalidations, final int remoteNode)
 	{
 		testSink.add(invalidations);
 	}

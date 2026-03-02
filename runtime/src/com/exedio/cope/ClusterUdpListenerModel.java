@@ -37,9 +37,9 @@ abstract class ClusterUdpListenerModel extends ClusterUdpListener
 	}
 
 	@Override
-	final void invalidate(final TLongHashSet[] invalidations, final TransactionInfoRemote info)
+	final void invalidate(final TLongHashSet[] invalidations, final int remoteNode)
 	{
-		parameters.invalidate(invalidations, info);
+		parameters.invalidate(invalidations, remoteNode);
 	}
 
 	@Override
