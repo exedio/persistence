@@ -627,7 +627,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		super(new FilterSource(source), factory);
 
-		if(cluster.getServiceClass()!=ClusterNoneService.class && !primaryKeyGenerator.persistent)
+		if(isClusterEnabled() && !primaryKeyGenerator.persistent)
 			throw newException("cluster",
 					"not supported together with schema.primaryKeyGenerator=" + primaryKeyGenerator);
 	}
