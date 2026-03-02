@@ -39,7 +39,7 @@ final class ClusterShortcutService extends ClusterService
 		super(null);
 		assertNotNull(parameters);
 		assertNotNull(parameters.metricsTemplate);
-		assertNotNull(parameters.types);
+		assertEquals(1, parameters.concreteTypeCount);
 		assertNotNull(parameters.connect);
 		this.parameters = parameters;
 		this.instanceNumber = instances.size();

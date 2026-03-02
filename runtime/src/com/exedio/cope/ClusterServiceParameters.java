@@ -22,7 +22,7 @@ package com.exedio.cope;
 final class ClusterServiceParameters
 {
 	final ModelMetrics metricsTemplate;
-	final Types types;
+	final int concreteTypeCount;
 	final Connect connect;
 
 	ClusterServiceParameters(
@@ -31,7 +31,7 @@ final class ClusterServiceParameters
 			final Connect connect)
 	{
 		this.metricsTemplate = metricsTemplate;
-		this.types = types;
+		this.concreteTypeCount = types.concreteTypeCount;
 		this.connect = connect;
 	}
 }
