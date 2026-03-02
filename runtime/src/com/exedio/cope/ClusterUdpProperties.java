@@ -80,7 +80,7 @@ final class ClusterUdpProperties extends Properties
 	final int packetSize;
 	private final byte[] pingPayload;
 
-	private ClusterUdpProperties(final Source source)
+	ClusterUdpProperties(final Source source)
 	{
 		super(source);
 
@@ -332,10 +332,5 @@ final class ClusterUdpProperties extends Properties
 		{
 			throw new RuntimeException(String.valueOf(port), e);
 		}
-	}
-
-	static Factory<ClusterUdpProperties> factory()
-	{
-		return ClusterUdpProperties::new;
 	}
 }

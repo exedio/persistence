@@ -38,7 +38,7 @@ public final class ClusterUdpSenderMulticastTest
 	@BeforeEach void setUp()
 	{
 		final ClusterUdpProperties properties =
-			ClusterUdpProperties.factory().create(cascade(
+			new ClusterUdpProperties(cascade(
 				ClusterUdpNetworkTest.listenInterface(),
 				single("packetSize", 47),
 				single("secret", SECRET)

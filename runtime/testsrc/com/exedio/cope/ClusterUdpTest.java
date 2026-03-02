@@ -54,7 +54,7 @@ public abstract class ClusterUdpTest
 	private static ClusterUdpProperties getProperties(final int node)
 	{
 		return
-			ClusterUdpProperties.factory().create(cascade(
+			new ClusterUdpProperties(cascade(
 				single("packetSize", 67),
 				single("secret", SECRET),
 				single("nodeAuto", false),
