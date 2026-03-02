@@ -38,8 +38,8 @@ final class ClusterServiceParameters
 
 	void invalidate(
 			final TLongHashSet[] invalidations,
-			final TransactionInfoRemote info)
+			final int remoteNode)
 	{
-		connect.invalidate(invalidations, info);
+		connect.invalidate(invalidations, new TransactionInfoRemote(remoteNode));
 	}
 }

@@ -52,7 +52,7 @@ final class ClusterShortcutService extends ClusterService
 		for(final ClusterShortcutService instance : instances)
 			if(instance!=this)
 				instance.parameters.invalidate(
-						invalidations, new TransactionInfoRemote(instanceNumber));
+						invalidations, instanceNumber);
 	}
 
 	@Override
