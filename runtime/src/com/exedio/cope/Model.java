@@ -724,7 +724,7 @@ public final class Model implements Serializable
 
 	public boolean isClusterEnabled()
 	{
-		return !(connect().cluster instanceof ClusterNoneService);
+		return connect().properties.isClusterEnabled();
 	}
 
 	public Properties getClusterProperties()
