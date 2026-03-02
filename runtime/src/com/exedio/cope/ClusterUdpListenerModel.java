@@ -23,23 +23,23 @@ import gnu.trove.TLongHashSet;
 abstract class ClusterUdpListenerModel extends ClusterUdpListener
 {
 	private final ClusterUdpSender sender;
-	private final Connect connect;
+	private final ClusterServiceParameters parameters;
 
 	ClusterUdpListenerModel(
 			final ClusterUdpProperties properties,
 			final ModelMetrics metrics,
 			final ClusterUdpSender sender,
-			final int typeLength, final Connect connect)
+			final ClusterServiceParameters parameters)
 	{
-		super(properties, metrics, typeLength);
+		super(properties, metrics, parameters.concreteTypeCount);
 		this.sender = sender;
-		this.connect = connect;
+		this.parameters = parameters;
 	}
 
 	@Override
 	final void invalidate(final TLongHashSet[] invalidations, final TransactionInfoRemote info)
 	{
-		connect.invalidate(invalidations, info);
+		parameters.invalidate(invalidations, info);
 	}
 
 	@Override

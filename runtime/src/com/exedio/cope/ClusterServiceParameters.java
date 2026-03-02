@@ -18,12 +18,13 @@
 
 package com.exedio.cope;
 
-@SuppressWarnings("ClassCanBeRecord") // OK: may be a record is not sufficient for future development
+import gnu.trove.TLongHashSet;
+
 final class ClusterServiceParameters
 {
 	final ModelMetrics metricsTemplate;
 	final int concreteTypeCount;
-	final Connect connect;
+	private final Connect connect;
 
 	ClusterServiceParameters(
 			final ModelMetrics metricsTemplate,
@@ -33,5 +34,12 @@ final class ClusterServiceParameters
 		this.metricsTemplate = metricsTemplate;
 		this.concreteTypeCount = types.concreteTypeCount;
 		this.connect = connect;
+	}
+
+	void invalidate(
+			final TLongHashSet[] invalidations,
+			final TransactionInfoRemote info)
+	{
+		connect.invalidate(invalidations, info);
 	}
 }

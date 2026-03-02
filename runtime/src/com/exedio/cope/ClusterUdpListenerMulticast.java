@@ -48,9 +48,9 @@ final class ClusterUdpListenerMulticast extends ClusterUdpListenerModel implemen
 			final ClusterUdpProperties properties,
 			final ModelMetrics metrics,
 			final ClusterUdpSender sender,
-			final int typeLength, final Connect connect)
+			final ClusterServiceParameters parameters)
 	{
-		super(properties, metrics, sender, typeLength, connect);
+		super(properties, metrics, sender, parameters);
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
 		this.networkInterface = properties.listenInterface;
