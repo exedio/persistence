@@ -625,5 +625,5 @@ public class ClusterUdpPropertiesTest
 		model.enableSerialization(ClusterUdpPropertiesTest.class, "model");
 	}
 
-	private static final Properties.Factory<ClusterUdpProperties> FACTORY = ClusterUdpProperties.factory();
+	private static final Properties.Factory<ClusterUdpProperties> FACTORY = ClusterUdpProperties::new;
 }
