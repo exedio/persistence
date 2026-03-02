@@ -40,7 +40,6 @@ final class ClusterShortcutService extends ClusterService
 		assertNotNull(parameters);
 		assertNotNull(parameters.metricsTemplate);
 		assertEquals(1, parameters.concreteTypeCount);
-		assertNotNull(parameters.connect);
 		this.parameters = parameters;
 		this.instanceNumber = instances.size();
 		//noinspection ThisEscapedInObjectConstruction
@@ -52,7 +51,7 @@ final class ClusterShortcutService extends ClusterService
 	{
 		for(final ClusterShortcutService instance : instances)
 			if(instance!=this)
-				instance.parameters.connect.invalidate(
+				instance.parameters.invalidate(
 						invalidations, new TransactionInfoRemote(instanceNumber));
 	}
 

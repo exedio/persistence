@@ -37,7 +37,7 @@ final class ClusterUdpService extends ClusterService
 		final ModelMetrics metrics = parameters.metricsTemplate.name(Cluster.class);
 		this.properties = properties;
 		this.sender   = new ClusterUdpSenderMulticast(properties, metrics);
-		this.listener = new ClusterUdpListenerMulticast(properties, metrics, sender, parameters.concreteTypeCount, parameters.connect);
+		this.listener = new ClusterUdpListenerMulticast(properties, metrics, sender, parameters);
 		metrics.gaugeConnect(c -> of(c).properties.listenThreads.initial, "listenThreads", "ClusterUdpProperties#listenThreads#initial"); // TODO should expose the actual number of active threads
 		metrics.gaugeConnect(c -> of(c).properties.listenThreads.priorityForGauge, "listenThreadPriority", "ClusterUdpProperties#listenThreads#priority"); // TODO should expose the actual priority of threads
 		metrics.gaugeConnect(c -> of(c).properties.packetSize, "packetSize", "ClusterUdpProperties#packetSize");
