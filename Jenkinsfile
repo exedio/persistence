@@ -291,6 +291,9 @@ try
 				shSilent 'cp /tmp/idea/.cache/JetBrains/*/log/idea.log .'
 			}
 			archiveArtifacts 'idea-inspection-output/**,idea.log'
+			shSilent "rm idea-inspection-output/GrazieInspection.xml" // Grammar
+			shSilent "rm idea-inspection-output/GrazieStyle.xml"
+			shSilent "rm idea-inspection-output/SpellCheckingInspection.xml"
 			// replace project dir to prevent UnsupportedOperationException - will not be exposed in artifacts
 			shSilent "find idea-inspection-output -name '*.xml' | " +
 			         "xargs --no-run-if-empty sed --in-place -- 's=\\\$PROJECT_DIR\\\$=" + env.WORKSPACE + "=g'"
