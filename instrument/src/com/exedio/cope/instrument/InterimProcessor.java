@@ -490,9 +490,11 @@ final class InterimProcessor extends JavacProcessor
 
 		private void addInterfacesThatAddMethods(final TypeElement type, final List<TypeElement> interfaces)
 		{
-			if (type.getKind()==ElementKind.INTERFACE && type.getAnnotation(WrapImplementsInterim.class)!=null && type.getAnnotation(WrapImplementsInterim.class).addMethods())
+			if (type.getKind()==ElementKind.INTERFACE)
 			{
-				interfaces.add(type);
+				final var ann = type.getAnnotation(WrapImplementsInterim.class);
+				if(ann!=null && ann.addMethods())
+					interfaces.add(type);
 			}
 			final TypeElement superClass = getSuperclass(type);
 			if (superClass!=null)

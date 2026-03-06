@@ -14,15 +14,15 @@ EOF
 
 ARG IDEA
 ARG IDEA_SHA256
-ADD --checksum=sha256:${IDEA_SHA256} https://ivyartifacts.exedio.com/idea/ideaIC-${IDEA}.tar.gz /tmp/ideaIC.tar.gz
+ADD --checksum=sha256:${IDEA_SHA256} https://ivyartifacts.exedio.com/idea/idea-${IDEA}.tar.gz /tmp/idea.tar.gz
 RUN <<EOF
 set -e
 mkdir /opt/idea
 tar \
-	-xf /tmp/ideaIC.tar.gz \
+	-xf /tmp/idea.tar.gz \
 	--directory /opt/idea \
 	--strip-components=1
-rm /tmp/ideaIC.tar.gz
+rm /tmp/idea.tar.gz
 EOF
 
 # keeping idea files  out of workspace, where they are scanned by idea inspections
