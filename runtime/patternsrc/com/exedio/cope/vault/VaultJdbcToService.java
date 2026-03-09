@@ -24,10 +24,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.io.StringReader;
 import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -52,7 +49,7 @@ import java.util.concurrent.Callable;
  * source.url=jdbc:mysql://myhost/myschema
  * source.username=myuser
  * source.password=mypassword
- * source.query=SELECT hash,data FROM Vault
+ * source.queries.0=SELECT hash,data FROM Vault
  * target.service=com.exedio.filevault.VaultFileService
  * target.service.root=myrootdir
  * </pre>
@@ -256,24 +253,7 @@ public final class VaultJdbcToService
 			return driver.connect(url, info);
 		}
 
-		final List<String> queries = toList(value("source.query", (String)null));
-
-		// TODO read separate sql file with all queries
-		private static List<String> toList(final String s)
-		{
-			final ArrayList<String> result = new ArrayList<>();
-			try(BufferedReader r = new BufferedReader(new StringReader(s)))
-			{
-				for(String line = r.readLine(); line!=null; line = r.readLine())
-					if(!line.isEmpty())
-						result.add(line);
-			}
-			catch(final IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-			return List.copyOf(result);
-		}
+		final List<String> queries = valueStringList("source.queries", 1);
 
 		final boolean queryHash = value("source.queryHash", true);
 
