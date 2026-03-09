@@ -81,7 +81,7 @@ public final class VaultProperties extends AbstractVaultProperties
 			final String[] aliasSplit = alias.split(ALIAS_SEPARATOR);
 			if(aliasSplit.length!=2)
 				throw newException(key,
-						"must contain exactly one '=', " +
+						"must contain exactly one '" + ALIAS_SEPARATOR + "', " +
 						"but was '" + alias +'\'');
 			final String left  = aliasSplit[0];
 			final String right = aliasSplit[1];
