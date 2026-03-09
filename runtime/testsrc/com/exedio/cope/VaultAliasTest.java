@@ -92,7 +92,7 @@ public class VaultAliasTest
 				single("vault.zwei.service", VaultMockService.class),
 				single("vault.zwei.service.example", "zweiEx"),
 				single("vault.aliases.count", 1),
-				single("vault.aliases.0", "drei=zwei"));
+				single("vault.aliases.0", "drei>zwei"));
 		final var vp = props.getVaultProperties();
 		assertEquals("eins", vp.bucket("eins").getKey());
 		assertEquals("zwei", vp.bucket("zwei").getKey());
@@ -171,7 +171,7 @@ public class VaultAliasTest
 				single("vault.drei.service", VaultMockService.class),
 				single("vault.drei.service.example", "dreiEx"),
 				single("vault.aliases.count", 1),
-				single("vault.aliases.0", "drei=zwei"));
+				single("vault.aliases.0", "drei>zwei"));
 		final var vp = props.getVaultProperties();
 		assertEquals("eins", vp.bucket("eins").getKey());
 		assertEquals("zwei", vp.bucket("zwei").getKey());
@@ -210,8 +210,8 @@ public class VaultAliasTest
 				single("vault.drei.service", VaultMockService.class),
 				single("vault.drei.service.example", "dreiEx"),
 				single("vault.aliases.count", 2),
-				single("vault.aliases.0", "drei=zwei"),
-				single("vault.aliases.1", "zwei=drei")));
+				single("vault.aliases.0", "drei>zwei"),
+				single("vault.aliases.1", "zwei>drei")));
 		assertEquals(Set.of("eins", "zwei", "drei"), connect.vaultBuckets());
 		assertInfo(null,   AnItem.none);
 		assertInfo("eins", AnItem.eins);
@@ -241,7 +241,7 @@ public class VaultAliasTest
 						single("vault.eins.service", VaultMockService.class),
 						single("vault.zwei.service", VaultMockService.class),
 						single("vault.aliases.count", 1),
-						single("vault.aliases.0", "drei=vier")),
+						single("vault.aliases.0", "drei>vier")),
 				IllegalPropertiesException.class,
 				"property vault.aliases.0 in DESC " +
 				"'vier' does not exist, use one of [eins, zwei]");
@@ -255,7 +255,7 @@ public class VaultAliasTest
 						single("vault.eins.service", VaultMockService.class),
 						single("vault.zwei.service", VaultMockService.class),
 						single("vault.aliases.count", 1),
-						single("vault.aliases.0", "drei=drei")),
+						single("vault.aliases.0", "drei>drei")),
 				IllegalPropertiesException.class,
 				"property vault.aliases.0 in DESC " +
 				"'drei' cannot be an alias of itself");
@@ -268,8 +268,8 @@ public class VaultAliasTest
 						single("vault.buckets", "eins"),
 						single("vault.eins.service", VaultMockService.class),
 						single("vault.aliases.count", 2),
-						single("vault.aliases.0", "zwei=eins"),
-						single("vault.aliases.1", "drei=zwei")),
+						single("vault.aliases.0", "zwei>eins"),
+						single("vault.aliases.1", "drei>zwei")),
 				IllegalPropertiesException.class,
 				"property vault.aliases.1 in DESC " +
 				"'zwei' does not exist, use one of [eins]");
@@ -284,8 +284,8 @@ public class VaultAliasTest
 						single("vault.zwei.service", VaultMockService.class),
 						single("vault.drei.service", VaultMockService.class),
 						single("vault.aliases.count", 2),
-						single("vault.aliases.0", "eins=zwei"),
-						single("vault.aliases.1", "eins=drei")),
+						single("vault.aliases.0", "eins>zwei"),
+						single("vault.aliases.1", "eins>drei")),
 				IllegalPropertiesException.class,
 				"property vault.aliases.1 in DESC " +
 				"'eins' is an alias of 'zwei' already, cannot be an alias of 'drei' as well");
@@ -299,7 +299,7 @@ public class VaultAliasTest
 						single("vault.eins.service", VaultMockService.class),
 						single("vault.zwei.service", VaultMockService.class),
 						single("vault.aliases.count", 1),
-						single("vault.aliases.0", "drei.=zwei")),
+						single("vault.aliases.0", "drei.>zwei")),
 				IllegalPropertiesException.class,
 				"property vault.aliases.0 in DESC " +
 				"left must contain just [---,0-9,A-Z,a-z], " +
@@ -314,7 +314,7 @@ public class VaultAliasTest
 						single("vault.eins.service", VaultMockService.class),
 						single("vault.zwei.service", VaultMockService.class),
 						single("vault.aliases.count", 1),
-						single("vault.aliases.0", "drei=zwei.")),
+						single("vault.aliases.0", "drei>zwei.")),
 				IllegalPropertiesException.class,
 				"property vault.aliases.0 in DESC " +
 				"right must contain just [---,0-9,A-Z,a-z], " +
@@ -332,7 +332,7 @@ public class VaultAliasTest
 						single("vault.aliases.0", "drei/zwei")),
 				IllegalPropertiesException.class,
 				"property vault.aliases.0 in DESC " +
-				"must contain exactly one '=', but was 'drei/zwei'");
+				"must contain exactly one '>', but was 'drei/zwei'");
 	}
 
 	private static ConnectProperties props(final Source... sources)

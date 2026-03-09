@@ -108,7 +108,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		return Collections.unmodifiableMap(result);
 	}
 
-	private static final String ALIAS_SEPARATOR = "=";
+	private static final String ALIAS_SEPARATOR = ">";
 
 	@Nonnull
 	public Bucket bucket(@Nonnull final String key)
