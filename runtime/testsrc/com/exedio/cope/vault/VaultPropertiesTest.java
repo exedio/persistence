@@ -757,19 +757,19 @@ public class VaultPropertiesTest
 	@Test void aliases()
 	{
 		assertEquals(
-				List.of("a=A"),
+				List.of("a>A"),
 				factory.aliases(Map.of("a", "A")).aliases);
 	}
 	@Test void aliasesLong()
 	{
 		assertEquals(
-				List.of("a=XA", "b=B", "c=XC", "d=D"), // must be sorted by key because Map.of shuffles order
+				List.of("a>XA", "b>B", "c>XC", "d>D"), // must be sorted by key because Map.of shuffles order
 				factory.aliases(Map.of("a", "XA", "b", "B", "c", "XC", "d", "D")).aliases);
 	}
 	@Test void aliasesLongUnsorted()
 	{
 		assertEquals(
-				List.of("a=A", "b=B", "c=C", "d=D"), // must be sorted by key because Map.of shuffles order
+				List.of("a>A", "b>B", "c>C", "d>D"), // must be sorted by key because Map.of shuffles order
 				factory.aliases(Map.of("b", "B", "a", "A", "d", "D", "c", "C")).aliases);
 	}
 	@Test void aliasesKeyIllegal()
