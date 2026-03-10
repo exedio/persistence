@@ -265,7 +265,7 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 					"on " + this);
 		for(int i = 0; i<values.length; i++)
 			if(values[i]==null)
-				throw new NullPointerException("cannot search uniquely for null on " + getID() + " for " + fields.get(i).getID());
+				throw new NullPointerException("cannot search uniquely for null on " + this + " for " + fields.get(i).getID());
 		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
 		//noinspection ForLoopThatDoesntUseLoopVariable
