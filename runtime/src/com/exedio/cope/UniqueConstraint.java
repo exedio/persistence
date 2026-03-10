@@ -40,6 +40,7 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 	private final FunctionField<?>[] fields;
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
+	private UniqueCache cache;
 
 	private UniqueConstraint(final FunctionField<?>[] fields)
 	{
@@ -187,6 +188,13 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 		table.database.executor.addUniqueConstraint(databaseID, this);
 	}
 
+	UniqueCache initCache()
+	{
+		if(cache==null)
+			cache = new UniqueCache(this);
+		return cache;
+	}
+
 	static final String POSTFIX = "_Unq";
 
 	void disconnect()
@@ -195,6 +203,7 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 			throw new RuntimeException();
 
 		databaseID = null;
+		cache = null;
 	}
 
 	String getDatabaseID()
@@ -309,6 +318,14 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 		return
 				requireParentClass(typeClass, "typeClass").
 				searchSingletonStrict(buildCondition(values));
+	}
+
+	/**
+	 * @return returning {@code null} means 'unknown'.
+	 */
+	Item searchCached(final Object value)
+	{
+		return cache!=null ? cache.search(value) : null;
 	}
 
 	void check(final FieldValues fieldValues)

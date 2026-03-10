@@ -31,6 +31,14 @@ final class Row
 	// IdentityHashMap is more efficient than HashMap because it uses linear-probe instead of chaining
 	private final IdentityHashMap<Column, Object> impl;
 
+	/**
+	 * Just for {@link UniqueCache}.
+	 */
+	Row(final int expectedMaxSize)
+	{
+		impl = new IdentityHashMap<>(expectedMaxSize);
+	}
+
 	Row(final Type<?> type)
 	{
 		impl = new IdentityHashMap<>(type.expectedMaxRowSize);

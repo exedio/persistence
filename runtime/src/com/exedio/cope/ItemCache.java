@@ -42,13 +42,14 @@ final class ItemCache
 	ItemCache(final ModelMetrics metricsTemplate, final Types types, final ConnectProperties properties, final CacheStamp cacheStamp)
 	{
 		final int limit=properties.getItemCacheLimit();
+		final boolean unique = properties.itemCacheUnique;
 		final Metrics metrics = new Metrics(metricsTemplate);
 		final List<TypeStats> typesStatsList=new ArrayList<>();
 		for(final Type<?> type : types.typeListSorted)
 			if(!type.isAbstract)
 				typesStatsList.add(
 						limit!=0 && !type.external // cache enabled
-						? new TypeStats(metrics.back, type)
+						? new TypeStats(metrics.back, type, unique)
 						: null);
 
 		typeStats=typesStatsList.toArray(TypeStats[]::new);
@@ -63,8 +64,13 @@ final class ItemCache
 				throw new RuntimeException(type.cacheIdTransiently + "/" + type.id + '/' + i);
 		}
 
-		map = new LRUMap<>(limit, eldest ->
-				typeStats[eldest.getKey().type.cacheIdTransiently].evictions.increment());
+		map = new LRUMap<>(limit, eldest -> {
+			final Item item = eldest.getKey();
+			final TypeStats typeStat = typeStats[item.type.cacheIdTransiently];
+			for(final var uc : typeStat.uniqueCaches)
+				uc.removeSynchronized(eldest.getValue(), item);
+			typeStat.evictions.increment();
+		});
 		this.cacheStamp = cacheStamp;
 		if(properties.cacheStamps)
 		{
@@ -195,6 +201,8 @@ final class ItemCache
 						{
 							typeStat.concurrentLoads.increment();
 						}
+						for(final var uc : typeStat.uniqueCaches)
+							uc.putSynchronized(item, state);
 					}
 				}
 			}
@@ -244,8 +252,11 @@ final class ItemCache
 						if (type.cacheIdTransiently!=typeTransiently) throw new RuntimeException();
 						final Item item=type.activate(i.next());
 						if (stampsEnabled) invalidated.add(item);
-						if (map.remove(item)!=null)
+						final WrittenState removed = map.remove(item);
+						if (removed!=null)
 						{
+							for(final var uc : typeStat.uniqueCaches)
+								uc.removeSynchronized(removed, item);
 							typeStat.invalidationsActual.increment();
 						}
 						else
@@ -269,6 +280,10 @@ final class ItemCache
 		synchronized (map)
 		{
 			map.clear();
+			for(final var typeStat : typeStats)
+				if(typeStat!=null)
+					for(final var uc : typeStat.uniqueCaches)
+						uc.clearSynchronized();
 		}
 	}
 
@@ -360,8 +375,9 @@ final class ItemCache
 		final Counter invalidationsActual;
 		final Counter stampsHit;
 		final Counter stampsPurged;
+		final UniqueCache[] uniqueCaches;
 
-		TypeStats(final ModelMetrics metricsTemplate, final Type<?> type)
+		TypeStats(final ModelMetrics metricsTemplate, final Type<?> type, final boolean unique)
 		{
 			this.type = type;
 			final ModelMetrics metrics = metricsTemplate.name(ItemCache.class).tag(type);
@@ -373,7 +389,30 @@ final class ItemCache
 			invalidationsActual = metrics.counter("invalidations", "effect", "actual", "Invalidations in the item cache, that were effective because the item was in cache");
 			stampsHit           = metrics.counter("stamp.hit",   "How often a stamp prevented an item from being stored");
 			stampsPurged        = metrics.counter("stamp.purge", "How many stamps were purged because there was no transaction older than the stamp");
+
+			if(unique)
+			{
+				ArrayList<UniqueCache> uniqueCaches = null;
+				for(final var uq : type.getUniqueConstraints())
+				{
+					if(uq.getFields().size()>1) // TODO support unique constraints with more than one field as well
+						continue;
+
+					final var uc = uq.initCache();
+					if(uniqueCaches==null)
+						uniqueCaches = new ArrayList<>();
+					uniqueCaches.add(uc);
+				}
+				this.uniqueCaches =
+						uniqueCaches!=null
+						? uniqueCaches.toArray(UniqueCache[]::new)
+						: EMPTY_UNIQUE_CACHES;
+			}
+			else
+				this.uniqueCaches = EMPTY_UNIQUE_CACHES;
 		}
+
+		private static final UniqueCache[] EMPTY_UNIQUE_CACHES = {};
 
 		ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
 		{

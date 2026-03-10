@@ -300,6 +300,11 @@ public abstract class FunctionField<E> extends Field<E>
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 
+	final void setAndCast(final Row row, final Object surface)
+	{
+		set(row, valueClass.cast(surface));
+	}
+
 	@Override
 	public final void requireSupportForGet()
 	{
@@ -458,7 +463,14 @@ public abstract class FunctionField<E> extends Field<E>
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		// TODO: search nativly for unique constraints
+
+		if(implicitUniqueConstraint!=null)
+		{
+			final Item cacheResult = implicitUniqueConstraint.searchCached(value);
+			if(cacheResult!=null)
+				return type.cast(cacheResult);
+		}
+
 		return type.searchSingleton(is(value));
 	}
 
@@ -480,7 +492,14 @@ public abstract class FunctionField<E> extends Field<E>
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		// TODO: search nativly for unique constraints
+
+		if(implicitUniqueConstraint!=null)
+		{
+			final Item cacheResult = implicitUniqueConstraint.searchCached(value);
+			if(cacheResult!=null)
+				return type.cast(cacheResult);
+		}
+
 		return type.searchSingletonStrict(is(value));
 	}
 

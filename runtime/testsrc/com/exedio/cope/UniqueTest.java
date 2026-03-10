@@ -41,6 +41,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
 import org.junit.jupiter.api.Test;
 
 public class UniqueTest extends TestWithEnvironment
@@ -58,6 +61,12 @@ public class UniqueTest extends TestWithEnvironment
 	public UniqueTest()
 	{
 		super(MODEL);
+	}
+
+	@Override
+	public Properties.Source override(final Properties.Source s)
+	{
+		return Sources.cascade(TestSources.single("cache.item.unique", false), s);
 	}
 
 	@Test void testItemWithSingleUnique()
