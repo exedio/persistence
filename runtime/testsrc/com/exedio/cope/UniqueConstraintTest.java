@@ -101,12 +101,14 @@ public class UniqueConstraintTest extends TestWithEnvironment
 	{
 		assertFails(
 				() -> UniqueConstraintItem.aAndB.search("x"),
-				RuntimeException.class,
-				"2-1");
+				IllegalArgumentException.class,
+				"values must be of length 2, " +
+				"but was [x] on UniqueConstraintItem.aAndB");
 		assertFails(
 				() -> UniqueConstraintItem.aAndB.search("x", 33, 66),
-				RuntimeException.class,
-				"2-3");
+				IllegalArgumentException.class,
+				"values must be of length 2, " +
+				"but was [x, 33, 66] on UniqueConstraintItem.aAndB");
 	}
 
 	@WrapperType(indent=2, comments=false)

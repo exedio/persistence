@@ -259,7 +259,10 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 		// TODO: search natively for unique constraints
 		final List<FunctionField<?>> fields = getFields();
 		if(fields.size()!=values.length)
-			throw new RuntimeException(String.valueOf(fields.size())+'-'+values.length);
+			throw new IllegalArgumentException(
+					"values must be of length " + fields.size() + ", " +
+					"but was " + java.util.Arrays.toString(values) + " " +
+					"on " + this);
 		for(int i = 0; i<values.length; i++)
 			if(values[i]==null)
 				throw new NullPointerException("cannot search uniquely for null on " + getID() + " for " + fields.get(i).getID());
