@@ -31,6 +31,7 @@ import static com.exedio.cope.UniqueSingleNotNullItem.forUniqueNotNullString;
 import static com.exedio.cope.UniqueSingleNotNullItem.uniqueNotNullString;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -108,71 +109,52 @@ public class UniqueTest extends TestWithEnvironment
 
 		assertEquals(null, forUniqueString("uniqueString"));
 		assertEquals(null, uniqueString.searchUnique("uniqueString"));
-		try
-		{
-			forUniqueStringStrict("uniqueString");
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueSingleItem where uniqueString='uniqueString'", e.getMessage());
-		}
+		assertFails(
+				() -> forUniqueStringStrict("uniqueString"),
+				IllegalArgumentException.class,
+				"expected result of size one, " +
+				"but was empty for query: " +
+				"select this from UniqueSingleItem where uniqueString='uniqueString'");
 
 		// create two items with null, that must not interfere with uniqueness
 		final UniqueSingleItem nullItem1 = new UniqueSingleItem();
 		assertEquals(null, nullItem1.getUniqueString());
 		assertEquals(null, forUniqueString("uniqueString"));
 		assertEquals(null, uniqueString.searchUnique("uniqueString"));
-		try
-		{
-			forUniqueString(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
-		}
+		assertFails(
+				() -> forUniqueString(null),
+				NullPointerException.class,
+				"cannot search uniquely for null " +
+				"on UniqueSingleItem.uniqueString");
 
 		final UniqueSingleItem nullItem2 = new UniqueSingleItem();
 		assertEquals(null, nullItem2.getUniqueString());
 		assertEquals(null, forUniqueString("uniqueString"));
 		assertEquals(null, uniqueString.searchUnique("uniqueString"));
-		try
-		{
-			forUniqueString(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
-		}
+		assertFails(
+				() -> forUniqueString(null),
+				NullPointerException.class,
+				"cannot search uniquely for null " +
+				"on UniqueSingleItem.uniqueString");
 
 		nullItem2.setUniqueString("uniqueString");
 		assertEquals("uniqueString", nullItem2.getUniqueString());
 		assertEquals(nullItem2, forUniqueString("uniqueString"));
 		assertEquals(nullItem2, uniqueString.searchUnique("uniqueString"));
-		try
-		{
-			forUniqueString(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
-		}
+		assertFails(
+				() -> forUniqueString(null),
+				NullPointerException.class,
+				"cannot search uniquely for null " +
+				"on UniqueSingleItem.uniqueString");
 
 		nullItem2.setUniqueString(null);
 		assertEquals(null, nullItem2.getUniqueString());
 		assertEquals(null, forUniqueString("uniqueString"));
-		try
-		{
-			forUniqueString(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on UniqueSingleItem.uniqueString", e.getMessage());
-		}
+		assertFails(
+				() -> forUniqueString(null),
+				NullPointerException.class,
+				"cannot search uniquely for null " +
+				"on UniqueSingleItem.uniqueString");
 
 		// test non-null values
 		final UniqueSingleItem item = new UniqueSingleItem();
