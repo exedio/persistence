@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -50,75 +50,51 @@ public class UniqueConstraintTest extends TestWithEnvironment
 	{
 		final UniqueConstraintItem item = new UniqueConstraintItem("a", 1);
 		assertEquals(item, UniqueConstraintItem.aAndB.searchStrict("a", 1));
-		try
-		{
-			UniqueConstraintItem.aAndB.searchStrict("a", 2);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='a' and b='2')", e.getMessage());
-		}
-		try
-		{
-			UniqueConstraintItem.aAndB.searchStrict("b", 1);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' and b='1')", e.getMessage());
-		}
+		assertFails(
+				() -> UniqueConstraintItem.aAndB.searchStrict("a", 2),
+				IllegalArgumentException.class,
+				"expected result of size one, " +
+				"but was empty for query: " +
+				"select this from UniqueConstraintItem where (a='a' and b='2')");
+		assertFails(
+				() -> UniqueConstraintItem.aAndB.searchStrict("b", 1),
+				IllegalArgumentException.class,
+				"expected result of size one, " +
+				"but was empty for query: " +
+				"select this from UniqueConstraintItem where (a='b' and b='1')");
 		assertEquals(item, UniqueConstraintItem.forAAndBStrict("a", 1));
-		try
-		{
-			UniqueConstraintItem.forAAndBStrict("a", 2);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='a' and b='2')", e.getMessage());
-		}
-		try
-		{
-			UniqueConstraintItem.forAAndBStrict("b", 1);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' and b='1')", e.getMessage());
-		}
+		assertFails(
+				() -> UniqueConstraintItem.forAAndBStrict("a", 2),
+				IllegalArgumentException.class,
+				"expected result of size one, " +
+				"but was empty for query: " +
+				"select this from UniqueConstraintItem where (a='a' and b='2')");
+		assertFails(
+				() -> UniqueConstraintItem.forAAndBStrict("b", 1),
+				IllegalArgumentException.class,
+				"expected result of size one, " +
+				"but was empty for query: " +
+				"select this from UniqueConstraintItem where (a='b' and b='1')");
 	}
 
 	@SuppressWarnings("null")
 	@Test void argumentIsNull()
 	{
-		try
-		{
-			UniqueConstraintItem.aAndB.search((Object)null, 0);
-			fail();
-		}
-		catch (final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on UniqueConstraintItem.aAndB for UniqueConstraintItem.a", e.getMessage());
-		}
-		try
-		{
-			UniqueConstraintItem.aAndB.search("x", null);
-			fail();
-		}
-		catch (final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on UniqueConstraintItem.aAndB for UniqueConstraintItem.b", e.getMessage());
-		}
-		try
-		{
-			UniqueConstraintItem.forAAndB(null, 0);
-			fail();
-		}
-		catch (final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on UniqueConstraintItem.aAndB for UniqueConstraintItem.a", e.getMessage());
-		}
+		assertFails(
+				() -> UniqueConstraintItem.aAndB.search((Object)null, 0),
+				NullPointerException.class,
+				"cannot search uniquely for null " +
+				"on UniqueConstraintItem.aAndB for UniqueConstraintItem.a");
+		assertFails(
+				() -> UniqueConstraintItem.aAndB.search("x", null),
+				NullPointerException.class,
+				"cannot search uniquely for null " +
+				"on UniqueConstraintItem.aAndB for UniqueConstraintItem.b");
+		assertFails(
+				() -> UniqueConstraintItem.forAAndB(null, 0),
+				NullPointerException.class,
+				"cannot search uniquely for null " +
+				"on UniqueConstraintItem.aAndB for UniqueConstraintItem.a");
 	}
 
 	@WrapperType(indent=2, comments=false)
