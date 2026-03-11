@@ -49,13 +49,10 @@ final class ItemCache
 		final List<TypeStats> typesStatsList=new ArrayList<>();
 		for(final Type<?> type : types.typeListSorted)
 			if(!type.isAbstract)
-			{
-				final boolean cachingDisabled =
-						limit==0 ||
-						type.external;
-
-				typesStatsList.add(cachingDisabled?null:new TypeStats(metrics.back, type));
-			}
+				typesStatsList.add(
+						limit!=0 && !type.external // cache enabled
+						? new TypeStats(metrics.back, type)
+						: null);
 
 		typeStats=typesStatsList.toArray(EMPTY_TYPE_STATS_ARRAY);
 		for(int i = 0; i<typeStats.length; i++)
