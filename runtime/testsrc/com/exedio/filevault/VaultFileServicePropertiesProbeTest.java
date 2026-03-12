@@ -868,6 +868,10 @@ public class VaultFileServicePropertiesProbeTest
 				"groupnotexistsfile");
 		assertTrue(ed.getCause() instanceof UserPrincipalNotFoundException, ed.getCause().getClass().getName());
 		assertTrue(ef.getCause() instanceof UserPrincipalNotFoundException, ef.getCause().getClass().getName());
+		assertEquals("groupnotexistsdir",  ((UserPrincipalNotFoundException)ed.getCause()).getName());
+		assertEquals("groupnotexistsfile", ((UserPrincipalNotFoundException)ef.getCause()).getName());
+		assertEquals(null, ed.getCause().getMessage());
+		assertEquals(null, ef.getCause().getMessage());
 	}
 
 	private static void assumePosix(final File file)
