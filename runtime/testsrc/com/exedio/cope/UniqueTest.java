@@ -35,6 +35,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -233,42 +234,42 @@ public class UniqueTest extends TestWithEnvironment
 		assertEquals(item, forUniqueString("uniqueString"));
 
 		restartTransaction();
-		assertTrue(!item.isActiveCopeItem());
+		assertFalse(item.isActiveCopeItem());
 		final Item otheritem = model.getItem(item.getCopeID());
 		assertNotSame(item, otheritem);
 		assertTrue(otheritem.isActiveCopeItem());
-		assertTrue(!item.isActiveCopeItem());
+		assertFalse(item.isActiveCopeItem());
 		assertEquals("uniqueString", item.getUniqueString());
 		assertTrue(otheritem.isActiveCopeItem());
-		assertTrue(!item.isActiveCopeItem());
+		assertFalse(item.isActiveCopeItem());
 
 		final UniqueSingleItem firstFoundItem;
 		{
 			restartTransaction();
-			assertTrue(!item.isActiveCopeItem());
+			assertFalse(item.isActiveCopeItem());
 			final UniqueSingleItem foundItem = forUniqueString("uniqueString");
 			assertEquals(item, foundItem);
 			assertEquals(item.getCopeID(), foundItem.getCopeID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
 			assertNotSame(item, foundItem);
-			assertTrue(!item.isActiveCopeItem());
-			assertTrue(!foundItem.isActiveCopeItem());
+			assertFalse(item.isActiveCopeItem());
+			assertFalse(foundItem.isActiveCopeItem());
 
 			assertSameCache(otheritem, item.activeCopeItem());
 			assertEquals(!cache, item.isActiveCopeItem());
-			assertTrue(!foundItem.isActiveCopeItem());
+			assertFalse(foundItem.isActiveCopeItem());
 			assertEquals(cache, otheritem.isActiveCopeItem());
 
 			assertSameCache(otheritem, foundItem.activeCopeItem());
 			assertEquals(cache, !item.isActiveCopeItem());
-			assertTrue(!foundItem.isActiveCopeItem());
+			assertFalse(foundItem.isActiveCopeItem());
 			assertEquals(cache, otheritem.isActiveCopeItem());
 
 			firstFoundItem = foundItem;
 		}
 		{
 			restartTransaction();
-			assertTrue(!item.isActiveCopeItem());
+			assertFalse(item.isActiveCopeItem());
 			final UniqueSingleItem foundItem = forUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
@@ -285,7 +286,7 @@ public class UniqueTest extends TestWithEnvironment
 			{
 				assertNotSame(foundItem, firstFoundItem);
 			}
-			assertTrue(!item.isActiveCopeItem());
+			assertFalse(item.isActiveCopeItem());
 			assertEquals(cache, !foundItem.isActiveCopeItem());
 			assertEquals(cache, otheritem.isActiveCopeItem());
 			assertSameCache(otheritem, item.activeCopeItem());
