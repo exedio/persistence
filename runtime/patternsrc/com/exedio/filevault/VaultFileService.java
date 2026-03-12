@@ -627,7 +627,10 @@ public final class VaultFileService implements VaultService
 			// Puts group name into exception message. Otherwise, the exception
 			// stacktrace gives no hint about the name of the group that was
 			// looked up.
-			throw new RuntimeException(e.getName(), e);
+			final String eName = e.getName();
+			throw new RuntimeException(
+					eName!=null && !eName.isEmpty() // empty string happens on JDK 25
+					? eName : name, e);
 		}
 	}
 
