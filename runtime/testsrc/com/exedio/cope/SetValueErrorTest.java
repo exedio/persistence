@@ -34,21 +34,21 @@ public class SetValueErrorTest
 		assertFails(
 				() -> MyItem.TYPE.newItem(valuesArrays),
 				NullPointerException.class,
-				"Cannot read field \"settable\" because \"dirt\" is null");
+				"setValues[1]");
 	}
 	@Test void testNewList()
 	{
 		assertFails(
 				() -> MyItem.TYPE.newItem(valuesList),
 				NullPointerException.class,
-				"Cannot read field \"settable\" because \"dirt\" is null");
+				"setValues[1]");
 	}
 	@Test void testSetArray()
 	{
 		assertFails(
 				() -> item.set(valuesArrays),
 				NullPointerException.class,
-				"Cannot read field \"settable\" because \"sv\" is null");
+				"setValues[1]");
 	}
 
 	private static final SetValue<?>[] valuesArrays = new SetValue<?>[]{

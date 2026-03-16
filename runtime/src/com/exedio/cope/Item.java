@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.Type.requireNotContainsNull;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -304,6 +305,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	public final void set(SetValue<?>... setValues)
 	{
 		requireNonNull(setValues, "setValues");
+		requireNotContainsNull(setValues);
 		if(setValues.length==0)
 			return;
 

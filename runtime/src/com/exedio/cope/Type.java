@@ -1007,12 +1007,20 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
+		requireNotContainsNull(setValues);
 
 		final FieldValues fieldValues = prepareCreate(setValues);
 		final long pk = nextPrimaryKey();
 		final T result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
+	}
+
+	static void requireNotContainsNull(final SetValue<?>... setValues)
+	{
+		for(int i = 0; i<setValues.length; i++)
+			if(setValues[i]==null)
+				throw new NullPointerException("setValues[" + i + ']');
 	}
 
 	FieldValues prepareCreate(final SetValue<?>[] setValues)
