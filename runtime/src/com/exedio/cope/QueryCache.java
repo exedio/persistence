@@ -67,7 +67,7 @@ final class QueryCache
 		stampsHit       = limit==0 ? null : metrics.counter("stamp.hit",      "How often a stamp prevented a query from being stored");
 		stampsPurged    = limit==0 ? null : metrics.counter("stamp.purge",    "How many stamps were purged because there was no transaction older than the stamp");
 
-		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.increment()) : null;
+		this.map = limit==0 ? null : new LRUMap<>(limit, x -> replacements.increment());
 		this.cacheStamp = cacheStamp;
 		this.stampList = (stamps && map!=null) ? new ArrayDeque<>() : null;
 	}
