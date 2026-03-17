@@ -58,14 +58,14 @@ final class QueryCache
 				c -> c.map!=null ? c.map.maxSize : 0,
 				"maximumSize",                                "The maximum number of entries in this cache, causing eviction if exceeded"); // name conforms to com.google.common.cache.CacheBuilder
 		metrics.gaugeM(c -> c.map,        "size",           "The exact number of entries in this cache"); // name conforms to CacheMeterBinder
-		hits            = metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
-		misses          = metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
-		invalidations   = metrics.counter("invalidations",  "Invalidations in the query cache");
-		concurrentLoads = metrics.counter("concurrentLoad", "How often a query was loaded concurrently");
-		replacements    = metrics.counter("evictions",      "Evictions in the query cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
+		hits            = limit==0 ? null : metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
+		misses          = limit==0 ? null : metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
+		invalidations   = limit==0 ? null : metrics.counter("invalidations",  "Invalidations in the query cache");
+		concurrentLoads = limit==0 ? null : metrics.counter("concurrentLoad", "How often a query was loaded concurrently");
+		replacements    = limit==0 ? null : metrics.counter("evictions",      "Evictions in the query cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
 		metrics.gaugeL(c -> c.stampList,  "stamp.transactions", "Number of transactions in stamp list");
-		stampsHit       = metrics.counter("stamp.hit",      "How often a stamp prevented a query from being stored");
-		stampsPurged    = metrics.counter("stamp.purge",    "How many stamps were purged because there was no transaction older than the stamp");
+		stampsHit       = limit==0 ? null : metrics.counter("stamp.hit",      "How often a stamp prevented a query from being stored");
+		stampsPurged    = limit==0 ? null : metrics.counter("stamp.purge",    "How many stamps were purged because there was no transaction older than the stamp");
 
 		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.increment()) : null;
 		this.cacheStamp = cacheStamp;
@@ -335,21 +335,19 @@ final class QueryCache
 
 	QueryCacheInfo getInfo()
 	{
+		if(map==null)
+			return new QueryCacheInfo(
+					ZeroCounter.INSTANCE, ZeroCounter.INSTANCE, ZeroCounter.INSTANCE, ZeroCounter.INSTANCE,
+					ZeroCounter.INSTANCE,
+					0, ZeroCounter.INSTANCE, ZeroCounter.INSTANCE,
+					0);
+
 		final int level;
 		final int stampListSize;
-
-		if(map!=null)
+		synchronized(map)
 		{
-			synchronized(map)
-			{
-				level = map.size();
-				stampListSize = stampList!=null ? stampList.size() : 0;
-			}
-		}
-		else
-		{
-			level = 0;
-			stampListSize = 0;
+			level = map.size();
+			stampListSize = stampList!=null ? stampList.size() : 0;
 		}
 
 		return new QueryCacheInfo(
