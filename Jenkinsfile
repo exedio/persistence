@@ -218,11 +218,8 @@ try
 		}
 	}
 
-	parallelBranches["Github"] =
-	{
-		//noinspection GroovyAssignabilityCheck
-		nodeCheckoutAndDelete
-		{
+	parallelBranches["Github"] = {
+		nodeCheckoutAndDelete {
 			def mainImage = docker.build(
 				imageName('Github'),
 				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
