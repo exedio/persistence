@@ -352,7 +352,7 @@ final class ItemCache
 		return new ItemCacheStatistics(map.maxSize, level, details.toArray(EMPTY_ITEM_CACHE_INFO_ARRAY));
 	}
 
-	static class TypeStats
+	private static final class TypeStats
 	{
 		final Type<?> type;
 		final Counter hits;
