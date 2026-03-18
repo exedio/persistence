@@ -249,7 +249,7 @@ final class ItemCache
 						if (stampsEnabled) invalidated.add(item);
 						if (map.remove(item)!=null)
 						{
-							typeStat.invalidationsDone.increment();
+							typeStat.invalidationsActual.increment();
 						}
 						else
 						{
@@ -360,7 +360,7 @@ final class ItemCache
 		final Counter concurrentLoads;
 		final Counter evictions;
 		final Counter invalidationsFutile;
-		final Counter invalidationsDone;
+		final Counter invalidationsActual;
 		final Counter stampsHit;
 		final Counter stampsPurged;
 
@@ -373,7 +373,7 @@ final class ItemCache
 			concurrentLoads     = metrics.counter("concurrentLoad", "How often an item was loaded concurrently");
 			evictions           = metrics.counter("evictions",      "Evictions in the item cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
 			invalidationsFutile = metrics.counter("invalidations", "effect", "futile", "Invalidations in the item cache, that were futile because the item was not in cache");
-			invalidationsDone   = metrics.counter("invalidations", "effect", "actual", "Invalidations in the item cache, that were effective because the item was in cache");
+			invalidationsActual = metrics.counter("invalidations", "effect", "actual", "Invalidations in the item cache, that were effective because the item was in cache");
 			stampsHit           = metrics.counter("stamp.hit",   "How often a stamp prevented an item from being stored");
 			stampsPurged        = metrics.counter("stamp.purge", "How many stamps were purged because there was no transaction older than the stamp");
 		}
@@ -387,7 +387,7 @@ final class ItemCache
 				misses,
 				concurrentLoads,
 				evictions,
-				invalidationsFutile, invalidationsDone,
+				invalidationsFutile, invalidationsActual,
 				stampsSizes[type.cacheIdTransiently],
 				stampsHit, stampsPurged
 			);
