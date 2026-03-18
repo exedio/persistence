@@ -32,13 +32,13 @@ final class LRUMap<K, V> extends LinkedHashMap<K, V>
 
 	final int maxSize;
 
-	private final Consumer<Map.Entry<K, V>> onReplace;
+	private final Consumer<Map.Entry<K, V>> onEvict;
 
-	LRUMap(final int maxSize, final Consumer<Map.Entry<K, V>> onReplace)
+	LRUMap(final int maxSize, final Consumer<Map.Entry<K, V>> onEvict)
 	{
 		super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
 		this.maxSize = maxSize;
-		this.onReplace = requireNonNull(onReplace);
+		this.onEvict = requireNonNull(onEvict);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ final class LRUMap<K, V> extends LinkedHashMap<K, V>
 	{
 		final boolean result = size() > maxSize;
 		if(result)
-			onReplace.accept(eldest);
+			onEvict.accept(eldest);
 		return result;
 	}
 }
