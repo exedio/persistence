@@ -67,7 +67,7 @@ final class ItemCache
 		}
 
 		map = new LRUMap<>(limit, eldest ->
-				typeStats[eldest.getKey().type.cacheIdTransiently].replacements.increment());
+				typeStats[eldest.getKey().type.cacheIdTransiently].evictions.increment());
 		this.cacheStamp = cacheStamp;
 		if(properties.cacheStamps)
 		{
@@ -358,7 +358,7 @@ final class ItemCache
 		final Counter hits;
 		final Counter misses;
 		final Counter concurrentLoads;
-		final Counter replacements;
+		final Counter evictions;
 		final Counter invalidationsFutile;
 		final Counter invalidationsDone;
 		final Counter stampsHit;
@@ -371,7 +371,7 @@ final class ItemCache
 			hits                = metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
 			misses              = metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
 			concurrentLoads     = metrics.counter("concurrentLoad", "How often an item was loaded concurrently");
-			replacements        = metrics.counter("evictions",      "Evictions in the item cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
+			evictions           = metrics.counter("evictions",      "Evictions in the item cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
 			invalidationsFutile = metrics.counter("invalidations", "effect", "futile", "Invalidations in the item cache, that were futile because the item was not in cache");
 			invalidationsDone   = metrics.counter("invalidations", "effect", "actual", "Invalidations in the item cache, that were effective because the item was in cache");
 			stampsHit           = metrics.counter("stamp.hit",   "How often a stamp prevented an item from being stored");
@@ -386,7 +386,7 @@ final class ItemCache
 				hits,
 				misses,
 				concurrentLoads,
-				replacements,
+				evictions,
 				invalidationsFutile, invalidationsDone,
 				stampsSizes[type.cacheIdTransiently],
 				stampsHit, stampsPurged
