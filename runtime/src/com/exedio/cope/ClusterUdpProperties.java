@@ -276,10 +276,11 @@ final class ClusterUdpProperties extends Properties
 			// TODO close socket if code below fails
 			if(!sendBufferDefault)
 			{
+				final int actualBefore = result.getSendBufferSize();
 				result.setSendBufferSize(sendBuffer);
 				final int actual = result.getSendBufferSize();
 				if(actual!=sendBuffer)
-					logger.error("sendBufferSize expected {}, but was {}", sendBuffer, actual);
+					logger.error("sendBufferSize expected {}, but was {} and {} before", sendBuffer, actual, actualBefore);
 			}
 			if(!sendTrafficDefault)
 				result.setTrafficClass(sendTraffic);
@@ -321,10 +322,11 @@ final class ClusterUdpProperties extends Properties
 			// TODO close socket if code below fails
 			if(!listenBufferDefault)
 			{
+				final int actualBefore = result.getReceiveBufferSize();
 				result.setReceiveBufferSize(listenBuffer);
 				final int actual = result.getReceiveBufferSize();
 				if(actual!=listenBuffer)
-					logger.error("receiveBufferSize expected {}, but was {}", listenBuffer, actual);
+					logger.error("receiveBufferSize expected {}, but was {} and {} before", listenBuffer, actual, actualBefore);
 			}
 			return result;
 		}
