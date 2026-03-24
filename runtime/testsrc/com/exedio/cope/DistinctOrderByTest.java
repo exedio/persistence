@@ -338,7 +338,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		{
 			case hsqldb ->
 				notAllowed(query,
-						"user lacks privilege or object not found: ANY_VALUE" +
+						"expression not in aggregate or GROUP BY columns: PLUSINTEGERITEM0." + SI.pk(TYPE) +
 						ifPrep(
 								" in statement [" +
 								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +

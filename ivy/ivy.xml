@@ -75,7 +75,7 @@
 		<dependency org="com.exedio" name="copeutil" rev="1118" conf="runtime->runtime; ide->runtime,sources,changelog" />
 
 		<!-- dialects -->
-		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.7.1" />
+		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.7.4" />
 		<dependency conf="mysql->default" org="com.mysql" name="mysql-connector-j" rev="9.6.0">
 			<exclude org="com.google.protobuf" module="protobuf-java" />
 		</dependency>
