@@ -1002,6 +1002,16 @@ public final class Model implements Serializable
 		return transactionCounter.get();
 	}
 
+	public void clearItemCache()
+	{
+		connect().itemCache.clear();
+	}
+
+	public void clearQueryCache()
+	{
+		connect().queryCache.clear();
+	}
+
 	public void clearCache()
 	{
 		connect().clearCache();
