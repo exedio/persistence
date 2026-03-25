@@ -37,8 +37,7 @@ class BindFunction<E> implements Function<E>
 		this.join = requireNonNull(join, "join");
 		if(!(
 				function instanceof This ||
-				function instanceof FunctionField ||
-				function instanceof Random))
+				function instanceof FunctionField))
 			throw new IllegalArgumentException(function.getClass().getName());
 	}
 

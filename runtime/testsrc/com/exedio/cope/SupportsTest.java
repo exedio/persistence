@@ -51,7 +51,6 @@ public class SupportsTest extends TestWithEnvironment
 
 		final String databaseProductName;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
-		boolean random = false;
 		boolean checkConstraint = true;
 		boolean uniqueViolation = false;
 
@@ -67,7 +66,6 @@ public class SupportsTest extends TestWithEnvironment
 			case mysql ->
 			{
 				databaseProductName = "MySQL";
-				random = true;
 				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
 			}
@@ -84,7 +82,6 @@ public class SupportsTest extends TestWithEnvironment
 		assertEquals(databaseProductName, model.getEnvironmentInfo().getDatabaseProductName());
 
 		assertEquals(dataHashAlgorithms, new ArrayList<>(model.getSupportedDataHashAlgorithms()));
-		assertEquals(random, model.supportsRandom());
 
 		// SchemaInfo
 		assertEquals(checkConstraint && !props.disableCheckConstraint,                supportsCheckConstraint(model));

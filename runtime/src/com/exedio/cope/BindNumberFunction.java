@@ -36,11 +36,6 @@ final class BindNumberFunction<E extends Number> extends BindFunction<E>
 		return new BindNumberFunction<>(function, join);
 	}
 
-	static BindNumberFunction<Double> create(final Random function, final Join join)
-	{
-		return new BindNumberFunction<>(function, join);
-	}
-
 	// convenience methods for conditions and views ---------------------------------
 
 	/**

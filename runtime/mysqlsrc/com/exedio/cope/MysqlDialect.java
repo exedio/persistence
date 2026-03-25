@@ -703,12 +703,6 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	boolean supportsRandom()
-	{
-		return true;
-	}
-
-	@Override
 	boolean subqueryRequiresAlias()
 	{
 		return true;

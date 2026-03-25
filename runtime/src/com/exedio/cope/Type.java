@@ -1454,11 +1454,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		throw new RuntimeException("update counter consistency between tables has been abandoned");
 	}
 
-	public Random random(final int seed)
-	{
-		return new Random(this, seed);
-	}
-
 	// serialization -------------
 
 	@Serial

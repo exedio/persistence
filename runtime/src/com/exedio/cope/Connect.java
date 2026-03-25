@@ -48,7 +48,6 @@ final class Connect
 	final Dialect dialect;
 
 	final SortedSet<String> supportedDataHashAlgorithms;
-	final boolean supportsRandom;
 	final boolean supportsCheckConstraint;
 	final boolean supportsNativeDate;
 	final boolean supportsUniqueViolation;
@@ -83,7 +82,6 @@ final class Connect
 		this.dialect = properties.dialect.newInstance(probe);
 
 		supportedDataHashAlgorithms = toUnmodifiableSortedSet(dialect.getBlobHashAlgorithms());
-		supportsRandom = dialect.supportsRandom();
 		// SchemaInfo
 		supportsCheckConstraint = !properties.disableCheckConstraint && dialect.dsmfDialect.supportsCheckConstraint();
 		supportsNativeDate = !properties.isSupportDisabledForNativeDate();
