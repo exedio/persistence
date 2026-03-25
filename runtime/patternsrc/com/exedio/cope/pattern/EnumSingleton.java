@@ -25,7 +25,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.CopeSchemaNameElement;
@@ -113,8 +112,7 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 	{
 		requireNonNull(value, "value");
 
-		final Type<P> type = getType().as(typeClass);
-		final P found = type.searchSingleton(once.is(value));
+		final P found = once.searchUnique(typeClass, value);
 		if(found!=null)
 			return found;
 		else
