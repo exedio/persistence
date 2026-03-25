@@ -1,6 +1,6 @@
 package com.exedio.cope;
 
-import static com.exedio.cope.CompareCondition.isComparable;
+import static com.exedio.cope.CompareCondition.assertComparable;
 import static com.exedio.cope.CompareCondition.toStringForValue;
 import static java.util.Objects.requireNonNull;
 
@@ -33,19 +33,7 @@ public final class InCondition<E> extends Condition
 
 
 		for (final E element : allowedValues)
-		{
-			if(! isComparable(function.getValueClass(), element.getClass(), element))
-			{
-				final StringBuilder sb = new StringBuilder();
-				sb.append(function).
-						append(" not comparable to '");
-				toStringForValue(sb, element, false);
-				sb.append("' (").
-						append(element.getClass().getName()).
-						append(')');
-				throw new IllegalArgumentException(sb.toString());
-			}
-		}
+			assertComparable(function, element);
 	}
 
 	@Override

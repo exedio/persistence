@@ -64,6 +64,11 @@ public final class CompareCondition<E> extends Condition
 		this.left = requireNonNull(left, "left");
 		this.right = requireNonNull(right, "right");
 
+		assertComparable(left, right);
+	}
+
+	static <E> void assertComparable(final Function<E> left, final E right)
+	{
 		if(!isComparable(left.getValueClass(), right.getClass(), right))
 		{
 			final StringBuilder sb = new StringBuilder();
@@ -78,7 +83,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@SuppressWarnings("RedundantIfStatement")
-	static boolean isComparable(
+	private static boolean isComparable(
 			final Class<?> left,
 			final Class<?> right,
 			final Object rightValue)
