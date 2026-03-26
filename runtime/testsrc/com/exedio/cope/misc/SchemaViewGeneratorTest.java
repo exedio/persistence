@@ -87,7 +87,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		assumeTrue(mysql, "mysql"); // TODO other databases as well, amend SchemaViewTest
 		sv.create();
 		connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
-		final String nnd = SchemaInfo.supportsNativeDate(model) ? "" : "0";
+		final String nnd = mariaDriver ? "000" : SchemaInfo.supportsNativeDate(model) ? "" : "0";
 		final String intType = mariaDriver ? "INTEGER" : "INT";
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
@@ -127,7 +127,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 					"2020-05-08 21:23:44.100"+nnd, rs);
 			assertResult(
 					"5", "888", "delta", "777", "delta",
-					"2020-05-08 22:23:44" + (!mariaDriver ? "" : (".000"+nnd)), rs);
+					"2020-05-08 22:23:44" + (!mariaDriver ? "" : (".000"+(SchemaInfo.supportsNativeDate(model)?"":"0"))), rs);
 
 			assertFalse(rs.next());
 		}
