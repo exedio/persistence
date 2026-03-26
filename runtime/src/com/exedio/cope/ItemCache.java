@@ -69,6 +69,8 @@ final class ItemCache
 			final TypeStats typeStat = typeStats[item.type.cacheIdTransiently];
 			for(final var uc : typeStat.uniqueCaches)
 				uc.removeSynchronized(eldest.getValue(), item);
+			//noinspection NonAtomicOperationOnVolatileField OK: happens while synchronized on "map"
+			typeStat.level--;
 			typeStat.evictions.increment();
 		});
 		this.cacheStamp = cacheStamp;
@@ -201,6 +203,10 @@ final class ItemCache
 						{
 							typeStat.concurrentLoads.increment();
 						}
+						else
+						{
+							typeStat.level++;
+						}
 						for(final var uc : typeStat.uniqueCaches)
 							uc.putSynchronized(item, state);
 					}
@@ -230,7 +236,8 @@ final class ItemCache
 	{
 		synchronized (map)
 		{
-			map.remove(item);
+			if(map.remove(item)!=null)
+				typeStats[item.type.cacheIdTransiently].level--;
 		}
 	}
 
@@ -258,6 +265,7 @@ final class ItemCache
 							for(final var uc : typeStat.uniqueCaches)
 								uc.removeSynchronized(removed, item);
 							typeStat.invalidationsActual.increment();
+							typeStat.level--;
 						}
 						else
 						{
@@ -333,16 +341,11 @@ final class ItemCache
 	{
 		final List<ItemCacheInfo> details = new ArrayList<>(typeStats.length);
 
-		final int[] levels=new int[typeStats.length];
 		final int[] stampsSizes=new int[typeStats.length];
 		final int level;
 		synchronized (map)
 		{
 			level=map.size();
-			for (final Item item: map.keySet())
-			{
-				levels[item.type.cacheIdTransiently]++;
-			}
 			if (stampsEnabled())
 			{
 				for (final Stamp value: stampList)
@@ -358,7 +361,7 @@ final class ItemCache
 		{
 			final TypeStats typeStat = typeStats[type.cacheIdTransiently];
 			if (typeStat!=null)
-				details.add( typeStat.createItemCacheInfo(levels, stampsSizes) );
+				details.add( typeStat.createItemCacheInfo(stampsSizes) );
 		}
 
 		return new ItemCacheStatistics(map.maxSize, level, details.toArray(ItemCacheInfo[]::new));
@@ -367,6 +370,12 @@ final class ItemCache
 	private static final class TypeStats
 	{
 		final Type<?> type;
+
+		/**
+		 * Modified when synchronized on {@link ItemCache#map}.
+		 */
+		volatile int level = 0;
+
 		final Counter hits;
 		final Counter misses;
 		final Counter concurrentLoads;
@@ -414,11 +423,11 @@ final class ItemCache
 
 		private static final UniqueCache[] EMPTY_UNIQUE_CACHES = {};
 
-		ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
+		ItemCacheInfo createItemCacheInfo(final int[] stampsSizes)
 		{
 			return new ItemCacheInfo(
 				type,
-				levels[type.cacheIdTransiently],
+				level,
 				hits,
 				misses,
 				concurrentLoads,
