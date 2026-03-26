@@ -36,7 +36,6 @@ import org.slf4j.LoggerFactory;
 public final class ConnectToken implements AutoCloseable
 {
 	private static final Logger logger = LoggerFactory.getLogger(ConnectToken.class);
-	private static final ConnectToken[] EMPTY_CONNECT_TOKEN_ARRAY = new ConnectToken[0];
 
 	private final Manciple manciple;
 	private final Model model;
@@ -281,7 +280,7 @@ public final class ConnectToken implements AutoCloseable
 			final ConnectToken[] result;
 			synchronized(lock)
 			{
-				result = tokens.toArray(EMPTY_CONNECT_TOKEN_ARRAY);
+				result = tokens.toArray(ConnectToken[]::new);
 			}
 			return List.of(result);
 		}

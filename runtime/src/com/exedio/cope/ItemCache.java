@@ -33,9 +33,6 @@ import java.util.function.ToDoubleFunction;
 
 final class ItemCache
 {
-	private static final TypeStats[] EMPTY_TYPE_STATS_ARRAY = new TypeStats[0];
-	private static final ItemCacheInfo[] EMPTY_ITEM_CACHE_INFO_ARRAY = new ItemCacheInfo[0];
-
 	private final LRUMap<Item,WrittenState> map;
 	private final CacheStamp cacheStamp;
 	private final ArrayDeque<Stamp> stampList;
@@ -54,7 +51,7 @@ final class ItemCache
 						? new TypeStats(metrics.back, type)
 						: null);
 
-		typeStats=typesStatsList.toArray(EMPTY_TYPE_STATS_ARRAY);
+		typeStats=typesStatsList.toArray(TypeStats[]::new);
 		for(int i = 0; i<typeStats.length; i++)
 		{
 			final TypeStats stats = typeStats[i];
@@ -349,7 +346,7 @@ final class ItemCache
 				details.add( typeStat.createItemCacheInfo(levels, stampsSizes) );
 		}
 
-		return new ItemCacheStatistics(map.maxSize, level, details.toArray(EMPTY_ITEM_CACHE_INFO_ARRAY));
+		return new ItemCacheStatistics(map.maxSize, level, details.toArray(ItemCacheInfo[]::new));
 	}
 
 	private static final class TypeStats

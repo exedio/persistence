@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 final class Graph
 {
 	private static final Logger logger = LoggerFactory.getLogger(Graph.class);
-	private static final Edge[] EMPTY_EDGE_ARRAY = new Edge[0];
 
 	private final ArrayList<Node> nodesOrdered;
 	private final LinkedHashSet<Edge> edgesBroken;
@@ -57,7 +56,7 @@ final class Graph
 					}
 				allEdgesM.addAll(edges);
 
-				final Node node = new Node(table, edges.toArray(EMPTY_EDGE_ARRAY));
+				final Node node = new Node(table, edges.toArray(Edge[]::new));
 				allNodesM.add(node);
 				if(nodeByTableName.putIfAbsent(table.name, node)!=null)
 					throw new RuntimeException(table.name);

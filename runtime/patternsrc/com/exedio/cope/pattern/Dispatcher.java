@@ -576,7 +576,7 @@ public final class Dispatcher extends Pattern
 			sv.add(map(pending, false));
 			if(supportsPurge())
 				sv.add(map(unpend, new Unpend(success, date)));
-			setValues = sv.toArray(SetValue.EMPTY_ARRAY);
+			setValues = sv.toArray(SetValue[]::new);
 		}
 
 		// A separate transaction for unpend helps to avoid TemporaryTransactionException
