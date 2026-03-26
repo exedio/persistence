@@ -30,7 +30,7 @@ public final class SetValueUtil
 	{
 		return
 			list!=null
-			? list.toArray(list.toArray(SetValue.EMPTY_ARRAY))
+			? list.toArray(SetValue.EMPTY_ARRAY)
 			: null;
 	}
 
