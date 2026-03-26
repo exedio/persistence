@@ -225,10 +225,8 @@ final class ClusterUdpProperties extends Properties
 
 	Send[] send()
 	{
-		return send.toArray(SEND_EMPTY);
+		return send.toArray(Send[]::new);
 	}
-
-	private static final Send[] SEND_EMPTY = new Send[0];
 
 	private InetAddress getInetAddressByName(final String key, final String value)
 	{

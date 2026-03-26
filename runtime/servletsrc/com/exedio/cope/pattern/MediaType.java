@@ -40,9 +40,6 @@ import java.util.Set;
 
 public final class MediaType
 {
-	private static final MediaType[] EMPTY_MEDIA_TYPE_ARRAY = new MediaType[0];
-	private static final String[] EMPTY_STRING_ARRAY = new String[0];
-
 	private final StartsWith startsWith;
 	private final String[] extensions;
 	private final String name;
@@ -424,7 +421,7 @@ public final class MediaType
 		Magic(final StartsWith startsWith, final ArrayList<MediaType> types)
 		{
 			this.startsWith = requireNonNull(startsWith);
-			this.types = types.toArray(EMPTY_MEDIA_TYPE_ARRAY);
+			this.types = types.toArray(MediaType[]::new);
 			this.typeNames = names(this.types);
 		}
 
@@ -433,7 +430,7 @@ public final class MediaType
 			final ArrayList<String> result = new ArrayList<>();
 			for(final MediaType type : types)
 				type.addNameAndAliases(result);
-			return result.toArray(EMPTY_STRING_ARRAY);
+			return result.toArray(String[]::new);
 		}
 
 		void addAllTypes(final LinkedHashSet<MediaType> set)

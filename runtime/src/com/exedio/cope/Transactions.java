@@ -32,8 +32,6 @@ final class Transactions
 		modelToString = model;
 	}
 
-	private static final Transaction[] EMPTY_TRANSACTION_ARRAY = new Transaction[0];
-
 	private final HashSet<Transaction> open = new HashSet<>();
 
 	@SuppressWarnings("ThreadLocalNotStaticFinal") // OK: class is instantiated on static context only
@@ -141,7 +139,7 @@ final class Transactions
 		final Transaction[] result;
 		synchronized(open)
 		{
-			result = open.toArray(EMPTY_TRANSACTION_ARRAY);
+			result = open.toArray(Transaction[]::new);
 		}
 		return Collections.unmodifiableCollection(Arrays.asList(result));
 	}

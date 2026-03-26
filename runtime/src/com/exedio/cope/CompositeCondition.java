@@ -34,7 +34,6 @@ public final class CompositeCondition extends Condition
 {
 	@Serial
 	private static final long serialVersionUID = 1l;
-	private static final Condition[] EMPTY_CONDITION_ARRAY = new Condition[0];
 
 	public final Operator operator;
 	final Condition[] conditions;
@@ -49,7 +48,7 @@ public final class CompositeCondition extends Condition
 			final Operator operator,
 			final List<? extends Condition> conditions)
 	{
-		this(operator, conditions.toArray(EMPTY_CONDITION_ARRAY));
+		this(operator, conditions.toArray(Condition[]::new));
 	}
 
 	/**
@@ -381,7 +380,7 @@ public final class CompositeCondition extends Condition
 	static Condition composite(final Operator operator, final List<? extends Condition> conditions)
 	{
 		return composite(operator,
-				requireNonNull(conditions, "conditions").toArray(new Condition[conditions.size()]));
+				requireNonNull(conditions, "conditions").toArray(Condition[]::new));
 	}
 
 	static Condition composite(final Operator operator, final Condition[] conditions)

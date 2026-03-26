@@ -168,7 +168,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 	@Serial
 	protected final Object writeReplace()
 	{
-		return new Serialized(type, type.templateList.toArray(new FunctionField<?>[values.length]), values);
+		return new Serialized(type, type.templateList.toArray(FunctionField[]::new), values);
 	}
 
 	/**

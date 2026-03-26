@@ -32,8 +32,6 @@ import org.slf4j.LoggerFactory;
 
 final class Types
 {
-	private static final Type<?>[] EMPTY_TYPE_ARRAY = new Type<?>[0];
-
 	private final Type<?>[] typesSorted;
 	private final Type<?>[] typesByCacheIdTransiently;
 	final int concreteTypeCount;
@@ -137,7 +135,7 @@ final class Types
 		this.typeList = List.copyOf(typesL);
 		this.concreteTypeCount = concreteTypeCount;
 		this.concreteTypes = List.copyOf(concreteTypes);
-		this.typesSorted = typesSorted.toArray(EMPTY_TYPE_ARRAY);
+		this.typesSorted = typesSorted.toArray(Type[]::new);
 		this.typeListSorted = List.of(this.typesSorted);
 
 		assert this.concreteTypeCount==this.concreteTypes.size();
@@ -157,7 +155,7 @@ final class Types
 		if(typesWithoutSets!=null)
 			result.addAll(Arrays.asList(typesWithoutSets));
 
-		return result.toArray(EMPTY_TYPE_ARRAY);
+		return result.toArray(Type[]::new);
 	}
 
 	private static Type<?>[] sort(final Type<?>[] types)
@@ -198,7 +196,7 @@ final class Types
 			throw new RuntimeException(done+"<->"+typeSet);
 
 		//System.out.println("<--------------------"+result);
-		return result.toArray(EMPTY_TYPE_ARRAY);
+		return result.toArray(Type[]::new);
 	}
 
 	private static void addTypeIncludingSourceTypes(

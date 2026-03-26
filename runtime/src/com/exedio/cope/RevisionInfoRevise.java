@@ -32,8 +32,6 @@ import java.util.Properties;
 
 public final class RevisionInfoRevise extends RevisionInfo
 {
-	private static final Body[] EMPTY_BODY_ARRAY = new Body[0];
-
 	private final String comment;
 	private final Body[] body;
 
@@ -154,6 +152,6 @@ public final class RevisionInfoRevise extends RevisionInfo
 				date,
 				environment,
 				comment,
-				body.toArray(EMPTY_BODY_ARRAY));
+				body.toArray(Body[]::new));
 	}
 }

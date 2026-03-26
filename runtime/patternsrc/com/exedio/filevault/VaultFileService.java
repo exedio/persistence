@@ -686,10 +686,8 @@ public final class VaultFileService implements VaultService
 			final EnumSet<PosixFilePermission> result = EnumSet.copyOf(asList(own));
 			if(filePerms.contains( GROUP_READ)) result.add( GROUP_EXECUTE);
 			if(filePerms.contains(OTHERS_READ)) result.add(OTHERS_EXECUTE);
-			return result.toArray(EMPTY_FILE_PERMS);
+			return result.toArray(PosixFilePermission[]::new);
 		}
-
-		private static final PosixFilePermission[] EMPTY_FILE_PERMS = new PosixFilePermission[0];
 	}
 
 
