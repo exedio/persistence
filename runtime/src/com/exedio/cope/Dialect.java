@@ -103,11 +103,6 @@ abstract class Dialect
 		}
 	}
 
-	boolean supportsRandom()
-	{
-		return false;
-	}
-
 	boolean subqueryRequiresAlias()
 	{
 		return false;

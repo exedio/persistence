@@ -378,11 +378,13 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @see Random
+	 * @deprecated No longer supported, always returns false
 	 */
+	@Deprecated
 	public boolean supportsRandom()
 	{
-		return connect().supportsRandom;
+		connect(); // still require connect
+		return false;
 	}
 
 	public DatabaseListener getDatabaseListener()
