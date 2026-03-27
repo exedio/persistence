@@ -19,11 +19,11 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
@@ -117,57 +117,41 @@ public class MultiItemFieldTest extends TestWithEnvironment
 
 	@Test void testCreateWithNullForMandatory()
 	{
-		try
-		{
-			new MultiItemFieldItem(null);
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(MultiItemFieldItem.field, e.getFeature());
-			assertEquals(null, e.getItem());
-		}
+		final var e = assertFails(
+				() -> new MultiItemFieldItem(null),
+				MandatoryViolationException.class,
+				"mandatory violation for MultiItemFieldItem.field");
+		assertEquals(MultiItemFieldItem.field, e.getFeature());
+		assertEquals(null, e.getItem());
 	}
 
 	@Test void testSetNullForMandatory()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
-		try
-		{
-			item.setField(null);
-			fail("exception expected");
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(MultiItemFieldItem.field, e.getFeature());
-			assertEquals(item, e.getItem());
-		}
+		final var e = assertFails(
+				() -> item.setField(null),
+				MandatoryViolationException.class,
+				"mandatory violation on MultiItemFieldItem-0 for MultiItemFieldItem.field");
+		assertEquals(MultiItemFieldItem.field, e.getFeature());
+		assertEquals(item, e.getItem());
 		assertEquals(expected, item.getField());
 	}
 
-	@Test void testSetInvalidInterfaceItem()
+	@Test void testSetInvalidInterfaceItem() throws ClassNotFoundException
 	{
 		final MultiItemFieldComponentxC notExpected = new MultiItemFieldComponentxC();
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
-		try
-		{
-			item.setField(notExpected);
-			fail("exception expected");
-		}
-		catch(final ConstraintViolationException e)
-		{
-			assertEquals(MultiItemFieldItem.field, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals(
-					"illegal instance on MultiItemFieldItem-0, " +
-					"value is com.exedio.cope.pattern.MultiItemFieldComponentxC for MultiItemFieldItem.field, " +
-					"must be one of [class com.exedio.cope.pattern.MultiItemFieldComponentxA, class com.exedio.cope.pattern.MultiItemFieldComponentxB]",
-					e.getMessage());
-			assertEquals(
-					"com.exedio.cope.pattern.MultiItemField$IllegalInstanceException",
-					e.getClass().getName());
-		}
+		final var e = (ConstraintViolationException)assertFails(
+				() -> item.setField(notExpected),
+				Class.forName("com.exedio.cope.pattern.MultiItemField$IllegalInstanceException").
+						asSubclass(ConstraintViolationException.class),
+				"illegal instance on MultiItemFieldItem-0, " +
+				"value is com.exedio.cope.pattern.MultiItemFieldComponentxC for MultiItemFieldItem.field, " +
+				"must be one of [class com.exedio.cope.pattern.MultiItemFieldComponentxA, class com.exedio.cope.pattern.MultiItemFieldComponentxB]");
+		assertEquals(MultiItemFieldItem.field, e.getFeature());
+		assertEquals(item, e.getItem());
 		assertEquals(expected, item.getField());
 	}
 
@@ -177,17 +161,10 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		final MultiItemField<String> field = (MultiItemField<String>)(MultiItemField<?>)MultiItemFieldItem.field;
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
-		try
-		{
-			field.set(item, "zack");
-			fail("exception expected");
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"Cannot cast java.lang.String to com.exedio.cope.pattern.MultiItemFieldValuex",
-					e.getMessage());
-		}
+		assertFails(
+				() -> field.set(item, "zack"),
+				ClassCastException.class,
+				"Cannot cast java.lang.String to com.exedio.cope.pattern.MultiItemFieldValuex");
 		assertEquals(expected, item.getField());
 	}
 
@@ -223,16 +200,10 @@ public class MultiItemFieldTest extends TestWithEnvironment
 
 	@Test void testOfNotValidClassParameter()
 	{
-		try
-		{
-			MultiItemFieldItem.field.of(MultiItemFieldComponentxC.class);
-			fail("exception expected");
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("class >"+MultiItemFieldComponentxC.class
-					+"< is not supported by MultiItemFieldItem.field", e.getMessage());
-		}
+		assertFails(
+				() -> MultiItemFieldItem.field.of(MultiItemFieldComponentxC.class),
+				IllegalArgumentException.class,
+				"class >" + MultiItemFieldComponentxC.class + "< is not supported by MultiItemFieldItem.field");
 	}
 
 	@Test void testUniqueSetNull()
@@ -260,17 +231,10 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		final MultiItemFieldItem item2 = new MultiItemFieldItem(
 				value);
 		item1.setUniqueField(value);
-		try
-		{
-			item2.setUniqueField(value);
-			fail("exception expected");
-		}
-		catch(final UniqueViolationException e)
-		{
-			assertEquals("unique violation on "+item2
-					+" for MultiItemFieldItem.uniqueField-MultiItemFieldComponentxAImplicitUnique",
-					e.getMessage());
-		}
+		assertFails(
+				() -> item2.setUniqueField(value),
+				UniqueViolationException.class,
+				"unique violation on " + item2 + " for MultiItemFieldItem.uniqueField-MultiItemFieldComponentxAImplicitUnique");
 		assertEquals(value, item1.getUniqueField());
 	}
 
@@ -289,51 +253,27 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(item2, MultiItemFieldItem.forUniqueField(value2));
 		assertEquals(null, MultiItemFieldItem.forUniqueField(value3));
 		assertEquals(null, MultiItemFieldItem.forUniqueField(valueNotStoreable));
-		try
-		{
-			MultiItemFieldItem.forUniqueField(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on MultiItemFieldItem.uniqueField", e.getMessage());
-		}
+		assertFails(
+				() -> MultiItemFieldItem.forUniqueField(null),
+				NullPointerException.class,
+				"cannot search uniquely for null on MultiItemFieldItem.uniqueField");
 
 		assertEquals(item1, MultiItemFieldItem.forUniqueFieldStrict(value1));
 		assertEquals(item2, MultiItemFieldItem.forUniqueFieldStrict(value2));
-		try
-		{
-			MultiItemFieldItem.forUniqueFieldStrict(value3);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-				"expected result of size one, but was empty for query: select this from MultiItemFieldItem where uniqueField-MultiItemFieldComponentxA='MultiItemFieldComponentxA-2'",
-				e.getMessage()
-			);
-		}
-		try
-		{
-			MultiItemFieldItem.forUniqueFieldStrict(valueNotStoreable);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-				"expected result of size one, but was empty for query: select this from MultiItemFieldItem where FALSE",
-				e.getMessage()
-			);
-		}
-		try
-		{
-			MultiItemFieldItem.forUniqueFieldStrict(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("cannot search uniquely for null on MultiItemFieldItem.uniqueField", e.getMessage());
-		}
+		assertFails(
+				() -> MultiItemFieldItem.forUniqueFieldStrict(value3),
+				IllegalArgumentException.class,
+				"expected result of size one, but was empty for query: " +
+				"select this from MultiItemFieldItem where uniqueField-MultiItemFieldComponentxA='MultiItemFieldComponentxA-2'");
+		assertFails(
+				() -> MultiItemFieldItem.forUniqueFieldStrict(valueNotStoreable),
+				IllegalArgumentException.class,
+				"expected result of size one, but was empty for query: " +
+				"select this from MultiItemFieldItem where FALSE");
+		assertFails(
+				() -> MultiItemFieldItem.forUniqueFieldStrict(null),
+				NullPointerException.class,
+				"cannot search uniquely for null on MultiItemFieldItem.uniqueField");
 	}
 
 	private static class NotStoreableMultiItemFieldValuex implements MultiItemFieldValuex
@@ -374,17 +314,10 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	@Test void testPartOfInvalidClassParameter()
 	{
 		final MultiItemFieldComponentxB field = new MultiItemFieldComponentxB();
-		try
-		{
-			MultiItemFieldItem.partOfClassA.getParts(field);
-			fail("exception expected");
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"Cannot cast com.exedio.cope.pattern.MultiItemFieldComponentxB to com.exedio.cope.pattern.MultiItemFieldComponentxA",
-					e.getMessage());
-		}
+		assertFails(
+				() -> MultiItemFieldItem.partOfClassA.getParts(field),
+				ClassCastException.class,
+				"Cannot cast com.exedio.cope.pattern.MultiItemFieldComponentxB to com.exedio.cope.pattern.MultiItemFieldComponentxA");
 	}
 
 	@Test void testCascade()
@@ -399,18 +332,11 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	{
 		final MultiItemFieldComponentxA item = new MultiItemFieldComponentxA();
 		new MultiItemFieldItem(item);
-		try
-		{
-			item.deleteCopeItem();
-			fail("exception expected");
-		}
-		catch(final IntegrityViolationException e)
-		{
-			assertEquals(
-					"integrity violation on deletion of MultiItemFieldComponentxA-0" +
-					" because of MultiItemFieldItem.field-MultiItemFieldComponentxA referring to 1 item(s)",
-					e.getMessage());
-		}
+		assertFails(
+				item::deleteCopeItem,
+				IntegrityViolationException.class,
+				"integrity violation on deletion of MultiItemFieldComponentxA-0" +
+				" because of MultiItemFieldItem.field-MultiItemFieldComponentxA referring to 1 item(s)");
 	}
 
 	@Test void testNullify()
