@@ -43,8 +43,8 @@ public final class ItemCacheInfo
 			final int level,
 			final Counter hits, final Counter misses,
 			final Counter concurrentLoads,
-			final Counter replacements,
-			final Counter invalidationsFutile, final Counter invalidationsDone,
+			final Counter evictions,
+			final Counter invalidationsFutile, final Counter invalidationsActual,
 			final int stampsSize, final Counter stampsHits, final Counter stampsPurged
 			)
 	{
@@ -53,8 +53,8 @@ public final class ItemCacheInfo
 		this.hits = hits.count();
 		this.misses = misses.count();
 		this.concurrentLoads = concurrentLoads.count();
-		this.replacements = replacements.count();
-		this.invalidationsDone = invalidationsDone.count();
+		this.replacements = evictions.count();
+		this.invalidationsDone = invalidationsActual.count();
 		this.invalidationsOrdered = invalidationsFutile.count() + this.invalidationsDone;
 		this.stampsSize   = stampsSize;
 		this.stampsHits   = stampsHits.count();
