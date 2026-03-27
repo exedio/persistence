@@ -275,8 +275,8 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertFails(
 				() -> MultiItemFieldItem.forUniqueFieldStrict(valueNotStoreable),
 				IllegalArgumentException.class,
-				"expected result of size one, but was empty for query: " +
-				"select this from MultiItemFieldItem where FALSE");
+				"expected result of size one, but was empty for unsupported value: " +
+				">" + valueNotStoreable + "<");
 		assertFails(
 				() -> MultiItemFieldItem.forUniqueFieldStrict(null),
 				NullPointerException.class,
