@@ -348,6 +348,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	// cache
 
 	private final int itemCacheLimit      = value("cache.item.limit",     100000, 0);
+	    final boolean itemCacheUnique     = value("cache.item.unique",    true);
 	private final int queryCacheLimit     = value("cache.query.limit",     10000, 0);
 	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
 	        final boolean cacheStamps     = value("cache.stamps", true);

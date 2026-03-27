@@ -116,6 +116,7 @@ public class ConnectPropertiesTest
 				"query.searchSizeLimit",
 				"storeOnlyModifiedColumns",
 				"cache.item.limit",
+				"cache.item.unique",
 				"cache.query.limit",
 				"cache.query.sizeLimit",
 				"cache.stamps",

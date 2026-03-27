@@ -256,7 +256,7 @@ public final class Transaction
 		return false;
 	}
 
-	private boolean isInvalidated( final Item item )
+	boolean isInvalidated( final Item item )
 	{
 		if(invalidations==null)
 			return false;
