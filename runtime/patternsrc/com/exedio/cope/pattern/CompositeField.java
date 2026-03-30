@@ -49,6 +49,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
+import org.jspecify.annotations.Nullable;
 
 @WrapFeature
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>, TemplatedField<E>
@@ -142,7 +143,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return new CompositeField<>(true, optional, valueClass);
 	}
 
-	public CompositeField<E> optional()
+	public CompositeField<@Nullable E> optional()
 	{
 		return new CompositeField<>(isfinal, true, valueClass);
 	}

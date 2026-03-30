@@ -82,7 +82,9 @@
           <root url="file://$MODULE_DIR$/lib/compile-annotations" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/ide/jspecify-source.jar!/" />
+        </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/lib/compile-annotations" recursive="false" />
       </library>
     </orderEntry>
