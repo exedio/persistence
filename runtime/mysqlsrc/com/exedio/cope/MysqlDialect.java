@@ -87,7 +87,6 @@ final class MysqlDialect extends Dialect
 
 	private final String timeZoneStatement;
 	private final boolean connectionCompress;
-	private final boolean setStrictMode;
 	private final int purgeSequenceLimit;
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
@@ -105,7 +104,6 @@ final class MysqlDialect extends Dialect
 		final boolean mysql8 = env.isDatabaseVersionAtLeast(8, 0);
 		timeZoneStatement = properties.timeZoneStatement();
 		connectionCompress = properties.connectionCompress;
-		setStrictMode = !mysql8;
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 
 		// Starting with MySQL 8.0.4 regular expression support uses a library called
@@ -144,7 +142,7 @@ final class MysqlDialect extends Dialect
 		//    Access denied; you need (at least one of) the SYSTEM_VARIABLES_ADMIN or
 		//    SESSION_VARIABLES_ADMIN privilege(s) for this operation
 		// https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-26.html#mysqld-8-0-26-server-admin
-		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'" + (setStrictMode?(","+STRICT_MODE_KEY+"="+STRICT_MODE_VALUE):""));
+		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'");
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
 		if(connectionCompress)
@@ -160,7 +158,6 @@ final class MysqlDialect extends Dialect
 	{
 		try(java.sql.Statement st = connection.createStatement())
 		{
-			if(!setStrictMode)
 			{
 				try(ResultSet rs = st.executeQuery(
 						"SELECT @@SESSION." + STRICT_MODE_KEY))
