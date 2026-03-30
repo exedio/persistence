@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
+import com.sun.source.tree.AnnotatedTypeTree;
 import com.sun.source.tree.AnnotationTree;
 import com.sun.source.tree.ArrayTypeTree;
 import com.sun.source.tree.ClassTree;
@@ -786,6 +787,9 @@ final class InterimProcessor extends JavacProcessor
 
 				case EXTENDS_WILDCARD ->
 					addRequiredTypes(((WildcardTree)typeTree).getBound());
+
+				case ANNOTATED_TYPE ->
+					addRequiredTypes(((AnnotatedTypeTree)typeTree).getUnderlyingType()); // so far omitting this code makes no difference for any instrumented code in the project
 
 				case ERRONEOUS,
 						PRIMITIVE_TYPE,

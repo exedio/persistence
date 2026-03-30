@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import com.sun.source.doctree.DocCommentTree;
+import com.sun.source.tree.AnnotatedTypeTree;
 import com.sun.source.tree.ArrayTypeTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
@@ -191,6 +192,9 @@ class ClassVisitor extends GeneratedAwareScanner
 
 			case EXTENDS_WILDCARD ->
 				registerTypeShortcuts(javaField, ((WildcardTree)typeTree).getBound());
+
+			case ANNOTATED_TYPE ->
+				registerTypeShortcuts(javaField, ((AnnotatedTypeTree)typeTree).getUnderlyingType());
 
 			default ->
 				throw new RuntimeException(typeTree+" - "+typeTree.getKind());
