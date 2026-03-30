@@ -37,6 +37,7 @@ import java.util.Map;
 final class MysqlSchemaDialect extends Dialect
 {
 	private final boolean mysql80;
+	private final boolean supportsCheckConstraint;
 	private final String foreignKeyRule;
 	private final String rowFormat;
 
@@ -46,12 +47,13 @@ final class MysqlSchemaDialect extends Dialect
 	{
 		super(probe.properties().disableCheckConstraint);
 		mysql80 = probe.environmentInfo().isDatabaseVersionAtLeast(8, 0);
+		supportsCheckConstraint = mysql80;
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
 		rowFormat = properties.rowFormat.sql();
 
-		if(mysql80)
+		if(supportsCheckConstraint)
 		{
 			final Replacements r = new Replacements();
 			r.add("\\bchar_length(\\(`\\w*`\\))",  "CHAR_LENGTH$1");
@@ -105,7 +107,7 @@ final class MysqlSchemaDialect extends Dialect
 	@Override
 	public boolean supportsCheckConstraint()
 	{
-		return mysql80;
+		return supportsCheckConstraint;
 	}
 
 	@Override
@@ -215,7 +217,7 @@ final class MysqlSchemaDialect extends Dialect
 			}
 		});
 
-		if(mysql80) // check constraints
+		if(supportsCheckConstraint)
 		{
 			// Querying TABLE_CONSTRAINTS and CHECK_CONSTRAINTS separately is much faster
 			// than a database join between both tables.
