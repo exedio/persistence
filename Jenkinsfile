@@ -304,9 +304,9 @@ try
 
 	if(branchConsidersDatabase("Mysql"))
 	{
-		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       /\\p{XDigit}{12}-bin/)
-		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'binlog')
-		branchMysql(parallelBranches, '84', databaseMysql84, 'my80.cnf', '/var/lib/mysql-files', 'binlog')
+		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       'MASTER', /\\p{XDigit}{12}-bin/)
+		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'MASTER',     'binlog')
+		branchMysql(parallelBranches, '84', databaseMysql84, 'my80.cnf', '/var/lib/mysql-files', 'BINARY LOG', 'binlog')
 	}
 
 	if(branchConsidersDatabase("Mysql"))
@@ -319,25 +319,25 @@ try
 			envMysql(
 				'my80-stampsA',
 				'mysql',
-				'mysql-bin',
+				'MASTER', 'mysql-bin',
 				'cache.stamps=true'
 			)
 			envMysql(
 				'my80-stampsB',
 				'mysql',
-				'mysql-bin',
+				'MASTER', 'mysql-bin',
 				'cache.stamps=false'
 			)
 			envMysql(
 				'my80m-stampsA',
 				'mariadb',
-				'mysql-bin',
+				'MASTER', 'mysql-bin',
 				'cache.stamps=true'
 			)
 			envMysql(
 				'my80m-stampsB',
 				'mariadb',
-				'mysql-bin',
+				'MASTER', 'mysql-bin',
 				'cache.stamps=false'
 			)
 
@@ -722,6 +722,7 @@ void branchMysql(
 		String version,
 		String conf,
 		String tmpfsDir,
+		String binlogSql,
 		String binlogName)
 {
 	parallelBranches["Mysql" + code] = {
@@ -733,19 +734,19 @@ void branchMysql(
 			envMysql(
 				'my' + code,
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				''
 			)
 			envMysql(
 				'my' + code + '-compress',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'dialect.rowFormat=COMPRESSED\n'
 			)
 			envMysql(
 				'my' + code + '-legacy',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n' +
 				'schema.redundantUnq=true\n'
@@ -753,26 +754,26 @@ void branchMysql(
 			envMysql(
 				'my' + code + '-nprep',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql(
 				'my' + code + '-nstmp',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'cache.stamps=false\n'
 			)
 			envMysql(
 				'my' + code + '-nstmp-mem',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'cache.stamps=false\n' +
 				'schema.primaryKeyGenerator=memory\n'
 			)
 			envMysql(
 				'my' + code + '-mem',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'dialect.connection.compress=true\n' +
 				'disableSupport.checkConstraint=true\n' +
 				'schema.primaryKeyGenerator=memory\n'
@@ -780,19 +781,19 @@ void branchMysql(
 			envMysql(
 				'my' + code + '-sqb',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'schema.primaryKeyGenerator=batchedSequence\n'
 			)
 			envMysql(
 				'my' + code + '-unique',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'disableSupport.uniqueViolation=true\n'
 			)
 			envMysql(
 				'my' + code + '-vault',
 				'mysql',
-				binlogName,
+				binlogSql, binlogName,
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n'
@@ -800,13 +801,13 @@ void branchMysql(
 			envMysql(
 				'my' + code + 'm',
 				'mariadb',
-				binlogName,
+				binlogSql, binlogName,
 				''
 			)
 			envMysql(
 				'my' + code + 'm-legacy',
 				'mariadb',
-				binlogName,
+				binlogSql, binlogName,
 				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n' +
 				'schema.redundantUnq=true\n'
@@ -814,26 +815,26 @@ void branchMysql(
 			envMysql(
 				'my' + code + 'm-nprep',
 				'mariadb',
-				binlogName,
+				binlogSql, binlogName,
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql(
 				'my' + code + 'm-nstmp',
 				'mariadb',
-				binlogName,
+				binlogSql, binlogName,
 				'cache.stamps=false\n'
 			)
 			envMysql(
 				'my' + code + 'm-nstmp-mem',
 				'mariadb',
-				binlogName,
+				binlogSql, binlogName,
 				'cache.stamps=false\n' +
 				'schema.primaryKeyGenerator=memory\n'
 			)
 			envMysql(
 				'my' + code + 'm-mem',
 				'mariadb',
-				binlogName,
+				binlogSql, binlogName,
 				'dialect.connection.compress=true\n' +
 				'disableSupport.checkConstraint=true\n' +
 				'schema.primaryKeyGenerator=memory\n'
@@ -841,7 +842,7 @@ void branchMysql(
 			envMysql(
 				'my' + code + 'm-vault',
 				'mariadb',
-				binlogName,
+				binlogSql, binlogName,
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n'
@@ -894,7 +895,7 @@ void branchMysql(
 	}
 }
 
-def envMysql(String name, String driver, String binlogName, String text)
+def envMysql(String name, String driver, String binlogSql, String binlogName, String text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
@@ -904,7 +905,7 @@ def envMysql(String name, String driver, String binlogName, String text)
 					'connection.password=test_db_password\n' +
 					'x-build.schemasavepoint=' +
 							'OK:' +
-							' SHOW MASTER STATUS' +
+							' SHOW ' + binlogSql + ' STATUS' +
 							/ Gtid=\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}:\\d+-\\d+/ +
 							/ / + binlogName + /.\\d{6}:\\d+/ +
 							' doDB=binlogtest' +
