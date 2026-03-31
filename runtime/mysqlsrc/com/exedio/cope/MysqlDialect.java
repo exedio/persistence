@@ -150,15 +150,15 @@ final class MysqlDialect extends Dialect
 		//info.setProperty("profileSQL", TRUE);
 	}
 
-	private static final String STRICT_MODE_KEY = "innodb_strict_mode";
-	private static final int    STRICT_MODE_VALUE = 1;
-
 	@Override
 	void completeConnection(final Connection connection) throws SQLException
 	{
 		try(java.sql.Statement st = connection.createStatement())
 		{
 			{
+				final String STRICT_MODE_KEY = "innodb_strict_mode";
+				final int    STRICT_MODE_VALUE = 1;
+
 				try(ResultSet rs = st.executeQuery(
 						"SELECT @@SESSION." + STRICT_MODE_KEY))
 				{
