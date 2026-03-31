@@ -156,18 +156,18 @@ final class MysqlDialect extends Dialect
 		try(java.sql.Statement st = connection.createStatement())
 		{
 			{
-				final String STRICT_MODE_KEY = "innodb_strict_mode";
-				final int    STRICT_MODE_VALUE = 1;
+				final String key = "innodb_strict_mode";
+				final int expectedValue = 1;
 
 				try(ResultSet rs = st.executeQuery(
-						"SELECT @@SESSION." + STRICT_MODE_KEY))
+						"SELECT @@SESSION." + key))
 				{
 					if(!rs.next())
-						throw new IllegalStateException("variable " + STRICT_MODE_KEY + " returns empty result set"); // should never happen
+						throw new IllegalStateException("variable " + key + " returns empty result set"); // should never happen
 
 					final int value = rs.getInt(1);
-					if(value!=STRICT_MODE_VALUE)
-						throw new IllegalStateException("variable " + STRICT_MODE_KEY + " must be " + STRICT_MODE_VALUE + ", but was >" + value + '<');
+					if(value!=expectedValue)
+						throw new IllegalStateException("variable " + key + " must be " + expectedValue + ", but was >" + value + '<');
 				}
 			}
 
