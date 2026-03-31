@@ -90,7 +90,7 @@ final class MysqlDialect extends Dialect
 	private final int purgeSequenceLimit;
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
-	private final boolean noMasterWord;
+	private final String schemaSavepointSQL;
 
 	MysqlDialect(
 			final CopeProbe probe,
@@ -112,7 +112,10 @@ final class MysqlDialect extends Dialect
 		regexpICU = mysql8;
 
 		extractUniqueViolationMessagePattern = EXTRACT_UNIQUE_VIOLATION_MESSAGE_PATTERN(mysql8);
-		noMasterWord = env.isDatabaseVersionAtLeast(8, 4);
+		schemaSavepointSQL = env.isDatabaseVersionAtLeast(8, 4)
+			? "SHOW BINARY LOG STATUS"
+			: "SHOW MASTER STATUS";
+
 		assertDriverVersion(env);
 	}
 
@@ -855,10 +858,10 @@ final class MysqlDialect extends Dialect
 	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SchemaSavepointNotAvailableException, SQLException
 	{
 		final Connection connection = connectionPool.get(true);
-		final String sql = "SHOW MASTER STATUS";
+		final String sql = schemaSavepointSQL;
 		try(
 			java.sql.Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(noMasterWord ? "SHOW BINARY LOG STATUS" : sql)) // https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-0.html#mysqld-8-4-0-deprecation-removal
+			ResultSet rs = statement.executeQuery(sql)) // https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-0.html#mysqld-8-4-0-deprecation-removal
 		{
 			if(!rs.next())
 				throw new SchemaSavepointNotAvailableException(sql + " returns empty result, probably because binlog is disabled");
