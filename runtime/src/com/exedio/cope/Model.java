@@ -543,7 +543,7 @@ public final class Model implements Serializable
 	private final ReentrantLock purgeSchemaLock = new ReentrantLock();
 
 	/**
-	 * Returns a string that may help you resetting the schema to the
+	 * Returns a string that may help you to reset the schema to the
 	 * current contents.
 	 * This may or may not be supported by the database.
 	 * The meaning of the result heavily depends on the database.
@@ -570,7 +570,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * Returns a string that may help you resetting the schema to the
+	 * Returns a string that may help you to reset the schema to the
 	 * current contents.
 	 * This may or may not be supported by the database.
 	 * The meaning of the result heavily depends on the database.
