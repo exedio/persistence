@@ -138,10 +138,6 @@ final class MysqlDialect extends Dialect
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", CHARSET);
 		info.setProperty("characterSetResults", CHARSET);
-		// Setting innodb_strict_mode causes failure starting with MySQL 8.0.26:
-		//    Access denied; you need (at least one of) the SYSTEM_VARIABLES_ADMIN or
-		//    SESSION_VARIABLES_ADMIN privilege(s) for this operation
-		// https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-26.html#mysqld-8-0-26-server-admin
 		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'");
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
@@ -155,6 +151,10 @@ final class MysqlDialect extends Dialect
 	{
 		try(java.sql.Statement st = connection.createStatement())
 		{
+			// Setting innodb_strict_mode causes failure starting with MySQL 8.0.26:
+			//    Access denied; you need (at least one of) the SYSTEM_VARIABLES_ADMIN or
+			//    SESSION_VARIABLES_ADMIN privilege(s) for this operation
+			// https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-26.html#mysqld-8-0-26-server-admin
 			{
 				final String key = "innodb_strict_mode";
 				final int expectedValue = 1;
