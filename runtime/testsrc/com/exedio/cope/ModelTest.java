@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaSavepointTest.getSchemaSavepoint;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -174,10 +173,6 @@ public class ModelTest extends TestWithEnvironment
 				IllegalStateException.class,
 				expectedText);
 
-		assertFails(
-				() -> getSchemaSavepoint(model),
-				IllegalStateException.class,
-				expectedText);
 		assertFails(
 				model::getSchemaSavepointNew,
 				IllegalStateException.class,

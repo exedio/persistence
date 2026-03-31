@@ -30,7 +30,6 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.sql.SQLException;
-import java.sql.SQLSyntaxErrorException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,13 +49,6 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		if(mysql)
 		{
 			assertFails(
-					() -> getSchemaSavepoint(model),
-					SQLSyntaxErrorException.class,
-					"Access denied; you need (at least one of) the " +
-					"SUPER, REPLICATION CLIENT" +
-					" privilege(s) for this operation",
-					this::dropMariaConnectionId);
-			assertFails(
 					model::getSchemaSavepointNew,
 					SchemaSavepointNotAvailableException.class,
 					"Access denied; you need the " +
@@ -71,14 +63,6 @@ public class SchemaSavepointTest extends TestWithEnvironment
 			previousConnectProperties = cprops;
 		}
 		final String expected = new Props().schemaSavepoint;
-		try
-		{
-			assertMatches(expected, "OK: " + getSchemaSavepoint(model));
-		}
-		catch(final SQLException e)
-		{
-			assertMatches(expected, "FAILS: " + e.getMessage());
-		}
 		try
 		{
 			assertMatches(expected, "OK: " + model.getSchemaSavepointNew());
@@ -149,10 +133,4 @@ public class SchemaSavepointTest extends TestWithEnvironment
 	}
 
 	private static final Model MODEL = new Model(MyItem.TYPE);
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	static final String getSchemaSavepoint(final Model model) throws SQLException
-	{
-		return model.getSchemaSavepoint();
-	}
 }
