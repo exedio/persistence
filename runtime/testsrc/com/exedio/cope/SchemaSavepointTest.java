@@ -52,7 +52,8 @@ public class SchemaSavepointTest extends TestWithEnvironment
 					model::getSchemaSavepointNew,
 					SchemaSavepointNotAvailableException.class,
 					"Access denied; you need (at least one of) the " +
-					"SUPER, REPLICATION CLIENT privilege(s) for this operation", this::dropMariaConnectionId);
+					"SUPER, REPLICATION CLIENT privilege(s) for this operation",
+					this::dropMariaConnectionId);
 			final ConnectProperties cprops = model.getConnectProperties();
 			final Properties.Source props = cprops.getSourceObject();
 			model.disconnect();
