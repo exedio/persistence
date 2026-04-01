@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import org.jspecify.annotations.Nullable;
 
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
@@ -129,7 +130,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
-	public ItemField<E> optional()
+	public ItemField<@Nullable E> optional()
 	{
 		return new ItemField<>(isfinal, true, valueClass, unique, copyFrom, copyTo, choiceBackPointer, valueTypeFuture, policy);
 	}

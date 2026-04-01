@@ -516,7 +516,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return new MultiItemField<>(true, optional, unique, policy, copyToMap, valueClass, componentClasses);
 	}
 
-	public MultiItemField<E> optional()
+	public MultiItemField<@org.jspecify.annotations.Nullable E> optional()
 	{
 		return new MultiItemField<>(isFinal, true, unique, policy, copyToMap, valueClass, componentClasses);
 	}

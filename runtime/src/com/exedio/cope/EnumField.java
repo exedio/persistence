@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.Serial;
 import java.util.List;
 import java.util.function.Supplier;
+import org.jspecify.annotations.Nullable;
 
 public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
@@ -74,7 +75,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	@Override
-	public EnumField<E> optional()
+	public EnumField<@Nullable E> optional()
 	{
 		return new EnumField<>(isfinal, true, valueClass, unique, copyFrom, defaultS);
 	}

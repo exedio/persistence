@@ -169,6 +169,12 @@
       <optional>true</optional>
     </dependency>
     <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <version>1.0.0</version>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>com.exedio</groupId>
       <artifactId>copeconsole</artifactId>
       <version>7434</version>
