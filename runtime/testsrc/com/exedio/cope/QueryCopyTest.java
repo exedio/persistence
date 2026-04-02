@@ -40,6 +40,7 @@ public class QueryCopyTest
 	{
 		final Query<?> query = TYPE.newQuery();
 		query.setSearchSizeLimit(77);
+		query.setCacheDisabled(true);
 		query.setSearchSizeCacheLimit(66);
 
 		assertIt(
@@ -47,6 +48,7 @@ public class QueryCopyTest
 				"select this from AnItem",
 				query);
 		assertEquals(77, query.getSearchSizeLimit());
+		assertEquals(true, query.isCacheDisabled());
 		assertEquals(66, query.getSearchSizeCacheLimit());
 
 		final Query<?> copy = new Query<>(string, query);
@@ -55,6 +57,7 @@ public class QueryCopyTest
 				"select string from AnItem",
 				copy);
 		assertEquals(77, copy.getSearchSizeLimit());
+		assertEquals(true, copy.isCacheDisabled());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
 
 		final Query<?> multiCopy = Query.newQuery(new Selectable<?>[]{string, intx}, query);
@@ -63,6 +66,7 @@ public class QueryCopyTest
 				"select string,intx from AnItem",
 				multiCopy);
 		assertEquals(77, multiCopy.getSearchSizeLimit());
+		assertEquals(true, multiCopy.isCacheDisabled());
 		assertEquals(66, multiCopy.getSearchSizeCacheLimit());
 
 		query.setDistinct(true);
@@ -85,6 +89,7 @@ public class QueryCopyTest
 				"offset '33' limit '44'",
 				query);
 		assertEquals(177, query.getSearchSizeLimit());
+		assertEquals(true, query.isCacheDisabled());
 		assertEquals(166, query.getSearchSizeCacheLimit());
 
 		assertIt(
@@ -92,12 +97,14 @@ public class QueryCopyTest
 				"select string from AnItem",
 				copy);
 		assertEquals(77, copy.getSearchSizeLimit());
+		assertEquals(true, copy.isCacheDisabled());
 		assertEquals(66, copy.getSearchSizeCacheLimit());
 		assertIt(
 				false, TYPE, null, null, null, null, null, 0, -1,
 				"select string,intx from AnItem",
 				multiCopy);
 		assertEquals(77, multiCopy.getSearchSizeLimit());
+		assertEquals(true, multiCopy.isCacheDisabled());
 		assertEquals(66, multiCopy.getSearchSizeCacheLimit());
 	}
 

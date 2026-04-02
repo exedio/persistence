@@ -170,7 +170,7 @@ final class QueryCache
 			final ArrayList<Object> resultList =
 				query.searchUncached(transaction, mode);
 
-			if(!transaction.queryCacheDisabled && !(
+			if(!transaction.queryCacheDisabled && !query.cacheDisabled && !(
 					mode.isSearch() &&
 					resultList.size()>query.getSearchSizeCacheLimit()))
 			{
