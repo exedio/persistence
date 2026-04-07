@@ -420,8 +420,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 		final var my = vaultTrail(model, "my-Bucket");
 		final var df = vaultTrail(model, "default");
-		assertEquals("VaultTrail_my_Bucket", my.tableName());
-		assertEquals("VaultTrail_default", df.tableName());
+		assertEquals("zzz_VaultTrail_my_Bucket", my.tableName());
+		assertEquals("zzz_VaultTrail_default", df.tableName());
 		assertEquals("hash", my.hashColumnName());
 		assertEquals("hash", df.hashColumnName());
 		assertEquals("length", my.lengthColumnName());
@@ -437,7 +437,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals("origin", my.originColumnName());
 		assertEquals("origin", df.originColumnName());
 
-		assertEquals(quoteName(model, "VaultTrail_my_Bucket"), my.tableNameQuoted());
+		assertEquals(quoteName(model, "zzz_VaultTrail_my_Bucket"), my.tableNameQuoted());
 		assertEquals(quoteName(model, "hash"   ), my.hashColumnNameQuoted());
 		assertEquals(quoteName(model, "length" ), my.lengthColumnNameQuoted());
 		assertEquals(quoteName(model, "start20"), my.startColumnNameQuoted());
@@ -448,8 +448,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSchemaInfoDeprecated()
 	{
-		assertEquals("VaultTrail_my_Bucket", SchemaInfo.getVaultTrailTableName(model, "my-Bucket"));
-		assertEquals("VaultTrail_default",   SchemaInfo.getVaultTrailTableName(model, "default"));
+		assertEquals("zzz_VaultTrail_my_Bucket", SchemaInfo.getVaultTrailTableName(model, "my-Bucket"));
+		assertEquals("zzz_VaultTrail_default",   SchemaInfo.getVaultTrailTableName(model, "default"));
 		assertEquals("hash",    SchemaInfo.getVaultTrailHashColumnName  (model, "my-Bucket"));
 		assertEquals("hash",    SchemaInfo.getVaultTrailHashColumnName  (model, "default"));
 		assertEquals("length",  SchemaInfo.getVaultTrailLengthColumnName(model, "my-Bucket"));

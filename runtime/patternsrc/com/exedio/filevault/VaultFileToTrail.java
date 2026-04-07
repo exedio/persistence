@@ -65,7 +65,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * </pre>
  * You may verify the consistency of the length field with
  * <pre>
- *    SELECT COUNT(*) FROM VaultTrail_default a
+ *    SELECT COUNT(*) FROM zzz_VaultTrail_default a
  *    JOIN VaultFileToTrail b ON a.hash=b.hash
  *    WHERE a.length&lt;&gt;b.length
  * </pre>
