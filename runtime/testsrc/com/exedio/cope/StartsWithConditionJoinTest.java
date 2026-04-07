@@ -61,12 +61,12 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 		queryNeg.setOrderByThis(true);
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
-				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE " + startsWith(MyItem.alpha, "33aa", "MyItem.alpha"),
 				SchemaInfo.search(queryPos));
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
-				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE NOT (" + startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") ORDER BY " + SI.pk(MyItem.TYPE) + NULLS_FIRST,
 				SchemaInfo.search(queryNeg));
 		assertEquals(List.of(a), queryPos.search());
@@ -83,7 +83,7 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 				MyItem.alpha.startsWithIfSupported(decodeLower("33bb"))));
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
-				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE (" +
 				startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") OR (" +
 				startsWith(MyItem.alpha, "33bb", "MyItem.alpha") + ")",
@@ -103,7 +103,7 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 			{
 				//noinspection SqlSourceToSinkFlow
 				assertEquals(1, stmt.executeUpdate(
-						"DELETE FROM " + q("VaultTrail_default") + " " +
+						"DELETE FROM " + qVaultTrail("default") + " " +
 						"WHERE " + q("hash") + "='" + hashA + "'"));
 			}
 			model.clearCache();
@@ -122,8 +122,8 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 				MyItem.beta .startsWithIfSupported(decodeLower("33bb"))));
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
-				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
-				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.beta" ) + " ON " + SI.col(MyItem.beta ) + "=" + q("MyItem.beta" ) + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("default") + " " + q("MyItem.beta" ) + " ON " + SI.col(MyItem.beta ) + "=" + q("MyItem.beta" ) + "." + q("hash") + " ") +
 				"WHERE (" +
 				startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") OR (" +
 				startsWith(MyItem.beta , "33bb", "MyItem.beta" ) + ")",
@@ -144,8 +144,8 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 				MyItem.jota .startsWithIfSupported(decodeLower("33bb"))));
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
-				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
-				ifVault("JOIN " + q("VaultTrail_jo_ta"  ) + " " + q("MyItem.jota" ) + " ON " + SI.col(MyItem.jota ) + "=" + q("MyItem.jota" ) + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("jo-ta"  ) + " " + q("MyItem.jota" ) + " ON " + SI.col(MyItem.jota ) + "=" + q("MyItem.jota" ) + "." + q("hash") + " ") +
 				"WHERE (" +
 				startsWith(MyItem.alpha, "33aa", "MyItem.alpha") + ") OR (" +
 				startsWith(MyItem.jota,  "33bb", "MyItem.jota" ) + ")",
@@ -177,7 +177,7 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 				MyItem.alpha.startsWithIfSupported(5, decodeLower(          "556677889900112233445566778899aa")));
 		assertEquals(
 				"SELECT " + SI.pk(MyItem.TYPE) + " FROM " + SI.tab(MyItem.TYPE) + " " +
-				ifVault("JOIN " + q("VaultTrail_default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
+				ifVault("JOIN " + qVaultTrail("default") + " " + q("MyItem.alpha") + " ON " + SI.col(MyItem.alpha) + "=" + q("MyItem.alpha") + "." + q("hash") + " ") +
 				"WHERE " +
 				startsWith(MyItem.alpha, "0011223344556677889900112233445566778899", "MyItem.alpha"),
 				SchemaInfo.search(query));
@@ -228,6 +228,14 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 	private static String ifVault(final String s)
 	{
 		return MyItem.alpha.getVaultBucket()!=null ? s : "";
+	}
+
+	private static String qVaultTrail(final String bucket)
+	{
+		return
+				model.getConnectProperties().getVaultProperties()!=null
+				? q(SchemaInfo.getVaultTrailTableName(model, bucket))
+				: "DO_NOT_ASSERT";
 	}
 
 	private String startsWith(final DataField field, final String val, final String alias)

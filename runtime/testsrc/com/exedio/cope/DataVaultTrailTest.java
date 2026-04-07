@@ -95,8 +95,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	}
 	private void test(final java.util.function.Function<String, DataField.Value> f) throws SQLException
 	{
-		final String trailTab  = quoteName(model, "VaultTrail_my_Bucket");
-		final String trailTabD = quoteName(model, "VaultTrail_default");
+		final String trailTab  = quoteName(model, getVaultTrailTableName(model, "my-Bucket"));
+		final String trailTabD = quoteName(model, getVaultTrailTableName(model, "default"));
 		final String trailHash = quoteName(model, "hash");
 		final String trailLength = quoteName(model, "length");
 		assertEquals(
@@ -116,30 +116,30 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 		queryTrail("default", rs -> {});
 
 		final MyItem item = new MyItem(f.apply("abcdef"));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		item.setField(f.apply("abcdef"));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		item.setField(f.apply("abcdef"));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		item.setField(f.apply("abcde0"));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 		{
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
 			assertRow(abcde0Hash, 3, "abcde0", "MyItem.field", rs);
 		});
 
 		item.setField(f.apply("abcde01234"));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 		{
 			assertRow(abcde01234Hash, 5, "abcde01234", "MyItem.field", rs);
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
@@ -150,7 +150,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		item.setOther(f.apply("abcdef"));
 		queryTrail("default", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.other", rs));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 		{
 			assertRow(abcde01234Hash, 5, "abcde01234", "MyItem.field", rs);
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
@@ -163,13 +163,13 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testEmpty() throws SQLException
 	{
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 		queryTrail("default", rs -> {});
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		new MyItem(toValue(decodeLower("")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(emptyHash, 0, "", "MyItem.field", rs));
 		queryTrail("default", rs -> {});
 		assertEquals(0, MyItem.field.checkVaultTrail());
@@ -178,18 +178,18 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testRedundant() throws SQLException
 	{
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
@@ -198,18 +198,18 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	@Test void testIncomplete() throws SQLException
 	{
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
-		updateTrail("DELETE FROM " + quoteName(model, "VaultTrail_my_Bucket"));
-		queryTrail("my_Bucket", rs -> {});
+		updateTrail("DELETE FROM " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")));
+		queryTrail("my-Bucket", rs -> {});
 		assertEquals(1, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
@@ -218,25 +218,25 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	@Test void testLengthExceeded() throws SQLException
 	{
 		new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail(
-				"UPDATE " + quoteName(model, "VaultTrail_my_Bucket") + " " +
+				"UPDATE " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")) + " " +
 				"SET " + quoteName(model, "length") + "=" + (MyItem.field.getMaximumLength()+1) + " " +
 				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, toIntExact(MyItem.field.getMaximumLength())+1, "abcdef", "MyItem.field", rs));
 		assertEquals(1, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail(
-				"UPDATE " + quoteName(model, "VaultTrail_my_Bucket") + " " +
+				"UPDATE " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")) + " " +
 				"SET " + quoteName(model, "length") + "=" + MyItem.field.getMaximumLength() + " " +
 				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, toIntExact(MyItem.field.getMaximumLength()), "abcdef", "MyItem.field", rs));
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
@@ -244,26 +244,26 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testCollision() throws SQLException
 	{
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		final VaultMockService vs = (VaultMockService)deresiliate(model.connect().vault("my-Bucket").service);
 		assertNotNull(vs);
 		vs.clear();
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 	}
 
 	@Test void testStartOverflow() throws SQLException
 	{
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 
 		new MyItem(toValue(decodeLower("0001020304050607080900010203040506070809ab")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 				assertRow(
 						"64551e4605d5b8973ddee826d90e0841b06dc933cf7874b81632cc0e67176d70a319ae6fe7b23bb400f0704be45abb3aa74eb29df34753c390bef492bff3baf5",
 						21,
@@ -272,10 +272,10 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	@Test void testStartOverflowAlmost() throws SQLException
 	{
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 
 		new MyItem(toValue(decodeLower("0001020304050607080900010203040506070809")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 				assertRow(
 						"7d1e2e25f25b9861f2cd8682301aa19cae07c8aa304418040d05c8926bc6ea995c923c0c5628c668980b099385f4ba58dc94e623f72f2d70cb24baf83636ce8c",
 						20,
@@ -285,50 +285,50 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	@Test void testMarkPutInitial() throws SQLException
 	{
 		assertEquals(false, model.isVaultRequiredToMarkPut("my-Bucket"));
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 
 		model.setVaultRequiredToMarkPut("my-Bucket", true);
 		assertEquals(true, model.isVaultRequiredToMarkPut("my-Bucket"));
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 	}
 
 	@Test void testMarkPutRedundant() throws SQLException
 	{
 		assertEquals(false, model.isVaultRequiredToMarkPut("my-Bucket"));
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		model.setVaultRequiredToMarkPut("my-Bucket", true);
 		assertEquals(true, model.isVaultRequiredToMarkPut("my-Bucket"));
 
 		item.setField(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
 	}
 
 	@Test void testFieldLong() throws SQLException
 	{
-		queryTrail("my_Bucket", rs -> {});
+		queryTrail("my-Bucket", rs -> {});
 
 		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
 
 		final String field = "MyItem.veryLong0123456789012345678901234567890123456789012345678901234567890 ...";
 		assertEquals(80, field.length());
 
 		item.setVeryLong(toValue(decodeLower("abcde0")));
-		queryTrail("my_Bucket", rs ->
+		queryTrail("my-Bucket", rs ->
 		{
 			assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs);
 			assertRow(abcde0Hash, 3, "abcde0", field, rs);
@@ -344,7 +344,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final String txName = model.currentTransaction().getName();
 		model.commit();
 		try(ResultSet rs = connection.executeQuery(
-				"SELECT * FROM " + quoteName(model, "VaultTrail_" + bucket) + " " +
+				"SELECT * FROM " + quoteName(model, getVaultTrailTableName(model, bucket)) + " " +
 				"ORDER BY " + quoteName(model, "hash")))
 		{
 			final ResultSetMetaData md = rs.getMetaData();
@@ -496,8 +496,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(true, vaultProperties.isAppliedToAllFields(), "isAppliedToAllFields required by test");
 		model.setVaultRequiredToMarkPut("my-Bucket", false);
 		model.setVaultRequiredToMarkPut("default", false);
-		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_my_Bucket"));
-		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_default"));
+		connection.executeUpdate("DELETE FROM " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")));
+		connection.executeUpdate("DELETE FROM " + quoteName(model, getVaultTrailTableName(model, "default")));
 		model.startTransaction(DataVaultTrailTest.class.getName());
 	}
 
