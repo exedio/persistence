@@ -32,6 +32,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.PosixFileAttributeView;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.EnumSet;
+import java.util.List;
 
 /**
  * This is a replacement of the respective class in JUnit 4.
@@ -73,9 +77,33 @@ public class TemporaryFolder extends MainRule
 		return result;
 	}
 
+	/**
+	 * Needed, if directories are non-readable for owner
+	 */
+	private static void resetPermissions(final Path dir) throws IOException
+	{
+		final PosixFileAttributeView posixView =
+				Files.getFileAttributeView(dir, PosixFileAttributeView.class);
+		posixView.setPermissions(EnumSet.of(
+				PosixFilePermission.OWNER_READ,
+				PosixFilePermission.OWNER_WRITE,
+				PosixFilePermission.OWNER_EXECUTE));
+
+		final List<Path> l;
+		try(var s = Files.list(dir))
+		{
+			l = s.toList();
+		}
+		for(final var d : l)
+			if(Files.isDirectory(d))
+				resetPermissions(d);
+	}
+
 	@Override
 	protected void after() throws IOException
 	{
+		resetPermissions(root.toPath());
+
 		Files.walkFileTree(root.toPath(), new SimpleFileVisitor<>()
 		{
 			@Override
