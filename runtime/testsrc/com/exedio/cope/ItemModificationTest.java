@@ -479,8 +479,9 @@ class ItemModificationTest extends TestWithEnvironment
 										final long durationRead,
 										final long durationClose)
 		{
-			if (sql.startsWith("MERGE INTO "+SchemaInfo.quoteName(model, "VaultTrail_default"))
-					|| sql.startsWith("INSERT INTO "+SchemaInfo.quoteName(model, "VaultTrail_default")))
+			final String trailTab = SchemaInfo.quoteName(model, "VaultTrail_default");
+			if (sql.startsWith("MERGE INTO " + trailTab)
+					|| sql.startsWith("INSERT INTO " + trailTab))
 				return;
 			final Pattern p = Pattern.compile("UPDATE (.*) SET (.*) WHERE .*");
 			final Matcher matcher = p.matcher(sql);
