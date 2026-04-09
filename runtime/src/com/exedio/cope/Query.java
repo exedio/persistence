@@ -66,6 +66,8 @@ public final class Query<R> implements Serializable
 	private static final int SEARCH_SIZE_LIMIT_DEFAULT = Integer.MIN_VALUE;
 	private int searchSizeLimit = SEARCH_SIZE_LIMIT_DEFAULT;
 
+	boolean cacheDisabled = false;
+
 	private static final int SEARCH_SIZE_CACHE_LIMIT_DEFAULT = Integer.MIN_VALUE;
 	private int searchSizeCacheLimit = SEARCH_SIZE_CACHE_LIMIT_DEFAULT;
 
@@ -102,6 +104,7 @@ public final class Query<R> implements Serializable
 		this.pageOffset = query.pageOffset;
 		this.pageLimit = query.pageLimit;
 		this.searchSizeLimit = query.searchSizeLimit;
+		this.cacheDisabled = query.cacheDisabled;
 		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
 	}
 
@@ -126,6 +129,7 @@ public final class Query<R> implements Serializable
 		this.pageOffset = query.pageOffset;
 		this.pageLimit = query.pageLimit;
 		this.searchSizeLimit = query.searchSizeLimit;
+		this.cacheDisabled = query.cacheDisabled;
 		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
 	}
 
@@ -148,6 +152,7 @@ public final class Query<R> implements Serializable
 		this.pageOffset = query.pageOffset;
 		this.pageLimit = query.pageLimit;
 		this.searchSizeLimit = query.searchSizeLimit;
+		this.cacheDisabled = query.cacheDisabled;
 		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
 	}
 
@@ -696,6 +701,38 @@ public final class Query<R> implements Serializable
 	}
 
 
+	// cacheDisabled
+
+	/**
+	 * Sets the flag {@code cacheDisabled} of this query.
+	 * <p>
+	 * As long as this flag is true,
+	 * results of queries issued from this transaction
+	 * (by calling
+	 * {@link #search()}, {@link #total()}, and {@link #exists()})
+	 * will not be considered for inclusion into query cache.
+	 * <p>
+	 * That does not mean, that queries are not satisfied from the cache.
+	 *
+	 * @see #isCacheDisabled()
+	 * @see #setSearchSizeCacheLimit(int)
+	 * @see Transaction#setQueryCacheDisabled(boolean)
+	 */
+	public void setCacheDisabled(final boolean cacheDisabled)
+	{
+		this.cacheDisabled = cacheDisabled;
+	}
+
+	/**
+	 * @see #setCacheDisabled(boolean)
+	 * @see Transaction#isQueryCacheDisabled()
+	 */
+	public boolean isCacheDisabled()
+	{
+		return cacheDisabled;
+	}
+
+
 	// searchSizeCacheLimit
 
 	/**
@@ -724,6 +761,7 @@ public final class Query<R> implements Serializable
 	 * {@link ConnectProperties#getQueryCacheSizeLimit()}.
 	 *
 	 * @see #getSearchSizeCacheLimit()
+	 * @see #setCacheDisabled(boolean)
 	 * @see Transaction#setQueryCacheDisabled(boolean) 
 	 */
 	public void setSearchSizeCacheLimit(final int searchSizeCacheLimit)

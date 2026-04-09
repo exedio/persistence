@@ -80,6 +80,21 @@ public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
 		assertEquals(asListCE(existsHist(1), totalHist(1), searchHist(1)), modelHist());
 	}
 
+	@Test void testDisable()
+	{
+		assertEquals(false, q.isCacheDisabled());
+		q.setCacheDisabled(true);
+		assertEquals(true, q.isCacheDisabled());
+
+		assertEquals(asList(), modelHist());
+		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
+		assertEquals(asList(), modelHist());
+		assertEquals(5, q.total());
+		assertEquals(asList(), modelHist());
+		assertEquals(true, q.exists());
+		assertEquals(asList(), modelHist());
+	}
+
 	@Test void testExceed()
 	{
 		q.setSearchSizeCacheLimit(4);

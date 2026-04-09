@@ -499,6 +499,7 @@ public final class Transaction
 	 * That does not mean, that queries are not satisfied from the cache.
 	 * 
 	 * @see #isQueryCacheDisabled()
+	 * @see Query#setCacheDisabled(boolean)
 	 * @see Query#setSearchSizeCacheLimit(int)
 	 */
 	public void setQueryCacheDisabled(final boolean queryCacheDisabled)
@@ -508,6 +509,7 @@ public final class Transaction
 
 	/**
 	 * @see #setQueryCacheDisabled(boolean)
+	 * @see Query#isCacheDisabled()
 	 */
 	public boolean isQueryCacheDisabled()
 	{
