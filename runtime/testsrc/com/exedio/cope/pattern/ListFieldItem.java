@@ -18,19 +18,29 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CopeIgnore;
 import com.exedio.cope.DateField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapInterim;
 import java.util.Date;
 
 public final class ListFieldItem extends Item
 {
+	@CopeIgnore
+	@WrapInterim
+	static final DateField customDate = new DateField().optional(); // not final, so instrumentor doesn't see it
+
 	static final StringField value = new StringField().optional().toFinal();
 	static final ListField<String> strings = ListField.create(new StringField().optional().lengthRange(4, 8));
 	static final ListField<Date> dates = ListField.create(new DateField());
 	static final ListField<ListFieldItem> items = ListField.create(ItemField.create(ListFieldItem.class).cascade());
 	static final ListField<ListFieldItem> itemsSameValue = ListField.create(ItemField.create(ListFieldItem.class).optional()).copyWith(value);
+	static final ListField<String> stringsWithCustom = ListField.create(new StringField()).
+			customEntryFeature("customDate", customDate).
+			customEntryFeature("customList", ListField.create(new IntegerField()));
 
 	ListFieldItem()
 	{
@@ -59,6 +69,37 @@ public final class ListFieldItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ListFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+	/**
+	 * Returns the value of {@link #customDate}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	java.util.Date getCustomDate()
+	{
+		return ListFieldItem.customDate.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #customDate}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setCustomDate(@javax.annotation.Nullable final java.util.Date customDate)
+	{
+		ListFieldItem.customDate.set(this,customDate);
+	}
+
+	/**
+	 * Sets the current date for the date field {@link #customDate}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void touchCustomDate()
+	{
+		ListFieldItem.customDate.touch(this);
+	}
 
 	/**
 	 * Returns the value of {@link #value}.
@@ -391,6 +432,89 @@ public final class ListFieldItem extends Item
 	static com.exedio.cope.ItemField<ListFieldItem> itemsSameValueParent()
 	{
 		return ListFieldItem.itemsSameValue.getParent(ListFieldItem.class);
+	}
+
+	/**
+	 * Returns the value of {@link #stringsWithCustom}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	java.util.List<String> getStringsWithCustom()
+	{
+		return ListFieldItem.stringsWithCustom.get(this);
+	}
+
+	/**
+	 * Returns a query for the value of {@link #stringsWithCustom}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	com.exedio.cope.Query<String> getStringsWithCustomQuery()
+	{
+		return ListFieldItem.stringsWithCustom.getQuery(this);
+	}
+
+	/**
+	 * Returns the items, for which field list {@link #stringsWithCustom} contains the given element.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static java.util.List<ListFieldItem> getDistinctParentsOfStringsWithCustom(final String element)
+	{
+		return ListFieldItem.stringsWithCustom.getDistinctParents(ListFieldItem.class,element);
+	}
+
+	/**
+	 * Adds a new value for {@link #stringsWithCustom}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void addToStringsWithCustom(@javax.annotation.Nonnull final String stringsWithCustom)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.StringLengthViolationException,
+				java.lang.ClassCastException
+	{
+		ListFieldItem.stringsWithCustom.add(this,stringsWithCustom);
+	}
+
+	/**
+	 * Removes all occurrences of {@code element} from {@link #stringsWithCustom}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeAllFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	boolean removeAllFromStringsWithCustom(@javax.annotation.Nonnull final String stringsWithCustom)
+	{
+		return ListFieldItem.stringsWithCustom.removeAll(this,stringsWithCustom);
+	}
+
+	/**
+	 * Sets a new value for {@link #stringsWithCustom}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setStringsWithCustom(@javax.annotation.Nonnull final java.util.Collection<? extends String> stringsWithCustom)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.StringLengthViolationException,
+				java.lang.ClassCastException
+	{
+		ListFieldItem.stringsWithCustom.set(this,stringsWithCustom);
+	}
+
+	/**
+	 * Returns the parent field of the type of {@link #stringsWithCustom}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static com.exedio.cope.ItemField<ListFieldItem> stringsWithCustomParent()
+	{
+		return ListFieldItem.stringsWithCustom.getParent(ListFieldItem.class);
 	}
 
 	@com.exedio.cope.instrument.Generated

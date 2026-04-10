@@ -28,6 +28,7 @@ import com.exedio.cope.Cope;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -43,7 +44,9 @@ import com.exedio.cope.instrument.WrapFeature;
 import java.io.Serial;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Nonnull;
 
 @WrapFeature
@@ -60,10 +63,11 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	private final IntegerField order;
 	private final FunctionField<E> element;
+	private final LinkedHashMap<String,Feature> customEntryFeatures;
 	private Mount mountIfMounted = null;
 	private final CopyFields copyWith;
 
-	private ListField(final FunctionField<E> element, final CopyFields copyWith)
+	private ListField(final FunctionField<E> element, final LinkedHashMap<String,Feature> customEntryFeatures, final CopyFields copyWith)
 	{
 		this.order = new IntegerField().toFinal().min(0);
 		this.element = requireNonNull(element, "element");
@@ -73,19 +77,33 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			throw new IllegalArgumentException("element must not have any default");
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
+		this.customEntryFeatures = customEntryFeatures;
 		this.copyWith = copyWith;
 	}
 
 	public static <E> ListField<E> create(final FunctionField<E> element)
 	{
-		return new ListField<>(element, CopyFields.EMPTY);
+		return new ListField<>(element, null, CopyFields.EMPTY);
 	}
 
 	@Override
 	public ListField<E> copy(final CopyMapper mapper)
 	{
 		copyWith.failIfNotEmpty();
-		return new ListField<>(mapper.copy(element), copyWith);
+		final LinkedHashMap<String,Feature> newCustomEntryFeatureTemplates;
+		if (customEntryFeatures == null)
+		{
+			newCustomEntryFeatureTemplates = null;
+		}
+		else
+		{
+			newCustomEntryFeatureTemplates = new LinkedHashMap<>();
+			for(final Map.Entry<String, Feature> entry : customEntryFeatures.entrySet())
+			{
+				newCustomEntryFeatureTemplates.put(entry.getKey(), mapper.copy((Copyable) entry.getValue()));
+			}
+		}
+		return new ListField<>(mapper.copy(element), newCustomEntryFeatureTemplates, copyWith);
 	}
 
 	/**
@@ -100,7 +118,34 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		{
 			throw new IllegalStateException("copyWith requires the ListField's element to be an ItemField");
 		}
-		return new ListField<>(element.copy(), this.copyWith.add(copyWith));
+		return new ListField<>(element.copy(), customEntryFeatures, this.copyWith.add(copyWith));
+	}
+
+	/**
+	 * Returns a new ListField, that differs from this ListField
+	 * by having the given feature added to the entry type.
+	 */
+	public ListField<E> customEntryFeature(final String name, final Feature feature)
+	{
+		requireNonNull(name, "name");
+		requireNonNull(feature, "feature");
+		if (PARENT.equals(name) || ORDER.equals(name) || UNIQUE_CONSTRAINT.equals(name)
+			 || ENTRIES.equals(name) || ELEMENT.equals(name))
+			throw new IllegalArgumentException("invalid name '"+name+"'");
+		final LinkedHashMap<String,Feature> newCustomEntryFeatureTemplates;
+		if(customEntryFeatures == null)
+		{
+			newCustomEntryFeatureTemplates = new LinkedHashMap<>(1);
+			newCustomEntryFeatureTemplates.put(name, feature);
+		}
+		else
+		{
+			newCustomEntryFeatureTemplates = new LinkedHashMap<>(customEntryFeatures);
+			final Feature collision = newCustomEntryFeatureTemplates.put(name, feature);
+			if (collision!=null)
+				throw new IllegalArgumentException("there is already a custom entry feature named '"+name+"'");
+		}
+		return new ListField<>(element, newCustomEntryFeatureTemplates, copyWith);
 	}
 
 	@Override
@@ -118,6 +163,10 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		features.put(UNIQUE_CONSTRAINT, uniqueConstraint);
 		features.put(ENTRIES, entries);
 		features.put(ELEMENT, element, new MysqlExtendedVarcharAnnotationProxy(this));
+		if (customEntryFeatures != null)
+		{
+			customEntryFeatures.forEach(features::put);
+		}
 		copyWith.onMount(features, parent, element);
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, entries, entryType);
