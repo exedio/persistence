@@ -101,6 +101,8 @@ public class ItemCacheEvictionTest
 	{
 		assertAll(
 				() -> size.assertValue(sizeDelta, "size"),
+				() -> sizeA.assertValue(sizeDelta, "sizeA"),
+				() -> sizeB.assertValue(0,         "sizeB"),
 				() -> evictionsA.assertValue(evictionsADelta, "evictionsA"),
 				() -> evictionsB.assertValue(0, "evictionsB"));
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
@@ -117,12 +119,21 @@ public class ItemCacheEvictionTest
 	}
 
 	private final GaugeTester size  = new GaugeTester(gauge(),  p -> true);
+	private final GaugeTester sizeA  = new GaugeTester(gauge(AnItemA.TYPE),  p -> true);
+	private final GaugeTester sizeB  = new GaugeTester(gauge(AnItemB.TYPE),  p -> true);
 	private final CounterTester evictionsA  = new CounterTester(counter(AnItemA.TYPE),  p -> true);
 	private final CounterTester evictionsB  = new CounterTester(counter(AnItemB.TYPE),  p -> true);
 
 	private static Supplier<Gauge> gauge()
 	{
 		return () -> (Gauge)PrometheusMeterRegistrar.meter(ItemCache.class, "size", Tags.of(
+				"model", model.toString()));
+	}
+
+	private static Supplier<Gauge> gauge(final Type<?> type)
+	{
+		return () -> (Gauge)PrometheusMeterRegistrar.meter(ItemCache.class, "sizePerType", Tags.of(
+				"type", type.getID(),
 				"model", model.toString()));
 	}
 
@@ -143,6 +154,8 @@ public class ItemCacheEvictionTest
 		model.connect(properties);
 		assertSame(properties, model.getConnectProperties());
 		size.setUp(model);
+		sizeA.setUp(model);
+		sizeB.setUp(model);
 		evictionsA.setUp(model);
 		evictionsB.setUp(model);
 

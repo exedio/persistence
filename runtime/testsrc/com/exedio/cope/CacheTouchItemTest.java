@@ -189,6 +189,7 @@ public class CacheTouchItemTest extends TestWithEnvironment
 		last = curr;
 		assertEquals(curr.getLevel(), statistics.getLevel());
 		assertEquals(curr.getLevel(),  gauge("size"));
+		assertEquals(curr.getLevel(),  gauge("sizePerType", "type", TYPE.getID()));
 		assertEquals(curr.getHits(),   count("gets", "result", "hit"));
 		assertEquals(curr.getMisses(), count("gets", "result", "miss"));
 		assertEquals(curr.getConcurrentLoads(), count("concurrentLoad"));
@@ -213,5 +214,10 @@ public class CacheTouchItemTest extends TestWithEnvironment
 	private double gauge(final String nameSuffix)
 	{
 		return ((Gauge)meter(ItemCache.class, nameSuffix, tag(model))).value();
+	}
+
+	private static double gauge(final String nameSuffix, final String key, final String value)
+	{
+		return ((Gauge)meter(ItemCache.class, nameSuffix, tag(TYPE).and(key, value))).value();
 	}
 }
