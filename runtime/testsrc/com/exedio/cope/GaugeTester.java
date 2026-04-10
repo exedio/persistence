@@ -43,7 +43,7 @@ final class GaugeTester
 	private boolean setUpSucceeded = false;
 	private Model model;
 	private boolean presentOnSetUp = false;
-	private Gauge gauge;
+	private Gauge meter;
 	private double last;
 
 	void setUp(final Model model)
@@ -54,8 +54,8 @@ final class GaugeTester
 		presentOnSetUp = present.test(model.getConnectProperties());
 		if(presentOnSetUp)
 		{
-			this.gauge = supplier.get();
-			last = this.gauge.value();
+			this.meter = supplier.get();
+			last = this.meter.value();
 		}
 		else
 		{
@@ -72,7 +72,7 @@ final class GaugeTester
 
 		if(presentOnSetUp)
 		{
-			final double actual = gauge.value();
+			final double actual = meter.value();
 			assertEquals(expected, actual - last, message);
 			last  = actual;
 		}
@@ -89,7 +89,7 @@ final class GaugeTester
 
 		if(presentOnSetUp)
 		{
-			return gauge.value();
+			return meter.value();
 		}
 		else
 		{

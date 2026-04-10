@@ -43,7 +43,7 @@ final class CounterTester
 	private boolean setUpSucceeded = false;
 	private Model model;
 	private boolean presentOnSetUp = false;
-	private Counter counter;
+	private Counter meter;
 	private double last;
 
 	void setUp(final Model model)
@@ -54,8 +54,8 @@ final class CounterTester
 		presentOnSetUp = present.test(model.getConnectProperties());
 		if(presentOnSetUp)
 		{
-			this.counter = supplier.get();
-			last = this.counter.count();
+			this.meter = supplier.get();
+			last = this.meter.count();
 		}
 		else
 		{
@@ -72,7 +72,7 @@ final class CounterTester
 
 		if(presentOnSetUp)
 		{
-			final double actual = counter.count();
+			final double actual = meter.count();
 			assertEquals(expected, actual - last, message);
 			last  = actual;
 		}
@@ -89,7 +89,7 @@ final class CounterTester
 
 		if(presentOnSetUp)
 		{
-			return counter.count();
+			return meter.count();
 		}
 		else
 		{
