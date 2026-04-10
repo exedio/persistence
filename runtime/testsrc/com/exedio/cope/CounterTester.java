@@ -18,83 +18,22 @@
 
 package com.exedio.cope;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import io.micrometer.core.instrument.Counter;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-final class CounterTester
+final class CounterTester extends MeterTester<Counter>
 {
-	private final Supplier<Counter> supplier;
-	private final Predicate<ConnectProperties> present;
-
 	CounterTester(
 			final Supplier<Counter> supplier,
 			final Predicate<ConnectProperties> present)
 	{
-		this.supplier = supplier;
-		this.present = present;
+		super(supplier, present);
 	}
 
-	private boolean setUpSucceeded = false;
-	private Model model;
-	private boolean presentOnSetUp = false;
-	private Counter meter;
-	private double last;
-
-	void setUp(final Model model)
+	@Override
+	double value(final Counter meter)
 	{
-		assertFalse(setUpSucceeded, "setUpSucceeded");
-
-		this.model = model;
-		presentOnSetUp = present.test(model.getConnectProperties());
-		if(presentOnSetUp)
-		{
-			this.meter = supplier.get();
-			last = this.meter.count();
-		}
-		else
-		{
-			assertThrows(PrometheusMeterRegistrar.NotFound.class, supplier::get);
-		}
-
-		setUpSucceeded = true;
-	}
-
-	void assertValue(final int expected, final String message)
-	{
-		assertTrue(setUpSucceeded, "setUpSucceeded");
-		assertEquals(presentOnSetUp, present.test(model.getConnectProperties()));
-
-		if(presentOnSetUp)
-		{
-			final double actual = meter.count();
-			assertEquals(expected, actual - last, message);
-			last  = actual;
-		}
-		else
-		{
-			assertThrows(PrometheusMeterRegistrar.NotFound.class, supplier::get);
-		}
-	}
-
-	double get()
-	{
-		assertTrue(setUpSucceeded, "setUpSucceeded");
-		assertEquals(presentOnSetUp, present.test(model.getConnectProperties()));
-
-		if(presentOnSetUp)
-		{
-			return meter.count();
-		}
-		else
-		{
-			assertThrows(PrometheusMeterRegistrar.NotFound.class, supplier::get);
-			return 0.0;
-		}
+		return meter.count();
 	}
 }
