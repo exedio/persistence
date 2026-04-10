@@ -64,8 +64,8 @@ public class ItemCacheEvictionTest
 	{
 		assertAll(
 				() -> size.assertValue(sizeDelta, "size"),
-				() -> evictionsA.assertCount(evictionsADelta, "evictionsA"),
-				() -> evictionsB.assertCount(0, "evictionsB"));
+				() -> evictionsA.assertValue(evictionsADelta, "evictionsA"),
+				() -> evictionsB.assertValue(0, "evictionsB"));
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		final var stats = model.getItemCacheStatistics();
 		assertEquals(size.get(), stats.getLevel());

@@ -190,10 +190,10 @@ public class UniqueCacheItemFieldTest extends TestWithEnvironment
 			final int queryHit, final int queryMiss)
 	{
 		assertAll(
-				() -> hitCounter.assertCount(hit, "hit"),
-				() -> missCounter.assertCount(miss, "miss"),
-				() -> queryHitCounter.assertCount(queryHit, "queryHit"),
-				() -> queryMissCounter.assertCount(queryMiss, "queryMiss"));
+				() -> hitCounter.assertValue(hit, "hit"),
+				() -> missCounter.assertValue(miss, "miss"),
+				() -> queryHitCounter.assertValue(queryHit, "queryHit"),
+				() -> queryMissCounter.assertValue(queryMiss, "queryMiss"));
 	}
 
 	private final CounterTester hitCounter  = new CounterTester(counter("hit"),  p -> p.getItemCacheLimit()>0 && p.itemCacheUnique);
