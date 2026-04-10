@@ -390,6 +390,8 @@ final class ItemCache
 		{
 			this.type = type;
 			final ModelMetrics metrics = metricsTemplate.name(ItemCache.class).tag(type);
+			final int cacheIdTransiently = type.cacheIdTransiently;
+			metrics.gaugeConnect(c -> c.itemCache.typeStats[cacheIdTransiently].level, "sizePerType", "The exact number of entries for the type in this cache");
 			hits                = metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
 			misses              = metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
 			concurrentLoads     = metrics.counter("concurrentLoad", "How often an item was loaded concurrently");
