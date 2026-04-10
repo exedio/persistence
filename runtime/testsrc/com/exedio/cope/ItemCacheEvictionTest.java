@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.minimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -26,9 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.dsmf.SQLRuntimeException;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Tags;
+import java.sql.SQLException;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +39,7 @@ import org.junit.jupiter.api.Test;
 
 public class ItemCacheEvictionTest
 {
-	@Test void test()
+	@Test void testEviction()
 	{
 		final AnItemA item1 = new AnItemA("itemA1");
 		final AnItemA item2 = new AnItemA("itemA2");
@@ -56,6 +59,40 @@ public class ItemCacheEvictionTest
 		assertMetrics(0, 1); // evicts
 		assertEquals("itemA5", item5.getField()); // loads into cache
 		assertMetrics(0, 1); // evicts
+	}
+
+	@Test void testDiscard() throws SQLException
+	{
+		final AnItemA item1 = new AnItemA("itemA1");
+		final AnItemA item2 = new AnItemA("itemA2");
+		model.commit();
+		model.startTransaction(ItemCacheEvictionTest.class.getName());
+		assertMetrics(0, 0);
+		assertEquals("itemA1", item1.getField()); // loads into cache
+		assertMetrics(1, 0);
+		assertEquals("itemA2", item2.getField()); // loads into cache
+		assertMetrics(1, 0);
+		model.commit();
+
+		model.startTransaction(ItemCacheEvictionTest.class.getName());
+		item2.setField("itemA2X");
+		assertMetrics(0, 0); // does not discard
+		model.rollback(); // rollback to avoid cache invalidation
+
+		try(var con = SchemaInfo.newConnection(model);
+			var stmt = con.createStatement())
+		{
+			stmt.execute("ALTER TABLE \"AnItemA\" DROP COLUMN \"field\"");
+		}
+		assertMetrics(0, 0);
+
+		model.startTransaction(ItemCacheEvictionTest.class.getName());
+		assertFails(
+				() -> item2.setField("itemA2Y"),
+				SQLRuntimeException.class,
+				"UPDATE \"AnItemA\" SET \"field\"=?'itemA2Y'?,\"catch\"=?1? " +
+				"WHERE \"this\"=?1? AND \"catch\"=?0?");
+		assertMetrics(-1, 0); // does discard
 	}
 
 	private void assertMetrics(
@@ -117,7 +154,10 @@ public class ItemCacheEvictionTest
 	{
 		model.rollbackIfNotCommitted();
 		if(model.isConnected())
+		{
+			model.tearDownSchema();
 			model.disconnect();
+		}
 	}
 
 	static final Model model = new Model(AnItemA.TYPE, AnItemB.TYPE);
