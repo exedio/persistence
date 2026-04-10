@@ -65,7 +65,7 @@ final class CounterTester
 		setUpSucceeded = true;
 	}
 
-	void assertCount(final int expected, final String message)
+	void assertValue(final int expected, final String message)
 	{
 		assertTrue(setUpSucceeded, "setUpSucceeded");
 		assertEquals(presentOnSetUp, present.test(model.getConnectProperties()));
