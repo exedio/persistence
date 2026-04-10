@@ -81,4 +81,20 @@ final class CounterTester
 			assertThrows(PrometheusMeterRegistrar.NotFound.class, supplier::get);
 		}
 	}
+
+	double get()
+	{
+		assertTrue(setUpSucceeded, "setUpSucceeded");
+		assertEquals(presentOnSetUp, present.test(model.getConnectProperties()));
+
+		if(presentOnSetUp)
+		{
+			return counter.count();
+		}
+		else
+		{
+			assertThrows(PrometheusMeterRegistrar.NotFound.class, supplier::get);
+			return 0.0;
+		}
+	}
 }
