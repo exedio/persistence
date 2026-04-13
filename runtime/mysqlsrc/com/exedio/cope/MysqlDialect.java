@@ -565,7 +565,7 @@ final class MysqlDialect extends Dialect
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, st, null, resultSet ->
+		return executor.query(connection, st, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);

@@ -145,7 +145,7 @@ public final class Revisions
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.query(connection, st, null, integerResultSetHandler);
+			return executor.query(connection, st, integerResultSetHandler);
 		}
 		finally
 		{
@@ -182,7 +182,7 @@ public final class Revisions
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			executor.query(connection, st, null, resultSet ->
+			executor.query(connection, st, resultSet ->
 				{
 					while(resultSet.next())
 					{

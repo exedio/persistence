@@ -19,62 +19,37 @@
 package com.exedio.cope;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
+@Deprecated
 public final class QueryInfo
 {
-	private ArrayList<QueryInfo> childsLazilyInitialized;
-	final String text;
-
-	QueryInfo(final String text)
+	private QueryInfo()
 	{
-		this.text = text;
+		// prevent instantiation
 	}
 
+	@SuppressWarnings("unused")
 	public String getText()
 	{
-		return text;
+		throw new NoSuchMethodError();
 	}
 
+	@SuppressWarnings("unused")
 	public Collection<QueryInfo> getChilds()
 	{
-		return
-			childsLazilyInitialized==null
-			? List.of()
-			: Collections.unmodifiableList(childsLazilyInitialized);
-	}
-
-	void addChild(final QueryInfo newChild)
-	{
-		if(childsLazilyInitialized==null)
-			childsLazilyInitialized = new ArrayList<>();
-
-		childsLazilyInitialized.add(newChild);
+		throw new NoSuchMethodError();
 	}
 
 	@SuppressWarnings("unused")
 	public void print(final PrintStream o)
 	{
-		print(o, 0);
-	}
-
-	private void print(final PrintStream o, int level)
-	{
-		for(int i=0; i<level; i++)
-			o.print("  ");
-		o.println(text);
-		level++;
-		if(childsLazilyInitialized!=null)
-			for(final QueryInfo s : childsLazilyInitialized)
-				s.print(o, level);
+		throw new NoSuchMethodError();
 	}
 
 	@Override
 	public String toString()
 	{
-		return text;
+		throw new NoSuchMethodError();
 	}
 }

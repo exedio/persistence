@@ -649,7 +649,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return tx.connect.executor.query(
 				tx.getConnection(),
 				statement,
-				null, longResultSetHandler);
+				longResultSetHandler);
 	}
 
 	@Override

@@ -257,7 +257,7 @@ final class VaultTrail
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.query(connection, st, null, resultSet ->
+			return executor.query(connection, st, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty for hash " + anonymiseHash(hash) + " in table " + table);

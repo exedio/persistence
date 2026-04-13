@@ -319,7 +319,7 @@ public final class SchemaInfo
 	private static String search(final Query<?> query, final Query.Mode mode)
 	{
 		final StringBuilder sb = new StringBuilder();
-		query.search(null, query.getType().getModel().connect().executor, mode, sb, null);
+		query.search(null, query.getType().getModel().connect().executor, mode, sb);
 		return sb.toString();
 	}
 

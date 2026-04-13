@@ -87,7 +87,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(tx.getConnection(), st, null, resultSetHandler);
+		return executor.query(tx.getConnection(), st, resultSetHandler);
 	}
 
 	byte[] load(final Transaction tx, final Item item)
@@ -131,7 +131,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(tx.getConnection(), st, null, resultSet ->
+		return executor.query(tx.getConnection(), st, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -160,7 +160,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(tx.getConnection(), st, null, resultSet ->
+		return executor.query(tx.getConnection(), st, resultSet ->
 		{
 			if(!resultSet.next())
 				throw new SQLException(NO_SUCH_ROW);
