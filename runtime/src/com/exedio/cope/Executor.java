@@ -104,11 +104,10 @@ final class Executor
 		final Connection connection,
 		final Statement statement,
 		final QueryInfo queryInfo,
-		final boolean explain,
 		final ResultSetHandler<R> resultSetHandler)
 	{
 		final DatabaseListener listener = this.listener;
-		final boolean takeTimes = !explain && (listener!=null || (queryInfo!=null));
+		final boolean takeTimes = listener!=null || (queryInfo!=null);
 		final String sqlText = statement.getText();
 		final long nanoStart = takeTimes ? nanoTime() : 0;
 		final long nanoPrepared;
@@ -152,9 +151,6 @@ final class Executor
 				throw new SQLRuntimeException(e, statement.toString());
 			}
 		}
-
-		if(explain)
-			return result;
 
 		final long nanoEnd = takeTimes ? nanoTime() : 0;
 

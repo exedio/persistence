@@ -1366,7 +1366,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return tx.connect.executor.query(
 				tx.getConnection(),
 				statement,
-				null, false, longResultSetHandler);
+				null, longResultSetHandler);
 	}
 
 	Statement checkTypeColumnStatement(final Statement.Mode mode)
@@ -1408,7 +1408,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return executor.query(
 				tx.getConnection(),
 				statement,
-				null, false, longResultSetHandler);
+				null, longResultSetHandler);
 	}
 
 	Statement checkCompletenessStatement(final Type<? extends T> subType, final Statement.Mode mode)

@@ -359,7 +359,7 @@ final class PostgresqlDialect extends Dialect
 			append(quotedName).
 			append("')");
 
-		return executor.query(connection, st, null, false, resultSet ->
+		return executor.query(connection, st, null, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -387,7 +387,7 @@ final class PostgresqlDialect extends Dialect
 		st.append("SELECT LAST_VALUE FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, st, null, false, resultSet ->
+		return executor.query(connection, st, null, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);

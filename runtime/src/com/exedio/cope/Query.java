@@ -1431,7 +1431,7 @@ public final class Query<R> implements Serializable
 
 		final ArrayList<Object> result = new ArrayList<>();
 		final int sizeLimit = getSearchSizeLimit();
-		executor.query(connection, st, queryInfo, false, resultSet ->
+		executor.query(connection, st, queryInfo, resultSet ->
 			{
 				if(!mode.isSearch())
 				{
