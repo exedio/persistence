@@ -55,6 +55,7 @@ public final class QueryInfo
 		childsLazilyInitialized.add(newChild);
 	}
 
+	@SuppressWarnings("unused")
 	public void print(final PrintStream o)
 	{
 		print(o, 0);
