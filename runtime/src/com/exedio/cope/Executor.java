@@ -164,7 +164,7 @@ final class Executor
 					toMillies(nanoEnd, nanoResultRead));
 
 		if(queryInfo!=null)
-			makeQueryInfo(queryInfo, statement, connection, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
+			makeQueryInfo(queryInfo, statement, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
 
 		return result;
 	}
@@ -342,8 +342,8 @@ final class Executor
 		}
 	}
 
-	private void makeQueryInfo(
-			final QueryInfo queryInfo, final Statement statement, final Connection connection,
+	private static void makeQueryInfo(
+			final QueryInfo queryInfo, final Statement statement,
 			final long start, final long prepared, final long executed, final long resultRead, final long end)
 	{
 		queryInfo.addChild(statement.getQueryInfo());
@@ -357,10 +357,6 @@ final class Executor
 			timing.addChild(new QueryInfo("close " + numberFormat.format(end-resultRead)));
 			queryInfo.addChild(timing);
 		}
-
-		final QueryInfo plan = dialect.explainExecutionPlan(statement, connection, this);
-		if(plan!=null)
-			queryInfo.addChild(plan);
 	}
 
 	private static DecimalFormat numberFormat()
