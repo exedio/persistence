@@ -360,17 +360,6 @@ final class Statement
 		return this;
 	}
 
-	@SuppressWarnings("UnusedReturnValue") // OK: is always the last in chain
-	Statement appendParameters(final Statement other)
-	{
-		assert (parameters==null) == (other.parameters==null);
-
-		if(parameters!=null) // otherwise no prepared statements are used
-			parameters.addAll(other.parameters);
-
-		return this;
-	}
-
 	void appendMatch(final StringFunction function, final String value)
 	{
 		if(fulltextIndex)

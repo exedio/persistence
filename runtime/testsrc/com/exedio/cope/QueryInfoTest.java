@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Iterator;
 import java.util.List;
@@ -98,18 +97,7 @@ public class QueryInfoTest extends TestWithEnvironment
 			assertTrue(!timingInfoChilds.hasNext());
 		}
 
-		switch(dialect)
-		{
-			case mysql ->
-			{
-				final QueryInfo plan = rootChilds.next();
-				assertEquals("explain plan", plan.getText());
-			}
-			case hsqldb, postgresql ->
-				assertFalse(rootChilds.hasNext());
-			default ->
-				fail(dialect.toString());
-		}
+		assertFalse(rootChilds.hasNext());
 
 		assertTrue(!rootChilds.hasNext());
 

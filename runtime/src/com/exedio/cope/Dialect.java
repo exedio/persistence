@@ -72,14 +72,12 @@ abstract class Dialect
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
-	static final String EXPLAIN_PLAN = "explain plan";
-
 	/**
 	 * @param statement used in subclasses
 	 * @param connection used in subclasses
 	 * @param executor used in subclasses
 	 */
-	QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
+	QueryInfo explainExecutionPlan(@SuppressWarnings("unused") final Statement statement, @SuppressWarnings("unused") final Connection connection, @SuppressWarnings("unused") final Executor executor)
 	{
 		return null;
 	}

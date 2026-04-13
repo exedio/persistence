@@ -29,7 +29,6 @@ import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
@@ -517,52 +516,6 @@ final class MysqlDialect extends Dialect
 	}
 
 	static final String REGEXP = " REGEXP ";
-
-	@Override
-	QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
-	{
-		final String statementText = statement.getText();
-		if(statementText.startsWith("ALTER TABLE "))
-			return null;
-
-		final QueryInfo root = new QueryInfo(EXPLAIN_PLAN);
-		{
-			final Statement st = executor.newStatement();
-			st.append("EXPLAIN ").
-				append(statementText).
-				appendParameters(statement);
-
-			executor.query(connection, st, null, true, resultSet ->
-				{
-					final ResultSetMetaData metaData = resultSet.getMetaData();
-					final int columnCount = metaData.getColumnCount();
-
-					while(resultSet.next())
-					{
-						final StringBuilder qi = new StringBuilder();
-
-						for(int i = 1; i<=columnCount; i++)
-						{
-							final Object value = resultSet.getObject(i);
-							if(value!=null)
-							{
-								if(!qi.isEmpty())
-									qi.append(", ");
-
-								qi.append(metaData.getColumnName(i)).
-									append('=').
-									append(value);
-							}
-						}
-						root.addChild(new QueryInfo(qi.toString()));
-					}
-					return null;
-				}
-			);
-		}
-
-		return root;
-	}
 
 	@Override
 	void deleteSequence(
