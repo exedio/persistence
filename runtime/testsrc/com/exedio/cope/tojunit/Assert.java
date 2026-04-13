@@ -30,9 +30,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.Query;
-import com.exedio.cope.QueryInfo;
-import com.exedio.cope.Transaction;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -460,25 +457,6 @@ public final class Assert
 			Thread.sleep(millis+1);
 		}
 		while((System.currentTimeMillis()-start)<=millis);
-	}
-
-	/**
-	 * Calls {@link Query#search()} on the given query and returns the result.
-	 * Prints the statement info to standard out.
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
-	public static Collection<?> infoSearch(final Query<?> query)
-	{
-		final Transaction transaction = query.getType().getModel().currentTransaction();
-		transaction.setQueryInfoEnabled(true);
-		final Collection<?> result = query.search();
-		System.out.println("INFO-------------------");
-		final List<QueryInfo> infos = transaction.getQueryInfos();
-		transaction.setQueryInfoEnabled(false);
-		for(final QueryInfo info : infos)
-			info.print(System.out);
-		return result;
 	}
 
 	public static List<String> readAllLines(final ByteArrayOutputStream out) throws IOException
