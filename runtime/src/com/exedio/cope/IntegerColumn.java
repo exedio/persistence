@@ -208,7 +208,7 @@ class IntegerColumn extends Column
 			append(") FROM ").
 			append(table.quotedID);
 
-		return executor.query(connection, st, null, false, resultSet ->
+		return executor.query(connection, st, null, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);

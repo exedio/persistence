@@ -961,7 +961,7 @@ public final class DataField extends Field<DataField.Value>
 		return tx.connect.executor.query(
 				tx.getConnection(),
 				statement,
-				null, false, longResultSetHandler);
+				null, longResultSetHandler);
 	}
 
 	Statement checkVaultTrailStatement(final Statement.Mode mode)

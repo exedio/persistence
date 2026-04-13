@@ -314,7 +314,7 @@ final class HsqldbDialect extends Dialect
 				append(" FROM ").
 				append(TEMP_TABLE);
 
-			result = executor.query(connection, st, null, false, resultSet ->
+			result = executor.query(connection, st, null, resultSet ->
 				{
 					if(!resultSet.next())
 						throw new RuntimeException("empty in sequence " + quotedName);
@@ -354,7 +354,7 @@ final class HsqldbDialect extends Dialect
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 
-		return executor.query(connection, st, null, false, resultSet ->
+		return executor.query(connection, st, null, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
