@@ -275,7 +275,7 @@ final class Database
 
 		//System.out.println(st.toString());
 
-		return executor.query(connection, st, null, resultSet ->
+		return executor.query(connection, st, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new NoSuchItemException(item);

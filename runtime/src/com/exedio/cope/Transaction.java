@@ -27,7 +27,6 @@ import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.slf4j.Logger;
@@ -53,7 +52,6 @@ public final class Transaction
 	private volatile int invalidationSize = 0;
 	private Thread boundThread = null;
 	boolean queryCacheDisabled = false;
-	ArrayList<QueryInfo> queryInfos = null;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
 	private long cacheStamp = Long.MAX_VALUE;
@@ -516,15 +514,22 @@ public final class Transaction
 		return queryCacheDisabled;
 	}
 
-	public void setQueryInfoEnabled(final boolean enabled)
+	/**
+	 * For testing only. TODO
+	 * @deprecated No longer supported. Does nothing.
+	 */
+	@Deprecated
+	public void setQueryInfoEnabled(@SuppressWarnings("unused") final boolean enabled)
 	{
-		this.queryInfos = enabled ? new ArrayList<>() : null;
 	}
 
+	/**
+	 * @deprecated No longer supported, always returns null
+	 */
+	@Deprecated
 	public List<QueryInfo> getQueryInfos()
 	{
-		final ArrayList<QueryInfo> queryInfos = this.queryInfos;
-		return queryInfos!=null ? Collections.unmodifiableList(queryInfos) : null;
+		return null;
 	}
 
 	@Override

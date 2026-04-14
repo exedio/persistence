@@ -783,12 +783,7 @@ public final class Query<R> implements Serializable
 		final Transaction transaction = model.currentTransaction();
 
 		if(pageLimit==0 || condition==ofFalse())
-		{
-			final List<QueryInfo> queryInfos = transaction.queryInfos;
-			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("skipped search because " + (pageLimit==0 ? "limit==0" : "condition==false")));
 			return List.of();
-		}
 
 		return Collections.unmodifiableList(castQL(transaction.search(this, Mode.SEARCH)));
 	}
@@ -813,12 +808,7 @@ public final class Query<R> implements Serializable
 		final Transaction transaction = model.currentTransaction();
 
 		if(condition==ofFalse())
-		{
-			final List<QueryInfo> queryInfos = transaction.queryInfos;
-			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("skipped search because condition==false"));
 			return 0;
-		}
 
 		final ArrayList<Object> result =
 			transaction.search(this, Mode.TOTAL);
@@ -839,12 +829,7 @@ public final class Query<R> implements Serializable
 		final Transaction transaction = model.currentTransaction();
 
 		if(condition==ofFalse())
-		{
-			final List<QueryInfo> queryInfos = transaction.queryInfos;
-			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("skipped search because condition==false"));
 			return false;
-		}
 
 		final ArrayList<Object> result =
 				transaction.search(this, Mode.EXISTS);
@@ -1228,8 +1213,7 @@ public final class Query<R> implements Serializable
 				transaction.getConnection(),
 				transaction.connect.executor,
 				mode,
-				(StringBuilder)null,
-				transaction.queryInfos);
+				(StringBuilder)null);
 	}
 
 	private static Condition replaceTrue(final Condition c)
@@ -1241,8 +1225,7 @@ public final class Query<R> implements Serializable
 			final Connection connection,
 			final Executor executor,
 			final Mode mode,
-			final StringBuilder sqlOnlyBuffer,
-			final ArrayList<QueryInfo> queryInfos)
+			final StringBuilder sqlOnlyBuffer)
 	{
 		executor.testListener().search(connection, this, mode);
 
@@ -1416,10 +1399,6 @@ public final class Query<R> implements Serializable
 			}
 		}
 
-		QueryInfo queryInfo = null;
-		if(queryInfos!=null)
-			queryInfos.add(queryInfo = new QueryInfo(toString()));
-
 		if(sqlOnlyBuffer!=null)
 		{
 			assert st.getParameters()==null;
@@ -1431,7 +1410,7 @@ public final class Query<R> implements Serializable
 
 		final ArrayList<Object> result = new ArrayList<>();
 		final int sizeLimit = getSearchSizeLimit();
-		executor.query(connection, st, queryInfo, resultSet ->
+		executor.query(connection, st, resultSet ->
 			{
 				if(!mode.isSearch())
 				{

@@ -569,15 +569,6 @@ final class Statement
 		return Collections.unmodifiableList(parameters);
 	}
 
-	QueryInfo getQueryInfo()
-	{
-		final QueryInfo result = new QueryInfo(text.toString());
-		if(parameters!=null)
-			for(final Object p : parameters)
-				result.addChild(new QueryInfo(p.toString()));
-		return result;
-	}
-
 
 	// Vault Trail
 

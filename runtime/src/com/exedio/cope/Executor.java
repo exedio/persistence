@@ -28,8 +28,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
 
 final class Executor
@@ -103,11 +101,10 @@ final class Executor
 	<R> R query(
 		final Connection connection,
 		final Statement statement,
-		final QueryInfo queryInfo,
 		final ResultSetHandler<R> resultSetHandler)
 	{
 		final DatabaseListener listener = this.listener;
-		final boolean takeTimes = listener!=null || (queryInfo!=null);
+		final boolean takeTimes = listener!=null;
 		final String sqlText = statement.getText();
 		final long nanoStart = takeTimes ? nanoTime() : 0;
 		final long nanoPrepared;
@@ -162,9 +159,6 @@ final class Executor
 					toMillies(nanoExecuted, nanoPrepared),
 					toMillies(nanoResultRead, nanoExecuted),
 					toMillies(nanoEnd, nanoResultRead));
-
-		if(queryInfo!=null)
-			makeQueryInfo(queryInfo, statement, nanoStart, nanoPrepared, nanoExecuted, nanoResultRead, nanoEnd);
 
 		return result;
 	}
@@ -340,31 +334,6 @@ final class Executor
 					throw new UniqueViolationException(feature, item, sqlException);
 			}
 		}
-	}
-
-	private static void makeQueryInfo(
-			final QueryInfo queryInfo, final Statement statement,
-			final long start, final long prepared, final long executed, final long resultRead, final long end)
-	{
-		queryInfo.addChild(statement.getQueryInfo());
-
-		{
-			final DecimalFormat numberFormat = numberFormat();
-			final QueryInfo timing = new QueryInfo("time elapsed " + numberFormat.format(end-start) + "ns");
-			timing.addChild(new QueryInfo("prepare " + numberFormat.format(prepared-start)));
-			timing.addChild(new QueryInfo("execute " + numberFormat.format(executed-prepared)));
-			timing.addChild(new QueryInfo("result " + numberFormat.format(resultRead-executed)));
-			timing.addChild(new QueryInfo("close " + numberFormat.format(end-resultRead)));
-			queryInfo.addChild(timing);
-		}
-	}
-
-	private static DecimalFormat numberFormat()
-	{
-		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
-		nfs.setDecimalSeparator(',');
-		nfs.setGroupingSeparator('\'');
-		return new DecimalFormat("", nfs);
 	}
 
 	// TestDatabaseListener ------------------

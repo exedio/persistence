@@ -30,7 +30,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
@@ -197,10 +196,6 @@ final class QueryCache
 		{
 			hits.increment();
 			result.hits.incrementAndGet();
-
-			final List<QueryInfo> queryInfos = transaction.queryInfos;
-			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("query cache hit #" + result.hits.get() + " for " + key.getText()));
 
 			return result.list;
 		}
