@@ -104,9 +104,8 @@ final class Executor
 		final ResultSetHandler<R> resultSetHandler)
 	{
 		final DatabaseListener listener = this.listener;
-		final boolean takeTimes = listener!=null;
 		final String sqlText = statement.getText();
-		final long nanoStart = takeTimes ? nanoTime() : 0;
+		final long nanoStart = listener!=null ? nanoTime() : 0;
 		final long nanoPrepared;
 		final long nanoExecuted;
 
@@ -116,12 +115,12 @@ final class Executor
 		{
 			try(java.sql.Statement sqlStatement = connection.createStatement())
 			{
-				nanoPrepared = takeTimes ? nanoTime() : 0;
+				nanoPrepared = listener!=null ? nanoTime() : 0;
 				try(ResultSet resultSet = sqlStatement.executeQuery(sqlText))
 				{
-					nanoExecuted = takeTimes ? nanoTime() : 0;
+					nanoExecuted = listener!=null ? nanoTime() : 0;
 					result = resultSetHandler.handle(resultSet);
-					nanoResultRead = takeTimes ? nanoTime() : 0;
+					nanoResultRead = listener!=null ? nanoTime() : 0;
 				}
 			}
 			catch(final SQLException e)
@@ -135,12 +134,12 @@ final class Executor
 			{
 				statement.setParameters(prepared);
 
-				nanoPrepared = takeTimes ? nanoTime() : 0;
+				nanoPrepared = listener!=null ? nanoTime() : 0;
 				try(ResultSet resultSet = prepared.executeQuery())
 				{
-					nanoExecuted = takeTimes ? nanoTime() : 0;
+					nanoExecuted = listener!=null ? nanoTime() : 0;
 					result = resultSetHandler.handle(resultSet);
-					nanoResultRead = takeTimes ? nanoTime() : 0;
+					nanoResultRead = listener!=null ? nanoTime() : 0;
 				}
 			}
 			catch(final SQLException e)
@@ -149,7 +148,7 @@ final class Executor
 			}
 		}
 
-		final long nanoEnd = takeTimes ? nanoTime() : 0;
+		final long nanoEnd = listener!=null ? nanoTime() : 0;
 
 		if(listener!=null)
 			listener.onStatement(
