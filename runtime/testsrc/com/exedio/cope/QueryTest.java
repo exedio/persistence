@@ -29,10 +29,13 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Day;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class QueryTest extends TestWithEnvironment
@@ -74,32 +77,26 @@ public class QueryTest extends TestWithEnvironment
 
 	@Test void testLiterals()
 	{
+		model.setDatabaseListener(databaseListener);
 		{
 			final Query<?> q = TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
 
-			model.currentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
-			assertTrue(model.currentTransaction().getQueryInfos().get(0).getText().startsWith("select "));
+			assertDatabase("SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE));
 		}
 		{
 			final Query<?> q = TYPE.newQuery(FALSE);
 			assertSame(FALSE, q.getCondition());
 
-			model.currentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
-			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
-			model.currentTransaction().setQueryInfoEnabled(false);
+			assertDatabase();
 
-			model.currentTransaction().setQueryInfoEnabled(true);
 			assertEquals(0, q.total());
-			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
-			model.currentTransaction().setQueryInfoEnabled(false);
+			assertDatabase();
 
-			model.currentTransaction().setQueryInfoEnabled(true);
 			assertEquals(false, q.exists());
-			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
-			model.currentTransaction().setQueryInfoEnabled(false);
+			assertDatabase();
 		}
 		assertSerializedSame(TRUE, 103);
 		assertSerializedSame(FALSE, 103);
@@ -265,4 +262,16 @@ public class QueryTest extends TestWithEnvironment
 
 	private static final Condition TRUE = Condition.ofTrue();
 	private static final Condition FALSE = Condition.ofFalse();
+
+
+	private final ArrayList<String> database = new ArrayList<>();
+
+	private final DatabaseListener databaseListener = (sql, _0, _1, _2, _3, _4) ->
+			database.add(sql);
+
+	private void assertDatabase(final String... expected)
+	{
+		assertEquals(List.of(expected), database);
+		database.clear();
+	}
 }
