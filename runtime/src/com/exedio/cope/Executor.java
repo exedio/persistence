@@ -21,13 +21,18 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.SQLRuntimeException;
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.EnumMap;
 import java.util.HashMap;
 
 final class Executor
@@ -40,9 +45,45 @@ final class Executor
 	private final boolean supportsUniqueViolation;
 	final boolean fulltextIndex;
 	private final HashMap<String, UniqueConstraint> uniqueConstraints = new HashMap<>();
+	private final EnumMap<Kind, Timer> timers;
+
+	enum Kind
+	{
+		/**
+		 * A select statement filtering for a primary key constraint.
+		 * As an exception statements loading blobs are measured as {@link #loadBlob}.
+		 */
+		load,
+		/**
+		 * Any other select statement apart from {@link #load}, possibly retrieving many rows.
+		 */
+		query,
+		/**
+		 * Any statement loading blobs.
+		 */
+		loadBlob,
+		/**
+		 * An insert, update or delete statement.
+		 */
+		store,
+		/**
+		 * Auxiliary operations not part of normal operation,
+		 * such as consistency checking and housekeeping.
+		 * And fetching sequence numbers, as there are separate per-sequence timers for that.
+		 * @see ItemFunction#checkTypeColumnL()
+		 * @see DataField#checkVaultTrail()
+		 * @see Type#checkCompletenessL(Type)
+		 * @see Model#purgeSchema(JobContext)
+		 * @see Dialect#nextSequence(Executor, Connection, String)
+		 * @see Dialect#getNextSequence(Executor, Connection, String)
+		 */
+		other
+	}
+
 	volatile DatabaseListener listener = null;
 
 	Executor(
+			final ModelMetrics metrics,
 			final Dialect dialect,
 			final boolean supportsUniqueViolation,
 			final ConnectProperties properties,
@@ -53,6 +94,9 @@ final class Executor
 		this.prepare = !properties.isSupportDisabledForPreparedStatements();
 		this.supportsUniqueViolation = supportsUniqueViolation;
 		this.fulltextIndex = properties.getFulltextIndex();
+		this.timers = new EnumMap<>(Kind.class);
+		for(final var e : Kind.values())
+			this.timers.put(e, metrics.timer("statement", "How long sql statements do take in the database", Tags.of("kind", e.name())));
 	}
 
 	void addUniqueConstraint(final String id, final UniqueConstraint uniqueConstraint)
@@ -101,11 +145,12 @@ final class Executor
 	<R> R query(
 		final Connection connection,
 		final Statement statement,
+		final Kind kind,
 		final ResultSetHandler<R> resultSetHandler)
 	{
 		final DatabaseListener listener = this.listener;
 		final String sqlText = statement.getText();
-		final long nanoStart = listener!=null ? nanoTime() : 0;
+		final long nanoStart = nanoTime();
 		final long nanoPrepared;
 		final long nanoExecuted;
 
@@ -148,8 +193,9 @@ final class Executor
 			}
 		}
 
-		final long nanoEnd = listener!=null ? nanoTime() : 0;
+		final long nanoEnd = nanoTime();
 
+		timers.get(kind).record(nanoEnd - nanoStart, NANOSECONDS);
 		if(listener!=null)
 			listener.onStatement(
 					statement.text.toString(),
@@ -182,9 +228,10 @@ final class Executor
 	void updateStrict(
 			final Connection connection,
 			final Item exceptionItem,
-			final Statement statement)
+			final Statement statement,
+			final Kind kind)
 	{
-		final int rows = update(connection, exceptionItem, statement);
+		final int rows = update(connection, exceptionItem, statement, kind);
 		if(rows!=1)
 			throw new TemporaryTransactionException(statement.toString(), rows);
 	}
@@ -192,10 +239,11 @@ final class Executor
 	int update(
 			final Connection connection,
 			final Item exceptionItem,
-			final Statement statement)
+			final Statement statement,
+			final Kind kind)
 	{
 		final DatabaseListener listener = this.listener;
-		final long nanoStart = listener!=null ? nanoTime() : 0;
+		final long nanoStart = nanoTime();
 		final int rows;
 
 		final long nanoPrepared;
@@ -227,8 +275,9 @@ final class Executor
 			}
 		}
 
-		final long nanoEnd = listener!=null ? nanoTime() : 0;
+		final long nanoEnd = nanoTime();
 
+		timers.get(kind).record(nanoEnd - nanoStart, NANOSECONDS);
 		if(listener!=null)
 			listener.onStatement(
 					statement.text.toString(),
@@ -256,7 +305,7 @@ final class Executor
 		}
 	}
 
-	<R> R insertAndGetGeneratedKeys(
+	<R> R insertAndGetGeneratedKeysWithoutTimer(
 			final Connection connection,
 			final Statement statement,
 			final ResultSetHandler<R> generatedKeysHandler)

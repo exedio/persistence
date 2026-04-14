@@ -275,7 +275,7 @@ final class Database
 
 		//System.out.println(st.toString());
 
-		return executor.query(connection, st, resultSet ->
+		return executor.query(connection, st, Executor.Kind.load, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new NoSuchItemException(item);
@@ -465,7 +465,7 @@ final class Database
 		}
 
 		//System.out.println("storing "+st.toString());
-		executor.updateStrict(connection, present ? state.item : null, st);
+		executor.updateStrict(connection, present ? state.item : null, st, Executor.Kind.store);
 	}
 
 	@SuppressWarnings("ExtractMethodRecommender")

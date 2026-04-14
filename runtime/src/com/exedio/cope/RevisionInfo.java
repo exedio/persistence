@@ -250,7 +250,7 @@ public abstract class RevisionInfo
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			executor.updateStrict(connection, null, st);
+			executor.updateStrict(connection, null, st, Executor.Kind.store);
 		}
 		finally
 		{

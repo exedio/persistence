@@ -297,14 +297,14 @@ final class HsqldbDialect extends Dialect
 			st.append("DECLARE LOCAL TEMPORARY TABLE ").
 				append(TEMP_TABLE).
 				append(" (x BIGINT)");
-			executor.update(connection, null, st);
+			executor.update(connection, null, st, Executor.Kind.other);
 		}
 		{
 			final Statement st = executor.newStatement();
 			st.append("INSERT INTO ").
 				append(TEMP_TABLE).
 				append(" VALUES (0)");
-			executor.updateStrict(connection, null, st);
+			executor.updateStrict(connection, null, st, Executor.Kind.other);
 		}
 		final Long result;
 		{
@@ -314,7 +314,7 @@ final class HsqldbDialect extends Dialect
 				append(" FROM ").
 				append(TEMP_TABLE);
 
-			result = executor.query(connection, st, resultSet ->
+			result = executor.query(connection, st, Executor.Kind.other, resultSet ->
 				{
 					if(!resultSet.next())
 						throw new RuntimeException("empty in sequence " + quotedName);
@@ -329,7 +329,7 @@ final class HsqldbDialect extends Dialect
 			final Statement st = executor.newStatement();
 			st.append("DROP TABLE session.").
 				append(TEMP_TABLE);
-			executor.update(connection, null, st);
+			executor.update(connection, null, st, Executor.Kind.other);
 		}
 		try
 		{
@@ -354,7 +354,7 @@ final class HsqldbDialect extends Dialect
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 
-		return executor.query(connection, st, resultSet ->
+		return executor.query(connection, st, Executor.Kind.other, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
