@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.QueryIterators.iterateType;
@@ -28,9 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Condition;
-import com.exedio.cope.QueryInfo;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.Transaction;
+import com.exedio.cope.tojunit.SI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -84,84 +84,76 @@ public class TypeIteratorTest extends TestWithEnvironment
 		assertIt(asList(item0, item1), intx.less(2));
 
 		{
-			final Transaction tx = model.currentTransaction();
-			final String pre = "select this from QueryAggregatorItem ";
-			final String post = " order by this limit '3'";
-			final String postDesc = " order by this desc limit '3'";
+			final String thisC = SI.pk(TYPE);
+			final String intxC = SI.col(intx);
+			final String pre = "SELECT " + thisC + " FROM " + SI.tab(TYPE) + " ";
+			final String post     = " ORDER BY " + thisC +           (postgresql?" NULLS FIRST":"")        + (hsqldb?" OFFSET 0":"") + " LIMIT 3";
+			final String postDesc = " ORDER BY " + thisC + " DESC" + (hsqldb||postgresql?" NULLS LAST":"") + (hsqldb?" OFFSET 0":"") + " LIMIT 3";
 
-			tx.setQueryInfoEnabled(true);
+			model.setDatabaseListener(databaseListener);
 			assertEquals(list(), l(iterateType(TYPE, intx.less(0), 3)));
-			assertEquals(list(
-					pre + "where intx<'0'" + post),
-				toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<0" + post
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(list(), l(iterateTypeDescending(TYPE, intx.less(0), 3)));
-			assertEquals(list(
-					pre + "where intx<'0'" + postDesc),
-					toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<0" + postDesc
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item0), l(iterateType(TYPE, intx.less(1), 3)));
-			assertEquals(list(
-					pre + "where intx<'1'" + post),
-				toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<1" + post
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item0), l(iterateTypeDescending(TYPE, intx.less(1), 3)));
-			assertEquals(list(
-					pre + "where intx<'1'" + postDesc),
-					toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<1" + postDesc
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item0, item1), l(iterateType(TYPE, intx.less(2), 3)));
-			assertEquals(list(
-					pre + "where intx<'2'" + post),
-				toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<2" + post
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item1, item0), l(iterateTypeDescending(TYPE, intx.less(2), 3)));
-			assertEquals(list(
-					pre + "where intx<'2'" + postDesc),
-					toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<2" + postDesc
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item0, item1, item2), l(iterateType(TYPE, intx.less(3), 3)));
-			assertEquals(list(
-					pre + "where intx<'3'" + post,
-					pre + "where (intx<'3' and this>'" + item2 + "')" + post),
-				toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<3" + post,
+					pre + "WHERE (" + intxC + "<3) AND (" + thisC + ">" + getPrimaryKeyColumnValueL(item2) + ")" + post
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(3), 3)));
-			assertEquals(list(
-					pre + "where intx<'3'" + postDesc,
-					pre + "where (intx<'3' and this<'" + item0 + "')" + postDesc),
-					toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<3" + postDesc,
+					pre + "WHERE (" + intxC + "<3) AND (" + thisC + "<" + getPrimaryKeyColumnValueL(item0) + ")" + postDesc
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item0, item1, item2, item3), l(iterateType(TYPE, intx.less(4), 3)));
-			assertEquals(list(
-					pre + "where intx<'4'" + post,
-					pre + "where (intx<'4' and this>'" + item2 + "')" + post),
-				toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<4" + post,
+					pre + "WHERE (" + intxC + "<4) AND (" + thisC + ">" + getPrimaryKeyColumnValueL(item2) + ")" + post
+			);
 
-			tx.setQueryInfoEnabled(true);
+
 			assertEquals(asList(item3, item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(4), 3)));
-			assertEquals(list(
-					pre + "where intx<'4'" + postDesc,
-					pre + "where (intx<'4' and this<'" + item1 + "')" + postDesc),
-					toString(tx.getQueryInfos()));
-			tx.setQueryInfoEnabled(false);
+			assertDatabase(
+					pre + "WHERE " + intxC + "<4" + postDesc,
+					pre + "WHERE (" + intxC + "<4) AND (" + thisC + "<" + getPrimaryKeyColumnValueL(item1) + ")" + postDesc
+			);
+
 		}
 	}
 
@@ -201,11 +193,19 @@ public class TypeIteratorTest extends TestWithEnvironment
 		return result;
 	}
 
-	private static List<String> toString(final List<QueryInfo> l)
+	private final ArrayList<String> database = new ArrayList<>();
+
+	private final DatabaseListener databaseListener = (sql, parameters, _1, _2, _3, _4) -> {
+		String s = sql;
+		if(parameters!=null)
+			for(final Object p : parameters)
+				s = s.replaceFirst("\\?", p.toString());
+		database.add(s);
+	};
+
+	private void assertDatabase(final String... expected)
 	{
-		final ArrayList<String> result = new ArrayList<>(l.size());
-		for(final QueryInfo q : l)
-			result.add(q.getText());
-		return result;
+		assertEquals(List.of(expected), database);
+		database.clear();
 	}
 }
