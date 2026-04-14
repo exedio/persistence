@@ -515,7 +515,6 @@ public final class Transaction
 	}
 
 	/**
-	 * For testing only. TODO
 	 * @deprecated No longer supported. Does nothing.
 	 */
 	@Deprecated
