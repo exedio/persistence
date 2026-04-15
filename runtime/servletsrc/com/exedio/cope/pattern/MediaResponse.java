@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaPath.addDirective;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Locale.ENGLISH;
 
@@ -116,11 +117,6 @@ public final class MediaResponse
 	void addToCacheControl(final StringBuilder sb)
 	{
 		if(cacheControlNoTransform)
-		{
-			if(!sb.isEmpty())
-				sb.append(',');
-
-			sb.append("no-transform");
-		}
+			addDirective(sb, "no-transform");
 	}
 }
