@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* MediaServlet#doFlushBufferOnNotModified no longer supported, method has been dropped.
+	If you don't override this method, nothing changes.
 * Model#getSchemaSavepoint dropped.
 	Was deprecated since February 2021.
 	Use #getSchemaSavepointNew() instead.

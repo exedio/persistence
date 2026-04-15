@@ -156,8 +156,4 @@ public class MediaServletDefaultTest
 	{
 		assertEquals(false, servlet.isAccessControlAllowOriginWildcard(null));
 	}
-	@Test void testFlushBufferOnNotModified()
-	{
-		assertEquals(false, servlet.doFlushBufferOnNotModified(null));
-	}
 }
