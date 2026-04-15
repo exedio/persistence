@@ -469,20 +469,20 @@ public final class MediaPathTest extends TestWithEnvironment
 		service(new Request(ok)).assertOkAndCacheControl("max-age=7654321");
 
 		item.setCacheControlPrivate(true);
-		service(new Request(ok)).assertOkAndCacheControl("private,max-age=7654321");
+		service(new Request(ok)).assertOkAndCacheControl("max-age=7654321,private");
 
 		item.setCacheControlMaximumAge("PT0S");
 		item.setCacheControlPrivate(false);
 		service(new Request(ok)).assertOkAndCacheControl("max-age=0");
 
 		item.setCacheControlPrivate(true);
-		service(new Request(ok)).assertOkAndCacheControl("private,max-age=0");
+		service(new Request(ok)).assertOkAndCacheControl("max-age=0,private");
 
 		item.setCacheControlMaximumAge("PT-1S"); // negative values are treated like zero
-		service(new Request(ok)).assertOkAndCacheControl("private,max-age=0");
+		service(new Request(ok)).assertOkAndCacheControl("max-age=0,private");
 
 		item.setCacheControlMaximumAge("PT"+Integer.MIN_VALUE+"S"); // negative values are treated like zero
-		service(new Request(ok)).assertOkAndCacheControl("private,max-age=0");
+		service(new Request(ok)).assertOkAndCacheControl("max-age=0,private");
 
 		item.setCacheControlMaximumAge(null);
 		item.setCacheControlPrivate(false);
