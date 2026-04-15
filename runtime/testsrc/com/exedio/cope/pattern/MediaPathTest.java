@@ -35,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
@@ -1009,13 +1010,10 @@ public final class MediaPathTest extends TestWithEnvironment
 		}
 
 
-		private int flushBufferCount = 0;
-
 		@Override
 		public void flushBuffer()
 		{
-			assertNull(out);
-			flushBufferCount++;
+			fail();
 		}
 
 
@@ -1030,8 +1028,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals(null,              this.cacheControl,             "cacheControl"),
-					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
-					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"));
 		}
 
 		void assertOkAndCache(final long lastModified)
@@ -1045,8 +1042,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals("max-age=456",     this.cacheControl,             "cacheControl"),
-					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
-					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"));
 		}
 
 		void assertNotModified(final long lastModified)
@@ -1060,8 +1056,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals(null,              this.outString(),              "content"),
 					() -> assertEquals(Integer.MIN_VALUE, this.contentLength,            "contentLength"),
 					() -> assertEquals("max-age=456",     this.cacheControl,             "cacheControl"),
-					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
-					() -> assertEquals(1,                 this.flushBufferCount,         "flushBuffer"));
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"));
 		}
 
 		void assertOkAndCacheControl(final String value)
@@ -1074,8 +1069,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals(value,             this.cacheControl,             "cacheControl"),
-					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
-					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"));
 		}
 
 		void assertOkAndHeaders(final String... headers)
@@ -1089,8 +1083,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals(null,              this.cacheControl,             "cacheControl"),
-					() -> assertEquals(asList(headers),   this.headers,                  "headers"),
-					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
+					() -> assertEquals(asList(headers),   this.headers,                  "headers"));
 		}
 
 		void assertError(
@@ -1108,8 +1101,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals(content,          this.outString(),              "content"),
 					() -> assertEquals(content.length(), this.contentLength,            "contentLength"),
 					() -> assertEquals(null,             this.cacheControl,             "cacheControl"),
-					() -> assertEquals(emptyList(),      this.headers,                  "headers"),
-					() -> assertEquals(0,                this.flushBufferCount,         "flushBuffer"));
+					() -> assertEquals(emptyList(),      this.headers,                  "headers"));
 		}
 
 		void assertRedirect(final String location)
@@ -1123,8 +1115,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals(null,                 this.outString(),              "content"),
 					() -> assertEquals(Integer.MIN_VALUE,    this.contentLength,            "contentLength"),
 					() -> assertEquals(null,                 this.cacheControl,             "cacheControl"),
-					() -> assertEquals(emptyList(),          this.headers,                  "headers"),
-					() -> assertEquals(0,                    this.flushBufferCount,         "flushBuffer"));
+					() -> assertEquals(emptyList(),          this.headers,                  "headers"));
 		}
 
 		Response assertLastModified(final long lastModified)
@@ -1186,14 +1177,6 @@ public final class MediaPathTest extends TestWithEnvironment
 			return
 					assertConfigMethod(locator).
 							getAccessControlAllowOriginWildcard();
-		}
-
-		@Override
-		protected boolean doFlushBufferOnNotModified(
-				final MediaPath.Locator locator)
-		{
-			assertConfigMethod(locator);
-			return true;
 		}
 
 		private static MediaPathItem assertConfigMethod(

@@ -865,15 +865,9 @@ public abstract class MediaPath extends Pattern
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
-			final boolean flush =
-					servlet.doFlushBufferOnNotModified(locator);
-
 			commit();
 
 			response.setStatus(SC_NOT_MODIFIED);
-
-			if(flush)
-				response.flushBuffer();
 
 			notModified.increment();
 		}
