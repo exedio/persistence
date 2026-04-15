@@ -914,16 +914,16 @@ public abstract class MediaPath extends Pattern
 
 		final StringBuilder sb = new StringBuilder();
 
-		if(servlet.isCacheControlPrivate(locator))
-			sb.append("private");
-
 		if(maxAge!=null)
+			sb.append("max-age=").
+				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
+
+		if(servlet.isCacheControlPrivate(locator))
 		{
 			if(!sb.isEmpty())
 				sb.append(',');
 
-			sb.append("max-age=").
-				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
+			sb.append("private");
 		}
 
 		mediaResponse.addToCacheControl(sb);

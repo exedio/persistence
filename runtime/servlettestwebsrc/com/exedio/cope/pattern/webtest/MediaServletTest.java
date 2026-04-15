@@ -286,7 +286,7 @@ public class MediaServletTest
 		final String TOKEN_FINGER;
 		//TOKEN_FINGER = "6e436f1b4c764ac049ad";
 		TOKEN_FINGER = "MediaServletItem.tokenedFinger-" + ITEM_JPG;
-		assertBin     (prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG +      ".jpg", "image/jpeg", hour8(3), "private,max-age="+ALMOST_ONE_YEAR+",immutable");
+		assertBin     (prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG +      ".jpg", "image/jpeg", hour8(3), "max-age="+ALMOST_ONE_YEAR+",private,immutable");
 		assertMoved   (prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG + "/name.jpg", prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG + ".jpg");
 		assertNotFound(prefix + "tokenedFinger/.fjYxvepS/.tx/" + ITEM_JPG +      ".jpg", GUESSED_URL);
 		assertNotFound(prefix + "tokenedFinger/.fjYxvepS/.tx/" + ITEM_JPG + "/name.jpg", GUESSED_URL);
@@ -492,7 +492,7 @@ public class MediaServletTest
 			final Date lastModified)
 		throws IOException, URISyntaxException
 	{
-		assertBin(url, contentType, lastModified, "private,max-age=5");
+		assertBin(url, contentType, lastModified, "max-age=5,private");
 	}
 
 	private void assertBin(
