@@ -919,25 +919,23 @@ public abstract class MediaPath extends Pattern
 				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
 
 		if(servlet.isCacheControlPrivate(locator))
-		{
-			if(!sb.isEmpty())
-				sb.append(',');
-
-			sb.append("private");
-		}
+			addDirective(sb, "private");
 
 		mediaResponse.addToCacheControl(sb);
 
 		if(immutable)
-		{
-			if(!sb.isEmpty())
-				sb.append(',');
-
-			sb.append("immutable");
-		}
+			addDirective(sb, "immutable");
 
 		if(!sb.isEmpty())
 			response.setHeader("Cache-Control", sb.toString());
+	}
+
+	static void addDirective(final StringBuilder sb, final String directive)
+	{
+		if(!sb.isEmpty())
+			sb.append(',');
+
+		sb.append(directive);
 	}
 
 	private void deliver(
