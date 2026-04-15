@@ -98,6 +98,26 @@ public final class MediaResponse
 	).map(s -> s.toLowerCase(ENGLISH)).collect(Collectors.toSet());
 
 
+	private boolean cacheControlPrivate = false;
+
+	/**
+	 * A {@code private} directive is added to the
+	 * {@code Cache-Control} header of the response
+	 * iff this method is called.
+	 * Subsequent calls to this method are ignored.
+	 * <p>
+	 * See
+	 * RFC 2616 Section 14.9.1 What is Cacheable,
+	 * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a>,
+	 * <a href="https://httpd.apache.org/docs/2.4/mod/mod_cache.html#cachestoreprivate">CacheStoreNoStore Directive</a>, and
+	 * <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist">Specifying the amount of time that CloudFront caches objects</a>.
+	 * @see MediaServlet#isCacheControlPrivate(MediaPath.Locator)
+	 */
+	public void addCacheControlPrivate()
+	{
+		cacheControlPrivate = true;
+	}
+
 	private boolean cacheControlNoTransform = false;
 
 	/**
@@ -116,6 +136,9 @@ public final class MediaResponse
 
 	void addToCacheControl(final StringBuilder sb)
 	{
+		if(cacheControlPrivate)
+			addDirective(sb, "private");
+
 		if(cacheControlNoTransform)
 			addDirective(sb, "no-transform");
 	}

@@ -831,7 +831,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(servlet, response, mediaResponse, locator, null, false);
+			setCacheControl(response, mediaResponse, null, false);
 			deliver(request, response, locator);
 			return;
 		}
@@ -860,7 +860,7 @@ public abstract class MediaPath extends Pattern
 			cacheControlImmutable = false;
 		}
 
-		setCacheControl(servlet, response, mediaResponse, locator, cacheControlMaxAge, cacheControlImmutable);
+		setCacheControl(response, mediaResponse, cacheControlMaxAge, cacheControlImmutable);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
@@ -893,10 +893,8 @@ public abstract class MediaPath extends Pattern
 	}
 
 	private static void setCacheControl(
-			final MediaServlet servlet,
 			final HttpServletResponse response,
 			final MediaResponse mediaResponse,
-			final Locator locator,
 			final Duration maxAge,
 			final boolean immutable)
 	{
@@ -917,9 +915,6 @@ public abstract class MediaPath extends Pattern
 		if(maxAge!=null)
 			sb.append("max-age=").
 				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
-
-		if(servlet.isCacheControlPrivate(locator))
-			addDirective(sb, "private");
 
 		mediaResponse.addToCacheControl(sb);
 

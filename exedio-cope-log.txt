@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* MediaResponse#addCacheControlPrivate added.
+	BEWARE: If you override method MediaServlet#filterResponse, your implementation
+	MUST call the super method. Otherwise, the implementation of
+	isCacheControlPrivate (either yours or the default) no longer takes effect.
 * MediaServlet#doFlushBufferOnNotModified no longer supported, method has been dropped.
 	If you don't override this method, nothing changes.
 * Model#getSchemaSavepoint dropped.
