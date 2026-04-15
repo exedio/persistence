@@ -272,7 +272,7 @@ public class MediaServlet extends HttpServlet
 	 * See
 	 * RFC 2616 Section 14.9.1 What is Cacheable,
 	 * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a>,
-	 * <a href="https://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate">CacheStoreNoStore Directive</a>, and
+	 * <a href="https://httpd.apache.org/docs/2.4/mod/mod_cache.html#cachestoreprivate">CacheStoreNoStore Directive</a>, and
 	 * <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist">Specifying the amount of time that CloudFront caches objects</a>.
 	 *
 	 * @param locator the locator of the current request
