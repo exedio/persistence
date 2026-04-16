@@ -287,7 +287,7 @@ public class HierarchyTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings("deprecation")
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated API
 	private void checkUpdateCountersAbandoned()
 	{
 		assertFails(

@@ -41,7 +41,7 @@ public class WrapDeprecationFeature
 
 	// there is a matching <generateDeprecated> tag in build.xml
 	@Wrap(order=30)
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: for unit tests only
 	public int goneAlmost(
 			@SuppressWarnings("unused") final Item item)
 	{

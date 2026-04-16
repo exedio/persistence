@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Wrapper;
 import java.io.File;
 import java.io.IOException;
 import javax.annotation.Nonnull;
@@ -26,6 +27,7 @@ import javax.annotation.Nullable;
 class DataItem extends Item
 {
 	static final DataField data = new DataField().optional();
+	@Wrapper(wrap="set", parameters=File.class, suppressWarnings="DeprecatedIsStillUsed") // OK: testing deprecated api
 	static final DataField data10 = new DataField().optional().lengthMax(10);
 	static final DataField data10k = new DataField().optional().lengthMax(10*1000);
 	static final DataField data100M = new DataField().optional().lengthMax(100*1000*1000);
@@ -319,7 +321,7 @@ class DataItem extends Item
 	 * Sets a new value for the persistent field {@link #data10}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"DeprecatedIsStillUsed","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@java.lang.Deprecated
 	final void setData10(@javax.annotation.Nullable final java.io.File data10)
 			throws

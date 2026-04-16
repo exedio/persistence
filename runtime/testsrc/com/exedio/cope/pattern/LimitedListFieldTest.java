@@ -327,7 +327,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 			strings.containsAny(asList("a","b")).toString());
 	}
 
-	@SuppressWarnings("deprecation") // OK testing deprecated api
+	@Deprecated // OK testing deprecated api
 	@Test void testContainsAnyInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
