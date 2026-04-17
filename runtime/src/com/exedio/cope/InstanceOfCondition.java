@@ -35,26 +35,10 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	private final boolean not;
 	private final Type<E>[] types;
 
-	/**
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see ItemFunction#instanceOf(Type)
-	 * @see ItemFunction#instanceOf(Type, Type)
-	 * @see ItemFunction#instanceOf(Type, Type, Type)
-	 * @see ItemFunction#instanceOf(Type, Type, Type, Type)
-	 * @see ItemFunction#instanceOf(Type[])
-	 * @see ItemFunction#notInstanceOf(Type)
-	 * @see ItemFunction#notInstanceOf(Type, Type)
-	 * @see ItemFunction#notInstanceOf(Type, Type, Type)
-	 * @see ItemFunction#notInstanceOf(Type, Type, Type, Type)
-	 * @see ItemFunction#notInstanceOf(Type[])
-	 */
-	@Deprecated
-	public InstanceOfCondition(
+	InstanceOfCondition(
 			final ItemFunction<E> function,
 			final boolean not,
-			final Type<?>[] types)
+			final Type<?>[] types, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		this.function = requireNonNull(function, "function");
 		this.not = not;
@@ -65,42 +49,6 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	private static <T extends Item> Type<T>[] cast(final Type[] o)
 	{
 		return o;
-	}
-
-	/**
-	 * @deprecated Instead of using this constructor directly, use the convenience methods.
-	 */
-	@Deprecated
-	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1)
-	{
-		this(function, not, new Type<?>[]{type1});
-	}
-
-	/**
-	 * @deprecated Instead of using this constructor directly, use the convenience methods.
-	 */
-	@Deprecated
-	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2)
-	{
-		this(function, not, new Type<?>[]{type1, type2});
-	}
-
-	/**
-	 * @deprecated Instead of using this constructor directly, use the convenience methods.
-	 */
-	@Deprecated
-	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
-	{
-		this(function, not, new Type<?>[]{type1, type2, type3});
-	}
-
-	/**
-	 * @deprecated Instead of using this constructor directly, use the convenience methods.
-	 */
-	@Deprecated
-	public InstanceOfCondition(final ItemFunction<E> function, final boolean not, final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<? extends E> type4)
-	{
-		this(function, not, new Type<?>[]{type1, type2, type3, type4});
 	}
 
 	@SuppressWarnings("deprecation") // OK: For internal use within COPE only
@@ -196,13 +144,13 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	@Override
 	public Condition bind(final Join join)
 	{
-		return new InstanceOfCondition<>(function.bind(join), not, types);
+		return new InstanceOfCondition<>(function.bind(join), not, types, Float.NaN);
 	}
 
 	@Override
 	public Condition not()
 	{
-		return new InstanceOfCondition<>(function, !not, types);
+		return new InstanceOfCondition<>(function, !not, types, Float.NaN);
 	}
 
 	@Override
