@@ -961,6 +961,7 @@ public final class DataField extends Field<DataField.Value>
 		return tx.connect.executor.query(
 				tx.getConnection(),
 				statement,
+				Executor.Kind.other,
 				longResultSetHandler);
 	}
 

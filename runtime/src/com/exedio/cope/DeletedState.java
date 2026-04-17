@@ -92,7 +92,7 @@ final class DeletedState extends State
 
 			//System.out.println("deleting "+st.toString());
 
-			executor.updateStrict(connection, null, st);
+			executor.updateStrict(connection, null, st, Executor.Kind.store);
 		}
 	}
 

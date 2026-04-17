@@ -222,7 +222,7 @@ final class VaultTrail
 		try
 		{
 			// result (rows affected) contains nonsense on MySQL, see branch VaultTrailMetrics
-			executor.update(connection, null, st);
+			executor.update(connection, null, st, Executor.Kind.store);
 		}
 		finally
 		{
@@ -257,7 +257,7 @@ final class VaultTrail
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.query(connection, st, resultSet ->
+			return executor.query(connection, st, Executor.Kind.load, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty for hash " + anonymiseHash(hash) + " in table " + table);

@@ -541,7 +541,7 @@ final class MysqlDialect extends Dialect
 			append(quotedName).
 			append(" VALUES()");
 
-		return executor.insertAndGetGeneratedKeys(connection, st, resultSet ->
+		return executor.insertAndGetGeneratedKeysWithoutTimer(connection, st, resultSet -> // withoutTimer is ok, because Dialect#nextSequence is measured by caller
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -565,7 +565,7 @@ final class MysqlDialect extends Dialect
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, st, resultSet ->
+		return executor.query(connection, st, Executor.Kind.other, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);

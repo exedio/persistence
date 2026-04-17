@@ -90,7 +90,7 @@ final class Connect
 		this.connectionFactory = new ConnectionFactory(properties, probe.environmentInfo().sqlDriver, dialect);
 		this.connectionPool = new ConnectionPool(metrics, connectionFactory, properties.connectionPool);
 		this.marshallers = new Marshallers(dialect, supportsNativeDate);
-		this.executor = new Executor(dialect, supportsUniqueViolation, properties, marshallers);
+		this.executor = new Executor(metrics, dialect, supportsUniqueViolation, properties, marshallers);
 		{
 			final HashMap<String, VaultMarkPut> vaultMarkPut = new HashMap<>();
 			final VaultProperties props = properties.vault;
