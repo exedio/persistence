@@ -32,7 +32,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
-class AggregateTest
+public class AggregateTest
 {
 	@Test void testMin()
 	{
@@ -139,7 +139,7 @@ class AggregateTest
 				UnsupportedGetException.class,
 				"avg(MyItem.field)");
 
-		final AverageAggregate<Integer> as = reserialize(a, 735);
+		final AverageAggregate<Integer> as = reserialize(a, 784);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("avg", as.getName());
 		assertSame(Double.class, as.getValueClass());
