@@ -27,16 +27,7 @@ public final class ExtremumAggregate<E> extends Aggregate<E,E>
 
 	final boolean minimum;
 
-	/**
-	 * Creates a new ExtremumAggregate.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see Function#min()
-	 * @see Function#max()
-	 */
-	@Deprecated
-	public ExtremumAggregate(final Function<E> source, final boolean minimum)
+	ExtremumAggregate(final Function<E> source, final boolean minimum, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		super(source, minimum?"min":"max", minimum?"MIN":"MAX", source.getValueType());
 		this.minimum = minimum;
@@ -55,6 +46,6 @@ public final class ExtremumAggregate<E> extends Aggregate<E,E>
 	@Override
 	public Function<E> bind(final Join join)
 	{
-		return new ExtremumAggregate<>(source.bind(join), minimum);
+		return new ExtremumAggregate<>(source.bind(join), minimum, Float.NaN);
 	}
 }
