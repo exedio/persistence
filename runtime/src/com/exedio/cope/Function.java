@@ -278,16 +278,14 @@ public interface Function<E> extends Selectable<E>
 	}
 
 
-	@SuppressWarnings("deprecation")
 	default ExtremumAggregate<E> min()
 	{
-		return new ExtremumAggregate<>(this, true);
+		return new ExtremumAggregate<>(this, true, Float.NaN);
 	}
 
-	@SuppressWarnings("deprecation")
 	default ExtremumAggregate<E> max()
 	{
-		return new ExtremumAggregate<>(this, false);
+		return new ExtremumAggregate<>(this, false, Float.NaN);
 	}
 
 	/**
