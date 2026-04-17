@@ -120,7 +120,34 @@ public class MediaServletDefaultTest
 
 	@Test void testAddHeaders()
 	{
+		final MediaServlet servlet = new WithoutPrivateServlet();
 		servlet.filterResponse(null, null);
+	}
+	private static class WithoutPrivateServlet extends MediaServlet
+	{
+		@Override
+		protected boolean isCacheControlPrivate(final Locator locator){ return false; }
+		@Serial
+		private static final long serialVersionUID = 1L;
+	}
+	@Test void testAddHeadersPrivateSimple()
+	{
+		final MediaResponse response = new MediaResponse(new AssertionFailedHttpServletResponse());
+		servlet.filterResponse(CacheControlPrivateItem.simple.newLocator(), response);
+		final StringBuilder cacheControl = new StringBuilder();
+		response.addToCacheControl(cacheControl);
+		assertEquals("", cacheControl.toString());
+	}
+	@Test void testAddHeadersPrivateSecret()
+	{
+		final MediaResponse response = new MediaResponse(new AssertionFailedHttpServletResponse());
+		servlet.filterResponse(CacheControlPrivateItem.secret.newLocator(), response);
+		final StringBuilder cacheControl = new StringBuilder();
+		response.addToCacheControl(cacheControl);
+		assertEquals("private", cacheControl.toString());
+		final StringBuilder cacheControlNonEmpty = new StringBuilder("zack");
+		response.addToCacheControl(cacheControlNonEmpty);
+		assertEquals("zack,private", cacheControlNonEmpty.toString());
 	}
 	@Test void testAddHeadersAccessControlAllowOriginWildcard()
 	{
@@ -142,6 +169,11 @@ public class MediaServletDefaultTest
 	}
 	private static final class AccessControlAllowOriginWildcardMediaServlet extends MediaServlet
 	{
+		@Override
+		protected boolean isCacheControlPrivate(final Locator locator)
+		{
+			return false;
+		}
 		@Override
 		protected boolean isAccessControlAllowOriginWildcard(final Locator locator)
 		{

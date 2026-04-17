@@ -276,6 +276,7 @@ public class MediaServlet extends HttpServlet
 	 * <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist">Specifying the amount of time that CloudFront caches objects</a>.
 	 *
 	 * @param locator the locator of the current request
+	 * @see MediaResponse#addCacheControlPrivate()
 	 */
 	protected boolean isCacheControlPrivate(
 			final Locator locator)
@@ -292,6 +293,9 @@ public class MediaServlet extends HttpServlet
 			final Locator locator,
 			final MediaResponse response)
 	{
+		if(isCacheControlPrivate(locator))
+			response.addCacheControlPrivate();
+
 		if(isAccessControlAllowOriginWildcard(locator))
 			response.addHeader("Access-Control-Allow-Origin", "*");
 	}
