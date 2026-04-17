@@ -28,39 +28,15 @@ public final class IsNullCondition<E> extends Condition
 	@Serial
 	private static final long serialVersionUID = 2l;
 
-	private final Selectable<E> function;
+	private final Function<E> function;
 	private final boolean not;
 
-	/**
-	 * Creates a new IsNullCondition.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods.
-	 * @see com.exedio.cope.Function#isNull()
-	 * @see com.exedio.cope.Function#isNotNull()
-	 */
-	@Deprecated
-	public IsNullCondition(
-			final Selectable<E> function,
-			final boolean not)
+	IsNullCondition(
+			final Function<E> function,
+			final boolean not, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		this.function = requireNonNull(function, "function");
 		this.not = not;
-	}
-
-	/**
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the more type-safe wrapper methods.
-	 * @see com.exedio.cope.Function#isNull()
-	 * @see com.exedio.cope.Function#isNotNull()
-	 */
-	@Deprecated
-	public IsNullCondition(
-			final Function<E> function,
-			final boolean not)
-	{
-		this((Selectable<E>)function, not);
 	}
 
 	@Override
@@ -73,16 +49,13 @@ public final class IsNullCondition<E> extends Condition
 	@Override
 	void requireSupportForGetTri()
 	{
-		// TODO do something nicer
-		if(!(function instanceof Function))
-			throw new IllegalArgumentException("not supported for non-function: " + function);
 	}
 
 	@Override
 	Trilean getTri(final FieldValues item) throws UnsupportedGetException
 	{
 		requireSupportForGetTri();
-		return Trilean.valueOf( (((Function<E>)function).get(item)==null) ^ not );
+		return Trilean.valueOf((function.get(item)==null) ^ not );
 	}
 
 	@Override
@@ -100,19 +73,19 @@ public final class IsNullCondition<E> extends Condition
 	@Override
 	IsNullCondition<E> copy(final CopyMapper mapper)
 	{
-		return new IsNullCondition<>(mapper.getS(function), not);
+		return new IsNullCondition<>(mapper.getS(function), not, Float.NaN);
 	}
 
 	@Override
 	public Condition bind(final Join join)
 	{
-		return new IsNullCondition<>(((Function<?>)function).bind(join), not);
+		return new IsNullCondition<>(function.bind(join), not, Float.NaN);
 	}
 
 	@Override
 	public Condition not()
 	{
-		return new IsNullCondition<>(function, !not);
+		return new IsNullCondition<>(function, !not, Float.NaN);
 	}
 
 	@Override

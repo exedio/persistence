@@ -39,13 +39,13 @@ public class QuerySerializeTest
 		assertSerializedEquals(q, size);
 
 		q.setCondition(field.isNotNull());
-		assertSerializedEquals(q, size += 129);
+		assertSerializedEquals(q, size += 153);
 
 		final Join j = q.join(TYPE);
 		assertSerializedEquals(q, size += 253);
 
 		j.setCondition(field.is("zack"));
-		assertSerializedEquals(q, size += 272);
+		assertSerializedEquals(q, size += 248);
 
 		q.addOrderBy(field);
 		assertSerializedEquals(q, size += 75);
