@@ -86,7 +86,6 @@ public interface NumberFunction<E extends Number> extends Function<E>
 		return new SumAggregate<>(this);
 	}
 
-	@SuppressWarnings("deprecation")
 	default AverageAggregate<E> average()
 	{
 		return new AverageAggregate<>(this);

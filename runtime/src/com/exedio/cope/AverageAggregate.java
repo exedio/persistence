@@ -25,17 +25,12 @@ public final class AverageAggregate<S extends Number> extends Aggregate<Double,S
 	@Serial
 	private static final long serialVersionUID = 1l;
 
-	/**
-	 * Creates a new AverageAggregate.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see com.exedio.cope.NumberFunction#average()
-	 */
-	@Deprecated
-	public AverageAggregate(final Function<S> source)
+	private final NumberFunction<S> source;
+
+	AverageAggregate(final NumberFunction<S> source)
 	{
 		super(source, "avg", "AVG", SimpleSelectType.DOUBLE);
+		this.source = source;
 	}
 
 	@Override
