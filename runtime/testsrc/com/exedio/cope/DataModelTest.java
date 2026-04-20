@@ -152,24 +152,6 @@ public class DataModelTest
 				"sink");
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void testStartsWithFieldNullConstructor()
-	{
-		assertFails(
-				() -> new StartsWithCondition(null, null),
-				NullPointerException.class,
-				"field");
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void testStartsWithValueNullConstructor()
-	{
-		assertFails(
-				() -> new StartsWithCondition(data, null),
-				NullPointerException.class,
-				"value");
-	}
-
 	@Test void testStartsWithValueNull()
 	{
 		assertFails(
