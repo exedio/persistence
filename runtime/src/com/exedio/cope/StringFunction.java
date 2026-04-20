@@ -73,10 +73,9 @@ public interface StringFunction extends Function<String>
 		return new LengthView(this);
 	}
 
-	@SuppressWarnings("deprecation") // OK: moved api
 	default UppercaseView toUpperCase()
 	{
-		return new UppercaseView(this);
+		return new UppercaseView(this, Float.NaN);
 	}
 
 	default CaseView toLowerCase()
