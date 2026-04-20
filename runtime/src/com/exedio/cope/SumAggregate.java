@@ -25,15 +25,7 @@ public final class SumAggregate<E extends Number> extends Aggregate<E,E> impleme
 	@Serial
 	private static final long serialVersionUID = 1l;
 
-	/**
-	 * Creates a new SumAggregate.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see com.exedio.cope.NumberFunction#sum()
-	 */
-	@Deprecated
-	public SumAggregate(final Function<E> source)
+	SumAggregate(final Function<E> source, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		super(source, "sum", "SUM", source.getValueType());
 	}
@@ -41,6 +33,6 @@ public final class SumAggregate<E extends Number> extends Aggregate<E,E> impleme
 	@Override
 	public NumberFunction<E> bind(final Join join)
 	{
-		return new SumAggregate<>(source.bind(join));
+		return new SumAggregate<>(source.bind(join), Float.NaN);
 	}
 }
