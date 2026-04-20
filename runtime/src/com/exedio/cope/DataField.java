@@ -990,10 +990,9 @@ public final class DataField extends Field<DataField.Value>
 	 * The result may cause an {@link UnsupportedQueryException} when used,
 	 * if the field is stored in a {@link Vault vault}.
 	 */
-	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
 	public StartsWithCondition startsWithIfSupported(final byte[] value)
 	{
-		return new StartsWithCondition(this, value);
+		return new StartsWithCondition(this, 0, value);
 	}
 
 	/**

@@ -45,18 +45,6 @@ public final class StartsWithCondition extends Condition
 	@Deprecated
 	public final byte[] value;
 
-	/**
-	 * Creates a new StartsWithCondition.
-	 * @deprecated Use {@link DataField#startsWithIfSupported(byte[])} instead.
-	 */
-	@Deprecated
-	public StartsWithCondition(
-			final DataField field,
-			final byte[] value)
-	{
-		this(field, 0, value);
-	}
-
 	StartsWithCondition(
 			final DataField field,
 			final int offset,
