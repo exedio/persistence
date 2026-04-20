@@ -25,13 +25,7 @@ public final class UppercaseView extends CaseView
 	@Serial
 	private static final long serialVersionUID = 1l;
 
-	/**
-	 * Creates a new UppercaseView.
-	 * @deprecated
-	 * use wrapper method {@link StringFunction#toUpperCase()}.
-	 */
-	@Deprecated
-	public UppercaseView(final Function<String> source)
+	UppercaseView(final Function<String> source, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		super(source, true);
 	}
