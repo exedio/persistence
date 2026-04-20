@@ -31,26 +31,9 @@ public final class NotCondition extends Condition
 
 	private final Condition argument;
 
-	/**
-	 * Creates a new NotCondition.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * use the more type-safe wrapper method.
-	 * @see Condition#not()
-	 * @throws NullPointerException if {@code argument} is null.
-	 */
-	@Deprecated
-	public NotCondition(final Condition argument)
+	NotCondition(@Nonnull final Condition argument, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		requireNonNull(argument, "argument");
-		if(argument instanceof Literal)
-			throw new IllegalArgumentException("argument must not be a literal");
-
-		this.argument = argument;
-	}
-
-	NotCondition(@Nonnull final Condition argument, @SuppressWarnings("unused") final double dummy)
-	{
 		assert !(argument instanceof Literal);
 		this.argument = argument;
 	}
@@ -96,13 +79,13 @@ public final class NotCondition extends Condition
 	@Override
 	NotCondition copy(final CopyMapper mapper)
 	{
-		return new NotCondition(argument.copy(mapper));
+		return new NotCondition(argument.copy(mapper), Float.NaN);
 	}
 
 	@Override
 	public Condition bind(final Join join)
 	{
-		return new NotCondition(argument.bind(join));
+		return new NotCondition(argument.bind(join), Float.NaN);
 	}
 
 	@Override
