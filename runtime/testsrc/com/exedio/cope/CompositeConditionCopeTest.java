@@ -205,18 +205,16 @@ public class CompositeConditionCopeTest
 	}
 
 
-	@SuppressWarnings("deprecation")
 	private static CompositeCondition newAnd(
 			final Condition... conditions)
 	{
-		return new CompositeCondition(AND, conditions);
+		return new CompositeCondition(AND, Float.NaN, conditions);
 	}
 
-	@SuppressWarnings("deprecation")
 	private static CompositeCondition newOr(
 			final Condition... conditions)
 	{
-		return new CompositeCondition(OR, conditions);
+		return new CompositeCondition(OR, Float.NaN, conditions);
 	}
 
 
