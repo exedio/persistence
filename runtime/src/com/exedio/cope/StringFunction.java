@@ -133,10 +133,9 @@ public interface StringFunction extends Function<String>
 	// TODO
 	// StringField could override this method and return FALSE, if its own
 	// Charset constraint is disjunctive to the CharSet given to this method.
-	@SuppressWarnings("deprecation")
 	default Condition conformsTo(final CharSet charSet)
 	{
-		return new CharSetCondition(this, charSet);
+		return new CharSetCondition(this, charSet, Float.NaN);
 	}
 
 	default RegexpLikeCondition regexpLike(final String pattern)

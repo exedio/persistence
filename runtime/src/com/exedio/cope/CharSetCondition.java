@@ -41,17 +41,9 @@ public final class CharSetCondition extends Condition
 	@Deprecated
 	public final CharSet value;
 
-	/**
-	 * Creates a new CharSetCondition.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper method.
-	 * @see StringFunction#conformsTo(CharSet)
-	 */
-	@Deprecated
-	public CharSetCondition(
+	CharSetCondition(
 			final StringFunction function,
-			final CharSet value)
+			final CharSet value, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		this.function = requireNonNull(function, "function");
 		this.value = requireNonNull(value, "value");
@@ -111,7 +103,7 @@ public final class CharSetCondition extends Condition
 	@Override
 	public Condition bind(final Join join)
 	{
-		return new CharSetCondition(function.bind(join), value);
+		return new CharSetCondition(function.bind(join), value, Float.NaN);
 	}
 
 	@Override
