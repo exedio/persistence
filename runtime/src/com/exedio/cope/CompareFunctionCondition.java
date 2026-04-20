@@ -38,26 +38,13 @@ public final class CompareFunctionCondition<E> extends Condition
 			final Function<E> left,
 			final Function<? extends E> right)
 	{
-		return new CompareFunctionCondition<>(operator, left, right);
+		return new CompareFunctionCondition<>(operator, left, right, Float.NaN);
 	}
 
-	/**
-	 * Creates a new CompareFunctionCondition.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * use the convenience methods.
-	 * @see com.exedio.cope.Function#is(Function)
-	 * @see com.exedio.cope.Function#isNot(Function)
-	 * @see com.exedio.cope.Function#less(Function)
-	 * @see com.exedio.cope.Function#lessOrEqual(Function)
-	 * @see com.exedio.cope.Function#greater(Function)
-	 * @see com.exedio.cope.Function#greaterOrEqual(Function)
-	 */
-	@Deprecated
-	public CompareFunctionCondition(
+	CompareFunctionCondition(
 			final Operator operator,
 			final Function<E> left,
-			final Function<? extends E> right)
+			final Function<? extends E> right, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		this.operator = requireNonNull(operator, "operator");
 		this.left = requireNonNull(left, "left");
@@ -122,19 +109,19 @@ public final class CompareFunctionCondition<E> extends Condition
 	@Override
 	CompareFunctionCondition<E> copy(final CopyMapper mapper)
 	{
-		return new CompareFunctionCondition<>(operator, mapper.getS(left), mapper.getS(right));
+		return new CompareFunctionCondition<>(operator, mapper.getS(left), mapper.getS(right), Float.NaN);
 	}
 
 	@Override
 	public Condition bind(final Join join)
 	{
-		return new CompareFunctionCondition<>(operator, left.bind(join), right.bind(join));
+		return new CompareFunctionCondition<>(operator, left.bind(join), right.bind(join), Float.NaN);
 	}
 
 	@Override
 	public Condition not()
 	{
-		return new CompareFunctionCondition<>(operator.not(), left, right);
+		return new CompareFunctionCondition<>(operator.not(), left, right, Float.NaN);
 	}
 
 	@Override
