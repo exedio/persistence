@@ -40,17 +40,9 @@ public final class LikeCondition extends Condition
 	@Deprecated
 	public final String value;
 
-	/**
-	 * Creates a new LikeCondition.
-	 * @deprecated
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper method
-	 * {@link StringFunction#like(String)}.
-	 */
-	@Deprecated
-	public LikeCondition(
+	LikeCondition(
 			final StringFunction function,
-			final String value)
+			final String value, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		this.function = requireNonNull(function, "function");
 		this.value = requireNonNull(value, "value");
@@ -114,7 +106,7 @@ public final class LikeCondition extends Condition
 	@Override
 	public Condition bind(final Join join)
 	{
-		return new LikeCondition(function.bind(join), value);
+		return new LikeCondition(function.bind(join), value, Float.NaN);
 	}
 
 	@Override
@@ -145,17 +137,17 @@ public final class LikeCondition extends Condition
 
 	public static Condition startsWith(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, escapeSpecials(value) + WILDCARD);
+		return new LikeCondition(function, escapeSpecials(value) + WILDCARD, Float.NaN);
 	}
 
 	public static Condition endsWith(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, WILDCARD + escapeSpecials(value));
+		return new LikeCondition(function, WILDCARD + escapeSpecials(value), Float.NaN);
 	}
 
 	public static Condition contains(final StringFunction function, final String value)
 	{
-		return new LikeCondition(function, WILDCARD + escapeSpecials(value) + WILDCARD);
+		return new LikeCondition(function, WILDCARD + escapeSpecials(value) + WILDCARD, Float.NaN);
 	}
 
 	private static String escapeSpecials(final String value)
