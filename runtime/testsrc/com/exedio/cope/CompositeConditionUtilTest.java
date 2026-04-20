@@ -141,22 +141,6 @@ public class CompositeConditionUtilTest
 		assertSame(c1, c1.not().not());
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void testNotConstructor()
-	{
-		final StringField field = new StringField().optional();
-		final Condition c1 = field.regexpLike("myRegexp");
-		assertFails(
-				() -> new NotCondition(null),
-				NullPointerException.class,
-				"argument");
-		assertFails(
-				() -> new NotCondition(TRUE),
-				IllegalArgumentException.class,
-				"argument must not be a literal");
-		assertEquals(c1.not(), new NotCondition(c1));
-	}
-
 	@Test void testNeutrumAbsolutum()
 	{
 		final DoubleField field = new DoubleField().optional();
