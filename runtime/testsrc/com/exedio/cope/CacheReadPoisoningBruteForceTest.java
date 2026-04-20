@@ -20,14 +20,15 @@ package com.exedio.cope;
 
 import static java.lang.System.lineSeparator;
 
+import com.exedio.cope.junit.HolderExtension;
 import com.exedio.cope.tojunit.MainRule;
-import com.exedio.cope.util.UsageEntryPoint;
 import java.util.Arrays;
 import java.util.Objects;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 @MainRule.Tag
 public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
@@ -38,10 +39,13 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@UsageEntryPoint
-	private final WithinPurgeStampsRule withinPurgeStamps = new WithinPurgeStampsRule(
-			CacheIsolationTest.MODEL,
-			Thread::yield);
+	public static final class WithinPurgeStamps extends HolderExtension<Runnable>
+	{
+		public WithinPurgeStamps()
+		{
+			super(CacheIsolationTest.MODEL.withinPurgeStamps);
+		}
+	}
 
 	boolean stamps;
 	CacheIsolationItem item;
@@ -98,8 +102,10 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		Throwable failure = null;
 	}
 
-	@Test void testIt() throws InterruptedException
+	@ExtendWith(WithinPurgeStamps.class)
+	@Test void testIt(final WithinPurgeStamps withinPurgeStamps) throws InterruptedException
 	{
+		withinPurgeStamps.override(Thread::yield);
 		Arrays.setAll(threads, i -> new ThreadStoppable(i)
 		{
 			@Override

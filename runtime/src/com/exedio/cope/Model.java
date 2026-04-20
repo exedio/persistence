@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.ChangeHooks;
 import com.exedio.cope.misc.DatabaseListener;
+import com.exedio.cope.util.Holder;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
@@ -855,9 +856,7 @@ public final class Model implements Serializable
 		{
 			final long oldestStamp = transactions.getOldestCacheStamp(connect.cacheStamp);
 
-			final Runnable within = withinPurgeStamps;
-			if(within!=null)
-				within.run();
+			withinPurgeStamps.get().run();
 
 			connect.itemCache.purgeStamps(oldestStamp);
 			connect.queryCache.purgeStamps(oldestStamp);
@@ -870,11 +869,7 @@ public final class Model implements Serializable
 		tx.postCommitHooks.handle(commit);
 	}
 
-	/**
-	 * @deprecated for unit tests only
-	 */
-	@Deprecated
-	volatile Runnable withinPurgeStamps = null;
+	final Holder<Runnable> withinPurgeStamps = new Holder<>(() -> {});
 
 	/**
 	 * Returns the collection of open {@link Transaction}s
