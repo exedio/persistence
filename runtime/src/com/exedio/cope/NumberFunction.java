@@ -80,10 +80,9 @@ public interface NumberFunction<E extends Number> extends Function<E>
 		return DivideView.divide(this, other);
 	}
 
-	@SuppressWarnings("deprecation")
 	default SumAggregate<E> sum()
 	{
-		return new SumAggregate<>(this);
+		return new SumAggregate<>(this, Float.NaN);
 	}
 
 	default AverageAggregate<E> average()
