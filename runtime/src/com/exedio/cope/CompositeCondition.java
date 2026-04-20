@@ -38,27 +38,15 @@ public final class CompositeCondition extends Condition
 	public final Operator operator;
 	final Condition[] conditions;
 
-	/**
-	 * @deprecated Use {@link Cope#and(List)} or {@link Cope#or(List)} instead
-	 * @throws NullPointerException if {@code conditions==null}
-	 * @throws IllegalArgumentException if {@code conditions.size()==0}
-	 */
-	@Deprecated
-	public CompositeCondition(
+	CompositeCondition(
 			final Operator operator,
-			final List<? extends Condition> conditions)
+			final List<? extends Condition> conditions, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
-		this(operator, conditions.toArray(Condition[]::new));
+		this(operator, signatureChangingDummy, conditions.toArray(Condition[]::new));
 	}
 
-	/**
-	 * @deprecated Use {@link Cope#and(Condition[])} or {@link Cope#or(Condition[])} instead
-	 * @throws NullPointerException if {@code conditions==null}
-	 * @throws IllegalArgumentException if {@code conditions.length==0}
-	 */
-	@Deprecated
-	public CompositeCondition(
-			final Operator operator,
+	CompositeCondition(
+			final Operator operator, @SuppressWarnings("unused") final float signatureChangingDummy,
 			final Condition... conditions)
 	{
 		this.operator = requireNonNull(operator, "operator");
@@ -147,7 +135,7 @@ public final class CompositeCondition extends Condition
 		for(int i = 0; i<c.length; i++)
 			c[i] = conditions[i].copy(mapper);
 
-		return new CompositeCondition(operator, c);
+		return new CompositeCondition(operator, Float.NaN, c);
 	}
 
 	@Override
@@ -158,7 +146,7 @@ public final class CompositeCondition extends Condition
 		for(int i = 0; i<c.length; i++)
 			c[i] = conditions[i].bind(join);
 
-		return new CompositeCondition(operator, c);
+		return new CompositeCondition(operator, Float.NaN, c);
 	}
 
 	@Override
@@ -170,7 +158,7 @@ public final class CompositeCondition extends Condition
 		for(int i = 0; i<c.length; i++)
 			c[i] = conditions[i].not();
 
-		return new CompositeCondition(operator.not(), c);
+		return new CompositeCondition(operator.not(), Float.NaN, c);
 	}
 
 	@Override
@@ -354,11 +342,11 @@ public final class CompositeCondition extends Condition
 			{
 				final Condition[] rightConditions = ((CompositeCondition)right).conditions;
 
-				return new CompositeCondition(operator, Arrays.append(leftConditions, rightConditions));
+				return new CompositeCondition(operator, Float.NaN, Arrays.append(leftConditions, rightConditions));
 			}
 			else
 			{
-				return new CompositeCondition(operator, Arrays.append(leftConditions, right));
+				return new CompositeCondition(operator, Float.NaN, Arrays.append(leftConditions, right));
 			}
 		}
 		else
@@ -367,11 +355,11 @@ public final class CompositeCondition extends Condition
 			{
 				final Condition[] rightConditions = ((CompositeCondition)right).conditions;
 
-				return new CompositeCondition(operator, Arrays.prepend(left, rightConditions));
+				return new CompositeCondition(operator, Float.NaN, Arrays.prepend(left, rightConditions));
 			}
 			else
 			{
-				return new CompositeCondition(operator, left, right);
+				return new CompositeCondition(operator, Float.NaN, left, right);
 			}
 		}
 	}
@@ -442,7 +430,7 @@ public final class CompositeCondition extends Condition
 			case 1 ->
 				filteredConditions[0];
 			default ->
-				new CompositeCondition(operator, filteredConditions);
+				new CompositeCondition(operator, Float.NaN, filteredConditions);
 		};
 	}
 }

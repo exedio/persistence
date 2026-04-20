@@ -352,20 +352,19 @@ public class CompositeConditionUtilTest
 	}
 
 
-	@SuppressWarnings({"deprecation", "UnusedReturnValue"})
+	@SuppressWarnings("UnusedReturnValue")
 	private static CompositeCondition newCompositeCondition(
 			final Operator operator,
 			final List<? extends Condition> conditions)
 	{
-		return new CompositeCondition(operator, conditions);
+		return new CompositeCondition(operator, conditions, Float.NaN);
 	}
 
-	@SuppressWarnings("deprecation")
 	private static CompositeCondition newCompositeCondition(
 			final Operator operator,
 			final Condition... conditions)
 	{
-		return new CompositeCondition(operator, conditions);
+		return new CompositeCondition(operator, Float.NaN, conditions);
 	}
 
 	@Nonnull
