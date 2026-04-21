@@ -125,10 +125,6 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertEquals(featureMaximum != null ? featureMaximum.longValue() : null, actual.featureMaximum, "featureMaximum");
 		assertEquals(sequenceNext, actual.sequenceNext, "sequenceNext");
 		assertEquals(behindBy, actual.isBehindByL(), "behindBy");
-
-		@SuppressWarnings("deprecation")
-		final int behindByDeprecated = TYPE.checkPrimaryKey();
-		assertEquals(behindBy, behindByDeprecated, "behindByDeprecated");
 	}
 
 	private static void newSequence(
