@@ -158,6 +158,10 @@ public class DatabaseLogTest extends TestWithEnvironment
 			assertNull(this.sql);
 			assertNotNull(sql);
 			this.sql = sql;
+			assertNonNegative(durationPrepare);
+			assertNonNegative(durationExecute);
+			assertNonNegative(durationRead);
+			assertNonNegative(durationClose);
 		}
 
 		void assertSql(final String sql)
@@ -170,6 +174,11 @@ public class DatabaseLogTest extends TestWithEnvironment
 		void assertSqlEmpty()
 		{
 			assertNull(sql);
+		}
+
+		private static void assertNonNegative(final long d)
+		{
+			assertTrue(d>=0, String.valueOf(d));
 		}
 	}
 
