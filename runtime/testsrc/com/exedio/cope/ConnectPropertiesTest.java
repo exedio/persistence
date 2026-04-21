@@ -536,7 +536,6 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = factory().
 				create(TestSources.minimal());
 
-		assertEquals(5*1000, getMediaOffsetExpires(p));
 		assertEquals(5, p.getMediaMaxAge());
 		assertEquals(ofSeconds(5), p.getMediaServletMaximumAge());
 	}
@@ -548,7 +547,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", 77000),
 						TestSources.minimal()
 				));
-		assertEquals(77000, getMediaOffsetExpires(p));
 		assertEquals(77, p.getMediaMaxAge());
 		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
 	}
@@ -560,7 +558,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", "PT77.000S"),
 						TestSources.minimal()
 				));
-		assertEquals(77000, getMediaOffsetExpires(p));
 		assertEquals(77, p.getMediaMaxAge());
 		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
 	}
@@ -572,7 +569,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", 77999),
 						TestSources.minimal()
 				));
-		assertEquals(77999, getMediaOffsetExpires(p));
 		assertEquals(77, p.getMediaMaxAge());
 		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
 	}
@@ -584,7 +580,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", "PT77.999S"),
 						TestSources.minimal()
 				));
-		assertEquals(77999, getMediaOffsetExpires(p));
 		assertEquals(77, p.getMediaMaxAge());
 		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
 	}
@@ -596,7 +591,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", 0),
 						TestSources.minimal()
 				));
-		assertEquals(0, getMediaOffsetExpires(p));
 		assertEquals(0, p.getMediaMaxAge());
 		assertEquals(null, p.getMediaServletMaximumAge());
 	}
@@ -608,7 +602,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", 999),
 						TestSources.minimal()
 				));
-		assertEquals(999, getMediaOffsetExpires(p));
 		assertEquals(0, p.getMediaMaxAge());
 		assertEquals(null, p.getMediaServletMaximumAge());
 	}
@@ -620,7 +613,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", 1000),
 						TestSources.minimal()
 				));
-		assertEquals(1000, getMediaOffsetExpires(p));
 		assertEquals(1, p.getMediaMaxAge());
 		assertEquals(ofSeconds(1), p.getMediaServletMaximumAge());
 	}
@@ -632,7 +624,6 @@ public class ConnectPropertiesTest
 						single("media.offsetExpires", Integer.MAX_VALUE),
 						TestSources.minimal()
 				));
-		assertEquals(Integer.MAX_VALUE, getMediaOffsetExpires(p));
 		assertEquals(Integer.MAX_VALUE/1000, p.getMediaMaxAge());
 		assertEquals(ofSeconds(Integer.MAX_VALUE/1000), p.getMediaServletMaximumAge());
 	}
@@ -665,12 +656,6 @@ public class ConnectPropertiesTest
 				"property media.offsetExpires in DESC " +
 				"must be a duration between PT0S and P24DT20H31M23.647S, " +
 				"but was PT-0.001S");
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	private static int getMediaOffsetExpires(final ConnectProperties p)
-	{
-		return p.getMediaOffsetExpires();
 	}
 
 
