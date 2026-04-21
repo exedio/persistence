@@ -269,26 +269,6 @@ public final class PasswordRecovery extends Pattern
 		{
 			this(Duration.ofMillis(expiryMillis), Duration.ofMillis(reuseMillis));
 		}
-
-		/**
-		 * @deprecated Use {@link #getExpiry()} instead.
-		 *             BEWARE: May fail for large values!
-		 */
-		@Deprecated
-		public int getExpiryMillis()
-		{
-			return Math.toIntExact(expiry.toMillis());
-		}
-
-		/**
-		 * @deprecated Use {@link #getReuse()} instead.
-		 *             BEWARE: May fail for large values!
-		 */
-		@Deprecated
-		public int getReuseMillis()
-		{
-			return Math.toIntExact(reuse.toMillis());
-		}
 	}
 
 	@Wrap(order=110)

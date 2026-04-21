@@ -91,8 +91,6 @@ public class PasswordRecoveryConfigTest
 	@Test void testConfigDefaultReuse()
 	{
 		final Config c = new Config(1);
-		assertEquals(1, c.getExpiryMillis());
-		assertEquals(1, c.getReuseMillis());
 		assertEquals(ofMillis(1), c.getExpiry());
 		assertEquals(ofMillis(1), c.getReuse());
 	}
@@ -101,8 +99,6 @@ public class PasswordRecoveryConfigTest
 	@Test void testConfigDefaultReuseBig()
 	{
 		final Config c = new Config(10001);
-		assertEquals(10001, c.getExpiryMillis());
-		assertEquals(10000, c.getReuseMillis());
 		assertEquals(ofMillis(10001), c.getExpiry());
 		assertEquals(ofMillis(10000), c.getReuse());
 	}
@@ -111,8 +107,6 @@ public class PasswordRecoveryConfigTest
 	@Test void testConfigMinimal()
 	{
 		final Config c = new Config(20, 10);
-		assertEquals(20, c.getExpiryMillis());
-		assertEquals(10, c.getReuseMillis());
 		assertEquals(ofMillis(20), c.getExpiry());
 		assertEquals(ofMillis(10), c.getReuse());
 	}
@@ -127,8 +121,6 @@ public class PasswordRecoveryConfigTest
 	@Test void testConfigNoReuse()
 	{
 		final Config c = new Config(20, 0);
-		assertEquals(20, c.getExpiryMillis());
-		assertEquals(0, c.getReuseMillis());
 		assertEquals(ofMillis(20), c.getExpiry());
 		assertEquals(ofMillis( 0), c.getReuse());
 	}
@@ -143,8 +135,6 @@ public class PasswordRecoveryConfigTest
 	@Test void testConfigSameReuse()
 	{
 		final Config c = new Config(20, 20);
-		assertEquals(20, c.getExpiryMillis());
-		assertEquals(20, c.getReuseMillis());
 		assertEquals(ofMillis(20), c.getExpiry());
 		assertEquals(ofMillis(20), c.getReuse());
 	}
