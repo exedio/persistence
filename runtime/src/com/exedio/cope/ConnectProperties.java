@@ -440,22 +440,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return mediaRootUrl;
 	}
 
-	/**
-	 * Returns the offset, the Expires http header of media
-	 * is set into the future.
-	 * Together with a http reverse proxy this ensures,
-	 * that for that time no request for that data will reach the servlet.
-	 * This may reduce the load on the server.
-	 * If zero, no Expires header is sent.
-	 *
-	 * @deprecated Use {@link #getMediaMaxAge()} instead
-	 */
-	@Deprecated
-	public int getMediaOffsetExpires()
-	{
-		return toIntExact(mediaOffsetExpires.toMillis()); // toIntExact cannot fail because of valueIntMillis
-	}
-
 	private final Duration mediaMaxAge = (mediaOffsetExpires.compareTo(ofSeconds(1))>=0) ? mediaOffsetExpires.withNanos(0) : null;
 
 	public int getMediaMaxAge()
