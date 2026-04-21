@@ -103,14 +103,10 @@ public class HierarchyEmptyTest extends TestWithEnvironment
 		assertFalse(HierarchyEmptySub.TYPE.isAbstract());
 
 		// test persistence
-		assertCheckUpdateCounters();
-
 		final HierarchyEmptySub subItem = new HierarchyEmptySub(0);
-		assertCheckUpdateCounters();
 		assertEquals(0, subItem.getSuperInt());
 
 		subItem.setSuperInt(2);
-		assertCheckUpdateCounters();
 		assertEquals(2, subItem.getSuperInt());
 
 		assertEquals(list(subItem), HierarchyEmptySub.TYPE.search(HierarchyEmptySuper.superInt.is(2)));
@@ -118,11 +114,9 @@ public class HierarchyEmptyTest extends TestWithEnvironment
 		assertEquals(list(), HierarchyEmptySub.TYPE.search(HierarchyEmptySuper.superInt.is(1)));
 
 		final HierarchyEmptySuper superItem = new HierarchyEmptySuper(3);
-		assertCheckUpdateCounters();
 		assertEquals(3, superItem.getSuperInt());
 
 		superItem.setSuperInt(4);
-		assertCheckUpdateCounters();
 		assertEquals(4, superItem.getSuperInt());
 
 		assertEquals(list(superItem), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.is(4)));

@@ -149,39 +149,29 @@ public class HierarchyTest extends TestWithEnvironment
 		checkUpdateCountersAbandoned();
 
 		// test persistence
-		assertCheckUpdateCounters();
-
 		final HierarchyFirstSub firstItem = new HierarchyFirstSub(0);
-		assertCheckUpdateCounters();
 		assertEquals(0, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
 
 		firstItem.setSuperInt(2);
-		assertCheckUpdateCounters();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals(null, firstItem.getFirstSubString());
 
 		firstItem.setFirstSubString("firstSubString");
-		assertCheckUpdateCounters();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 
 		restartTransaction();
-		assertCheckUpdateCounters();
 		assertEquals(2, firstItem.getSuperInt());
 		assertEquals("firstSubString", firstItem.getFirstSubString());
 		firstItem.setSuperInt(0);
 
 		final HierarchySecondSub secondItem = new HierarchySecondSub(2);
-		assertCheckUpdateCounters();
 		assertEquals(2, secondItem.getSuperInt());
 		assertEquals(null, secondItem.getFirstSubString());
 
 		final HierarchySecondSub secondItem2 = new HierarchySecondSub(3);
-		assertCheckUpdateCounters();
-
 		final HierarchyFirstSub firstItem2 = new HierarchyFirstSub(4);
-		assertCheckUpdateCounters();
 
 		assertEquals(list(firstItem), HierarchyFirstSub.TYPE.search(HierarchyFirstSub.firstSubString.is("firstSubString")));
 		assertEquals(list(), HierarchyFirstSub.TYPE.search(HierarchyFirstSub.firstSubString.is("firstSubStringX")));
@@ -198,22 +188,16 @@ public class HierarchyTest extends TestWithEnvironment
 		assertFalse(HierarchySingleSub.TYPE.isAbstract());
 
 		final HierarchySingleSub singleSub1a = new HierarchySingleSub();
-		assertCheckUpdateCounters();
 		singleSub1a.setSubString("a");
-		assertCheckUpdateCounters();
 		singleSub1a.setSuperInt(Integer.valueOf(1));
-		assertCheckUpdateCounters();
 		final HierarchySingleSub singleSub1b = new HierarchySingleSub(1, "b");
-		assertCheckUpdateCounters();
 		final HierarchySingleSub singleSub2a = new HierarchySingleSub(2, "a");
-		assertCheckUpdateCounters();
 		assertContains(singleSub1a, singleSub1b, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.is(1)));
 		assertContains(singleSub1a, singleSub1b, HierarchySingleSuper.TYPE.search(HierarchySingleSuper.superInt.is(1)));
 		assertContains(singleSub1a, singleSub2a, HierarchySingleSub.TYPE.search(HierarchySingleSub.subString.is("a")));
 		assertContains(singleSub1a, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))));
 
 		restartTransaction();
-		assertCheckUpdateCounters();
 		assertContains(singleSub1a, HierarchySingleSub.TYPE.search(HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))));
 		assertEquals("a", singleSub2a.getSubString());
 		assertEquals(Integer.valueOf(1), singleSub1b.getSuperInt());
@@ -222,18 +206,15 @@ public class HierarchyTest extends TestWithEnvironment
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 		singleSub1a.setHierarchySuper( firstItem );
-		assertCheckUpdateCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
 		assertEquals(list(firstItem), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(firstItem)));
 		restartTransaction();
-		assertCheckUpdateCounters();
 		assertEquals(firstItem, singleSub1a.getHierarchySuper());
 		assertEquals(list(firstItem), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(firstItem)));
 
 		singleSub1a.setHierarchySuper(secondItem2);
-		assertCheckUpdateCounters();
 		assertEquals(secondItem2, singleSub1a.getHierarchySuper());
 		assertEquals(list(secondItem2), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(secondItem2)));
@@ -243,11 +224,9 @@ public class HierarchyTest extends TestWithEnvironment
 		assertEquals(list(singleSub1a), HierarchySingleSub.TYPE.search(HierarchySingleSub.hierarchySuper.is(secondItem2)));
 
 		singleSub1a.setHierarchySuper(null);
-		assertCheckUpdateCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 		restartTransaction();
-		assertCheckUpdateCounters();
 		assertEquals(null, singleSub1a.getHierarchySuper());
 		assertEquals(list((Object)null), new Query<>(HierarchySingleSub.hierarchySuper, HierarchySingleSub.TYPE, HierarchySingleSuper.superInt.is(1).and(HierarchySingleSub.subString.is("a"))).search());
 
@@ -306,7 +285,6 @@ public class HierarchyTest extends TestWithEnvironment
 		{
 			assertEquals("cannot create item of abstract type HierarchySuper", e.getMessage());
 		}
-		assertCheckUpdateCounters();
 	}
 
 	@SuppressWarnings("deprecation")
