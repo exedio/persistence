@@ -299,15 +299,6 @@ final class RuntimeTester
 			assertEquals(0, ci.length);
 	}
 
-	@SuppressWarnings("deprecation")
-	void assertCheckUpdateCounters()
-	{
-		for(final Type<?> type : model.getTypes())
-		{
-			assertEquals(false, type.needsCheckUpdateCounter());
-		}
-	}
-
 	void assertSchema()
 	{
 		model.commit();

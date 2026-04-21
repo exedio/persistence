@@ -257,11 +257,6 @@ public abstract class TestWithEnvironment
 		tester.assertDefaultToNextSequenceName(name, field);
 	}
 
-	final void assertCheckUpdateCounters()
-	{
-		tester.assertCheckUpdateCounters();
-	}
-
 	final void assertSameCache(final Object o1, final Object o2)
 	{
 		tester.assertSameCache(o1, o2);
