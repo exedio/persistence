@@ -250,18 +250,6 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		Files.write(keyPath, new byte[]{});
 		assertEquals(keyPath, getService().probeBucketTag("my-Bucket"));
 	}
-	@Test protected final void probeBucketTagNew() throws Exception
-	{
-		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
-		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFails();
-
-		Files.createDirectory(keyDir);
-		assertProbeBucketTagFails();
-
-		Files.write(keyPath, new byte[]{});
-		assertEquals(keyPath, getService().probeBucketTag("my-Bucket"));
-	}
 	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
@@ -277,34 +265,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		Files.write(keyPath, new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13});
 		assertProbeBucketTagFails("is not empty, but has size 13");
 	}
-	@Test protected final void probeBucketTagNonEmptyNew() throws Exception
-	{
-		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
-		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFails();
-
-		Files.createDirectory(keyDir);
-		assertProbeBucketTagFails();
-
-		Files.write(keyPath, new byte[]{1});
-		assertProbeBucketTagFails("is not empty, but has size 1");
-
-		Files.write(keyPath, new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13});
-		assertProbeBucketTagFails("is not empty, but has size 13");
-	}
 	@Test final void probeBucketTagDirectory() throws Exception
-	{
-		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
-		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFails();
-
-		Files.createDirectory(keyDir);
-		assertProbeBucketTagFails();
-
-		Files.createDirectory(keyPath);
-		assertProbeBucketTagFails("is not a regular file");
-	}
-	@Test final void probeBucketTagDirectoryNew() throws Exception
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
