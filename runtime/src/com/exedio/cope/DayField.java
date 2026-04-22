@@ -328,15 +328,6 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	/**
-	 * @deprecated Use {@link #getDefaultNowTimeZone()} instead.
-	 */
-	@Deprecated
-	public TimeZone getDefaultNowZimeZone()
-	{
-		return getDefaultNowTimeZone();
-	}
-
-	/**
 	 * @deprecated Use {@link #getDefaultNowZone()} instead.
 	 */
 	@Deprecated
