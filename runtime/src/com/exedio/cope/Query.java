@@ -409,18 +409,6 @@ public final class Query<R> implements Serializable
 
 	// orderBy
 
-	/**
-	 * @deprecated Use {@link #getOrderBys()} instead.
-	 */
-	@Deprecated
-	public List<Selectable<?>> getOrderByFunctions()
-	{
-		return
-			orderBy==null
-			? List.of()
-			: List.of(orderBy);
-	}
-
 	public List<? extends Function<?>> getOrderBys()
 	{
 		return

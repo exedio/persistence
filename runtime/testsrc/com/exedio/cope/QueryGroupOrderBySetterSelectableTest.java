@@ -355,11 +355,9 @@ public class QueryGroupOrderBySetterSelectableTest
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		assertEqualsUnmodifiable(asList(), q.getGroupBy());
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		q.setGroupBy(alpha);
 		q.setOrderBy(beta, true);
 		assertEqualsUnmodifiable(asList(alpha), q.getGroupBy());
-		assertEqualsUnmodifiable(asList(beta), q.getOrderByFunctions());
 	}
 
 	@SuppressWarnings("unused") // OK: Model that is never connected
