@@ -287,10 +287,10 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertProbeBucketTagFailsNew();
 
 		Files.write(keyPath, new byte[]{1});
-		assertProbeBucketTagFailsNew("is not empty, but has size 1");
+		assertProbeBucketTagFails("is not empty, but has size 1");
 
 		Files.write(keyPath, new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13});
-		assertProbeBucketTagFailsNew("is not empty, but has size 13");
+		assertProbeBucketTagFails("is not empty, but has size 13");
 	}
 	@Test final void probeBucketTagDirectory() throws Exception
 	{
@@ -314,20 +314,13 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertProbeBucketTagFailsNew();
 
 		Files.createDirectory(keyPath);
-		assertProbeBucketTagFailsNew("is not a regular file");
+		assertProbeBucketTagFails("is not a regular file");
 	}
 	protected File getBucketTagRoot()
 	{
 		return getRoot();
 	}
 	private void assertProbeBucketTagFails(final String reason)
-	{
-		assertFails(
-				() -> getService().probeBucketTag("my-Bucket"),
-				IllegalStateException.class,
-				reason + ": " + getBucketTagRoot() + File.separator + "VaultBucketTag" + File.separator + "my-Bucket");
-	}
-	private void assertProbeBucketTagFailsNew(final String reason)
 	{
 		assertFails(
 				() -> getService().probeBucketTag("my-Bucket"),
