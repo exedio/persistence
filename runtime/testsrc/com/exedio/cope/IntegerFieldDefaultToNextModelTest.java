@@ -53,9 +53,6 @@ public class IntegerFieldDefaultToNextModelTest
 		assertEquals(true,  next.isDefaultNext());
 		assertEquals(false, none.isDefaultNext());
 
-		assertEquals(integer(10001), getDefaultNextStart(next));
-		assertEquals(null, getDefaultNextStart(none));
-
 		assertEquals(10001, next.getDefaultNextStartX());
 		assertFails(none::getDefaultNextStartX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 
@@ -120,12 +117,6 @@ public class IntegerFieldDefaultToNextModelTest
 	private static Integer integer(final int i)
 	{
 		return Integer.valueOf(i);
-	}
-
-	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	private static Integer getDefaultNextStart(final IntegerField f)
-	{
-		return f.getDefaultNextStart();
 	}
 
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
