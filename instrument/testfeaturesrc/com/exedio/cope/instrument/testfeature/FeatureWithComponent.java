@@ -35,13 +35,20 @@ public final class FeatureWithComponent extends Pattern implements Settable<Bool
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	private final StringField firstComponent = new StringField();
-	private final IntegerField secondComponent = new IntegerField();
+	private final StringField firstComponent;
+	private final IntegerField secondComponent;
 
 	public FeatureWithComponent()
 	{
+		this(new StringField(), new IntegerField());
+	}
+
+	public FeatureWithComponent(final StringField firstComponent, final IntegerField secondComponent)
+	{
 		addSourceFeature(firstComponent, "first");
+		this.firstComponent = firstComponent;
 		addSourceFeature(secondComponent, "second");
+		this.secondComponent = secondComponent;
 	}
 
 	public Object firstComponent()
