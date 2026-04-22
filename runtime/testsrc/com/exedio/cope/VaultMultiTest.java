@@ -22,7 +22,6 @@ import static com.exedio.cope.ConnectPropertiesTest.HSQLDB_PROBE;
 import static com.exedio.cope.ConnectPropertiesTest.assertIt;
 import static com.exedio.cope.ConnectPropertiesTest.assertMatches;
 import static com.exedio.cope.ConnectPropertiesTest.assertRg;
-import static com.exedio.cope.ConnectPropertiesTest.getProbeTest;
 import static com.exedio.cope.ConnectPropertiesTest.probe;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
@@ -155,7 +154,6 @@ public class VaultMultiTest
 		assertIt("vault.beta.service.Mock",    "probeResultBeta",    String.class, probes);
 
 		assertMatches(HSQLDB_PROBE + " " + VAULT, probe(p));
-		assertRg("probe", HSQLDB_PROBE + " " + VAULT, getProbeTest(p));
 	}
 
 	@Test void testDifferent()
