@@ -102,11 +102,6 @@ public class IntegerFieldDefaultToNextModelTest
 				"10001 is too small, " +
 				"must be at least 10002");
 	}
-	@SuppressWarnings("deprecation") // OK, testing deprecated API
-	@Test void testSequenceBehindNone()
-	{
-		assertEquals(null, none.checkSequenceBehindDefaultToNext());
-	}
 	@Test void testSequenceBehindNoneX()
 	{
 		assertFails(
