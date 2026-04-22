@@ -347,18 +347,6 @@ public final class Query<R> implements Serializable
 
 	// groupBy
 
-	/**
-	 * @deprecated Use {@link #getGroupBys()} instead.
-	 */
-	@Deprecated
-	public List<Selectable<?>> getGroupBy()
-	{
-		return
-			groupBy==null
-			? List.of()
-			: List.of(groupBy);
-	}
-
 	public List<? extends Function<?>> getGroupBys()
 	{
 		return
