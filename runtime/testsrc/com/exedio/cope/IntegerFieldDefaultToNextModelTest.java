@@ -26,7 +26,6 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
@@ -65,10 +64,7 @@ public class IntegerFieldDefaultToNextModelTest
 			assertEquals(null, s.getPattern());
 			assertEquals(10001, s.getStart());
 			assertEquals(Integer.MAX_VALUE, s.getEnd());
-
-			assertSame(s, getDefaultNext(next));
 		}
-		assertEquals(null, getDefaultNext(none));
 		assertFails(none::getDefaultNextSequence, IllegalArgumentException.class, "is not defaultToNext: " + none);
 	}
 	@Test void testNextToConstant()
@@ -117,11 +113,5 @@ public class IntegerFieldDefaultToNextModelTest
 	private static Integer integer(final int i)
 	{
 		return Integer.valueOf(i);
-	}
-
-	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	private static Sequence getDefaultNext(final IntegerField f)
-	{
-		return f.getDefaultNext();
 	}
 }
