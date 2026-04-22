@@ -311,18 +311,7 @@ public final class VaultFileService implements VaultService
 	// so we are free to change signature in the future without breaking API compatibility.
 	public Object probeBucketTag(final String bucket) throws Exception
 	{
-		@SuppressWarnings("deprecation") // OK: support deprecated directory
-		final Path oldDir = contentDir.resolve(VAULT_GENUINE_SERVICE_KEY);
-		final Path newDir = contentDir.resolve(VAULT_BUCKET_TAG);
-		return
-				!Files.exists(newDir) && Files.exists(oldDir)
-				? "deprecated: " +
-				  probeBucketTag(bucket, oldDir)
-				: probeBucketTag(bucket, newDir);
-	}
-
-	private static Path probeBucketTag(final String bucket, final Path tagDirectory) throws Exception
-	{
+		final Path tagDirectory = contentDir.resolve(VAULT_BUCKET_TAG);
 		final Path file = tagDirectory.resolve(bucket);
 		final BasicFileAttributes attributes =
 				Files.readAttributes(file, BasicFileAttributes.class); // throw NoSuchFileException is file does not exist

@@ -240,7 +240,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	@Override
 	@Test protected final void probeBucketTag() throws Exception
 	{
-		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFailsNew();
 
@@ -248,7 +248,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertProbeBucketTagFails();
 
 		Files.write(keyPath, new byte[]{});
-		assertEquals("deprecated: " + keyPath, getService().probeBucketTag("my-Bucket"));
+		assertEquals(keyPath, getService().probeBucketTag("my-Bucket"));
 	}
 	@Test protected final void probeBucketTagNew() throws Exception
 	{
@@ -264,7 +264,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	}
 	@Test protected final void probeBucketTagNonEmpty() throws Exception
 	{
-		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFailsNew();
 
@@ -294,7 +294,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	}
 	@Test final void probeBucketTagDirectory() throws Exception
 	{
-		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
 		assertProbeBucketTagFailsNew();
 
@@ -325,7 +325,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertFails(
 				() -> getService().probeBucketTag("my-Bucket"),
 				IllegalStateException.class,
-				reason + ": " + getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "my-Bucket");
+				reason + ": " + getBucketTagRoot() + File.separator + "VaultBucketTag" + File.separator + "my-Bucket");
 	}
 	private void assertProbeBucketTagFailsNew(final String reason)
 	{
@@ -339,7 +339,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertFails(
 				() -> getService().probeBucketTag("my-Bucket"),
 				NoSuchFileException.class,
-				getBucketTagRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "my-Bucket");
+				getBucketTagRoot() + File.separator + "VaultBucketTag" + File.separator + "my-Bucket");
 	}
 	private void assertProbeBucketTagFailsNew()
 	{
