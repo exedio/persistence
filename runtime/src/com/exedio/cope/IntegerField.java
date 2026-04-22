@@ -552,16 +552,4 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		return isDefaultNext() ? getDefaultToNextInfoX() : null;
 	}
-
-	/**
-	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
-	 * @deprecated Use {@link #checkSequenceBehindDefaultToNextX()} instead, but regard the exception
-	 * @throws IllegalStateException is a transaction is bound to the current thread
-	 */
-	@Deprecated
-	public SequenceBehindInfo checkSequenceBehindDefaultToNext()
-	{
-		return isDefaultNext() ? checkSequenceBehindDefaultToNextX() : null;
-	}
-
 }
