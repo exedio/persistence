@@ -327,31 +327,9 @@ public final class DayField extends FunctionField<Day>
 		return defaultToNow(toNew(zone));
 	}
 
-	/**
-	 * @deprecated Use {@link #getDefaultNowZone()} instead.
-	 */
-	@Deprecated
-	public TimeZone getDefaultNowTimeZone()
-	{
-		return fromNew(getDefaultNowZone());
-	}
-
 	@Deprecated
 	private static ZoneId toNew(final TimeZone zone)
 	{
 		return zone!=null ? zone.toZoneId() : null;
-	}
-
-	@Deprecated
-	private static TimeZone fromNew(final ZoneId zone)
-	{
-		if(zone==null)
-			return null;
-
-		final TimeZone result = TimeZone.getTimeZone(zone);
-		final ZoneId zoneCheck = result.toZoneId();
-		if(!zone.equals(zoneCheck))
-			throw new IllegalArgumentException(zone.toString() + '/' + zoneCheck + '/' + result);
-		return result;
 	}
 }
