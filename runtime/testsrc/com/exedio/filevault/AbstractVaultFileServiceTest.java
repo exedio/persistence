@@ -242,7 +242,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
 		assertProbeBucketTagFails();
@@ -254,10 +254,10 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.write(keyPath, new byte[]{});
 		assertEquals(keyPath, getService().probeBucketTag("my-Bucket"));
@@ -266,7 +266,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
 		assertProbeBucketTagFails();
@@ -281,10 +281,10 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.write(keyPath, new byte[]{1});
 		assertProbeBucketTagFails("is not empty, but has size 1");
@@ -296,7 +296,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
 		assertProbeBucketTagFails();
@@ -308,10 +308,10 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		final Path keyDir = getBucketTagRoot().toPath().resolve("VaultBucketTag");
 		final Path keyPath = keyDir.resolve("my-Bucket");
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyDir);
-		assertProbeBucketTagFailsNew();
+		assertProbeBucketTagFails();
 
 		Files.createDirectory(keyPath);
 		assertProbeBucketTagFails("is not a regular file");
@@ -328,13 +328,6 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 				reason + ": " + getBucketTagRoot() + File.separator + "VaultBucketTag" + File.separator + "my-Bucket");
 	}
 	private void assertProbeBucketTagFails()
-	{
-		assertFails(
-				() -> getService().probeBucketTag("my-Bucket"),
-				NoSuchFileException.class,
-				getBucketTagRoot() + File.separator + "VaultBucketTag" + File.separator + "my-Bucket");
-	}
-	private void assertProbeBucketTagFailsNew()
 	{
 		assertFails(
 				() -> getService().probeBucketTag("my-Bucket"),
