@@ -525,16 +525,6 @@ public final class IntegerField extends NumberField<Integer>
 
 	/**
 	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
-	 * @deprecated Use {@link #getDefaultNextStartX()} instead, but regard the exception
-	 */
-	@Deprecated
-	public Integer getDefaultNextStart()
-	{
-		return isDefaultNext() ? getDefaultNextStartX() : null;
-	}
-
-	/**
-	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
 	 * @deprecated Use {@link #getDefaultNextSequence()} instead, but regard the exception
 	 */
 	@Deprecated
