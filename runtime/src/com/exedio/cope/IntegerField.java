@@ -554,16 +554,6 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	/**
-	 * @throws IllegalStateException is a transaction is bound to the current thread
-	 * @deprecated Use {@link #checkSequenceBehindDefaultToNext()}.{@link SequenceBehindInfo#isBehindBy() isBehindBy}() instead
-	 */
-	@Deprecated
-	public int checkDefaultToNext()
-	{
-		return SequenceBehindInfo.isBehindBy(checkSequenceBehindDefaultToNext());
-	}
-
-	/**
 	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
 	 * @deprecated Use {@link #checkSequenceBehindDefaultToNextX()} instead, but regard the exception
 	 * @throws IllegalStateException is a transaction is bound to the current thread
