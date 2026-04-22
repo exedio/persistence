@@ -13,10 +13,9 @@ public class IgnoredFeatureItem extends Item
 	@WrapInterim
 	@CopeIgnore
 	@WrapperIgnore
-	@SuppressWarnings({"FeatureNotStaticFinal", "CanBeFinal"})
-	static IntegerField notAItemFeature = new IntegerField(); // should be final - but then it's considered an item feature in interim code, and gets double-mounted
+	static final IntegerField notAItemFeature = new IntegerField();
 
-	@SuppressWarnings({"NonFinalStaticVariableUsedInClassInitialization", "unused"})
+	@SuppressWarnings("unused")
 	static final FeatureWithComponent withComponent = new FeatureWithComponent(new StringField(), notAItemFeature);
 
 	/**
