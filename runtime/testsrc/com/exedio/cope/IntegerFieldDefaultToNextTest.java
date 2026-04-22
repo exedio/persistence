@@ -24,7 +24,6 @@ import static com.exedio.cope.IntegerFieldDefaultToNextItem.none;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
@@ -55,9 +54,7 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, getDefaultToNextInfo(next));
 		assertInfo(next, next.getDefaultToNextInfoX());
-		assertNull(getDefaultToNextInfo(none));
 		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 		{
 			clock.assertEmpty();
@@ -70,9 +67,7 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 1, 10001, 10001, getDefaultToNextInfo(next));
 		assertInfo(next, 1, 10001, 10001, next.getDefaultToNextInfoX());
-		assertNull(getDefaultToNextInfo(none));
 		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 		{
 			clock.assertEmpty();
@@ -85,9 +80,7 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 2, 10001, 10002, getDefaultToNextInfo(next));
 		assertInfo(next, 2, 10001, 10002, next.getDefaultToNextInfoX());
-		assertNull(getDefaultToNextInfo(none));
 		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 	}
 	@Test void testSet()
@@ -124,11 +117,5 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 	private static Integer integer(final int i)
 	{
 		return Integer.valueOf(i);
-	}
-
-	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	private static SequenceInfo getDefaultToNextInfo(final IntegerField f)
-	{
-		return f.getDefaultToNextInfo();
 	}
 }

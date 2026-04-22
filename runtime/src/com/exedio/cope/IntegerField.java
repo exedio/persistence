@@ -520,16 +520,4 @@ public final class IntegerField extends NumberField<Integer>
 			return isNotNull();
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
-	 * @deprecated Use {@link #getDefaultToNextInfoX()} instead, but regard the exception
-	 */
-	@Deprecated
-	public SequenceInfo getDefaultToNextInfo()
-	{
-		return isDefaultNext() ? getDefaultToNextInfoX() : null;
-	}
 }
