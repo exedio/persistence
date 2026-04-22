@@ -37,7 +37,6 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ServiceLoader;
-import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 
 public final class ConnectProperties extends FactoryProperties<ConnectProperties.Factory>
@@ -649,30 +648,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	}
 
 	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated
-	 * Calling this method within methods overriding {@link Properties#getTests()}
-	 * is no longer needed, as class {@code ConnectProperties}
-	 * provides {@link com.exedio.cope.util.Properties.Probe probes} anyway.
-	 */
-	@Deprecated
-	public Callable<?> getProbeTest()
-	{
-		return new Callable<String>()
-		{
-			@Override
-			public String call()
-			{
-				return probe();
-			}
-			@Override
-			public String toString()
-			{
-				return "probe";
-			}
-		};
-	}
 
 	/**
 	 * @deprecated

@@ -673,7 +673,6 @@ public class ConnectPropertiesTest
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
 
 		assertEquals(HSQLDB_PROBE, probe(p));
-		assertIt("probe", HSQLDB_PROBE, String.class, getProbeTest(p));
 	}
 
 	@Test void testProbeVault() throws Exception
@@ -699,7 +698,6 @@ public class ConnectPropertiesTest
 		assertIt("vault.default.service.Mock", "probeMockResultOverride", String.class, probes);
 
 		assertMatches(HSQLDB_PROBE + " \\[" + VAULT + ", mock:default]", probe(p));
-		assertRg("probe", HSQLDB_PROBE + " \\[" + VAULT + ", mock:default]", getProbeTest(p));
 	}
 
 	public static final String HSQLDB_PROBE =
@@ -760,12 +758,6 @@ public class ConnectPropertiesTest
 	static String probe(final ConnectProperties p)
 	{
 		return p.probe();
-	}
-
-	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	static Callable<?> getProbeTest(final ConnectProperties p)
-	{
-		return p.getProbeTest();
 	}
 
 
