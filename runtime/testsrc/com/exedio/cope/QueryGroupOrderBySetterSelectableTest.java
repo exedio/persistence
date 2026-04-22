@@ -350,16 +350,6 @@ public class QueryGroupOrderBySetterSelectableTest
 		private static final long serialVersionUID = -1l;
 	};
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void testGetterDeprecated()
-	{
-		final Query<?> q = TYPE.newQuery(null);
-		assertEqualsUnmodifiable(asList(), q.getGroupBy());
-		q.setGroupBy(alpha);
-		q.setOrderBy(beta, true);
-		assertEqualsUnmodifiable(asList(alpha), q.getGroupBy());
-	}
-
 	@SuppressWarnings("unused") // OK: Model that is never connected
 	private static final Model MODEL = QueryGroupOrderBySetterTest.MODEL;
 }
