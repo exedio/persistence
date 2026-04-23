@@ -47,8 +47,8 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 {
 	final Class<T> javaClass;
 	private final Function<BlockActivationParameters,T> constructor;
-	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<>();
-	final List<? extends Feature> templateList;
+	private final LinkedHashMap<String, Copyable> templates = new LinkedHashMap<>();
+	final List<? extends Copyable> templateList;
 
 	private BlockType(
 			final Class<T> javaClass,
@@ -62,12 +62,12 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 			final Feature feature = entry.getKey();
 			final java.lang.reflect.Field field = entry.getValue();
 			final String fieldID = id + '#' + field.getName();
-			if(!(feature instanceof Copyable))
+			if(!(feature instanceof final Copyable copyable))
 				throw new IllegalArgumentException(
 						fieldID + " must be an instance of " + Copyable.class + ", but was " +
 						feature.getClass().getName());
 			final String fieldName = CopeNameUtil.getAndFallbackToName(field);
-			templates.put(fieldName, feature);
+			templates.put(fieldName, copyable);
 			//noinspection ThisEscapedInObjectConstruction
 			feature.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
 		}
@@ -109,7 +109,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 		return result;
 	}
 
-	Map<String,Feature> getTemplateMap()
+	Map<String,Copyable> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);
 	}
@@ -127,13 +127,13 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	}
 
 	@Override
-	public List<? extends Feature> getDeclaredFeatures()
+	public List<? extends Copyable> getDeclaredFeatures()
 	{
 		return templateList;
 	}
 
 	@Override
-	public List<? extends Feature> getFeatures()
+	public List<? extends Copyable> getFeatures()
 	{
 		return templateList;
 	}
