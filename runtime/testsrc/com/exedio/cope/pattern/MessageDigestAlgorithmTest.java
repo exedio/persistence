@@ -315,7 +315,6 @@ public class MessageDigestAlgorithmTest
 		assertFalse(algorithm.check((plainText+"x").getBytes(UTF_8), Hex.decodeLower(expectedHash)));
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	private static MessageDigestAlgorithmX newMessageDigestAlgorithm(
 			final String digest,
 			final int saltLength,
