@@ -55,7 +55,7 @@ public final class MessageDigestHashItem extends Item
 	{
 		@SuppressWarnings("deprecation")
 		final Hash.Algorithm algo = hash.getAlgorithm();
-		((MockSecureRandom)((MessageDigestAlgorithm)algo).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
+		((MockSecureRandom)((MessageDigestAlgorithmX)algo).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
 		hash.set(this, password);
 	}
 

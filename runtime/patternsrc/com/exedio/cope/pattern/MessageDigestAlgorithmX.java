@@ -28,7 +28,7 @@ import java.security.SecureRandom;
  *
  * @author Ralf Wiebicke
  */
-public final class MessageDigestAlgorithm implements Hash.Algorithm
+final class MessageDigestAlgorithmX implements Hash.Algorithm
 {
 	private final MessageDigestFactory digest;
 	private final int digestLength;
@@ -43,7 +43,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
 	 */
 	@Deprecated
-	public MessageDigestAlgorithm(
+	MessageDigestAlgorithmX(
 			final String digest,
 			final int saltLength,
 			final int iterations)
@@ -55,7 +55,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			iterations);
 	}
 
-	private MessageDigestAlgorithm(
+	private MessageDigestAlgorithmX(
 			final MessageDigestFactory digest,
 			final int saltLength,
 			final SecureRandom saltSource,
@@ -74,9 +74,9 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
 	}
 
-	public MessageDigestAlgorithm salt(final int length, final SecureRandom source)
+	MessageDigestAlgorithmX salt(final int length, final SecureRandom source)
 	{
-		return new MessageDigestAlgorithm(digest, length, source, iterations);
+		return new MessageDigestAlgorithmX(digest, length, source, iterations);
 	}
 
 	/**
@@ -191,7 +191,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			return true;
 		if(other==null)
 			throw new NullPointerException();
-		if(!(other instanceof final MessageDigestAlgorithm o))
+		if(!(other instanceof final MessageDigestAlgorithmX o))
 			return false;
 
 		return
@@ -201,12 +201,12 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			iterations==o.iterations;
 	}
 
-	public int getSaltLength()
+	int getSaltLength()
 	{
 		return saltLength;
 	}
 
-	public int getIterations()
+	int getIterations()
 	{
 		return iterations;
 	}

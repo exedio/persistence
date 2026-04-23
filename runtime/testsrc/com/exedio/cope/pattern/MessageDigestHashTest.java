@@ -314,9 +314,9 @@ public class MessageDigestHashTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("deprecation")
-	static MessageDigestAlgorithm algo(final Hash hash)
+	static MessageDigestAlgorithmX algo(final Hash hash)
 	{
-		return (MessageDigestAlgorithm)hash.getAlgorithm();
+		return (MessageDigestAlgorithmX)hash.getAlgorithm();
 	}
 
 	static String encoding(final Hash hash)
