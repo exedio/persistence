@@ -52,6 +52,12 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	@Serial
 	private static final long serialVersionUID = 1l;
 
+	private static final String PARENT = "parent";
+	private static final String ORDER = "order";
+	private static final String UNIQUE_CONSTRAINT = "uniqueConstraint";
+	private static final String ENTRIES = "entries";
+	private static final String ELEMENT = "element";
+
 	private final IntegerField order;
 	private final FunctionField<E> element;
 	private Mount mountIfMounted = null;
@@ -107,11 +113,11 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		final UniqueConstraint uniqueConstraint = UniqueConstraint.create(parent, order);
 		final PartOf<?> entries                 =           PartOf.create(parent, order);
 		final Features features = new Features();
-		features.put("parent", parent);
-		features.put("order", order);
-		features.put("uniqueConstraint", uniqueConstraint);
-		features.put("entries", entries);
-		features.put("element", element, new MysqlExtendedVarcharAnnotationProxy(this));
+		features.put(PARENT, parent);
+		features.put(ORDER, order);
+		features.put(UNIQUE_CONSTRAINT, uniqueConstraint);
+		features.put(ENTRIES, entries);
+		features.put(ELEMENT, element, new MysqlExtendedVarcharAnnotationProxy(this));
 		copyWith.onMount(features, parent, element);
 		final Type<Entry> entryType = newSourceType(Entry.class, Entry::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, entries, entryType);
