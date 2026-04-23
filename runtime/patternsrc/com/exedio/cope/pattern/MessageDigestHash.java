@@ -37,6 +37,6 @@ public final class MessageDigestHash
 	@SuppressWarnings("unused")
 	public static Algorithm algorithm(final int iterations)
 	{
-		return new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations);
+		return new MessageDigestAlgorithmX(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations);
 	}
 }

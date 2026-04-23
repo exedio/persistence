@@ -52,7 +52,7 @@ public class MessageDigestAlgorithmTest
 		{
 			assertEquals("saltLength must be at least zero, but was -1", e.getMessage());
 		}
-		final MessageDigestAlgorithm a = newMessageDigestAlgorithm("SHA-512", 0, 1);
+		final MessageDigestAlgorithmX a = newMessageDigestAlgorithm("SHA-512", 0, 1);
 		try
 		{
 			a.salt(0, new SecureRandom());
@@ -84,7 +84,7 @@ public class MessageDigestAlgorithmTest
 
 	@Test void testCompatibleTo()
 	{
-		final MessageDigestAlgorithm a =
+		final MessageDigestAlgorithmX a =
 			newMessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
 		assertTrue(a.compatibleTo(a));
 		assertTrue( a.compatibleTo(newMessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())));
@@ -104,7 +104,7 @@ public class MessageDigestAlgorithmTest
 
 	@Test void testSalted()
 	{
-		final MessageDigestAlgorithm a =
+		final MessageDigestAlgorithmX a =
 			newMessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8i5", a.name());
 		assertEquals(72, a.length());
@@ -127,7 +127,7 @@ public class MessageDigestAlgorithmTest
 
 	@Test void testSaltedMinimal()
 	{
-		final MessageDigestAlgorithm a =
+		final MessageDigestAlgorithmX a =
 			newMessageDigestAlgorithm("SHA-512", 0, 2).salt(1, new MockSecureRandom());
 		assertEquals("SHA512s1i2", a.name());
 		assertEquals(65, a.length());
@@ -150,7 +150,7 @@ public class MessageDigestAlgorithmTest
 
 	@Test void testUnsalted()
 	{
-		final MessageDigestAlgorithm a =
+		final MessageDigestAlgorithmX a =
 			newMessageDigestAlgorithm("SHA-512", 0, 5);
 		assertEquals("SHA512i5", a.name());
 		assertEquals(64, a.length());
@@ -173,7 +173,7 @@ public class MessageDigestAlgorithmTest
 
 	@Test void testNoniterated()
 	{
-		final MessageDigestAlgorithm a =
+		final MessageDigestAlgorithmX a =
 			newMessageDigestAlgorithm("SHA-512", 0, 1).salt(8, new MockSecureRandom());
 		assertEquals("SHA512s8", a.name());
 		assertEquals(72, a.length());
@@ -196,7 +196,7 @@ public class MessageDigestAlgorithmTest
 
 	@Test void testUnsaltedNoniterated()
 	{
-		final MessageDigestAlgorithm a =
+		final MessageDigestAlgorithmX a =
 			newMessageDigestAlgorithm("SHA-512", 0, 1);
 		assertEquals("SHA512", a.name());
 		assertEquals(64, a.length());
@@ -227,7 +227,7 @@ public class MessageDigestAlgorithmTest
 
 	@Test void testUnsaltedNoniteratedMD5()
 	{
-		final MessageDigestAlgorithm a =
+		final MessageDigestAlgorithmX a =
 			newMessageDigestAlgorithm("MD5", 0, 1);
 		assertEquals("MD5", a.name());
 		assertEquals(16, a.length());
@@ -256,7 +256,7 @@ public class MessageDigestAlgorithmTest
 			"7e716d0e702df0505fc72e2b89467910");
 	}
 
-	private static void assertDigestNull(final MessageDigestAlgorithm algorithm)
+	private static void assertDigestNull(final MessageDigestAlgorithmX algorithm)
 	{
 		try
 		{
@@ -297,7 +297,7 @@ public class MessageDigestAlgorithmTest
 	}
 
 	private static void assertDigest(
-			final MessageDigestAlgorithm algorithm,
+			final MessageDigestAlgorithmX algorithm,
 			final String plainText,
 			final String expectedHash)
 	{
@@ -316,11 +316,11 @@ public class MessageDigestAlgorithmTest
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	private static MessageDigestAlgorithm newMessageDigestAlgorithm(
+	private static MessageDigestAlgorithmX newMessageDigestAlgorithm(
 			final String digest,
 			final int saltLength,
 			final int iterations)
 	{
-		return new MessageDigestAlgorithm(digest, saltLength, iterations);
+		return new MessageDigestAlgorithmX(digest, saltLength, iterations);
 	}
 }

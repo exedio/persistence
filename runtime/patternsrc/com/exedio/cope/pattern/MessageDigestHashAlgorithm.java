@@ -56,7 +56,7 @@ public final class MessageDigestHashAlgorithm
 			final int iterations)
 	{
 		return AlgorithmAdapter.wrap(
-				new MessageDigestAlgorithm(digest, 0, iterations).
+				new MessageDigestAlgorithmX(digest, 0, iterations).
 						salt(saltLength, saltSource),
 				charset);
 	}
