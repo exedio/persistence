@@ -563,22 +563,22 @@ public class MultiItemFieldStandardTest
 		assertEquals(CASCADE, AnCascadeItem.field.getComponents().get(1).getDeletePolicy());
 	}
 
-	@Test void testEqualConditionNull3Classes()
+	@Test void testIsConditionNull3Classes()
 	{
 		assertEquals(
 				"(ThreeItem.mandatory-MultiItemFieldComponentA is null and" +
 				" ThreeItem.mandatory-MultiItemFieldComponentB is null and" +
 				" ThreeItem.mandatory-MultiItemFieldComponentC is null)",
-				ThreeItem.mandatory.equal(null).toString());
+				ThreeItem.mandatory.is(null).toString());
 	}
 
-	@Test void testEqualConditionNull4Classes()
+	@Test void testIsConditionNull4Classes()
 	{
 		assertEquals(
 				"(FourItem.mandatory-MultiItemFieldComponentA is null and" +
 				" FourItem.mandatory-MultiItemFieldComponentB is null and" +
 				" FourItem.mandatory-MultiItemFieldComponentC is null and" +
 				" FourItem.mandatory-MultiItemFieldComponentD is null)",
-				FourItem.mandatory.equal(null).toString());
+				FourItem.mandatory.is(null).toString());
 	}
 }

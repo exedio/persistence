@@ -308,7 +308,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		return type.searchSingleton(equal(value));
+		return type.searchSingleton(is(value));
 	}
 
 	/**
@@ -329,7 +329,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		return type.searchSingletonStrict(equal(value));
+		return type.searchSingletonStrict(is(value));
 	}
 
 	public List<ItemField<?>> getComponents()
@@ -349,7 +349,16 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		throw new IllegalArgumentException("class >"+componentClass+"< is not supported by "+this);
 	}
 
+	/**
+	 * @deprecated Use {@link #is(Object)} instead.
+	 */
+	@Deprecated
 	public Condition equal(final E value)
+	{
+		return is(value);
+	}
+
+	public Condition is(final E value)
 	{
 		if(value == null)
 			return isNull();
