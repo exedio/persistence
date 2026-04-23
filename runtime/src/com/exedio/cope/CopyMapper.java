@@ -60,6 +60,13 @@ public final class CopyMapper
 		return put(template, component);
 	}
 
+	public <F extends Copyable> F copy(final F template)
+	{
+		@SuppressWarnings("unchecked")
+		final F component = (F)template.copy(this);
+		return put(template, component);
+	}
+
 	public <F extends Feature> F put(final F template, final F component)
 	{
 		final Feature mapped = map.put(template, component);
