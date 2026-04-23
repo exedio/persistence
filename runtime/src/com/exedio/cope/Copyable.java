@@ -18,8 +18,7 @@
 
 package com.exedio.cope;
 
-@SuppressWarnings("InterfaceMayBeAnnotatedFunctional") // OK: is to be implemented by Features only
-public interface Copyable // TODO more generics
+public interface Copyable extends Feature // TODO more generics
 {
 	Feature copy(CopyMapper mapper);
 }

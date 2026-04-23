@@ -55,10 +55,10 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		final HashMap<Feature, Feature> componentToTemplate = new HashMap<>();
 
 		final CopyMapper mapper = new CopyMapper();
-		for(final Map.Entry<String, Feature> e : valueType.getTemplateMap().entrySet())
+		for(final Map.Entry<String, Copyable> e : valueType.getTemplateMap().entrySet())
 		{
-			final Feature template = e.getValue();
-			final Feature component = mapper.put(template, ((Copyable)template).copy(mapper));
+			final Copyable template = e.getValue();
+			final Feature component = mapper.put(template, template.copy(mapper));
 			addSourceFeature(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
 			templateToComponent.put(template, component);
 			componentToTemplate.put(component, template);
