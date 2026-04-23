@@ -127,13 +127,13 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	}
 
 	@Override
-	public List<? extends Copyable> getDeclaredFeatures()
+	public List<? extends Feature> getDeclaredFeatures() // do not return List<? extends Copyable>, makes it harder to drop Copyable in the future
 	{
 		return templateList;
 	}
 
 	@Override
-	public List<? extends Copyable> getFeatures()
+	public List<? extends Feature> getFeatures() // do not return List<? extends Copyable>, makes it harder to drop Copyable in the future
 	{
 		return templateList;
 	}
