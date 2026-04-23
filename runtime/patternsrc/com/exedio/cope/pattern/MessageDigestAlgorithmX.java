@@ -38,11 +38,6 @@ final class MessageDigestAlgorithmX implements Hash.Algorithm
 
 	private final int iterations;
 
-	/**
-	 * @deprecated Use {@link MessageDigestHashAlgorithm#create(String, int, SecureRandom, int)} instead
-	 * @param digest an algorithm name suitable for {@link MessageDigest#getInstance(String)}.
-	 */
-	@Deprecated
 	MessageDigestAlgorithmX(
 			final String digest,
 			final int saltLength,
