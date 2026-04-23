@@ -56,26 +56,26 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test void testEqualCondition()
+	@Test void testIsCondition()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		assertEquals(
 				"MultiItemFieldItem.field-MultiItemFieldComponentxA='MultiItemFieldComponentxA-0'",
-				MultiItemFieldItem.field.equal(fieldValue).toString());
+				MultiItemFieldItem.field.is(fieldValue).toString());
 	}
 
-	@Test void testEqualConditionNull()
+	@Test void testIsConditionNull()
 	{
 		assertEquals(
 				"(MultiItemFieldItem.field-MultiItemFieldComponentxA is null and" +
 				" MultiItemFieldItem.field-MultiItemFieldComponentxB is null)",
-				MultiItemFieldItem.field.equal(null).toString());
+				MultiItemFieldItem.field.is(null).toString());
 	}
 
-	@Test void testEqualConditionInvalidClass()
+	@Test void testIsConditionInvalidClass()
 	{
 		final MultiItemFieldComponentxC invalid = new MultiItemFieldComponentxC();
-		assertEquals(Condition.ofFalse(), MultiItemFieldItem.field.equal(invalid));
+		assertEquals(Condition.ofFalse(), MultiItemFieldItem.field.is(invalid));
 	}
 
 	@Test void testGet()
