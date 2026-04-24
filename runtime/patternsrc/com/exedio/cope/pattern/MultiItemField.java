@@ -397,14 +397,12 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	{
 		if(value == null)
 			return isNull();
-		for(final ItemField<?> component : components)
-		{
-			if(component.getValueClass().isInstance(value))
-			{
-				return component.isCasted(value);
-			}
-		}
-		return Condition.ofFalse();
+
+		final ItemField<?> component = componentByValue(value);
+		return
+				component!=null
+				? component.isCasted(value)
+				: Condition.ofFalse();
 	}
 
 	@Override
