@@ -258,6 +258,13 @@ public class MultiItemFieldTest extends TestWithEnvironment
 				NullPointerException.class,
 				"cannot search uniquely for null on MultiItemFieldItem.uniqueField");
 
+		final var type = MultiItemFieldItem.TYPE;
+		assertEquals(item1, type.searchSingleton(MultiItemFieldItem.uniqueField.is(value1)));
+		assertEquals(item2, type.searchSingleton(MultiItemFieldItem.uniqueField.is(value2)));
+		assertEquals(null, type.searchSingleton(MultiItemFieldItem.uniqueField.is(value3)));
+		assertEquals(null, type.searchSingleton(MultiItemFieldItem.uniqueField.is(valueNotStoreable)));
+		assertEquals(null, type.searchSingleton(MultiItemFieldItem.uniqueField.is(null)));
+
 		assertEquals(item1, MultiItemFieldItem.forUniqueFieldStrict(value1));
 		assertEquals(item2, MultiItemFieldItem.forUniqueFieldStrict(value2));
 		assertFails(
