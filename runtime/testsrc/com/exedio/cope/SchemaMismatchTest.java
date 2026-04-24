@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
 import static com.exedio.dsmf.TableTest.getError;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -198,7 +199,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 			return plain;
 
 		// insert trailTable before the first unused table, or append to the end if there is no unused table
-		final Table trailTable = schema.getTable("VaultTrail_default");
+		final Table trailTable = schema.getTable(getVaultTrailTableName(model, "default"));
 		assertNotNull(trailTable);
 		final ArrayList<Table> withTrail = new ArrayList<>();
 		boolean done = false;

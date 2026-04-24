@@ -1,5 +1,6 @@
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -479,7 +480,7 @@ class ItemModificationTest extends TestWithEnvironment
 										final long durationRead,
 										final long durationClose)
 		{
-			final String trailTab = SchemaInfo.quoteName(model, "VaultTrail_default");
+			final String trailTab = SchemaInfo.quoteName(model, getVaultTrailTableName(model, "default"));
 			if (sql.startsWith("MERGE INTO " + trailTab)
 					|| sql.startsWith("INSERT INTO " + trailTab))
 				return;
