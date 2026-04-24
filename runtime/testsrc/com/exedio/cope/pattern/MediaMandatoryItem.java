@@ -35,6 +35,7 @@ public final class MediaMandatoryItem extends Item
 	static final StringField name = new StringField().optional();
 
 	@Wrapper(wrap="getURL", visibility=NONE)
+	@Wrapper(wrap="set", parameters={File.class,String.class}, suppressWarnings="DeprecatedIsStillUsed") // OK: testing deprecated api
 	static final Media file = new Media().lengthMax(20);
 
 	/**
@@ -255,7 +256,7 @@ public final class MediaMandatoryItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"DeprecatedIsStillUsed","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@java.lang.Deprecated
 	void setFile(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws

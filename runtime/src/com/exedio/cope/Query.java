@@ -446,7 +446,7 @@ public final class Query<R> implements Serializable
 	 * Use {@link #setOrderByAndThis(Function,boolean)})} instead,
 	 * any non-Function will cause this method to fail.
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public void setOrderByAndThis(final Selectable<?> orderBy, final boolean ascending)
 	{
 		setOrderByAndThis(function(orderBy, "orderBy"), ascending);
@@ -503,7 +503,7 @@ public final class Query<R> implements Serializable
 	 * Use {@link #addOrderBy(Function)})} instead,
 	 * any non-Function will cause this method to fail.
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public void addOrderBy(final Selectable<?> orderBy)
 	{
 		addOrderBy(function(orderBy, "orderBy"));
@@ -519,7 +519,7 @@ public final class Query<R> implements Serializable
 	 * Use {@link #addOrderByDescending(Function)})} instead,
 	 * any non-Function will cause this method to fail.
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public void addOrderByDescending(final Selectable<?> orderBy)
 	{
 		addOrderByDescending(function(orderBy, "orderBy"));
@@ -535,7 +535,7 @@ public final class Query<R> implements Serializable
 	 * Use {@link #addOrderBy(Function,boolean)})} instead,
 	 * any non-Function will cause this method to fail.
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public void addOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
 		addOrderBy(function(orderBy, "orderBy"), ascending);

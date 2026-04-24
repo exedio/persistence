@@ -53,7 +53,7 @@ public class ConnectPropertiesFactoryTest
 		assertIt(false, 60, 60, true, "while", "protected", "media/", Factory::redundantUnq);
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	@Test void testPrimaryKeyGeneratorSequence()
 	{
 		assertSame(FACTORY, FACTORY.primaryKeyGeneratorSequence());

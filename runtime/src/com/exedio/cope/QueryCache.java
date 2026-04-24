@@ -316,7 +316,7 @@ final class QueryCache
 	/**
 	 * @deprecated for unit tests only
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: for unit tests only
 	void clearStamps()
 	{
 		if(stampList==null)

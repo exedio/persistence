@@ -267,10 +267,14 @@ public final class MediaGzipTest extends TestWithEnvironment
 	private static final class AnItem extends Item
 	{
 		@Wrapper(wrap={"getBody","getLength","set"}, visibility=PACKAGE)
+		@Wrapper(wrap="getBody", parameters=File.class, suppressWarnings="DeprecatedIsStillUsed") // OK: testing deprecated api
+		@Wrapper(wrap="set", parameters={File.class,String.class}, suppressWarnings="DeprecatedIsStillUsed") // OK: testing deprecated api
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media gzipped = new Media().optional().gzip();
 
 		@Wrapper(wrap={"getBody","getLength","set"}, visibility=PACKAGE)
+		@Wrapper(wrap="getBody", parameters=File.class, suppressWarnings="DeprecatedIsStillUsed") // OK: testing deprecated api
+		@Wrapper(wrap="set", parameters={File.class,String.class}, suppressWarnings="DeprecatedIsStillUsed") // OK: testing deprecated api
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media identity = new Media().optional();
 
@@ -328,7 +332,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		}
 
 		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.SuppressWarnings({"DeprecatedIsStillUsed","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@java.lang.Deprecated
 		void getGzippedBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
@@ -372,7 +376,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		}
 
 		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.SuppressWarnings({"DeprecatedIsStillUsed","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@java.lang.Deprecated
 		void setGzipped(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
@@ -415,7 +419,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		}
 
 		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.SuppressWarnings({"DeprecatedIsStillUsed","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@java.lang.Deprecated
 		void getIdentityBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
@@ -459,7 +463,7 @@ public final class MediaGzipTest extends TestWithEnvironment
 		}
 
 		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@java.lang.SuppressWarnings({"DeprecatedIsStillUsed","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@java.lang.Deprecated
 		void setIdentity(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws

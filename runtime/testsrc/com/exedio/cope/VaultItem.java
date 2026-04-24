@@ -42,6 +42,7 @@ final class VaultItem extends Item
 	@Wrapper(wrap={"get", "getArray", "set"}, visibility=PRIVATE)
 	@Wrapper(wrap="get", parameters=Path.class, visibility=NONE)
 	@Wrapper(wrap="get", parameters=File.class, visibility=NONE)
+	@Wrapper(wrap="set", parameters=File.class, visibility=PRIVATE, suppressWarnings="DeprecatedIsStillUsed") // OK: testing deprecated api
 	static final DataField field = new DataField();
 
 	VaultItem(
@@ -257,7 +258,7 @@ final class VaultItem extends Item
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"DeprecatedIsStillUsed","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@java.lang.Deprecated
 	private void setField(@javax.annotation.Nonnull final java.io.File field)
 			throws

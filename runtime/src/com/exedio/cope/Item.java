@@ -471,7 +471,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	/**
 	 * @deprecated for unit tests only
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: for unit tests only
 	int getUpdateCountIfActive(final Type<?> type)
 	{
 		final Entity entity = getEntityIfActive();
@@ -484,7 +484,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	/**
 	 * @deprecated for unit tests only
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: for unit tests only
 	int getUpdateCountGlobal(final Type<?> type)
 	{
 		final WrittenState state =

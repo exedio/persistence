@@ -296,7 +296,7 @@ public class SetValueTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated API
 	private static <E> SetValue<E> mapAndCastToFeature(final Settable<E> settable, final E value)
 	{
 		return SetValue.mapAndCastToFeature(settable, value);

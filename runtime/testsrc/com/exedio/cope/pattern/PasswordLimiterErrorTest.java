@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class PasswordLimiterErrorTest
 {
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	@Test void testPasswordNull()
 	{
 		assertFails(
@@ -45,7 +45,7 @@ public class PasswordLimiterErrorTest
 				"password");
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	@Test void testPeriodZero()
 	{
 		assertFails(
@@ -68,7 +68,7 @@ public class PasswordLimiterErrorTest
 				"period");
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	@Test void testLimitZero()
 	{
 		assertFails(
@@ -84,7 +84,7 @@ public class PasswordLimiterErrorTest
 				"limit must be greater zero, but was 0");
 	}
 
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Deprecated // OK: testing deprecated API
 	@Test void testMinimum()
 	{
 		final PasswordLimiter l = new PasswordLimiter(password, 1, 1);

@@ -670,7 +670,7 @@ public final class Model implements Serializable
 	/**
 	 * @deprecated Statistics are maintained via {@link io.micrometer.core.instrument.Meter micrometer} instead.
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public QueryCacheInfo getQueryCacheInfo()
 	{
 		return connect().queryCache.getInfo();

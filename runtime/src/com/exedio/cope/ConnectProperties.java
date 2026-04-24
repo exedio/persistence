@@ -58,7 +58,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	/**
 	 * @deprecated Do not use this method anymore
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: for unit tests only
 	public String getConnectionPassword()
 	{
 		return connection.password;

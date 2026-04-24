@@ -98,7 +98,7 @@ final class Entity
 	/**
 	 * @deprecated for unit tests only
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: for unit tests only
 	int getUpdateCount(final Type<?> type)
 	{
 		return state.updateCount.getValue(type);
