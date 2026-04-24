@@ -34,7 +34,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -305,10 +304,13 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			@Nonnull final Class<P> typeClass,
 			@Parameter(doc=Wrap.FOR_PARAM) @Nonnull final E value)
 	{
-		final Type<P> type =
-				requireParentClass(typeClass, "typeClass");
+		requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		return type.searchSingleton(is(value));
+		final ItemField<?> component = componentByValue(value);
+		if(component!=null)
+			return searchUnique(typeClass, component, value);
+		else
+			return null; // consistent to method "is"
 	}
 
 	/**
@@ -326,10 +328,43 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			@Parameter(doc=Wrap.FOR_PARAM) @Nonnull final E value)
 		throws IllegalArgumentException
 	{
-		final Type<P> type =
-				requireParentClass(typeClass, "typeClass");
+		requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		return type.searchSingletonStrict(is(value));
+		final ItemField<?> component = componentByValue(value);
+		if(component!=null)
+			return searchUniqueStrict(typeClass, component, value);
+		else
+			throw new IllegalArgumentException(
+					"expected result of size one, but was empty for unsupported value: >" + value + '<');
+	}
+
+	// This method exists solely to introduce type parameter C for type safety.
+	// Its is actually a workaround for missing type safety in java.
+	private static <P extends Item, C extends Item> P searchUnique(
+			@Nonnull final Class<P> typeClass,
+			@Nonnull final ItemField<C> component,
+			@Nonnull final Object value)
+	{
+		return component.searchUnique(typeClass, component.getValueClass().cast(value));
+	}
+
+	// This method exists solely to introduce type parameter C for type safety.
+	// Its is actually a workaround for missing type safety in java.
+	private static <P extends Item, C extends Item> P searchUniqueStrict(
+			@Nonnull final Class<P> typeClass,
+			@Nonnull final ItemField<C> component,
+			@Nonnull final Object value)
+	{
+		return component.searchUniqueStrict(typeClass, component.getValueClass().cast(value));
+	}
+
+	private ItemField<?> componentByValue(@Nonnull final E value)
+	{
+		for(final ItemField<?> component : components)
+			if(component.getValueClass().isInstance(value))
+				return component;
+
+		return null;
 	}
 
 	public List<ItemField<?>> getComponents()
