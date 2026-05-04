@@ -18,10 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Feature;
+
 @SuppressWarnings({
-		"InterfaceMayBeAnnotatedFunctional", // OK: is to be implemented by Features only
 		"InterfaceNeverImplemented", "RedundantThrows", "unused"}) // TODO there is no implementation of MediaTestable on cope anymore, moved to copeim4java
-public interface MediaTestable
+public interface MediaTestable extends Feature
 {
 	void test() throws Exception;
 }
