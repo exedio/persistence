@@ -19,10 +19,35 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Feature;
+import java.util.List;
+import java.util.concurrent.Callable;
 
 @SuppressWarnings({
-		"InterfaceNeverImplemented", "RedundantThrows", "unused"}) // TODO there is no implementation of MediaTestable on cope anymore, moved to copeim4java
+		"RedundantThrows", "unused"}) // TODO there is no implementation of MediaTestable on cope anymore, moved to copeim4java
 public interface MediaTestable extends Feature
 {
+	/**
+	 * @deprecated Use {@link #getTests()} <u>and</u> {@link Callable#call()} instead.
+	 */
+	@Deprecated
 	void test() throws Exception;
+
+	default List<Callable<?>> getTests()
+	{
+		return List.of(new Callable<>()
+		{
+			@Override
+			public Void call() throws Exception
+			{
+				test();
+				return null;
+			}
+
+			@Override
+			public String toString()
+			{
+				return "all";
+			}
+		});
+	}
 }
