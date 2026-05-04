@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.Feature;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -25,9 +26,8 @@ import java.nio.file.Path;
  * An interface to be implemented by subclasses of {@link MediaFilter}.
  */
 @SuppressWarnings({
-		"InterfaceMayBeAnnotatedFunctional", // OK: is to be implemented by Features only
 		"InterfaceNeverImplemented", "RedundantThrows", "unused"}) // TODO there is no implementation of MediaPreviewable in cope, just in copeim4java
-public interface MediaPreviewable
+public interface MediaPreviewable extends Feature
 {
 	/**
 	 * Filters source content without setting this content at the
