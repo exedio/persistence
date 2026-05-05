@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Condition.replaceTrue;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
@@ -71,6 +72,20 @@ public final class Join implements Serializable
 	public void setCondition(final Condition condition)
 	{
 		this.condition = condition;
+	}
+
+	/**
+	 * If there is already a condition set for this join,
+	 * this is equivalent to
+	 * <code>{@link #setCondition(Condition) setCondition}({@link #getCondition()}.{@link Condition#and(Condition) and}(narrowingCondition))</code>.
+	 * @see Query#narrow(Condition)
+	 */
+	public void narrow(final Condition narrowingCondition)
+	{
+		condition =
+				condition!=null
+				? condition.and(narrowingCondition)
+				: replaceTrue(narrowingCondition);
 	}
 
 	public Condition getCondition()

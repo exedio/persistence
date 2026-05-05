@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Condition.ofFalse;
-import static com.exedio.cope.Condition.ofTrue;
+import static com.exedio.cope.Condition.replaceTrue;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Arrays.asList;
@@ -269,6 +269,7 @@ public final class Query<R> implements Serializable
 	 * If there is already a condition set for this query,
 	 * this is equivalent to
 	 * <code>{@link #setCondition(Condition) setCondition}({@link #getCondition()}.{@link Condition#and(Condition) and}(narrowingCondition))</code>.
+	 * @see Join#narrow(Condition)
 	 */
 	public void narrow(final Condition narrowingCondition)
 	{
@@ -1083,8 +1084,8 @@ public final class Query<R> implements Serializable
 
 	/**
 	 * BEWARE:
-	 * The results of this method also determinates,
-	 * whether to queries are equal for a hit in the query cache.
+	 * The results of this method also determinate,
+	 * whether two queries are equal for a hit in the query cache.
 	 * Do not forget anything !!!
 	 */
 	String toString(final boolean key, final Mode mode)
@@ -1190,11 +1191,6 @@ public final class Query<R> implements Serializable
 				transaction.connect.executor,
 				mode,
 				(StringBuilder)null);
-	}
-
-	private static Condition replaceTrue(final Condition c)
-	{
-		return c==ofTrue() ? null : c;
 	}
 
 	ArrayList<Object> search(
