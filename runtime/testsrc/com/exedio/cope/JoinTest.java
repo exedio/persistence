@@ -25,6 +25,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.testmodel.PointerItem;
@@ -99,6 +100,20 @@ public class JoinTest extends TestmodelTest
 					list("item1a2b", item1b, "item1b"),
 					list("item2a", item1a, "item1a2b"),
 					query.search());
+		}
+		{
+			final Query<?> query = PointerItem.TYPE.newQuery(null);
+			final Join join = query.join(PointerTargetItem.TYPE);
+			assertNull(join.getCondition());
+
+			join.narrow(Condition.ofTrue());
+			assertNull(join.getCondition());
+
+			join.narrow(PointerItem.pointer.isTarget());
+			assertEquals(PointerItem.pointer.isTarget(), join.getCondition());
+
+			join.narrow(PointerItem.code.isNotNull());
+			assertEquals(PointerItem.pointer.isTarget().and(PointerItem.code.isNotNull()), join.getCondition());
 		}
 	}
 }

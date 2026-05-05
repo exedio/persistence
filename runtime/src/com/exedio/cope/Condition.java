@@ -233,6 +233,11 @@ public abstract class Condition implements Serializable
 		return of(value);
 	}
 
+	static Condition replaceTrue(final Condition c)
+	{
+		return c==ofTrue() ? null : c;
+	}
+
 	@Override
 	public abstract boolean equals(Object o);
 	@Override
