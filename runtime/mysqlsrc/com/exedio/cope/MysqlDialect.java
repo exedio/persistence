@@ -32,6 +32,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -90,6 +91,7 @@ final class MysqlDialect extends Dialect
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
 	private final String schemaSavepointSQL;
+	private final boolean version9;
 
 	MysqlDialect(
 			final CopeProbe probe,
@@ -114,6 +116,10 @@ final class MysqlDialect extends Dialect
 		schemaSavepointSQL = env.isDatabaseVersionAtLeast(8, 4)
 			? "SHOW BINARY LOG STATUS"
 			: "SHOW MASTER STATUS";
+
+		version9 = env.isDatabaseVersionAtLeast(9, 0);
+		if(version9)
+			env.requireDatabaseVersionAtLeast("MySQL", 9, 7); // do not support version 9.0 to 9.6
 
 		assertDriverVersion(env);
 	}
@@ -326,7 +332,10 @@ final class MysqlDialect extends Dialect
 	@Override
 	String[] getBlobHashAlgorithms()
 	{
-		return new String[]{HASH_MD5, HASH_SHA1, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512};
+		return
+				Arrays.stream(new String[]{HASH_MD5, HASH_SHA1, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512}).
+				filter(this::supportsBlobHashAlgorithmInVersion).
+				toArray(String[]::new);
 	}
 
 	@Override
@@ -334,6 +343,12 @@ final class MysqlDialect extends Dialect
 			final Statement st, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
+		if(!supportsBlobHashAlgorithmInVersion(algorithm))
+		{
+			super.appendBlobHash(st, column, join, algorithm);
+			return;
+		}
+
 		switch(algorithm)
 		{
 			case HASH_MD5    -> st.append("MD5(" ).append(column, join).append(')');
@@ -345,6 +360,19 @@ final class MysqlDialect extends Dialect
 			default ->
 				super.appendBlobHash(st, column, join, algorithm);
 		}
+	}
+
+	private boolean supportsBlobHashAlgorithmInVersion(final String algorithm)
+	{
+		// https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-6-0.html#mysqld-9-6-0-security
+		// https://dev.mysql.com/doc/refman/9.7/en/legacy-hashing-component.html
+		return
+				!version9 ||
+				switch(algorithm)
+				{
+					case HASH_MD5, HASH_SHA1 -> false;
+					default -> true;
+				};
 	}
 
 	@Override

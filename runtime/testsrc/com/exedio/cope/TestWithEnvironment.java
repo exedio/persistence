@@ -331,6 +331,11 @@ public abstract class TestWithEnvironment
 		return dbAtLeastMysql(8, 0);
 	}
 
+	protected final boolean atLeastMysql9()
+	{
+		return dbAtLeastMysql(9, 0);
+	}
+
 	protected final String dbCat()
 	{
 		return envInfo().getCatalog();
