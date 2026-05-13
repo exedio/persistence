@@ -33,6 +33,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
 import org.opentest4j.TestAbortedException;
@@ -68,6 +69,8 @@ public class SupportsTest extends TestWithEnvironment
 				databaseProductName = "MySQL";
 				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
+				if(atLeastMysql9())
+					dataHashAlgorithms.removeAll(List.of("MD5", "SHA-1"));
 			}
 			case postgresql ->
 			{

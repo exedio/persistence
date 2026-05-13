@@ -22,6 +22,8 @@ String databaseMysql80 = '8.0.36'
 @Field
 String databaseMysql84 = '8.4.8'
 @Field
+String databaseMysql97 = '9.7.0'
+@Field
 String databasePostgresql = '17.7'
 
 boolean isRelease = env.BRANCH_NAME=="master"
@@ -307,6 +309,7 @@ try
 		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       'MASTER', /\\p{XDigit}{12}-bin/)
 		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'MASTER',     'binlog')
 		branchMysql(parallelBranches, '84', databaseMysql84, 'my80.cnf', '/var/lib/mysql-files', 'BINARY LOG', 'binlog')
+		branchMysql(parallelBranches, '97', databaseMysql97, 'my80.cnf', '/var/lib/mysql-files', 'BINARY LOG', 'binlog')
 	}
 
 	if(branchConsidersDatabase("Mysql"))
