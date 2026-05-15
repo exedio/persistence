@@ -752,6 +752,7 @@ void branchMysql(
 				binlogSql, binlogName,
 				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n' +
+				(code!='97' ? 'dialect.legacyHashesAllowed=true\n' : '') +
 				'schema.redundantUnq=true\n'
 			)
 			envMysql(
@@ -813,6 +814,7 @@ void branchMysql(
 				binlogSql, binlogName,
 				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n' +
+				(code!='97' ? 'dialect.legacyHashesAllowed=true\n' : '') +
 				'schema.redundantUnq=true\n'
 			)
 			envMysql(
