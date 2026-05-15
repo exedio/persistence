@@ -52,6 +52,7 @@ public class SupportsTest extends TestWithEnvironment
 
 		final String databaseProductName;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
+		final var legacyHashAlgorithms = List.of("MD5", "SHA-1");
 		boolean checkConstraint = true;
 		boolean uniqueViolation = false;
 
@@ -70,7 +71,7 @@ public class SupportsTest extends TestWithEnvironment
 				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
 				if(!(Boolean)props.getField("dialect.legacyHashesAllowed").get())
-					dataHashAlgorithms.removeAll(List.of("MD5", "SHA-1"));
+					dataHashAlgorithms.removeAll(legacyHashAlgorithms);
 			}
 			case postgresql ->
 			{
@@ -78,7 +79,7 @@ public class SupportsTest extends TestWithEnvironment
 				if(props.getField("dialect.pgcryptoSchema").get().equals("<disabled>"))
 					dataHashAlgorithms.clear();
 				else
-					dataHashAlgorithms.removeAll(List.of("MD5", "SHA-1"));
+					dataHashAlgorithms.removeAll(legacyHashAlgorithms);
 			}
 			default ->
 				throw new AssertionFailedError(dialect.name());
