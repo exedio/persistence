@@ -76,7 +76,9 @@ public class SupportsTest extends TestWithEnvironment
 			{
 				databaseProductName = "PostgreSQL";
 				if(model.getConnectProperties().getField("dialect.pgcryptoSchema").get().equals("<disabled>"))
-					dataHashAlgorithms.retainAll(asList("MD5"));
+					dataHashAlgorithms.clear();
+				else
+					dataHashAlgorithms.removeAll(List.of("MD5", "SHA-1"));
 			}
 			default ->
 				throw new AssertionFailedError(dialect.name());
