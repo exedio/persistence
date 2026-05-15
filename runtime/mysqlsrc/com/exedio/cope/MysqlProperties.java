@@ -45,6 +45,8 @@ final class MysqlProperties extends Properties
 	// schema
 	final MysqlRowFormat rowFormat = value("rowFormat", MysqlRowFormat.NONE);
 
+	final boolean legacyHashesAllowed = value("legacyHashesAllowed", false);
+
 	/**
 	 * Limits how many rows are purged from sequence tables at once.
 	 * Avoids long write locks on sequence tables.

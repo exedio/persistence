@@ -69,7 +69,7 @@ public class SupportsTest extends TestWithEnvironment
 				databaseProductName = "MySQL";
 				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
-				if(atLeastMysql9())
+				if(!(Boolean)props.getField("dialect.legacyHashesAllowed").get())
 					dataHashAlgorithms.removeAll(List.of("MD5", "SHA-1"));
 			}
 			case postgresql ->

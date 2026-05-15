@@ -91,7 +91,7 @@ final class MysqlDialect extends Dialect
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
 	private final String schemaSavepointSQL;
-	private final boolean version9;
+	private final boolean legacyHashesAllowed;
 
 	MysqlDialect(
 			final CopeProbe probe,
@@ -117,9 +117,15 @@ final class MysqlDialect extends Dialect
 			? "SHOW BINARY LOG STATUS"
 			: "SHOW MASTER STATUS";
 
-		version9 = env.isDatabaseVersionAtLeast(9, 0);
+		final boolean version9 = env.isDatabaseVersionAtLeast(9, 0);
 		if(version9)
 			env.requireDatabaseVersionAtLeast("MySQL", 9, 7); // do not support version 9.0 to 9.6
+
+		legacyHashesAllowed = properties.legacyHashesAllowed;
+		if(legacyHashesAllowed && version9)
+			throw new IllegalArgumentException(
+					"legacyHashesAllowed is forbidden on MySQL 9 and later: " +
+					env.getDatabaseVersionDescription());
 
 		assertDriverVersion(env);
 	}
@@ -334,7 +340,7 @@ final class MysqlDialect extends Dialect
 	{
 		return
 				Arrays.stream(new String[]{HASH_MD5, HASH_SHA1, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512}).
-				filter(this::supportsBlobHashAlgorithmInVersion).
+				filter(this::supportsBlobHashAlgorithmByProperties).
 				toArray(String[]::new);
 	}
 
@@ -343,7 +349,7 @@ final class MysqlDialect extends Dialect
 			final Statement st, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
-		if(!supportsBlobHashAlgorithmInVersion(algorithm))
+		if(!supportsBlobHashAlgorithmByProperties(algorithm))
 		{
 			super.appendBlobHash(st, column, join, algorithm);
 			return;
@@ -362,12 +368,12 @@ final class MysqlDialect extends Dialect
 		}
 	}
 
-	private boolean supportsBlobHashAlgorithmInVersion(final String algorithm)
+	private boolean supportsBlobHashAlgorithmByProperties(final String algorithm)
 	{
 		// https://dev.mysql.com/doc/relnotes/mysql/9.7/en/news-9-6-0.html#mysqld-9-6-0-security
 		// https://dev.mysql.com/doc/refman/9.7/en/legacy-hashing-component.html
 		return
-				!version9 ||
+				legacyHashesAllowed ||
 				switch(algorithm)
 				{
 					case HASH_MD5, HASH_SHA1 -> false;
