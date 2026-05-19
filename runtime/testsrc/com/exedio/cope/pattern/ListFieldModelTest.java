@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
 
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import org.junit.jupiter.api.Test;
@@ -63,5 +64,62 @@ public class ListFieldModelTest
 				() -> ListField.create(element),
 				IllegalArgumentException.class,
 				"element must not be unique");
+	}
+	@Test void customEntryFeatureNameCollision()
+	{
+		final ListField<?> listField = ListField.create(new IntegerField()).
+				customEntryFeature("collide", new IntegerField());
+		assertFails(
+				() -> listField.customEntryFeature("collide", new StringField()),
+				IllegalArgumentException.class,
+				"there is already a custom entry feature named 'collide'"
+		);
+	}
+	@Test void customEntryFeatureNameReserved()
+	{
+		final ListField<?> listField = ListField.create(new IntegerField());
+		assertFails(
+				() -> listField.customEntryFeature("parent", new StringField()),
+				IllegalArgumentException.class,
+				"invalid name 'parent'"
+		);
+		assertFails(
+				() -> listField.customEntryFeature("order", new StringField()),
+				IllegalArgumentException.class,
+				"invalid name 'order'"
+		);
+		assertFails(
+				() -> listField.customEntryFeature("uniqueConstraint", new StringField()),
+				IllegalArgumentException.class,
+				"invalid name 'uniqueConstraint'"
+		);
+		assertFails(
+				() -> listField.customEntryFeature("entries", new StringField()),
+				IllegalArgumentException.class,
+				"invalid name 'entries'"
+		);
+		assertFails(
+				() -> listField.customEntryFeature("element", new StringField()),
+				IllegalArgumentException.class,
+				"invalid name 'element'"
+		);
+	}
+	@Test void customEntryFeatureNull()
+	{
+		final ListField<?> listField = ListField.create(new IntegerField());
+		assertFails(
+				() -> listField.customEntryFeature("custom", null),
+				NullPointerException.class,
+				"feature"
+		);
+	}
+	@Test void customEntryFeatureNameNull()
+	{
+		final ListField<?> listField = ListField.create(new IntegerField());
+		assertFails(
+				() -> listField.customEntryFeature(null, new IntegerField()),
+				NullPointerException.class,
+				"name"
+		);
 	}
 }

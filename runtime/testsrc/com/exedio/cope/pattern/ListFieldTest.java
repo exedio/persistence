@@ -31,6 +31,7 @@ import static com.exedio.cope.pattern.ListFieldItem.itemsSameValue;
 import static com.exedio.cope.pattern.ListFieldItem.itemsSameValueParent;
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
+import static com.exedio.cope.pattern.ListFieldItem.stringsWithCustom;
 import static com.exedio.cope.pattern.ListFieldItem.value;
 import static com.exedio.cope.pattern.ListFieldModelTest.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertContains;
@@ -47,6 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyViolationException;
+import com.exedio.cope.DateField;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -89,6 +91,9 @@ public class ListFieldTest extends TestWithEnvironment
 		final Type<?> datesType = dates.getEntryType();
 		final Type<?> itemsType = items.getEntryType();
 		final Type<?> itemsSameValueType = itemsSameValue.getEntryType();
+		final Type<?> stringsWithCustomType = stringsWithCustom.getEntryType();
+		final ListField<?> customList = (ListField<?>) stringsWithCustomType.getFeature("customList");
+		final Type<?> customListType = customList.getEntryType();
 		final IntegerField stringsOrder = strings.getOrder();
 		final FunctionField<String> stringsElement = strings.getElement();
 
@@ -98,14 +103,18 @@ public class ListFieldTest extends TestWithEnvironment
 				stringsType,
 				datesType,
 				itemsType,
-				itemsSameValueType
+				itemsSameValueType,
+				stringsWithCustomType,
+				customListType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
 				TYPE,
 				stringsType,
 				datesType,
 				itemsType,
-				itemsSameValueType
+				itemsSameValueType,
+				stringsWithCustomType,
+				customListType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(ListFieldItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
@@ -117,7 +126,8 @@ public class ListFieldTest extends TestWithEnvironment
 				strings,
 				dates,
 				items,
-				itemsSameValue
+				itemsSameValue,
+				stringsWithCustom
 			), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				stringsType.getThis(),
@@ -154,6 +164,18 @@ public class ListFieldTest extends TestWithEnvironment
 				copyParent,
 				copyElement
 			), itemsSameValueType.getFeatures());
+		final DateField customDateField = (DateField) stringsWithCustomType.getDeclaredFeature("customDate");
+		assertSame(ListFieldItem.customDate, customDateField);
+		assertEqualsUnmodifiable(list(
+				stringsWithCustomType.getThis(),
+				stringsWithCustom.getParent(),
+				stringsWithCustom.getOrder(),
+				stringsWithCustom.getUniqueConstraint(),
+				stringsWithCustom.getEntries(),
+				stringsWithCustom.getElement(),
+				customDateField,
+				customList
+			), stringsWithCustomType.getFeatures());
 
 		assertEquals(TYPE, strings.getType());
 		assertEquals("strings", strings.getName());
@@ -640,5 +662,12 @@ public class ListFieldTest extends TestWithEnvironment
 	@Test void testCopyWithTemplates()
 	{
 		assertEquals(singletonList(value), itemsSameValue.getCopyWithTemplateFields());
+	}
+
+	@Test void testCustomModel()
+	{
+		final Type<?> stringsWithCustomType = stringsWithCustom.getEntryType();
+		final DateField customDateField = (DateField) stringsWithCustomType.getDeclaredFeature("customDate");
+		assertEquals(false, customDateField.isMandatory());
 	}
 }
