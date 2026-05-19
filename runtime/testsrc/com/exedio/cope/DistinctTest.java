@@ -27,6 +27,8 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.Query.Mode;
+import com.exedio.cope.tojunit.SI;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,11 +54,37 @@ public class DistinctTest extends TestWithEnvironment
 	@Test void testDistinctSingle()
 	{
 		final Query<Integer> q = new Query<>(numB, TYPE, null);
+		assertEquals("select numB from PlusIntegerItem", q.toString(true, Mode.SEARCH));
+		assertEquals("select count(*) from PlusIntegerItem", q.toString(true, Mode.TOTAL));
+		assertEquals("select exists( select count(*) from PlusIntegerItem )", q.toString(true, Mode.EXISTS));
+		assertEquals("SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE), SchemaInfo.search(q));
+		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), SchemaInfo.total(q));
+		assertEquals(
+				switch(dialect) {
+					case hsqldb ->     "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1)";
+					case mysql ->      "SELECT EXISTS (SELECT "        + SI.col(numB) + " FROM " + SI.tab(TYPE) + ") AS cope_exists";
+					case postgresql -> "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1) AS cope_exists";
+				},
+				SchemaInfo.exists(q));
+
 		assertContains(2, 3, 4, 4, 4, q.search());
 		assertEquals(5, q.total());
 		assertTrue(q.exists());
 
 		q.setDistinct(true);
+		assertEquals("select distinct numB from PlusIntegerItem", q.toString(true, Mode.SEARCH));
+		assertEquals("select distinct count(*) from PlusIntegerItem", q.toString(true, Mode.TOTAL)); // TODO bug: must mention numB, causes wrong hits in query cache
+		assertEquals("select exists( select count(*) from PlusIntegerItem )", q.toString(true, Mode.EXISTS));
+		assertEquals("SELECT DISTINCT " + SI.col(numB) + " FROM " + SI.tab(TYPE), SchemaInfo.search(q));
+		assertEquals("SELECT COUNT(*) FROM ( SELECT DISTINCT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " )" + (hsqldb?"":" AS cope_total_distinct"), SchemaInfo.total(q));
+		assertEquals(
+				switch(dialect) {
+					case hsqldb ->     "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1)";
+					case mysql ->      "SELECT EXISTS (SELECT "        + SI.col(numB) + " FROM " + SI.tab(TYPE) + ") AS cope_exists";
+					case postgresql -> "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1) AS cope_exists";
+				},
+				SchemaInfo.exists(q));
+
 		assertContains(2, 3, 4, q.search());
 		assertEquals(3, q.total());
 		assertTrue(q.exists());
