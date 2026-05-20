@@ -61,8 +61,8 @@ public class DistinctTest extends TestWithEnvironment
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), SchemaInfo.total(q));
 		assertEquals(
 				switch(dialect) {
-					case hsqldb ->     "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1)";
-					case mysql ->      "SELECT EXISTS (SELECT "        + SI.col(numB) + " FROM " + SI.tab(TYPE) + ") AS cope_exists";
+					case hsqldb     -> "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1)";
+					case mysql      -> "SELECT EXISTS " +   "(SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) +         ") AS cope_exists";
 					case postgresql -> "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1) AS cope_exists";
 				},
 				SchemaInfo.exists(q));
@@ -79,8 +79,8 @@ public class DistinctTest extends TestWithEnvironment
 		assertEquals("SELECT COUNT(*) FROM ( SELECT DISTINCT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " )" + (hsqldb?"":" AS cope_total_distinct"), SchemaInfo.total(q));
 		assertEquals(
 				switch(dialect) {
-					case hsqldb ->     "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1)";
-					case mysql ->      "SELECT EXISTS (SELECT "        + SI.col(numB) + " FROM " + SI.tab(TYPE) + ") AS cope_exists";
+					case hsqldb     -> "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1)";
+					case mysql      -> "SELECT EXISTS " +   "(SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) +         ") AS cope_exists";
 					case postgresql -> "SELECT COUNT(*) FROM (SELECT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " LIMIT 1) AS cope_exists";
 				},
 				SchemaInfo.exists(q));
