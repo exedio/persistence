@@ -73,7 +73,7 @@ public class DistinctTest extends TestWithEnvironment
 
 		q.setDistinct(true);
 		assertEquals("select distinct numB from PlusIntegerItem", q.toString(true, Mode.SEARCH));
-		assertEquals("select distinct count(*) from PlusIntegerItem", q.toString(true, Mode.TOTAL)); // TODO bug: must mention numB, causes wrong hits in query cache
+		assertEquals("select count distinct numB from PlusIntegerItem", q.toString(true, Mode.TOTAL));
 		assertEquals("select exists( select count(*) from PlusIntegerItem )", q.toString(true, Mode.EXISTS));
 		assertEquals("SELECT DISTINCT " + SI.col(numB) + " FROM " + SI.tab(TYPE), SchemaInfo.search(q));
 		assertEquals("SELECT COUNT(*) FROM ( SELECT DISTINCT " + SI.col(numB) + " FROM " + SI.tab(TYPE) + " )" + (hsqldb?"":" AS cope_total_distinct"), SchemaInfo.total(q));
