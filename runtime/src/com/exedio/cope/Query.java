@@ -1099,9 +1099,14 @@ public final class Query<R> implements Serializable
 			sb.append("exists( select ");
 
 		if(distinct && !mode.isExists())
-			sb.append("distinct ");
+		{
+			if(mode.isTotal())
+				sb.append("count ");
 
-		if(!mode.isSearch())
+			sb.append("distinct ");
+		}
+
+		if(mode.isExists() || (mode.isTotal() && !distinct))
 		{
 			sb.append("count(*)");
 		}
