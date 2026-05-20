@@ -40,12 +40,12 @@ public class DistinctTest extends TestWithEnvironment
 		super(PlusIntegerTest.MODEL);
 	}
 
-	PlusIntegerItem item1, item5;
+	PlusIntegerItem item1, item2, item5;
 
 	@BeforeEach final void setUp()
 	{
 		item1 = new PlusIntegerItem(1, 2, 0);
-		        new PlusIntegerItem(1, 3, 0);
+		item2 = new PlusIntegerItem(1, 3, 0);
 		        new PlusIntegerItem(1, 4, 0);
 		        new PlusIntegerItem(1, 4, 0);
 		item5 = new PlusIntegerItem(2, 4, 0);
@@ -109,6 +109,17 @@ public class DistinctTest extends TestWithEnvironment
 		q.setDistinct(true);
 		assertContains(null, 3, 4, q.search());
 		assertEquals(3, q.total());
+		assertTrue(q.exists());
+
+		item2.setNumB(null);
+		q.setDistinct(false);
+		assertContains(null, null, 4, 4, null, q.search());
+		assertEquals(5, q.total());
+		assertTrue(q.exists());
+
+		q.setDistinct(true);
+		assertContains(null, 4, q.search());
+		assertEquals(2, q.total());
 		assertTrue(q.exists());
 	}
 
