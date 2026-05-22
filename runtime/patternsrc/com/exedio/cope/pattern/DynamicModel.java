@@ -56,13 +56,13 @@ public final class DynamicModel<L> extends Pattern
 	final StringField typeCode = new StringField().toFinal().unique();
 	final MapField<L, String> typeLocalization;
 
-	final IntegerField fieldPosition = new IntegerField().toFinal();
+	final IntegerField fieldPosition = new IntegerField().min(0).toFinal();
 	final EnumField<ValueType> fieldValueType = EnumField.create(ValueType.class).toFinal();
 	final IntegerField fieldPositionPerValueType;
 	final StringField fieldCode = new StringField().toFinal();
 	final MapField<L, String> fieldLocalization;
 
-	final IntegerField enumPosition = new IntegerField().toFinal();
+	final IntegerField enumPosition = new IntegerField().min(0).toFinal();
 	final StringField enumCode = new StringField().toFinal();
 	final MapField<L, String> enumLocalization;
 
