@@ -440,8 +440,8 @@ public final class Schedule extends Pattern
 	private static final class Runs
 	{
 		final EnumField<Interval> interval = EnumField.create(Interval.class).toFinal();
-		final DateField from = new DateField().toFinal();
-		final DateField until = new DateField().toFinal();
+		final DateField from  = new DateField().toFinal().precisionHour();
+		final DateField until = new DateField().toFinal().precisionHour();
 		final DateField run = new DateField().toFinal();
 		final IntegerField progress = new IntegerField().toFinal().min(0);
 		final LongField elapsed = new LongField().toFinal().min(0);
