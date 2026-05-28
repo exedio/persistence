@@ -75,6 +75,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		new MyItem(888, MyEnum.delta, 777, MyEnum.delta, date(of(2020, MAY, 8, 22, 23, 44, 0)));
 		model.commit();
 
+		final boolean nativeDate = SchemaInfo.supportsNativeDate(model);
 		final String SQL =
 				"SELECT * FROM " + SI.view(MyItem.TYPE) + " " +
 				"ORDER BY " + SI.pk(MyItem.TYPE);
@@ -84,12 +85,14 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 				() -> connection.execute(SQL));
 
 
-		assumeTrue(mysql || postgresql&&SchemaInfo.supportsNativeDate(model), "!hsqldb"); // TODO hsqldb as well, amend SchemaViewTest
+		assumeTrue(mysql || postgresql&&nativeDate, "!hsqldb"); // TODO hsqldb as well, amend SchemaViewTest
 		sv.create();
 		if(mysql)
 			connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
-		final String nnd = mariaDriver ? "000" : SchemaInfo.supportsNativeDate(model) ? "" : "0";
+		final String nnd = mariaDriver ? "000" : nativeDate ? "" : "0";
 		final String intType = postgresql ? "int4" : mariaDriver ? "INTEGER" : "INT";
+		final String stringType = postgresql ? "text" : "VARCHAR";
+		final String dateType = postgresql ? "timestamp" : "DATETIME";
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
 			{
@@ -103,10 +106,10 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 						() -> assertEquals("date",     md.getColumnName(6)),
 						() -> assertEquals(intType,    md.getColumnTypeName(1), "this"),
 						() -> assertEquals(intType,    md.getColumnTypeName(2), "supPlain"),
-						() -> assertEquals(postgresql?"text":"VARCHAR", md.getColumnTypeName(3), "supEnum"),
+						() -> assertEquals(stringType, md.getColumnTypeName(3), "supEnum"),
 						() -> assertEquals(intType,    md.getColumnTypeName(4), "plain"),
-						() -> assertEquals(postgresql?"text":"VARCHAR", md.getColumnTypeName(5), "enum"),
-						() -> assertEquals(postgresql?"timestamp":"DATETIME", md.getColumnTypeName(6), "date"),
+						() -> assertEquals(stringType, md.getColumnTypeName(5), "enum"),
+						() -> assertEquals(dateType,   md.getColumnTypeName(6), "date"),
 						() -> assertEquals(6,          md.getColumnCount()));
 			}
 
@@ -128,7 +131,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 					"2020-05-08 21:23:44.1" + (postgresql?"":"00"+nnd), rs);
 			assertResult(
 					"5", "888", "delta", "777", "delta",
-					"2020-05-08 22:23:44" + (!mariaDriver ? "" : (".000"+(SchemaInfo.supportsNativeDate(model)?"":"0"))), rs);
+					"2020-05-08 22:23:44" + (!mariaDriver ? "" : (".000"+(nativeDate?"":"0"))), rs);
 
 			assertFalse(rs.next());
 		}
