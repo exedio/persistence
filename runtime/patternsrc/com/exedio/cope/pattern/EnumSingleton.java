@@ -58,6 +58,9 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 		return new EnumSingleton<>(valueClass, true);
 	}
 
+	/**
+	 * @see Singleton#getOnce()
+	 */
 	public EnumField<E> getOnce()
 	{
 		return once;
