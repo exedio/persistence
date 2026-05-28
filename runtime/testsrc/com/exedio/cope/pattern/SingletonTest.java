@@ -60,8 +60,8 @@ public class SingletonTest extends TestWithEnvironment
 				integer55,
 				booleanField,
 				einzigartig,
-				einzigartig.getSource(),
-				einzigartig.getSource().getImplicitUniqueConstraint(),
+				einzigartig.getOnce(),
+				einzigartig.getOnce().getImplicitUniqueConstraint(),
 			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -69,24 +69,24 @@ public class SingletonTest extends TestWithEnvironment
 				integer55,
 				booleanField,
 				einzigartig,
-				einzigartig.getSource(),
-				einzigartig.getSource().getImplicitUniqueConstraint(),
+				einzigartig.getOnce(),
+				einzigartig.getOnce().getImplicitUniqueConstraint(),
 			}), TYPE.getDeclaredFeatures());
 
-		assertEquals(TYPE, einzigartig.getSource().getType());
+		assertEquals(TYPE, einzigartig.getOnce().getType());
 		assertEquals(TYPE, einzigartig.getType());
-		assertEquals("einzigartig-once",einzigartig.getSource().getName());
+		assertEquals("einzigartig-once",einzigartig.getOnce().getName());
 		assertEquals("einzigartig",     einzigartig.getName());
 
-		assertEquals(einzigartig, einzigartig.getSource().getPattern());
+		assertEquals(einzigartig, einzigartig.getOnce().getPattern());
 
 		assertFalse(einzigartig.            isAnnotationPresent(Computed.class));
-		assertTrue (einzigartig.getSource().isAnnotationPresent(Computed.class));
+		assertTrue (einzigartig.getOnce().  isAnnotationPresent(Computed.class));
 
 		assertSerializedSame(einzigartig, 395);
 
 		// test persistence
-		assertEquals("einzigartig_once", SchemaInfo.getColumnName(einzigartig.getSource()));
+		assertEquals("einzigartig_once", SchemaInfo.getColumnName(einzigartig.getOnce()));
 
 		assertEquals(list(), TYPE.search());
 

@@ -46,7 +46,19 @@ public final class Singleton extends Pattern
 		addSourceFeature(source, "once", ComputedElement.get());
 	}
 
+	/**
+	 * @deprecated Use {@link #getOnce()} instead.
+	 */
+	@Deprecated
 	public IntegerField getSource()
+	{
+		return getOnce();
+	}
+
+	/**
+	 * @see EnumSingleton#getOnce()
+	 */
+	public IntegerField getOnce()
 	{
 		return source;
 	}
