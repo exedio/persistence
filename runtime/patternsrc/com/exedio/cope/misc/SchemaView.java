@@ -68,13 +68,12 @@ public final class SchemaView
 					for(final Field<?> field : superType.getDeclaredFields())
 					{
 						sb.append(',');
-						if(field instanceof EnumField)
+						if(field instanceof final EnumField<?> enumField)
 						{
 							sb.append("CASE ").
 								append(table(superType)).append('.').append(column(field));
 
-							//noinspection OverlyStrongTypeCast bug in inspection
-							for(final Enum<?> v : ((EnumField<?>)field).getValueClass().getEnumConstants())
+							for(final Enum<?> v : enumField.getValueClass().getEnumConstants())
 							{
 								final int columnValue = getColumnValue(v);
 								sb.append(" WHEN ").
