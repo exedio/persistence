@@ -37,13 +37,13 @@ public final class Singleton extends Pattern
 	private static final int THE_ONE = 42;
 	private static final Integer THE_ONE_OBJECT = THE_ONE;
 
-	private final IntegerField source =
+	private final IntegerField once =
 		new IntegerField().toFinal().unique().
 				defaultTo(THE_ONE_OBJECT).rangeEvenIfRedundant(THE_ONE, THE_ONE);
 
 	public Singleton()
 	{
-		addSourceFeature(source, "once", ComputedElement.get());
+		addSourceFeature(once, "once", ComputedElement.get());
 	}
 
 	/**
@@ -60,7 +60,7 @@ public final class Singleton extends Pattern
 	 */
 	public IntegerField getOnce()
 	{
-		return source;
+		return once;
 	}
 
 	@Wrap(order=10,
@@ -72,7 +72,7 @@ public final class Singleton extends Pattern
 	{
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
-		final P found = source.searchUnique(typeClass, THE_ONE_OBJECT);
+		final P found = once.searchUnique(typeClass, THE_ONE_OBJECT);
 		if(found!=null)
 			return found;
 		else
