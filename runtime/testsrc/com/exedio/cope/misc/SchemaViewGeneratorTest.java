@@ -53,6 +53,7 @@ import java.util.Date;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class SchemaViewGeneratorTest extends TestWithEnvironment
 {
@@ -90,9 +91,21 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		if(mysql)
 			connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
 		final String nnd = mariaDriver ? "000" : nativeDate ? "" : "0";
-		final String intType = postgresql ? "int4" : mariaDriver ? "INTEGER" : "INT";
-		final String stringType = postgresql ? "text" : "VARCHAR";
-		final String dateType = postgresql ? "timestamp" : "DATETIME";
+		final String intType = switch(dialect) {
+			case hsqldb -> throw new AssertionFailedError();
+			case mysql -> mariaDriver ? "INTEGER" : "INT";
+			case postgresql -> "int4";
+		};
+		final String stringType = switch(dialect) {
+			case hsqldb -> throw new AssertionFailedError();
+			case mysql -> "VARCHAR";
+			case postgresql -> "text";
+		};
+		final String dateType = switch(dialect) {
+			case hsqldb -> throw new AssertionFailedError();
+			case mysql -> "DATETIME";
+			case postgresql -> "timestamp";
+		};
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
 			{
