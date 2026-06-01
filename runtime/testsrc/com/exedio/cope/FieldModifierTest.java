@@ -22,6 +22,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.time.ZoneOffset.UTC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.CharSet;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class FieldModifierTest
 {
@@ -41,6 +43,7 @@ public class FieldModifierTest
 			assertEquals(Boolean.class, f.getValueClass());
 			assertNull(f.getImplicitUniqueConstraint());
 			assertEquals(Boolean.TRUE, f.getDefaultConstant());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testBooleanUnique()
@@ -49,6 +52,7 @@ public class FieldModifierTest
 			assertEquals(Boolean.class, f.getValueClass());
 			assertEquals(List.of(f), f.getImplicitUniqueConstraint().getFields());
 			assertEquals(null, f.getDefaultConstant());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testBooleanDefaultFalse()
@@ -57,6 +61,7 @@ public class FieldModifierTest
 			assertEquals(Boolean.class, f.getValueClass());
 			assertNull(f.getImplicitUniqueConstraint());
 			assertEquals(Boolean.FALSE, f.getDefaultConstant());
+			assertSame(null, f.getValidator());
 		});
 	}
 
@@ -65,6 +70,7 @@ public class FieldModifierTest
 		testField(new DataField().lengthMax(5555), f -> {
 			assertEquals(DataField.Value.class, f.getValueClass());
 			assertEquals(5555, f.getMaximumLength());
+			assertSame(null, f.getValidator());
 		});
 	}
 
@@ -78,6 +84,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultNow());
 			assertEquals(DateField.Precision.MINUTE, f.getPrecision());
 			assertEquals(DateField.RoundingMode.UNNECESSARY, f.getRoundingMode());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testDateUnique()
@@ -89,6 +96,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultNow());
 			assertEquals(DateField.Precision.MILLI, f.getPrecision());
 			assertEquals(DateField.RoundingMode.UNNECESSARY, f.getRoundingMode());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testDateDefaultNow()
@@ -100,6 +108,7 @@ public class FieldModifierTest
 			assertEquals(true, f.isDefaultNow());
 			assertEquals(DateField.Precision.SECOND, f.getPrecision());
 			assertEquals(DateField.RoundingMode.FUTURE, f.getRoundingMode());
+			assertSame(null, f.getValidator());
 		});
 	}
 
@@ -110,6 +119,7 @@ public class FieldModifierTest
 			assertNull(f.getImplicitUniqueConstraint());
 			assertEquals(new Day(2024, 3, 14), f.getDefaultConstant());
 			assertEquals(false, f.isDefaultNow());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testDayUnique()
@@ -119,6 +129,7 @@ public class FieldModifierTest
 			assertEquals(List.of(f), f.getImplicitUniqueConstraint().getFields());
 			assertEquals(null, f.getDefaultConstant());
 			assertEquals(false, f.isDefaultNow());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testDayDefaultNow()
@@ -128,6 +139,7 @@ public class FieldModifierTest
 			assertNull(f.getImplicitUniqueConstraint());
 			assertEquals(null, f.getDefaultConstant());
 			assertEquals(true, f.isDefaultNow());
+			assertSame(null, f.getValidator());
 		});
 	}
 
@@ -140,6 +152,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultNext());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testIntegerUnique()
@@ -151,6 +164,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultNext());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testIntegerDefaultToNext()
@@ -163,6 +177,7 @@ public class FieldModifierTest
 			assertEquals(77, f.getDefaultNextStartX());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 
@@ -175,6 +190,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultRandom());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testLongUnique()
@@ -186,6 +202,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultRandom());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testLongDefaultToRandom()
@@ -197,6 +214,7 @@ public class FieldModifierTest
 			assertEquals(true, f.isDefaultRandom());
 			assertEquals(0, f.getMinimum());
 			assertEquals(Long.MAX_VALUE, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 
@@ -208,6 +226,7 @@ public class FieldModifierTest
 			assertEquals(Double.valueOf(77.7), f.getDefaultConstant());
 			assertEquals(66.6, f.getMinimum());
 			assertEquals(88.8, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testDoubleUnique()
@@ -218,6 +237,7 @@ public class FieldModifierTest
 			assertEquals(null, f.getDefaultConstant());
 			assertEquals(66.6, f.getMinimum());
 			assertEquals(88.8, f.getMaximum());
+			assertSame(null, f.getValidator());
 		});
 	}
 
@@ -231,6 +251,7 @@ public class FieldModifierTest
 			assertEquals(88, f.getMaximumLength());
 			assertEquals(CharSet.ALPHA_NUMERIC, f.getCharSet());
 			assertEquals("[A-z]*", f.getRegexp());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testStringUnique()
@@ -243,6 +264,23 @@ public class FieldModifierTest
 			assertEquals(88, f.getMaximumLength());
 			assertEquals(CharSet.ALPHA_NUMERIC, f.getCharSet());
 			assertEquals("[A-z]*", f.getRegexp());
+			assertSame(null, f.getValidator());
+		});
+	}
+	@Test void testStringValidator()
+	{
+		final FieldValidator<String> validator = (value, exceptionItem, field) -> {
+			throw new AssertionFailedError();
+		};
+		testField(new StringField().validate(validator).lengthRange(6, 88).charSet(CharSet.ALPHA_NUMERIC).regexp("[A-z]*"), f -> {
+			assertEquals(String.class, f.getValueClass());
+			assertNull(f.getImplicitUniqueConstraint());
+			assertEquals(null, f.getDefaultConstant());
+			assertEquals(6, f.getMinimumLength());
+			assertEquals(88, f.getMaximumLength());
+			assertEquals(CharSet.ALPHA_NUMERIC, f.getCharSet());
+			assertEquals("[A-z]*", f.getRegexp());
+			assertSame(validator, f.getValidator());
 		});
 	}
 
@@ -252,6 +290,7 @@ public class FieldModifierTest
 			assertEquals(AnEnum.class, f.getValueClass());
 			assertNull(f.getImplicitUniqueConstraint());
 			assertEquals(AnEnum.beta, f.getDefaultConstant());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testEnumUnique()
@@ -260,6 +299,7 @@ public class FieldModifierTest
 			assertEquals(AnEnum.class, f.getValueClass());
 			assertEquals(List.of(f), f.getImplicitUniqueConstraint().getFields());
 			assertEquals(null, f.getDefaultConstant());
+			assertSame(null, f.getValidator());
 		});
 	}
 	private enum AnEnum { alpha, beta }
@@ -271,6 +311,7 @@ public class FieldModifierTest
 			assertNull(f.getImplicitUniqueConstraint());
 			assertEquals(null, f.getDefaultConstant());
 			assertEquals(ItemField.DeletePolicy.CASCADE, f.getDeletePolicy());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@Test void testItemUnique()
@@ -280,6 +321,7 @@ public class FieldModifierTest
 			assertEquals(List.of(f), f.getImplicitUniqueConstraint().getFields());
 			assertEquals(null, f.getDefaultConstant());
 			assertEquals(ItemField.DeletePolicy.FORBID, f.getDeletePolicy());
+			assertSame(null, f.getValidator());
 		});
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

@@ -205,6 +205,11 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 		action.accept(this);
 	}
 
+	public FieldValidator<String> getValidator()
+	{
+		return null;
+	}
+
 	// second initialization phase ---------------------------------------------------
 
 	private Column column;
