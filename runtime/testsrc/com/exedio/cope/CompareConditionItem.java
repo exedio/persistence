@@ -38,6 +38,11 @@ final class CompareConditionItem extends Item
 
 	static final ItemField<CompareConditionItem> item = ItemField.create(CompareConditionItem.class).nullify();
 
+	CompareConditionItem(final YEnum enumx)
+	{
+		this(null, null, null, null, null, null, enumx);
+	}
+
 	/**
 	 * Creates a new CompareConditionItem with all the fields initially needed.
 	 * @param string the initial value for field {@link #string}.
