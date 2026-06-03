@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serial;
 import java.util.function.Consumer;
+import org.jspecify.annotations.Nullable;
 
 public final class CompareFunctionCondition<E> extends Condition
 {
@@ -31,12 +32,12 @@ public final class CompareFunctionCondition<E> extends Condition
 
 	private final Operator operator;
 	private final Function<E> left;
-	private final Function<? extends E> right;
+	private final Function<? extends @Nullable E> right;
 
 	static <E> CompareFunctionCondition<E> create(
 			final Operator operator,
 			final Function<E> left,
-			final Function<? extends E> right)
+			final Function<? extends @Nullable E> right)
 	{
 		return new CompareFunctionCondition<>(operator, left, right, Float.NaN);
 	}
@@ -44,7 +45,7 @@ public final class CompareFunctionCondition<E> extends Condition
 	CompareFunctionCondition(
 			final Operator operator,
 			final Function<E> left,
-			final Function<? extends E> right, @SuppressWarnings("unused") final float signatureChangingDummy)
+			final Function<? extends @Nullable E> right, @SuppressWarnings("unused") final float signatureChangingDummy)
 	{
 		this.operator = requireNonNull(operator, "operator");
 		this.left = requireNonNull(left, "left");
