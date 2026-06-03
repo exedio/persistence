@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import java.io.Serial;
 import java.util.Collection;
+import org.jspecify.annotations.Nullable;
 
 public interface Function<E> extends Selectable<E>
 {
@@ -174,7 +175,7 @@ public interface Function<E> extends Selectable<E>
 	 * To be deprecated, use {@link #is(Function)} instead.
 	 */
 	@SuppressWarnings("unchecked") // OK: deprecated API
-	default CompareFunctionCondition<E> equal(final Function<? extends E> right)
+	default CompareFunctionCondition<E> equal(final Function<? extends @Nullable E> right)
 	{
 		return (CompareFunctionCondition<E>)is(right);
 	}
@@ -184,7 +185,7 @@ public interface Function<E> extends Selectable<E>
 	 * if and only if the value of this function for that item
 	 * is equal to the value of the {@code right} function.
 	 */
-	default Condition is(final Function<? extends E> right)
+	default Condition is(final Function<? extends @Nullable E> right)
 	{
 		return CompareFunctionCondition.create(Operator.Equal, this, right);
 	}
