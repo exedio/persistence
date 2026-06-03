@@ -34,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public final class Query<R> implements Serializable
 {
@@ -755,7 +757,7 @@ public final class Query<R> implements Serializable
 	 * result in an {@code UnsupportedOperationException}.
 	 * @see SchemaInfo#search(Query)
 	 */
-	public List<R> search()
+	public @NonNull List<R> search()
 	{
 		final Transaction transaction = model.currentTransaction();
 
@@ -851,7 +853,7 @@ public final class Query<R> implements Serializable
 	 * This method does it's best to avoid issuing two queries
 	 * for searching and totaling.
 	 */
-	public Result<R> searchAndTotal()
+	public @NonNull Result<R> searchAndTotal()
 	{
 		return new Result<>(this);
 	}
@@ -1026,7 +1028,7 @@ public final class Query<R> implements Serializable
 	 * @see #searchSingletonStrict()
 	 * @see Type#searchSingleton(Condition)
 	 */
-	public R searchSingleton()
+	public @Nullable R searchSingleton()
 	{
 		// this is the most efficient implementation for
 		// array-backed lists returned by #search()
@@ -1055,7 +1057,7 @@ public final class Query<R> implements Serializable
 	 * @see #searchSingleton()
 	 * @see Type#searchSingletonStrict(Condition)
 	 */
-	public R searchSingletonStrict()
+	public @NonNull R searchSingletonStrict()
 	{
 		// this is the most efficient implementation for
 		// array-backed lists returned by #search()
