@@ -260,13 +260,13 @@ final class MysqlDialect extends Dialect
 		final String charset = " CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
 		if(maxChars<=85 || // equivalent to maxBytes<TWOPOW8 for 3 maxBytesPerChar
 			(maxBytes<(TWOPOW16-4) && mysqlExtendedVarchar!=null)) // minus 4 is for primary key column
-			return "varchar("+maxChars+")" + charset;
+			return "varchar("+maxChars+")" + charset; // should match com.exedio.cope.console.SchemaAlterApi
 		else if(maxBytes3<TWOPOW16)
-			return "text" + charset;
+			return "text" + charset; // should match com.exedio.cope.console.SchemaAlterApi
 		else if(maxBytes3<TWOPOW24)
-			return "mediumtext" + charset;
+			return "mediumtext" + charset; // should match com.exedio.cope.console.SchemaAlterApi
 		else
-			return "longtext" + charset;
+			return "longtext" + charset; // should match com.exedio.cope.console.SchemaAlterApi
 	}
 
 	@Override

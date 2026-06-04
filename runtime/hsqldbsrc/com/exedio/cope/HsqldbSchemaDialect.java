@@ -134,7 +134,7 @@ final class HsqldbSchemaDialect extends Dialect
 	static final String TIMESTAMP_3 = "TIMESTAMP(3) WITHOUT TIME ZONE";
 	static final String DATE = "DATE";
 	static final String BLOB = "BLOB";
-	static String VARCHAR(final int size) { return "VARCHAR(" + size + ')'; }
+	static String VARCHAR(final int size) { return "VARCHAR(" + size + ')'; } // should match com.exedio.cope.console.SchemaAlterApi
 
 	@Override
 	protected void verify(final Schema schema)

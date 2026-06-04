@@ -124,7 +124,7 @@ final class PostgresqlDialect extends Dialect
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		return
-				((maxChars>10485760) ? "\"text\"" : "character varying("+maxChars+')') +
+				((maxChars>10485760) ? "\"text\"" : "character varying("+maxChars+')') + // should match com.exedio.cope.console.SchemaAlterApi
 				" COLLATE \"ucs_basic\""; // https://www.postgresql.org/docs/15/collation.html
 	}
 
