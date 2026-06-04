@@ -258,14 +258,15 @@ public final class CompositeCondition extends Condition
 
 	private static <E> Condition getConditionForInWithNull(final Function<E> function, final List<E> nonNullValues)
 	{
+		final var isNull = function.isNull();
 		return switch(nonNullValues.size())
 		{
 			case 0 ->
-				function.isNull();
+				isNull;
 			case 1 ->
-				composite(Operator.OR, function.isNull(), function.is(nonNullValues.get(0)));
+				composite(Operator.OR, isNull, function.is(nonNullValues.get(0)));
 			default ->
-				composite(Operator.OR, function.isNull(), new InCondition<>(function, false, nonNullValues));
+				composite(Operator.OR, isNull, new InCondition<>(function, false, nonNullValues));
 		};
 	}
 
