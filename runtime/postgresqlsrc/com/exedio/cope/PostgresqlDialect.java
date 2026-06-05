@@ -123,6 +123,7 @@ final class PostgresqlDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
+		// https://www.postgresql.org/docs/18/datatype-character.html
 		return
 				((maxChars>10485760) ? "\"text\"" : "character varying("+maxChars+')') + // should match com.exedio.cope.console.SchemaAlterApi
 				" COLLATE \"ucs_basic\""; // https://www.postgresql.org/docs/15/collation.html
