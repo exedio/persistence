@@ -129,6 +129,7 @@ final class HsqldbDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
+		// https://hsqldb.org/doc/guide/sqlgeneral-chapt.html#sgc_char_types
 		return VARCHAR(maxChars);
 	}
 
