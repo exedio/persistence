@@ -53,20 +53,20 @@ public class DoubleFieldRangeTest extends TestWithEnvironment
 	{
 		final var f = AnItem.field;
 
-		assertIt(of(    ), of(iMin, iNrm, iMax, iNul), f.is(19.9)); // TODO iNul is wrong because of bug: ofFalse.not() with null
+		assertIt(of(    ), of(iMin, iNrm, iMax, iNul), f.is(19.9)); // TODO COND iNul is wrong because of bug: ofFalse.not() with null
 		assertIt(of(iMin), of(      iNrm, iMax      ), f.is(20.0));
 		assertIt(of(iNrm), of(iMin,       iMax      ), f.is(25.0));
 		assertIt(of(    ), of(iMin, iNrm, iMax      ), f.is(26.0));
 		assertIt(of(iMax), of(iMin, iNrm            ), f.is(30.0));
-		assertIt(of(    ), of(iMin, iNrm, iMax, iNul), f.is(30.1)); // TODO iNul is wrong because of bug: ofFalse.not() with null
+		assertIt(of(    ), of(iMin, iNrm, iMax, iNul), f.is(30.1)); // TODO COND iNul is wrong because of bug: ofFalse.not() with null
 		assertIt(of(iNul), of(iMin, iNrm, iMax      ), f.is((Double)null));
 
-		assertIt(of(iMin, iNrm, iMax, iNul), of(    ), f.isNot(19.9)); // TODO iNul is wrong because of bug: ofTrue.not() with null
+		assertIt(of(iMin, iNrm, iMax, iNul), of(    ), f.isNot(19.9)); // TODO COND iNul is wrong because of bug: ofTrue.not() with null
 		assertIt(of(      iNrm, iMax      ), of(iMin), f.isNot(20.0));
 		assertIt(of(iMin,       iMax      ), of(iNrm), f.isNot(25.0));
 		assertIt(of(iMin, iNrm, iMax      ), of(    ), f.isNot(26.0));
 		assertIt(of(iMin, iNrm            ), of(iMax), f.isNot(30.0));
-		assertIt(of(iMin, iNrm, iMax, iNul), of(    ), f.isNot(30.1)); // TODO iNul is wrong because of bug: ofTrue.not() with null
+		assertIt(of(iMin, iNrm, iMax, iNul), of(    ), f.isNot(30.1)); // TODO COND iNul is wrong because of bug: ofTrue.not() with null
 		assertIt(of(iMin, iNrm, iMax      ), of(iNul), f.isNot((Double)null));
 	}
 

@@ -210,7 +210,7 @@ public final class CompositeCondition extends Condition
 		switch(values.length)
 		{
 			case 0 -> {
-				return ofFalse();
+				return ofFalse(); // TODO COND bug: ofFalse.not() with null
 			} case 1 -> {
 				return function.is(values[0]);
 			} default -> {
@@ -231,7 +231,7 @@ public final class CompositeCondition extends Condition
 		switch(values.size())
 		{
 			case 0 -> {
-				return ofFalse();
+				return ofFalse(); // TODO COND bug: ofFalse.not() with null
 			} case 1 -> {
 				return function.is(values.iterator().next());
 			} default -> {

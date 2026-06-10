@@ -56,7 +56,7 @@ public class InConditionBorderTest extends TestWithEnvironment
 		assertIn(asList(i1, i2, iN), asList(        i3    ), asList(V1, V2, null));
 		assertIn(asList(i1        ), asList(    i2, i3    ), asList(V1          ));
 		assertIn(asList(i1,     iN), asList(    i2, i3    ), asList(V1,     null));
-		assertIn(asList(          ), asList(i1, i2, i3, iN), asList(            )); // TODO iN is wrong because of bug: ofFalse.not() with null
+		assertIn(asList(          ), asList(i1, i2, i3, iN), asList(            )); // TODO COND iN is wrong because of bug: ofFalse.not() with null
 		assertIn(asList(        iN), asList(i1, i2, i3    ), asList( (YEnum)null));
 	}
 
