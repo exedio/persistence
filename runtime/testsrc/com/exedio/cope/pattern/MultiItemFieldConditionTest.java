@@ -61,10 +61,10 @@ public class MultiItemFieldConditionTest extends TestWithEnvironment
 	@Test void test()
 	{
 		final var f = AnItem.field;
-		assertIt(of(iA1a, iA1b), of(            iA2a            ), f.is(vA1)); // TODO iB1a is missing in expectedNot because of bug: just selecting one component does not work for not
-		assertIt(of(iA2a),       of(iA1a, iA1b                  ), f.is(vA2)); // TODO iB1a is missing in expectedNot because of bug: just selecting one component does not work for not
-		assertIt(of(iB1a),       of(                            ), f.is(vB1)); // TODO iA1? is missing in expectedNot because of bug: just selecting one component does not work for not
-		assertIt(of(    ),       of(iA1a, iA1b, iA2a, iB1a, iNul), f.is(vXX)); // TODO iNul is wrong because of bug: ofFalse without canBe does not work for not
+		assertIt(of(iA1a, iA1b), of(            iA2a            ), f.is(vA1)); // TODO COND iB1a is missing in expectedNot because of bug: just selecting one component does not work for not
+		assertIt(of(iA2a),       of(iA1a, iA1b                  ), f.is(vA2)); // TODO COND iB1a is missing in expectedNot because of bug: just selecting one component does not work for not
+		assertIt(of(iB1a),       of(                            ), f.is(vB1)); // TODO COND iA1? is missing in expectedNot because of bug: just selecting one component does not work for not
+		assertIt(of(    ),       of(iA1a, iA1b, iA2a, iB1a, iNul), f.is(vXX)); // TODO COND iNul is wrong because of bug: ofFalse without canBe does not work for not
 		assertIt(of(iNul),       of(iA1a, iA1b, iA2a, iB1a      ), f.is(null));
 	}
 
