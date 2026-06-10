@@ -18,15 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static com.exedio.cope.pattern.ColorFieldItem.alpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Condition;
-import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import java.awt.Color;
-import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -104,8 +103,6 @@ public class ColorFieldConditionsTest extends TestWithEnvironment
 
 	private static void assertIt(final Condition condition, final ColorFieldItem... expected)
 	{
-		final Query<ColorFieldItem> query = ColorFieldItem.TYPE.newQuery(condition);
-		query.setOrderBy(ColorFieldItem.TYPE.getThis(), true);
-		assertEquals(Arrays.asList(expected), query.search());
+		assertCondition(List.of(expected), ColorFieldItem.TYPE, condition);
 	}
 }
