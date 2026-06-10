@@ -80,7 +80,9 @@ public class ColorFieldConditionsTest extends TestWithEnvironment
 		assertIt(fieldOpt.is(cBlack), iBB);
 		assertIt(fieldOpt.isNot(cBlack), iWW );
 		assertIt(fieldOpt.is(cTransparent));
+		assertIt(fieldOpt.isNot(cTransparent).not(), iNN, iNT, iNL); // negate TODO COND iNN, iNT, iNL is wrong because of bug: isNotNull does not work for not
 		assertIt(fieldOpt.isNot(cTransparent), iBB, iWW );
+		assertIt(fieldOpt.is(cTransparent).not(), iBB, iWW, iNN, iNT, iNL); // negate TODO COND iNN, iNT, iNL is wrong because of bug: ofFalse does not work for not
 
 		// equals searches fieldAlpha
 		assertIt(fieldAlpha.is(cNull), iNN);
@@ -90,15 +92,23 @@ public class ColorFieldConditionsTest extends TestWithEnvironment
 		assertIt(fieldAlpha.is(cBlack), iBB);
 		assertIt(fieldAlpha.isNot(cBlack), iWW, iNT, iNL );
 		assertIt(fieldAlpha.is(cTransparent), iNT);
+		assertIt(fieldAlpha.isNot(cTransparent).not(), iNT); // negate
 		assertIt(fieldAlpha.isNot(cTransparent), iBB, iWW, iNL );
+		assertIt(fieldAlpha.is(cTransparent).not(), iBB, iWW, iNL ); // negate
 		assertIt(fieldAlpha.is(cTranslucent), iNL);
+		assertIt(fieldAlpha.isNot(cTranslucent).not(), iNL); // negate
 		assertIt(fieldAlpha.isNot(cTranslucent), iBB, iWW, iNT );
+		assertIt(fieldAlpha.is(cTranslucent).not(), iBB, iWW, iNT ); // negate
 
 		// opaque searches
 		assertIt(fieldOpt.isOpaque(), iBB, iWW);
+		assertIt(fieldOpt.isNotOpaque().not(), iBB, iWW); // negate
 		assertIt(fieldOpt.isNotOpaque());
+		assertIt(fieldOpt.isOpaque().not()); // negate
 		assertIt(fieldAlpha.isOpaque(), iBB, iWW);
+		assertIt(fieldAlpha.isNotOpaque().not(), iBB, iWW); // negate
 		assertIt(fieldAlpha.isNotOpaque(), iNT, iNL);
+		assertIt(fieldAlpha.isOpaque().not(), iNT, iNL); // negate
 	}
 
 	private static void assertIt(final Condition condition, final ColorFieldItem... expected)

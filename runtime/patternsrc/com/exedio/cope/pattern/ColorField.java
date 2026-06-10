@@ -313,7 +313,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		if (value == null)
 			return rgb.isNull();
 		if (!alphaAllowed && value.getAlpha() != 255)
-			return Condition.ofFalse();
+			return Condition.ofFalse(); // TODO COND bug: ofFalse does not work for not
 		return rgb.is(reverseAlpha(value.getRGB()));
 	}
 
@@ -343,7 +343,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 			// ensure the fact:
 			// a null value in DB is neither equal nor not equal to a given non-null param,
 			// independent if this is in value range or not
-			return rgb.isNotNull();
+			return rgb.isNotNull(); // TODO COND bug: isNotNull does not work for not
 		return rgb.isNot(reverseAlpha(value.getRGB()));
 	}
 
