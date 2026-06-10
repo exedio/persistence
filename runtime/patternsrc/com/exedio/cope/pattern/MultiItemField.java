@@ -401,8 +401,8 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		final ItemField<?> component = componentByValue(value);
 		return
 				component!=null
-				? component.isCasted(value)
-				: Condition.ofFalse();
+				? component.isCasted(value) // bug: just selecting one component does not work for not
+				: Condition.ofFalse(); // bug: ofFalse without canBe does not work for not
 	}
 
 	@Override
