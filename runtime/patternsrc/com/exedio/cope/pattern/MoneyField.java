@@ -105,6 +105,11 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		return new MoneyField<>(amount.min(Price.ZERO), currency.copy());
 	}
 
+	public MoneyField<C> minGreaterZero()
+	{
+		return new MoneyField<>(amount.min(Price.storeOf(1)), currency.copy());
+	}
+
 	/**
 	 * Better use {@link #getAmountInt()} if possible.
 	 */
