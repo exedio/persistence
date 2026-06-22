@@ -193,6 +193,24 @@ public class MoneyFieldUtilTest
 		assertEquals(Long.MAX_VALUE,  f.getAmountInt().getMaximum());
 	}
 
+	@Test void testMinGreaterZero()
+	{
+		final MoneyField<?> f = MoneyField.fixed(CurrencyEnum.A).minGreaterZero();
+
+		assertEquals(false, f.isFinal());
+		assertEquals(false, f.getAmount().isFinal());
+		assertEquals(false, f.getAmountInt().isFinal());
+
+		assertEquals(true, f.isMandatory());
+		assertEquals(true, f.getAmount().isMandatory());
+		assertEquals(true, f.getAmountInt().isMandatory());
+
+		assertEquals(Price.storeOf(1), f.getAmount().getMinimum());
+		assertEquals(Price.MAX_VALUE,  f.getAmount().getMaximum());
+		assertEquals(1,                f.getAmountInt().getMinimum());
+		assertEquals(Long.MAX_VALUE,   f.getAmountInt().getMaximum());
+	}
+
 	@Test void testConditions()
 	{
 		final MoneyField<?> f = MoneyField.fixed(CurrencyEnum.A);
