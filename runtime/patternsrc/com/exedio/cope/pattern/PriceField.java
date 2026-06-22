@@ -112,6 +112,11 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return min(Price.ZERO);
 	}
 
+	public PriceField minGreaterZero()
+	{
+		return min(Price.storeOf(1));
+	}
+
 	public PriceField max(final Price maximum)
 	{
 		return new PriceField(integer.max(maximum.store()));
