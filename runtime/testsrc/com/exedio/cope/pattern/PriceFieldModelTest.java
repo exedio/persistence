@@ -148,6 +148,15 @@ public class PriceFieldModelTest
 		assertEquals(Long.MAX_VALUE, f.getInt().getMaximum());
 	}
 
+	@Test void testMinGreaterZero()
+	{
+		final PriceField f = new PriceField().minGreaterZero();
+		assertEquals(Price.storeOf(1), f.getMinimum());
+		assertEquals(Price.MAX_VALUE,  f.getMaximum());
+		assertEquals(1,                f.getInt().getMinimum());
+		assertEquals(Long.MAX_VALUE,   f.getInt().getMaximum());
+	}
+
 	@Test void testMin()
 	{
 		final PriceField f = new PriceField().min(Price.storeOf(2000));
