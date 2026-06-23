@@ -76,10 +76,6 @@
 			<url url="https://ivyartifacts.exedio.com/resources/logo.png" />
 			<url url="https://ivyartifacts.exedio.com/resources/error.gif" />
 		</get>
-		<ivy:makepom ivyfile="ivy.xml" pomfile="pom.xml">
-			<mapping conf="default" scope="compile" />
-			<mapping conf="runtime" scope="runtime" />
-		</ivy:makepom>
 	</target>
 
 	<target name="publishlocally" depends="prepare">
