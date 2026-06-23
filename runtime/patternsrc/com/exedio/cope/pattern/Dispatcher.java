@@ -767,7 +767,7 @@ public final class Dispatcher extends Pattern
 			features.put("parent", parent);
 			features.put("date", date);
 			features.put("runs", runs);
-			features.put("elapsed", elapsed);
+			features.put("elapsed", elapsed, SuppressElements.isNotZero());
 			features.put("remaining", remaining);
 			features.put("limit", limit);
 			features.put("result", result, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
