@@ -84,6 +84,8 @@
 			<exclude org="org.checkerframework" module="checker-qual" />
 		</dependency>
 
+		<dependency org="com.exedio" name="copeconsole" rev="7827" conf="compile-annotations->annotations" />
+
 		<!-- idea -->
 		<dependency org="org.jetbrains" name="annotations" rev="22.0.0" conf="idea,compile-annotations->default; ide->sources"/>
 
