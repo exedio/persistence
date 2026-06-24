@@ -95,6 +95,17 @@ public class IntegerFieldDefaultToNextModelTest
 				"10001 is too small, " +
 				"must be at least 10002");
 	}
+	@Test void testStartForbidden()
+	{
+		final var f = new IntegerField().defaultToNext(0);
+		assertFails(
+				f::forbidZero,
+				IllegalArgumentException.class,
+				"The start value 0 for defaultToNext of the field does not comply to one of it's own constraints, " +
+				"caused a IntegerForbidViolationException: " +
+				"forbid violation, " +
+				"0 is forbidden");
+	}
 	@Test void testSequenceBehindNoneX()
 	{
 		assertFails(

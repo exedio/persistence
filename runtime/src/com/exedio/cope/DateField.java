@@ -482,7 +482,7 @@ public final class DateField extends FunctionField<Date>
 		return
 				connect.supportsNativeDate
 				? new TimestampColumn(table, name, optional, minimum, maximum, precision)
-				: new IntegerColumn  (table, name, false, optional, minimum, maximum, true, precision);
+				: new IntegerColumn  (table, name, false, optional, minimum, false, maximum, true, precision);
 	}
 
 	@Override

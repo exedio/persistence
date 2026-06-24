@@ -33,7 +33,7 @@ final class ItemColumn extends IntegerColumn
 			final boolean optional,
 			final Type<?> targetType)
 	{
-		super(table, id, false, optional, PK.MIN_VALUE, targetType.createLimit, true);
+		super(table, id, false, optional, PK.MIN_VALUE, false, targetType.createLimit, true);
 		this.targetType = targetType;
 		this.foreignKeyConstraintName = intern(makeGlobalID(TrimClass.standard, "Fk"));
 	}

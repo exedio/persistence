@@ -71,6 +71,12 @@ public class NumberFieldTest
 		assertEquals(false, dblF.range(-10, -0.1).allowsZeroValue());
 	}
 
+	@Test void testAllowsZeroValueForbid()
+	{
+		assertEquals(true,  intF.allowsZeroValue());
+		assertEquals(false, intF.forbidZero().allowsZeroValue());
+	}
+
 	@Test void testAllowsNegativeValue()
 	{
 		assertEquals(true, intF.range(  -1, 10).allowsNegativeValues());

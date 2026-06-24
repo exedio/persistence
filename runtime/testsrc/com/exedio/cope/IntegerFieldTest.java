@@ -206,6 +206,50 @@ public class IntegerFieldTest
 				message);
 	}
 
+	@Test void testForbidAndMin()
+	{
+		final var forbid = new IntegerField().forbidZero();
+		assertEquals(MIN, forbid.getMinimum());
+		assertEquals(MAX, forbid.getMaximum());
+		assertEquals(true, forbid.isZeroForbidden());
+
+		assertFails(
+				() -> forbid.min(1),
+				IllegalArgumentException.class,
+				"forbidZero is outside of range with minimum 1");
+		assertFails(
+				() -> forbid.min(0),
+				IllegalArgumentException.class,
+				"forbidZero is outside of range with minimum 0");
+
+		final var f = forbid.min(-1);
+		assertEquals( -1, f.getMinimum());
+		assertEquals(MAX, f.getMaximum());
+		assertEquals(true, f.isZeroForbidden());
+	}
+
+	@Test void testForbidAndMax()
+	{
+		final var forbid = new IntegerField().forbidZero();
+		assertEquals(MIN, forbid.getMinimum());
+		assertEquals(MAX, forbid.getMaximum());
+		assertEquals(true, forbid.isZeroForbidden());
+
+		assertFails(
+				() -> forbid.max(-1),
+				IllegalArgumentException.class,
+				"forbidZero is outside of range with maximum -1");
+		assertFails(
+				() -> forbid.max(0),
+				IllegalArgumentException.class,
+				"forbidZero is outside of range with maximum 0");
+
+		final var f = forbid.max(1);
+		assertEquals(MIN, f.getMinimum());
+		assertEquals(  1, f.getMaximum());
+		assertEquals(true, f.isZeroForbidden());
+	}
+
 	@Test void testRangeShortcutEqual()
 	{
 		final IntegerField f = new IntegerField().optional().range(-3, 5);

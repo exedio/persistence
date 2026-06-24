@@ -116,7 +116,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_string_MX", "CHAR_LENGTH("+q(string)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
 		assertCheckConstraint(table, "Main_integ_MN", q(integ)+">=-10");
 		assertCheckConstraint(table, "Main_integ_MX", q(integ)+"<=10");
-		assertCheckConstraint(table, "Main_integ_EX", null, false);
+		assertCheckConstraint(table, "Main_integ_EX", q(integ)+"<>0");
 		assertCheckConstraint(table, "Main_aLong_MN", q(aLong)+">=-12");
 		assertCheckConstraint(table, "Main_aLong_MX", q(aLong)+"<=12");
 		assertCheckConstraint(table, "Main_aLong_EX", null, false);

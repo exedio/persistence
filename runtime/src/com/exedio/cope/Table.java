@@ -61,7 +61,7 @@ final class Table
 		//noinspection ThisEscapedInObjectConstruction
 		this.updateCounter =
 			updateCounter
-			? new IntegerColumn(this, UPDATE_COUNTER_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
+			? new IntegerColumn(this, UPDATE_COUNTER_COLUMN_NAME, true, false, 0, false, Integer.MAX_VALUE, false)
 			: null;
 		//noinspection ThisEscapedInObjectConstruction
 		database.addTable(this);
