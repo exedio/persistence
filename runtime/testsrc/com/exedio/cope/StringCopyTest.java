@@ -114,7 +114,7 @@ public class StringCopyTest
 		assertWrongLength(20, 10, "maximumLength must be greater or equal minimumLength, but was 10 and 20");
 	}
 
-	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
+	private static void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
 	{
 		final var f = new StringField().optional();
 		assertFails(
