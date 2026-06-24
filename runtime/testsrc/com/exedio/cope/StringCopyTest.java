@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -116,14 +116,10 @@ public class StringCopyTest
 
 	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
 	{
-		try
-		{
-			new StringField().optional().lengthRange(minimumLength, maximumLength);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
+		final var f = new StringField().optional();
+		assertFails(
+				() -> f.lengthRange(minimumLength, maximumLength),
+				IllegalArgumentException.class,
+				message);
 	}
 }
