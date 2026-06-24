@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.StringField.cast;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
@@ -121,5 +123,27 @@ public class StringCopyTest
 				() -> f.lengthRange(minimumLength, maximumLength),
 				IllegalArgumentException.class,
 				message);
+	}
+
+	@Test void testCast()
+	{
+		final var f = new StringField();
+		assertSame(f, cast(f));
+	}
+
+	@Test void testCastNull()
+	{
+		assertSame(null, cast(null));
+	}
+
+	@Test void testCastFails()
+	{
+		@SuppressWarnings({"unchecked", "rawtypes"})
+		final Field<String> f = (Field)(new IntegerField());
+		assertFails(
+				() -> cast(f),
+				ClassCastException.class,
+				"class com.exedio.cope.IntegerField cannot be cast to class com.exedio.cope.StringField " +
+				"(com.exedio.cope.IntegerField and com.exedio.cope.StringField are in unnamed module of loader 'app')");
 	}
 }
