@@ -116,10 +116,13 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_string_MX", "CHAR_LENGTH("+q(string)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
 		assertCheckConstraint(table, "Main_integ_MN", q(integ)+">=-10");
 		assertCheckConstraint(table, "Main_integ_MX", q(integ)+"<=10");
+		assertCheckConstraint(table, "Main_integ_EX", null, false);
 		assertCheckConstraint(table, "Main_aLong_MN", q(aLong)+">=-12");
 		assertCheckConstraint(table, "Main_aLong_MX", q(aLong)+"<=12");
+		assertCheckConstraint(table, "Main_aLong_EX", null, false);
 		assertCheckConstraint(table, "Main_doub_MN", q(doub)+">=-11.1");
 		assertCheckConstraint(table, "Main_doub_MX", q(doub)+"<=11.1");
+		assertCheckConstraint(table, "Main_doub_EX", null, false);
 		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+(nativeDate?dateMinimum:DateField.getDefaultMinimum().getTime()));
 		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+(nativeDate?dateMaximum:DateField.getDefaultMaximum().getTime()));
 		assertCheckConstraint(table, "Main_day_MN", q(day)+">="+dayMinimum);
@@ -136,14 +139,18 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_integRed_RD", q(integRed)+"=110");
 		assertCheckConstraint(table, "Main_integRed_MN", null, false);
 		assertCheckConstraint(table, "Main_integRed_MX", null, false);
+		assertCheckConstraint(table, "Main_integRed_EX", null, false);
 		assertCheckConstraint(table, "Main_longRed_RD", q(longRed)+"=112");
 		assertCheckConstraint(table, "Main_longRed_MN", null, false);
 		assertCheckConstraint(table, "Main_longRed_MX", null, false);
+		assertCheckConstraint(table, "Main_longRed_EX", null, false);
 		assertCheckConstraint(table, "Main_doubRed_RD", q(doubRed)+"=111.1");
 		assertCheckConstraint(table, "Main_doubRed_MN", null, false);
 		assertCheckConstraint(table, "Main_doubRed_MX", null, false);
+		assertCheckConstraint(table, "Main_doubRed_EX", null, false);
 		assertCheckConstraint(table, "Main_enumRed_RD", q(enumRed)+"=10");
 		assertCheckConstraint(table, "Main_enumRed_EN", null, false);
+		assertCheckConstraint(table, "Main_enumRed_EX", null, false);
 
 		assertCheckConstraint(table, "Main_stringOpt_MN", "CHAR_LENGTH("+q(stringOpt)+")>=1");
 		assertCheckConstraint(table, "Main_stringOpt_MX", "CHAR_LENGTH("+q(stringOpt)+")<="+StringField.DEFAULT_MAXIMUM_LENGTH);
