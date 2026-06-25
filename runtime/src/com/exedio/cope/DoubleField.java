@@ -190,6 +190,24 @@ public final class DoubleField extends NumberField<Double>
 		return maximum;
 	}
 
+	/**
+	 * @see #getMinimum()
+	 */
+	@Override
+	public Double getMinimumNumber()
+	{
+		return minimum;
+	}
+
+	/**
+	 * @see #getMaximum()
+	 */
+	@Override
+	public Double getMaximumNumber()
+	{
+		return maximum;
+	}
+
 	@Override
 	public boolean allowsZeroValue()
 	{

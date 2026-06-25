@@ -234,6 +234,24 @@ public final class LongField extends NumberField<Long>
 		return maximum;
 	}
 
+	/**
+	 * @see #getMinimum()
+	 */
+	@Override
+	public Long getMinimumNumber()
+	{
+		return minimum;
+	}
+
+	/**
+	 * @see #getMaximum()
+	 */
+	@Override
+	public Long getMaximumNumber()
+	{
+		return maximum;
+	}
+
 	@Override
 	public boolean allowsZeroValue()
 	{
