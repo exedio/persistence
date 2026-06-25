@@ -334,6 +334,12 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
+	public boolean allowsZeroValue()
+	{
+		return minimum<=0 && 0<=maximum;
+	}
+
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
