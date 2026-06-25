@@ -550,4 +550,16 @@ public final class IntegerField extends NumberField<Integer>
 			return isNotNull();
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
+
+	@Override
+	public Condition isZero()
+	{
+		return is(0);
+	}
+
+	@Override
+	public Condition lessZero()
+	{
+		return less(0);
+	}
 }

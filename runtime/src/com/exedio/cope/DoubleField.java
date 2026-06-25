@@ -379,4 +379,16 @@ public final class DoubleField extends NumberField<Double>
 			return isNotNull();
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
+
+	@Override
+	public Condition isZero()
+	{
+		return is(0.0);
+	}
+
+	@Override
+	public Condition lessZero()
+	{
+		return less(0.0);
+	}
 }

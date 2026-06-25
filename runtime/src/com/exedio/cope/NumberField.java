@@ -59,4 +59,9 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	 */
 	@SuppressWarnings("unused") // OK: just overriding methods are tested
 	public abstract boolean allowsNegativeValues();
+
+	@SuppressWarnings("unused") // OK: just overriding methods are tested
+	public abstract Condition isZero();
+	@SuppressWarnings("unused") // OK: just overriding methods are tested
+	public abstract Condition lessZero();
 }

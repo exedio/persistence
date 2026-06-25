@@ -375,4 +375,16 @@ public final class LongField extends NumberField<Long>
 	{
 		return LongFieldRangeDigits.rangeDigits(this, minimumDigits, maximumDigits);
 	}
+
+	@Override
+	public Condition isZero()
+	{
+		return is(0l);
+	}
+
+	@Override
+	public Condition lessZero()
+	{
+		return less(0l);
+	}
 }
