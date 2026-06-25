@@ -333,6 +333,24 @@ public final class IntegerField extends NumberField<Integer>
 		return maximum;
 	}
 
+	/**
+	 * @see #getMinimum()
+	 */
+	@Override
+	public Integer getMinimumNumber()
+	{
+		return minimum;
+	}
+
+	/**
+	 * @see #getMaximum()
+	 */
+	@Override
+	public Integer getMaximumNumber()
+	{
+		return maximum;
+	}
+
 	@Override
 	public boolean allowsZeroValue()
 	{

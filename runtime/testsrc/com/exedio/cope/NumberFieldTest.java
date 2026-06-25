@@ -24,6 +24,23 @@ import org.junit.jupiter.api.Test;
 
 public class NumberFieldTest
 {
+	@Test void testMinMaximumNumber()
+	{
+		assertEquals(Integer.MIN_VALUE, intF.getMinimumNumber());
+		assertEquals(   Long.MIN_VALUE, lngF.getMinimumNumber());
+		assertEquals(-Double.MAX_VALUE, dblF.getMinimumNumber());
+		assertEquals(Integer.MAX_VALUE, intF.getMaximumNumber());
+		assertEquals(   Long.MAX_VALUE, lngF.getMaximumNumber());
+		assertEquals( Double.MAX_VALUE, dblF.getMaximumNumber());
+
+		assertEquals(Integer.valueOf(55  ), intF.range(55  , 66  ).getMinimumNumber());
+		assertEquals(   Long.valueOf(55  ), lngF.range(55  , 66  ).getMinimumNumber());
+		assertEquals( Double.valueOf(55.5), dblF.range(55.5, 66.6).getMinimumNumber());
+		assertEquals(Integer.valueOf(66  ), intF.range(55  , 66  ).getMaximumNumber());
+		assertEquals(   Long.valueOf(66  ), lngF.range(55  , 66  ).getMaximumNumber());
+		assertEquals( Double.valueOf(66.6), dblF.range(55.5, 66.6).getMaximumNumber());
+	}
+
 	@Test void testAllowsZeroValueMin()
 	{
 		assertEquals(true, intF.range(  -1, 10).allowsZeroValue());

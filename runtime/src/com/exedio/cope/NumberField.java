@@ -43,6 +43,11 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 		return BindNumberFunction.create(this, join);
 	}
 
+	@SuppressWarnings("unused") // OK: just overriding methods are tested
+	public abstract E getMinimumNumber();
+	@SuppressWarnings("unused") // OK: just overriding methods are tested
+	public abstract E getMaximumNumber();
+
 	/**
 	 * Returns {@code true} if this field allows a value of zero.
 	 */
