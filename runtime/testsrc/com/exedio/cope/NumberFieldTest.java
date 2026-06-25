@@ -54,6 +54,21 @@ public class NumberFieldTest
 		assertEquals(false, dblF.range(-10, -0.1).allowsZeroValue());
 	}
 
+	@Test void testAllowsNegativeValue()
+	{
+		assertEquals(true, intF.range(  -1, 10).allowsNegativeValues());
+		assertEquals(true, lngF.range(  -1, 10).allowsNegativeValues());
+		assertEquals(true, dblF.range(-0.1, 10).allowsNegativeValues());
+
+		assertEquals(false, intF.range(0, 10).allowsNegativeValues());
+		assertEquals(false, lngF.range(0, 10).allowsNegativeValues());
+		assertEquals(false, dblF.range(0, 10).allowsNegativeValues());
+
+		assertEquals(false, intF.range(  1, 10).allowsNegativeValues());
+		assertEquals(false, lngF.range(  1, 10).allowsNegativeValues());
+		assertEquals(false, dblF.range(0.1, 10).allowsNegativeValues());
+	}
+
 	private static final IntegerField intF = new IntegerField();
 	private static final    LongField lngF = new    LongField();
 	private static final  DoubleField dblF = new  DoubleField();

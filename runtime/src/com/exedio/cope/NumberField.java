@@ -44,8 +44,14 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	}
 
 	/**
-	 * Return {@code true} if this field allows a value of zero.
+	 * Returns {@code true} if this field allows a value of zero.
 	 */
 	@SuppressWarnings("unused") // OK: just overriding methods are tested
 	public abstract boolean allowsZeroValue();
+
+	/**
+	 * Returns {@code true} if this field allows any negative values (less than zero).
+	 */
+	@SuppressWarnings("unused") // OK: just overriding methods are tested
+	public abstract boolean allowsNegativeValues();
 }
