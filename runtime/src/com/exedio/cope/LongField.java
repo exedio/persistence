@@ -241,6 +241,12 @@ public final class LongField extends NumberField<Long>
 	}
 
 	@Override
+	public boolean allowsNegativeValues()
+	{
+		return minimum<0;
+	}
+
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
