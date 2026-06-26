@@ -133,6 +133,8 @@ public class MediaServletTest
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/."        , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/"         , itemTxtCatch);
 
+		assertTxtBrokenIfModifiedSince(prefix + "content/" + ITEM_TXT + ".txt");
+
 		assertTxt     (prefix + "contentLarge/" + ITEM_TXT + ".txt", hour8(0));
 		assertNotFound(prefix + "contentLarge/" + ITEM_EMP + ".txt", IS_NULL);
 
@@ -382,6 +384,25 @@ public class MediaServletTest
 
 		//textConn.setIfModifiedSince();
 		assertOnExceptionEmpty();
+	}
+
+	private void assertTxtBrokenIfModifiedSince(
+			final String url)
+			throws IOException, URISyntaxException
+	{
+		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
+		HttpURLConnection.setFollowRedirects(false);
+		conn.setRequestProperty("If-Modified-Since", "Thu, 22 Jan 2026 16:24:2x GMT");
+		conn.connect();
+		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
+
+		assertEquals(
+				"""
+				java.lang.IllegalArgumentException
+				Thu, 22 Jan 2026 16:24:2x GMT
+				""",
+				Files.readString(onException.toPath(), US_ASCII));
+		Files.delete(onException.toPath());
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
