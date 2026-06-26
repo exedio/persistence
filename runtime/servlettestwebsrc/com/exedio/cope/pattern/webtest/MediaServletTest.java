@@ -42,6 +42,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,15 +77,12 @@ public class MediaServletTest
 	private static final String CACHE_CONTROL = "Cache-Control";
 	private static final String EXPIRES = "Expires";
 
-	private static final File onException = new File("tomcat/bin/MediaTestServlet.log");
-
 	private String schemeAndHost;
 
-	@BeforeEach final void setUp()
+	@BeforeEach final void setUp() throws IOException
 	{
 		schemeAndHost = "http://localhost:" + System.getProperty("tomcat.port.http");
-		//noinspection ResultOfMethodCallIgnored OK if does not yet exists
-		onException.delete();
+		Files.deleteIfExists(logContentExpected);
 	}
 
 	@Test void testIt() throws Exception
@@ -315,10 +313,10 @@ public class MediaServletTest
 		assertNotFound(prefix + "nameServer/", NOT_AN_ITEM);
 		assertNotFound(prefix + "nameServer", NO_SUCH_PATH);
 
-		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
+		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR + ".txt", ITEM_NAME_ERR);
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR + ".", prefix + "nameServer/" + ITEM_NAME_ERR + ".txt"); // TODO should be 404
 		assertMoved(prefix + "nameServer/" + ITEM_NAME_ERR      , prefix + "nameServer/" + ITEM_NAME_ERR + ".txt");
-		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR_LM + ".txt");
+		assertInternalError(prefix + "nameServer/" + ITEM_NAME_ERR_LM + ".txt", ITEM_NAME_ERR_LM);
 	}
 
 	private void assertTxt(final String url, final Date lastModified) throws IOException, URISyntaxException
@@ -396,13 +394,12 @@ public class MediaServletTest
 		conn.connect();
 		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
 
-		assertEquals(
+		assertLog(
 				"""
-				java.lang.IllegalArgumentException
-				Thu, 22 Jan 2026 16:24:2x GMT
-				""",
-				Files.readString(onException.toPath(), US_ASCII));
-		Files.delete(onException.toPath());
+				ERROR [com.exedio.cope.pattern.MediaServlet]: Path=/MediaServletItem/content/MediaServletItem-0.txt Query=null Host=localhost:8080 Referer=null Agent=Java/XXX
+				java.lang.IllegalArgumentException: Thu, 22 Jan 2026 16:24:2x GMT
+					at org.apache.catalina.connector.Request.getDateHeader(Request.java:2072)
+				""");
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
@@ -545,7 +542,7 @@ public class MediaServletTest
 		assertOnExceptionEmpty();
 	}
 
-	private void assertInternalError(final String url) throws IOException, URISyntaxException
+	private void assertInternalError(final String url, final String item) throws IOException, URISyntaxException
 	{
 		final Date before = new Date();
 		final HttpURLConnection conn = (HttpURLConnection)new URI(schemeAndHost + url).toURL().openConnection();
@@ -580,13 +577,12 @@ public class MediaServletTest
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
 
-		assertTrue(onException.exists(), onException.getAbsolutePath());
-		final String data = lines(
-				"java.lang.RuntimeException",
-				"test error in MediaNameServer"
-		);
-		assertEquals(data, getContentAsString(Files.newInputStream(onException.toPath())));
-		StrictFile.delete(onException);
+		assertLog(
+				"""
+				ERROR [com.exedio.cope.pattern.MediaServlet]: Path=/MediaServletItem/nameServer/{ITEM}.txt Query=null Host=localhost:8080 Referer=null Agent=Java/XXX
+				java.lang.RuntimeException: test error in MediaNameServer
+					at com.exedio.cope.pattern.MediaNameServer.doGetAndCommit(MediaNameServer.java:85)
+				""".replace("{ITEM}", item));
 	}
 
 	private void assertNameURL(final String url) throws IOException, URISyntaxException
@@ -703,8 +699,31 @@ public class MediaServletTest
 		return builder.toString();
 	}
 
-	private static void assertOnExceptionEmpty()
+	private void assertOnExceptionEmpty() throws IOException // TODO rename to assertLogEmpty
 	{
-		assertFalse(onException.exists(), onException.getAbsolutePath());
+		assertLog("");
 	}
+
+	private void assertLog(final String expectedAdditional) throws IOException
+	{
+		final String expected =
+				logContentBefore +
+				expectedAdditional.replaceAll("Java/XXX", "Java/" + System.getProperty("java.version"));
+		final String actual = Files.readString(logContent, US_ASCII);
+
+		if(!actual.equals(expected))
+		{
+			// makes comparison easier
+			Files.deleteIfExists(logContentExpected);
+			Files.writeString(logContentExpected, expected, US_ASCII);
+		}
+
+		assertEquals(expected, actual, "diff " + logContentExpected + " " + logContent);
+		logContentBefore = actual;
+	}
+
+	private String logContentBefore = "";
+
+	private static final Path logContent = Path.of("tomcat/bin/MediaServlet.log");
+	private static final Path logContentExpected = Path.of("MediaServletTest-expected.log");
 }
