@@ -605,6 +605,8 @@
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset dir="lib/hsqldb" />
 			<fileset dir="lib/copeconsole" />
+			<fileset file="lib/test/slf4j-reload4j.jar" />
+			<fileset file="lib/test/reload4j.jar" />
 		</copy>
 	</target>
 
@@ -626,6 +628,7 @@
 				depends="catalina,
 							runtime.servlet.test.tomcat,
 							runtime.servlet.webtest.compile">
+		<delete file="tomcat/bin/MediaServlet.log" />
 		<runInTomcat name="runtime.servlet.webtest">
 			<body>
 				<ljunit scansrc="runtime/servlettestwebsrc">
