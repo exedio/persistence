@@ -396,7 +396,7 @@ public class MediaServletTest
 
 		assertLog(
 				"""
-				ERROR [com.exedio.cope.pattern.MediaServlet]: Path=/MediaServletItem/content/MediaServletItem-0.txt Query=null Host=localhost:8080 Referer=null Agent=Java/XXX
+				ERROR [com.exedio.cope.pattern.MediaServlet]: Path=/MediaServletItem/content/MediaServletItem-0.txt Query=null Host=localhost:8080 IP=127.0.0.1 Referer=null Agent=Java/XXX
 				java.lang.IllegalArgumentException: Thu, 22 Jan 2026 16:24:2x GMT
 					at org.apache.catalina.connector.Request.getDateHeader(Request.java:2072)
 				""");
@@ -579,7 +579,7 @@ public class MediaServletTest
 
 		assertLog(
 				"""
-				ERROR [com.exedio.cope.pattern.MediaServlet]: Path=/MediaServletItem/nameServer/{ITEM}.txt Query=null Host=localhost:8080 Referer=null Agent=Java/XXX
+				ERROR [com.exedio.cope.pattern.MediaServlet]: Path=/MediaServletItem/nameServer/{ITEM}.txt Query=null Host=localhost:8080 IP=127.0.0.1 Referer=null Agent=Java/XXX
 				java.lang.RuntimeException: test error in MediaNameServer
 					at com.exedio.cope.pattern.MediaNameServer.doGetAndCommit(MediaNameServer.java:85)
 				""".replace("{ITEM}", item));
