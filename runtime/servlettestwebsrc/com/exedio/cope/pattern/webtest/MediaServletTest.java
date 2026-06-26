@@ -381,7 +381,7 @@ public class MediaServletTest
 		}
 
 		//textConn.setIfModifiedSince();
-		assertOnExceptionEmpty();
+		assertLogEmpty();
 	}
 
 	private void assertTxtBrokenIfModifiedSince(
@@ -438,7 +438,7 @@ public class MediaServletTest
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
-		assertOnExceptionEmpty();
+		assertLogEmpty();
 	}
 
 	private void assertNotFound(final String url, final String reason) throws IOException, URISyntaxException
@@ -492,7 +492,7 @@ public class MediaServletTest
 			assertEquals("max-age=5", conn.getHeaderField(CACHE_CONTROL));
 		else
 			assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
-		assertOnExceptionEmpty();
+		assertLogEmpty();
 	}
 
 	private void assertBin(
@@ -539,7 +539,7 @@ public class MediaServletTest
 		assertEquals(cacheControl, conn.getHeaderField(CACHE_CONTROL));
 		assertEquals(null, conn.getHeaderField(EXPIRES));
 
-		assertOnExceptionEmpty();
+		assertLogEmpty();
 	}
 
 	private void assertInternalError(final String url, final String item) throws IOException, URISyntaxException
@@ -699,7 +699,7 @@ public class MediaServletTest
 		return builder.toString();
 	}
 
-	private void assertOnExceptionEmpty() throws IOException // TODO rename to assertLogEmpty
+	private void assertLogEmpty() throws IOException
 	{
 		assertLog("");
 	}
