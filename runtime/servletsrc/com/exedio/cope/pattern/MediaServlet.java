@@ -329,6 +329,7 @@ public class MediaServlet extends HttpServlet
 					"Path="     + request.getPathInfo() +
 					" Query="   + request.getQueryString() +
 					" Host="    + request.getHeader("Host") +
+					" IP="      + request.getRemoteAddr() +
 					" Referer=" + request.getHeader("Referer") +
 					" Agent="   + request.getHeader("User-Agent"),
 				exception );
