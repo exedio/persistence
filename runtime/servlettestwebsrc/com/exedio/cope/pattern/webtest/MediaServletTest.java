@@ -392,13 +392,16 @@ public class MediaServletTest
 		HttpURLConnection.setFollowRedirects(false);
 		conn.setRequestProperty("If-Modified-Since", "Thu, 22 Jan 2026 16:24:2x GMT");
 		conn.connect();
-		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
+		assertEquals(HTTP_OK, conn.getResponseCode());
 
+		final String data = lines(
+				"This is an example file",
+				"for testing media data."
+		);
+		assertEquals( data, getContentAsString(conn.getInputStream()) );
 		assertLog(
 				"""
-				ERROR [com.exedio.cope.pattern.MediaServlet]: Path=/MediaServletItem/content/MediaServletItem-0.txt Query=null Host=localhost:8080 IP=127.0.0.1 Referer=null Agent=Java/XXX
-				java.lang.IllegalArgumentException: Thu, 22 Jan 2026 16:24:2x GMT
-					at org.apache.catalina.connector.Request.getDateHeader(Request.java:2072)
+				WARN [com.exedio.cope.pattern.MediaServlet]: illegal date header If-Modified-Since=Thu, 22 Jan 2026 16:24:2x GMT Path=/MediaServletItem/content/MediaServletItem-0.txt Query=null Host=localhost:8080 IP=127.0.0.1 Referer=null Agent=Java/XXX
 				""");
 	}
 

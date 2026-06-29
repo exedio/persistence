@@ -67,7 +67,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MediaServlet extends HttpServlet
 {
-	private static final Logger logger = LoggerFactory.getLogger(MediaServlet.class);
+	static final Logger logger = LoggerFactory.getLogger(MediaServlet.class);
 
 	@Serial
 	private static final long serialVersionUID = 1l;

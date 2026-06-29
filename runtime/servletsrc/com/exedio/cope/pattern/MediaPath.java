@@ -862,7 +862,7 @@ public abstract class MediaPath extends Pattern
 
 		setCacheControl(response, mediaResponse, cacheControlMaxAge, cacheControlImmutable);
 
-		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
+		final long ifModifiedSince = getDateHeaderLeniently(request, "If-Modified-Since"); // https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/If-Modified-Since
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
 			commit();
@@ -874,6 +874,32 @@ public abstract class MediaPath extends Pattern
 		else
 		{
 			deliver(request, response, locator);
+		}
+	}
+
+	private static long getDateHeaderLeniently(
+			final HttpServletRequest request,
+			final String name)
+	{
+		// Experiments show, that Apache http server does silently drop
+		// all malformed If-Modified-Since headers without even logging.
+		// Server Version: Apache/2.4.67 (Debian) OpenSSL/3.5.6 mod_jk/1.2.50 N/A
+		try
+		{
+			return request.getDateHeader(name);
+		}
+		catch(final IllegalArgumentException e) // HttpServletRequest#getDateHeader throws an IllegalArgumentException if the header can't be converted to a date.
+		{
+			//noinspection StringConcatenationArgumentToLogCall
+			MediaServlet.logger.warn(
+					"illegal date header " + name + "=" + e.getMessage() +
+					" Path="    + request.getPathInfo() +
+					" Query="   + request.getQueryString() +
+					" Host="    + request.getHeader("Host") +
+					" IP="      + request.getRemoteAddr() +
+					" Referer=" + request.getHeader("Referer") +
+					" Agent="   + request.getHeader("User-Agent"));
+			return -1; // HttpServletRequest#getDateHeader returns -1 if the named header was not included with the request
 		}
 	}
 
