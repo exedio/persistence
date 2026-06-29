@@ -359,6 +359,15 @@ public final class StringField extends FunctionField<String>
 		return sb.toString();
 	}
 
+	/**
+	 * It is guaranteed, that any {@link Field}&lt;String&gt; is also a {@code StringField}.
+	 * This method is the callable representation of this guarantee.
+	 */
+	public static StringField cast(final Field<String> field)
+	{
+		return (StringField)field;
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**
