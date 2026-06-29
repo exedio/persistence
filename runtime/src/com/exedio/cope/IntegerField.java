@@ -43,6 +43,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	private final int minimum;
 	private final int maximum;
+	private final boolean forbidZero;
 
 	private IntegerField(
 			final boolean isfinal,
@@ -51,14 +52,23 @@ public final class IntegerField extends NumberField<Integer>
 			final CopyFrom[] copyFrom,
 			final DefaultSupplier<Integer> defaultS,
 			final int minimum,
+			final boolean forbidZero,
 			final int maximum)
 	{
 		super(isfinal, optional, Integer.class, unique, copyFrom, defaultS);
 		this.minimum = minimum;
 		this.maximum = maximum;
+		this.forbidZero = forbidZero;
 
 		if(minimum>maximum)
 			throw new IllegalArgumentException("maximum must be at least minimum, but was " + maximum + " and " + minimum);
+		if(forbidZero)
+		{
+			if(minimum>=0)
+				throw new IllegalArgumentException("forbidZero is outside of range with minimum " + minimum);
+			if(maximum<=0)
+				throw new IllegalArgumentException("forbidZero is outside of range with maximum " + maximum);
+		}
 
 		mountDefault();
 	}
@@ -176,43 +186,43 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public IntegerField()
 	{
-		this(false, false, false, null, null, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		this(false, false, false, null, null, Integer.MIN_VALUE, false, Integer.MAX_VALUE);
 	}
 
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(true, optional, unique, copyFrom, defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, unique, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, copyFrom, defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
 	public IntegerField mandatory()
 	{
-		return new IntegerField(isfinal, false, unique, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, false, unique, copyFrom, defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, true, copyFrom, defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
 	public IntegerField nonUnique()
 	{
-		return new IntegerField(isfinal, optional, false, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, false, copyFrom, defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
@@ -235,13 +245,13 @@ public final class IntegerField extends NumberField<Integer>
 
 	private IntegerField copyFrom(final CopyFrom copyFrom)
 	{
-		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
 	public IntegerField noCopyFrom()
 	{
-		return new IntegerField(isfinal, optional, unique, null, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, null, defaultS, minimum, forbidZero, maximum);
 	}
 
 	@Override
@@ -253,17 +263,17 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField defaultTo(final Integer defaultConstant)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimum, forbidZero, maximum);
 	}
 
 	public IntegerField defaultToNext(final int start)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, new DefaultNext(start), minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, new DefaultNext(start), minimum, forbidZero, maximum);
 	}
 
 	public IntegerField rangeEvenIfRedundant(final int minimum, final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, forbidZero, maximum);
 	}
 
 	public IntegerField range(final int minimum, final int maximum)
@@ -273,12 +283,12 @@ public final class IntegerField extends NumberField<Integer>
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, forbidZero, maximum).failOnRedundantRange();
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum).failOnRedundantRange();
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, forbidZero, maximum).failOnRedundantRange();
 	}
 
 	private IntegerField failOnRedundantRange()
@@ -289,6 +299,11 @@ public final class IntegerField extends NumberField<Integer>
 					"(" + minimum + ") is probably a mistake. " +
 					"You may call method rangeEvenIfRedundant if you are sure this is ok.");
 		return this;
+	}
+
+	public IntegerField forbidZero()
+	{
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, true, maximum);
 	}
 
 	/**
@@ -351,10 +366,15 @@ public final class IntegerField extends NumberField<Integer>
 		return maximum;
 	}
 
+	public boolean isZeroForbidden()
+	{
+		return forbidZero;
+	}
+
 	@Override
 	public boolean allowsZeroValue()
 	{
-		return minimum<=0 && 0<=maximum;
+		return (minimum<=0 && 0<=maximum) && !forbidZero;
 	}
 
 	@Override
@@ -369,6 +389,8 @@ public final class IntegerField extends NumberField<Integer>
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		if(minimum!=Integer.MIN_VALUE || maximum!=Integer.MAX_VALUE)
 			result.add(IntegerRangeViolationException.class);
+		if(forbidZero)
+			result.add(IntegerForbidViolationException.class);
 		return result;
 	}
 
@@ -387,7 +409,7 @@ public final class IntegerField extends NumberField<Integer>
 			final Connect connect,
 			final ModelMetrics metrics)
 	{
-		return new IntegerColumn(table, name, false, optional, minimum, maximum, false);
+		return new IntegerColumn(table, name, false, optional, minimum, forbidZero, maximum, false);
 	}
 
 	@Override
@@ -463,6 +485,8 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IntegerRangeViolationException(this, exceptionItem, value, true, minimum);
 		if(valuePrimitive>maximum)
 			throw new IntegerRangeViolationException(this, exceptionItem, value, false, maximum);
+		if(forbidZero && valuePrimitive==0)
+			throw new IntegerForbidViolationException(this, exceptionItem, value);
 	}
 
 	/**
@@ -515,7 +539,7 @@ public final class IntegerField extends NumberField<Integer>
 		{
 			// TODO does not work with BindFunction
 			final int valuePrimitive = value;
-			if(valuePrimitive<minimum || valuePrimitive>maximum)
+			if(valuePrimitive<minimum || valuePrimitive>maximum) // TODO forbidZero
 				return Condition.ofFalse(); // TODO COND bug: ofFalse.not() with null
 			else
 				return super.is(value);
@@ -541,7 +565,7 @@ public final class IntegerField extends NumberField<Integer>
 		{
 			// TODO does not work with BindFunction
 			final int valuePrimitive = value;
-			if(valuePrimitive<minimum || valuePrimitive>maximum)
+			if(valuePrimitive<minimum || valuePrimitive>maximum) // TODO forbidZero
 				return Condition.ofTrue(); // TODO COND bug: ofTrue.not() with null
 			else
 				return super.isNot(value);

@@ -152,6 +152,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultNext());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertEquals(false, f.isZeroForbidden());
 			assertSame(null, f.getValidator());
 		});
 	}
@@ -164,6 +165,7 @@ public class FieldModifierTest
 			assertEquals(false, f.isDefaultNext());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertEquals(false, f.isZeroForbidden());
 			assertSame(null, f.getValidator());
 		});
 	}
@@ -177,6 +179,20 @@ public class FieldModifierTest
 			assertEquals(77, f.getDefaultNextStartX());
 			assertEquals(66, f.getMinimum());
 			assertEquals(88, f.getMaximum());
+			assertEquals(false, f.isZeroForbidden());
+			assertSame(null, f.getValidator());
+		});
+	}
+	@Test void testIntegerForbidZero()
+	{
+		testField(new IntegerField().defaultTo(77).min(-66).max(88).forbidZero(), f -> {
+			assertEquals(Integer.class, f.getValueClass());
+			assertNull(f.getImplicitUniqueConstraint());
+			assertEquals(Integer.valueOf(77), f.getDefaultConstant());
+			assertEquals(false, f.isDefaultNext());
+			assertEquals(-66, f.getMinimum());
+			assertEquals(88, f.getMaximum());
+			assertEquals(true, f.isZeroForbidden());
 			assertSame(null, f.getValidator());
 		});
 	}

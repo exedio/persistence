@@ -27,7 +27,7 @@ final class SchemaItem extends Item
 	static final IntegerField nonFinalInteger = new IntegerField();
 
 	static final StringField string = new StringField();
-	static final IntegerField integ = new IntegerField().range(-10, 10);
+	static final IntegerField integ = new IntegerField().range(-10, 10).forbidZero();
 	static final LongField aLong = new LongField().range(-12, 12);
 	static final DoubleField doub = new DoubleField().range(-11.1, 11.1);
 	static final DateField date = new DateField();
@@ -89,6 +89,7 @@ final class SchemaItem extends Item
 	 * @param enumRed the initial value for field {@link #enumRed}.
 	 * @param stringLong the initial value for field {@link #stringLong}.
 	 * @throws com.exedio.cope.DoubleRangeViolationException if doub, doubRed violates its range constraint.
+	 * @throws com.exedio.cope.IntegerForbidViolationException if integ violates its forbid constraint.
 	 * @throws com.exedio.cope.IntegerRangeViolationException if integ, integRed violates its range constraint.
 	 * @throws com.exedio.cope.LongRangeViolationException if aLong, longRed violates its range constraint.
 	 * @throws com.exedio.cope.MandatoryViolationException if string, date, day, anEnum, item, poly, enumRed, stringLong is null.
@@ -116,6 +117,7 @@ final class SchemaItem extends Item
 				@javax.annotation.Nonnull final java.lang.String stringLong)
 			throws
 				com.exedio.cope.DoubleRangeViolationException,
+				com.exedio.cope.IntegerForbidViolationException,
 				com.exedio.cope.IntegerRangeViolationException,
 				com.exedio.cope.LongRangeViolationException,
 				com.exedio.cope.MandatoryViolationException,
@@ -210,7 +212,8 @@ final class SchemaItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteg(final int integ)
 			throws
-				com.exedio.cope.IntegerRangeViolationException
+				com.exedio.cope.IntegerRangeViolationException,
+				com.exedio.cope.IntegerForbidViolationException
 	{
 		SchemaItem.integ.set(this,integ);
 	}

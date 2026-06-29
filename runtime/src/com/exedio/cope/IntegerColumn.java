@@ -29,6 +29,7 @@ class IntegerColumn extends Column
 {
 	final long minimum;
 	final long maximum;
+	final boolean forbidZero;
 	final boolean longInsteadOfInt;
 	final int[] allowedValues;
 	private final Precision precision;
@@ -39,10 +40,11 @@ class IntegerColumn extends Column
 			final boolean synthetic,
 			final boolean optional,
 			final long minimum,
+			final boolean forbidZero,
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
-		this(table, id, synthetic, optional, minimum, maximum, longInsteadOfInt, Precision.MILLI);
+		this(table, id, synthetic, optional, minimum, forbidZero, maximum, longInsteadOfInt, Precision.MILLI);
 	}
 
 	IntegerColumn(
@@ -51,6 +53,7 @@ class IntegerColumn extends Column
 			final boolean synthetic,
 			final boolean optional,
 			final long minimum,
+			final boolean forbidZero,
 			final long maximum,
 			final boolean longInsteadOfInt,
 			final Precision precision)
@@ -58,6 +61,7 @@ class IntegerColumn extends Column
 		super(table, id, synthetic, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
+		this.forbidZero = forbidZero;
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = null;
 		this.precision = precision;
@@ -76,6 +80,7 @@ class IntegerColumn extends Column
 		this.allowedValues = strictlyMonotonicallyIncreasing(allowedValues);
 		this.minimum = allowedValues[0];
 		this.maximum = allowedValues[allowedValues.length-1];
+		this.forbidZero = false;
 		this.precision = Precision.MILLI;
 
 		assert assertMembers();
@@ -105,6 +110,7 @@ class IntegerColumn extends Column
 		super(table, Table.PK_COLUMN_NAME, true, Kind.primaryKey);
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = maximum;
+		this.forbidZero = false;
 		this.longInsteadOfInt = true;
 		this.allowedValues = null;
 		this.precision = Precision.MILLI;
@@ -156,6 +162,9 @@ class IntegerColumn extends Column
 				newCheck(dsmf, "MN", quotedID + ">=" + minimum);
 				newCheck(dsmf, "MX", quotedID + "<=" + maximum);
 			}
+
+			if(forbidZero)
+				newCheck(dsmf, "EX", quotedID + "<>0");
 
 			if(precision.constrains())
 				newCheck(dsmf, "PR",
