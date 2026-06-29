@@ -52,6 +52,8 @@ public final class StringField extends FunctionField<String>
 	private final String regexp;
 	private final Pattern icuPattern;
 
+	private final FieldValidator<String> validator; // TODO move to superclass Field
+
 	private StringField(
 			final boolean isfinal,
 			final boolean optional,
@@ -61,13 +63,15 @@ public final class StringField extends FunctionField<String>
 			final int minimumLength,
 			final int maximumLength,
 			final CharSet charSet,
-			final String regexp)
+			final String regexp,
+			final FieldValidator<String> validator)
 	{
 		super(isfinal, optional, String.class, unique, copyFrom, defaultS);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
 		this.regexp = regexp;
+		this.validator = validator;
 
 		requireNonNegative(minimumLength, "minimumLength");
 		requireGreaterZero(maximumLength, "maximumLength");
@@ -92,43 +96,43 @@ public final class StringField extends FunctionField<String>
 	 */
 	public StringField()
 	{
-		this(false, false, false, null, null, DEFAULT_MINIMUM_LENGTH, DEFAULT_MAXIMUM_LENGTH, null, null);
+		this(false, false, false, null, null, DEFAULT_MINIMUM_LENGTH, DEFAULT_MAXIMUM_LENGTH, null, null, null);
 	}
 
 	@Override
 	public StringField copy()
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
 	public StringField toFinal()
 	{
-		return new StringField(true, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(true, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
 	public StringField optional()
 	{
-		return new StringField(isfinal, true, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, true, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
 	public StringField mandatory()
 	{
-		return new StringField(isfinal, false, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, false, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
 	public StringField unique()
 	{
-		return new StringField(isfinal, optional, true, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, true, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
 	public StringField nonUnique()
 	{
-		return new StringField(isfinal, optional, false, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, false, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
@@ -151,13 +155,13 @@ public final class StringField extends FunctionField<String>
 
 	private StringField copyFrom(final CopyFrom copyFrom)
 	{
-		return new StringField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
 	public StringField noCopyFrom()
 	{
-		return new StringField(isfinal, optional, unique, null, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, null, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	@Override
@@ -169,32 +173,32 @@ public final class StringField extends FunctionField<String>
 	@Override
 	public StringField defaultTo(final String defaultConstant)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultConstant(defaultConstant), minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	public StringField lengthRange(final int minimumLength, final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	public StringField lengthMin(final int minimumLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	public StringField lengthMax(final int maximumLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	public StringField lengthExact(final int exactLength)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultS, exactLength, exactLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, exactLength, exactLength, charSet, regexp, validator);
 	}
 
 	public StringField charSet(final CharSet charSet)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	/**
@@ -205,7 +209,22 @@ public final class StringField extends FunctionField<String>
 	 */
 	public StringField regexp(final String regexp)
 	{
-		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp);
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
+	}
+
+	/**
+	 * BEWARE:
+	 * This is the last resort.
+	 * Better use specialized constraints such as
+	 * {@link #lengthRange(int, int)},
+	 * {@link #charSet(CharSet)} or
+	 * {@link #regexp(String)}.
+	 * Or implement more such specialized constraints, if needed.
+	 * Or use {@link CheckConstraint check constraints}.
+	 */
+	public StringField validate(final FieldValidator<String> validator)
+	{
+		return new StringField(isfinal, optional, unique, copyFrom, defaultS, minimumLength, maximumLength, charSet, regexp, validator);
 	}
 
 	public int getMinimumLength()
@@ -229,12 +248,20 @@ public final class StringField extends FunctionField<String>
 	}
 
 	@Override
+	public FieldValidator<String> getValidator()
+	{
+		return validator;
+	}
+
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
 		result.add(StringLengthViolationException.class);
 		if(charSet!=null)
 			result.add(StringCharSetViolationException.class);
+		if(validator!=null)
+			result.addAll(validator.getValidateExceptions());
 		return result;
 	}
 
@@ -330,6 +357,12 @@ public final class StringField extends FunctionField<String>
 		if(icuPattern != null && ! icuPattern.matcher(value).matches())
 		{
 			throw new StringRegexpPatternViolationException(this, exceptionItem, value);
+		}
+		if(validator!=null)
+		{
+			final var exception = validator.validate(value, exceptionItem, this);
+			if(exception!=null)
+				throw exception;
 		}
 	}
 
