@@ -204,6 +204,7 @@ public class UniqueCacheItemFieldTest extends TestWithEnvironment
 	private static Supplier<Counter> counter(final String result)
 	{
 		return () -> (Counter)PrometheusMeterRegistrar.meter(UniqueConstraint.class, "cache", Tags.of(
+				"model", MODEL.toString(),
 				"feature", AnItem.unique.getImplicitUniqueConstraint().getID(),
 				"result", result));
 	}
