@@ -31,7 +31,7 @@ import java.sql.Connection;
 import java.util.Date;
 import javax.annotation.Nonnull;
 
-final class VaultTrail
+final class VaultTrail implements VaultTrailSchemaInfo
 {
 	private final ConnectionPool connectionPool;
 	private final Executor executor;
@@ -43,15 +43,15 @@ final class VaultTrail
 	private final int originLimit;
 	private final String originValue;
 
-	final String table;
-	final String hash;
+	final String table; // TODO make private
+	final String hash; // TODO make private
 	private final String hashPK;
-	final String length;
-	final String start;
+	final String length; // TODO make private
+	final String start; // TODO make private
 	private final String markPut;
-	final String date;
-	final String field;
-	final String origin;
+	final String date; // TODO make private
+	final String field; // TODO make private
+	final String origin; // TODO make private
 
 	final String tableQuoted;
 	final String hashQuoted;
@@ -298,4 +298,14 @@ final class VaultTrail
 
 		return st;
 	}
+
+	// VaultTrailSchemaInfo
+	@Override public String tableName() { return table; }
+	@Override public String hashColumnName() { return hash; }
+	@Override public String lengthColumnName() { return length; }
+	@Override public String startColumnName() { return start; }
+	@Override public int    startColumnLimit() { return startLimit; }
+	@Override public String dateColumnName() { return date; }
+	@Override public String fieldColumnName() { return field; }
+	@Override public String originColumnName() { return origin; }
 }

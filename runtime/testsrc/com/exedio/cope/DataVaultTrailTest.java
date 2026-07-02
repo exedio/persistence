@@ -29,6 +29,7 @@ import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnLimit;
 import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnName;
 import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.vaultTrail;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -414,6 +415,37 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertSchema();
 	}
 	@Test void testSchemaInfo()
+	{
+		assertFails(
+				() -> vaultTrail(model, "xxx"),
+				IllegalArgumentException.class,
+				"bucket xxx does not exist, use one of [default, my-Bucket]");
+		assertFails(
+				() -> vaultTrail(model, "xx.x"),
+				IllegalArgumentException.class,
+				"bucket must contain just [---,0-9,A-Z,a-z], " +
+				"but was >xx.x< containing a forbidden character at position 2");
+
+		final var my = vaultTrail(model, "my-Bucket");
+		final var df = vaultTrail(model, "default");
+		assertEquals("VaultTrail_my_Bucket", my.tableName());
+		assertEquals("VaultTrail_default", df.tableName());
+		assertEquals("hash", my.hashColumnName());
+		assertEquals("hash", df.hashColumnName());
+		assertEquals("length", my.lengthColumnName());
+		assertEquals("length", df.lengthColumnName());
+		assertEquals("start20", my.startColumnName());
+		assertEquals("start20", df.startColumnName());
+		assertEquals(20, my.startColumnLimit());
+		assertEquals(20, df.startColumnLimit());
+		assertEquals("date", my.dateColumnName());
+		assertEquals("date", df.dateColumnName());
+		assertEquals("field", my.fieldColumnName());
+		assertEquals("field", df.fieldColumnName());
+		assertEquals("origin", my.originColumnName());
+		assertEquals("origin", df.originColumnName());
+	}
+	@Test void testSchemaInfoDeprecated()
 	{
 		assertEquals("VaultTrail_my_Bucket", getVaultTrailTableName(model, "my-Bucket"));
 		assertEquals("VaultTrail_default",   getVaultTrailTableName(model, "default"));

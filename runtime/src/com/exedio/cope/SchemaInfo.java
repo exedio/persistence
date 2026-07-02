@@ -361,44 +361,73 @@ public final class SchemaInfo
 		return total(requireNonNull(constraint, "constraint").checkQuery());
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#tableName()
+	 */
 	public static String getVaultTrailTableName(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).table;
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#hashColumnName()
+	 */
 	public static String getVaultTrailHashColumnName(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).hash;
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#lengthColumnName()
+	 */
 	public static String getVaultTrailLengthColumnName(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).length;
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#startColumnName()
+	 */
 	public static String getVaultTrailStartColumnName(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).start;
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#startColumnLimit()
+	 */
 	public static int getVaultTrailStartColumnLimit(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).startLimit;
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#dateColumnName()
+	 */
 	public static String getVaultTrailDateColumnName(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).date;
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#fieldColumnName()
+	 */
 	public static String getVaultTrailFieldColumnName(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).field;
 	}
 
+	/**
+	 * @see VaultTrailSchemaInfo#originColumnName()
+	 */
 	public static String getVaultTrailOriginColumnName(final Model model, final String bucket)
 	{
 		return vaultTrailInternal(model, bucket).origin;
+	}
+
+	public static VaultTrailSchemaInfo vaultTrail(final Model model, final String bucket)
+	{
+		return vaultTrailInternal(model, bucket);
 	}
 
 	private static VaultTrail vaultTrailInternal(final Model model, final String bucket)
