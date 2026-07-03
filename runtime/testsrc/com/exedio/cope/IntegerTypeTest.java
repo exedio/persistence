@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
@@ -179,7 +178,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		{
 			model.commit();
 
-			final String sequenceName = getPrimaryKeySequenceName(type);
+			final String sequenceName = SchemaInfo.primaryKeySequenceName(type);
 
 			final StringBuilder sb = new StringBuilder();
 			long sequenceValue = lastUsedPkValue+1L;
@@ -330,7 +329,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			final Type<?> expected,
 			final Sequence.Type actual)
 	{
-		final Sequence sequence = schema.getSequence(getPrimaryKeySequenceName(expected));
+		final Sequence sequence = schema.getSequence(SchemaInfo.primaryKeySequenceName(expected));
 		assertEquals(actual, sequence.getType());
 		assertEquals(0, sequence.getStartL());
 	}

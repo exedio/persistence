@@ -164,13 +164,23 @@ public final class SchemaInfo
 	 *         if there is no such sequence for this type,
 	 *         because primary keys are generated otherwise.
 	 */
-	public static String getPrimaryKeySequenceName(final Type<?> type)
+	public static String primaryKeySequenceName(final Type<?> type)
 	{
 		final String result = type.getPrimaryKeySequenceSchemaName();
 		if(result==null)
 			throw new IllegalArgumentException("no sequence for " + type);
 
 		return result;
+	}
+
+	/**
+	 * @deprecated Use {@link #primaryKeySequenceName(Type)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getPrimaryKeySequenceName(final Type<?> type)
+	{
+		return primaryKeySequenceName(type);
 	}
 
 	/**

@@ -119,7 +119,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 
 	protected static final String nameSeq(final This<?> element)
 	{
-		return SchemaInfo.getPrimaryKeySequenceName(element.getType());
+		return SchemaInfo.primaryKeySequenceName(element.getType());
 	}
 
 	protected static final String type(final This<?> element)
