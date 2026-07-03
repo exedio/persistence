@@ -88,8 +88,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	}
 	private void test(final java.util.function.Function<String, DataField.Value> f) throws SQLException
 	{
-		final String trailTab  = quoteName(model, vaultTrail(model, "my-Bucket").tableName());
-		final String trailTabD = quoteName(model, vaultTrail(model, "default"  ).tableName());
+		final String trailTab  = vaultTrail(model, "my-Bucket").tableNameQuoted();
+		final String trailTabD = vaultTrail(model, "default"  ).tableNameQuoted();
 		final String trailHash = quoteName(model, "hash");
 		final String trailLength = quoteName(model, "length");
 		assertEquals(
@@ -196,7 +196,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
-		updateTrail("DELETE FROM " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()));
+		updateTrail("DELETE FROM " + vaultTrail(model, "my-Bucket").tableNameQuoted());
 		queryTrail("my-Bucket", rs -> {});
 		assertEquals(1, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
@@ -217,7 +217,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail(
-				"UPDATE " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()) + " " +
+				"UPDATE " + vaultTrail(model, "my-Bucket").tableNameQuoted() + " " +
 				"SET " + quoteName(model, "length") + "=" + (MyItem.field.getMaximumLength()+1) + " " +
 				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
 		queryTrail("my-Bucket", rs ->
@@ -226,7 +226,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail(
-				"UPDATE " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()) + " " +
+				"UPDATE " + vaultTrail(model, "my-Bucket").tableNameQuoted() + " " +
 				"SET " + quoteName(model, "length") + "=" + MyItem.field.getMaximumLength() + " " +
 				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
 		queryTrail("my-Bucket", rs ->
@@ -337,7 +337,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final String txName = model.currentTransaction().getName();
 		model.commit();
 		try(ResultSet rs = connection.executeQuery(
-				"SELECT * FROM " + quoteName(model, vaultTrail(model, bucket).tableName()) + " " +
+				"SELECT * FROM " + vaultTrail(model, bucket).tableNameQuoted() + " " +
 				"ORDER BY " + quoteName(model, "hash")))
 		{
 			final ResultSetMetaData md = rs.getMetaData();
@@ -436,6 +436,14 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals("field", df.fieldColumnName());
 		assertEquals("origin", my.originColumnName());
 		assertEquals("origin", df.originColumnName());
+
+		assertEquals(quoteName(model, "VaultTrail_my_Bucket"), my.tableNameQuoted());
+		assertEquals(quoteName(model, "hash"   ), my.hashColumnNameQuoted());
+		assertEquals(quoteName(model, "length" ), my.lengthColumnNameQuoted());
+		assertEquals(quoteName(model, "start20"), my.startColumnNameQuoted());
+		assertEquals(quoteName(model, "date"   ), my.dateColumnNameQuoted());
+		assertEquals(quoteName(model, "field"  ), my.fieldColumnNameQuoted());
+		assertEquals(quoteName(model, "origin" ), my.originColumnNameQuoted());
 	}
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSchemaInfoDeprecated()
@@ -521,8 +529,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(true, vaultProperties.isAppliedToAllFields(), "isAppliedToAllFields required by test");
 		model.setVaultRequiredToMarkPut("my-Bucket", false);
 		model.setVaultRequiredToMarkPut("default", false);
-		connection.executeUpdate("DELETE FROM " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()));
-		connection.executeUpdate("DELETE FROM " + quoteName(model, vaultTrail(model, "default"  ).tableName()));
+		connection.executeUpdate("DELETE FROM " + vaultTrail(model, "my-Bucket").tableNameQuoted());
+		connection.executeUpdate("DELETE FROM " + vaultTrail(model, "default"  ).tableNameQuoted());
 		model.startTransaction(DataVaultTrailTest.class.getName());
 	}
 

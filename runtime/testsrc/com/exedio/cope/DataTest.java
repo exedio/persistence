@@ -473,7 +473,7 @@ public class DataTest extends TestWithEnvironment
 		else
 		{
 			assertEquals(0, data.checkVaultTrail());
-			final String trailTab  = SchemaInfo.quoteName(model, vaultTrail(model, "default").tableName());
+			final String trailTab  = vaultTrail(model, "default").tableNameQuoted();
 			final String trailHash = SchemaInfo.quoteName(model, "hash");
 			final String trailLength=SchemaInfo.quoteName(model, "length");
 			assertEquals(

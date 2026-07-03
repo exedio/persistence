@@ -21,11 +21,18 @@ package com.exedio.cope;
 public interface VaultTrailSchemaInfo
 {
 	String tableName();
+	String tableNameQuoted();
 	String hashColumnName();
+	String hashColumnNameQuoted();
 	String lengthColumnName();
+	String lengthColumnNameQuoted();
 	String startColumnName();
+	String startColumnNameQuoted();
 	int startColumnLimit();
 	String dateColumnName();
+	String dateColumnNameQuoted();
 	String fieldColumnName();
+	String fieldColumnNameQuoted();
 	String originColumnName();
+	String originColumnNameQuoted();
 }
