@@ -435,11 +435,6 @@ public final class SchemaInfo
 
 	public static VaultTrailSchemaInfo vaultTrail(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket);
-	}
-
-	private static VaultTrail vaultTrailInternal(final Model model, final String bucket)
-	{
 		checkBucket(bucket, message ->
 				new IllegalArgumentException("bucket " + message));
 		return model.connect().vault(bucket).trail;
