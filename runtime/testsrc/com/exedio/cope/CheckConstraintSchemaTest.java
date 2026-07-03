@@ -23,7 +23,7 @@ import static com.exedio.cope.CheckConstraintItem.alpha;
 import static com.exedio.cope.CheckConstraintItem.beta;
 import static com.exedio.cope.CheckConstraintSuperItem.eins;
 import static com.exedio.cope.CheckConstraintSuperItem.zwei;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -46,12 +46,12 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 	{
 		final Schema schema = model.getVerifiedSchema();
 
-		final Table table = schema.getTable(getTableName(TYPE));
+		final Table table = schema.getTable(tableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
-		final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
+		final Table superTable = schema.getTable(tableName(CheckConstraintSuperItem.TYPE));
 		assertNotNull(superTable);
 		assertEquals(null, getError(superTable));
 		assertEquals(Node.Color.OK, superTable.getParticularColor());

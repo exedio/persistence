@@ -30,7 +30,7 @@ import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,7 +58,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		final Schema schema = model.getSchema();
 		schema.checkUnsupportedConstraints();
 
-		final Table table = schema.getTable(getTableName(TYPE));
+		final Table table = schema.getTable(tableName(TYPE));
 
 		final Constraint secondsPR = table.getConstraint("Main_seconds_PR");
 		final Constraint minutesPR = table.getConstraint("Main_minutes_PR");

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -55,7 +55,7 @@ public class TypeColumnTypeTest
 		assertEquals(
 				expected + NOT_NULL,
 				model.getSchema().
-					getTable(getTableName(type)).
+					getTable(tableName(type)).
 					getColumn(getTypeColumnName(type)).
 					getType());
 	}
@@ -65,7 +65,7 @@ public class TypeColumnTypeTest
 		assertEquals(
 				expected + NOT_NULL,
 				model.getSchema().
-					getTable(getTableName(field.getType())).
+					getTable(tableName(field.getType())).
 					getColumn(getTypeColumnName(field)).
 					getType());
 	}

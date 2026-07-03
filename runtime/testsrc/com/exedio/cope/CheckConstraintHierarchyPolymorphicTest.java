@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintTest.assertFailsCheck;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -95,7 +95,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 
 		final Schema schema = model.getVerifiedSchema();
 
-		final com.exedio.dsmf.Table topTable = schema.getTable(getTableName(Top.TYPE));
+		final com.exedio.dsmf.Table topTable = schema.getTable(tableName(Top.TYPE));
 		assertNotNull(topTable);
 		assertEquals(null, getError(topTable));
 		assertEquals(Node.Color.OK, topTable.getParticularColor());
@@ -190,7 +190,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 
 	private String checkViolation()
 	{
-		return checkViolationMessage(getTableName(Top.TYPE), Middle.CONSTRAINT_NAME);
+		return checkViolationMessage(tableName(Top.TYPE), Middle.CONSTRAINT_NAME);
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);

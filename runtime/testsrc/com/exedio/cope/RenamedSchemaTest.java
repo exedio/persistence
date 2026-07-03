@@ -29,7 +29,7 @@ import static com.exedio.cope.RenamedSchemaItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -55,7 +55,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 	@Test void testSchema()
 	{
-		assertEquals("Zain", getTableName(TYPE));
+		assertEquals("Zain", tableName(TYPE));
 		assertPrimaryKeySequenceName("Zain_this_Seq", TYPE);
 		assertEquals("zuniqueSingle", getColumnName(uniqueSingle));
 		assertEquals("zitem", getColumnName(item));
@@ -68,14 +68,14 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		final Schema schema = model.getVerifiedSchema();
 
-		final Table table = schema.getTable(getTableName(TYPE));
+		final Table table = schema.getTable(tableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		assertPkConstraint(table, "Zain_PK", getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), tableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+SI.col(uniqueSingle)+")");
 

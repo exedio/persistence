@@ -316,7 +316,7 @@ public class DataVaultEnableTest
 	{
 		return model.
 				getSchema().
-				getTable(SchemaInfo.getTableName(field.getType())).
+				getTable(SchemaInfo.tableName(field.getType())).
 				getColumn(SchemaInfo.getColumnName(field)).
 				getType();
 	}

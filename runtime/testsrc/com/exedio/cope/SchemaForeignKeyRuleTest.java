@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Node.Color.ERROR;
@@ -90,7 +90,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 			final Color color)
 	{
 		final Schema schema = model.getVerifiedSchema();
-		final Table table = schema.getTable(getTableName(MyItem.TYPE));
+		final Table table = schema.getTable(tableName(MyItem.TYPE));
 		final Column column = table.getColumn(getColumnName(MyItem.field));
 		final Constraint fk = table.getConstraint(FK_NAME);
 		assertAll(
@@ -122,7 +122,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 		// needed in a foreign key constraint 'ForeignKeyRule_field_Fk' referential action.
 		final Table table = model.
 				getSchema().
-				getTable(getTableName(MyItem.TYPE));
+				getTable(tableName(MyItem.TYPE));
 		table.getConstraint("ForeignKeyRule_field_MN").drop();
 		table.getConstraint("ForeignKeyRule_field_MX").drop();
 		checkDropped = true;
@@ -138,7 +138,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 	{
 		model.
 				getSchema().
-				getTable(getTableName(MyItem.TYPE)).
+				getTable(tableName(MyItem.TYPE)).
 				getConstraint(FK_NAME).
 				drop();
 		assertSchema("missing", List.of(), ERROR);
@@ -158,7 +158,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 	{
 		final Constraint fk = model.
 				getSchema().
-				getTable(getTableName(MyItem.TYPE)).
+				getTable(tableName(MyItem.TYPE)).
 				getConstraint(FK_NAME);
 		fk.drop();
 		fk.create();
@@ -167,7 +167,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 		{
 			final Table table = model.
 					getSchema().
-					getTable(getTableName(MyItem.TYPE));
+					getTable(tableName(MyItem.TYPE));
 			table.getConstraint("ForeignKeyRule_field_MN").create();
 			table.getConstraint("ForeignKeyRule_field_MX").create();
 		}

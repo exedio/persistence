@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.checkCompleteness;
 import static com.exedio.cope.SchemaInfo.checkTypeColumn;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -74,7 +74,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		toSchema();
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
-			final String table = getTableName(SchemaNamePolymorphicSuperItem.TYPE);
+			final String table = tableName(SchemaNamePolymorphicSuperItem.TYPE);
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 			assertEquals(
@@ -83,7 +83,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		}
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
-			final String table = getTableName(SchemaNamePolymorphicRefItem.TYPE);
+			final String table = tableName(SchemaNamePolymorphicRefItem.TYPE);
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 			assertEquals(
@@ -120,7 +120,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		toSchema();
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
-			final String table = getTableName(SchemaNamePolymorphicRefItem.TYPE);
+			final String table = tableName(SchemaNamePolymorphicRefItem.TYPE);
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 		}

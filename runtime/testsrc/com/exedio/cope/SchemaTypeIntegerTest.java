@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaTypeIntegerItem.TYPE;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte1;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte1l;
@@ -102,7 +102,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 	{
 		assertEquals(
 				expected + NOT_NULL,
-				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType(),
+				model.getSchema().getTable(tableName(TYPE)).getColumn(getColumnName(field)).getType(),
 				field.getID());
 	}
 

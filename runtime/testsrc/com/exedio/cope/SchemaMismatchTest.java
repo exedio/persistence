@@ -62,7 +62,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 
 	protected static final String name(final Type<?> element)
 	{
-		return SchemaInfo.getTableName(element);
+		return SchemaInfo.tableName(element);
 	}
 
 	protected static final String name(final This<?> element)

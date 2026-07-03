@@ -23,7 +23,7 @@ import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getSuperForeignKeyConstraintName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
@@ -67,7 +67,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 				"Cannot read field \"pk\" because \"item\" is null");
 
 		// with sub types
-		assertEquals("InstanceOfAItem", getTableName(InstanceOfAItem.TYPE));
+		assertEquals("InstanceOfAItem", tableName(InstanceOfAItem.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfAItem.TYPE);
 		assertEquals(synthetic("this", "InstanceOfAItem"), getPrimaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals(synthetic("class", "InstanceOfAItem"), getTypeColumnName(InstanceOfAItem.TYPE));
@@ -83,7 +83,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("InstanceOfC1Item_Sup", getSuperForeignKeyConstraintName(InstanceOfC1Item.TYPE));
 
 		// without sub types
-		assertEquals("InstanceOfB2Item", getTableName(InstanceOfB2Item.TYPE));
+		assertEquals("InstanceOfB2Item", tableName(InstanceOfB2Item.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfB2Item.TYPE);
 		assertEquals(synthetic("this", "InstanceOfB2Item"), getPrimaryKeyColumnName(InstanceOfB2Item.TYPE));
 		assertFails(

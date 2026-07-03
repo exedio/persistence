@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
@@ -63,7 +63,7 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 
 		// test additionalError together with error in nested node
 		model.getSchema().
-				getTable(getTableName(MyItem.TYPE)).
+				getTable(tableName(MyItem.TYPE)).
 				getColumn(getPrimaryKeyColumnName(MyItem.TYPE)).
 				modify("bigint");
 
@@ -81,7 +81,7 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 			final String columnError, final Color columnColor)
 	{
 		final Schema schema = model.getVerifiedSchema();
-		final Table table = schema.getTable(getTableName(MyItem.TYPE));
+		final Table table = schema.getTable(tableName(MyItem.TYPE));
 		assertEqualsUnmodifiable(
 				tableError!=null ? List.of(tableError) : List.of(),
 				table.getAdditionalErrors());

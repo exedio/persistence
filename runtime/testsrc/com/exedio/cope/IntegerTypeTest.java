@@ -22,7 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
@@ -287,7 +287,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			final String expectedMysqlDataType,
 			final String expectedPostgresqlDataType)
 	{
-		final String tableName = getTableName(type);
+		final String tableName = tableName(type);
 		final Schema schema = model.getSchema();
 		final Table table = schema.getTable(tableName);
 

@@ -25,7 +25,7 @@ import static com.exedio.cope.CheckConstraintHierarchyItemTop.top1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top2;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.up1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.up2;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,12 +53,12 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 	{
 		final Schema schema = model.getVerifiedSchema();
 
-		final Table table = schema.getTable(getTableName(TYPE));
+		final Table table = schema.getTable(tableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
-		final Table superTable = schema.getTable(getTableName(CheckConstraintHierarchyItemTop.TYPE));
+		final Table superTable = schema.getTable(tableName(CheckConstraintHierarchyItemTop.TYPE));
 		assertNotNull(superTable);
 		assertEquals(null, getError(superTable));
 		assertEquals(Node.Color.OK, superTable.getParticularColor());

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.UpdateCounterInvalidTest.MyItem.TYPE;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -54,7 +54,7 @@ public final class UpdateCounterInvalidTest extends TestWithEnvironment
 			// (recreate the check constraint)
 			model.
 					getSchema().
-					getTable(getTableName(TYPE)).
+					getTable(tableName(TYPE)).
 					getConstraint("MyItem_catch_MN").
 					drop();
 

@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Check;
@@ -95,7 +95,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 
 		final Schema schema = model.getVerifiedSchema();
 
-		final Table table = schema.getTable(getTableName(AnItem.TYPE));
+		final Table table = schema.getTable(tableName(AnItem.TYPE));
 
 		assertIt(table, PrimaryKey, "AnItem_PK");
 		assertIt(table, ForeignKey, "AnItem_foreignShort_Fk");
@@ -116,7 +116,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 				? l60("AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo")
 				: l30("AnItem_checkLooooooooooooooooo"));
 
-		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
+		final Table longTable = schema.getTable(tableName(LongItem.TYPE));
 		assertIt(longTable, PrimaryKey, defaulT
 				? assertLength(60, "LooooooooooooooooooooooooooooooooooooooooooooooooooooItem_PK")
 				: assertLength(23, "LoooooooooooooooItem_PK")); // table name was trimmed to 20 before appending "_PK"
@@ -127,7 +127,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 
 	private static void assertIt(final Type<?> type, final String name)
 	{
-		assertEquals(name, getTableName(type));
+		assertEquals(name, tableName(type));
 	}
 
 	private static void assertIt(final Type<?> type, final String name, final String typeColumnName)

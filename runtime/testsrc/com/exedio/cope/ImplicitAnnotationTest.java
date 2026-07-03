@@ -93,8 +93,8 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 			final String arbitrary,
 			final UniqueConstraint f)
 	{
-		final com.exedio.dsmf.Table table = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE));
-		assertNotNull(table, SchemaInfo.getTableName(TYPE));
+		final com.exedio.dsmf.Table table = MODEL.getSchema().getTable(SchemaInfo.tableName(TYPE));
+		assertNotNull(table, SchemaInfo.tableName(TYPE));
 		final Constraint constraint = table.getConstraint(schema);
 		assertNotNull(constraint, schema);
 		assertFeature(name, nameAnno, schema, constraint.getName(), schemaAnno, computed, arbitrary, f);
