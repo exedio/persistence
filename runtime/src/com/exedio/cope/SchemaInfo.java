@@ -350,8 +350,8 @@ public final class SchemaInfo
 	/**
 	 * Returns the value of database column for the field
 	 * and the given enum value.
-	 * Defaults to 10 * ( {@link Enum#ordinal()} + 1 ),
-	 * but can be overridden by {@link CopeSchemaValue}.
+	 * Allocation of schema values
+	 * is documented at {@link CopeSchemaValue}.
 	 */
 	@SuppressWarnings({"unchecked","rawtypes"}) // I have no idea why I have to do this stuff
 	public static int columnValue(final Enum<?> value)

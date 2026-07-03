@@ -47,6 +47,7 @@ import java.lang.annotation.Target;
  * {@link IllegalArgumentException}.
  * This means you can't change the {@link Query#setOrderBy(Function, boolean) order}
  * of enums with this annotation.
+ * @see SchemaInfo#columnValue(Enum)
  */
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
