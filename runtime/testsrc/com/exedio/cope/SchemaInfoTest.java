@@ -25,7 +25,7 @@ import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getSuperForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -99,10 +99,10 @@ public class SchemaInfoTest extends TestWithEnvironment
 				"no type column for InstanceOfRefItem.refb2");
 
 		assertFails(
-				() -> getUpdateCounterColumnName(InstanceOfAItem.TYPE),
+				() -> updateCounterColumnName(InstanceOfAItem.TYPE),
 				IllegalArgumentException.class,
 				"no update counter for InstanceOfAItem");
-		assertEquals(synthetic("catch", "InstanceOfB1Item"), getUpdateCounterColumnName(InstanceOfB1Item.TYPE));
+		assertEquals(synthetic("catch", "InstanceOfB1Item"), updateCounterColumnName(InstanceOfB1Item.TYPE));
 
 		assertCacheInfo(
 			InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE

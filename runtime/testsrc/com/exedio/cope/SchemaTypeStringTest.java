@@ -68,7 +68,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 				IllegalArgumentException.class,
 				"no type column for SchemaTypeStringItem-f1");
 		assertFails(
-				() -> SchemaInfo.getUpdateCounterColumnName(f1.sourceType()),
+				() -> SchemaInfo.updateCounterColumnName(f1.sourceType()),
 				IllegalArgumentException.class,
 				"no update counter for SchemaTypeStringItem-f1");
 

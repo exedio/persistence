@@ -20,7 +20,7 @@ package com.exedio.cope.tojunit;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.tableName;
@@ -67,7 +67,7 @@ public final class SI
 
 	public static String update(final Type<?> type)
 	{
-		return quoteName(type.getModel(), getUpdateCounterColumnName(type));
+		return quoteName(type.getModel(), updateCounterColumnName(type));
 	}
 
 	public static String col(final Field<?> field)

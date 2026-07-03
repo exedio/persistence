@@ -243,13 +243,23 @@ public final class SchemaInfo
 	 *         because there are no modifiable (non-{@link Field#isFinal() final})
 	 *         fields on the type or its subtypes.
 	 */
-	public static String getUpdateCounterColumnName(final Type<?> type)
+	public static String updateCounterColumnName(final Type<?> type)
 	{
 		final IntegerColumn column = type.table.updateCounter;
 		if(column==null)
 			throw new IllegalArgumentException("no update counter for " + type);
 
 		return column.id;
+	}
+
+	/**
+	 * @deprecated Use {@link #updateCounterColumnName(Type)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getUpdateCounterColumnName(final Type<?> type)
+	{
+		return updateCounterColumnName(type);
 	}
 
 	/**
