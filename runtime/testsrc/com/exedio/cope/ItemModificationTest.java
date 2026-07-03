@@ -480,7 +480,7 @@ class ItemModificationTest extends TestWithEnvironment
 										final long durationRead,
 										final long durationClose)
 		{
-			final String trailTab = SchemaInfo.quoteName(model, vaultTrail(model, "default").tableName());
+			final String trailTab = vaultTrail(model, "default").tableNameQuoted();
 			if (sql.startsWith("MERGE INTO " + trailTab)
 					|| sql.startsWith("INSERT INTO " + trailTab))
 				return;

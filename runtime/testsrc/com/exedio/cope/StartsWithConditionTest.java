@@ -65,7 +65,7 @@ public class StartsWithConditionTest extends TestWithEnvironment
 				"SELECT " + SI.pk(TYPE) + "," + SI.type(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + (
 				vault
-				? "JOIN " + q(vaultTrail(model, "default").tableName()) + " " + q("DataItem.data") + " " +
+				? "JOIN " + vaultTrail(model, "default").tableNameQuoted() + " " + q("DataItem.data") + " " +
 				  "ON " + SI.col(data) + "=" + q("DataItem.data") + "." + q("hash") + " "
 				: "");
 		final String dataColumn = vault

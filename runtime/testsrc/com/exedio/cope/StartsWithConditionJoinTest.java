@@ -234,7 +234,7 @@ public class StartsWithConditionJoinTest extends TestWithEnvironment
 	{
 		return
 				model.getConnectProperties().getVaultProperties()!=null
-				? q(SchemaInfo.vaultTrail(model, bucket).tableName())
+				? SchemaInfo.vaultTrail(model, bucket).tableNameQuoted()
 				: "DO_NOT_ASSERT";
 	}
 

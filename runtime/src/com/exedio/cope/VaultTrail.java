@@ -301,11 +301,18 @@ final class VaultTrail implements VaultTrailSchemaInfo
 
 	// VaultTrailSchemaInfo
 	@Override public String tableName() { return table; }
+	@Override public String tableNameQuoted() { return tableQuoted; }
 	@Override public String hashColumnName() { return hash; }
+	@Override public String hashColumnNameQuoted() { return hashQuoted; }
 	@Override public String lengthColumnName() { return length; }
+	@Override public String lengthColumnNameQuoted() { return lengthQuoted; }
 	@Override public String startColumnName() { return start; }
+	@Override public String startColumnNameQuoted() { return startQuoted; }
 	@Override public int    startColumnLimit() { return startLimit; }
 	@Override public String dateColumnName() { return date; }
+	@Override public String dateColumnNameQuoted() { return dateQuoted; }
 	@Override public String fieldColumnName() { return field; }
+	@Override public String fieldColumnNameQuoted() { return fieldQuoted; }
 	@Override public String originColumnName() { return origin; }
+	@Override public String originColumnNameQuoted() { return originQuoted; }
 }
