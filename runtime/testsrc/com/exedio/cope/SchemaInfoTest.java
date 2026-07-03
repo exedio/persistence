@@ -25,6 +25,7 @@ import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.superForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.tableName;
+import static com.exedio.cope.SchemaInfo.tableNameQuoted;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -68,6 +69,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 
 		// with sub types
 		assertEquals("InstanceOfAItem", tableName(InstanceOfAItem.TYPE));
+		assertEquals(q("InstanceOfAItem"), tableNameQuoted(InstanceOfAItem.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfAItem.TYPE);
 		assertEquals(synthetic("this", "InstanceOfAItem"), primaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals(synthetic("class", "InstanceOfAItem"), typeColumnName(InstanceOfAItem.TYPE));
@@ -84,6 +86,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 
 		// without sub types
 		assertEquals("InstanceOfB2Item", tableName(InstanceOfB2Item.TYPE));
+		assertEquals(q("InstanceOfB2Item"), tableNameQuoted(InstanceOfB2Item.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfB2Item.TYPE);
 		assertEquals(synthetic("this", "InstanceOfB2Item"), primaryKeyColumnName(InstanceOfB2Item.TYPE));
 		assertFails(
@@ -106,5 +109,10 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertCacheInfo(
 			InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE
 		);
+	}
+
+	private String q(final String s)
+	{
+		return quoteName(model, s);
 	}
 }

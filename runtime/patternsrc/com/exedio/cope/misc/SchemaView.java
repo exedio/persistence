@@ -150,9 +150,9 @@ public final class SchemaView
 		sb.setLength(0);
 	}
 
-	private String table(final Type<?> type)
+	private static String table(final Type<?> type)
 	{
-		return quoteName(model, SchemaInfo.tableName(type));
+		return SchemaInfo.tableNameQuoted(type);
 	}
 
 	private String view(final Type<?> type)
