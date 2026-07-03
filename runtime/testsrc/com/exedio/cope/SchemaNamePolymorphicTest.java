@@ -22,7 +22,7 @@ import static com.exedio.cope.SchemaInfo.checkCompleteness;
 import static com.exedio.cope.SchemaInfo.checkTypeColumn;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.cope.SchemaInfo.typeColumnValue;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,8 +53,8 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 
 	@Test void test() throws SQLException
 	{
-		assertEquals("Super"     , getTypeColumnValue(SchemaNamePolymorphicSuperItem.TYPE));
-		assertEquals("SubRenamed", getTypeColumnValue(SchemaNamePolymorphicSubItem  .TYPE));
+		assertEquals("Super"     , typeColumnValue(SchemaNamePolymorphicSuperItem.TYPE));
+		assertEquals("SubRenamed", typeColumnValue(SchemaNamePolymorphicSubItem  .TYPE));
 
 		final SchemaNamePolymorphicSuperItem item = new SchemaNamePolymorphicSubItem();
 		final SchemaNamePolymorphicRefItem refItem = new SchemaNamePolymorphicRefItem(item);

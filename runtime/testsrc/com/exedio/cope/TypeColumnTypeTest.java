@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.cope.SchemaInfo.typeColumnValue;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
@@ -37,9 +37,9 @@ public class TypeColumnTypeTest
 {
 	@Test void testIt()
 	{
-		assertEquals("StandardSub", getTypeColumnValue(StandardSub.TYPE));
-		assertEquals("MinLengthSub", getTypeColumnValue(MinLengthSub.TYPE));
-		assertEquals("MinLengthIneffectiveSub", getTypeColumnValue(MinLengthIneffectiveSub.TYPE));
+		assertEquals("StandardSub", typeColumnValue(StandardSub.TYPE));
+		assertEquals("MinLengthSub", typeColumnValue(MinLengthSub.TYPE));
+		assertEquals("MinLengthIneffectiveSub", typeColumnValue(MinLengthIneffectiveSub.TYPE));
 
 		assertIt("VARCHAR(13)", StandardSuper.TYPE);
 		assertIt("VARCHAR(13)", Ref.standard);
