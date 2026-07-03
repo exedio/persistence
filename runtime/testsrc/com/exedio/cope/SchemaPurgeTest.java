@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MysqlDialect.sequenceColumnName;
 import static com.exedio.cope.SchemaInfo.defaultToNextSequenceName;
-import static com.exedio.cope.SchemaInfo.getSequenceName;
+import static com.exedio.cope.SchemaInfo.sequenceName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -74,7 +74,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;
 		thisSeq = sequences ? SchemaInfo.primaryKeySequenceName(AnItem.TYPE) : NO_SEQUENCE;
 		nextSeq = defaultToNextSequenceName(AnItem.next);
-		typeSeq = getSequenceName(AnItem.sequence);
+		typeSeq = sequenceName(AnItem.sequence);
 		vault = MODEL.getConnectProperties().getVaultProperties()!=null;
 		vaultService = (VaultMockService)VaultTest.vaultService(MODEL);
 	}

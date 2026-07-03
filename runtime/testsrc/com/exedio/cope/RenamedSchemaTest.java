@@ -28,7 +28,7 @@ import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
 import static com.exedio.cope.RenamedSchemaItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getSequenceName;
+import static com.exedio.cope.SchemaInfo.sequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -64,7 +64,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		assertEquals("zring", columnName(string));
 		assertEquals("zinteger", columnName(integer));
 		assertDefaultToNextSequenceName("Zain_zinteger_Seq", integer);
-		assertEquals("Zain_zequence", getSequenceName(sequence));
+		assertEquals("Zain_zequence", sequenceName(sequence));
 
 		final Schema schema = model.getVerifiedSchema();
 

@@ -77,7 +77,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 
 	protected static final String name(final Sequence element)
 	{
-		return SchemaInfo.getSequenceName(element);
+		return SchemaInfo.sequenceName(element);
 	}
 
 	protected static final String namePk(final This<?> element)
