@@ -314,9 +314,19 @@ public final class SchemaInfo
 		return typeColumnName(field);
 	}
 
-	public static String getForeignKeyConstraintName(final ItemField<?> field)
+	public static String foreignKeyConstraintName(final ItemField<?> field)
 	{
 		return ((ItemColumn)field.getColumn()).foreignKeyConstraintName;
+	}
+
+	/**
+	 * @deprecated Use {@link #foreignKeyConstraintName(ItemField)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getForeignKeyConstraintName(final ItemField<?> field)
+	{
+		return foreignKeyConstraintName(field);
 	}
 
 	public static String getSuperForeignKeyConstraintName(final Type<?> type)

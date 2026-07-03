@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.columnName;
-import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
+import static com.exedio.cope.SchemaInfo.foreignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getSuperForeignKeyConstraintName;
@@ -74,7 +74,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("code", columnName(InstanceOfAItem.code));
 		assertEquals("ref", columnName(InstanceOfRefItem.ref));
 		assertEquals("refType", typeColumnName(InstanceOfRefItem.ref));
-		assertEquals("InstanceOfRefItem_ref_Fk", getForeignKeyConstraintName(InstanceOfRefItem.ref));
+		assertEquals("InstanceOfRefItem_ref_Fk", foreignKeyConstraintName(InstanceOfRefItem.ref));
 
 		assertFails (                  () -> getSuperForeignKeyConstraintName(null), NullPointerException.class, "Cannot read field \"table\" because \"type\" is null");
 		assertFails (                  () -> getSuperForeignKeyConstraintName(InstanceOfAItem.TYPE), IllegalArgumentException.class, "no super type for InstanceOfAItem");

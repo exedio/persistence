@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.NameLengthTest.assertProperties;
 import static com.exedio.cope.SchemaInfo.columnName;
-import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
+import static com.exedio.cope.SchemaInfo.foreignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
@@ -105,7 +105,7 @@ public class NameTest extends TestWithEnvironment
 		assertEquals("pointerLooooooooooooooooooooooooooooooooooooooooooooNameType", typeColumnName(NameLongItem_pointerLongName));
 		assertEquals(
 				"NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
-				getForeignKeyConstraintName(NameLongItem_pointerLongName));
+				foreignKeyConstraintName(NameLongItem_pointerLongName));
 
 		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooonItem", tableName(NameCollisionlongaItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlooooooooooooooooooooooooooooooooooooooItem"), primaryKeyColumnName(NameCollisionlongaItem.TYPE));
