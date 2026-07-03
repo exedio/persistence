@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,7 +57,7 @@ public class TypeColumnTypeTest
 				expected + NOT_NULL,
 				model.getSchema().
 					getTable(tableName(type)).
-					getColumn(getTypeColumnName(type)).
+					getColumn(typeColumnName(type)).
 					getType());
 	}
 

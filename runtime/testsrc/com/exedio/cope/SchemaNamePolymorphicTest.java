@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.checkTypeColumn;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -73,7 +74,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 
 		toSchema();
 		{
-			final String column = getTypeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
+			final String column = typeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
 			final String table = tableName(SchemaNamePolymorphicSuperItem.TYPE);
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));

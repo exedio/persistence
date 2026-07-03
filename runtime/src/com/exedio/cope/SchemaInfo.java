@@ -193,7 +193,7 @@ public final class SchemaInfo
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 */
-	public static String getTypeColumnName(final Type<?> type)
+	public static String typeColumnName(final Type<?> type)
 	{
 		final StringColumn column = type.table.typeColumn;
 		if(column==null)
@@ -203,10 +203,20 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @deprecated Use {@link #typeColumnName(Type)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getTypeColumnName(final Type<?> type)
+	{
+		return typeColumnName(type);
+	}
+
+	/**
 	 * Returns the value to be put into a type column for the type.
 	 * Defaults to {@link Type#getID()},
 	 * but can be overridden by {@link CopeSchemaName}.
-	 * @see #getTypeColumnName(Type)
+	 * @see #typeColumnName(Type)
 	 * @see #getTypeColumnName(ItemField)
 	 */
 	public static String getTypeColumnValue(final Type<?> type)

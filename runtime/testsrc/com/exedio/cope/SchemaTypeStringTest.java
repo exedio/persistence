@@ -22,6 +22,7 @@ import static com.exedio.cope.MakeMaxStringTest.makeMax1;
 import static com.exedio.cope.MakeMaxStringTest.makeMax2;
 import static com.exedio.cope.MakeMaxStringTest.makeMax3;
 import static com.exedio.cope.MakeMaxStringTest.makeMax4;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.SchemaTypeStringItem.TYPE;
 import static com.exedio.cope.SchemaTypeStringItem.f1;
 import static com.exedio.cope.SchemaTypeStringItem.f10485760;
@@ -63,7 +64,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		// make sure, relation types are as small as possible -
 		// just the primary key and the StringField
 		assertFails(
-				() -> SchemaInfo.getTypeColumnName(f1.sourceType()),
+				() -> typeColumnName(f1.sourceType()),
 				IllegalArgumentException.class,
 				"no type column for SchemaTypeStringItem-f1");
 		assertFails(

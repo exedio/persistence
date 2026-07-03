@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.TableTest.getError;
@@ -98,7 +99,7 @@ public class NameTest extends TestWithEnvironment
 		assertEquals("NameLongItem", tableName(NameLongItem.TYPE));
 		assertEquals(synthetic("this", "NameLongItem"), primaryKeyColumnName(NameLongItem.TYPE));
 		assertPrimaryKeySequenceName("NameLongItem_this_Seq", NameLongItem.TYPE);
-		assertEquals(synthetic("class", "NameLongItem"), getTypeColumnName(NameLongItem.TYPE));
+		assertEquals(synthetic("class", "NameLongItem"), typeColumnName(NameLongItem.TYPE));
 		assertEquals("code", getColumnName(NameLongItem.code));
 		assertEquals("codeLoooooooooooooooooooooooooooooooooooooooooooooooooooName", getColumnName(NameLongItem_codeLongName));
 		assertEquals("pointerLooooooooooooooooooooooooooooooooooooooooooooooooName", getColumnName(NameLongItem_pointerLongName));
