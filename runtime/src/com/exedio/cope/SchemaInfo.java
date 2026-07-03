@@ -329,12 +329,22 @@ public final class SchemaInfo
 		return foreignKeyConstraintName(field);
 	}
 
-	public static String getSuperForeignKeyConstraintName(final Type<?> type)
+	public static String superForeignKeyConstraintName(final Type<?> type)
 	{
 		final IntegerColumn column = type.table.primaryKey;
 		if(!(column instanceof ItemColumn))
 			throw new IllegalArgumentException("no super type for " + type);
 		return ((ItemColumn)column).foreignKeyConstraintName;
+	}
+
+	/**
+	 * @deprecated Use {@link #superForeignKeyConstraintName(Type)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getSuperForeignKeyConstraintName(final Type<?> type)
+	{
+		return superForeignKeyConstraintName(type);
 	}
 
 	/**
