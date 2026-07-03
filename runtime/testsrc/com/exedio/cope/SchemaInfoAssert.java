@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -29,7 +29,7 @@ public final class SchemaInfoAssert
 		try
 		{
 			// test that all fields of run are completely final
-			getUpdateCounterColumnName(type);
+			updateCounterColumnName(type);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -53,14 +53,14 @@ public final class FinalTest extends TestWithEnvironment
 	@Test void testUpdateCounter()
 	{
 		assertFails(
-				() -> getUpdateCounterColumnName(FinalSuperItem.TYPE),
+				() -> updateCounterColumnName(FinalSuperItem.TYPE),
 				IllegalArgumentException.class,
 				"no update counter for FinalSuperItem");
 
-		assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));
+		assertEquals(synthetic("catch", "FinalSubNoneItem"), updateCounterColumnName(FinalSubNoneItem.TYPE));
 
 		assertFails(
-				() -> getUpdateCounterColumnName(FinalSubItem.TYPE),
+				() -> updateCounterColumnName(FinalSubItem.TYPE),
 				IllegalArgumentException.class,
 				"no update counter for FinalSubItem");
 	}
