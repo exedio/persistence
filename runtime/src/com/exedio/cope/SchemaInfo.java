@@ -363,45 +363,45 @@ public final class SchemaInfo
 
 	public static String getVaultTrailTableName(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).table;
+		return vaultTrailInternal(model, bucket).table;
 	}
 
 	public static String getVaultTrailHashColumnName(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).hash;
+		return vaultTrailInternal(model, bucket).hash;
 	}
 
 	public static String getVaultTrailLengthColumnName(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).length;
+		return vaultTrailInternal(model, bucket).length;
 	}
 
 	public static String getVaultTrailStartColumnName(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).start;
+		return vaultTrailInternal(model, bucket).start;
 	}
 
 	public static int getVaultTrailStartColumnLimit(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).startLimit;
+		return vaultTrailInternal(model, bucket).startLimit;
 	}
 
 	public static String getVaultTrailDateColumnName(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).date;
+		return vaultTrailInternal(model, bucket).date;
 	}
 
 	public static String getVaultTrailFieldColumnName(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).field;
+		return vaultTrailInternal(model, bucket).field;
 	}
 
 	public static String getVaultTrailOriginColumnName(final Model model, final String bucket)
 	{
-		return vaultTrail(model, bucket).origin;
+		return vaultTrailInternal(model, bucket).origin;
 	}
 
-	private static VaultTrail vaultTrail(final Model model, final String bucket)
+	private static VaultTrail vaultTrailInternal(final Model model, final String bucket)
 	{
 		checkBucket(bucket, message ->
 				new IllegalArgumentException("bucket " + message));
