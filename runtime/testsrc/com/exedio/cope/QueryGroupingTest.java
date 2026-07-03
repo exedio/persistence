@@ -23,7 +23,7 @@ import static com.exedio.cope.GroupItem.day;
 import static com.exedio.cope.GroupItem.number;
 import static com.exedio.cope.GroupItem.optionalDouble;
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
@@ -140,7 +140,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		query.setGroupBy( number );
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
 
-		final String table = getTableName(TYPE);
+		final String table = tableName(TYPE);
 		final String column = getColumnName(day);
 		switch(dialect)
 		{

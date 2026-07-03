@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionConditionTest.date;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -97,7 +97,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 				? constraintNameNative
 				: constraintNameInteger;
 
-		final String tableName = getTableName(ItemB.TYPE);
+		final String tableName = tableName(ItemB.TYPE);
 
 		try(TransactionTry tx = modelB.startTransactionTry("itemB wrong " + constraintName))
 		{

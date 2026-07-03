@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -41,7 +41,7 @@ public class UpdateCounterNonFinalBlobTest extends TestWithEnvironment
 				vault
 				? List.of(synthetic("this"), synthetic("catch"), "someFinalField", "data", "anotherFinalField")
 				: List.of(synthetic("this"), "someFinalField", "data", "anotherFinalField"),
-				MODEL.getSchema().getTable(getTableName(MyItem.TYPE)).
+				MODEL.getSchema().getTable(tableName(MyItem.TYPE)).
 						getColumns().stream().map(Column::getName).toList());
 
 		final MyItem i = new MyItem(77, 88);
@@ -111,7 +111,7 @@ public class UpdateCounterNonFinalBlobTest extends TestWithEnvironment
 
 	private String synthetic(final String name)
 	{
-		return synthetic(name, getTableName(MyItem.TYPE));
+		return synthetic(name, tableName(MyItem.TYPE));
 	}
 
 	private static final Model MODEL = new Model(MyItem.TYPE);

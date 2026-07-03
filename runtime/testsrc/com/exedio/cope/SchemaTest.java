@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.RuntimeTester.assertNotExistsConstraint;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaItem.TYPE;
 import static com.exedio.cope.SchemaItem.aLong;
@@ -107,7 +107,7 @@ public class SchemaTest extends TestWithEnvironment
 		final boolean dataVault = data.getVaultInfo()!=null;
 		final Schema schema = model.getVerifiedSchema();
 
-		final Table table = schema.getTable(getTableName(TYPE));
+		final Table table = schema.getTable(tableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, getError(table));
 		assertEquals(OK, table.getParticularColor());
@@ -175,7 +175,7 @@ public class SchemaTest extends TestWithEnvironment
 
 		assertPkConstraint(table, "Main_PK", getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "Main_item_Fk", getColumnName(item), getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Main_item_Fk", getColumnName(item), tableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "Main_uniqueString_Unq", "("+q(uniqueString)+")");
 

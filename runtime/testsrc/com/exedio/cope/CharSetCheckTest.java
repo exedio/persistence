@@ -24,7 +24,7 @@ class CharSetCheckTest extends TestWithEnvironment
 	{
 		final String smilingFaceWithSmilingEyes = "\ud83d\ude0a";
 		new MyItem(smilingFaceWithSmilingEyes);
-		final Constraint csConstraint = MODEL.getSchema().getTable(SchemaInfo.getTableName(MyItem.TYPE)).getConstraint("MyItem_field_CS");
+		final Constraint csConstraint = MODEL.getSchema().getTable(SchemaInfo.tableName(MyItem.TYPE)).getConstraint("MyItem_field_CS");
 		MODEL.commit();
 		if(mysql)
 		{

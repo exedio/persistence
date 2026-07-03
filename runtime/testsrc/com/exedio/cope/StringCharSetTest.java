@@ -128,7 +128,7 @@ public class StringCharSetTest extends TestWithEnvironment
 
 	@Test void testNonSubAsciiConstraints()
 	{
-		final Table table = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE));
+		final Table table = MODEL.getSchema().getTable(SchemaInfo.tableName(TYPE));
 		if (mysql)
 		{
 			assertNotNull(table.getConstraint(charSetConstraintName(nonascii)));
@@ -153,7 +153,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	private void checkEmail( final String validChars, final String invalidChars ) throws SQLException
 	{
 		MODEL.commit();
-		final Constraint emailCsConstraint = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE)).getConstraint(charSetConstraintName(email));
+		final Constraint emailCsConstraint = MODEL.getSchema().getTable(SchemaInfo.tableName(TYPE)).getConstraint(charSetConstraintName(email));
 		if (!mysql)
 		{
 			assertEquals(null, emailCsConstraint);

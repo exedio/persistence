@@ -152,12 +152,12 @@ public final class SchemaView
 
 	private String table(final Type<?> type)
 	{
-		return quoteName(model, SchemaInfo.getTableName(type));
+		return quoteName(model, SchemaInfo.tableName(type));
 	}
 
 	private String view(final Type<?> type)
 	{
-		return quoteName(model, SchemaInfo.getTableName(type)+'V');
+		return quoteName(model, SchemaInfo.tableName(type)+'V');
 	}
 
 	private String column(final Type<?> type)

@@ -22,7 +22,7 @@ import static com.exedio.cope.NameLengthTest.assertProperties;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
@@ -95,7 +95,7 @@ public class NameTest extends TestWithEnvironment
 
 		// test schema
 
-		assertEquals("NameLongItem", getTableName(NameLongItem.TYPE));
+		assertEquals("NameLongItem", tableName(NameLongItem.TYPE));
 		assertEquals(synthetic("this", "NameLongItem"), getPrimaryKeyColumnName(NameLongItem.TYPE));
 		assertPrimaryKeySequenceName("NameLongItem_this_Seq", NameLongItem.TYPE);
 		assertEquals(synthetic("class", "NameLongItem"), getTypeColumnName(NameLongItem.TYPE));
@@ -107,14 +107,14 @@ public class NameTest extends TestWithEnvironment
 				"NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
 				getForeignKeyConstraintName(NameLongItem_pointerLongName));
 
-		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooonItem", getTableName(NameCollisionlongaItem.TYPE));
+		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooonItem", tableName(NameCollisionlongaItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlooooooooooooooooooooooooooooooooooooooItem"), getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
 		assertPrimaryKeySequenceName("NameCollisionloooooooooooooooooooooooooooooooooItem_this_Seq", NameCollisionlongaItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
 		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
 		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
 
-		assertEquals("NameCollisionlongBItem", getTableName(NameCollisionlongbItem.TYPE));
+		assertEquals("NameCollisionlongBItem", tableName(NameCollisionlongbItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlongBItem"), getPrimaryKeyColumnName(NameCollisionlongbItem.TYPE));
 		assertPrimaryKeySequenceName("NameCollisionlongBItem_this_Seq", NameCollisionlongbItem.TYPE);
 		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
@@ -123,7 +123,7 @@ public class NameTest extends TestWithEnvironment
 
 		{
 			final Schema schema = model.getVerifiedSchema();
-			final com.exedio.dsmf.Table nameSub = schema.getTable(getTableName(NameSubItem.TYPE));
+			final com.exedio.dsmf.Table nameSub = schema.getTable(tableName(NameSubItem.TYPE));
 			assertNotNull(nameSub);
 			assertEquals(null, getError(nameSub));
 			assertEquals(Node.Color.OK, nameSub.getParticularColor());

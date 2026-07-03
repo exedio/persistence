@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.time.ZoneOffset.UTC;
 import static java.util.Arrays.asList;
@@ -76,7 +76,7 @@ public class DateRangeTest extends TestWithEnvironment
 
 	private void assertConstraints()
 	{
-		final Table tab = model.getSchema().getTable(getTableName(MyItem.TYPE));
+		final Table tab = model.getSchema().getTable(tableName(MyItem.TYPE));
 		final Constraint min = tab.getConstraint("MyItem_field_MN");
 		final Constraint max = tab.getConstraint("MyItem_field_MX");
 		assertNotNull(min);

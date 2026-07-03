@@ -103,9 +103,19 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Type#getID() id} of the type.
 	 */
-	public static String getTableName(final Type<?> type)
+	public static String tableName(final Type<?> type)
 	{
 		return type.table.id;
+	}
+
+	/**
+	 * @deprecated Use {@link #tableName(Type)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getTableName(final Type<?> type)
+	{
+		return tableName(type);
 	}
 
 	/**

@@ -26,7 +26,7 @@ import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueB;
 import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -56,7 +56,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		final Table table = model.getSchema().getTable(getTableName(TYPE));
+		final Table table = model.getSchema().getTable(tableName(TYPE));
 
 		assertEquals(asList(
 				"AnItem_PK", "AnItem_this_MN", "AnItem_this_MX",

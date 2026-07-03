@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Feature.requireMounted;
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Objects.requireNonNull;
 
@@ -120,7 +120,7 @@ public final class SchemaTypeStringField extends Pattern
 	{
 		return
 				getType().getModel().getSchema().
-				getTable(getTableName(sourceType())).
+				getTable(tableName(sourceType())).
 				getColumn(getColumnName(sourceField)).getType();
 	}
 

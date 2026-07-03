@@ -22,7 +22,7 @@ import static com.exedio.cope.GroupByTest.AnItem.TYPE;
 import static com.exedio.cope.GroupByTest.AnItem.integer;
 import static com.exedio.cope.GroupByTest.AnItem.string;
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -89,7 +89,7 @@ public class GroupByTest extends TestWithEnvironment
 		final Query<Integer> query = new Query<>(integer);
 		query.setGroupBy(string);
 
-		final String table = getTableName(TYPE);
+		final String table = tableName(TYPE);
 		final String column = getColumnName(integer);
 
 		switch(dialect)
@@ -134,7 +134,7 @@ public class GroupByTest extends TestWithEnvironment
 		query.setGroupBy(string);
 		query.setOrderBy(integer, true);
 
-		final String table = getTableName(TYPE);
+		final String table = tableName(TYPE);
 		final String column = getColumnName(integer);
 
 		assertEquals(4, query.total());
@@ -234,7 +234,7 @@ public class GroupByTest extends TestWithEnvironment
 		query.setGroupBy(string);
 		query.setDistinct(true);
 
-		final String table = getTableName(TYPE);
+		final String table = tableName(TYPE);
 		final String column = getColumnName(integer);
 		switch(dialect)
 		{
