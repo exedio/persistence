@@ -64,7 +64,7 @@ public class EnumSchemaTest
 
 		try
 		{
-			columnValue(null);
+			columnValue((Enum<?>)null);
 			fail();
 		}
 		catch(final NullPointerException e)

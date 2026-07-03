@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -62,10 +62,10 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 
 	@Test void testGlobalOffsetValue()
 	{
-		assertEquals(   0, primaryKeyColumnValue(item[   0]));
-		assertEquals(   1, primaryKeyColumnValue(item[   1]));
-		assertEquals(1005, primaryKeyColumnValue(item[1005]));
-		assertEquals(1006, primaryKeyColumnValue(item[1006]));
+		assertEquals(   0, columnValue(item[   0]));
+		assertEquals(   1, columnValue(item[   1]));
+		assertEquals(1005, columnValue(item[1005]));
+		assertEquals(1006, columnValue(item[1006]));
 
 		assertIt(".fXD", item[0]);
 		assertIt(".fXD", item[1]);
