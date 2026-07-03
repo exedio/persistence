@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -36,12 +36,12 @@ public class CreateLimitSmallTest extends TestWithEnvironment
 	@Test void testIt() throws NoSuchIDException
 	{
 		final AnItem i5;
-		assertEquals(0, getPrimaryKeyColumnValueL(new AnItem(0)));
-		assertEquals(1, getPrimaryKeyColumnValueL(new AnItem(1)));
-		assertEquals(2, getPrimaryKeyColumnValueL(new AnItem(2)));
-		assertEquals(3, getPrimaryKeyColumnValueL(new AnItem(3)));
-		assertEquals(4, getPrimaryKeyColumnValueL(new AnItem(4)));
-		assertEquals(5, getPrimaryKeyColumnValueL(i5 = new AnItem(5)));
+		assertEquals(0, primaryKeyColumnValue(new AnItem(0)));
+		assertEquals(1, primaryKeyColumnValue(new AnItem(1)));
+		assertEquals(2, primaryKeyColumnValue(new AnItem(2)));
+		assertEquals(3, primaryKeyColumnValue(new AnItem(3)));
+		assertEquals(4, primaryKeyColumnValue(new AnItem(4)));
+		assertEquals(5, primaryKeyColumnValue(i5 = new AnItem(5)));
 		try
 		{
 			new AnItem(6);

@@ -141,9 +141,19 @@ public final class SchemaInfo
 	/**
 	 * Returns the value of primary key column in the database for the item.
 	 */
-	public static long getPrimaryKeyColumnValueL(final Item item)
+	public static long primaryKeyColumnValue(final Item item)
 	{
 		return item.pk;
+	}
+
+	/**
+	 * @deprecated Use {@link #primaryKeyColumnValue(Item)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static long getPrimaryKeyColumnValueL(final Item item)
+	{
+		return primaryKeyColumnValue(item);
 	}
 
 	/**

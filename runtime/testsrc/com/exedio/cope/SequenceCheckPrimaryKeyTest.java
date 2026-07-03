@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
@@ -133,7 +133,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckPrimaryKeyTest.class.getName()))
 		{
-			assertEquals(pk, getPrimaryKeyColumnValueL(
+			assertEquals(pk, primaryKeyColumnValue(
 				tx.commit(
 					new AnItem(field))), "pk"
 			);

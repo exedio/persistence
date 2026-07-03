@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,15 +75,15 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 
 	@Test void testOk()
 	{
-		assertEquals(0, getPrimaryKeyColumnValueL(itema));
-		assertEquals(1, getPrimaryKeyColumnValueL(itemb1));
-		assertEquals(2, getPrimaryKeyColumnValueL(itemb2));
-		assertEquals(3, getPrimaryKeyColumnValueL(itemc1));
-		assertEquals(0, getPrimaryKeyColumnValueL(reffa));
-		assertEquals(1, getPrimaryKeyColumnValueL(reffb1));
-		assertEquals(2, getPrimaryKeyColumnValueL(reffb2));
-		assertEquals(3, getPrimaryKeyColumnValueL(reffc1));
-		assertEquals(4, getPrimaryKeyColumnValueL(reffN));
+		assertEquals(0, primaryKeyColumnValue(itema));
+		assertEquals(1, primaryKeyColumnValue(itemb1));
+		assertEquals(2, primaryKeyColumnValue(itemb2));
+		assertEquals(3, primaryKeyColumnValue(itemc1));
+		assertEquals(0, primaryKeyColumnValue(reffa));
+		assertEquals(1, primaryKeyColumnValue(reffb1));
+		assertEquals(2, primaryKeyColumnValue(reffb2));
+		assertEquals(3, primaryKeyColumnValue(reffc1));
+		assertEquals(4, primaryKeyColumnValue(reffN));
 
 		assertEquals(false, InstanceOfAItem.TYPE.getThis().needsCheckTypeColumn());
 		assertEquals(true, InstanceOfB1Item.TYPE.getThis().needsCheckTypeColumn());
@@ -283,7 +283,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		execute(
 				"update " + SI.tab(InstanceOfRefItem.TYPE) + " " +
 				"set " + SI.type(InstanceOfRefItem.ref) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
-				"where " + SI.pk(InstanceOfRefItem.TYPE) + "=" + getPrimaryKeyColumnValueL(reffa));
+				"where " + SI.pk(InstanceOfRefItem.TYPE) + "=" + primaryKeyColumnValue(reffa));
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumnL());
@@ -307,7 +307,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		execute(
 			"update " + SI.tab(type) + " " +
 			"set " + SI.type(type) + "='" + getTypeColumnValue(newType) + "' " +
-			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
+			"where " + SI.pk(type) + "=" + primaryKeyColumnValue(item));
 	}
 
 	private <T extends Item> void deleteRow(
@@ -317,7 +317,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		execute(
 			"delete from " + SI.tab(type) + " " +
-			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
+			"where " + SI.pk(type) + "=" + primaryKeyColumnValue(item));
 	}
 
 	private void execute(final String sql) throws SQLException
