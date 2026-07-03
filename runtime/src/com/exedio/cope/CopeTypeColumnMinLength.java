@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  * <p>
  * Setting this length may help you to avoid schema changes.
  *
- * @see SchemaInfo#getTypeColumnValue(Type)
+ * @see SchemaInfo#typeColumnValue(Type)
  */
 @Target(TYPE)
 @Retention(RetentionPolicy.RUNTIME)

@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
-import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.cope.SchemaInfo.typeColumnValue;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -282,7 +282,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		execute(
 				"update " + SI.tab(InstanceOfRefItem.TYPE) + " " +
-				"set " + SI.type(InstanceOfRefItem.ref) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
+				"set " + SI.type(InstanceOfRefItem.ref) + "='" + typeColumnValue(InstanceOfB1Item.TYPE) + "' " +
 				"where " + SI.pk(InstanceOfRefItem.TYPE) + "=" + primaryKeyColumnValue(reffa));
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumnL());
@@ -306,7 +306,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		execute(
 			"update " + SI.tab(type) + " " +
-			"set " + SI.type(type) + "='" + getTypeColumnValue(newType) + "' " +
+			"set " + SI.type(type) + "='" + typeColumnValue(newType) + "' " +
 			"where " + SI.pk(type) + "=" + primaryKeyColumnValue(item));
 	}
 

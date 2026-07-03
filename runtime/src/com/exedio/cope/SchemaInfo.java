@@ -187,7 +187,7 @@ public final class SchemaInfo
 	 * Returns the name of type column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "class".
-	 * Values suitable for this column can be retrieved by {@link #getTypeColumnValue(Type)}.
+	 * Values suitable for this column can be retrieved by {@link #typeColumnValue(Type)}.
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this type,
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
@@ -219,9 +219,19 @@ public final class SchemaInfo
 	 * @see #typeColumnName(Type)
 	 * @see #getTypeColumnName(ItemField)
 	 */
-	public static String getTypeColumnValue(final Type<?> type)
+	public static String typeColumnValue(final Type<?> type)
 	{
 		return type.schemaId;
+	}
+
+	/**
+	 * @deprecated Use {@link #typeColumnValue(Type)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getTypeColumnValue(final Type<?> type)
+	{
+		return typeColumnValue(type);
 	}
 
 	/**
@@ -259,7 +269,7 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Field#getName() name} of the field
 	 * plus the appendix "Type".
-	 * Values suitable for this column can be retrieved by {@link #getTypeColumnValue(Type)}.
+	 * Values suitable for this column can be retrieved by {@link #typeColumnValue(Type)}.
 	 * @throws IllegalArgumentException
 	 *         if there is no type column for this ItemField,
 	 *         because <code>{@link ItemField#getValueType() getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
