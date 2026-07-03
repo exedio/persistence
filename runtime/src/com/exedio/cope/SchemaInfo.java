@@ -401,9 +401,19 @@ public final class SchemaInfo
 	 * Returns the name of the sequence for generating values via
 	 * {@link Sequence#next()}.
 	 */
-	public static String getSequenceName(final Sequence sequence)
+	public static String sequenceName(final Sequence sequence)
 	{
 		return sequence.sequenceX.getSchemaName();
+	}
+
+	/**
+	 * @deprecated Use {@link #sequenceName(Sequence)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getSequenceName(final Sequence sequence)
+	{
+		return sequenceName(sequence);
 	}
 
 	public static String getConstraintName(final UniqueConstraint constraint)

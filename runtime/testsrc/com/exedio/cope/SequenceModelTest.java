@@ -99,7 +99,7 @@ public class SequenceModelTest
 		}
 		try
 		{
-			SchemaInfo.getSequenceName(full);
+			SchemaInfo.sequenceName(full);
 			fail();
 		}
 		catch(final Model.NotConnectedException e)

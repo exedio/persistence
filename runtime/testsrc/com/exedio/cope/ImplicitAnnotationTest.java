@@ -117,7 +117,7 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 			final String arbitrary,
 			final Sequence f)
 	{
-		assertFeature(name, nameAnno, schema, SchemaInfo.getSequenceName(f), schemaAnno, computed, arbitrary, f);
+		assertFeature(name, nameAnno, schema, SchemaInfo.sequenceName(f), schemaAnno, computed, arbitrary, f);
 	}
 
 	private static void assertFeature(

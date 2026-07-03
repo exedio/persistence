@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.defaultToNextSequenceName;
-import static com.exedio.cope.SchemaInfo.getSequenceName;
+import static com.exedio.cope.SchemaInfo.sequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -154,7 +154,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 
 	private static void assertIt(final Sequence sequence, final String name)
 	{
-		assertEquals(name, getSequenceName(sequence));
+		assertEquals(name, sequenceName(sequence));
 	}
 
 	private static void assertIt(final Table table, final Constraint.Type type, final String name)

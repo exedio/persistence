@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
-import static com.exedio.cope.SchemaInfo.getSequenceName;
+import static com.exedio.cope.SchemaInfo.sequenceName;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
@@ -49,8 +49,8 @@ public class SequenceTest extends TestWithEnvironment
 		// sequences are not part of a transaction
 		assertFalse(MODEL.hasCurrentTransaction());
 
-		assertEquals("SequenceItem_full",    getSequenceName(full));
-		assertEquals("SequenceItem_limited", getSequenceName(limited));
+		assertEquals("SequenceItem_full",    sequenceName(full));
+		assertEquals("SequenceItem_limited", sequenceName(limited));
 
 		assertTimer(0, full);
 		assertTimer(0, limited);
