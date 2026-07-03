@@ -141,9 +141,9 @@ public final class SchemaInfo
 	/**
 	 * Returns the value of primary key column in the database for the item.
 	 */
-	public static long columnValue(final Item item)
+	public static long columnValue(final Item value)
 	{
-		return item.pk;
+		return value.pk;
 	}
 
 	/**
@@ -151,9 +151,9 @@ public final class SchemaInfo
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	@Deprecated
-	public static long getPrimaryKeyColumnValueL(final Item item)
+	public static long getPrimaryKeyColumnValueL(final Item value)
 	{
-		return columnValue(item);
+		return columnValue(value);
 	}
 
 	/**
