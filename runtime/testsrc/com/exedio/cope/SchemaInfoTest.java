@@ -22,7 +22,7 @@ import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.foreignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.columnValue;
-import static com.exedio.cope.SchemaInfo.getSuperForeignKeyConstraintName;
+import static com.exedio.cope.SchemaInfo.superForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
@@ -76,11 +76,11 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("refType", typeColumnName(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", foreignKeyConstraintName(InstanceOfRefItem.ref));
 
-		assertFails (                  () -> getSuperForeignKeyConstraintName(null), NullPointerException.class, "Cannot read field \"table\" because \"type\" is null");
-		assertFails (                  () -> getSuperForeignKeyConstraintName(InstanceOfAItem.TYPE), IllegalArgumentException.class, "no super type for InstanceOfAItem");
-		assertEquals("InstanceOfB1Item_Sup", getSuperForeignKeyConstraintName(InstanceOfB1Item.TYPE));
-		assertEquals("InstanceOfB2Item_Sup", getSuperForeignKeyConstraintName(InstanceOfB2Item.TYPE));
-		assertEquals("InstanceOfC1Item_Sup", getSuperForeignKeyConstraintName(InstanceOfC1Item.TYPE));
+		assertFails (                  () -> superForeignKeyConstraintName(null), NullPointerException.class, "Cannot read field \"table\" because \"type\" is null");
+		assertFails (                  () -> superForeignKeyConstraintName(InstanceOfAItem.TYPE), IllegalArgumentException.class, "no super type for InstanceOfAItem");
+		assertEquals("InstanceOfB1Item_Sup", superForeignKeyConstraintName(InstanceOfB1Item.TYPE));
+		assertEquals("InstanceOfB2Item_Sup", superForeignKeyConstraintName(InstanceOfB2Item.TYPE));
+		assertEquals("InstanceOfC1Item_Sup", superForeignKeyConstraintName(InstanceOfC1Item.TYPE));
 
 		// without sub types
 		assertEquals("InstanceOfB2Item", tableName(InstanceOfB2Item.TYPE));
