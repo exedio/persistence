@@ -363,66 +363,74 @@ public final class SchemaInfo
 
 	/**
 	 * @see VaultTrailSchemaInfo#tableName()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static String getVaultTrailTableName(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).table;
+		return vaultTrail(model, bucket).tableName();
 	}
 
 	/**
 	 * @see VaultTrailSchemaInfo#hashColumnName()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static String getVaultTrailHashColumnName(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).hash;
+		return vaultTrail(model, bucket).hashColumnName();
 	}
 
 	/**
 	 * @see VaultTrailSchemaInfo#lengthColumnName()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static String getVaultTrailLengthColumnName(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).length;
+		return vaultTrail(model, bucket).lengthColumnName();
 	}
 
 	/**
 	 * @see VaultTrailSchemaInfo#startColumnName()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static String getVaultTrailStartColumnName(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).start;
+		return vaultTrail(model, bucket).startColumnName();
 	}
 
 	/**
 	 * @see VaultTrailSchemaInfo#startColumnLimit()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static int getVaultTrailStartColumnLimit(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).startLimit;
+		return vaultTrail(model, bucket).startColumnLimit();
 	}
 
 	/**
 	 * @see VaultTrailSchemaInfo#dateColumnName()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static String getVaultTrailDateColumnName(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).date;
+		return vaultTrail(model, bucket).dateColumnName();
 	}
 
 	/**
 	 * @see VaultTrailSchemaInfo#fieldColumnName()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static String getVaultTrailFieldColumnName(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).field;
+		return vaultTrail(model, bucket).fieldColumnName();
 	}
 
 	/**
 	 * @see VaultTrailSchemaInfo#originColumnName()
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
 	public static String getVaultTrailOriginColumnName(final Model model, final String bucket)
 	{
-		return vaultTrailInternal(model, bucket).origin;
+		return vaultTrail(model, bucket).originColumnName();
 	}
 
 	public static VaultTrailSchemaInfo vaultTrail(final Model model, final String bucket)

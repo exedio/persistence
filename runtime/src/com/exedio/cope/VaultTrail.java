@@ -43,15 +43,15 @@ final class VaultTrail implements VaultTrailSchemaInfo
 	private final int originLimit;
 	private final String originValue;
 
-	final String table; // TODO make private
-	final String hash; // TODO make private
+	private final String table;
+	private final String hash;
 	private final String hashPK;
-	final String length; // TODO make private
-	final String start; // TODO make private
+	private final String length;
+	private final String start;
 	private final String markPut;
-	final String date; // TODO make private
-	final String field; // TODO make private
-	final String origin; // TODO make private
+	private final String date;
+	private final String field;
+	private final String origin;
 
 	final String tableQuoted;
 	final String hashQuoted;
