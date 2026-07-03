@@ -23,7 +23,7 @@ import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.SchemaInfo.checkVaultTrail;
-import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
+import static com.exedio.cope.SchemaInfo.vaultTrail;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -473,7 +473,7 @@ public class DataTest extends TestWithEnvironment
 		else
 		{
 			assertEquals(0, data.checkVaultTrail());
-			final String trailTab  = SchemaInfo.quoteName(model, getVaultTrailTableName(model, "default"));
+			final String trailTab  = SchemaInfo.quoteName(model, vaultTrail(model, "default").tableName());
 			final String trailHash = SchemaInfo.quoteName(model, "hash");
 			final String trailLength=SchemaInfo.quoteName(model, "length");
 			assertEquals(

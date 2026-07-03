@@ -20,14 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.SchemaInfo.checkVaultTrail;
-import static com.exedio.cope.SchemaInfo.getVaultTrailDateColumnName;
-import static com.exedio.cope.SchemaInfo.getVaultTrailFieldColumnName;
-import static com.exedio.cope.SchemaInfo.getVaultTrailHashColumnName;
-import static com.exedio.cope.SchemaInfo.getVaultTrailLengthColumnName;
-import static com.exedio.cope.SchemaInfo.getVaultTrailOriginColumnName;
-import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnLimit;
-import static com.exedio.cope.SchemaInfo.getVaultTrailStartColumnName;
-import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.vaultTrail;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
@@ -96,8 +88,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	}
 	private void test(final java.util.function.Function<String, DataField.Value> f) throws SQLException
 	{
-		final String trailTab  = quoteName(model, getVaultTrailTableName(model, "my-Bucket"));
-		final String trailTabD = quoteName(model, getVaultTrailTableName(model, "default"));
+		final String trailTab  = quoteName(model, vaultTrail(model, "my-Bucket").tableName());
+		final String trailTabD = quoteName(model, vaultTrail(model, "default"  ).tableName());
 		final String trailHash = quoteName(model, "hash");
 		final String trailLength = quoteName(model, "length");
 		assertEquals(
@@ -204,7 +196,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
-		updateTrail("DELETE FROM " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")));
+		updateTrail("DELETE FROM " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()));
 		queryTrail("my-Bucket", rs -> {});
 		assertEquals(1, MyItem.field.checkVaultTrail());
 		assertEquals(0, MyItem.other.checkVaultTrail());
@@ -225,7 +217,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail(
-				"UPDATE " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")) + " " +
+				"UPDATE " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()) + " " +
 				"SET " + quoteName(model, "length") + "=" + (MyItem.field.getMaximumLength()+1) + " " +
 				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
 		queryTrail("my-Bucket", rs ->
@@ -234,7 +226,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(0, MyItem.other.checkVaultTrail());
 
 		updateTrail(
-				"UPDATE " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")) + " " +
+				"UPDATE " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()) + " " +
 				"SET " + quoteName(model, "length") + "=" + MyItem.field.getMaximumLength() + " " +
 				"WHERE " + quoteName(model, "hash") + "='" + abcdefHash + "'");
 		queryTrail("my-Bucket", rs ->
@@ -345,7 +337,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		final String txName = model.currentTransaction().getName();
 		model.commit();
 		try(ResultSet rs = connection.executeQuery(
-				"SELECT * FROM " + quoteName(model, getVaultTrailTableName(model, bucket)) + " " +
+				"SELECT * FROM " + quoteName(model, vaultTrail(model, bucket).tableName()) + " " +
 				"ORDER BY " + quoteName(model, "hash")))
 		{
 			final ResultSetMetaData md = rs.getMetaData();
@@ -445,31 +437,32 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals("origin", my.originColumnName());
 		assertEquals("origin", df.originColumnName());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSchemaInfoDeprecated()
 	{
-		assertEquals("VaultTrail_my_Bucket", getVaultTrailTableName(model, "my-Bucket"));
-		assertEquals("VaultTrail_default",   getVaultTrailTableName(model, "default"));
-		assertEquals("hash",    getVaultTrailHashColumnName  (model, "my-Bucket"));
-		assertEquals("hash",    getVaultTrailHashColumnName  (model, "default"));
-		assertEquals("length",  getVaultTrailLengthColumnName(model, "my-Bucket"));
-		assertEquals("length",  getVaultTrailLengthColumnName(model, "default"));
-		assertEquals("start20", getVaultTrailStartColumnName (model, "my-Bucket"));
-		assertEquals("start20", getVaultTrailStartColumnName (model, "default"));
-		assertEquals(20,        getVaultTrailStartColumnLimit(model, "my-Bucket"));
-		assertEquals(20,        getVaultTrailStartColumnLimit(model, "default"));
-		assertEquals("date",    getVaultTrailDateColumnName  (model, "my-Bucket"));
-		assertEquals("date",    getVaultTrailDateColumnName  (model, "default"));
-		assertEquals("field",   getVaultTrailFieldColumnName (model, "my-Bucket"));
-		assertEquals("field",   getVaultTrailFieldColumnName (model, "default"));
-		assertEquals("origin",  getVaultTrailOriginColumnName(model, "my-Bucket"));
-		assertEquals("origin",  getVaultTrailOriginColumnName(model, "default"));
+		assertEquals("VaultTrail_my_Bucket", SchemaInfo.getVaultTrailTableName(model, "my-Bucket"));
+		assertEquals("VaultTrail_default",   SchemaInfo.getVaultTrailTableName(model, "default"));
+		assertEquals("hash",    SchemaInfo.getVaultTrailHashColumnName  (model, "my-Bucket"));
+		assertEquals("hash",    SchemaInfo.getVaultTrailHashColumnName  (model, "default"));
+		assertEquals("length",  SchemaInfo.getVaultTrailLengthColumnName(model, "my-Bucket"));
+		assertEquals("length",  SchemaInfo.getVaultTrailLengthColumnName(model, "default"));
+		assertEquals("start20", SchemaInfo.getVaultTrailStartColumnName (model, "my-Bucket"));
+		assertEquals("start20", SchemaInfo.getVaultTrailStartColumnName (model, "default"));
+		assertEquals(20,        SchemaInfo.getVaultTrailStartColumnLimit(model, "my-Bucket"));
+		assertEquals(20,        SchemaInfo.getVaultTrailStartColumnLimit(model, "default"));
+		assertEquals("date",    SchemaInfo.getVaultTrailDateColumnName  (model, "my-Bucket"));
+		assertEquals("date",    SchemaInfo.getVaultTrailDateColumnName  (model, "default"));
+		assertEquals("field",   SchemaInfo.getVaultTrailFieldColumnName (model, "my-Bucket"));
+		assertEquals("field",   SchemaInfo.getVaultTrailFieldColumnName (model, "default"));
+		assertEquals("origin",  SchemaInfo.getVaultTrailOriginColumnName(model, "my-Bucket"));
+		assertEquals("origin",  SchemaInfo.getVaultTrailOriginColumnName(model, "default"));
 
 		assertFails(
-				() -> getVaultTrailTableName(model, "xxx"),
+				() -> SchemaInfo.getVaultTrailTableName(model, "xxx"),
 				IllegalArgumentException.class,
 				"bucket xxx does not exist, use one of [default, my-Bucket]");
 		assertFails(
-				() -> getVaultTrailTableName(model, "xx.x"),
+				() -> SchemaInfo.getVaultTrailTableName(model, "xx.x"),
 				IllegalArgumentException.class,
 				"bucket must contain just [---,0-9,A-Z,a-z], " +
 				"but was >xx.x< containing a forbidden character at position 2");
@@ -528,8 +521,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(true, vaultProperties.isAppliedToAllFields(), "isAppliedToAllFields required by test");
 		model.setVaultRequiredToMarkPut("my-Bucket", false);
 		model.setVaultRequiredToMarkPut("default", false);
-		connection.executeUpdate("DELETE FROM " + quoteName(model, getVaultTrailTableName(model, "my-Bucket")));
-		connection.executeUpdate("DELETE FROM " + quoteName(model, getVaultTrailTableName(model, "default")));
+		connection.executeUpdate("DELETE FROM " + quoteName(model, vaultTrail(model, "my-Bucket").tableName()));
+		connection.executeUpdate("DELETE FROM " + quoteName(model, vaultTrail(model, "default"  ).tableName()));
 		model.startTransaction(DataVaultTrailTest.class.getName());
 	}
 
