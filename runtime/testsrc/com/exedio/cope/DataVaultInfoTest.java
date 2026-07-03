@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
-import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
+import static com.exedio.cope.SchemaInfo.vaultTrail;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.TestSources.minimal;
@@ -218,7 +218,7 @@ public class DataVaultInfoTest
 
 	@Test void testSchema()
 	{
-		final com.exedio.dsmf.Table tab = model.getSchema().getTable(getVaultTrailTableName(model, "default"));
+		final com.exedio.dsmf.Table tab = model.getSchema().getTable(vaultTrail(model, "default").tableName());
 		assertNotNull(tab);
 		assertEquals(
 				Arrays.asList("hash", "length", "start20", "markPut", "date", "field", "origin"),

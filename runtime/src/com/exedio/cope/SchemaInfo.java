@@ -362,72 +362,88 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#tableName()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#tableName()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static String getVaultTrailTableName(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).tableName();
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#hashColumnName()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#hashColumnName()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static String getVaultTrailHashColumnName(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).hashColumnName();
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#lengthColumnName()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#lengthColumnName()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static String getVaultTrailLengthColumnName(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).lengthColumnName();
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#startColumnName()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#startColumnName()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static String getVaultTrailStartColumnName(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).startColumnName();
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#startColumnLimit()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#startColumnLimit()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static int getVaultTrailStartColumnLimit(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).startColumnLimit();
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#dateColumnName()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#dateColumnName()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static String getVaultTrailDateColumnName(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).dateColumnName();
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#fieldColumnName()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#fieldColumnName()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static String getVaultTrailFieldColumnName(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).fieldColumnName();
 	}
 
 	/**
-	 * @see VaultTrailSchemaInfo#originColumnName()
+	 * @deprecated Use {@link #vaultTrail(Model, String)} and {@link VaultTrailSchemaInfo#originColumnName()} instead.
 	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	public static String getVaultTrailOriginColumnName(final Model model, final String bucket)
 	{
 		return vaultTrail(model, bucket).originColumnName();

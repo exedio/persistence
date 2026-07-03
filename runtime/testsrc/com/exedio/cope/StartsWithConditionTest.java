@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
-import static com.exedio.cope.SchemaInfo.getVaultTrailTableName;
+import static com.exedio.cope.SchemaInfo.vaultTrail;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -65,7 +65,7 @@ public class StartsWithConditionTest extends TestWithEnvironment
 				"SELECT " + SI.pk(TYPE) + "," + SI.type(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + (
 				vault
-				? "JOIN " + q(getVaultTrailTableName(model, "default")) + " " + q("DataItem.data") + " " +
+				? "JOIN " + q(vaultTrail(model, "default").tableName()) + " " + q("DataItem.data") + " " +
 				  "ON " + SI.col(data) + "=" + q("DataItem.data") + "." + q("hash") + " "
 				: "");
 		final String dataColumn = vault
