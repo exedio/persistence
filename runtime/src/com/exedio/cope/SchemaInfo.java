@@ -344,7 +344,7 @@ public final class SchemaInfo
 	 * but can be overridden by {@link CopeSchemaValue}.
 	 */
 	@SuppressWarnings({"unchecked","rawtypes"}) // I have no idea why I have to do this stuff
-	public static int getColumnValue(final Enum<?> value)
+	public static int columnValue(final Enum<?> value)
 	{
 		return getColumnValueInternal((Enum)value);
 	}
@@ -352,6 +352,16 @@ public final class SchemaInfo
 	private static <E extends Enum<E>> int getColumnValueInternal(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).getNumber(value);
+	}
+
+	/**
+	 * @deprecated Use {@link #columnValue(Enum)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static int getColumnValue(final Enum<?> value)
+	{
+		return columnValue(value);
 	}
 
 	/**

@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.getMeters;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.pattern.Dispatcher.create;
 import static com.exedio.cope.pattern.Dispatcher.createWithSession;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
@@ -340,11 +340,11 @@ public class DispatcherModelTest
 		assertEquals(
 				asList(Result.transientFailure, Result.finalFailure, Result.immediateFinalFailure, deprecatedFailure, Result.success),
 				asList(Dispatcher.Result.values()));
-		assertEquals(-20, getColumnValue(Result.transientFailure ));
-		assertEquals(-10, getColumnValue(Result.finalFailure ));
-		assertEquals( -5, getColumnValue(Result.immediateFinalFailure ));
-		assertEquals(  0, getColumnValue(deprecatedFailure ));
-		assertEquals(  1, getColumnValue(Result.success ));
+		assertEquals(-20, columnValue(Result.transientFailure ));
+		assertEquals(-10, columnValue(Result.finalFailure ));
+		assertEquals( -5, columnValue(Result.immediateFinalFailure ));
+		assertEquals(  0, columnValue(deprecatedFailure ));
+		assertEquals(  1, columnValue(Result.success ));
 	}
 
 	@Test void testMeters()
