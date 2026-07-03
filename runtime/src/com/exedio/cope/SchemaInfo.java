@@ -416,9 +416,19 @@ public final class SchemaInfo
 		return sequenceName(sequence);
 	}
 
-	public static String getConstraintName(final UniqueConstraint constraint)
+	public static String constraintName(final UniqueConstraint constraint)
 	{
 		return constraint.getDatabaseID();
+	}
+
+	/**
+	 * @deprecated Use {@link #constraintName(UniqueConstraint)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getConstraintName(final UniqueConstraint constraint)
+	{
+		return constraintName(constraint);
 	}
 
 	/**

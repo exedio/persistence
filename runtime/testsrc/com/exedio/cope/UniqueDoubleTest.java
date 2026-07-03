@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
-import static com.exedio.cope.SchemaInfo.getConstraintName;
+import static com.exedio.cope.SchemaInfo.constraintName;
 import static com.exedio.cope.UniqueDoubleItem.TYPE;
 import static com.exedio.cope.UniqueDoubleItem.constraint;
 import static com.exedio.cope.UniqueDoubleItem.forConstraint;
@@ -43,7 +43,7 @@ public class UniqueDoubleTest extends TestWithEnvironment
 	{
 		assertEquals(
 				unq("UniqueDoubleItem_constraint"),
-				getConstraintName(constraint));
+				constraintName(constraint));
 
 		assertEquals(null, forConstraint("a", 1));
 

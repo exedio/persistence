@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.SchemaInfo.getConstraintName;
+import static com.exedio.cope.SchemaInfo.constraintName;
 import static com.exedio.cope.UniqueFinalItem.forUniqueFinalString;
 import static com.exedio.cope.UniqueFinalItem.uniqueFinalString;
 import static com.exedio.cope.UniqueSingleItem.forUniqueString;
@@ -115,7 +115,7 @@ public class UniqueTest extends TestWithEnvironment
 		// test persistence
 		assertEquals(
 				"UniqueSingleItem_uniqueString_Unq",
-				getConstraintName(uniqueString.getImplicitUniqueConstraint()));
+				constraintName(uniqueString.getImplicitUniqueConstraint()));
 
 		assertEquals(null, forUniqueString("uniqueString"));
 		assertEquals(null, uniqueString.searchUnique("uniqueString"));
