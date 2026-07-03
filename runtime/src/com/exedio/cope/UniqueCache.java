@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CompareCondition.assertComparable;
 
 import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Tags;
 import java.util.concurrent.ConcurrentHashMap;
 
 final class UniqueCache
@@ -32,25 +32,26 @@ final class UniqueCache
 	private final Counter hits;
 	private final Counter misses;
 
-	UniqueCache(final UniqueConstraint constraint)
+	UniqueCache(final UniqueConstraint constraint, final ModelMetrics metricsTemplate)
 	{
+		final ModelMetrics metrics = metricsTemplate.name(UniqueConstraint.class);
 		assert constraint.getFields().size()==1;
 		field = constraint.getFields().get(0);
 		model = constraint.getType().getModel();
-		hits   = counter(constraint, "hit");
-		misses = counter(constraint, "miss");
+		hits   = counter(metrics, constraint, "hit");
+		misses = counter(metrics, constraint, "miss");
 	}
 
 	// TODO use FeatureCounter instead
 	private static Counter counter(
+			final ModelMetrics metrics,
 			final UniqueConstraint constraint,
 			final String result)
 	{
-		return Counter.
-				builder(UniqueConstraint.class.getName() + ".cache").
-				tags("feature", constraint.getID(), "result", result).
-				description("Cache hits/misses when searching by a unique constraint").
-				register(Metrics.globalRegistry);
+		return metrics.counter(
+				"cache",
+				"Cache hits/misses when searching by a unique constraint",
+				Tags.of("feature", constraint.getID(), "result", result));
 	}
 
 	/**

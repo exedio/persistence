@@ -409,7 +409,7 @@ final class ItemCache
 					if(uq.getFields().size()>1) // TODO support unique constraints with more than one field as well
 						continue;
 
-					final var uc = uq.initCache();
+					final var uc = uq.initCache(metricsTemplate);
 					if(uniqueCaches==null)
 						uniqueCaches = new ArrayList<>();
 					uniqueCaches.add(uc);

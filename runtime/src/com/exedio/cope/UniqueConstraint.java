@@ -188,10 +188,10 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 		table.database.executor.addUniqueConstraint(databaseID, this);
 	}
 
-	UniqueCache initCache()
+	UniqueCache initCache(final ModelMetrics metricsTemplate)
 	{
 		if(cache==null)
-			cache = new UniqueCache(this);
+			cache = new UniqueCache(this, metricsTemplate);
 		return cache;
 	}
 
