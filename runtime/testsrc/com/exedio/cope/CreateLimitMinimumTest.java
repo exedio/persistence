@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -35,7 +35,7 @@ public class CreateLimitMinimumTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		assertEquals(0, getPrimaryKeyColumnValueL(new AnItem(0)));
+		assertEquals(0, primaryKeyColumnValue(new AnItem(0)));
 		try
 		{
 			new AnItem(1);

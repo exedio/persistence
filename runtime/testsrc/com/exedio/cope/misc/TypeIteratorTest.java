@@ -18,7 +18,7 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.QueryIterators.iterateType;
@@ -130,28 +130,28 @@ public class TypeIteratorTest extends TestWithEnvironment
 			assertEquals(asList(item0, item1, item2), l(iterateType(TYPE, intx.less(3), 3)));
 			assertDatabase(
 					pre + "WHERE " + intxC + "<3" + post,
-					pre + "WHERE (" + intxC + "<3) AND (" + thisC + ">" + getPrimaryKeyColumnValueL(item2) + ")" + post
+					pre + "WHERE (" + intxC + "<3) AND (" + thisC + ">" + primaryKeyColumnValue(item2) + ")" + post
 			);
 
 
 			assertEquals(asList(item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(3), 3)));
 			assertDatabase(
 					pre + "WHERE " + intxC + "<3" + postDesc,
-					pre + "WHERE (" + intxC + "<3) AND (" + thisC + "<" + getPrimaryKeyColumnValueL(item0) + ")" + postDesc
+					pre + "WHERE (" + intxC + "<3) AND (" + thisC + "<" + primaryKeyColumnValue(item0) + ")" + postDesc
 			);
 
 
 			assertEquals(asList(item0, item1, item2, item3), l(iterateType(TYPE, intx.less(4), 3)));
 			assertDatabase(
 					pre + "WHERE " + intxC + "<4" + post,
-					pre + "WHERE (" + intxC + "<4) AND (" + thisC + ">" + getPrimaryKeyColumnValueL(item2) + ")" + post
+					pre + "WHERE (" + intxC + "<4) AND (" + thisC + ">" + primaryKeyColumnValue(item2) + ")" + post
 			);
 
 
 			assertEquals(asList(item3, item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(4), 3)));
 			assertDatabase(
 					pre + "WHERE " + intxC + "<4" + postDesc,
-					pre + "WHERE (" + intxC + "<4) AND (" + thisC + "<" + getPrimaryKeyColumnValueL(item1) + ")" + postDesc
+					pre + "WHERE (" + intxC + "<4) AND (" + thisC + "<" + primaryKeyColumnValue(item1) + ")" + postDesc
 			);
 
 		}

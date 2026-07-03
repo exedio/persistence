@@ -22,7 +22,7 @@ import static com.exedio.cope.CheckConstraintHierarchyItemBottom.bottom1;
 import static com.exedio.cope.CheckConstraintHierarchyItemBottom.cross1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.up1;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -140,7 +140,7 @@ public class CheckConstraintHierarchyViolationTest extends TestWithEnvironment
 		return
 				"UPDATE " + SI.tab(field.getType()) + " " +
 				"SET " + SI.col(field) + "=" + value + " " +
-				"WHERE " + SI.pk(field.getType()) + "=" + getPrimaryKeyColumnValueL(item);
+				"WHERE " + SI.pk(field.getType()) + "=" + primaryKeyColumnValue(item);
 	}
 
 	private void assertFailsSql(

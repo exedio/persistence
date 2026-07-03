@@ -426,7 +426,7 @@ class ItemModificationTest extends TestWithEnvironment
 		return queryLong(
 				"select " + SI.update(type) +
 				" from " + SI.tab(type) +
-				" where " + SI.pk(type) + " = " + SchemaInfo.getPrimaryKeyColumnValueL(i)
+				" where " + SI.pk(type) + " = " + SchemaInfo.primaryKeyColumnValue(i)
 		);
 	}
 

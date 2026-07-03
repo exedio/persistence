@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -105,7 +105,7 @@ public class CopyCheckFailureTest extends TestWithEnvironment
 		connection.execute(
 				"UPDATE " + SI.tab(type) + " " +
 				"SET " + SI.col(field) + "=" + value + " " +
-				"WHERE " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
+				"WHERE " + SI.pk(type) + "=" + primaryKeyColumnValue(item));
 		model.clearCache(); // because we changed the data bypassing cope
 		model.startTransaction(CopyCheckFailureTest.class.getName());
 	}

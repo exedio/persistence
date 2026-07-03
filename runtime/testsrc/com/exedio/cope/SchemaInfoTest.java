@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getSuperForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
@@ -62,7 +62,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 				IllegalArgumentException.class,
 				"database name contains forbidden characters: \"`");
 		assertFails(
-				() -> getPrimaryKeyColumnValueL(null),
+				() -> primaryKeyColumnValue(null),
 				NullPointerException.class,
 				"Cannot read field \"pk\" because \"item\" is null");
 

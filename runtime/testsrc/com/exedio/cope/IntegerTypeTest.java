@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
@@ -218,14 +218,14 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertEquals(item, item.getItemReference());
 		assertEquals("IntegerTypeBigIntItem-2147483647", item.getCopeID());
 		assertEquals(item, model.getItem("IntegerTypeBigIntItem-2147483647"));
-		assertEquals(Integer.MAX_VALUE, getPrimaryKeyColumnValueL(item));
+		assertEquals(Integer.MAX_VALUE, primaryKeyColumnValue(item));
 
 		final IntegerTypeBigIntItem item2 = new IntegerTypeBigIntItem();
 		item2.setItemReference(item2);
 		assertEquals(item2, item2.getItemReference());
 		assertEquals("IntegerTypeBigIntItem-2147483648", item2.getCopeID());
 		assertEquals(item2, model.getItem("IntegerTypeBigIntItem-2147483648"));
-		assertEquals(Integer.MAX_VALUE + 1l, getPrimaryKeyColumnValueL(item2));
+		assertEquals(Integer.MAX_VALUE + 1l, primaryKeyColumnValue(item2));
 	}
 
 	@Test void testBigIntPk() throws NoSuchIDException, SQLException
@@ -237,7 +237,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertEquals(item, item.getItemReference());
 		assertEquals("IntegerTypeBigIntItem-9223372036854770001", item.getCopeID());
 		assertEquals(item, model.getItem("IntegerTypeBigIntItem-9223372036854770001"));
-		assertEquals(9223372036854770001l, getPrimaryKeyColumnValueL(item));
+		assertEquals(9223372036854770001l, primaryKeyColumnValue(item));
 	}
 
 	@Test void testIntPk() throws SQLException
