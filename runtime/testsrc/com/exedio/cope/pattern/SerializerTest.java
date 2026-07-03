@@ -132,7 +132,7 @@ public class SerializerTest extends TestWithEnvironment
 		assertSerializedSame(map    , 389);
 
 		// test persistence
-		assertEquals("integer_data", SchemaInfo.getColumnName(integer.getSource()));
+		assertEquals("integer_data", SchemaInfo.columnName(integer.getSource()));
 
 		final HashMap<String, String> map1 = new HashMap<>();
 		map1.put("key1a", "value1a");

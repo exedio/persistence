@@ -49,8 +49,8 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		assertEquals("standard", SchemaInfo.getColumnName(standard.getIdField()));
-		assertEquals("newname", SchemaInfo.getColumnName(renamed.getIdField()));
+		assertEquals("standard", SchemaInfo.columnName(standard.getIdField()));
+		assertEquals("newname", SchemaInfo.columnName(renamed.getIdField()));
 
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
 		assertSame(string1, item.getStandard());

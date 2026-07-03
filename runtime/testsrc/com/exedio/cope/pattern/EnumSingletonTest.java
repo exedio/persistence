@@ -83,7 +83,7 @@ public class EnumSingletonTest extends TestWithEnvironment
 		assertEquals(true, once.isFinal());
 		assertEquals(true, once.isMandatory());
 		assertEquals(OneDigitPrime.class, once.getValueClass());
-		assertEquals("prime", SchemaInfo.getColumnName(once));
+		assertEquals("prime", SchemaInfo.columnName(once));
 	}
 
 	@WrapperType(indent=2)

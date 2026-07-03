@@ -167,6 +167,6 @@ public final class SchemaView
 
 	private String column(final Field<?> field)
 	{
-		return quoteName(model, SchemaInfo.getColumnName(field));
+		return quoteName(model, SchemaInfo.columnName(field));
 	}
 }

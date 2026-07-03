@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.DispatcherItem.historyAdd;
 import static com.exedio.cope.pattern.DispatcherItem.historyAssert;
@@ -84,7 +84,7 @@ public class DispatcherTest extends TestWithEnvironment
 	@Test void testIt()
 	{
 		assertNoUpdateCounterColumn(toTarget.getRunType());
-		assertEquals("success", getColumnName(toTarget.getRunResult()));
+		assertEquals("success", columnName(toTarget.getRunResult()));
 
 		assertPending(item1);
 		assertPending(item2);

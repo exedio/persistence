@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaComposite.virgnTemp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaComposite.wrongTemp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.TYPE;
@@ -58,10 +58,10 @@ public class CompositeFieldRenamedSchemaTest extends TestWithEnvironment
 		assertEquals("namedComp-virgnTemp", ann(wrongComp.of(virgnTemp)));
 		assertEquals("namedComp-namedTemp", ann(wrongComp.of(wrongTemp)));
 
-		assertEquals("virgnComp_virgnTemp", getColumnName(virgnComp.of(virgnTemp)));
-		assertEquals("virgnComp_namedTemp", getColumnName(virgnComp.of(wrongTemp)));
-		assertEquals("namedComp_virgnTemp", getColumnName(wrongComp.of(virgnTemp)));
-		assertEquals("namedComp_namedTemp", getColumnName(wrongComp.of(wrongTemp)));
+		assertEquals("virgnComp_virgnTemp", columnName(virgnComp.of(virgnTemp)));
+		assertEquals("virgnComp_namedTemp", columnName(virgnComp.of(wrongTemp)));
+		assertEquals("namedComp_virgnTemp", columnName(wrongComp.of(virgnTemp)));
+		assertEquals("namedComp_namedTemp", columnName(wrongComp.of(wrongTemp)));
 	}
 
 	private static String ann(final Feature f)

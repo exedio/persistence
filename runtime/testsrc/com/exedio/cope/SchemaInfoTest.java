@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
@@ -72,8 +72,8 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfAItem.TYPE);
 		assertEquals(synthetic("this", "InstanceOfAItem"), primaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals(synthetic("class", "InstanceOfAItem"), typeColumnName(InstanceOfAItem.TYPE));
-		assertEquals("code", getColumnName(InstanceOfAItem.code));
-		assertEquals("ref", getColumnName(InstanceOfRefItem.ref));
+		assertEquals("code", columnName(InstanceOfAItem.code));
+		assertEquals("ref", columnName(InstanceOfRefItem.ref));
 		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", getForeignKeyConstraintName(InstanceOfRefItem.ref));
 
@@ -91,8 +91,8 @@ public class SchemaInfoTest extends TestWithEnvironment
 				() -> typeColumnName(InstanceOfB2Item.TYPE),
 				IllegalArgumentException.class,
 				"no type column for InstanceOfB2Item");
-		assertEquals("textb2", getColumnName(InstanceOfB2Item.textb2));
-		assertEquals("refb2", getColumnName(InstanceOfRefItem.refb2));
+		assertEquals("textb2", columnName(InstanceOfB2Item.textb2));
+		assertEquals("refb2", columnName(InstanceOfRefItem.refb2));
 		assertFails(
 				() -> getTypeColumnName(InstanceOfRefItem.refb2),
 				IllegalArgumentException.class,

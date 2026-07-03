@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeTester.assertNotExistsConstraint;
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
@@ -175,13 +175,13 @@ public class SchemaTest extends TestWithEnvironment
 
 		assertPkConstraint(table, "Main_PK", primaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "Main_item_Fk", getColumnName(item), tableName(SchemaTargetItem.TYPE), primaryKeyColumnName(SchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Main_item_Fk", columnName(item), tableName(SchemaTargetItem.TYPE), primaryKeyColumnName(SchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "Main_uniqueString_Unq", "("+q(uniqueString)+")");
 
 		assertUniqueConstraint(table, unq("Main_doubleUnique"), "("+q(string)+","+q(anEnum)+")");
 
-		final Column min4Max8Column = table.getColumn(getColumnName(stringMin4Max8));
+		final Column min4Max8Column = table.getColumn(columnName(stringMin4Max8));
 		assertEquals(null, getError(min4Max8Column));
 		assertEquals(OK, min4Max8Column.getParticularColor());
 
@@ -227,7 +227,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_data_MN", "CHAR_LENGTH("+q(data)+")=128", dataVault);
 		assertCheckConstraint(table, "Main_data_CS", hexSQL, dataVault && mysql);
 
-		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
+		final Column stringLongColumn = table.getColumn(columnName(stringLong));
 		assertEquals(null, getError(stringLongColumn));
 		assertEquals(OK, stringLongColumn.getParticularColor());
 

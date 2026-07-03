@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.NameLengthTest.assertProperties;
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
@@ -100,9 +100,9 @@ public class NameTest extends TestWithEnvironment
 		assertEquals(synthetic("this", "NameLongItem"), primaryKeyColumnName(NameLongItem.TYPE));
 		assertPrimaryKeySequenceName("NameLongItem_this_Seq", NameLongItem.TYPE);
 		assertEquals(synthetic("class", "NameLongItem"), typeColumnName(NameLongItem.TYPE));
-		assertEquals("code", getColumnName(NameLongItem.code));
-		assertEquals("codeLoooooooooooooooooooooooooooooooooooooooooooooooooooName", getColumnName(NameLongItem_codeLongName));
-		assertEquals("pointerLooooooooooooooooooooooooooooooooooooooooooooooooName", getColumnName(NameLongItem_pointerLongName));
+		assertEquals("code", columnName(NameLongItem.code));
+		assertEquals("codeLoooooooooooooooooooooooooooooooooooooooooooooooooooName", columnName(NameLongItem_codeLongName));
+		assertEquals("pointerLooooooooooooooooooooooooooooooooooooooooooooooooName", columnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLooooooooooooooooooooooooooooooooooooooooooooNameType", getTypeColumnName(NameLongItem_pointerLongName));
 		assertEquals(
 				"NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
@@ -111,14 +111,14 @@ public class NameTest extends TestWithEnvironment
 		assertEquals("NameCollisionlooooooooooooooooooooooooooooooooooooooooonItem", tableName(NameCollisionlongaItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlooooooooooooooooooooooooooooooooooooooItem"), primaryKeyColumnName(NameCollisionlongaItem.TYPE));
 		assertPrimaryKeySequenceName("NameCollisionloooooooooooooooooooooooooooooooooItem_this_Seq", NameCollisionlongaItem.TYPE);
-		assertEquals("code", getColumnName(NameCollisionlongaItem.code));
-		assertEquals("collisionlongANumber", getColumnName(NameCollisionlongaItem_collisionlongaNumber));
-		assertEquals("collisionlongBNumber", getColumnName(NameCollisionlongaItem_collisionlongbNumber));
+		assertEquals("code", columnName(NameCollisionlongaItem.code));
+		assertEquals("collisionlongANumber", columnName(NameCollisionlongaItem_collisionlongaNumber));
+		assertEquals("collisionlongBNumber", columnName(NameCollisionlongaItem_collisionlongbNumber));
 
 		assertEquals("NameCollisionlongBItem", tableName(NameCollisionlongbItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionlongBItem"), primaryKeyColumnName(NameCollisionlongbItem.TYPE));
 		assertPrimaryKeySequenceName("NameCollisionlongBItem_this_Seq", NameCollisionlongbItem.TYPE);
-		assertEquals("code", getColumnName(NameCollisionlongbItem.code));
+		assertEquals("code", columnName(NameCollisionlongbItem.code));
 
 		model.commit();
 

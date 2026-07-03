@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -91,7 +91,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 	{
 		final Schema schema = model.getVerifiedSchema();
 		final Table table = schema.getTable(tableName(MyItem.TYPE));
-		final Column column = table.getColumn(getColumnName(MyItem.field));
+		final Column column = table.getColumn(columnName(MyItem.field));
 		final Constraint fk = table.getConstraint(FK_NAME);
 		assertAll(
 				() -> assertEqualsUnmodifiable(additionalErrors, fk.getAdditionalErrors(), "fk.additionalErrors"),

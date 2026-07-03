@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Unique;
 import static com.exedio.dsmf.Node.Color.ERROR;
@@ -60,7 +60,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 		assertTrue(uniqueB instanceof com.exedio.dsmf.UniqueConstraint);
 
 		assertSame(null, uniqueA.getColumn()); // TODO should be ItemA.fieldA
-		assertSame(table.getColumn(getColumnName(ItemB.fieldB)), uniqueB.getColumn());
+		assertSame(table.getColumn(columnName(ItemB.fieldB)), uniqueB.getColumn());
 	}
 
 	@CopeName("ItemAB")

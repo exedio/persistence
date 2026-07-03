@@ -268,9 +268,19 @@ public final class SchemaInfo
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Field#getName() name} of the field.
 	 */
-	public static String getColumnName(final Field<?> field)
+	public static String columnName(final Field<?> field)
 	{
 		return field.getColumn().id;
+	}
+
+	/**
+	 * @deprecated Use {@link #columnName(Field)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getColumnName(final Field<?> field)
+	{
+		return columnName(field);
 	}
 
 	/**

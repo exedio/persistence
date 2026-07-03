@@ -46,8 +46,8 @@ public class TypeFieldTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		assertEquals("standard", SchemaInfo.getColumnName(standard.getIdField()));
-		assertEquals("newname", SchemaInfo.getColumnName(renamed.getIdField()));
+		assertEquals("standard", SchemaInfo.columnName(standard.getIdField()));
+		assertEquals("newname", SchemaInfo.columnName(renamed.getIdField()));
 
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertSame(TYPE, item.getStandard());

@@ -51,7 +51,7 @@ public class EnumSetFieldSchemaNameTest
 	{
 		final BooleanField field = pattern.getField(facet);
 		assertEquals(fieldName, field.getName(), "fieldName");
-		assertEquals(schemaName, SchemaInfo.getColumnName(field), "schemaName");
+		assertEquals(schemaName, SchemaInfo.columnName(field), "schemaName");
 	}
 
 	private enum AnEnum

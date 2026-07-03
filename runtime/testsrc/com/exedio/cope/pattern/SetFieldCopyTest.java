@@ -62,13 +62,13 @@ public class SetFieldCopyTest extends TestWithEnvironment
 	{
 		final ItemField<Catalog> relationCatalog = (ItemField<Catalog>)ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog);
 		assertEquals("copeNameCatalog", relationCatalog.getName());
-		assertEquals("schemaNameAtParent", SchemaInfo.getColumnName(relationCatalog));
+		assertEquals("schemaNameAtParent", SchemaInfo.columnName(relationCatalog));
 
 		assertEquals("copeNameCatalog", ElementInCatalog.javaNameIsNotCatalog.getName());
-		assertEquals("schemaNameAtElement", SchemaInfo.getColumnName(ElementInCatalog.javaNameIsNotCatalog));
+		assertEquals("schemaNameAtElement", SchemaInfo.columnName(ElementInCatalog.javaNameIsNotCatalog));
 
 		assertEquals("copeNameCatalog", ParentInCatalog.catalog.getName());
-		assertEquals("schemaNameAtParent", SchemaInfo.getColumnName(ParentInCatalog.catalog));
+		assertEquals("schemaNameAtParent", SchemaInfo.columnName(ParentInCatalog.catalog));
 	}
 
 	@Test void create()
