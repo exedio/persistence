@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.tableName;
-import static com.exedio.cope.SchemaInfo.typeColumnValue;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
+import static com.exedio.cope.SchemaInfo.typeColumnValue;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;

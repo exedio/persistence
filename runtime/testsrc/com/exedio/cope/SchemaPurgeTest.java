@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MysqlDialect.sequenceColumnName;
 import static com.exedio.cope.SchemaInfo.defaultToNextSequenceName;
-import static com.exedio.cope.SchemaInfo.sequenceName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.sequenceName;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;

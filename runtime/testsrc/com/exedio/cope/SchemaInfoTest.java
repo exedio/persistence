@@ -19,14 +19,14 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.columnName;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.SchemaInfo.foreignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.columnValue;
+import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.superForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.tableName;
-import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
-import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
+import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

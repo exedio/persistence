@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionConditionTest.date;
-import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
