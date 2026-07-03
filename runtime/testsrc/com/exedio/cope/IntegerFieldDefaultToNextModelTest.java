@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.TYPE;
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.next;
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.none;
-import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
+import static com.exedio.cope.SchemaInfo.defaultToNextSequenceName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -116,7 +116,7 @@ public class IntegerFieldDefaultToNextModelTest
 	@Test void testSequenceNameNone()
 	{
 		assertFails(
-				() -> getDefaultToNextSequenceName(none),
+				() -> defaultToNextSequenceName(none),
 				IllegalArgumentException.class,
 				"is not defaultToNext: " + none);
 	}
