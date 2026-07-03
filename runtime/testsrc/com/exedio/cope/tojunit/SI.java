@@ -19,11 +19,12 @@
 package com.exedio.cope.tojunit;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.tableName;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 
 import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
@@ -56,7 +57,7 @@ public final class SI
 
 	public static String type(final Type<?> type)
 	{
-		return quoteName(type.getModel(), getTypeColumnName(type));
+		return quoteName(type.getModel(), typeColumnName(type));
 	}
 
 	public static String typeq(final Type<?> type)

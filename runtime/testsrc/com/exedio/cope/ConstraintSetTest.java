@@ -29,6 +29,7 @@ import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -72,7 +73,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 				names(table.getConstraints()));
 
 		assertColumn(table, primaryKeyColumnName(TYPE), "AnItem_PK", "AnItem_this_MN", "AnItem_this_MX");
-		assertColumn(table, getTypeColumnName(TYPE), "AnItem_class_EN");
+		assertColumn(table, typeColumnName(TYPE), "AnItem_class_EN");
 		assertColumn(table, getUpdateCounterColumnName(TYPE), "AnItem_catch_MN", "AnItem_catch_MX");
 		assertColumn(table, getColumnName(field), "AnItem_field_EN");
 		assertColumn(table, getColumnName(item), "AnItem_item_MN", "AnItem_item_MX", "AnItem_item_Fk");
@@ -87,7 +88,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 				names(table.getColumn(primaryKeyColumnName(TYPE)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_class_EN"),
-				names(table.getColumn(getTypeColumnName(TYPE)).getConstraints()));
+				names(table.getColumn(typeColumnName(TYPE)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_catch_MN", "AnItem_catch_MX"),
 				names(table.getColumn(getUpdateCounterColumnName(TYPE)).getConstraints()));

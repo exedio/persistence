@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.ForeignKey;
@@ -133,7 +134,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 	private static void assertIt(final Type<?> type, final String name, final String typeColumnName)
 	{
 		assertIt(type, name);
-		assertEquals(typeColumnName, getTypeColumnName(type));
+		assertEquals(typeColumnName, typeColumnName(type));
 	}
 
 	private static void assertIt(final Field<?> field, final String name)

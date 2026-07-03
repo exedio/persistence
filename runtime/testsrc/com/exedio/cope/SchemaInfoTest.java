@@ -27,6 +27,7 @@ import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -70,7 +71,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("InstanceOfAItem", tableName(InstanceOfAItem.TYPE));
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfAItem.TYPE);
 		assertEquals(synthetic("this", "InstanceOfAItem"), primaryKeyColumnName(InstanceOfAItem.TYPE));
-		assertEquals(synthetic("class", "InstanceOfAItem"), getTypeColumnName(InstanceOfAItem.TYPE));
+		assertEquals(synthetic("class", "InstanceOfAItem"), typeColumnName(InstanceOfAItem.TYPE));
 		assertEquals("code", getColumnName(InstanceOfAItem.code));
 		assertEquals("ref", getColumnName(InstanceOfRefItem.ref));
 		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
@@ -87,7 +88,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertPrimaryKeySequenceName("InstanceOfAItem_this_Seq", InstanceOfB2Item.TYPE);
 		assertEquals(synthetic("this", "InstanceOfB2Item"), primaryKeyColumnName(InstanceOfB2Item.TYPE));
 		assertFails(
-				() -> getTypeColumnName(InstanceOfB2Item.TYPE),
+				() -> typeColumnName(InstanceOfB2Item.TYPE),
 				IllegalArgumentException.class,
 				"no type column for InstanceOfB2Item");
 		assertEquals("textb2", getColumnName(InstanceOfB2Item.textb2));
