@@ -49,7 +49,7 @@ import java.lang.annotation.Target;
  * <ul>
  * <li>the {@link SchemaInfo#primaryKeyColumnName(Type) primary column} of the type and its subtypes,</li>
  * <li>foreign key columns of {@link ItemField item fields} referring the type or its subtypes, and</li>
- * <li>the {@link SchemaInfo#getPrimaryKeySequenceName(Type) sequence} for creating primary keys of the type.</li>
+ * <li>the {@link SchemaInfo#primaryKeySequenceName(Type) sequence} for creating primary keys of the type.</li>
  * </ul>
  * <p>
  * This annotation is essentially applicable to types (@Target(TYPE)) only.

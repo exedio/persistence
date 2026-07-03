@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MysqlDialect.REGEXP;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.TableTest.getError;
@@ -116,13 +115,13 @@ final class RuntimeTester
 			{
 				name = sequenceNameBase;
 			}
-			assertEquals(name, getPrimaryKeySequenceName(type));
+			assertEquals(name, SchemaInfo.primaryKeySequenceName(type));
 		}
 		else
 		{
 			try
 			{
-				getPrimaryKeySequenceName(type);
+				SchemaInfo.primaryKeySequenceName(type);
 				fail();
 			}
 			catch(final IllegalArgumentException e)

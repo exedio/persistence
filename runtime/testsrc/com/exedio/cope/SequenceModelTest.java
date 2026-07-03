@@ -90,7 +90,7 @@ public class SequenceModelTest
 		}
 		try
 		{
-			SchemaInfo.getPrimaryKeySequenceName(TYPE);
+			SchemaInfo.primaryKeySequenceName(TYPE);
 			fail();
 		}
 		catch(final Model.NotConnectedException e)
