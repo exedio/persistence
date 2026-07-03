@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.Item;
@@ -134,7 +134,7 @@ public final class MediaFingerprintOffset
 
 			return lastModified +
 			(
-				( (primaryKeyColumnValue(item)%RAMP_MODULUS) < ramp )
+				( (columnValue(item)%RAMP_MODULUS) < ramp )
 				? valueRamped
 				: value
 			);

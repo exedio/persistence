@@ -24,7 +24,7 @@ import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.CompareConditionTest.MODEL;
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
@@ -50,12 +50,12 @@ public class CompareConditionNotTest extends TestWithEnvironment
 
 	@Test void testIt() throws SQLException
 	{
-		final long item1 = primaryKeyColumnValue(new CompareConditionItem("string1", 1, 11l, 2.1, null, null, YEnum.V1));
-		final long item2 = primaryKeyColumnValue(new CompareConditionItem("string2", 2, 12l, 2.2, null, null, YEnum.V2));
-		final long item3 = primaryKeyColumnValue(new CompareConditionItem("string3", 3, 13l, 2.3, null, null, YEnum.V3));
-		final long item4 = primaryKeyColumnValue(new CompareConditionItem("string4", 4, 14l, 2.4, null, null, YEnum.V4));
-		final long item5 = primaryKeyColumnValue(new CompareConditionItem("string5", 5, 15l, 2.5, null, null, YEnum.V5));
-		final long itemX = primaryKeyColumnValue(new CompareConditionItem(null, null, null, null, null, null, null));
+		final long item1 = columnValue(new CompareConditionItem("string1", 1, 11l, 2.1, null, null, YEnum.V1));
+		final long item2 = columnValue(new CompareConditionItem("string2", 2, 12l, 2.2, null, null, YEnum.V2));
+		final long item3 = columnValue(new CompareConditionItem("string3", 3, 13l, 2.3, null, null, YEnum.V3));
+		final long item4 = columnValue(new CompareConditionItem("string4", 4, 14l, 2.4, null, null, YEnum.V4));
+		final long item5 = columnValue(new CompareConditionItem("string5", 5, 15l, 2.5, null, null, YEnum.V5));
+		final long itemX = columnValue(new CompareConditionItem(null, null, null, null, null, null, null));
 		MODEL.commit();
 
 		assertIt(intx, "IS NULL", "IS NOT NULL", item1, item2, item3, item4, item5);

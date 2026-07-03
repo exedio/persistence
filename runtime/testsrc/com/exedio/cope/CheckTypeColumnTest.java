@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.SchemaInfo.typeColumnValue;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,15 +75,15 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 
 	@Test void testOk()
 	{
-		assertEquals(0, primaryKeyColumnValue(itema));
-		assertEquals(1, primaryKeyColumnValue(itemb1));
-		assertEquals(2, primaryKeyColumnValue(itemb2));
-		assertEquals(3, primaryKeyColumnValue(itemc1));
-		assertEquals(0, primaryKeyColumnValue(reffa));
-		assertEquals(1, primaryKeyColumnValue(reffb1));
-		assertEquals(2, primaryKeyColumnValue(reffb2));
-		assertEquals(3, primaryKeyColumnValue(reffc1));
-		assertEquals(4, primaryKeyColumnValue(reffN));
+		assertEquals(0, columnValue(itema));
+		assertEquals(1, columnValue(itemb1));
+		assertEquals(2, columnValue(itemb2));
+		assertEquals(3, columnValue(itemc1));
+		assertEquals(0, columnValue(reffa));
+		assertEquals(1, columnValue(reffb1));
+		assertEquals(2, columnValue(reffb2));
+		assertEquals(3, columnValue(reffc1));
+		assertEquals(4, columnValue(reffN));
 
 		assertEquals(false, InstanceOfAItem.TYPE.getThis().needsCheckTypeColumn());
 		assertEquals(true, InstanceOfB1Item.TYPE.getThis().needsCheckTypeColumn());
@@ -283,7 +283,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		execute(
 				"update " + SI.tab(InstanceOfRefItem.TYPE) + " " +
 				"set " + SI.type(InstanceOfRefItem.ref) + "='" + typeColumnValue(InstanceOfB1Item.TYPE) + "' " +
-				"where " + SI.pk(InstanceOfRefItem.TYPE) + "=" + primaryKeyColumnValue(reffa));
+				"where " + SI.pk(InstanceOfRefItem.TYPE) + "=" + columnValue(reffa));
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumnL());
@@ -307,7 +307,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		execute(
 			"update " + SI.tab(type) + " " +
 			"set " + SI.type(type) + "='" + typeColumnValue(newType) + "' " +
-			"where " + SI.pk(type) + "=" + primaryKeyColumnValue(item));
+			"where " + SI.pk(type) + "=" + columnValue(item));
 	}
 
 	private <T extends Item> void deleteRow(
@@ -317,7 +317,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		execute(
 			"delete from " + SI.tab(type) + " " +
-			"where " + SI.pk(type) + "=" + primaryKeyColumnValue(item));
+			"where " + SI.pk(type) + "=" + columnValue(item));
 	}
 
 	private void execute(final String sql) throws SQLException

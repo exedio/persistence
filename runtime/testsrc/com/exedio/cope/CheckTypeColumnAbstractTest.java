@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.checkCompleteness;
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.tojunit.ConnectionRule;
@@ -76,7 +76,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 	{
 		execute(
 			"delete from " + SI.tab(type) + " " +
-			"where " + SI.pk(type) + "=" + primaryKeyColumnValue(item));
+			"where " + SI.pk(type) + "=" + columnValue(item));
 	}
 
 	private void execute(final String sql) throws SQLException

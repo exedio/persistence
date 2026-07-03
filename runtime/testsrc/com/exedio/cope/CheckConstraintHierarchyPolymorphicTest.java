@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintTest.assertFailsCheck;
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.dsmf.TableTest.getError;
@@ -178,7 +178,7 @@ public class CheckConstraintHierarchyPolymorphicTest extends TestWithEnvironment
 		return
 				"UPDATE " + SI.tab(Top.TYPE) + " " +
 				"SET " + SI.col(Top.field) + "=NULL " +
-				"WHERE " + SI.pk(Top.TYPE) + "=" + primaryKeyColumnValue(item);
+				"WHERE " + SI.pk(Top.TYPE) + "=" + columnValue(item);
 	}
 
 	private void assertFailsSql(
