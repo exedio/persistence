@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;

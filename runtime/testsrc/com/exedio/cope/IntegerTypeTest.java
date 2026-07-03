@@ -19,11 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.columnName;
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.columnValue;
-import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.Sequence.Type.bit31;
 import static com.exedio.dsmf.Sequence.Type.bit63;

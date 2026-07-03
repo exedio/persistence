@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintTest.assertFailsCheck;
 import static com.exedio.cope.SchemaInfo.columnValue;
-import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
+import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.dsmf.TableTest.getError;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
