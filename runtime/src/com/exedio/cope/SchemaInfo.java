@@ -123,9 +123,19 @@ public final class SchemaInfo
 	 * If not configured otherwise
 	 * the name equals "this".
 	 */
-	public static String getPrimaryKeyColumnName(final Type<?> type)
+	public static String primaryKeyColumnName(final Type<?> type)
 	{
 		return type.table.primaryKey.id;
+	}
+
+	/**
+	 * @deprecated Use {@link #primaryKeyColumnName(Type)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getPrimaryKeyColumnName(final Type<?> type)
+	{
+		return primaryKeyColumnName(type);
 	}
 
 	/**
@@ -138,7 +148,7 @@ public final class SchemaInfo
 
 	/**
 	 * Returns the name of the sequence for generating values for the
-	 * {@link #getPrimaryKeyColumnName(Type) primary key column}
+	 * {@link #primaryKeyColumnName(Type) primary key column}
 	 * of the type.
 	 * @throws IllegalArgumentException
 	 *         if there is no such sequence for this type,

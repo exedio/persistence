@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
@@ -292,7 +292,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		final Table table = schema.getTable(tableName);
 
 		for (final String columnName : new String[] {
-				getPrimaryKeyColumnName(type),
+				primaryKeyColumnName(type),
 				getColumnName(itemField),
 				getColumnName(longField)})
 		{
@@ -303,7 +303,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 						case mysql -> expectedMysqlDataType;
 						case postgresql -> expectedPostgresqlDataType;
 					} +
-					(columnName.equals(getPrimaryKeyColumnName(type))?NOT_NULL:""),
+					(columnName.equals(primaryKeyColumnName(type))?NOT_NULL:""),
 					table.getColumn(columnName).getRequiredType(),
 					"tableName: " + tableName + " columnName: " + columnName);
 		}

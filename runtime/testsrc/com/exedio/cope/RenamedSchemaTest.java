@@ -27,7 +27,7 @@ import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
 import static com.exedio.cope.RenamedSchemaItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.dsmf.TableTest.getError;
@@ -73,9 +73,9 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		assertEquals(null, getError(table));
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
-		assertPkConstraint(table, "Zain_PK", getPrimaryKeyColumnName(TYPE));
+		assertPkConstraint(table, "Zain_PK", primaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), tableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), tableName(RenamedSchemaTargetItem.TYPE), primaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+SI.col(uniqueSingle)+")");
 

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -64,7 +64,7 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 		// test additionalError together with error in nested node
 		model.getSchema().
 				getTable(tableName(MyItem.TYPE)).
-				getColumn(getPrimaryKeyColumnName(MyItem.TYPE)).
+				getColumn(primaryKeyColumnName(MyItem.TYPE)).
 				modify("bigint");
 
 		assertSchema("unexpected engine >MyISAM<", ERROR, "unexpected type >bigint" + NOT_NULL + "<", ERROR);
@@ -85,7 +85,7 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(
 				tableError!=null ? List.of(tableError) : List.of(),
 				table.getAdditionalErrors());
-		final Column column = table.getColumn(getPrimaryKeyColumnName(MyItem.TYPE));
+		final Column column = table.getColumn(primaryKeyColumnName(MyItem.TYPE));
 		assertEquals(columnError, getError(column),            "column.error");
 		assertEquals(columnColor, column.getParticularColor(), "column.particularColor");
 		assertEquals(columnColor, column.getCumulativeColor(), "column.cumulativeColor");
