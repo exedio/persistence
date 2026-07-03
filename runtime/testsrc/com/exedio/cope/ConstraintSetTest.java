@@ -25,7 +25,7 @@ import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueA;
 import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueB;
 import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueSingle;
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
@@ -71,7 +71,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 				unq("AnItem_uniqueDouble")),
 				names(table.getConstraints()));
 
-		assertColumn(table, getPrimaryKeyColumnName(TYPE), "AnItem_PK", "AnItem_this_MN", "AnItem_this_MX");
+		assertColumn(table, primaryKeyColumnName(TYPE), "AnItem_PK", "AnItem_this_MN", "AnItem_this_MX");
 		assertColumn(table, getTypeColumnName(TYPE), "AnItem_class_EN");
 		assertColumn(table, getUpdateCounterColumnName(TYPE), "AnItem_catch_MN", "AnItem_catch_MX");
 		assertColumn(table, getColumnName(field), "AnItem_field_EN");
@@ -84,7 +84,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 
 		assertEquals(asList(
 				"AnItem_PK", "AnItem_this_MN", "AnItem_this_MX"),
-				names(table.getColumn(getPrimaryKeyColumnName(TYPE)).getConstraints()));
+				names(table.getColumn(primaryKeyColumnName(TYPE)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_class_EN"),
 				names(table.getColumn(getTypeColumnName(TYPE)).getConstraints()));

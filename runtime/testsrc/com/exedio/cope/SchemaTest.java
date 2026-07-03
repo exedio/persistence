@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeTester.assertNotExistsConstraint;
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaItem.TYPE;
@@ -173,9 +173,9 @@ public class SchemaTest extends TestWithEnvironment
 				"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
 				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
 
-		assertPkConstraint(table, "Main_PK", getPrimaryKeyColumnName(TYPE));
+		assertPkConstraint(table, "Main_PK", primaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "Main_item_Fk", getColumnName(item), tableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Main_item_Fk", getColumnName(item), tableName(SchemaTargetItem.TYPE), primaryKeyColumnName(SchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "Main_uniqueString_Unq", "("+q(uniqueString)+")");
 

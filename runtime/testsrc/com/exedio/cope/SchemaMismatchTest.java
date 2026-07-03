@@ -67,7 +67,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 
 	protected static final String name(final This<?> element)
 	{
-		return SchemaInfo.getPrimaryKeyColumnName(element.getType());
+		return SchemaInfo.primaryKeyColumnName(element.getType());
 	}
 
 	protected static final String name(final Field<?> element)

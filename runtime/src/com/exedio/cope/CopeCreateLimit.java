@@ -47,7 +47,7 @@ import java.lang.annotation.Target;
  * <p>
  * This annotation may affect your database schema, in particular the type of
  * <ul>
- * <li>the {@link SchemaInfo#getPrimaryKeyColumnName(Type) primary column} of the type and its subtypes,</li>
+ * <li>the {@link SchemaInfo#primaryKeyColumnName(Type) primary column} of the type and its subtypes,</li>
  * <li>foreign key columns of {@link ItemField item fields} referring the type or its subtypes, and</li>
  * <li>the {@link SchemaInfo#getPrimaryKeySequenceName(Type) sequence} for creating primary keys of the type.</li>
  * </ul>

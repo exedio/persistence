@@ -162,7 +162,7 @@ public final class SchemaView
 
 	private String column(final Type<?> type)
 	{
-		return quoteName(model, SchemaInfo.getPrimaryKeyColumnName(type));
+		return quoteName(model, SchemaInfo.primaryKeyColumnName(type));
 	}
 
 	private String column(final Field<?> field)

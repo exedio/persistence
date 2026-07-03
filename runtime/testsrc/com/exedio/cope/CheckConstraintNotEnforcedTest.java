@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -71,7 +71,7 @@ public class CheckConstraintNotEnforcedTest extends TestWithEnvironment
 		final Schema schema = model.getVerifiedSchema();
 		final Table table = schema.getTable(tableName(MyItem.TYPE));
 		final Constraint constraint = table.getConstraint(NAME);
-		final Column column = table.getColumn(getPrimaryKeyColumnName(MyItem.TYPE));
+		final Column column = table.getColumn(primaryKeyColumnName(MyItem.TYPE));
 		assertAll(
 				() -> assertEquals(error, getError(constraint),            "constraint.error"),
 				() -> assertEquals(color, constraint.getParticularColor(), "constraint.particularColor"),
