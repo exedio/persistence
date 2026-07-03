@@ -356,10 +356,10 @@ public final class SchemaInfo
 	@SuppressWarnings({"unchecked","rawtypes"}) // I have no idea why I have to do this stuff
 	public static int columnValue(final Enum<?> value)
 	{
-		return getColumnValueInternal((Enum)value);
+		return columnValueInternal((Enum)value);
 	}
 
-	private static <E extends Enum<E>> int getColumnValueInternal(final E value)
+	private static <E extends Enum<E>> int columnValueInternal(final E value)
 	{
 		return EnumFieldType.get(value.getDeclaringClass()).getNumber(value);
 	}
