@@ -64,7 +64,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertFails(
 				() -> columnValue((Item)null),
 				NullPointerException.class,
-				"Cannot read field \"pk\" because \"item\" is null");
+				"Cannot read field \"pk\" because \"value\" is null");
 
 		// with sub types
 		assertEquals("InstanceOfAItem", tableName(InstanceOfAItem.TYPE));
