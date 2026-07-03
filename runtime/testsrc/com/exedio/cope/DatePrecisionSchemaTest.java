@@ -29,7 +29,7 @@ import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
-import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static java.util.Arrays.asList;
@@ -135,17 +135,17 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	@Test void testEnumSchemaPrecision()
 	{
 		assertEquals(asList(MILLI, SECOND, MINUTE, HOUR), asList(Precision.values()));
-		assertEquals(10, getColumnValue(MILLI ));
-		assertEquals(20, getColumnValue(SECOND));
-		assertEquals(30, getColumnValue(MINUTE));
-		assertEquals(40, getColumnValue(HOUR  ));
+		assertEquals(10, columnValue(MILLI ));
+		assertEquals(20, columnValue(SECOND));
+		assertEquals(30, columnValue(MINUTE));
+		assertEquals(40, columnValue(HOUR  ));
 	}
 
 	@Test void testEnumSchemaRoundingMode()
 	{
 		assertEquals(asList(FUTURE, PAST, UNNECESSARY), asList(RoundingMode.values()));
-		assertEquals(10, getColumnValue(FUTURE));
-		assertEquals(20, getColumnValue(PAST));
-		assertEquals(30, getColumnValue(UNNECESSARY));
+		assertEquals(10, columnValue(FUTURE));
+		assertEquals(20, columnValue(PAST));
+		assertEquals(30, columnValue(UNNECESSARY));
 	}
 }

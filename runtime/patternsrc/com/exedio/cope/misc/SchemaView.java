@@ -18,7 +18,7 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static java.util.Objects.requireNonNull;
 
@@ -75,7 +75,7 @@ public final class SchemaView
 
 							for(final Enum<?> v : enumField.getValueClass().getEnumConstants())
 							{
-								final int columnValue = getColumnValue(v);
+								final int columnValue = columnValue(v);
 								sb.append(" WHEN ").
 									append(columnValue).
 									append(" THEN '").

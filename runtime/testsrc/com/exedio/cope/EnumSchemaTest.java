@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.EnumFieldType.roundUpTo10;
-import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -64,7 +64,7 @@ public class EnumSchemaTest
 
 		try
 		{
-			getColumnValue(null);
+			columnValue(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -305,7 +305,7 @@ public class EnumSchemaTest
 	{
 		final ArrayList<Integer> actualValues = new ArrayList<>(expected.length);
 		for(final Enum<?> e : actual.getEnumConstants())
-			actualValues.add(getColumnValue(e));
+			actualValues.add(columnValue(e));
 
 		final ArrayList<Integer> expectedValues = new ArrayList<>(expected.length);
 		for(final int e : expected)

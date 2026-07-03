@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static com.exedio.cope.pattern.Schedule.Interval.HOURLY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
@@ -158,10 +158,10 @@ public class ScheduleModelTest
 	@Test void testEnumSchema()
 	{
 		assertEquals(asList(HOURLY, DAILY, WEEKLY, MONTHLY), asList(Schedule.Interval.values()));
-		assertEquals( 7, getColumnValue(HOURLY ));
-		assertEquals(10, getColumnValue(DAILY  ));
-		assertEquals(20, getColumnValue(WEEKLY ));
-		assertEquals(30, getColumnValue(MONTHLY));
+		assertEquals( 7, columnValue(HOURLY ));
+		assertEquals(10, columnValue(DAILY  ));
+		assertEquals(20, columnValue(WEEKLY ));
+		assertEquals(30, columnValue(MONTHLY));
 	}
 
 	@Test void testEnumLimit()

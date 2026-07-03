@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.BOOLEAN;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.DOUBLE;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.ENUM;
@@ -189,10 +189,10 @@ public class DynamicModelModelTest
 	@Test void testSchema()
 	{
 		assertEquals(asList(STRING, BOOLEAN, INTEGER, DOUBLE, ENUM), asList(ValueType.values()));
-		assertEquals(10, getColumnValue(STRING ));
-		assertEquals(20, getColumnValue(BOOLEAN));
-		assertEquals(30, getColumnValue(INTEGER));
-		assertEquals(40, getColumnValue(DOUBLE ));
-		assertEquals(50, getColumnValue(ENUM   ));
+		assertEquals(10, columnValue(STRING ));
+		assertEquals(20, columnValue(BOOLEAN));
+		assertEquals(30, columnValue(INTEGER));
+		assertEquals(40, columnValue(DOUBLE ));
+		assertEquals(50, columnValue(ENUM   ));
 	}
 }
