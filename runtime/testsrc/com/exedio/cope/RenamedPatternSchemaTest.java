@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -115,22 +115,22 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals("BareI", tableName(BareI.TYPE));
 		assertPrimaryKeySequenceName("CoatI_this_Seq", VeilI.TYPE);
 		assertPrimaryKeySequenceName("BareI_this_Seq", BareI.TYPE);
-		assertEquals("coatF_coatSF", getColumnName(VeilI.veilF.veilSF));
-		assertEquals("coatF",        getColumnName(VeilI.veilF.emptSF));
-		assertEquals("coatF_bareSF", getColumnName(VeilI.veilF.bareSF));
-		assertEquals(      "coatSF", getColumnName(VeilI.emptF.veilSF));
-		assertEquals(      "bareSF", getColumnName(VeilI.emptF.bareSF));
-		assertEquals("bareF_coatSF", getColumnName(VeilI.bareF.veilSF));
-		assertEquals("bareF",        getColumnName(VeilI.bareF.emptSF));
-		assertEquals("bareF_bareSF", getColumnName(VeilI.bareF.bareSF));
-		assertEquals("coatF_coatSF", getColumnName(BareI.veilF.veilSF));
-		assertEquals("coatF",        getColumnName(BareI.veilF.emptSF));
-		assertEquals("coatF_bareSF", getColumnName(BareI.veilF.bareSF));
-		assertEquals(      "coatSF", getColumnName(BareI.emptF.veilSF));
-		assertEquals(      "bareSF", getColumnName(BareI.emptF.bareSF));
-		assertEquals("bareF_coatSF", getColumnName(BareI.bareF.veilSF));
-		assertEquals("bareF",        getColumnName(BareI.bareF.emptSF));
-		assertEquals("bareF_bareSF", getColumnName(BareI.bareF.bareSF));
+		assertEquals("coatF_coatSF", columnName(VeilI.veilF.veilSF));
+		assertEquals("coatF",        columnName(VeilI.veilF.emptSF));
+		assertEquals("coatF_bareSF", columnName(VeilI.veilF.bareSF));
+		assertEquals(      "coatSF", columnName(VeilI.emptF.veilSF));
+		assertEquals(      "bareSF", columnName(VeilI.emptF.bareSF));
+		assertEquals("bareF_coatSF", columnName(VeilI.bareF.veilSF));
+		assertEquals("bareF",        columnName(VeilI.bareF.emptSF));
+		assertEquals("bareF_bareSF", columnName(VeilI.bareF.bareSF));
+		assertEquals("coatF_coatSF", columnName(BareI.veilF.veilSF));
+		assertEquals("coatF",        columnName(BareI.veilF.emptSF));
+		assertEquals("coatF_bareSF", columnName(BareI.veilF.bareSF));
+		assertEquals(      "coatSF", columnName(BareI.emptF.veilSF));
+		assertEquals(      "bareSF", columnName(BareI.emptF.bareSF));
+		assertEquals("bareF_coatSF", columnName(BareI.bareF.veilSF));
+		assertEquals("bareF",        columnName(BareI.bareF.emptSF));
+		assertEquals("bareF_bareSF", columnName(BareI.bareF.bareSF));
 		assertEquals("CoatI_coatF",      tableName(VeilI.veilF.srcT    ()));
 		assertEquals("CoatI_coatF_tail", tableName(VeilI.veilF.srcTtail()));
 		assertEquals("CoatI_default",    tableName(VeilI.emptF.srcT    ()));
@@ -155,10 +155,10 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertPrimaryKeySequenceName("BareI_tail_this_Seq",       BareI.emptF.srcTtail());
 		assertPrimaryKeySequenceName("BareI_bareF_this_Seq", BareI.bareF.srcT());
 		assertPrimaryKeySequenceName("BareI_bareF_tail_this_Seq", BareI.bareF.srcTtail());
-		assertEquals("field", getColumnName(VeilI.veilF.srcTField));
-		assertEquals("field", getColumnName(VeilI.veilF.srcTtailField));
-		assertEquals("field", getColumnName(VeilI.emptF.srcTField));
-		assertEquals("field", getColumnName(VeilI.emptF.srcTtailField));
+		assertEquals("field", columnName(VeilI.veilF.srcTField));
+		assertEquals("field", columnName(VeilI.veilF.srcTtailField));
+		assertEquals("field", columnName(VeilI.emptF.srcTField));
+		assertEquals("field", columnName(VeilI.emptF.srcTtailField));
 	}
 
 	@CopeSchemaName("CoatI")

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
@@ -46,7 +46,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 	@Test void testSchema()
 	{
 		final String TABLE1 = tableName(SchemaItem.TYPE);
-		final String COLUMN1 = getColumnName(SchemaItem.nonFinalInteger);
+		final String COLUMN1 = columnName(SchemaItem.nonFinalInteger);
 		assertEquals("Main", TABLE1);
 		assertEquals("nonFinalInteger", COLUMN1);
 

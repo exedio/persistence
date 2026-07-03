@@ -26,7 +26,7 @@ import static com.exedio.cope.RenamedSchemaItem.string;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble1;
 import static com.exedio.cope.RenamedSchemaItem.uniqueDouble2;
 import static com.exedio.cope.RenamedSchemaItem.uniqueSingle;
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
@@ -57,12 +57,12 @@ public class RenamedSchemaTest extends TestWithEnvironment
 	{
 		assertEquals("Zain", tableName(TYPE));
 		assertPrimaryKeySequenceName("Zain_this_Seq", TYPE);
-		assertEquals("zuniqueSingle", getColumnName(uniqueSingle));
-		assertEquals("zitem", getColumnName(item));
-		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
-		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
-		assertEquals("zring", getColumnName(string));
-		assertEquals("zinteger", getColumnName(integer));
+		assertEquals("zuniqueSingle", columnName(uniqueSingle));
+		assertEquals("zitem", columnName(item));
+		assertEquals("uniqueDouble1", columnName(uniqueDouble1));
+		assertEquals("uniqueDouble2", columnName(uniqueDouble2));
+		assertEquals("zring", columnName(string));
+		assertEquals("zinteger", columnName(integer));
 		assertDefaultToNextSequenceName("Zain_zinteger_Seq", integer);
 		assertEquals("Zain_zequence", getSequenceName(sequence));
 
@@ -75,7 +75,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		assertPkConstraint(table, "Zain_PK", primaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), tableName(RenamedSchemaTargetItem.TYPE), primaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Zain_zitem_Fk", columnName(item), tableName(RenamedSchemaTargetItem.TYPE), primaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
 		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+SI.col(uniqueSingle)+")");
 

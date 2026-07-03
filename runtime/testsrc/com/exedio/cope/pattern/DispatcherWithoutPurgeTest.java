@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.toTarget;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -79,7 +79,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 	@Test void testIt()
 	{
 		assertNoUpdateCounterColumn(toTarget.getRunType());
-		assertEquals("success", getColumnName(toTarget.getRunResult()));
+		assertEquals("success", columnName(toTarget.getRunResult()));
 
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());

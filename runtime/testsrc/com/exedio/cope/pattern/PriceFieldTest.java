@@ -52,7 +52,7 @@ public class PriceFieldTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		assertEquals("finalPrice_int", SchemaInfo.getColumnName(finalPrice.getInt()));
+		assertEquals("finalPrice_int", SchemaInfo.columnName(finalPrice.getInt()));
 
 		assertEquals(storeOf(555), item.getFinalPrice());
 		assertEquals(null, item.getOptionalPrice());

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.pattern.CurrFix.fix;
 import static com.exedio.cope.pattern.CurrFix.fixOther;
 import static com.exedio.cope.pattern.Money.valueOf;
@@ -136,14 +136,14 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclOpt.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclMan.getInitialType().toString());
 
-		assertEquals("fixeOpt_int",      getColumnName(fixeOpt.getAmountInt()));
-		assertEquals("fixeEnu_int",      getColumnName(fixeEnu.getAmountInt()));
-		assertEquals("sharOpt_int",      getColumnName(sharOpt.getAmountInt()));
-		assertEquals("currency" ,        getColumnName(sharOpt.getCurrencyField()));
-		assertEquals("exclOpt_int",      getColumnName(exclOpt.getAmountInt()));
-		assertEquals("exclOpt_currency", getColumnName(exclOpt.getCurrencyField()));
-		assertEquals("exclMan_int",      getColumnName(exclMan.getAmountInt()));
-		assertEquals("exclMan_currency", getColumnName(exclMan.getCurrencyField()));
+		assertEquals("fixeOpt_int",      columnName(fixeOpt.getAmountInt()));
+		assertEquals("fixeEnu_int",      columnName(fixeEnu.getAmountInt()));
+		assertEquals("sharOpt_int",      columnName(sharOpt.getAmountInt()));
+		assertEquals("currency" ,        columnName(sharOpt.getCurrencyField()));
+		assertEquals("exclOpt_int",      columnName(exclOpt.getAmountInt()));
+		assertEquals("exclOpt_currency", columnName(exclOpt.getCurrencyField()));
+		assertEquals("exclMan_int",      columnName(exclMan.getAmountInt()));
+		assertEquals("exclMan_currency", columnName(exclMan.getCurrencyField()));
 	}
 	@Test void testFixedConsistencyOkSingle()
 	{

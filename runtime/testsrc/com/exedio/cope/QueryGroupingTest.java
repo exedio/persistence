@@ -22,7 +22,7 @@ import static com.exedio.cope.GroupItem.TYPE;
 import static com.exedio.cope.GroupItem.day;
 import static com.exedio.cope.GroupItem.number;
 import static com.exedio.cope.GroupItem.optionalDouble;
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -141,7 +141,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
 
 		final String table = tableName(TYPE);
-		final String column = getColumnName(day);
+		final String column = columnName(day);
 		switch(dialect)
 		{
 			case hsqldb ->

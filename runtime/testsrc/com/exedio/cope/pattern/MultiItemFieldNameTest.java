@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -59,10 +59,10 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 		assertEquals("MyItem.field-BetaName" , beta .getID());
 		assertEquals("MyItem.field-Gamma"    , gamma.getID());
 		assertEquals("MyItem.field-DeltaName", delta.getID());
-		assertEquals("field_Alpha"      , getColumnName(alpha));
-		assertEquals("field_BetaName"   , getColumnName(beta ));
-		assertEquals("field_GammaSchema", getColumnName(gamma));
-		assertEquals("field_DeltaSchema", getColumnName(delta));
+		assertEquals("field_Alpha"      , columnName(alpha));
+		assertEquals("field_BetaName"   , columnName(beta ));
+		assertEquals("field_GammaSchema", columnName(gamma));
+		assertEquals("field_DeltaSchema", columnName(delta));
 
 		assertTrue (alpha.isAnnotationPresent(Computed.class));
 		assertTrue (beta .isAnnotationPresent(Computed.class));

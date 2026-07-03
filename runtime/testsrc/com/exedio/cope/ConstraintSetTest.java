@@ -24,7 +24,7 @@ import static com.exedio.cope.ConstraintSetTest.AnItem.item;
 import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueA;
 import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueB;
 import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueSingle;
-import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
@@ -75,12 +75,12 @@ public class ConstraintSetTest extends TestWithEnvironment
 		assertColumn(table, primaryKeyColumnName(TYPE), "AnItem_PK", "AnItem_this_MN", "AnItem_this_MX");
 		assertColumn(table, typeColumnName(TYPE), "AnItem_class_EN");
 		assertColumn(table, updateCounterColumnName(TYPE), "AnItem_catch_MN", "AnItem_catch_MX");
-		assertColumn(table, getColumnName(field), "AnItem_field_EN");
-		assertColumn(table, getColumnName(item), "AnItem_item_MN", "AnItem_item_MX", "AnItem_item_Fk");
+		assertColumn(table, columnName(field), "AnItem_field_EN");
+		assertColumn(table, columnName(item), "AnItem_item_MN", "AnItem_item_MX", "AnItem_item_Fk");
 		assertColumn(table, getTypeColumnName(item), "AnItem_itemType_EN", "AnItem_itemType_NS");
-		assertColumn(table, getColumnName(uniqueSingle), "AnItem_uniqueSingle_EN", "AnItem_uniqueSingle_Unq");
-		assertColumn(table, getColumnName(uniqueA), "AnItem_uniqueA_EN");
-		assertColumn(table, getColumnName(uniqueB), "AnItem_uniqueB_EN");
+		assertColumn(table, columnName(uniqueSingle), "AnItem_uniqueSingle_EN", "AnItem_uniqueSingle_Unq");
+		assertColumn(table, columnName(uniqueA), "AnItem_uniqueA_EN");
+		assertColumn(table, columnName(uniqueB), "AnItem_uniqueB_EN");
 		assertColumn(table, null, unq("AnItem_uniqueDouble"));
 
 		assertEquals(asList(
@@ -94,22 +94,22 @@ public class ConstraintSetTest extends TestWithEnvironment
 				names(table.getColumn(updateCounterColumnName(TYPE)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_field_EN"),
-				names(table.getColumn(getColumnName(field)).getConstraints()));
+				names(table.getColumn(columnName(field)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_item_MN", "AnItem_item_MX", "AnItem_item_Fk"),
-				names(table.getColumn(getColumnName(item)).getConstraints()));
+				names(table.getColumn(columnName(item)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_itemType_EN", "AnItem_itemType_NS"),
 				names(table.getColumn(getTypeColumnName(item)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_uniqueSingle_EN", "AnItem_uniqueSingle_Unq"),
-				names(table.getColumn(getColumnName(uniqueSingle)).getConstraints()));
+				names(table.getColumn(columnName(uniqueSingle)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_uniqueA_EN"),
-				names(table.getColumn(getColumnName(uniqueA)).getConstraints()));
+				names(table.getColumn(columnName(uniqueA)).getConstraints()));
 		assertEquals(asList(
 				"AnItem_uniqueB_EN"),
-				names(table.getColumn(getColumnName(uniqueB)).getConstraints()));
+				names(table.getColumn(columnName(uniqueB)).getConstraints()));
 		assertEquals(asList(
 				unq("AnItem_uniqueDouble")),
 				names(table.getTableConstraints()));

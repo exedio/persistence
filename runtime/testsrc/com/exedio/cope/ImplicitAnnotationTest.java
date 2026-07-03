@@ -83,7 +83,7 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 			final String arbitrary,
 			final Field<?> f)
 	{
-		assertFeature(name, nameAnno, schema, SchemaInfo.getColumnName(f), schemaAnno, computed, arbitrary, f);
+		assertFeature(name, nameAnno, schema, SchemaInfo.columnName(f), schemaAnno, computed, arbitrary, f);
 	}
 
 	private static void assertIt(

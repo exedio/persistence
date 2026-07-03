@@ -86,7 +86,7 @@ public class SingletonTest extends TestWithEnvironment
 		assertSerializedSame(einzigartig, 395);
 
 		// test persistence
-		assertEquals("einzigartig_once", SchemaInfo.getColumnName(einzigartig.getOnce()));
+		assertEquals("einzigartig_once", SchemaInfo.columnName(einzigartig.getOnce()));
 
 		assertEquals(list(), TYPE.search());
 

@@ -200,7 +200,7 @@ public class HistoryTest extends TestWithEnvironment
 		assertSerializedSame(audit, 385);
 
 		// test persistence
-		assertEquals("id", SchemaInfo.getColumnName(audit.getFeatureId()));
+		assertEquals("id", SchemaInfo.columnName(audit.getFeatureId()));
 		assertNoUpdateCounterColumn(audit.getEventType());
 		assertNoUpdateCounterColumn(audit.getFeatureType());
 
