@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.checkCompleteness;
 import static com.exedio.cope.SchemaInfo.checkTypeColumn;
 import static com.exedio.cope.SchemaInfo.tableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.typeColumnValue;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -83,7 +82,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 					model.getSchema().getTable(table).getConstraint("Super_class_EN").getRequiredClause());
 		}
 		{
-			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
+			final String column = typeColumnName(SchemaNamePolymorphicRefItem.ref);
 			final String table = tableName(SchemaNamePolymorphicRefItem.TYPE);
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
@@ -120,7 +119,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		refItem.setRef(item2);
 		toSchema();
 		{
-			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
+			final String column = typeColumnName(SchemaNamePolymorphicRefItem.ref);
 			final String table = tableName(SchemaNamePolymorphicRefItem.TYPE);
 
 			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));

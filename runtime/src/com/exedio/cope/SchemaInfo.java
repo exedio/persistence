@@ -217,7 +217,7 @@ public final class SchemaInfo
 	 * Defaults to {@link Type#getID()},
 	 * but can be overridden by {@link CopeSchemaName}.
 	 * @see #typeColumnName(Type)
-	 * @see #getTypeColumnName(ItemField)
+	 * @see #typeColumnName(ItemField)
 	 */
 	public static String typeColumnValue(final Type<?> type)
 	{
@@ -295,13 +295,23 @@ public final class SchemaInfo
 	 *         because <code>{@link ItemField#getValueType() getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
 	 *         contains one type only.
 	 */
-	public static String getTypeColumnName(final ItemField<?> field)
+	public static String typeColumnName(final ItemField<?> field)
 	{
 		final Column column = field.getTypeColumn();
 		if(column==null)
 			throw new IllegalArgumentException("no type column for " + field);
 
 		return column.id;
+	}
+
+	/**
+	 * @deprecated Use {@link #typeColumnName(ItemField)} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
+	 */
+	@Deprecated
+	public static String getTypeColumnName(final ItemField<?> field)
+	{
+		return typeColumnName(field);
 	}
 
 	public static String getForeignKeyConstraintName(final ItemField<?> field)

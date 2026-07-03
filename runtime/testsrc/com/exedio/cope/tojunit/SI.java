@@ -19,7 +19,6 @@
 package com.exedio.cope.tojunit;
 
 import static com.exedio.cope.SchemaInfo.columnName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
@@ -82,7 +81,7 @@ public final class SI
 
 	public static String type(final ItemField<?> field)
 	{
-		return quoteName(field.getType().getModel(), getTypeColumnName(field));
+		return quoteName(field.getType().getModel(), typeColumnName(field));
 	}
 
 

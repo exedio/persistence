@@ -24,7 +24,6 @@ import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getSuperForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.tableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
@@ -74,7 +73,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals(synthetic("class", "InstanceOfAItem"), typeColumnName(InstanceOfAItem.TYPE));
 		assertEquals("code", columnName(InstanceOfAItem.code));
 		assertEquals("ref", columnName(InstanceOfRefItem.ref));
-		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
+		assertEquals("refType", typeColumnName(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", getForeignKeyConstraintName(InstanceOfRefItem.ref));
 
 		assertFails (                  () -> getSuperForeignKeyConstraintName(null), NullPointerException.class, "Cannot read field \"table\" because \"type\" is null");
@@ -94,7 +93,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("textb2", columnName(InstanceOfB2Item.textb2));
 		assertEquals("refb2", columnName(InstanceOfRefItem.refb2));
 		assertFails(
-				() -> getTypeColumnName(InstanceOfRefItem.refb2),
+				() -> typeColumnName(InstanceOfRefItem.refb2),
 				IllegalArgumentException.class,
 				"no type column for InstanceOfRefItem.refb2");
 

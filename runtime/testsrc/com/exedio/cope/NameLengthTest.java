@@ -22,7 +22,6 @@ import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Check;
@@ -145,7 +144,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 	private static void assertIt(final ItemField<?> field, final String name, final String typeColumnName)
 	{
 		assertIt(field, name);
-		assertEquals(typeColumnName, getTypeColumnName(field));
+		assertEquals(typeColumnName, typeColumnName(field));
 	}
 
 	private static void assertSequence(final IntegerField field, final String name)
