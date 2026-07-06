@@ -160,9 +160,9 @@ public final class SchemaView
 		return quoteName(model, SchemaInfo.tableName(type)+'V');
 	}
 
-	private String column(final Type<?> type)
+	private static String column(final Type<?> type)
 	{
-		return quoteName(model, SchemaInfo.primaryKeyColumnName(type));
+		return SchemaInfo.primaryKeyColumnNameQuoted(type);
 	}
 
 	private String column(final Field<?> field)
