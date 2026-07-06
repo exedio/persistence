@@ -230,11 +230,16 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnName(final Type<?> type)
 	{
+		return typeColumn(type).id;
+	}
+
+	private static Column typeColumn(final Type<?> type)
+	{
 		final StringColumn column = type.getTable().typeColumn;
 		if(column==null)
 			throw new IllegalArgumentException("no type column for " + type);
 
-		return column.id;
+		return column;
 	}
 
 	/**
@@ -242,7 +247,7 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnNameQuoted(final Type<?> type)
 	{
-		return quote(type, typeColumnName(type)); // TODO use quotedID
+		return typeColumn(type).quotedID;
 	}
 
 	/**
