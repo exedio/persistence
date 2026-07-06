@@ -294,11 +294,16 @@ public final class SchemaInfo
 	 */
 	public static String updateCounterColumnName(final Type<?> type)
 	{
+		return updateCounterColumn(type).id;
+	}
+
+	private static Column updateCounterColumn(final Type<?> type)
+	{
 		final IntegerColumn column = type.getTable().updateCounter;
 		if(column==null)
 			throw new IllegalArgumentException("no update counter for " + type);
 
-		return column.id;
+		return column;
 	}
 
 	/**
@@ -306,7 +311,7 @@ public final class SchemaInfo
 	 */
 	public static String updateCounterColumnNameQuoted(final Type<?> type)
 	{
-		return quote(type, updateCounterColumnName(type)); // TODO use quotedID
+		return updateCounterColumn(type).quotedID;
 	}
 
 	/**
