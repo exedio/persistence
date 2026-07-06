@@ -579,7 +579,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	E get(final Row row)
 	{
 		final StringColumn typeColumn = getTypeColumn();
-		final Object cell = row.get(getColumn());
+		final Object cell = row.get(column());
 
 		if(cell==null)
 		{
@@ -622,13 +622,13 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		if(surface==null)
 		{
-			row.put(getColumn(), null);
+			row.put(column(), null);
 			if(typeColumn!=null)
 				row.put(typeColumn, null);
 		}
 		else
 		{
-			row.put(getColumn(), surface.pk);
+			row.put(column(), surface.pk);
 			if(typeColumn!=null)
 				row.put(typeColumn, surface.type.schemaId);
 		}
@@ -673,7 +673,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			append(',').
 			append(valueTable).append(' ').append(alias2).
 			append(" WHERE ").
-			append(alias1).append('.').append(getColumn()).
+			append(alias1).append('.').append(column()).
 			append('=').
 			append(alias2).append('.').append(valueTable.primaryKey).
 			append(" AND ").

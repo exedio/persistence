@@ -285,11 +285,11 @@ final class VaultTrail implements VaultTrailSchemaInfo
 				append(" LEFT JOIN ").
 				append(tableQuoted).
 				append(" ON ").
-				append(field.getColumn()).
+				append(field.column()).
 				append('=').
 				append(tableQuoted).append('.').append(hashQuoted).
 				append(" WHERE ").
-				append(field.getColumn()).append(" IS NOT NULL").
+				append(field.column()).append(" IS NOT NULL").
 				append(" AND (").
 					append(tableQuoted).append('.').append(hashQuoted).append(" IS NULL").
 					append(" OR ").

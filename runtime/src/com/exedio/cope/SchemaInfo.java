@@ -325,7 +325,7 @@ public final class SchemaInfo
 	 */
 	public static String columnName(final Field<?> field)
 	{
-		return field.getColumn().id;
+		return field.column().id;
 	}
 
 	/**
@@ -333,7 +333,7 @@ public final class SchemaInfo
 	 */
 	public static String columnNameQuoted(final Field<?> field)
 	{
-		return field.getColumn().quotedID;
+		return field.column().quotedID;
 	}
 
 	/**
@@ -393,7 +393,7 @@ public final class SchemaInfo
 
 	public static String foreignKeyConstraintName(final ItemField<?> field)
 	{
-		return ((ItemColumn)field.getColumn()).foreignKeyConstraintName;
+		return ((ItemColumn)field.column()).foreignKeyConstraintName;
 	}
 
 	/**

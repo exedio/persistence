@@ -66,7 +66,7 @@ final class ModifiedState extends State
 	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
 		field.set(row, value);
-		markModified(field.getColumn());
+		markModified(field.column());
 		if (field instanceof final ItemField<?> itemField)
 			markModified(itemField.getTypeColumn());
 		return this;

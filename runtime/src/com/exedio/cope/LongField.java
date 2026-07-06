@@ -294,13 +294,13 @@ public final class LongField extends NumberField<Long>
 	@Override
 	Long get(final Row row)
 	{
-		return (Long)row.get(getColumn());
+		return (Long)row.get(column());
 	}
 
 	@Override
 	void set(final Row row, final Long surface)
 	{
-		row.put(getColumn(), surface);
+		row.put(column(), surface);
 	}
 
 	/**

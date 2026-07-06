@@ -251,13 +251,13 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	Double get(final Row row)
 	{
-		return (Double)row.get(getColumn());
+		return (Double)row.get(column());
 	}
 
 	@Override
 	void set(final Row row, final Double surface)
 	{
-		row.put(getColumn(), surface);
+		row.put(column(), surface);
 	}
 
 	@Override
