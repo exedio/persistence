@@ -139,10 +139,19 @@ public final class SchemaInfo
 	 * Returns the name of primary key column in the database for the type.
 	 * If not configured otherwise
 	 * the name equals "this".
+	 * @see #primaryKeyColumnNameQuoted(Type)
 	 */
 	public static String primaryKeyColumnName(final Type<?> type)
 	{
 		return type.table.primaryKey.id;
+	}
+
+	/**
+	 * @return {@link #primaryKeyColumnName(Type)}, but {@link #quoteName(Model, String) quoted}.
+	 */
+	public static String primaryKeyColumnNameQuoted(final Type<?> type)
+	{
+		return quote(type, primaryKeyColumnName(type)); // TODO use quotedID
 	}
 
 	/**

@@ -19,7 +19,7 @@
 package com.exedio.cope.tojunit;
 
 import static com.exedio.cope.SchemaInfo.columnName;
-import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.primaryKeyColumnNameQuoted;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.tableNameQuoted;
@@ -47,7 +47,7 @@ public final class SI
 
 	public static String pk(final Type<?> type)
 	{
-		return quoteName(type.getModel(), primaryKeyColumnName(type));
+		return primaryKeyColumnNameQuoted(type);
 	}
 
 	public static String pkq(final Type<?> type)
