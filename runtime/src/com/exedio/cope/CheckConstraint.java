@@ -194,7 +194,7 @@ public final class CheckConstraint extends AbstractFeature implements Copyable
 		@Override
 		public void accept(final Field<?> field)
 		{
-			final Table fieldTable = field.getColumn().table;
+			final Table fieldTable = field.column().table;
 
 			if(result==null)
 				result = fieldTable;

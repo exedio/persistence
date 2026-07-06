@@ -592,7 +592,7 @@ final class Statement
 		append(' ');
 		append(alias);
 		append(" ON ");
-		append(field.getColumn());
+		append(field.column());
 		append('=');
 		append(alias);
 		append('.');

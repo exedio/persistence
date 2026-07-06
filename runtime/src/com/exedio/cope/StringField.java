@@ -331,13 +331,13 @@ public final class StringField extends FunctionField<String>
 	@Override
 	String get(final Row row)
 	{
-		return (String)row.get(getColumn());
+		return (String)row.get(column());
 	}
 
 	@Override
 	void set(final Row row, final String surface)
 	{
-		row.put(getColumn(), surface);
+		row.put(column(), surface);
 	}
 
 	@Override

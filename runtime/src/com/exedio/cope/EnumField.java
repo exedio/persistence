@@ -203,7 +203,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	E get(final Row row)
 	{
-		final Object cell = row.get(getColumn());
+		final Object cell = row.get(column());
 		return
 			cell==null ?
 				null :
@@ -214,6 +214,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	void set(final Row row, final E surface)
 	{
 		assert valueType.isValid(surface);
-		row.put(getColumn(), surface==null ? null : valueType.getNumber(surface));
+		row.put(column(), surface==null ? null : valueType.getNumber(surface));
 	}
 }

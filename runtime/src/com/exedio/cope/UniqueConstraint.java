@@ -223,12 +223,12 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 			if(i>0)
 				sb.append(',');
 			final FunctionField<?> f = fields[i];
-			sb.append(f.getColumn().quotedID);
+			sb.append(f.column().quotedID);
 		}
 		sb.append(')');
 
 		dsmf.newUnique(
-				(fields.length==1) ? dsmf.getColumn(fields[0].getColumn().id) : null,
+				(fields.length==1) ? dsmf.getColumn(fields[0].column().id) : null,
 				getDatabaseID(), sb.toString());
 	}
 

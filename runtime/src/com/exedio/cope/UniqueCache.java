@@ -62,7 +62,7 @@ final class UniqueCache
 		assertComparableAndCast(field, value);
 		final Row row = new Row(2); // ItemField has 2 columns if polymorphic TODO this temporary row is rather a workaround
 		field.setAndCast(row, value);
-		Item result = map.get(row.get(field.getColumn())); // fails if row.get(..) returns null
+		Item result = map.get(row.get(field.column())); // fails if row.get(..) returns null
 		if(result!=null && model.currentTransaction().isInvalidated(result))
 			result = null;
 		((result==null) ? misses : hits).increment();
@@ -81,7 +81,7 @@ final class UniqueCache
 	 */
 	void putSynchronized(final Item item, final WrittenState state)
 	{
-		final Object key = state.store(field.getColumn()); // correctness of state.store depends on immutability of WrittenState
+		final Object key = state.store(field.column()); // correctness of state.store depends on immutability of WrittenState
 		if(key==null) // value of the field is null
 			return;
 
@@ -96,7 +96,7 @@ final class UniqueCache
 			final WrittenState state,
 			final Item assertionItem)
 	{
-		final Object key = state.store(field.getColumn()); // correctness of state.store depends on immutability of WrittenState
+		final Object key = state.store(field.column()); // correctness of state.store depends on immutability of WrittenState
 		if(key==null) // value of the field is null
 			return;
 

@@ -415,13 +415,13 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	Integer get(final Row row)
 	{
-		return (Integer)row.get(getColumn());
+		return (Integer)row.get(column());
 	}
 
 	@Override
 	void set(final Row row, final Integer surface)
 	{
-		row.put(getColumn(), surface);
+		row.put(column(), surface);
 	}
 
 	/**
@@ -503,7 +503,7 @@ public final class IntegerField extends NumberField<Integer>
 	public SequenceBehindInfo checkSequenceBehindDefaultToNextX()
 	{
 		return getDefaultNextSequence().sequenceX.check(
-				getType().getModel(), (IntegerColumn)getColumn());
+				getType().getModel(), (IntegerColumn) column());
 	}
 
 	public IntegerField rangeDigits(final int digits)

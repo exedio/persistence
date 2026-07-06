@@ -147,7 +147,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	Boolean get(final Row row)
 	{
-		final Object cell = row.get(getColumn());
+		final Object cell = row.get(column());
 		if(cell==null)
 			return null;
 		else
@@ -170,7 +170,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	void set(final Row row, final Boolean surface)
 	{
-		row.put(getColumn(), surface==null ? null : surface ? TRUE : FALSE);
+		row.put(column(), surface==null ? null : surface ? TRUE : FALSE);
 	}
 
 	/**

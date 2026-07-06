@@ -229,7 +229,7 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 		column = null;
 	}
 
-	final Column getColumn()
+	final Column column()
 	{
 		if(column==null)
 			throw new RuntimeException();
