@@ -516,7 +516,7 @@ final class Types
 			{
 				for(Type<?> type = getConcreteType(typeIndex); type!=null; type = type.getSupertype())
 				{
-					type.table.knownToBeEmptyForTest = false;
+					type.getTable().knownToBeEmptyForTest = false;
 				}
 			}
 		}
