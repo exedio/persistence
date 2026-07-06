@@ -67,14 +67,6 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @see #quoteName(Model, String)
-	 */
-	private static String quote(final Type<?> type, final String name)
-	{
-		return quoteName(type.getModel(), name);
-	}
-
-	/**
 	 * @deprecated Use {@link #supportsCheckConstraint(Model)} instead.
 	 */
 	@Deprecated
@@ -482,7 +474,7 @@ public final class SchemaInfo
 	 */
 	public static String sequenceNameQuoted(final Sequence sequence)
 	{
-		return quote(sequence.getType(), sequenceName(sequence)); // TODO use nameQuoted
+		return sequence.sequenceX.schemaNameQuoted();
 	}
 
 	/**

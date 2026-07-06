@@ -141,6 +141,11 @@ final class SequenceX
 		return impl().schemaName();
 	}
 
+	String schemaNameQuoted()
+	{
+		return impl().schemaNameQuoted();
+	}
+
 	boolean isKnownToBeEmptyForTest()
 	{
 		return knownToBeEmptyForTest;

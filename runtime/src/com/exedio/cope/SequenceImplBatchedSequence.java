@@ -121,4 +121,10 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	{
 		return sequence.schemaName();
 	}
+
+	@Override
+	public String schemaNameQuoted()
+	{
+		return sequence.schemaNameQuoted();
+	}
 }

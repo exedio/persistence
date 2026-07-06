@@ -35,4 +35,5 @@ interface SequenceImpl
 	void delete(StringBuilder sb, Dialect dialect);
 	void flush();
 	String schemaName();
+	String schemaNameQuoted();
 }
