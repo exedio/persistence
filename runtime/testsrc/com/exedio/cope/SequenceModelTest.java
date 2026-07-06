@@ -106,5 +106,14 @@ public class SequenceModelTest
 		{
 			assertEquals(MODEL, e.getModel());
 		}
+		try
+		{
+			SchemaInfo.sequenceNameQuoted(full);
+			fail();
+		}
+		catch(final Model.NotConnectedException e)
+		{
+			assertEquals(MODEL, e.getModel());
+		}
 	}
 }

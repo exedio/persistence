@@ -20,7 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.sequenceName;
+import static com.exedio.cope.SchemaInfo.sequenceNameQuoted;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
@@ -51,6 +53,8 @@ public class SequenceTest extends TestWithEnvironment
 
 		assertEquals("SequenceItem_full",    sequenceName(full));
 		assertEquals("SequenceItem_limited", sequenceName(limited));
+		assertEquals(quoteName(model, "SequenceItem_full"),    sequenceNameQuoted(full));
+		assertEquals(quoteName(model, "SequenceItem_limited"), sequenceNameQuoted(limited));
 
 		assertTimer(0, full);
 		assertTimer(0, limited);

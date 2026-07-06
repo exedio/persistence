@@ -463,10 +463,19 @@ public final class SchemaInfo
 	/**
 	 * Returns the name of the sequence for generating values via
 	 * {@link Sequence#next()}.
+	 * @see #sequenceNameQuoted(Sequence)
 	 */
 	public static String sequenceName(final Sequence sequence)
 	{
 		return sequence.sequenceX.getSchemaName();
+	}
+
+	/**
+	 * @return {@link #sequenceName(Sequence)}, but {@link #quoteName(Model, String) quoted}.
+	 */
+	public static String sequenceNameQuoted(final Sequence sequence)
+	{
+		return quote(sequence.getType(), sequenceName(sequence)); // TODO use quotedName
 	}
 
 	/**
