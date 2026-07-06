@@ -102,7 +102,7 @@ final class Statement
 		{
 			for(Type<?> type = joinType.type; type!=null; type=type.supertype)
 			{
-				final Table table = type.getTable();
+				final Table table = type.table();
 				final Object previous = tableToJoinTables.get(table);
 				final JoinTable current = new JoinTable(joinType.join, table);
 				//noinspection RedundantIfStatement
@@ -188,7 +188,7 @@ final class Statement
 
 	Statement appendPK(final Type<?> type, final Join join)
 	{
-		return append(type.getTable().primaryKey, join);
+		return append(type.table().primaryKey, join);
 	}
 
 	Statement append(final Table table)
@@ -486,14 +486,14 @@ final class Statement
 	void appendTypeDefinition(final Join join, final Type<?> type, final boolean hasJoins)
 	{
 		final Type<?> supertype = type.supertype;
-		final Table table = type.getTable();
+		final Table table = type.table();
 
 		ArrayList<Table> superTables = null;
 		if(supertype!=null)
 		{
 			for(Type<?> iType = supertype; iType!=null; iType=iType.supertype)
 			{
-				final Table iTable = iType.getTable();
+				final Table iTable = iType.table();
 				if(tc.containsTable(join, iTable))
 				{
 					if(superTables==null)

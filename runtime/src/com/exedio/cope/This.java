@@ -83,14 +83,14 @@ public final class This<E extends Item> extends AbstractFeature
 	public void append(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
 		st.appendPK(type, join);
-		st.appendTypeColumnIfRequired(type.getTable().typeColumn, join);
+		st.appendTypeColumnIfRequired(type.table().typeColumn, join);
 	}
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void appendType(@SuppressWarnings("ClassEscapesDefinedScope") final Statement st, final Join join)
 	{
-		st.append(Statement.assertTypeColumn(type.getTable().typeColumn, type), join);
+		st.append(Statement.assertTypeColumn(type.table().typeColumn, type), join);
 	}
 
 	@Deprecated // OK: for internal use within COPE only

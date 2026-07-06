@@ -32,7 +32,7 @@ final class UpdateCount
 				for(Type<?> t = type; t != null; t = t.getSupertype())
 				{
 					//noinspection RedundantIfStatement
-					if(t.getTable().updateCounter != null)
+					if(t.table().updateCounter != null)
 						assert values[t.inheritanceDepth] >= 0;
 				}
 			}
@@ -50,7 +50,7 @@ final class UpdateCount
 	{
 		if (!t.isAssignableFrom(type))
 			throw new IllegalArgumentException("unexpected request for "+t+" in UpdateCount for "+type);
-		if (t.getTable().updateCounter==null)
+		if (t.table().updateCounter==null)
 			throw new IllegalArgumentException("unexpected request for unmodifiable "+t);
 	}
 
@@ -161,7 +161,7 @@ final class UpdateCount
 			{
 				throw new IllegalArgumentException("unexpected request for "+t+" in UpdateCount.Builder for "+type);
 			}
-			if (t.getTable().updateCounter==null)
+			if (t.table().updateCounter==null)
 			{
 				throw new IllegalArgumentException("unexpected call for unmodifiable "+t);
 			}
@@ -176,7 +176,7 @@ final class UpdateCount
 			{
 				for(Type<?> t = type; t != null; t = t.getSupertype())
 				{
-					if(t.getTable().updateCounter == null)
+					if(t.table().updateCounter == null)
 						assert values[t.inheritanceDepth] == UNDEFINED;
 					else
 						assert values[t.inheritanceDepth] >= 0;

@@ -53,7 +53,7 @@ final class ItemColumn extends IntegerColumn
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		super.makeSchema(dsmf);
-		final Table targetTable = targetType.getTable();
+		final Table targetTable = targetType.table();
 		dsmf.newForeignKey(foreignKeyConstraintName, targetTable.id, targetTable.primaryKey.id);
 	}
 }

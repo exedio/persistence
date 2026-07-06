@@ -281,7 +281,7 @@ final class VaultTrail implements VaultTrailSchemaInfo
 		final Statement st = executor.newStatement(true, mode);
 		//language=SQL
 		st.append("SELECT COUNT(*) FROM ").
-				append(type.getTable()).
+				append(type.table()).
 				append(" LEFT JOIN ").
 				append(tableQuoted).
 				append(" ON ").

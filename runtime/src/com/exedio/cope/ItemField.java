@@ -661,8 +661,8 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		final Type<?> type = getType();
 		final Executor executor = type.getModel().connect().executor;
-		final Table table = type.getTable();
-		final Table valueTable = getValueType().getTable();
+		final Table table = type.table();
+		final Table valueTable = getValueType().table();
 		final String alias1 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_1);
 		final String alias2 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_2);
 

@@ -147,7 +147,7 @@ final class TC
 		if(select instanceof FunctionField<?>)
 			table = ((FunctionField<?>)select).getColumn().table;
 		else if(select instanceof This<?>)
-			table = ((This<?>)select).getType().getTable();
+			table = ((This<?>)select).getType().table();
 		else
 			throw new RuntimeException(select.toString());
 
