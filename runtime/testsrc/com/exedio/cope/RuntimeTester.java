@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MysqlDialect.REGEXP;
-import static com.exedio.cope.SchemaInfo.defaultToNextSequenceName;
+import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.TableTest.getError;
@@ -133,7 +133,7 @@ final class RuntimeTester
 
 	void assertDefaultToNextSequenceName(final String name, final IntegerField field)
 	{
-		assertEquals(name, defaultToNextSequenceName(field));
+		assertEquals(name, getDefaultToNextSequenceName(field));
 	}
 
 	TestByteArrayInputStream stream(final byte[] data)
