@@ -83,6 +83,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals(q("code"), columnNameQuoted(InstanceOfAItem.code));
 		assertEquals("ref", columnName(InstanceOfRefItem.ref));
 		assertEquals("refType", typeColumnName(InstanceOfRefItem.ref));
+		assertEquals(q("refType"), typeColumnNameQuoted(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", foreignKeyConstraintName(InstanceOfRefItem.ref));
 
 		assertFails (                  () -> superForeignKeyConstraintName(null), NullPointerException.class, "Cannot read field \"table\" because \"type\" is null");
@@ -109,6 +110,10 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("refb2", columnName(InstanceOfRefItem.refb2));
 		assertFails(
 				() -> typeColumnName(InstanceOfRefItem.refb2),
+				IllegalArgumentException.class,
+				"no type column for InstanceOfRefItem.refb2");
+		assertFails(
+				() -> typeColumnNameQuoted(InstanceOfRefItem.refb2),
 				IllegalArgumentException.class,
 				"no type column for InstanceOfRefItem.refb2");
 

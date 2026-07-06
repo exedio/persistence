@@ -23,7 +23,6 @@ import static com.exedio.cope.SchemaInfo.primaryKeyColumnNameQuoted;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.tableNameQuoted;
-import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.SchemaInfo.typeColumnNameQuoted;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnNameQuoted;
 
@@ -83,7 +82,7 @@ public final class SI
 
 	public static String type(final ItemField<?> field)
 	{
-		return quoteName(field.getType().getModel(), typeColumnName(field));
+		return typeColumnNameQuoted(field);
 	}
 
 
