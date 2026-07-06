@@ -30,6 +30,7 @@ import static com.exedio.cope.SchemaInfo.tableNameQuoted;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.SchemaInfo.typeColumnNameQuoted;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.updateCounterColumnNameQuoted;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -113,7 +114,12 @@ public class SchemaInfoTest extends TestWithEnvironment
 				() -> updateCounterColumnName(InstanceOfAItem.TYPE),
 				IllegalArgumentException.class,
 				"no update counter for InstanceOfAItem");
+		assertFails(
+				() -> updateCounterColumnNameQuoted(InstanceOfAItem.TYPE),
+				IllegalArgumentException.class,
+				"no update counter for InstanceOfAItem");
 		assertEquals(synthetic("catch", "InstanceOfB1Item"), updateCounterColumnName(InstanceOfB1Item.TYPE));
+		assertEquals(q(synthetic("catch", "InstanceOfB1Item")), updateCounterColumnNameQuoted(InstanceOfB1Item.TYPE));
 
 		assertCacheInfo(
 			InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE

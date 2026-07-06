@@ -277,6 +277,7 @@ public final class SchemaInfo
 	 *         if there is no update counter column for this type,
 	 *         because there are no modifiable (non-{@link Field#isFinal() final})
 	 *         fields on the type or its subtypes.
+	 * @see #updateCounterColumnNameQuoted(Type)
 	 */
 	public static String updateCounterColumnName(final Type<?> type)
 	{
@@ -285,6 +286,14 @@ public final class SchemaInfo
 			throw new IllegalArgumentException("no update counter for " + type);
 
 		return column.id;
+	}
+
+	/**
+	 * @return {@link #updateCounterColumnName(Type)}, but {@link #quoteName(Model, String) quoted}.
+	 */
+	public static String updateCounterColumnNameQuoted(final Type<?> type)
+	{
+		return quote(type, updateCounterColumnName(type)); // TODO use quotedID
 	}
 
 	/**
