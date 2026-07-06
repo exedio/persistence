@@ -75,14 +75,6 @@ public final class SchemaInfo
 	}
 
 	/**
-	 * @see #quoteName(Model, String)
-	 */
-	private static String quote(final Field<?> field, final String name)
-	{
-		return quoteName(field.getType().getModel(), name);
-	}
-
-	/**
 	 * @deprecated Use {@link #supportsCheckConstraint(Model)} instead.
 	 */
 	@Deprecated
@@ -369,11 +361,16 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnName(final ItemField<?> field)
 	{
+		return typeColumn(field).id;
+	}
+
+	private static Column typeColumn(final ItemField<?> field)
+	{
 		final Column column = field.getTypeColumn();
 		if(column==null)
 			throw new IllegalArgumentException("no type column for " + field);
 
-		return column.id;
+		return column;
 	}
 
 	/**
@@ -381,7 +378,7 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnNameQuoted(final ItemField<?> field)
 	{
-		return quote(field, typeColumnName(field)); // TODO use quotedID
+		return typeColumn(field).quotedID;
 	}
 
 	/**
