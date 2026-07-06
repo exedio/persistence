@@ -122,7 +122,7 @@ public final class SchemaInfo
 	 */
 	public static String tableName(final Type<?> type)
 	{
-		return type.table.id;
+		return type.getTable().id;
 	}
 
 	/**
@@ -151,7 +151,7 @@ public final class SchemaInfo
 	 */
 	public static String primaryKeyColumnName(final Type<?> type)
 	{
-		return type.table.primaryKey.id;
+		return type.getTable().primaryKey.id;
 	}
 
 	/**
@@ -230,7 +230,7 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnName(final Type<?> type)
 	{
-		final StringColumn column = type.table.typeColumn;
+		final StringColumn column = type.getTable().typeColumn;
 		if(column==null)
 			throw new IllegalArgumentException("no type column for " + type);
 
@@ -289,7 +289,7 @@ public final class SchemaInfo
 	 */
 	public static String updateCounterColumnName(final Type<?> type)
 	{
-		final IntegerColumn column = type.table.updateCounter;
+		final IntegerColumn column = type.getTable().updateCounter;
 		if(column==null)
 			throw new IllegalArgumentException("no update counter for " + type);
 
@@ -401,7 +401,7 @@ public final class SchemaInfo
 
 	public static String superForeignKeyConstraintName(final Type<?> type)
 	{
-		final IntegerColumn column = type.table.primaryKey;
+		final IntegerColumn column = type.getTable().primaryKey;
 		if(!(column instanceof ItemColumn))
 			throw new IllegalArgumentException("no super type for " + type);
 		return ((ItemColumn)column).foreignKeyConstraintName;

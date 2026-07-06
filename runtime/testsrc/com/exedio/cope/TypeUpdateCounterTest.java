@@ -33,14 +33,14 @@ class TypeUpdateCounterTest extends TestWithEnvironment
 	@Test
 	void hasUpdateCounter()
 	{
-		assertNull(UnmodifiableGrandparent.TYPE.table.updateCounter);
-		assertNotNull(ModifiableParent.TYPE.table.updateCounter);
-		assertNotNull(ModifiableChild.TYPE.table.updateCounter);
-		assertNull(UnmodifiableChild.TYPE.table.updateCounter);
-		assertNullIff(!isVaultAllFields(), BlobChild.TYPE.table.updateCounter);
-		assertNullIff(isVaultEnabled(), VaultChild.TYPE.table.updateCounter);
-		assertNull(SeparateUnmodifiable.TYPE.table.updateCounter);
-		assertNullIff(!isVaultAllFields(), SeparateBlob.TYPE.table.updateCounter);
+		assertNull(UnmodifiableGrandparent.TYPE.getTable().updateCounter);
+		assertNotNull(ModifiableParent.TYPE.getTable().updateCounter);
+		assertNotNull(ModifiableChild.TYPE.getTable().updateCounter);
+		assertNull(UnmodifiableChild.TYPE.getTable().updateCounter);
+		assertNullIff(!isVaultAllFields(), BlobChild.TYPE.getTable().updateCounter);
+		assertNullIff(isVaultEnabled(), VaultChild.TYPE.getTable().updateCounter);
+		assertNull(SeparateUnmodifiable.TYPE.getTable().updateCounter);
+		assertNullIff(!isVaultAllFields(), SeparateBlob.TYPE.getTable().updateCounter);
 	}
 
 	private static void assertNullIff(final boolean condition, final Object actual)

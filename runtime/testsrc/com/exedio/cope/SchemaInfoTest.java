@@ -86,7 +86,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals(q("refType"), typeColumnNameQuoted(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", foreignKeyConstraintName(InstanceOfRefItem.ref));
 
-		assertFails (                  () -> superForeignKeyConstraintName(null), NullPointerException.class, "Cannot read field \"table\" because \"type\" is null");
+		assertFails (                  () -> superForeignKeyConstraintName(null), NullPointerException.class, "Cannot invoke \"com.exedio.cope.Type.getTable()\" because \"type\" is null");
 		assertFails (                  () -> superForeignKeyConstraintName(InstanceOfAItem.TYPE), IllegalArgumentException.class, "no super type for InstanceOfAItem");
 		assertEquals("InstanceOfB1Item_Sup", superForeignKeyConstraintName(InstanceOfB1Item.TYPE));
 		assertEquals("InstanceOfB2Item_Sup", superForeignKeyConstraintName(InstanceOfB2Item.TYPE));
