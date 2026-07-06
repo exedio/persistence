@@ -18,7 +18,7 @@
 
 package com.exedio.cope.tojunit;
 
-import static com.exedio.cope.SchemaInfo.columnName;
+import static com.exedio.cope.SchemaInfo.columnNameQuoted;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnNameQuoted;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.tableName;
@@ -73,7 +73,7 @@ public final class SI
 
 	public static String col(final Field<?> field)
 	{
-		return quoteName(field.getType().getModel(), columnName(field));
+		return columnNameQuoted(field);
 	}
 
 	public static String colq(final Field<?> field)
