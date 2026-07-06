@@ -192,7 +192,7 @@ public final class SchemaInfo
 	 */
 	public static String primaryKeySequenceName(final Type<?> type)
 	{
-		final String result = type.getPrimaryKeySequenceSchemaName();
+		final String result = type.primaryKeySequenceSchemaName();
 		if(result==null)
 			throw new IllegalArgumentException("no sequence for " + type);
 
@@ -474,7 +474,7 @@ public final class SchemaInfo
 	 */
 	public static String sequenceName(final Sequence sequence)
 	{
-		return sequence.sequenceX.getSchemaName();
+		return sequence.sequenceX.schemaName();
 	}
 
 	/**

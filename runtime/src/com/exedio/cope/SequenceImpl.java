@@ -34,5 +34,5 @@ interface SequenceImpl
 	long getNext();
 	void delete(StringBuilder sb, Dialect dialect);
 	void flush();
-	String getSchemaName();
+	String schemaName();
 }

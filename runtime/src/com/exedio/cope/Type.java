@@ -703,9 +703,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return primaryKeySequence.check(getModel(), table.primaryKey);
 	}
 
-	String getPrimaryKeySequenceSchemaName()
+	String primaryKeySequenceSchemaName()
 	{
-		return primaryKeySequence.getSchemaName();
+		return primaryKeySequence.schemaName();
 	}
 
 	/**

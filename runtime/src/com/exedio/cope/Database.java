@@ -566,7 +566,7 @@ final class Database
 		final ArrayList<String> result = new ArrayList<>();
 		for(final SequenceX sequence : sequences)
 		{
-			final String name = sequence.getSchemaName();
+			final String name = sequence.schemaName();
 			if(name!=null)
 				result.add(name);
 		}
