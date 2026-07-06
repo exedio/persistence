@@ -25,7 +25,7 @@ import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.tableNameQuoted;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.SchemaInfo.typeColumnNameQuoted;
-import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
+import static com.exedio.cope.SchemaInfo.updateCounterColumnNameQuoted;
 
 import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
@@ -68,7 +68,7 @@ public final class SI
 
 	public static String update(final Type<?> type)
 	{
-		return quoteName(type.getModel(), updateCounterColumnName(type));
+		return updateCounterColumnNameQuoted(type);
 	}
 
 	public static String col(final Field<?> field)
