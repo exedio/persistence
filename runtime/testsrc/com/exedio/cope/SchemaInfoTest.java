@@ -28,6 +28,7 @@ import static com.exedio.cope.SchemaInfo.superForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.tableNameQuoted;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
+import static com.exedio.cope.SchemaInfo.typeColumnNameQuoted;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,6 +76,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals(synthetic("this", "InstanceOfAItem"), primaryKeyColumnName(InstanceOfAItem.TYPE));
 		assertEquals(q(synthetic("this", "InstanceOfAItem")), primaryKeyColumnNameQuoted(InstanceOfAItem.TYPE));
 		assertEquals(synthetic("class", "InstanceOfAItem"), typeColumnName(InstanceOfAItem.TYPE));
+		assertEquals(q(synthetic("class", "InstanceOfAItem")), typeColumnNameQuoted(InstanceOfAItem.TYPE));
 		assertEquals("code", columnName(InstanceOfAItem.code));
 		assertEquals("ref", columnName(InstanceOfRefItem.ref));
 		assertEquals("refType", typeColumnName(InstanceOfRefItem.ref));
@@ -94,6 +96,10 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals(q(synthetic("this", "InstanceOfB2Item")), primaryKeyColumnNameQuoted(InstanceOfB2Item.TYPE));
 		assertFails(
 				() -> typeColumnName(InstanceOfB2Item.TYPE),
+				IllegalArgumentException.class,
+				"no type column for InstanceOfB2Item");
+		assertFails(
+				() -> typeColumnNameQuoted(InstanceOfB2Item.TYPE),
 				IllegalArgumentException.class,
 				"no type column for InstanceOfB2Item");
 		assertEquals("textb2", columnName(InstanceOfB2Item.textb2));

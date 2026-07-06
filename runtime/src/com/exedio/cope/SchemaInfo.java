@@ -218,6 +218,7 @@ public final class SchemaInfo
 	 *         if there is no type column for this type,
 	 *         because <code>{@link Type#getTypesOfInstances()}</code>
 	 *         contains one type only.
+	 * @see #typeColumnNameQuoted(Type)
 	 */
 	public static String typeColumnName(final Type<?> type)
 	{
@@ -226,6 +227,14 @@ public final class SchemaInfo
 			throw new IllegalArgumentException("no type column for " + type);
 
 		return column.id;
+	}
+
+	/**
+	 * @return {@link #typeColumnName(Type)}, but {@link #quoteName(Model, String) quoted}.
+	 */
+	public static String typeColumnNameQuoted(final Type<?> type)
+	{
+		return quote(type, typeColumnName(type)); // TODO use quotedID
 	}
 
 	/**
