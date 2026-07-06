@@ -682,7 +682,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return mount().typesOfInstancesColumnValues;
 	}
 
-	Table getTable()
+	Table table()
 	{
 		if(table==null)
 			throw new RuntimeException();
@@ -1345,7 +1345,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	boolean needsCheckTypeColumn()
 	{
-		return supertype!=null && supertype.getTable().typeColumn!=null;
+		return supertype!=null && supertype.table().typeColumn!=null;
 	}
 
 	long checkTypeColumn()
@@ -1363,8 +1363,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	Statement checkTypeColumnStatement(final Statement.Mode mode)
 	{
 		final Executor executor = getModel().connect().executor;
-		final Table table = getTable();
-		final Table superTable = supertype.getTable();
+		final Table table = table();
+		final Table superTable = supertype.table();
 
 		final Statement st = executor.newStatement(true, mode);
 		//language=SQL
@@ -1410,8 +1410,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new IllegalArgumentException("expected instantiable subtype of " + this + ", but was " + subType);
 
 		final Executor executor = getModel().connect().executor;
-		final Table table = getTable();
-		final Table subTable = subType.getTable();
+		final Table table = table();
+		final Table subTable = subType.table();
 
 		final Statement st = executor.newStatement(true, mode);
 		//language=SQL

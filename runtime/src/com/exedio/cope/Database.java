@@ -213,7 +213,7 @@ final class Database
 		boolean first = true;
 		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
-			final Table table = currentType.getTable();
+			final Table table = currentType.table();
 
 			final IntegerColumn updateCounter = table.updateCounter;
 			if(updateCounter!=null)
@@ -255,7 +255,7 @@ final class Database
 			else
 				st.append(',');
 
-			st.append(superType.getTable().quotedID);
+			st.append(superType.table().quotedID);
 		}
 
 		st.append(" WHERE ");
@@ -270,7 +270,7 @@ final class Database
 			st.appendPK(currentType).
 				append('=').
 				appendParameter(item.pk).
-				appendTypeCheck(currentType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
+				appendTypeCheck(currentType.table(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
 		}
 
 		//System.out.println(st.toString());
@@ -285,7 +285,7 @@ final class Database
 				final UpdateCount.Builder updateCountBuilder = UpdateCount.forStoredValue(type);
 				for(Type<?> superType = type; superType!=null; superType = superType.supertype)
 				{
-					final Table table = superType.getTable();
+					final Table table = superType.table();
 
 					final IntegerColumn updateCounter = table.updateCounter;
 					if(updateCounter!=null)
@@ -338,7 +338,7 @@ final class Database
 		if(supertype!=null)
 			store(connection, state, nextUpdateCount, present, incrementUpdateCounter, blobs, supertype);
 
-		final Table table = type.getTable();
+		final Table table = type.table();
 
 		final List<Column> columns = table.getColumns();
 

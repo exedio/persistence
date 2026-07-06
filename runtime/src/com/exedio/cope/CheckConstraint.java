@@ -108,7 +108,7 @@ public final class CheckConstraint extends AbstractFeature implements Copyable
 		{
 			final Type<?> type = getType();
 			typesOfConstraintIfDivergent =
-					tableAffected!=type.getTable() ? type.getTypesOfInstances() : null;
+					tableAffected!=type.table() ? type.getTypesOfInstances() : null;
 		}
 		final Statement statement = new Statement(table.database.dialect, table.database.executor.marshallers);
 		if(typesOfConstraintIfDivergent!=null)

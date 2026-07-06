@@ -72,7 +72,7 @@ final class DeletedState extends State
 	{
 		for(Type<?> currentType = type; currentType!=null; currentType = currentType.supertype)
 		{
-			final Table currentTable = currentType.getTable();
+			final Table currentTable = currentType.table();
 			final Statement st = executor.newStatement();
 			st.append("DELETE FROM ").
 				append(currentTable.quotedID).

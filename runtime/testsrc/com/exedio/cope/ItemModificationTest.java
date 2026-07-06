@@ -90,7 +90,7 @@ class ItemModificationTest extends TestWithEnvironment
 		final MyItem item = new MyItem(initial);
 		commit();
 		assertEquals(0, queryUpdateCount(item, MyItem.TYPE));
-		assertEquals(null, UnmodifiableParent.TYPE.getTable().updateCounter);
+		assertEquals(null, UnmodifiableParent.TYPE.table().updateCounter);
 		assertEquals(0, queryUpdateCount(item, ModifiableParent.TYPE));
 
 		startTransaction();
