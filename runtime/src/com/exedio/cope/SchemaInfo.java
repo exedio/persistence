@@ -130,7 +130,7 @@ public final class SchemaInfo
 	 */
 	public static String tableNameQuoted(final Type<?> type)
 	{
-		return quote(type, tableName(type)); // TODO use quotedID
+		return type.getTable().quotedID;
 	}
 
 	/**
