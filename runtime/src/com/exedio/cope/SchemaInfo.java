@@ -355,6 +355,7 @@ public final class SchemaInfo
 	 *         if there is no type column for this ItemField,
 	 *         because <code>{@link ItemField#getValueType() getValueType()}.{@link Type#getTypesOfInstances() getTypesOfInstances()}</code>
 	 *         contains one type only.
+	 * @see #typeColumnNameQuoted(ItemField)
 	 */
 	public static String typeColumnName(final ItemField<?> field)
 	{
@@ -363,6 +364,14 @@ public final class SchemaInfo
 			throw new IllegalArgumentException("no type column for " + field);
 
 		return column.id;
+	}
+
+	/**
+	 * @return {@link #typeColumnName(ItemField)}, but {@link #quoteName(Model, String) quoted}.
+	 */
+	public static String typeColumnNameQuoted(final ItemField<?> field)
+	{
+		return quote(field, typeColumnName(field)); // TODO use quotedID
 	}
 
 	/**
