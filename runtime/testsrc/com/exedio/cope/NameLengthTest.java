@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.columnName;
-import static com.exedio.cope.SchemaInfo.defaultToNextSequenceName;
+import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.sequenceName;
 import static com.exedio.cope.SchemaInfo.tableName;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
@@ -149,7 +149,7 @@ public abstract class NameLengthTest extends TestWithEnvironment
 
 	private static void assertSequence(final IntegerField field, final String name)
 	{
-		assertEquals(name, defaultToNextSequenceName(field));
+		assertEquals(name, getDefaultToNextSequenceName(field));
 	}
 
 	private static void assertIt(final Sequence sequence, final String name)

@@ -382,19 +382,9 @@ public final class SchemaInfo
 	 *         if there is no such sequence for this field,
 	 *         because values are generated otherwise.
 	 */
-	public static String defaultToNextSequenceName(final IntegerField field)
-	{
-		return field.getDefaultToNextSequenceName();
-	}
-
-	/**
-	 * @deprecated Use {@link #defaultToNextSequenceName(IntegerField)} instead.
-	 * You may use an "Inline Method" - functionality of your IDE to update your code.
-	 */
-	@Deprecated
 	public static String getDefaultToNextSequenceName(final IntegerField field)
 	{
-		return defaultToNextSequenceName(field);
+		return field.getDefaultToNextSequenceName();
 	}
 
 	/**
