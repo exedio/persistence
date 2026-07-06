@@ -75,6 +75,14 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @see #quoteName(Model, String)
+	 */
+	private static String quote(final Field<?> field, final String name)
+	{
+		return quoteName(field.getType().getModel(), name);
+	}
+
+	/**
 	 * @deprecated Use {@link #supportsCheckConstraint(Model)} instead.
 	 */
 	@Deprecated
@@ -311,10 +319,19 @@ public final class SchemaInfo
 	 * If not configured otherwise
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Field#getName() name} of the field.
+	 * @see #columnNameQuoted(Field)
 	 */
 	public static String columnName(final Field<?> field)
 	{
 		return field.getColumn().id;
+	}
+
+	/**
+	 * @return {@link #columnName(Field)}, but {@link #quoteName(Model, String) quoted}.
+	 */
+	public static String columnNameQuoted(final Field<?> field)
+	{
+		return quote(field, columnName(field)); // TODO use quotedID
 	}
 
 	/**

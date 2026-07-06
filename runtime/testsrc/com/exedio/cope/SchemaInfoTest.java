@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.columnName;
+import static com.exedio.cope.SchemaInfo.columnNameQuoted;
 import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.SchemaInfo.foreignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
@@ -79,6 +80,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals(synthetic("class", "InstanceOfAItem"), typeColumnName(InstanceOfAItem.TYPE));
 		assertEquals(q(synthetic("class", "InstanceOfAItem")), typeColumnNameQuoted(InstanceOfAItem.TYPE));
 		assertEquals("code", columnName(InstanceOfAItem.code));
+		assertEquals(q("code"), columnNameQuoted(InstanceOfAItem.code));
 		assertEquals("ref", columnName(InstanceOfRefItem.ref));
 		assertEquals("refType", typeColumnName(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", foreignKeyConstraintName(InstanceOfRefItem.ref));

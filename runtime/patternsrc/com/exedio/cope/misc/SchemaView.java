@@ -165,8 +165,8 @@ public final class SchemaView
 		return SchemaInfo.primaryKeyColumnNameQuoted(type);
 	}
 
-	private String column(final Field<?> field)
+	private static String column(final Field<?> field)
 	{
-		return quoteName(model, SchemaInfo.columnName(field));
+		return SchemaInfo.columnNameQuoted(field);
 	}
 }
