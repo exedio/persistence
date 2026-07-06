@@ -136,9 +136,9 @@ final class SequenceX
 		return new SequenceBehindInfo(feature, featureMaximum, impl().getNext());
 	}
 
-	String getSchemaName()
+	String schemaName()
 	{
-		return impl().getSchemaName();
+		return impl().schemaName();
 	}
 
 	boolean isKnownToBeEmptyForTest()

@@ -117,8 +117,8 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	}
 
 	@Override
-	public String getSchemaName()
+	public String schemaName()
 	{
-		return sequence.getSchemaName();
+		return sequence.schemaName();
 	}
 }

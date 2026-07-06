@@ -126,7 +126,7 @@ final class SequenceImplSequence implements SequenceImpl
 	}
 
 	@Override
-	public String getSchemaName()
+	public String schemaName()
 	{
 		return name;
 	}

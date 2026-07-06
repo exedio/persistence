@@ -115,7 +115,7 @@ final class SequenceImplMax implements SequenceImpl
 	}
 
 	@Override
-	public String getSchemaName()
+	public String schemaName()
 	{
 		return null;
 	}
