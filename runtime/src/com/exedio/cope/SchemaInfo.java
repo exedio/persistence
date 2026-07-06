@@ -159,7 +159,7 @@ public final class SchemaInfo
 	 */
 	public static String primaryKeyColumnNameQuoted(final Type<?> type)
 	{
-		return quote(type, primaryKeyColumnName(type)); // TODO use quotedID
+		return type.getTable().primaryKey.quotedID;
 	}
 
 	/**
