@@ -506,11 +506,6 @@ public final class IntegerField extends NumberField<Integer>
 				getType().getModel(), (IntegerColumn)getColumn());
 	}
 
-	String getDefaultToNextSequenceName()
-	{
-		return getDefaultNextSequence().sequenceX.getSchemaName();
-	}
-
 	public IntegerField rangeDigits(final int digits)
 	{
 		return IntegerFieldRangeDigits.rangeDigits(this, digits);

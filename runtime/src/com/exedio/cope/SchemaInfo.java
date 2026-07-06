@@ -381,10 +381,13 @@ public final class SchemaInfo
 	 * @throws IllegalArgumentException
 	 *         if there is no such sequence for this field,
 	 *         because values are generated otherwise.
+	 * @deprecated Use {@link #sequenceName(Sequence)} and {@link IntegerField#getDefaultNextSequence()} instead.
+	 * You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public static String getDefaultToNextSequenceName(final IntegerField field)
 	{
-		return field.getDefaultToNextSequenceName();
+		return sequenceName(field.getDefaultNextSequence());
 	}
 
 	/**

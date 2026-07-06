@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MysqlDialect.REGEXP;
-import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraint;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.TableTest.getError;
@@ -131,9 +130,10 @@ final class RuntimeTester
 		}
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	void assertDefaultToNextSequenceName(final String name, final IntegerField field)
 	{
-		assertEquals(name, getDefaultToNextSequenceName(field));
+		assertEquals(name, SchemaInfo.getDefaultToNextSequenceName(field));
 	}
 
 	TestByteArrayInputStream stream(final byte[] data)
