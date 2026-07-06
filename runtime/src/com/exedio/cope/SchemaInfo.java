@@ -341,7 +341,7 @@ public final class SchemaInfo
 	 */
 	public static String columnNameQuoted(final Field<?> field)
 	{
-		return quote(field, columnName(field)); // TODO use quotedID
+		return field.getColumn().quotedID;
 	}
 
 	/**
