@@ -67,6 +67,14 @@ public final class SchemaInfo
 	}
 
 	/**
+	 * @see #quoteName(Model, String)
+	 */
+	private static String quote(final Type<?> type, final String name)
+	{
+		return quoteName(type.getModel(), name);
+	}
+
+	/**
 	 * @deprecated Use {@link #supportsCheckConstraint(Model)} instead.
 	 */
 	@Deprecated
@@ -102,10 +110,19 @@ public final class SchemaInfo
 	 * If not configured otherwise
 	 * or trimmed to fit into name length restrictions,
 	 * the name equals the {@link Type#getID() id} of the type.
+	 * @see #tableNameQuoted(Type)
 	 */
 	public static String tableName(final Type<?> type)
 	{
 		return type.table.id;
+	}
+
+	/**
+	 * @return {@link #tableName(Type)}, but {@link #quoteName(Model, String) quoted}.
+	 */
+	public static String tableNameQuoted(final Type<?> type)
+	{
+		return quote(type, tableName(type)); // TODO use quotedID
 	}
 
 	/**

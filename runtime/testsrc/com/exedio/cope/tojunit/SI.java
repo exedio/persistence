@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfo.primaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.tableName;
+import static com.exedio.cope.SchemaInfo.tableNameQuoted;
 import static com.exedio.cope.SchemaInfo.typeColumnName;
 import static com.exedio.cope.SchemaInfo.updateCounterColumnName;
 
@@ -36,7 +37,7 @@ public final class SI
 {
 	public static String tab(final Type<?> type)
 	{
-		return quoteName(type.getModel(), tableName(type));
+		return tableNameQuoted(type);
 	}
 
 	public static String view(final Type<?> type)

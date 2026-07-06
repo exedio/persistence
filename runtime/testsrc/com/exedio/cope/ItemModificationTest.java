@@ -447,7 +447,7 @@ class ItemModificationTest extends TestWithEnvironment
 		Update(final Type<?> type, final boolean updateCatch, final Field<?>... fields)
 		{
 			this(
-					SchemaInfo.quoteName(type.getModel(), SchemaInfo.tableName(type)),
+					SchemaInfo.tableNameQuoted(type),
 					columnNames(type, updateCatch, fields)
 			);
 		}
