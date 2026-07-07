@@ -219,7 +219,7 @@ final class Table
 		allColumnsModifiable = null;
 	}
 
-	String makeGlobalID(final TrimClass trimClass, final String suffix)
+	String makeGlobalName(final TrimClass trimClass, final String suffix)
 	{
 		return database.properties.trimmer(trimClass).trimString(name + '_' + suffix);
 	}
