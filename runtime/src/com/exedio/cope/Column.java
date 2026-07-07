@@ -78,7 +78,7 @@ abstract class Column
 
 	final String makeGlobalName(final TrimClass trimClass, final String suffix)
 	{
-		return table.makeGlobalID(trimClass, nameForGlobal + '_' + suffix);
+		return table.makeGlobalName(trimClass, nameForGlobal + '_' + suffix);
 	}
 
 	final void newCheck(
@@ -115,7 +115,7 @@ abstract class Column
 				dsmf.newColumn(name, databaseTypeClause);
 
 		if(kind.primaryKey())
-			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.standard, "PK"));
+			dsmfColumn.newPrimaryKey(table.makeGlobalName(TrimClass.standard, "PK"));
 
 		makeSchema(dsmfColumn);
 	}

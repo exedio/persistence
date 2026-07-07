@@ -156,7 +156,7 @@ public final class CheckConstraint extends AbstractFeature implements Copyable
 				// However, quite often there are equally named check constraints in subclasses
 				// affecting just one field of the super class.
 				// So we avoid name collisions in these cases.
-				intern(table.makeGlobalID(TrimClass.standard, getDeclaredSchemaName())),
+				intern(table.makeGlobalName(TrimClass.standard, getDeclaredSchemaName())),
 				statement.getText());
 	}
 

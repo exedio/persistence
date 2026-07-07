@@ -183,7 +183,7 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 			(fields.length==1)
 			? fields[0].getDeclaredSchemaName() + POSTFIX
 			: table.database.properties.redundantUnq(getDeclaredSchemaName());
-		databaseID = intern(table.makeGlobalID(TrimClass.standard, schemaName));
+		databaseID = intern(table.makeGlobalName(TrimClass.standard, schemaName));
 
 		table.database.executor.addUniqueConstraint(databaseID, this);
 	}
