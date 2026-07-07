@@ -149,7 +149,7 @@ public final class CheckConstraint extends AbstractFeature implements Copyable
 			statement.
 					append(')');
 
-		schema.getTable(tableAffected.id).newCheck(
+		schema.getTable(tableAffected.name).newCheck(
 				// NOTE: Divergent name prefix
 				// Below, table is used instead of tableAffected to create the global id if the constraint.
 				// This may seem weird - the table prefix of the global id not matching the table of the constraint.

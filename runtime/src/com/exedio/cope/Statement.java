@@ -138,7 +138,7 @@ final class Statement
 				for(final Object o : list)
 				{
 					final JoinTable joinType = (JoinTable)o;
-					joinType.alias = table.id + (aliasNumber++);
+					joinType.alias = table.name + (aliasNumber++);
 				}
 				if(ambiguousTables==null)
 					ambiguousTables = new HashSet<>();
@@ -193,7 +193,7 @@ final class Statement
 
 	Statement append(final Table table)
 	{
-		this.text.append(table.quotedID);
+		this.text.append(table.nameQuoted);
 
 		return this;
 	}
@@ -237,7 +237,7 @@ final class Statement
 				append('.');
 		}
 		this.text.
-			append(column.quotedID);
+			append(column.nameQuoted);
 
 		return this;
 	}
@@ -464,7 +464,7 @@ final class Statement
 		@Override
 		public String toString()
 		{
-			return (join==null?"-":join.type.id) + '/' + table.id + '>' + (alias==null?"-":alias);
+			return (join==null?"-":join.type.id) + '/' + table.name + '>' + (alias==null?"-":alias);
 		}
 	}
 
@@ -474,7 +474,7 @@ final class Statement
 
 	private void appendTableDefinition(final Join join, final Table table)
 	{
-		append(table.quotedID);
+		append(table.nameQuoted);
 		final String alias = getAlias(join, table);
 		if(alias!=null)
 		{
@@ -549,7 +549,7 @@ final class Statement
 				throw new IllegalArgumentException(
 						"feature " + exceptionColumn + " is ambiguous, " +
 						"use Function#bind (deprecated): " + tc.queryToString());
-			return table.quotedID;
+			return table.nameQuoted;
 		}
 	}
 

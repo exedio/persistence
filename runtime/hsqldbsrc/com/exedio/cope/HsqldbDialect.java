@@ -152,9 +152,9 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	String getDateIntegerPrecision(final String nameQuoted, final Precision precision)
 	{
-		return "MOD(" + quotedName + ',' + precision.divisor() + ")=0";
+		return "MOD(" + nameQuoted + ',' + precision.divisor() + ")=0";
 	}
 
 	@Override
@@ -282,7 +282,7 @@ final class HsqldbDialect extends Dialect
 	Long nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String quotedName)
+			final String nameQuoted)
 	{
 		final String TEMP_TABLE = dsmfDialect.quoteName("hsqldb_temp_table_for_sequences");
 		try
@@ -311,17 +311,17 @@ final class HsqldbDialect extends Dialect
 		{
 			final Statement st = executor.newStatement();
 			st.append("SELECT NEXT VALUE FOR ").
-				append(quotedName).
+				append(nameQuoted).
 				append(" FROM ").
 				append(TEMP_TABLE);
 
 			result = executor.query(connection, st, Executor.Kind.other, resultSet ->
 				{
 					if(!resultSet.next())
-						throw new RuntimeException("empty in sequence " + quotedName);
+						throw new RuntimeException("empty in sequence " + nameQuoted);
 					final long resultX = resultSet.getLong(1);
 					if(resultSet.wasNull())
-						throw new RuntimeException("null in sequence " + quotedName);
+						throw new RuntimeException("null in sequence " + nameQuoted);
 					return resultX;
 				}
 			);
@@ -379,7 +379,7 @@ final class HsqldbDialect extends Dialect
 		for(final Table table : tables)
 		{
 			sb.append("TRUNCATE TABLE ").
-				append(table.quotedID).
+				append(table.nameQuoted).
 				append(" RESTART IDENTITY AND COMMIT NO CHECK;");
 		}
 
@@ -405,11 +405,11 @@ final class HsqldbDialect extends Dialect
 
 	@Override
 	void deleteSequence(
-			final StringBuilder sb, final String quotedName,
+			final StringBuilder sb, final String nameQuoted,
 			final long start)
 	{
 		sb.append("ALTER SEQUENCE ").
-			append(quotedName).
+			append(nameQuoted).
 			append(" RESTART WITH ").
 			append(start).
 			append(';');

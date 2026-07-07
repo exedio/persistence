@@ -36,7 +36,7 @@ class IntegerColumn extends Column
 
 	IntegerColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean synthetic,
 			final boolean optional,
 			final long minimum,
@@ -44,12 +44,12 @@ class IntegerColumn extends Column
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
-		this(table, id, synthetic, optional, minimum, forbidZero, maximum, longInsteadOfInt, Precision.MILLI);
+		this(table, name, synthetic, optional, minimum, forbidZero, maximum, longInsteadOfInt, Precision.MILLI);
 	}
 
 	IntegerColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean synthetic,
 			final boolean optional,
 			final long minimum,
@@ -58,7 +58,7 @@ class IntegerColumn extends Column
 			final boolean longInsteadOfInt,
 			final Precision precision)
 	{
-		super(table, id, synthetic, Kind.nonPrimaryKey(optional));
+		super(table, name, synthetic, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.forbidZero = forbidZero;
@@ -71,11 +71,11 @@ class IntegerColumn extends Column
 
 	IntegerColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean optional,
 			final int[] allowedValues)
 	{
-		super(table, id, false, Kind.nonPrimaryKey(optional));
+		super(table, name, false, Kind.nonPrimaryKey(optional));
 		this.longInsteadOfInt = false;
 		this.allowedValues = strictlyMonotonicallyIncreasing(allowedValues);
 		this.minimum = allowedValues[0];
@@ -138,7 +138,7 @@ class IntegerColumn extends Column
 		if(allowedValues!=null && allowedValues.length>1)
 		{
 			final StringBuilder sb = new StringBuilder();
-			sb.append(quotedID).
+			sb.append(nameQuoted).
 				append(" IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
@@ -155,20 +155,20 @@ class IntegerColumn extends Column
 		{
 			if(minimum==maximum)
 			{
-				newCheck(dsmf, "RD", quotedID + "=" + minimum);
+				newCheck(dsmf, "RD", nameQuoted + "=" + minimum);
 			}
 			else
 			{
-				newCheck(dsmf, "MN", quotedID + ">=" + minimum);
-				newCheck(dsmf, "MX", quotedID + "<=" + maximum);
+				newCheck(dsmf, "MN", nameQuoted + ">=" + minimum);
+				newCheck(dsmf, "MX", nameQuoted + "<=" + maximum);
 			}
 
 			if(forbidZero)
-				newCheck(dsmf, "EX", quotedID + "<>0");
+				newCheck(dsmf, "EX", nameQuoted + "<>0");
 
 			if(precision.constrains())
 				newCheck(dsmf, "PR",
-					table.database.dialect.getDateIntegerPrecision(quotedID, precision));
+					table.database.dialect.getDateIntegerPrecision(nameQuoted, precision));
 		}
 	}
 
@@ -213,9 +213,9 @@ class IntegerColumn extends Column
 	{
 		final Statement st = executor.newStatement();
 		st.append("SELECT MAX(").
-			append(quotedID).
+			append(nameQuoted).
 			append(") FROM ").
-			append(table.quotedID);
+			append(table.nameQuoted);
 
 		return executor.query(connection, st, Executor.Kind.other, resultSet ->
 			{
@@ -226,7 +226,7 @@ class IntegerColumn extends Column
 				if(!resultSet.wasNull())
 				{
 					if(result<minimum || result>maximum)
-						throw new RuntimeException("invalid maximum " + result + " in column " + id);
+						throw new RuntimeException("invalid maximum " + result + " in column " + name);
 					return result;
 				}
 				else

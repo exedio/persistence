@@ -215,21 +215,21 @@ abstract class Dialect
 		return "DATE'" + value.getYear() + '-' + nf.format(value.getMonthValue()) + '-' + nf.format(value.getDayOfMonth()) + '\'';
 	}
 
-	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String quotedName)
+	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String nameQuoted)
 	{
-		final String seconds = getDateExtract(quotedName, DateField.Precision.SECOND);
+		final String seconds = getDateExtract(nameQuoted, DateField.Precision.SECOND);
 		return
 				isSecond
 				? (seconds + "=FLOOR("+seconds+')') // is an integer
 				: (seconds + "=0");
 	}
 
-	String getDateExtract(final String quotedName, final Precision precision)
+	String getDateExtract(final String nameQuoted, final Precision precision)
 	{
-		return "EXTRACT(" + precision.sql() + " FROM " + quotedName + ')';
+		return "EXTRACT(" + precision.sql() + " FROM " + nameQuoted + ')';
 	}
 
-	abstract String getDateIntegerPrecision(String quotedName, Precision precision);
+	abstract String getDateIntegerPrecision(String nameQuoted, Precision precision);
 
 	abstract String getBlobType(long maximumLength);
 
@@ -358,9 +358,9 @@ abstract class Dialect
 
 	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, boolean forTest, ConnectionPool connectionPool);
 	abstract void deleteSequence(
-			StringBuilder sb, String quotedName,
+			StringBuilder sb, String nameQuoted,
 			long start);
-	abstract Long    nextSequence(Executor executor, Connection connection, String quotedName);
+	abstract Long    nextSequence(Executor executor, Connection connection, String nameQuoted);
 	abstract Long getNextSequence(Executor executor, Connection connection, String name);
 
 	/**

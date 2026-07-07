@@ -40,13 +40,13 @@ final class TimestampColumn extends Column
 
 	TimestampColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean optional,
 			final long minimum,
 			final long maximum,
 			final Precision precision)
 	{
-		super(table, id, false, Kind.nonPrimaryKey(optional));
+		super(table, name, false, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.precision = precision;
@@ -63,20 +63,20 @@ final class TimestampColumn extends Column
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		final Dialect dialect = table.database.dialect;
-		newCheck(dsmf, "MN", quotedID + ">=" + dialect.toLiteral(new Date(minimum)));
-		newCheck(dsmf, "MX", quotedID + "<=" + dialect.toLiteral(new Date(maximum)));
+		newCheck(dsmf, "MN", nameQuoted + ">=" + dialect.toLiteral(new Date(minimum)));
+		newCheck(dsmf, "MX", nameQuoted + "<=" + dialect.toLiteral(new Date(maximum)));
 
 		switch(precision)
 		{
 			case HOUR:
 				newCheck(dsmf, "PM",
-						dialect.getDateExtract(quotedID, MINUTE) + "=0");
+						dialect.getDateExtract(nameQuoted, MINUTE) + "=0");
 				// fall through
 
 			case MINUTE:
 			case SECOND:
 				newCheck(dsmf, "PS",
-						dialect.getDateTimestampPrecisionMinuteSecond(precision==SECOND, quotedID));
+						dialect.getDateTimestampPrecisionMinuteSecond(precision==SECOND, nameQuoted));
 				// fall through
 
 			case MILLI:

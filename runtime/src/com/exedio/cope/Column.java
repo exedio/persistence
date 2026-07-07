@@ -28,30 +28,30 @@ import java.sql.SQLException;
 abstract class Column
 {
 	final Table table;
-	final String id;
-	final String quotedID;
-	final String idForGlobal;
+	final String name;
+	final String nameQuoted;
+	final String nameForGlobal;
 	final boolean synthetic;
 	final Kind kind;
 
 	Column(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean synthetic,
 			final Kind kind)
 	{
 		final Database database = table.database;
 		this.table = table;
-		this.id = intern(database.properties.trimmerLegacy.trimString(
-				(synthetic&&table.database.properties.longSyntheticNames) ? (id+table.id) : id));
-		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
-		this.idForGlobal = id;
+		this.name = intern(database.properties.trimmerLegacy.trimString(
+				(synthetic&&table.database.properties.longSyntheticNames) ? (name+table.name) : name));
+		this.nameQuoted = intern(database.dsmfDialect.quoteName(this.name));
+		this.nameForGlobal = name;
 		this.synthetic = synthetic;
 		this.kind = kind;
 		//noinspection ThisEscapedInObjectConstruction
 		table.addColumn(this);
 
-		assert !kind.primaryKey() || synthetic : table.id+':'+id;
+		assert !kind.primaryKey() || synthetic : table.name+':'+name;
 	}
 
 	protected enum Kind
@@ -76,22 +76,22 @@ abstract class Column
 
 	abstract String getDatabaseType();
 
-	final String makeGlobalID(final TrimClass trimClass, final String suffix)
+	final String makeGlobalName(final TrimClass trimClass, final String suffix)
 	{
-		return table.makeGlobalID(trimClass, idForGlobal + '_' + suffix);
+		return table.makeGlobalID(trimClass, nameForGlobal + '_' + suffix);
 	}
 
 	final void newCheck(
 			final com.exedio.dsmf.Column dsmf,
 			final String suffix, final String condition)
 	{
-		dsmf.newCheck(makeGlobalID(TrimClass.standard, suffix), condition);
+		dsmf.newCheck(makeGlobalName(TrimClass.standard, suffix), condition);
 	}
 
 	@Override
 	public final String toString()
 	{
-		return table.id + '#' + id;
+		return table.name + '#' + name;
 	}
 
 	/**
@@ -112,7 +112,7 @@ abstract class Column
 			: databaseType;
 
 		final com.exedio.dsmf.Column dsmfColumn =
-				dsmf.newColumn(id, databaseTypeClause);
+				dsmf.newColumn(name, databaseTypeClause);
 
 		if(kind.primaryKey())
 			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.standard, "PK"));

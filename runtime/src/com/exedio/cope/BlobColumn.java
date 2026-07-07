@@ -30,11 +30,11 @@ final class BlobColumn extends Column
 
 	BlobColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean optional,
 			final long maximumLength)
 	{
-		super(table, id, false, Kind.nonPrimaryKey(optional));
+		super(table, name, false, Kind.nonPrimaryKey(optional));
 		this.maximumLength = maximumLength;
 	}
 
@@ -48,25 +48,25 @@ final class BlobColumn extends Column
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		newCheck(dsmf, "MX",
-				"OCTET_LENGTH(" + quotedID + ")<=" + maximumLength);
+				"OCTET_LENGTH(" + nameQuoted + ")<=" + maximumLength);
 	}
 
 	@Override
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 	{
-		throw new RuntimeException(id);
+		throw new RuntimeException(name);
 	}
 
 	@Override
 	String cacheToDatabase(final Object cache)
 	{
-		throw new RuntimeException(id);
+		throw new RuntimeException(name);
 	}
 
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		throw new RuntimeException(id);
+		throw new RuntimeException(name);
 	}
 
 
@@ -78,11 +78,11 @@ final class BlobColumn extends Column
 		final Executor executor = tx.connect.executor;
 		final Statement st = executor.newStatement();
 		st.append("SELECT ").
-			append(quotedID).
+			append(nameQuoted).
 			append(" FROM ").
-			append(table.quotedID).
+			append(table.nameQuoted).
 			append(" WHERE ").
-			append(table.primaryKey.quotedID).
+			append(table.primaryKey.nameQuoted).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
@@ -122,11 +122,11 @@ final class BlobColumn extends Column
 		final Executor executor = tx.connect.executor;
 		final Statement st = executor.newStatement();
 		st.append("SELECT OCTET_LENGTH(").
-			append(quotedID).
+			append(nameQuoted).
 			append(") FROM ").
-			append(table.quotedID).
+			append(table.nameQuoted).
 			append(" WHERE ").
-			append(table.primaryKey.quotedID).
+			append(table.primaryKey.nameQuoted).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
@@ -151,11 +151,11 @@ final class BlobColumn extends Column
 		final Executor executor = tx.connect.executor;
 		final Statement st = executor.newStatement();
 		st.append("SELECT ");
-		st.append(quotedID).
+		st.append(nameQuoted).
 			append(" IS NULL FROM ").
-			append(table.quotedID).
+			append(table.nameQuoted).
 			append(" WHERE ").
-			append(table.primaryKey.quotedID).
+			append(table.primaryKey.nameQuoted).
 			append('=').
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);

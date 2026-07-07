@@ -31,12 +31,12 @@ final class DayColumn extends Column
 
 	DayColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean optional,
 			final Day minimum,
 			final Day maximum)
 	{
-		super(table, id, false, Kind.nonPrimaryKey(optional));
+		super(table, name, false, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 	}
@@ -51,8 +51,8 @@ final class DayColumn extends Column
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		final Dialect dialect = table.database.dialect;
-		newCheck(dsmf, "MN", quotedID + ">=" + dialect.toLiteral(minimum));
-		newCheck(dsmf, "MX", quotedID + "<=" + dialect.toLiteral(maximum));
+		newCheck(dsmf, "MN", nameQuoted + ">=" + dialect.toLiteral(minimum));
+		newCheck(dsmf, "MX", nameQuoted + "<=" + dialect.toLiteral(maximum));
 	}
 
 	static int getTransientNumber(final Day day)

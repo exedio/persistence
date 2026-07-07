@@ -28,12 +28,12 @@ final class DoubleColumn extends Column
 
 	DoubleColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean optional,
 			final double minimum,
 			final double maximum)
 	{
-		super(table, id, false, Kind.nonPrimaryKey(optional));
+		super(table, name, false, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -56,12 +56,12 @@ final class DoubleColumn extends Column
 		//noinspection FloatingPointEquality
 		if(minimum==maximum)
 		{
-			newCheck(dsmf, "RD", quotedID + "=" + dialect.format(minimum));
+			newCheck(dsmf, "RD", nameQuoted + "=" + dialect.format(minimum));
 		}
 		else
 		{
-			newCheck(dsmf, "MN", quotedID + ">=" + dialect.format(minimum));
-			newCheck(dsmf, "MX", quotedID + "<=" + dialect.format(maximum));
+			newCheck(dsmf, "MN", nameQuoted + ">=" + dialect.format(minimum));
+			newCheck(dsmf, "MX", nameQuoted + "<=" + dialect.format(maximum));
 		}
 	}
 
