@@ -99,10 +99,10 @@ final class Executor
 			this.timers.put(e, metrics.timer("statement", "How long sql statements do take in the database", Tags.of("kind", e.name())));
 	}
 
-	void addUniqueConstraint(final String id, final UniqueConstraint uniqueConstraint)
+	void addUniqueConstraint(final String name, final UniqueConstraint uniqueConstraint)
 	{
-		if(uniqueConstraints.putIfAbsent(id, uniqueConstraint)!=null)
-			throw new RuntimeException(id);
+		if(uniqueConstraints.putIfAbsent(name, uniqueConstraint)!=null)
+			throw new RuntimeException(name);
 	}
 
 	Statement newStatement()
@@ -374,10 +374,10 @@ final class Executor
 	{
 		if(supportsUniqueViolation)
 		{
-			final String id = dialect.extractUniqueViolation(sqlException);
-			if(id!=null)
+			final String name = dialect.extractUniqueViolation(sqlException);
+			if(name!=null)
 			{
-				final UniqueConstraint feature = uniqueConstraints.get(id);
+				final UniqueConstraint feature = uniqueConstraints.get(name);
 				if(feature!=null)
 					throw new UniqueViolationException(feature, item, sqlException);
 			}

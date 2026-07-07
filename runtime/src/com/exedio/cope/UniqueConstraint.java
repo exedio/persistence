@@ -39,7 +39,7 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 
 	private final FunctionField<?>[] fields;
 	private final List<FunctionField<?>> fieldList;
-	private String databaseID;
+	private String databaseName;
 	private UniqueCache cache;
 
 	private UniqueConstraint(final FunctionField<?>[] fields)
@@ -176,16 +176,16 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 
 	void connect(final Table table)
 	{
-		if(databaseID!=null)
+		if(databaseName!=null)
 			throw new RuntimeException();
 
 		final String schemaName =
 			(fields.length==1)
 			? fields[0].getDeclaredSchemaName() + POSTFIX
 			: table.database.properties.redundantUnq(getDeclaredSchemaName());
-		databaseID = intern(table.makeGlobalName(TrimClass.standard, schemaName));
+		databaseName = intern(table.makeGlobalName(TrimClass.standard, schemaName));
 
-		table.database.executor.addUniqueConstraint(databaseID, this);
+		table.database.executor.addUniqueConstraint(databaseName, this);
 	}
 
 	UniqueCache initCache(final ModelMetrics metricsTemplate)
@@ -199,19 +199,19 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 
 	void disconnect()
 	{
-		if(databaseID==null)
+		if(databaseName==null)
 			throw new RuntimeException();
 
-		databaseID = null;
+		databaseName = null;
 		cache = null;
 	}
 
-	String getDatabaseID()
+	String getDatabaseName()
 	{
-		if(databaseID==null)
+		if(databaseName==null)
 			throw new RuntimeException();
 
-		return databaseID;
+		return databaseName;
 	}
 
 	void makeSchema(final com.exedio.dsmf.Table dsmf)
@@ -229,7 +229,7 @@ public final class UniqueConstraint extends AbstractFeature implements Copyable
 
 		dsmf.newUnique(
 				(fields.length==1) ? dsmf.getColumn(fields[0].column().name) : null,
-				getDatabaseID(), sb.toString());
+				getDatabaseName(), sb.toString());
 	}
 
 	@Override

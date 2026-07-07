@@ -497,7 +497,7 @@ public final class SchemaInfo
 
 	public static String constraintName(final UniqueConstraint constraint)
 	{
-		return constraint.getDatabaseID();
+		return constraint.getDatabaseName();
 	}
 
 	/**
