@@ -29,8 +29,8 @@ import java.util.SortedSet;
 final class Table
 {
 	final Database database;
-	final String id;
-	final String quotedID;
+	final String name;
+	final String nameQuoted;
 	final IntegerColumn primaryKey;
 	final StringColumn typeColumn;
 	final IntegerColumn updateCounter;
@@ -38,7 +38,7 @@ final class Table
 
 	Table(
 			final Database database,
-			final String id,
+			final String name,
 			final Type<?> supertype,
 			final int typeColumnMinLength,
 			final SortedSet<String> typesOfInstancesColumnValues,
@@ -46,8 +46,8 @@ final class Table
 			final long maximum)
 	{
 		this.database = database;
-		this.id = intern(database.properties.trimmerLegacy.trimString(id));
-		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
+		this.name = intern(database.properties.trimmerLegacy.trimString(name));
+		this.nameQuoted = intern(database.dsmfDialect.quoteName(this.name));
 		//noinspection ThisEscapedInObjectConstruction
 		this.primaryKey =
 			(supertype!=null)
@@ -221,12 +221,12 @@ final class Table
 
 	String makeGlobalID(final TrimClass trimClass, final String suffix)
 	{
-		return database.properties.trimmer(trimClass).trimString(id + '_' + suffix);
+		return database.properties.trimmer(trimClass).trimString(name + '_' + suffix);
 	}
 
 	void makeSchema(final Schema schema)
 	{
-		final com.exedio.dsmf.Table result = schema.newTable(id);
+		final com.exedio.dsmf.Table result = schema.newTable(name);
 
 		for(final Column c : getAllColumns())
 			c.makeSchema(result);
@@ -241,6 +241,6 @@ final class Table
 	@Override
 	public String toString()
 	{
-		return id;
+		return name;
 	}
 }

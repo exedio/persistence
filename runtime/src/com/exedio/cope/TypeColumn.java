@@ -22,7 +22,7 @@ import java.util.SortedSet;
 
 final class TypeColumn extends StringColumn
 {
-	private final String itemColumnQuotedID;
+	private final String itemColumnNameQuoted;
 
 	TypeColumn(
 			final Table table,
@@ -31,8 +31,8 @@ final class TypeColumn extends StringColumn
 			final int minLength,
 			final SortedSet<String> allowedValues)
 	{
-		super(table, itemColumn.id + "Type"/* not equal to "name"! */, false, optional, minLength, allowedValues);
-		this.itemColumnQuotedID = itemColumn.quotedID;
+		super(table, itemColumn.name + "Type"/* not equal to "name"! */, false, optional, minLength, allowedValues);
+		this.itemColumnNameQuoted = itemColumn.nameQuoted;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ final class TypeColumn extends StringColumn
 			return;
 
 		newCheck(dsmf, "NS",
-				"((" + quotedID + " IS NOT NULL) AND (" + itemColumnQuotedID + " IS NOT NULL)) OR " +
-				"((" + quotedID + " IS "+ "NULL) AND (" + itemColumnQuotedID + " IS "+ "NULL))");
+				"((" + nameQuoted + " IS NOT NULL) AND (" + itemColumnNameQuoted + " IS NOT NULL)) OR " +
+				"((" + nameQuoted + " IS "+ "NULL) AND (" + itemColumnNameQuoted + " IS "+ "NULL))");
 	}
 }

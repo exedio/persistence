@@ -29,13 +29,13 @@ final class ItemColumn extends IntegerColumn
 
 	ItemColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean optional,
 			final Type<?> targetType)
 	{
-		super(table, id, false, optional, PK.MIN_VALUE, false, targetType.createLimit, true);
+		super(table, name, false, optional, PK.MIN_VALUE, false, targetType.createLimit, true);
 		this.targetType = targetType;
-		this.foreignKeyConstraintName = intern(makeGlobalID(TrimClass.standard, "Fk"));
+		this.foreignKeyConstraintName = intern(makeGlobalName(TrimClass.standard, "Fk"));
 	}
 
 	/**
@@ -46,7 +46,7 @@ final class ItemColumn extends IntegerColumn
 		super(table, maximum);
 		assert targetType!=null;
 		this.targetType = targetType;
-		this.foreignKeyConstraintName = table.id + "_Sup";
+		this.foreignKeyConstraintName = table.name + "_Sup";
 	}
 
 	@Override
@@ -54,6 +54,6 @@ final class ItemColumn extends IntegerColumn
 	{
 		super.makeSchema(dsmf);
 		final Table targetTable = targetType.table();
-		dsmf.newForeignKey(foreignKeyConstraintName, targetTable.id, targetTable.primaryKey.id);
+		dsmf.newForeignKey(foreignKeyConstraintName, targetTable.name, targetTable.primaryKey.name);
 	}
 }

@@ -164,11 +164,11 @@ final class Database
 				sb.append("union");
 
 			sb.append("(SELECT '").
-				append(table.id).
+				append(table.name).
 				append("' t, COUNT(*) c, ").
 				append(n++).
 				append(" n FROM ").
-				append(table.quotedID).
+				append(table.nameQuoted).
 				append(')');
 		}
 		sb.append(") b WHERE c>0 ORDER BY n");
@@ -255,7 +255,7 @@ final class Database
 			else
 				st.append(',');
 
-			st.append(superType.table().quotedID);
+			st.append(superType.table().nameQuoted);
 		}
 
 		st.append(" WHERE ");
@@ -294,8 +294,8 @@ final class Database
 						if(value<0)
 							throw new IllegalStateException(
 									"update counter must be positive: " +
-									table.quotedID + '.' + updateCounter.quotedID + '=' + value +
-									" where " + table.primaryKey.quotedID + '=' + item.pk);
+									table.nameQuoted + '.' + updateCounter.nameQuoted + '=' + value +
+									" where " + table.primaryKey.nameQuoted + '=' + item.pk);
 						updateCountBuilder.set(superType, value);
 					}
 
@@ -348,7 +348,7 @@ final class Database
 		if(present)
 		{
 			st.append("UPDATE ").
-				append(table.quotedID).
+				append(table.nameQuoted).
 				append(" SET ");
 
 			boolean first = true;
@@ -368,7 +368,7 @@ final class Database
 				else
 					st.append(',');
 
-				st.append(column.quotedID).
+				st.append(column.nameQuoted).
 					append('=');
 
 				if(column instanceof BlobColumn)
@@ -381,13 +381,13 @@ final class Database
 			if(updateCounter!=null)
 			{
 				st.append(',').
-					append(updateCounter.quotedID).
+					append(updateCounter.nameQuoted).
 					append('=').
 					appendParameter(updateCounter, nextUpdateCount.nextValue(type));
 			}
 
 			st.append(" WHERE ").
-				append(table.primaryKey.quotedID).
+				append(table.primaryKey.nameQuoted).
 				append('=').
 				appendParameter(state.pk).
 				appendTypeCheck(table, state.type);
@@ -395,7 +395,7 @@ final class Database
 			if(updateCounter!=null)
 			{
 				st.append(" AND ").
-					append(updateCounter.quotedID).
+					append(updateCounter.nameQuoted).
 					append('=').
 					appendParameter(state.updateCount.getValue(type));
 			}
@@ -403,20 +403,20 @@ final class Database
 		else
 		{
 			st.append("INSERT INTO ").
-				append(table.quotedID).
+				append(table.nameQuoted).
 				append("(").
-				append(table.primaryKey.quotedID);
+				append(table.primaryKey.nameQuoted);
 
 			if(typeColumn!=null)
 			{
 				st.append(',').
-					append(typeColumn.quotedID);
+					append(typeColumn.nameQuoted);
 			}
 
 			if(updateCounter!=null)
 			{
 				st.append(',').
-					append(updateCounter.quotedID);
+					append(updateCounter.nameQuoted);
 			}
 
 			for(final Column column : columns)
@@ -424,7 +424,7 @@ final class Database
 				if(!(column instanceof BlobColumn) || blobs.containsKey(column))
 				{
 					st.append(',').
-						append(column.quotedID);
+						append(column.nameQuoted);
 				}
 			}
 

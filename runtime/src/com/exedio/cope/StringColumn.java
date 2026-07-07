@@ -34,7 +34,7 @@ class StringColumn extends Column
 
 	StringColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean optional,
 			final int minimumLength,
 			final int maximumLength,
@@ -42,7 +42,7 @@ class StringColumn extends Column
 			final String regexpPattern,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		super(table, id, false, Kind.nonPrimaryKey(optional));
+		super(table, name, false, Kind.nonPrimaryKey(optional));
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
@@ -56,13 +56,13 @@ class StringColumn extends Column
 	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	StringColumn(
 			final Table table,
-			final String id,
+			final String name,
 			final boolean synthetic,
 			final boolean optional,
 			final int minLength,
 			final SortedSet<String> allowedValues)
 	{
-		super(table, id, synthetic, Kind.nonPrimaryKey(optional));
+		super(table, name, synthetic, Kind.nonPrimaryKey(optional));
 		this.minimumLength = 0;
 		this.maximumLength = Math.max(minLength, maxLength(allowedValues));
 		this.charSet  = null;
@@ -71,7 +71,7 @@ class StringColumn extends Column
 		this.mysqlExtendedVarchar = null;
 
 		if(allowedValues.size()<2)
-			throw new RuntimeException(id);
+			throw new RuntimeException(name);
 
 		assert minimumLength<=maximumLength;
 	}
@@ -103,7 +103,7 @@ class StringColumn extends Column
 		{
 			final StringBuilder sb = new StringBuilder();
 
-			sb.append(quotedID).
+			sb.append(nameQuoted).
 				append(" IN (");
 
 			boolean first = true;
@@ -127,20 +127,20 @@ class StringColumn extends Column
 			{
 				final boolean exact = minimumLength==maximumLength;
 				if(minimumLength>0)
-					newCheck(dsmf, "MN", "CHAR_LENGTH(" + quotedID + (exact?")=":")>=") + minimumLength);
+					newCheck(dsmf, "MN", "CHAR_LENGTH(" + nameQuoted + (exact?")=":")>=") + minimumLength);
 				if(!exact)
-					newCheck(dsmf, "MX", "CHAR_LENGTH(" + quotedID +             ")<="  + maximumLength);
+					newCheck(dsmf, "MX", "CHAR_LENGTH(" + nameQuoted +             ")<="  + maximumLength);
 			}
 
 			if(charSet!=null)
 			{
-				final String clause = table.database.dialect.getClause(quotedID, charSet);
+				final String clause = table.database.dialect.getClause(nameQuoted, charSet);
 				if(clause!=null)
 					newCheck(dsmf, "CS", clause);
 			}
 			if(regexpPattern!=null)
 				newCheck(dsmf, "RE",
-						table.database.dialect.getClause(quotedID, regexpPattern));
+						table.database.dialect.getClause(nameQuoted, regexpPattern));
 		}
 	}
 

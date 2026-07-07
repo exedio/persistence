@@ -114,7 +114,7 @@ public final class SchemaInfo
 	 */
 	public static String tableName(final Type<?> type)
 	{
-		return type.table().id;
+		return type.table().name;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public final class SchemaInfo
 	 */
 	public static String tableNameQuoted(final Type<?> type)
 	{
-		return type.table().quotedID;
+		return type.table().nameQuoted;
 	}
 
 	/**
@@ -143,7 +143,7 @@ public final class SchemaInfo
 	 */
 	public static String primaryKeyColumnName(final Type<?> type)
 	{
-		return type.table().primaryKey.id;
+		return type.table().primaryKey.name;
 	}
 
 	/**
@@ -151,7 +151,7 @@ public final class SchemaInfo
 	 */
 	public static String primaryKeyColumnNameQuoted(final Type<?> type)
 	{
-		return type.table().primaryKey.quotedID;
+		return type.table().primaryKey.nameQuoted;
 	}
 
 	/**
@@ -222,7 +222,7 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnName(final Type<?> type)
 	{
-		return typeColumn(type).id;
+		return typeColumn(type).name;
 	}
 
 	private static Column typeColumn(final Type<?> type)
@@ -239,7 +239,7 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnNameQuoted(final Type<?> type)
 	{
-		return typeColumn(type).quotedID;
+		return typeColumn(type).nameQuoted;
 	}
 
 	/**
@@ -286,7 +286,7 @@ public final class SchemaInfo
 	 */
 	public static String updateCounterColumnName(final Type<?> type)
 	{
-		return updateCounterColumn(type).id;
+		return updateCounterColumn(type).name;
 	}
 
 	private static Column updateCounterColumn(final Type<?> type)
@@ -303,7 +303,7 @@ public final class SchemaInfo
 	 */
 	public static String updateCounterColumnNameQuoted(final Type<?> type)
 	{
-		return updateCounterColumn(type).quotedID;
+		return updateCounterColumn(type).nameQuoted;
 	}
 
 	/**
@@ -325,7 +325,7 @@ public final class SchemaInfo
 	 */
 	public static String columnName(final Field<?> field)
 	{
-		return field.column().id;
+		return field.column().name;
 	}
 
 	/**
@@ -333,7 +333,7 @@ public final class SchemaInfo
 	 */
 	public static String columnNameQuoted(final Field<?> field)
 	{
-		return field.column().quotedID;
+		return field.column().nameQuoted;
 	}
 
 	/**
@@ -361,7 +361,7 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnName(final ItemField<?> field)
 	{
-		return typeColumn(field).id;
+		return typeColumn(field).name;
 	}
 
 	private static Column typeColumn(final ItemField<?> field)
@@ -378,7 +378,7 @@ public final class SchemaInfo
 	 */
 	public static String typeColumnNameQuoted(final ItemField<?> field)
 	{
-		return typeColumn(field).quotedID;
+		return typeColumn(field).nameQuoted;
 	}
 
 	/**
@@ -482,7 +482,7 @@ public final class SchemaInfo
 	 */
 	public static String sequenceNameQuoted(final Sequence sequence)
 	{
-		return quote(sequence.getType(), sequenceName(sequence)); // TODO use quotedName
+		return quote(sequence.getType(), sequenceName(sequence)); // TODO use nameQuoted
 	}
 
 	/**

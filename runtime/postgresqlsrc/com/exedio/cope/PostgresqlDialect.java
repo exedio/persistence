@@ -172,16 +172,16 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	String getDateExtract(final String quotedName, final Precision precision)
+	String getDateExtract(final String nameQuoted, final Precision precision)
 	{
 		// EXTRACT works as well, but is normalized to date_part
-		return "\"date_part\"('" + precision.sql() + "', " + quotedName + ")";
+		return "\"date_part\"('" + precision.sql() + "', " + nameQuoted + ")";
 	}
 
 	@Override
-	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	String getDateIntegerPrecision(final String nameQuoted, final Precision precision)
 	{
-		return "(" + quotedName + " % " + precision.divisor() + ")=0";
+		return "(" + nameQuoted + " % " + precision.divisor() + ")=0";
 	}
 
 	@Override
@@ -337,11 +337,11 @@ final class PostgresqlDialect extends Dialect
 
 	@Override
 	void deleteSequence(
-			final StringBuilder sb, final String quotedName,
+			final StringBuilder sb, final String nameQuoted,
 			final long start)
 	{
 		sb.append("ALTER SEQUENCE ").
-			append(quotedName).
+			append(nameQuoted).
 			append(" RESTART WITH ").
 			append(start).
 			append(';');
@@ -351,20 +351,20 @@ final class PostgresqlDialect extends Dialect
 	Long nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String quotedName)
+			final String nameQuoted)
 	{
 		final Statement st = executor.newStatement();
 		st.append("SELECT NEXTVAL('").
-			append(quotedName).
+			append(nameQuoted).
 			append("')");
 
 		return executor.query(connection, st, Executor.Kind.other, resultSet ->
 			{
 				if(!resultSet.next())
-					throw new RuntimeException("empty in sequence " + quotedName);
+					throw new RuntimeException("empty in sequence " + nameQuoted);
 				final long result = resultSet.getLong(1);
 				if(resultSet.wasNull())
-					throw new RuntimeException("null in sequence " + quotedName);
+					throw new RuntimeException("null in sequence " + nameQuoted);
 				return result;
 			}
 		);
@@ -418,7 +418,7 @@ final class PostgresqlDialect extends Dialect
 				else
 					sb.append(',');
 
-				sb.append(table.quotedID);
+				sb.append(table.nameQuoted);
 			}
 			sb.append(" CASCADE;");
 		}

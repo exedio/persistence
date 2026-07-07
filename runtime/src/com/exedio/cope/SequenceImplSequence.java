@@ -33,7 +33,7 @@ final class SequenceImplSequence implements SequenceImpl
 	private final Executor executor;
 	private final ConnectionPool connectionPool;
 	private final String name;
-	private final String quotedName;
+	private final String nameQuoted;
 
 	SequenceImplSequence(
 			final ModelMetrics metrics,
@@ -49,8 +49,8 @@ final class SequenceImplSequence implements SequenceImpl
 		this.start = start;
 		this.executor = database.executor;
 		this.connectionPool = connectionPool;
-		this.name = column.makeGlobalID(TrimClass.legacy, nameSuffix);
-		this.quotedName = database.dsmfDialect.quoteName(this.name);
+		this.name = column.makeGlobalName(TrimClass.legacy, nameSuffix);
+		this.nameQuoted = database.dsmfDialect.quoteName(this.name);
 	}
 
 	SequenceImplSequence(
@@ -68,7 +68,7 @@ final class SequenceImplSequence implements SequenceImpl
 		this.executor = executor;
 		this.connectionPool = connectionPool;
 		this.name = name;
-		this.quotedName = dsmfDialect.quoteName(this.name);
+		this.nameQuoted = dsmfDialect.quoteName(this.name);
 	}
 
 	private static Timer timer(final ModelMetrics metrics)
@@ -89,7 +89,7 @@ final class SequenceImplSequence implements SequenceImpl
 		try
 		{
 			final Timer.Sample start = Timer.start();
-			final long result = executor.dialect.nextSequence(executor, connection, quotedName);
+			final long result = executor.dialect.nextSequence(executor, connection, nameQuoted);
 			start.stop(timer);
 			return result;
 		}
@@ -116,7 +116,7 @@ final class SequenceImplSequence implements SequenceImpl
 	@Override
 	public void delete(final StringBuilder sb, final Dialect dialect)
 	{
-		dialect.deleteSequence(sb, quotedName, start);
+		dialect.deleteSequence(sb, nameQuoted, start);
 	}
 
 	@Override

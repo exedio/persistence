@@ -60,7 +60,7 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	String getDateIntegerPrecision(final String nameQuoted, final Precision precision)
 	{
 		throw new AssertionError();
 	}
@@ -106,13 +106,13 @@ class AssertionFailedDialect extends Dialect
 	}
 	@Override
 	void deleteSequence(
-			final StringBuilder sb, final String quotedName,
+			final StringBuilder sb, final String nameQuoted,
 			final long start)
 	{
 		throw new AssertionError();
 	}
 	@Override
-	Long nextSequence(final Executor executor, final Connection connection, final String quotedName)
+	Long nextSequence(final Executor executor, final Connection connection, final String nameQuoted)
 	{
 		throw new AssertionError();
 	}

@@ -303,17 +303,17 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String quotedName)
+	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String nameQuoted)
 	{
 		return
 				"EXTRACT(" + (isSecond?"MICROSECOND":"SECOND_MICROSECOND") + ' ' +
-				"FROM " + quotedName + ")=0";
+				"FROM " + nameQuoted + ")=0";
 	}
 
 	@Override
-	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	String getDateIntegerPrecision(final String nameQuoted, final Precision precision)
 	{
-		return "(" + quotedName + " MOD " + precision.divisor() + ")=0";
+		return "(" + nameQuoted + " MOD " + precision.divisor() + ")=0";
 	}
 
 	@Override
@@ -555,13 +555,13 @@ final class MysqlDialect extends Dialect
 
 	@Override
 	void deleteSequence(
-			final StringBuilder sb, final String quotedName,
+			final StringBuilder sb, final String nameQuoted,
 			final long start)
 	{
 		sb.append("TRUNCATE ").
-			append(quotedName);
+			append(nameQuoted);
 
-		MysqlSchemaDialect.initializeSequence(sb, quotedName, start);
+		MysqlSchemaDialect.initializeSequence(sb, nameQuoted, start);
 
 		sb.append(';');
 	}
@@ -570,20 +570,20 @@ final class MysqlDialect extends Dialect
 	Long nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String quotedName)
+			final String nameQuoted)
 	{
 		final Statement st = executor.newStatement();
 		st.append("INSERT "). // MySQL allows INSERT without INTO: https://dev.mysql.com/doc/refman/5.7/en/insert.html
-			append(quotedName).
+			append(nameQuoted).
 			append(" VALUES()");
 
 		return executor.insertAndGetGeneratedKeysWithoutTimer(connection, st, resultSet -> // withoutTimer is ok, because Dialect#nextSequence is measured by caller
 			{
 				if(!resultSet.next())
-					throw new RuntimeException("empty in sequence " + quotedName);
+					throw new RuntimeException("empty in sequence " + nameQuoted);
 				final long result = resultSet.getLong(1);
 				if(resultSet.wasNull())
-					throw new RuntimeException("null in sequence " + quotedName);
+					throw new RuntimeException("null in sequence " + nameQuoted);
 				return result - 1;
 			}
 		);
@@ -632,7 +632,7 @@ final class MysqlDialect extends Dialect
 			for(final Table table : tables)
 			{
 				sb.append(deleteTable).
-					append(table.quotedID).
+					append(table.nameQuoted).
 					append(';');
 			}
 
