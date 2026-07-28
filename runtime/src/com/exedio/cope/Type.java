@@ -55,6 +55,8 @@ import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Function;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @SuppressWarnings("ComparableImplementedButEqualsNotOverridden") // OK: compareTo just changes order, but not equality
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, AbstractType<T>
@@ -1153,7 +1155,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
 	 * result in an {@code UnsupportedOperationException}.
 	 */
-	public List<T> search()
+	public @NonNull List<T> search()
 	{
 		return search(null);
 	}
@@ -1167,7 +1169,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 *
 	 * @param condition the condition the searched items must match.
 	 */
-	public List<T> search(final Condition condition)
+	public @NonNull List<T> search(final Condition condition)
 	{
 		return newQuery(condition).search();
 	}
@@ -1183,7 +1185,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @param condition the condition the searched items must match.
 	 * @param ascending whether the result is sorted ascendingly ({@code true}) or descendingly ({@code false}).
 	 */
-	public List<T> search(final Condition condition, final com.exedio.cope.Function<?> orderBy, final boolean ascending)
+	public @NonNull List<T> search(final Condition condition, final com.exedio.cope.Function<?> orderBy, final boolean ascending)
 	{
 		final Query<T> query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
@@ -1201,7 +1203,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @see Query#searchSingleton()
 	 * @see #searchSingletonStrict(Condition)
 	 */
-	public T searchSingleton(final Condition condition)
+	public @Nullable T searchSingleton(final Condition condition)
 	{
 		return newQuery(condition).searchSingleton();
 	}
@@ -1216,7 +1218,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @see Query#searchSingletonStrict()
 	 * @see #searchSingleton(Condition)
 	 */
-	public T searchSingletonStrict(final Condition condition)
+	public @NonNull T searchSingletonStrict(final Condition condition)
 	{
 		return newQuery(condition).searchSingletonStrict();
 	}
