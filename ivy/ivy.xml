@@ -94,7 +94,7 @@
 		<dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="ant-contrib->default">
 			<exclude org="ant" module="ant" />
 		</dependency>
-		<dependency org="org.apache.ivy" name="ivy" rev="2.5.2" conf="ivy->default" />
+		<dependency org="org.apache.ivy" name="ivy" rev="2.6.0" conf="ivy->default" />
 		<dependency org="org.apache.tomcat" name="tomcat" rev="10.1.34" conf="tomcat->default">
 			<artifact name="tomcat" type="tar.gz" />
 		</dependency>
