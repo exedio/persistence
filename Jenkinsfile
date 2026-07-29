@@ -319,25 +319,25 @@ try
 			envMysql(
 				'my80-stampsA',
 				'mysql',
-				'MASTER', 'mysql-bin',
+				'MASTER', 'IRRELEVANT',
 				'cache.stamps=true'
 			)
 			envMysql(
 				'my80-stampsB',
 				'mysql',
-				'MASTER', 'mysql-bin',
+				'MASTER', 'IRRELEVANT',
 				'cache.stamps=false'
 			)
 			envMysql(
 				'my80m-stampsA',
 				'mariadb',
-				'MASTER', 'mysql-bin',
+				'MASTER', 'IRRELEVANT',
 				'cache.stamps=true'
 			)
 			envMysql(
 				'my80m-stampsB',
 				'mariadb',
-				'MASTER', 'mysql-bin',
+				'MASTER', 'IRRELEVANT',
 				'cache.stamps=false'
 			)
 
