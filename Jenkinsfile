@@ -16,8 +16,6 @@ String idea = '2025.3.3-PATCHED'
 @Field
 String ideaSHA256 = '38a4392fe2117185c3991d9bc8dd83bacdcfa0e1e223ce33c082cbef618d99a9'
 @Field
-String databaseMysql57 = '5.7.40'
-@Field
 String databaseMysql80 = '8.0.36'
 @Field
 String databaseMysql84 = '8.4.8'
@@ -306,7 +304,6 @@ try
 
 	if(branchConsidersDatabase("Mysql"))
 	{
-		branchMysql(parallelBranches, '57', databaseMysql57, 'my57.cnf', '/var/log/mysql',       'MASTER', /\\p{XDigit}{12}-bin/)
 		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'MASTER',     'binlog')
 		branchMysql(parallelBranches, '84', databaseMysql84, 'my80.cnf', '/var/lib/mysql-files', 'BINARY LOG', 'binlog')
 		branchMysql(parallelBranches, '97', databaseMysql97, 'my80.cnf', '/var/lib/mysql-files', 'BINARY LOG', 'binlog')

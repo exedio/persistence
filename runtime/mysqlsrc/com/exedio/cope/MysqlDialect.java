@@ -100,7 +100,7 @@ final class MysqlDialect extends Dialect
 		super(new MysqlSchemaDialect(probe, properties));
 
 		final EnvironmentInfo env = probe.environmentInfo();
-		env.requireDatabaseVersionAtLeast("MySQL", 5, 7);
+		env.requireDatabaseVersionAtLeast("MySQL", 8, 0);
 
 		final boolean version8 = env.isDatabaseVersionAtLeast(8, 0);
 		timeZoneStatement = properties.timeZoneStatement();
