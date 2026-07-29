@@ -304,9 +304,9 @@ try
 
 	if(branchConsidersDatabase("Mysql"))
 	{
-		branchMysql(parallelBranches, '80', databaseMysql80, 'my80.cnf', '/var/lib/mysql-files', 'MASTER',     'binlog')
-		branchMysql(parallelBranches, '84', databaseMysql84, 'my80.cnf', '/var/lib/mysql-files', 'BINARY LOG', 'binlog')
-		branchMysql(parallelBranches, '97', databaseMysql97, 'my80.cnf', '/var/lib/mysql-files', 'BINARY LOG', 'binlog')
+		branchMysql(parallelBranches, '80', databaseMysql80, 'MASTER',     'binlog')
+		branchMysql(parallelBranches, '84', databaseMysql84, 'BINARY LOG', 'binlog')
+		branchMysql(parallelBranches, '97', databaseMysql97, 'BINARY LOG', 'binlog')
 	}
 
 	if(branchConsidersDatabase("Mysql"))
@@ -720,8 +720,6 @@ void branchMysql(
 		Map<String, Closure<?>> parallelBranches,
 		String code,
 		String version,
-		String conf,
-		String tmpfsDir,
 		String binlogSql,
 		String binlogName)
 {
@@ -854,7 +852,7 @@ void branchMysql(
 			def dbImage = docker.build(
 				imageName('Mysql' + code, 'db'),
 				'--build-arg VERSION=' + version + ' ' +
-				'--build-arg CONF=' + conf + ' ' +
+				'--build-arg CONF=my80.cnf ' +
 				'conf/mysql')
 
 			withBridge("Mysql" + code + "-db") { dbBridge ->
@@ -865,7 +863,7 @@ void branchMysql(
 					"--cap-add SETUID " +
 					"--cap-add DAC_OVERRIDE " +
 					"--tmpfs /var/lib/mysql:rw " +
-					"--tmpfs " + tmpfsDir + ":rw "
+					"--tmpfs /var/lib/mysql-files:rw "
 				) { c ->
 					mainImage.inside(
 						dockerRunDefaults(dbBridge) +
