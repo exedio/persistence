@@ -37,7 +37,6 @@ import java.util.Map;
 final class MysqlSchemaDialect extends Dialect
 {
 	private final boolean version8;
-	private final boolean supportsCheckConstraint;
 	private final String foreignKeyRule;
 	private final String rowFormat;
 
@@ -47,13 +46,11 @@ final class MysqlSchemaDialect extends Dialect
 	{
 		super(probe.properties().disableCheckConstraint);
 		version8 = probe.environmentInfo().isDatabaseVersionAtLeast(8, 0);
-		supportsCheckConstraint = version8;
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		foreignKeyRule = version8 ? "NO ACTION" : "RESTRICT";
 		rowFormat = properties.rowFormat.sql();
 
-		if(supportsCheckConstraint)
 		{
 			final Replacements r = new Replacements();
 			r.add("\\bchar_length(\\(`\\w*`\\))",  "CHAR_LENGTH$1");
@@ -77,8 +74,6 @@ final class MysqlSchemaDialect extends Dialect
 			r.add("\\(`(\\w*)` % (1000|60000|3600000)\\)=0", "(`$1` MOD $2)=0");
 			adjustExistingCheckConstraintCondition = r;
 		}
-		else
-			adjustExistingCheckConstraintCondition = null;
 	}
 
 	@Override
@@ -102,12 +97,6 @@ final class MysqlSchemaDialect extends Dialect
 			throw new IllegalArgumentException("database name contains forbidden characters: "+name);
 
 		return QUOTE_CHARACTER + name + QUOTE_CHARACTER;
-	}
-
-	@Override
-	public boolean supportsCheckConstraint()
-	{
-		return supportsCheckConstraint;
 	}
 
 	@Override
@@ -217,7 +206,7 @@ final class MysqlSchemaDialect extends Dialect
 			}
 		});
 
-		if(supportsCheckConstraint)
+		// check constraints
 		{
 			// Querying TABLE_CONSTRAINTS and CHECK_CONSTRAINTS separately is much faster
 			// than a database join between both tables.
