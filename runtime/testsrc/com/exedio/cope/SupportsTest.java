@@ -62,7 +62,6 @@ public class SupportsTest extends TestWithEnvironment
 			{
 				databaseProductName = "HSQL Database Engine";
 				dataHashAlgorithms.clear(); // TODO support more
-				checkConstraint = !propertiesHsqldbMysql57();
 				uniqueViolation = true;
 			}
 			case mysql ->

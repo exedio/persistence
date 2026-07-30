@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.HsqldbDialect.Props;
 import com.exedio.dsmf.Dialect;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -31,21 +30,13 @@ import java.util.regex.Pattern;
 
 final class HsqldbSchemaDialect extends Dialect
 {
-	private final boolean supportsCheckConstraint;
 
-	HsqldbSchemaDialect(final CopeProbe probe, final Props properties)
+	HsqldbSchemaDialect(final CopeProbe probe)
 	{
 		super(probe.properties().disableCheckConstraint);
-		this.supportsCheckConstraint = properties.approximate.supportsCheckConstraint();
 		final Replacements r = adjustExistingCheckConstraintCondition;
 		r.add("(\"\\w*\")!=", "$1<>");
 		r.add("NOT (REGEXP_MATCHES\\(\"\\w*\",'.*'\\))", "NOT ($1)");
-	}
-
-	@Override
-	public boolean supportsCheckConstraint()
-	{
-		return supportsCheckConstraint;
 	}
 
 	@Override
