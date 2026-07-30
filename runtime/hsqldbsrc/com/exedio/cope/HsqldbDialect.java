@@ -52,25 +52,13 @@ final class HsqldbDialect extends Dialect
 {
 	static final class Props extends Properties
 	{
-		final Approximate approximate = value("approximate", Approximate.nothing);
+		final boolean fakeSchemaSavepoint = value("fakeSchemaSavepoint", false);
 
 		@SuppressWarnings("unused") // OK: called by reflection
 		Props(final Source source) { super(source); }
 	}
 
-	enum Approximate
-	{
-		nothing,
-		@SuppressWarnings("unused")
-		mysql57
-		{
-			@Override boolean supportsSchemaSavepoint() { return true; }
-		};
-
-		boolean supportsSchemaSavepoint() { return false; }
-	}
-
-	private final Approximate approximate;
+	private final boolean fakeSchemaSavepoint;
 
 	/**
 	 * @param probe must be there to be called by reflection
@@ -81,7 +69,7 @@ final class HsqldbDialect extends Dialect
 		probe.environmentInfo().
 				requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 7);
 
-		approximate = props.approximate;
+		fakeSchemaSavepoint = props.fakeSchemaSavepoint;
 	}
 
 	@Override
@@ -447,7 +435,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SchemaSavepointNotAvailableException, SQLException
 	{
-		if(!approximate.supportsSchemaSavepoint())
+		if(!fakeSchemaSavepoint)
 			return super.getSchemaSavepoint(connectionPool);
 
 		final Connection connection = connectionPool.get(true);
@@ -465,7 +453,7 @@ final class HsqldbDialect extends Dialect
 			if(rs.next())
 				throw new SQLException("multiple lines");
 
-			return "hsqldb approximate schemaSavepoint " + approximate + ' ' + now;
+			return "hsqldb fakeSchemaSavepoint " + now;
 		}
 		finally
 		{
