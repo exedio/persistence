@@ -94,7 +94,7 @@ public class ConnectPropertiesTest
 				"connection.password",
 				"connection.isValidOnGetTimeout",
 				"dialect",
-				"dialect.approximate",
+				"dialect.fakeSchemaSavepoint",
 				"disableSupport.preparedStatements",
 				"disableSupport.checkConstraint",
 				"disableSupport.nativeDate",
