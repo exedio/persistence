@@ -88,7 +88,6 @@ final class MysqlDialect extends Dialect
 	private final String timeZoneStatement;
 	private final boolean connectionCompress;
 	private final int purgeSequenceLimit;
-	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
 	private final String schemaSavepointSQL;
 	private final boolean legacyHashesAllowed;
@@ -106,11 +105,6 @@ final class MysqlDialect extends Dialect
 		timeZoneStatement = properties.timeZoneStatement();
 		connectionCompress = properties.connectionCompress;
 		purgeSequenceLimit = properties.purgeSequenceLimit;
-
-		// Starting with MySQL 8.0.4 regular expression support uses a library called
-		// "International Components for Unicode (ICU)"
-		// https://dev.mysql.com/doc/refman/8.0/en/regexp.html
-		regexpICU = version8;
 
 		extractUniqueViolationMessagePattern = EXTRACT_UNIQUE_VIOLATION_MESSAGE_PATTERN(version8);
 		schemaSavepointSQL = env.isDatabaseVersionAtLeast(8, 4)
@@ -475,9 +469,7 @@ final class MysqlDialect extends Dialect
 	{
 		st.append(function).
 			append(REGEXP + "CAST(").
-			appendParameter(regexpICU
-					? RegexpLikeCondition.getIcuRegexp(regexp)
-					: "^" + regexp + "$").
+			appendParameter(RegexpLikeCondition.getIcuRegexp(regexp)).
 			append(" AS CHAR)");
 	}
 
@@ -486,38 +478,17 @@ final class MysqlDialect extends Dialect
 	{
 		return column + REGEXP + "CAST(" +
 				 StringColumn.cacheToDatabaseStatic(
-						 regexpICU
-								? RegexpLikeCondition.getIcuRegexp(regexp)
-								: "^" + regexp + "$") +
+						RegexpLikeCondition.getIcuRegexp(regexp)) +
 				 " AS CHAR)";
 	}
 
 	@Override
 	String getClause(final String column, final CharSet set)
 	{
-		if(regexpICU || set.isSubsetOfAscii())
-		{
-			return
-					column + REGEXP +
-					StringColumn.cacheToDatabaseStatic(
-							regexpICU
-							? ICU.getRegularExpression(set)
-							: set.getRegularExpression());
-		}
-		else
-		{
-			final String re = set.getRegularExpressionForInvalid7BitChars();
-			if (re==null)
-			{
-				return super.getClause(column, set);
-			}
-			else
-			{
-				return
-						column + " NOT" + REGEXP +
-						StringColumn.cacheToDatabaseStatic(re);
-			}
-		}
+		return
+				column + REGEXP +
+				StringColumn.cacheToDatabaseStatic(
+						ICU.getRegularExpression(set));
 	}
 
 	@Override
@@ -527,20 +498,9 @@ final class MysqlDialect extends Dialect
 			final Join join,
 			final CharSet set)
 	{
-		if(!regexpICU && !set.isSubsetOfAscii())
-			throw new UnsupportedQueryException(
-					"CharSetCondition not supported by " + getClass().getName() + " " +
-					"with non-ASCII CharSet: " + set);
-
 		statement.
 			append(function, join).
 			append(REGEXP);
-
-		if(!regexpICU)
-		{
-			statement.appendParameter(set.getRegularExpression());
-			return;
-		}
 
 		statement.
 			// CAST is needed because beginning with MySQL 8.0.22 this expression fails with:
