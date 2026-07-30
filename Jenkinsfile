@@ -345,7 +345,6 @@ try
 			def dbImage = docker.build(
 				imageName('Mysql80CR', 'db'),
 				'--build-arg VERSION=' + databaseMysql80 + ' ' +
-				'--build-arg CONF=my80.cnf ' +
 				'conf/mysql')
 
 			withBridge("Mysql80CR-db") { dbBridge ->
@@ -851,7 +850,6 @@ void branchMysql(
 			def dbImage = docker.build(
 				imageName('Mysql' + code, 'db'),
 				'--build-arg VERSION=' + version + ' ' +
-				'--build-arg CONF=my80.cnf ' +
 				'conf/mysql')
 
 			withBridge("Mysql" + code + "-db") { dbBridge ->
