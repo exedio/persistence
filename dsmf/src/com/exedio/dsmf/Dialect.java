@@ -109,9 +109,7 @@ public abstract class Dialect
 
 	protected static final void verifyForeignKeyConstraints(
 			final Schema schema,
-			final String sql,
-			final String deleteRule,
-			final String updateRule)
+			final String sql)
 	{
 		schema.querySQL(sql, resultSet ->
 		{
@@ -124,25 +122,25 @@ public abstract class Dialect
 						resultSet.getString(4), // targetTable
 						resultSet.getString(5));// targetColumn
 
-				verifyForeignKeyConstraintRule(constraint, "delete", deleteRule, resultSet, 6);
-				verifyForeignKeyConstraintRule(constraint, "update", updateRule, resultSet, 7);
+				verifyForeignKeyConstraintRule(constraint, "delete", resultSet, 6);
+				verifyForeignKeyConstraintRule(constraint, "update", resultSet, 7);
 			}
 		});
 	}
 
 	private static void verifyForeignKeyConstraintRule(
 			final ForeignKeyConstraint constraint, final String name,
-			final String expected, final ResultSet resultSet, final int columnIndex)
+			final ResultSet resultSet, final int columnIndex)
 	throws SQLException
 	{
-		verifyForeignKeyConstraintRule(constraint, name, expected, resultSet.getString(columnIndex));
+		verifyForeignKeyConstraintRule(constraint, name, resultSet.getString(columnIndex));
 	}
 
 	protected static void verifyForeignKeyConstraintRule(
 			final ForeignKeyConstraint constraint, final String name,
-			final String expected, final String actual)
+			final String actual)
 	{
-		if(!expected.equals(actual))
+		if(!"NO ACTION".equals(actual))
 			notifyAdditionalError(constraint, "unexpected " + name + " rule " + actual);
 	}
 

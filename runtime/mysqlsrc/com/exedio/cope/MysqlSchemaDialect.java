@@ -37,7 +37,6 @@ import java.util.Map;
 final class MysqlSchemaDialect extends Dialect
 {
 	private final boolean version8;
-	private final String foreignKeyRule;
 	private final String rowFormat;
 
 	MysqlSchemaDialect(
@@ -46,9 +45,6 @@ final class MysqlSchemaDialect extends Dialect
 	{
 		super(probe.properties().disableCheckConstraint);
 		version8 = probe.environmentInfo().isDatabaseVersionAtLeast(8, 0);
-		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
-		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
-		foreignKeyRule = version8 ? "NO ACTION" : "RESTRICT";
 		rowFormat = properties.rowFormat.sql();
 
 		{
@@ -326,8 +322,8 @@ final class MysqlSchemaDialect extends Dialect
 						collector.referencedTableName, // targetTable
 						collector.referencedColumnName());// targetColumn
 
-				verifyForeignKeyConstraintRule(constraint, "delete", foreignKeyRule, collector.deleteRule);
-				verifyForeignKeyConstraintRule(constraint, "update", foreignKeyRule, collector.updateRule);
+				verifyForeignKeyConstraintRule(constraint, "delete", collector.deleteRule);
+				verifyForeignKeyConstraintRule(constraint, "update", collector.updateRule);
 			}
 		}
 
