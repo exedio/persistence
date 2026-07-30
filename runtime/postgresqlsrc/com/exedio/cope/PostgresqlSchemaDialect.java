@@ -227,9 +227,7 @@ final class PostgresqlSchemaDialect extends Dialect
 				"AND  src.constraint_catalog=" + catalog + " AND src.constraint_schema=" + schemaL + " " +
 				"AND  src.table_catalog="      + catalog + " AND src.table_schema="      + schemaL + " " +
 				"AND  tgt.constraint_catalog=" + catalog + " AND tgt.constraint_schema=" + schemaL + " " +
-				"AND  tgt.table_catalog="      + catalog + " AND tgt.table_schema="      + schemaL,
-				// https://www.postgresql.org/docs/9.6/sql-createtable.html
-				"NO ACTION", "NO ACTION");
+				"AND  tgt.table_catalog="      + catalog + " AND tgt.table_schema="      + schemaL);
 
 		verifySequences(schema,
 				//language=SQL
