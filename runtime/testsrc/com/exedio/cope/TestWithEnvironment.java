@@ -298,23 +298,6 @@ public abstract class TestWithEnvironment
 		return model.getEnvironmentInfo();
 	}
 
-	private boolean dbAtLeast(final String name, final int major, final int minor)
-	{
-		final EnvironmentInfo info = envInfo();
-		assertEquals(name, info.getDatabaseProductName());
-		return info.isDatabaseVersionAtLeast(major, minor);
-	}
-
-	private boolean dbAtLeastMysql(final int major, final int minor)
-	{
-		return dbAtLeast("MySQL", major, minor);
-	}
-
-	protected final boolean atLeastMysql8()
-	{
-		return dbAtLeastMysql(8, 0);
-	}
-
 	protected final String dbCat()
 	{
 		return envInfo().getCatalog();

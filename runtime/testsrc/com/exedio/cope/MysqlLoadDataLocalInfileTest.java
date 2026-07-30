@@ -86,9 +86,7 @@ public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 		assertEquals(
 				mariaDriver
 				? "Local infile is disabled by connector. Enable `allowLocalInfile` to allow local infile commands"
-				: atLeastMysql8()
-				? "Loading local data is disabled; this must be enabled on both the client and server sides"
-				: "The used command is not allowed with this MySQL version",
+				: "Loading local data is disabled; this must be enabled on both the client and server sides",
 				dropMariaConnectionId(actual.getMessage()));
 	}
 }

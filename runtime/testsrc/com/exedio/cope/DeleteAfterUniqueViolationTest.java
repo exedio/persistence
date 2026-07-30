@@ -40,12 +40,10 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 	}
 
 	private boolean unq;
-	private String unqPrefix;
 
 	@BeforeEach final void setUp()
 	{
 		unq = model.connect().supportsUniqueViolation;
-		unqPrefix = unq ? ((mysql && atLeastMysql8()) ? "Main." : "") : "DO NOT ASSERT";
 	}
 
 	@Test void testCommit()
@@ -71,7 +69,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 									"integrity constraint violation: unique constraint or index violation ; " +
 									"\"Main_uniqueString_Unq\" table: \"Main\"";
 							case mysql ->
-									"Duplicate entry 'commit' for key '" + unqPrefix + "Main_uniqueString_Unq'";
+									"Duplicate entry 'commit' for key 'Main.Main_uniqueString_Unq'";
 							case postgresql ->
 									throw new AssertionFailedError(dialect.name(), e);
 						},
@@ -116,7 +114,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 									"integrity constraint violation: unique constraint or index violation ; " +
 									"\"Main_uniqueString_Unq\" table: \"Main\"";
 							case mysql ->
-									"Duplicate entry 'rollback' for key '" + unqPrefix + "Main_uniqueString_Unq'";
+									"Duplicate entry 'rollback' for key 'Main.Main_uniqueString_Unq'";
 							case postgresql ->
 									throw new AssertionFailedError(dialect.name(), e);
 						},

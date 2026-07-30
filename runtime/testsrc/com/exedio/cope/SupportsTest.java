@@ -53,7 +53,6 @@ public class SupportsTest extends TestWithEnvironment
 		final String databaseProductName;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA-1", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		final var legacyHashAlgorithms = List.of("MD5", "SHA-1");
-		boolean checkConstraint = true;
 		boolean uniqueViolation = false;
 
 		switch(dialect)
@@ -67,7 +66,6 @@ public class SupportsTest extends TestWithEnvironment
 			case mysql ->
 			{
 				databaseProductName = "MySQL";
-				checkConstraint = atLeastMysql8();
 				uniqueViolation = true;
 				if(!(Boolean)props.getField("dialect.legacyHashesAllowed").get())
 					dataHashAlgorithms.removeAll(legacyHashAlgorithms);
@@ -89,7 +87,7 @@ public class SupportsTest extends TestWithEnvironment
 		assertEquals(dataHashAlgorithms, new ArrayList<>(model.getSupportedDataHashAlgorithms()));
 
 		// SchemaInfo
-		assertEquals(checkConstraint && !props.disableCheckConstraint,                supportsCheckConstraint(model));
+		assertEquals(                   !props.disableCheckConstraint,                supportsCheckConstraint(model));
 		assertEquals(                   !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}

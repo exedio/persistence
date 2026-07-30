@@ -183,7 +183,7 @@ public class InstanceOfTest extends TestWithEnvironment
 					case mysql ->
 							"You have an error in your SQL syntax; check the manual that corresponds " +
 							"to your MySQL server version for the right syntax to use near " +
-							"'" + (atLeastMysql8()?",":"") +
+							"'," +
 							SI.type(TYPE_A) + ") FROM " + SI.tab(TYPE_A) + "' at line 1";
 					case postgresql ->
 							"ERROR: function max(integer, character varying) does not exist";
@@ -209,7 +209,7 @@ public class InstanceOfTest extends TestWithEnvironment
 					case mysql ->
 							"You have an error in your SQL syntax; check the manual that corresponds " +
 							"to your MySQL server version for the right syntax to use near " +
-							"'" + (atLeastMysql8()?",":"") +
+							"'," +
 							SI.type(ref) + ") FROM " + SI.tab(TYPE_REF) + "' at line 1";
 					case postgresql ->
 							"ERROR: function max(integer, character varying) does not exist";

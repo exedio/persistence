@@ -194,18 +194,16 @@ public class SchemaTest extends TestWithEnvironment
 				},
 				min4Max8Column.getType());
 
-		final boolean icu = mysql && atLeastMysql8();
-		final String regexpBegin = icu ? "\\A": "^";
-		final String regexpEnd   = icu ? "\\z": "$";
-		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"   +regexpEnd+"'" : "";
-		final String hexSQL   = mysql ? q(data)        +" REGEXP '"+regexpBegin+"[0-9a-f]*"+regexpEnd+"'" : "";
+
+
+
+		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '\\A[A-Z]*"   +"\\z'" : "";
+		final String hexSQL   = mysql ? q(data)        +" REGEXP '\\A[0-9a-f]*"+"\\z'" : "";
 		final String regexpSQL =
 				switch(dialect)
 				{
 					case hsqldb -> "REGEXP_MATCHES("+q(stringUpper6)+",'(?s)\\A[A-B]*\\z')";
-					case mysql -> icu
-							? q(stringUpper6)+" REGEXP CAST('(?s)\\A[A-B]*\\z' AS CHAR)"
-							: q(stringUpper6)+" REGEXP CAST('^[A-B]*$' AS CHAR)";
+					case mysql -> q(stringUpper6)+" REGEXP CAST('(?s)\\A[A-B]*\\z' AS CHAR)";
 					case postgresql -> q(stringUpper6)+" ~ '^[A-B]*$'";
 				};
 

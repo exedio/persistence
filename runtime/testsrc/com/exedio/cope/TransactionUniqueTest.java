@@ -118,7 +118,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 				{
 					assertInsert(failure);
 					assertEquals(
-							"Duplicate entry 'collision' for key '" + (atLeastMysql8()?"MyItem.":"") + "MyItem_field_Unq'",
+							"Duplicate entry 'collision' for key 'MyItem.MyItem_field_Unq'",
 							dropMariaConnectionId(failure.getCause().getMessage()));
 				}
 				else

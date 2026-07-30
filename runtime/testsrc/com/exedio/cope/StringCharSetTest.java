@@ -132,10 +132,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		if (mysql)
 		{
 			assertNotNull(table.getConstraint(charSetConstraintName(nonascii)));
-			if(atLeastMysql8())
-				assertNotNull(table.getConstraint(charSetConstraintName(asciiplus)));
-			else
-				assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
+			assertNotNull(table.getConstraint(charSetConstraintName(asciiplus)));
 		}
 		else
 		{
@@ -201,18 +198,7 @@ public class StringCharSetTest extends TestWithEnvironment
 
 		if(mysql)
 		{
-			if(isSubsetOfAscii || atLeastMysql8())
-			{
-				assertEquals(asList(result), TYPE.search(c, TYPE.getThis(), true));
-			}
-			else
-			{
-				assertFails(
-						() -> TYPE.search(c),
-						UnsupportedQueryException.class,
-						"CharSetCondition not supported by com.exedio.cope.MysqlDialect " +
-						"with non-ASCII CharSet: " + cs);
-			}
+			assertEquals(asList(result), TYPE.search(c, TYPE.getThis(), true));
 		}
 		else
 		{

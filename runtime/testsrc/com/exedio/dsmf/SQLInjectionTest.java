@@ -94,7 +94,6 @@ public class SQLInjectionTest extends SchemaTest
 		final Table table = result.newTable(TABLE);
 		table.newColumn(COLUMN, intType + ", badColumn "+(mysql ? "varchar(16384)" : "notAType"));
 
-		assumeTrue(!mysql || atLeastMysql8());
 		final SQLRuntimeException e = assertThrows(
 				SQLRuntimeException.class,
 				table::create);
