@@ -63,6 +63,6 @@ public final class UniqueConstraint extends Constraint
 	@Override
 	void drop(final StringBuilder sb)
 	{
-		dialect.dropUniqueConstraint(sb, quoteName(table.name), quoteName(name));
+		Dialect.dropConstraint(sb, quoteName(table.name), quoteName(name));
 	}
 }

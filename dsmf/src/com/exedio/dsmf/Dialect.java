@@ -561,16 +561,6 @@ public abstract class Dialect
 		dropConstraint(sb, tableName, name);
 	}
 
-	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String name)
-	{
-		dropConstraint(sb, tableName, name);
-	}
-
-	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String name)
-	{
-		dropConstraint(sb, tableName, name);
-	}
-
 	protected abstract void createSequence(
 			StringBuilder sb, String name,
 			Sequence.Type type, long start);
