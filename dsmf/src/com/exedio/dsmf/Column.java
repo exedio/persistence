@@ -199,8 +199,8 @@ public final class Column extends Node
 			dialect.renameColumn(
 				quoteName(table.name),
 				quoteName(name),
-				quoteName(newName),
-				type.getExisting()), listener);
+				quoteName(newName)
+				), listener);
 	}
 
 	public void modify(final String newType)

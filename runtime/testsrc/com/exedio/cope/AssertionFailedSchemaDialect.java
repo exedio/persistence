@@ -70,7 +70,7 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String renameColumn(final String tableName, final String name, final String newName, final String type)
+	public String renameColumn(final String tableName, final String name, final String newName)
 	{
 		throw new AssertionFailedError();
 	}

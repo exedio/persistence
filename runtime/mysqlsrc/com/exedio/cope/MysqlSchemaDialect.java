@@ -36,7 +36,6 @@ import java.util.Map;
 
 final class MysqlSchemaDialect extends Dialect
 {
-	private final boolean version8;
 	private final String rowFormat;
 
 	MysqlSchemaDialect(
@@ -44,7 +43,6 @@ final class MysqlSchemaDialect extends Dialect
 			final MysqlProperties properties)
 	{
 		super(probe.properties().disableCheckConstraint);
-		version8 = probe.environmentInfo().isDatabaseVersionAtLeast(8, 0);
 		rowFormat = properties.rowFormat.sql();
 
 		{
@@ -406,17 +404,6 @@ final class MysqlSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String renameColumn(final String tableName, final String name, final String newName, final String type)
-	{
-		if(version8) // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html#mysqld-8-0-3-sql-syntax
-			return super.renameColumn(tableName, name, newName, type);
-
-		return
-				"ALTER TABLE " + tableName +
-				" CHANGE " + name + ' ' + newName + ' ' + type;
-	}
-
-	@Override
 	public String modifyColumn(final String tableName, final String name, final String newType)
 	{
 		return
@@ -430,36 +417,6 @@ final class MysqlSchemaDialect extends Dialect
 		sb.append("ALTER TABLE ").
 			append(tableName).
 			append(" DROP PRIMARY KEY");
-	}
-
-	@Override
-	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String name)
-	{
-		if(version8) // supported since MySQL 8.0.19: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-19.html#mysqld-8-0-19-sql-syntax
-		{
-			super.dropForeignKeyConstraint(sb, tableName, name);
-			return;
-		}
-
-		sb.append("ALTER TABLE ").
-			append(tableName).
-			append(" DROP FOREIGN KEY ").
-			append(name);
-	}
-
-	@Override
-	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String name)
-	{
-		if(version8) // supported since MySQL 8.0.19: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-19.html#mysqld-8-0-19-sql-syntax
-		{
-			super.dropUniqueConstraint(sb, tableName, name);
-			return;
-		}
-
-		sb.append("ALTER TABLE ").
-			append(tableName).
-			append(" DROP INDEX ").
-			append(name);
 	}
 
 	@Override
