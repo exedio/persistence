@@ -23,6 +23,7 @@ import com.exedio.cope.util.CharSet;
 /**
  * Converts a {@link CharSet} into a regular expression supported by
  * <a href="https://unicode-org.github.io/icu/userguide/strings/regexp.html">ICU</a>
+ * <a href="https://dev.mysql.com/doc/refman/8.0/en/regexp.html">mysql</a>
  */
 final class ICU
 {
