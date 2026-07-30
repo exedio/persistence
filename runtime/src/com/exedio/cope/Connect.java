@@ -83,7 +83,7 @@ final class Connect
 
 		supportedDataHashAlgorithms = toUnmodifiableSortedSet(dialect.getBlobHashAlgorithms());
 		// SchemaInfo
-		supportsCheckConstraint = !properties.disableCheckConstraint && dialect.dsmfDialect.supportsCheckConstraint();
+		supportsCheckConstraint = !properties.disableCheckConstraint;
 		supportsNativeDate = !properties.isSupportDisabledForNativeDate();
 		supportsUniqueViolation = !properties.isSupportDisabledForUniqueViolation() && dialect.supportsUniqueViolation();
 
