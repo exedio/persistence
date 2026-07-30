@@ -73,7 +73,6 @@ public final class CheckConstraint extends Constraint
 	{
 		return
 				!dialect.disableCheckConstraint &&
-				dialect.supportsCheckConstraint() &&
 				dialect.supportsCheckConstraint(
 						requireNonNull(clause.getRequired(), name)); // isSupported must be called for required constraints only
 	}

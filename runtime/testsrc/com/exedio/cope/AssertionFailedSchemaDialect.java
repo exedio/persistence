@@ -40,12 +40,6 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	public boolean supportsCheckConstraint()
-	{
-		throw new AssertionFailedError();
-	}
-
-	@Override
 	public boolean supportsCheckConstraint(final String condition)
 	{
 		throw new AssertionFailedError();
