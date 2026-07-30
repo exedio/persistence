@@ -105,7 +105,7 @@ final class MysqlDialect extends Dialect
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 
 		schemaSavepointSQL = env.isDatabaseVersionAtLeast(8, 4)
-			? "SHOW BINARY LOG STATUS"
+			? "SHOW BINARY LOG STATUS" // https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-0.html#mysqld-8-4-0-deprecation-removal
 			: "SHOW MASTER STATUS";
 
 		final boolean version9 = env.isDatabaseVersionAtLeast(9, 0);
@@ -804,7 +804,7 @@ final class MysqlDialect extends Dialect
 		final String sql = schemaSavepointSQL;
 		try(
 			java.sql.Statement statement = connection.createStatement();
-			ResultSet rs = statement.executeQuery(sql)) // https://dev.mysql.com/doc/relnotes/mysql/8.4/en/news-8-4-0.html#mysqld-8-4-0-deprecation-removal
+			ResultSet rs = statement.executeQuery(sql))
 		{
 			if(!rs.next())
 				throw new SchemaSavepointNotAvailableException(sql + " returns empty result, probably because binlog is disabled");
