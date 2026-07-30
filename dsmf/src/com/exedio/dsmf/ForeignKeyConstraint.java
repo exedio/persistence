@@ -104,6 +104,6 @@ public final class ForeignKeyConstraint extends Constraint
 	@Override
 	void drop(final StringBuilder sb)
 	{
-		dialect.dropForeignKeyConstraint(sb, quoteName(table.name), quoteName(name));
+		Dialect.dropConstraint(sb, quoteName(table.name), quoteName(name));
 	}
 }

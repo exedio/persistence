@@ -88,18 +88,6 @@ public class AssertionFailedSchemaDialect extends Dialect
 	}
 
 	@Override
-	protected void dropForeignKeyConstraint(final StringBuilder sb, final String tableName, final String name)
-	{
-		throw new AssertionFailedError();
-	}
-
-	@Override
-	protected void dropUniqueConstraint(final StringBuilder sb, final String tableName, final String name)
-	{
-		throw new AssertionFailedError();
-	}
-
-	@Override
 	protected void createSequence(
 			final StringBuilder sb,
 			final String name,
