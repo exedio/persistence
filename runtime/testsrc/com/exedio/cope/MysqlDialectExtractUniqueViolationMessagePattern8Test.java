@@ -24,9 +24,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 
-/**
- * @see MysqlDialectExtractUniqueViolationMessagePatternTest
- */
 public class MysqlDialectExtractUniqueViolationMessagePattern8Test
 {
 	@Test void testMatchLongId()
@@ -96,7 +93,7 @@ public class MysqlDialectExtractUniqueViolationMessagePattern8Test
 		assertEquals(false, matcher.matches());
 	}
 
-	private static final Pattern PATTERN = MysqlDialect.EXTRACT_UNIQUE_VIOLATION_MESSAGE_PATTERN(true);
+	private static final Pattern PATTERN = MysqlDialect.EXTRACT_UNIQUE_VIOLATION_MESSAGE_PATTERN;
 	private static final String FEATURE = "Type1234_feature4567_Unq";
 	private static final String remainder = "Duplicate entry 'value1234AZ$'%&/' for key 'TableName_123." + FEATURE + "'";
 }
