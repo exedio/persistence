@@ -64,11 +64,9 @@ final class HsqldbDialect extends Dialect
 		@SuppressWarnings("unused")
 		mysql57
 		{
-			@Override boolean supportsCheckConstraint() { return false; }
 			@Override boolean supportsSchemaSavepoint() { return true; }
 		};
 
-		boolean supportsCheckConstraint() { return true; }
 		boolean supportsSchemaSavepoint() { return false; }
 	}
 
@@ -79,7 +77,7 @@ final class HsqldbDialect extends Dialect
 	 */
 	HsqldbDialect(final CopeProbe probe, final Props props)
 	{
-		super(new HsqldbSchemaDialect(probe, props));
+		super(new HsqldbSchemaDialect(probe));
 		probe.environmentInfo().
 				requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 7);
 

@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.vault.VaultPropertiesTest.deresiliate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapInterim;
@@ -272,21 +271,6 @@ public abstract class TestWithEnvironment
 		tester.assertCacheInfo(types);
 	}
 
-
-	protected final boolean propertiesHsqldbMysql57()
-	{
-		return propertiesHsqldb("mysql57");
-	}
-
-	private boolean propertiesHsqldb(final String approximate)
-	{
-		if(!hsqldb)
-			return false;
-
-		final Properties.Field<?> field = model.getConnectProperties().getField("dialect.approximate");
-		assertNotNull(field);
-		return approximate.equals(((Enum<?>)field.get()).name());
-	}
 
 	protected final String ifPrep(final String s)
 	{
