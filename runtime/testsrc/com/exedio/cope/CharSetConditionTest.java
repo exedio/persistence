@@ -277,30 +277,24 @@ public class CharSetConditionTest extends TestWithEnvironment
 				(CharSetCondition)AnItem.field.conformsTo(charSet);
 		assertSame(AnItem.field, condition.getFunction());
 		assertSame(charSet, condition.getValue());
-		assertIt(condition, charSet, expected);
+		assertIt(condition, expected);
 
 		final ArrayList<AnItem> expectedNot = new ArrayList<>(all);
 		expectedNot.removeAll(expected);
-		assertIt(condition.not(), charSet, expectedNot);
+		assertIt(condition.not(), expectedNot);
 	}
 
 	private void assertIt(
 			final Condition condition,
-			final CharSet charSet,
 			final ArrayList<AnItem> expected)
 	{
 		switch(dialect)
 		{
 			case mysql ->
-			{
-				if(charSet.isSubsetOfAscii() || atLeastMysql8())
 					assertEquals(
 							expected,
 							AnItem.TYPE.search(condition, AnItem.TYPE.getThis(), true),
 							"search");
-				else
-					assertNotSupported(condition, " with non-ASCII CharSet: " + charSet);
-			}
 			case hsqldb, postgresql ->
 				assertNotSupported(condition, "");
 		}
