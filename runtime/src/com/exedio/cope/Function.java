@@ -173,9 +173,10 @@ public interface Function<E> extends Selectable<E>
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is equal to the value of the {@code right} function.
-	 * <p>
-	 * To be deprecated, use {@link #is(Function)} instead.
+	 *
+	 * @deprecated Use {@link #is(Function)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	@SuppressWarnings("unchecked") // OK: deprecated API
 	default CompareFunctionCondition<E> equal(final Function<? extends @Nullable E> right)
 	{
@@ -196,9 +197,10 @@ public interface Function<E> extends Selectable<E>
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is not equal to the value of the {@code right} function.
-	 * <p>
-	 * To be deprecated, use {@link #isNot(Function)} instead.
+	 *
+	 * @deprecated Use {@link #isNot(Function)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	@SuppressWarnings("unchecked") // OK: deprecated API
 	default CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
