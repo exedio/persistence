@@ -92,11 +92,11 @@ public class ClearCacheTest
 		assertSizes(3, 0);
 		try(var tx = MODEL.startTransactionTry(ClearCacheTest.class.getName()))
 		{
-			assertEquals(item1, MyItem.TYPE.searchSingleton(MyItem.field.equal("item1")));
-			assertEquals(item2, MyItem.TYPE.searchSingleton(MyItem.field.equal("item2")));
-			assertEquals(null, MyItem.TYPE.searchSingleton(MyItem.field.equal("itemA")));
-			assertEquals(null, MyItem.TYPE.searchSingleton(MyItem.field.equal("itemB")));
-			assertEquals(null, MyItem.TYPE.searchSingleton(MyItem.field.equal("itemC")));
+			assertEquals(item1, MyItem.TYPE.searchSingleton(MyItem.field.is("item1")));
+			assertEquals(item2, MyItem.TYPE.searchSingleton(MyItem.field.is("item2")));
+			assertEquals(null, MyItem.TYPE.searchSingleton(MyItem.field.is("itemA")));
+			assertEquals(null, MyItem.TYPE.searchSingleton(MyItem.field.is("itemB")));
+			assertEquals(null, MyItem.TYPE.searchSingleton(MyItem.field.is("itemC")));
 			tx.commit();
 		}
 		assertSizes(3, 5);
