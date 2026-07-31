@@ -274,5 +274,9 @@ public abstract class Constraint extends Node
 	}
 
 	abstract void appendCreateClause(StringBuilder sb);
-	abstract void drop(StringBuilder sb);
+
+	void drop(final StringBuilder sb)
+	{
+		Dialect.dropConstraint(sb, quoteName(table.name), quoteName(name));
+	}
 }
