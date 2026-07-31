@@ -328,9 +328,10 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	/**
-	 * To be deprecated, use {@link #is(Double)} instead.
+	 * @deprecated Use {@link #is(Double)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 * Needed for binary compatibility.
 	 */
+	@Deprecated @SuppressWarnings("deprecation") // OK: overriding deprecated method
 	@Override
 	public Condition equal(final Double value)
 	{
@@ -354,9 +355,10 @@ public final class DoubleField extends NumberField<Double>
 	}
 
 	/**
-	 * To be deprecated, use {@link #isNot(Double)} instead.
+	 * @deprecated Use {@link #isNot(Double)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 * Needed for binary compatibility.
 	 */
+	@Deprecated @SuppressWarnings("deprecation") // OK: overriding deprecated method
 	@Override
 	public Condition notEqual(final Double value)
 	{

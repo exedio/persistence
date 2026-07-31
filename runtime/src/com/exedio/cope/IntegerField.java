@@ -518,9 +518,10 @@ public final class IntegerField extends NumberField<Integer>
 
 
 	/**
-	 * To be deprecated, use {@link #is(Integer)} instead.
+	 * @deprecated Use {@link #is(Integer)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 * Needed for binary compatibility.
 	 */
+	@Deprecated @SuppressWarnings("deprecation") // OK: overriding deprecated method
 	@Override
 	public Condition equal(final Integer value)
 	{
@@ -544,9 +545,10 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	/**
-	 * To be deprecated, use {@link #isNot(Integer)} instead.
+	 * @deprecated Use {@link #isNot(Integer)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 * Needed for binary compatibility.
 	 */
+	@Deprecated @SuppressWarnings("deprecation") // OK: overriding deprecated method
 	@Override
 	public Condition notEqual(final Integer value)
 	{
