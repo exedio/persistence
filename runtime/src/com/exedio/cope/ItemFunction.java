@@ -59,7 +59,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 
 	default Condition isTarget()
 	{
-		return equal(getValueType().thisFunction);
+		return is(getValueType().thisFunction);
 	}
 
 	/**
@@ -72,7 +72,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 
 	default Condition isTarget(final Join targetJoin)
 	{
-		return equal(getValueType().castTypeExtends(targetJoin.getType()).thisFunction.bind(targetJoin));
+		return is(getValueType().castTypeExtends(targetJoin.getType()).thisFunction.bind(targetJoin));
 	}
 
 	// TODO allow Class<? extends Item> as well to be safely used in CheckConstraints
