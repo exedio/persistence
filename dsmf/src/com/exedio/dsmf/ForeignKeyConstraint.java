@@ -100,10 +100,4 @@ public final class ForeignKeyConstraint extends Constraint
 			append(quoteName(targetColumn)).
 			append(')');
 	}
-
-	@Override
-	void drop(final StringBuilder sb)
-	{
-		Dialect.dropConstraint(sb, quoteName(table.name), quoteName(name));
-	}
 }

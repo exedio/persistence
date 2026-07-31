@@ -59,10 +59,4 @@ public final class UniqueConstraint extends Constraint
 			append(" UNIQUE").
 			append(clause);
 	}
-
-	@Override
-	void drop(final StringBuilder sb)
-	{
-		Dialect.dropConstraint(sb, quoteName(table.name), quoteName(name));
-	}
 }
