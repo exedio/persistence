@@ -50,8 +50,9 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	ItemFunction<E> bind(Join join); // narrows return type for implementations
 
 	/**
-	 * To be deprecated, use {@link #isTarget()} instead.
+	 * @deprecated Use {@link #isTarget()} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	default CompareFunctionCondition<?> equalTarget()
 	{
 		return (CompareFunctionCondition<?>)isTarget();
@@ -63,8 +64,9 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	}
 
 	/**
-	 * To be deprecated, use {@link #isTarget(Join)} instead.
+	 * @deprecated Use {@link #isTarget(Join)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	default CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return (CompareFunctionCondition<?>)isTarget(targetJoin);

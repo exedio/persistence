@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class ItemConditionsTest
 {
+	@Deprecated // OK: testing deprecated API
 	@Test void testDeprecated()
 	{
 		final Join join = TYPE.newQuery(null).join(TYPE);
