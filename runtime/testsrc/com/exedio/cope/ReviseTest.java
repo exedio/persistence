@@ -258,6 +258,7 @@ public class ReviseTest
 			assertEquals(3, logs.size());
 			assertEqualsLog(logs, model7.getRevisionLogs());
 		}
+		assertFakeSchemaSavepoint();
 		log.assertInfo("revise 6/0:" + body60);
 
 		// test, that revision is not executed again,
@@ -322,6 +323,7 @@ public class ReviseTest
 			assertEquals(4, logs.size());
 			assertEqualsLog(remove(-1, logs), model7.getRevisionLogs());
 		}
+		assertFakeSchemaSavepoint();
 		log.assertInfo("revise 8/0:nonsense statement causing a test failure");
 
 		try
@@ -342,6 +344,7 @@ public class ReviseTest
 			assertEquals(4, logs.size());
 			assertEqualsLog(remove(-1, logs), model7.getRevisionLogs());
 		}
+		assertFakeSchemaSavepoint();
 		log.assertEmpty();
 
 		model7.tearDownSchema();
@@ -639,5 +642,11 @@ public class ReviseTest
 			this.revisions = null;
 			return revisions;
 		}
+	}
+
+	private void assertFakeSchemaSavepoint()
+	{
+		if(model7.getConnectProperties().reviseSavepoint)
+			log.assertInfoFakeSchemaSavepoint("savepoint hsqldb fakeSchemaSavepoint FSS");
 	}
 }

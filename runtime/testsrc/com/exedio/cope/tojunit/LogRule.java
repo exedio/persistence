@@ -109,6 +109,11 @@ public class LogRule extends MainRule
 		assertMessage(Level.INFO, msg, milliSecondsFilter);
 	}
 
+	public final void assertInfoFakeSchemaSavepoint(final String msg)
+	{
+		assertMessage(Level.INFO, msg, s -> s.replaceAll("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{6}", "FSS"));
+	}
+
 	public final void assertWarn(final String msg)
 	{
 		assertMessage(Level.WARN, msg, Function.identity());
