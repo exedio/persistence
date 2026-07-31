@@ -72,8 +72,9 @@ public class CaseView extends StringView
 	// convenience methods for conditions and views ---------------------------------
 
 	/**
-	 * To be deprecated, use {@link #isIgnoreCase(Function,String)} instead.
+	 * @deprecated Use {@link #isIgnoreCase(Function,String)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	@SuppressWarnings("unused") // OK: no longer to be used
 	public static Condition equalIgnoreCase(final Function<String> function, final String value)
 	{
@@ -86,8 +87,9 @@ public class CaseView extends StringView
 	}
 
 	/**
-	 * To be deprecated, use {@link #isIgnoreCase(Function,Function)} instead.
+	 * @deprecated Use {@link #isIgnoreCase(Function,Function)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	@SuppressWarnings("unused") // OK: no longer to be used
 	public static Condition equalIgnoreCase(final Function<String> function, final Function<String> right)
 	{
