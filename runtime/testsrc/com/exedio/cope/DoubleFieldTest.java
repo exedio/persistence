@@ -71,7 +71,6 @@ public class DoubleFieldTest
 		assertEquals(f+"='-3.0'", f.is(-3d).toString());
 		assertEquals(f+"='5.0'", f.is(5d).toString());
 		assertEquals("FALSE", f.is(5.1).toString());
-		assertEquals("FALSE", f.equal(5.1).toString()); // test whether override works for deprecated method
 		assertEquals("FALSE", f.is(MIN).toString());
 		assertEquals("FALSE", f.is(MAX).toString());
 
@@ -93,7 +92,6 @@ public class DoubleFieldTest
 		assertEquals(f+"<>'-3.0'", f.isNot(-3d).toString());
 		assertEquals(f+"<>'5.0'", f.isNot(5d).toString());
 		assertEquals("TRUE", f.isNot(5.1).toString());
-		assertEquals("TRUE", f.notEqual(5.1).toString()); // test whether override works for deprecated method
 		assertEquals("TRUE", f.isNot(MIN).toString());
 		assertEquals("TRUE", f.isNot(MAX).toString());
 

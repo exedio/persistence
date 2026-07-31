@@ -67,9 +67,10 @@ public interface Function<E> extends Selectable<E>
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is equal to the given parameter.
-	 * <p>
-	 * To be deprecated, use {@link #is(Object)} instead.
+	 *
+	 * @deprecated Use {@link #is(Object)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	default Condition equal(final E value)
 	{
 		return is(value);
@@ -106,8 +107,9 @@ public interface Function<E> extends Selectable<E>
 	}
 
 	/**
-	 * To be deprecated, use {@link #isNot(Object)} instead.
+	 * @deprecated Use {@link #isNot(Object)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
+	@Deprecated
 	default Condition notEqual(final E value)
 	{
 		return isNot(value);

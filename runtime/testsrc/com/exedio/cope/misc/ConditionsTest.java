@@ -120,6 +120,7 @@ public class ConditionsTest
 				"Cannot invoke \"java.util.List.size()\" because \"functions\" is null");
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void testDeprecated()
 	{
 		assertEquals(name1.is   ("blah"), name1.   equal("blah"));

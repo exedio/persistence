@@ -258,7 +258,6 @@ public class IntegerFieldTest
 		assertEquals(f+"='-3'", f.is(-3).toString());
 		assertEquals(f+"='5'", f.is(5).toString());
 		assertEquals("FALSE", f.is(6).toString());
-		assertEquals("FALSE", f.equal(6).toString()); // test whether override works for deprecated method
 		assertEquals("FALSE", f.is(MIN).toString());
 		assertEquals("FALSE", f.is(MAX).toString());
 
@@ -280,7 +279,6 @@ public class IntegerFieldTest
 		assertEquals(f+"<>'-3'", f.isNot(-3).toString());
 		assertEquals(f+"<>'5'", f.isNot(5).toString());
 		assertEquals("TRUE", f.isNot(6).toString());
-		assertEquals("TRUE", f.notEqual(6).toString()); // test whether override works for deprecated method
 		assertEquals("TRUE", f.isNot(MIN).toString());
 		assertEquals("TRUE", f.isNot(MAX).toString());
 
