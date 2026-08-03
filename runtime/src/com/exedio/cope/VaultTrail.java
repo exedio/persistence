@@ -81,7 +81,7 @@ final class VaultTrail implements VaultTrailSchemaInfo
 		this.originLimit = bucket.getTrailOriginLimit();
 		this.originValue = truncate(ORIGIN, originLimit);
 
-		table   = trimmer.trimString("VaultTrail_" + bucketKey);
+		table   = trimmer.trimString("zzz_VaultTrail_" + bucketKey); // prefix "zzz_" puts the table at the end of the dump, needed for dumpshuffler
 		hash    = trimmer.trimString("hash");
 		hashPK  = trimmer.trimString(table + "_PK");
 		length  = trimmer.trimString("length");
