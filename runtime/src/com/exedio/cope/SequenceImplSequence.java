@@ -130,4 +130,10 @@ final class SequenceImplSequence implements SequenceImpl
 	{
 		return name;
 	}
+
+	@Override
+	public String schemaNameQuoted()
+	{
+		return nameQuoted;
+	}
 }

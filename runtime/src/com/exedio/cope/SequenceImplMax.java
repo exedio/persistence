@@ -119,4 +119,10 @@ final class SequenceImplMax implements SequenceImpl
 	{
 		return null;
 	}
+
+	@Override
+	public String schemaNameQuoted()
+	{
+		return null;
+	}
 }
