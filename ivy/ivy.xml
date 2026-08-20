@@ -31,6 +31,7 @@
 		<conf visibility="private" name="ant-contrib" />
 		<conf visibility="private" name="ivy" />
 		<conf visibility="private" name="test" extends="runtime,servlet" />
+		<conf visibility="private" name="jacoco" />
 		<conf visibility="private" name="jenkins" />
 		<conf visibility="private" name="tomcat" />
 		<conf visibility="private" name="copeconsole" />
@@ -117,6 +118,7 @@
 			<exclude org="io.micrometer" module="micrometer-core" />
 			<exclude org="jakarta.servlet" module="jakarta.servlet-api" />
 		</dependency>
+		<dependency org="org.jacoco" name="org.jacoco.ant" rev="0.8.15" conf="jacoco->default" />
 		<dependency org="com.exedio" name="pipeline-gdsl" rev="26" conf="jenkins->runtime; ide->changelog" />
 
 		<exclude org="javax.servlet" module="javax.servlet-api" /><!-- old javax.servlet package instead of new jakarta.servlet -->
