@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.meta.When;
@@ -59,7 +60,7 @@ public enum Nullability
 		return forOptional(!mandatory);
 	}
 
-	public static Nullability fromAnnotations(final Annotation[] annotations)
+	public static Nullability fromAnnotations(final AnnotatedElement annotations) // TODO rename parameter
 	{
 		if (!nullabilityClassesAreAvailable())
 		{
@@ -87,15 +88,8 @@ public enum Nullability
 		}
 	}
 
-	private static <A extends Annotation> A getAnnotation(final Class<A> annotationClass, final Annotation[] annotations)
+	private static <A extends Annotation> A getAnnotation(final Class<A> annotationClass, final AnnotatedElement element) // TODO inline
 	{
-		for(final Annotation a : annotations)
-		{
-			if(a.annotationType().equals(annotationClass))
-			{
-				return annotationClass.cast(a);
-			}
-		}
-		return null;
+		return element.getAnnotation(annotationClass);
 	}
 }
