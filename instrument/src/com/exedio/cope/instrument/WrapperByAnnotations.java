@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import com.exedio.cope.Item;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -243,7 +242,7 @@ final class WrapperByAnnotations
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
-				final Parameter paramAnn = get(Parameter.class, annotations[i]);
+				final Parameter paramAnn = annotations[i].getAnnotation(Parameter.class);
 				final Nullability nullability = getNullability(annotations[i], paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
 				final List<?> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
 				if(paramAnn==null)
@@ -323,10 +322,5 @@ final class WrapperByAnnotations
 		{
 			throw new RuntimeException(e);
 		}
-	}
-
-	private static <A extends Annotation> A get(final Class<A> annotationClass, final AnnotatedElement element) // TODO inline
-	{
-		return element.getAnnotation(annotationClass);
 	}
 }
