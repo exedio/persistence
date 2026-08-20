@@ -134,11 +134,11 @@ final class WrapperByAnnotations
 		return getNullability(method, wrap.nullability());
 	}
 
-	private Nullability getNullability(final AnnotatedElement annotations, final Class<? extends NullabilityGetter<?>> nullabilityClass) // TODO rename parameter annotations
+	private Nullability getNullability(final AnnotatedElement annotatedElement, final Class<? extends NullabilityGetter<?>> nullabilityClass)
 	{
 		if (NullabilityGetterDefault.class.equals(nullabilityClass))
 		{
-			return Nullability.fromAnnotations(annotations);
+			return Nullability.fromAnnotations(annotatedElement);
 		}
 		else
 		{
@@ -238,12 +238,12 @@ final class WrapperByAnnotations
 			if(methodVarargs!=null && !method.isVarArgs())
 				throw new RuntimeException("encountered @Wrap(varargs=xxx) on non-vararg method " + method);
 
-			final java.lang.reflect.Parameter[] annotations = method.getParameters(); // TODO rename variable
+			final java.lang.reflect.Parameter[] parameters = method.getParameters();
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
-				final Parameter paramAnn = annotations[i].getAnnotation(Parameter.class);
-				final Nullability nullability = getNullability(annotations[i], paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
+				final Parameter paramAnn = parameters[i].getAnnotation(Parameter.class);
+				final Nullability nullability = getNullability(parameters[i], paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
 				final List<?> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
 				if(paramAnn==null)
 					result.addParameter(parameterTypes[i], genericParameterType, varargs, nullability);
