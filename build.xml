@@ -2,7 +2,8 @@
 
 <project name="cope" default="build" basedir="."
 			xmlns:if="ant:if"
-			xmlns:unless="ant:unless">
+			xmlns:unless="ant:unless"
+			xmlns:jacoco="antlib:org.jacoco.ant">
 
 	<echo taskname="which ant" message="${ant.version}" />
 	<echo taskname="which java" message="${java.vm.name} ${java.version}" />
@@ -974,6 +975,124 @@
 		</api>
 	</target>
 
+	<target name="checkAntIfUnless">
+		<property name="antSupportsGenericIfUnless" value="true"/>
+		<fail message="ant 1.9.1 required: https://ant.apache.org/manual/ifunless.html" unless:set="antSupportsGenericIfUnless"/>
+	</target>
+
+	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml" onerror="failall">
+		<classpath>
+			<fileset dir="lib/jacoco" />
+		</classpath>
+	</taskdef>
+
+	<target name="jacoco.runtime" depends="runtime.test.readyToRun, checkAntIfUnless" unless="skip.jacoco">
+		<mkdir dir="build/jacocotestresults" />
+		<mkdir dir="build/jacocotesttmpdir" />
+		<jacoco name="runtime" destfile="build/jacoco.exec" reportsdir="build/jacocotestresults">
+			<scanpath>
+				<pathelement location="build/classes/runtime/testsrc" />
+			</scanpath>
+			<config>
+				<classpath>
+					<pathelement location="build/classes/dsmf/src" />
+					<pathelement location="build/classes/runtime/src" />
+					<pathelement location="build/classes/runtime/dialects" />
+					<pathelement location="build/classes/runtime/patternsrc" />
+					<pathelement location="build/classes/runtime/servletsrc" />
+					<pathelement location="build/classes/runtime/testfeaturesrc" />
+					<pathelement location="build/classes/runtime/testsrc" />
+					<pathelement location="runtime/testresources" />
+					<fileset dir="lib/testhsqldb" />
+				</classpath>
+				<sysproperty key="com.exedio.cope.ClusterUdpNetworkTest.skipMulticast"   value="${runtime.test.ClusterNetworkTest.skipMulticast}" />
+				<sysproperty key="com.exedio.cope.ClusterUdpNetworkTest.multicast"       value="${runtime.test.ClusterNetworkTest.multicast}" />
+				<sysproperty key="com.exedio.cope.ClusterUdpNetworkTest.listenInterface" value="${runtime.test.ClusterNetworkTest.listenInterface}" if:set="runtime.test.ClusterNetworkTest.listenInterface" />
+				<sysproperty key="com.exedio.cope.ClusterUdpNetworkTest.port.A"          value="${runtime.test.ClusterNetworkTest.port.A}" />
+				<sysproperty key="com.exedio.cope.ClusterUdpNetworkTest.port.B"          value="${runtime.test.ClusterNetworkTest.port.B}" />
+				<sysproperty key="com.exedio.cope.ClusterUdpNetworkTest.port.C"          value="${runtime.test.ClusterNetworkTest.port.C}" />
+				<sysproperty key="com.exedio.filevault.VaultHttpServiceTest.url"         value="${runtime.test.VaultHttpServiceTest.url}" />
+				<sysproperty key="com.exedio.filevault.VaultHttpServiceTest.dir"         value="${runtime.test.VaultHttpServiceTest.dir}" />
+				<arg line="--exclude-tag TestWithEnvironment" />
+			</config>
+		</jacoco>
+		<jacoco:report>
+			<executiondata>
+				<file file="build/jacoco.exec" />
+			</executiondata>
+			<structure name="Cope">
+				<classfiles>
+					<fileset dir="build/classes/dsmf/src" />
+					<fileset dir="build/classes/runtime/src" />
+					<fileset dir="build/classes/runtime/dialects" />
+					<fileset dir="build/classes/runtime/patternsrc" />
+					<fileset dir="build/classes/runtime/servletsrc" />
+				</classfiles>
+				<sourcefiles encoding="UTF-8">
+					<fileset dir="dsmf/src" />
+					<fileset dir="runtime/src" />
+					<fileset dir="runtime/hsqldbsrc" />
+					<fileset dir="runtime/mysqlsrc" />
+					<fileset dir="runtime/postgresqlsrc" />
+					<fileset dir="runtime/patternsrc" />
+					<fileset dir="runtime/servletsrc" />
+				</sourcefiles>
+			</structure>
+			<html destdir="build/html" />
+			<xml destfile="build/report.xml" />
+		</jacoco:report>
+	</target>
+
+	<target name="jacoco.instrument" depends="instrument.test.compile, instrument.testparams.compile, checkAntIfUnless" unless="skip.jacoco">
+		<mkdir dir="build/jacocotestresults/instrument" />
+		<mkdir dir="build/jacocotesttmpdir/instrument" />
+		<jacoco name="instrument" destfile="build/jacoco-instrument.exec" reportsdir="build/jacocotestresults/instrument">
+			<scanpath>
+				<pathelement location="build/classes/instrument/testsrc" />
+				<pathelement location="build/classes/instrument/testparamssrc" />
+			</scanpath>
+			<config>
+				<classpath>
+					<pathelement location="build/classes/dsmf/src" />
+					<pathelement location="build/classes/runtime/src" />
+					<pathelement location="build/classes/runtime/patternsrc" />
+					<pathelement location="build/classes/runtime/servletsrc" />
+					<pathelement location="build/classes/instrument/src" />
+					<pathelement location="build/classes/instrument/annosrc" />
+					<pathelement location="build/classes/instrument/testfeaturesrc" />
+					<pathelement location="build/classes/instrument/testlibsrc" />
+					<pathelement location="build/classes/instrument/testsrc" />
+					<pathelement location="build/classes/instrument/testparamssrc" />
+					<fileset dir="lib/test" />
+					<fileset dir="lib/compile-annotations" />
+				</classpath>
+			</config>
+		</jacoco>
+		<jacoco:report>
+			<executiondata>
+				<file file="build/jacoco-instrument.exec" />
+			</executiondata>
+			<structure name="Cope Instrument">
+				<classfiles>
+					<fileset dir="build/classes/instrument/annosrc" />
+					<fileset dir="build/classes/instrument/src" />
+					<fileset dir="build/classes/instrument/antsrc" />
+					<fileset dir="build/classes/instrument/completionsrc" />
+				</classfiles>
+				<sourcefiles encoding="UTF-8">
+					<fileset dir="instrument/annosrc" />
+					<fileset dir="instrument/src" />
+					<fileset dir="instrument/antsrc" />
+					<fileset dir="instrument/completionsrc" />
+				</sourcefiles>
+			</structure>
+			<html destdir="build/html-instrument" />
+			<xml destfile="build/report-instrument.xml" />
+		</jacoco:report>
+	</target>
+
+	<target name="jacoco" depends="jacoco.runtime, jacoco.instrument" />
+
 	<target name="testprotocol" depends="runtime.test.protocol, runtime.core.compile">
 		<mkdir dir="build/runtime" />
 		<java classname="com.exedio.cope.console.EnvironmentCop" taskname="testprotocol"
@@ -1004,7 +1123,7 @@
 						webtest" />
 
 
-	<target name="all" depends="build, runtime.jar.src, api" />
+	<target name="all" depends="build, runtime.jar.src, api, jacoco" />
 
 	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">

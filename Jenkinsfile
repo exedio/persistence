@@ -104,6 +104,35 @@ try
 				testResults: 'build/testresults/**/*.xml',
 				skipPublishingChecks: true
 			)
+			recordCoverage(
+				id: 'coverage-java-runtime',
+				name: 'Coverage Java Runtime',
+				tools: [[pattern: 'build/report.xml']],
+				enabledForFailure: true,
+				skipPublishingChecks: true,
+				sourceDirectories: [
+					[path: 'dsmf/src'],
+					[path: 'runtime/src'],
+					[path: 'runtime/hsqldbsrc'],
+					[path: 'runtime/mysqlsrc'],
+					[path: 'runtime/postgresqlsrc'],
+					[path: 'runtime/patternsrc'],
+					[path: 'runtime/servletsrc'],
+				]
+			)
+			recordCoverage(
+				id: 'coverage-java-instrument',
+				name: 'Coverage Java Instrument',
+				tools: [[pattern: 'build/report-instrument.xml']],
+				enabledForFailure: true,
+				skipPublishingChecks: true,
+				sourceDirectories: [
+					[path: 'instrument/annosrc'],
+					[path: 'instrument/src'],
+					[path: 'instrument/antsrc'],
+					[path: 'instrument/completionsrc'],
+				]
+			)
 			archiveArtifacts(
 				'build/ThumbnailTest/*,' +
 				'build/testprotocol.*,' +
@@ -233,6 +262,7 @@ try
 					// corresponds to .github/workflows/ant.yml
 					ant 'clean jenkins' +
 					    ' -Dgithub=true' +
+					    ' -Dskip.jacoco=true' +
 					    ' -Druntime.test.ClusterNetworkTest.skipMulticast=true' +
 					    ' -Druntime.test.ClusterNetworkTest.listenInterface=eth0'
 				}
