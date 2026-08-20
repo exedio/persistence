@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.pattern.MediaInfo;
 
 public final class MediaSummary
@@ -35,6 +37,7 @@ public final class MediaSummary
 
 	public MediaSummary(final MediaInfo[] infos)
 	{
+		requireNonNull(infos, "infos");
 		int redirectFrom = 0;
 		int exception = 0;
 		int invalidSpecial = 0;

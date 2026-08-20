@@ -51,7 +51,7 @@ public class DataFieldVaultSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("Cannot read the array length because \"<local10>\" is null", e.getMessage());
+			assertEquals("infos", e.getMessage());
 		}
 	}
 

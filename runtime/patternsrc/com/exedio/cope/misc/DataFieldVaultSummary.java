@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.DataFieldVaultInfo;
 
 public final class DataFieldVaultSummary
@@ -29,6 +31,7 @@ public final class DataFieldVaultSummary
 
 	public DataFieldVaultSummary(final DataFieldVaultInfo[] infos)
 	{
+		requireNonNull(infos, "infos");
 		long getBytes = 0;
 		long getStream = 0;
 		long putInitial = 0;

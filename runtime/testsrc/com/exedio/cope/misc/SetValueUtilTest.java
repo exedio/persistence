@@ -79,7 +79,7 @@ public class SetValueUtilTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("Cannot read the array length because \"<local2>\" is null", e.getMessage());
+			assertEquals("setValues", e.getMessage());
 		}
 		try
 		{
