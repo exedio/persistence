@@ -241,18 +241,18 @@ final class WrapperByAnnotations
 
 			for(int i = parameterOffset; i<parameters.length; i++)
 			{
-				final Type genericParameterType = parameters[i].getParameterizedType();
-				final Parameter paramAnn = parameters[i].getAnnotation(Parameter.class);
-				final Nullability nullability = getNullability(parameters[i], paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
+				final java.lang.reflect.Parameter parameter = parameters[i];
+				final Parameter paramAnn = parameter.getAnnotation(Parameter.class);
+				final Nullability nullability = getNullability(parameter, paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
 				final List<?> varargs = ((i+1)==parameters.length) ? methodVarargs : null;
 				if(paramAnn==null)
-					result.addParameter(parameters[i].getType(), genericParameterType, varargs, nullability);
+					result.addParameter(parameter, varargs, nullability);
 				else
 				{
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(parameters[i].getType(), genericParameterType, paramAnnValueFixed, comment, varargs, nullability);
+					result.addParameter(parameter, paramAnnValueFixed, comment, varargs, nullability);
 				}
 			}
 		}
