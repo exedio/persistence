@@ -59,13 +59,13 @@ public enum Nullability
 		return forOptional(!mandatory);
 	}
 
-	public static Nullability fromAnnotations(final AnnotatedElement annotations) // TODO rename parameter
+	public static Nullability fromAnnotations(final AnnotatedElement element)
 	{
 		if (!nullabilityClassesAreAvailable())
 		{
 			return DEFAULT;
 		}
-		final Nonnull nonnullAnnotation = annotations.getAnnotation(Nonnull.class);
+		final Nonnull nonnullAnnotation = element.getAnnotation(Nonnull.class);
 		if (nonnullAnnotation!=null)
 		{
 			if ( nonnullAnnotation.when()==When.ALWAYS )
@@ -77,7 +77,7 @@ public enum Nullability
 				throw new RuntimeException("non-default setting of Nonnull.when() not supported");
 			}
 		}
-		else if (annotations.isAnnotationPresent(Nullable.class))
+		else if (element.isAnnotationPresent(Nullable.class))
 		{
 			return NULLABLE;
 		}
