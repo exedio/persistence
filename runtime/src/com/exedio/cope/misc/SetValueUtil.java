@@ -42,6 +42,7 @@ public final class SetValueUtil
 
 	public static <E> SetValue<E> getFirstMapping(final SetValue<?>[] setValues, final Settable<E> settable)
 	{
+		requireNonNull(setValues, "setValues");
 		for(final SetValue<?> setValue : setValues)
 		{
 			if(settable==setValue.settable)

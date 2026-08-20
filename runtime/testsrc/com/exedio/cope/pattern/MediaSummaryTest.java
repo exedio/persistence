@@ -53,7 +53,7 @@ public class MediaSummaryTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("Cannot read the array length because \"<local12>\" is null", e.getMessage());
+			assertEquals("infos", e.getMessage());
 		}
 	}
 

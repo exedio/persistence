@@ -136,6 +136,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 
 	Object[] values(final SetValue<?>[] setValues, final Object[] valuesBefore)
 	{
+		requireNonNull(setValues, "setValues");
 		final Object[] values = new Object[componentSize];
 		final boolean[] valueSet = new boolean[values.length];
 		for(final SetValue<?> v : setValues)
