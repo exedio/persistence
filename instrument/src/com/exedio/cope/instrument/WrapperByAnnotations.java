@@ -154,13 +154,13 @@ final class WrapperByAnnotations
 	{
 		final WrapperX result = new WrapperX(method, getNullability(method, annotation));
 
-		final Class<?>[] parameterTypes = method.getParameterTypes();
-		final Class<?> parameterType0 = parameterTypes.length>0 ? parameterTypes[0] : null;
-		final Type[] genericParameterTypes = method.getGenericParameterTypes();
+		final java.lang.reflect.Parameter[] parameters = method.getParameters();
+
+		final Class<?> parameterType0 = parameters.length>0 ? parameters[0].getType() : null;
 		final int parameterOffset;
 		if(parameterType0==Class.class)
 		{
-			final Type t = genericParameterTypes[0];
+			final Type t = parameters[0].getParameterizedType();
 			if(t instanceof final ParameterizedType pt)
 			{
 				if (pt.getRawType()!=Class.class)
@@ -238,21 +238,21 @@ final class WrapperByAnnotations
 			if(methodVarargs!=null && !method.isVarArgs())
 				throw new RuntimeException("encountered @Wrap(varargs=xxx) on non-vararg method " + method);
 
-			final java.lang.reflect.Parameter[] parameters = method.getParameters();
-			for(int i = parameterOffset; i<parameterTypes.length; i++)
+
+			for(int i = parameterOffset; i<parameters.length; i++)
 			{
-				final Type genericParameterType = genericParameterTypes[i];
+				final Type genericParameterType = parameters[i].getParameterizedType();
 				final Parameter paramAnn = parameters[i].getAnnotation(Parameter.class);
 				final Nullability nullability = getNullability(parameters[i], paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
-				final List<?> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
+				final List<?> varargs = ((i+1)==parameters.length) ? methodVarargs : null;
 				if(paramAnn==null)
-					result.addParameter(parameterTypes[i], genericParameterType, varargs, nullability);
+					result.addParameter(parameters[i].getType(), genericParameterType, varargs, nullability);
 				else
 				{
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(parameterTypes[i], genericParameterType, paramAnnValueFixed, comment, varargs, nullability);
+					result.addParameter(parameters[i].getType(), genericParameterType, paramAnnValueFixed, comment, varargs, nullability);
 				}
 			}
 		}
