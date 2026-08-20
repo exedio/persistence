@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.Item;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -131,10 +132,10 @@ final class WrapperByAnnotations
 
 	private Nullability getNullability(final Method method, final Wrap wrap)
 	{
-		return getNullability(method.getAnnotations(), wrap.nullability());
+		return getNullability(method, wrap.nullability());
 	}
 
-	private Nullability getNullability(final Annotation[] annotations, final Class<? extends NullabilityGetter<?>> nullabilityClass)
+	private Nullability getNullability(final AnnotatedElement annotations, final Class<? extends NullabilityGetter<?>> nullabilityClass) // TODO rename parameter annotations
 	{
 		if (NullabilityGetterDefault.class.equals(nullabilityClass))
 		{
@@ -238,7 +239,7 @@ final class WrapperByAnnotations
 			if(methodVarargs!=null && !method.isVarArgs())
 				throw new RuntimeException("encountered @Wrap(varargs=xxx) on non-vararg method " + method);
 
-			final Annotation[][] annotations = method.getParameterAnnotations();
+			final java.lang.reflect.Parameter[] annotations = method.getParameters(); // TODO rename variable
 			for(int i = parameterOffset; i<parameterTypes.length; i++)
 			{
 				final Type genericParameterType = genericParameterTypes[i];
@@ -324,15 +325,8 @@ final class WrapperByAnnotations
 		}
 	}
 
-	private static <A extends Annotation> A get(final Class<A> annotationClass, final Annotation[] annotations)
+	private static <A extends Annotation> A get(final Class<A> annotationClass, final AnnotatedElement element) // TODO inline
 	{
-		for(final Annotation a : annotations)
-			if(a.annotationType().equals(annotationClass))
-			{
-				@SuppressWarnings("unchecked")
-				final A result = (A)a;
-				return result;
-			}
-		return null;
+		return element.getAnnotation(annotationClass);
 	}
 }
