@@ -77,7 +77,7 @@ public enum Nullability
 				throw new RuntimeException("non-default setting of Nonnull.when() not supported");
 			}
 		}
-		else if (annotations.getAnnotation(Nullable.class)!=null)
+		else if (annotations.isAnnotationPresent(Nullable.class))
 		{
 			return NULLABLE;
 		}
