@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -66,7 +65,7 @@ public enum Nullability
 		{
 			return DEFAULT;
 		}
-		final Nonnull nonnullAnnotation = getAnnotation(Nonnull.class, annotations);
+		final Nonnull nonnullAnnotation = annotations.getAnnotation(Nonnull.class);
 		if (nonnullAnnotation!=null)
 		{
 			if ( nonnullAnnotation.when()==When.ALWAYS )
@@ -78,7 +77,7 @@ public enum Nullability
 				throw new RuntimeException("non-default setting of Nonnull.when() not supported");
 			}
 		}
-		else if (getAnnotation(Nullable.class, annotations)!=null)
+		else if (annotations.getAnnotation(Nullable.class)!=null)
 		{
 			return NULLABLE;
 		}
@@ -86,10 +85,5 @@ public enum Nullability
 		{
 			return DEFAULT;
 		}
-	}
-
-	private static <A extends Annotation> A getAnnotation(final Class<A> annotationClass, final AnnotatedElement element) // TODO inline
-	{
-		return element.getAnnotation(annotationClass);
 	}
 }
