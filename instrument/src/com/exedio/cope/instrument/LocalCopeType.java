@@ -28,9 +28,9 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 
 	private CopeType<?> supertype;
 
-	LocalCopeType(final JavaClass javaClass, final Kind kind)
+	LocalCopeType(final JavaClass javaClass)
 	{
-		super(kind);
+		super(javaClass.kind);
 		this.javaClass=javaClass;
 		this.name = javaClass.name;
 		this.option = AnnotationHelper.getOrDefault(javaClass.typeOption);

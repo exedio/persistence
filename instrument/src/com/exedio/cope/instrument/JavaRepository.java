@@ -55,7 +55,7 @@ final class JavaRepository
 
 			if(javaClass.kind!=null)
 			{
-				add( new LocalCopeType(javaClass, javaClass.kind) );
+				add( new LocalCopeType(javaClass) );
 			}
 		}
 
