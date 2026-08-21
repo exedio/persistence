@@ -1152,7 +1152,7 @@
 						webtest" />
 
 
-	<target name="all" depends="build, runtime.jar.src, api, jacoco" />
+	<target name="all" depends="build, runtime.jar.src, api" />
 
 	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">
