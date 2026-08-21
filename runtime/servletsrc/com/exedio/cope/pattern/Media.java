@@ -924,6 +924,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	public Condition contentTypeIn(final String... contentTypes)
 	{
+		requireNonNull(contentTypes, "contentTypes");
 		return this.contentType.in(contentTypes, this.lastModified);
 	}
 
