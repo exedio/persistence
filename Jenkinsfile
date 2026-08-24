@@ -190,6 +190,79 @@ try
 		}
 	}
 
+	parallelBranches["Coverage"] = {
+		nodeCheckoutAndDelete {
+			def mainImage = mainImage(imageName("Coverage"))
+			def dbImage = docker.build(
+				imageName('Coverage', 'apache'),
+				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
+				'conf/apache')
+			shSilent "mkdir VaultHttpServiceDocumentRoot"
+			shSilent "mkdir VaultHttpServiceDocumentRoot/myContent"
+
+			withBridge("Coverage-db") { dbBridge ->
+				dbImage.withRun(
+					dockerRunDefaults(dbBridge, 'test-apache-host') +
+					"--cap-add SETGID " +
+					"--cap-add SETUID " +
+					"--mount type=bind,src=" + env.WORKSPACE + "/VaultHttpServiceDocumentRoot/myContent,target=/usr/local/apache2/htdocs "
+				) { c ->
+					mainImage.inside(
+						dockerRunDefaults(dbBridge) +
+						"--group-add copevaultfilesv1 " +
+						"--group-add copevaultfilesv2 " +
+						"--add-host VaultHttpServicePropertiesTest.invalid:0.0.0.0 "
+					) {
+						ant 'clean jacoco' +
+							' -Dinstrument.verify=true' +
+							' -Ddisable-ansi-colors=true' +
+							' -Druntime.test.ClusterNetworkTest.skipMulticast=true' +
+							' -Druntime.test.ClusterNetworkTest.listenInterface=eth0' +
+							' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
+							' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
+							' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
+							' -Druntime.test.VaultHttpServiceTest.url=http://test-apache-host' +
+							' -Druntime.test.VaultHttpServiceTest.dir=VaultHttpServiceDocumentRoot'
+					}
+					sh "docker logs " + c.id + " > apache.log 2>&1"
+					archiveArtifacts 'apache.log'
+				}
+			}
+
+			recordCoverage(
+				id: 'coverage-java-runtime',
+				name: 'Coverage Java Runtime',
+				tools: [[pattern: 'build/report.xml']],
+				enabledForFailure: true,
+				skipPublishingChecks: true,
+				sourceDirectories: [
+					[path: 'dsmf/src'],
+					[path: 'runtime/src'],
+					[path: 'runtime/hsqldbsrc'],
+					[path: 'runtime/mysqlsrc'],
+					[path: 'runtime/postgresqlsrc'],
+					[path: 'runtime/patternsrc'],
+					[path: 'runtime/servletsrc'],
+				]
+			)
+			recordCoverage(
+				id: 'coverage-java-instrument',
+				name: 'Coverage Java Instrument',
+				tools: [[pattern: 'build/report-instrument.xml']],
+				enabledForFailure: true,
+				skipPublishingChecks: true,
+				sourceDirectories: [
+					[path: 'instrument/annosrc'],
+					[path: 'instrument/src'],
+					[path: 'instrument/antsrc'],
+					[path: 'instrument/completionsrc'],
+				]
+			)
+			archiveArtifacts 'build/report.xml,build/report-instrument.xml,build/jacocotestresults/**'
+			assertGitUnchanged()
+		}
+	}
+
 	parallelBranches["Network"] = {
 		nodeCheckoutAndDelete {
 			def mainImage = mainImage(imageName("Network"))

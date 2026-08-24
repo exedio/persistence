@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<project name="jacoco" default="fail" basedir="."
+		xmlns:if="ant:if"
+		xmlns:jacoco="antlib:org.jacoco.ant">
+
+	<macrodef name="jacoco">
+		<attribute name="name" />
+		<attribute name="destfile" />
+		<attribute name="reportsdir" />
+		<element name="scanpath" optional="false" />
+		<element name="config" optional="false" />
+		<sequential>
+			<path id="jacoco.scanpath.@{name}">
+				<scanpath />
+			</path>
+			<pathconvert property="jacoco.scanpath.@{name}.value"
+					refid="jacoco.scanpath.@{name}"
+					pathsep="${path.separator}" />
+			<mkdir dir="build/jacocotesttmpdir/@{name}" />
+			<jacoco:coverage destfile="@{destfile}">
+				<java taskname="jacoco-@{name}" fork="yes" dir="${basedir}"
+						failonerror="true"
+						classname="org.junit.platform.console.ConsoleLauncher">
+					<arg line="--details ${test-details}" />
+					<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
+					<config />
+					<sysproperty key="java.io.tmpdir" value="${basedir}/build/jacocotesttmpdir/@{name}" />
+					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
+					<sysproperty key="user.country"  value="${test-DefaultCountry}" />
+					<sysproperty key="user.language" value="${test-DefaultLanguage}" />
+					<sysproperty key="github" value="${github}" />
+					<arg line="--fail-if-no-tests" />
+					<arg line="--scan-class-path ${jacoco.scanpath.@{name}.value}" />
+					<arg line="--reports-dir @{reportsdir}" />
+					<assertions><enable/></assertions>
+				</java>
+			</jacoco:coverage>
+		</sequential>
+	</macrodef>
+
+	<target name="fail">
+		<fail message="This file contains helper macros only. There are no targets." />
+	</target>
+
+</project>
