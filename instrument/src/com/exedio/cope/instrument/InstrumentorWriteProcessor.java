@@ -62,8 +62,8 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 			for(final JavaFile javaFile : repository.getFiles())
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
-				final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds, disabledWraps);
-				generator.write();
+				final Generator generator = new Generator(buffer, params, generateDeprecateds, disabledWraps);
+				generator.write(javaFile);
 
 				if(! javaFile.inputEqual(buffer, params.charset))
 				{

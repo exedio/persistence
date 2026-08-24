@@ -63,7 +63,6 @@ final class Generator
 		return "customize with @"+annotation.getSimpleName()+"("+annotationMember+"="+value+")";
 	}
 
-	private final JavaFile javaFile;
 	private final StringBuilder output;
 	private final String lineSeparator;
 	private final Class<? extends Annotation> generatedAnnotationClass;
@@ -91,9 +90,8 @@ final class Generator
 	private final Params.Suppressor suppressWarningsConstructor;
 	private final Params.Suppressor suppressWarningsWrapper;
 
-	Generator(final JavaFile javaFile, final StringBuilder output, final Params params, final Set<Method> generateDeprecateds, final Set<Method> disabledWraps)
+	Generator(final StringBuilder output, final Params params, final Set<Method> generateDeprecateds, final Set<Method> disabledWraps)
 	{
-		this.javaFile = javaFile;
 		this.output = output;
 		this.lineSeparator = System.lineSeparator();
 		this.generatedAnnotationClass = params.generatedAnnotationRetention.clazz;
@@ -866,7 +864,7 @@ final class Generator
 
 	private TypeContext typeContext = null;
 
-	void write() throws HumanReadableException
+	void write(final JavaFile javaFile) throws HumanReadableException
 	{
 		final String buffer = javaFile.getSourceWithoutGeneratedFragments();
 		int previousClassEndPosition = 0;
