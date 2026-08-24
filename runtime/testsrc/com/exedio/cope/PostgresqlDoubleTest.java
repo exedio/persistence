@@ -18,17 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PostgresqlFormat.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 public class PostgresqlDoubleTest
 {
-	static String format(final double number)
-	{
-		return PostgresqlFormat.format(number);
-	}
-
 	@Test void testIt()
 	{
 		assertEquals( "1.7976931348623157E308", Double.toString( Double.MAX_VALUE));
