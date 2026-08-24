@@ -1,5 +1,7 @@
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.instrument.Nullability.NONNULL_CLASS_NAME;
+import static com.exedio.cope.instrument.Nullability.NULLABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.testmodel.NullabilityItem;
@@ -21,7 +23,7 @@ class NullabilityTest
 					assertEquals("optional", optional.getName());
 					final WrapperX allCanReturnNull = optional.getWrappers().get(0);
 					assertEquals("allCanReturnNull", allCanReturnNull.name);
-					assertEquals(Nullability.NULLABLE, allCanReturnNull.getMethodNullability());
+					assertEquals(NULLABLE, allCanReturnNull.getMethodNullability());
 				}
 		);
 	}
@@ -29,6 +31,6 @@ class NullabilityTest
 	@Test
 	void nonnullClassName()
 	{
-		assertEquals(Nonnull.class.getName(), Nullability.NONNULL_CLASS_NAME);
+		assertEquals(Nonnull.class.getName(), NONNULL_CLASS_NAME);
 	}
 }
