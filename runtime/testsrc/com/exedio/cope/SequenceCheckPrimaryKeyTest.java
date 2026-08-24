@@ -24,6 +24,7 @@ import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.SI;
 import java.sql.Connection;
@@ -52,6 +53,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	@BeforeEach void setUp()
 	{
 		final ConnectProperties props = model.getConnectProperties();
+		assumeTrue(props.primaryKeyGeneratorMaxFetch==null || props.primaryKeyGeneratorMaxFetch==1);
 		model.disconnect();
 		model.connect(props);
 		p = MODEL.getConnectProperties().primaryKeyGenerator.persistent;

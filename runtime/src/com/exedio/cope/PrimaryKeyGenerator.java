@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.dsmf.Sequence;
 
 enum PrimaryKeyGenerator
@@ -31,10 +33,13 @@ enum PrimaryKeyGenerator
 				final Sequence.Type type,
 				final long start,
 				final ConnectionPool connectionPool,
-				final Database database)
+				final Database database,
+				final Integer maxFetch)
 		{
 			if (!column.kind.primaryKey())
 				throw new RuntimeException();
+			if (maxFetch!=null)
+				throw new RuntimeException("must not be set for 'memory'");
 			return new SequenceImplMax(column, start, connectionPool);
 		}
 	},
@@ -47,11 +52,13 @@ enum PrimaryKeyGenerator
 				final Sequence.Type type,
 				final long start,
 				final ConnectionPool connectionPool,
-				final Database database)
+				final Database database,
+				final Integer maxFetch)
 		{
 			if (!column.kind.primaryKey())
 				throw new RuntimeException();
-			return new SequenceImplSequence(metrics, column, type, start, connectionPool, database, NAME_SUFFIX);
+			return new SequenceImplSequence(metrics, column, type, start, connectionPool, database, NAME_SUFFIX,
+					requireNonNull(maxFetch, "must be set for 'sequence'"));
 		}
 	},
 	batchedSequence(true)
@@ -63,10 +70,13 @@ enum PrimaryKeyGenerator
 				final Sequence.Type type,
 				final long start,
 				final ConnectionPool connectionPool,
-				final Database database)
+				final Database database,
+				final Integer maxFetch)
 		{
 			if (!column.kind.primaryKey())
 				throw new RuntimeException();
+			if (maxFetch!=null)
+				throw new RuntimeException("must not be set for 'batchedSequence'");
 			return new SequenceImplBatchedSequence(metrics, column, type, start, connectionPool, database);
 		}
 	};
@@ -86,5 +96,6 @@ enum PrimaryKeyGenerator
 			Sequence.Type type,
 			long start,
 			ConnectionPool connectionPool,
-			Database database);
+			Database database,
+			Integer maxFetch);
 }

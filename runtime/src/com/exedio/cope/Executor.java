@@ -74,7 +74,7 @@ final class Executor
 		 * @see DataField#checkVaultTrail()
 		 * @see Type#checkCompletenessL(Type)
 		 * @see Model#purgeSchema(JobContext)
-		 * @see Dialect#nextSequence(Executor, Connection, String)
+		 * @see Dialect#nextSequence(Executor, Connection, String, int)
 		 * @see Dialect#getNextSequence(Executor, Connection, String)
 		 */
 		other
@@ -141,6 +141,25 @@ final class Executor
 
 			return resultSet.getLong(1);
 		};
+
+	static ResultSetHandler<long[]> longArrayResultSetHandler(final int count, final String nameQuoted, final long valueReduction)
+	{
+		return resultSet ->
+		{
+			final long[] result = new long[count];
+			for (int i=0; i<count; i++)
+			{
+				if(!resultSet.next())
+					throw new RuntimeException("no next in sequence " + nameQuoted + ", i=" + i + " count=" + count);
+				result[i] = resultSet.getLong(1) - valueReduction;
+				if(resultSet.wasNull())
+					throw new RuntimeException("null in sequence " + nameQuoted + ", i=" + i + " count=" + count);
+			}
+			if (resultSet.next())
+				throw new RuntimeException("too many results in sequence " + nameQuoted + ", count=" + count);
+			return result;
+		};
+	}
 
 	<R> R query(
 		final Connection connection,

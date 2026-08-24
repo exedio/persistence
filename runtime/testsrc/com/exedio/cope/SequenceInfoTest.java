@@ -28,6 +28,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.lang.Integer.MAX_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import org.junit.jupiter.api.Test;
@@ -54,24 +55,30 @@ public class SequenceInfoTest extends TestWithEnvironment
 	{
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 
+		final boolean fetchMany = model.getConnectProperties().primaryKeyGeneratorMaxFetch!=null && model.getConnectProperties().primaryKeyGeneratorMaxFetch > 1;
+
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, next.getDefaultToNextInfoX());
 		assertTimer(0, 0);
+		assertCounter(fetchMany ? Long.valueOf(0) : null);
 
 		newItem("first", 5);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, next.getDefaultToNextInfoX());
 		assertTimer(1, 0);
+		assertCounter(fetchMany ? Long.valueOf(1) : null);
 
 		newItem("second");
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfoX());
 		assertTimer(2, 1);
+		assertCounter(fetchMany ? Long.valueOf(3) :null);
 
 		newItem("third");
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfoX());
-		assertTimer(3, 2);
+		assertTimer(fetchMany ? 2 : 3, 2);
+		assertCounter(fetchMany ? Long.valueOf(3) : null);
 	}
 
 	private static void assertTimer(final long expectedThis, final long expectedNext)
@@ -90,6 +97,26 @@ public class SequenceInfoTest extends TestWithEnvironment
 					PrometheusMeterRegistrar.registryString());
 
 		assertEquals(expectedNext, ((Timer)meter(Sequence.class, "fetch", tag(next).and(tag(MODEL)))).count());
+	}
+
+	/**
+	 * @param expected {@code null} -> meter must not exist
+	 */
+	private static void assertCounter(final Long expected)
+	{
+		final Tags tags = tag(TYPE.getThis()).and(tag(MODEL));
+		if (expected==null)
+			assertFails(
+					() -> meter(Sequence.class, "count", tags),
+					PrometheusMeterRegistrar.NotFound.class,
+					"not found: " +
+							">com.exedio.cope.Sequence.count< " +
+							"[tag(feature=AnItem.this),tag(model=com.exedio.cope.SequenceInfoTest)] in " +
+							PrometheusMeterRegistrar.registryString());
+		else
+			assertEquals(
+					expected.longValue(),
+					((Counter)meter(Sequence.class, "count", tags)).count());
 	}
 
 	private static void newItem(

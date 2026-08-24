@@ -3,7 +3,7 @@ package com.exedio.cope;
 import java.time.Duration;
 import java.util.function.LongSupplier;
 
-class CallRateTracker
+final class CallRateTracker
 {
 	private static final long WINDOW_NANOS = Duration.ofSeconds(60).toNanos();
 

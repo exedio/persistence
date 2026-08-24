@@ -360,7 +360,7 @@ abstract class Dialect
 	abstract void deleteSequence(
 			StringBuilder sb, String nameQuoted,
 			long start);
-	abstract Long    nextSequence(Executor executor, Connection connection, String nameQuoted);
+	abstract long[]  nextSequence(Executor executor, Connection connection, String nameQuoted, int count);
 	abstract Long getNextSequence(Executor executor, Connection connection, String name);
 
 	/**

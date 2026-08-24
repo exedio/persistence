@@ -278,6 +278,21 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	}
 
 	final PrimaryKeyGenerator primaryKeyGenerator = value("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence);
+	/**
+	 * With {@code schema.primaryKeyGenerator}=sequence, each creation of a new item pulls a PK from a DB sequence. This is done
+	 * outside the application transaction, in an auto-commit database connection - so each pulling of PKs needs the time
+	 * of a tx commit (i.e. the database must have written all changes persistently to the file system). Operations that
+	 * require creation of many items may spend a lot of time waiting for PK assignment.
+	 * <p>
+	 * {@code schema.primaryKeyGenerator.maxFetch}>1 enables prefetching of primary key values dynamically based on
+	 * that item type's creation rate in the last minute.
+	 * <p>
+	 * BEWARE: When prefetching is enabled (>1), primary key values are no longer guaranteed to be assigned in
+	 * strictly chronological order.
+	 * <p>
+	 * Value 1 (default) deactivates prefetching.
+	 */
+	final Integer primaryKeyGeneratorMaxFetch = primaryKeyGenerator==PrimaryKeyGenerator.sequence ? value("schema.primaryKeyGenerator.maxFetch", 1, 1) : null;
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
 	/**

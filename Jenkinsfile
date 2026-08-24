@@ -464,19 +464,22 @@ try
 
 			envPostgresql(
 				'pg',
-				''
+				'schema.primaryKeyGenerator.maxFetch=100\n'
 			)
 			envPostgresql(
 				'pg-mysql',
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'disableSupport.semicolon=true\n' +
 				'disableSupport.nativeDate=true\n'
 			)
 			envPostgresql(
 				'pg-nprep',
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'disableSupport.preparedStatements=true\n'
 			)
 			envPostgresql(
 				'pg-nstmp',
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'cache.stamps=false\n'
 			)
 			envPostgresql(
@@ -492,6 +495,7 @@ try
 			)
 			envPostgresql(
 				'pg-vault',
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n'
@@ -807,12 +811,13 @@ void branchMysql(
 				'my' + code,
 				'mysql',
 				binlogSql,
-				''
+				'schema.primaryKeyGenerator.maxFetch=100\n'
 			)
 			envMysql(
 				'my' + code + '-compress',
 				'mysql',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'dialect.rowFormat=COMPRESSED\n'
 			)
 			envMysql(
@@ -828,12 +833,14 @@ void branchMysql(
 				'my' + code + '-nprep',
 				'mysql',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql(
 				'my' + code + '-nstmp',
 				'mysql',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'cache.stamps=false\n'
 			)
 			envMysql(
@@ -861,12 +868,14 @@ void branchMysql(
 				'my' + code + '-unique',
 				'mysql',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'disableSupport.uniqueViolation=true\n'
 			)
 			envMysql(
 				'my' + code + '-vault',
 				'mysql',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n'
@@ -875,7 +884,7 @@ void branchMysql(
 				'my' + code + 'm',
 				'mariadb',
 				binlogSql,
-				''
+				'schema.primaryKeyGenerator.maxFetch=100\n'
 			)
 			envMysql(
 				'my' + code + 'm-legacy',
@@ -890,12 +899,14 @@ void branchMysql(
 				'my' + code + 'm-nprep',
 				'mariadb',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'disableSupport.preparedStatements=true\n'
 			)
 			envMysql(
 				'my' + code + 'm-nstmp',
 				'mariadb',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'cache.stamps=false\n'
 			)
 			envMysql(
@@ -917,6 +928,7 @@ void branchMysql(
 				'my' + code + 'm-vault',
 				'mariadb',
 				binlogSql,
+				'schema.primaryKeyGenerator.maxFetch=100\n' +
 				'vault=true\n' +
 				'vault.default.service=com.exedio.cope.vaultmock.VaultMockService\n' +
 				'vault.isAppliedToAllFields=true\n'

@@ -90,6 +90,7 @@ final class MysqlDialect extends Dialect
 	private final int purgeSequenceLimit;
 	private final String schemaSavepointSQL;
 	private final boolean legacyHashesAllowed;
+	private final boolean mariaDB;
 
 	MysqlDialect(
 			final CopeProbe probe,
@@ -117,6 +118,8 @@ final class MysqlDialect extends Dialect
 			throw new IllegalArgumentException(
 					"legacyHashesAllowed is forbidden on MySQL 9 and later: " +
 					env.getDatabaseVersionDescription());
+
+		mariaDB = "MariaDB Connector/J".equals(env.getDriverName());
 
 		assertDriverVersion(env);
 	}
@@ -146,6 +149,9 @@ final class MysqlDialect extends Dialect
 		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'");
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
+		if (mariaDB)
+			// By default, MariaDB Statement.getGeneratedKeys() returns only the first generated key - we need all:
+			info.setProperty("returnMultiValuesGeneratedIds", TRUE);
 		if(connectionCompress)
 			info.setProperty("useCompression", TRUE);
 		//info.setProperty("profileSQL", TRUE);
@@ -524,25 +530,25 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	Long nextSequence(
+	long[] nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String nameQuoted)
+			final String nameQuoted,
+			final int count)
 	{
 		final Statement st = executor.newStatement();
 		st.append("INSERT "). // MySQL allows INSERT without INTO: https://dev.mysql.com/doc/refman/5.7/en/insert.html
 			append(nameQuoted).
-			append(" VALUES()");
+			append(" VALUES");
+		for (int i=0; i<count; i++)
+		{
+			if (i!=0)
+				st.append(',');
+			st.append("()");
+		}
 
-		return executor.insertAndGetGeneratedKeysWithoutTimer(connection, st, resultSet -> // withoutTimer is ok, because Dialect#nextSequence is measured by caller
-			{
-				if(!resultSet.next())
-					throw new RuntimeException("empty in sequence " + nameQuoted);
-				final long result = resultSet.getLong(1);
-				if(resultSet.wasNull())
-					throw new RuntimeException("null in sequence " + nameQuoted);
-				return result - 1;
-			}
+		return executor.insertAndGetGeneratedKeysWithoutTimer(connection, st, // withoutTimer is ok, because Dialect#nextSequence is measured by caller
+			Executor.longArrayResultSetHandler(count, nameQuoted, 1)
 		);
 	}
 

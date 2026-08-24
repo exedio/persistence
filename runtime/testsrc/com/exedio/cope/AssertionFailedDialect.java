@@ -112,7 +112,7 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	Long nextSequence(final Executor executor, final Connection connection, final String nameQuoted)
+	long[] nextSequence(final Executor executor, final Connection connection, final String nameQuoted, final int count)
 	{
 		throw new AssertionError();
 	}

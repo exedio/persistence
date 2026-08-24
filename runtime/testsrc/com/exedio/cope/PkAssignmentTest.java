@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperType;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,15 @@ class PkAssignmentTest extends TestWithEnvironment
 		modelB.connect(model.getConnectProperties());
 	}
 
+	@AfterEach
+	void disconnectModelB()
+	{
+		if (modelB.isConnected())
+		{
+			modelB.disconnect();
+		}
+	}
+
 	@Test
 	void parallel()
 	{
@@ -31,31 +41,55 @@ class PkAssignmentTest extends TestWithEnvironment
 				model.getConnectProperties().primaryKeyGenerator.persistent,
 				"This test simulates two nodes - can't work unless persistent.");
 		// simulating creation of items on two cluster nodes, represented by ItemA.TYPE and ItemB.TYPE:
-		assertPk(0, 0, ItemA.TYPE);
-		assertPk(1, 64, ItemB.TYPE);
-		assertPk(2, 1, ItemA.TYPE);
-		assertPk(3, 65, ItemB.TYPE);
-		assertPk(4, 2, ItemA.TYPE);
-		assertPk(5, 66, ItemB.TYPE);
+		assertPk(0, 0, 0, ItemA.TYPE);
+		assertPk(1, 1, 64, ItemB.TYPE);
+		assertPk(2, 2, 1, ItemA.TYPE);
+		// from here on, expectedMaxFetch100 actually depends on test run-time:
+		// if this not all happens within a minute, other pre-fetch counts would apply
+		assertPk(3, 4, 65, ItemB.TYPE);
+		assertPk(4, 3, 2, ItemA.TYPE);
+		assertPk(5, 5, 66, ItemB.TYPE);
 		for (int i=6; i<SequenceImplBatchedSequence.BATCH_SIZE+2; i++)
-			assertPk(i, i-3, ItemA.TYPE);
-		assertPk(66, 63, ItemA.TYPE);
-		assertPk(67, 128, ItemA.TYPE);
-		assertPk(68, 67, ItemB.TYPE);
+			assertPk(i, i, i-3, ItemA.TYPE);
+		assertPk(66, 66, 63, ItemA.TYPE);
+		assertPk(67, 67, 128, ItemA.TYPE);
+		assertPk(68, 130, 67, ItemB.TYPE);
 		modelB.disconnect();
 		modelB.connect(model.getConnectProperties());
-		assertPk(69, 192, ItemB.TYPE);
+		assertPk(69, 134, 192, ItemB.TYPE);
 	}
 
-	private void assertPk(final int expectedStandard, final int expectedBatched, final Type<?> type)
+	@Test
+	void exceedMaxFetch()
+	{
+		assumeTrue(
+				model.getConnectProperties().primaryKeyGenerator.persistent,
+				"This test simulates two nodes - can't work unless persistent.");
+		// Prefetch gets 1, 2, 4 ... 64 PKs.
+		// 127 ItemAs fully use prefetched PKs up to fetch size = 64.
+		for (int i=0; i<127; i++)
+			assertPk(i, i, i, ItemA.TYPE);
+		assertPk(127, 127, 128, ItemB.TYPE);
+		// Creating the 128th ItemA would prefetch 128, but is limited by primaryKeyGeneratorMaxFetch=100
+		assertPk(128, 128, 127, ItemA.TYPE);
+		// So the next ItemB doesn't get 128+128=256, but 128+100=228.
+		assertPk(129, 228, 129, ItemB.TYPE);
+	}
+
+	private void assertPk(final int expectedStandard, final int expectedMaxFetch100, final int expectedBatched, final Type<?> type)
 	{
 		if (model.getConnectProperties().primaryKeyGenerator == PrimaryKeyGenerator.batchedSequence)
 		{
 			assertEquals(expectedBatched, getPkInTx(type));
 		}
-		else
+		else if (model.getConnectProperties().primaryKeyGeneratorMaxFetch==null || model.getConnectProperties().primaryKeyGeneratorMaxFetch==1)
 		{
 			assertEquals(expectedStandard, getPkInTx(type));
+		}
+		else
+		{
+			assertEquals(100, model.getConnectProperties().primaryKeyGeneratorMaxFetch, "other values not supported by test");
+			assertEquals(expectedMaxFetch100, getPkInTx(type));
 		}
 	}
 
