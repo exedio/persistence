@@ -46,8 +46,8 @@ public class CaseView extends StringView
 	{
 		return
 				upper
-				? s.toUpperCase(Locale.ENGLISH)
-				: s.toLowerCase(Locale.ENGLISH); // TODO which locale ?
+				? s.toUpperCase(Locale.ROOT)
+				: s.toLowerCase(Locale.ROOT);
 	}
 
 	@Override
@@ -128,6 +128,6 @@ public class CaseView extends StringView
 
 	private static String normalizeCase(final String value)
 	{
-		return value.toLowerCase(Locale.ENGLISH); // TODO which locale ?
+		return value.toLowerCase(Locale.ROOT);
 	}
 }
