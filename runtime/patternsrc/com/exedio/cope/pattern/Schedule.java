@@ -33,7 +33,6 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.HOURS;
 import static java.time.temporal.ChronoUnit.MONTHS;
 import static java.time.temporal.ChronoUnit.WEEKS;
-import static java.util.Locale.ENGLISH;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
@@ -67,6 +66,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Locale;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
@@ -344,7 +344,7 @@ public final class Schedule extends Pattern
 			final int total = dates.size() - 1;
 			if(total>interval.limit)
 				throw new RuntimeException(
-						"schedule aborting because " + total + ' ' + interval.name().toLowerCase(ENGLISH) + " " +
+						"schedule aborting because " + total + ' ' + interval.name().toLowerCase(Locale.ROOT) + " " +
 						"pending runs do exceed the limit of " + interval.limit + " " +
 						"on " + item.getCopeID() + " for " + getID());
 
