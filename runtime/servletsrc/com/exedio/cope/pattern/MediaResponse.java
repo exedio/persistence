@@ -20,9 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaPath.addDirective;
 import static com.exedio.cope.util.Check.requireNonEmpty;
-import static java.util.Locale.ENGLISH;
 
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -50,7 +50,7 @@ public final class MediaResponse
 		if(!name.trim().equals(name))
 			throw new IllegalArgumentException(
 					"name must be trimmed, but was >" + name + '<');
-		if(FORBIDDEN_HEADER_NAMES.contains(name.toLowerCase(ENGLISH)))
+		if(FORBIDDEN_HEADER_NAMES.contains(name.toLowerCase(Locale.ROOT)))
 			throw new IllegalArgumentException(
 					"name is forbidden, was >" + name + '<');
 
@@ -95,7 +95,7 @@ public final class MediaResponse
 
 			// set by Tomcat
 			"Date"
-	).map(s -> s.toLowerCase(ENGLISH)).collect(Collectors.toSet());
+	).map(s -> s.toLowerCase(Locale.ROOT)).collect(Collectors.toSet());
 
 
 	private boolean cacheControlPrivate = false;
