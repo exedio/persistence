@@ -166,7 +166,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String toLiteral(final Day value)
 	{
-		final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
+		final NumberFormat nf = NumberFormat.getInstance(Locale.ROOT);
 		nf.setMinimumIntegerDigits(2);
 		return "'" + value.getYear() + '-' + nf.format(value.getMonthValue()) + '-' + nf.format(value.getDayOfMonth()) + "'::\"date\"";
 	}

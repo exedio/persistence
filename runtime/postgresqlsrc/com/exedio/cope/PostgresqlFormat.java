@@ -42,7 +42,7 @@ final class PostgresqlFormat
 	}
 
 	private static final DecimalFormatSymbols doubleFormatSymbols =
-			DecimalFormatSymbols.getInstance(Locale.ENGLISH);
+			DecimalFormatSymbols.getInstance(Locale.ROOT);
 
 
 	private PostgresqlFormat()
