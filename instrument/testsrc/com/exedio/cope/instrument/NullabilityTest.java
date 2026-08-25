@@ -2,7 +2,6 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.instrument.Nullability.DEFAULT;
 import static com.exedio.cope.instrument.Nullability.NONNULL;
-import static com.exedio.cope.instrument.Nullability.NONNULL_CLASS_NAME;
 import static com.exedio.cope.instrument.Nullability.NULLABLE;
 import static com.exedio.cope.instrument.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Nonnull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
@@ -73,12 +71,6 @@ class NullabilityTest
 			assertions.add(() -> assertEquals(parameterNullabilities[parameterIndex], actual, "parameter " + parameterIndex));
 		}
 		assertAll(name, assertions.stream());
-	}
-
-	@Test
-	void nonnullClassName()
-	{
-		assertEquals(Nonnull.class.getName(), NONNULL_CLASS_NAME);
 	}
 
 	@Test
