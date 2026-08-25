@@ -80,6 +80,13 @@ class NullableAsOptionalItem extends Item
 		NullableAsOptionalItem.wrapDefault.onlyOptionalsCanTakeNull(this,wrapDefault);
 	}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultNullability")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void defaultWrapDefaultNullability(final java.lang.Object wrapDefault)
+	{
+		NullableAsOptionalItem.wrapDefault.defaultNullability(this,wrapDefault);
+	}
+
 	/**
 	 * This method can return an empty {@link java.util.Optional}.
 	 * @return may be an empty {@link java.util.Optional}
@@ -129,6 +136,13 @@ class NullableAsOptionalItem extends Item
 		NullableAsOptionalItem.wrapped.onlyOptionalsCanTakeNull(this,wrapped);
 	}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultNullability")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void defaultWrappedNullability(final java.lang.Object wrapped)
+	{
+		NullableAsOptionalItem.wrapped.defaultNullability(this,wrapped);
+	}
+
 	/**
 	 * This method can return null.
 	 * @return may be null
@@ -176,6 +190,13 @@ class NullableAsOptionalItem extends Item
 	final void onlyNotWrappedOptionalsCanTakeNull(@javax.annotation.Nullable final java.lang.Object notWrapped)
 	{
 		NullableAsOptionalItem.notWrapped.onlyOptionalsCanTakeNull(this,notWrapped);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultNullability")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void defaultNotWrappedNullability(final java.lang.Object notWrapped)
+	{
+		NullableAsOptionalItem.notWrapped.defaultNullability(this,notWrapped);
 	}
 
 	@com.exedio.cope.instrument.Generated

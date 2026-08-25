@@ -77,6 +77,14 @@ public class NullabilityFeature
 		throw new RuntimeException();
 	}
 
+	@Wrap(order=70)
+	public void defaultNullability(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") final Object parameter)
+	{
+		throw new RuntimeException();
+	}
+
 	private static final class IfOptional implements NullabilityGetter<NullabilityFeature>
 	{
 		@Override
