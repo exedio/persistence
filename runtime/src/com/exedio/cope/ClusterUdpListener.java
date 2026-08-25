@@ -279,7 +279,7 @@ abstract class ClusterUdpListener
 
 		private static String formatNanos(final long nanos)
 		{
-			return NumberFormat.getInstance(Locale.ENGLISH).format(nanos);
+			return NumberFormat.getInstance(Locale.ROOT).format(nanos); // adds separators for thousands and millions
 		}
 
 		ClusterListenerInfo.Node getInfo()
