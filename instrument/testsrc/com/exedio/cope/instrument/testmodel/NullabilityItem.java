@@ -91,6 +91,13 @@ public final class NullabilityItem extends Item
 		NullabilityItem.optional.onlyOptionalsCanTakeNull(this,optional);
 	}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultNullability")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void defaultOptionalNullability(final java.lang.Object optional)
+	{
+		NullabilityItem.optional.defaultNullability(this,optional);
+	}
+
 	/**
 	 * This method can return null.
 	 * @return may be null
@@ -138,6 +145,13 @@ public final class NullabilityItem extends Item
 	void onlyMandatoryOptionalsCanTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.onlyOptionalsCanTakeNull(this,mandatory);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultNullability")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void defaultMandatoryNullability(final java.lang.Object mandatory)
+	{
+		NullabilityItem.mandatory.defaultNullability(this,mandatory);
 	}
 
 	@com.exedio.cope.instrument.Generated
