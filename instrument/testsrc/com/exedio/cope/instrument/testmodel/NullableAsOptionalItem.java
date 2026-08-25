@@ -95,6 +95,44 @@ class NullableAsOptionalItem extends Item
 		NullableAsOptionalItem.wrapDefault.javaxNonnullParameter(wrapDefault);
 	}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	static final java.lang.Object jspecifyWrapDefaultNullableReturn()
+	{
+		return NullableAsOptionalItem.wrapDefault.jspecifyNullableReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static final java.lang.Object jspecifyWrapDefaultNonnullReturn()
+	{
+		return NullableAsOptionalItem.wrapDefault.jspecifyNonnullReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static final java.lang.Object jspecifyWrapDefaultNullableNonnullReturn()
+	{
+		return NullableAsOptionalItem.wrapDefault.jspecifyNullableNonnullReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void jspecifyWrapDefaultNullableParameter(@javax.annotation.Nullable final java.lang.Object wrapDefault)
+	{
+		NullableAsOptionalItem.wrapDefault.jspecifyNullableParameter(this,wrapDefault);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNonnullParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void jspecifyWrapDefaultNonnullParameter(@javax.annotation.Nonnull final java.lang.Object wrapDefault)
+	{
+		NullableAsOptionalItem.wrapDefault.jspecifyNonnullParameter(this,wrapDefault);
+	}
+
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultReturnAndParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void defaultWrappedReturnAndParameter(final java.lang.Object wrapped)
@@ -159,6 +197,44 @@ class NullableAsOptionalItem extends Item
 		NullableAsOptionalItem.wrapped.javaxNonnullParameter(wrapped);
 	}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static final java.util.Optional<java.lang.Object> jspecifyWrappedNullableReturn()
+	{
+		return java.util.Optional.ofNullable(NullableAsOptionalItem.wrapped.jspecifyNullableReturn());
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static final java.lang.Object jspecifyWrappedNonnullReturn()
+	{
+		return NullableAsOptionalItem.wrapped.jspecifyNonnullReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static final java.lang.Object jspecifyWrappedNullableNonnullReturn()
+	{
+		return NullableAsOptionalItem.wrapped.jspecifyNullableNonnullReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void jspecifyWrappedNullableParameter(@javax.annotation.Nullable final java.lang.Object wrapped)
+	{
+		NullableAsOptionalItem.wrapped.jspecifyNullableParameter(this,wrapped);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNonnullParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void jspecifyWrappedNonnullParameter(@javax.annotation.Nonnull final java.lang.Object wrapped)
+	{
+		NullableAsOptionalItem.wrapped.jspecifyNonnullParameter(this,wrapped);
+	}
+
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultReturnAndParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void defaultNotWrappedReturnAndParameter(final java.lang.Object notWrapped)
@@ -221,6 +297,44 @@ class NullableAsOptionalItem extends Item
 	static final void javaxNotWrappedNonnullParameter(@javax.annotation.Nonnull final java.lang.Object notWrapped)
 	{
 		NullableAsOptionalItem.notWrapped.javaxNonnullParameter(notWrapped);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	static final java.lang.Object jspecifyNotWrappedNullableReturn()
+	{
+		return NullableAsOptionalItem.notWrapped.jspecifyNullableReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static final java.lang.Object jspecifyNotWrappedNonnullReturn()
+	{
+		return NullableAsOptionalItem.notWrapped.jspecifyNonnullReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static final java.lang.Object jspecifyNotWrappedNullableNonnullReturn()
+	{
+		return NullableAsOptionalItem.notWrapped.jspecifyNullableNonnullReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNullableParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void jspecifyNotWrappedNullableParameter(@javax.annotation.Nullable final java.lang.Object notWrapped)
+	{
+		NullableAsOptionalItem.notWrapped.jspecifyNullableParameter(this,notWrapped);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="jspecifyNonnullParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	final void jspecifyNotWrappedNonnullParameter(@javax.annotation.Nonnull final java.lang.Object notWrapped)
+	{
+		NullableAsOptionalItem.notWrapped.jspecifyNonnullParameter(this,notWrapped);
 	}
 
 	@com.exedio.cope.instrument.Generated

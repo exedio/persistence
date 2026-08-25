@@ -94,6 +94,41 @@ public class NullabilityFeature
 		throw new RuntimeException();
 	}
 
+	@Wrap(order=400)
+	public @org.jspecify.annotations.Nullable Object jspecifyNullableReturn()
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=410)
+	public @org.jspecify.annotations.NonNull Object jspecifyNonnullReturn()
+	{
+		throw new RuntimeException();
+	}
+
+	@SuppressWarnings("NullableProblems")
+	@Wrap(order=420)
+	public @org.jspecify.annotations.Nullable @org.jspecify.annotations.NonNull Object jspecifyNullableNonnullReturn()
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=500)
+	public void jspecifyNullableParameter(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") final @org.jspecify.annotations.Nullable Object parameter)
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=510)
+	public void jspecifyNonnullParameter(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") final @org.jspecify.annotations.NonNull Object parameter)
+	{
+		throw new RuntimeException();
+	}
+
 	private static final class IfOptional implements NullabilityGetter<NullabilityFeature>
 	{
 		@Override
