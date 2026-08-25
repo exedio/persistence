@@ -31,8 +31,7 @@ import java.lang.annotation.Target;
  * This annotation is used to mark source code that has been generated
  * by the cope instrumentor.
  * <p>
- * Differs from {@link Generated} by specifying
- * {@link java.lang.annotation.RetentionPolicy#CLASS class} retention.
+ * To be deprecated, use {@link Generated} instead.
  */
 @Retention(CLASS)
 @Target({TYPE, METHOD, CONSTRUCTOR, FIELD})
