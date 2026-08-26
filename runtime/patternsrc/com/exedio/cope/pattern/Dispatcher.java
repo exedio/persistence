@@ -68,7 +68,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -169,7 +168,7 @@ public final class Dispatcher extends Pattern
 
 	private record Initial(
 			@Nullable Supplier<? extends AutoCloseable> session,
-			@NonNull InternalTarget<?, ?> target,
+			InternalTarget<?, ?> target,
 			@Nullable BiConsumer<? extends Item, Exception> onFinalFailure)
 	{
 		Initial
@@ -183,13 +182,13 @@ public final class Dispatcher extends Pattern
 	private volatile boolean probeRequired = true;
 
 	public static <I extends Item> Dispatcher create(
-			final @NonNull Target<I> target)
+			final Target<I> target)
 	{
 		return create(target, null);
 	}
 
 	public static <I extends Item> Dispatcher create(
-			final @NonNull Target<I> target,
+			final Target<I> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
 		requireNonNull(target, "target");
@@ -204,15 +203,15 @@ public final class Dispatcher extends Pattern
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
-			final @NonNull Supplier<S> session,
-			final @NonNull SessionTarget<I,S> target)
+			final Supplier<S> session,
+			final SessionTarget<I,S> target)
 	{
 		return createWithSession(session, target, null);
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
-			final @NonNull Supplier<S> session,
-			final @NonNull SessionTarget<I,S> target,
+			final Supplier<S> session,
+			final SessionTarget<I,S> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
 		requireNonNull(session, "session");
@@ -225,7 +224,7 @@ public final class Dispatcher extends Pattern
 
 	private static <I extends Item, S extends AutoCloseable> Dispatcher createInternal(
 			final @Nullable Supplier<S> session,
-			final @NonNull InternalTarget<I,S> target,
+			final InternalTarget<I,S> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
 		return new Dispatcher(
@@ -341,8 +340,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
-	@NonNull
-	public <P extends Item> ItemField<P> getRunParent(@NonNull final Class<P> parentClass)
+	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
 	{
 		requireParentClass(parentClass, "parentClass");
 		return runType().parent.as(parentClass);
@@ -390,9 +388,9 @@ public final class Dispatcher extends Pattern
 
 	@Wrap(order=20, doc="Dispatch by {0}.")
 	public <P extends Item> void dispatch(
-			@NonNull final Class<P> parentClass,
-			@NonNull @Parameter("config") final Config config,
-			@NonNull @Parameter("ctx") final JobContext ctx)
+			final Class<P> parentClass,
+			@Parameter("config") final Config config,
+			@Parameter("ctx") final JobContext ctx)
 	{
 		dispatch(parentClass, config, EMPTY_PROBE, ctx);
 	}
@@ -410,10 +408,10 @@ public final class Dispatcher extends Pattern
 
 	@Wrap(order=21, doc="Dispatch by {0}.")
 	public <P extends Item> void dispatch(
-			@NonNull final Class<P> parentClass,
-			@NonNull @Parameter("config") final Config config,
-			@NonNull @Parameter("probe") final Runnable probe,
-			@NonNull @Parameter("ctx") final JobContext ctx)
+			final Class<P> parentClass,
+			@Parameter("config") final Config config,
+			@Parameter("probe") final Runnable probe,
+			@Parameter("ctx") final JobContext ctx)
 	{
 		final Type<P> type =
 				requireParentClass(parentClass, "parentClass");
@@ -432,13 +430,13 @@ public final class Dispatcher extends Pattern
 	}
 
 	private <P extends Item> void dispatchInSession(
-			@NonNull final Class<P> parentClass,
-			@NonNull final Type<P> type,
-			@NonNull final Config config,
-			@NonNull final Runnable probe,
-			@NonNull final JobContext ctx,
-			@NonNull final Logger logger,
-			@NonNull final DispatcherSessionManager session)
+			final Class<P> parentClass,
+			final Type<P> type,
+			final Config config,
+			final Runnable probe,
+			final JobContext ctx,
+			final Logger logger,
+			final DispatcherSessionManager session)
 	{
 		final String id = getID();
 		final RunType runType = runType();
@@ -593,7 +591,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private void unpend(@NonNull final Config config, final Item item, final boolean success, final Date date)
+	private void unpend(final Config config, final Item item, final boolean success, final Date date)
 	{
 		final boolean delete = success && config.deleteOnSuccess;
 
@@ -641,28 +639,28 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=30, doc="Returns, whether this item is yet to be dispatched by {0}.")
-	public boolean isPending(@NonNull final Item item)
+	public boolean isPending(final Item item)
 	{
 		return pending.getMandatory(item);
 	}
 
 	@Wrap(order=40, doc="Sets whether this item is yet to be dispatched by {0}.")
 	public void setPending(
-			@NonNull final Item item,
+			final Item item,
 			@Parameter("pending") final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}
 
 	@Wrap(order=45, doc="Returns, whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
-	public boolean isNoPurge(@NonNull final Item item)
+	public boolean isNoPurge(final Item item)
 	{
 		return requireNoPurge().getMandatory(item);
 	}
 
 	@Wrap(order=47, doc="Sets whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
 	public void setNoPurge(
-			@NonNull final Item item,
+			final Item item,
 			@Parameter("noPurge") final boolean noPurge)
 	{
 		requireNoPurge().set(item, noPurge);
@@ -680,7 +678,7 @@ public final class Dispatcher extends Pattern
 
 	@Wrap(order=50, doc="Returns the date, this item was last successfully dispatched by {0}.")
 	@Nullable
-	public Date getLastSuccessDate(@NonNull final Item item)
+	public Date getLastSuccessDate(final Item item)
 	{
 		final Run success = runType().getLastSuccess(item);
 		return success!=null ? success.getDate() : null;
@@ -688,21 +686,19 @@ public final class Dispatcher extends Pattern
 
 	@Wrap(order=60, doc="Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
 	@Nullable
-	public Long getLastSuccessElapsed(@NonNull final Item item)
+	public Long getLastSuccessElapsed(final Item item)
 	{
 		final Run success = runType().getLastSuccess(item);
 		return success!=null ? success.getElapsed() : null;
 	}
 
 	@Wrap(order=70, doc="Returns the attempts to dispatch this item by {0}.")
-	@NonNull
 	public List<Run> getRuns(final Item item)
 	{
 		return runType().getRuns(item);
 	}
 
 	@Wrap(order=80, doc="Returns the failed attempts to dispatch this item by {0}.")
-	@NonNull
 	public List<Run> getFailures(final Item item)
 	{
 		return runType().getFailures(item);
@@ -817,7 +813,7 @@ public final class Dispatcher extends Pattern
 		}
 
 		private <P extends Item> void newItem(
-				@NonNull final Class<P> parentClass,
+				final Class<P> parentClass,
 				final P parent,
 				final Date date,
 				final long elapsed,
@@ -942,8 +938,8 @@ public final class Dispatcher extends Pattern
 	 */
 	@Wrap(order=100, hide=SupportsPurgeGetter.class)
 	public void purge(
-			@NonNull @Parameter("properties") final DispatcherPurgeProperties properties,
-			@NonNull @Parameter("ctx") final JobContext ctx)
+			@Parameter("properties") final DispatcherPurgeProperties properties,
+			@Parameter("ctx") final JobContext ctx)
 	{
 		requireNonNull(properties, "properties");
 		requireNonNull(ctx, "ctx");
@@ -955,9 +951,9 @@ public final class Dispatcher extends Pattern
 	 */
 	@Wrap(order=110, hide=SupportsPurgeGetter.class)
 	public void purge(
-			@NonNull @Parameter("properties") final DispatcherPurgeProperties properties,
-			@NonNull @Parameter("restriction") final Condition restriction,
-			@NonNull @Parameter("ctx") final JobContext ctx)
+			@Parameter("properties") final DispatcherPurgeProperties properties,
+			@Parameter("restriction") final Condition restriction,
+			@Parameter("ctx") final JobContext ctx)
 	{
 		requireNonNull(properties, "properties");
 		requireNonNull(restriction, "restriction");
