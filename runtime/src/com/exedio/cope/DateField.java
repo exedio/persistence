@@ -375,7 +375,7 @@ public final class DateField extends FunctionField<Date>
 
 		private static GregorianCalendar newGregorianCalendar(final Date value)
 		{
-			final GregorianCalendar result = new GregorianCalendar(ZONE, Locale.ENGLISH);
+			final GregorianCalendar result = new GregorianCalendar(ZONE, Locale.ROOT);
 			result.setTime(value);
 			return result;
 		}
@@ -582,7 +582,7 @@ public final class DateField extends FunctionField<Date>
 
 	static SimpleDateFormat format(final String pattern)
 	{
-		final SimpleDateFormat result = new SimpleDateFormat(pattern, Locale.ENGLISH);
+		final SimpleDateFormat result = new SimpleDateFormat(pattern, Locale.ROOT);
 		result.setTimeZone(ZONE);
 		result.setLenient(false);
 		return result;

@@ -197,7 +197,7 @@ final class Marshallers
 			{
 				// Don't use a static instance,
 				// since then access must be synchronized
-				final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
+				final NumberFormat nf = NumberFormat.getInstance(Locale.ROOT);
 				nf.setMinimumIntegerDigits(2);
 				return "{d '"+value.getYear()+'-'+nf.format(value.getMonthValue())+'-'+nf.format(value.getDayOfMonth())+"'}";
 			}
