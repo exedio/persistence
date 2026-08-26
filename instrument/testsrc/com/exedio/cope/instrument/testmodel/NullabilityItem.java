@@ -46,112 +46,112 @@ public final class NullabilityItem extends Item
 	 * This method can return null.
 	 * @return may be null
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableReturn")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
-	static java.lang.Object allOptionalCanReturnNull()
+	static java.lang.Object javaxOptionalNullableReturn()
 	{
-		return NullabilityItem.optional.allCanReturnNull();
+		return NullabilityItem.optional.javaxNullableReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCannotReturnNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNonnullReturn")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
-	static java.lang.Object allOptionalCannotReturnNull()
+	static java.lang.Object javaxOptionalNonnullReturn()
 	{
-		return NullabilityItem.optional.allCannotReturnNull();
+		return NullabilityItem.optional.javaxNonnullReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="onlyOptionalsCanReturnNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableReturn")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
-	static java.lang.Object onlyOptionalOptionalsCanReturnNull()
+	static java.lang.Object conditionalOptionalNullableReturn()
 	{
-		return NullabilityItem.optional.onlyOptionalsCanReturnNull();
+		return NullabilityItem.optional.conditionalNullableReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanTakeNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static void allOptionalCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
+	static void javaxOptionalNullableParameter(@javax.annotation.Nullable final java.lang.Object optional)
 	{
-		NullabilityItem.optional.allCanTakeNull(optional);
+		NullabilityItem.optional.javaxNullableParameter(optional);
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCannotTakeNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNonnullParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static void allOptionalCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object optional)
+	static void javaxOptionalNonnullParameter(@javax.annotation.Nonnull final java.lang.Object optional)
 	{
-		NullabilityItem.optional.allCannotTakeNull(optional);
+		NullabilityItem.optional.javaxNonnullParameter(optional);
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="onlyOptionalsCanTakeNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void onlyOptionalOptionalsCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
+	void conditionalOptionalNullableParameter(@javax.annotation.Nullable final java.lang.Object optional)
 	{
-		NullabilityItem.optional.onlyOptionalsCanTakeNull(this,optional);
+		NullabilityItem.optional.conditionalNullableParameter(this,optional);
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultNullability")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultReturnAndParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void defaultOptionalNullability(final java.lang.Object optional)
+	void defaultOptionalReturnAndParameter(final java.lang.Object optional)
 	{
-		NullabilityItem.optional.defaultNullability(this,optional);
+		NullabilityItem.optional.defaultReturnAndParameter(this,optional);
 	}
 
 	/**
 	 * This method can return null.
 	 * @return may be null
 	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableReturn")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
-	static java.lang.Object allMandatoryCanReturnNull()
+	static java.lang.Object javaxMandatoryNullableReturn()
 	{
-		return NullabilityItem.mandatory.allCanReturnNull();
+		return NullabilityItem.mandatory.javaxNullableReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCannotReturnNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNonnullReturn")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
-	static java.lang.Object allMandatoryCannotReturnNull()
+	static java.lang.Object javaxMandatoryNonnullReturn()
 	{
-		return NullabilityItem.mandatory.allCannotReturnNull();
+		return NullabilityItem.mandatory.javaxNonnullReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="onlyOptionalsCanReturnNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableReturn")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
-	static java.lang.Object onlyMandatoryOptionalsCanReturnNull()
+	static java.lang.Object conditionalMandatoryNullableReturn()
 	{
-		return NullabilityItem.mandatory.onlyOptionalsCanReturnNull();
+		return NullabilityItem.mandatory.conditionalNullableReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanTakeNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static void allMandatoryCanTakeNull(@javax.annotation.Nullable final java.lang.Object mandatory)
+	static void javaxMandatoryNullableParameter(@javax.annotation.Nullable final java.lang.Object mandatory)
 	{
-		NullabilityItem.mandatory.allCanTakeNull(mandatory);
+		NullabilityItem.mandatory.javaxNullableParameter(mandatory);
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCannotTakeNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNonnullParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	static void allMandatoryCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
+	static void javaxMandatoryNonnullParameter(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
-		NullabilityItem.mandatory.allCannotTakeNull(mandatory);
+		NullabilityItem.mandatory.javaxNonnullParameter(mandatory);
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="onlyOptionalsCanTakeNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void onlyMandatoryOptionalsCanTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
+	void conditionalMandatoryNullableParameter(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
-		NullabilityItem.mandatory.onlyOptionalsCanTakeNull(this,mandatory);
+		NullabilityItem.mandatory.conditionalNullableParameter(this,mandatory);
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultNullability")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultReturnAndParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void defaultMandatoryNullability(final java.lang.Object mandatory)
+	void defaultMandatoryReturnAndParameter(final java.lang.Object mandatory)
 	{
-		NullabilityItem.mandatory.defaultNullability(this,mandatory);
+		NullabilityItem.mandatory.defaultReturnAndParameter(this,mandatory);
 	}
 
 	@com.exedio.cope.instrument.Generated
