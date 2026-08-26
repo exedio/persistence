@@ -42,6 +42,28 @@ public final class NullabilityItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private NullabilityItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultReturnAndParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void defaultOptionalReturnAndParameter(final java.lang.Object optional)
+	{
+		NullabilityItem.optional.defaultReturnAndParameter(this,optional);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	static java.lang.Object conditionalOptionalNullableReturn()
+	{
+		return NullabilityItem.optional.conditionalNullableReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void conditionalOptionalNullableParameter(@javax.annotation.Nullable final java.lang.Object optional)
+	{
+		NullabilityItem.optional.conditionalNullableParameter(this,optional);
+	}
+
 	/**
 	 * This method can return null.
 	 * @return may be null
@@ -62,14 +84,6 @@ public final class NullabilityItem extends Item
 		return NullabilityItem.optional.javaxNonnullReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableReturn")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	static java.lang.Object conditionalOptionalNullableReturn()
-	{
-		return NullabilityItem.optional.conditionalNullableReturn();
-	}
-
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void javaxOptionalNullableParameter(@javax.annotation.Nullable final java.lang.Object optional)
@@ -84,18 +98,26 @@ public final class NullabilityItem extends Item
 		NullabilityItem.optional.javaxNonnullParameter(optional);
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableParameter")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void conditionalOptionalNullableParameter(@javax.annotation.Nullable final java.lang.Object optional)
-	{
-		NullabilityItem.optional.conditionalNullableParameter(this,optional);
-	}
-
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultReturnAndParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void defaultOptionalReturnAndParameter(final java.lang.Object optional)
+	void defaultMandatoryReturnAndParameter(final java.lang.Object mandatory)
 	{
-		NullabilityItem.optional.defaultReturnAndParameter(this,optional);
+		NullabilityItem.mandatory.defaultReturnAndParameter(this,mandatory);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static java.lang.Object conditionalMandatoryNullableReturn()
+	{
+		return NullabilityItem.mandatory.conditionalNullableReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableParameter")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void conditionalMandatoryNullableParameter(@javax.annotation.Nonnull final java.lang.Object mandatory)
+	{
+		NullabilityItem.mandatory.conditionalNullableParameter(this,mandatory);
 	}
 
 	/**
@@ -118,14 +140,6 @@ public final class NullabilityItem extends Item
 		return NullabilityItem.mandatory.javaxNonnullReturn();
 	}
 
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableReturn")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	static java.lang.Object conditionalMandatoryNullableReturn()
-	{
-		return NullabilityItem.mandatory.conditionalNullableReturn();
-	}
-
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void javaxMandatoryNullableParameter(@javax.annotation.Nullable final java.lang.Object mandatory)
@@ -138,20 +152,6 @@ public final class NullabilityItem extends Item
 	static void javaxMandatoryNonnullParameter(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.javaxNonnullParameter(mandatory);
-	}
-
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="conditionalNullableParameter")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void conditionalMandatoryNullableParameter(@javax.annotation.Nonnull final java.lang.Object mandatory)
-	{
-		NullabilityItem.mandatory.conditionalNullableParameter(this,mandatory);
-	}
-
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="defaultReturnAndParameter")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void defaultMandatoryReturnAndParameter(final java.lang.Object mandatory)
-	{
-		NullabilityItem.mandatory.defaultReturnAndParameter(this,mandatory);
 	}
 
 	@com.exedio.cope.instrument.Generated
