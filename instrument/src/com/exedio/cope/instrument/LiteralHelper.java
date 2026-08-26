@@ -59,7 +59,7 @@ final class LiteralHelper
 	private static CharSequence hexFourCharacters(final char ch)
 	{
 		final StringBuilder result = new StringBuilder(4);
-		result.append( Integer.toHexString(ch).toUpperCase(Locale.ENGLISH) );
+		result.append( Integer.toHexString(ch).toUpperCase(Locale.ROOT) );
 		while (result.length()<4)
 			result.insert(0, "0");
 		return result;
