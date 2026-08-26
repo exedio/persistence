@@ -162,7 +162,7 @@ final class WrapperByAnnotations
 	@NullMarked
 	static Nullability nullabilityFromAnnotations(final AnnotatedElement element, final AnnotatedType type)
 	{
-		final Nullability nullability = JSpecifyNullability.fromAnnotations(type);
+		final Nullability nullability = JSpecifyNullability.fromAnnotations(element, type);
 		if(nullability != DEFAULT) return nullability;
 		return JavaxNullability.fromAnnotations(element);
 	}

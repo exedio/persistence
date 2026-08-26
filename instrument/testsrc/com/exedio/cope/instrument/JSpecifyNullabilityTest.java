@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Method;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.NullUnmarked;
 import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -17,6 +19,70 @@ class JSpecifyNullabilityTest
 	private static Object none()
 	{
 		throw new AssertionFailedError();
+	}
+
+	@SuppressWarnings("unused")
+	@NullMarked
+	private static class MarkedClass
+	{
+		private static Object classMarkedMethod(final Object parameter)
+		{
+			return parameter;
+		}
+
+		private static @Nullable Object explicitlyNullableMethod()
+		{
+			return null;
+		}
+
+		@SuppressWarnings("NullableProblems")
+		private static @NonNull Object explicitlyNonnullMethod()
+		{
+			return new Object();
+		}
+
+		private static int primitiveMethod()
+		{
+			return 0;
+		}
+
+		@NullUnmarked
+		private static Object classUnmarkedMethod()
+		{
+			return new Object();
+		}
+	}
+
+	private static class UnmarkedClass
+	{
+		@SuppressWarnings("unused")
+		@NullMarked
+		private static Object methodMarked()
+		{
+			return new Object();
+		}
+	}
+
+	@SuppressWarnings({"unused", "EmptyClass"})
+	@NullMarked
+	private static class MarkedOuterClass
+	{
+		private static class NestedClass
+		{
+			private static Object nestedClassMarked()
+			{
+				return new Object();
+			}
+		}
+
+		@NullUnmarked
+		private static class UnmarkedNestedClass
+		{
+			private static Object nestedClassUnmarked()
+			{
+				return new Object();
+			}
+		}
 	}
 
 	@SuppressWarnings("unused")
@@ -61,6 +127,16 @@ class JSpecifyNullabilityTest
 		assertEquals(NONNULL, nullability(JSpecifyNullabilityTest.class, "nonnull"));
 		assertEquals(NULLABLE, nullability(JSpecifyNullabilityTest.class, "nullable"));
 		assertEquals(NONNULL, nullability(JSpecifyNullabilityTest.class, "nullableNonnull")); // nonnull wins
+		assertEquals(NONNULL, nullability(MarkedClass.class, "classMarkedMethod", Object.class));
+		final Method classMarkedMethod = MarkedClass.class.getDeclaredMethod("classMarkedMethod", Object.class);
+		assertEquals(NONNULL, nullability(classMarkedMethod.getParameters()[0]));
+		assertEquals(NULLABLE, nullability(MarkedClass.class, "explicitlyNullableMethod"));
+		assertEquals(NONNULL, nullability(MarkedClass.class, "explicitlyNonnullMethod"));
+		assertEquals(DEFAULT, nullability(MarkedClass.class, "primitiveMethod"));
+		assertEquals(DEFAULT, nullability(MarkedClass.class, "classUnmarkedMethod"));
+		assertEquals(NONNULL, nullability(UnmarkedClass.class, "methodMarked"));
+		assertEquals(NONNULL, nullability(MarkedOuterClass.NestedClass.class, "nestedClassMarked"));
+		assertEquals(DEFAULT, nullability(MarkedOuterClass.UnmarkedNestedClass.class, "nestedClassUnmarked"));
 
 		final Method parameters = JSpecifyNullabilityTest.class.getDeclaredMethod(
 				"parameters",
@@ -79,11 +155,11 @@ class JSpecifyNullabilityTest
 			throws NoSuchMethodException
 	{
 		final Method method = clazz.getDeclaredMethod(methodName, parameterTypes);
-		return JSpecifyNullability.fromAnnotations(method.getAnnotatedReturnType());
+		return JSpecifyNullability.fromAnnotations(method, method.getAnnotatedReturnType());
 	}
 
 	private static Nullability nullability(final java.lang.reflect.Parameter parameter)
 	{
-		return JSpecifyNullability.fromAnnotations(parameter.getAnnotatedType());
+		return JSpecifyNullability.fromAnnotations(parameter, parameter.getAnnotatedType());
 	}
 }
