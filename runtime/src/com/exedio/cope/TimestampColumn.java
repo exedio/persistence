@@ -134,7 +134,7 @@ final class TimestampColumn extends Column
 
 	static Calendar newGMTCalendar()
 	{
-		return new GregorianCalendar(GMT, Locale.ENGLISH);
+		return new GregorianCalendar(GMT, Locale.ROOT);
 	}
 
 	private static final TimeZone GMT = TimeZoneStrict.getTimeZone("GMT");

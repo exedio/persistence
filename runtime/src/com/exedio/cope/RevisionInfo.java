@@ -84,7 +84,7 @@ public abstract class RevisionInfo
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH);
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ROOT);
 		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
 		return result;
 	}
