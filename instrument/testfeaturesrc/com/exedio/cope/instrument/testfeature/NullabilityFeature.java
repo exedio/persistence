@@ -73,6 +73,15 @@ public class NullabilityFeature
 		throw new RuntimeException();
 	}
 
+	@SuppressWarnings("NullableProblems")
+	@Wrap(order=220)
+	@Nullable
+	@Nonnull
+	public Object javaxNullableNonnullReturn()
+	{
+		throw new RuntimeException();
+	}
+
 	@Wrap(order=300)
 	public void javaxNullableParameter(@Nullable @SuppressWarnings("unused") final Object parameter)
 	{
