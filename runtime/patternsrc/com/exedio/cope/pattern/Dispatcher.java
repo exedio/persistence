@@ -525,7 +525,7 @@ public final class Dispatcher extends Pattern
 
 					if(isFinal)
 					{
-						unpend(null, item, false, new Date(start));
+						unpend(config, item, false, new Date(start));
 						if(logger.isErrorEnabled())
 							//noinspection StringConcatenationArgumentToLogCall
 							logger.error(
@@ -561,7 +561,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private void unpend(final Config config, final Item item, final boolean success, final Date date)
+	private void unpend(@Nonnull final Config config, final Item item, final boolean success, final Date date)
 	{
 		final boolean delete = success && config.deleteOnSuccess;
 
