@@ -33,6 +33,8 @@ enum PrimaryKeyGenerator
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
+			if (!column.kind.primaryKey())
+				throw new RuntimeException();
 			return new SequenceImplMax(column, start, connectionPool);
 		}
 	},
@@ -47,6 +49,8 @@ enum PrimaryKeyGenerator
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
+			if (!column.kind.primaryKey())
+				throw new RuntimeException();
 			return new SequenceImplSequence(metrics, column, type, start, connectionPool, database, NAME_SUFFIX);
 		}
 	},
@@ -61,10 +65,9 @@ enum PrimaryKeyGenerator
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
-			return column.kind.primaryKey()
-				? new SequenceImplBatchedSequence(metrics, column, type, start, connectionPool, database)
-				: new SequenceImplSequence       (metrics, column, type, start, connectionPool, database, NAME_SUFFIX)
-			;
+			if (!column.kind.primaryKey())
+				throw new RuntimeException();
+			return new SequenceImplBatchedSequence(metrics, column, type, start, connectionPool, database);
 		}
 	};
 
