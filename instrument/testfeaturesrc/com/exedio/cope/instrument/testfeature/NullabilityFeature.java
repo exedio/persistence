@@ -37,39 +37,39 @@ public class NullabilityFeature
 		this.optional = optional;
 	}
 
-	@Wrap(order=10, doc="This method can return {nullResult}.", docReturn="may be {nullResult}")
+	@Wrap(order=200, doc="This method can return {nullResult}.", docReturn="may be {nullResult}")
 	@Nullable
 	public Object javaxNullableReturn()
 	{
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=20)
+	@Wrap(order=210)
 	@Nonnull
 	public Object javaxNonnullReturn()
 	{
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=30, nullability=IfOptional.class)
+	@Wrap(order=100, nullability=IfOptional.class)
 	public Object conditionalNullableReturn()
 	{
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=40)
+	@Wrap(order=300)
 	public void javaxNullableParameter(@Nullable @SuppressWarnings("unused") final Object parameter)
 	{
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=50)
+	@Wrap(order=310)
 	public void javaxNonnullParameter(@Nonnull @SuppressWarnings("unused") final Object parameter)
 	{
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=60)
+	@Wrap(order=110)
 	public void conditionalNullableParameter(
 			@SuppressWarnings("unused") final Item item,
 			@SuppressWarnings("unused") @Parameter(nullability=IfOptional.class) final Object parameter)
@@ -77,7 +77,7 @@ public class NullabilityFeature
 		throw new RuntimeException();
 	}
 
-	@Wrap(order=70)
+	@Wrap(order=10)
 	public void defaultReturnAndParameter(
 			@SuppressWarnings("unused") final Item item,
 			@SuppressWarnings("unused") final Object parameter)
