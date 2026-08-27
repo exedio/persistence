@@ -158,10 +158,12 @@ public class IntegerTypeTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("AssignmentReplaceableWithOperatorAssignment")
-	private void setPkTo(final Type<?> type, final long lastUsedPkValue) throws SQLException
+	static void setPkTo(final Type<?> type, final long lastUsedPkValue) throws SQLException
 	{
+		final Model model = type.getModel();
 		long itemsToCreate = 0L;
-		if (!model.getConnectProperties().primaryKeyGenerator.persistent)
+		final ConnectProperties connectProperties = model.getConnectProperties();
+		if (! connectProperties.primaryKeyGenerator.persistent)
 		{
 			type.newItem();
 			model.commit();
@@ -183,14 +185,14 @@ public class IntegerTypeTest extends TestWithEnvironment
 
 			final StringBuilder sb = new StringBuilder();
 			long sequenceValue = lastUsedPkValue+1L;
-			if (PrimaryKeyGenerator.batchedSequence==model.getConnectProperties().primaryKeyGenerator)
+			if (PrimaryKeyGenerator.batchedSequence==connectProperties.primaryKeyGenerator)
 			{
 				itemsToCreate = sequenceValue % SequenceImplBatchedSequence.BATCH_SIZE;
 				sequenceValue = sequenceValue / SequenceImplBatchedSequence.BATCH_SIZE;
 			}
 
-			MODEL.connect().database.dialect.deleteSequence(sb,
-					quoteName(MODEL, sequenceName),
+			model.connect().database.dialect.deleteSequence(sb,
+					quoteName(model, sequenceName),
 					sequenceValue);
 
 			try (
@@ -201,9 +203,9 @@ public class IntegerTypeTest extends TestWithEnvironment
 			}
 		}
 		model.disconnect();
-		model.connect(copeRule.getConnectProperties());
+		model.connect(connectProperties);
 
-		model.startTransaction("tx:" + getClass().getName());
+		model.startTransaction("tx:" + type.getID());
 
 		for (int i = 0; i < itemsToCreate; i++)
 			type.newItem();
