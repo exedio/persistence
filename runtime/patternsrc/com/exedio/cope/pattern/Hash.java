@@ -50,14 +50,10 @@ import java.security.SecureRandom;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @WrapFeature
 public final class Hash extends Pattern implements HashInterface
 {
-	private static final Logger logger = LoggerFactory.getLogger(Hash.class);
-
 	private static final int DEFAULT_PLAINTEXT_LIMIT = 150;
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	@Serial
@@ -401,7 +397,7 @@ public final class Hash extends Pattern implements HashInterface
 					"plain text length violation, " +
 					"must be no longer than " + plainTextLimit + ", " +
 					"but was " + plainText.length(),
-					plainText, true, exceptionItem, this);
+					true, exceptionItem, this);
 
 		validator.validate(plainText, exceptionItem, this);
 	}
@@ -463,48 +459,32 @@ public final class Hash extends Pattern implements HashInterface
 	{
 		@Serial
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("TransientFieldNotInitialized") // OK: is ok to be null after deserialization
-		private final transient String plainText; // transient for not leaking plainText to serialized streams
 		private final boolean wasLimit;
 		private final String message;
 		private final Hash feature;
 
+		/**
+		 * To be deprecated.
+		 */
 		public InvalidPlainTextException(
 				final String message,
-				final String plainText,
+				@SuppressWarnings("unused") final String plainText,
 				final Item item,
 				final Hash feature)
 		{
-			this(message, plainText, false, item, feature);
+			this(message, false, item, feature);
 		}
 
 		private InvalidPlainTextException(
 				final String message,
-				final String plainText,
 				final boolean wasLimit,
 				final Item item,
 				final Hash feature)
 		{
 			super(item, /*cause*/ null);
-			this.message = wipePlainTextFromMessage(message, plainText, feature);
-			this.plainText = plainText;
+			this.message = message;
 			this.wasLimit = wasLimit;
 			this.feature = feature;
-		}
-
-		private static String wipePlainTextFromMessage(
-				final String message,
-				final String plainText,
-				final Hash feature)
-		{
-			if(message==null ||
-				plainText==null ||
-				plainText.length()<=3 ||
-				!message.contains(plainText))
-				return message;
-
-			logger.warn("wipePlainTextFromMessage {}", feature);
-			return message.replace(plainText, "<plainText wiped>");
 		}
 
 		@Override public Hash getFeature()
@@ -521,12 +501,12 @@ public final class Hash extends Pattern implements HashInterface
 		}
 
 		/**
-		 * Is null after deserialization.
+		 * To be deprecated, no longer supported, always returns null.
 		 */
 		@Nullable
 		public String getPlainText()
 		{
-			return plainText;
+			return null;
 		}
 
 		/**

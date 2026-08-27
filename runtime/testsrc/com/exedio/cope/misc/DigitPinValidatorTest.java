@@ -73,7 +73,7 @@ public class DigitPinValidatorTest
 		{
 			assertEquals("Pin less than 3 digits for null", e.getMessage());
 			assertEquals("Pin less than 3 digits", e.getMessage(false));
-			assertEquals("12", e.getPlainText());
+			assertEquals(null, e.getPlainText());
 			assertEquals(false, e.wasLimit());
 		}
 		try
@@ -84,7 +84,7 @@ public class DigitPinValidatorTest
 		catch (final Hash.InvalidPlainTextException e)
 		{
 			assertEquals("Pin greater than 3 digits", e.getMessage(false));
-			assertEquals("1234", e.getPlainText());
+			assertEquals(null, e.getPlainText());
 			assertEquals(false, e.wasLimit());
 		}
 		try
@@ -95,7 +95,7 @@ public class DigitPinValidatorTest
 		catch (final Hash.InvalidPlainTextException e)
 		{
 			assertEquals("Pin is not a number", e.getMessage(false));
-			assertEquals("12a", e.getPlainText());
+			assertEquals(null, e.getPlainText());
 			assertEquals(false, e.wasLimit());
 		}
 	}
