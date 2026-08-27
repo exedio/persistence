@@ -464,11 +464,20 @@ public final class Hash extends Pattern implements HashInterface
 		private final Hash feature;
 
 		/**
-		 * To be deprecated.
+		 * @deprecated Use {@link #InvalidPlainTextException(String, Item, Hash)} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 		 */
+		@Deprecated
 		public InvalidPlainTextException(
 				final String message,
 				@SuppressWarnings("unused") final String plainText,
+				final Item item,
+				final Hash feature)
+		{
+			this(message, item, feature);
+		}
+
+		public InvalidPlainTextException(
+				final String message,
 				final Item item,
 				final Hash feature)
 		{
@@ -501,8 +510,9 @@ public final class Hash extends Pattern implements HashInterface
 		}
 
 		/**
-		 * To be deprecated, no longer supported, always returns null.
+		 * @deprecated No longer supported, always returns null.
 		 */
+		@Deprecated
 		@Nullable
 		public String getPlainText()
 		{

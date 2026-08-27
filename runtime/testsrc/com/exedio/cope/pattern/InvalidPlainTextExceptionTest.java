@@ -28,70 +28,63 @@ public class InvalidPlainTextExceptionTest
 	@Test void testNormal()
 	{
 		final InvalidPlainTextException e =
-				new InvalidPlainTextException("message", "plaintext", null, null);
+				new InvalidPlainTextException("message", null, null);
 		assertEquals("message", e.getMessageWithoutFeature());
 		assertEquals("message for null", e.getMessage());
-		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 	}
 	@Test void testMessageNull()
 	{
 		final InvalidPlainTextException e =
-				new InvalidPlainTextException(null, "plaintext", null, null);
+				new InvalidPlainTextException(null, null, null);
 		assertEquals(null, e.getMessageWithoutFeature());
 		assertEquals("null for null", e.getMessage());
-		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 	}
 	@Test void testPlainTextNull()
 	{
 		final InvalidPlainTextException e =
-				new InvalidPlainTextException("message", null, null, null);
+				new InvalidPlainTextException("message", null, null);
 		assertEquals("message", e.getMessageWithoutFeature());
 		assertEquals("message for null", e.getMessage());
-		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 	}
 	@Test void testPlainTextEmpty()
 	{
 		final InvalidPlainTextException e =
-				new InvalidPlainTextException("message", "", null, null);
+				new InvalidPlainTextException("message", null, null);
 		assertEquals("message", e.getMessageWithoutFeature());
 		assertEquals("message for null", e.getMessage());
-		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 	}
 	@Test void testPlainTextInMessage()
 	{
 		final InvalidPlainTextException e =
-				new InvalidPlainTextException("message with 'plaintext'", "plaintext", null, null);
+				new InvalidPlainTextException("message with 'plaintext'", null, null);
 		assertEquals("message with 'plaintext'", e.getMessageWithoutFeature());
 		assertEquals("message with 'plaintext' for null", e.getMessage());
-		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 	}
 	@Test void testPlainTextInMessageShort()
 	{
 		final InvalidPlainTextException e =
-				new InvalidPlainTextException("message with '1234'", "1234", null, null);
+				new InvalidPlainTextException("message with '1234'", null, null);
 		assertEquals("message with '1234'", e.getMessageWithoutFeature());
 		assertEquals("message with '1234' for null", e.getMessage());
-		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 	}
 	@Test void testPlainTextInMessageTooShort()
 	{
 		final InvalidPlainTextException e =
-				new InvalidPlainTextException("message with '123'", "123", null, null);
+				new InvalidPlainTextException("message with '123'", null, null);
 		assertEquals("message with '123'", e.getMessageWithoutFeature());
 		assertEquals("message with '123' for null", e.getMessage());
-		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 	}

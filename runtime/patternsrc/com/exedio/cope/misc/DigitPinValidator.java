@@ -54,16 +54,16 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 
 		if (pinString.length() < pinLen)
 			throw new Hash.InvalidPlainTextException("Pin less than " + pinLen + " digits",
-				pinString, exceptionItem, hash);
+				exceptionItem, hash);
 
 		if (pinString.length() > pinLen)
 			throw new Hash.InvalidPlainTextException("Pin greater than " + pinLen + " digits",
-				pinString, exceptionItem, hash);
+				exceptionItem, hash);
 
 		for (final char c : pinString.toCharArray())
 		{
 			if (c < '0' || c > '9')
-				throw new Hash.InvalidPlainTextException("Pin is not a number",	pinString, exceptionItem, hash);
+				throw new Hash.InvalidPlainTextException("Pin is not a number", exceptionItem, hash);
 		}
 	}
 
