@@ -83,7 +83,7 @@ public final class Dispatcher extends Pattern
 
 	private final BooleanField pending;
 	private final BooleanField noPurge;
-	private final CompositeField<Unpend> unpend;
+	private final @Nullable CompositeField<Unpend> unpend;
 
 	private static final class Unpend extends Composite
 	{
@@ -158,7 +158,7 @@ public final class Dispatcher extends Pattern
 	private record Initial(
 			@Nullable Supplier<? extends AutoCloseable> session,
 			@NonNull SessionTarget<?, ?> target,
-			BiConsumer<? extends Item, Exception> onFinalFailure)
+			@Nullable BiConsumer<? extends Item, Exception> onFinalFailure)
 	{
 		Initial
 		{
@@ -166,7 +166,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private RunType runTypeIfMounted = null;
+	private @Nullable RunType runTypeIfMounted = null;
 
 	private volatile boolean probeRequired = true;
 
@@ -178,7 +178,7 @@ public final class Dispatcher extends Pattern
 
 	public static <I extends Item> Dispatcher create(
 			final @NonNull Target<I> target,
-			final BiConsumer<I,Exception> onFinalFailure)
+			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
 		requireNonNull(target, "target");
 		return createInternal(
@@ -201,7 +201,7 @@ public final class Dispatcher extends Pattern
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
 			final @NonNull Supplier<S> session,
 			final @NonNull SessionTarget<I,S> target,
-			final BiConsumer<I,Exception> onFinalFailure)
+			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
 		requireNonNull(session, "session");
 		requireNonNull(target, "target");
@@ -211,7 +211,7 @@ public final class Dispatcher extends Pattern
 	private static <I extends Item, S extends AutoCloseable> Dispatcher createInternal(
 			final @Nullable Supplier<S> session,
 			final @NonNull SessionTarget<I,S> target,
-			final BiConsumer<I,Exception> onFinalFailure)
+			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
 		return new Dispatcher(
 				new BooleanField().defaultTo(true), true,
@@ -305,22 +305,22 @@ public final class Dispatcher extends Pattern
 		return noPurge;
 	}
 
-	CompositeField<Unpend> getUnpend()
+	@Nullable CompositeField<Unpend> getUnpend()
 	{
 		return unpend;
 	}
 
-	public BooleanField getUnpendSuccess()
+	public @Nullable BooleanField getUnpendSuccess()
 	{
 		return unpend!=null ? unpend.of(Unpend.success) : null;
 	}
 
-	public DateField getUnpendDate()
+	public @Nullable DateField getUnpendDate()
 	{
 		return unpend!=null ? unpend.of(Unpend.date) : null;
 	}
 
-	CheckConstraint getUnpendUnison()
+	@Nullable CheckConstraint getUnpendUnison()
 	{
 		return unpend!=null ? unpend.getUnison() : null;
 	}
@@ -800,7 +800,7 @@ public final class Dispatcher extends Pattern
 				final int remaining,
 				final int limit,
 				final Result result,
-				final byte[] failure)
+				final byte @Nullable [] failure)
 		{
 			type.newItem(
 					map(this.parent.as(parentClass), parent),
@@ -812,7 +812,7 @@ public final class Dispatcher extends Pattern
 					this.failure.map(failure));
 		}
 
-		private Run getLastSuccess(final Item item)
+		private @Nullable Run getLastSuccess(final Item item)
 		{
 			final Query<Run> q =
 					type.newQuery(Cope.and(
@@ -892,7 +892,7 @@ public final class Dispatcher extends Pattern
 			return getResult().isSuccess();
 		}
 
-		public String getFailure()
+		public @Nullable String getFailure()
 		{
 			final byte[] bytes = type().failure.getArray(this);
 			return
@@ -956,7 +956,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	Query<? extends Item> purgeQuery(
+	@Nullable Query<? extends Item> purgeQuery(
 			final DispatcherPurgeProperties properties,
 			final Condition restriction)
 	{
