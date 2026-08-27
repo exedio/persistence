@@ -19,35 +19,10 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.AnnotatedElement;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.meta.When;
 
 public enum Nullability
 {
 	NULLABLE, NONNULL, DEFAULT;
-
-	static final String NONNULL_CLASS_NAME = "javax.annotation.Nonnull";
-
-	@SuppressWarnings("NonFinalFieldInEnum")
-	private static Boolean nullabilityClassesAvailable;
-
-	static boolean nullabilityClassesAreAvailable()
-	{
-		if (nullabilityClassesAvailable==null)
-		{
-			try
-			{
-				Class.forName(NONNULL_CLASS_NAME);
-				nullabilityClassesAvailable = true;
-			}
-			catch (final ClassNotFoundException e)
-			{
-				nullabilityClassesAvailable = false;
-			}
-		}
-		return nullabilityClassesAvailable;
-	}
 
 	public static Nullability forOptional(final boolean optional)
 	{
@@ -61,29 +36,6 @@ public enum Nullability
 
 	public static Nullability fromAnnotations(final AnnotatedElement element)
 	{
-		if (!nullabilityClassesAreAvailable())
-		{
-			return DEFAULT;
-		}
-		final Nonnull nonnullAnnotation = element.getAnnotation(Nonnull.class);
-		if (nonnullAnnotation!=null)
-		{
-			if ( nonnullAnnotation.when()==When.ALWAYS )
-			{
-				return NONNULL;
-			}
-			else
-			{
-				throw new RuntimeException("non-default setting of Nonnull.when() not supported");
-			}
-		}
-		else if (element.isAnnotationPresent(Nullable.class))
-		{
-			return NULLABLE;
-		}
-		else
-		{
-			return DEFAULT;
-		}
+		return JavaxNullability.fromAnnotations(element);
 	}
 }
