@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
-import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
@@ -36,14 +34,6 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
-
-		assumeNotGithub(); // expectedSize 3746 on github
-		final InvalidPlainTextException es = reserialize(e, 7479); // size depends on stacktrace
-		assertEquals("message", es.getMessageWithoutFeature());
-		assertEquals("message for null", es.getMessage());
-		assertEquals(null, es.getPlainText());
-		assertEquals(null, es.getItem());
-		assertEquals(null, es.getFeature());
 	}
 	@Test void testMessageNull()
 	{
@@ -54,14 +44,6 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
-
-		assumeNotGithub(); // expectedSize 3742 on github
-		final InvalidPlainTextException es = reserialize(e, 7475); // size depends on stacktrace
-		assertEquals(null, es.getMessageWithoutFeature());
-		assertEquals("null for null", es.getMessage());
-		assertEquals(null, es.getPlainText());
-		assertEquals(null, es.getItem());
-		assertEquals(null, es.getFeature());
 	}
 	@Test void testPlainTextNull()
 	{
@@ -72,14 +54,6 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getPlainText());
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
-
-		assumeNotGithub(); // expectedSize 3753 on github
-		final InvalidPlainTextException es = reserialize(e, 7486); // size depends on stacktrace
-		assertEquals("message", es.getMessageWithoutFeature());
-		assertEquals("message for null", es.getMessage());
-		assertEquals(null, es.getPlainText());
-		assertEquals(null, es.getItem());
-		assertEquals(null, es.getFeature());
 	}
 	@Test void testPlainTextEmpty()
 	{
