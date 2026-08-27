@@ -84,6 +84,14 @@ public final class NullabilityItem extends Item
 		return NullabilityItem.optional.javaxNonnullReturn();
 	}
 
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static java.lang.Object javaxOptionalNullableNonnullReturn()
+	{
+		return NullabilityItem.optional.javaxNullableNonnullReturn();
+	}
+
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableParameter")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void javaxOptionalNullableParameter(@javax.annotation.Nullable final java.lang.Object optional)
@@ -138,6 +146,14 @@ public final class NullabilityItem extends Item
 	static java.lang.Object javaxMandatoryNonnullReturn()
 	{
 		return NullabilityItem.mandatory.javaxNonnullReturn();
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableNonnullReturn")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static java.lang.Object javaxMandatoryNullableNonnullReturn()
+	{
+		return NullabilityItem.mandatory.javaxNullableNonnullReturn();
 	}
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="javaxNullableParameter")
