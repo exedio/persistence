@@ -46,6 +46,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			IntegerTypeSmallIntItem.TYPE,
 			IntegerTypeMediumIntItem.TYPE,
 			IntegerTypeIntItem.TYPE,
+			IntegerTypeIntPlus1Item.TYPE,
 			IntegerTypeBigIntItem.TYPE,
 			IntegerTypeSubItem.TYPE
 	);
@@ -320,6 +321,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertSequence(schema, IntegerTypeSmallIntItem .TYPE, bit31);
 		assertSequence(schema, IntegerTypeMediumIntItem.TYPE, bit31);
 		assertSequence(schema, IntegerTypeIntItem      .TYPE, bit31);
+		assertSequence(schema, IntegerTypeIntPlus1Item .TYPE, bit63);
 		assertSequence(schema, IntegerTypeBigIntItem   .TYPE, bit63);
 		assertSequence(schema, IntegerTypeSubItem      .TYPE, bit63);
 	}
