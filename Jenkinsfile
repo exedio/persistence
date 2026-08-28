@@ -634,7 +634,6 @@ void nodeCheckoutAndDelete(
 	@ClosureParams(value = SimpleType, options = ["Map<String, String>"]) Closure body)
 {
 	node('GitCloneExedio && docker' + (additionalLabel.isEmpty() ? '' : " && " + additionalLabel)) {
-		env.JENKINS_OWNER = shStdout("id --user") + ':' + shStdout("id --group")
 		try
 		{
 			deleteDir()
@@ -682,15 +681,22 @@ def mainImage(String imageName)
 		'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
 		'--build-arg DEBIAN_SNAPSHOT=' + debianSnapshot + ' ' +
 		'--build-arg JDK=' + jdk + ' ' +
-		'--build-arg JENKINS_OWNER=' + env.JENKINS_OWNER + ' ' +
+		buildArgJenkinsOwner() +
 		'conf/main')
+}
+
+def buildArgJenkinsOwner()
+{
+	return '--build-arg JENKINS_OWNER=' +
+			shStdout("id --user") + ':' +
+			shStdout("id --group") + ' '
 }
 
 String imageName(String pipelineBranch, String subImage = '')
 {
 	String isoToday = new Date().format("yyyyMMdd")
 	String name = 'exedio-jenkins:' + jobNameAndBuildNumber() + '-' + pipelineBranch + '-' + isoToday
-	if (!subImage.isBlank()) name += '-' + subImage
+	if (!subImage.isEmpty()) name += '-' + subImage
 	return name
 }
 
