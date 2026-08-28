@@ -143,7 +143,7 @@ public final class VaultFileToTrail
 		out.println("#   root=" + root.toAbsolutePath());
 		out.println("#   startLimit=" + startLimit);
 
-		final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
+		final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS", Locale.ROOT);
 
 		final byte[] probePrefix = truncate(CONTRACT_PROBE_PREFIX, startLimit).getBytes(US_ASCII);
 		final AtomicLong probes = new AtomicLong(0);
