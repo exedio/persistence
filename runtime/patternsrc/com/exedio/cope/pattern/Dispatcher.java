@@ -178,12 +178,12 @@ public final class Dispatcher extends Pattern
 
 	public static <I extends Item> Dispatcher create(
 			final Target<I> target,
-			final BiConsumer<I,Exception> finalFailureListener)
+			final BiConsumer<I,Exception> onFinalFailure)
 	{
 		return createWithSession(
 				null,
 				toSession(target),
-				finalFailureListener);
+				onFinalFailure);
 	}
 
 	private static <I extends Item, S extends AutoCloseable> SessionTarget<I,S> toSession(final Target<I> target)
@@ -206,11 +206,11 @@ public final class Dispatcher extends Pattern
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
 			final Supplier<S> session,
 			final SessionTarget<I,S> target,
-			final BiConsumer<I,Exception> finalFailureListener)
+			final BiConsumer<I,Exception> onFinalFailure)
 	{
 		return new Dispatcher(
 				new BooleanField().defaultTo(true), true,
-				new Initial(session, target, finalFailureListener));
+				new Initial(session, target, onFinalFailure));
 	}
 
 	private Dispatcher(final BooleanField pending, final boolean supportPurge, final Initial initial)
