@@ -401,15 +401,28 @@ public final class Dispatcher extends Pattern
 		requireNonNull(probe, "probe");
 		requireNonNull(ctx, "ctx");
 
-		final RunType runType = runType();
 		final String id = getID();
-		final ItemField<P> runParent = runType.parent.as(parentClass);
 		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
 
 		try(DispatcherSessionManager session = new DispatcherSessionManager(
 				initial.session, config, ctx, id, sessionCreateTimer, sessionCloseTimer, logger))
 		{
-			// TODO indent
+			dispatchInSession(parentClass, type, config, probe, ctx, logger, session);
+		}
+	}
+
+	private <P extends Item> void dispatchInSession(
+			@Nonnull final Class<P> parentClass,
+			@Nonnull final Type<P> type,
+			@Nonnull final Config config,
+			@Nonnull final Runnable probe,
+			@Nonnull final JobContext ctx,
+			@Nonnull final Logger logger,
+			@Nonnull final DispatcherSessionManager session)
+	{
+		final String id = getID();
+		final RunType runType = runType();
+		final ItemField<P> runParent = runType.parent.as(parentClass);
 
 		for(final P item : Iterables.once(
 				iterateTypeTransactionally(
@@ -557,7 +570,6 @@ public final class Dispatcher extends Pattern
 				}
 			}
 			ctx.incrementProgress();
-		}
 		}
 	}
 
