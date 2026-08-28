@@ -18,8 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.AnnotatedElement;
-
 public enum Nullability
 {
 	NULLABLE, NONNULL, DEFAULT;
@@ -32,10 +30,5 @@ public enum Nullability
 	public static Nullability forMandatory(final boolean mandatory)
 	{
 		return forOptional(!mandatory);
-	}
-
-	public static Nullability fromAnnotations(final AnnotatedElement element)
-	{
-		return JavaxNullability.fromAnnotations(element);
 	}
 }

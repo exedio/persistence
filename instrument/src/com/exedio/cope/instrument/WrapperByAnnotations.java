@@ -138,7 +138,7 @@ final class WrapperByAnnotations
 	{
 		if (NullabilityGetterDefault.class.equals(nullabilityClass))
 		{
-			return Nullability.fromAnnotations(annotatedElement);
+			return nullabilityFromAnnotations(annotatedElement);
 		}
 		else
 		{
@@ -148,6 +148,11 @@ final class WrapperByAnnotations
 			final Nullability result = source.getNullability(feature);
 			return result;
 		}
+	}
+
+	static Nullability nullabilityFromAnnotations(final AnnotatedElement element)
+	{
+		return JavaxNullability.fromAnnotations(element);
 	}
 
 	private WrapperX make(final Method method, final Wrap annotation)
