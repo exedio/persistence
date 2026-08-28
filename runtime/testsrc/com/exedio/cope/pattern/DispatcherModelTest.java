@@ -162,7 +162,7 @@ public class DispatcherModelTest
 		assertSame(Boolean.FALSE, create(i -> {}).defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
-	@Test void testCreateFinalFailureListenerNull()
+	@Test void testCreateOnFinalFailureNull()
 	{
 		final Dispatcher d =
 				create(i -> { throw new Exception(); }, null);
@@ -177,7 +177,7 @@ public class DispatcherModelTest
 				"target");
 	}
 
-	@Test void testCreateTargetNullFinalFailureListener()
+	@Test void testCreateTargetNullOnFinalFailure()
 	{
 		assertFails(
 				() -> create(null, null),
@@ -185,7 +185,7 @@ public class DispatcherModelTest
 				"target");
 	}
 
-	@Test void testCreateFinalFailureListenerNullSessioned()
+	@Test void testCreateOnFinalFailureNullSessioned()
 	{
 		final Dispatcher d =
 				createWithSession(ByteArrayOutputStream::new, (s,i) -> { throw new Exception(); }, null);
@@ -200,7 +200,7 @@ public class DispatcherModelTest
 				"target");
 	}
 
-	@Test void testCreateTargetNullSessionedFinalFailureListener()
+	@Test void testCreateTargetNullSessionedOnFinalFailure()
 	{
 		assertFails(
 				() -> createWithSession(ByteArrayOutputStream::new, null, null),
