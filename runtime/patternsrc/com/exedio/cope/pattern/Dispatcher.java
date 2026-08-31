@@ -156,8 +156,8 @@ public final class Dispatcher extends Pattern
 	}
 
 	private record Initial(
-			Supplier<? extends AutoCloseable> session,
-			SessionTarget<?, ?> target,
+			@Nullable Supplier<? extends AutoCloseable> session,
+			@NonNull SessionTarget<?, ?> target,
 			BiConsumer<? extends Item, Exception> onFinalFailure)
 	{
 		Initial
@@ -171,17 +171,17 @@ public final class Dispatcher extends Pattern
 	private volatile boolean probeRequired = true;
 
 	public static <I extends Item> Dispatcher create(
-			final Target<I> target)
+			final @NonNull Target<I> target)
 	{
 		return create(target, null);
 	}
 
 	public static <I extends Item> Dispatcher create(
-			final Target<I> target,
+			final @NonNull Target<I> target,
 			final BiConsumer<I,Exception> onFinalFailure)
 	{
 		requireNonNull(target, "target");
-		return createWithSession(
+		return createInternal(
 				null,
 				(item, session) ->
 				{
@@ -192,15 +192,25 @@ public final class Dispatcher extends Pattern
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
-			final Supplier<S> session,
-			final SessionTarget<I,S> target)
+			final @NonNull Supplier<S> session,
+			final @NonNull SessionTarget<I,S> target)
 	{
 		return createWithSession(session, target, null);
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
-			final Supplier<S> session,
-			final SessionTarget<I,S> target,
+			final @NonNull Supplier<S> session,
+			final @NonNull SessionTarget<I,S> target,
+			final BiConsumer<I,Exception> onFinalFailure)
+	{
+		requireNonNull(session, "session");
+		requireNonNull(target, "target");
+		return createInternal(session, target, onFinalFailure);
+	}
+
+	private static <I extends Item, S extends AutoCloseable> Dispatcher createInternal(
+			final @Nullable Supplier<S> session,
+			final @NonNull SessionTarget<I,S> target,
 			final BiConsumer<I,Exception> onFinalFailure)
 	{
 		return new Dispatcher(
