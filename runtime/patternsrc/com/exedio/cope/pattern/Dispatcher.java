@@ -82,7 +82,7 @@ public final class Dispatcher extends Pattern
 	static final Charset ENCODING = StandardCharsets.UTF_8;
 
 	private final BooleanField pending;
-	private final BooleanField noPurge;
+	private final @Nullable BooleanField noPurge;
 	private final @Nullable CompositeField<@Nullable Unpend> unpend;
 
 	private static final class Unpend extends Composite
@@ -300,7 +300,7 @@ public final class Dispatcher extends Pattern
 		return pending;
 	}
 
-	public BooleanField getNoPurge()
+	public @Nullable BooleanField getNoPurge()
 	{
 		return noPurge;
 	}
@@ -642,7 +642,7 @@ public final class Dispatcher extends Pattern
 	@Wrap(order=45, doc="Returns, whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
 	public boolean isNoPurge(@NonNull final Item item)
 	{
-		return noPurge.getMandatory(item);
+		return requireNoPurge().getMandatory(item);
 	}
 
 	@Wrap(order=47, doc="Sets whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
@@ -650,7 +650,17 @@ public final class Dispatcher extends Pattern
 			@NonNull final Item item,
 			@Parameter("noPurge") final boolean noPurge)
 	{
-		this.noPurge.set(item, noPurge);
+		requireNoPurge().set(item, noPurge);
+	}
+
+	private BooleanField requireNoPurge()
+	{
+		if(noPurge==null)
+			throw new IllegalArgumentException(
+					"noPurge has been disabled for Dispatcher " + getID() +
+					" by method withoutPurge()");
+
+		return noPurge;
 	}
 
 	@Wrap(order=50, doc="Returns the date, this item was last successfully dispatched by {0}.")
@@ -983,7 +993,7 @@ public final class Dispatcher extends Pattern
 
 		return getType().newQuery(
 				pending.isFalse().and(
-				noPurge.isFalse()).and(
+				requireNonNull(noPurge).isFalse()).and(
 				restriction).and(
 				dateCondition));
 	}
