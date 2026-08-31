@@ -83,7 +83,7 @@ public final class Dispatcher extends Pattern
 
 	private final BooleanField pending;
 	private final BooleanField noPurge;
-	private final @Nullable CompositeField<Unpend> unpend;
+	private final @Nullable CompositeField<@Nullable Unpend> unpend;
 
 	private static final class Unpend extends Composite
 	{
@@ -305,7 +305,7 @@ public final class Dispatcher extends Pattern
 		return noPurge;
 	}
 
-	@Nullable CompositeField<Unpend> getUnpend()
+	@Nullable CompositeField<@Nullable Unpend> getUnpend()
 	{
 		return unpend;
 	}
