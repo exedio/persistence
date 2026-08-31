@@ -740,7 +740,6 @@ public final class Dispatcher extends Pattern
 			this.searchSize = requireGreaterZero(searchSize, "searchSize");
 			this.sessionLimit = requireGreaterZero(sessionLimit, "sessionLimit");
 			this.narrowCondition = narrowCondition;
-			assert narrowCondition!=null;
 			this.deleteOnSuccess = deleteOnSuccess;
 		}
 
