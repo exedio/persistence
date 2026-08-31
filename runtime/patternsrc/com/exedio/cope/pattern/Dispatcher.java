@@ -69,10 +69,12 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@NullMarked
 @WrapFeature
 public final class Dispatcher extends Pattern
 {
