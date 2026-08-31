@@ -18,8 +18,11 @@
 
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.instrument.Nullability.DEFAULT;
+
 import com.exedio.cope.Item;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -34,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import org.jspecify.annotations.NullMarked;
 
 final class WrapperByAnnotations
 {
@@ -129,16 +133,21 @@ final class WrapperByAnnotations
 		return false;
 	}
 
+	@NullMarked
 	private Nullability getNullability(final Method method, final Wrap wrap)
 	{
-		return getNullability(method, wrap.nullability());
+		return getNullability(method, method.getAnnotatedReturnType(), wrap.nullability());
 	}
 
-	private Nullability getNullability(final AnnotatedElement annotatedElement, final Class<? extends NullabilityGetter<?>> nullabilityClass)
+	@NullMarked
+	private Nullability getNullability(
+			final AnnotatedElement annotatedElement,
+			final AnnotatedType annotatedType,
+			final Class<? extends NullabilityGetter<?>> nullabilityClass)
 	{
 		if (NullabilityGetterDefault.class.equals(nullabilityClass))
 		{
-			return nullabilityFromAnnotations(annotatedElement);
+			return nullabilityFromAnnotations(annotatedElement, annotatedType);
 		}
 		else
 		{
@@ -150,8 +159,11 @@ final class WrapperByAnnotations
 		}
 	}
 
-	static Nullability nullabilityFromAnnotations(final AnnotatedElement element)
+	@NullMarked
+	static Nullability nullabilityFromAnnotations(final AnnotatedElement element, final AnnotatedType type)
 	{
+		final Nullability nullability = JSpecifyNullability.fromAnnotations(type);
+		if(nullability != DEFAULT) return nullability;
 		return JavaxNullability.fromAnnotations(element);
 	}
 
@@ -248,7 +260,10 @@ final class WrapperByAnnotations
 			{
 				final java.lang.reflect.Parameter parameter = parameters[i];
 				final Parameter paramAnn = parameter.getAnnotation(Parameter.class);
-				final Nullability nullability = getNullability(parameter, paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
+				final Nullability nullability = getNullability(
+						parameter,
+						parameter.getAnnotatedType(),
+						paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
 				final List<?> varargs = ((i+1)==parameters.length) ? methodVarargs : null;
 				if(paramAnn==null)
 					result.addParameter(parameter, varargs, nullability);

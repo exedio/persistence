@@ -40,7 +40,7 @@ class NullabilityTest
 			final Nullability dynamicParameterNullability)
 	{
 		final List<WrapperX> wrappers = feature.getWrappers();
-		assertEquals(8, wrappers.size());
+		assertEquals(13, wrappers.size());
 		assertWrapper(wrappers, "defaultReturnAndParameter", DEFAULT, DEFAULT);
 		assertWrapper(wrappers, "conditionalNullableReturn", dynamicMethodNullability);
 		assertWrapper(wrappers, "conditionalNullableParameter", DEFAULT, dynamicParameterNullability);
@@ -49,6 +49,11 @@ class NullabilityTest
 		assertWrapper(wrappers, "javaxNullableNonnullReturn", NONNULL); // nonnull wins
 		assertWrapper(wrappers, "javaxNullableParameter", DEFAULT, NULLABLE);
 		assertWrapper(wrappers, "javaxNonnullParameter", DEFAULT, NONNULL);
+		assertWrapper(wrappers, "jspecifyNullableReturn", NULLABLE);
+		assertWrapper(wrappers, "jspecifyNonnullReturn", NONNULL);
+		assertWrapper(wrappers, "jspecifyNullableNonnullReturn", NONNULL); // nonnull wins
+		assertWrapper(wrappers, "jspecifyNullableParameter", DEFAULT, NULLABLE);
+		assertWrapper(wrappers, "jspecifyNonnullParameter", DEFAULT, NONNULL);
 	}
 
 	private static void assertWrapper(
