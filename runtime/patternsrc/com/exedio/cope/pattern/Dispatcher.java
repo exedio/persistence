@@ -180,20 +180,15 @@ public final class Dispatcher extends Pattern
 			final Target<I> target,
 			final BiConsumer<I,Exception> onFinalFailure)
 	{
+		requireNonNull(target, "target");
 		return createWithSession(
 				null,
-				toSession(target),
+				(item, session) ->
+				{
+					assert session==null;
+					target.dispatch(item);
+				},
 				onFinalFailure);
-	}
-
-	private static <I extends Item, S extends AutoCloseable> SessionTarget<I,S> toSession(final Target<I> target)
-	{
-		requireNonNull(target, "target");
-		return (item, session) ->
-		{
-			assert session==null;
-			target.dispatch(item);
-		};
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
