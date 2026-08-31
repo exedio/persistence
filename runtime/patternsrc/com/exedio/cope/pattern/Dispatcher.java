@@ -155,9 +155,19 @@ public final class Dispatcher extends Pattern
 		void dispatch(I item, S session) throws Exception;
 	}
 
+	/**
+	 * Differs from {@link SessionTarget} in the nullable session parameter.
+	 * This is the common denominator of {@link Target} and {@link SessionTarget}.
+	 */
+	@FunctionalInterface
+	private interface InternalTarget<I extends Item, S extends AutoCloseable>
+	{
+		void dispatch(I item, @Nullable S session) throws Exception;
+	}
+
 	private record Initial(
 			@Nullable Supplier<? extends AutoCloseable> session,
-			@NonNull SessionTarget<?, ?> target,
+			@NonNull InternalTarget<?, ?> target,
 			@Nullable BiConsumer<? extends Item, Exception> onFinalFailure)
 	{
 		Initial
@@ -205,12 +215,15 @@ public final class Dispatcher extends Pattern
 	{
 		requireNonNull(session, "session");
 		requireNonNull(target, "target");
-		return createInternal(session, target, onFinalFailure);
+		return createInternal(
+				session,
+				(item, actualSession) -> target.dispatch(item, requireNonNull(actualSession, "session")),
+				onFinalFailure);
 	}
 
 	private static <I extends Item, S extends AutoCloseable> Dispatcher createInternal(
 			final @Nullable Supplier<S> session,
-			final @NonNull SessionTarget<I,S> target,
+			final @NonNull InternalTarget<I,S> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
 		return new Dispatcher(
@@ -475,7 +488,7 @@ public final class Dispatcher extends Pattern
 						final AutoCloseable s = session.get();
 						assert (initial.session==null) == (s==null);
 						@SuppressWarnings("unchecked")
-						final SessionTarget<Item, AutoCloseable> target = (SessionTarget<Item, AutoCloseable>)initial.target;
+						final InternalTarget<Item, AutoCloseable> target = (InternalTarget<Item, AutoCloseable>)initial.target;
 						target.dispatch(item, s);
 					}
 
