@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.SchemaInfo.columnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.toTarget;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -80,6 +81,14 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 	{
 		assertNoUpdateCounterColumn(toTarget.getRunType());
 		assertEquals("success", columnName(toTarget.getRunResult()));
+		assertFails(
+				() -> toTarget.isNoPurge(item1),
+				IllegalArgumentException.class,
+				"noPurge has been disabled for Dispatcher DispatcherWithoutPurgeItem.toTarget by method withoutPurge()");
+		assertFails(
+				() -> toTarget.setNoPurge(item1, true),
+				IllegalArgumentException.class,
+				"noPurge has been disabled for Dispatcher DispatcherWithoutPurgeItem.toTarget by method withoutPurge()");
 
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
