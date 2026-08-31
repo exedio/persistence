@@ -86,7 +86,7 @@ final class MessageDigestAlgorithmX implements Hash.Algorithm
 	public String name()
 	{
 		final StringBuilder sb = new StringBuilder();
-		sb.append(digest.getAlgorithm().replaceAll("-", ""));
+		sb.append(digest.getAlgorithm().replace("-", ""));
 		if(saltLength>0)
 			sb.append('s').
 				append(saltLength);

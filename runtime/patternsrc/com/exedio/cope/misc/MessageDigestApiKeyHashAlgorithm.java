@@ -83,7 +83,7 @@ public final class MessageDigestApiKeyHashAlgorithm implements HashAlgorithm
 		this.charset = requireNonNull(charset, "charset");
 		this.digest = requireNonNull(digest, "digest");
 		this.digestLengthHex = digest.getLengthHex();
-		this.id = digest.getAlgorithm().replaceAll("-", "") + '-' + charset.name().replaceAll("-", "");
+		this.id = digest.getAlgorithm().replace("-", "") + '-' + charset.name().replace("-", "");
 	}
 
 	@Override
