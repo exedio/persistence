@@ -120,7 +120,7 @@ final class WrapperX
 		final String name;
 		private final String[] comment;
 		final List<?> varargs;
-		private final Nullability nullability;
+		final Nullability nullability;
 
 		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Parameter(
