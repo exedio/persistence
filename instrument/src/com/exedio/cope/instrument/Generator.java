@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.instrument.Nullability.NONNULL;
+import static com.exedio.cope.instrument.Nullability.NULLABLE;
 import static java.lang.reflect.Modifier.FINAL;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.STATIC;
@@ -396,7 +398,7 @@ final class Generator
 			final boolean override = option.override();
 			final List<String> customAnnotations = option.annotate();
 			final boolean useIs = feature.getInstance() instanceof BooleanField && methodName.startsWith("get");
-			final boolean wrapResultInOptional = wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
+			final boolean wrapResultInOptional = wrapper.getMethodNullability()==NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
 
 			final Object[] arguments = new String[]{
 					feature.getJavadocReference(),
@@ -718,12 +720,12 @@ final class Generator
 		final boolean primitive = type instanceof final Class<?> clazz && clazz.isPrimitive();
 		if(nullabilityAnnotations && !primitive)
 		{
-			if(nullability==Nullability.NONNULL)
+			if(nullability==NONNULL)
 			{
 				writeAnnotation(Nonnull.class);
 				write(' ');
 			}
-			if(nullability==Nullability.NULLABLE)
+			if(nullability==NULLABLE)
 			{
 				writeAnnotation(Nullable.class);
 				write(' ');
