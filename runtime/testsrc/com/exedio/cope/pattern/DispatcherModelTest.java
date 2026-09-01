@@ -172,6 +172,18 @@ public class DispatcherModelTest
 				"target");
 	}
 
+	@Test void testCreateTargetNullOnFinalFailure()
+	{
+		assertFails(
+				() ->
+				{
+					@SuppressWarnings("deprecation")
+					final Dispatcher ignored = create(null, null);
+				},
+				NullPointerException.class,
+				"target");
+	}
+
 	@Test void testBuilderTargetNull()
 	{
 		assertFails(
@@ -194,6 +206,50 @@ public class DispatcherModelTest
 				() -> createWithSession(ByteArrayOutputStream::new, null),
 				NullPointerException.class,
 				"target");
+	}
+
+	@Test void testCreateTargetNullSessionedOnFinalFailure()
+	{
+		assertFails(
+				() ->
+				{
+					@SuppressWarnings("deprecation")
+					final Dispatcher ignored = createWithSession(ByteArrayOutputStream::new, null, null);
+				},
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testCreateOnFinalFailureNull()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				create(i -> { throw new Exception(); }, null);
+		assertTrue(d.supportsPurge());
+	}
+
+	@Test void testCreateOnFinalFailure()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				create(i -> { throw new Exception(); }, (i, cause) -> {});
+		assertTrue(d.supportsPurge());
+	}
+
+	@Test void testCreateOnFinalFailureNullSessioned()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				createWithSession(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }, null);
+		assertTrue(d.supportsPurge());
+	}
+
+	@Test void testCreateOnFinalFailureSessioned()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				createWithSession(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }, (i, cause) -> {});
+		assertTrue(d.supportsPurge());
 	}
 
 	@Test void testBuilderSessionNull()

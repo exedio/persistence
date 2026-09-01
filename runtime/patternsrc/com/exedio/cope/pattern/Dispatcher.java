@@ -187,6 +187,20 @@ public final class Dispatcher extends Pattern
 		return builder(target).build();
 	}
 
+	/**
+	 * @deprecated Use {@link #builder(Target)} instead.
+	 */
+	@Deprecated
+	public static <I extends Item> Dispatcher create(
+			final Target<I> target,
+			final @Nullable BiConsumer<I,Exception> onFinalFailure)
+	{
+		final Builder<I> builder = builder(target);
+		if(onFinalFailure!=null)
+			builder.onFinalFailure(onFinalFailure);
+		return builder.build();
+	}
+
 	public static <I extends Item> Builder<I> builder(
 			final Target<I> target)
 	{
@@ -205,6 +219,21 @@ public final class Dispatcher extends Pattern
 			final SessionTarget<I,S> target)
 	{
 		return builderWithSession(session, target).build();
+	}
+
+	/**
+	 * @deprecated Use {@link #builderWithSession(Supplier, SessionTarget)} instead.
+	 */
+	@Deprecated
+	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
+			final Supplier<S> session,
+			final SessionTarget<I,S> target,
+			final @Nullable BiConsumer<I,Exception> onFinalFailure)
+	{
+		final Builder<I> builder = builderWithSession(session, target);
+		if(onFinalFailure!=null)
+			builder.onFinalFailure(onFinalFailure);
+		return builder.build();
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Builder<I> builderWithSession(
