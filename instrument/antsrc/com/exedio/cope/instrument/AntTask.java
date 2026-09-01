@@ -143,6 +143,13 @@ public final class AntTask extends Task
 
 	public void setNullabilityAnnotations(final boolean value)
 	{
+		setNullability(value ? NullabilityAnnotation.javax : NullabilityAnnotation.none);
+	}
+
+	public void setNullability(
+			@SuppressWarnings("ClassEscapesDefinedScope") // OK: method is called generically via reflection
+			final NullabilityAnnotation value)
+	{
 		params.nullabilityAnnotations = value;
 	}
 

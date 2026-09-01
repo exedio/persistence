@@ -80,7 +80,7 @@ final class Params
 		}
 	}
 
-	boolean nullabilityAnnotations = false;
+	NullabilityAnnotation nullabilityAnnotations = NullabilityAnnotation.none;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.capital;
 	boolean finalMethodInFinalClass = true;
 	boolean useConstantForEmptySetValuesArray = true;

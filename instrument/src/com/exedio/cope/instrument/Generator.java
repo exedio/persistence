@@ -71,7 +71,7 @@ final class Generator
 	private final StringBuilder output;
 	private final String lineSeparator;
 	private final Class<? extends Annotation> generatedAnnotationClass;
-	private final boolean nullabilityAnnotations;
+	private final NullabilityAnnotation nullabilityAnnotations;
 	private final String serialVersionUIDSuffix;
 	private final boolean finalMethodInFinalClass;
 	private final boolean useConstantForEmptySetValuesArray;
@@ -663,26 +663,9 @@ final class Generator
 			final Nullability nullability,
 			final boolean wrapResultInOptional)
 	{
-		if(!nullabilityAnnotations)
-			return;
-		if(wrapResultInOptional)
-		{
-			writeEmptyAnnotationOnSeparateLine(javax.annotation.Nonnull.class);
-			return;
-		}
-
-		switch(nullability)
-		{
-			case NONNULL -> writeEmptyAnnotationOnSeparateLine(javax.annotation.Nonnull.class);
-
-			case NULLABLE -> writeEmptyAnnotationOnSeparateLine(javax.annotation.Nullable.class);
-
-			case DEFAULT ->
-			{
-			} // nothing to do
-
-			default -> throw new RuntimeException("invalid case");
-		}
+		final Class<? extends Annotation> annotation = nullabilityAnnotations.forMethodNullability(wrapResultInOptional ? NONNULL : nullability);
+		if(annotation!=null)
+			writeEmptyAnnotationOnSeparateLine(annotation);
 	}
 
 	void writeReturnType(
@@ -720,16 +703,12 @@ final class Generator
 			final String name)
 	{
 		final boolean primitive = type instanceof final Class<?> clazz && clazz.isPrimitive();
-		if(nullabilityAnnotations && !primitive)
+		if(!primitive)
 		{
-			if(nullability==NONNULL)
+			final Class<? extends Annotation> annotation = nullabilityAnnotations.forParameterNullability(nullability);
+			if(annotation!=null)
 			{
-				writeAnnotation(javax.annotation.Nonnull.class);
-				write(' ');
-			}
-			if(nullability==NULLABLE)
-			{
-				writeAnnotation(javax.annotation.Nullable.class);
+				writeAnnotation(annotation);
 				write(' ');
 			}
 		}

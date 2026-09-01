@@ -3,6 +3,8 @@ package com.exedio.cope.instrument;
 import static com.exedio.cope.instrument.Nullability.DEFAULT;
 import static com.exedio.cope.instrument.Nullability.NONNULL;
 import static com.exedio.cope.instrument.Nullability.NULLABLE;
+import static com.exedio.cope.instrument.NullabilityAnnotation.javax;
+import static com.exedio.cope.instrument.NullabilityAnnotation.none;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Set;
@@ -127,7 +129,7 @@ class GeneratorTest
 	}
 
 	private static String write(
-			final boolean nullabilityAnnotations,
+			final NullabilityAnnotation nullabilityAnnotations,
 			final Consumer<Generator> write)
 	{
 		final StringBuilder output = new StringBuilder();
@@ -141,11 +143,11 @@ class GeneratorTest
 
 	private static String none(final Consumer<Generator> write)
 	{
-		return write(false, write);
+		return write(none, write);
 	}
 
 	private static String javax(final Consumer<Generator> write)
 	{
-		return write(true, write);
+		return write(javax, write);
 	}
 }
