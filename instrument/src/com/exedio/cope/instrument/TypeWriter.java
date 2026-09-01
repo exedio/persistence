@@ -108,7 +108,7 @@ final class TypeWriter
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
 		{
 			if(methodClassVar==t)
-				return dig(featureClass, methodClass, typeParameterPosition);
+				return resolveTypeParameterType(featureClass, methodClass, typeParameterPosition);
 
 			typeParameterPosition++;
 		}
@@ -120,7 +120,7 @@ final class TypeWriter
 				featureClass);
 	}
 
-	private String dig(
+	private String resolveTypeParameterType(
 			final Class<?> instanceClass,
 			final Class<?> declarationClass,
 			final int declarationTypeParameterPosition)
