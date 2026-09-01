@@ -27,20 +27,20 @@ import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-final class Context
+final class TypeWriter
 {
 	private final CopeFeature feature;
 	private final boolean fullyQualified;
 	private final WrapperX wrapper;
 
-	Context(final CopeFeature feature, final boolean fullyQualified)
+	TypeWriter(final CopeFeature feature, final boolean fullyQualified)
 	{
 		this.feature = feature;
 		this.fullyQualified = fullyQualified;
 		this.wrapper = null;
 	}
 
-	Context(final CopeFeature feature, final WrapperX wrapper)
+	TypeWriter(final CopeFeature feature, final WrapperX wrapper)
 	{
 		this.feature = feature;
 		this.fullyQualified = false;

@@ -397,7 +397,7 @@ final class InterimProcessor extends JavacProcessor
 				final int typeParametersNumber = ct.getTypeParameters().size();
 				if (typeParametersNumber>0 && wrapperType.wildcardClass().exists())
 				{
-					final String type = Context.nameWithWildcards(ct.getSimpleName().toString(), typeParametersNumber);
+					final String type = TypeWriter.nameWithWildcards(ct.getSimpleName().toString(), typeParametersNumber);
 					code.addLine(
 						"public static final class classWildcard "+
 						"{ "+
