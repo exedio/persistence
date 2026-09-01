@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.PrometheusMeterRegistrar.getMeters;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.columnValue;
+import static com.exedio.cope.pattern.Dispatcher.builder;
+import static com.exedio.cope.pattern.Dispatcher.builderWithSession;
 import static com.exedio.cope.pattern.Dispatcher.create;
 import static com.exedio.cope.pattern.Dispatcher.createWithSession;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
@@ -162,13 +164,6 @@ public class DispatcherModelTest
 		assertSame(Boolean.FALSE, create(i -> {}).defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
-	@Test void testCreateOnFinalFailureNull()
-	{
-		final Dispatcher d =
-				create(i -> { throw new Exception(); }, null);
-		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
-	}
-
 	@Test void testCreateTargetNull()
 	{
 		assertFails(
@@ -177,19 +172,20 @@ public class DispatcherModelTest
 				"target");
 	}
 
-	@Test void testCreateTargetNullOnFinalFailure()
+	@Test void testBuilderTargetNull()
 	{
 		assertFails(
-				() -> create(null, null),
+				() -> builder(null),
 				NullPointerException.class,
 				"target");
 	}
 
-	@Test void testCreateOnFinalFailureNullSessioned()
+	@Test void testCreateSessionNull()
 	{
-		final Dispatcher d =
-				createWithSession(ByteArrayOutputStream::new, (s,i) -> { throw new Exception(); }, null);
-		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
+		assertFails(
+				() -> createWithSession(null, (i, s) -> {}),
+				NullPointerException.class,
+				"session");
 	}
 
 	@Test void testCreateTargetNullSessioned()
@@ -200,12 +196,46 @@ public class DispatcherModelTest
 				"target");
 	}
 
-	@Test void testCreateTargetNullSessionedOnFinalFailure()
+	@Test void testBuilderSessionNull()
 	{
 		assertFails(
-				() -> createWithSession(ByteArrayOutputStream::new, null, null),
+				() -> builderWithSession(null, (i, s) -> {}),
+				NullPointerException.class,
+				"session");
+	}
+
+	@Test void testBuilderTargetNullSessioned()
+	{
+		assertFails(
+				() -> builderWithSession(ByteArrayOutputStream::new, null),
 				NullPointerException.class,
 				"target");
+	}
+
+	@Test void testBuilderOnFinalFailureNull()
+	{
+		assertFails(
+				() -> builder(i -> {}).onFinalFailure(null),
+				NullPointerException.class,
+				"onFinalFailure");
+	}
+
+	@Test void testBuilder()
+	{
+		final Dispatcher d =
+				builder(i -> { throw new Exception(); }).
+				onFinalFailure((i, cause) -> {}).
+				build();
+		assertTrue(d.supportsPurge());
+	}
+
+	@Test void testBuilderWithSession()
+	{
+		final Dispatcher d =
+				builderWithSession(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }).
+				onFinalFailure((i, cause) -> {}).
+				build();
+		assertTrue(d.supportsPurge());
 	}
 
 	@Test void testDispatchParentClassWrong()

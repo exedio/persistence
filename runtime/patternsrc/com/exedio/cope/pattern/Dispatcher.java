@@ -184,52 +184,66 @@ public final class Dispatcher extends Pattern
 	public static <I extends Item> Dispatcher create(
 			final Target<I> target)
 	{
-		return create(target, null);
+		return builder(target).build();
 	}
 
-	public static <I extends Item> Dispatcher create(
-			final Target<I> target,
-			final @Nullable BiConsumer<I,Exception> onFinalFailure)
+	public static <I extends Item> Builder<I> builder(
+			final Target<I> target)
 	{
 		requireNonNull(target, "target");
-		return createInternal(
+		return new Builder<>(
 				null,
 				(item, session) ->
 				{
 					assert session==null;
 					target.dispatch(item);
-				},
-				onFinalFailure);
+				});
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
 			final Supplier<S> session,
 			final SessionTarget<I,S> target)
 	{
-		return createWithSession(session, target, null);
+		return builderWithSession(session, target).build();
 	}
 
-	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
+	public static <I extends Item, S extends AutoCloseable> Builder<I> builderWithSession(
 			final Supplier<S> session,
-			final SessionTarget<I,S> target,
-			final @Nullable BiConsumer<I,Exception> onFinalFailure)
+			final SessionTarget<I,S> target)
 	{
 		requireNonNull(session, "session");
 		requireNonNull(target, "target");
-		return createInternal(
+		return new Builder<>(
 				session,
-				(item, actualSession) -> target.dispatch(item, requireNonNull(actualSession, "session")),
-				onFinalFailure);
+				(item, actualSession) -> target.dispatch(item, requireNonNull(actualSession, "session")));
 	}
 
-	private static <I extends Item, S extends AutoCloseable> Dispatcher createInternal(
-			final @Nullable Supplier<S> session,
-			final InternalTarget<I,S> target,
-			final @Nullable BiConsumer<I,Exception> onFinalFailure)
+	public static final class Builder<I extends Item>
 	{
-		return new Dispatcher(
-				new BooleanField().defaultTo(true), true,
-				new Initial(session, target, onFinalFailure));
+		private final @Nullable Supplier<? extends AutoCloseable> session;
+		private final InternalTarget<I, ?> target;
+		private @Nullable BiConsumer<I, Exception> onFinalFailure = null;
+
+		private <S extends AutoCloseable> Builder(
+				final @Nullable Supplier<S> session,
+				final InternalTarget<I, S> target)
+		{
+			this.session = session;
+			this.target = requireNonNull(target, "target");
+		}
+
+		public Builder<I> onFinalFailure(final BiConsumer<I, Exception> onFinalFailure)
+		{
+			this.onFinalFailure = requireNonNull(onFinalFailure, "onFinalFailure");
+			return this;
+		}
+
+		public Dispatcher build()
+		{
+			return new Dispatcher(
+					new BooleanField().defaultTo(true), true,
+					new Initial(session, target, onFinalFailure));
+		}
 	}
 
 	private Dispatcher(final BooleanField pending, final boolean supportPurge, final Initial initial)
