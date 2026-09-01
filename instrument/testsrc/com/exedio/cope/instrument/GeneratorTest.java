@@ -102,6 +102,28 @@ class GeneratorTest
 				javax(g -> g.writeMethodNullability(NULLABLE, true)));
 	}
 
+	@Test
+	void writeReturnType_none()
+	{
+		assertEquals(
+				"java.lang.String",
+				none(g -> g.writeReturnType(FQN, String.class, false)));
+		assertEquals(
+				"java.util.Optional<java.lang.String>",
+				none(g -> g.writeReturnType(FQN, String.class, true)));
+	}
+
+	@Test
+	void writeReturnType_javax()
+	{
+		assertEquals(
+				"java.lang.String",
+				javax(g -> g.writeReturnType(FQN, String.class, false)));
+		assertEquals(
+				"java.util.Optional<java.lang.String>",
+				javax(g -> g.writeReturnType(FQN, String.class, true)));
+	}
+
 	private static String write(
 			final boolean nullabilityAnnotations,
 			final Consumer<Generator> write)
