@@ -26,12 +26,15 @@ import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.LinkedList;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 final class TypeWriter
 {
 	private final CopeFeature feature;
 	private final boolean fullyQualified;
-	private final WrapperX wrapper;
+	private final @Nullable WrapperX wrapper;
 
 	TypeWriter(final CopeFeature feature, final boolean fullyQualified)
 	{

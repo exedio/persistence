@@ -4,20 +4,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Test;
 
+@NullMarked
 class TypeWriterTest
 {
 	private static final TypeWriter FQN = new TypeWriter(null, true);
 
 	@SuppressWarnings("unused") // OK: via reflection
-	private List<String> parameterized;
+	private @Nullable List<String> parameterized;
 	@SuppressWarnings("unused") // OK: via reflection
-	private List<? extends Number> upperBound;
+	private @Nullable List<? extends Number> upperBound;
 	@SuppressWarnings("unused") // OK: via reflection
-	private List<? super Integer> lowerBound;
+	private @Nullable List<? super Integer> lowerBound;
 	@SuppressWarnings("unused") // OK: via reflection
-	private List<String>[] genericArray;
+	private List<String> @Nullable [] genericArray;
 
 	@Test
 	void write() throws NoSuchFieldException
