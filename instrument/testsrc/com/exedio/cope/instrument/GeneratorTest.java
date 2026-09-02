@@ -7,8 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Set;
 import java.util.function.Consumer;
+import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.Test;
 
+@NullMarked
 class GeneratorTest
 {
 	private static final String EOL = System.lineSeparator();
