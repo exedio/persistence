@@ -494,11 +494,7 @@ final class Generator
 					(option.asFinal()
 							&& visibilityModifier!=PRIVATE
 							&& (!feature.parent.isFinal()||finalMethodInFinalClass) ? FINAL : 0));
-			if (wrapResultInOptional)
-				write(OPTIONAL+"<");
-			write(ctx.write(methodReturnType, false));
-			if (wrapResultInOptional)
-				write(">");
+			writeReturnType(ctx, methodReturnType, wrapResultInOptional);
 			if(useIs && option.booleanAsIs())
 			{
 				write(" is");
@@ -683,6 +679,18 @@ final class Generator
 
 			default -> throw new RuntimeException("invalid case");
 		}
+	}
+
+	void writeReturnType(
+			final TypeWriter typeWriter,
+			final Type type,
+			final boolean wrapResultInOptional)
+	{
+		if(wrapResultInOptional)
+			write(OPTIONAL + "<");
+		write(typeWriter.write(type, false));
+		if(wrapResultInOptional)
+			write(">");
 	}
 
 	private void writeName(final String methodName, final String featureName)
