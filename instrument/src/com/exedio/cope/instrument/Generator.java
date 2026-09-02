@@ -25,6 +25,7 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.SetValue;
@@ -43,9 +44,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+@NullMarked
 final class Generator
 {
 	private static final String CLASS     = Class   .class.getName();
@@ -85,7 +87,7 @@ final class Generator
 	 * This parameter is meant to be used for one-time mass insertions only.
 	 * Do not commit this parameter to any source control system.
 	 */
-	private final String introCommentOneTime;
+	private final @Nullable String introCommentOneTime;
 
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -151,7 +153,7 @@ final class Generator
 	private void writeComment(final List<String> commentLines)
 	{
 		write(lineSeparator);
-		if(!typeContext.comments || commentLines.isEmpty())
+		if(!typeContext().comments || commentLines.isEmpty())
 			return;
 
 		writeIndent();
@@ -174,11 +176,11 @@ final class Generator
 	}
 
 	private void writeGeneratedAnnotation(
-			final String extraCommentForAnnotations)
+			final @Nullable String extraCommentForAnnotations)
 	{
 		writeIndent();
 		writeAnnotation(generatedAnnotationClass);
-		if(typeContext.comments && extraCommentForAnnotations!=null)
+		if(typeContext().comments && extraCommentForAnnotations!=null)
 		{
 			write(" // ");
 			write(extraCommentForAnnotations);
@@ -671,9 +673,9 @@ final class Generator
 
 		switch(nullability)
 		{
-			case NONNULL -> writeEmptyAnnotationOnSeparateLine(Nonnull.class);
+			case NONNULL -> writeEmptyAnnotationOnSeparateLine(javax.annotation.Nonnull.class);
 
-			case NULLABLE -> writeEmptyAnnotationOnSeparateLine(Nullable.class);
+			case NULLABLE -> writeEmptyAnnotationOnSeparateLine(javax.annotation.Nullable.class);
 
 			case DEFAULT ->
 			{
@@ -722,12 +724,12 @@ final class Generator
 		{
 			if(nullability==NONNULL)
 			{
-				writeAnnotation(Nonnull.class);
+				writeAnnotation(javax.annotation.Nonnull.class);
 				write(' ');
 			}
 			if(nullability==NULLABLE)
 			{
-				writeAnnotation(Nullable.class);
+				writeAnnotation(javax.annotation.Nullable.class);
 				write(' ');
 			}
 		}
@@ -879,11 +881,16 @@ final class Generator
 			write("Wildcard.value");
 	}
 
-	private TypeContext typeContext = null;
+	private @Nullable TypeContext typeContext = null;
 
 	void setTypeContext(final TypeContext typeContext)
 	{
 		this.typeContext = typeContext;
+	}
+
+	TypeContext typeContext()
+	{
+		return requireNonNull(typeContext,"typeContext");
 	}
 
 	void write(final JavaFile javaFile) throws HumanReadableException
@@ -966,7 +973,7 @@ final class Generator
 
 	private void writeIndent(final int additionalLevel)
 	{
-		write(typeContext.indent[additionalLevel]);
+		write(typeContext().indent[additionalLevel]);
 	}
 
 	private void write(final String s)
