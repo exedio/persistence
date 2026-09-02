@@ -30,6 +30,7 @@ import java.io.Serial;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -271,26 +272,12 @@ final class Generator
 			comma.appendTo(output);
 			write(lineSeparator);
 			writeIndent(3);
-			if (nullabilityAnnotations)
-			{
-				if (feature.isMandatory())
-				{
-					if (!feature.isInitialTypePrimitive())
-					{
-						writeAnnotation(Nonnull.class);
-						write(' ');
-					}
-				}
-				else
-				{
-					writeAnnotation(Nullable.class);
-					write(' ');
-				}
-			}
-			write("final ");
-			write(new TypeWriter(feature, feature.parent!=type).write(feature.getInitialType(), false));
-			write(' ');
-			write(feature.getName());
+			writeParameter(
+					new TypeWriter(feature, feature.parent!=type),
+					feature.getInitialType(),
+					Nullability.forMandatory(feature.isMandatory()),
+					false,
+					feature.getName());
 		}
 
 		write(')');
@@ -569,11 +556,12 @@ final class Generator
 					if(parameter.varargs==null)
 					{
 						comma.appendTo(output);
-						writeParameterNullability(parameter);
-						write("final ");
-						write(ctx.write(parameter.genericType, makeVarargs));
-						write(' ');
-						write(format(parameter.name, arguments));
+						writeParameter(
+								ctx,
+								parameter.genericType,
+								parameter.nullability,
+								makeVarargs,
+								format(parameter.name, arguments));
 					}
 					else
 					{
@@ -582,14 +570,12 @@ final class Generator
 							comma.appendTo(output);
 							final CopeFeature parameterFeature=feature.getFeatureByInstance(parameterInstance, methodName);
 
-							if (!parameterFeature.isInitialTypePrimitive())
-							{
-								writeParameterNullability(parameter);
-							}
-							write("final ");
-							write(new TypeWriter(parameterFeature, false).write(parameterFeature.getInitialType(), makeVarargs));
-							write(' ');
-							write(format(parameterFeature.getName(), arguments));
+							writeParameter(
+									new TypeWriter(parameterFeature, false),
+									parameterFeature.getInitialType(),
+									parameter.nullability,
+									makeVarargs,
+									format(parameterFeature.getName(), arguments));
 						}
 					}
 				}
@@ -682,23 +668,6 @@ final class Generator
 		write(annotationClass.getName());
 	}
 
-	private void writeParameterNullability(final WrapperX.Parameter parameter)
-	{
-		if(!nullabilityAnnotations)
-			return;
-
-		if(parameter.isNonnull())
-		{
-			writeAnnotation(Nonnull.class);
-			write(' ');
-		}
-		if(parameter.isNullable())
-		{
-			writeAnnotation(Nullable.class);
-			write(' ');
-		}
-	}
-
 	private void writeEmptyAnnotationOnSeparateLine(final Class<? extends Annotation> annotationClass)
 	{
 		writeIndent();
@@ -719,6 +688,34 @@ final class Generator
 
 		write(methodName);
 		write(featureName);
+	}
+
+	void writeParameter(
+			final TypeWriter typeWriter,
+			final Type type,
+			final Nullability nullability,
+			final boolean varargs,
+			final String name)
+	{
+		final boolean primitive = type instanceof final Class<?> clazz && clazz.isPrimitive();
+		if(nullabilityAnnotations && !primitive)
+		{
+			if(nullability==Nullability.NONNULL)
+			{
+				writeAnnotation(Nonnull.class);
+				write(' ');
+			}
+			if(nullability==Nullability.NULLABLE)
+			{
+				writeAnnotation(Nullable.class);
+				write(' ');
+			}
+		}
+
+		write("final ");
+		write(typeWriter.write(type, varargs));
+		write(' ');
+		write(name);
 	}
 
 	private static void collectCommentParagraph(

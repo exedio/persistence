@@ -34,7 +34,6 @@ abstract class CopeFeature
 	private Object value;
 	private Type initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
-	private boolean initialTypePrimitive;
 
 	CopeFeature(final CopeType<?> parent)
 	{
@@ -94,14 +93,6 @@ abstract class CopeFeature
 		return initialExceptions;
 	}
 
-	final boolean isInitialTypePrimitive()
-	{
-		if(initialType==null)
-			makeInitialTypeAndExceptions();
-
-		return initialTypePrimitive;
-	}
-
 	private void makeInitialTypeAndExceptions()
 	{
 		final Settable<?> instance = (Settable<?>)getInstance();
@@ -137,7 +128,6 @@ abstract class CopeFeature
 
 		this.initialType = initialType;
 		this.initialExceptions = initialExceptions;
-		this.initialTypePrimitive = primitive;
 	}
 
 	static final Type wildcard(final Class<?> type)
