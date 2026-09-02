@@ -177,11 +177,8 @@ final class TypeWriter
 	private String write(final WildcardType t, final boolean varArgs)
 	{
 		final Type[] upper = t.getUpperBounds();
-		if(upper.length==1)
+		if(upper.length==1 && t.getLowerBounds().length==0)
 		{
-			if (t.getLowerBounds().length!=0)
-				throw new RuntimeException(Arrays.toString(t.getLowerBounds()));
-
 			if(Object.class.equals(upper[0]))
 				return "?";
 
@@ -191,7 +188,7 @@ final class TypeWriter
 		final Type[] lower = t.getLowerBounds();
 		if(lower.length==1)
 		{
-			if (upper.length!=0)
+			if (upper.length!=1 || !Object.class.equals(upper[0]))
 				throw new RuntimeException(Arrays.toString(upper));
 			return "? super " + write(true, lower[0], varArgs);
 		}

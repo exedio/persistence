@@ -15,6 +15,8 @@ class TypeWriterTest
 	@SuppressWarnings("unused") // OK: via reflection
 	private List<? extends Number> upperBound;
 	@SuppressWarnings("unused") // OK: via reflection
+	private List<? super Integer> lowerBound;
+	@SuppressWarnings("unused") // OK: via reflection
 	private List<String>[] genericArray;
 
 	@Test
@@ -27,6 +29,7 @@ class TypeWriterTest
 		assertEquals("java.util.List<java.lang.String>[]", FQN.write(typeOf("genericArray"), false));
 		assertEquals("java.util.List<java.lang.String>...", FQN.write(typeOf("genericArray"), true));
 		assertEquals("java.util.List<? extends java.lang.Number>", FQN.write(typeOf("upperBound"), false));
+		assertEquals("java.util.List<? super java.lang.Integer>", FQN.write(typeOf("lowerBound"), false));
 	}
 
 	@Test
