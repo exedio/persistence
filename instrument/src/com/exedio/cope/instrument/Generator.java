@@ -467,23 +467,7 @@ final class Generator
 				writeEmptyAnnotationOnSeparateLine(Deprecated.class);
 			}
 
-			if (nullabilityAnnotations)
-			{
-				switch(wrapper.getMethodNullability())
-				{
-					case NONNULL ->
-						writeEmptyAnnotationOnSeparateLine(Nonnull.class);
-
-					case NULLABLE ->
-						writeEmptyAnnotationOnSeparateLine(wrapResultInOptional ? Nonnull.class : Nullable.class);
-
-					case DEFAULT ->
-						{ } // nothing to do
-
-					default ->
-						throw new RuntimeException("invalid case");
-				}
-			}
+			writeMethodNullability(wrapper.getMethodNullability(), wrapResultInOptional);
 
 			if(override)
 			{
@@ -675,6 +659,32 @@ final class Generator
 		write(lineSeparator);
 	}
 
+	void writeMethodNullability(
+			final Nullability nullability,
+			final boolean wrapResultInOptional)
+	{
+		if(!nullabilityAnnotations)
+			return;
+		if(wrapResultInOptional)
+		{
+			writeEmptyAnnotationOnSeparateLine(javax.annotation.Nonnull.class);
+			return;
+		}
+
+		switch(nullability)
+		{
+			case NONNULL -> writeEmptyAnnotationOnSeparateLine(Nonnull.class);
+
+			case NULLABLE -> writeEmptyAnnotationOnSeparateLine(Nullable.class);
+
+			case DEFAULT ->
+			{
+			} // nothing to do
+
+			default -> throw new RuntimeException("invalid case");
+		}
+	}
+
 	private void writeName(final String methodName, final String featureName)
 	{
 		for(int i = 0; i<methodName.length(); i++)
@@ -861,6 +871,11 @@ final class Generator
 
 	private TypeContext typeContext = null;
 
+	void setTypeContext(final TypeContext typeContext)
+	{
+		this.typeContext = typeContext;
+	}
+
 	void write(final JavaFile javaFile) throws HumanReadableException
 	{
 		final String buffer = javaFile.getSourceWithoutGeneratedFragments();
@@ -961,12 +976,17 @@ final class Generator
 		return result;
 	}
 
-	private static final class TypeContext
+	static final class TypeContext
 	{
 		final String[] indent = new String[4];
 		final boolean comments;
 
 		TypeContext(final LocalCopeType type) throws HumanReadableException
+		{
+			this(level(type), type.getOption().comments());
+		}
+
+		private static int level(final LocalCopeType type) throws HumanReadableException
 		{
 			final WrapperType option = type.getOption();
 			final int level = option.indent();
@@ -974,7 +994,14 @@ final class Generator
 				throw new HumanReadableException(
 						"@WrapperType(indent) at type " + type.getCanonicalName() + " must not be negative, " +
 						"but was " + level + '.');
+			return level;
+		}
 
+		/**
+		 * For junit tests only
+		 */
+		TypeContext(final int level, final boolean comments)
+		{
 			final StringBuilder sb = new StringBuilder("\t".repeat(level));
 			for(int i = 0; i<indent.length; i++)
 			{
@@ -982,7 +1009,7 @@ final class Generator
 				sb.append('\t');
 			}
 
-			this.comments = option.comments();
+			this.comments = comments;
 		}
 	}
 }
