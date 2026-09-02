@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 class GeneratorTest
 {
+	private static final String EOL = System.lineSeparator();
 	private static final TypeWriter FQN = new TypeWriter(null, true);
 
 	@Test
@@ -59,6 +60,48 @@ class GeneratorTest
 				javax(g -> g.writeParameter(FQN, String[].class, NULLABLE, true, "values")));
 	}
 
+	@Test
+	void writeMethodNullability_none()
+	{
+		assertEquals(
+				"",
+				none(g -> g.writeMethodNullability(DEFAULT, false)));
+		assertEquals(
+				"",
+				none(g -> g.writeMethodNullability(NONNULL, false)));
+		assertEquals(
+				"",
+				none(g -> g.writeMethodNullability(NULLABLE, false)));
+	}
+
+	@Test
+	void writeMethodNullability_javax()
+	{
+		assertEquals(
+				"",
+				javax(g -> g.writeMethodNullability(DEFAULT, false)));
+		assertEquals(
+				"@javax.annotation.Nonnull" + EOL,
+				javax(g -> g.writeMethodNullability(NONNULL, false)));
+		assertEquals(
+				"@javax.annotation.Nullable" + EOL,
+				javax(g -> g.writeMethodNullability(NULLABLE, false)));
+	}
+
+	@Test
+	void writeMethodNullability_javax_optional()
+	{
+		assertEquals(
+				"@javax.annotation.Nonnull" + EOL,
+				javax(g -> g.writeMethodNullability(DEFAULT, true)));
+		assertEquals(
+				"@javax.annotation.Nonnull" + EOL,
+				javax(g -> g.writeMethodNullability(NONNULL, true)));
+		assertEquals(
+				"@javax.annotation.Nonnull" + EOL,
+				javax(g -> g.writeMethodNullability(NULLABLE, true)));
+	}
+
 	private static String write(
 			final boolean nullabilityAnnotations,
 			final Consumer<Generator> write)
@@ -67,6 +110,7 @@ class GeneratorTest
 		final Params params = new Params();
 		params.nullabilityAnnotations = nullabilityAnnotations;
 		final Generator generator = new Generator(output, params, Set.of(), Set.of());
+		generator.setTypeContext(new Generator.TypeContext(0, true));
 		write.accept(generator);
 		return output.toString();
 	}
