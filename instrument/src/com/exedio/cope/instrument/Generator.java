@@ -288,7 +288,7 @@ final class Generator
 				}
 			}
 			write("final ");
-			write(new Context(feature, feature.parent!=type).write(feature.getInitialType(), false));
+			write(new TypeWriter(feature, feature.parent!=type).write(feature.getInitialType(), false));
 			write(' ');
 			write(feature.getName());
 		}
@@ -399,7 +399,7 @@ final class Generator
 			if(!kind.allowStaticClassToken && wrapper.hasStaticClassToken())
 				continue;
 
-			final Context ctx = new Context(feature, wrapper);
+			final TypeWriter ctx = new TypeWriter(feature, wrapper);
 			final String methodName = wrapper.name;
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
@@ -587,7 +587,7 @@ final class Generator
 								writeParameterNullability(parameter);
 							}
 							write("final ");
-							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType(), makeVarargs));
+							write(new TypeWriter(parameterFeature, false).write(parameterFeature.getInitialType(), makeVarargs));
 							write(' ');
 							write(format(parameterFeature.getName(), arguments));
 						}
