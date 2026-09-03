@@ -152,12 +152,12 @@ final class JavaFile
 	 * in this java file.
 	 * Is null, if no package statement found.
 	 */
-	public String getPackageName()
+	String getPackageName()
 	{
 		return packagename;
 	}
 
-	public Class<?> findTypeExternally(final String typename)
+	Class<?> findTypeExternally(final String typename)
 	{
 		try
 		{
@@ -169,7 +169,7 @@ final class JavaFile
 		}
 	}
 
-	public Class<?> findTypeExternallyOrFail(final String typename) throws ClassNotFoundException
+	Class<?> findTypeExternallyOrFail(final String typename) throws ClassNotFoundException
 	{
 		return interimClassLoader.loadClass(typename);
 	}

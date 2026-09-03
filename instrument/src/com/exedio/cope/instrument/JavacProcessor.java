@@ -53,7 +53,7 @@ abstract class JavacProcessor extends AbstractProcessor
 		}
 	}
 
-	public boolean isFileIgnored(final JavaFileObject e)
+	boolean isFileIgnored(final JavaFileObject e)
 	{
 		if (ignoreFiles==null)
 			throw new IllegalStateException();

@@ -112,13 +112,13 @@ final class JavaClass extends JavaFeature
 		return buf.toString();
 	}
 
-	public boolean isInterface()
+	boolean isInterface()
 	{
 		return Modifier.isInterface(modifier);
 	}
 
 	@Override
-	public int getAllowedModifiers()
+	int getAllowedModifiers()
 	{
 		return Modifier.INTERFACE | Modifier.classModifiers();
 	}
