@@ -244,7 +244,8 @@ public final class Dispatcher extends Pattern
 		requireNonNull(target, "target");
 		return new Builder<>(
 				session,
-				(item, actualSession) -> target.dispatch(item, requireNonNull(actualSession, "session")));
+				(item, actualSession) -> target.dispatch(item, requireNonNull(actualSession, "session"))
+		);
 	}
 
 	public static final class Builder<I extends Item>
