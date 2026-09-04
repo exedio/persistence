@@ -2,6 +2,7 @@
 import groovy.transform.Field
 import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.SimpleType
+import java.nio.file.Files
 
 @Field
 String projectNamePattern = "^exedio/([a-z]*)/.*" // depends on location of multibranch pipeline in jenkins
@@ -52,9 +53,8 @@ try
 		nodeCheckoutAndDelete { scmResult ->
 			def buildTag = makeBuildTag(scmResult)
 
-			def mainImage = mainImage(imageName("Main"))
-			def dbImage = docker.build(
-				imageName('Main', 'apache'),
+			def mainImage = mainImage()
+			def dbImage = dockerBuild(
 				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
 				'conf/apache')
 			shSilent "mkdir VaultHttpServiceDocumentRoot"
@@ -192,9 +192,8 @@ try
 
 	parallelBranches["Coverage"] = {
 		nodeCheckoutAndDelete {
-			def mainImage = mainImage(imageName("Coverage"))
-			def dbImage = docker.build(
-				imageName('Coverage', 'apache'),
+			def mainImage = mainImage()
+			def dbImage = dockerBuild(
 				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
 				'conf/apache')
 			shSilent "mkdir VaultHttpServiceDocumentRoot"
@@ -265,7 +264,7 @@ try
 
 	parallelBranches["Network"] = {
 		nodeCheckoutAndDelete {
-			def mainImage = mainImage(imageName("Network"))
+			def mainImage = mainImage()
 			mainImage.inside(
 				"--cap-drop all " +
 				"--security-opt no-new-privileges " +
@@ -293,8 +292,7 @@ try
 
 	parallelBranches["Github"] = {
 		nodeCheckoutAndDelete {
-			def mainImage = docker.build(
-				imageName('Github'),
+			def mainImage = dockerBuild(
 				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
 				'--build-arg DEBIAN_SNAPSHOT=' + debianSnapshot + ' ' +
 				'--build-arg JDK=' + jdk + ' ' +
@@ -348,8 +346,7 @@ try
 
 	parallelBranches["Idea"] = {
 		nodeCheckoutAndDelete {
-			def ideaImage = docker.build(
-				imageName('Idea'),
+			def ideaImage = dockerBuild(
 				'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
 				'--build-arg DEBIAN_SNAPSHOT=' + debianSnapshot + ' ' +
 				'--build-arg JDK=' + jdk + ' ' +
@@ -414,9 +411,8 @@ try
 				'cache.stamps=false'
 			)
 
-			def mainImage = mainImage(imageName("Mysql80CR"))
-			def dbImage = docker.build(
-				imageName('Mysql80CR', 'db'),
+			def mainImage = mainImage()
+			def dbImage = dockerBuild(
 				'--build-arg VERSION=' + databaseMysql80 + ' ' +
 				'conf/mysql')
 
@@ -502,9 +498,8 @@ try
 				'vault.isAppliedToAllFields=true\n'
 			)
 
-			def mainImage = mainImage(imageName("Postgresql"))
-			def dbImage = docker.build(
-				imageName('Postgresql', 'db'),
+			def mainImage = mainImage()
+			def dbImage = dockerBuild(
 				'--build-arg VERSION=' + databasePostgresql + ' ' +
 				'conf/postgresql')
 
@@ -548,7 +543,7 @@ try
 	parallelBranches["Ivy"] = {
 		def cache = 'jenkins-build-survivor-' + projectName() + "-Ivy"
 		lockNodeCheckoutAndDelete(cache, "jenkins-build-survivor") {
-			mainImage(imageName('Ivy')).inside(
+			mainImage().inside(
 				dockerRunDefaults('bridge') +
 				"--mount type=volume,src=" + cache + ",target=/var/jenkins-build-survivor") {
 				ant "-buildfile ivy" +
@@ -674,10 +669,9 @@ void withBridge(String namePart, @ClosureParams(value = SimpleType, options = ["
 	}
 }
 
-def mainImage(String imageName)
+def mainImage()
 {
-	return docker.build(
-		imageName,
+	return dockerBuild(
 		'--build-arg DEBIAN_RELEASE=' + debianRelease + ' ' +
 		'--build-arg DEBIAN_SNAPSHOT=' + debianSnapshot + ' ' +
 		'--build-arg JDK=' + jdk + ' ' +
@@ -685,19 +679,21 @@ def mainImage(String imageName)
 		'conf/main')
 }
 
+// replaces docker.build without requiring a tag name
+def dockerBuild(String args)
+{
+	def iidfile = Files.createTempFile("docker-build-iidfile-", ".txt")
+	sh('docker build --iidfile ' + iidfile + ' ' + args)
+	def result = docker.image(readFile(iidfile.toString()).trim())
+	Files.delete(iidfile)
+	return result
+}
+
 def buildArgJenkinsOwner()
 {
 	return '--build-arg JENKINS_OWNER=' +
 			shStdout("id --user") + ':' +
 			shStdout("id --group") + ' '
-}
-
-String imageName(String pipelineBranch, String subImage = '')
-{
-	String isoToday = new Date().format("yyyyMMdd")
-	String name = 'exedio-jenkins:' + jobNameAndBuildNumber() + '-' + pipelineBranch + '-' + isoToday
-	if (!subImage.isEmpty()) name += '-' + subImage
-	return name
 }
 
 static String dockerRunDefaults(String network = 'none', String hostname = '')
@@ -925,9 +921,8 @@ void branchMysql(
 				'vault.isAppliedToAllFields=true\n'
 			)
 
-			def mainImage = mainImage(imageName("Mysql" + code))
-			def dbImage = docker.build(
-				imageName('Mysql' + code, 'db'),
+			def mainImage = mainImage()
+			def dbImage = dockerBuild(
 				'--build-arg VERSION=' + version + ' ' +
 				'conf/mysql')
 
