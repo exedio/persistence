@@ -224,7 +224,7 @@ public final class Dispatcher extends Pattern
 	/**
 	 * @deprecated Use {@link #builderWithSession(Supplier, SessionTarget)} instead.
 	 */
-	@Deprecated
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
 			final Supplier<S> session,
 			final SessionTarget<I,S> target,
