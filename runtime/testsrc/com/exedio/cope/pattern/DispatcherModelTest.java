@@ -269,8 +269,9 @@ public class DispatcherModelTest
 
 	@Test void testBuilderOnFinalFailureNull()
 	{
+		final var builder = builder(i -> {});
 		assertFails(
-				() -> builder(i -> {}).onFinalFailure(null),
+				() -> builder.onFinalFailure(null),
 				NullPointerException.class,
 				"onFinalFailure");
 	}
