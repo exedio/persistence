@@ -195,10 +195,9 @@ public final class Dispatcher extends Pattern
 			final Target<I> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
-		final Builder<I> builder = builder(target);
-		if(onFinalFailure!=null)
-			builder.onFinalFailure(onFinalFailure);
-		return builder.build();
+		return builder(target).
+				onFinalFailureIfNonNull(onFinalFailure).
+				build();
 	}
 
 	public static <I extends Item> Builder<I> builder(
@@ -230,10 +229,9 @@ public final class Dispatcher extends Pattern
 			final SessionTarget<I,S> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
-		final Builder<I> builder = builderWithSession(session, target);
-		if(onFinalFailure!=null)
-			builder.onFinalFailure(onFinalFailure);
-		return builder.build();
+		return builderWithSession(session, target).
+				onFinalFailureIfNonNull(onFinalFailure).
+				build();
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Builder<I> builderWithSession(
@@ -266,6 +264,12 @@ public final class Dispatcher extends Pattern
 		{
 			this.onFinalFailure = requireNonNull(onFinalFailure, "onFinalFailure");
 			return this;
+		}
+
+		@Deprecated // to be used by deprecated code
+		Builder<I> onFinalFailureIfNonNull(final @Nullable BiConsumer<I, Exception> onFinalFailure)
+		{
+			return onFinalFailure!=null ? onFinalFailure(onFinalFailure) : this;
 		}
 
 		public Dispatcher build()
