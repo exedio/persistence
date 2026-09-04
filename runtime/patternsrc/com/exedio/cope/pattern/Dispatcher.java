@@ -217,11 +217,11 @@ public final class Dispatcher extends Pattern
 			final Supplier<S> session,
 			final SessionTarget<I,S> target)
 	{
-		return builderWithSession(session, target).build();
+		return builder(session, target).build();
 	}
 
 	/**
-	 * @deprecated Use {@link #builderWithSession(Supplier, SessionTarget)} instead.
+	 * @deprecated Use {@link #builder(Supplier, SessionTarget)} instead.
 	 */
 	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
@@ -229,12 +229,12 @@ public final class Dispatcher extends Pattern
 			final SessionTarget<I,S> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
-		return builderWithSession(session, target).
+		return builder(session, target).
 				onFinalFailureIfNonNull(onFinalFailure).
 				build();
 	}
 
-	public static <I extends Item, S extends AutoCloseable> Builder<I> builderWithSession(
+	public static <I extends Item, S extends AutoCloseable> Builder<I> builder(
 			final Supplier<S> session,
 			final SessionTarget<I,S> target)
 	{

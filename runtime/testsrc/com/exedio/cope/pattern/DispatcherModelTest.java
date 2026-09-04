@@ -22,7 +22,6 @@ import static com.exedio.cope.PrometheusMeterRegistrar.getMeters;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.columnValue;
 import static com.exedio.cope.pattern.Dispatcher.builder;
-import static com.exedio.cope.pattern.Dispatcher.builderWithSession;
 import static com.exedio.cope.pattern.Dispatcher.create;
 import static com.exedio.cope.pattern.Dispatcher.createWithSession;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
@@ -255,7 +254,7 @@ public class DispatcherModelTest
 	@Test void testBuilderSessionNull()
 	{
 		assertFails(
-				() -> builderWithSession(null, (i, s) -> {}),
+				() -> builder(null, (i, s) -> {}),
 				NullPointerException.class,
 				"session");
 	}
@@ -263,7 +262,7 @@ public class DispatcherModelTest
 	@Test void testBuilderTargetNullSessioned()
 	{
 		assertFails(
-				() -> builderWithSession(ByteArrayOutputStream::new, null),
+				() -> builder(ByteArrayOutputStream::new, null),
 				NullPointerException.class,
 				"target");
 	}
@@ -288,7 +287,7 @@ public class DispatcherModelTest
 	@Test void testBuilderWithSession()
 	{
 		final Dispatcher d =
-				builderWithSession(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }).
+				builder(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }).
 				onFinalFailure((i, cause) -> {}).
 				build();
 		assertTrue(d.supportsPurge());
