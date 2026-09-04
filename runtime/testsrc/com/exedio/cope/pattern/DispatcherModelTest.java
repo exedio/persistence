@@ -163,6 +163,14 @@ public class DispatcherModelTest
 		assertSame(Boolean.FALSE, create(i -> {}).defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
+	@Test void testCreateOnFinalFailureNull()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				create(i -> { throw new Exception(); }, null);
+		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
+	}
+
 	@Test void testCreateTargetNull()
 	{
 		assertFails(
@@ -181,6 +189,14 @@ public class DispatcherModelTest
 				},
 				NullPointerException.class,
 				"target");
+	}
+
+	@Test void testCreateOnFinalFailureNullSessioned()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				createWithSession(ByteArrayOutputStream::new, (i,s) -> { throw new Exception(); }, null);
+		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
 	}
 
 	@Test void testBuilderTargetNull()
@@ -219,27 +235,11 @@ public class DispatcherModelTest
 				"target");
 	}
 
-	@Test void testCreateOnFinalFailureNull()
-	{
-		@SuppressWarnings("deprecation")
-		final Dispatcher d =
-				create(i -> { throw new Exception(); }, null);
-		assertTrue(d.supportsPurge());
-	}
-
 	@Test void testCreateOnFinalFailure()
 	{
 		@SuppressWarnings("deprecation")
 		final Dispatcher d =
 				create(i -> { throw new Exception(); }, (i, cause) -> {});
-		assertTrue(d.supportsPurge());
-	}
-
-	@Test void testCreateOnFinalFailureNullSessioned()
-	{
-		@SuppressWarnings("deprecation")
-		final Dispatcher d =
-				createWithSession(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }, null);
 		assertTrue(d.supportsPurge());
 	}
 
