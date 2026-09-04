@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.PrometheusMeterRegistrar.getMeters;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.columnValue;
+import static com.exedio.cope.pattern.Dispatcher.builder;
 import static com.exedio.cope.pattern.Dispatcher.create;
 import static com.exedio.cope.pattern.Dispatcher.createWithSession;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
@@ -164,6 +165,7 @@ public class DispatcherModelTest
 
 	@Test void testCreateOnFinalFailureNull()
 	{
+		@SuppressWarnings("deprecation")
 		final Dispatcher d =
 				create(i -> { throw new Exception(); }, null);
 		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
@@ -180,16 +182,37 @@ public class DispatcherModelTest
 	@Test void testCreateTargetNullOnFinalFailure()
 	{
 		assertFails(
-				() -> create(null, null),
+				() ->
+				{
+					@SuppressWarnings("deprecation")
+					final Dispatcher ignored = create(null, null);
+				},
 				NullPointerException.class,
 				"target");
 	}
 
 	@Test void testCreateOnFinalFailureNullSessioned()
 	{
+		@SuppressWarnings("deprecation")
 		final Dispatcher d =
-				createWithSession(ByteArrayOutputStream::new, (s,i) -> { throw new Exception(); }, null);
+				createWithSession(ByteArrayOutputStream::new, (i,s) -> { throw new Exception(); }, null);
 		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
+	}
+
+	@Test void testBuilderTargetNull()
+	{
+		assertFails(
+				() -> builder(null),
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testCreateSessionNull()
+	{
+		assertFails(
+				() -> createWithSession(null, (i, s) -> {}),
+				NullPointerException.class,
+				"session");
 	}
 
 	@Test void testCreateTargetNullSessioned()
@@ -203,9 +226,72 @@ public class DispatcherModelTest
 	@Test void testCreateTargetNullSessionedOnFinalFailure()
 	{
 		assertFails(
-				() -> createWithSession(ByteArrayOutputStream::new, null, null),
+				() ->
+				{
+					@SuppressWarnings("deprecation")
+					final Dispatcher ignored = createWithSession(ByteArrayOutputStream::new, null, null);
+				},
 				NullPointerException.class,
 				"target");
+	}
+
+	@Test void testCreateOnFinalFailure()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				create(i -> { throw new Exception(); }, (i, cause) -> {});
+		assertTrue(d.supportsPurge());
+	}
+
+	@Test void testCreateOnFinalFailureSessioned()
+	{
+		@SuppressWarnings("deprecation")
+		final Dispatcher d =
+				createWithSession(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }, (i, cause) -> {});
+		assertTrue(d.supportsPurge());
+	}
+
+	@Test void testBuilderSessionNull()
+	{
+		assertFails(
+				() -> builder(null, (i, s) -> {}),
+				NullPointerException.class,
+				"session");
+	}
+
+	@Test void testBuilderTargetNullSessioned()
+	{
+		assertFails(
+				() -> builder(ByteArrayOutputStream::new, null),
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testBuilderOnFinalFailureNull()
+	{
+		final var builder = builder(i -> {});
+		assertFails(
+				() -> builder.onFinalFailure(null),
+				NullPointerException.class,
+				"onFinalFailure");
+	}
+
+	@Test void testBuilder()
+	{
+		final Dispatcher d =
+				builder(i -> { throw new Exception(); }).
+				onFinalFailure((i, cause) -> {}).
+				build();
+		assertTrue(d.supportsPurge());
+	}
+
+	@Test void testBuilderWithSession()
+	{
+		final Dispatcher d =
+				builder(ByteArrayOutputStream::new, (i, s) -> { throw new Exception(); }).
+				onFinalFailure((i, cause) -> {}).
+				build();
+		assertTrue(d.supportsPurge());
 	}
 
 	@Test void testDispatchParentClassWrong()

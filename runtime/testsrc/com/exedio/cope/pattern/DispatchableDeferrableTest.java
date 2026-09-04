@@ -131,9 +131,9 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	private static final class AnItem extends Item
 	{
 		@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=NONE)
-		static final Dispatcher toTarget = Dispatcher.create(
-				AnItem::dispatch,
-				(i, cause) -> { throw new RuntimeException(cause); });
+		static final Dispatcher toTarget = Dispatcher.builder(
+				AnItem::dispatch).
+				onFinalFailure((i, cause) -> { throw new RuntimeException(cause); }).build();
 		static final BooleanField deferred = new BooleanField().defaultTo(true);
 		static final IntegerField deferredCount = new IntegerField().defaultTo(0);
 		static final IntegerField dispatchCount = new IntegerField().defaultTo(0);

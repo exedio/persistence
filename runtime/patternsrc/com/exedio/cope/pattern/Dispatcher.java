@@ -184,52 +184,100 @@ public final class Dispatcher extends Pattern
 	public static <I extends Item> Dispatcher create(
 			final Target<I> target)
 	{
-		return create(target, null);
+		return builder(target).build();
 	}
 
+	/**
+	 * @deprecated Use {@link #builder(Target)} and {@link Builder#onFinalFailure(BiConsumer)} instead.
+	 */
+	@Deprecated
 	public static <I extends Item> Dispatcher create(
 			final Target<I> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
+		return builder(target).
+				onFinalFailureIfNonNull(onFinalFailure).
+				build();
+	}
+
+	public static <I extends Item> Builder<I> builder(
+			final Target<I> target)
+	{
 		requireNonNull(target, "target");
-		return createInternal(
+		return new Builder<>(
 				null,
 				(item, session) ->
 				{
 					assert session==null;
 					target.dispatch(item);
-				},
-				onFinalFailure);
+				});
 	}
 
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
 			final Supplier<S> session,
 			final SessionTarget<I,S> target)
 	{
-		return createWithSession(session, target, null);
+		return builder(session, target).build();
 	}
 
+	/**
+	 * @deprecated Use {@link #builder(Supplier, SessionTarget)} and {@link Builder#onFinalFailure(BiConsumer)} instead.
+	 */
+	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
 			final Supplier<S> session,
 			final SessionTarget<I,S> target,
 			final @Nullable BiConsumer<I,Exception> onFinalFailure)
 	{
-		requireNonNull(session, "session");
-		requireNonNull(target, "target");
-		return createInternal(
-				session,
-				(item, actualSession) -> target.dispatch(item, requireNonNull(actualSession, "session")),
-				onFinalFailure);
+		return builder(session, target).
+				onFinalFailureIfNonNull(onFinalFailure).
+				build();
 	}
 
-	private static <I extends Item, S extends AutoCloseable> Dispatcher createInternal(
-			final @Nullable Supplier<S> session,
-			final InternalTarget<I,S> target,
-			final @Nullable BiConsumer<I,Exception> onFinalFailure)
+	public static <I extends Item, S extends AutoCloseable> Builder<I> builder(
+			final Supplier<S> session,
+			final SessionTarget<I,S> target)
 	{
-		return new Dispatcher(
-				new BooleanField().defaultTo(true), true,
-				new Initial(session, target, onFinalFailure));
+		requireNonNull(session, "session");
+		requireNonNull(target, "target");
+		return new Builder<>(
+				session,
+				(item, actualSession) -> target.dispatch(item, requireNonNull(actualSession, "session"))
+		);
+	}
+
+	public static final class Builder<I extends Item>
+	{
+		private final @Nullable Supplier<? extends AutoCloseable> session;
+		private final InternalTarget<I, ?> target;
+		private @Nullable BiConsumer<I, Exception> onFinalFailure = null;
+
+		private <S extends AutoCloseable> Builder(
+				final @Nullable Supplier<S> session,
+				final InternalTarget<I, S> target)
+		{
+			this.session = session;
+			this.target = requireNonNull(target, "target");
+		}
+
+		public Builder<I> onFinalFailure(final BiConsumer<I, Exception> onFinalFailure)
+		{
+			this.onFinalFailure = requireNonNull(onFinalFailure, "onFinalFailure");
+			return this;
+		}
+
+		@Deprecated // to be used by deprecated code
+		Builder<I> onFinalFailureIfNonNull(final @Nullable BiConsumer<I, Exception> onFinalFailure)
+		{
+			return onFinalFailure!=null ? onFinalFailure(onFinalFailure) : this;
+		}
+
+		public Dispatcher build()
+		{
+			return new Dispatcher(
+					new BooleanField().defaultTo(true), true,
+					new Initial(session, target, onFinalFailure));
+		}
 	}
 
 	private Dispatcher(final BooleanField pending, final boolean supportPurge, final Initial initial)

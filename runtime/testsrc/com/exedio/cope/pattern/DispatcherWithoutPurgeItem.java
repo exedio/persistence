@@ -57,9 +57,9 @@ public final class DispatcherWithoutPurgeItem extends Item
 	}
 
 	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=NONE)
-	static final Dispatcher toTarget = Dispatcher.create(
-			DispatcherWithoutPurgeItem::dispatch,
-			DispatcherWithoutPurgeItem::notifyFinalFailure).
+	static final Dispatcher toTarget = Dispatcher.builder(
+			DispatcherWithoutPurgeItem::dispatch).
+			onFinalFailure(DispatcherWithoutPurgeItem::notifyFinalFailure).build().
 			withoutPurgeLEGACY();
 
 	@WrapInterim(methodBody=false)
