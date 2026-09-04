@@ -56,9 +56,9 @@ public final class DispatcherItem extends Item
 		}
 	}
 
-	static final Dispatcher toTarget = Dispatcher.builder(DispatcherItem::dispatch).
-			onFinalFailure(DispatcherItem::notifyFinalFailure).
-			build();
+	static final Dispatcher toTarget = Dispatcher.builder(
+			DispatcherItem::dispatch).
+			onFinalFailure(DispatcherItem::notifyFinalFailure).build();
 
 	Boolean getToTargetUnpendSuccess()
 	{
