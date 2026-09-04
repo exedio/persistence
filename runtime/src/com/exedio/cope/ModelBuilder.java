@@ -69,7 +69,7 @@ public final class ModelBuilder
 	 * <p>
 	 * If you do not call this method, a single {@link DefaultChangeHook} will be installed.
 	 * If you want to use a {@link DefaultChangeHook} additionally to other hooks,
-	 * you have specify it here together with the other hooks.
+	 * you have to specify it here together with the other hooks.
 	 */
 	public ModelBuilder changeHooks(final ChangeHook.Factory... hooks)
 	{
