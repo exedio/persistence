@@ -188,7 +188,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #builder(Target)} instead.
+	 * @deprecated Use {@link #builder(Target)} and {@link Builder#onFinalFailure(BiConsumer)} instead.
 	 */
 	@Deprecated
 	public static <I extends Item> Dispatcher create(
@@ -221,7 +221,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	/**
-	 * @deprecated Use {@link #builder(Supplier, SessionTarget)} instead.
+	 * @deprecated Use {@link #builder(Supplier, SessionTarget)} and {@link Builder#onFinalFailure(BiConsumer)} instead.
 	 */
 	@Deprecated @SuppressWarnings("DeprecatedIsStillUsed") // OK: testing deprecated api
 	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
