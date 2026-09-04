@@ -34,9 +34,10 @@ final class Main
 
 	void run(final Params params) throws HumanReadableException, IOException
 	{
-		if (params.nullabilityAnnotations && !JavaxNullability.classesAreAvailable())
+		if (!params.nullabilityAnnotations.classesAreAvailable())
 		{
-			throw new HumanReadableException("add jsr305 classes (e.g. " + JavaxNullability.NONNULL_CLASS_NAME + ") to classpath to generate nullability annotations");
+			throw new HumanReadableException("add nullability annotation classes (e.g. " +
+					params.nullabilityAnnotations.nullableClassName() + ") to classpath to generate nullability annotations");
 		}
 
 		final List<File> files = params.getJavaSourceFilesExcludingIgnored();
