@@ -48,7 +48,13 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.BooleanSupplier;
+import java.util.function.IntSupplier;
+import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -965,6 +971,94 @@ public final class Model implements Serializable
 	{
 		startTransaction(name);
 		return tx;
+	}
+
+	/**
+	 * @see #withinTransaction(String, Supplier)
+	 */
+	@NullMarked
+	public void withinTransaction(
+			final String name,
+			final Runnable body)
+	{
+		requireNonNull(name, "name");
+
+		try(var tx = startTransactionTry(name))
+		{
+			body.run();
+			tx.commit();
+		}
+	}
+
+	/**
+	 * @see #withinTransaction(String, Runnable)
+	 * @see #withinTransaction(String, IntSupplier)
+	 * @see #withinTransaction(String, LongSupplier)
+	 * @see #withinTransaction(String, BooleanSupplier)
+	 */
+	@NullMarked
+	public <T extends @Nullable Object> T withinTransaction(
+			final String name,
+			final Supplier<T> body)
+	{
+		requireNonNull(name, "name");
+
+		try(var tx = startTransactionTry(name))
+		{
+			return tx.commit(
+					body.get());
+		}
+	}
+
+	/**
+	 * @see #withinTransaction(String, Supplier)
+	 */
+	@NullMarked
+	public int withinTransaction(
+			final String name,
+			final IntSupplier body)
+	{
+		requireNonNull(name, "name");
+
+		try(var tx = startTransactionTry(name))
+		{
+			return tx.commit(
+					body.getAsInt());
+		}
+	}
+
+	/**
+	 * @see #withinTransaction(String, Supplier)
+	 */
+	@NullMarked
+	public long withinTransaction(
+			final String name,
+			final LongSupplier body)
+	{
+		requireNonNull(name, "name");
+
+		try(var tx = startTransactionTry(name))
+		{
+			return tx.commit(
+					body.getAsLong());
+		}
+	}
+
+	/**
+	 * @see #withinTransaction(String, Supplier)
+	 */
+	@NullMarked
+	public boolean withinTransaction(
+			final String name,
+			final BooleanSupplier body)
+	{
+		requireNonNull(name, "name");
+
+		try(var tx = startTransactionTry(name))
+		{
+			return tx.commit(
+					body.getAsBoolean());
+		}
 	}
 
 	public TransactionCounters getTransactionCounters()

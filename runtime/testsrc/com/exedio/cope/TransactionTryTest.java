@@ -128,6 +128,28 @@ public class TransactionTryTest extends TestWithEnvironment
 		assertEquals("itemName", item.getName());
 	}
 
+	@Test void testSuccessReturnBoolean()
+	{
+		assertFalse(model.hasCurrentTransaction());
+
+		final SimpleItem item;
+
+		try(TransactionTry tx = model.startTransactionTry("txName"))
+		{
+			assertTrue(model.hasCurrentTransaction());
+			assertContains(TYPE.search());
+
+			item = new SimpleItem("itemName");
+			assertEquals(true, tx.commit(true));
+			assertFalse(model.hasCurrentTransaction());
+		}
+		assertFalse(model.hasCurrentTransaction());
+
+		model.startTransaction(TransactionTryTest.class.getName());
+		assertTrue(item.existsCopeItem());
+		assertEquals("itemName", item.getName());
+	}
+
 	@Test void testFail()
 	{
 		assertFalse(model.hasCurrentTransaction());
