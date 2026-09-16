@@ -63,6 +63,15 @@ public final class TransactionTry implements AutoCloseable
 	}
 
 	/**
+	 * @see #commit()
+	 */
+	public boolean commit(final boolean result)
+	{
+		model.commit();
+		return result;
+	}
+
+	/**
 	 * @see Model#getItem(String)
 	 */
 	public Item getItem(final String id) throws NoSuchIDException
