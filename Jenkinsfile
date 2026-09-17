@@ -683,7 +683,9 @@ def mainImage()
 def dockerBuild(String args)
 {
 	def iidfile = Files.createTempFile("docker-build-iidfile-", ".txt")
-	sh('docker build --iidfile ' + iidfile + ' ' + args)
+	sh('docker build ' +
+	   '--provenance=false ' + // makes image hashes repeatable between builds
+	   '--iidfile ' + iidfile + ' ' + args)
 	def result = docker.image(readFile(iidfile.toString()).trim())
 	Files.delete(iidfile)
 	return result
