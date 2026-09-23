@@ -2,7 +2,6 @@
 import groovy.transform.Field
 import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.SimpleType
-import java.nio.file.Files
 
 @Field
 String projectNamePattern = "^exedio/([a-z]*)/.*" // depends on location of multibranch pipeline in jenkins
@@ -682,12 +681,12 @@ def mainImage()
 // replaces docker.build without requiring a tag name
 def dockerBuild(String args)
 {
-	def iidfile = Files.createTempFile("docker-build-iidfile-", ".txt")
+	def iidfile = shStdout("mktemp docker-build-iidfile-XXXXXXXXXX.txt")
 	sh('docker build ' +
 	   '--provenance=false ' + // makes image hashes repeatable between builds
 	   '--iidfile ' + iidfile + ' ' + args)
-	def result = docker.image(readFile(iidfile.toString()).trim())
-	Files.delete(iidfile)
+	def result = docker.image(readFile(iidfile).trim())
+	sh('rm ' + iidfile)
 	return result
 }
 
