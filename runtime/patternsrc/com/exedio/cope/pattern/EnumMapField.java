@@ -83,7 +83,10 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 				value = value.defaultTo(defaultConstant.get(key));
 			if(fallback!=null && fallback!=key && value.isMandatory())
 				value = value.optional();
-			addSourceFeature(value, name(key), EnumAnnotatedElement.get(key));
+			//noinspection ThisEscapedInObjectConstruction
+			addSourceFeature(value, name(key),
+					new MysqlExtendedVarcharAnnotationProxy(this,
+					EnumAnnotatedElement.get(key)));
 			fields.put(key, value);
 			if(fallback==key)
 				fallbackField = value;
