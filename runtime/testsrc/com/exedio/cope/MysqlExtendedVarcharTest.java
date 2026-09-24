@@ -55,13 +55,13 @@ public class MysqlExtendedVarcharTest
 		assertEquals(false, ext(MyItem.mapWithout.getKey()));
 		assertEquals(false, ext(MyItem.mapWithout.getValue()));
 
-		assertEquals(false, ext(MyItem.enumSetWith   .getField(MyEnum.A))); // TODO bug: should be true
-		assertEquals(false, ext(MyItem.enumSetWith   .getField(MyEnum.B))); // TODO bug: should be true
+		assertEquals(true,  ext(MyItem.enumSetWith   .getField(MyEnum.A)));
+		assertEquals(true,  ext(MyItem.enumSetWith   .getField(MyEnum.B)));
 		assertEquals(false, ext(MyItem.enumSetWithout.getField(MyEnum.A)));
 		assertEquals(false, ext(MyItem.enumSetWithout.getField(MyEnum.B)));
 
-		assertEquals(false, ext(MyItem.limitedListWith   .getListSources().get(0))); // TODO bug: should be true
-		assertEquals(false, ext(MyItem.limitedListWith   .getListSources().get(1))); // TODO bug: should be true
+		assertEquals(true,  ext(MyItem.limitedListWith   .getListSources().get(0)));
+		assertEquals(true,  ext(MyItem.limitedListWith   .getListSources().get(1)));
 		assertEquals(false, ext(MyItem.limitedListWithout.getListSources().get(0)));
 		assertEquals(false, ext(MyItem.limitedListWithout.getListSources().get(1)));
 		assertEquals(false, ext(MyItem.limitedListWith   .getLengthIfExists()));

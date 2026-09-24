@@ -24,14 +24,24 @@ import com.exedio.cope.MysqlExtendedVarchar;
 import com.exedio.cope.Pattern;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import org.jspecify.annotations.Nullable;
 
 final class MysqlExtendedVarcharAnnotationProxy implements AnnotatedElement
 {
 	private final Pattern source;
+	@Nullable private final AnnotatedElement back;
 
 	MysqlExtendedVarcharAnnotationProxy(final Pattern source)
 	{
+		this(source, null);
+	}
+
+	MysqlExtendedVarcharAnnotationProxy(
+			final Pattern source,
+			@Nullable final AnnotatedElement back)
+	{
 		this.source = requireNonNull(source);
+		this.back = back;
 	}
 
 	@Override
@@ -41,6 +51,8 @@ final class MysqlExtendedVarcharAnnotationProxy implements AnnotatedElement
 		return
 				(MysqlExtendedVarchar.class==annotationClass)
 				? source.isAnnotationPresent(annotationClass)
+				: back!=null
+				? back.isAnnotationPresent(annotationClass)
 				: false;
 	}
 
@@ -50,6 +62,8 @@ final class MysqlExtendedVarcharAnnotationProxy implements AnnotatedElement
 		return
 				(MysqlExtendedVarchar.class==annotationClass)
 				? source.getAnnotation(annotationClass)
+				: back!=null
+				? back.getAnnotation(annotationClass)
 				: null;
 	}
 

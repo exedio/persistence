@@ -88,7 +88,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		int i = 0;
 		for(final FunctionField<E> source : sources)
-			addSourceFeature(source, String.valueOf(i++), ComputedElement.get());
+			//noinspection ThisEscapedInObjectConstruction
+			addSourceFeature(source, String.valueOf(i++),
+					new MysqlExtendedVarcharAnnotationProxy(this,
+					ComputedElement.get()));
 
 		final ArrayList<Condition> unisonConditions = new ArrayList<>(sources.length);
 		for(int a = minimumSize; a<sources.length; a++)
