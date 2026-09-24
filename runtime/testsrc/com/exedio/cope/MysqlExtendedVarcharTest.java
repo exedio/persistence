@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.pattern.EnumMapField;
+import com.exedio.cope.pattern.LimitedListField;
 import com.exedio.cope.pattern.ListField;
 import com.exedio.cope.pattern.MapField;
 import com.exedio.cope.pattern.SetField;
@@ -52,6 +54,18 @@ public class MysqlExtendedVarcharTest
 		assertEquals(false, ext(MyItem.mapWithout.getParent()));
 		assertEquals(false, ext(MyItem.mapWithout.getKey()));
 		assertEquals(false, ext(MyItem.mapWithout.getValue()));
+
+		assertEquals(false, ext(MyItem.enumSetWith   .getField(MyEnum.A))); // TODO bug: should be true
+		assertEquals(false, ext(MyItem.enumSetWith   .getField(MyEnum.B))); // TODO bug: should be true
+		assertEquals(false, ext(MyItem.enumSetWithout.getField(MyEnum.A)));
+		assertEquals(false, ext(MyItem.enumSetWithout.getField(MyEnum.B)));
+
+		assertEquals(false, ext(MyItem.limitedListWith   .getListSources().get(0))); // TODO bug: should be true
+		assertEquals(false, ext(MyItem.limitedListWith   .getListSources().get(1))); // TODO bug: should be true
+		assertEquals(false, ext(MyItem.limitedListWithout.getListSources().get(0)));
+		assertEquals(false, ext(MyItem.limitedListWithout.getListSources().get(1)));
+		assertEquals(false, ext(MyItem.limitedListWith   .getLengthIfExists()));
+		assertEquals(false, ext(MyItem.limitedListWithout.getLengthIfExists()));
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -66,6 +80,12 @@ public class MysqlExtendedVarcharTest
 		@MysqlExtendedVarchar
 		@WrapperIgnore static final MapField<String, String> mapWith    = MapField.create(new StringField(), new StringField());
 		@WrapperIgnore static final MapField<String, String> mapWithout = MapField.create(new StringField(), new StringField());
+		@MysqlExtendedVarchar
+		@WrapperIgnore static final EnumMapField<MyEnum,String> enumSetWith    = EnumMapField.create(MyEnum.class, new StringField());
+		@WrapperIgnore static final EnumMapField<MyEnum,String> enumSetWithout = EnumMapField.create(MyEnum.class, new StringField());
+		@MysqlExtendedVarchar
+		@WrapperIgnore static final LimitedListField<String> limitedListWith    = LimitedListField.create(new StringField(), 2);
+		@WrapperIgnore static final LimitedListField<String> limitedListWithout = LimitedListField.create(new StringField(), 2);
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
@@ -77,6 +97,8 @@ public class MysqlExtendedVarcharTest
 		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
+
+	private enum MyEnum {A, B}
 
 	private static boolean ext(final Field<?> f)
 	{
