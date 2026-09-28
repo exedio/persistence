@@ -44,13 +44,8 @@ final class SequenceImplSequence implements SequenceImpl
 			final Database database,
 			final String nameSuffix)
 	{
-		this.timer = timer(metrics);
-		this.type = type;
-		this.start = start;
-		this.executor = database.executor;
-		this.connectionPool = connectionPool;
-		this.name = column.makeGlobalName(TrimClass.legacy, nameSuffix);
-		this.nameQuoted = database.dsmfDialect.quoteName(this.name);
+		this(metrics, column.makeGlobalName(TrimClass.legacy, nameSuffix), type, start, connectionPool,
+				database.executor, database.dsmfDialect);
 	}
 
 	SequenceImplSequence(
