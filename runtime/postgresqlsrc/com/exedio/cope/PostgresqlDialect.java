@@ -348,25 +348,25 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	Long nextSequence(
+	long[] nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String nameQuoted)
+			final String nameQuoted,
+			final int count)
 	{
 		final Statement st = executor.newStatement();
 		st.append("SELECT NEXTVAL('").
 			append(nameQuoted).
 			append("')");
+		if (count!=1)
+		{
+			st.append(" FROM generate_series(1, ").
+				appendParameter(count).
+				append(')');
+		}
 
-		return executor.query(connection, st, Executor.Kind.other, resultSet ->
-			{
-				if(!resultSet.next())
-					throw new RuntimeException("empty in sequence " + nameQuoted);
-				final long result = resultSet.getLong(1);
-				if(resultSet.wasNull())
-					throw new RuntimeException("null in sequence " + nameQuoted);
-				return result;
-			}
+		return executor.query(connection, st, Executor.Kind.other,
+				Executor.longArrayResultSetHandler(count, nameQuoted, 0)
 		);
 	}
 

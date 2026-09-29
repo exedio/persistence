@@ -57,6 +57,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 
 	private boolean sequences;
 	private boolean batch;
+	private boolean fetchMany;
 
 	private static final String NO_SEQUENCE = "NOSEQ";
 	private String thisSeq;
@@ -71,6 +72,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
 		sequences = pkg!=PrimaryKeyGenerator.memory;
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;
+		fetchMany = model.getConnectProperties().primaryKeyGeneratorMaxFetch!=null && model.getConnectProperties().primaryKeyGeneratorMaxFetch > 1;
+		if (fetchMany)
+			assertEquals(100, model.getConnectProperties().primaryKeyGeneratorMaxFetch, "other values not supported by test");
 		thisSeq = sequences ? SchemaInfo.primaryKeySequenceName(AnItem.TYPE) : NO_SEQUENCE;
 		nextSeq = sequenceName(AnItem.next.getDefaultNextSequence());
 		typeSeq = sequenceName(AnItem.sequence);
@@ -266,13 +270,22 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		model.disconnect();
 		model.connect(ConnectProperties.create(copeRule.getConnectProperties().getSourceObject()));
 
+		// for 'fetchMany', this test actually depends on test run-time:
+		// if the above didn't happen within a minute, other pre-fetch counts would apply
+
 		assertEquals(
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 			(batch
 			 ? "MESSAGE sequence " + thisSeq + " purge less 1 limit 7\n" + STOP + "PROGRESS 0\n"
-			 : "MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 7\n" +
+			 : ( fetchMany ?
+				"MESSAGE sequence " + thisSeq + " purge less 31 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 31 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 31 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 31 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 31 limit 7\n" + STOP + "PROGRESS 2\n" :
 				"MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 7\n" +
-				"MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 5\n") + // just 5 because pk sequence starts with zero and is therefore initially empty
+				"MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 5\n")) + // just 5 because pk sequence starts with zero and is therefore initially empty
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
 				"MESSAGE sequence " + nextSeq + " purge less 1020 limit 7\n" + STOP + "PROGRESS 7\n" +
 				"MESSAGE sequence " + nextSeq + " purge less 1020 limit 7\n" + STOP + "PROGRESS 7\n" +

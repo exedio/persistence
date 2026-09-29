@@ -47,7 +47,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 public class ConnectPropertiesTest
@@ -88,7 +90,7 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
-		assertEquals(asList(
+		assertEquals(Stream.of(
 				"connection.url",
 				"connection.username",
 				"connection.password",
@@ -106,6 +108,7 @@ public class ConnectPropertiesTest
 				"schema.nameLengthLegacy",
 				"schema.redundantUnq",
 				"schema.primaryKeyGenerator",
+				p.primaryKeyGenerator==PrimaryKeyGenerator.sequence ? "schema.primaryKeyGenerator.maxFetch" : null,
 				"schema.tableInNames",
 				"schema.revision.table",
 				"schema.revision.unique",
@@ -130,7 +133,7 @@ public class ConnectPropertiesTest
 				"media.rooturl",
 				"media.offsetExpires",
 				"media.fingerprintOffset",
-				"media.url.secret"),
+				"media.url.secret").filter(Objects::nonNull).toList(),
 				p.getFields().stream().map(Field::getKey).toList());
 	}
 

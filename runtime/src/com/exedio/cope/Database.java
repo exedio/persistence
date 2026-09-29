@@ -75,7 +75,8 @@ final class Database
 			final Sequence.Type type, final long start, final IntegerColumn column)
 	{
 		return
-			properties.primaryKeyGenerator.newSequenceImpl(metrics, column, type, start, connectionPool, this);
+			properties.primaryKeyGenerator.newSequenceImpl(metrics, column, type, start, connectionPool, this,
+					properties.primaryKeyGeneratorMaxFetch);
 	}
 
 	SequenceImpl newSequenceImplCluster(

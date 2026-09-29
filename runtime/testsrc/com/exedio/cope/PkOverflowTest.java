@@ -41,10 +41,36 @@ public class PkOverflowTest extends TestWithEnvironment
 			assertFailsWithCause(
 					StandardItem::new,
 					SQLRuntimeException.class,
-					"INSERT `StandardItem_this_Seq` VALUES()",
+					"INSERT `StandardItem_this_Seq` VALUES()" + (fetchMany() ? ",()" : ""),
 					SQLIntegrityConstraintViolationException.class,
 					"Duplicate entry '2147483647' for key 'StandardItem_this_Seq.PRIMARY'"
 			);
+		}
+		else if (fetchMany())
+		{
+			if(dialect==RuntimeTester.Dialect.postgresql)
+			{
+				assertFailsWithCause(
+						StandardItem::new,
+						SQLRuntimeException.class,
+						"SELECT NEXTVAL('\"StandardItem_this_Seq\"') FROM generate_series(1, " + param(2) + ")",
+						SQLException.class,
+						"reached maximum value of sequence \"StandardItem_this_Seq\" (2147483647)"
+				);
+			}
+			else if(dialect==RuntimeTester.Dialect.hsqldb)
+			{
+				assertFailsWithCause(
+						StandardItem::new,
+						SQLRuntimeException.class,
+						"SELECT NEXT VALUE FOR \"StandardItem_this_Seq\" FROM \"hsqldb_temp_table_for_sequences\"",
+						SQLDataException.class,
+						"data exception: sequence generator limit exceeded");
+			}
+			else
+			{
+				throw new RuntimeException();
+			}
 		}
 		else
 		{
@@ -96,9 +122,34 @@ public class PkOverflowTest extends TestWithEnvironment
 			assertFailsWithCause(
 					LongItem::new,
 					SQLRuntimeException.class,
-					"INSERT `LongItem_this_Seq` VALUES()",
+					"INSERT `LongItem_this_Seq` VALUES()" + (fetchMany() ? ",()" : ""),
 					SQLIntegrityConstraintViolationException.class,
 					"Duplicate entry '9223372036854775807' for key 'LongItem_this_Seq.PRIMARY'");
+		}
+		else if (fetchMany())
+		{
+			if(dialect==RuntimeTester.Dialect.postgresql)
+			{
+				assertFailsWithCause(
+						LongItem::new,
+						SQLRuntimeException.class,
+						"SELECT NEXTVAL('\"LongItem_this_Seq\"') FROM generate_series(1, " + param(2) + ")",
+						SQLException.class,
+						"reached maximum value of sequence \"LongItem_this_Seq\" (9223372036854775807)");
+			}
+			else if(dialect==RuntimeTester.Dialect.hsqldb)
+			{
+				assertFailsWithCause(
+						LongItem::new,
+						SQLRuntimeException.class,
+						"SELECT NEXT VALUE FOR \"LongItem_this_Seq\" FROM \"hsqldb_temp_table_for_sequences\"",
+						SQLDataException.class,
+						"data exception: sequence generator limit exceeded");
+			}
+			else
+			{
+				throw new RuntimeException();
+			}
 		}
 		else
 		{
@@ -134,6 +185,19 @@ public class PkOverflowTest extends TestWithEnvironment
 				throw new RuntimeException();
 			}
 		}
+	}
+
+	private boolean fetchMany()
+	{
+		final Integer maxFetch = model.getConnectProperties().primaryKeyGeneratorMaxFetch;
+		return maxFetch!=null && maxFetch>1;
+	}
+
+	private String param(final int i)
+	{
+		return model.getConnectProperties().isSupportDisabledForPreparedStatements() ?
+				String.valueOf(i) :
+				("?" + i + "?");
 	}
 
 	public static <T extends Throwable> void assertFailsWithCause(

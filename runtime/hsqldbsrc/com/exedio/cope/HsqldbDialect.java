@@ -265,10 +265,11 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	Long nextSequence(
+	long[] nextSequence(
 			final Executor executor,
 			final Connection connection,
-			final String nameQuoted)
+			final String nameQuoted,
+			final int count)
 	{
 		final String TEMP_TABLE = dsmfDialect.quoteName("hsqldb_temp_table_for_sequences");
 		try
@@ -290,10 +291,18 @@ final class HsqldbDialect extends Dialect
 			final Statement st = executor.newStatement();
 			st.append("INSERT INTO ").
 				append(TEMP_TABLE).
-				append(" VALUES (0)");
-			executor.updateStrict(connection, null, st, Executor.Kind.other);
+				append(" VALUES ");
+			for (int i=0; i<count; i++)
+			{
+				if (i!=0)
+					st.append(',');
+				st.append("(0)");
+			}
+			final int rows = executor.update(connection, null, st, Executor.Kind.other);
+			if(rows!=count)
+				throw new TemporaryTransactionException(st.toString(), rows);
 		}
-		final Long result;
+		final long[] result;
 		{
 			final Statement st = executor.newStatement();
 			st.append("SELECT NEXT VALUE FOR ").
@@ -301,15 +310,8 @@ final class HsqldbDialect extends Dialect
 				append(" FROM ").
 				append(TEMP_TABLE);
 
-			result = executor.query(connection, st, Executor.Kind.other, resultSet ->
-				{
-					if(!resultSet.next())
-						throw new RuntimeException("empty in sequence " + nameQuoted);
-					final long resultX = resultSet.getLong(1);
-					if(resultSet.wasNull())
-						throw new RuntimeException("null in sequence " + nameQuoted);
-					return resultX;
-				}
+			result = executor.query(connection, st, Executor.Kind.other,
+					Executor.longArrayResultSetHandler(count, nameQuoted, 0)
 			);
 		}
 		{
