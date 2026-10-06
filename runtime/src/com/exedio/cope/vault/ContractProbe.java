@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 
 import com.exedio.cope.util.Hex;
@@ -64,7 +65,7 @@ final class ContractProbe
 		final byte[] value = (
 				"Test file for " + VaultProperties.class.getName() + "#probe " +
 				"from " + hostname + " " +
-				"on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ROOT).format(new Date())).
+				"on " + newSimpleDateFormat().format(new Date())).
 				getBytes(StandardCharsets.US_ASCII);
 		final String hash = Hex.encodeLower(properties.getAlgorithmFactory().digest(value));
 
@@ -88,6 +89,13 @@ final class ContractProbe
 		probeGetAndPut(service, hash, value, false, info);
 
 		return info + ' ' + anonymiseHash(hash);
+	}
+
+	private static SimpleDateFormat newSimpleDateFormat()
+	{
+		final var result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z", Locale.ROOT);
+		result.setTimeZone(getTimeZone("UTC"));
+		return result;
 	}
 
 	private static void probeGetAndPut(
