@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.ChangeHooks;
@@ -755,7 +756,7 @@ public final class Model implements Serializable
 					"tried to start a new transaction " +
 					(name!=null ? name : Transaction.ANONYMOUS) +
 					", but there is already a transaction " + previousTransaction +
-					" started on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ROOT).format(previousTransaction.getStartDate()) +
+					" started on " + newSimpleDateFormat().format(previousTransaction.getStartDate()) +
 					" bound to current thread for model " + this);
 		}
 
@@ -768,6 +769,13 @@ public final class Model implements Serializable
 			new Transaction(connect, types.concreteTypeCount, id, name, startDate);
 		transactions.add(result);
 
+		return result;
+	}
+
+	private static SimpleDateFormat newSimpleDateFormat()
+	{
+		final var result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z", Locale.ROOT);
+		result.setTimeZone(getTimeZone("UTC"));
 		return result;
 	}
 

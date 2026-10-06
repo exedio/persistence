@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.util.TimeZoneStrict;
 import io.micrometer.core.instrument.Gauge;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -43,6 +44,9 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 	@Test void testNesting()
 	{
+		final var df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z", Locale.ENGLISH);
+		df.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
+
 		assertEquals( true, model.hasCurrentTransaction() );
 		final Transaction tx = model.currentTransaction();
 		try
@@ -56,7 +60,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 					"tried to start a new transaction nested, " +
 					"but there is already a transaction " + model.currentTransaction().getID() +
 					":tx:com.exedio.cope.TransactionOnlyTest " +
-					"started on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(tx.getStartDate()) +
+					"started on " + df.format(tx.getStartDate()) +
 					" bound to current thread for model " + model,
 					e.getMessage());
 		}
@@ -72,7 +76,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 					"tried to start a new transaction ANONYMOUS_TRANSACTION, " +
 					"but there is already a transaction " + model.currentTransaction().getID() +
 					":tx:com.exedio.cope.TransactionOnlyTest " +
-					"started on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(tx.getStartDate()) +
+					"started on " + df.format(tx.getStartDate()) +
 					" bound to current thread for model " + model,
 					e.getMessage());
 		}
