@@ -205,7 +205,7 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 		action.accept(this);
 	}
 
-	public FieldValidator<String> getValidator()
+	public FieldValidator<E> getValidator()
 	{
 		return null;
 	}
