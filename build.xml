@@ -10,6 +10,8 @@
 	<!--suppress AntMissingPropertiesFileInspection -->
 	<property file="local.properties" />
 	<property file="project.properties" />
+	<!-- arbitrary timestamp to build repeatable zip archives (and jar and war) with even seconds -->
+	<property name="archive.modificationtime" value="1981-11-11T22:22:22Z" />
 	<property environment="env"/>
 
 	<import>
@@ -42,7 +44,7 @@
 					filesonly="true"
 					duplicate="fail"
 					strict="fail"
-					modificationtime="2026-02-10T11:22:33Z"
+					modificationtime="${archive.modificationtime}"
 					level="9">
 				<implicit-element />
 				<manifest>
@@ -305,7 +307,7 @@
 				filesonly="true"
 				whenempty="fail"
 				duplicate="fail"
-				modificationtime="2026-02-10T11:22:33Z"
+				modificationtime="${archive.modificationtime}"
 				level="9">
 			<zipfileset dir="${basedir}/dsmf/src"          ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/src"       ><include name="**/*.java"/></zipfileset>
