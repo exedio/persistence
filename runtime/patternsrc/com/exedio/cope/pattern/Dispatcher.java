@@ -834,7 +834,7 @@ public final class Dispatcher extends Pattern
 
 	private final class RunType
 	{
-		final ItemField<?> parent;
+		final ItemField<? extends Item> parent; // 'extends Item' prevents nullability warning in RunType#getParent
 		final DateField date = new DateField().toFinal();
 		final PartOf<?> runs;
 		final LongField elapsed = new LongField().toFinal().min(0);
@@ -870,8 +870,11 @@ public final class Dispatcher extends Pattern
 				final Result result,
 				final byte @Nullable [] failure)
 		{
+			// local variable parentField works around idea inspection warning:
+			//   Assigning a class with nullable type arguments when a class with not-null type arguments is expected
+			final ItemField<P> parentField = this.parent.as(parentClass);
 			type.newItem(
-					map(this.parent.as(parentClass), parent),
+					map(parentField, parent),
 					map(this.date, date),
 					map(this.elapsed, elapsed),
 					map(this.remaining, remaining),

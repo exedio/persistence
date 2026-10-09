@@ -31,9 +31,11 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
-public final class ItemField<E extends Item> extends FunctionField<E>
+@NullMarked
+public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	implements ItemFunction<E>
 {
 	@Serial
@@ -41,19 +43,19 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
-	private final CopyTo[] copyTo;
-	private final CopyConstraint[] implicitCopyConstraintsTo;
-	private final BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer;
-	private final CopyConstraint choice;
+	private final CopyTo @Nullable [] copyTo;
+	private final CopyConstraint @Nullable [] implicitCopyConstraintsTo;
+	private final @Nullable BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer;
+	private final @Nullable CopyConstraint choice;
 
 	private ItemField(
 			final boolean isfinal,
 			final boolean optional,
 			final Class<E> valueClass,
 			final boolean unique,
-			final CopyFrom[] copyFrom,
-			final CopyTo[] copyTo,
-			final BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer,
+			final CopyFrom @Nullable [] copyFrom,
+			final CopyTo @Nullable [] copyTo,
+			final @Nullable BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
@@ -334,7 +336,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 				getValueType().overlaps(((ItemField<?>)other).getValueType());
 	}
 
-	public CopyConstraint getChoice()
+	public @Nullable CopyConstraint getChoice()
 	{
 		return choice;
 	}
@@ -419,7 +421,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			choice.mount(type, name + "Choice", null);
 	}
 
-	private Type<E> valueType = null;
+	private @Nullable Type<E> valueType = null;
 
 	private Type<E> resolveValueTypeFuture()
 	{
@@ -491,8 +493,8 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 
 	private boolean connected = false;
-	private Type<? extends E> onlyPossibleValueType = null;
-	private StringColumn typeColumn = null;
+	private @Nullable Type<? extends E> onlyPossibleValueType = null;
+	private @Nullable StringColumn typeColumn = null;
 
 	@Override
 	Column createColumn(
@@ -537,7 +539,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		typeColumn = null;
 	}
 
-	private Type<? extends E> getOnlyPossibleValueType()
+	private @Nullable Type<? extends E> getOnlyPossibleValueType()
 	{
 		if(!connected)
 			throw new RuntimeException(toString());
@@ -545,7 +547,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return onlyPossibleValueType;
 	}
 
-	StringColumn getTypeColumn()
+	@Nullable StringColumn getTypeColumn()
 	{
 		if(!connected)
 			throw new RuntimeException(toString());

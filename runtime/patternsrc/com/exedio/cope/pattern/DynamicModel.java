@@ -45,6 +45,7 @@ import java.io.Serial;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
 
 @WrapFeature
 public final class DynamicModel<L> extends Pattern
@@ -223,7 +224,7 @@ public final class DynamicModel<L> extends Pattern
 
 	record Mount<L>(
 			com.exedio.cope.Type<Type<L>> typeType,
-			ItemField<Type<L>> fieldParent,
+			ItemField<@NonNull Type<L>> fieldParent,
 			com.exedio.cope.Type<Field<L>> fieldType,
 			ItemField<Field<L>> enumParent,
 			com.exedio.cope.Type<Enum<L>> enumType,
