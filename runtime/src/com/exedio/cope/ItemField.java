@@ -464,7 +464,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 		if(valueType==null)
 		{
 			if(!isMountedToType())
-				return resolveValueTypeFuture();
+				return resolveValueTypeFuture(); // makes it work for ItemFields at Composite or Block
 
 			throw new IllegalStateException(
 					"item field " + this + " (" + valueTypeFuture + ") does not belong to any model");
