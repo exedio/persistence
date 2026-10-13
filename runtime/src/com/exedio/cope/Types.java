@@ -91,7 +91,7 @@ final class Types
 			if(supertype!=null)
 				parametersMap.get(supertype).addSubtype(type);
 		}
-		final var resolveValueTypeTypes = parametersMap.keySet();
+		final var resolveValueTypeTypes = new TypeFuture.Types(parametersMap.keySet());
 		for(final Type<?> type : typesSorted)
 		{
 			final MountParameters c = parametersMap.get(type);

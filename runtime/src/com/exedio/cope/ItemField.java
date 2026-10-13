@@ -27,7 +27,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.misc.Arrays;
 import java.io.Serial;
 import java.lang.reflect.AnnotatedElement;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
@@ -121,6 +120,49 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 			final DeletePolicy policy)
 	{
 		return new ItemField<>(valueClass, valueType, policy);
+	}
+
+	/**
+	 * Better know what you are doing when calling EXPERIMENTAL methods.
+	 * @see #createBySubtypeEXPERIMENTAL(Class,DeletePolicy)
+	 */
+	public static <E extends Item> ItemField<E> createBySubtypeEXPERIMENTAL(
+			final Class<? super E> superClass)
+	{
+		return createBySubtypeEXPERIMENTAL(superClass, DeletePolicy.FORBID);
+	}
+
+	/**
+	 * Better know what you are doing when calling EXPERIMENTAL methods.
+	 * @see #createBySubtypeEXPERIMENTAL(Class)
+	 */
+	@SuppressWarnings("unchecked") // OK: DummyItemForCreateBySubtype is a hack and needs some more hacks
+	public static <E extends Item> ItemField<E> createBySubtypeEXPERIMENTAL(
+			final Class<? super E> superClass,
+			final DeletePolicy policy)
+	{
+		return new ItemField<>(
+				(Class<E>)DummyItemForCreateBySubtype.class,
+				new TypeFuture<>()
+				{
+					@Override
+					public Type<E> get(final Types types)
+					{
+						return types.findSubtypeHoaxingCompiler(superClass);
+					}
+
+					@Override
+					public String describe()
+					{
+						return "subtype of " + superClass.getName();
+					}
+				},
+				policy);
+	}
+
+	private static final class DummyItemForCreateBySubtype extends Item
+	{
+		@Serial private static final long serialVersionUID = 1l;
 	}
 
 	@Override
@@ -427,33 +469,35 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 
 	private @Nullable Type<E> valueType = null;
 
-	private Type<E> resolveValueTypeFuture()
+	private Type<E> resolveValueTypeFuture(final TypeFuture.Types types)
 	{
-		final Type<E> result = valueTypeFuture.get();
+		final Type<E> result = valueTypeFuture.get(types);
 		if(result==null)
 			throw new NullPointerException(
 					"ItemField " + this + ": " +
 					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
 					"expected " + valueClass.getName() + ", " +
 					"but was null.");
-		if(!valueClass.equals(result.getJavaClass()))
+		if(valueClass!=DummyItemForCreateBySubtype.class && !valueClass.equals(result.getJavaClass()))
 			throw new IllegalArgumentException(
 					"ItemField " + this + ": " +
 					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
 					"expected " + valueClass.getName() + ", " +
 					"but was " + result.getJavaClass().getName() + " " +
 					"from " + result + '.');
+		if(valueClass==DummyItemForCreateBySubtype.class)
+			valueClass = result.getJavaClass();
 		return result;
 	}
 
-	void resolveValueType(final Set<Type<?>> types)
+	void resolveValueType(final TypeFuture.Types types)
 	{
 		if(!isMountedToType())
 			throw new RuntimeException();
 		if(valueType!=null)
 			throw new RuntimeException(getID());
 
-		final Type<E> valueType = resolveValueTypeFuture();
+		final Type<E> valueType = resolveValueTypeFuture(types);
 		if(!types.contains(valueType))
 			throw new IllegalArgumentException("value type of " + this + " (" + valueTypeFuture.describe() + ") does not belong to the same model");
 		this.valueType = valueType;
@@ -468,7 +512,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 		if(valueType==null)
 		{
 			if(!isMountedToType())
-				return resolveValueTypeFuture(); // makes it work for ItemFields at Composite or Block
+				return resolveValueTypeFuture(TypeFuture.Types.DUMMY); // makes it work for ItemFields at Composite or Block, but not for createBySubtypeEXPERIMENTAL
 
 			throw new IllegalStateException(
 					"item field " + this + " (" + valueTypeFuture.describe() + ") does not belong to any model");

@@ -213,7 +213,7 @@ public class TypeFutureInconsistentTest
 		{
 			@Override
 			@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
-			public Type<ValueClassItem> get()
+			public Type<ValueClassItem> get(final Types types)
 			{
 				return (Type)TypeItem.TYPE;
 			}
@@ -232,7 +232,7 @@ public class TypeFutureInconsistentTest
 		return ItemField.create(ValueClassItem.class, new TypeFuture<>()
 		{
 			@Override
-			public Type<ValueClassItem> get()
+			public Type<ValueClassItem> get(final Types types)
 			{
 				return null;
 			}
