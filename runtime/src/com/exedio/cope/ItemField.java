@@ -482,7 +482,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	public Type<E> getValueType(final Model model)
 	{
 		requireNonNull(model, "model"); // probably will be needed for TypeFuture sometimes
-		return resolveValueTypeFuture();
+		return getValueType();
 	}
 
 	@Override
