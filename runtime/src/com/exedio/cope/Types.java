@@ -91,6 +91,7 @@ final class Types
 			if(supertype!=null)
 				parametersMap.get(supertype).addSubtype(type);
 		}
+		final var resolveValueTypeTypes = parametersMap.keySet();
 		for(final Type<?> type : typesSorted)
 		{
 			final MountParameters c = parametersMap.get(type);
@@ -98,7 +99,7 @@ final class Types
 			for(final Field<?> f : type.getDeclaredFields())
 				if(f instanceof final ItemField<?> ff)
 				{
-					ff.resolveValueType(parametersMap.keySet());
+					ff.resolveValueType(resolveValueTypeTypes);
 					final Type<?> valueType = ff.getValueType();
 					parametersMap.get(valueType).addReference(ff);
 				}
