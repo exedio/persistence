@@ -442,7 +442,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 		return result;
 	}
 
-	void resolveValueType(final Set<Type<?>> typesAllowed)
+	void resolveValueType(final Set<Type<?>> types)
 	{
 		if(!isMountedToType())
 			throw new RuntimeException();
@@ -450,7 +450,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 			throw new RuntimeException(getID());
 
 		final Type<E> valueType = resolveValueTypeFuture();
-		if(!typesAllowed.contains(valueType))
+		if(!types.contains(valueType))
 			throw new IllegalArgumentException("value type of " + this + " (" + valueTypeFuture + ") does not belong to the same model");
 		this.valueType = valueType;
 	}
