@@ -6,9 +6,9 @@ import groovy.transform.stc.SimpleType
 @Field
 String projectNamePattern = "^exedio/([a-z]*)/.*" // depends on location of multibranch pipeline in jenkins
 @Field
-String debianRelease = 'bullseye'
+String debianRelease = 'bookworm'
 @Field
-String debianSnapshot = '20240904'
+String debianSnapshot = '20261020'
 @Field
 String jdk = 'openjdk-17'
 @Field
