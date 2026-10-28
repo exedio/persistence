@@ -18,8 +18,14 @@
 
 package com.exedio.cope;
 
-@FunctionalInterface
+import org.jspecify.annotations.NonNull;
+
 public interface TypeFuture<T extends Item>
 {
 	Type<T> get();
+
+	/**
+	 * The result of this method is used for creating informative error messages.
+	 */
+	@NonNull String describe();
 }

@@ -219,7 +219,7 @@ public class TypeFutureInconsistentTest
 			}
 
 			@Override
-			public String toString()
+			public String describe()
 			{
 				return "TypeFuture(" + clazz + ".field)";
 			}
@@ -238,7 +238,7 @@ public class TypeFutureInconsistentTest
 			}
 
 			@Override
-			public String toString()
+			public String describe()
 			{
 				return "NullTypeFuture";
 			}

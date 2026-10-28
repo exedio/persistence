@@ -57,7 +57,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 				return sourceType();
 			}
 			@Override
-			public String toString()
+			public String describe()
 			{
 				throw new AssertionFailedError();
 			}

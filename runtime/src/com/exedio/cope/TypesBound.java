@@ -189,7 +189,7 @@ public final class TypesBound
 				return forClass(javaClass);
 			}
 			@Override
-			public String toString()
+			public String describe()
 			{
 				return javaClass.getName();
 			}

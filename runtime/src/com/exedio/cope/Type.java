@@ -970,7 +970,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				return type;
 			}
 			@Override
-			public String toString()
+			public String describe()
 			{
 				return type.id;
 			}
