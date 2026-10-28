@@ -474,14 +474,11 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	}
 
 	/**
-	 * Returns the same value as {@link #getValueType()}
-	 * for the model this field (and its {@link #getType() type}) is part of.
-	 * For other models it returns the same value as {@link #getValueType()}
-	 * if this field (and its {@link #getType() type}) had been added to that model.
+	 * @deprecated Use {@link #getValueType()} instead. You may use an "Inline Method" - functionality of your IDE to update your code.
 	 */
-	public Type<E> getValueType(final Model model)
+	@Deprecated
+	public Type<E> getValueType(@SuppressWarnings("unused") final Model model)
 	{
-		requireNonNull(model, "model"); // probably will be needed for TypeFuture sometimes
 		return getValueType();
 	}
 
