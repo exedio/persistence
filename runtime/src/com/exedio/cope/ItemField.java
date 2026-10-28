@@ -433,13 +433,13 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 		if(result==null)
 			throw new NullPointerException(
 					"ItemField " + this + ": " +
-					"resolving TypeFuture " + valueTypeFuture + " " +
+					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
 					"expected " + valueClass.getName() + ", " +
 					"but was null.");
 		if(!valueClass.equals(result.getJavaClass()))
 			throw new IllegalArgumentException(
 					"ItemField " + this + ": " +
-					"resolving TypeFuture " + valueTypeFuture + " " +
+					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
 					"expected " + valueClass.getName() + ", " +
 					"but was " + result.getJavaClass().getName() + " " +
 					"from " + result + '.');
@@ -455,7 +455,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 
 		final Type<E> valueType = resolveValueTypeFuture();
 		if(!types.contains(valueType))
-			throw new IllegalArgumentException("value type of " + this + " (" + valueTypeFuture + ") does not belong to the same model");
+			throw new IllegalArgumentException("value type of " + this + " (" + valueTypeFuture.describe() + ") does not belong to the same model");
 		this.valueType = valueType;
 	}
 
@@ -471,7 +471,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 				return resolveValueTypeFuture(); // makes it work for ItemFields at Composite or Block
 
 			throw new IllegalStateException(
-					"item field " + this + " (" + valueTypeFuture + ") does not belong to any model");
+					"item field " + this + " (" + valueTypeFuture.describe() + ") does not belong to any model");
 		}
 
 		return valueType;
