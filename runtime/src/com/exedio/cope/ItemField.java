@@ -111,6 +111,10 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 		return new ItemField<>(valueClass, future(valueClass), policy);
 	}
 
+	/**
+	 * Needed when creating an ItemField referring to its own type
+	 * on a non-bound type ({@link TypesBound}).
+	 */
 	public static <E extends Item> ItemField<E> create(
 			final Class<E> valueClass,
 			final TypeFuture<E> valueType,
