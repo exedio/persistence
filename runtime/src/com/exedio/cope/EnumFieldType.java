@@ -34,6 +34,7 @@ import java.util.List;
 final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 {
 	private final Class<E> valueClass;
+	final ValueClass<E> valueClassWrapper;
 	final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;
 	private final int[] ordinalsToNumbers;
@@ -44,6 +45,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.valueClass = valueClass;
 		assert valueClass.isEnum() : valueClass;
 		assert enumConstants.length>0 : valueClass;
+		this.valueClassWrapper = ValueClass.of(valueClass);
 
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<>();
 		final int[] ordinalsToNumbers = new int[enumConstants.length];

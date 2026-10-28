@@ -55,7 +55,7 @@ public abstract class FunctionField<E> extends Field<E>
 	FunctionField(
 			final boolean isfinal,
 			final boolean optional,
-			final Class<E> valueClass,
+			final ValueClass<E> valueClass,
 			final boolean unique,
 			final CopyFrom[] copyFrom,
 			final DefaultSupplier<E> defaultS)
@@ -218,7 +218,7 @@ public abstract class FunctionField<E> extends Field<E>
 
 	final void checkValueClass(final Class<?> superClass)
 	{
-		if(!superClass.isAssignableFrom(valueClass))
+		if(!superClass.isAssignableFrom(valueClass.get()))
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
 

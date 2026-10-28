@@ -47,7 +47,7 @@ public final class DoubleField extends NumberField<Double>
 			final double minimum,
 			final double maximum)
 	{
-		super(isfinal, optional, Double.class, unique, copyFrom, defaultS);
+		super(isfinal, optional, VALUE_CLASS, unique, copyFrom, defaultS);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -58,6 +58,8 @@ public final class DoubleField extends NumberField<Double>
 
 		mountDefault();
 	}
+
+	private static final ValueClass<Double> VALUE_CLASS = ValueClass.of(Double.class);
 
 	private static void assertLimit(final double value, final String name)
 	{

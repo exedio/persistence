@@ -66,7 +66,7 @@ public final class StringField extends FunctionField<String>
 			final String regexp,
 			final FieldValidator<String> validator)
 	{
-		super(isfinal, optional, String.class, unique, copyFrom, defaultS);
+		super(isfinal, optional, VALUE_CLASS, unique, copyFrom, defaultS);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
@@ -90,6 +90,8 @@ public final class StringField extends FunctionField<String>
 
 		mountDefault();
 	}
+
+	private static final ValueClass<String> VALUE_CLASS = ValueClass.of(String.class);
 
 	/**
 	 * Creates a new mandatory {@code StringField}.

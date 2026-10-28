@@ -74,12 +74,14 @@ public final class DateField extends FunctionField<Date>
 			final Precision precision,
 			final RoundingMode roundingMode)
 	{
-		super(isfinal, optional, Date.class, unique, copyFrom, defaultS);
+		super(isfinal, optional, VALUE_CLASS, unique, copyFrom, defaultS);
 		this.precision = requireNonNull(precision, "precision");
 		this.roundingMode = requireNonNull(roundingMode, "roundingMode");
 
 		mountDefault();
 	}
+
+	private static final ValueClass<Date> VALUE_CLASS = ValueClass.of(Date.class);
 
 	public DateField()
 	{
