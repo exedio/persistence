@@ -478,15 +478,21 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
 					"expected " + valueClass.getName() + ", " +
 					"but was null.");
-		if(valueClass!=DummyItemForCreateBySubtype.class && !valueClass.equals(result.getJavaClass()))
-			throw new IllegalArgumentException(
+		if(valueClass!=DummyItemForCreateBySubtype.class)
+		{
+			if(!valueClass.equals(result.getJavaClass()))
+				throw new IllegalArgumentException(
 					"ItemField " + this + ": " +
 					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
 					"expected " + valueClass.getName() + ", " +
 					"but was " + result.getJavaClass().getName() + " " +
 					"from " + result + '.');
-		if(valueClass==DummyItemForCreateBySubtype.class)
+		}
+		else
+		{
 			valueClass = result.getJavaClass();
+		}
+
 		return result;
 	}
 
