@@ -176,7 +176,7 @@ public class ItemFieldBySubtypeCompositeBlockTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		assertEquals("com.exedio.cope.ItemField$DummyItemForCreateBySubtype", SourceComposite.field.getValueClass().getName());
+		assertEquals("com.exedio.cope.ItemField$DummyItemForCreateBySubtype", SourceComposite.field.getValueClass().getName()); // TODO should be TargetImpl.class
 		//noinspection Convert2MethodRef
 		assertFails(
 				() -> SourceComposite.field.getValueType(), // TODO should work
