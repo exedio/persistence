@@ -184,7 +184,7 @@ public final class TypesBound
 		return new TypeFuture<>()
 		{
 			@Override
-			public Type<T> get()
+			public Type<T> get(final Types types)
 			{
 				return forClass(javaClass);
 			}

@@ -52,7 +52,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 	{
 		return new TypeFuture<>(){
 			@Override
-			public Type<TypeItem> get()
+			public Type<TypeItem> get(final Types types)
 			{
 				return sourceType();
 			}

@@ -965,7 +965,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return new TypeFuture<>()
 		{
 			@Override
-			public Type<T> get()
+			public Type<T> get(final Types types)
 			{
 				return type;
 			}

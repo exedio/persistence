@@ -44,7 +44,7 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 
 	final boolean isfinal;
 	final boolean optional;
-	final Class<E> valueClass;
+	Class<E> valueClass; // TODO make final again
 
 	Field(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
