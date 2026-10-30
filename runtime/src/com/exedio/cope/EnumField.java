@@ -38,7 +38,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final CopyFrom[] copyFrom,
 			final DefaultSupplier<E> defaultS)
 	{
-		super(isfinal, optional, valueType.getJavaClass(), unique, copyFrom, defaultS);
+		super(isfinal, optional, valueType.valueClassWrapper, unique, copyFrom, defaultS);
 
 		this.valueType = valueType;
 
@@ -166,7 +166,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	public E getValue(final String code)
 	{
 		//System.out.println("EnumerationValue#getValue("+code+") from "+codesToValues);
-		return Enum.valueOf(valueClass, code);
+		return Enum.valueOf(valueClass.get(), code);
 	}
 
 	/**
@@ -175,7 +175,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	 */
 	public <X extends Enum<X>> EnumField<X> as(final Class<X> clazz)
 	{
-		if(!valueClass.equals(clazz))
+		if(!valueClass.get().equals(clazz))
 		{
 			final String n = EnumField.class.getName();
 			// exception message consistent with Cope.verboseCast(Class, Object)

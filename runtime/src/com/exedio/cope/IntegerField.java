@@ -55,7 +55,7 @@ public final class IntegerField extends NumberField<Integer>
 			final boolean forbidZero,
 			final int maximum)
 	{
-		super(isfinal, optional, Integer.class, unique, copyFrom, defaultS);
+		super(isfinal, optional, VALUE_CLASS, unique, copyFrom, defaultS);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.forbidZero = forbidZero;
@@ -72,6 +72,8 @@ public final class IntegerField extends NumberField<Integer>
 
 		mountDefault();
 	}
+
+	private static final ValueClass<Integer> VALUE_CLASS = ValueClass.of(Integer.class);
 
 	private static final class DefaultNext extends DefaultSupplier<Integer>
 	{

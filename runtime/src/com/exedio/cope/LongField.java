@@ -49,7 +49,7 @@ public final class LongField extends NumberField<Long>
 			final long minimum,
 			final long maximum)
 	{
-		super(isfinal, optional, Long.class, unique, copyFrom, defaultS);
+		super(isfinal, optional, VALUE_CLASS, unique, copyFrom, defaultS);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -58,6 +58,8 @@ public final class LongField extends NumberField<Long>
 
 		mountDefault();
 	}
+
+	private static final ValueClass<Long> VALUE_CLASS = ValueClass.of(Long.class);
 
 	private static final class DefaultRandom extends DefaultSupplier<Long>
 	{

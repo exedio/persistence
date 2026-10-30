@@ -40,9 +40,11 @@ public final class BooleanField extends FunctionField<Boolean>
 			final CopyFrom[] copyFrom,
 			final DefaultSupplier<Boolean> defaultS)
 	{
-		super(isfinal, optional, Boolean.class, unique, copyFrom, defaultS);
+		super(isfinal, optional, VALUE_CLASS, unique, copyFrom, defaultS);
 		mountDefault();
 	}
+
+	private static final ValueClass<Boolean> VALUE_CLASS = ValueClass.of(Boolean.class);
 
 	public BooleanField()
 	{

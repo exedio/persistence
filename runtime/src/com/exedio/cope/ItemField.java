@@ -50,7 +50,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	private ItemField(
 			final boolean isfinal,
 			final boolean optional,
-			final Class<E> valueClass,
+			final ValueClass<E> valueClass,
 			final boolean unique,
 			final CopyFrom @Nullable [] copyFrom,
 			final CopyTo @Nullable [] copyTo,
@@ -60,7 +60,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	{
 		super(isfinal, optional, valueClass, unique, copyFrom, null/* defaultS makes no sense for ItemField */);
 		checkValueClass(Item.class);
-		if(Item.class.equals(valueClass))
+		if(Item.class.equals(valueClass.get()))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
 		this.valueTypeFuture = requireNonNull(valueTypeFuture, "valueType");
 		this.policy = requireNonNull(policy, "policy");
@@ -95,7 +95,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 		return result;
 	}
 
-	ItemField(final Class<E> valueClass, final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
+	ItemField(final ValueClass<E> valueClass, final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
 		this(false, policy==DeletePolicy.NULLIFY, valueClass, false, null, null, null, valueTypeFuture, policy);
 	}
@@ -107,7 +107,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 
 	public static <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemField<>(valueClass, future(valueClass), policy);
+		return new ItemField<>(ValueClass.of(valueClass), future(valueClass), policy);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 			final TypeFuture<E> valueType,
 			final DeletePolicy policy)
 	{
-		return new ItemField<>(valueClass, valueType, policy);
+		return new ItemField<>(ValueClass.of(valueClass), valueType, policy);
 	}
 
 	/**
@@ -136,13 +136,12 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	 * Better know what you are doing when calling EXPERIMENTAL methods.
 	 * @see #createBySubtypeEXPERIMENTAL(Class)
 	 */
-	@SuppressWarnings("unchecked") // OK: DummyItemForCreateBySubtype is a hack and needs some more hacks
 	public static <E extends Item> ItemField<E> createBySubtypeEXPERIMENTAL(
 			final Class<? super E> superClass,
 			final DeletePolicy policy)
 	{
 		return new ItemField<>(
-				(Class<E>)DummyItemForCreateBySubtype.class,
+				ValueClass.preliminaryItem(),
 				new TypeFuture<>()
 				{
 					@Override
@@ -158,11 +157,6 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 					}
 				},
 				policy);
-	}
-
-	private static final class DummyItemForCreateBySubtype extends Item
-	{
-		@Serial private static final long serialVersionUID = 1l;
 	}
 
 	@Override
@@ -395,7 +389,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	 */
 	public <X extends Item> ItemField<X> as(final Class<X> clazz)
 	{
-		if(!valueClass.equals(clazz))
+		if(!valueClass.get().equals(clazz))
 		{
 			final String n = ItemField.class.getName();
 			// exception message consistent with Cope.verboseCast(Class, Object)
@@ -415,7 +409,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 	 */
 	public <X extends Item> ItemField<? extends X> asExtends(final Class<X> clazz)
 	{
-		if(!clazz.isAssignableFrom(valueClass))
+		if(!clazz.isAssignableFrom(valueClass.get()))
 		{
 			final String n = ItemField.class.getName();
 			// exception message consistent with Cope.verboseCast(Class, Object)
@@ -478,9 +472,9 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
 					"expected " + valueClass.getName() + ", " +
 					"but was null.");
-		if(valueClass!=DummyItemForCreateBySubtype.class)
+		if(valueClass.isFinal())
 		{
-			if(!valueClass.equals(result.getJavaClass()))
+			if(!valueClass.get().equals(result.getJavaClass()))
 				throw new IllegalArgumentException(
 					"ItemField " + this + ": " +
 					"resolving TypeFuture " + valueTypeFuture.describe() + " " +
@@ -490,7 +484,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 		}
 		else
 		{
-			valueClass = result.getJavaClass();
+			valueClass.setFinally(result.getJavaClass());
 		}
 
 		return result;

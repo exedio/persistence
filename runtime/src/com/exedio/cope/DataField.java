@@ -61,9 +61,11 @@ public final class DataField extends Field<DataField.Value>
 
 	private DataField(final boolean isfinal, final boolean optional, final long maximumLength)
 	{
-		super(isfinal, optional, Value.class);
+		super(isfinal, optional, VALUE_CLASS);
 		this.maximumLength = requireGreaterZero(maximumLength, "maximumLength");
 	}
+
+	private static final ValueClass<Value> VALUE_CLASS = ValueClass.of(Value.class);
 
 	public DataField()
 	{

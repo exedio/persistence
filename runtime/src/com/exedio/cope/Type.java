@@ -956,7 +956,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public ItemField<T> newItemField(final DeletePolicy policy)
 	{
-		return new ItemField<>(javaClass, future(this), policy);
+		return new ItemField<>(ValueClass.of(javaClass), future(this), policy);
 	}
 
 	private static <T extends Item> TypeFuture<T> future(final Type<T> type)

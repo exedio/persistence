@@ -63,9 +63,11 @@ public final class DayField extends FunctionField<Day>
 			final CopyFrom[] copyFrom,
 			final DefaultSupplier<Day> defaultS)
 	{
-		super(isfinal, optional, Day.class, unique, copyFrom, defaultS);
+		super(isfinal, optional, VALUE_CLASS, unique, copyFrom, defaultS);
 		mountDefault();
 	}
+
+	private static final ValueClass<Day> VALUE_CLASS = ValueClass.of(Day.class);
 
 	public DayField()
 	{

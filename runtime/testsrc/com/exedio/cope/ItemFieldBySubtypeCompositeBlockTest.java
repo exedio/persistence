@@ -26,7 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
+import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class ItemFieldBySubtypeCompositeBlockTest extends TestWithEnvironment
 {
@@ -176,7 +178,7 @@ public class ItemFieldBySubtypeCompositeBlockTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		assertEquals("com.exedio.cope.ItemField$DummyItemForCreateBySubtype", SourceComp.field.getValueClass().getName()); // TODO should be TargetImpl.class
+		assertEquals(TargetImpl.class, SourceComp.field.getValueClass());
 		//noinspection Convert2MethodRef
 		assertFails(
 				() -> SourceComp.field.getValueType(), // TODO should work
@@ -191,11 +193,42 @@ public class ItemFieldBySubtypeCompositeBlockTest extends TestWithEnvironment
 		assertEquals(forClass(SourceComp.class), SourceItem.field.getValueType());
 
 		final var target = new TargetImpl();
+		final var sourceComp = new SourceComp(target);
+		assertEquals(target, sourceComp.getField());
+		final var sourceItem = new SourceItem(sourceComp);
+		assertEquals(target, sourceItem.getField().getField());
+		assertEquals(List.of(sourceItem), SourceItem.TYPE.search(sourceItemField.is(target)));
+
+		SourceComp.field.check(target);
+		sourceItemField.check(target);
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+		final ItemField<SourceItem> sourceFieldCompWrong = (ItemField)SourceComp.field;
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+		final ItemField<SourceItem> sourceFieldItemWrong = (ItemField)sourceItemField;
+		assertFailsCheck(() -> sourceFieldCompWrong.check(sourceItem), SourceComp.field);
+		assertFailsCheck(() -> sourceFieldItemWrong.check(sourceItem), sourceItemField);
+		final var sourceValueCompWrong = SetValue.map(sourceFieldCompWrong, sourceItem);
+		final var sourceValueItemWrong = SetValue.map(sourceFieldItemWrong, sourceItem);
+		assertFailsCheck(() -> new SourceComp(sourceValueCompWrong), SourceComp.field);
+		assertFailsCheck(() -> new SourceItem(sourceValueItemWrong), sourceItemField);
+		assertFailsCheck(() -> sourceComp.set(sourceValueCompWrong), SourceComp.field);
+		assertFailsCheck(() -> sourceItem.set(sourceValueItemWrong), sourceItemField);
+
+		final var target2 = new TargetImpl();
+
+		sourceComp.setField(target2);
+		assertEquals(target2, sourceComp.getField());
+
+		sourceItem.setField(new SourceComp(target2));
+		assertEquals(target2, sourceItem.getField().getField());
+	}
+
+	private static void assertFailsCheck(final Executable executable, final Field<?> field)
+	{
 		assertFails(
-				() -> new SourceComp(target), // TODO should work
+				executable,
 				ClassCastException.class,
-				"expected a com.exedio.cope.ItemField$DummyItemForCreateBySubtype, " +
-				"but was a " + TargetImpl.class.getName() + " " +
-				"for " + SourceComp.field + ".");
+				"expected a " + TargetImpl.class.getName() + ", " +
+				"but was a " + SourceItem.class.getName() + " for " + field + ".");
 	}
 }

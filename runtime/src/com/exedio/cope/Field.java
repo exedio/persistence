@@ -44,13 +44,13 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 
 	final boolean isfinal;
 	final boolean optional;
-	Class<E> valueClass; // TODO make final again
+	final ValueClass<E> valueClass;
 
-	Field(final boolean isfinal, final boolean optional, final Class<E> valueClass)
+	Field(final boolean isfinal, final boolean optional, final ValueClass<E> valueClass)
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
-		this.valueClass = requireNonNull(valueClass, "valueClass");
+		this.valueClass = requireNonNull(valueClass);
 	}
 
 	/**
@@ -103,7 +103,7 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 	@Override
 	public final Class<?> getInitialType()
 	{
-		return valueClass;
+		return valueClass.get();
 	}
 
 	/**
@@ -131,7 +131,7 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 
 	public final Class<E> getValueClass()
 	{
-		return valueClass;
+		return valueClass.get();
 	}
 
 	/**
@@ -249,6 +249,6 @@ public abstract class Field<E> extends AbstractFeature implements Settable<E>
 	@Deprecated
 	public final Collection<E> castCollection(final Collection<?> c)
 	{
-		return Cast.castElements(valueClass, c);
+		return Cast.castElements(valueClass.get(), c);
 	}
 }
