@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.Serial;
 import org.jspecify.annotations.NullMarked;
 
 final class ValueClass<T>
@@ -28,42 +27,45 @@ final class ValueClass<T>
 	@NullMarked
 	static <T> ValueClass<T> of(final Class<T> value)
 	{
-		return new ValueClass<>(requireNonNull(value, "valueClass"));
+		return new ValueClass<>(requireNonNull(value, "valueClass"), true);
 	}
 
 	@NullMarked
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: PreliminaryItem is a hack
-	static <T> ValueClass<T> preliminaryItem()
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: preliminaryItem is a hack
+	static <T> ValueClass<T> preliminaryItem(final Class<?> superClass)
 	{
-		return new ValueClass<T>((Class)PreliminaryItem.class);
-	}
+		if(!Item.class.isAssignableFrom(superClass))
+			throw new IllegalStateException("not an item " + superClass);
 
-	private static final class PreliminaryItem extends Item
-	{
-		@Serial private static final long serialVersionUID = 1l;
+		return new ValueClass<T>((Class)superClass, false);
 	}
 
 	private Class<T> value;
+	private boolean isFinal;
 
 	@NullMarked
-	private ValueClass(final Class<T> value)
+	private ValueClass(final Class<T> value, final boolean isFinal)
 	{
 		this.value = value;
+		this.isFinal = isFinal;
 	}
 
 	@NullMarked
 	boolean isFinal()
 	{
-		return value!=PreliminaryItem.class;
+		return isFinal;
 	}
 
 	@NullMarked
 	void setFinally(final Class<T> value)
 	{
-		if(this.value!=PreliminaryItem.class)
+		if(isFinal)
 			throw new IllegalStateException("already final");
+		if(!this.value.isAssignableFrom(value))
+			throw new IllegalStateException("not assignable " + this.value + " from " + value);
 
 		this.value = value;
+		this.isFinal = true;
 	}
 
 	@NullMarked
