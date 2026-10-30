@@ -141,7 +141,7 @@ public final class ItemField<E extends @Nullable Item> extends FunctionField<E>
 			final DeletePolicy policy)
 	{
 		return new ItemField<>(
-				ValueClass.preliminaryItem(),
+				ValueClass.preliminaryItem(superClass),
 				new TypeFuture<>()
 				{
 					@Override

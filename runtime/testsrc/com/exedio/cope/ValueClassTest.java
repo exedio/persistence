@@ -45,9 +45,9 @@ public class ValueClassTest
 
 	@Test void testPreliminaryItem()
 	{
-		final ValueClass<Item> vc = ValueClass.preliminaryItem();
+		final ValueClass<Item> vc = ValueClass.preliminaryItem(PreliminaryItem.class);
 		assertEquals(false, vc.isFinal());
-		assertEquals("com.exedio.cope.ValueClass$PreliminaryItem", vc.get().getName());
+		assertEquals(PreliminaryItem.class, vc.get());
 
 		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 		final Class<Item> classToBeSet = (Class)FinalItem.class;
@@ -66,7 +66,13 @@ public class ValueClassTest
 	}
 
 	@WrapperIgnore
-	static final class FinalItem extends Item
+	abstract static class PreliminaryItem extends Item
+	{
+		@Serial private static final long serialVersionUID = 1l;
+	}
+
+	@WrapperIgnore
+	static final class FinalItem extends PreliminaryItem
 	{
 		@Serial private static final long serialVersionUID = 1l;
 	}
