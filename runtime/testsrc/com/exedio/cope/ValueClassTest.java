@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.WrapperIgnore;
+import java.io.Serial;
 import org.junit.jupiter.api.Test;
 
 public class ValueClassTest
@@ -48,11 +50,10 @@ public class ValueClassTest
 		assertEquals("com.exedio.cope.ValueClass$PreliminaryItem", vc.get().getName());
 
 		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-		final Class<Item> classToBeSet = (Class)Integer.class;
+		final Class<Item> classToBeSet = (Class)FinalItem.class;
 		vc.setFinally(classToBeSet);
 		assertEquals(true, vc.isFinal());
-		//noinspection AssertBetweenInconvertibleTypes OK: test bad API usage
-		assertEquals(Integer.class, vc.get());
+		assertEquals(FinalItem.class, vc.get());
 
 		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 		final Class<Item> classToBeSet2 = (Class)Double.class;
@@ -61,7 +62,12 @@ public class ValueClassTest
 				IllegalStateException.class,
 				"already final");
 		assertEquals(true, vc.isFinal());
-		//noinspection AssertBetweenInconvertibleTypes OK: test bad API usage
-		assertEquals(Integer.class, vc.get());
+		assertEquals(FinalItem.class, vc.get());
+	}
+
+	@WrapperIgnore
+	static final class FinalItem extends Item
+	{
+		@Serial private static final long serialVersionUID = 1l;
 	}
 }
