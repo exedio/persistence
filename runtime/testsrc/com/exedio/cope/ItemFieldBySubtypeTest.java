@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class ItemFieldBySubtypeTest extends TestWithEnvironment
 {
@@ -144,25 +145,22 @@ public class ItemFieldBySubtypeTest extends TestWithEnvironment
 		Source.field.check(target);
 		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 		final ItemField<Source> sourceFieldWrong = (ItemField)Source.field;
-		assertFails(
-				() -> sourceFieldWrong.check(source),
-				ClassCastException.class,
-				"expected a " + TargetImpl.class.getName() + ", " +
-				"but was a " + Source.class.getName() + " for Source.field.");
+		assertFailsCheck(() -> sourceFieldWrong.check(source));
 		final SetValue<Source> sourceValueWrong = SetValue.map(sourceFieldWrong, source);
-		assertFails(
-				() -> new Source(sourceValueWrong),
-				ClassCastException.class,
-				"expected a " + TargetImpl.class.getName() + ", " +
-				"but was a " + Source.class.getName() + " for Source.field.");
-		assertFails(
-				() -> source.set(sourceValueWrong),
-				ClassCastException.class,
-				"expected a " + TargetImpl.class.getName() + ", " +
-				"but was a " + Source.class.getName() + " for Source.field.");
+		assertFailsCheck(() -> new Source(sourceValueWrong));
+		assertFailsCheck(() -> source.set(sourceValueWrong));
 
 		final var target2 = new TargetImpl();
 		source.setField(target2);
 		assertEquals(target2, source.getField());
+	}
+
+	private static void assertFailsCheck(final Executable executable)
+	{
+		assertFails(
+				executable,
+				ClassCastException.class,
+				"expected a " + TargetImpl.class.getName() + ", " +
+				"but was a " + Source.class.getName() + " for Source.field.");
 	}
 }
