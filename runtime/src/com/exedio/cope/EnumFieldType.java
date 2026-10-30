@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import gnu.trove.TIntObjectHashMap;
 import java.io.InvalidObjectException;
@@ -163,6 +165,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	static <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
+		requireNonNull(valueClass, "valueClass");
 		if(!valueClass.isEnum())
 			throw new IllegalArgumentException("not an enum: " + valueClass);
 		final E[] enumConstants = valueClass.getEnumConstants();
