@@ -183,8 +183,9 @@ public class ItemFieldBySubtypeCompositeBlockTest extends TestWithEnvironment
 				IllegalArgumentException.class,
 				"createBySubtypeEXPERIMENTAL: no type assignable to " + Target.class.getName());
 
-		assertEquals(TargetImpl.class, SourceItem.field.of(SourceComp.field).getValueClass());
-		assertEquals(TargetImpl.TYPE, SourceItem.field.of(SourceComp.field).getValueType());
+		final ItemField<Target> sourceItemField = SourceItem.field.of(SourceComp.field);
+		assertEquals(TargetImpl.class, sourceItemField.getValueClass());
+		assertEquals(TargetImpl.TYPE, sourceItemField.getValueType());
 
 		assertEquals(SourceComp.class, SourceItem.field.getValueClass());
 		assertEquals(forClass(SourceComp.class), SourceItem.field.getValueType());
