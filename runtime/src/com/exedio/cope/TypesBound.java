@@ -83,6 +83,8 @@ public final class TypesBound
 			final Function<ActivationParameters,T> activator)
 	{
 		requireNonNull(javaClass, "javaClass");
+		if(javaClass.isAnnotationPresent(CopeNoType.class))
+			throw new IllegalArgumentException("class is annotated with @CopeNoType: " + javaClass.getName());
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 
@@ -90,7 +92,7 @@ public final class TypesBound
 		final String id = CopeNameUtil.getAndFallbackToSimpleName(javaClass);
 
 		// supertype
-		final Class<?> superclass = javaClass.getSuperclass();
+		final Class<?> superclass = superclass(javaClass);
 
 		final Type<? super T> supertype;
 		if(superclass.equals(Item.class) || !Item.class.isAssignableFrom(superclass))
@@ -122,6 +124,20 @@ public final class TypesBound
 		final Type<?> previous = types.putIfAbsent(javaClass, result);
 		if(previous!=null)
 			throw new RuntimeException(javaClass.getName());
+
+		return result;
+	}
+
+	private static Class<?> superclass(final Class<? extends Item> javaClass)
+	{
+		Class<?> result = javaClass.getSuperclass();
+		while(result.isAnnotationPresent(CopeNoType.class))
+		{
+			if(!Modifier.isAbstract(result.getModifiers()))
+				throw new IllegalArgumentException("class annotated with @CopeNoType must be abstract: " + result.getName());
+
+			result = result.getSuperclass();
+		}
 
 		return result;
 	}
