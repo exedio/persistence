@@ -18,8 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -37,12 +40,14 @@ public class CopeNoTypeSubTest extends TestWithEnvironment
 		assertEquals(MyType.class, MyType.TYPE.getJavaClass());
 		assertEquals(SuperType.TYPE, TypesBound.forClass(SuperType.class));
 		assertEquals(MyType.TYPE, TypesBound.forClass(MyType.class));
+		assertFails(() -> TypesBound.forClass(NoType.class), IllegalArgumentException.class, "there is no type for class " + NoType.class.getName());
 		assertEquals(List.of(SuperType.superField), SuperType.TYPE.getDeclaredFields());
 		assertEquals(List.of(MyType.field), MyType.TYPE.getDeclaredFields());
 		assertEquals(List.of(SuperType.superField), SuperType.TYPE.getFields());
 		assertEquals(List.of(SuperType.superField, MyType.field), MyType.TYPE.getFields());
 		assertEquals(SuperType.TYPE, SuperType.superField.getType());
 		assertEquals(MyType.TYPE, MyType.field.getType());
+		assertFails(NoType.fieldNoType::getType, IllegalStateException.class, "feature not mounted"); // TODO should work
 
 		final var item = new MyType("oneSuper", "one");
 		assertEquals("oneSuper", item.getSuperField());
@@ -107,8 +112,27 @@ public class CopeNoTypeSubTest extends TestWithEnvironment
 		protected SuperType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
+	@CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: testing that particular scenario
+	private abstract static class NoType extends SuperType
+	{
+		@WrapperIgnore
+		static final StringField fieldNoType = new StringField();
+
+		@com.exedio.cope.instrument.Generated
+		protected NoType(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
+		private static final long serialVersionUID = 2l;
+
+		@com.exedio.cope.instrument.Generated
+		protected NoType(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
 	@WrapperType(indent=2, comments=false)
-	private static final class MyType extends SuperType
+	private static final class MyType extends NoType
 	{
 		static final StringField field = new StringField();
 

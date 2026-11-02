@@ -175,6 +175,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new IllegalArgumentException(javaClass + " is not a subclass of Item");
 		if(javaClass.equals(Item.class))
 			throw new IllegalArgumentException("Cannot make a type for " + javaClass + " itself, but only for subclasses.");
+		if(javaClass.isAnnotationPresent(CopeNoType.class))
+			throw new RuntimeException(javaClass.getName()); // TODO test
 
 		if(annotationSource==null)
 			throw new NullPointerException(javaClass.getName());
