@@ -115,7 +115,7 @@ public class SequenceTest extends SchemaReadyTest
 
 			if(mysql)
 			{
-				// TODO should not be recognized as table as well
+				// TODO COPE-310 should not be recognized as table as well
 				final Table fakeSequence = schema.getTable(NEW_NAME);
 				assertNotNull(fakeSequence);
 				assertEquals(false, fakeSequence.required());

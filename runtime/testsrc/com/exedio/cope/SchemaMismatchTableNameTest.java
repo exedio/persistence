@@ -115,7 +115,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			if(mysql)
 			{
 				final Table fakeSeqA;
-				assertNotNull(fakeSeqA = schema.getTable(nameSeq(ItemA.TYPE.getThis()))); // TODO should not be recognized as table as well
+				assertNotNull(fakeSeqA = schema.getTable(nameSeq(ItemA.TYPE.getThis()))); // TODO COPE-310 should not be recognized as table as well
 				assertExistance(false, true, fakeSeqA);
 
 				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA, fakeSeqA), schema.getTables());
