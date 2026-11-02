@@ -77,8 +77,8 @@ public class ItemFieldBySubtypeTest extends TestWithEnvironment
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(constructor=NONE, indent=2, comments=false)
-	private abstract static class Target extends Item // TODO should be an interface, once Item itself is an interface
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false) @CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
+	private abstract static class Target extends Item
 	{
 		// MUST NOT define any fields or non-abstract methods, otherwise it cannot be transferred into an interface
 
@@ -88,9 +88,6 @@ public class ItemFieldBySubtypeTest extends TestWithEnvironment
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 2l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Target.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -125,7 +122,7 @@ public class ItemFieldBySubtypeTest extends TestWithEnvironment
 		private TargetImpl(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	private static final Model MODEL = new Model(Source.TYPE, Target.TYPE, TargetImpl.TYPE);
+	private static final Model MODEL = new Model(Source.TYPE, TargetImpl.TYPE);
 
 	public ItemFieldBySubtypeTest()
 	{

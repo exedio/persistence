@@ -62,16 +62,13 @@ public class ItemFieldBySubtypeMissingTest
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false) @CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
 	@SuppressWarnings("AbstractClassNeverImplemented") // OK: test bad API usage
-	private abstract static class Target extends Item // TODO should be an interface, once Item itself is an interface
+	private abstract static class Target extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 2l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Target.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -80,7 +77,7 @@ public class ItemFieldBySubtypeMissingTest
 	@Test void test()
 	{
 		assertFails(
-				() -> new Model(Source.TYPE, Target.TYPE),
+				() -> new Model(Source.TYPE),
 				IllegalArgumentException.class,
 				"createBySubtypeEXPERIMENTAL: no type assignable to " + Target.class.getName());
 	}
