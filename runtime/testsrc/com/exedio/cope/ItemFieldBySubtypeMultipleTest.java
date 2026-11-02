@@ -62,15 +62,12 @@ public class ItemFieldBySubtypeMultipleTest
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	private abstract static class Target extends Item // TODO should be an interface, once Item itself is an interface
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false) @CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
+	private abstract static class Target extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 2l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newTypeAbstract(Target.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -107,7 +104,7 @@ public class ItemFieldBySubtypeMultipleTest
 	@Test void test()
 	{
 		assertFails(
-				() -> new Model(Source.TYPE, Target.TYPE, TargetImpl1.TYPE, TargetImpl2.TYPE),
+				() -> new Model(Source.TYPE, TargetImpl1.TYPE, TargetImpl2.TYPE),
 				IllegalArgumentException.class,
 				"createBySubtypeEXPERIMENTAL: multiple types assignable to " + Target.class.getName() + ": TargetImpl1 and TargetImpl2");
 	}
