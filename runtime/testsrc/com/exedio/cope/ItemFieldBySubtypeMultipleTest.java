@@ -62,7 +62,7 @@ public class ItemFieldBySubtypeMultipleTest
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false) @CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
+	@WrapperType(genericConstructor=NONE, indent=2, comments=false) @CopeNoType
 	private abstract static class Target extends Item
 	{
 		@com.exedio.cope.instrument.Generated

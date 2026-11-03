@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -112,8 +111,8 @@ public class CopeNoTypeSubTest extends TestWithEnvironment
 		protected SuperType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
-	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
+	@CopeNoType
+	@WrapperType(indent=2, comments=false)
 	@SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: testing that particular scenario
 	private abstract static class NoType extends SuperType
 	{

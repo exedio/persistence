@@ -62,7 +62,7 @@ public class ItemFieldBySubtypeMissingTest
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false) @CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
+	@WrapperType(genericConstructor=NONE, indent=2, comments=false) @CopeNoType
 	@SuppressWarnings("AbstractClassNeverImplemented") // OK: test bad API usage
 	private abstract static class Target extends Item
 	{

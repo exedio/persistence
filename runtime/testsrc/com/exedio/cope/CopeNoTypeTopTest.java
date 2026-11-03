@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -53,8 +52,8 @@ public class CopeNoTypeTopTest extends TestWithEnvironment
 				"class is annotated with @CopeNoType: " + NoType.class.getName());
 	}
 
-	@CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
-	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
+	@CopeNoType
+	@WrapperType(indent=2, comments=false)
 	private abstract static class NoType extends Item
 	{
 		@WrapperIgnore
