@@ -34,8 +34,8 @@ public class CopeNoTypeNoAbstractTest
 				"class annotated with @CopeNoType must be abstract: " + NoType.class.getName());
 	}
 
-	@CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
-	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@CopeNoType
+	@WrapperType(genericConstructor=NONE, indent=2, comments=false)
 	private static class NoType extends Item
 	{
 		@com.exedio.cope.instrument.Generated

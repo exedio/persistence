@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -77,7 +76,7 @@ public class ItemFieldBySubtypeTest extends TestWithEnvironment
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false) @CopeNoType // TODO should imply @WrapperType(type,constructor=NONE)
+	@WrapperType(indent=2, comments=false) @CopeNoType
 	private abstract static class Target extends Item
 	{
 		// MUST NOT define any fields or non-abstract methods, otherwise it cannot be transferred into an interface
