@@ -54,12 +54,6 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
-	WrapperType getOption()
-	{
-		throw new RuntimeException("unexpected call - should only be needed for generating the class itself");
-	}
-
-	@Override
 	ExternalCopeType getSuperclass()
 	{
 		final Class<?> superclass = itemClass.getSuperclass();
