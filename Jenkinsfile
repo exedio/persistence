@@ -20,7 +20,7 @@ String databaseMysql80 = '8.0.36'
 @Field
 String databaseMysql84 = '8.4.8'
 @Field
-String databaseMysql97 = '9.7.0'
+String databaseMysql97 = '9.7.4'
 @Field
 String databasePostgresql = '17.7'
 
