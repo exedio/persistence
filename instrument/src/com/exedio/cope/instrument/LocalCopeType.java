@@ -18,6 +18,9 @@
 
 package com.exedio.cope.instrument;
 
+import static java.lang.reflect.Modifier.PRIVATE;
+import static java.lang.reflect.Modifier.PROTECTED;
+
 import java.lang.reflect.Modifier;
 
 final class LocalCopeType extends CopeType<LocalCopeFeature>
@@ -69,7 +72,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		return name;
 	}
 
-	@Override
 	WrapperType getOption()
 	{
 		return option;
@@ -161,5 +163,43 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 			return localFeature;
 		}
 		return null;
+	}
+
+	private InternalVisibility getVisibility()
+	{
+		return InternalVisibility.forModifier(getModifier());
+	}
+
+	private boolean allowSubtypes()
+	{
+		assertNotBuildStage();
+
+		return !isFinal();
+	}
+
+	int getSubtypeModifier()
+	{
+		return allowSubtypes() ? PROTECTED : PRIVATE;
+	}
+
+	boolean hasInitialConstructor()
+	{
+		return getOption().constructor().exists();
+	}
+
+	int getInitialConstructorModifier()
+	{
+		InternalVisibility result = getVisibility();
+		for(final CopeFeature initialFeature : getInitialFeatures())
+		{
+			final InternalVisibility initialFeatureVisibility = initialFeature.getVisibility();
+			if(result.ordinal()<initialFeatureVisibility.ordinal())
+				result = initialFeatureVisibility;
+		}
+
+		if(result==InternalVisibility.PUBLIC && Modifier.isAbstract(getModifier()))
+			result = InternalVisibility.PROTECTED;
+
+		return getOption().constructor().getModifier(result.modifier);
 	}
 }

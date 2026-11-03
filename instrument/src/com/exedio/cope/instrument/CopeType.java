@@ -18,8 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import static java.lang.reflect.Modifier.PRIVATE;
-import static java.lang.reflect.Modifier.PROTECTED;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Feature;
@@ -48,13 +46,6 @@ abstract class CopeType<F extends CopeFeature>
 
 	abstract String getName();
 
-	abstract WrapperType getOption();
-
-	final InternalVisibility getVisibility()
-	{
-		return InternalVisibility.forModifier(getModifier());
-	}
-
 	final boolean isFinal()
 	{
 		return Modifier.isFinal(getModifier());
@@ -62,18 +53,6 @@ abstract class CopeType<F extends CopeFeature>
 
 	/** return null if the type has no persistent supertype */
 	abstract CopeType<?> getSuperclass();
-
-	final boolean allowSubtypes()
-	{
-		assertNotBuildStage();
-
-		return !isFinal();
-	}
-
-	final int getSubtypeModifier()
-	{
-		return allowSubtypes() ? PROTECTED : PRIVATE;
-	}
 
 	final void register(final F feature)
 	{
@@ -127,27 +106,6 @@ abstract class CopeType<F extends CopeFeature>
 	{
 		assertNotBuildStage();
 		return Collections.unmodifiableList(features);
-	}
-
-	final boolean hasInitialConstructor()
-	{
-		return getOption().constructor().exists();
-	}
-
-	final int getInitialConstructorModifier()
-	{
-		InternalVisibility result = getVisibility();
-		for(final CopeFeature initialFeature : getInitialFeatures())
-		{
-			final InternalVisibility initialFeatureVisibility = initialFeature.getVisibility();
-			if(result.ordinal()<initialFeatureVisibility.ordinal())
-				result = initialFeatureVisibility;
-		}
-
-		if(result==InternalVisibility.PUBLIC && Modifier.isAbstract(getModifier()))
-			result = InternalVisibility.PROTECTED;
-
-		return getOption().constructor().getModifier(result.modifier);
 	}
 
 	private ArrayList<CopeFeature> initialFeatures = null;
