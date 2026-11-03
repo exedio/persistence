@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.CopeNoType;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,6 +40,7 @@ final class JavaClass extends JavaFeature
 	final int typeParameters;
 	final Kind kind;
 	final String fullyQualifiedSuperclass;
+	final CopeNoType noType;
 	final WrapperType typeOption;
 	private final int classEndPosition;
 
@@ -52,6 +54,7 @@ final class JavaClass extends JavaFeature
 			final Element sourceLocation,
 			final Kind kind,
 			final String fullyQualifiedSuperclass,
+			final CopeNoType noType,
 			final WrapperType typeOption,
 			final int classEndPosition)
 	{
@@ -59,6 +62,7 @@ final class JavaClass extends JavaFeature
 		this.typeParameters = typeParameters;
 		this.kind = kind;
 		this.fullyQualifiedSuperclass = fullyQualifiedSuperclass;
+		this.noType = noType;
 		this.typeOption=typeOption;
 		this.classEndPosition = classEndPosition;
 		//noinspection ThisEscapedInObjectConstruction

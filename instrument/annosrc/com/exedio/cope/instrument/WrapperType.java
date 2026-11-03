@@ -43,6 +43,9 @@ public @interface WrapperType
 	 * Overrides the visibility of the generated TYPE constant.
 	 * The visibility {@link Visibility#DEFAULT defaults} to
 	 * the visibility of the class.
+	 * <p>
+	 * Any class annotated with {@link com.exedio.cope.CopeNoType}
+	 * defaults to {@link Visibility#NONE}.
 	 */
 	@SuppressWarnings("StaticImportCanBeUsed")
 	Visibility type() default Visibility.DEFAULT;
@@ -65,6 +68,9 @@ public @interface WrapperType
 	 * the "most private" visibility of all <em>initial</em> features set by
 	 * the constructor.
 	 * However, the constructor is not "more public" than the class.
+	 * <p>
+	 * Any class annotated with {@link com.exedio.cope.CopeNoType}
+	 * defaults to {@link Visibility#NONE}.
 	 */
 	@SuppressWarnings("StaticImportCanBeUsed")
 	Visibility constructor() default Visibility.DEFAULT;

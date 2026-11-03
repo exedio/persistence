@@ -806,7 +806,7 @@ final class Generator
 
 		final WrapperType option = type.option;
 		final Visibility visibility = option.type();
-		if(!visibility.exists())
+		if(!type.existsType(visibility))
 			return;
 
 		writeComment(List.of(format(kind.typeDoc, lowerCamelCase(type.getName()))));
