@@ -27,7 +27,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 {
 	final JavaClass javaClass;
 	private final String name;
-	private final WrapperType option;
+	final WrapperType option;
 
 	private CopeType<?> supertype;
 
@@ -70,11 +70,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	String getName()
 	{
 		return name;
-	}
-
-	WrapperType getOption()
-	{
-		return option;
 	}
 
 	boolean isInterface()
@@ -184,7 +179,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 
 	boolean hasInitialConstructor()
 	{
-		return getOption().constructor().exists();
+		return option.constructor().exists();
 	}
 
 	int getInitialConstructorModifier()
@@ -200,6 +195,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		if(result==InternalVisibility.PUBLIC && Modifier.isAbstract(getModifier()))
 			result = InternalVisibility.PROTECTED;
 
-		return getOption().constructor().getModifier(result.modifier);
+		return option.constructor().getModifier(result.modifier);
 	}
 }

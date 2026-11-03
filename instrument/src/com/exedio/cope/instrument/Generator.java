@@ -263,7 +263,7 @@ final class Generator
 		}
 		writeComment(commentLines);
 		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE);
-		writeSuppressWarnings(suppressWarningsConstructor, asList(type.getOption().constructorSuppressWarnings()));
+		writeSuppressWarnings(suppressWarningsConstructor, asList(type.option.constructorSuppressWarnings()));
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
@@ -329,7 +329,7 @@ final class Generator
 		if(!type.kind.hasGenericConstructor)
 			return;
 
-		final Visibility visibility = type.getOption().genericConstructor();
+		final Visibility visibility = type.option.genericConstructor();
 		if(!visibility.exists())
 			return;
 
@@ -349,7 +349,7 @@ final class Generator
 		if(activation==null)
 			return;
 
-		final Visibility visibility = type.getOption().activationConstructor();
+		final Visibility visibility = type.option.activationConstructor();
 		if(!visibility.exists())
 			return;
 
@@ -770,7 +770,7 @@ final class Generator
 		if(type.getTypeParameters()==0)
 			return;
 
-		final Visibility visibility = type.getOption().wildcardClass();
+		final Visibility visibility = type.option.wildcardClass();
 		if(!visibility.exists())
 			return;
 
@@ -804,7 +804,7 @@ final class Generator
 		if(kind.typeField==null)
 			return;
 
-		final WrapperType option = type.getOption();
+		final WrapperType option = type.option;
 		final Visibility visibility = option.type();
 		if(!visibility.exists())
 			return;
@@ -979,12 +979,12 @@ final class Generator
 
 		TypeContext(final LocalCopeType type) throws HumanReadableException
 		{
-			this(level(type), type.getOption().comments());
+			this(level(type), type.option.comments());
 		}
 
 		private static int level(final LocalCopeType type) throws HumanReadableException
 		{
-			final WrapperType option = type.getOption();
+			final WrapperType option = type.option;
 			final int level = option.indent();
 			if(level<0)
 				throw new HumanReadableException(
