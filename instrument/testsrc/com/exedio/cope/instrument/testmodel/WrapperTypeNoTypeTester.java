@@ -32,16 +32,6 @@ public final class WrapperTypeNoTypeTester
 	public static final class WithDefault extends Item
 	{
 		/**
-		 * Creates a new WithDefault with all the fields initially needed.
-		 */
-		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		public WithDefault()
-		{
-			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
-		}
-
-		/**
 		 * Creates a new WithDefault and sets the given fields initially.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
@@ -50,12 +40,6 @@ public final class WrapperTypeNoTypeTester
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
 		private static final long serialVersionUID = 1l;
-
-		/**
-		 * The persistent type information for withDefault.
-		 */
-		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		public static final com.exedio.cope.Type<WithDefault> TYPE = com.exedio.cope.TypesBound.newType(WithDefault.class,WithDefault::new);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

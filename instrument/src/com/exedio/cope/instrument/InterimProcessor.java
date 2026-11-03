@@ -18,9 +18,11 @@
 
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.instrument.LocalCopeType.existsType;
 import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CopeNoType;
 import com.sun.source.tree.AnnotatedTypeTree;
 import com.sun.source.tree.AnnotationTree;
 import com.sun.source.tree.ArrayTypeTree;
@@ -407,7 +409,7 @@ final class InterimProcessor extends JavacProcessor
 						"}"
 					);
 				}
-				writeType(ct, kind, wrapperType);
+				writeType(ct, kind, getCurrentPathAnnotation(CopeNoType.class), wrapperType);
 			}
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
@@ -449,9 +451,9 @@ final class InterimProcessor extends JavacProcessor
 		/*
 		 * Generator#writeType does the same for instrumented code
 		 */
-		private void writeType(final ClassTree ct, final Kind kind, final WrapperType wrapperType)
+		private void writeType(final ClassTree ct, final Kind kind, final CopeNoType noType, final WrapperType wrapperType)
 		{
-			if (kind.typeField!=null && wrapperType.type().exists())
+			if (kind.typeField!=null && existsType(wrapperType.type(), noType))
 			{
 				final boolean isAbstract = ct.getModifiers().getFlags().contains(Modifier.ABSTRACT);
 				code.addLine(

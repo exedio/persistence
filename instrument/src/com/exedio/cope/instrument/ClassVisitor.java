@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.CopeNoType;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.AnnotatedTypeTree;
 import com.sun.source.tree.ArrayTypeTree;
@@ -74,6 +75,7 @@ class ClassVisitor extends GeneratedAwareScanner
 				context.getElementForTree(ct),
 				Kind.valueOf(getAnnotation(WrapType.class)),
 				classExtends,
+				getCopeNoType(),
 				getWrapperType(),
 				findClassEndPosition(ct)
 			);
@@ -306,6 +308,12 @@ class ClassVisitor extends GeneratedAwareScanner
 		// methods don't get visited - but still this method is called for
 		// static and non-static initializers
 		return null;
+	}
+
+	private CopeNoType getCopeNoType()
+	{
+		final Element element=context.getElement(getCurrentPath());
+		return element.getAnnotation(CopeNoType.class);
 	}
 
 	private WrapperType getWrapperType()

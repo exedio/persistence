@@ -21,7 +21,10 @@ package com.exedio.cope.instrument;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 
+import com.exedio.cope.CopeNoType;
 import java.lang.reflect.Modifier;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 final class LocalCopeType extends CopeType<LocalCopeFeature>
 {
@@ -177,9 +180,23 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		return allowSubtypes() ? PROTECTED : PRIVATE;
 	}
 
+	@NullMarked
+	boolean existsType(final Visibility visibility)
+	{
+		return existsType(visibility, javaClass.noType);
+	}
+
+	@NullMarked
+	static boolean existsType(
+			final Visibility visibility,
+			@Nullable final CopeNoType noType)
+	{
+		return visibility.exists() && !(visibility.isDefault() && noType!=null);
+	}
+
 	boolean hasInitialConstructor()
 	{
-		return option.constructor().exists();
+		return existsType(option.constructor());
 	}
 
 	int getInitialConstructorModifier()
