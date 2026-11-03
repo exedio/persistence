@@ -40,6 +40,7 @@ public class CopeNoTypeTopTest extends TestWithEnvironment
 		assertEquals(List.of(MyType.field), MyType.TYPE.getFields());
 		assertEquals(MyType.TYPE, MyType.field.getType());
 		assertFails(NoType.fieldNoType::getType, IllegalStateException.class, "feature not mounted"); // TODO should work
+		assertFails(NoType.fieldNoType::getName, IllegalStateException.class, "feature not mounted"); // TODO should work
 
 		final var item = new MyType("one");
 		assertEquals("one", item.getField());

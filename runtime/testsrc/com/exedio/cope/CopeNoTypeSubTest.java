@@ -47,6 +47,7 @@ public class CopeNoTypeSubTest extends TestWithEnvironment
 		assertEquals(SuperType.TYPE, SuperType.superField.getType());
 		assertEquals(MyType.TYPE, MyType.field.getType());
 		assertFails(NoType.fieldNoType::getType, IllegalStateException.class, "feature not mounted"); // TODO should work
+		assertFails(NoType.fieldNoType::getName, IllegalStateException.class, "feature not mounted"); // TODO should work
 
 		final var item = new MyType("oneSuper", "one");
 		assertEquals("oneSuper", item.getSuperField());
