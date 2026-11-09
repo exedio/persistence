@@ -18,10 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
 import org.junit.jupiter.api.Test;
@@ -35,15 +34,10 @@ public class DrivebyHashMigrationPlainTextValidatorTest
 				new ConstructorHashAlgorithm("target"));
 		assertNull(vanilla.getLegacyHash().getPlainTextValidator());
 		assertNull(vanilla.getTargetHash().getPlainTextValidator());
-		try
-		{
-			vanilla.validate(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("validator", e.getMessage());
-		}
+		assertFails(
+				() -> vanilla.validate(null),
+				NullPointerException.class,
+				"validator");
 
 		final Hash.PlainTextValidator validator = new Hash.PlainTextValidator()
 		{
@@ -57,14 +51,11 @@ public class DrivebyHashMigrationPlainTextValidatorTest
 		assertSame(validator, migration.getLegacyHash().getPlainTextValidator());
 		assertSame(validator, migration.getTargetHash().getPlainTextValidator());
 
-		try
-		{
-			migration.execute("plain text", null);
-			fail();
-		}
-		catch(final Hash.InvalidPlainTextException e)
-		{
-			assertSame(migration.getTargetHash(), e.getFeature());
-		}
+		final Hash.InvalidPlainTextException e = assertFails(
+				() -> migration.execute("plain text", null),
+				Hash.InvalidPlainTextException.class,
+				"invalid",
+				s -> s.substring(0, s.indexOf(" for ")));
+		assertSame(migration.getTargetHash(), e.getFeature());
 	}
 }
