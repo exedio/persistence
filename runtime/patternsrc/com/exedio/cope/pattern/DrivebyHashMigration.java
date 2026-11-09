@@ -48,8 +48,13 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 	 */
 	public DrivebyHashMigration(final HashAlgorithm legacy, final HashAlgorithm target)
 	{
-		legacyHash = addSourceFeature(hash(legacy), "legacy", ComputedElement.get());
-		targetHash = addSourceFeature(hash(target), "target");
+		this(hash(legacy), hash(target));
+	}
+
+	private DrivebyHashMigration(final Hash legacy, final Hash target)
+	{
+		legacyHash = addSourceFeature(legacy, "legacy", ComputedElement.get());
+		targetHash = addSourceFeature(target, "target");
 		addSourceFeature(new CheckConstraint(
 			Cope.or(
 				legacyHash.isNull().and(targetHash.isNotNull()),
@@ -61,6 +66,16 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 	private static Hash hash(final HashAlgorithm algorithm)
 	{
 		return new Hash(algorithm).optional();
+	}
+
+	/**
+	 * @see Hash#validate(Hash.PlainTextValidator)
+	 */
+	public DrivebyHashMigration validate(final Hash.PlainTextValidator validator)
+	{
+		return new DrivebyHashMigration(
+				legacyHash.validate(validator),
+				targetHash.validate(validator));
 	}
 
 	public Hash getLegacyHash()
