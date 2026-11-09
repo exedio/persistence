@@ -54,8 +54,7 @@ public class DrivebyHashMigrationPlainTextValidatorTest
 		final Hash.InvalidPlainTextException e = assertFails(
 				() -> migration.execute("plain text", null),
 				Hash.InvalidPlainTextException.class,
-				"invalid",
-				s -> s.substring(0, s.indexOf(" for ")));
+				"invalid for " + migration.getTargetHash());
 		assertSame(migration.getTargetHash(), e.getFeature());
 	}
 }
