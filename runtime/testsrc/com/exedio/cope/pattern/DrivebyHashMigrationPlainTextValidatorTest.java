@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -32,6 +33,8 @@ public class DrivebyHashMigrationPlainTextValidatorTest
 		final DrivebyHashMigration vanilla = new DrivebyHashMigration(
 				new ConstructorHashAlgorithm("legacy"),
 				new ConstructorHashAlgorithm("target"));
+		assertEquals("legacy", vanilla.getLegacyHash().getAlgorithmID());
+		assertEquals("target", vanilla.getTargetHash().getAlgorithmID());
 		assertNull(vanilla.getLegacyHash().getPlainTextValidator());
 		assertNull(vanilla.getTargetHash().getPlainTextValidator());
 		assertFails(
@@ -48,6 +51,8 @@ public class DrivebyHashMigrationPlainTextValidatorTest
 			}
 		};
 		final DrivebyHashMigration migration = vanilla.validate(validator);
+		assertEquals("legacy", migration.getLegacyHash().getAlgorithmID());
+		assertEquals("target", migration.getTargetHash().getAlgorithmID());
 		assertSame(validator, migration.getLegacyHash().getPlainTextValidator());
 		assertSame(validator, migration.getTargetHash().getPlainTextValidator());
 
